@@ -17,8 +17,8 @@
  *   show-heading · show-title (padrão true; "false" oculta)
  *   show-back · show-breadcrumb · show-search · show-notification · show-close · show-info · show-tag · show-drop-button · show-main-button
  *   title ("Title") · tag-label ("Tag") · tag-appearance (neutral) · drop-label ("Label") · main-label ("Label") · notification ("0")
- * Referências: backBtn · searchBtn · notificationBtn · closeBtn · titleEl · infoBtn · tag · dropBtn · mainBtn · crumbHost
- * setBreadcrumb([{ label, href }]) — o último item é a página atual.
+ * Referências: trailEl (Trailling Items do .Heading) · backBtn · searchBtn · notificationBtn · closeBtn · titleEl · infoBtn · tag · dropBtn · mainBtn · crumbHost
+ * setBreadcrumb([{ label, href }], collapse) — o último item é a página atual; collapse = níveis iniciais no "…" (Truncate).
  */
 (function(){
   "use strict";
@@ -33,7 +33,7 @@
         var lead = this.headingEl.appendChild(c("div", null, "cds-sh__lead"));
         this.backBtn = lead.appendChild(c("cds-icon-button", { icon: "back-line", kind: "default", appearance: "neutral", size: "small", label: "Voltar" }));
         this.crumbHost = lead.appendChild(c("div", null, "cds-sh__crumb"));
-        var trail = this.headingEl.appendChild(c("div", null, "cds-sh__trail"));
+        var trail = this.trailEl = this.headingEl.appendChild(c("div", null, "cds-sh__trail"));
         this.searchBtn = trail.appendChild(c("cds-icon-button", { icon: "search-line", kind: "default", appearance: "neutral", size: "small", label: "Buscar" }));
         this.notificationBtn = trail.appendChild(c("cds-icon-button", { icon: "notification-line", kind: "default", appearance: "neutral", size: "small", label: "Notificações", "show-notification": "" }));
         this.closeBtn = trail.appendChild(c("cds-icon-button", { icon: "close-line", kind: "default", appearance: "neutral", size: "small", label: "Fechar" }));
@@ -60,10 +60,10 @@
       CDS.attr(this.mainBtn, "label", this.getAttribute("main-label") || "Label");
       CDS.attr(this.notificationBtn, "notification", this.getAttribute("notification") || "0");
     }
-    setBreadcrumb(items){
-      // O Breadcrumb lê os filhos no 1º render: um novo a cada troca; collapse=0 mostra todos os níveis
+    setBreadcrumb(items, collapse){
+      // O Breadcrumb lê os filhos no 1º render: um novo a cada troca. collapse = quantos níveis iniciais vão para o "…" (padrão 0: todos à mostra)
       this.crumbHost.innerHTML = "";
-      var bc = CDS.create("cds-breadcrumb", { collapse: "0" });
+      var bc = CDS.create("cds-breadcrumb", { collapse: String(collapse || 0) });
       (items || []).forEach(function(it, i, a){ var l = CDS.create("a", { href: it.href || "#" }); l.textContent = it.label; if (i === a.length - 1) l.setAttribute("aria-current", "page"); bc.appendChild(l); });
       this.crumbHost.appendChild(bc);
       this.breadcrumb = bc;

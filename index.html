@@ -20,19 +20,20 @@
 <!-- Templates provisórios (fora do menu) -->
 <link rel="stylesheet" href="templates/sponsor-header/sponsor-header.css?v=e2f880d5" />
 <!-- Shell do playground -->
-<link rel="stylesheet" href="styles/playground.css?v=2bb0b4b4" />
+<link rel="stylesheet" href="styles/playground.css?v=45922821" />
 <link rel="stylesheet" href="styles/report.css?v=afdad39f" />
 <link rel="stylesheet" href="styles/docs.css?v=72804eb9" />
 </head>
 <body>
 
+<!-- Barra do topo = .Heading do Header do [CastanhaDS] Sponsor Templates (template provisório, templates/sponsor-header);
+     Relatório e Tema entram nos Trailling Items pelo app.js -->
 <header class="pg-header">
-  <p class="pg-brand"><a href="#/">Castanha DS:</a> <span>Playground de handoff design &lt;&gt; Code</span></p>
-  <div class="pg-header__actions">
-    <!-- Icon Button (Ghost · Neutral · Small) + Tooltip do DS (D69, Fase 1) -->
-    <cds-icon-button id="report-btn" kind="ghost" appearance="neutral" size="small" icon="chart-up-line" label="Abrir relatório do projeto" pressed="false"></cds-icon-button>
+  <cds-sponsor-header id="top-header" show-title="false" show-notification="false" show-close="false"></cds-sponsor-header>
+  <div class="pg-header__actions" id="top-actions">
+    <cds-icon-button id="report-btn" kind="default" appearance="neutral" size="small" icon="chart-up-line" label="Abrir relatório do projeto" pressed="false"></cds-icon-button>
     <cds-tooltip id="report-tip" for="report-btn" placement="bottom" show-label="false" text="Relatório"></cds-tooltip>
-    <cds-icon-button id="theme" kind="ghost" appearance="neutral" size="small" icon="dark-mode-line" label="Ativar tema escuro" pressed="false"></cds-icon-button>
+    <cds-icon-button id="theme" kind="default" appearance="neutral" size="small" icon="dark-mode-line" label="Ativar tema escuro" pressed="false"></cds-icon-button>
     <cds-tooltip id="theme-tip" for="theme" placement="bottom" show-label="false" text="Tema escuro"></cds-tooltip>
   </div>
 </header>
@@ -48,9 +49,9 @@
   </nav>
 
   <main class="pg-canvas">
-    <!-- Cabeçalho da página = Header do [CastanhaDS] Sponsor Templates (template provisório, templates/sponsor-header) -->
+    <!-- Topo da página = .Title Content do mesmo Header (a linha .Heading é a barra do topo) -->
     <div class="pg-toolbar" id="toolbar">
-      <cds-sponsor-header id="page-header" show-notification="false" show-close="false"></cds-sponsor-header>
+      <cds-sponsor-header id="page-header" show-heading="false"></cds-sponsor-header>
     </div>
     <div class="pg-cover" id="cover" hidden></div>
     <div class="pg-tabs" id="tabs" hidden></div>
@@ -86,10 +87,10 @@
 <script src="dist/cds.js?v=02f2360d"></script>
 <!-- /@components:js -->
 <!-- Templates provisórios (fora do menu) -->
-<script src="templates/sponsor-header/sponsor-header.js?v=908e46c7"></script>
+<script src="templates/sponsor-header/sponsor-header.js?v=bb769170"></script>
 <!-- Shell: side menu, rotas, tema, viewport, relatório -->
 <script src="scripts/figma-status.js?v=84fbd323"></script>
 <script src="scripts/report.js?v=462f9a22"></script>
-<script src="scripts/app.js?v=b67e2068"></script>
+<script src="scripts/app.js?v=50619c97"></script>
 </body>
 </html>

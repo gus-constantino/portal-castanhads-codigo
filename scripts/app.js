@@ -222,13 +222,17 @@
     else docsEl.innerHTML = "";
   }
 
-  // ---------- Cabeçalho da página (Header do Sponsor Templates, template provisório) ----------
-  // ← volta à página anterior do playground (ou ao Início) · 🔍 foca a busca do menu · Breadcrumb Componentes › Categoria › Nome
+  // ---------- Cabeçalho (Header do Sponsor Templates, template provisório) ----------
+  // Um cabeçalho só: a linha .Heading é a barra do topo (#top-header: ← · Breadcrumb Castanha DS › Categoria › Nome · 🔍 · Relatório · Tema)
+  // e a linha .Title Content fica no topo da página (#page-header: título · (i) · Tag · Links · Abrir no Figma)
+  var top = $("top-header");
+  [].slice.call($("top-actions").children).forEach(function(n){ top.trailEl.appendChild(n); });
+  $("top-actions").remove();
   var head = (function(){
     var bar = $("toolbar"), steps = 0, pop = null;
-    header.backBtn.addEventListener("click", function(){ if (steps > 0){ steps -= 2; history.back(); } else location.hash = "#/"; });
+    top.backBtn.addEventListener("click", function(){ if (steps > 0){ steps -= 2; history.back(); } else location.hash = "#/"; });
     window.addEventListener("hashchange", function(){ steps++; });
-    header.searchBtn.addEventListener("click", function(){ var c = search.control || search.querySelector("input"); if (c) c.focus(); });
+    top.searchBtn.addEventListener("click", function(){ var c = search.control || search.querySelector("input"); if (c) c.focus(); });
     header.mainBtn.addEventListener("click", function(){ if (head.figma) window.open(head.figma, "_blank", "noopener"); });
     header.dropBtn.id = "page-links-btn";
     header.setAttribute("drop-label", "Links"); header.setAttribute("main-label", "Abrir no Figma");
@@ -250,16 +254,22 @@
         bar.appendChild(pop);
       }
     };
-    kit.tip(header.backBtn, "Voltar", { container: bar });
-    kit.tip(header.searchBtn, "Buscar componente", { container: bar });
+    kit.tip(top.backBtn, "Voltar", { container: top.trailEl });
+    kit.tip(top.searchBtn, "Buscar componente", { container: top.trailEl });
     return o;
   })();
+  // Barra do topo estreita (≤760): os níveis anteriores vão para o "…" do Breadcrumb e fica só a página atual
+  var slim = window.matchMedia("(max-width:760px)"), lastCrumbs = [];
+  function setCrumbs(items){ lastCrumbs = items; top.setBreadcrumb(items, slim.matches ? items.length - 1 : 0); }
+  slim.addEventListener("change", function(){ setCrumbs(lastCrumbs); });
+  // Breadcrumb da barra do topo: a marca é o 1º nível (volta ao Início)
   function crumbs(def){
-    if (def.home) return [{ label: def.name, href: "#/" + def.id }];
-    if (def.resource) return [{ label: "Recursos de suporte", href: "#/" }, { label: def.name, href: "#/" + def.id }];
+    var ds = { label: "Castanha DS", href: "#/" };
+    if (def.home) return [ds, { label: def.name, href: "#/" + def.id }];
+    if (def.resource) return [ds, { label: "Recursos de suporte", href: "#/" }, { label: def.name, href: "#/" + def.id }];
     var cat = def.block ? "Building blocks" : (def.category || "Outros");
     var first = list.filter(function(c){ return !c.resource && (def.block ? c.block : !c.block && (c.category || "Outros") === cat); })[0] || def;
-    return [{ label: "Componentes", href: "#/" }, { label: cat, href: "#/" + first.id }, { label: def.name, href: "#/" + def.id }];
+    return [ds, { label: cat, href: "#/" + first.id }, { label: def.name, href: "#/" + def.id }];
   }
 
   var mountedId = null, reportBtn = $("report-btn"), report = $("report"), lastHash = "#/";
@@ -271,11 +281,12 @@
     reportBtn.setAttribute("pressed", String(isReport));
     reportBtn.setAttribute("label", isReport ? "Voltar aos componentes" : "Abrir relatório do projeto");
     $("report-tip").setAttribute("text", isReport ? "Voltar aos componentes" : "Relatório");
-    if (isReport){ CDS.report.show(r[1], r[2]); return; }
+    if (isReport){ setCrumbs([{ label: "Castanha DS", href: "#/" }, { label: "Relatório", href: "#/relatorio" }]); CDS.report.show(r[1], r[2]); return; }
     lastHash = location.hash || "#/";
     if (mountedId) document.title = currentDef().name + " — Castanha DS";
     var id = currentId();
     if (id !== mountedId){ mount(); mountedId = id; }
+    setCrumbs(crumbs(currentDef())); // também ao voltar do relatório
     applyTab();
   }
   function mount(){
@@ -288,7 +299,6 @@
     header.setAttribute("title", def.name);
     header.setAttribute("show-info", String(!!(cover && cover.description)));
     head.infoTip.setAttribute("text", (cover && cover.description) || "");
-    header.setBreadcrumb(crumbs(def));
     // Tag = status de publicação na lib do Figma (scripts/figma-status.js, lido via MCP: a página não acessa a API). Todos os componentes.
     var FS = CDS.figmaStatus || {}, st = (FS.items || {})[def.id];
     var PUB = { current: ["positive", "Publicado no Figma", "Publicado na lib [CastanhaDS] Components, sem alterações pendentes."],

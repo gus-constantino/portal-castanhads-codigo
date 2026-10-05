@@ -7,10 +7,10 @@ cds-radio-button{ display:inline-flex; }
 cds-radio-button .cds-sc__box{ border-radius:var(--common-border-radius-pill); }
 cds-radio-button .cds-rb__dot{ width:var(--common-sizes-8); height:var(--common-sizes-8); border-radius:var(--common-border-radius-pill); background:var(--common-colors-icons-inversed); display:none; }
 
-cds-radio-button .cds-sc:hover{ --_sel-bg:var(--common-colors-surface-01); }
-cds-radio-button .cds-sc:is(:hover,:active) .cds-sc__box{ --_bd:var(--common-colors-accent-solid-medium); }
-cds-radio-button .cds-sc:active{ --_sel-bg:var(--common-colors-accent-solid-soft); }
+cds-radio-button .cds-sc:hover, cds-radio-button[state="hovered"] .cds-sc{ --_sel-bg:var(--common-colors-surface-01); }
+cds-radio-button .cds-sc:is(:hover,:active) .cds-sc__box, cds-radio-button:is([state="hovered"],[state="pressed"]) .cds-sc .cds-sc__box{ --_bd:var(--common-colors-accent-solid-medium); }
+cds-radio-button .cds-sc:active, cds-radio-button[state="pressed"] .cds-sc{ --_sel-bg:var(--common-colors-accent-solid-soft); }
 
 cds-radio-button[status="selected"] .cds-sc__box,
-cds-radio-button[status="selected"] .cds-sc:is(:hover,:active) .cds-sc__box{ --_bg:var(--common-colors-surface-accent); --_bd:transparent; }
+cds-radio-button[status="selected"] .cds-sc:is(:hover,:active) .cds-sc__box, cds-radio-button[status="selected"]:is([state="hovered"],[state="pressed"]) .cds-sc .cds-sc__box{ --_bg:var(--common-colors-surface-accent); --_bd:transparent; }
 cds-radio-button[status="selected"] .cds-rb__dot{ display:block; }

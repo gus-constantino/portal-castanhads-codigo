@@ -7,13 +7,13 @@ cds-checkbox .cds-sc__box{ border-radius:var(--common-border-radius-extra-small)
 cds-checkbox .cds-sc__glyph{ width:var(--common-sizes-16); height:var(--common-sizes-16); --_icon-color:var(--common-colors-icons-inversed); display:none; }
 
 /* Unselected */
-cds-checkbox .cds-sc:hover{ --_sel-bg:var(--common-colors-surface-01); }
-cds-checkbox .cds-sc:hover .cds-sc__box{ --_bd:var(--common-colors-border-semi-intense); }
-cds-checkbox .cds-sc:active{ --_sel-bg:var(--common-colors-accent-solid-soft); }
-cds-checkbox .cds-sc:active .cds-sc__box{ --_bd:var(--common-colors-accent-solid-medium); }
+cds-checkbox .cds-sc:hover, cds-checkbox[state="hovered"] .cds-sc{ --_sel-bg:var(--common-colors-surface-01); }
+cds-checkbox .cds-sc:hover .cds-sc__box, cds-checkbox[state="hovered"] .cds-sc .cds-sc__box{ --_bd:var(--common-colors-border-semi-intense); }
+cds-checkbox .cds-sc:active, cds-checkbox[state="pressed"] .cds-sc{ --_sel-bg:var(--common-colors-accent-solid-soft); }
+cds-checkbox .cds-sc:active .cds-sc__box, cds-checkbox[state="pressed"] .cds-sc .cds-sc__box{ --_bd:var(--common-colors-accent-solid-medium); }
 
 /* Selected · Indeterminate — fundo accent; stroke só no Enabled/Disabled (some no Hovered/Pressed) */
 cds-checkbox:is([status="selected"],[status="indeterminate"]) .cds-sc__box{ --_bg:var(--common-colors-surface-accent); --_bd:var(--common-colors-accent-solid-medium); }
-cds-checkbox:is([status="selected"],[status="indeterminate"]) .cds-sc:is(:hover,:active) .cds-sc__box{ --_bd:transparent; }
+cds-checkbox:is([status="selected"],[status="indeterminate"]) .cds-sc:is(:hover,:active) .cds-sc__box, cds-checkbox:is([status="selected"],[status="indeterminate"]):is([state="hovered"],[state="pressed"]) .cds-sc .cds-sc__box{ --_bd:transparent; }
 cds-checkbox[status="selected"] .cds-sc__glyph--check,
 cds-checkbox[status="indeterminate"] .cds-sc__glyph--indeterminate{ display:block; }

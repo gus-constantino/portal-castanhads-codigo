@@ -19,8 +19,8 @@ cds-switch .cds-sw__toggle{
   background:var(--common-colors-neutral-solid-soft);
   transition:transform var(--_dur) var(--_ease), background-color var(--_dur) var(--_ease);
 }
-cds-switch .cds-sc:hover .cds-sc__box{ --_ring:var(--common-colors-border-semi-soft); }
-cds-switch .cds-sc:active .cds-sc__box{ --_ring:var(--common-colors-accent-solid-soft); }
+cds-switch .cds-sc:hover .cds-sc__box, cds-switch[state="hovered"] .cds-sc .cds-sc__box{ --_ring:var(--common-colors-border-semi-soft); }
+cds-switch .cds-sc:active .cds-sc__box, cds-switch[state="pressed"] .cds-sc .cds-sc__box{ --_ring:var(--common-colors-accent-solid-soft); }
 
 cds-switch[status="selected"] .cds-sc__box{ --_bg:var(--common-colors-surface-accent); }
 cds-switch[status="selected"] .cds-sw__toggle{ transform:translateX(var(--common-sizes-16)); background:var(--common-colors-surface-default); }

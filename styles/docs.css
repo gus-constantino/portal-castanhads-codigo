@@ -234,7 +234,15 @@
 .pg-tok__swatch{ height:var(--common-sizes-56); border-radius:var(--common-border-radius-small);
   box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-semi-soft); }
 .pg-tok-tile:hover .pg-tok__swatch{ box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-semi-soft), var(--common-elevation-level-1); }
-.pg-tok__swatch.is-opacity{ background:var(--common-colors-accent-solid-medium); box-shadow:none; }
+/* Tons de opacidade sobre a imagem de exemplo (o mesmo arquivo do componente Image) */
+.pg-tok__swatch.is-alpha{ background:linear-gradient(var(--_tone), var(--_tone)), url("../assets/brand/sample-photo.svg") center / cover; }
+.pg-tok-sub{ margin:var(--common-sizes-8) 0 0; font:var(--text-style-caption-bold); color:var(--common-colors-text-soft); }
+/* Opacity (Figma 4438:32): imagem | Accent sólido, com o quadrado Support/darker na opacidade do token por cima do meio */
+.pg-tok__op{ position:relative; width:var(--common-sizes-120); height:var(--common-sizes-56); min-height:0; display:flex; overflow:hidden; border-radius:var(--common-border-radius-micro); }
+.pg-tok__op > .pg-tok__op-img{ display:block; flex:0 0 50%; width:50%; height:100%; }
+.pg-tok__op-img img{ width:100%; height:100%; object-fit:cover; }
+.pg-tok__op-solid{ display:block; flex:0 0 50%; width:50%; height:100%; background:var(--common-colors-accent-solid-medium); }
+.pg-tok__op-layer{ position:absolute; top:0; bottom:0; left:var(--common-sizes-28); width:var(--common-sizes-56); background:var(--common-colors-support-darker); }
 /* Tipografia */
 .pg-tok__type{ justify-items:start; min-height:var(--common-sizes-56); font:var(--text-style-heading-small); font-size:var(--common-font-size-32); color:var(--common-colors-text-intense); line-height:var(--common-font-line-height-small); }
 .pg-tok__type.is-lines{ font:var(--text-style-body-regular); width:var(--common-sizes-44); white-space:normal; justify-items:start; }

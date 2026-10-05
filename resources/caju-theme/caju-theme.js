@@ -46,7 +46,7 @@
         { p: "Sombras `Common/Elevation/level 1–3` (x · y · blur · spread · cor)." },
         { tokens: "elevation" },
         { h2: "Opacity" },
-        { p: "Níveis `Common/Opacity/*`, mostrados sobre `Accent/Solid/medium`." },
+        { p: "Níveis `Common/Opacity/*`. Como no Figma, cada amostra compara imagem e cor sólida (`Accent/Solid/medium`) sob uma camada `Support/darker` na opacidade do token." },
         { tokens: "opacity" }
       ] },
       { id: "motion", title: "Motion", blocks: [

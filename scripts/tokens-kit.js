@@ -96,18 +96,40 @@
     "selected-in": "ativa · Is Active → true", "selected-out": "desativa · Is Active → false", "disabled": "entra em disabled" };
   var PRIMITIVE = { "systemic-default": "ease-in-out/01", "systemic-accelerate": "ease-in/01", "systemic-decelerate": "ease-in-out/02", "systemic-smooth": "ease-in-out/03",
     "expressive-default": "ease-out/02", "expressive-decelerate": "ease-out/01", "expressive-accelerate": "ease-in/02", "expressive-overshoot": "ease-out/overshoot/01" };
+  // Famílias com tons sólidos e de opacidade aparecem separadas em subgrupos (como no Figma: Solid/… e Opacity/…)
+  var COLOR_FAMILIES = [
+    ["Accent", [["Solid", "--common-colors-accent-solid-"], ["Opacity", "--common-colors-accent-opacity-"]]],
+    ["Neutral", [["Solid", "--common-colors-neutral-solid-"], ["Opacity · Soft", "--common-colors-neutral-opacity-soft-"], ["Opacity · Intense", "--common-colors-neutral-opacity-intense-"]]]
+  ];
   var COLOR_GROUPS = [
-    ["Accent", "--common-colors-accent-"], ["Neutral", "--common-colors-neutral-"], ["Surface", "--common-colors-surface-"],
+    ["Surface", "--common-colors-surface-"],
     ["Text", "--common-colors-text-"], ["Icons", "--common-colors-icons-"], ["Border", "--common-colors-border-"],
     ["Feedback · Positive", "--common-colors-feedback-positive-"], ["Feedback · Warning", "--common-colors-feedback-warning-"],
     ["Feedback · Negative", "--common-colors-feedback-negative-"], ["Feedback · Informative", "--common-colors-feedback-informative-"],
     ["Support", "--common-colors-support-"], ["Decorative", "--common-colors-decorative-"]
   ];
   var swatch = function(sw, n){ sw.classList.add("pg-tok__swatch"); sw.style.background = "var(" + n + ")"; };
+  var alpha = function(sw, n){ sw.classList.add("pg-tok__swatch", "is-alpha"); sw.style.setProperty("--_tone", "var(" + n + ")"); };
+  // Opacity (como no Figma 4438:32): metade imagem, metade Accent sólido; um quadrado Support/darker atravessa o meio na opacidade do token
+  var opacityView = function(sw, n){
+    sw.classList.add("pg-tok__op");
+    var img = sw.appendChild(document.createElement("cds-image")); img.className = "pg-tok__op-img"; img.setAttribute("src", "assets/brand/sample-photo.svg"); img.setAttribute("alt", "");
+    sw.appendChild(el("span", "pg-tok__op-solid"));
+    var layer = sw.appendChild(el("span", "pg-tok__op-layer")); layer.style.opacity = "var(" + n + ")";
+  };
 
   var RENDER = {
     colors: function(root){
-      COLOR_GROUPS.forEach(function(g){ group(root, g[0], pick(g[1]), g[1], swatch); });
+      COLOR_FAMILIES.forEach(function(f){
+        var subs = f[1].map(function(sb){ return [sb[0], sb[1], pick(sb[1])]; }).filter(function(sb){ return sb[2].length; });
+        var total = subs.reduce(function(t, sb){ return t + sb[2].length; }, 0), sec = section(root, f[0], total);
+        subs.forEach(function(sb){
+          sec.appendChild(el("p", "pg-tok-sub", sb[0]));
+          var g = sec.appendChild(grid());
+          // opacidade: o tom aparece sobre a imagem de exemplo, para a transparência ficar visível
+          sb[2].forEach(function(n){ g.appendChild(item(n, sb[1], /opacity/.test(sb[1]) ? alpha : swatch)); });
+        });
+      });
       var charts = pick("--common-colors-charts-"), sets = {};
       charts.forEach(function(n){ var k = n.match(/charts-(\d+)/)[1]; (sets[k] = sets[k] || []).push(n); });
       Object.keys(sets).forEach(function(k){ group(root, "Charts · " + k, sets[k], "--common-colors-charts-" + k + "-", swatch); });
@@ -135,7 +157,7 @@
     width: function(root){ group(root, "Width", pick("--common-border-width-"), "--common-border-width-", function(sw, n){ sw.classList.add("pg-tok__stroke"); sw.style.borderWidth = "var(" + n + ")"; }, "is-wide"); },
     sizes: function(root){ group(root, "Sizes", pick("--common-sizes-"), "--common-sizes-", function(sw, n){ sw.classList.add("pg-tok__size"); var b = sw.appendChild(el("span")); b.style.width = b.style.height = "var(" + n + ")"; }, "is-sizes", "is-row"); },
     elevation: function(root){ group(root, "Elevations", pick("--common-elevation-level-"), "--common-elevation-", function(sw, n){ sw.classList.add("pg-tok__shadow"); sw.style.boxShadow = "var(" + n + ")"; }, "is-wide"); },
-    opacity: function(root){ group(root, "Opacity", pick("--common-opacity-"), "--common-opacity-", function(sw, n){ sw.classList.add("pg-tok__swatch", "is-opacity"); sw.style.opacity = "var(" + n + ")"; }); },
+    opacity: function(root){ group(root, "Opacity", pick("--common-opacity-"), "--common-opacity-", opacityView, "is-wide", "is-row"); },
     duration: function(root){ runs(root, "Duration", pick("--common-motion-duration-"), "--common-motion-duration-", "duration"); },
     delay: function(root){ runs(root, "Delay", pick("--common-motion-delay-"), "--common-motion-delay-", "delay"); },
     // Curva desenhada + bolinha que percorre a trilha com aquela curva (Long/04)

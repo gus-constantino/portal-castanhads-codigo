@@ -58,7 +58,7 @@ GitHub Pages (gus-constantino.github.io/castanhads-component-teste)
 8. **Viewport:** o componente lê `[data-viewport="mobile|tablet"]` do ancestral e aceita `viewport="…"` para forçar o modo.
 9. **Eventos:** `cds-change`, `cds-remove` (cancelável: `preventDefault()` mantém o chip), `cds-complete`, `cds-toggle`, `cds-visibility-change`, `cds-trailing-action` (`bubbles: true`). O papel da ação é de quem implementa.
 12. **Recurso de suporte ≠ componente:** libs de apoio registram `CDS.register({ resource:true, order, status })` em `resources/<id>/<id>.js`, com doc em `CDS.docs[id]` e sem `mount`. O shell lista num espaço próprio ("Recursos de suporte"), abre direto na doc e não mostra a tab Playground; o smoke ignora.
-11. **Documentação (opcional):** `components/<id>/<id>.docs.js` registra `CDS.docs[id]` só com dados (tabs → blocos). O shell mostra as tabs quando existe doc; a rota é `#/<id>/<tab>`. Exemplos usam o componente real com atributos; estáticos ficam `inert`. Estados de interação forçados por atributo (`state`, `is-active`) espelham as props do Figma para specimens.
+11. **Documentação (opcional):** `components/<id>/<id>.docs.js` registra `CDS.docs[id]` só com dados (tabs → blocos). **Carregada sob demanda:** fica fora do `dist/cds.js`; o build gera `CDS.docsIndex` (arquivo com `?v=hash` e as docs de que depende, ex.: Scrollable Tab → Fixed Tab) e o shell busca o arquivo ao abrir o componente, antes de montar tabs, capa e (i). Recursos de suporte continuam no pacote. O shell mostra as tabs quando existe doc; a rota é `#/<id>/<tab>`. Exemplos usam o componente real com atributos; estáticos ficam `inert`. Estados de interação forçados por atributo (`state`, `is-active`) espelham as props do Figma para specimens.
 10. **A11y:** elemento nativo sempre que existir (`<button>`, `<a>`, `<input>`). Decorativo → `aria-hidden`. Com `label` → `role="img"` + `aria-label`.
 
 ---
@@ -227,7 +227,7 @@ Medições no código atual:
 | **P2** | Subir `build()`/`update()` de `CDS.SelectionControl` para `CDS.Element` (opcional por componente) quando a 2ª família usar | A3 | ~1h | Lote 4 |
 | ✅ | ~~Estados forçados como contrato da família de inputs~~ (base `CDS.TextField`) | A19 | feito | Lote 4 |
 | **P2** | Smoke: checar a cor do Label/mensagem por Appearance nos inputs (o bug do Warning passou nos dois) | — | ~20min | Lote 4 |
-| **P3** | **Docs sob demanda**: tirar os `*.docs.js` do `dist/cds.js` e carregar só ao abrir uma tab de doc (com índice leve de quem tem doc/capa). Gatilho: o orçamento do build passar de 600 KB gzip | peso | ~2h | quando o aviso aparecer |
+| ✅ | ~~**Docs sob demanda**~~ (feito: `*.docs.js` fora do `dist/cds.js`, índice `CDS.docsIndex` com `?v=hash` e dependências; o shell carrega a doc do componente ao abrir; primeira visita 417 → 321 KB gzip) | peso | feito | melhorias técnicas |
 | **P3** | Separar `keywords` do manifest (carregar só na galeria) se o manifest passar de ~100 KB | A27 | ~20min | ilustrações |
 | **P3** | Smoke montar as tabs de doc e checar overflow horizontal em 375px | A21 | ~30min | 2ª doc |
 | **P3** | Extrator do frame `[Documentação]` → `.docs.js` (estrutura estável: seções por nome) | A17 | ~1h | se a doc virar padrão |

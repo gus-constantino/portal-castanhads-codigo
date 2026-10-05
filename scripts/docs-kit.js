@@ -480,22 +480,27 @@
       v.forEach(function(it){ g.appendChild(BLOCKS.video(d, it)); });
       return g;
     },
+    // Atalhos em Cards do DS. Lista simples → grade automática. { bento: 3|4, items } → grade bento:
+    // size "hero" (2×2, ilustração grande), "wide" (2 colunas, ilustração ao lado) ou layout "row" (1 coluna, ilustração ao lado)
     shortcuts: function(d, v){
-      var g = el("div", "pg-doc-shortcuts"), ills = {}; ((window.CDS.assets || {}).illustrations || []).forEach(function(i){ ills[i.name] = i.src; });
-      v.forEach(function(it){
-        var c = el("cds-card", "pg-doc-shortcut"); c.setAttribute("has-border", "true");
+      var items = Array.isArray(v) ? v : v.items;
+      var g = el("div", "pg-doc-shortcuts" + (v.bento ? " is-bento is-cols-" + v.bento : "")), ills = {}; ((window.CDS.assets || {}).illustrations || []).forEach(function(i){ ills[i.name] = i.src; });
+      items.forEach(function(it){
+        var c = el("cds-card", "pg-doc-shortcut" + (it.size ? " is-" + it.size : "") + (it.layout ? " is-" + it.layout : "")); c.setAttribute("has-border", "true");
         if (it.illustration && ills[it.illustration]){ var im = el("img", "pg-doc-shortcut__img"); im.alt = ""; im.loading = "lazy"; im.src = ills[it.illustration]; c.appendChild(im); }
-        c.appendChild(el("h3", "pg-doc-h4", it.title));
-        if (it.text) c.appendChild(rich(el("p", "pg-doc-p"), it.text));
+        var b = c.appendChild(el("div", "pg-doc-shortcut__body"));
+        b.appendChild(el("h3", "pg-doc-h4", it.title));
+        if (it.text) b.appendChild(rich(el("p", "pg-doc-p"), it.text));
         if (it.href){ // sem href: card só informativo (ex.: categorias de ilustração)
           var l = el("cds-link", "pg-doc-shortcut__link"); l.setAttribute("label", it.cta || "Abrir"); l.setAttribute("href", it.href); l.setAttribute("appearance", "accent");
           if (it.external){ l.setAttribute("target", "_blank"); l.setAttribute("icon", "link-line"); }
-          c.appendChild(l);
+          b.appendChild(l);
         }
         g.appendChild(c);
       });
       return g;
     },
+
     // Paleta fora dos tokens Common/* (ex.: cores exclusivas das ilustrações): linhas = passos, colunas = cores.
     // Os hex vêm do Figma como dado (não são tokens de UI); clique copia o hex.
     palette: function(d, v){

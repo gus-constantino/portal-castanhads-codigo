@@ -1677,7 +1677,7 @@ CDS.register({
 try {
 /* Documentação — link: tab Conteúdo (regras de texto)
    Fonte: [CastanhaDS] Component use documentation · 📁 [NEW] Content → Componentes · frame [Componentes] Links (6400:15859).
-   Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D99). */
+   Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D98). */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   CDS.docs["link"] = {
@@ -1850,7 +1850,7 @@ CDS.register({
 try {
 /* Documentação — main-button: tab Conteúdo (regras de texto)
    Fonte: [CastanhaDS] Component use documentation · 📁 [NEW] Content → Componentes · frame [Componentes] Botões (6400:15361).
-   Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D99). */
+   Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D98). */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   CDS.docs["main-button"] = {
@@ -2774,7 +2774,7 @@ CDS.register({
 try {
 /* Documentação — breadcrumb: tab Conteúdo (regras de texto)
    Fonte: [CastanhaDS] Component use documentation · 📁 [NEW] Content → Componentes · frame [Componentes] Breadcrumb (6400:15502).
-   Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D99). */
+   Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D98). */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   // Breadcrumb do DS com os rótulos do Figma (sem Truncate)
@@ -3002,7 +3002,7 @@ CDS.register({
 try {
 /* Documentação — progress-tracker: tab Conteúdo (regras de texto)
    Fonte: [CastanhaDS] Component use documentation · 📁 [NEW] Content → Componentes · frame [Componentes] Stepper (6400:16333).
-   Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D99). */
+   Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D98). */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   CDS.docs["progress-tracker"] = {
@@ -4084,7 +4084,7 @@ CDS.register({
 try {
 /* Documentação — fixed-tab: tab Conteúdo (regras de texto)
    Fonte: [CastanhaDS] Component use documentation · 📁 [NEW] Content → Componentes · frame [Componentes] Tabs (6400:15174).
-   Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D99). */
+   Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D98). */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   // Abas de exemplo (Scrollable Tab do DS) com os rótulos do Figma
@@ -9022,7 +9022,7 @@ CDS.register({
 try {
 /* Documentação — bottom-sheet: tab Conteúdo (regras de texto)
    Fonte: [CastanhaDS] Component use documentation · 📁 [NEW] Content → Componentes · frame [Componentes] Bottom sheet (6400:15668).
-   Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D99). */
+   Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D98). */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   // Bottom Sheet (inline) com título, texto e duas ações em Main Buttons sem ícone (o Footer do sheet não expõe o Lead Icon)

@@ -203,6 +203,7 @@
     });
     readout("", false);
     if (def.mount) def.mount({ preview: preview, panel: panel, kit: kit, readout: readout });
+    if (CDS.renderReact) CDS.renderReact(def, preview, $("react")); // "No React": tradução Figma → castanha-react (scripts/react-kit.js)
     markCurrent();
   }
   window.addEventListener("hashchange", onRoute);

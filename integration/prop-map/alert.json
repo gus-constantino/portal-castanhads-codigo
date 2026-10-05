@@ -7,7 +7,7 @@
       { "prop": "appearance", "attr": "appearance" },
       { "prop": "label", "attr": "label", "if": { "show-label": "true" } },
       { "prop": "hideCloseButton", "attr": "show-close-button", "bool": "not" },
-      { "prop": "onClose", "expr": "() => setVisible(false)", "if": { "show-close-button": "true" } }
+      { "prop": "onClose", "expr": "handleClose", "if": { "show-close-button": "true" } }
     ],
     "children": [{ "attr": "text" }]
   },

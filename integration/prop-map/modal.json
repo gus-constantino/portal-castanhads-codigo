@@ -1,6 +1,7 @@
 {
   "element": "cds-modal",
   "defaults": { "show-header": "true", "show-footer": "true", "show-close-button": "true", "dismissible": "true", "show-header-divider": "false", "show-footer-divider": "false", "show-secondary-action-button": "true", "text-title": "Title", "primary-label": "Label", "secondary-label": "Label" },
+  "pre": ["const [open, setOpen] = useState(false);"],
   "jsx": {
     "tag": "Modal",
     "props": [
@@ -16,7 +17,7 @@
       { "tag": "Modal.Content", "children": [{ "code": "{/* conteúdo do Slot */}" }] },
       { "tag": "Modal.Footer", "if": { "show-footer": "true" }, "children": [
         { "tag": "Button", "if": { "show-secondary-action-button": "true" }, "props": [{ "prop": "appearance", "value": "neutral" }, { "prop": "onClick", "expr": "() => setOpen(false)" }], "children": [{ "attr": "secondary-label" }] },
-        { "tag": "Button", "props": [{ "prop": "onClick", "expr": "confirmar" }], "children": [{ "attr": "primary-label" }] } ] }
+        { "tag": "Button", "props": [{ "prop": "onClick", "expr": "handleConfirm" }], "children": [{ "attr": "primary-label" }] } ] }
     ]
   },
   "figma": [

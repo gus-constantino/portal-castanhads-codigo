@@ -179,7 +179,7 @@ const components = pg.sort((a, b) => a.id.localeCompare(b.id)).map((p) => {
   if (p.branch) notes.push("o link do playground aponta para uma branch do Figma");
   return {
     id: p.id, name: p.name, block: p.block, figma: { fileKey: FIGMA_KEY, node: p.node },
-    react: r ? { component: hit.target, dir: r.name, via: hit.via, exported: r.exported, import: (cc && cc.cc.import) || r.import || null,
+    react: r ? { component: hit.target, dir: r.name, via: hit.via, exported: r.exported, import: r.import || (cc && cc.cc.import) || null, // o da doc (MDX) primeiro: o do Code Connect às vezes aponta para o caminho interno
       storybook: r.storybook, zeroheight: r.zeroheight, tags: r.tags, figmaProps: cc ? cc.cc.figmaProps : [] } : null,
     status: r ? (r.tags.indexOf("deprecated") >= 0 ? "deprecated" : r.tags.indexOf("soon") >= 0 ? "soon" : "react") : p.block ? "building-block" : "so-figma",
     notes

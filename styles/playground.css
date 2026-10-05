@@ -79,7 +79,7 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
 .pg-links{ display:flex; flex-wrap:wrap; gap:var(--common-sizes-4) var(--common-sizes-12); margin-top:var(--common-sizes-4); font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
 .pg-toolbar .pg-ctrl{ margin:0; }
 .pg-toolbar .pg-ctrl > .pg-lbl{ margin-bottom:var(--common-sizes-8); }
-.pg-stage{ flex:1; overflow:auto; padding:var(--common-sizes-32) var(--common-sizes-24) var(--common-sizes-48); display:flex; justify-content:center; align-items:flex-start; }
+.pg-stage{ flex:1; overflow:auto; padding:var(--common-sizes-32) var(--common-sizes-24) var(--common-sizes-48); display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-24); }
 .pg-frame{
   width:100%; max-width:calc(3 * var(--common-sizes-200)); flex:0 0 auto; /* 600: frame do smoke */
   background:var(--common-colors-surface-default); border-radius:var(--common-border-radius-large);
@@ -167,3 +167,38 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
 /* Início (Castanha Hub) no topo do menu, antes de Componentes */
 .pg-nav--home{ margin-bottom:var(--common-sizes-8); }
 .pg-nav--home[hidden]{ display:none; }
+
+/* "No React" (scripts/react-kit.js): tradução Figma → castanha-react abaixo do preview, na largura do frame fluido */
+.pg-react{ width:100%; max-width:calc(3 * var(--common-sizes-200)); min-width:0; display:flex; flex-direction:column; gap:var(--common-sizes-16);
+  background:var(--common-colors-surface-default); border-radius:var(--common-border-radius-large); padding:var(--common-sizes-24); }
+.pg-react[hidden]{ display:none; }
+.pg-react{ --cds-accordion-width:100%; } /* Accordion Item na largura da seção (padrão do componente: 320) */
+.pg-react__head{ display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between; gap:var(--common-sizes-8) var(--common-sizes-16); }
+.pg-react__ttl{ min-width:0; }
+.pg-react__title{ margin:0; font:var(--text-style-title-small); color:var(--common-colors-text-intense); }
+.pg-react__sub, .pg-react__p{ margin:var(--common-sizes-4) 0 0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+.pg-react__p{ margin:0; font:var(--text-style-body-regular); }
+.pg-react__links{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--common-sizes-4) var(--common-sizes-12); }
+.pg-react__tags{ display:flex; flex-wrap:wrap; gap:var(--common-sizes-8); }
+.pg-react__code{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-8); }
+.pg-react__pre{ align-self:stretch; margin:0; overflow:auto; padding:var(--common-sizes-16); border-radius:var(--common-border-radius-small);
+  background:var(--common-colors-surface-01); font:var(--text-style-disclaimer-regular); font-family:var(--pg-mono); color:var(--common-colors-text-intense); tab-size:2; }
+.pg-react__pre:focus-visible{ outline:var(--common-border-width-thin) solid var(--common-colors-border-intense); outline-offset:0; }
+.pg-react__pre code{ font:inherit; white-space:pre; }
+.pg-react__t{ color:var(--common-colors-feedback-informative-intense); }
+.pg-react__a{ color:var(--common-colors-accent-solid-intense); }
+.pg-react__v{ color:var(--common-colors-feedback-positive-intense); }
+.pg-react__k, .pg-react__e{ color:var(--common-colors-text-medium); }
+.pg-react__c{ color:var(--common-colors-text-soft); }
+.pg-react__h3{ margin:var(--common-sizes-16) 0 var(--common-sizes-4); font:var(--text-style-label-bold); color:var(--common-colors-text-intense); }
+.pg-react__h3:first-child{ margin-top:0; }
+.pg-react__table{ font:var(--text-style-caption-regular); }
+.pg-react__table th{ font:var(--text-style-caption-bold); }
+.pg-react .pg-react__table td{ white-space:normal; vertical-align:top; } /* .pg-doc-table (docs.css, carrega depois) usa nowrap */
+.pg-react .pg-react__table.is-props td:last-child{ min-width:calc(var(--common-sizes-200) - var(--common-sizes-40)); }
+.pg-react .pg-react__table td code.pg-react__now{ color:var(--common-colors-text-intense); white-space:normal; overflow-wrap:anywhere; } /* valor atual pode ser um texto longo */
+.pg-react .pg-react__table tr.has-note td{ box-shadow:none; padding-bottom:0; }
+.pg-react .pg-react__note td{ padding-top:var(--common-sizes-2); white-space:normal; color:var(--common-colors-text-soft); }
+.pg-react .pg-react__table td code{ white-space:nowrap; }
+.pg-react .pg-react__table.is-props td:nth-child(2) code{ white-space:normal; overflow-wrap:anywhere; } /* tipos longos (Ref<…>, unions) quebram */
+.pg-react .pg-react__table th:last-child, .pg-react .pg-react__table td:last-child{ padding-right:0; } /* nomes de prop/atributo inteiros: a tabela rola se precisar */

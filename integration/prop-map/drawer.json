@@ -1,6 +1,7 @@
 {
   "element": "cds-drawer",
   "defaults": { "show-action-buttons": "true", "show-secondary-action-button": "true", "text-title": "Title", "primary-label": "Label", "secondary-label": "Label" },
+  "pre": ["const [open, setOpen] = useState(false);"],
   "jsx": {
     "tag": "Drawer",
     "props": [
@@ -12,7 +13,7 @@
       { "tag": "Drawer.Content", "children": [{ "code": "{/* conteúdo do Slot */}" }] },
       { "tag": "Drawer.Footer", "if": { "show-action-buttons": "true" }, "children": [
         { "tag": "Button", "if": { "show-secondary-action-button": "true" }, "props": [{ "prop": "appearance", "value": "neutral" }, { "prop": "onClick", "expr": "() => setOpen(false)" }], "children": [{ "attr": "secondary-label" }] },
-        { "tag": "Button", "props": [{ "prop": "onClick", "expr": "aplicar" }], "children": [{ "attr": "primary-label" }] } ] }
+        { "tag": "Button", "props": [{ "prop": "onClick", "expr": "handleApply" }], "children": [{ "attr": "primary-label" }] } ] }
     ]
   },
   "figma": [

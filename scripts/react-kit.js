@@ -203,6 +203,7 @@
     if (root.hidden) return;
     var dir = it.dir && data.dirs[it.dir];
 
+    // Ordem do ComponentPage do Storybook (R5): título + Tags · descrição · Import · código · Props · Links úteis
     var head = root.appendChild(el("div", "pg-react__head"));
     var ttl = head.appendChild(el("div", "pg-react__ttl"));
     ttl.appendChild(el("h2", "pg-react__title", "No React")).id = "react-title";
@@ -210,15 +211,6 @@
     if (it.component){ sub.appendChild(code("<" + it.component + ">")); sub.appendChild(document.createTextNode(" · castanha-react")); }
     else sub.textContent = "castanha-react";
     sub.appendChild(document.createTextNode(" · " + data.source.ref.replace(/^origin\//, "") + " de " + data.source.date.split("-").reverse().join("/")));
-    if (dir){
-      var links = head.appendChild(el("div", "pg-react__links"));
-      [[dir.storybook, "Storybook", "Abre a doc do componente no Storybook do castanha-react, em outra aba."],
-       [dir.zeroheight, "Zeroheight", "Abre a página do componente no zeroheight, em outra aba."]].forEach(function(l){
-        if (!l[0]) return;
-        var a = links.appendChild(attrs(document.createElement("cds-link"), { label: l[1], href: l[0], target: "_blank", appearance: "neutral", icon: "link-line" }));
-        if (CDS.kit) CDS.kit.tip(a, l[2], { container: links });
-      });
-    }
 
     // Etiquetas de situação
     var tagsRow = root.appendChild(el("div", "pg-react__tags"));
@@ -251,12 +243,22 @@
       root.appendChild(al);
     }
 
-    // Código: com mapa, JSX ao vivo; sem mapa, só o import
-    var box = root.appendChild(el("div", "pg-react__code"));
-    var pre = box.appendChild(el("pre", "pg-react__pre")), text = "";
-    pre.setAttribute("aria-label", "Código React");
-    pre.tabIndex = 0; // rolagem horizontal pelo teclado
-    var copy = box.appendChild(CDS.docMainButton ? CDS.docMainButton("Copiar código") : el("button", null, "Copiar código"));
+    // Descrição do Storybook (description do ComponentPage, lida do .mdx)
+    if (dir && dir.desc){
+      var dp = root.appendChild(el("p", "pg-react__p"));
+      dp.appendChild(document.createTextNode(dir.desc + " "));
+      dp.appendChild(el("span", "pg-react__src", "(Storybook)"));
+    }
+
+    // Import + código: com mapa, o JSX acompanha os controles; os imports vêm do próprio snippet (inclui useState, subcomponentes…)
+    function block(title, label){
+      var b = root.appendChild(el("div", "pg-react__code"));
+      b.appendChild(el("h3", "pg-react__h3", title));
+      var pr = b.appendChild(el("pre", "pg-react__pre")); pr.setAttribute("aria-label", label); pr.tabIndex = 0; // rolagem pelo teclado
+      return { box: b, pre: pr };
+    }
+    var imp = block("Import", "Import do castanha-react"), jsxB = it.map ? block("Código ao vivo", "Código React gerado a partir dos controles") : null, text = "";
+    var copy = (jsxB || imp).box.appendChild(CDS.docMainButton ? CDS.docMainButton("Copiar código") : el("button", null, "Copiar código"));
     copy.classList.add("pg-react__copy");
     copy.addEventListener("click", function(){
       var done = function(){ if (CDS.docToast) CDS.docToast("Código copiado"); };
@@ -265,8 +267,28 @@
 
     var get = it.map ? reader(it.map, preview) : null, live = [];
     function render(){
-      text = paint(pre, it.map ? snippet(data, it, get) : [[[null, it.import || dir.import || ""]]]);
+      var lines = it.map ? snippet(data, it, get) : [[[null, it.import || dir.import || ""]]];
+      var cut = -1; for (var i = 0; i < lines.length; i++) if (!lines[i].length){ cut = i; break; }
+      var head = cut < 0 ? lines : lines.slice(0, cut), body = cut < 0 ? [] : lines.slice(cut + 1);
+      var t1 = paint(imp.pre, head), t2 = jsxB ? paint(jsxB.pre, body) : "";
+      text = t2 ? t1 + "\n\n" + t2 : t1;
       live.forEach(function(f){ f(); });
+    }
+
+    // Props do React (do .types.ts) — abertas, como a tabela de props do Storybook
+    if (dir){
+      var types = Object.keys(dir.props), propsBox = root.appendChild(el("div", "pg-react__props")), total = 0;
+      var ph = propsBox.appendChild(el("h3", "pg-react__h3", "Props"));
+      types.forEach(function(k){
+        var list = dir.props[k]; total += list.length;
+        if (types.length > 1) propsBox.appendChild(el("h4", "pg-react__h4", k));
+        propsBox.appendChild(table(["Prop", "Tipo", "Padrão", "Descrição"], list.map(function(p){
+          // union em códigos separados ('a' | 'b'): a célula quebra entre os valores, não no meio deles
+          return ["`" + p.n + (p.r ? "" : "?") + "`", String(p.t).split(" | ").map(function(x){ return "`" + x + "`"; }).join(" | "), p.d != null ? "`" + p.d + "`" : "—", p.s || ""];
+        }), "is-props"));
+      });
+      ph.appendChild(el("span", "pg-react__count", total + (total === 1 ? " prop" : " props") + " · \"?\" = opcional"));
+      if (!total) propsBox.remove();
     }
 
     // Figma → React
@@ -297,18 +319,21 @@
         }), "is-checks")));
     }
 
-    // Props do React (do .types.ts)
-    if (dir){
-      var types = Object.keys(dir.props), body = el("div", "pg-react__props"), total = 0;
-      types.forEach(function(k){
-        var list = dir.props[k]; total += list.length;
-        if (types.length > 1) body.appendChild(el("h3", "pg-react__h3", k));
-        body.appendChild(table(["Prop", "Tipo", "Padrão", "Descrição"], list.map(function(p){
-          return ["`" + p.n + (p.r ? "" : "?") + "`", "`" + p.t + "`", p.d != null ? "`" + p.d + "`" : "—", p.s || ""];
-        }), "is-props"));
-      });
-      if (total) root.appendChild(acc("Props do React", total + (total === 1 ? " prop" : " props") + ", tipos e padrões do castanha-react (\"?\" = opcional)", body));
-    }
+    // Links úteis (fim da página, como no ComponentPage): ponte playground ↔ Storybook ↔ zeroheight ↔ Figma + referências de acessibilidade
+    var lb = root.appendChild(el("div", "pg-react__useful"));
+    lb.appendChild(el("h3", "pg-react__h3", "Links úteis"));
+    var ul = lb.appendChild(el("ul", "pg-react__list"));
+    [[dir && dir.storybook, "Storybook", "doc e stories do componente no castanha-react"],
+     [dir && dir.zeroheight, "Zeroheight", "especificações de UX"],
+     [def.figma, "Figma", "componente no [CastanhaDS] Components"],
+     ["#/relatorio/stack", "Saúde da stack", "check Figma × castanha-react × playground", true],
+     ["https://www.w3.org/WAI/ARIA/apg/patterns/", "Padrões de teclado (WAI-ARIA)", "como navegar em componentes interativos"],
+     ["https://www.w3.org/WAI/ARIA/apg/practices/names-and-descriptions/", "Nomes acessíveis", "aria-label, aria-labelledby ou texto visível"]].forEach(function(l){
+      if (!l[0]) return;
+      var li = ul.appendChild(el("li"));
+      li.appendChild(attrs(document.createElement("cds-link"), { label: l[1], href: l[0], target: l[3] ? null : "_blank", appearance: "neutral", icon: l[3] ? null : "link-line", "show-trailing-item": l[3] ? "false" : null }));
+      li.appendChild(document.createTextNode(" — " + l[2]));
+    });
 
     render();
     if (it.map && window.MutationObserver){

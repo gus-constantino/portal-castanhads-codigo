@@ -155,12 +155,14 @@ dirs.forEach((dir) => {
       nodeIds: nodes.filter((n) => commented.indexOf(n) < 0), commentedNodeIds: commented, usesFigmaUrl: /FIGMA_URL/.test(s) };
   });
   const mdx = own.filter((f) => /\.mdx$/.test(f)).map((f) => show(REF, f) || "").join("\n");
-  const zh = (mdx.match(/zeroheightUrl="([^"]+)"/) || [])[1];
+  // atributo do <ComponentPage>: "…", '…' ou {`…`}
+  const prop = (name) => { const m = mdx.match(new RegExp(name + "=(?:\"([^\"]*)\"|'([^']*)'|\\{`([^`]*)`\\})")); return m ? (m[1] != null ? m[1] : m[2] != null ? m[2] : m[3]) : undefined; };
+  const zh = prop("zeroheightUrl");
   const g = galleryBy[dir] || galleryBy[named[0]] || null;
   react[dir] = {
     name: dir, exported: exportedDirs.indexOf(dir) >= 0, exports: named, subcomponents: subs, props,
-    description: (mdx.match(/description="([^"]+)"/) || [])[1],
-    import: (mdx.match(/importCode=\{`([^`]+)`\}/) || [])[1],
+    description: prop("description"),
+    import: prop("importCode"),
     tags: Array.from(new Set([].concat.apply([], stories.map((s) => s.tags)))),
     noFigma: /\bnoFigma\b/.test(mdx) || stories.some((s) => s.tags.indexOf("no-figma") >= 0),
     storyNodeIds: Array.from(new Set([].concat.apply([], stories.map((s) => s.nodeIds)))),
@@ -336,7 +338,7 @@ const slim = (p) => { const o = { n: p.name, t: p.type }; if (p.required) o.r = 
 const data = { source: { ref: REF, commit: String(src.commit).slice(0, 8), date: String(src.date).slice(0, 10) }, dirs: {}, items: {} };
 Object.values(react).forEach((r) => {
   const props = {}; Object.keys(r.props).forEach((k) => { props[k] = r.props[k].map(slim); });
-  data.dirs[r.name] = { import: r.import || null, storybook: r.storybook, zeroheight: r.zeroheight, tags: r.tags, staging: !r.inMain, props, refs: r.refs };
+  data.dirs[r.name] = { import: r.import || null, desc: r.description || null, storybook: r.storybook, zeroheight: r.zeroheight, tags: r.tags, staging: !r.inMain, props, refs: r.refs };
 });
 components.forEach((c) => {
   const it = { status: c.status };

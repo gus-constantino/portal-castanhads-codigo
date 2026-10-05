@@ -1,6 +1,6 @@
 {
   "_about": "Manifesto de integração Figma ↔ playground ↔ castanha-react (R0). Gerado por scripts/integration/build-manifest.js — não editar à mão.",
-  "generated": "2026-10-05T16:57:45.601Z",
+  "generated": "2026-10-05T17:35:29.017Z",
   "source": {
     "repo": "caju-beneficios/castanha",
     "ref": "origin/staging",
@@ -319,7 +319,7 @@
         "exported": true,
         "import": "import { Badge } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-badge--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/97d72a-badge",
         "tags": [
           "refactor"
         ],
@@ -486,7 +486,7 @@
         "exported": true,
         "import": "import { CajuBrand } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-cajubrand--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/62eaf1-caju-brand",
         "tags": [],
         "figmaProps": [
           {
@@ -622,7 +622,7 @@
         "exported": true,
         "import": "import { Card } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-card--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/838f0f-card",
         "tags": [],
         "figmaProps": [
           {
@@ -657,7 +657,7 @@
         "exported": true,
         "import": "import { Checkbox } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-checkbox--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/320247-checkbox",
         "tags": [],
         "figmaProps": [
           {
@@ -708,7 +708,7 @@
         "exported": true,
         "import": "import { Checkbox } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-checkbox--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/320247-checkbox",
         "tags": [],
         "figmaProps": []
       },
@@ -922,7 +922,7 @@
         "exported": true,
         "import": "import { ContentList } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-contentlist--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/90843a-content-list",
         "tags": [],
         "figmaProps": [
           {
@@ -964,7 +964,7 @@
         "exported": true,
         "import": "import { ContentList } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-contentlist--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/90843a-content-list",
         "tags": [],
         "figmaProps": [
           {
@@ -1062,7 +1062,7 @@
         "exported": true,
         "import": "import { CsatScore } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-csatscore--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/09d6a3-csat-score",
         "tags": [],
         "figmaProps": [
           {
@@ -1105,7 +1105,7 @@
         "exported": true,
         "import": "import { Currency } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-currency--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/963ecf-currency",
         "tags": [],
         "figmaProps": [
           {
@@ -1502,7 +1502,7 @@
         "exported": true,
         "import": "import { FilterButton } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-filterbutton--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/838f0f-filter-button",
         "tags": [],
         "figmaProps": [
           {
@@ -1604,7 +1604,7 @@
         "exported": true,
         "import": "import { Tabs } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-tabs--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/889a94-tabs",
         "tags": [],
         "figmaProps": [
           {
@@ -1876,7 +1876,7 @@
         "exported": true,
         "import": "import { Link } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-link--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/153ebd-link",
         "tags": [],
         "figmaProps": [
           {
@@ -2209,7 +2209,7 @@
         "exported": true,
         "import": "import { NpsScore } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-npsscore--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/1362d2-nps-score",
         "tags": [],
         "figmaProps": [
           {
@@ -2270,7 +2270,7 @@
         "exported": true,
         "import": "import { Pagination } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-pagination--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/084582-pagination",
         "tags": [],
         "figmaProps": [
           {
@@ -2301,7 +2301,7 @@
         "exported": true,
         "import": "import { PasswordInput } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-passwordinput--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/017d28-password-input",
         "tags": [],
         "figmaProps": [
           {
@@ -2398,7 +2398,7 @@
         "exported": true,
         "import": "import { ProgressLine } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-progressline--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/736e43-progress-line",
         "tags": [],
         "figmaProps": [
           {
@@ -2536,7 +2536,7 @@
         "exported": true,
         "import": "import { Radio } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-radio--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/84deb8-radio-button",
         "tags": [],
         "figmaProps": [
           {
@@ -2586,7 +2586,7 @@
         "exported": true,
         "import": "import { Radio } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-radio--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/84deb8-radio-button",
         "tags": [],
         "figmaProps": []
       },
@@ -2681,7 +2681,7 @@
         "exported": true,
         "import": "import { Tabs } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-tabs--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/889a94-tabs",
         "tags": [],
         "figmaProps": [
           {
@@ -3232,7 +3232,7 @@
         "exported": true,
         "import": "import { Table } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-table--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/025123-table",
         "tags": [
           "refactor"
         ],
@@ -3349,7 +3349,7 @@
         "exported": true,
         "import": "import { Textarea } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-textarea--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/3532f8-text-area",
         "tags": [],
         "figmaProps": [
           {
@@ -3427,7 +3427,7 @@
         "exported": true,
         "import": "import { TextInput } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-textinput--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/19e04b-text-input",
         "tags": [],
         "figmaProps": [
           {
@@ -3501,7 +3501,7 @@
         "exported": true,
         "import": "import { ToastProvider, useToast } from '@caju-beneficios/castanha-react';",
         "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-toast--docs",
-        "zeroheight": null,
+        "zeroheight": "https://castanha.caju.com.br/858426090/p/19d79d-toast",
         "tags": [],
         "figmaProps": [
           {
@@ -3855,6 +3855,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Exibe mensagens de feedback contextual com ícone, título opcional e botão de fechar.",
       "import": "import { Alert } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
@@ -4102,6 +4103,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Pequeno rótulo visual para indicar status, contagem ou notificação. Não interativo por padrão.",
       "import": "import { Badge } from '@caju-beneficios/castanha-react';",
       "tags": [
         "refactor"
@@ -4109,7 +4111,7 @@
       "noFigma": false,
       "storyId": "components-badge--basic",
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-badge--docs",
-      "zeroheight": null,
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/97d72a-badge",
       "storyNodeIds": [
         "4835-1472"
       ],
@@ -4168,6 +4170,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Card interativo que exibe o saldo de uma categoria, com rótulo, valor e tags complementares. Sempre clicável — funciona como ponto de entrada para o detalhe ou o extrato da categoria.",
       "import": "import { BalanceCard } from '@caju-beneficios/castanha-react';",
       "tags": [
         "new"
@@ -4278,6 +4281,7 @@
       "inMain": false,
       "exports": [],
       "subcomponents": [],
+      "description": "Destaque de conteúdo promocional ou informação relevante, com título, descrição e indicação de ação em um único destino.",
       "import": "import { Banner } from '@caju-beneficios/castanha-react';",
       "tags": [
         "new"
@@ -4427,6 +4431,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Componente primitivo para construir layouts. Fornece controle total sobre espaçamento, dimensões e posicionamento.",
       "import": "import { Box } from '@caju-beneficios/castanha-react';",
       "tags": [
         "no-figma"
@@ -4885,6 +4890,7 @@
       "subcomponents": [
         "Item"
       ],
+      "description": "Navegação estrutural do projeto. Colapsa automaticamente no mobile e quando o número de itens excede `maxItems`.",
       "import": "import { Breadcrumbs } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
@@ -5071,12 +5077,13 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Logotipo da marca Caju. Elemento visual para reconhecimento da marca em interfaces.",
       "import": "import { CajuBrand } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
       "storyId": "components-cajubrand--basic",
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-cajubrand--docs",
-      "zeroheight": null,
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/62eaf1-caju-brand",
       "storyNodeIds": [
         "11271-154"
       ],
@@ -5124,6 +5131,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Representação visual do cartão Caju, na frente ou no verso. Exibe os dados do cartão conforme a variante e a orientação.",
       "import": "import { CajuCard } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
@@ -5228,12 +5236,13 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Container visual para agrupar informações relacionadas de forma clara e compacta.",
       "import": "import { Card } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
       "storyId": "components-card--basic",
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-card--docs",
-      "zeroheight": null,
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/838f0f-card",
       "storyNodeIds": [
         "5256-540"
       ],
@@ -5269,6 +5278,7 @@
       "inMain": false,
       "exports": [],
       "subcomponents": [],
+      "description": "Organiza de 3 a 10 itens em sequência horizontal, um por vez, com pré-visualização parcial do próximo. Sempre acompanhado do Nav Control.",
       "import": "import { Carousel } from '@caju-beneficios/castanha-react';",
       "tags": [
         "new"
@@ -5352,12 +5362,13 @@
       "subcomponents": [
         "Group"
       ],
+      "description": "Permite selecionar uma ou mais opções. Use Checkbox.Group para agrupar múltiplas opções relacionadas.",
       "import": "import { Checkbox } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
       "storyId": "components-checkbox--basic",
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-checkbox--docs",
-      "zeroheight": null,
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/320247-checkbox",
       "storyNodeIds": [
         "4429-10393"
       ],
@@ -5473,6 +5484,7 @@
         "Chips"
       ],
       "subcomponents": [],
+      "description": "Rótulos interativos para filtros e seleções. Use `Chips.Filter` para toggles de filtro e `Chips.Input` para itens removíveis.",
       "import": "import { Chips } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
@@ -5616,6 +5628,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Bloco centralizado com ícone em destaque, título e texto de apoio.",
       "import": "import { ConfirmationMessage } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
@@ -5682,12 +5695,13 @@
       "subcomponents": [
         "Item"
       ],
+      "description": "Lista de conteúdo com suporte a diferentes padrões de trailing: navegação, transacional e ícone customizável.",
       "import": "import { ContentList } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
       "storyId": "components-contentlist--basic",
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-contentlist--docs",
-      "zeroheight": null,
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/90843a-content-list",
       "storyNodeIds": [
         "5516-8528"
       ],
@@ -5910,12 +5924,13 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Componente para avaliação de satisfação do cliente (CSAT) com 5 níveis de resposta. Usado para coletar feedback rápido sobre experiências ou atendimentos.",
       "import": "import { CsatScore } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
       "storyId": "components-csatscore--basic",
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-csatscore--docs",
-      "zeroheight": null,
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/09d6a3-csat-score",
       "storyNodeIds": [],
       "codeConnect": [
         {
@@ -6003,12 +6018,13 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Exibe um valor monetário em BRL com tipografia consistente e controle de visibilidade.",
       "import": "import { Currency } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
       "storyId": "components-currency--basic",
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-currency--docs",
-      "zeroheight": null,
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/963ecf-currency",
       "storyNodeIds": [
         "5301-2173"
       ],
@@ -6091,6 +6107,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Campo de data que aceita digitação com máscara e abre o calendário num popover.",
       "import": "import { DateInput } from '@caju-beneficios/castanha-react';",
       "tags": [
         "new"
@@ -6300,6 +6317,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Calendário para escolher uma data ou um intervalo, navegando entre dias, meses e anos.",
       "import": "import { DatePicker } from '@caju-beneficios/castanha-react';",
       "tags": [
         "new"
@@ -6618,6 +6636,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Apresenta o calendário num modal e confirma a escolha numa barra de ações.",
       "import": "import { DatePickerModal } from '@caju-beneficios/castanha-react';",
       "tags": [
         "new"
@@ -6861,6 +6880,7 @@
         "Footer",
         "Header"
       ],
+      "description": "Painel lateral acessível com focus trap e suporte a Escape. Composto por Header, Content e Footer.",
       "import": "import { Drawer } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
@@ -6971,6 +6991,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Abre um popover com conteúdo customizável ao ser clicado.",
       "import": "import { DropButton } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
@@ -7018,6 +7039,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Área para seleção de arquivos por clique ou arraste (drag and drop).",
       "import": "import { Dropzone } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
@@ -7148,6 +7170,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Primitivo de campo de formulário que conecta label, input e mensagens de suporte via contexto, provendo acessibilidade automática.",
       "import": "import { Field } from '@caju-beneficios/castanha-react';",
       "tags": [
         "no-figma"
@@ -7251,12 +7274,13 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Botão para abrir painel de filtros, com indicador de quantidade quando há filtros ativos.",
       "import": "import { FilterButton } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
       "storyId": "components-filterbutton--basic",
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-filterbutton--docs",
-      "zeroheight": null,
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/838f0f-filter-button",
       "storyNodeIds": [
         "5256-540"
       ],
@@ -7311,6 +7335,7 @@
       "subcomponents": [
         "Item"
       ],
+      "description": "Cria layouts bidimensionais com CSS Grid. Use Grid para estrutura em grade e Grid.Item para posicionar elementos.",
       "import": "import { Grid } from '@caju-beneficios/castanha-react';",
       "tags": [
         "no-figma"
@@ -7856,6 +7881,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Exibe ilustrações do sistema de design.",
       "import": "import { Illustration } from '@caju-beneficios/castanha-react';",
       "tags": [
         "no-figma"
@@ -7863,7 +7889,7 @@
       "noFigma": true,
       "storyId": "components-illustration--basic",
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-illustration--docs",
-      "zeroheight": null,
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/48f60e-biblioteca-de-ilustracoes",
       "storyNodeIds": [],
       "codeConnect": [],
       "props": {
@@ -8009,12 +8035,13 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Navegação textual para outras páginas, seções ou recursos externos.",
       "import": "import { Link } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
       "storyId": "components-link--basic",
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-link--docs",
-      "zeroheight": null,
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/153ebd-link",
       "storyNodeIds": [
         "4926-213"
       ],
@@ -8076,6 +8103,7 @@
         "Footer",
         "Header"
       ],
+      "description": "Janela de diálogo acessível com focus trap e suporte a Escape. Composto por Header, Content e Footer.",
       "import": "import { Modal } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
@@ -8324,6 +8352,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Indica a posição atual e a quantidade de itens de um carrossel. Os indicadores são somente leitura — no mobile a navegação é o swipe do conteúdo; no desktop, as setas.",
       "import": "import { NavControl } from '@caju-beneficios/castanha-react';",
       "tags": [
         "new"
@@ -8421,7 +8450,7 @@
       "noFigma": false,
       "storyId": "components-npsscore--basic",
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-npsscore--docs",
-      "zeroheight": null,
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/1362d2-nps-score",
       "storyNodeIds": [],
       "codeConnect": [
         {
@@ -8497,12 +8526,13 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Permite navegar entre páginas de uma lista e controlar a quantidade de itens exibidos por página.",
       "import": "import { Pagination } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
       "storyId": "components-pagination--basic",
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-pagination--docs",
-      "zeroheight": null,
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/084582-pagination",
       "storyNodeIds": [
         "13408-1416"
       ],
@@ -8603,12 +8633,13 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Campo de senha com botão de revelação integrado e anúncio acessível do estado de visibilidade.",
       "import": "import { PasswordInput } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
       "storyId": "components-passwordinput--basic",
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-passwordinput--docs",
-      "zeroheight": null,
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/017d28-password-input",
       "storyNodeIds": [
         "5798-2677"
       ],
@@ -8694,6 +8725,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Container posicionado via floating, renderizado em portal fora da árvore DOM.",
       "import": "import { Popover } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
@@ -8816,12 +8848,13 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Barra de progresso linear que representa visualmente o avanço de uma tarefa.",
       "import": "import { ProgressLine } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
       "storyId": "components-progressline--basic",
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-progressline--docs",
-      "zeroheight": null,
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/736e43-progress-line",
       "storyNodeIds": [
         "2322-4006"
       ],
@@ -8877,7 +8910,7 @@
       "subcomponents": [
         "Item"
       ],
-      "description": "Preencha seu CEP para continuar",
+      "description": "Indicador de progresso em etapas sequenciais (stepper), nas orientações vertical e horizontal.",
       "import": "import { ProgressTracker } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
@@ -9026,12 +9059,13 @@
       "subcomponents": [
         "Group"
       ],
+      "description": "Permite selecionar apenas uma opção entre várias. Use Radio.Group para agrupar opções relacionadas.",
       "import": "import { Radio } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
       "storyId": "components-radio--basic",
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-radio--docs",
-      "zeroheight": null,
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/84deb8-radio-button",
       "storyNodeIds": [
         "4429-10395"
       ],
@@ -9144,6 +9178,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Campo de busca com ícone de pesquisa fixo, botão de limpar e suporte a contador de caracteres e validação.",
       "import": "import { SearchInput } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
@@ -9233,6 +9268,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Campo de seleção com busca, opções assíncronas e criação de itens. Suporta navegação por teclado completa.",
       "import": "import { SelectInput } from '@caju-beneficios/castanha-react';",
       "tags": [
         "refactor"
@@ -9557,6 +9593,7 @@
       "subcomponents": [
         "Item"
       ],
+      "description": "Lista selecionável com suporte a seleção múltipla (checkbox) ou única (radio) de itens.",
       "import": "import { SelectionList } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
@@ -9834,6 +9871,7 @@
       "subcomponents": [
         "Carousel"
       ],
+      "description": "Atalho para ações ou navegações frequentes, combinando ícone, rótulo e, opcionalmente, valor monetário e badge.",
       "import": "import { Shortcut } from '@caju-beneficios/castanha-react';",
       "tags": [
         "new"
@@ -9999,6 +10037,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Seleciona um valor ou uma faixa dentro de um intervalo contínuo, arrastando o controle ao longo do trilho.",
       "import": "import { Slider } from '@caju-beneficios/castanha-react';",
       "tags": [
         "new"
@@ -10253,6 +10292,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Organiza elementos horizontalmente em linha.",
       "import": "import { HStack } from '@caju-beneficios/castanha-react';",
       "tags": [
         "no-figma"
@@ -10308,6 +10348,7 @@
       "inMain": false,
       "exports": [],
       "subcomponents": [],
+      "description": "Indicador compacto de estado, formado por um ponto colorido e um rótulo em texto. Aparece dentro de linhas de conteúdo, sem o peso visual de um container preenchido.",
       "import": "import { StatusDot } from '@caju-beneficios/castanha-react';",
       "tags": [
         "new"
@@ -10449,6 +10490,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Mensagem de nível de sistema, fixa no topo da tela e sobreposta ao conteúdo — comunica um estado global do app (nova versão, manutenção, aviso amplo). Diferente do Alert, não empurra o fluxo do corpo.",
       "import": "import { SystemBanner } from '@caju-beneficios/castanha-react';",
       "tags": [
         "new"
@@ -10533,6 +10575,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Alternador compacto entre duas visualizações, por padrão grade e lista, com ícones do design system.",
       "import": "import { TabView } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
@@ -10628,6 +10671,7 @@
         "Row",
         "Toolbar"
       ],
+      "description": "Tabela de dados acessível com suporte a seleção em massa, ordenação por coluna, colunas e cabeçalho fixos, e navegação por teclado no padrão grid (setas).",
       "import": "import { Table } from '@caju-beneficios/castanha-react';",
       "tags": [
         "refactor"
@@ -10635,7 +10679,7 @@
       "noFigma": false,
       "storyId": "components-table--basic",
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-table--docs",
-      "zeroheight": null,
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/025123-table",
       "storyNodeIds": [
         "13472-5725"
       ],
@@ -10860,12 +10904,13 @@
         "Item",
         "Panel"
       ],
+      "description": "Organiza conteúdo relacionado em abas navegáveis. Suporta até 5 abas em modo fixo (distribuição igual) ou modo scrollable para listas maiores.",
       "import": "import { Tabs } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
       "storyId": "components-tabs--basic",
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-tabs--docs",
-      "zeroheight": null,
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/889a94-tabs",
       "storyNodeIds": [
         "6500-6958"
       ],
@@ -11062,6 +11107,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Renderiza texto com tipografia e semântica apropriadas.",
       "import": "import { Text } from '@caju-beneficios/castanha-react';",
       "tags": [
         "no-figma"
@@ -11414,12 +11460,13 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Campo de texto para entrada de dados com suporte a ícone de lead, contador de caracteres e validação.",
       "import": "import { TextInput } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
       "storyId": "components-textinput--basic",
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-textinput--docs",
-      "zeroheight": null,
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/19e04b-text-input",
       "storyNodeIds": [
         "5743-325"
       ],
@@ -11512,12 +11559,13 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Campo de entrada multilinha para conteúdos longos.",
       "import": "import { Textarea } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
       "storyId": "components-textarea--basic",
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-textarea--docs",
-      "zeroheight": null,
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/3532f8-text-area",
       "storyNodeIds": [
         "10110-3028"
       ],
@@ -11588,12 +11636,13 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Exibe notificações temporárias de feedback ao usuário.",
       "import": "import { ToastProvider, useToast } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
       "storyId": "components-toast--basic",
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-toast--docs",
-      "zeroheight": null,
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/19d79d-toast",
       "storyNodeIds": [
         "5234-516"
       ],
@@ -11701,6 +11750,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Exibe informação contextual ao hover ou foco do trigger.",
       "import": "import { Tooltip } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
@@ -11759,6 +11809,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Bloco que apresenta um assunto com ícone, título e texto de apoio.",
       "import": "import { Topic } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
@@ -11828,6 +11879,7 @@
       "subcomponents": [
         "Item"
       ],
+      "description": "Lista de arquivos enviados, com o status de cada um — enviando, sucesso, erro ou já enviado anteriormente.",
       "import": "import { UploadList } from '@caju-beneficios/castanha-react';",
       "tags": [],
       "noFigma": false,
@@ -12000,6 +12052,7 @@
       "inMain": true,
       "exports": [],
       "subcomponents": [],
+      "description": "Oculta conteúdo visualmente mas mantém acessível para leitores de tela.",
       "import": "import { VisuallyHidden } from '@caju-beneficios/castanha-react';",
       "tags": [
         "no-figma"

@@ -3,7 +3,7 @@
  * Auditoria da UI do playground (D69 · docs/PLANO-UI-DS.md): o que ainda não é componente do DS ou token.
  *   node scripts/dev/audit-ui.js
  *
- * 1. CSS da casca (styles/playground.css · docs.css · report.css): valores crus fora de comentário e de @media
+ * 1. CSS da casca (styles/playground.css · docs.css · report.css): valores crus fora de comentário, de @media e de @container
  *    (px, #hex, rgb/rgba, duração em s/ms, font com tamanho cru, cubic-bezier).
  * 2. JS da casca (app · kit · docs-kit · report) e playgrounds/docs: controles HTML criados à mão
  *    (button, input, select, textarea, details/summary) — devem ser componentes do DS.
@@ -19,7 +19,7 @@ const read = (f) => fs.readFileSync(f, "utf8");
 
 // Exceções conhecidas (C83 · C87): mantidas de propósito
 const EXCEPTIONS = [
-  { file: /styles\/.*\.css$/, re: /@media/, why: "breakpoint: CSS não aceita var() em @media (C83)" },
+  { file: /styles\/.*\.css$/, re: /@media|@container/, why: "breakpoint: CSS não aceita var() em @media nem em @container (C83)" },
   { file: /styles\/docs\.css$/, re: /--pg-cover-bg:#f7f3ed/, why: "fundo decorativo da capa = hex do [Header] do Figma, sem token (Gustavo, C91)" },
   { file: /scripts\/docs-kit\.js$/, re: /el\("(button)", "pg-doc-icons__tile/, why: "tile de galeria clicável (C87)" },
   { file: /scripts\/docs-kit\.js$/, re: /el\("button", "pg-doc-icons__tile/, why: "tile de galeria clicável (C87)" },

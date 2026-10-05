@@ -44,6 +44,9 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
   overflow-y:auto; padding:var(--common-sizes-24) var(--common-sizes-16); background:var(--common-colors-surface-default);
   box-shadow:inset calc(-1 * var(--common-border-width-hairline)) 0 0 var(--pg-line);
 }
+/* Menu sem barra de rolagem visível: continua rolando (roda, trackpad, teclado, toque) */
+.pg-sidebar{ scrollbar-width:none; }
+.pg-sidebar::-webkit-scrollbar{ display:none; }
 .pg-search{ display:block; width:100%; margin:0 0 var(--common-sizes-24); } /* Search Input do DS */
 .pg-nav-title.pg-nav-title--res{ margin-top:var(--common-sizes-24); padding-top:var(--common-sizes-16); box-shadow:inset 0 var(--common-border-width-hairline) 0 var(--pg-line); }
 .pg-nav-title{ margin:0 var(--common-sizes-8) var(--common-sizes-8); font:var(--text-style-disclaimer-medium); color:var(--common-colors-text-medium); }

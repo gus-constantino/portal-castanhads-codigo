@@ -42,6 +42,7 @@
   // "--common-colors-accent-solid-soft" − prefixo → "Solid/soft" (o "/" separa os níveis, como no Figma)
   function label(n, prefix){ return cap(n.slice(prefix.length).replace(/-(soft|semi-soft|medium|semi-intense|intense|light|semi-transparent|semi-opaque|pale|mild|default|inversed|accent|lighter|darker|system|accent-soft|accelerate|decelerate|smooth|overshoot|\d+)$/, "/$1").replace(/^-/, "")); }
   function code(text, token){ var c = el("code", "pg-tok__code", text); if (token) c.dataset.token = token; return c; }
+  var SAMPLE = { text: "Castanha DS" }; // texto de exemplo compartilhado pelas amostras de tipografia
   var reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   var order = 0; // entrada em sequência (limitada no CSS)
 
@@ -165,23 +166,60 @@
       charts.forEach(function(n){ var k = n.match(/charts-(\d+)/)[1]; (sets[k] = sets[k] || []).push(n); });
       rampSection(root, "Charts", Object.keys(sets).map(function(k){ return ["Charts " + k, "--common-colors-charts-" + k + "-"]; }));
     },
+    // Tipografia (referências: Google Fonts — texto editável e pesos lado a lado; Tailwind/Material — escala em linhas;
+    // HIG/Carbon — estilos por categoria): o Text Input do DS troca o texto de todas as amostras da página
     font: function(root){
-      var spec = function(prop, text){ return function(sw, n){ sw.classList.add("pg-tok__type"); sw.textContent = text; sw.style[prop] = "var(" + n + ")"; }; };
-      group(root, "Family", pick("--common-font-family-"), "--common-font-family-", spec("fontFamily", "Aa"), "is-wide");
-      group(root, "Size", pick("--common-font-size-"), "--common-font-size-", spec("fontSize", "Aa"), "is-wide");
-      group(root, "Line height", pick("--common-font-line-height-"), "--common-font-line-height-", function(sw, n){ sw.classList.add("pg-tok__type", "is-lines"); sw.textContent = "Ag Ag"; sw.style.lineHeight = "var(" + n + ")"; }, "is-wide");
-      group(root, "Weight", pick("--common-font-weight-"), "--common-font-weight-", spec("fontWeight", "Aa"), "is-wide");
+      var bar = root.appendChild(el("div", "pg-ty-bar"));
+      var inp = bar.appendChild(document.createElement("cds-text-input"));
+      [["label", "Texto de exemplo"], ["value", SAMPLE.text], ["placeholder", "Digite para testar"], ["show-required", "false"], ["show-lead-icon", "false"],
+       ["show-supporting-content", "false"], ["show-character-counter", "false"]].forEach(function(a){ inp.setAttribute(a[0], a[1]); });
+      inp.addEventListener("cds-change", function(e){ e.stopPropagation(); SAMPLE.text = String(inp.value || "") || "Castanha DS";
+        [].forEach.call(document.querySelectorAll(".pg-tok-root [data-sample]"), function(x){ x.textContent = SAMPLE.text; }); });
+      // Família: "Aa" grande + alfabeto
+      var fam = pick("--common-font-family-"), g1 = section(root, "Family", fam.length).appendChild(grid("is-family"));
+      fam.forEach(function(n){
+        var t = g1.appendChild(tile("pg-ty-family", n)); t.style.fontFamily = "var(" + n + ")";
+        t.appendChild(el("span", "pg-ty-family__aa", "Aa"));
+        t.appendChild(el("span", "pg-ty-family__abc", "ABCDEFGHIJKLM abcdefghijklm 0123456789"));
+        var cap = t.appendChild(el("span", "pg-tok__text")); cap.appendChild(el("span", "pg-tok__name", label(n, "--common-font-family-"))); cap.appendChild(code(val(n), n));
+      });
+      // Peso: os pesos lado a lado na mesma faixa
+      var w = pick("--common-font-weight-"), strip = section(root, "Weight", w.length).appendChild(el("div", "pg-ty-weights"));
+      w.forEach(function(n){
+        var t = strip.appendChild(tile("pg-ty-weight", n));
+        var aa = t.appendChild(el("span", "pg-ty-weight__aa", "Aa")); aa.style.fontWeight = "var(" + n + ")";
+        var cap = t.appendChild(el("span", "pg-tok__text")); cap.appendChild(el("span", "pg-tok__name", label(n, "--common-font-weight-"))); cap.appendChild(code(val(n), n));
+      });
+      // Tamanho: escala em linhas (rótulo à esquerda, amostra com o texto de exemplo)
+      var sz = pick("--common-font-size-"), list = section(root, "Size", sz.length).appendChild(el("div", "pg-ty-scale"));
+      sz.forEach(function(n){
+        var row = list.appendChild(tile("pg-ty-row", n));
+        var meta = row.appendChild(el("span", "pg-ty-row__meta")); meta.appendChild(el("span", "pg-tok__name", label(n, "--common-font-size-"))); meta.appendChild(code(val(n), n));
+        var sp = row.appendChild(el("span", "pg-ty-row__sample", SAMPLE.text)); sp.dataset.sample = ""; sp.style.fontSize = "var(" + n + ")";
+      });
+      // Altura de linha: parágrafo com as linhas-guia desenhadas
+      var lh = pick("--common-font-line-height-"), g2 = section(root, "Line height", lh.length).appendChild(grid("is-wide"));
+      lh.forEach(function(n){
+        var t = g2.appendChild(tile("pg-ty-lh", n));
+        var para = t.appendChild(el("span", "pg-ty-lh__para", "Seus benefícios num só cartão: alimentação, mobilidade, saúde e cultura, com saldo flexível para usar onde fizer sentido.")); para.style.setProperty("--_lh", "var(" + n + ")");
+        var cap = t.appendChild(el("span", "pg-tok__text")); cap.appendChild(el("span", "pg-tok__name", label(n, "--common-font-line-height-"))); cap.appendChild(code(val(n), n));
+      });
     },
+    // Text styles por categoria: meta (peso · tamanho · altura) + amostra com o texto de exemplo
     "text-styles": function(root){
-      var list = pick("--text-style-", /-decoration$/), s = root.appendChild(el("div", "pg-tok-list"));
-      list.forEach(function(n){
-        var row = s.appendChild(tile("pg-tok-style", n));
-        var sample = row.appendChild(el("span", "pg-tok-style__sample", "Castanha DS"));
-        sample.style.font = "var(" + n + ")";
-        if (names().indexOf(n + "-decoration") !== -1) sample.style.textDecoration = "var(" + n + "-decoration)";
-        var fc = row.appendChild(el("span", "pg-tok__text"));
-        fc.appendChild(el("span", "pg-tok__name", n.replace("--text-style-", "").replace(/-/, "/").split("/").map(cap).join("/")));
-        fc.appendChild(code(val(n), n));
+      var list = pick("--text-style-", /-decoration$/), cats = {}, order = [];
+      list.forEach(function(n){ var c = n.replace("--text-style-", "").split("-")[0]; if (!cats[c]){ cats[c] = []; order.push(c); } cats[c].push(n); });
+      order.forEach(function(c){
+        var sec = section(root, cap(c), cats[c].length), box = sec.appendChild(el("div", "pg-ty-scale"));
+        cats[c].forEach(function(n){
+          var v = val(n), m = v.match(/^(\d+)\s+([\d.]+px)\/([\d.]+)\s+"?([^",]+)/);
+          var row = box.appendChild(tile("pg-ty-row is-style", n));
+          var meta = row.appendChild(el("span", "pg-ty-row__meta"));
+          meta.appendChild(el("span", "pg-tok__name", n.replace("--text-style-" + c + "-", "").split("-").map(cap).join(" ")));
+          meta.appendChild(el("span", "pg-ty-row__spec", m ? m[1] + " · " + m[2] + " · " + m[3] + " · " + m[4] : v));
+          var sp = row.appendChild(el("span", "pg-ty-row__sample", SAMPLE.text)); sp.dataset.sample = ""; sp.style.font = "var(" + n + ")";
+          if (names().indexOf(n + "-decoration") !== -1) sp.style.textDecoration = "var(" + n + "-decoration)";
+        });
       });
     },
     radius: function(root){ group(root, "Radius", pick("--common-border-radius-"), "--common-border-radius-", function(sw, n){ sw.classList.add("pg-tok__corner"); sw.style.borderTopLeftRadius = "var(" + n + ")"; }, "is-wide"); },

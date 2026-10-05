@@ -1,0 +1,115 @@
+{
+  "element": "cds-date-picker",
+  "defaults": {
+    "kind": "single",
+    "mode": "range",
+    "selected-date-label": "Data Selecionada",
+    "show-selected-dates": "true"
+  },
+  "jsx": {
+    "tag": "DatePicker",
+    "props": [
+      {
+        "prop": "kind",
+        "attr": "kind",
+        "map": {
+          "single": "single-calendar",
+          "double": "double-calendar"
+        }
+      },
+      {
+        "prop": "mode",
+        "value": "range",
+        "if": {
+          "mode": "!single"
+        }
+      },
+      {
+        "prop": "defaultValue",
+        "attr": "value",
+        "expr": "new Date('{v}')",
+        "if": {
+          "mode": "single"
+        }
+      },
+      {
+        "prop": "defaultValue",
+        "attr": "start",
+        "expr": "{ start: new Date('{v}'), end: new Date('{@end}') }",
+        "if": {
+          "mode": "!single"
+        }
+      },
+      {
+        "prop": "minDate",
+        "attr": "min",
+        "expr": "new Date('{v}')"
+      },
+      {
+        "prop": "maxDate",
+        "attr": "max",
+        "expr": "new Date('{v}')"
+      },
+      {
+        "prop": "hideSelectedDates",
+        "attr": "show-selected-dates",
+        "bool": "not"
+      },
+      {
+        "prop": "selectedDateLabel",
+        "attr": "selected-date-label",
+        "if": {
+          "selected-date-label": "!Data Selecionada"
+        }
+      },
+      {
+        "prop": "onChange",
+        "expr": "setDate"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Kind",
+      "kind",
+      "kind",
+      "Single/Double Calendar → `single-calendar`/`double-calendar`."
+    ],
+    [
+      "Role",
+      "view",
+      "—",
+      "Dias, mês e ano: o React troca de visão sozinho (botões de mês e ano)."
+    ],
+    [
+      "Show Selected Dates",
+      "show-selected-dates",
+      "hideSelectedDates",
+      "Invertido: desligado = `hideSelectedDates`."
+    ],
+    [
+      "Selected Date Label",
+      "selected-date-label",
+      "selectedDateLabel",
+      "Padrão \"Data Selecionada\" nos dois lados."
+    ],
+    [
+      "First Day Selected / Last Day Selected",
+      "value · start/end",
+      "defaultValue / value",
+      "Objetos `Date`; no intervalo, `{ start, end }` com `mode=\"range\"`."
+    ],
+    [
+      "Show week 01",
+      "—",
+      "—",
+      "Show week 01 a 06: o React monta as semanas do mês sozinho."
+    ],
+    [
+      "—",
+      "min / max",
+      "minDate / maxDate",
+      "Objetos `Date`."
+    ]
+  ]
+}

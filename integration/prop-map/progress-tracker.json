@@ -1,0 +1,106 @@
+{
+  "element": "cds-progress-tracker",
+  "defaults": {
+    "orientation": "vertical",
+    "label": "Progresso"
+  },
+  "jsx": {
+    "tag": "ProgressTracker",
+    "props": [
+      {
+        "prop": "orientation",
+        "attr": "orientation"
+      },
+      {
+        "prop": "aria-label",
+        "attr": "label",
+        "if": {
+          "label": "!Progresso"
+        }
+      }
+    ],
+    "children": [
+      {
+        "each": "cds-progress-tracker-item",
+        "node": {
+          "tag": "ProgressTracker.Item",
+          "defaults": {
+            "status": "pending",
+            "label": "Label",
+            "description": "Description content",
+            "show-description": "true",
+            "show-link": "true",
+            "link-label": "Link content",
+            "href": "#",
+            "kind": "number",
+            "marker-label": "1",
+            "marker-icon": "placeholder-line"
+          },
+          "props": [
+            {
+              "prop": "status",
+              "attr": "status"
+            },
+            {
+              "prop": "label",
+              "attr": "label"
+            },
+            {
+              "prop": "description",
+              "attr": "description",
+              "if": {
+                "show-description": "!false"
+              }
+            },
+            {
+              "prop": "kind",
+              "attr": "kind"
+            },
+            {
+              "prop": "icon",
+              "attr": "marker-icon",
+              "if": {
+                "kind": "icon"
+              }
+            },
+            {
+              "prop": "markerLabel",
+              "attr": "marker-label",
+              "if": {
+                "kind": "!icon"
+              }
+            },
+            {
+              "prop": "link",
+              "attr": "link-label",
+              "expr": "{ label: '{v}', href: '{@href}' }",
+              "if": {
+                "show-link": "!false"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Orientation",
+      "orientation",
+      "orientation",
+      "Propagada aos itens nos dois lados (no Figma, cada item é ajustado à mão)."
+    ],
+    [
+      "Tracker",
+      "(filhos)",
+      "<ProgressTracker.Item>",
+      "Um item por etapa, com `status` (`completed`, `current`, `pending`)."
+    ],
+    [
+      "—",
+      "current",
+      "status dos itens",
+      "No playground, `current` calcula os status; no React, cada item recebe o seu."
+    ]
+  ]
+}

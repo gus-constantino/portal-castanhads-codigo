@@ -1,0 +1,166 @@
+{
+  "element": "cds-upload-item",
+  "defaults": {
+    "status": "uploading",
+    "text-title": "File name",
+    "file-extension": ".jpg",
+    "success-message": "Enviado com sucesso",
+    "error-message": "Falha ao enviar",
+    "description": "Enviado em 10/05/2025",
+    "percent": "60",
+    "show-primary-action": "true",
+    "show-secondary-action": "true"
+  },
+  "jsx": {
+    "tag": "UploadList.Item",
+    "defaults": {
+      "status": "uploading",
+      "text-title": "File name",
+      "file-extension": ".jpg",
+      "success-message": "Enviado com sucesso",
+      "error-message": "Falha ao enviar",
+      "description": "Enviado em 10/05/2025",
+      "percent": "60",
+      "show-primary-action": "true",
+      "show-secondary-action": "true"
+    },
+    "props": [
+      {
+        "prop": "fileName",
+        "attr": "text-title"
+      },
+      {
+        "prop": "extension",
+        "attr": "file-extension"
+      },
+      {
+        "prop": "status",
+        "attr": "status"
+      },
+      {
+        "prop": "progress",
+        "attr": "percent",
+        "num": true,
+        "if": {
+          "status": "uploading"
+        }
+      },
+      {
+        "prop": "message",
+        "attr": "success-message",
+        "if": {
+          "status": "success",
+          "success-message": "!Enviado com sucesso"
+        }
+      },
+      {
+        "prop": "message",
+        "attr": "error-message",
+        "if": {
+          "status": "error",
+          "error-message": "!Falha ao enviar"
+        }
+      },
+      {
+        "prop": "message",
+        "attr": "description",
+        "if": {
+          "status": "uploaded"
+        }
+      },
+      {
+        "prop": "previewSrc",
+        "attr": "src",
+        "if": {
+          "status": "!uploading"
+        }
+      },
+      {
+        "prop": "trailingItem",
+        "expr": "[{ icon: 'delete-line', label: 'Remover', onClick: handleRemove }]",
+        "if": {
+          "status": "!uploading",
+          "show-primary-action": "true",
+          "show-secondary-action": "false"
+        }
+      },
+      {
+        "prop": "trailingItem",
+        "expr": "[{ icon: 'download-line', label: 'Baixar', onClick: handleDownload }, { icon: 'delete-line', label: 'Remover', onClick: handleRemove }]",
+        "if": {
+          "show-primary-action": "true",
+          "show-secondary-action": "true",
+          "status": "success"
+        }
+      },
+      {
+        "prop": "trailingItem",
+        "expr": "[{ icon: 'download-line', label: 'Baixar', onClick: handleDownload }, { icon: 'delete-line', label: 'Remover', onClick: handleRemove }]",
+        "if": {
+          "show-primary-action": "true",
+          "show-secondary-action": "true",
+          "status": "uploaded"
+        }
+      },
+      {
+        "prop": "trailingItem",
+        "expr": "[{ icon: 'refresh-line', label: 'Tentar de novo', onClick: handleRetry }, { icon: 'delete-line', label: 'Remover', onClick: handleRemove }]",
+        "if": {
+          "status": "error",
+          "show-primary-action": "true",
+          "show-secondary-action": "true"
+        }
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Text Title",
+      "text-title",
+      "fileName",
+      "Sem a extensão."
+    ],
+    [
+      "File Extension",
+      "file-extension",
+      "extension",
+      "Com o ponto (`.pdf`)."
+    ],
+    [
+      "Status",
+      "status",
+      "status",
+      "O padrão do Figma é Uploading; o do React, `uploaded`."
+    ],
+    [
+      "Success message",
+      "success-message",
+      "message",
+      "Só em Success; padrão \"Enviado com sucesso\" nos dois lados."
+    ],
+    [
+      "Description",
+      "description",
+      "message",
+      "Em Uploaded, a data real do envio."
+    ],
+    [
+      "Show primary action / Show secondary action",
+      "show-primary-action · show-secondary-action",
+      "trailingItem",
+      "Até duas ações `{ icon, label, onClick }` (no Error, a secundária é `refresh-line`). Nunca em Uploading."
+    ],
+    [
+      "—",
+      "percent",
+      "progress",
+      "Só em Uploading (0–100)."
+    ],
+    [
+      "—",
+      "src",
+      "previewSrc",
+      "Imagem de preview em Success e Uploaded."
+    ]
+  ]
+}

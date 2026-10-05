@@ -1,0 +1,157 @@
+{
+  "element": "cds-table",
+  "defaults": {
+    "kind": "default",
+    "show-toolbar": "true",
+    "show-pagination": "true",
+    "label": "Tabela"
+  },
+  "jsx": {
+    "tag": "",
+    "children": [
+      {
+        "tag": "Table.Toolbar",
+        "if": {
+          "show-toolbar": "true"
+        },
+        "children": [
+          {
+            "code": "{/* busca, filtros e ações */}"
+          }
+        ]
+      },
+      {
+        "tag": "Table",
+        "props": [
+          {
+            "prop": "aria-label",
+            "attr": "label"
+          },
+          {
+            "prop": "onSelectionChange",
+            "expr": "setSelected",
+            "if": {
+              "selectable": "!null"
+            }
+          }
+        ],
+        "children": [
+          {
+            "tag": "Table.Header",
+            "children": [
+              {
+                "tag": "Table.Row",
+                "children": [
+                  {
+                    "tag": "Table.Head",
+                    "if": {
+                      "selectable": "!null"
+                    },
+                    "props": [
+                      {
+                        "prop": "kind",
+                        "value": "checkbox"
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "Table.Head",
+                    "props": [
+                      {
+                        "prop": "sortable",
+                        "expr": "true"
+                      }
+                    ],
+                    "children": [
+                      {
+                        "text": "Nome"
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "Table.Head",
+                    "children": [
+                      {
+                        "text": "Saldo"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "tag": "Table.Body",
+            "children": [
+              {
+                "code": "{rows.map((row) => (\n        <Table.Row key={row.id} rowId={row.id}>\n          <Table.Cell kind=\"text\" title={row.name} />\n          <Table.Cell kind=\"balance\" value={row.balance} />\n        </Table.Row>\n      ))}"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tag": "Table.Pagination",
+        "if": {
+          "show-pagination": "true"
+        },
+        "props": [
+          {
+            "prop": "page",
+            "expr": "page"
+          },
+          {
+            "prop": "pageSize",
+            "expr": "10"
+          },
+          {
+            "prop": "total",
+            "expr": "rows.length"
+          },
+          {
+            "prop": "onPageChange",
+            "expr": "setPage"
+          }
+        ]
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Table Columns",
+      "(colunas)",
+      "<Table.Head> + <Table.Cell>",
+      "Uma `Table.Head` por coluna; as células usam `kind` (`text`, `balance`, `percentual`, `checkbox`)."
+    ],
+    [
+      "Show Toolbar",
+      "show-toolbar",
+      "<Table.Toolbar>",
+      "Desligado: não use o `Table.Toolbar`."
+    ],
+    [
+      "Show Pagination",
+      "show-pagination",
+      "<Table.Pagination>",
+      "Mesmas props do `Pagination`."
+    ],
+    [
+      "Kind",
+      "kind",
+      "—",
+      "Empty: renderize o estado vazio no lugar das linhas."
+    ],
+    [
+      "—",
+      "selectable",
+      "Table.Head kind=\"checkbox\" + onSelectionChange",
+      "Seleção de linhas (`selectedRows` no modo controlado)."
+    ],
+    [
+      "—",
+      "—",
+      "sortable + sortDirection + onSortChange",
+      "Ordenação por coluna em `Table.Head`."
+    ]
+  ]
+}

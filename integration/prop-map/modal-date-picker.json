@@ -1,0 +1,118 @@
+{
+  "element": "cds-modal-date-picker:not([inline])",
+  "defaults": {
+    "kind": "single",
+    "role-kind": "none",
+    "text-title": "Selecione uma data",
+    "primary-label": "Confirmar",
+    "secondary-label": "Cancelar"
+  },
+  "pre": [
+    "const [open, setOpen] = useState(false);"
+  ],
+  "jsx": {
+    "tag": "DatePickerModal",
+    "props": [
+      {
+        "prop": "open",
+        "expr": "open"
+      },
+      {
+        "prop": "onClose",
+        "expr": "() => setOpen(false)"
+      },
+      {
+        "prop": "onConfirm",
+        "expr": "handleConfirm"
+      },
+      {
+        "prop": "kind",
+        "attr": "kind",
+        "map": {
+          "single": "single-calendar",
+          "double": "double-calendar"
+        }
+      },
+      {
+        "prop": "mode",
+        "value": "range",
+        "if": {
+          "role-kind": "range"
+        }
+      },
+      {
+        "prop": "defaultValue",
+        "attr": "value",
+        "expr": "new Date('{v}')",
+        "if": {
+          "role-kind": "single"
+        }
+      },
+      {
+        "prop": "defaultValue",
+        "attr": "start",
+        "expr": "{ start: new Date('{v}'), end: new Date('{@end}') }",
+        "if": {
+          "role-kind": "range"
+        }
+      },
+      {
+        "prop": "minDate",
+        "attr": "min",
+        "expr": "new Date('{v}')"
+      },
+      {
+        "prop": "maxDate",
+        "attr": "max",
+        "expr": "new Date('{v}')"
+      },
+      {
+        "prop": "title",
+        "attr": "text-title",
+        "if": {
+          "text-title": "!Selecione uma data"
+        }
+      },
+      {
+        "prop": "confirmLabel",
+        "attr": "primary-label",
+        "if": {
+          "primary-label": "!Confirmar"
+        }
+      },
+      {
+        "prop": "cancelLabel",
+        "attr": "secondary-label",
+        "if": {
+          "secondary-label": "!Cancelar"
+        }
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Kind",
+      "kind",
+      "kind",
+      "Single/Double Calendar → `single-calendar`/`double-calendar`."
+    ],
+    [
+      "Role",
+      "role-kind",
+      "mode + defaultValue",
+      "None/Single Date Select → `single`; Range Date Select → `range`. A data selecionada vai em `defaultValue`."
+    ],
+    [
+      "—",
+      "open",
+      "open + onClose + onConfirm",
+      "O estado fica com você; a data chega em `onConfirm`."
+    ],
+    [
+      "—",
+      "text-title · primary-label · secondary-label",
+      "title · confirmLabel · cancelLabel",
+      "Mesmos padrões nos dois lados."
+    ]
+  ]
+}

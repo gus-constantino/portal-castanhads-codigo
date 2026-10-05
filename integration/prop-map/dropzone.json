@@ -1,0 +1,97 @@
+{
+  "element": "cds-dropzone",
+  "defaults": {
+    "text-title": "Adicionar arquivos",
+    "text-description": "Arquivos permitidos: JPG e PNG",
+    "show-text-description": "true",
+    "show-main-button": "true",
+    "button-label": "Selecionar arquivos",
+    "drop-text": "Solte para adicionar"
+  },
+  "jsx": {
+    "tag": "Dropzone",
+    "props": [
+      {
+        "prop": "label",
+        "attr": "text-title"
+      },
+      {
+        "prop": "description",
+        "attr": "text-description",
+        "if": {
+          "show-text-description": "true"
+        }
+      },
+      {
+        "prop": "actionLabel",
+        "attr": "button-label",
+        "if": {
+          "button-label": "!Selecionar arquivos"
+        }
+      },
+      {
+        "prop": "dragOverLabel",
+        "attr": "drop-text",
+        "if": {
+          "drop-text": "!Solte para adicionar"
+        }
+      },
+      {
+        "prop": "accept",
+        "attr": "accept"
+      },
+      {
+        "prop": "multiple",
+        "attr": "multiple",
+        "bool": true
+      },
+      {
+        "prop": "disabled",
+        "attr": "disabled",
+        "bool": true
+      },
+      {
+        "prop": "onAddFiles",
+        "expr": "handleFiles"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Text Title",
+      "text-title",
+      "label",
+      "O React troca o padrão por viewport (\"Adicione arquivos ou arraste aqui\" a partir do laptop)."
+    ],
+    [
+      "Show Text description",
+      "show-text-description",
+      "description",
+      "Desligado: omita `description`."
+    ],
+    [
+      "Text Description",
+      "text-description",
+      "description",
+      "Formatos e tamanho aceitos."
+    ],
+    [
+      "Show Main button",
+      "show-main-button",
+      "—",
+      "O React sempre mostra o botão (`actionLabel`)."
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira prop; Dragover é interação."
+    ],
+    [
+      "—",
+      "multiple",
+      "multiple",
+      "Padrão do React: `true`; no playground, sem `multiple` aceita um arquivo só."
+    ]
+  ]
+}

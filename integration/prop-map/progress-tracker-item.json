@@ -1,0 +1,135 @@
+{
+  "element": "cds-progress-tracker-item",
+  "defaults": {
+    "status": "pending",
+    "label": "Label",
+    "description": "Description content",
+    "show-description": "true",
+    "show-link": "true",
+    "link-label": "Link content",
+    "href": "#",
+    "kind": "number",
+    "marker-label": "1",
+    "marker-icon": "placeholder-line"
+  },
+  "jsx": {
+    "tag": "ProgressTracker.Item",
+    "defaults": {
+      "status": "pending",
+      "label": "Label",
+      "description": "Description content",
+      "show-description": "true",
+      "show-link": "true",
+      "link-label": "Link content",
+      "href": "#",
+      "kind": "number",
+      "marker-label": "1",
+      "marker-icon": "placeholder-line"
+    },
+    "props": [
+      {
+        "prop": "status",
+        "attr": "status"
+      },
+      {
+        "prop": "label",
+        "attr": "label"
+      },
+      {
+        "prop": "description",
+        "attr": "description",
+        "if": {
+          "show-description": "!false"
+        }
+      },
+      {
+        "prop": "kind",
+        "attr": "kind"
+      },
+      {
+        "prop": "icon",
+        "attr": "marker-icon",
+        "if": {
+          "kind": "icon"
+        }
+      },
+      {
+        "prop": "markerLabel",
+        "attr": "marker-label",
+        "if": {
+          "kind": "!icon"
+        }
+      },
+      {
+        "prop": "link",
+        "attr": "link-label",
+        "expr": "{ label: '{v}', href: '{@href}' }",
+        "if": {
+          "show-link": "!false"
+        }
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Status",
+      "status",
+      "status",
+      "Padrão Pending nos dois lados."
+    ],
+    [
+      "Kind",
+      "kind",
+      "kind",
+      "`number` (Marker label) ou `icon` (Choose Marker icon)."
+    ],
+    [
+      "Marker label",
+      "marker-label",
+      "markerLabel",
+      ""
+    ],
+    [
+      "Choose Marker icon",
+      "marker-icon",
+      "icon",
+      "Ignorado em Completed (vira o check)."
+    ],
+    [
+      "Text Label",
+      "label",
+      "label",
+      ""
+    ],
+    [
+      "Show Description",
+      "show-description",
+      "description",
+      "Desligado: omita `description`."
+    ],
+    [
+      "Text Description",
+      "description",
+      "description",
+      ""
+    ],
+    [
+      "Show Link",
+      "show-link + link-label + href",
+      "link",
+      "`{ label, href }`. Desligado: omita."
+    ],
+    [
+      "Show Connector",
+      "show-connector",
+      "—",
+      "O React desenha o traço entre as etapas sozinho (sem traço no último)."
+    ],
+    [
+      "Orientation",
+      "orientation",
+      "—",
+      "Vem do `ProgressTracker`."
+    ]
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "element": "cds-upload-list",
+  "defaults": {
+    "label": "Arquivos"
+  },
+  "jsx": {
+    "tag": "UploadList",
+    "props": [
+      {
+        "prop": "aria-label",
+        "attr": "label"
+      }
+    ],
+    "children": [
+      {
+        "each": "cds-upload-item",
+        "node": {
+          "tag": "UploadList.Item",
+          "defaults": {
+            "status": "uploading",
+            "text-title": "File name",
+            "file-extension": ".jpg",
+            "success-message": "Enviado com sucesso",
+            "error-message": "Falha ao enviar",
+            "description": "Enviado em 10/05/2025",
+            "percent": "60",
+            "show-primary-action": "true",
+            "show-secondary-action": "true"
+          },
+          "props": [
+            {
+              "prop": "fileName",
+              "attr": "text-title"
+            },
+            {
+              "prop": "extension",
+              "attr": "file-extension"
+            },
+            {
+              "prop": "status",
+              "attr": "status"
+            },
+            {
+              "prop": "progress",
+              "attr": "percent",
+              "num": true,
+              "if": {
+                "status": "uploading"
+              }
+            },
+            {
+              "prop": "message",
+              "attr": "success-message",
+              "if": {
+                "status": "success",
+                "success-message": "!Enviado com sucesso"
+              }
+            },
+            {
+              "prop": "message",
+              "attr": "error-message",
+              "if": {
+                "status": "error",
+                "error-message": "!Falha ao enviar"
+              }
+            },
+            {
+              "prop": "message",
+              "attr": "description",
+              "if": {
+                "status": "uploaded"
+              }
+            },
+            {
+              "prop": "previewSrc",
+              "attr": "src",
+              "if": {
+                "status": "!uploading"
+              }
+            },
+            {
+              "prop": "trailingItem",
+              "expr": "[{ icon: 'delete-line', label: 'Remover', onClick: handleRemove }]",
+              "if": {
+                "status": "!uploading",
+                "show-primary-action": "true",
+                "show-secondary-action": "false"
+              }
+            },
+            {
+              "prop": "trailingItem",
+              "expr": "[{ icon: 'download-line', label: 'Baixar', onClick: handleDownload }, { icon: 'delete-line', label: 'Remover', onClick: handleRemove }]",
+              "if": {
+                "show-primary-action": "true",
+                "show-secondary-action": "true",
+                "status": "success"
+              }
+            },
+            {
+              "prop": "trailingItem",
+              "expr": "[{ icon: 'download-line', label: 'Baixar', onClick: handleDownload }, { icon: 'delete-line', label: 'Remover', onClick: handleRemove }]",
+              "if": {
+                "show-primary-action": "true",
+                "show-secondary-action": "true",
+                "status": "uploaded"
+              }
+            },
+            {
+              "prop": "trailingItem",
+              "expr": "[{ icon: 'refresh-line', label: 'Tentar de novo', onClick: handleRetry }, { icon: 'delete-line', label: 'Remover', onClick: handleRemove }]",
+              "if": {
+                "status": "error",
+                "show-primary-action": "true",
+                "show-secondary-action": "true"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Upload itens",
+      "(filhos)",
+      "<UploadList.Item>",
+      "Um item por arquivo, na ordem recebida."
+    ],
+    [
+      "—",
+      "label",
+      "aria-label",
+      "Nome da lista."
+    ]
+  ]
+}

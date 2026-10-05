@@ -171,12 +171,6 @@
    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Text Content`, `Show Lead Icon`, `Error Message`, `Lead Icon`, `Show Content`."
   },
   {
-   "id": "progress-tracker",
-   "level": "info",
-   "kind": "sem-figma",
-   "msg": "Sem retrato das props do Figma (rode a leitura via MCP)."
-  },
-  {
    "id": "progress-tracker-item",
    "level": "info",
    "kind": "nao-chega-ao-react",

@@ -8,9 +8,9 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-05 (R2). Figm
 |---|---|---:|
 | Alta | quebra a tradução: o Code Connect lê prop ou gera valor que não existe | 2 |
 | Média | muda o resultado sem quebrar: padrão diferente, opção sem tradução, mapa curado errado | 6 |
-| Informativo | prop do Figma que não chega ao React pelo Code Connect | 27 |
+| Informativo | prop do Figma que não chega ao React pelo Code Connect | 26 |
 
-Componentes com algum item: 33 de 70 com par no React.
+Componentes com algum item: 32 de 70 com par no React.
 
 ## Assets
 
@@ -79,7 +79,6 @@ Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`
 | Multi Select Input (`multi-select-input`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
 | Pagination (`pagination`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Itens per page`, `Show Item display`, `Items range`, `Items display`. |
 | Password Input (`password-input`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Text Content`, `Show Lead Icon`, `Error Message`, `Lead Icon`, `Show Content`. |
-| Progress Tracker (`progress-tracker`) | sem-figma | Sem retrato das props do Figma (rode a leitura via MCP). |
 | Progress Tracker Item (`progress-tracker-item`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Connector`, `Show Link`, `Orientation`. |
 | Radio Select Input (`radio-select-input`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
 | Search Input (`search-input`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |

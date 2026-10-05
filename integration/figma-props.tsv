@@ -68,3 +68,4 @@
 15621-1175	Topic	Show Lead item=B:1;Show Title=B:1;Text Title=T;Text Description=T;Orientation=V:Horizontal:Horizontal|Vertical
 15029-1115	Upload Item	Text Title=T;File Extension=T;Success message=T;Description=T;Show primary action=B:1;Show secondary action=B:1;Status=V:Uploading:Uploading|Success|Error|Uploaded
 15465-1365	Upload List	Upload itens=S
+21470-2390	Progress Tracker	Tracker=S;Orientation=V:Vertical:Horizontal|Vertical

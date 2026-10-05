@@ -58,6 +58,7 @@ window.CDS_EXPECTED = {
   "card":              { w: 254, src: "5256:540 · Has Border=True · altura depende do Slot" },
   "thumbnail":         { w: 280, h: 160, src: "composição do playground (sem Figma) · caixa do preview do hover (Sizes/200 + Sizes/80 × Sizes/160)" },
   "do-dont":           { w: 320, src: "composição do playground (sem Figma) · largura do specimen Sizes/200 + Sizes/120; altura = exemplo + legenda" },
+  "shortcut":          { h: 24, src: "composição do playground (sem Figma) · altura da Tag (4475:114); largura depende das teclas" },
   "clickable-card":    { w: 160, src: "composição do playground (sem Figma) · largura do specimen Sizes/120 + Sizes/40; altura = mídia quadrada + label" },
   "backdrop":          { w: 300, h: 300, src: "13784:3271" },
   "popover":           { w: 220, src: "2270:102 · min 220" },

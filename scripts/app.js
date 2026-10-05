@@ -248,8 +248,8 @@
   search.addEventListener("cds-change", function(e){ e.stopPropagation(); buildNav(searchText()); });
 
   // ---------- Atalhos do teclado (tecla ?) ----------
-  // Como GitHub e Storybook: Modal do DS com a lista dos atalhos. O DS não tem Kbd: cada tecla é uma Tag Neutral
-  // sem ícone (decisão do Gustavo, CONFERIR). Montado uma vez; o conteúdo entra antes do connect (Slot).
+  // Como GitHub e Storybook: Modal do DS com a lista dos atalhos. O DS não tem Kbd: as teclas são a composição
+  // <cmp-shortcut> (Tag Neutral por tecla, C137). Montado uma vez; o conteúdo entra antes do connect (Slot).
   (function(){
     var mac = /Mac|iP(hone|ad)/.test(navigator.platform || navigator.userAgent), cmd = mac ? "⌘" : "Ctrl", alt = mac ? "⌥" : "Alt";
     var GROUPS = [
@@ -258,15 +258,7 @@
         ["Abrir o primeiro resultado", [["Enter"]]], ["Voltar à busca", [["Esc"]]]]],
       ["Em qualquer lugar", [["Fechar painel, menu ou preview", [["Esc"]]]]]
     ];
-    function keys(combos){
-      var box = kit.el("span", { "class": "pg-keys" });
-      combos.forEach(function(combo, i){
-        if (i) box.appendChild(kit.el("span", { "class": "pg-keys__or", text: "ou" }));
-        var k = box.appendChild(kit.el("span", { "class": "pg-keys__combo" }));
-        combo.forEach(function(t){ k.appendChild(kit.el("cds-tag", { appearance: "neutral", label: t, "show-lead-item": "false" })); });
-      });
-      return box;
-    }
+    function keys(combos){ return kit.el("cmp-shortcut", { "class": "pg-keys", keys: combos.map(function(k){ return k.join(" "); }).join(" | ") }); }
     var body = kit.el("div", { "class": "pg-shortcuts" });
     GROUPS.forEach(function(g){
       body.appendChild(kit.el("p", { "class": "pg-shortcuts__title", text: g[0] }));

@@ -1,0 +1,5 @@
+/* Tecla de atalho · composição do playground (ver shortcut.js) — Tag Neutral do DS por tecla, só tokens */
+cmp-shortcut{ display:inline-flex; align-items:center; flex-wrap:wrap; gap:var(--common-sizes-8); }
+cmp-shortcut .cmp-shortcut__combo{ display:inline-flex; align-items:center; gap:var(--common-sizes-4); font:inherit; }
+cmp-shortcut .cmp-shortcut__key{ display:inline-flex; font:inherit; }
+cmp-shortcut .cmp-shortcut__or{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }

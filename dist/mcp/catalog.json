@@ -16,7 +16,7 @@
   "components": 79,
   "buildingBlocks": 26,
   "resources": 7,
-  "compositions": 3,
+  "compositions": 4,
   "withDocs": 112,
   "withReact": 70,
   "liveMaps": 70,
@@ -15794,6 +15794,16 @@
    "description": "Exemplo e legenda de uso certo ou errado (Use, Não use, Use com cautela), como nas páginas do Hub. Usado nas tabs de diretrizes das docs."
   },
   {
+   "id": "shortcut",
+   "name": "Shortcut",
+   "kind": "composition",
+   "category": "Composições",
+   "figma": null,
+   "figmaNode": null,
+   "zeroheight": null,
+   "description": "Tecla de atalho: cada tecla é uma Tag Neutral do DS e as alternativas vêm separadas por \"ou\". Usada no painel de atalhos (tecla ?)."
+  },
+  {
    "id": "thumbnail",
    "name": "Thumbnail",
    "kind": "composition",
@@ -27005,7 +27015,7 @@
     "id": "C137",
     "group": "Refactor",
     "resolved": false,
-    "text": "Atalhos do teclado (tecla `?`, painel do playground) · O DS não tem **Kbd** (tecla) e o [Caju] Icons não tem ícone de **teclado** nem de **ajuda/pergunta** · Um componente Kbd (ou variante de Tag) e ícones `keyboard-line` / `help-line` · **Exceção** (decisão do Gustavo, 05/10): cada tecla é uma **Tag Neutral** sem ícone dentro de um Modal do DS; o painel só abre pela tecla `?`, sem botão na barra (falta o ícone) · Trocar a Tag pelo Kbd e pôr um Icon Button na barra do topo quando existirem"
+    "text": "Atalhos do teclado (tecla `?`, painel do playground) · O DS não tem **Kbd** (tecla) e o [Caju] Icons não tem ícone de **teclado** nem de **ajuda/pergunta** · Um componente Kbd (ou variante de Tag) e ícones `keyboard-line` / `help-line` · **Exceção** (decisão do Gustavo, 05/10): cada tecla é uma **Tag Neutral** sem ícone dentro de um Modal do DS; o painel só abre pela tecla `?`, sem botão na barra (falta o ícone) · Trocar a Tag pelo Kbd e pôr um Icon Button na barra do topo quando existirem Desde D186 a tecla é a composição `<cmp-shortcut>` (`compositions/shortcut/`): quando o Kbd existir, a troca é num lugar só."
    },
    {
     "id": "C87",

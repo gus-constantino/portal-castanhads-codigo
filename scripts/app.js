@@ -94,7 +94,8 @@
       a.addEventListener("click", hide);
     }
     document.addEventListener("keydown", function(e){ if (e.key === "Escape" && cur) hide(); });
-    document.querySelector(".pg-sidebar").addEventListener("scroll", function(){ if (cur) hide(); }, { passive: true });
+    // rolagem do menu: com o foco do teclado no item (setas da busca), o card acompanha; com o mouse, fecha
+    document.querySelector(".pg-sidebar").addEventListener("scroll", function(){ if (!cur) return; if (document.activeElement === cur) place(cur); else hide(); }, { passive: true });
     window.addEventListener("hashchange", hide);
     return { bind: bind, hide: hide };
   })();
@@ -174,6 +175,45 @@
     });
   }
   search.addEventListener("cds-change", function(e){ e.stopPropagation(); buildNav(searchText()); });
+
+  // ---------- Busca pelo teclado (como Storybook e MUI) ----------
+  // "/" ou ⌘K / Ctrl+K foca a busca · ↓ entra nos resultados (foco real nos links: o preview do hover acompanha)
+  // ↑/↓ percorrem, Home/End vão às pontas, ↑ no primeiro volta à busca · Enter na busca abre o 1º resultado
+  // Digitar com o foco na lista volta à busca · Esc na lista volta à busca
+  (function(){
+    var mac = /Mac|iP(hone|ad)/.test(navigator.platform || navigator.userAgent);
+    function input(){ return search.control || search.querySelector("input"); }
+    function results(){
+      // links visíveis do menu, na ordem da tela (Início, componentes das categorias abertas, recursos); buscando, só os resultados
+      var sel = searchText() ? "#nav a[href^='#/'], #nav-res a[href^='#/']" : ".pg-sidebar a[href^='#/']";
+      return [].slice.call(document.querySelectorAll(sel)).filter(function(a){ return a.getClientRects().length > 0; });
+    }
+    function focusSearch(){ var i = input(); if (i){ i.focus(); i.select(); } }
+    search.setAttribute("placeholder", "Buscar componente (" + (mac ? "⌘K" : "Ctrl+K") + ")");
+    document.addEventListener("keydown", function(e){
+      var t = e.target, typing = t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
+      if ((e.key === "k" || e.key === "K") && (mac ? e.metaKey : e.ctrlKey) && !e.altKey && !e.shiftKey){ e.preventDefault(); focusSearch(); return; }
+      if (e.key === "/" && !typing && !e.metaKey && !e.ctrlKey && !e.altKey && report.hidden){ e.preventDefault(); focusSearch(); }
+    });
+    search.addEventListener("keydown", function(e){
+      if (e.target !== input()) return;
+      if (e.key === "ArrowDown"){ var r = results(); if (r.length){ e.preventDefault(); r[0].focus(); } }
+    });
+    search.addEventListener("cds-search", function(e){
+      e.stopPropagation();
+      var r = searchText() ? results() : [];
+      if (r.length){ location.hash = r[0].getAttribute("href"); input().blur(); }
+    });
+    document.querySelector(".pg-sidebar").addEventListener("keydown", function(e){
+      var a = e.target.closest && e.target.closest("a[href^='#/']"); if (!a || e.metaKey || e.ctrlKey || e.altKey) return;
+      var r = results(), i = r.indexOf(a); if (i === -1) return;
+      var next = { ArrowDown: r[i + 1], ArrowUp: r[i - 1], Home: r[0], End: r[r.length - 1] }[e.key];
+      if (e.key === "ArrowUp" && i === 0){ e.preventDefault(); focusSearch(); return; }
+      if (next){ e.preventDefault(); next.focus(); next.scrollIntoView({ block: "nearest" }); return; }
+      if (e.key === "Escape"){ e.preventDefault(); focusSearch(); return; }
+      if (e.key.length === 1 && e.key !== " "){ var inp = input(); inp.focus(); } // a tecla cai no campo e a busca continua
+    });
+  })();
 
   // ---------- Roteamento: #/<id> ou #/<id>/<tab> ----------
   function route(){ return (location.hash || "").replace(/^#\/?/, "").split("/"); }

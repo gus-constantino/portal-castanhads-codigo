@@ -107,12 +107,23 @@
   // ordem de escala do Figma (do mais claro ao mais intenso)
   var STEPS = ["pale", "soft", "semi-soft", "mild", "medium", "semi-intense", "intense"], ALPHA = ["semi-transparent", "light", "medium", "intense", "semi-opaque"];
   function stepOf(n){ var o = /opacity/.test(n) ? ALPHA : STEPS, m = n.match(/-(pale|semi-soft|soft|mild|medium|semi-intense|intense|semi-transparent|light|semi-opaque)$/); return m ? o.indexOf(m[1]) : 99; }
-  // tinta legível sobre a cor: Support/darker ou Support/lighter (constantes nos dois temas), pela luminância do valor atual
+  // tinta legível sobre a cor: Support/darker ou Support/lighter (constantes nos dois temas). Com transparência, a cor que
+  // aparece é o tom misturado às duas casas do xadrez (Surface/default e Surface/01 do tema atual): vence a tinta com mais
+  // contraste no pior dos dois casos (no escuro, tom fraco sobre fundo escuro pede tinta clara)
+  function rgba(v){ var m = String(v).match(/^#([0-9a-f]{6})([0-9a-f]{2})?$/i); if (!m) return null;
+    return [0, 2, 4].map(function(i){ return parseInt(m[1].substr(i, 2), 16); }).concat([m[2] ? parseInt(m[2], 16) / 255 : 1]); }
+  function lum(c){ var l = c.slice(0, 3).map(function(x){ x /= 255; return x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4); }); return 0.2126 * l[0] + 0.7152 * l[1] + 0.0722 * l[2]; }
+  function ratio(a, b){ var x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); }
+  function over(c, bg){ return [0, 1, 2].map(function(i){ return c[i] * c[3] + bg[i] * (1 - c[3]); }); }
   function ink(chip, n){
-    var v = val(n), m = v.match(/^#([0-9a-f]{6})([0-9a-f]{2})?$/i), dark = true;
-    if (m){ var c = [0, 2, 4].map(function(i){ var x = parseInt(m[1].substr(i, 2), 16) / 255; return x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4); });
-      var lum = 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2], a = m[2] ? parseInt(m[2], 16) / 255 : 1;
-      dark = a < 0.5 || lum > 0.4; }
+    var c = rgba(val(n)), darkInk = rgba(val("--common-colors-support-darker")) || [26, 26, 26, 1], lightInk = rgba(val("--common-colors-support-lighter")) || [252, 252, 252, 1];
+    var dark = true;
+    if (c){
+      var bgs = c[3] < 1 ? [rgba(val("--common-colors-surface-default")), rgba(val("--common-colors-surface-01"))].filter(Boolean) : [];
+      var shown = bgs.length ? bgs.map(function(bg){ return over(c, bg); }) : [c];
+      var worst = function(ink){ return Math.min.apply(null, shown.map(function(x){ return ratio(x, ink); })); };
+      dark = worst(darkInk) >= worst(lightInk);
+    }
     chip.classList.toggle("is-ink-light", !dark); chip.classList.toggle("is-ink-dark", dark);
   }
   // Faixa contínua de uma escala: cada tom é um tile (copia o token) com nome e valor dentro da cor

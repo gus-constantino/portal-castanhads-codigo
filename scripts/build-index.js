@@ -99,7 +99,8 @@ function docsIndex(){
     const at = own.map((d) => { const m = src.match(new RegExp('CDS\\.docs\\["' + d + '"\\]\\s*=(?!=)')); return m ? m.index : 0; });
     own.forEach((d, i) => {
       const end = Math.min(...at.filter((x) => x > at[i]).concat(src.length));
-      const m = src.slice(at[i], end).match(/cover:\s*\{\s*description:\s*"((?:[^"\\]|\\.)*)"/);
+      // cover: { description: "…" } ou, em docs geradas por helper (ex.: selection-group), cover: "…"
+      const m = src.slice(at[i], end).match(/cover:\s*(?:\{\s*description:\s*)?"((?:[^"\\]|\\.)*)"/);
       idx[d] = m ? Object.assign({}, file, { desc: JSON.parse('"' + m[1] + '"') }) : file;
     });
   });

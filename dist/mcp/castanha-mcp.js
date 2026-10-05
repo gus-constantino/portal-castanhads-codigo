@@ -713,6 +713,45 @@
           .sort((p, r) => r[1] - p[1] || p[0].name.length - r[0].name.length);
       }
       
+      // ---------- busca de ilustrações ----------
+      // Os nomes do [Caju] Illustrations são em pt (com alguns em inglês: empty-state, search-not-found, success, error) e quase
+      // nenhuma tem descrição: a busca usa sinônimos (dinheiro → moeda, nota, cash…), plural e a posição do termo no nome.
+      const ILL_SYN = { dinheiro: ["moeda", "moedas", "nota", "cash", "carteira", "financas"], grana: ["moeda", "cash"], pagamento: ["maquininha", "pix", "transferencia", "cartao"],
+        card: ["cartao"], cartao: ["cartao", "cartoes"], vazio: ["empty"], vazia: ["empty"], nada: ["empty"], resultado: ["found", "search"], busca: ["search"],
+        encontrado: ["found"], erro: ["error", "alert"], falha: ["error"], sucesso: ["success", "check", "concluido"], pronto: ["success", "concluido"], aviso: ["alert", "sino"],
+        alerta: ["alert"], notificacao: ["sino", "alert", "notificacoes"], celular: ["celular"], telefone: ["celular"], smartphone: ["celular"], computador: ["notebook"],
+        documento: ["documentos", "rg", "cnh", "papeis"], identidade: ["rg", "cnh"], seguranca: ["cadeado", "escudo", "seguranca"], senha: ["cadeado", "recuperacao"],
+        presente: ["presente", "gema"], premio: ["trofeu", "medalha", "gema"], comemoracao: ["celebracao", "estalar"], festa: ["celebracao", "aniversario"],
+        viagem: ["aviao", "malas", "viagem", "passagem"], transporte: ["onibus", "trem", "carro", "transporte", "bilhete"], comida: ["alimentos", "pizza", "cafe", "alimentacao"],
+        saude: ["saude", "medico", "odonto", "fitness"], tempo: ["relogio", "ampulheta", "despertador"], espera: ["ampulheta", "relogio"], data: ["calendario"],
+        grafico: ["graficos", "dashboards", "barra", "setores"], relatorio: ["relatorios", "planilha", "extrato"], pessoa: ["personagens"], personagem: ["personagens"],
+        autenticacao: ["autenticacao", "biometrico", "facial", "selfie", "ocr", "sms"], login: ["login", "autenticacao"], loja: ["compras", "sacola"], compra: ["compras", "sacola"] };
+      /** Pontua uma ilustração: tokens do nome (o primeiro token do nome vale mais), categoria e descrição; versões low-detail logo depois da principal. */
+      function illScore(i, q){
+        const ws = qWords(q); if (!ws.length) return 0;
+        const parts = i.id.split("/"), cat = (parts[0] || "").split("-"), name = (parts[1] || "").split("-").map(stem), desc = fold(i.description).split(/[^a-z0-9]+/).map(stem);
+        const pkg = i.react ? i.react.name.split("-").map(stem) : [];
+        let total = 0;
+        ws.forEach((w) => {
+          let best = 0;
+          [[w, 1]].concat((ILL_SYN[w] || []).map((e, k) => [stem(e), 0.85 - k * 0.02])).forEach(([x, f]) => { // o primeiro sinônimo é o mais próximo
+            let sc = 0;
+            const at = name.indexOf(x);
+            if (at === 0) sc = 6; else if (at > 0) sc = 5 - Math.min(at, 3) * 0.3;
+            else if (x.length > 3 && name.some((t) => t.indexOf(x) === 0)) sc = 3.5;
+            if (cat.indexOf(x) >= 0 || fold(i.category).split(/[^a-z0-9]+/).map(stem).indexOf(x) >= 0) sc = Math.max(sc, 2.5);
+            if (pkg.indexOf(x) >= 0) sc = Math.max(sc, 2.5); // nome no pacote (ex.: hub-*, interface-*)
+            if (desc.indexOf(x) >= 0) sc = Math.max(sc, 3);
+            best = Math.max(best, sc * f);
+          });
+          total += best;
+        });
+        return total / ws.length - (/low-detail/.test(i.id) ? 0.3 : 0) - (/^hero-/.test(i.id.split("/")[0]) ? 0.2 : 0);
+      }
+      function rankIlls(c, q){
+        return c.illustrations.map((i) => [i, illScore(i, q)]).filter((p) => p[1] >= 2).sort((p, r) => r[1] - p[1] || p[0].id.length - r[0].id.length);
+      }
+      
       function findComponent(c, q){
         const f = fold(q).trim(), list = c.components;
         return list.find((x) => x.id === f) || list.find((x) => fold(x.name) === f) || list.find((x) => x.react && fold(x.react.component) === f) ||
@@ -785,7 +824,7 @@
             const comps = c.components.map((x) => [x, score(x._text, q) + score(x.name + " " + x.id, q) * 2]).filter((p) => p[1] > 0.5).sort((p, r) => r[1] - p[1]).slice(0, n);
             const toks = c.tokens.map((t) => [t, score(t.name + " " + t.group, q)]).filter((p) => p[1] > 0.5).sort((p, r) => r[1] - p[1]).slice(0, n);
             const ics = rankIcons(c, q, false).slice(0, n);
-            const ills = c.illustrations.map((i) => [i, score(i.id + " " + i.category + " " + i.description, q)]).filter((p) => p[1] > 0.5).sort((p, r) => r[1] - p[1]).slice(0, n);
+            const ills = rankIlls(c, q).slice(0, n);
             const L = [];
             if (comps.length) L.push("## Componentes e docs\n" + comps.map((p) => "- **" + p[0].name + "** (`" + p[0].id + "`, " + KIND[p[0].kind].toLowerCase() + ")" + (p[0].description ? " — " + p[0].description.slice(0, 140) : "")).join("\n"));
             if (toks.length) L.push("## Tokens\n" + toks.map((p) => "- `" + p[0].name + "`" + (p[0].light ? " = " + p[0].light : "") + (p[0].castanha ? " · React: `" + p[0].castanha + "`" : "")).join("\n"));
@@ -809,7 +848,7 @@
         { name: "ilustracao", description: "Busca ilustrações do [Caju] Illustrations por nome, categoria ou uso e devolve o nome no castanha-illustrations (que pode ser diferente do Figma) e o import.",
           inputSchema: { type: "object", properties: { busca: { type: "string" } }, required: ["busca"] },
           run: async (a) => { const c = await catalog();
-            const list = c.illustrations.map((i) => [i, score(i.id + " " + i.category + " " + i.description, a.busca)]).filter((p) => p[1] > 0.4).sort((p, r) => r[1] - p[1]).slice(0, 12);
+            const list = rankIlls(c, a.busca).slice(0, 12);
             if (!list.length) return "Nenhuma ilustração para \"" + a.busca + "\".";
             return list.map((p) => { const i = p[0]; return "- Figma `" + i.id + "` · " + i.category + (i.description ? " — " + i.description.slice(0, 120) : "") + "\n  " + (i.react ? "React: `<Illustration name=\"" + i.react.name + "\" />`" + (i.react.renamed ? " (nome diferente do Figma)" : "") + (i.react.drawingDiffers ? " · desenho do pacote difere do Figma" : "") : "Fora do castanha-illustrations."); }).join("\n"); } },
         { name: "diretrizes", description: "Diretrizes gerais do Castanha DS: escrita e conteúdo (vocabulário, formatação de dados, escrita para produto), motion, ilustração, patterns, treinamento. Sem tema, lista o que existe.",

@@ -41,6 +41,12 @@ const CALLS = [
   ["icone", { busca: "excluir" }, /^- `delete-line`/],
   ["icone", { busca: "cartão virtual" }, /^- `virtual-card-line`/],
   ["ilustracao", { busca: "pet" }, /hub-pet/],
+  // ranking da busca de ilustrações (sinônimos, termos em inglês nos nomes, posição no nome)
+  ["ilustracao", { busca: "dinheiro" }, /^- Figma `financas\/moeda/],
+  ["ilustracao", { busca: "vazio" }, /^- Figma `notificacoes\/empty-state`/],
+  ["ilustracao", { busca: "busca sem resultado" }, /^- Figma `notificacoes\/search-not-found`/],
+  ["ilustracao", { busca: "erro" }, /^- Figma `notificacoes\/error`/],
+  ["ilustracao", { busca: "cartão virtual" }, /^- Figma `financas\/cartao-virtual/],
   ["diretrizes", {}, /Conteúdo/],
   ["diretrizes", { tema: "formatação de dados" }, /Formatação/i],
   ["divergencias", {}, /CONFERIR/],

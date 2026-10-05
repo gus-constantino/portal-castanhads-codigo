@@ -1,3 +1,4 @@
+# Props do Figma ([CastanhaDS] Components, componentPropertyDefinitions) · lidas via MCP em 2026-10-05 · scripts/integration/figma-props.js
 11864-12559	Alert	Text Content=T;Show Close Button=B:1;Text Label=T;Show Label=B:1;Appearance=V:Positive:Positive|Warning|Informative
 11018-5694	Async creatable Select Input	Show Trailing Item=B:1;Show Supporting Content=B:1;Show Caret=B:1;Show Label=B:1;Show Required=B:1;Show Lead Icon=B:1;Text Label=T;Supporting Message=T;Error Message=T;Lead Icon=I:placeholder-line;Required Text=T;Appearance=V:Neutral:Neutral|Warning;State=V:Enabled:Enabled|Disabled|Hovered|Pressed;Is Filled=V:False:False|True;Is Active=V:False:False|True
 11030-7644	Async Select Input	Show Trailing Item=B:1;Show Supporting Content=B:1;Show Caret=B:1;Show Label=B:1;Show Required=B:1;Show Lead Icon=B:1;Text Label=T;Supporting Message=T;Error Message=T;Lead Icon=I:placeholder-line;Required Text=T;Appearance=V:Neutral:Neutral|Warning;State=V:Enabled:Enabled|Disabled|Hovered|Pressed;Is Filled=V:False:False|True;Is Active=V:False:False|True
@@ -43,7 +44,7 @@
 5798-2677	Password Input	Show Trailing Item=B:1;Show Supporting Content=B:1;Show Caret=B:1;Placeholder Content=T;Text Content=T;Show Label=B:1;Supporting Message=T;Show Required=B:1;Show Lead Icon=B:1;Show Character Counter=B:1;Character Counter Value=T;Text Label=T;Error Message=T;Lead Icon=I:placeholder-line;Required Text=T;Appearance=V:Neutral:Neutral|Warning;State=V:Enabled:Enabled|Disabled|Hovered|Pressed;Is Active=V:False:False|True;Is Filled=V:False:False|True;Show Content=V:True:True|False
 2270-102	Popover	Slot=S
 2322-4006	Progress Line	Percent=V:0:0|10|20|30|40|50|60|70|80|90|100
-14524-1024	Progress Tracker	Tracker=S;Orientation=V:Vertical:Horizontal|Vertical
+21470-2390	Progress Tracker	Tracker=S;Orientation=V:Vertical:Horizontal|Vertical
 14415-3778	Progress Tracker Item	Show Description=B:1;Text Label=T;Text Description=T;Show Connector=B:1;Show Link=B:1;Marker label=T;Choose Marker icon=I:placeholder-line;Kind=V:Number:Number|Icon;Orientation=V:Vertical:Vertical|Horizontal;Status=V:Pending:Current|Pending|Completed
 4429-10437	Radio Button	Text Label=T;Show Text Label=B:1;State=V:Enabled:Enabled|Hovered|Pressed|Disabled;Status=V:Unselected:Selected|Unselected
 4429-11192	Radio Button Group	
@@ -68,4 +69,3 @@
 15621-1175	Topic	Show Lead item=B:1;Show Title=B:1;Text Title=T;Text Description=T;Orientation=V:Horizontal:Horizontal|Vertical
 15029-1115	Upload Item	Text Title=T;File Extension=T;Success message=T;Description=T;Show primary action=B:1;Show secondary action=B:1;Status=V:Uploading:Uploading|Success|Error|Uploaded
 15465-1365	Upload List	Upload itens=S
-21470-2390	Progress Tracker	Tracker=S;Orientation=V:Vertical:Horizontal|Vertical

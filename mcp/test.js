@@ -33,6 +33,13 @@ const CALLS = [
   ["tokens", { grupo: "grids" }, /desktop 104px/],
   ["tokens", { busca: "motion-hover" }, /só no playground/],
   ["icone", { busca: "menu" }, /MenuLine/],
+  // ranking da busca de ícones: o primeiro resultado é o ícone do conceito
+  ["icone", { busca: "cartão" }, /^- `credit-card-line`/],
+  ["icone", { busca: "cartões" }, /^- `credit-card-line`/],
+  ["icone", { busca: "seta para cima" }, /^- `up-line`/],
+  ["icone", { busca: "casa" }, /^- `home-line`/],
+  ["icone", { busca: "excluir" }, /^- `delete-line`/],
+  ["icone", { busca: "cartão virtual" }, /^- `virtual-card-line`/],
   ["ilustracao", { busca: "pet" }, /hub-pet/],
   ["diretrizes", {}, /Conteúdo/],
   ["diretrizes", { tema: "formatação de dados" }, /Formatação/i],

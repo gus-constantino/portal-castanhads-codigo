@@ -662,6 +662,57 @@
       const words = (q) => fold(q).split(/[^a-z0-9#-]+/).filter((w) => w.length > 1);
       function score(text, q){ const t = fold(text), ws = words(q); if (!ws.length) return 0; let s = 0; ws.forEach((w) => { if (t.indexOf(w) !== -1) s += 1 + (t.split(w).length - 2) * 0.1; }); return s / ws.length; }
       
+      // ---------- busca de ícones ----------
+      // Os nomes do [Caju] Icons são em inglês e as palavras-chave misturam pt e en (e 41 ícones não têm nenhuma):
+      // a busca reduz plural, traduz termos comuns pt → en e pontua pela força do encontro.
+      const PT_EN = { cartao: ["card"], casa: ["home"], inicio: ["home"], seta: ["arrow", "navigation", "go", "back"], direita: ["right"], esquerda: ["left"],
+        cima: ["up"], baixo: ["down"], usuario: ["user"], pessoa: ["user"], perfil: ["user"], equipe: ["team"], time: ["team"], dinheiro: ["money", "balance", "value"],
+        saldo: ["balance"], moeda: ["coin", "value"], pagamento: ["pay", "payment"], pagar: ["pay"], calendario: ["calendar"], data: ["calendar"], agenda: ["calendar"],
+        busca: ["search"], buscar: ["search"], pesquisa: ["search"], lupa: ["search"], fechar: ["close"], adicionar: ["add", "plus"], mais: ["plus", "more"], menos: ["minus"],
+        editar: ["edit"], excluir: ["delete"], apagar: ["delete"], lixeira: ["delete"], configuracao: ["settings"], ajuste: ["settings", "customize"], notificacao: ["notification"],
+        sino: ["notification"], documento: ["document", "file"], arquivo: ["file", "folder", "archive"], pasta: ["folder"], olho: ["hide", "view"], visualizar: ["view"],
+        esconder: ["hide"], compartilhar: ["share"], baixar: ["download"], enviar: ["send", "upload"], subir: ["upload"], mensagem: ["message", "chat"], conversa: ["chat"],
+        telefone: ["smartphone", "call"], celular: ["smartphone"], carro: ["car"], onibus: ["bus"], trem: ["train"], aviao: ["travel"], viagem: ["travel"], transporte: ["transport", "mobility"],
+        saude: ["health"], comida: ["food", "meal"], refeicao: ["meal"], cadeado: ["lock"], bloqueio: ["lock"], chave: ["key"], estrela: ["rate"], favorito: ["favorite"],
+        coracao: ["favorite", "health"], alerta: ["warning"], aviso: ["warning"], informacao: ["information"], erro: ["error"], sucesso: ["check", "positive"], confirmar: ["check"],
+        filtro: ["filter"], voltar: ["back"], avancar: ["go"], grafico: ["chart"], loja: ["shop"], empresa: ["business", "building"], relogio: ["timer", "clock"], camera: ["camera"],
+        imagem: ["image"], foto: ["image", "camera"], link: ["link"], copiar: ["copy"], imprimir: ["printer"], localizacao: ["location", "pin"], mapa: ["location"], presente: ["awards"],
+        premio: ["awards", "medal"], recibo: ["receipt"], comprovante: ["receipt", "file"], codigo: ["code", "barcode", "qr"], ajuda: ["support", "information"], suporte: ["support"],
+        sair: ["logout"], entrar: ["login"], senha: ["key", "lock"], seguranca: ["safety", "lock"], escudo: ["safety"], educacao: ["education"], cultura: ["culture"], pet: ["pet"],
+        maquininha: ["machine"], aproximacao: ["contactless"], virtual: ["virtual"], digital: ["virtual"] };
+      const stem = (w) => w.replace(/oes$/, "ao").replace(/aes$/, "ao").replace(/ais$/, "al").replace(/eis$/, "el").replace(/(?<=[a-z]{3})s$/, "");
+      const qWords = (q) => fold(q).split(/[^a-z0-9]+/).filter((w) => w.length > 1 && !/^(de|do|da|para|com|um|uma|o|a|e|no|na|em|icone|icon)$/.test(w)).map(stem);
+      /** Pontua um ícone: nome (tokens em inglês), palavras-chave (a primeira é o sentido principal) e categoria; termos pt viram en. */
+      function iconScore(i, q){
+        const ws = qWords(q); if (!ws.length) return 0;
+        const tokens = i.name.split("-").filter((t) => !/^(line|fill|filled)$/.test(t)), kws = i.keywords.map((k) => stem(fold(k).trim())), cat = fold(i.category);
+        let total = 0;
+        ws.forEach((w) => {
+          let best = 0;
+          let byName = 0, byKw = 0;
+          [[w, 1]].concat((PT_EN[w] || []).map((e) => [e, 0.85])).forEach(([x, f]) => {
+            let tn = 0, tk = 0, tc = 0;
+            if (tokens.indexOf(x) >= 0) tn = 5;
+            else if (x.length > 2 && tokens.some((t) => t.indexOf(x) === 0)) tn = 3;
+            kws.forEach((k, pos) => {
+              if (k === x) tk = Math.max(tk, 6 - Math.min(pos, 4) * 0.5); // palavra-chave inteira: a primeira vale mais
+              else if (k.split(/[^a-z0-9]+/).map(stem).indexOf(x) >= 0) tk = Math.max(tk, 4 - Math.min(pos, 4) * 0.3);
+              else if (x.length > 3 && k.indexOf(x) >= 0) tk = Math.max(tk, 1.5);
+            });
+            if (cat.split(/[^a-z0-9]+/).indexOf(x) >= 0) tc = 1;
+            byName = Math.max(byName, tn * f); byKw = Math.max(byKw, tk * f);
+            best = Math.max(best, Math.max(tn, tk, tc) * f);
+          });
+          if (byName >= 4 && byKw >= 4) best += 0.5; // termo no nome E na palavra-chave: é "o" ícone do conceito
+          total += best;
+        });
+        return total / ws.length - (i.deprecated ? 2 : 0);
+      }
+      function rankIcons(c, q, all){
+        return c.icons.filter((i) => all || !i.deprecated).map((i) => [i, iconScore(i, q)]).filter((p) => p[1] >= 1.5)
+          .sort((p, r) => r[1] - p[1] || p[0].name.length - r[0].name.length);
+      }
+      
       function findComponent(c, q){
         const f = fold(q).trim(), list = c.components;
         return list.find((x) => x.id === f) || list.find((x) => fold(x.name) === f) || list.find((x) => x.react && fold(x.react.component) === f) ||
@@ -733,7 +784,7 @@
           run: async (a) => { const c = await catalog(), n = a.limite || 8, q = a.texto;
             const comps = c.components.map((x) => [x, score(x._text, q) + score(x.name + " " + x.id, q) * 2]).filter((p) => p[1] > 0.5).sort((p, r) => r[1] - p[1]).slice(0, n);
             const toks = c.tokens.map((t) => [t, score(t.name + " " + t.group, q)]).filter((p) => p[1] > 0.5).sort((p, r) => r[1] - p[1]).slice(0, n);
-            const ics = c.icons.filter((i) => !i.deprecated).map((i) => [i, score(i.name + " " + i.keywords.join(" ") + " " + i.category, q)]).filter((p) => p[1] > 0.5).sort((p, r) => r[1] - p[1]).slice(0, n);
+            const ics = rankIcons(c, q, false).slice(0, n);
             const ills = c.illustrations.map((i) => [i, score(i.id + " " + i.category + " " + i.description, q)]).filter((p) => p[1] > 0.5).sort((p, r) => r[1] - p[1]).slice(0, n);
             const L = [];
             if (comps.length) L.push("## Componentes e docs\n" + comps.map((p) => "- **" + p[0].name + "** (`" + p[0].id + "`, " + KIND[p[0].kind].toLowerCase() + ")" + (p[0].description ? " — " + p[0].description.slice(0, 140) : "")).join("\n"));
@@ -752,7 +803,7 @@
         { name: "icone", description: "Busca ícones do [Caju] Icons por nome ou palavra-chave (pt/en) e devolve o nome, a categoria e o uso no castanha-react (<Icon name> ou import).",
           inputSchema: { type: "object", properties: { busca: { type: "string" }, incluir_deprecated: { type: "boolean" } }, required: ["busca"] },
           run: async (a) => { const c = await catalog();
-            const list = c.icons.filter((i) => a.incluir_deprecated || !i.deprecated).map((i) => [i, score(i.name + " " + i.keywords.join(" ") + " " + i.category, a.busca)]).filter((p) => p[1] > 0.4).sort((p, r) => r[1] - p[1]).slice(0, 15);
+            const list = rankIcons(c, a.busca, a.incluir_deprecated).slice(0, 15);
             if (!list.length) return "Nenhum ícone para \"" + a.busca + "\".";
             return list.map((p) => { const i = p[0]; return "- `" + i.name + "` · " + i.category + (i.deprecated ? " · deprecated" : "") + (i.keywords.length ? " · " + i.keywords.slice(0, 6).join(", ") : "") + "\n  " + (i.react ? "React: `<Icon name=\"" + i.name + "\" />` ou `" + i.react.import + "`" : "Fora do castanha-icons (não dá para usar no React pelo nome)."); }).join("\n"); } },
         { name: "ilustracao", description: "Busca ilustrações do [Caju] Illustrations por nome, categoria ou uso e devolve o nome no castanha-illustrations (que pode ser diferente do Figma) e o import.",

@@ -131,6 +131,6 @@ O ícone de ordenação deve permanecer oculto por padrão, aparecendo apenas no
 
 ## Pendências — não publicar
 
-* 🔴 Ordenação: o texto diz que o 1º clique ordena de forma decrescente (ActiveUp) e que o ícone só aparece no hover; no código, o 1º clique é crescente (Up), o 2º decrescente (Down), e o ícone fica visível enquanto a coluna está ordenada. Alinhar texto e componente (e o nome ActiveUp/ActiveDown × Up/Down da lib).
+* 🟡 Ordenação (decidido em 05/10: vale o comportamento do código): 1º clique crescente (Up), 2º decrescente (Down), 3º volta ao padrão, e o ícone fica visível enquanto a coluna está ordenada (mostra qual coluna ordena a tabela, inclusive para quem não usa mouse). Atualizar o parágrafo de ordenação desta página nesse sentido (e o nome ActiveUp/ActiveDown × Up/Down da lib).
 * 🟡 Status "In progress"; sem tab Style, sem Acessibilidade e sem Motion. Anatomia e Propriedades vieram dos sets da lib (13472:5725, 13382:1327, 13404:1015, 13438:14337).
 * 🟡 O cabeçalho da página aponta para um arquivo do Figma de outro projeto (Fr0ZkhpffyOiiQYEm2RPId).

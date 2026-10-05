@@ -55,7 +55,7 @@ window.CDS_EXPECTED = {
   "code-input-otp":    { w: 320, src: "24060:7228 · base 320 (6 células)" },
   "credit-card-input": { w: 320, src: "24614:7155" },
   "viewport-restriction": { w: 200, h: 200, src: "5357:3899" },
-  "card":              { w: 254, src: "5256:540 · Has Border=False · altura depende do Slot" },
+  "card":              { w: 254, src: "5256:540 · Has Border=True · altura depende do Slot" },
   "backdrop":          { w: 300, h: 300, src: "13784:3271" },
   "popover":           { w: 220, src: "2270:102 · min 220" },
   "header":            { w: 320, h: 73, src: "16362:3241 · 72 + Divider 1" },

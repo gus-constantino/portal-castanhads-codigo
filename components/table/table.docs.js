@@ -97,7 +97,7 @@
         ] },
         { h3: "Comportamento — Ordenação" },
         { p: "O ícone de ordenação deve permanecer oculto por padrão, aparecendo apenas no hover da coluna, independentemente do estado da ordenação. Ao clicar em uma coluna ordenável, a ordenação inicia em ordem decrescente, com o ícone exibido como ActiveUp. Um segundo clique altera para ordem crescente, mudando o ícone para ActiveDown. No terceiro clique, a ordenação volta ao estado padrão da tabela e o ícone retorna ao status Default — mas ainda assim, só será visível no hover." },
-        { note: "No código, o primeiro clique ordena em ordem crescente (Up) e o segundo em decrescente (Down), e o ícone fica visível enquanto a coluna está ordenada — diferente do texto acima (CONFERIR C147)." },
+        { note: "No código, o primeiro clique ordena em ordem crescente (Up) e o segundo em decrescente (Down), e o ícone fica visível enquanto a coluna está ordenada — diferente do texto acima; o comportamento do código foi mantido (decisão de 05/10, CONFERIR C155)." },
         { h3: "Table Columns" },
         { ul: ["Alinhamento: Ao agrupar as colunas para formar a tabela, não deve haver espaçamento (gap) entre elas. Mantenha sempre o valor zero para garantir continuidade visual e alinhamento preciso.", "Colunas: Nunca utilize o componente Table Column isoladamente. Ele deve ser sempre combinado com outras colunas para compor uma tabela completa seguindo as diretrizes desta documentação."] },
         { h2: "Do's and Don'ts" },

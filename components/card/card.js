@@ -2,7 +2,7 @@
  * @deps —
  * <cds-card> — Card · Containers · set 5256:540
  * Container com Slot: os filhos de quem usa são o conteúdo. Has Border liga o stroke Border/semi-soft.
- * Atributos: has-border ("true" liga · padrão False, como no Figma)
+ * Atributos: has-border (padrão True, como na lib — Has Border=True é a variante padrão; "false" desliga · decisão de 05/10, C155)
  */
 (function(){
   "use strict";

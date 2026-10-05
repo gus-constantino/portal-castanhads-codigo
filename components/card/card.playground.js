@@ -11,6 +11,6 @@ CDS.register({
     ctx.preview.appendChild(wrap);
     kit.hint(panel, "O fundo cinza do preview é só para o Card aparecer; no Figma ele é Surface/default.");
     kit.section(panel, "Variants");
-    kit.seg(panel, { label: "Has Border", value: "false", options: [["false","False"],["true","True"]], onChange: function(v){ kit.attr(p, "has-border", v === "true" ? "true" : null); } });
+    kit.seg(panel, { label: "Has Border", value: "true", options: [["true","True"],["false","False"]], onChange: function(v){ kit.attr(p, "has-border", v === "false" ? "false" : null); } });
   }
 });

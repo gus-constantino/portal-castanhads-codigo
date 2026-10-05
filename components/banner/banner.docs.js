@@ -118,7 +118,7 @@
           { kind: "do", attrs: bn({ illustration: "financas/cartao-multi", title: "Saúde", description: "Consultas e exames com desconto.", cta: "Conhecer" }), text: "Use o Banner para conteúdo promocional que a pessoa usuária pode ignorar sem prejuízo." },
           { kind: "dont", attrs: bn({ title: "Falha", description: "Não conseguimos buscar seu saldo.", cta: "Tentar de novo" }), text: "Não use o Banner para comunicar erro ou status do sistema — utilize o Alert." }
         ] },
-        { note: "No código, a área do conteúdo tem 122 de altura, como no Figma (C27): títulos com mais de uma linha ou descrições longas são cortados no topo. A description da lib diz que \"a altura acompanha o conteúdo\" — por isso os exemplos usam textos curtos (CONFERIR C145)." },
+        { note: "A área do conteúdo tem no mínimo 122 de altura, como no Figma (C27), e cresce com o texto: a altura acompanha o conteúdo, como diz a description do set (decisão de 05/10, CONFERIR C155)." },
         { note: "O [Documentação] Banner tem também \"Casos de exceção\" com texto de exemplo (lorem ipsum) — não entra até o time preencher (CONFERIR C145)." }
       ] },
 

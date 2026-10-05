@@ -103,4 +103,4 @@ Dúvidas ou comentários? Fale com o time pelo canal [#castanha-suporte](https:/
 ## Pendências — não publicar
 
 * 🔴 "Usar em listas ou grids para navegação em apps mobile/web" aparece em Utilize para e em Não utilize para na página atual. Aqui ficou só em Utilize para; confirmar com o time.
-* 🟡 A página atual não lista as propriedades. Na lib (Card 5256:540), `Has Border` tem padrão `True`; no código do playground, o Card abre sem borda.
+* 🟡 A página atual não lista as propriedades. Na lib (Card 5256:540), `Has Border` tem padrão `True`, e o playground segue (desde 05/10).

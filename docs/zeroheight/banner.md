@@ -118,5 +118,5 @@ Largura mínima de 280px; a altura acompanha o conteúdo.
 ## Pendências — não publicar
 
 * 🔴 Página nova: o Banner não tem página no zeroheight. Fonte: [Documentação] Banner (6795:20954, set atual) e a description do set (20051:15726).
-* 🔴 Altura: a description diz que "a altura acompanha o conteúdo", mas o Figma (e o código, C27) tem a área do conteúdo com 122 de altura — títulos de duas linhas ou descrições longas são cortados. Decidir se o container passa a abraçar o conteúdo (muda o tamanho padrão de 170 para 175).
+* 🟡 Altura (decidido em 05/10): no código a área do conteúdo tem no mínimo 122 e cresce com o texto, como diz a description. O Figma ainda fixa 122 — atualizar o componente no Figma para Hug com altura mínima.
 * 🟡 Acessibilidade ("Tópico 1 / Ordem de leitura"), "Casos de exceção" (lorem ipsum) e Motion ("Especificação") do [Documentação] ainda estão com texto de exemplo.

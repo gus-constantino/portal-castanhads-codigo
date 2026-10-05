@@ -1,6 +1,6 @@
 /* Documentação — Card
    Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Card, 838f0f) reaproveitado; props e padrões do set da lib estável (Card 5256:540);
-   acessibilidade do componente do playground. Divergências no CONFERIR (C131): na lib, Has Border tem padrão True; no código, False. */
+   acessibilidade do componente do playground. Divergências no CONFERIR (C131). Has Border: padrão True na lib e no código desde 05/10 (C155). */
 window.CDS = window.CDS || {};
 CDS.docs = CDS.docs || {};
 (function(){
@@ -54,7 +54,7 @@ CDS.docs = CDS.docs || {};
           { name: "Has Border", type: "Variant", default: "True", values: ["True", "False"] },
           { name: "Slot", type: "Slot" }
         ] },
-        { note: "Props e padrões lidos do set Card da lib estável. No código, `has-border` precisa ser ligado explicitamente (o componente abre sem borda) — divergência registrada em C131." }
+        { note: "Props e padrões lidos do set Card da lib estável. No código, `has-border` vem ligado por padrão, como na lib; `has-border=\"false\"` tira a borda." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [

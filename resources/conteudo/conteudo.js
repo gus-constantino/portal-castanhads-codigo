@@ -81,6 +81,28 @@
         { note: "Fonte: Figma · 📁 [NEW] Content → Como a Caju Fala → [Documentação] Princípios de escrita. As telas do Figma usam peças do app Employee (Header Navigation Employee, Bottom Sheets / CardAboutToExpire); aqui foram refeitas com Fixed Bar, Bottom Sheet e Main Button do DS, com os mesmos textos. A seção Acessibilidade do frame ainda é rascunho (\"Tópico 1\") e fica de fora." }
       ] }
       ,
+      { id: "escrevendo", title: "Escrevendo para produto", blocks: [
+        { h2: "Escreva no presente" },
+        { p: "Use o tempo presente. Ele torna a frase mais simples, direta e fácil de escanear. Evite o futuro — ele soa burocrático e aumenta a complexidade da leitura. Exemplos:" },
+        { ul: ["`Seu cartão chega em até 10 dias úteis`", "`Os colaboradores não selecionados ficam no grupo atual`", "`Manutenção de Pix agendada para 15/05. Antecipe suas transferências para não atrasar seus pagamentos.`"] },
+        { h2: "Use a voz verbal certa para cada momento" },
+        { p: "A voz ativa coloca quem age em primeiro lugar. É mais leve, conversacional e ocupa menos espaço. Use em textos explicativos e mais longos." },
+        { p: "A voz passiva distancia o sujeito da ação. Use quando a ação é mais importante do que quem a fez — especialmente em telas de sucesso ou em situações negativas da Caju. Exemplos:" },
+        { table: { wrap: true, head: ["Contexto", "Exemplo"], rows: [
+          ["Voz ativa (texto explicativo)", "`Abrimos a contestação de compra`"], ["Voz passiva (tela de sucesso)", "`A transferência foi enviada`"], ["Voz passiva (ação negativa da Caju)", "`O acesso foi suspenso`"]
+        ] } },
+        { h2: "Saiba quando usar infinitivo e imperativo" },
+        { ul: [
+          "Use infinitivo em botões e áreas clicáveis.",
+          "Exceções de botões que não usam infinitivo: \"Preciso de ajuda\", \"Não encontrei o código\", \"Quero saber mais\", \"Saiba mais\" e \"Dúvidas frequentes\".",
+          "Use imperativo em descrições e placeholders para dar direcionamentos. Nunca em botões, exceto em peças de marketing. Exemplo: `Informe seu CPF` (placeholder)"
+        ] },
+        { h2: "Fale com \"você\"" },
+        { p: "Use a terceira pessoa do singular para se dirigir à pessoa usuária. Use \"eu\" apenas quando ela precisar dar consentimento ou em botões específicos que foram padronizados." },
+        { table: { wrap: true, head: ["Contexto", "Exemplo"], rows: [["Padrão", "`Seu saldo foi atualizado`"], ["Consentimento", "`Eu li e aceito os termos`"]] } },
+        { note: "Fonte: Figma · 📁 [NEW] Content → Escrevendo para produto." }
+      ] }
+      ,
       { id: "vocabulario", title: "Vocabulário e Nomenclatura", blocks: [
         { h2: "Glossário Caju" },
         { p: "Definições dos principais termos usados nos produtos da Caju — tanto no texto da interface quanto em comunicações com pessoas usuárias." },
@@ -291,6 +313,52 @@
       ] }
       ,
       { id: "formatacao", title: "Formatação de dados", blocks: [
+        { h2: "Regras universais" },
+        { p: "Regras transversais que valem para todos os canais e componentes. Quando uma página específica tiver uma regra diferente para aquele contexto, ela prevalece sobre esta." },
+        { h3: "Ponto final (.)" },
+        { p: "Use em descrições — textos de apoio abaixo de títulos. Isso se aplica a todo componente que tem a estrutura de H1 + descrição." },
+        { p: "Não use em: títulos, placeholders, itens de lista, tooltips, toasts, CTAs e hiperlinks. Exceto quando houver mais de uma frase — nesse caso, pontue ao final de cada uma." },
+        { h3: "Ponto de exclamação (!)" },
+        { p: "Use apenas em descrições — nunca em títulos, mesmo em momentos felizes. Use no máximo um por tela. Muitas exclamações soam como urgência forçada ou infantilidade. Nunca use duplos ou triplos (!!!)." },
+        { h3: "Ponto de interrogação (?)" },
+        { p: "Use para confirmar uma informação com a pessoa. Evite colocar viés na pergunta — isso pode causar insegurança. Nunca use duplos ou triplos (???)." },
+        { h3: "Dois pontos (:)" },
+        { ul: ["Use para introduzir uma lista ou dar mais explicações após um tema.", "Não use em títulos.", "Não use letra maiúscula depois dos dois pontos.", "Em leitores de tela, o comportamento é de uma pequena pausa."] },
+        { h3: "Vírgula (,)" },
+        { p: "Use no máximo 3 vírgulas por frase. Mais que isso é sinal de que o texto precisa ser quebrado em frases menores. Siga as regras gramaticais da língua portuguesa." },
+        { h3: "Maiúsculas" },
+        { p: "Inicie toda frase com letra maiúscula. Use caixa alta apenas em siglas. Nunca use para dar ênfase — leitores de tela podem soletrar palavras em caixa alta. Exemplos: `O valor inclui taxas, como IOF`, `Informe o código de autenticação`" },
+        { p: "Exceções — sempre com letra maiúscula:" },
+        { ul: [
+          "Nome da marca: Caju", "Pix (regra do BACEN)", "Nomes de produtos: Cartão Corporativo, Crédito Consignado, Férias, Premiações",
+          "Nomes de plataformas: Portal para empresas, Portal para colaboradores", "Categorias de saldo: Saldo Livre, Home Office, Auxílio Alimentação",
+          "Áreas da interface citadas no texto: \"Acesse a área de Cartões\"", "Abreviações de dia e mês: Seg, Jan, Fev"
+        ] },
+        { h3: "Emojis" },
+        { p: "Use com moderação. Emojis trazem leveza, mas podem causar ambiguidade e problemas de acessibilidade se usados sem critério. Nunca use emoticons (:-)) — leitores de tela leem cada caractere separadamente." },
+        { ul: ["Use em contextos leves: avisos amigáveis, celebrações, confirmações", "Apenas em textos de apoio (descrições), nunca em títulos", "Sempre ao final da frase, nunca no início ou no meio", "Nunca em fluxos críticos: pagamento, erro, dados sensíveis"] },
+        { table: { wrap: true, head: ["Momento de uso", "Emoji"], rows: [
+          ["Humanização e acolhimento", "🙌 🤗 🤝 🧡"], ["Celebrar conquistas e avanços", "🎉 🏆 ✨ ⭐ 🎯 ✅ 💡"], ["Guiar o olhar ou chamar atenção", "🔔 📢 👀"], ["Contexto corporativo ou benefícios", "💼 💳 📝 📊 💰"]
+        ] } },
+        { h3: "Listas" },
+        { p: "Use para facilitar o escaneamento. Use no máximo uma lista por tela. Não pontue os itens." },
+        { ul: ["Bullet points — para itens sem ordem específica e de pesos iguais.", "Lista numerada — para sequências de ações ou instruções."] },
+        { h3: "Negrito" },
+        { p: "Use com moderação, o excesso desvia a atenção e pode dificultar a leitura de pessoas neurodivergentes." },
+        { p: "Use para destacar informações relevantes. Nunca use como substituto de títulos (H2, H3)." },
+        { h3: "O que não usamos" },
+        { table: { wrap: true, head: ["Recurso", "Por quê"], rows: [
+          ["Itálico", "Inclina e aproxima os caracteres, dificultando a leitura."],
+          ["Tachado", "Pode impossibilitar o entendimento e não tem feedback em leitores de tela."],
+          ["Travessão (–)", "Para pausar o texto, prefira vírgula ou ponto final."],
+          ["Barra vertical (|)", "Para separar frases, prefira vírgula ou ponto final."],
+          ["Ponto e vírgula (;)", "Para pausar o texto, prefira vírgula ou ponto final. Nunca ao final de itens de lista."],
+          ["E comercial (&)", "Exceto quando fizer parte do nome de uma marca ou parceiro."],
+          ["Aspas (\"\")", "Para destacar botões ou áreas do produto, use negrito."],
+          ["Sublinhado", "Reservado exclusivamente para links."],
+          ["Asterisco (*)", "Interrompe o fluxo de leitura, especialmente em leitores de tela."]
+        ] } },
+
         { h2: "Valores monetários e moedas" },
         { ul: [
           "Valores negativos (saídas, débitos, estornos) usam o símbolo de subtração (`−`), não o hífen (`-`) nem o travessão (`—`). O hífen impacta a leitura de tela.",
@@ -392,7 +460,7 @@
           "Use sempre a palavra \"tarifa\" — nunca \"taxa\".",
           "Quando não houver tarifa, use ”Sem tarifa” ou ”Isento de tarifa”."
         ] },
-        { note: "Fonte: Figma · 📁 [NEW] Content → Formatação de dados (Valores monetários e moedas, Códigos e dados pessoais, Datas e horários, Quantidades e unidades, Mascaramento e omissão de dados, Porcentagens e tarifas). Exemplos em `código`, como no Figma (C113)." }
+        { note: "Fonte: Figma · 📁 [NEW] Content → Formatação de dados (Regras universais, Valores monetários e moedas, Códigos e dados pessoais, Datas e horários, Quantidades e unidades, Mascaramento e omissão de dados, Porcentagens e tarifas). Exemplos em `código`, como no Figma (C113)." }
       ] }
     ]
   };

@@ -262,6 +262,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D90 | **C1 · Conteúdo → Vocabulário e Nomenclatura** (branch `teste`): Glossário Caju com busca (Search Input do DS, 57 termos por letra, "Não use" em Tag Negative), Naming (tabela de tipos, 8 passos numerados com critérios de desempate, prompt para IA com botão Copiar), Termos para evitar e Abreviação e siglas em tabelas transcritas das imagens do Figma. Blocos novos no kit: `glossary`, `steps`, `code`. C112 | 05/10 |
 | D24 | Componentes `.X` publicados em página própria (ex.: `.Credit Card Flags`) contam como building block: seção recolhida, categoria = página do Figma | 01/10 |
 | D91 | **C2 · Conteúdo → Formatação de dados** (branch `teste`): valores monetários, códigos e dados pessoais, datas e horários, quantidades e unidades, mascaramento e porcentagens/tarifas, com regras em listas, exemplos em `código` e aplicações em tabela. Tabelas de conteúdo quebram linha (`table.wrap`). Travessões e aspas curvas restaurados no Vocabulário. C113 | 05/10 |
+| D92 | **C3a · Conteúdo → Escrevendo para produto + Regras universais** (branch `teste`): tab Escrevendo para produto (presente, voz verbal, infinitivo × imperativo, "você") e Regras universais no início de Formatação de dados (pontuação, maiúsculas, emojis, listas, negrito, o que não usamos). No Figma, Regras universais está num frame chamado "Escrevendo para produto" dentro da página Formatação de dados | 05/10 |
 
 ## 5. Dúvidas abertas
 

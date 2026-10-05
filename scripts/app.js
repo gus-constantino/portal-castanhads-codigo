@@ -176,6 +176,43 @@
   }
   search.addEventListener("cds-change", function(e){ e.stopPropagation(); buildNav(searchText()); });
 
+  // ---------- Atalhos do teclado (tecla ?) ----------
+  // Como GitHub e Storybook: Modal do DS com a lista dos atalhos. O DS não tem Kbd: cada tecla é uma Tag Neutral
+  // sem ícone (decisão do Gustavo, CONFERIR). Montado uma vez; o conteúdo entra antes do connect (Slot).
+  (function(){
+    var mac = /Mac|iP(hone|ad)/.test(navigator.platform || navigator.userAgent), cmd = mac ? "⌘" : "Ctrl", alt = mac ? "⌥" : "Alt";
+    var GROUPS = [
+      ["Navegação", [["Buscar componente", [["/"], [cmd, "K"]]], ["Componente anterior / próximo", [[alt, "←"], [alt, "→"]]], ["Mostrar estes atalhos", [["?"]]]]],
+      ["Na busca do menu", [["Entrar nos resultados", [["↓"]]], ["Percorrer os resultados", [["↑"], ["↓"]]], ["Primeiro / último resultado", [["Home"], ["End"]]],
+        ["Abrir o primeiro resultado", [["Enter"]]], ["Voltar à busca", [["Esc"]]]]],
+      ["Em qualquer lugar", [["Fechar painel, menu ou preview", [["Esc"]]]]]
+    ];
+    function keys(combos){
+      var box = kit.el("span", { "class": "pg-keys" });
+      combos.forEach(function(combo, i){
+        if (i) box.appendChild(kit.el("span", { "class": "pg-keys__or", text: "ou" }));
+        var k = box.appendChild(kit.el("span", { "class": "pg-keys__combo" }));
+        combo.forEach(function(t){ k.appendChild(kit.el("cds-tag", { appearance: "neutral", label: t, "show-lead-item": "false" })); });
+      });
+      return box;
+    }
+    var body = kit.el("div", { "class": "pg-shortcuts" });
+    GROUPS.forEach(function(g){
+      body.appendChild(kit.el("p", { "class": "pg-shortcuts__title", text: g[0] }));
+      var ul = body.appendChild(kit.el("ul", { "class": "pg-shortcuts__list" }));
+      g[1].forEach(function(row){ ul.appendChild(kit.el("li", { "class": "pg-shortcuts__row" }, [kit.el("span", { text: row[0] }), keys(row[1])])); });
+    });
+    var modal = kit.el("cds-modal", { id: "shortcuts", "text-title": "Atalhos do teclado", "show-footer": "false", label: "Atalhos do teclado" }, [body]);
+    document.body.appendChild(modal);
+    document.addEventListener("keydown", function(e){
+      var t = e.target, typing = t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
+      if (e.key !== "?" || typing || e.metaKey || e.ctrlKey || e.altKey) return;
+      e.preventDefault();
+      var dlg = modal.querySelector("dialog");
+      if (dlg && dlg.open) modal.close(); else { if (typeof peek !== "undefined") peek.hide(); modal.show(); }
+    });
+  })();
+
   // ---------- Busca pelo teclado (como Storybook e MUI) ----------
   // "/" ou ⌘K / Ctrl+K foca a busca · ↓ entra nos resultados (foco real nos links: o preview do hover acompanha)
   // ↑/↓ percorrem, Home/End vão às pontas, ↑ no primeiro volta à busca · Enter na busca abre o 1º resultado

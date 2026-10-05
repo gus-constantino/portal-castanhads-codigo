@@ -45,6 +45,64 @@
   CDS.docs["conteudo"] = {
     source: FIGMA, sourceLabel: "Abrir Princípios de escrita no Figma",
     tabs: [
+      // Tom e voz (Castanha Hub · Conteúdo → Tom e Voz: Pilares 639b76, Premissas 48df76, Premissas na Prática 04dbac,
+      // Comece pelas Pessoas 2238c1 · v1.1.5, set/2026). Texto do Hub com a numeração e os erros corrigidos (C168);
+      // as telas "Atual × Com Tom e Voz" são capturas do app e ficam no Hub. Decisões de 05/10 (C167).
+      { id: "tom-e-voz", title: "Tom e voz", blocks: [
+        { h2: "Tom e voz" },
+        { p: "Antes de partir para um guia prático de escrita, é fundamental entender de onde o tom de voz da Caju parte. As escolhas de linguagem não são aleatórias: elas refletem a forma como queremos que as pessoas se sintam ao usar o aplicativo." },
+        { p: "Por isso, este guia parte de três pilares que orientam toda a experiência: Hospitalidade, Simplicidade e Brasilidade." },
+        { h2: "Pilares" },
+        { cards: [
+          ["Hospitalidade", "Reduzir esforço, orientar, acolher, acompanhar e celebrar nos momentos importantes. A hospitalidade está em explicar antes de pedir uma ação, em reduzir incertezas e em acompanhar cada etapa da jornada, para que as pessoas se sintam acolhidas, e não apenas instruídas. Por trás de toda tela existe uma pessoa tentando resolver algo importante para ela."],
+          ["Simplicidade", "Simplicidade não significa escrever menos. Significa escrever o suficiente para que as pessoas entendam, com clareza, o que está acontecendo e o que precisam fazer. Às vezes isso resulta num texto curto; outras vezes, numa explicação um pouco mais longa. Linguagem simples é a que faz o máximo pela compreensão de quem está do outro lado."],
+          ["Brasilidade", "Uma linguagem natural, próxima e descomplicada, que respeita a forma como as pessoas realmente se comunicam. Sem gírias, regionalismos ou expressões caricatas: a brasilidade aparece na leveza das frases, nas palavras familiares e na capacidade de transformar assuntos complexos em conversas fáceis. O objetivo não é parecer informal, mas natural."]
+        ] },
+        { h2: "Premissas" },
+        { p: "Os pilares só se tornam reais nas pequenas decisões de escrita do dia a dia. Estes são os direcionamentos que transformam hospitalidade, simplicidade e brasilidade em textos claros, acolhedores e consistentes. Em cada um, as perguntas ajudam a revisar um fluxo novo." },
+        { steps: [
+          { title: "Escrever como quem abre a porta para receber", text: [
+              "Receber não é apenas dar boas-vindas: é fazer a pessoa sentir que chegou ao lugar certo. Toda interação tem um começo, seja um login, um onboarding ou um e-mail, e vale dedicar alguns segundos para dizer algo que soe como \"Que bom que você está aqui\". Sempre que fizer sentido, transforme esse primeiro contato num convite."],
+            list: ["Existe um momento para dar boas-vindas?", "A pessoa entende onde está e o que vai acontecer a seguir?", "Existe uma oportunidade de tornar esse primeiro contato mais acolhedor?", "Estamos apresentando apenas uma funcionalidade ou recebendo a pessoa para uma conversa?"] },
+          { title: "Fazer juntos é reduzir ansiedades", text: [
+              "A linguagem pode funcionar como uma companhia ao longo da experiência. Escolha uma linguagem que convida, orienta e compartilha responsabilidades: verbos na primeira pessoa do plural, como vamos, estamos, precisamos e seguimos. Quando as pessoas sentem que alguém conduz a conversa ao lado delas, a ansiedade diminui e até os processos burocráticos ficam mais leves."],
+            list: ["A linguagem faz companhia ou apenas dá instruções?", "A pessoa entende o que está acontecendo neste momento?", "Existe uma oportunidade de dividir a responsabilidade com \"vamos\", \"estamos\" ou \"a gente\"?", "Se algo der errado, mostramos que ainda existe um caminho e que vamos resolver juntos?"] },
+          { title: "Aproximar pelo cuidado, não pela informalidade", text: [
+              "Em vez de tentar soar como um amigo, com gírias, onomatopeias ou memes, escreva como alguém atento à experiência de quem está do outro lado. Faça perguntas, dê contexto, explique os próximos passos e confira se tudo está claro antes de seguir. Em vez de parecer descontraído, pareça presente.",
+              "Expressões como \"Ei\", \"Ops!\", \"Hmm…\" ou \"Beleza?\" simulam uma conversa, mas nem sempre acolhem. Depois de um erro, elas podem soar impacientes, irônicas ou infantilizadas — por isso nunca entram em mensagens de erro (ver Feedback Pages)."],
+            list: ["Existe uma oportunidade de perguntar, acolher ou orientar antes de simplesmente informar?", "A pessoa consegue seguir com mais confiança depois de ler este texto?", "A conversa parece escrita para alguém ou apenas sobre uma funcionalidade?"] },
+          { title: "Pensar títulos com foco na conversa", text: [
+              "Quem abre o aplicativo não está procurando funcionalidades: está tentando resolver um problema, economizar tempo ou concluir uma tarefa. Em vez de começar pelo que o produto faz, comece pelo que a novidade representa para a pessoa, com chamadas que façam sentido desde a primeira leitura.",
+              "Em segurança, privacidade ou requisitos legais, a clareza vem primeiro: o título comunica o fato de forma direta e a conversa acontece no texto de apoio, que ainda pode acolher e indicar o próximo passo."],
+            list: ["O título comunica um benefício ou apenas descreve uma ferramenta?", "Quem nunca ouviu falar da funcionalidade entenderia por que ela importa?", "O título desperta vontade de continuar lendo?", "Em títulos objetivos: o texto de apoio acolhe a pessoa antes de orientar?"] },
+          { title: "Uma conversa que inclui todo mundo", text: [
+              "Prefira verbos que expressam entendimento, descoberta ou acesso à informação, em vez de ações só visuais. \"Ver\" e \"visualizar\" pressupõem a visão; \"entender\", \"conhecer\" e \"consultar\" acolhem também quem usa leitor de tela ou outras tecnologias assistivas.",
+              "Não é uma regra absoluta: quando a ação realmente é olhar um elemento da tela, como um boleto, um comprovante ou um cartão, o verbo visual continua valendo. Em botões de navegação, use o nome da área ou \"Acessar {área}\" (ver Vocabulário)."],
+            table: { wrap: true, head: ["Em vez de", "Use"], rows: [["Ver como funciona", "Entender como funciona"], ["Ver saldo", "Consultar saldo"], ["Ver mais", "Nome da área ou Acessar {área}"]] },
+            list: ["Existe um verbo que represente melhor a experiência da pessoa?", "A escolha de palavras amplia ou limita a compreensão?"] },
+          { title: "Todo onboarding é uma conversa", text: [
+              "Onboarding não é uma sequência de telas com informações que queremos passar, mas uma conversa com começo, meio e fim. Ao apresentar uma novidade, o objetivo é que a pessoa entenda por que ela existe, como pode ajudar e se sinta segura para começar a usar. No fim, ela não deve sentir que concluiu um tutorial, e sim que alguém lhe explicou a novidade de forma simples e cuidadosa.",
+              "A conversa costuma seguir este caminho: Receber (a novidade chega de forma acolhedora) → Contextualizar (por que isso existe e o que muda) → Explicar (como funciona, de forma simples e no momento certo) → Encerrar (o próximo passo fica claro)."],
+            list: ["Estou começando a conversa pelo que importa para a pessoa?", "Existe uma progressão natural entre uma tela e outra?", "Estou explicando só como funciona ou também por que é útil?", "O fluxo termina dando segurança para a pessoa seguir sozinha?"] },
+          { title: "Primeiro o conceito, depois a regra", text: [
+              "As pessoas entendem melhor uma regra quando primeiro entendem o contexto. Antes de explicar como algo funciona, responda à pergunta que provavelmente trouxe a pessoa até ali. Em vez de partir da lógica do sistema, parta da dúvida de quem está usando o aplicativo.",
+              "Exemplo: quem procura \"Como funciona o saldo flexível\" quer saber, na verdade, qual é a diferença entre os saldos. Explicar cada um e dizer que os valores são definidos pela empresa resolve a dúvida sem criar outra (\"Por que não é tudo flexível?\")."],
+            list: ["Estou escrevendo a partir da lógica do sistema ou de quem está aprendendo?", "O que a pessoa precisa entender antes de saber como isso funciona?"] },
+          { title: "Conduzir a experiência de forma transparente", text: [
+              "Toda interação cria uma expectativa. Sempre que houver um processo, mostre onde a pessoa está e o que vem pela frente: quanto tempo leva, em quantas etapas acontece, quais informações ou documentos serão necessários e o que vem depois. Isso ajuda a decidir se é o melhor momento para seguir, reduz a ansiedade e evita frustrações."],
+            list: ["A pessoa sabe quanto tempo ou quantas etapas a tarefa pode exigir?", "Estou criando uma expectativa realista?", "Alguma informação importante pode evitar uma frustração mais adiante?", "O texto ajuda a pessoa a decidir se quer começar agora?"] },
+          { title: "Saber acolher, saber celebrar", text: [
+              "Nossa voz tem a mesma identidade em qualquer situação. Quando algo dá errado, evite mensagens alarmistas ou que façam a pessoa se sentir responsável pelo problema: explique o que aconteceu, mostre um caminho possível e reforce que ela não está sozinha. Quando tudo dá certo, celebre, especialmente depois de processos longos ou burocráticos."],
+            list: ["O texto ajuda a pessoa a entender o que aconteceu?", "Existe um próximo passo claro?", "A linguagem transmite segurança, sem gerar preocupação desnecessária?", "Há uma oportunidade de reconhecer o esforço da pessoa?", "O encerramento faz a experiência parecer concluída?"] }
+        ] },
+        { h2: "Comece pelas pessoas" },
+        { p: "Na comunicação com colaboradores (B2C), as premissas têm algo em comum: todas mudam o ponto de partida da escrita. Em vez de começar pelo produto, começamos pelas pessoas. É essa mudança de perspectiva que transforma a experiência numa conversa." },
+        { cards: [
+          ["Queremos que as pessoas sintam que…", "A experiência com a Caju é simples e fácil de usar. Somos parceiros e estamos juntos. Elas estão acompanhadas nas tarefas do app. As informações de que precisam estão aqui."],
+          ["Por isso repetimos expressões como…", "Agora que você já sabe… · Vamos juntos. · Tudo certo até aqui? · Falta só mais um passo. · Que bom ter você por aqui. · Agora é com a gente. · É simples. · Você encontra tudo por aqui."]
+        ] },
+        { note: "Fonte: Castanha Hub · Conteúdo → Tom e Voz (Pilares, Premissas, Premissas na Prática e Comece pelas Pessoas, v1.1.5). As telas \"Atual × Com Tom e Voz\" são capturas do app e ficam no Hub. Onde uma premissa diverge de uma regra antiga, vale a premissa (decisões de 05/10)." }
+      ] },
       { id: "principios-de-escrita", title: "Princípios de escrita", blocks: [
         { h2: "Princípios de escrita" },
         { p: "Os princípios te ajudam a pensar no texto de cada ponto de contato com a pessoa usuária. O que é importante? Como destacar? O que não precisa ser informado?" },
@@ -61,7 +119,7 @@
           { kind: "do", attrs: screen("documentos/rg-cnh-frente", "Confirme seus dados", "Preencha seus dados iguais aos seus documentos e finalize o cadastro! Vamos lá?", "Começar"),
             text: "Antecipe as informações relevantes (vai precisar dos documentos). O título informa o fluxo que a pessoa vai começar." },
           { kind: "dont", attrs: screen("documentos/rg-cnh-frente", "Confirmar dados pessoais", "Para finalizar seu cadastro, você precisa preencher seus dados. Após essa etapa, você precisa pedir o cartão físico.", "Começar"),
-            text: "Não use infinitivo em títulos e não entre em detalhes de etapas futuras. Isso pode desestimular o usuário a finalizar o fluxo." }
+            text: "Não use infinitivo em títulos e não anuncie a próxima etapa solta, sem contexto. Quando houver um processo, diga quanto falta e o que vem depois (Tom e voz, premissa 8)." }
         ] },
 
         { h2: "Encoraje e explique" },
@@ -148,7 +206,7 @@
             ["Carteiras digitais / wallets", "Apps como Samsung Wallet, Google Pay e Apple Pay, onde é possível adicionar o cartão virtual da Caju para pagamentos pelo celular.", "\"carteiras\" sozinho — pode confundir com as carteiras de Benefícios e Despesas."],
             ["Categorias", "Definem em que tipo de estabelecimento o saldo pode ser usado. Podem ter saldo fixo ou flexível, conforme definido pela empresa."],
             ["Código de autenticação", "Código numérico de 6 dígitos enviado para o e-mail ou celular cadastrado para validar a tentativa de acesso.", "\"código de verificação\"."],
-            ["Código de ativação", "Código numérico de 16 dígitos no verso do cartão físico, usado uma única vez para ativar o cartão."],
+            ["Código de desbloqueio", "Código numérico de 16 dígitos no verso do cartão físico, usado uma única vez para desbloquear o cartão.", "\"Código de ativação\" — \"ativar cartão\" saiu de uso."],
             ["Conta Caju", "Área para transferências via Pix, saques e pagamento de boletos. Reúne valores de Premiações, reembolsos de Despesas e depósitos de diferentes empresas em um único lugar. A tarifa é de 1,99% sobre o valor depositado pela empresa — pacote que inclui Pix, boleto e saque, independente do porte da empresa.", "\"Saldo Caju\" — nome descontinuado."],
             ["Contestação", "Quando a pessoa não reconhece uma transação no cartão ou no Pix, ela pode abrir uma contestação para receber o valor de volta, caso a fraude seja confirmada pela Caju."],
             ["Contratar", "Termo usado para a adesão de um dos produtos da Caju."],
@@ -158,7 +216,7 @@
           ],
           D: [
             ["Devolução", "Valores reembolsados por estabelecimentos via Pix ou boleto. Também usado para valores devolvidos via Pix originados de contestações."],
-            ["Desbloquear cartão", "Processo de ativação do novo cartão físico da Caju. Etapa obrigatória para que o cartão possa ser usado.", "\"Ativar cartão\". Esse termo deixou de ser usado."]
+            ["Desbloquear cartão", "Processo de desbloqueio do novo cartão físico da Caju. Etapa obrigatória para que o cartão possa ser usado.", "\"Ativar cartão\". Esse termo deixou de ser usado."]
           ],
           E: [
             ["Educação", "Categoria de benefícios para cursos online, idiomas e ensino técnico e superior."],
@@ -271,9 +329,9 @@
           ["Tips", "Dicas"], ["Dashboard", "Painel"], ["Overview", "Resumo"]
         ] } },
         { h3: "Verbos sensoriais" },
-        { p: "Verbos sensoriais descrevem os cinco sentidos e são comuns na linguagem cotidiana, mas criam barreiras de acessibilidade e inclusão. Nem todas as pessoas experienciam o mundo da mesma forma." },
+        { p: "Verbos sensoriais descrevem os cinco sentidos e são comuns na linguagem cotidiana, mas criam barreiras de acessibilidade e inclusão. Nem todas as pessoas experienciam o mundo da mesma forma. Prefira verbos de entendimento e acesso (entender, conhecer, consultar, acessar). Não é uma regra absoluta: quando a ação é olhar um elemento da tela, como um boleto, um comprovante ou um cartão, o verbo visual continua valendo." },
         { table: { wrap: true, head: ["Não use", "Use"], rows: [
-          ["Ver, visualizar", "Conferir, mostrar, abrir, acessar"], ["Ver mais", "Abrir {variável}, acessar {variável}"], ["Prove a experiência", "Explore, descubra"], ["Ouvir", "Reproduzir, tocar"]
+          ["Ver, visualizar", "Conferir, mostrar, abrir, acessar — exceção: quando a ação é de fato olhar algo (boleto, comprovante, cartão) e em peças de marketing"], ["Ver mais", "Nome da área ou acessar {área}"], ["Ver saldo", "Consultar saldo"], ["Ver como funciona", "Entender como funciona"], ["Prove a experiência", "Explore, descubra"], ["Ouvir", "Reproduzir, tocar"]
         ] } },
         { h3: "Gírias, jargões e regionalismos" },
         { p: "A Caju usa gírias e regionalismos no branding — mas não no produto. Na interface, precisamos garantir o entendimento de todas as pessoas usuárias, independente de região ou contexto." },
@@ -304,19 +362,19 @@
         { h2: "Abreviação e siglas" },
         { h3: "Siglas" },
         { ul: [
-          "Sempre escreva o nome completo na primeira menção, seguido da sigla entre parênteses. Nas menções seguintes, use apenas a sigla.",
-          "Use caixa alta para siglas — nunca minúsculo.",
+          "Sempre escreva o nome completo na primeira menção, seguido da sigla entre parênteses. Nas menções seguintes, use apenas a sigla. Exceção: siglas que todo mundo conhece, como CPF, CNPJ e RG, dispensam o nome completo.",
+          "Use caixa alta para siglas — nunca minúsculo. Pix não é sigla: escreva sempre Pix.",
           "Não use ponto entre as letras."
         ] },
         { table: { wrap: true, head: ["Faça", "Não faça"], rows: [
           ["O custo efetivo total (CET) inclui todas as tarifas. O CET é calculado anualmente.", "O C.E.T. inclui todas as tarifas."], ["IOF", "I.O.F."]
         ] } },
         { h3: "Siglas da Caju" },
-        { p: "Algumas siglas são usadas com frequência nos produtos da Caju. Sempre que aparecerem pela primeira vez em uma tela ou comunicação, escreva o nome completo." },
+        { p: "Algumas siglas são usadas com frequência nos produtos da Caju. Sempre que aparecerem pela primeira vez em uma tela ou comunicação, escreva o nome completo — menos CPF, CNPJ e RG, que dispensam." },
         { table: { wrap: true, head: ["Sigla", "Nome completo"], rows: [
           ["CPF", "Cadastro de Pessoas Físicas"], ["CNPJ", "Cadastro Nacional da Pessoa Jurídica"], ["CET", "Custo Efetivo Total"], ["IOF", "Imposto sobre Operações Financeiras"],
           ["MCC", "Merchant Category Code — código de categoria do estabelecimento"], ["OTP", "Código de uso único — use sempre \"código de autenticação\" no produto"],
-          ["RG", "Registro Geral"], ["PIX", "Pagamentos Instantâneos — sempre com P maiúsculo, por regra do BACEN"]
+          ["RG", "Registro Geral"], ["Pix", "Não é sigla: escreva sempre Pix, nunca PIX nem pix (grafia do Banco Central)"]
         ] } },
         { h3: "Abreviações de data e hora" },
         { p: "Use abreviações apenas quando o componente não permitir o nome completo. Sempre com primeira letra maiúscula. Confira mais detalhes em Data e horários." },
@@ -399,7 +457,7 @@
         { p: "Nesta seção, você consulta como formatar alguns dados. Para regras de mascaramento, consulte Mascaramento e omissão de dados." },
         { table: { wrap: true, head: ["Dado", "Como apresentar"], rows: [
           ["Cartões", "O cartão tem 16 dígitos numéricos. Apresente em blocos de 4 números separados por espaço: `1234 5678 9012 3456`."],
-          ["Código de ativação", "Apresente em blocos de 4 números separados por espaço."],
+          ["Código de desbloqueio", "Apresente em blocos de 4 números separados por espaço."],
           ["Código de autenticação", "Códigos de 6 dígitos. Apresente todos os números seguidos, sem espaçamento."],
           ["Senha do cartão", "Senha de 4 números. Apresente todos os números seguidos, sem espaçamento."],
           ["Celular", "Use sempre o formato com DDD. Ao pedir o número como input, oriente que o DDD é obrigatório. Use o termo \"celular\" ou \"número de celular\" — nunca \"telefone\"."]
@@ -407,8 +465,8 @@
         { h3: "Aplicações" },
         { table: { wrap: true, head: ["Exemplo", "Onde"], rows: [
           ["`Informe o código de autenticação: 123456`", "Código de autenticação"],
-          ["`Seu código de ativação é: 1234 5678 9012 3456`", "Código de ativação"],
-          ["`(99) 9 9999-9999`", "Celular"]
+          ["`Seu código de desbloqueio é: 1234 5678 9012 3456`", "Código de desbloqueio"],
+          ["`(11) 99999-9999`", "Celular"]
         ] } },
 
         { h2: "Datas e horários" },

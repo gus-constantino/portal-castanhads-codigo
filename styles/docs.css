@@ -53,7 +53,7 @@
   background:var(--common-colors-surface-default);
   color:var(--common-colors-text-medium);
 }
-.pg-doc > .pg-doc-p, .pg-doc > .pg-doc-list{ max-width:calc(3 * var(--common-sizes-200) + var(--common-sizes-160)); }
+.pg-doc > .pg-doc-p, .pg-doc > .pg-doc-list, .pg-doc-step > .pg-doc-p, .pg-doc-step > .pg-doc-list{ max-width:calc(3 * var(--common-sizes-200) + var(--common-sizes-160)); }
 @media (max-width:760px){ .pg-doc{ padding:var(--common-sizes-16) 0 var(--common-sizes-24); } }
 
 .pg-doc-h2{ margin:var(--common-sizes-16) 0 0; font:var(--text-style-heading-small); color:var(--common-colors-text-medium); }

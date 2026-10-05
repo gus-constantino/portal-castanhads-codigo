@@ -422,7 +422,29 @@
   });
   var mountedId = null, reportBtn = $("report-btn"), report = $("report"), lastHash = "#/";
   reportBtn.addEventListener("click", function(){ location.hash = route()[0] === "relatorio" ? lastHash : "#/relatorio"; });
+  // ---------- Docs sob demanda (D124) ----------
+  // O pacote traz só o índice (CDS.docsIndex: id → arquivo?v=hash + docs de que depende). Ao abrir um componente com
+  // doc, carrega o arquivo dele (e as dependências) e só então monta: tabs, capa e (i) leem CDS.docs como antes.
+  var docLoads = {}, docTried = {};
+  function loadDoc(id){
+    var ix = CDS.docsIndex && CDS.docsIndex[id];
+    if (!ix || (CDS.docs && CDS.docs[id])) return Promise.resolve();
+    if (!docLoads[id]) docLoads[id] = Promise.all((ix.needs || []).map(loadDoc)).then(function(){
+      return new Promise(function(done){
+        var sc = document.createElement("script"); sc.src = ix.src;
+        sc.onload = sc.onerror = function(){ docTried[id] = true; done(); }; // sem a doc, o componente abre só com o Playground
+        document.head.appendChild(sc);
+      });
+    });
+    return docLoads[id];
+  }
+  CDS.loadDoc = loadDoc;
   function onRoute(){
+    var r0 = route()[0], want = list.some(function(c){ return c.id === r0; }) ? r0 : currentId();
+    if (CDS.docsIndex && CDS.docsIndex[want] && !docTried[want] && !(CDS.docs && CDS.docs[want])){ loadDoc(want).then(onRoute); return; }
+    showRoute();
+  }
+  function showRoute(){
     // #/relatorio[/tab]: o relatório troca o shell inteiro; o botão volta para o último componente
     var r = route(), isReport = r[0] === "relatorio" && !!CDS.report;
     shell.hidden = isReport; report.hidden = !isReport;

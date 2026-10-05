@@ -60,7 +60,8 @@ function files(){
   const css = order.filter((id) => fs.existsSync(path.join(DIR, id, id + ".css"))).map((id) => `components/${id}/${id}.css`)
     .concat(resources.filter((id) => fs.existsSync(path.join(RES, id, id + ".css"))).map((id) => `resources/${id}/${id}.css`));
   const js = [];
-  order.forEach((id) => ["", ".playground", ".docs"].forEach((k) => { const f = `components/${id}/${id}${k}.js`; if (fs.existsSync(path.join(ROOT, f))) js.push(f); }));
+  // Docs dos componentes ficam fora do pacote: o shell carrega cada uma ao abrir o componente (docsIndex, D124)
+  order.forEach((id) => ["", ".playground"].forEach((k) => { const f = `components/${id}/${id}${k}.js`; if (fs.existsSync(path.join(ROOT, f))) js.push(f); }));
   resources.forEach((id) => js.push(`resources/${id}/${id}.js`));
   return { css, js };
 }
@@ -70,8 +71,23 @@ function bundle(){
   const head = (n) => `/* GERADO por scripts/build-index.js · ${n} arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */\n`;
   fs.writeFileSync(path.join(DIST, "cds.css"), head(f.css.length) + f.css.map((r) => `/* ==== ${r} ==== */\n` + fs.readFileSync(path.join(ROOT, r), "utf8").trim()).join("\n\n") + "\n");
   fs.writeFileSync(path.join(DIST, "cds.js"), head(f.js.length) + f.js.map((r) =>
-    `/* ==== ${r} ==== */\ntry {\n${fs.readFileSync(path.join(ROOT, r), "utf8").trim()}\n} catch (e) { console.error("[cds] ${r}", e); }`).join("\n\n") + "\n");
+    `/* ==== ${r} ==== */\ntry {\n${fs.readFileSync(path.join(ROOT, r), "utf8").trim()}\n} catch (e) { console.error("[cds] ${r}", e); }`).join("\n\n") + "\n" + docsIndex());
   return f;
+}
+
+// Índice das docs (fim do dist/cds.js): id → arquivo com ?v=hash e as docs de que ela depende
+// (uma doc que lê CDS.docs["outra"], ex.: Scrollable Tab reaproveita Fixed Tab). O shell carrega sob demanda.
+function docsIndex(){
+  const idx = {};
+  order.forEach((id) => {
+    const rel = `components/${id}/${id}.docs.js`, abs = path.join(ROOT, rel);
+    if (!fs.existsSync(abs)) return;
+    const src = fs.readFileSync(abs, "utf8");
+    const needs = [...new Set([...src.matchAll(/CDS\.docs\["([\w-]+)"\]/g)].map((m) => m[1]).filter((d) => d !== id))];
+    idx[id] = { src: rel + "?v=" + crypto.createHash("sha1").update(src).digest("hex").slice(0, 8) };
+    if (needs.length) idx[id].needs = needs;
+  });
+  return "\n/* ==== docs sob demanda (gerado) ==== */\nwindow.CDS = window.CDS || {}; CDS.docsIndex = " + JSON.stringify(idx) + ";\n";
 }
 
 function blocks(prefix){
@@ -139,14 +155,18 @@ const loaded = [...indexHtml.matchAll(/(?:href|src)="([\w./-]+\.(?:js|css))(?:\?
 let raw = 0, zip = 0;
 loaded.forEach((r) => { const b = fs.readFileSync(path.join(ROOT, r)); raw += b.length; zip += gz(b); });
 const parts = { "componentes": [], "playgrounds": [], "docs": [], "recursos": [] };
-bundled.js.forEach((r) => parts[r.startsWith("resources/") ? "recursos" : r.endsWith(".docs.js") ? "docs" : r.endsWith(".playground.js") ? "playgrounds" : "componentes"].push(r));
+bundled.js.forEach((r) => parts[r.startsWith("resources/") ? "recursos" : r.endsWith(".playground.js") ? "playgrounds" : "componentes"].push(r));
+delete parts.docs;
 console.log(`\nPeso da primeira visita (index.html): ${kb(raw).trim()} · gzip ${kb(zip).trim()} · limite ${BUDGET_KB} KB gzip`);
 Object.keys(parts).forEach((k) => {
   const b = Buffer.concat(parts[k].map((r) => fs.readFileSync(path.join(ROOT, r))));
   console.log(`  dist/cds.js · ${k.padEnd(12)} ${kb(b.length)} · gzip ${kb(gz(b))} · ${parts[k].length} arquivos`);
 });
+const lazy = order.map((id) => `components/${id}/${id}.docs.js`).filter((r) => fs.existsSync(path.join(ROOT, r)));
+const lazyZip = lazy.reduce((t, r) => t + gz(fs.readFileSync(path.join(ROOT, r))), 0);
+console.log(`  docs sob demanda (fora do pacote)       ${lazy.length} arquivos · gzip ${kb(lazyZip).trim()} no total · uma por componente aberto`);
 if (zip / 1024 > BUDGET_KB){
-  console.warn(`⚠️  Passou do orçamento: ${kb(zip).trim()} gzip > ${BUDGET_KB} KB. Próximo passo planejado: docs sob demanda (carregar *.docs.js só ao abrir a tab).`);
+  console.warn(`⚠️  Passou do orçamento: ${kb(zip).trim()} gzip > ${BUDGET_KB} KB. As docs já são sob demanda: ver o que mais cresceu acima.`);
   if (process.env.BUDGET_STRICT === "1") process.exit(1);
 }
 

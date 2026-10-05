@@ -78,7 +78,7 @@
     var node = null;
     return scoped(function(){ return node && node.isConnected ? node : (node = preview.querySelector(map.element)); }, map.defaults);
   }
-  function fill(t, v, get){ return String(t).replace(/\{v\}/g, v == null ? "" : v).replace(/\{i\}/g, get.i); }
+  function fill(t, v, get){ return String(t).replace(/\{v\}/g, v == null ? "" : v).replace(/\{i\}/g, get.i).replace(/\{@([a-z-]+)\}/g, function(m, k){ var x = get(k); return x == null ? "" : x; }); } // {@attr}: outro atributo
   function test(get, ifs){
     return !ifs || Object.keys(ifs).every(function(k){
       var w = ifs[k], neg = w.charAt(0) === "!", v = get(k);

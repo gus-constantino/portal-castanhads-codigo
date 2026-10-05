@@ -83,15 +83,17 @@ function reactProps(idx, dir, comp){
     ? [parts.join(""), parts.join("") + "Props"].concat(own.filter((k) => k.endsWith(last) || k.endsWith(last + "Props"))).find((k) => idx[k])
     : [comp, comp + "Props"].find((k) => idx[k] && own.indexOf(k) >= 0) || [comp, comp + "Props"].find((k) => idx[k]);
   if (!start) return null;
+  // tipo da própria pasta primeiro: nomes repetidos entre componentes (LeadSlot em ContentList e SelectionList) não se misturam
+  const T = (t) => (dir.props[t] || (dir.refs || {})[t]) ? { props: dir.props[t] || [], refs: (dir.refs || {})[t] || [] } : idx[t];
   const out = [], seen = {};
   (function walk(t){
-    if (seen[t] || !idx[t]) return; seen[t] = 1;
-    idx[t].props.forEach((p) => {
+    if (seen[t] || !T(t)) return; seen[t] = 1;
+    T(t).props.forEach((p) => {
       const ex = out.find((x) => x.name === p.name), lit = literals(p);
       if (!ex) out.push(Object.assign({}, p, { lits: lit }));
       else if (lit) ex.lits = Array.from(new Set((ex.lits || []).concat(lit)));
     });
-    idx[t].refs.forEach(walk);
+    T(t).refs.forEach(walk);
     if (/Props$/.test(t)) walk(t.replace(/Props$/, ""));
   })(start);
   return out;

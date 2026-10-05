@@ -1,0 +1,82 @@
+{
+  "element": "cds-selection-list",
+  "defaults": {
+    "kind": "default",
+    "trailing-item": "checkbox"
+  },
+  "jsx": {
+    "tag": "SelectionList",
+    "props": [
+      {
+        "prop": "kind",
+        "attr": "kind",
+        "if": {
+          "kind": "!default"
+        }
+      },
+      {
+        "prop": "trailingItem",
+        "attr": "trailing-item",
+        "map": {
+          "chechbox": "checkbox",
+          "radio-button": "radio"
+        }
+      },
+      {
+        "prop": "onChange",
+        "expr": "setSelected"
+      }
+    ],
+    "children": [
+      {
+        "each": "cds-selection-list-item",
+        "node": {
+          "tag": "SelectionList.Item",
+          "defaults": {
+            "label": "Label",
+            "description": "Description",
+            "show-description": "true"
+          },
+          "props": [
+            {
+              "prop": "value",
+              "tpl": "opcao-{i}",
+              "attr": "label"
+            },
+            {
+              "prop": "label",
+              "attr": "label"
+            },
+            {
+              "prop": "description",
+              "attr": "description",
+              "if": {
+                "show-description": "true"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Kind",
+      "kind",
+      "kind",
+      "Repassado aos itens."
+    ],
+    [
+      "—",
+      "trailing-item",
+      "trailingItem",
+      "Na lista do React só `checkbox` (seleção múltipla) ou `radio` (única); define o modo de seleção."
+    ],
+    [
+      "—",
+      "(filhos)",
+      "<SelectionList.Item>",
+      "Um item por opção, com `value`; a seleção é um `string[]` (`defaultValue`/`value` + `onChange`)."
+    ]
+  ]
+}

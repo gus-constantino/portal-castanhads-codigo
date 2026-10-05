@@ -1,0 +1,50 @@
+{
+  "element": "cds-csat-score",
+  "defaults": {
+    "label": "Avaliação"
+  },
+  "jsx": {
+    "tag": "CsatScore",
+    "props": [
+      {
+        "prop": "aria-label",
+        "attr": "label"
+      },
+      {
+        "prop": "disabled",
+        "attr": "disabled",
+        "bool": true
+      },
+      {
+        "prop": "onChange",
+        "expr": "setRating"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira prop."
+    ],
+    [
+      "Selected Value",
+      "value",
+      "onChange",
+      "O React não recebe o valor inicial nem controlado: a nota chega em `onChange` (número ou `undefined`)."
+    ],
+    [
+      "—",
+      "labels",
+      "items",
+      "Rótulos das 5 opções: `[{ label, value }]` (padrão do componente: Muito ruim a Muito bom)."
+    ],
+    [
+      "—",
+      "label",
+      "aria-label",
+      "Nome do grupo."
+    ]
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "element": "cds-nps-score",
+  "defaults": {
+    "label": "Nota de 0 a 10"
+  },
+  "jsx": {
+    "tag": "NpsScore",
+    "props": [
+      {
+        "prop": "aria-label",
+        "attr": "label"
+      },
+      {
+        "prop": "disabled",
+        "attr": "disabled",
+        "bool": true
+      },
+      {
+        "prop": "onChange",
+        "expr": "setScore"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira prop."
+    ],
+    [
+      "Selected Value",
+      "value",
+      "onChange",
+      "O React não recebe o valor inicial nem controlado: a nota (0–10) chega em `onChange`."
+    ],
+    [
+      "—",
+      "—",
+      "items",
+      "Escala `number[]`; padrão 0 a 10."
+    ],
+    [
+      "—",
+      "label",
+      "aria-label",
+      "Nome do grupo."
+    ]
+  ]
+}

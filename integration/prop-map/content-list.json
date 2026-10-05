@@ -1,0 +1,75 @@
+{
+  "element": "cds-content-list",
+  "defaults": {
+    "kind": "default",
+    "intent": "default"
+  },
+  "jsx": {
+    "tag": "ContentList",
+    "props": [
+      {
+        "prop": "kind",
+        "attr": "kind",
+        "if": {
+          "kind": "!default"
+        }
+      },
+      {
+        "prop": "intent",
+        "attr": "intent",
+        "map": {
+          "switch": "transaction"
+        },
+        "if": {
+          "intent": "!default"
+        }
+      }
+    ],
+    "children": [
+      {
+        "each": "cds-content-list-item",
+        "node": {
+          "tag": "ContentList.Item",
+          "defaults": {
+            "label": "Label",
+            "description": "Description",
+            "show-description": "true"
+          },
+          "props": [
+            {
+              "prop": "label",
+              "attr": "label"
+            },
+            {
+              "prop": "description",
+              "attr": "description",
+              "if": {
+                "show-description": "true"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Kind",
+      "kind",
+      "kind",
+      "Repassado a todos os itens."
+    ],
+    [
+      "Intent",
+      "intent",
+      "intent",
+      "Repassado aos itens. O Intent \"Switch\" do Figma gera itens Transaction (C54) — no React, `transaction`. O Code Connect mapeia Switch para `default`."
+    ],
+    [
+      "—",
+      "(filhos)",
+      "<ContentList.Item>",
+      "Um item por linha."
+    ]
+  ]
+}

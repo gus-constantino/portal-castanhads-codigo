@@ -1,0 +1,105 @@
+{
+  "element": "cds-balance-card",
+  "defaults": {
+    "label": "Label",
+    "value": "100,00",
+    "symbol": "R$",
+    "icon": "placeholder-line",
+    "header-tag": "Tag",
+    "bottom-tag": "Tag",
+    "show-header-tag": "true",
+    "show-bottom-tag": "true",
+    "show-value": "true"
+  },
+  "jsx": {
+    "tag": "BalanceCard",
+    "props": [
+      {
+        "prop": "leadIcon",
+        "attr": "icon"
+      },
+      {
+        "prop": "label",
+        "attr": "label"
+      },
+      {
+        "prop": "currency",
+        "if": {
+          "show-value": "!false"
+        },
+        "attr": "value",
+        "tpl": "{@symbol} {v}"
+      },
+      {
+        "prop": "currency",
+        "expr": "{ children: '{@value}', showValue: false }",
+        "if": {
+          "show-value": "false"
+        }
+      },
+      {
+        "prop": "headerTag",
+        "attr": "header-tag",
+        "expr": "{ label: '{v}' }",
+        "if": {
+          "show-header-tag": "true"
+        }
+      },
+      {
+        "prop": "bottomTag",
+        "attr": "bottom-tag",
+        "expr": "{ label: '{v}' }",
+        "if": {
+          "show-bottom-tag": "true"
+        }
+      },
+      {
+        "prop": "href",
+        "attr": "href"
+      },
+      {
+        "prop": "disabled",
+        "attr": "disabled",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Lead Icon",
+      "icon",
+      "leadIcon",
+      "Obrigatório no React (sem placeholder padrão)."
+    ],
+    [
+      "Text Label",
+      "label",
+      "label",
+      "Nome da categoria."
+    ],
+    [
+      "Show Header Tag",
+      "show-header-tag + header-tag",
+      "headerTag",
+      "`{ label }` da Tag; desligado: omita (ou `hideHeaderTag`)."
+    ],
+    [
+      "Show Bottom Tag",
+      "show-bottom-tag + bottom-tag",
+      "bottomTag",
+      "`{ label }` da Tag; desligado: omita (ou `hideBottomTag`)."
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira prop."
+    ],
+    [
+      "—",
+      "value + symbol + show-value",
+      "currency",
+      "Texto já formatado, ou um objeto do `Currency` (ex.: `showValue: false` para ocultar)."
+    ]
+  ]
+}

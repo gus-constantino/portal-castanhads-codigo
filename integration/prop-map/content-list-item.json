@@ -1,0 +1,178 @@
+{
+  "element": "cds-content-list-item",
+  "defaults": {
+    "kind": "default",
+    "label": "Label",
+    "description": "Description",
+    "show-description": "true",
+    "show-lead-item": "true",
+    "show-divider": "true",
+    "lead-icon": "placeholder-line",
+    "intent": "default",
+    "trailing-item": "checkbox",
+    "show-trailing-item": "true",
+    "show-tag": "true",
+    "tag-label": "Tag",
+    "shaped-icon": "placeholder-line",
+    "value": "30.000,00",
+    "symbol": "R$",
+    "value-description": "Description",
+    "show-navigation-indicator": "true"
+  },
+  "jsx": {
+    "tag": "ContentList.Item",
+    "props": [
+      {
+        "prop": "kind",
+        "attr": "kind"
+      },
+      {
+        "prop": "intent",
+        "attr": "intent",
+        "if": {
+          "intent": "!default"
+        }
+      },
+      {
+        "prop": "label",
+        "attr": "label"
+      },
+      {
+        "prop": "description",
+        "attr": "description",
+        "if": {
+          "show-description": "true"
+        }
+      },
+      {
+        "prop": "leadIcon",
+        "attr": "lead-icon",
+        "if": {
+          "show-lead-item": "true",
+          "intent": "!transaction"
+        }
+      },
+      {
+        "prop": "leadIcon",
+        "attr": "shaped-icon",
+        "if": {
+          "intent": "transaction"
+        }
+      },
+      {
+        "prop": "hideLeadItem",
+        "attr": "show-lead-item",
+        "bool": "not"
+      },
+      {
+        "prop": "trailingItem",
+        "attr": "trailing-item",
+        "map": {
+          "chechbox": "checkbox",
+          "radio-button": "radio"
+        },
+        "if": {
+          "intent": "default",
+          "show-trailing-item": "true"
+        }
+      },
+      {
+        "prop": "hideTrailingItem",
+        "attr": "show-trailing-item",
+        "bool": "not",
+        "if": {
+          "intent": "default"
+        }
+      },
+      {
+        "prop": "trailingTag",
+        "attr": "tag-label",
+        "expr": "{ children: '{v}' }",
+        "if": {
+          "intent": "navigation",
+          "show-tag": "true"
+        }
+      },
+      {
+        "prop": "trailingText",
+        "expr": "{ currency: '{@symbol} {@value}', description: '{@value-description}' }",
+        "if": {
+          "intent": "transaction"
+        }
+      },
+      {
+        "prop": "divider",
+        "attr": "show-divider",
+        "bool": true,
+        "if": {
+          "kind": "!card"
+        }
+      },
+      {
+        "prop": "href",
+        "attr": "href"
+      },
+      {
+        "prop": "disabled",
+        "attr": "disabled",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Kind",
+      "kind",
+      "kind",
+      ""
+    ],
+    [
+      "Intent",
+      "intent",
+      "intent",
+      "`default`, `navigation` ou `transaction`; cada um troca o trailing."
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira prop."
+    ],
+    [
+      "Show Lead Item",
+      "show-lead-item",
+      "hideLeadItem",
+      "Invertido: desligado = `hideLeadItem`. O ícone vai em `leadIcon` (no Transaction, o Shaped Icon)."
+    ],
+    [
+      "Show Trailing Item",
+      "show-trailing-item",
+      "trailingItem / hideTrailingItem",
+      "Intent Default: o controle (`checkbox`, `radio`, `switch` ou `icon`) vai em `trailingItem`; o estado, em `trailingItemProps`."
+    ],
+    [
+      "Show Tag",
+      "show-tag + tag-label",
+      "trailingTag",
+      "Intent Navigation: `{ children }` da Tag (Warning por padrão)."
+    ],
+    [
+      "Show Navigation Indicator",
+      "show-navigation-indicator",
+      "—",
+      "O chevron aparece sozinho nos Intents Navigation e Transaction."
+    ],
+    [
+      "Show Divider",
+      "show-divider",
+      "divider",
+      "O padrão do Figma é ligado; o do React, desligado — declare `divider`. Ignorado no Card."
+    ],
+    [
+      "—",
+      "value + symbol + value-description",
+      "trailingText",
+      "Intent Transaction: `{ currency, description }` (o valor vai já formatado, com o sinal)."
+    ]
+  ]
+}

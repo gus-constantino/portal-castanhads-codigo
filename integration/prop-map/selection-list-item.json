@@ -1,0 +1,140 @@
+{
+  "element": "cds-selection-list-item",
+  "defaults": {
+    "kind": "default",
+    "label": "Label",
+    "description": "Description",
+    "show-description": "true",
+    "show-lead-item": "true",
+    "show-divider": "true",
+    "lead-icon": "placeholder-line",
+    "trailing-item": "checkbox",
+    "tag-label": "Tag",
+    "trailing-icon": "placeholder-line"
+  },
+  "jsx": {
+    "tag": "SelectionList.Item",
+    "props": [
+      {
+        "prop": "kind",
+        "attr": "kind"
+      },
+      {
+        "prop": "value",
+        "attr": "value"
+      },
+      {
+        "prop": "label",
+        "attr": "label"
+      },
+      {
+        "prop": "description",
+        "attr": "description",
+        "if": {
+          "show-description": "true"
+        }
+      },
+      {
+        "prop": "leadItem",
+        "value": "icon",
+        "if": {
+          "show-lead-item": "true"
+        }
+      },
+      {
+        "prop": "leadItemProps",
+        "attr": "lead-icon",
+        "expr": "{ name: '{v}' }",
+        "if": {
+          "show-lead-item": "true"
+        }
+      },
+      {
+        "prop": "trailingItem",
+        "attr": "trailing-item",
+        "map": {
+          "chechbox": "checkbox",
+          "radio-button": "radio"
+        },
+        "if": {
+          "trailing-item": "!none"
+        }
+      },
+      {
+        "prop": "trailingItemProps",
+        "attr": "tag-label",
+        "expr": "{ children: '{v}' }",
+        "if": {
+          "trailing-item": "tag"
+        }
+      },
+      {
+        "prop": "trailingItemProps",
+        "attr": "trailing-icon",
+        "expr": "{ name: '{v}' }",
+        "if": {
+          "trailing-item": "icon"
+        }
+      },
+      {
+        "prop": "active",
+        "attr": "is-active",
+        "bool": true
+      },
+      {
+        "prop": "divider",
+        "attr": "show-divider",
+        "bool": true
+      },
+      {
+        "prop": "disabled",
+        "attr": "disabled",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Kind",
+      "kind",
+      "kind",
+      ""
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira prop."
+    ],
+    [
+      "Is Active",
+      "is-active",
+      "active",
+      "Dentro do `SelectionList` o estado é injetado pela lista (`value`/`defaultValue`)."
+    ],
+    [
+      "Trailing Item",
+      "trailing-item",
+      "trailingItem",
+      "\"Chechbox\" → `checkbox`, Radio Button → `radio`; None: omita. Tag e Icon usam `trailingItemProps`."
+    ],
+    [
+      "Show Lead Item",
+      "show-lead-item + lead-icon",
+      "leadItem + leadItemProps",
+      "`leadItem=\"icon\"` + `{ name }`. O React também aceita `avatar` e `image`."
+    ],
+    [
+      "Show Divider",
+      "show-divider",
+      "divider",
+      "O padrão do Figma é ligado; o do React, desligado."
+    ],
+    [
+      "—",
+      "value",
+      "value",
+      "Identifica o item na seleção da lista."
+    ]
+  ]
+}

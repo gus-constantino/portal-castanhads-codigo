@@ -16,6 +16,7 @@
 "use strict";
 const fs = require("fs"), path = require("path"), { execFileSync } = require("child_process");
 const ROOT = path.join(__dirname, "..", "..");
+const STACK = require("./check-stack"); // R2: check em três vértices
 const arg = (k, d) => { const i = process.argv.indexOf("--" + k); return i > 0 ? process.argv[i + 1] : d; };
 const CASTANHA = path.resolve(ROOT, arg("castanha", "../castanha"));
 const REF = arg("ref", "origin/staging"), CC = arg("cc", "origin/feat/figma-code-connect");
@@ -63,7 +64,9 @@ function parseMember(seg){
   const desc = doc.split("\n").filter((l) => l.trim() && !/^@/.test(l.trim())).join(" ").replace(/\s+/g, " ").trim();
   return { name: m[1].replace(/'/g, ""), required: !m[2], type, values, default: def ? def.trim().replace(/^'([^']+)'$/, "$1") : undefined, description: desc || undefined };
 }
-function parseTypes(src){
+const TS_UTIL = /^(Omit|Pick|Partial|Required|Readonly|Record|Extract|Exclude|NonNullable|MergeProps|ReactNode|ReactElement|HTMLAttributes|ComponentProps|ComponentPropsWithoutRef|Ref|RefObject|ChangeEvent|MouseEvent|KeyboardEvent|BaseComponentProps|HTML\w*Element|Element)$/;
+/** refs (opcional) recebe, por tipo, os tipos que ele compõe: `A & B & {…}`, unions e `extends` (para seguir ChipFilter → ChipBaseProps). */
+function parseTypes(src, refs){
   const types = {};
   // todo `type X = … & { … }` e `interface X … { … }` com corpo de objeto (bases, variantes de union, opções)
   const re = /^(?:export\s+)?(type|interface)\s+(\w+)\s*(?:<[^=>{]*>)?\s*(=|extends[^{]*|)\s*/gm; let m;
@@ -71,10 +74,41 @@ function parseTypes(src){
     let i = re.lastIndex, d = 0, open = -1;
     if (m[1] === "interface") open = src.indexOf("{", i - 1);
     else for (; i < src.length; i++){ const c = src[i]; if ("<(".includes(c)) d++; else if (">)".includes(c)) d--; else if (c === "{" && d === 0){ open = i; break; } else if ((c === ";" || (c === "\n" && /^\n(type|interface|export)\b/.test(src.slice(i, i + 12)))) && d === 0) break; }
+    const name = m[2].replace(/^Castanha(?=[A-Z])/, "");
+    if (refs){
+      const zone = (m[1] === "interface" ? m[3] : src.slice(re.lastIndex, open < 0 ? i : open)).replace(/'[^']*'/g, "");
+      const r = Array.from(new Set((zone.match(/\b[A-Z]\w*/g) || []).filter((x) => !TS_UTIL.test(x)).map((x) => x.replace(/^Castanha(?=[A-Z])/, ""))));
+      if (r.length) refs[name] = r;
+    }
     if (open < 0) continue;
-    const end = balanced(src, open);
+    let end = balanced(src, open);
     const members = splitMembers(src.slice(open + 1, end)).map(parseMember).filter(Boolean);
-    if (members.length) types[m[2].replace(/^Castanha(?=[A-Z])/, "")] = members;
+    // union de objetos (`| { a?: 'x' } | { a: 'y' }`): lê todos os corpos até o fim do statement e junta os valores
+    if (m[1] === "type"){
+      let j = end + 1, dd = 0;
+      for (; j < src.length; j++){
+        const c = src[j];
+        if ("<(".includes(c)) dd++; else if (">)".includes(c)) dd--;
+        else if (c === "{" && dd === 0){
+          const e2 = balanced(src, j);
+          splitMembers(src.slice(j + 1, e2)).map(parseMember).filter(Boolean).forEach((p) => {
+            const ex = members.find((x) => x.name === p.name);
+            if (!ex) members.push(Object.assign(p, { required: false }));
+            else {
+              if (ex.values && p.values) ex.values = Array.from(new Set(ex.values.concat(p.values)));
+              else if (ex.type !== p.type) ex.values = null;
+              if (ex.type !== p.type) ex.type = Array.from(new Set(ex.type.split(" | ").concat(p.type.split(" | ")))).join(" | ");
+              if (!p.required) ex.required = false;
+              if (ex.default === undefined) ex.default = p.default;
+              if (!ex.description) ex.description = p.description;
+            }
+          });
+          j = e2;
+        } else if (c === ";" && dd === 0) break;
+        else if (c === "\n" && dd === 0 && /^\n(type|interface|export|\/\*\*|\/\/)/.test(src.slice(j, j + 12))) break;
+      }
+    }
+    if (members.length) types[name] = members;
   }
   return types;
 }
@@ -111,7 +145,7 @@ dirs.forEach((dir) => {
   const idx = show(REF, COMP + "/" + dir + "/index.ts") || "";
   const subs = []; const asg = idx.match(/Object\.assign\(\s*\w+\s*,\s*\{([\s\S]*?)\}\s*\)/); if (asg) asg[1].split(",").forEach((p) => { const k = p.split(":")[0].trim(); if (k) subs.push(k); });
   const named = (idx.match(/export\s+(?:const|function)\s+(\w+)/g) || []).map((s) => s.split(/\s+/).pop());
-  const props = {}; own.filter((f) => /\.types\.ts$/.test(f)).forEach((f) => Object.assign(props, parseTypes(show(REF, f) || "")));
+  const props = {}, refs = {}; own.filter((f) => /\.types\.ts$/.test(f)).forEach((f) => Object.assign(props, parseTypes(show(REF, f) || "", refs)));
   const stories = own.filter((f) => /\.stories\.tsx$/.test(f)).map((f) => {
     const s = show(REF, f) || "";
     const nodes = Array.from(new Set((s.match(/node-id=(\d+-\d+)/g) || []).map((x) => x.split("=")[1])));
@@ -132,12 +166,14 @@ dirs.forEach((dir) => {
     storyNodeIds: Array.from(new Set([].concat.apply([], stories.map((s) => s.nodeIds)))),
     storyTitle: (stories[0] || {}).title, storyId: g ? g.storyId : null,
     storybook: g ? STORYBOOK + g.docsPath : null, zeroheight: zh ? ZEROHEIGHT + zh : null,
-    codeConnect: []
+    codeConnect: [], refs
   };
 });
 const ccFiles = ls(CC, COMP).filter((f) => /\.figma\.ts$/.test(f));
 ccFiles.forEach((f) => {
-  const cc = parseCodeConnect(show(CC, f) || ""); cc.file = f.split("/").pop();
+  const ccSrc = show(CC, f) || "";
+  const cc = parseCodeConnect(ccSrc); cc.file = f.split("/").pop();
+  cc.bindings = STACK.parseBindings(ccSrc); // ligações prop do Figma → prop do React (só metadados)
   const dir = f.slice(COMP.length + 1).split("/")[0];
   if (react[dir]) react[dir].codeConnect.push(cc);
 });
@@ -213,7 +249,7 @@ const manifest = {
   reactOnly,
   react: Object.values(react).map((r) => ({ name: r.name, exported: r.exported, inMain: r.inMain, exports: r.exports, subcomponents: r.subcomponents,
     description: r.description, import: r.import, tags: r.tags, noFigma: r.noFigma, storyId: r.storyId, storybook: r.storybook, zeroheight: r.zeroheight,
-    storyNodeIds: r.storyNodeIds, codeConnect: r.codeConnect.map((c) => ({ component: c.component, node: c.node, file: c.file })), props: r.props }))
+    storyNodeIds: r.storyNodeIds, codeConnect: r.codeConnect.map((c) => ({ component: c.component, node: c.node, file: c.file })), props: r.props, refs: r.refs }))
 };
 fs.writeFileSync(path.join(ROOT, "integration", "manifest.json"), JSON.stringify(manifest, null, 2) + "\n");
 
@@ -238,20 +274,50 @@ if (fs.existsSync(MAPS)) fs.readdirSync(MAPS).filter((f) => /\.json$/.test(f)).f
   if (!components.some((c) => c.id === id)) throw new Error("prop-map/" + f + ": não existe componente " + id + " no playground");
   maps[id] = JSON.parse(fs.readFileSync(path.join(MAPS, f), "utf8"));
 });
+// ---------- R2 · saúde da stack (Figma × Code Connect/React × playground) ----------
+const figmaProps = STACK.readFigma(path.join(ROOT, "integration", "figma-props.tsv"));
+const findings = STACK.run({ components, react, maps, figma: figmaProps, codeText: STACK.codeAttrs(ROOT) });
+const LV = { alta: "Alta", media: "Média", info: "Informativo" }, byId = {};
+findings.forEach((f) => { (byId[f.id] = byId[f.id] || []).push(f); });
+const cnt = (l) => findings.filter((f) => f.level === l).length;
+const nameOf = (id) => (components.find((c) => c.id === id) || {}).name || id;
+const LVH = { alta: "quebra a tradução: o Code Connect lê prop ou gera valor que não existe",
+  media: "muda o resultado sem quebrar: padrão diferente, opção sem tradução, mapa curado errado",
+  info: "prop do Figma que não chega ao React pelo Code Connect" };
+const smd = ["# Saúde da stack — Figma × castanha-react × playground", "",
+  "Gerado por `node scripts/integration/build-manifest.js` em " + new Date().toISOString().slice(0, 10) + " (R2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). React: `" + REF + "` (`" + String(src.commit).slice(0, 8) + "`) e Code Connect `" + CC + "`. Playground: mapas de `integration/prop-map/`.", "",
+  "## Resumo", "", "| Nível | O que significa | Itens |", "|---|---|---:|"]
+  .concat(["alta", "media", "info"].map((l) => "| " + LV[l] + " | " + LVH[l] + " | " + cnt(l) + " |"))
+  .concat(["", "Componentes com algum item: " + Object.keys(byId).length + " de " + components.filter((c) => c.react).length + " com par no React.", ""]);
+["alta", "media", "info"].forEach((l) => {
+  smd.push("## " + LV[l], "", "| Componente | Tipo | O quê |", "|---|---|---|");
+  const list = findings.filter((f) => f.level === l);
+  if (!list.length) smd.push("| — | — | Nenhum item. |");
+  list.forEach((f) => smd.push("| " + nameOf(f.id) + " (`" + f.id + "`) | " + f.kind + " | " + f.msg.replace(/\|/g, "\\|") + " |"));
+  smd.push("");
+});
+smd.push("## Como rodar", "",
+  "1. Atualizar o clone do castanha (`git fetch` em `../castanha`).",
+  "2. Se o Figma mudou: reler as props via MCP (só leitura) e regravar `integration/figma-props.tsv` (formato no topo de `scripts/integration/check-stack.js`).",
+  "3. `node scripts/integration/build-manifest.js`: regera manifesto, cobertura, `react-data.js` e este relatório.", "",
+  "O lado Figma × playground continua no check de props (`docs/CHECK-PROPS.md`). Divergências que pedem decisão do time DS vão para o CONFERIR (grupo Integração React).", "");
+fs.writeFileSync(path.join(ROOT, "integration", "SAUDE-STACK.md"), smd.join("\n"));
+
 const slim = (p) => { const o = { n: p.name, t: p.type }; if (p.required) o.r = 1; if (p.default !== undefined) o.d = p.default; if (p.description) o.s = p.description; return o; };
 const data = { source: { ref: REF, commit: String(src.commit).slice(0, 8), date: String(src.date).slice(0, 10) }, dirs: {}, items: {} };
 Object.values(react).forEach((r) => {
   const props = {}; Object.keys(r.props).forEach((k) => { props[k] = r.props[k].map(slim); });
-  data.dirs[r.name] = { import: r.import || null, storybook: r.storybook, zeroheight: r.zeroheight, tags: r.tags, staging: !r.inMain, props };
+  data.dirs[r.name] = { import: r.import || null, storybook: r.storybook, zeroheight: r.zeroheight, tags: r.tags, staging: !r.inMain, props, refs: r.refs };
 });
 components.forEach((c) => {
   const it = { status: c.status };
   if (c.react) Object.assign(it, { dir: c.react.dir, component: c.react.component, via: c.react.via, import: c.react.import, figma: c.react.figmaProps });
   if (c.notes.length) it.notes = c.notes;
   if (maps[c.id]) it.map = maps[c.id];
+  if (byId[c.id]) it.checks = byId[c.id].map((f) => ({ l: f.level, k: f.kind, m: f.msg }));
   data.items[c.id] = it;
 });
 fs.writeFileSync(path.join(ROOT, "integration", "react-data.js"),
   "/* GERADO por scripts/integration/build-manifest.js a partir de " + REF + " (" + data.source.commit + ") e de integration/prop-map/ · não editar à mão */\n" +
   "window.CDS = window.CDS || {}; CDS.react = " + JSON.stringify(data) + ";\n");
-console.log(JSON.stringify(S), "· prop-maps:", Object.keys(maps).length);
+console.log(JSON.stringify(S), "· prop-maps:", Object.keys(maps).length, "· saúde:", JSON.stringify({ alta: cnt("alta"), media: cnt("media"), info: cnt("info") }));

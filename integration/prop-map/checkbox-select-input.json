@@ -135,10 +135,10 @@
       "O ícone de aviso aparece sozinho com `error`."
     ],
     [
-      "Placeholder",
+      "—",
       "placeholder",
       "placeholder",
-      ""
+      "Não é prop do Figma: o placeholder vem do conteúdo do campo."
     ],
     [
       "Opções",

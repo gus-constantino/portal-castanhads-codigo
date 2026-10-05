@@ -1,0 +1,70 @@
+11864-12559	Alert	Text Content=T;Show Close Button=B:1;Text Label=T;Show Label=B:1;Appearance=V:Positive:Positive|Warning|Informative
+11018-5694	Async creatable Select Input	Show Trailing Item=B:1;Show Supporting Content=B:1;Show Caret=B:1;Show Label=B:1;Show Required=B:1;Show Lead Icon=B:1;Text Label=T;Supporting Message=T;Error Message=T;Lead Icon=I:placeholder-line;Required Text=T;Appearance=V:Neutral:Neutral|Warning;State=V:Enabled:Enabled|Disabled|Hovered|Pressed;Is Filled=V:False:False|True;Is Active=V:False:False|True
+11030-7644	Async Select Input	Show Trailing Item=B:1;Show Supporting Content=B:1;Show Caret=B:1;Show Label=B:1;Show Required=B:1;Show Lead Icon=B:1;Text Label=T;Supporting Message=T;Error Message=T;Lead Icon=I:placeholder-line;Required Text=T;Appearance=V:Neutral:Neutral|Warning;State=V:Enabled:Enabled|Disabled|Hovered|Pressed;Is Filled=V:False:False|True;Is Active=V:False:False|True
+2278-92	Avatar	Text Label=T;Kind=V:Default:Default|Image|Initial;Appearance=V:Neutral:Neutral|Inversed;Size=V:Small:Small|Medium|Large
+13784-3271	Backdrop	
+4835-1472	Badge	Label=T;Appearance=V:Warning:Warning|Neutral
+17881-1707	Balance Card	Show Header Tag=B:1;Show Bottom Tag=B:1;Lead Icon=I:placeholder-line;Text Label=T;State=V:Enabled:Enabled|Hovered|Pressed|Disabled
+20051-15726	Banner	Illustration=I:sino;Kind=V:Illustration:Illustration|Image;State=V:Enabled:Enabled|Hovered|Pressed|Disabled
+6792-24	Breadcrumb	Show Popover=B:0;showItem03=B:1;showItem04=B:1;showItem05=B:1;showItem06=B:1;Kind=V:Default:Default
+11271-154	Caju Brand	Show Typography=B:1;Kind=V:Default:Default|Inversed|Full Red|Full White|Full Black
+17053-1181	Caju Card	Activation Code=T;Full Card Number=T;CVV=T;Expiration Date=T;Kind=V:Físico:Físico|Virtual/Credito|Voucher|Virtual/Credito Corporativo|Físico Corporativo;Orientation=V:Vertical:Horizontal|Vertical;Is Blocked=V:False:False|True;Side View=V:Front:Front|Back
+5256-540	Card	Slot=S;Has Border=V:True:True|False
+4123-2560	Checkbox	Text Label=T;Show Text Label=B:1;State=V:Enabled:Enabled|Hovered|Pressed|Disabled;Status=V:Unselected:Selected|Indeterminate|Unselected
+4132-1511	Checkbox Group	
+11143-4833	Checkbox Select Input	Show Trailing Item=B:1;Show Supporting Content=B:1;Show Caret=B:1;Show Label=B:1;Show Required=B:1;Show Lead Icon=B:1;Text Label=T;Supporting Message=T;Error Message=T;Lead Icon=I:placeholder-line;Required Text=T;Appearance=V:Neutral:Neutral|Warning;State=V:Enabled:Enabled|Disabled|Hovered|Pressed;Is Filled=V:False:False|True;Is Active=V:False:False|True
+12457-3664	Chips Group	Slot=S;Kind=V:Input Chips:Filter Chips|Input Chips;Role=V:Single Rows Chips:Multiple Rows Chip|Single Rows Chips
+16359-1803	Confirmation Message	Appearance=V:Neutral:Neutral|Positive|Warning
+5488-1482	Content List	Kind=V:Default:Default|Card;Intent=V:Default:Default|Switch|Navigation
+5488-675	Content List Item	Show Lead Item=B:1;Show Trailing Item=B:1;Show Divider=B:1;Show Navigation Indicator=B:1;Show Tag=B:1;Kind=V:Default:Default|Card;Intent=V:Default:Default|Navigation|Transaction;State=V:Enabled:Enabled|Hovered|Pressed|Disabled
+10100-1192	CSAT Score	State=V:Enabled:Enabled|Disabled;Selected Value=V:None:None|1|2|3|4|5
+5301-2173	Currency	Appearance=V:Neutral:Neutral|Inversed;Size=V:Small:Small|Medium|Large|Largest;Show Value=V:True:True|False
+17962-70687	Date Input	Show Trailing Item=B:1;Show Supporting Content=B:1;Show Caret=B:1;Show Label=B:1;Show Required=B:1;Show Character Counter=B:1;Character Counter Value=T;Text Label=T;Supporting Message=T;Error Message=T;Kind=V:Single Calendar:Single Calendar|Double Calendar;Appearance=V:Neutral:Neutral|Warning;State=V:Enabled:Enabled|Disabled|Hovered|Pressed;Is Filled=V:False:False|True;Is Active=V:False:False|True
+17629-24427	Date Picker	Show week 01=B:1;Show week 02=B:1;Show week 03=B:1;Show week 04=B:1;Show week 05=B:1;Show week 06=B:0;Selected Date Label=T;First Day Selected=T;Last Day Selected=T;Show First Day Selected=B:1;Show Last Day Selected=B:1;Show Selected Dates=B:1;Kind=V:Single Calendar:Single Calendar|Double Calendar;Role=V:Days Selector:Days Selector|Month Selector|Year Selector
+4931-207	Divider	Kind=V:Solid:Solid|Dashed;Intensity=V:Soft:Soft|Medium|Intense;Orientation=V:Horizontal:Horizontal|Vertical
+16456-4381	Drawer	Slot=S;Text Title=T;Show Action Buttons=B:1;Show Secondary Action Button=B:1
+6955-6985	Drop Button	Text Label=T;Show Lead Icon=B:1;Lead Icon=I:placeholder-line;Kind=V:Default:Default|Ghost;Appearance=V:Accent:Accent|Neutral|Inversed;State=V:Enabled:Enabled|Hovered|Pressed|Disabled;Size=V:Medium:Medium|Small;Is Active=V:False:False|True
+15386-7230	Dropzone	Show Text description=B:1;Text Description=T;Show Main button=B:1;Text Title=T;State=V:Enabled:Enabled|Hovered|Pressed|Dragover|Disabled
+5099-5389	Filter button	State=V:Enabled:Enabled|Hovered|Pressed|Disabled;Is Active=V:False:False|True
+12365-2744	Filter Chips	Text Label=T;Icon=I:placeholder-line;Show Lead Icon=B:1;State=V:Enabled:Hovered|Enabled|Pressed|Disabled;Is Selected=V:False:True|False
+6500-6958	Fixed Tab	Active Item=V:1:3|2|1
+2261-1126	Icon	Choose Icon=I:placeholder-line;Appearance=V:Accent:Accent|Neutral|Positive|Warning|Negative|Informative|Inversed;Size=V:Small:Small|Medium|Large
+4464-636	Icon Button	Icon=I:placeholder-line;Show Notification=B:0;Kind=V:Default:Default|Ghost;Appearance=V:Accent:Accent|Inversed|Neutral;State=V:Enabled:Enabled|Hovered|Pressed|Disabled;Size=V:Medium:Medium|Small
+2273-320	Image	Aspect Ratio=V:None:None|1:1|3:2
+12365-2728	Input Chips	Text Label=T;Icon=I:placeholder-line;Show Lead Icon=B:1;State=V:Enabled:Hovered|Enabled|Pressed|Disabled
+4926-213	Link	Link Content=T;Show Trailing Item=B:1;Change Icon=I:navigation-right-line;Appearance=V:Neutral:Accent|Neutral|Inversed;State=V:Enabled:Enabled|Hovered|Pressed|Disabled
+4464-427	Main Button	Text Label=T;Show Lead Icon=B:1;Show Trailing Icon=B:1;Lead Icon=I:placeholder-line;Kind=V:Default:Default|Ghost;Appearance=V:Accent:Accent|Neutral|Inversed;State=V:Enabled:Enabled|Hovered|Pressed|Disabled;Size=V:Medium:Medium|Small
+16362-3267	Modal	Show Footer=B:1;Show Header=B:1;Slot=S
+17560-51555	Modal Date Picker	Kind=V:Single Calendar:Single Calendar|Double Calendar;Role=V:None Selected:None Selected|Single Date Select|Range Date Select
+13795-4984	Multi Select Input	Show Trailing Item=B:1;Show Supporting Content=B:1;Show Caret=B:1;Show Label=B:1;Show Required=B:1;Show Lead Icon=B:1;Text Label=T;Supporting Message=T;Error Message=T;Content=S;Lead Icon=I:placeholder-line;Required Text=T;Appearance=V:Neutral:Neutral|Warning;State=V:Enabled:Enabled|Disabled|Hovered|Pressed;Is Filled=V:False:False|True;Is Active=V:False:False|True
+19560-3280	Nav Control	Appearance=V:Accent:Accent|Inversed
+10100-848	NPS Score	State=V:Enabled:Enabled|Disabled;Selected Value=V:None:None|0|1|2|3|4|5|6|7|8|9|10
+13408-1416	Pagination	Show Itens per page=B:1;Show Item display=B:1;Show Rows per page=B:1;Items range=T;Items display=T;Page number=T
+5798-2677	Password Input	Show Trailing Item=B:1;Show Supporting Content=B:1;Show Caret=B:1;Placeholder Content=T;Text Content=T;Show Label=B:1;Supporting Message=T;Show Required=B:1;Show Lead Icon=B:1;Show Character Counter=B:1;Character Counter Value=T;Text Label=T;Error Message=T;Lead Icon=I:placeholder-line;Required Text=T;Appearance=V:Neutral:Neutral|Warning;State=V:Enabled:Enabled|Disabled|Hovered|Pressed;Is Active=V:False:False|True;Is Filled=V:False:False|True;Show Content=V:True:True|False
+2270-102	Popover	Slot=S
+2322-4006	Progress Line	Percent=V:0:0|10|20|30|40|50|60|70|80|90|100
+14524-1024	Progress Tracker	Tracker=S;Orientation=V:Vertical:Horizontal|Vertical
+14415-3778	Progress Tracker Item	Show Description=B:1;Text Label=T;Text Description=T;Show Connector=B:1;Show Link=B:1;Marker label=T;Choose Marker icon=I:placeholder-line;Kind=V:Number:Number|Icon;Orientation=V:Vertical:Vertical|Horizontal;Status=V:Pending:Current|Pending|Completed
+4429-10437	Radio Button	Text Label=T;Show Text Label=B:1;State=V:Enabled:Enabled|Hovered|Pressed|Disabled;Status=V:Unselected:Selected|Unselected
+4429-11192	Radio Button Group	
+11143-3056	Radio Select Input	Show Trailing Item=B:1;Show Supporting Content=B:1;Show Caret=B:1;Show Label=B:1;Show Required=B:1;Show Lead Icon=B:1;Text Label=T;Supporting Message=T;Error Message=T;Lead Icon=I:placeholder-line;Required Text=T;Appearance=V:Neutral:Neutral|Warning;State=V:Enabled:Enabled|Disabled|Hovered|Pressed;Is Filled=V:False:False|True;Is Active=V:False:False|True
+6646-181	Scrollable Tab	Active Item=V:1:1|2|3|4|5|6
+14880-3404	Search Input	Show Trailing Item=B:1;Show Supporting Content=B:1;Show Caret=B:1;Show Label=B:1;Show Required=B:1;Show Character Counter=B:1;Character Counter Value=T;Text Label=T;Supporting Message=T;Error Message=T;Required Text=T;Appearance=V:Neutral:Neutral|Warning;State=V:Enabled:Enabled|Disabled|Hovered|Pressed;Is Filled=V:False:False|True;Is Active=V:False:False|True
+5488-1552	Selection List	Kind=V:Default:Default|Card
+5488-812	Selection List Item	Show Lead Item=B:1;Show Divider=B:1;Kind=V:Default:Default|Card;State=V:Enabled:Enabled|Hovered|Pressed|Disabled;Is Active=V:False:False|True;Trailing Item=V:Chechbox:Chechbox|Radio Button|Switch|Tag|Icon|None
+2272-146	Shaped Icon	Icon=I:placeholder-line;Appearance=V:Neutral:Accent|Neutral|Positive|Warning|Negative|Informative|Inversed;Size=V:Smallest:Smallest|Small|Medium|Large
+20056-11908	Slider	Show Stops=B:1;Show Value Indicator=B:1;Kind=V:Single:Single|Range;State=V:Enabled:Enabled|Hovered|Pressed|Dragged|Disabled;Value=V:0:0|50|100|00/00|-20/+20|-50/+50
+4333-3181	Spinner	Appearance=V:Neutral:Accent|Neutral|Inversed;Size=V:Small:Small|Medium|Large;Spinner Position=V:0:0|1|2|3
+21745-69	Status Dot	Text Label=T;Appearance=V:Neutral:Neutral|Positive|Warning|Informative|Negative;Size=V:Small:Small|Medium|Large
+4895-809	Switch	Text Label=T;Show Text Label=B:1;State=V:Enabled:Enabled|Hovered|Pressed|Disabled;Status=V:Unselected:Selected|Unselected
+18432-2090	System Banner	Text Content=T;Show Close Button=B:1;Text Label=T;Show Label=B:1;Appearance=V:Positive:Positive|Warning|Informative
+15713-2488	Tab View	State=V:Enabled:Enabled|Disabled;Active Option=V:First:First|Second
+13472-5725	Table	Table Columns=S;Show Pagination=B:1;Show Toolbar=B:1;Kind=V:Default:Default|Empty
+4475-114	Tag	Text Label=T;Show Lead Item=B:1;Appearance=V:Neutral:Accent|Neutral|Positive|Warning|Negative|Informative|Inversed
+10110-3028	Text Area Input	Show Trailing Item=B:1;Show Supporting Content=B:1;Show Caret=B:1;Placeholder Content=T;Text Content=T;Show Label=B:1;Show Required=B:1;Show Character Counter=B:1;Character Counter Value=T;Text Label=T;Supporting Message=T;Error Message=T;Required Text=T;Appearance=V:Neutral:Neutral|Warning;State=V:Enabled:Enabled|Hovered|Pressed|Disabled;Is Filled=V:False:False|True;Is Active=V:False:False|True
+5743-325	Text Input	Show Trailing Item=B:1;Show Supporting Content=B:1;Show Caret=B:1;Show Label=B:1;Show Required=B:1;Show Lead Icon=B:1;Show Character Counter=B:1;Character Counter Value=T;Text Label=T;Supporting Message=T;Error Message=T;Lead Icon=I:placeholder-line;Required Text=T;Appearance=V:Neutral:Neutral|Warning;State=V:Enabled:Enabled|Disabled|Hovered|Pressed;Is Filled=V:False:False|True;Is Active=V:False:False|True
+5234-516	Toast	Text Description=T;Show Trailing Item=B:1;Appearance=V:Positive:Positive|Warning
+11211-416	Tooltip	Text Content=T;Text Label=T;Show Label=B:1
+15621-1175	Topic	Show Lead item=B:1;Show Title=B:1;Text Title=T;Text Description=T;Orientation=V:Horizontal:Horizontal|Vertical
+15029-1115	Upload Item	Text Title=T;File Extension=T;Success message=T;Description=T;Show primary action=B:1;Show secondary action=B:1;Status=V:Uploading:Uploading|Success|Error|Uploaded
+15465-1365	Upload List	Upload itens=S

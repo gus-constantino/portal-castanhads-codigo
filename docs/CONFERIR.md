@@ -15,7 +15,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | [Naming](#naming) | 10 |
 | [Acessibilidade](#acessibilidade) | 3 |
 | [Documentação](#documentação) | 3 |
-| [Integração React](#integração-react) | 3 |
+| [Integração React](#integração-react) | 5 |
 
 ## Ajuste de texto
 
@@ -162,9 +162,11 @@ Divergências entre o Figma e o castanha-react (staging + Code Connect), encontr
 
 | # | Componente | No Figma hoje | No castanha-react | No playground | Quando decidir |
 |---|---|---|---|---|---|
-| C112 | Checkbox Select Input | Seleção múltipla com checkbox; o campo mostra "N Selecionados" | Não há variante própria: o Code Connect gera o mesmo `<SelectInput mode="multi">` do Multi Select Input, e os valores aparecem como chips | Segue o Figma ("N Selecionados"); o JSX sai com `mode="multi"` e a nota da divergência | Se o React ganhar o modo "contador", atualizar `integration/prop-map/checkbox-select-input.json`; se o Figma passar a usar chips, o componente vira o Multi |
-| C113 | Radio Select Input | Escolha única **sem busca** (clique, Enter, Espaço ou seta abrem a lista) | Code Connect aponta para o `SelectInput` básico, que **sempre** filtra pelo texto digitado | Segue o Figma (sem busca); o JSX sai como `SelectInput` básico com a nota | Se o React ganhar uma prop para desligar a busca, incluir no mapa `radio-select-input.json` |
-| C114 | Async creatable Select Input | A opção de criar diz **Adicionar “…”** | O texto padrão é **Criar "…"** (`createOptionLabel`) | Segue o Figma ("Adicionar") | Alinhar o texto em um dos dois; se ficar "Adicionar", o React precisa trocar o padrão de `createOptionLabel` |
+| C117 | Checkbox Select Input | Seleção múltipla com checkbox; o campo mostra "N Selecionados" | Não há variante própria: o Code Connect gera o mesmo `<SelectInput mode="multi">` do Multi Select Input, e os valores aparecem como chips | Segue o Figma ("N Selecionados"); o JSX sai com `mode="multi"` e a nota da divergência | Se o React ganhar o modo "contador", atualizar `integration/prop-map/checkbox-select-input.json`; se o Figma passar a usar chips, o componente vira o Multi |
+| C118 | Radio Select Input | Escolha única **sem busca** (clique, Enter, Espaço ou seta abrem a lista) | Code Connect aponta para o `SelectInput` básico, que **sempre** filtra pelo texto digitado | Segue o Figma (sem busca); o JSX sai como `SelectInput` básico com a nota | Se o React ganhar uma prop para desligar a busca, incluir no mapa `radio-select-input.json` |
+| C119 | Async creatable Select Input | A opção de criar diz **Adicionar “…”** | O texto padrão é **Criar "…"** (`createOptionLabel`) | Segue o Figma ("Adicionar") | Alinhar o texto em um dos dois; se ficar "Adicionar", o React precisa trocar o padrão de `createOptionLabel` |
+| C120 | Topic | Props `Show Title`/`Text Title` e `Text Description` | O Code Connect gera `label` e `supportingMessage`, mas o `Topic` do React só aceita `title` e `description`: o código que o Dev Mode mostra não compila | Segue o Figma | Corrigir o `Topic.figma.ts` (branch `feat/figma-code-connect`) para `title`/`description`; achado pelo check do R2 (`integration/SAUDE-STACK.md`) |
+| C121 | Alert · Avatar · Badge · Spinner · Tag | Instância nova vem **Positive** (Alert), **Small** (Avatar), **Warning** (Badge), **Neutral/Small** (Spinner), **Neutral** (Tag) | Sem a prop, o React usa **informative**, **medium**, **neutral**, **accent/medium** e **accent** | Segue o Figma; o JSX do "No React" declara o valor quando difere do padrão do React | Decidir qual padrão vale e alinhar o outro lado (o Code Connect sempre declara a prop, então o Dev Mode não mostra a diferença) |
 
 ## Como usar esta lista
 

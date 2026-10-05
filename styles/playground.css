@@ -220,5 +220,6 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
 .pg-react .pg-react__table tr.has-note td{ box-shadow:none; padding-bottom:0; }
 .pg-react .pg-react__note td{ padding-top:var(--common-sizes-2); white-space:normal; color:var(--common-colors-text-soft); }
 .pg-react .pg-react__table td code{ white-space:nowrap; }
+.pg-react .pg-react__table.is-checks td code{ white-space:normal; overflow-wrap:anywhere; } /* mensagens do check citam listas longas */
 .pg-react .pg-react__table.is-props td:nth-child(2) code{ white-space:normal; overflow-wrap:anywhere; } /* tipos longos (Ref<…>, unions) quebram */
 .pg-react .pg-react__table th:last-child, .pg-react .pg-react__table td:last-child{ padding-right:0; } /* nomes de prop/atributo inteiros: a tabela rola se precisar */

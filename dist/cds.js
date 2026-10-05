@@ -5259,6 +5259,7 @@ try {
  *   show-label · show-required · show-supporting-content · show-trailing-item
  * Estados forçados (specimen/doc): state="hovered|pressed" · is-active — só CSS, em todas as células
  * Eventos: cds-change {value} · cds-complete {value} · cds-visibility-change {masked}
+ * Teclado: um único ponto de Tab no conjunto (roving tabindex na primeira célula vazia); setas/Home/End entre células
  */
 (function(){
   "use strict";
@@ -5344,6 +5345,9 @@ try {
         row.appendChild(vb);
       }
 
+      // Um único ponto de tabulação (annotation de Accessibility): só a célula "atual" fica no Tab
+      this.rove(this.firstEmpty());
+
       // Visibility Action — alterna Hidden Values; o ícone reflete o estado atual
       if (this.flag("show-trailing-item")){
         // Nested instance: Icon Button · Ghost · Neutral · Small
@@ -5371,6 +5375,8 @@ try {
       }
     }
 
+    firstEmpty(){ for (var i = 0; i < this.inputs.length; i++) if (!this.inputs[i].value) return i; return this.inputs.length - 1; }
+    rove(i){ this.inputs.forEach(function(x, k){ x.tabIndex = k === i ? 0 : -1; }); }
     setCell(i, ch){ this.inputs[i].value = ch; this.boxes[i].classList.toggle("is-filled", !!ch); }
     focusCell(i){
       var el = this.inputs[clamp(i, 0, this.inputs.length - 1)];
@@ -5412,7 +5418,7 @@ try {
           if (inp.value){ self.setCell(index, ""); } // substitui o caractere existente
         }
       });
-      inp.addEventListener("focus", function(){ inp.select(); });
+      inp.addEventListener("focus", function(){ self.rove(index); inp.select(); });
       inp.addEventListener("pointerup", function(){
         var box = self.boxes[index];
         box.classList.add("is-tapped");
@@ -5567,7 +5573,7 @@ try {
 /* Documentação — Code Input OTP
    Fonte: [CastanhaDS] Component use documentation · seção 7057:17597 · frame [Documentação] Code Input OTP (7057:17641)
    Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs. Substitui a doc legada (branch PfeMbrThCwzwJFFo2GiAbW, node 24764:9893).
-   Ocultos no Figma: comparação "Text Input vs Code Input OTP" (de fora), Acessibilidade (só placeholder "Tópico 1 / Ordem de leitura" → tab com nota),
+   Ocultos no Figma: comparação "Text Input vs Code Input OTP" (de fora), Acessibilidade (no frame só há placeholder "Tópico 1 / Ordem de leitura"; a tab usa as annotations de Accessibility do set, 05/10),
    "Casos de exceção" (lorem ipsum, de fora) e 3 Do/Don'ts extras (lorem ipsum, de fora).
    Gaps: Estados da célula no Figma são de um `.Value Box` isolado (o componente tem no mínimo 3 células); Motion traz uma ilustração no lugar do exemplo
    (aqui: exemplo vivo do componente) e uma linha "—" vazia na tabela (de fora). */
@@ -5642,8 +5648,39 @@ CDS.docs["code-input-otp"] = {
     ] },
 
     { id: "acessibilidade", title: "Acessibilidade", blocks: [
-      { h2: "Acessibilidade" },
-      { note: "Sem conteúdo no Figma para esta seção." }
+      { h2: "Leitor de tela" },
+      { h3: "Como é anunciado" },
+      { ol: [
+        "As células formam um grupo (`role=\"group\"`) com o rótulo do campo. ex.: Código de verificação.",
+        "Cada célula é um campo de 1 caractere com nome de posição. ex.: dígito 1 de 6.",
+        "No Warning, as células ficam com `aria-invalid` e a `Error Message` é associada por `aria-describedby`.",
+        "A `Error Message` é anunciada assim que aparece (`role=\"alert\"`).",
+        "A Visibility Action é um toggle (`aria-pressed`): Mostrar código quando mascarado, Ocultar código quando visível.",
+        "No estado desabilitado, as células e a Visibility Action ficam indisponíveis e saem da tabulação."
+      ] },
+      { h3: "Ordem de leitura" },
+      { ol: ["Label do campo", "Indicador obrigatório, quando presente", "Células, da primeira à última", "Visibility Action, quando presente", "Mensagem de apoio ou de erro"] },
+      { h2: "Teclado e preenchimento" },
+      { ul: [
+        "Um único ponto de tabulação entra e sai do conjunto: o Tab cai na primeira célula vazia (ou na última, com o código completo).",
+        "Digitar avança o foco para a próxima célula; Backspace apaga e volta.",
+        "Setas, Home e End navegam entre as células.",
+        "Colar distribui o código entre as células.",
+        "A primeira célula tem `autocomplete=\"one-time-code\"`, para o autofill de SMS.",
+        "No tipo numérico, `inputmode=\"numeric\"` abre o teclado de números.",
+        "Foco visível segue o padrão global do Castanha; não é variant do componente."
+      ] },
+      { h2: "Contraste (WCAG)" },
+      { ul: [
+        "Dígito (`Text/intense`) sobre `Surface/default`: 16,96:1 — AA e AAA.",
+        "Label e mensagem de apoio (`Text/medium`): 8,24:1 — AA e AAA.",
+        "Warning (`Feedback/Warning/semi-intense`): 6,41:1 — AA.",
+        "Borda ativa (`Border/intense`): 16,96:1; pressionada (`Border/semi-intense`): 8,24:1 — atendem 1.4.11.",
+        "Borda em repouso (`Border/semi-soft`, 1,25:1) e no hover (`Border/medium`, 2,78:1) ficam abaixo de 3:1: a célula se distingue pela fileira e pelo dígito.",
+        "Erro comunicado por borda e texto, nunca só por cor (1.4.1).",
+        "Estado desabilitado: isento do critério 1.4.3."
+      ] },
+      { note: "Fonte: annotations de Accessibility do set Code Input OTP (24060:7228, branch) e o comportamento implementado no playground. A seção Acessibilidade do frame de documentação no Figma ainda está oculta e com texto de exemplo." }
     ] },
 
     { id: "diretrizes", title: "Diretrizes", blocks: [

@@ -9,6 +9,7 @@
  *   show-label · show-required · show-supporting-content · show-trailing-item
  * Estados forçados (specimen/doc): state="hovered|pressed" · is-active — só CSS, em todas as células
  * Eventos: cds-change {value} · cds-complete {value} · cds-visibility-change {masked}
+ * Teclado: um único ponto de Tab no conjunto (roving tabindex na primeira célula vazia); setas/Home/End entre células
  */
 (function(){
   "use strict";
@@ -94,6 +95,9 @@
         row.appendChild(vb);
       }
 
+      // Um único ponto de tabulação (annotation de Accessibility): só a célula "atual" fica no Tab
+      this.rove(this.firstEmpty());
+
       // Visibility Action — alterna Hidden Values; o ícone reflete o estado atual
       if (this.flag("show-trailing-item")){
         // Nested instance: Icon Button · Ghost · Neutral · Small
@@ -121,6 +125,8 @@
       }
     }
 
+    firstEmpty(){ for (var i = 0; i < this.inputs.length; i++) if (!this.inputs[i].value) return i; return this.inputs.length - 1; }
+    rove(i){ this.inputs.forEach(function(x, k){ x.tabIndex = k === i ? 0 : -1; }); }
     setCell(i, ch){ this.inputs[i].value = ch; this.boxes[i].classList.toggle("is-filled", !!ch); }
     focusCell(i){
       var el = this.inputs[clamp(i, 0, this.inputs.length - 1)];
@@ -162,7 +168,7 @@
           if (inp.value){ self.setCell(index, ""); } // substitui o caractere existente
         }
       });
-      inp.addEventListener("focus", function(){ inp.select(); });
+      inp.addEventListener("focus", function(){ self.rove(index); inp.select(); });
       inp.addEventListener("pointerup", function(){
         var box = self.boxes[index];
         box.classList.add("is-tapped");

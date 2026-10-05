@@ -13,7 +13,7 @@
         { shortcuts: [
           { title: "Componentes", text: "Os componentes do Castanha DS, com Playground e documentação de uso.", href: "#/main-button", cta: "Ver componentes", illustration: "interfaces/customizacao" },
           { title: "Conteúdo", text: "Princípios de escrita: como a Caju fala nos produtos.", href: "#/conteudo", cta: "Ver conteúdo", illustration: "comunicacao/perguntas-frequentes" },
-          { title: "Ilustração", text: "Princípios, guidelines e a biblioteca de ilustrações da Caju.", href: "#/caju-theme/ilustracao", cta: "Ver ilustração", illustration: "personagens/nadia" },
+          { title: "Ilustração", text: "Princípios, guidelines e a biblioteca de ilustrações da Caju.", href: "#/caju-theme/ilustracoes", cta: "Ver ilustração", illustration: "personagens/nadia" },
           { title: "Motion", text: "Princípios de motion, curvas, durações e Motion Styles.", href: "#/caju-theme/motion", cta: "Ver motion", illustration: "objetos/foguete" }
         ] },
         { h2: "Comece por aqui" },

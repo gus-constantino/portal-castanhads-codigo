@@ -8,7 +8,11 @@
   CDS.register({ id: "caju-theme", name: "Caju - Tema", resource: true, order: 1, status: "250", figma: FIGMA });
   // Rotas antigas de Ícones e Ilustrações → tabs do Caju Theme (links salvos continuam funcionando)
   var MOVED = { "caju-icons": "icones", "caju-illustrations": "ilustracoes", "animations": "motion" }; // Animações: volta para cá quando a lib existir
-  function moved(){ var m = (location.hash || "").match(/^#\/(caju-icons|caju-illustrations|animations)(?:\/([\w-]+))?/); if (m) location.replace("#/caju-theme/" + MOVED[m[1]]); }
+  function moved(){
+    var h = location.hash || "", m = h.match(/^#\/(caju-icons|caju-illustrations|animations)(?:\/([\w-]+))?/);
+    if (m) location.replace("#/caju-theme/" + MOVED[m[1]]);
+    else if (/^#\/caju-theme\/ilustracao$/.test(h)) location.replace("#/caju-theme/ilustracoes"); // Guia de ilustração entrou na tab Ilustrações (antes da biblioteca)
+  }
   moved(); window.addEventListener("hashchange", moved);
   var A = window.CDS.assets || {};
   var nIcons = (A.iconBuckets || []).filter(function(b){ return !b.deprecated && !b.glyphs; }).reduce(function(t, b){ return t + b.icons.length; }, 0);
@@ -115,7 +119,7 @@
           "Glifos internos de componentes (ex.: o check do Checkbox) não são da lib: ficam em `assets/icons/_glyphs/`."
         ] }
       ] },
-      { id: "ilustracao", title: "Guia de ilustração", blocks: [
+      { id: "ilustracoes", title: "Ilustrações", blocks: [
         { h2: "Princípios de ilustração" },
         { p: "O novo estilo de ilustração da Caju é orgânico e fluido, com a capacidade de transmitir suavidade, naturalidade e acessibilidade para uma comunicação amigável e convidativa." },
 
@@ -268,10 +272,8 @@
             steps: ["Small (80x80)", "Medium (144x144)", "Large (200x200)", "Extra Large (320x320)"] },
           { kind: "dont", title: "Não mude as cores das ilustraçòes", text: "As cores utilizadas na composição de cada uma das ilustrações levam em consideração critérios como acessibilidade e a própria harmonização entre elas. Evite alterar as cores das ilustrações para que o padrão das paletas seja mantido, assim como o equilíbrio e consistência nas interfaces." }
         ] },
-        { note: "Fonte: Figma [CastanhaDS] Component use documentation · páginas IL-Painel Semântico, IL-Guidelines, IL-Aplicações e IL-Dos&Donts, e zeroheight · Princípios de ilustração (943842). IL-Intro, IL-Princípios e IL-Como solicitar estão vazias. As telas de exemplo foram refeitas com componentes do DS e ilustrações da biblioteca (C110)." }
-      ] },
-      { id: "ilustracoes", title: "Ilustrações", blocks: [
-        { h2: "Ilustrações" },
+        { note: "Fonte: Figma [CastanhaDS] Component use documentation · páginas IL-Painel Semântico, IL-Guidelines, IL-Aplicações e IL-Dos&Donts, e zeroheight · Princípios de ilustração (943842). IL-Intro, IL-Princípios e IL-Como solicitar estão vazias. As telas de exemplo foram refeitas com componentes do DS e ilustrações da biblioteca (C110)." },
+        { h2: "Biblioteca" },
         { p: "[Caju] Illustrations, na ordem e nas categorias do Figma: " + nIlls + " ilustrações em " + nCats + " categorias (Caju UI 200×200 e Hero). Troque o fundo para testar o contraste; clique numa ilustração para ver o detalhe e copiar." },
         { tokens: "illustrations" },
         { h3: "Como usar" },

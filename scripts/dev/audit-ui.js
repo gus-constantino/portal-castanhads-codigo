@@ -21,8 +21,6 @@ const read = (f) => fs.readFileSync(f, "utf8");
 const EXCEPTIONS = [
   { file: /styles\/.*\.css$/, re: /@media|@container/, why: "breakpoint: CSS não aceita var() em @media nem em @container (C83)" },
   { file: /styles\/docs\.css$/, re: /--pg-cover-bg:#f7f3ed/, why: "fundo decorativo da capa = hex do [Header] do Figma, sem token (Gustavo, C91)" },
-  { file: /scripts\/docs-kit\.js$/, re: /el\("(button)", "pg-doc-icons__tile/, why: "tile de galeria clicável (C87)" },
-  { file: /scripts\/docs-kit\.js$/, re: /el\("button", "pg-doc-icons__tile/, why: "tile de galeria clicável (C87)" },
   { file: /scripts\/docs-kit\.js$/, re: /el\("button", "pg-doc-palette__sw/, why: "amostra da paleta de ilustração, copia o hex (C87 · C110)" },
   { file: /scripts\/tokens-kit\.js$/, re: /el\("button", "pg-tok-tile/, why: "tile do mostruário de tokens, copia a variável (C87)" },
   { file: /scripts\/report\.js$/, re: /el\(d\.href \? "a" : "div", "rp-bar"\)/, why: "linha de gráfico clicável (C87)" },

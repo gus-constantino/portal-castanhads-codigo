@@ -414,7 +414,9 @@
   /** Superfície do preview: pinta o frame inteiro (a caixa com "Viewport" e "Valor"), não um retângulo em volta.
    *  Fundo Inversed/Accent troca o texto do frame para Text/inversed. null volta ao padrão. */
   function surface(preview, bg){
-    var frame = preview && (preview.closest(".pg-frame") || preview.parentNode); if (!frame) return;
+    // dentro de uma miniatura (<cmp-thumbnail>) o fundo vai para a caixa dela, não para o frame da página
+    var thumb = preview && preview.parentNode && preview.parentNode.localName === "cmp-thumbnail" ? preview.parentNode : null;
+    var frame = thumb || (preview && (preview.closest(".pg-frame") || preview.parentNode)); if (!frame) return;
     frame.style.background = bg || "";
     frame.classList.toggle("is-dark", !!bg && /inversed|accent/.test(bg));
   }

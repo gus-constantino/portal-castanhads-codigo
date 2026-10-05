@@ -538,12 +538,15 @@
     var body = box.appendChild(el("div", "pg-ic-body")), gridEl = body.appendChild(el("ul", "pg-ic-grid" + (isIcon ? "" : " is-ills"))), panel = body.appendChild(el("aside", "pg-ic-panel"));
     panel.setAttribute("aria-label", "Detalhe");
     items.forEach(function(it, i){
-      var li = gridEl.appendChild(el("li")), b = li.appendChild(el("button", "pg-tok-tile pg-ic-tile"));
-      b.type = "button"; b.setAttribute("aria-label", it.name + " — ver detalhe"); b.style.setProperty("--_i", String(Math.min(i, 24)));
+      // Tile = composição <cmp-clickable-card> em modo botão; selecionado = current (aria-pressed)
+      var li = gridEl.appendChild(el("li")), b = el("cmp-clickable-card", "pg-ic-tile");
+      b.setAttribute("label", it.name); b.setAttribute("control-label", it.name + " — ver detalhe"); b.setAttribute("current", "false");
+      if (isIcon) b.setAttribute("media", "auto");
+      b.style.setProperty("--_i", String(Math.min(i, 24)));
       if (isIcon){ var ic = b.appendChild(el("span", "cds-icon pg-ic-glyph " + (it.cls || ""))); ic.setAttribute("aria-hidden", "true");
         if (!it.cls){ var u = 'url("' + it.file + '")'; ic.style.webkitMaskImage = u; ic.style.maskImage = u; } }
       else { var im2 = b.appendChild(el("img", "pg-ic-img")); im2.alt = ""; im2.loading = "lazy"; im2.decoding = "async"; im2.src = it.src; }
-      b.appendChild(el("span", "pg-ic-name", it.name));
+      li.appendChild(b); // Slot: a mídia entra antes de conectar
       b.addEventListener("click", function(){ select(it, b);
         // no mobile o painel fica acima da grade: rola até ele para o detalhe não mudar fora da tela
         if (window.matchMedia && matchMedia("(max-width:900px)").matches) panel.scrollIntoView({ block: "nearest", behavior: reduced ? "auto" : "smooth" }); });
@@ -551,7 +554,7 @@
     });
     function copy(text){ try { navigator.clipboard.writeText(text); } catch (e) {} if (CDS.docToast) CDS.docToast("Copiado: " + text); }
     function select(it, b){
-      if (st.sel && st.sel.btn) st.sel.btn.classList.remove("is-current"); st.sel = it; if (b) b.classList.add("is-current");
+      if (st.sel && st.sel.btn) st.sel.btn.setAttribute("current", "false"); st.sel = it; if (b) b.setAttribute("current", "true");
       panel.innerHTML = "";
       var prev = panel.appendChild(el("div", "pg-ic-preview"));
       if (isIcon){ var g = prev.appendChild(el("span", "cds-icon pg-ic-glyph is-big " + (it.cls || ""))); g.setAttribute("aria-hidden", "true"); /* o nome vem no título logo abaixo */ if (!it.cls){ var u = 'url("' + it.file + '")'; g.style.webkitMaskImage = u; g.style.maskImage = u; } }

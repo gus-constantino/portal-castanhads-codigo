@@ -1,0 +1,7 @@
+/* Miniatura viva · composição do playground (ver thumbnail.js). Quem usa define largura e altura da caixa. */
+cmp-thumbnail{ display:block; position:relative; overflow:hidden; }
+.cmp-thumbnail__preview{ position:absolute; left:0; top:0; width:calc(var(--common-sizes-200) * 2); display:flex; justify-content:safe center; transform-origin:0 0; }
+/* Corte (componente maior que a caixa): some em fade na borda cortada */
+cmp-thumbnail.is-cut-y{ -webkit-mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent); mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent); }
+cmp-thumbnail.is-cut-x{ -webkit-mask-image:linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); mask-image:linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); }
+cmp-thumbnail.is-cut-x.is-cut-y{ -webkit-mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent), linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent), linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); -webkit-mask-composite:source-in; mask-composite:intersect; }

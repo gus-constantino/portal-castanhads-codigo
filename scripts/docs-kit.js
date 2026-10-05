@@ -342,15 +342,15 @@
         var badge = { set textContent(t){ det.setAttribute("description", t + (/de/.test(t) ? "" : " ícones")); } }; badge.textContent = String(b.icons.length);
         var grid = el("ul", "pg-doc-icons__grid"), tiles = [];
         b.icons.forEach(function(n){
-          var m = meta[n] || {}, li = el("li"), btn = el("button", "pg-doc-icons__tile");
-          btn.type = "button";
+          // Tile = composição <cmp-clickable-card> em modo botão (sem href), mídia de altura automática
+          var m = meta[n] || {}, li = el("li"), btn = el("cmp-clickable-card", "pg-doc-icons__tile");
+          btn.setAttribute("label", n); btn.setAttribute("media", "auto"); btn.setAttribute("control-label", n + " — copiar nome");
           // Tooltip do DS (criado no 1º hover/foco): nome + palavras-chave; substitui o title nativo
-          if (window.CDS.kit) CDS.kit.lazyTip(btn, (m.keywords || []).length ? (m.keywords || []).join(", ") : "Sem palavras-chave no Figma.", { label: n });
-          btn.setAttribute("aria-label", n + " — copiar nome");
+          if (window.CDS.kit) CDS.kit.lazyTip(btn, (m.keywords || []).length ? (m.keywords || []).join(", ") : "Sem palavras-chave no Figma.", { label: n, focus: false });
           var ic = el("span", "cds-icon " + (b.deprecated ? "" : m.cls || "")); ic.setAttribute("aria-hidden", "true");
           // deprecated pode repetir nome de um ativo (sem classe própria): aponta direto para o arquivo
           if (b.deprecated){ var u = 'url("assets/icons/' + b.id + "/" + encodeURIComponent(n) + '.svg")'; ic.style.webkitMaskImage = u; ic.style.maskImage = u; }
-          btn.appendChild(ic); btn.appendChild(el("span", "pg-doc-icons__name", n));
+          btn.appendChild(ic); // Slot da mídia
           btn.addEventListener("click", function(){
             try { navigator.clipboard.writeText(n); } catch (e) {}
             toast("Copiado: " + n);
@@ -412,12 +412,11 @@
         var badge = { set textContent(t){ det.setAttribute("description", t + (/de/.test(t) ? "" : " ilustrações")); } }; badge.textContent = String(b.items.length);
         var grid = el("ul", "pg-doc-icons__grid pg-doc-ills__grid"), tiles = [];
         b.items.forEach(function(k){
-          var m = meta[k] || { label: k, src: "" }, li = el("li"), btn = el("button", "pg-doc-icons__tile pg-doc-ills__tile");
-          btn.type = "button";
-          if (window.CDS.kit) CDS.kit.lazyTip(btn, [m.figma !== m.label ? "Figma: " + m.figma : "", m.size, m.description].filter(Boolean).join(" · ") || "Sem description no Figma.", { label: m.label });
-          btn.setAttribute("aria-label", m.label + " — copiar nome");
+          var m = meta[k] || { label: k, src: "" }, li = el("li"), btn = el("cmp-clickable-card", "pg-doc-icons__tile pg-doc-ills__tile"); // composição, modo botão, mídia quadrada
+          btn.setAttribute("label", m.label); btn.setAttribute("control-label", m.label + " — copiar nome");
+          if (window.CDS.kit) CDS.kit.lazyTip(btn, [m.figma !== m.label ? "Figma: " + m.figma : "", m.size, m.description].filter(Boolean).join(" · ") || "Sem description no Figma.", { label: m.label, focus: false });
           var img = el("img", "pg-doc-ills__img"); img.alt = ""; img.loading = "lazy"; img.decoding = "async"; img.src = m.src;
-          btn.appendChild(img); btn.appendChild(el("span", "pg-doc-icons__name", m.label));
+          btn.appendChild(img); // Slot da mídia
           btn.addEventListener("click", function(){
             try { navigator.clipboard.writeText(k); } catch (e) {}
             toast("Copiado: " + k);

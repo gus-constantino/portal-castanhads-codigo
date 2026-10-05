@@ -37,50 +37,17 @@
     if (c.mount) peek.bind(a, c, notes);
     return kit.el("li", null, [a]);
   }
-  // ---------- Miniatura do componente (peek do hover e cards da grade) ----------
-  // É o playground real montado fora da página e reduzido para caber no stage. Nunca amplia; reduz até minK e,
-  // se ainda sobrar (Table, Drawer, listas), corta ancorado no topo/início com fade (is-cut-x / is-cut-y no stage).
-  function fitThumb(prev, stage, minK){
-    prev.style.transform = "none";
-    var pr = prev.getBoundingClientRect(), x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
-    [].forEach.call(prev.children, function(n){
-      var r = n.getBoundingClientRect(); if (!r.width || !r.height) return; // overlays fechados ficam de fora
-      x0 = Math.min(x0, r.left); y0 = Math.min(y0, r.top); x1 = Math.max(x1, r.right); y1 = Math.max(y1, r.bottom);
-    });
-    if (x1 < x0) return;
-    var sw = stage.clientWidth, sh = stage.clientHeight, pad = Math.min(16, sw / 10), w = x1 - x0, h = y1 - y0;
-    var k = Math.max(Math.min(1, (sw - 2 * pad) / w, (sh - 2 * pad) / h), Math.min(1, minK));
-    var cutX = w * k > sw - 2 * pad, cutY = h * k > sh - 2 * pad;
-    var tx = cutX ? pad - (x0 - pr.left) * k : sw / 2 - (x0 - pr.left + w / 2) * k;
-    var ty = cutY ? pad - (y0 - pr.top) * k : sh / 2 - (y0 - pr.top + h / 2) * k;
-    prev.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + k + ")";
-    stage.classList.toggle("is-cut-x", cutX); stage.classList.toggle("is-cut-y", cutY);
-  }
-  function mountThumb(stage, c, onLoad){
-    stage.innerHTML = ""; stage.style.background = ""; stage.classList.remove("is-dark"); // a superfície do playground (kit.surface) cai no stage
-    stage.dataset.viewport = c.viewport || "desktop"; // componente só de um viewport (Bottom Sheet: mobile) aparece nele
-    var prev = kit.el("div", { "class": "pg-peek__preview" });
-    prev.inert = true; // miniatura: só imagem, sem foco nem clique
-    prev.addEventListener("load", onLoad, true); // imagem/ilustração que chega depois muda o tamanho
-    stage.appendChild(prev);
-    try { c.mount({ preview: prev, panel: document.createElement("div"), kit: kit, readout: function(){} }); }
-    catch (e){ prev.innerHTML = ""; }
-    [].forEach.call(prev.querySelectorAll("img[loading=lazy]"), function(i){ i.loading = "eager"; }); // lazy não carrega dentro do recorte da miniatura
-    return prev;
-  }
-
   // ---------- Preview no hover (peek) ----------
   // Como as navegações de Carbon, M3 e Wise: miniatura do componente ao lado do menu. É o playground real
-  // montado num Popover do DS (manual, sem foco) e reduzido para caber; abre no hover ou no foco por teclado.
+  // montado num Popover do DS (manual, sem foco) e reduzido para caber (composição <cmp-thumbnail>); abre no hover ou no foco por teclado.
   var peek = (function(){
     var card = kit.el("cds-popover", { "class": "pg-peek", popover: "manual", "aria-hidden": "true" });
-    var stage = kit.el("div", { "class": "pg-peek__stage", "data-viewport": "desktop" });
+    var stage = kit.el("cmp-thumbnail", { "class": "pg-peek__stage", "min-scale": "0.5" });
     var nameEl = kit.el("p", { "class": "pg-peek__name" }), metaEl = kit.el("p", { "class": "pg-peek__meta" }), notesEl = kit.el("p", { "class": "pg-peek__notes" });
     card.appendChild(kit.el("div", { "class": "pg-peek__body" }, [stage, nameEl, metaEl, notesEl]));
     card.inert = true;
     document.body.appendChild(card);
-    var showT = 0, cur = null, prev = null, ro = window.ResizeObserver ? new ResizeObserver(function(){ fit(); }) : null;
-    function fit(){ if (prev) fitThumb(prev, stage, 0.5); }
+    var showT = 0, cur = null;
     function place(a){
       var side = document.querySelector(".pg-sidebar").getBoundingClientRect(), r = a.getBoundingClientRect(), me = card.getBoundingClientRect();
       var top = Math.max(8, Math.min(r.top + r.height / 2 - me.height / 2, window.innerHeight - me.height - 8));
@@ -89,18 +56,15 @@
     function show(a, c, notes){
       if (narrow.matches) return;
       cur = a;
-      if (ro && prev) ro.unobserve(prev);
-      prev = mountThumb(stage, c, fit);
+      stage.unmount(); stage.setAttribute("component", c.id); stage.mount();
       nameEl.textContent = c.name;
       metaEl.textContent = (c.composition ? "Composição do playground" : c.block ? "Building block" : (c.category || "Outros")) + (c.task ? " · " + c.task : "");
       notesEl.textContent = notes.join(" "); notesEl.hidden = !notes.length;
-      card.show(); fit(); place(a);
-      if (ro) ro.observe(prev);
+      card.show(); stage.fit(); place(a);
     }
     function hide(){
       clearTimeout(showT); cur = null;
-      if (ro && prev) ro.unobserve(prev);
-      card.hide(); stage.innerHTML = ""; prev = null; // desmonta: nada do preview fica no documento
+      card.hide(); stage.unmount(); // desmonta: nada do preview fica no documento
     }
     function bind(a, c, notes){
       a.addEventListener("pointerenter", function(e){ if (e.pointerType !== "mouse") return; clearTimeout(showT); showT = setTimeout(function(){ show(a, c, notes); }, cur ? 0 : 250); });
@@ -185,34 +149,17 @@
   })();
   function isGrid(){ return navView === "grid" && !narrow.matches; }
 
-  // Card da grade = composição <cmp-clickable-card> (compositions/clickable-card: o DS não tem Card clicável, C165)
-  // com a miniatura no Slot quadrado e o nome embaixo.
-  // Miniaturas montam só quando entram na área visível do menu e desmontam quando saem (100+ playgrounds).
-  var thumbs = (function(){
-    var side = document.querySelector(".pg-sidebar"), live = [];
-    var io = window.IntersectionObserver ? new IntersectionObserver(function(entries){
-      entries.forEach(function(en){
-        var st = en.target;
-        if (en.isIntersecting && !st._prev){
-          st._prev = mountThumb(st, st._def, function(){ if (st._prev) fitThumb(st._prev, st, 0.1); });
-          fitThumb(st._prev, st, 0.1);
-        } else if (!en.isIntersecting && st._prev){ st.innerHTML = ""; st._prev = null; }
-      });
-    }, { root: side, rootMargin: "200px 0px" }) : null;
-    function tile(c){
-      var stage = kit.el("div", { "class": "pg-tile__stage", "data-viewport": "desktop", "aria-hidden": "true" });
-      stage._def = c;
-      var notes = notesOf(c);
-      var card = kit.el("cmp-clickable-card", { href: "#/" + c.id, label: c.name, description: notes.join(" ") || null }, [stage]); // Slot: entra antes de conectar
-      var li = kit.el("li", null, [card]), d = shortDesc(c);
-      // Hover/foco: Tooltip do DS com a descrição curta (1ª frase, até ~100 caracteres); criado só no 1º hover
-      if (d) kit.lazyTip(card, d, { focus: false, container: li, placement: "bottom" });
-      if (c.mount){ live.push(stage); if (io) io.observe(stage); else { stage._prev = mountThumb(stage, c, function(){}); } }
-      return li;
-    }
-    function reset(){ live.forEach(function(st){ if (io) io.unobserve(st); st.innerHTML = ""; st._prev = null; }); live = []; }
-    return { tile: tile, reset: reset };
-  })();
+  // Card da grade = composição <cmp-clickable-card> (o DS não tem Card clicável, C165) com a miniatura viva
+  // <cmp-thumbnail lazy> no Slot quadrado: monta só quando aparece no menu e desmonta quando sai (100+ playgrounds).
+  function tile(c){
+    var notes = notesOf(c);
+    var thumb = kit.el("cmp-thumbnail", { "class": "pg-tile__stage", component: c.mount ? c.id : null, lazy: "true", "min-scale": "0.1" });
+    var card = kit.el("cmp-clickable-card", { href: "#/" + c.id, label: c.name, description: notes.join(" ") || null }, [thumb]); // Slot: entra antes de conectar
+    var li = kit.el("li", null, [card]), d = shortDesc(c);
+    // Hover/foco: Tooltip do DS com a descrição curta (1ª frase, até ~100 caracteres); criado só no 1º hover
+    if (d) kit.lazyTip(card, d, { focus: false, container: li, placement: "bottom" });
+    return li;
+  }
   // Descrição da capa da doc (CDS.docsIndex[id].desc, gerado pelo build) ou a do registro; 1ª frase, cortada em ~100 caracteres
   function shortDesc(c){
     var ix = CDS.docsIndex && CDS.docsIndex[c.id], d = String((ix && ix.desc) || c.description || "").trim();
@@ -222,7 +169,7 @@
   }
   function navGrid(label, items){
     var ul = kit.el("ul", { "class": "pg-nav-grid", "aria-label": label });
-    items.forEach(function(c){ ul.appendChild(thumbs.tile(c)); });
+    items.forEach(function(c){ ul.appendChild(tile(c)); });
     return kit.el("li", { "class": "pg-nav-grid-group" }, [kit.el("p", { "class": "pg-nav-title pg-nav-grid-title", text: label }), ul]);
   }
 
@@ -242,7 +189,6 @@
     var cats = PAGES.concat(comps.map(function(c){ return c.category || "Outros"; }).filter(function(x, i, a){ return PAGES.indexOf(x) === -1 && a.indexOf(x) === i; }));
     // Categorias em accordion: abre a da página atual, as que a pessoa abriu (lembrado no navegador) e todas durante a busca
     var cur = currentId();
-    thumbs.reset();
     viewBar.hidden = narrow.matches;
     nav.classList.toggle("is-grid", isGrid());
     if (isGrid()){

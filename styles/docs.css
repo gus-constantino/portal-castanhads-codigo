@@ -168,19 +168,9 @@
 .pg-doc-icons{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
 .pg-doc-icons__search{ width:100%; }
 .pg-doc-icons__grid{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(var(--common-sizes-120), 1fr)); gap:var(--common-sizes-8); }
-.pg-doc-icons__tile{
-  width:100%; height:100%; min-height:var(--common-sizes-88); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--common-sizes-8);
-  padding:var(--common-sizes-12) var(--common-sizes-8); border:0; border-radius:var(--common-border-radius-small); cursor:pointer;
-  background:var(--common-colors-surface-01); color:var(--common-colors-text-medium);
-  transition:background-color var(--motion-hover-duration) var(--motion-hover-easing);
-}
-.pg-doc-icons__tile:hover{ background:var(--common-colors-neutral-opacity-intense-semi-transparent); }
-.pg-doc-icons__tile:focus-visible{ outline:var(--common-border-width-thin) solid var(--common-colors-border-intense); outline-offset:0; }
+/* Tiles = composição <cmp-clickable-card> (botão: copia o nome); aqui só o tamanho da mídia */
 .pg-doc-icons__tile .cds-icon{ width:var(--common-sizes-24); height:var(--common-sizes-24); }
-.pg-doc-icons__name{ font:var(--text-style-caption-regular); text-align:center; overflow-wrap:anywhere; }
-@media (prefers-reduced-motion:reduce){ .pg-doc-icons__tile{ transition:none; } }
 .pg-doc-ills__grid{ grid-template-columns:repeat(auto-fill, minmax(calc(var(--common-sizes-120) + var(--common-sizes-16)), 1fr)); }
-.pg-doc-ills__tile{ gap:var(--common-sizes-8); }
 .pg-doc-ills__img{ display:block; width:var(--common-sizes-92); height:var(--common-sizes-92); object-fit:contain; }
 .pg-doc-icons__tools{ display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-12); flex-wrap:wrap; }
 
@@ -420,15 +410,13 @@
 .pg-ic-grid{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(var(--common-sizes-104), 1fr)); gap:var(--common-sizes-8); }
 .pg-ic-grid.is-ills{ grid-template-columns:repeat(auto-fill, minmax(var(--common-sizes-160), 1fr)); }
 .pg-ic-grid > li[hidden]{ display:none; }
-.pg-tok-tile.pg-ic-tile{ width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--common-sizes-8);
-  min-height:var(--common-sizes-92); padding:var(--common-sizes-12) var(--common-sizes-8); background:var(--common-colors-surface-01); text-align:center; }
-.pg-tok-tile.pg-ic-tile:hover{ background:var(--common-colors-neutral-opacity-intense-semi-transparent); }
-.pg-tok-tile.pg-ic-tile.is-current{ box-shadow:inset 0 0 0 var(--common-border-width-thin) var(--common-colors-border-intense); }
+/* Tiles = composição <cmp-clickable-card> (botão, selecionado = current); entrada em sequência como os tiles de token */
+.pg-ic-tile{ animation:pg-tok-in var(--common-motion-duration-medium-02) var(--common-motion-easing-expressive-decelerate) both; animation-delay:calc(var(--_i, 0) * var(--common-motion-delay-short-01)); }
 .pg-ic-glyph{ width:var(--_ic-size); height:var(--_ic-size); --cds-icon-color:var(--_ic-tone);
   transition:transform var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), width var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing), height var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing); }
-.pg-tok-tile.pg-ic-tile:hover .pg-ic-glyph, .pg-tok-tile.pg-ic-tile:hover .pg-ic-img{ transform:translateY(calc(-1 * var(--common-sizes-4))); }
+.pg-ic-tile:hover .pg-ic-glyph, .pg-ic-tile:hover .pg-ic-img{ transform:translateY(calc(-1 * var(--common-sizes-4))); }
+@media (prefers-reduced-motion:reduce){ .pg-ic-tile{ animation:none; } .pg-ic-tile:hover .pg-ic-glyph, .pg-ic-tile:hover .pg-ic-img{ transform:none; } }
 .pg-ic-glyph.is-big{ width:var(--common-sizes-92); height:var(--common-sizes-92); }
-.pg-ic-name{ font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); overflow-wrap:anywhere; }
 .pg-ic-img{ display:block; width:100%; max-width:var(--common-sizes-120); aspect-ratio:1; object-fit:contain; padding:var(--common-sizes-8); box-sizing:border-box;
   border-radius:var(--common-border-radius-medium); background:var(--_ic-bg); transition:transform var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
 .pg-ic-img.is-big{ max-width:100%; padding:var(--common-sizes-16); }

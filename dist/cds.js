@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 221 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 223 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.js ==== */
 try {
 /**
@@ -7759,33 +7759,43 @@ try {
  * clicável só com tokens do Card e do menu (C165; melhoria: https://github.com/gus-constantino/castanhads-component-teste/issues/1). Prefixo cmp-: composição local,
  * nunca confundir com cds-. Quando o DS tiver o componente, trocar as instâncias e apagar esta pasta.
  *
+ * Dois modos, escolhidos ao montar: com href é um link (navega); sem href é um botão (ação: copiar, selecionar…),
+ * e quem usa ouve o "click" no próprio <cmp-clickable-card>.
+ *
  * Anatomia:
- *   link (a, área de clique inteira) · Surface/default · raio medium · Border/semi-soft hairline · pad 4 · gap 4
+ *   controle (a ou button, área de clique inteira) · Surface/default · raio medium · Border/semi-soft hairline · pad 4 · gap 4
  *     .Media  Slot quadrado (aspect-ratio 1) · Surface/01 · raio small — os filhos de quem usa entram aqui
+ *             media="auto": altura pelo conteúdo, mín. Sizes/56, pad 12 (ícones pequenos em galerias)
  *     .Label  Disclaimer/Regular · Text/medium (atual: Disclaimer/Medium · Text/intense)
  *   Hover: Surface/01 + Border/medium · Atual: Surface/01 + Border/intense thin · Foco: Support/system thin
  *
- * Atributos: href · label (texto do card) · description (aria-description, notas extras) · current ("true" = página atual)
- * Referências: linkEl · mediaEl · labelEl
+ * Atributos: href (sem = botão) · label (texto do card) · description (aria-description, notas extras)
+ *   current ("true" = atual: aria-current="page" no link, aria-pressed no botão) · media ("square" padrão | "auto")
+ *   control-label (aria-label do controle, quando o nome falado deve dizer a ação: "add-line — copiar nome")
+ * Referências: linkEl (o controle, a ou button) · mediaEl · labelEl
  */
 (function(){
   "use strict";
   class CmpClickableCard extends CDS.Element {
-    static get observedAttributes(){ return ["href", "label", "description", "current"]; }
+    static get observedAttributes(){ return ["href", "label", "description", "current", "control-label"]; }
     render(){
       if (!this._built){
         this._built = true;
         var c = CDS.create;
         var media = this.mediaEl = c("div", null, "cmp-cc__media");
         while (this.firstChild) media.appendChild(this.firstChild); // Slot: filhos de quem usa
-        this.linkEl = this.appendChild(c("a", null, "cmp-cc"));
+        this._link = this.hasAttribute("href");
+        this.linkEl = this.appendChild(c(this._link ? "a" : "button", this._link ? null : { type: "button" }, "cmp-cc"));
         this.linkEl.appendChild(media);
         this.labelEl = this.linkEl.appendChild(c("span", null, "cmp-cc__label"));
       }
-      CDS.attr(this.linkEl, "href", this.getAttribute("href"));
+      if (this._link) CDS.attr(this.linkEl, "href", this.getAttribute("href"));
       this.labelEl.textContent = this.text("label", "Label");
       CDS.attr(this.linkEl, "aria-description", this.getAttribute("description") || null);
-      if (this.hasAttribute("current")) CDS.attr(this.linkEl, "aria-current", this.getAttribute("current") === "true" ? "page" : null);
+      CDS.attr(this.linkEl, "aria-label", this.getAttribute("control-label") || null);
+      var on = this.getAttribute("current") === "true";
+      if (!this._link) CDS.attr(this.linkEl, "aria-pressed", this.hasAttribute("current") ? String(on) : null);
+      else if (this.hasAttribute("current")) CDS.attr(this.linkEl, "aria-current", on ? "page" : null);
     }
   }
   CmpClickableCard.define("cmp-clickable-card");
@@ -7797,27 +7807,145 @@ try {
 /* Playground — Clickable Card (composição do playground, não é do DS: ver clickable-card.js · C165 · issue #1) */
 CDS.register({
   id: "clickable-card", name: "Clickable Card", composition: true, category: "Composições",
-  description: "Card com a área de clique inteira, mídia quadrada e label. Composição local enquanto o DS não tem um Card clicável.",
+  description: "Card com a área de clique inteira, mídia e label: link (navega) ou botão (ação). Composição local enquanto o DS não tem um Card clicável.",
   issue: "https://github.com/gus-constantino/castanhads-component-teste/issues/1",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
-    // Mídia de exemplo: Shaped Icon do DS no centro do Slot quadrado
-    var icon = kit.el("cds-shaped-icon", { icon: "cards-line", appearance: "accent", size: "large" });
-    var media = kit.el("div", { style: "position:absolute;inset:0;display:flex;align-items:center;justify-content:center" }, [icon]);
-    var p = kit.el("cmp-clickable-card", { href: "#/clickable-card", label: "Label" }, [media]);
-    var wrap = kit.el("div", { style: "width:calc(var(--common-sizes-120) + var(--common-sizes-40))" }, [p]);
+    var st = { mode: "link", media: "square", label: "Label", description: "", current: false };
+    var wrap = kit.el("div", { style: "width:calc(var(--common-sizes-120) + var(--common-sizes-40))" });
     ctx.preview.appendChild(wrap);
-    p.addEventListener("click", function(e){ e.preventDefault(); }); // no specimen o link não navega
-    kit.hint(panel, "Composição do playground (prefixo cmp-): só tokens do Card e do menu. Usada nos cards do menu em grade. Quando o DS tiver um Card clicável, ela sai (issue #1).");
+    // O modo (a ou button) é escolhido ao montar: trocar o modo recria o card
+    function build(){
+      wrap.innerHTML = "";
+      // Mídia de exemplo: Shaped Icon do DS no centro do Slot
+      var p = kit.el("cmp-clickable-card", { href: st.mode === "link" ? "#/clickable-card" : null, label: st.label, media: st.media === "auto" ? "auto" : null,
+        description: st.description || null, current: st.mode === "button" || st.current ? String(st.current) : null }, [kit.el("cds-shaped-icon", { icon: "cards-line", appearance: "accent", size: "large" })]);
+      // no specimen o link não navega; o botão alterna o selecionado, como nas galerias
+      p.addEventListener("click", function(e){ if (st.mode === "link") e.preventDefault(); else { st.current = !st.current; p.setAttribute("current", String(st.current)); } });
+      wrap.appendChild(p);
+    }
+    build();
+    kit.hint(panel, "Composição do playground (prefixo cmp-): só tokens do Card e do menu. Link no menu em grade; botão nas galerias de ícones e ilustrações. Quando o DS tiver um Card clicável, ela sai (issue #1).");
     kit.section(panel, "Comportamento");
-    kit.toggle(panel, { label: "Current (página atual)", checked: false, onChange: function(on){ kit.attr(p, "current", on ? "true" : null); if (!on && p.linkEl) p.linkEl.removeAttribute("aria-current"); } });
+    kit.seg(panel, { label: "Modo", value: "link", options: [["link", "Link (href)"], ["button", "Botão (ação)"]], onChange: function(v){ st.mode = v; build(); } });
+    kit.seg(panel, { label: "Media", value: "square", options: [["square", "Square"], ["auto", "Auto"]], onChange: function(v){ st.media = v; build(); } });
+    kit.toggle(panel, { label: "Current (atual / selecionado)", checked: false, onChange: function(on){ st.current = on; build(); } });
     kit.section(panel, "Texts");
-    kit.text(panel, { label: "Label", value: "Label", onInput: function(v){ p.setAttribute("label", v); } });
+    kit.text(panel, { label: "Label", value: "Label", onInput: function(v){ st.label = v; var p = wrap.firstChild; if (p) p.setAttribute("label", v); } });
     kit.section(panel, "Acessibilidade");
-    kit.text(panel, { label: "Description (aria-description)", value: "", onInput: function(v){ kit.attr(p, "description", v || null); } });
+    kit.text(panel, { label: "Description (aria-description)", value: "", onInput: function(v){ st.description = v; var p = wrap.firstChild; if (p) kit.attr(p, "description", v || null); } });
   }
 });
 } catch (e) { console.error("[cds] compositions/clickable-card/clickable-card.playground.js", e); }
+
+/* ==== compositions/thumbnail/thumbnail.js ==== */
+try {
+/**
+ * <cmp-thumbnail> — Miniatura viva de um componente · COMPOSIÇÃO do playground (não é componente do Castanha DS)
+ *
+ * O playground real do componente (o mesmo mount() da página) montado dentro da caixa e reduzido para caber.
+ * Nunca amplia; reduz até min-scale e, se ainda sobrar (Table, Drawer, listas), corta ancorado no topo/início
+ * com fade na borda cortada. A superfície que o playground escolhe (kit.surface) vira o fundo da caixa.
+ * Usada no card do preview no hover do menu e nos cards do menu em grade. Quem usa define o tamanho da caixa.
+ *
+ * Atributos:
+ *   component  id do playground (CDS.register) · sem valor ou id desconhecido = caixa vazia
+ *   min-scale  menor escala antes de cortar (padrão 0.5)
+ *   lazy       "true": monta só quando a caixa aparece na tela e desmonta quando sai (listas com muitas miniaturas)
+ * Métodos: mount() · unmount() · fit()  (sem lazy, monta ao conectar e ao trocar component)
+ * Referências: previewEl (o preview montado; null quando desmontado)
+ * A11y: aria-hidden e inert: é imagem decorativa, sem foco nem clique dentro; o nome fica com quem usa.
+ */
+(function(){
+  "use strict";
+  var io = null, ro = window.ResizeObserver ? new ResizeObserver(function(es){
+    es.forEach(function(e){ var t = e.target.closest("cmp-thumbnail"); if (t) t.fit(); });
+  }) : null;
+  function lazyIO(){
+    if (io || !window.IntersectionObserver) return io;
+    io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) e.target.mount(); else e.target.unmount(); }); });
+    return io;
+  }
+  class CmpThumbnail extends CDS.Element {
+    static get observedAttributes(){ return ["component", "min-scale", "lazy"]; }
+    render(){
+      this.setAttribute("aria-hidden", "true");
+      this.inert = true;
+      var lazy = this.getAttribute("lazy") === "true" && lazyIO();
+      if (this._comp !== this.getAttribute("component")){ this._comp = this.getAttribute("component"); if (this.previewEl) this.unmount(); }
+      if (lazy){ if (!this._io){ this._io = true; io.observe(this); } }
+      else if (!this.previewEl) this.mount();
+      else this.fit();
+    }
+    disconnectedCallback(){ if (this._io && io){ io.unobserve(this); this._io = false; } this.unmount(); }
+    def(){ var id = this.getAttribute("component"); return (CDS.playgrounds || []).filter(function(c){ return c.id === id; })[0]; }
+    mount(){
+      var c = this.def(), self = this;
+      if (this.previewEl) return;
+      this.innerHTML = ""; this.style.background = ""; this.classList.remove("is-dark", "is-cut-x", "is-cut-y");
+      if (!c || !c.mount) return;
+      this.dataset.viewport = c.viewport || "desktop"; // componente só de um viewport (Bottom Sheet: mobile) aparece nele
+      var prev = this.previewEl = CDS.create("div", null, "cmp-thumbnail__preview");
+      prev.addEventListener("load", function(){ self.fit(); }, true); // imagem/ilustração que chega depois muda o tamanho
+      this.appendChild(prev);
+      try { c.mount({ preview: prev, panel: document.createElement("div"), kit: CDS.kit, readout: function(){} }); }
+      catch (e){ prev.innerHTML = ""; }
+      [].forEach.call(prev.querySelectorAll("img[loading=lazy]"), function(i){ i.loading = "eager"; }); // lazy não carrega dentro do recorte
+      this.fit();
+      if (ro){ ro.observe(this); ro.observe(prev); }
+    }
+    unmount(){
+      if (!this.previewEl) return;
+      if (ro){ ro.unobserve(this); ro.unobserve(this.previewEl); }
+      this.innerHTML = ""; this.previewEl = null; // nada do preview fica no documento
+    }
+    fit(){
+      var prev = this.previewEl; if (!prev) return;
+      prev.style.transform = "none";
+      var pr = prev.getBoundingClientRect(), x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+      [].forEach.call(prev.children, function(n){
+        var r = n.getBoundingClientRect(); if (!r.width || !r.height) return; // overlays fechados ficam de fora
+        x0 = Math.min(x0, r.left); y0 = Math.min(y0, r.top); x1 = Math.max(x1, r.right); y1 = Math.max(y1, r.bottom);
+      });
+      if (x1 < x0) return;
+      var minK = parseFloat(this.getAttribute("min-scale")); if (!(minK > 0)) minK = 0.5;
+      var sw = this.clientWidth, sh = this.clientHeight, pad = Math.min(16, sw / 10), w = x1 - x0, h = y1 - y0;
+      var k = Math.max(Math.min(1, (sw - 2 * pad) / w, (sh - 2 * pad) / h), Math.min(1, minK));
+      var cutX = w * k > sw - 2 * pad, cutY = h * k > sh - 2 * pad;
+      var tx = cutX ? pad - (x0 - pr.left) * k : sw / 2 - (x0 - pr.left + w / 2) * k;
+      var ty = cutY ? pad - (y0 - pr.top) * k : sh / 2 - (y0 - pr.top + h / 2) * k;
+      prev.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + k + ")";
+      this.classList.toggle("is-cut-x", cutX); this.classList.toggle("is-cut-y", cutY);
+    }
+  }
+  CmpThumbnail.define("cmp-thumbnail");
+})();
+} catch (e) { console.error("[cds] compositions/thumbnail/thumbnail.js", e); }
+
+/* ==== compositions/thumbnail/thumbnail.playground.js ==== */
+try {
+/* Playground — Thumbnail (composição do playground, não é do DS: ver thumbnail.js) */
+CDS.register({
+  id: "thumbnail", name: "Thumbnail", composition: true, category: "Composições",
+  description: "Miniatura viva: o playground real de um componente reduzido para caber numa caixa. Usada no preview do hover e no menu em grade.",
+  mount: function(ctx){
+    var kit = ctx.kit, panel = ctx.panel;
+    var SIZES = { peek: ["calc(var(--common-sizes-200) + var(--common-sizes-80))", "var(--common-sizes-160)"], card: ["var(--common-sizes-96)", "var(--common-sizes-96)"] };
+    var p = kit.el("cmp-thumbnail", { component: "main-button", "min-scale": "0.5" });
+    var box = kit.el("div", { style: "border-radius:var(--common-border-radius-medium);overflow:hidden;background:var(--common-colors-surface-01)" }, [p]);
+    function size(k){ p.style.width = SIZES[k][0]; p.style.height = SIZES[k][1]; p.fit(); }
+    ctx.preview.appendChild(box);
+    size("peek");
+    kit.hint(panel, "Composição do playground (prefixo cmp-): monta o playground do componente escolhido e reduz para caber. Fundo Surface/01 é da caixa de exemplo.");
+    kit.section(panel, "Comportamento");
+    var opts = (CDS.playgrounds || []).filter(function(c){ return c.mount && !c.resource && !c.composition; })
+      .sort(function(a, b){ return a.name.localeCompare(b.name, "pt-BR"); }).map(function(c){ return [c.id, c.name]; });
+    kit.select(panel, { label: "Component", value: "main-button", searchable: true, options: opts, onChange: function(v){ p.setAttribute("component", v); } });
+    kit.seg(panel, { label: "Min Scale", value: "0.5", options: [["0.1", "0.1"], ["0.25", "0.25"], ["0.5", "0.5"], ["1", "1"]], onChange: function(v){ p.setAttribute("min-scale", v); p.fit(); } });
+    kit.seg(panel, { label: "Caixa", value: "peek", options: [["peek", "Preview do hover"], ["card", "Card da grade"]], onChange: size });
+  }
+});
+} catch (e) { console.error("[cds] compositions/thumbnail/thumbnail.playground.js", e); }
 
 /* ==== resources/caju-theme/caju-theme.js ==== */
 try {

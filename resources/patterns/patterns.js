@@ -1,6 +1,6 @@
 /* Patterns — Feedback Page (Sponsor e Employee) e Tela de loading (zeroheight · Patterns e Templates).
    Fonte: Figma [CastanhaDS] Component use documentation (anatomias 7039:15189, 7039:17339, 5869:2460) e o
-   .Feedback Content (set 7039:15084): Kind escolhe ilustração + título + descrição sugeridos (textos literais do Figma).
+   .Feedback Content (set 7039:15084): Kind escolhe ilustração + título + descrição sugeridos (textos reescritos pelas regras de Feedback Pages do Hub, decisão de 05/10; os do Figma estão em C161/C167).
    Os cenários são montados com componentes do DS (Main Button, Icon Button, Fixed Bar, Progress Line) e as
    ilustrações do [Caju] Illustrations. Rótulos das ações são exemplos do playground: no Figma eles vêm como "Label".
    Revisão: CONFERIR C161. */
@@ -12,15 +12,15 @@
 
   // Kind → ilustração, texto sugerido (Figma) e ações de exemplo (primária, secundária)
   var KINDS = [
-    { kind: "Error", ill: "notificacoes/error", title: "Não foi possível concluir", text: "Parece que algo deu errado. Vamos tentar de novo?", pri: "Tentar de novo", sec: "Voltar" },
-    { kind: "Success", ill: "notificacoes/success", title: "Ação concluída com sucesso", text: "Tudo certo! Você pode seguir para o próximo passo.", pri: "Continuar", sec: "Ver detalhes" },
-    { kind: "Warning", ill: "notificacoes/alert", title: "Atenção necessária antes de continuar", text: "Para garantir sua segurança, revise as informações e prossiga.", pri: "Revisar", sec: "Voltar" },
-    { kind: "Empty State", ill: "notificacoes/empty-state", title: "Espaço pronto para novos conteúdos", text: "Ainda não há nada aqui. Vamos começar adicionando o primeiro item?", pri: "Adicionar item", sec: null },
-    { kind: "No Results", ill: "notificacoes/search-not-found", title: "Nenhum resultado encontrado", text: "Sua busca não retornou nada. Tente outro termo ou limpe os filtros.", pri: "Limpar filtros", sec: null },
-    { kind: "In Review", ill: "notificacoes/analysis", title: "Análise em andamento", text: "Recebemos sua solicitação e estamos verificando. Avisaremos em breve.", pri: "Entendi", sec: null },
-    { kind: "Processing", ill: "notificacoes/ja-vai", title: "Operação em andamento", text: "Estamos processando sua solicitação. Isso pode levar alguns instantes.", pri: "Entendi", sec: null },
-    { kind: "No Access", ill: "seguranca/cadeado", title: "Acesso não autorizado", text: "Você não tem permissão para ver este conteúdo. Caso precise, fale com o administrador.", pri: "Voltar ao início", sec: null },
-    { kind: "Not Found", ill: "transporte/logistica-estrada", title: "Conteúdo não encontrado", text: "A página ou informação que você procura não existe ou foi removida.", pri: "Voltar ao início", sec: null }
+    { kind: "Error", ill: "notificacoes/error", title: "Não conseguimos concluir agora", text: "Tivemos um problema do nosso lado. Tente de novo em alguns instantes.", pri: "Tentar de novo", sec: "Voltar" },
+    { kind: "Success", ill: "notificacoes/success", title: "Pronto, deu certo", text: "Você já pode seguir para o próximo passo.", pri: "Continuar", sec: "Acessar detalhes" },
+    { kind: "Warning", ill: "notificacoes/alert", title: "Revise antes de continuar", text: "Confira as informações para seguir com segurança.", pri: "Revisar", sec: "Voltar" },
+    { kind: "Empty State", ill: "notificacoes/empty-state", title: "Ainda não há nada por aqui", text: "Quando você adicionar o primeiro item, ele aparece aqui.", pri: "Adicionar item", sec: null },
+    { kind: "No Results", ill: "notificacoes/search-not-found", title: "Ainda não encontramos resultados", text: "Tente outro termo ou limpe a busca.", pri: "Limpar busca", sec: null },
+    { kind: "In Review", ill: "notificacoes/analysis", title: "Estamos analisando sua solicitação", text: "Você recebe um aviso assim que a análise terminar.", pri: "Voltar ao início", sec: null },
+    { kind: "Processing", ill: "notificacoes/ja-vai", title: "Estamos processando sua solicitação", text: "Isso pode levar alguns instantes.", pri: "Voltar ao início", sec: null },
+    { kind: "No Access", ill: "seguranca/cadeado", title: "Você não tem acesso a este conteúdo", text: "Se precisar, peça acesso a quem administra a conta da sua empresa.", pri: "Voltar ao início", sec: null },
+    { kind: "Not Found", ill: "transporte/logistica-estrada", title: "Não encontramos esta página", text: "Ela pode ter mudado de endereço ou sido removida.", pri: "Voltar ao início", sec: null }
   ];
   function byKind(k){ return KINDS.filter(function(x){ return x.kind === k; })[0]; }
 
@@ -103,7 +103,7 @@
     { h2: "Motion" },
     { alert: { appearance: "informative", label: "Sem motion próprio", text: "O padrão não define animação além das dos componentes que usa (Main Button, Icon Button, Fixed Bar). No Hub, a seção Motion ainda é o modelo vazio: ver CONFERIR." } }
   ];
-  var CENARIOS_P = { p: "A property `Kind` do .Feedback Content escolhe o cenário e traz a ilustração e o texto sugerido correspondentes. Os textos abaixo são os do Figma; os rótulos das ações são exemplos." };
+  var CENARIOS_P = { p: "A property `Kind` do .Feedback Content escolhe o cenário e traz a ilustração e o texto sugerido correspondentes. Os textos abaixo seguem as regras de Feedback Pages (Conteúdo): sem \"com sucesso\", sem CTA genérico e no presente. O Figma ainda traz a versão anterior." };
 
   CDS.docs["patterns"] = {
     tabs: [

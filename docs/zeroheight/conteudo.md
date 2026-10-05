@@ -48,7 +48,9 @@ O Figma "Como a Caju Fala" (fonte original do playground) ainda tem a versão an
 4. Celular: o Hub tem dois formatos (`(11) 9 9999-9999` em Códigos e `(11) 99999-9999` em Mascarar); o playground adotou o segundo.
 5. Etapas futuras: o "Não faça" do Figma contradiz a Premissa #8.
 6. Verbos visuais: a Premissa #5 manda trocar "Ver mais" por "Saber mais", e as páginas Links e Comunicando Novidades proíbem "Saber mais". O playground seguiu Links.
-7. Explicar no onboarding: o playbook antigo diz "não é o momento de explicar regras de negócio" e a Premissa #6 inclui "Explicar". Ainda em aberto.
+7. Explicar no onboarding: o playbook antigo diz "não é o momento de explicar regras de negócio" e a Premissa #6 inclui "Explicar". **Decidido em 05/10:** explica o conceito e a utilidade; regra de negócio detalhada vai para a FAQ. Atualizar o playbook Comunicando Novidades.
+8. Feedback Pages: os textos sugeridos do .Feedback Content no Figma (tabela da seção 3).
+9. Erros: manter "Assuma a responsabilidade" (o Hub diz "culpa") e o botão destrutivo de exemplo "Excluir rascunho".
 
 ## 2. O que falta no playground e entra depois das decisões
 
@@ -77,15 +79,19 @@ O Figma "Como a Caju Fala" (fonte original do playground) ainda tem a versão an
 
 ## 3. Textos do .Feedback Content no Figma (Patterns)
 
-Os títulos e descrições sugeridos de cada Kind quebram as regras da página Feedback Pages do próprio Hub. Proposta, a confirmar com o time de Conteúdo:
+Os títulos e descrições sugeridos de cada Kind quebravam as regras de Feedback Pages do Hub ("com sucesso", "Tudo certo", "Entendi", futuro, "Garantir", "Nenhum resultado"). **Decisão de 05/10:** o playground (Patterns) já usa os textos abaixo; falta levar ao Figma (set 7039:15084).
 
-| Kind | Hoje | Proposta |
-| --- | --- | --- |
-| Success | Ação concluída com sucesso · Tudo certo! Você pode seguir para o próximo passo. | Pronto, deu certo · Você já pode seguir para o próximo passo. |
-| Warning | Atenção necessária antes de continuar · Para garantir sua segurança, revise… | Revise antes de continuar · Confira as informações para seguir com segurança. |
-| No Results | Nenhum resultado encontrado | Ainda não encontramos resultados |
-| In Review | … Avisaremos em breve. | … Você recebe um aviso assim que terminar. |
-| Botões de exemplo | Entendi · Ver detalhes · Limpar filtros | Voltar ao início · Acessar detalhes · Limpar busca |
+| Kind | Título | Descrição | Ação principal |
+| --- | --- | --- | --- |
+| Error | Não conseguimos concluir agora | Tivemos um problema do nosso lado. Tente de novo em alguns instantes. | Tentar de novo |
+| Success | Pronto, deu certo | Você já pode seguir para o próximo passo. | Continuar |
+| Warning | Revise antes de continuar | Confira as informações para seguir com segurança. | Revisar |
+| Empty State | Ainda não há nada por aqui | Quando você adicionar o primeiro item, ele aparece aqui. | Adicionar item |
+| No Results | Ainda não encontramos resultados | Tente outro termo ou limpe a busca. | Limpar busca |
+| In Review | Estamos analisando sua solicitação | Você recebe um aviso assim que a análise terminar. | Voltar ao início |
+| Processing | Estamos processando sua solicitação | Isso pode levar alguns instantes. | Voltar ao início |
+| No Access | Você não tem acesso a este conteúdo | Se precisar, peça acesso a quem administra a conta da sua empresa. | Voltar ao início |
+| Not Found | Não encontramos esta página | Ela pode ter mudado de endereço ou sido removida. | Voltar ao início |
 
 ## 4. Correções no Hub (edição direta)
 

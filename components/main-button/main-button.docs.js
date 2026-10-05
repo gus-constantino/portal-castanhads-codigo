@@ -163,14 +163,14 @@
           "O texto deve seguir os mesmos termos usados no título e na descrição da tela. A pessoa deve conseguir ler o header e o botão e relacionar as duas informações.",
           "Use no máximo 3 palavras. Nunca quebre o texto em mais de uma linha.",
           "Nunca use ponto final ou ponto de exclamação.",
-          "Evite labels genéricas como \"Sim\", \"Não\", ”Entendi” ou \"Ok\". Seja específico."
+          "Evite labels genéricas como \"Sim\", \"Não\", \"Entendi\" ou \"Ok\". Seja específico."
         ] },
         { h3: "Ações destrutivas" },
         { p: "Mesmo sem um estilo visual específico, deixe claro na label quando a ação é irreversível. A pessoa não pode ter dúvida sobre o que vai acontecer. Exemplo:" },
         { display: { attrs: [
           { _tag: "cds-main-button", label: "Sair sem salvar", "show-lead-icon": false, "show-trailing-icon": false },
           { _tag: "cds-main-button", label: "Remover colaborador", "show-lead-icon": false, "show-trailing-icon": false },
-          { _tag: "cds-main-button", label: "Sair do app", "show-lead-icon": false, "show-trailing-icon": false }
+          { _tag: "cds-main-button", label: "Excluir rascunho", "show-lead-icon": false, "show-trailing-icon": false }
         ] } },
         { h3: "Labels padronizadas" },
         { table: { wrap: true, head: ["Label", "Quando usar"], rows: [

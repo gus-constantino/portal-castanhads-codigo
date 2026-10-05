@@ -650,7 +650,7 @@
           "Priorize o valor percebido pela pessoa, não o funcionamento técnico.",
           "Foque no potencial de uso: como essa funcionalidade resolve uma dor real?",
           "Escreva só o que é importante para aquele contexto e momento.",
-          "Não é o momento de explicar regras de negócio, detalhar o funcionamento ou responder dúvidas. Isso vai para a FAQ.",
+          "Explique o conceito e por que a novidade é útil, como numa conversa: receber, contextualizar, explicar e encerrar (Tom e voz, premissa 6). Regras de negócio detalhadas e dúvidas específicas vão para a FAQ.",
           "Evite termos nichados de produto: \"funcionalidades\", \"desenvolvimento\", \"feature\".",
           "Não use emojis, as ilustrações e animações já dão suporte visual ao texto."
         ] },

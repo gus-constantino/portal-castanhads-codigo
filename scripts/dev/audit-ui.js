@@ -48,7 +48,7 @@ for (const f of ["styles/playground.css", "styles/docs.css", "styles/report.css"
 }
 
 // 2. Controles HTML à mão
-const JS = ["scripts/app.js", "scripts/playground-kit.js", "scripts/docs-kit.js", "scripts/report.js"].map((p) => path.join(ROOT, p));
+const JS = ["scripts/app.js", "scripts/playground-kit.js", "scripts/docs-kit.js", "scripts/tokens-kit.js", "scripts/report.js"].map((p) => path.join(ROOT, p));
 const comps = fs.readdirSync(path.join(ROOT, "components"));
 comps.forEach((c) => ["playground", "docs"].forEach((k) => { const f = path.join(ROOT, "components", c, `${c}.${k}.js`); if (fs.existsSync(f)) JS.push(f); }));
 const RAW_CTRL = /(?:createElement|kit\.el|\bel)\(\s*"(button|input|select|textarea|details|summary)"/;

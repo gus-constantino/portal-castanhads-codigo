@@ -193,3 +193,51 @@
 .pg-doc-acc__body{ padding:var(--common-sizes-8) 0 var(--common-sizes-16); }
 /* Toast do DS para "Copiado" — fixo no rodapé, centralizado */
 .pg-toast{ position:fixed; z-index:20; left:50%; bottom:var(--common-sizes-24); transform:translateX(-50%); }
+
+/* ---------- Mostruário de tokens (Caju Theme · scripts/tokens-kit.js) ----------
+   Referência: [Caju] Theme · Caju Benefícios (4309:2), adaptado para web responsivo: grades auto-fill no lugar de colunas fixas. */
+.pg-tok-root{ display:flex; flex-direction:column; gap:var(--common-sizes-32); }
+.pg-tok-group{ display:flex; flex-direction:column; gap:var(--common-sizes-12); }
+.pg-tok-group .pg-doc-h3{ margin:0; }
+.pg-tok-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(min(var(--common-sizes-160), 100%), 1fr)); gap:var(--common-sizes-16) var(--common-sizes-12); }
+.pg-tok-grid.is-wide{ grid-template-columns:repeat(auto-fill, minmax(min(calc(var(--common-sizes-200) + var(--common-sizes-20)), 100%), 1fr)); }
+.pg-tok-grid.is-sizes{ display:flex; flex-wrap:wrap; align-items:flex-end; gap:var(--common-sizes-24) var(--common-sizes-32); } /* itens com a largura natural: quadrado + nome ao lado */
+.pg-tok{ margin:0; display:flex; flex-direction:column; gap:var(--common-sizes-8); min-width:0; }
+.pg-tok.is-row{ flex-direction:row; align-items:center; gap:var(--common-sizes-12); }
+.pg-tok__text{ display:flex; flex-direction:column; gap:var(--common-sizes-2); min-width:0; }
+.pg-tok__name{ font:var(--text-style-caption-medium); color:var(--common-colors-text-intense); overflow-wrap:anywhere; }
+.pg-tok__code{ align-self:flex-start; padding:0 var(--common-sizes-4); border-radius:var(--common-border-radius-micro);
+  background:var(--common-colors-surface-01); font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); overflow-wrap:anywhere; }
+.pg-tok__sample{ position:relative; box-sizing:border-box; display:grid; place-items:center; min-height:var(--common-sizes-56); }
+/* Cor: amostra com contorno hairline para os tons próximos do fundo */
+.pg-tok__swatch{ height:var(--common-sizes-56); border-radius:var(--common-border-radius-small);
+  box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-semi-soft); }
+.pg-tok__swatch.is-opacity{ background:var(--common-colors-accent-solid-medium); box-shadow:none; }
+/* Tipografia */
+.pg-tok__type{ justify-items:start; min-height:var(--common-sizes-56); font:var(--text-style-heading-small); font-size:var(--common-font-size-32); color:var(--common-colors-text-intense); line-height:var(--common-font-line-height-small); }
+.pg-tok__type.is-lines{ font:var(--text-style-body-regular); width:var(--common-sizes-44); white-space:normal; justify-items:start; }
+.pg-tok-list{ display:flex; flex-direction:column; }
+.pg-tok-style{ margin:0; display:grid; grid-template-columns:minmax(0, 2fr) minmax(0, 1fr); align-items:center; gap:var(--common-sizes-8) var(--common-sizes-24);
+  padding:var(--common-sizes-12) 0; box-shadow:inset 0 calc(-1 * var(--common-border-width-hairline)) 0 var(--common-colors-border-semi-soft); }
+.pg-tok-style__sample{ min-width:0; overflow-x:auto; white-space:nowrap; color:var(--common-colors-text-intense); line-height:var(--common-font-line-height-small); }
+@media (max-width:760px){ .pg-tok-style{ grid-template-columns:minmax(0, 1fr); } }
+/* Bordas: raio no canto (como no Figma) e espessura */
+.pg-tok__corner, .pg-tok__stroke{ width:var(--common-sizes-80); height:var(--common-sizes-80); min-height:0; background:var(--common-colors-accent-solid-soft); }
+.pg-tok__corner{ border-top:var(--common-border-width-heavy) solid var(--common-colors-accent-solid-medium); border-left:var(--common-border-width-heavy) solid var(--common-colors-accent-solid-medium); }
+.pg-tok__stroke{ border-style:solid; border-color:var(--common-colors-accent-solid-medium); border-radius:var(--common-border-radius-small); }
+/* Tamanhos */
+.pg-tok__size{ min-height:0; place-items:end start; }
+.pg-tok__size > span{ display:block; background:var(--common-colors-accent-solid-medium); }
+/* Elevação */
+.pg-tok__shadow{ width:var(--common-sizes-120); height:var(--common-sizes-72); min-height:0; margin:var(--common-sizes-16); border-radius:var(--common-border-radius-medium); background:var(--common-colors-surface-default); }
+/* Motion: barras (Progress Line do DS) e curvas */
+.pg-tok-bars{ display:flex; flex-direction:column; gap:var(--common-sizes-4); }
+.pg-tok-bar{ margin:0; display:grid; grid-template-columns:minmax(var(--common-sizes-104), 20%) minmax(0, 1fr) minmax(var(--common-sizes-56), auto); align-items:center; gap:var(--common-sizes-12); padding:var(--common-sizes-4) 0; }
+.pg-tok-bar cds-progress-line{ --cds-progress-color:var(--common-colors-accent-solid-medium); --cds-progress-track:var(--common-colors-accent-solid-soft); }
+.pg-tok__curve{ width:var(--common-sizes-80); height:var(--common-sizes-80); min-height:0; border-radius:var(--common-border-radius-small); background:var(--common-colors-accent-solid-soft); }
+.pg-tok__curve svg{ width:100%; height:100%; overflow:visible; }
+.pg-tok__curve path{ fill:none; stroke:var(--common-colors-accent-solid-medium); stroke-width:var(--common-border-width-thin); vector-effect:non-scaling-stroke; }
+.pg-tok__curve .pg-tok__curve-base{ stroke:var(--common-colors-border-semi-soft); stroke-width:var(--common-border-width-hairline); }
+.pg-tok-motion{ min-width:0; } /* Card do DS */
+.pg-tok-motion__dl{ margin:0; display:grid; grid-template-columns:auto minmax(0, 1fr); gap:var(--common-sizes-4) var(--common-sizes-12); align-items:center; font:var(--text-style-caption-regular); color:var(--common-colors-text-soft); }
+.pg-tok-motion__dl dd{ margin:0; }

@@ -455,6 +455,8 @@
     }
   };
 
+  CDS.docBlocks = BLOCKS; // extensões (ex.: scripts/tokens-kit.js acrescenta o bloco `tokens`)
+
   /** Capa do componente (frame [Header] do Figma): o componente real (vivo) numa moldura, acima das tabs.
    *  Sem `doc.cover`, esvazia e esconde `root`. Fundo provisório = Accent/Solid/soft (o Surface/03 do Figma é legado, sem token: C91). */
   CDS.renderCover = function(doc, root){

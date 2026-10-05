@@ -9,11 +9,11 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | Tipo | Itens |
 |---|---|
 | [Ajuste de texto](#ajuste-de-texto) | 6 |
-| [Ajuste de UI](#ajuste-de-ui) | 24 |
+| [Ajuste de UI](#ajuste-de-ui) | 25 |
 | [Motion](#motion) | 7 |
 | [Refactor](#refactor) | 19 |
 | [Naming](#naming) | 10 |
-| [Acessibilidade](#acessibilidade) | 3 |
+| [Acessibilidade](#acessibilidade) | 6 |
 | [Documentação](#documentação) | 3 |
 | [Integração React](#integração-react) | 6 |
 
@@ -60,6 +60,7 @@ Cor, fill, borda, tamanho ou layout de uma variante.
 | C74 | Caju Card · combinações | Das 21 variantes: falta Físico Corporativo Horizontal (frente e verso) e o verso só existe para Físico (H e V) e Físico Corporativo (V); Virtual, Voucher e Virtual Corporativo não têm verso | Matriz completa ou props que só aparecem onde existem | Combinação ausente cai na mais próxima: mesma orientação na vertical e, sem verso, a frente (o rótulo acessível acompanha) | **Falta conhecida, sinalizada há tempos pelo Gustavo** ao time; Alice e Tathi já tinham sido alertadas durante a task de migração. Registrado (02/10). Quando o Figma completar a matriz: exportar as novas artes e tirar o fallback de `caju-card.js` |
 | C82 | Variáveis · `Common/Grids/*` (coleção Viewport) | margin: Desktop 104 · Tablet 16 · Mobile 20 · gutter: Desktop 20 · Tablet 8 · Mobile 16 | **De propósito** (Gustavo, 02/10), mas com proposta de melhoria no Tablet e no Mobile. Sugestão para discutir: escala crescente com tokens que já existem: margin 16 → 32 → 104 e gutter 12 → 16 → 20 (Mobile → Tablet → Desktop) | Segue o Figma: `--common-grids-margin` e `--common-grids-gutter` gerados por `build-tokens.js` (Desktop no `:root`, Tablet ≤1023, Mobile ≤599 e por `[data-viewport]`) | **Proposta de melhoria** (Gustavo). Se aprovada: valores no Figma e `tokens/figma-snapshot.json` |
 | C84 | Icon Button · estado selecionado | Não há variante Selected/Is Active (só Enabled, Hovered, Pressed, Disabled) | Variante de toggle para botões que ligam/desligam algo (no playground: relatório aberto, tema) | Usa `pressed` (aria-pressed) sem mudança visual; o estado aparece pelo ícone (tema) e pelo texto do Tooltip (relatório) | Avaliar uma variante selecionada no Figma |
+| C126 | Table, Pagination e Modal Date Picker · **mobile (360px)** | O smoke mede 1053px (Table), 780px (Pagination) e 704px (Modal Date Picker) no frame mobile: o Figma não define o comportamento estreito | Definir: rolagem horizontal, versão mobile ou "só desktop" | Segue o Figma (transborda); aviso no smoke | Conforme a decisão |
 
 ## Motion
 
@@ -145,6 +146,9 @@ Contraste, foco e estados que não se distinguem.
 | C15 | Code Input OTP · borda em repouso | `Border/semi-soft` (~1,24:1) | Confirmar com a11y se as células vazias seguem visíveis | Segue o Figma | Trocar o token em `code-input-otp.css` |
 | C23 | Selection Controls e Chips · foco | Foco por teclado não desenhado (padrão global do DS) | Spec do foco global | **Exceção** (sem especificação): outline 2px `Support/system` | Trocar pelo padrão global quando existir |
 | C32 | Balance Card · Hovered · **a11y** | Só o Label muda (`Text/medium` → `Text/intense`); fundo e borda iguais | **Problema de acessibilidade a corrigir:** o estado de hover quase não se distingue (só um tom de texto), e o card não tem estado de foco desenhado (o código usa o outline provisório de C23) | Segue o Figma | Corrigir no Figma (hover com mudança perceptível de fundo ou borda, além da cor) e ajustar `balance-card.css` |
+| C123 | Banner e Content Banner · **tema escuro** (e o exemplo do Backdrop, que usa o mesmo par) | Fundo `Decorative/01` igual nos dois temas; o texto usa o token de texto do tema, que clareia no escuro (no código herda `Text/intense`) → **1,67:1** no escuro | Conferir no Figma: texto fixo escuro sobre Decorative, ou um Decorative próprio do escuro | Segue o Figma; aparece como aviso no smoke | Trocar o token do texto em `banner.css` / `content-banner.css` |
+| C124 | `Text/accent` sobre fundo escuro · Filter Button, Main Button Ghost Accent (ex.: "Selecionar arquivos" do Dropzone) | No escuro, `Text/accent` sobre `Surface/default` dá **3,74:1** (AA pede 4,5:1 para Label 14–16px) | Ajustar o valor escuro de `Text/accent` (ou usar um tom mais claro no escuro) | Segue o Figma; aviso no smoke | Nada no código: só o valor do token |
+| C125 | `Text/soft` em texto informativo · contador do Text Input / Text Area ("0/100") e máscara do Date Input ("-0000") | **2,50:1** no claro e **2,14:1** no escuro | Confirmar com a11y: o contador e a máscara precisam passar no AA? Se sim, `Text/medium` | Segue o Figma; aviso no smoke | Trocar o token em `text-field.css` / `date-input.css` |
 
 ## Documentação
 

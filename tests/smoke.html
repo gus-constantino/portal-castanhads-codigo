@@ -23,6 +23,9 @@
   th, td{ text-align:left; padding:6px 10px; box-shadow:inset 0 -1px 0 var(--common-colors-border-semi-soft); vertical-align:top; }
   td:nth-child(3), td:nth-child(4){ font-family:ui-monospace, Menlo, monospace; }
   tr.ko td{ background:var(--common-colors-feedback-negative-soft); }
+  tr.warn td{ background:var(--common-colors-feedback-warning-soft); }
+  .warn-sum{ color:var(--common-colors-text-medium); } .legend{ margin:0 0 12px; color:var(--common-colors-text-medium); }
+  td:nth-child(5), td:nth-child(6){ font-size:12px; }
   /* Os componentes são montados aqui, fora da tela, num frame de 600px como o playground (Fluido) */
   #stage{ position:absolute; left:-10000px; top:0; width:600px; }
   .frame{ width:600px; display:flex; flex-direction:column; align-items:center; }
@@ -31,7 +34,7 @@
 </head>
 <body>
 <h1>Smoke test — playground do Castanha DS</h1>
-<p>Monta cada componente registrado e compara o tamanho com o Figma (<code>tests/expected.js</code>, ±1px).</p>
+<p>Monta cada componente registrado no claro, no escuro e no mobile: tamanho igual ao Figma (<code>tests/expected.js</code>, ±1px), a11y básico e avisos de contraste (WCAG AA) e de largura no mobile.</p>
 <div id="out">Rodando…</div>
 <div id="stage" aria-hidden="true"></div>
 
@@ -45,7 +48,7 @@
 <script>
   // Espera fontes e estilos para medir o layout final
   window.addEventListener("load", function(){ (document.fonts ? document.fonts.ready : Promise.resolve()).then(function(){
-    var s = document.createElement("script"); s.src = "tests/smoke.js?v=ef1ab580"; document.body.appendChild(s);
+    var s = document.createElement("script"); s.src = "tests/smoke.js?v=a376086f"; document.body.appendChild(s);
   }); });
 </script>
 </body>

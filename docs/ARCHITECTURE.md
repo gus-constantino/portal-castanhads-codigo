@@ -222,7 +222,7 @@ Medições no código atual:
 | ✅ | ~~`--cds-icon-color`~~ | A6 | feito | rodada de arquitetura |
 | ✅ | ~~Smoke test~~ | A7 | feito | rodada de arquitetura |
 | ✅ | ~~Migrar Credit Card para `build()`/`update()`~~ (feito: subclasse de `CDS.TextField`); OTP segue com re-render (células variam de 3 a 6) | A3 | feito | Lote 4 |
-| **P2** | Smoke: rodar também em dark e em `data-viewport=mobile`, e verificar `aria-*` básicos (botão com nome, ícone decorativo com `aria-hidden`) | A7 | ~1h | Lote 3 |
+| ✅ | ~~Smoke: rodar também em dark e em `data-viewport=mobile`, e verificar `aria-*` básicos~~ (feito: 3 passadas, a11y reprova, contraste WCAG AA e largura no mobile como aviso; D102) | A7 | feito | melhorias técnicas |
 | **P2** | Subir `build()`/`update()` de `CDS.SelectionControl` para `CDS.Element` (opcional por componente) quando a 2ª família usar | A3 | ~1h | Lote 4 |
 | ✅ | ~~Estados forçados como contrato da família de inputs~~ (base `CDS.TextField`) | A19 | feito | Lote 4 |
 | **P2** | Smoke: checar a cor do Label/mensagem por Appearance nos inputs (o bug do Warning passou nos dois) | — | ~20min | Lote 4 |

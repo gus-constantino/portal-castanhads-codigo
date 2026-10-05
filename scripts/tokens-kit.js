@@ -318,41 +318,20 @@
       });
       show(cur);
     },
-    duration: function(root){ runs(root, "Duration", pick("--common-motion-duration-"), "--common-motion-duration-", "duration"); },
-    delay: function(root){ runs(root, "Delay", pick("--common-motion-delay-"), "--common-motion-delay-", "delay"); },
-    // Curva desenhada + bolinha que percorre a trilha com aquela curva (Long/04)
-    easing: function(root){
-      var list = pick("--common-motion-easing-"), btn = CDS.docMainButton ? CDS.docMainButton("Tocar todas") : null;
-      var g = section(root, "Cubic Bezier", list.length, btn).appendChild(grid("is-wide"));
-      list.forEach(function(n){
-        g.appendChild(item(n, "--common-motion-easing-", function(sw){
-          sw.classList.add("pg-tok__curve");
-          var m = val(n).match(/cubic-bezier\(([^)]+)\)/), p = m ? m[1].split(",").map(parseFloat) : [0, 0, 1, 1];
-          var NS = "http://www.w3.org/2000/svg", svg = document.createElementNS(NS, "svg"), path = document.createElementNS(NS, "path"), base = document.createElementNS(NS, "path");
-          svg.setAttribute("viewBox", "-4 -24 108 128"); svg.setAttribute("aria-hidden", "true");
-          base.setAttribute("d", "M0 100 L100 0"); base.setAttribute("class", "pg-tok__curve-base");
-          path.setAttribute("d", "M0 100 C" + p[0] * 100 + " " + (100 - p[1] * 100) + " " + p[2] * 100 + " " + (100 - p[3] * 100) + " 100 0");
-          svg.appendChild(base); svg.appendChild(path); sw.appendChild(svg);
-          var track = sw.appendChild(el("span", "pg-tok-ease")), dot = track.appendChild(el("span", "pg-tok-ease__dot"));
-          dot.style.transitionTimingFunction = "var(" + n + ")";
-          var play = function(){ replay(track); };
-          sw._play = play; return play;
-        }, "is-motion"));
-      });
-      if (btn) playAll(btn, g, ".pg-tok__curve");
-    },
-    // Motion Styles em ação (aproveita o explicador castanhads-motion, refeito com componentes do DS):
-    // Main Button e Checkbox reais disparam o estilo; a lista destaca e toca a demo; a cascata mostra o estilo descendo as camadas
+    // ===== Motion (referências: Material Motion e Carbon — Systemic × Expressive; easings.net — cartão por curva;
+    // explicador castanhads-motion — palco, cascata e laboratório). Um laboratório central recebe curva, duração e delay
+    // de qualquer lugar da tab: Motion Styles, cartões de curva e linhas de duração/delay.
     "motion-live": function(root){
       var keys = pick("--motion-", /-easing$/).filter(function(n){ return /-01-timing$/.test(n); }).map(function(n){ return n.replace(/^--motion-|-01-timing$/g, ""); });
       var title = function(k){ return k.split("-").map(cap).join(" ") + "/01"; };
       var s = section(root, "Motion Styles em ação", keys.length);
-      s.appendChild(el("p", "pg-doc-p", "Passe o mouse, pressione e solte o botão; marque e desmarque o checkbox. Cada interação dispara o Motion Style correspondente na lista e na cascata abaixo."));
-      var stage = s.appendChild(el("div", "pg-tok-stage"));
+      s.appendChild(el("p", "pg-doc-p", "Passe o mouse, pressione e solte o botão; marque e desmarque o checkbox. Cada interação dispara o Motion Style correspondente: o painel mostra a cascata e o laboratório toca com o timing, a curva e o delay dele."));
+      var live = s.appendChild(el("div", "pg-mo-live")), stage = live.appendChild(el("div", "pg-tok-stage"));
       var pay = stage.appendChild(document.createElement("cds-main-button"));
       [["label", "Pagar"], ["kind", "default"], ["appearance", "accent"], ["show-lead-icon", "false"], ["show-trailing-icon", "false"]].forEach(function(a){ pay.setAttribute(a[0], a[1]); });
       var cb = stage.appendChild(document.createElement("cds-checkbox")); cb.setAttribute("label", "Aceito os termos");
-      var ul = s.appendChild(el("div", "pg-tok-styles")), rows = {}, casc = el("div", "pg-tok-cascade");
+      var panel = live.appendChild(el("div", "pg-mo-panel"));
+      var ul = s.appendChild(el("div", "pg-tok-styles")), rows = {};
       keys.forEach(function(k){
         var t = "--motion-" + k + "-01-timing", e = "--motion-" + k + "-01-easing", d = "--motion-" + k + "-01-delay", hasD = names().indexOf(d) !== -1;
         var row = ul.appendChild(tile("pg-tok-mstyle", t, function(){ go(k); }));
@@ -364,83 +343,140 @@
         row.appendChild(code(val(e) + (hasD ? " · +" + val(d) : ""), e));
         rows[k] = row;
       });
-      section(root, "A cascata do estilo").appendChild(casc);
       function chain(parent, layer, n){
         var line = parent.appendChild(el("div", "pg-tok-chain")), ref = spec(n), target = (ref.match(/var\((--[^)]+)\)/) || [])[1];
         line.appendChild(el("span", "pg-tok-chain__k", layer));
         var tag = function(text, app){ var t = line.appendChild(document.createElement("cds-tag")); t.setAttribute("label", text); t.setAttribute("appearance", app); t.setAttribute("show-lead-item", "false"); };
         var arrow = function(){ var i = line.appendChild(document.createElement("cds-icon")); i.setAttribute("icon", "navigation-right-line"); i.setAttribute("size", "small"); i.setAttribute("appearance", "neutral"); i.setAttribute("aria-hidden", "true"); };
-        tag(n.replace(/^--motion-/, "").replace(/-01-(timing|easing|delay)$/, function(_, p){ return " · " + cap(p); }).replace(/^[a-z-]+/, function(m){ return title(m); }), "accent");
-        if (target){ arrow(); tag(figmaName(target), "neutral"); var prim = PRIMITIVE[target.replace("--common-motion-easing-", "")]; if (prim && /easing/.test(target)){ arrow(); tag(prim, "neutral"); } }
-        arrow(); line.appendChild(code(val(n), n));
+        if (target){ tag(figmaName(target), "neutral"); var prim = PRIMITIVE[target.replace("--common-motion-easing-", "")]; if (prim && /easing/.test(target)){ arrow(); tag(prim, "neutral"); } arrow(); }
+        line.appendChild(code(val(n), n));
       }
       function go(k){
         Object.keys(rows).forEach(function(x){ rows[x].classList.toggle("is-current", x === k); });
-        casc.innerHTML = "";
-        casc.appendChild(el("h4", "pg-doc-h4", title(k) + " · " + (TRIGGER[k] || "")));
-        ["timing", "easing", "delay"].forEach(function(p){ var n = "--motion-" + k + "-01-" + p; if (names().indexOf(n) !== -1) chain(casc, cap(p), n); });
-        casc.appendChild(el("p", "pg-doc-note", "Motion Style (intenção) → Brand Style (`Common/Motion/*`) → valor. Os nomes primitivos de easing vêm do explicador castanhads-motion; Primitives e Theme não estão no snapshot do playground."));
+        panel.innerHTML = "";
+        var head = panel.appendChild(el("div", "pg-mo-panel__head"));
+        head.appendChild(el("span", "pg-mo-panel__title", title(k)));
+        head.appendChild(el("span", "pg-mo-panel__when", TRIGGER[k] || ""));
+        var t = "--motion-" + k + "-01-timing", e = "--motion-" + k + "-01-easing", d = "--motion-" + k + "-01-delay";
+        ["timing", "easing", "delay"].forEach(function(p){ var n = "--motion-" + k + "-01-" + p; if (names().indexOf(n) !== -1) chain(panel, cap(p), n); });
+        panel.appendChild(el("p", "pg-doc-note", "Motion Style → Brand Style (Common/Motion/*) → valor. Primitivos de easing do castanhads-motion (C106)."));
+        if (LAB.set) LAB.set(spec(e).replace(/^var\(|\)$/g, ""), spec(t).replace(/^var\(|\)$/g, ""), names().indexOf(d) !== -1 ? spec(d).replace(/^var\(|\)$/g, "") : null);
       }
       pay.addEventListener("mouseenter", function(){ go("hover-in"); });
       pay.addEventListener("mouseleave", function(){ go("hover-out"); });
       pay.addEventListener("pointerdown", function(){ go("pressed"); });
       pay.addEventListener("pointerup", function(){ go("released"); });
       cb.addEventListener("cds-change", function(ev){ ev.stopPropagation(); go(ev.detail && ev.detail.status === "selected" ? "selected-in" : "selected-out"); });
-      go(keys[0]);
+      LAB.first = function(){ go(keys[0]); };
     },
-    // Laboratório de easing: curva escolhida (Filter Chips) + duração (Slider do DS) + bolinha no trilho
+    // Laboratório: curva grande com o ponto andando sobre o traçado no tempo real do token + trilho; Filter Chips e Sliders do DS
     "easing-lab": function(root){
-      var eases = pick("--common-motion-easing-"), durs = pick("--common-motion-duration-").filter(function(n){ var ms = msOf(val(n)); return ms > 0 && ms <= 1000; });
-      var cur = eases[0], di = Math.max(0, durs.indexOf("--common-motion-duration-long-04"));
-      var s = section(root, "Laboratório de easing", eases.length);
-      s.appendChild(el("p", "pg-doc-p", "Escolha uma curva e uma duração para comparar o ritmo. A bolinha percorre o trilho com o token escolhido."));
-      var lab = s.appendChild(el("div", "pg-tok-lab")), side = lab.appendChild(el("div", "pg-tok-lab__ctl")), view = lab.appendChild(el("div", "pg-tok-lab__view"));
-      if (CDS.kit) CDS.kit.seg(side, { label: "Curva", value: cur, options: eases.map(function(n){ return [n, label(n, "--common-motion-easing-")]; }), onChange: function(v){ cur = v; draw(); run(); } });
+      var eases = pick("--common-motion-easing-"), durs = pick("--common-motion-duration-").filter(function(n){ var ms = msOf(val(n)); return ms > 0 && ms <= 1000; }), dels = pick("--common-motion-delay-");
+      var st = { e: eases[0], d: Math.max(0, durs.indexOf("--common-motion-duration-long-04")), y: 0 };
+      var s = section(root, "Laboratório", null);
+      s.appendChild(el("p", "pg-doc-p", "O ponto percorre a curva no tempo do token, e a bolinha mostra o mesmo movimento em linha reta. Escolha curva, duração e delay aqui ou clique em qualquer referência abaixo."));
+      var lab = s.appendChild(el("div", "pg-mo-lab")), view = lab.appendChild(el("div", "pg-mo-lab__view")), ctl = lab.appendChild(el("div", "pg-mo-lab__ctl"));
       var NS = "http://www.w3.org/2000/svg", svg = view.appendChild(document.createElementNS(NS, "svg")); svg.setAttribute("viewBox", "-8 -40 116 156"); svg.setAttribute("class", "pg-tok-lab__curve"); svg.setAttribute("aria-hidden", "true");
       var mk = function(tag, cls){ var x = svg.appendChild(document.createElementNS(NS, tag)); x.setAttribute("class", cls); return x; };
-      var base = mk("path", "pg-tok-lab__base"), h1 = mk("line", "pg-tok-lab__handle"), h2 = mk("line", "pg-tok-lab__handle"), path = mk("path", "pg-tok-lab__path");
-      base.setAttribute("d", "M0 100 L100 100 M0 100 L0 0");
+      var base = mk("path", "pg-tok-lab__base"), h1 = mk("line", "pg-tok-lab__handle"), h2 = mk("line", "pg-tok-lab__handle"), path = mk("path", "pg-tok-lab__path"), pt = mk("circle", "pg-mo-lab__pt");
+      base.setAttribute("d", "M0 100 L100 100 M0 100 L0 0"); pt.setAttribute("r", "4"); pt.setAttribute("cx", "0"); pt.setAttribute("cy", "100");
       var rail = view.appendChild(el("div", "pg-tok-ease is-lab")), dot = rail.appendChild(el("span", "pg-tok-ease__dot"));
-      var info = view.appendChild(el("p", "pg-doc-note"));
-      var durBox = side.appendChild(el("div", "pg-ctrl")); durBox.appendChild(el("span", "pg-lbl", "Duração"));
-      var sl = durBox.appendChild(document.createElement("cds-slider"));
-      [["label", "Duração"], ["min", "0"], ["max", String(durs.length - 1)], ["step", "1"], ["value", String(di)], ["show-value-indicator", "false"], ["show-stops", "false"]].forEach(function(a){ sl.setAttribute(a[0], a[1]); });
-      sl.setAttribute("value-text", "");
-      sl.addEventListener("cds-change", function(e){ e.stopPropagation(); di = Math.round(e.detail.value); run(); });
-      sl.addEventListener("input", function(){ var v = parseInt(sl.getAttribute("value"), 10); if (!isNaN(v)) di = v; info.textContent = text(); });
-      var replayBtn = CDS.docMainButton ? side.appendChild(CDS.docMainButton("Reproduzir")) : null;
-      if (replayBtn) replayBtn.addEventListener("click", run);
-      function text(){ var d = durs[di]; return label(cur, "--common-motion-easing-") + " · " + val(cur) + " — " + label(d, "--common-motion-duration-").replace(/-(\d+)$/, "/$1") + " · " + val(d); }
+      var info = view.appendChild(el("p", "pg-mo-lab__info"));
+      var chips = ctl.appendChild(el("div"));
+      if (CDS.kit) CDS.kit.seg(chips, { label: "Curva", value: st.e, options: eases.map(function(n){ return [n, label(n, "--common-motion-easing-")]; }), onChange: function(v){ st.e = v; draw(); run(); } });
+      function slider(lbl, max, value, on){
+        var box = ctl.appendChild(el("div", "pg-ctrl")); box.appendChild(el("span", "pg-lbl", lbl));
+        var sl = box.appendChild(document.createElement("cds-slider"));
+        [["label", lbl], ["min", "0"], ["max", String(max)], ["step", "1"], ["value", String(value)], ["show-value-indicator", "false"], ["show-stops", "false"], ["value-text", ""]].forEach(function(a){ sl.setAttribute(a[0], a[1]); });
+        sl.addEventListener("cds-change", function(e){ e.stopPropagation(); on(Math.round(e.detail.value)); run(); });
+        return sl;
+      }
+      var slD = slider("Duração", durs.length - 1, st.d, function(v){ st.d = v; });
+      var slY = slider("Delay", dels.length - 1, st.y, function(v){ st.y = v; });
+      var btn = CDS.docMainButton ? ctl.appendChild(CDS.docMainButton("Reproduzir")) : null; if (btn) btn.addEventListener("click", run);
+      function ez(){ var m = val(st.e).match(/cubic-bezier\(([^)]+)\)/); return m ? m[1].split(",").map(parseFloat) : [0, 0, 1, 1]; }
       function draw(){
-        var m = val(cur).match(/cubic-bezier\(([^)]+)\)/), p = m ? m[1].split(",").map(parseFloat) : [0, 0, 1, 1];
-        var X = function(x){ return x * 100; }, Y = function(y){ return 100 - y * 100; };
+        var p = ez(), X = function(x){ return x * 100; }, Y = function(y){ return 100 - y * 100; };
         path.setAttribute("d", "M0 100 C" + X(p[0]) + " " + Y(p[1]) + " " + X(p[2]) + " " + Y(p[3]) + " 100 0");
         h1.setAttribute("x1", 0); h1.setAttribute("y1", 100); h1.setAttribute("x2", X(p[0])); h1.setAttribute("y2", Y(p[1]));
         h2.setAttribute("x1", 100); h2.setAttribute("y1", 0); h2.setAttribute("x2", X(p[2])); h2.setAttribute("y2", Y(p[3]));
+        [].forEach.call(chips.querySelectorAll("cds-filter-chip"), function(c){ CDS.attr(c, "selected", c.dataset.v === st.e); });
       }
-      function run(){ info.textContent = text(); dot.style.transitionDuration = "var(" + durs[di] + ")"; dot.style.transitionTimingFunction = "var(" + cur + ")"; replay(rail); }
+      function text(){ var d = durs[st.d], y = dels[st.y];
+        return label(st.e, "--common-motion-easing-") + " · " + label(d, "--common-motion-duration-").replace(/-(\d+)$/, "/$1") + " (" + val(d) + ")" + (msOf(val(y)) ? " · delay " + label(y, "--common-motion-delay-").replace(/-(\d+)$/, "/$1") + " (" + val(y) + ")" : ""); }
+      var raf = 0, timer = 0;
+      function run(){
+        info.textContent = text(); cancelAnimationFrame(raf); clearTimeout(timer);
+        dot.style.transitionDuration = "var(" + durs[st.d] + ")"; dot.style.transitionTimingFunction = "var(" + st.e + ")"; dot.style.transitionDelay = "var(" + dels[st.y] + ")";
+        replay(rail);
+        if (reduced){ pt.setAttribute("cx", 100); pt.setAttribute("cy", 0); return; }
+        var p = ez(), f = bezier(p[0], p[1], p[2], p[3]), ms = msOf(val(durs[st.d])) || 1, wait = msOf(val(dels[st.y]));
+        pt.setAttribute("cx", 0); pt.setAttribute("cy", 100);
+        timer = setTimeout(function(){ var t0 = performance.now();
+          (function step(now){ var x = Math.min(1, (now - t0) / ms); pt.setAttribute("cx", x * 100); pt.setAttribute("cy", 100 - f(x) * 100); if (x < 1) raf = requestAnimationFrame(step); })(t0); }, wait);
+      }
+      LAB.set = function(e, d, y){
+        if (e && eases.indexOf(e) !== -1) st.e = e;
+        if (d){ var i = durs.indexOf(d); if (i !== -1){ st.d = i; CDS.attr(slD, "value", String(i)); } }
+        var k = y ? dels.indexOf(y) : 0; st.y = Math.max(0, k); CDS.attr(slY, "value", String(st.y));
+        draw(); run();
+      };
       draw(); info.textContent = text();
-    }
+      if (LAB.first) setTimeout(LAB.first, 0);
+    },
+    // Curvas em dois grupos (Material/Carbon): cartão com a curva; no hover o ponto anda sobre ela; clique leva ao laboratório
+    easing: function(root){
+      var all = pick("--common-motion-easing-");
+      [["Systemic", "Interações funcionais e frequentes: rápidas e discretas, para não atrasar a tarefa."], ["Expressive", "Momentos de destaque, entradas e mudanças grandes: mais personalidade e ênfase."]].forEach(function(gr){
+        var list = all.filter(function(n){ return n.indexOf("-" + gr[0].toLowerCase() + "-") !== -1; }); if (!list.length) return;
+        var s = section(root, "Easing · " + gr[0], list.length); s.appendChild(el("p", "pg-doc-p", gr[1]));
+        var g = s.appendChild(grid("is-curves"));
+        list.forEach(function(n){
+          var m = val(n).match(/cubic-bezier\(([^)]+)\)/), p = m ? m[1].split(",").map(parseFloat) : [0, 0, 1, 1], f = bezier(p[0], p[1], p[2], p[3]);
+          var NS = "http://www.w3.org/2000/svg", svg, pt, raf = 0;
+          var t = g.appendChild(tile("pg-mo-curve", n, function(){
+            if (reduced) return; cancelAnimationFrame(raf); var t0 = performance.now(), ms = 900;
+            (function step(now){ var x = Math.min(1, (now - t0) / ms); pt.setAttribute("cx", x * 100); pt.setAttribute("cy", 100 - f(x) * 100); if (x < 1) raf = requestAnimationFrame(step); })(t0);
+          }));
+          t.addEventListener("click", function(){ if (LAB.set) LAB.set(n, null, null); });
+          svg = t.appendChild(document.createElementNS(NS, "svg")); svg.setAttribute("viewBox", "-6 -30 112 140"); svg.setAttribute("aria-hidden", "true");
+          var b = svg.appendChild(document.createElementNS(NS, "path")); b.setAttribute("d", "M0 100 L100 100 M0 100 L0 0"); b.setAttribute("class", "pg-tok-lab__base");
+          var c = svg.appendChild(document.createElementNS(NS, "path")); c.setAttribute("d", "M0 100 C" + p[0] * 100 + " " + (100 - p[1] * 100) + " " + p[2] * 100 + " " + (100 - p[3] * 100) + " 100 0"); c.setAttribute("class", "pg-tok-lab__path");
+          pt = svg.appendChild(document.createElementNS(NS, "circle")); pt.setAttribute("r", "5"); pt.setAttribute("cx", "0"); pt.setAttribute("cy", "100"); pt.setAttribute("class", "pg-mo-lab__pt");
+          var cp = t.appendChild(el("span", "pg-tok__text")); cp.appendChild(el("span", "pg-tok__name", label(n, "--common-motion-easing-")));
+          cp.appendChild(el("span", "pg-mo-curve__prim", PRIMITIVE[n.replace("--common-motion-easing-", "")] || "")); cp.appendChild(code(val(n), n));
+        });
+      });
+    },
+    duration: function(root){ runs(root, "Duration", pick("--common-motion-duration-"), "--common-motion-duration-", "duration"); },
+    delay: function(root){ runs(root, "Delay", pick("--common-motion-delay-"), "--common-motion-delay-", "delay"); }
   };
-  // Duração / delay: a barra se preenche no tempo do próprio token (delay: espera o token e preenche em Short/04)
+  // cubic-bezier(x1, y1, x2, y2) → f(x) = y (resolve t por Newton + bisseção), para o ponto andar sobre a curva
+  function bezier(x1, y1, x2, y2){
+    var cx = 3 * x1, bx = 3 * (x2 - x1) - cx, ax = 1 - cx - bx, cy = 3 * y1, by = 3 * (y2 - y1) - cy, ay = 1 - cy - by;
+    var X = function(t){ return ((ax * t + bx) * t + cx) * t; }, Y = function(t){ return ((ay * t + by) * t + cy) * t; }, dX = function(t){ return (3 * ax * t + 2 * bx) * t + cx; };
+    return function(x){ var t = x, i; for (i = 0; i < 8; i++){ var e = X(t) - x, d = dX(t); if (Math.abs(e) < 1e-4) break; if (Math.abs(d) < 1e-6) break; t -= e / d; }
+      if (t < 0 || t > 1 || Math.abs(X(t) - x) > 1e-3){ var lo = 0, hi = 1; t = x; for (i = 0; i < 30; i++){ var v = X(t); if (Math.abs(v - x) < 1e-4) break; if (v < x) lo = t; else hi = t; t = (lo + hi) / 2; } }
+      return Y(t); };
+  }
+  // Duração / delay agrupados por família (Short, Medium…): barra proporcional; hover toca no tempo do token; clique leva ao laboratório
   function runs(root, title, list, prefix, kind){
-    var btn = CDS.docMainButton ? CDS.docMainButton("Tocar todas") : null;
-    var s = section(root, title, list.length, btn), ul = s.appendChild(el("div", "pg-tok-bars"));
-    // em repouso a barra mostra a proporção (escala até 1 s; o Extended de 8 s fica cheio)
+    var s = section(root, title, list.length), ul = s.appendChild(el("div", "pg-tok-bars")), fam = null;
     var max = Math.max.apply(null, list.map(function(n){ return msOf(val(n)); }).filter(function(v){ return v <= 1000; }).concat([1]));
     list.forEach(function(n){
+      var f = n.slice(prefix.length).replace(/-\d+$/, "");
+      if (f !== fam){ fam = f; ul.appendChild(el("p", "pg-tok-sub", f.split("-").map(cap).join(" "))); }
       var bar, row = ul.appendChild(tile("pg-tok-bar", n, function(){ replay(bar); }));
+      row.addEventListener("click", function(){ if (LAB.set) LAB.set(null, kind === "duration" ? n : null, kind === "delay" ? n : null); });
       row.appendChild(el("span", "pg-tok__name", label(n, prefix).replace(/-(\d+)$/, "/$1")));
       bar = row.appendChild(el("span", "pg-tok-run"));
-      var fill = bar.appendChild(el("span", "pg-tok-run__fill"));
+      bar.appendChild(el("span", "pg-tok-run__fill"));
       bar.style.setProperty("--_w", Math.min(100, Math.round(msOf(val(n)) / max * 1000) / 10) + "%");
-      if (kind === "duration") fill.style.transitionDuration = "var(" + n + ")";
-      else fill.style.transitionDelay = "var(" + n + ")";
-      row._play = function(){ replay(bar); };
+      var fill = bar.firstChild; if (kind === "duration") fill.style.transitionDuration = "var(" + n + ")"; else fill.style.transitionDelay = "var(" + n + ")";
       row.appendChild(code(val(n), n));
     });
-    if (btn) playAll(btn, ul, ".pg-tok-bar");
   }
+  var LAB = {}; // laboratório de motion: set(easing, duração, delay) — preenchido pelo bloco easing-lab
 
   CDS.docBlocks.tokens = function(doc, kind){
     order = 0;

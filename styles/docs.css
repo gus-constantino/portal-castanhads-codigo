@@ -408,6 +408,26 @@
 .pg-tok-cascade{ display:flex; flex-direction:column; gap:var(--common-sizes-12); }
 .pg-tok-chain{ display:flex; align-items:center; flex-wrap:wrap; gap:var(--common-sizes-8); }
 .pg-tok-chain__k{ min-width:var(--common-sizes-56); font:var(--text-style-caption-medium); color:var(--common-colors-text-soft); }
+/* Motion (Material/Carbon/easings.net): palco + painel do estilo atual; laboratório; cartões de curva */
+.pg-mo-live{ display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1.2fr); align-items:stretch; gap:var(--common-sizes-16); }
+.pg-mo-panel{ display:flex; flex-direction:column; gap:var(--common-sizes-12); padding:var(--common-sizes-24); border-radius:var(--common-border-radius-big); background:var(--common-colors-surface-01); min-width:0; }
+.pg-mo-panel__head{ display:flex; flex-direction:column; gap:var(--common-sizes-2); }
+.pg-mo-panel__title{ font:var(--text-style-title-small); color:var(--common-colors-text-intense); }
+.pg-mo-panel__when{ font:var(--text-style-caption-regular); color:var(--common-colors-text-soft); }
+.pg-mo-lab{ display:grid; grid-template-columns:minmax(0, 1.2fr) minmax(0, 1fr); align-items:center; gap:var(--common-sizes-32);
+  padding:var(--common-sizes-24); border-radius:var(--common-border-radius-big); background:var(--common-colors-surface-01); }
+.pg-mo-lab__view{ display:flex; flex-direction:column; gap:var(--common-sizes-16); min-width:0; }
+.pg-mo-lab__ctl{ display:flex; flex-direction:column; gap:var(--common-sizes-20); min-width:0; }
+.pg-mo-lab__ctl cds-slider{ display:block; width:100%; }
+.pg-mo-lab__ctl cds-main-button{ align-self:flex-start; }
+.pg-mo-lab__info{ margin:0; font:var(--text-style-caption-medium); color:var(--common-colors-text-intense); }
+.pg-mo-lab__pt{ fill:var(--common-colors-accent-solid-medium); stroke:var(--common-colors-surface-default); stroke-width:var(--common-border-width-thin); vector-effect:non-scaling-stroke; }
+.pg-tok-grid.is-curves{ grid-template-columns:repeat(auto-fill, minmax(min(var(--common-sizes-160), 100%), 1fr)); }
+.pg-tok-tile.pg-mo-curve{ display:flex; flex-direction:column; gap:var(--common-sizes-12); padding:var(--common-sizes-16); border-radius:var(--common-border-radius-large); background:var(--common-colors-surface-01); }
+.pg-tok-tile.pg-mo-curve:hover{ background:var(--common-colors-neutral-opacity-intense-semi-transparent); }
+.pg-mo-curve svg{ width:100%; aspect-ratio:112 / 140; max-height:calc(var(--common-sizes-120) + var(--common-sizes-40)); overflow:visible; }
+.pg-mo-curve__prim{ font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-soft); }
+@media (max-width:900px){ .pg-mo-live, .pg-mo-lab{ grid-template-columns:minmax(0, 1fr); } }
 /* Laboratório de easing */
 .pg-tok-lab{ display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); align-items:start; gap:var(--common-sizes-32); }
 .pg-tok-lab__ctl{ display:flex; flex-direction:column; align-items:stretch; gap:var(--common-sizes-24); min-width:0; }

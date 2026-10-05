@@ -9010,10 +9010,10 @@ try {
         { tokens: "motion-live" },
         { tokens: "easing-lab" },
         { h2: "Referência" },
-        { p: "Primitivos `Common/Motion/*`. Passe o mouse ou clique para ver cada um em movimento; \"Tocar todas\" compara a lista inteira." },
+        { p: "Primitivos `Common/Motion/*`. Passe o mouse para ver em movimento; clique para levar ao laboratório (e copiar a variável)." },
+        { tokens: "easing" },
         { tokens: "duration" },
-        { tokens: "delay" },
-        { tokens: "easing" }
+        { tokens: "delay" }
       ] },
       { id: "icones", title: "Ícones", blocks: [
         { h2: "Ícones" },

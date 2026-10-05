@@ -84,11 +84,22 @@
   function truthy(v){ return v != null && v !== "false"; }
   /** Padrão do React para tag.prop ("Modal.Header" → tipo ModalHeader; "Button" → Button). */
   function reactDefault(data, tag, prop){
-    var parts = tag.split("."), dir = data.dirs[parts[0]], type = parts.join("");
+    // mesmo caminho do check (scripts/integration/check-stack.js): "Tabs.Item" → TabItem, segue composições (ChipFilter → ChipBaseProps)
+    var parts = tag.split("."), dir = data.dirs[parts[0]], last = parts[parts.length - 1];
     if (!dir) return undefined;
-    var list = dir.props[type] || dir.props[parts[0]] || [];
-    for (var i = 0; i < list.length; i++) if (list[i].n === prop) return list[i].d;
-    return undefined;
+    var refs = dir.refs || {}, names = Object.keys(dir.props).concat(Object.keys(refs));
+    var start = parts.length > 1
+      ? [parts.join(""), parts.join("") + "Props"].concat(names.filter(function(k){ return k.slice(-last.length) === last || k.slice(-(last.length + 5)) === last + "Props"; }))
+      : [tag, tag + "Props"];
+    var seen = {}, found;
+    function walk(t){
+      if (found !== undefined || seen[t]) return; seen[t] = 1;
+      (dir.props[t] || []).forEach(function(p){ if (found === undefined && p.n === prop && p.d !== undefined) found = p.d; });
+      (refs[t] || []).forEach(walk);
+      if (/Props$/.test(t)) walk(t.replace(/Props$/, ""));
+    }
+    start.forEach(function(t){ if (dir.props[t] || refs[t]) walk(t); });
+    return found;
   }
   /** Resolve uma prop → { name, kind: "str"|"bool"|"expr", value } ou null (omitida). */
   function resolve(data, tag, p, get){
@@ -225,6 +236,15 @@
     if (dir && dir.staging) tag("warning", "Só na staging", "Ainda não chegou na main do castanha-react.");
     (dir ? dir.tags : []).forEach(function(t){ if (/^(new|soon|deprecated|refactor)$/.test(t)) tag(t === "deprecated" ? "negative" : "accent", t); });
 
+    // R2: saúde Figma × React (scripts/integration/check-stack.js) — etiqueta com o pior nível
+    var CK = { alta: ["negative", "Alta"], media: ["warning", "Média"], info: ["neutral", "Informativo"] }, checks = it.checks || [];
+    var worst = ["alta", "media", "info"].filter(function(l){ return checks.some(function(c){ return c.l === l; }); })[0];
+    if (worst){
+      var nAlert = checks.filter(function(c){ return c.l !== "info"; }).length;
+      tag(CK[worst][0], nAlert ? nAlert + (nAlert === 1 ? " divergência" : " divergências") + " Figma × React" : "Só informativos no check",
+        "Check em três vértices (Figma × Code Connect/React × playground). Detalhes no bloco \"Saúde Figma × React\", abaixo.");
+    } else if (it.component) tag("positive", "Check Figma × React ok", "Nenhuma divergência entre as props do Figma, o Code Connect e o React.");
+
     if (it.notes && it.notes.length){
       var al = attrs(document.createElement("cds-alert"), { appearance: "warning", label: "Divergência no castanha-react", "show-close-button": "false" });
       al.setAttribute("text", it.notes.join(". ") + ".");
@@ -267,6 +287,14 @@
         return [f.figma, f.kind, m || "—"];
       });
       root.appendChild(acc("Figma → React (Code Connect)", "Props do Figma lidas pelo Code Connect", table(["Figma", "Tipo", "Valores (Figma → React)"], rows)));
+    }
+
+    if (checks.length){
+      root.appendChild(acc("Saúde Figma × React", checks.length + (checks.length === 1 ? " item" : " itens") + " do check em três vértices (relatório: Stack React)",
+        table(["Nível", "O quê"], checks.map(function(c){
+          var t = attrs(document.createElement("cds-tag"), { appearance: CK[c.l][0], label: CK[c.l][1], "show-lead-item": "false" });
+          return [t, c.m];
+        }), "is-checks")));
     }
 
     // Props do React (do .types.ts)

@@ -22,7 +22,7 @@
  *   specimens: { title, min, items: [{ label, attrs }] }   min = largura mínima da coluna
  *   guides: [{ attrs, title, text }]
  *   dodont: [{ kind: "do"|"dont", attrs, title, text, steps, style }]   sem attrs: só texto · steps: lista numerada
- *   table: { head: [...], rows: [[...]] }
+ *   table: { head: [...], rows: [[...]], wrap }   wrap: células quebram linha
  *   shortcuts: [{ title, text, href, cta, illustration, external }]   atalhos em Cards (capa do Castanha Hub); sem href, card só informativo
  *   palette: { label, names: [...], steps: [...], hex: [[hex por passo] por cor], notes: { passo: "nota" } }   paleta fora dos tokens (ilustração)
  *   steps: [{ title, text, list, table, after }]   passos numerados
@@ -580,7 +580,7 @@
       return wrap;
     },
     table: function(d, v){
-      var wrap = el("div", "pg-doc-table-wrap"), t = el("table", "pg-doc-table");
+      var wrap = el("div", "pg-doc-table-wrap"), t = el("table", "pg-doc-table" + (v.wrap ? " is-wrap" : "")); // wrap: texto corrido quebra linha (tabelas de conteúdo)
       var tr = el("tr"); v.head.forEach(function(h){ tr.appendChild(el("th", null, h)); });
       var thead = el("thead"); thead.appendChild(tr); t.appendChild(thead);
       var tb = el("tbody");

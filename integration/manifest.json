@@ -1,6 +1,6 @@
 {
   "_about": "Manifesto de integração Figma ↔ playground ↔ castanha-react (R0). Gerado por scripts/integration/build-manifest.js — não editar à mão.",
-  "generated": "2026-10-05T15:59:36.353Z",
+  "generated": "2026-10-05T16:17:20.083Z",
   "source": {
     "repo": "caju-beneficios/castanha",
     "ref": "origin/staging",
@@ -3908,6 +3908,12 @@
             "description": "Callback ao clicar no botão de fechar."
           }
         ]
+      },
+      "refs": {
+        "AlertProps": [
+          "Alert",
+          "AlertElement"
+        ]
       }
     },
     {
@@ -4006,6 +4012,26 @@
             "description": "URL da foto do usuário."
           }
         ]
+      },
+      "refs": {
+        "AvatarDefault": [
+          "BaseAvatar"
+        ],
+        "AvatarInitials": [
+          "BaseAvatar"
+        ],
+        "AvatarImage": [
+          "BaseAvatar"
+        ],
+        "Avatar": [
+          "AvatarDefault",
+          "AvatarInitials",
+          "AvatarImage"
+        ],
+        "AvatarProps": [
+          "Avatar",
+          "AvatarElement"
+        ]
       }
     },
     {
@@ -4062,6 +4088,12 @@
             "description": "Callback disparado quando o backdrop é clicado com `dismissible` ativo."
           }
         ]
+      },
+      "refs": {
+        "BackdropProps": [
+          "Backdrop",
+          "BackdropElement"
+        ]
       }
     },
     {
@@ -4115,6 +4147,18 @@
             "values": null,
             "description": "Conteúdo do badge. Mantenha conciso: número (0–99+) ou texto curto."
           }
+        ]
+      },
+      "refs": {
+        "BadgeAnchorProps": [
+          "BoxProps"
+        ],
+        "Badge": [
+          "BadgeAnchorProps"
+        ],
+        "BadgeProps": [
+          "Badge",
+          "BadgeElement"
         ]
       }
     },
@@ -4212,6 +4256,19 @@
             "default": "false",
             "description": "Oculta o `headerTag` informado."
           }
+        ]
+      },
+      "refs": {
+        "BalanceCardCurrency": [
+          "CurrencyProps"
+        ],
+        "BalanceCardTag": [
+          "TagProps"
+        ],
+        "BalanceCardProps": [
+          "BalanceCard",
+          "ButtonHTMLAttributes",
+          "BalanceCardElement"
         ]
       }
     },
@@ -4344,6 +4401,23 @@
             "type": "never",
             "values": null
           }
+        ]
+      },
+      "refs": {
+        "BannerIllustration": [
+          "BannerShared"
+        ],
+        "BannerImage": [
+          "BannerShared"
+        ],
+        "Banner": [
+          "BannerIllustration",
+          "BannerImage"
+        ],
+        "BannerProps": [
+          "Banner",
+          "AnchorHTMLAttributes",
+          "BannerElement"
         ]
       }
     },
@@ -4774,6 +4848,31 @@
             "values": null
           }
         ]
+      },
+      "refs": {
+        "DisplayValue": [
+          "CSSProperties"
+        ],
+        "BoxProps": [
+          "Box",
+          "BoxElement"
+        ],
+        "PolymorphicBoxProps": [
+          "T",
+          "JSX",
+          "IntrinsicElements",
+          "BoxProps",
+          "BoxElement"
+        ],
+        "BoxCast": [
+          "T",
+          "JSX",
+          "IntrinsicElements",
+          "PolymorphicBoxProps",
+          "BoxCast",
+          "BoxElement",
+          "BoxProps"
+        ]
       }
     },
     {
@@ -4836,6 +4935,16 @@
             "values": null,
             "description": "URL de destino. Omitir no último item (página atual)."
           }
+        ]
+      },
+      "refs": {
+        "BreadcrumbsProps": [
+          "Breadcrumbs",
+          "BreadcrumbsElement"
+        ],
+        "BreadcrumbsItemProps": [
+          "BreadcrumbsItem",
+          "BreadcrumbsItemElement"
         ]
       }
     },
@@ -4947,6 +5056,13 @@
             "description": "Relação entre documento atual e link de destino (as=\"a\")."
           }
         ]
+      },
+      "refs": {
+        "ButtonProps": [
+          "Button",
+          "ButtonHTMLAttributes",
+          "AnchorHTMLAttributes"
+        ]
       }
     },
     {
@@ -4990,6 +5106,16 @@
             "description": "Exibe ou oculta o wordmark \"caju\" ao lado do ícone."
           }
         ]
+      },
+      "refs": {
+        "CajuBrandElement": [
+          "SVGSVGElement"
+        ],
+        "CajuBrandProps": [
+          "CajuBrand",
+          "SVGAttributes",
+          "CajuBrandElement"
+        ]
       }
     },
     {
@@ -5017,43 +5143,48 @@
           {
             "name": "sideView",
             "required": false,
-            "type": "'front'",
+            "type": "'front' | 'back'",
             "values": [
-              "front"
+              "front",
+              "back"
             ]
           },
           {
             "name": "orientation",
             "required": false,
-            "type": "'vertical'",
+            "type": "'vertical' | 'horizontal'",
             "values": [
-              "vertical"
+              "vertical",
+              "horizontal"
             ]
           },
           {
             "name": "fullCardNumber",
             "required": false,
-            "type": "string",
+            "type": "string | never",
             "values": null,
             "description": "Número completo do cartão, exibido mascarado com os quatro últimos dígitos. Só as variantes de cartão virtual têm esse elemento no desenho."
           },
           {
             "name": "activationCode",
             "required": false,
-            "type": "never",
-            "values": null
+            "type": "never | string",
+            "values": null,
+            "description": "Código de ativação exibido no verso."
           },
           {
             "name": "cvv",
             "required": false,
-            "type": "never",
-            "values": null
+            "type": "never | number",
+            "values": null,
+            "description": "Código de segurança exibido no verso."
           },
           {
             "name": "expirationDate",
             "required": false,
-            "type": "never",
-            "values": null
+            "type": "never | string",
+            "values": null,
+            "description": "Validade exibida no verso."
           }
         ],
         "CajuCard": [
@@ -5072,6 +5203,22 @@
             "values": null,
             "description": "Variante do cartão."
           }
+        ]
+      },
+      "refs": {
+        "CajuCardKind": [
+          "CajuCardVirtualKind",
+          "CajuCardPhysicalKind"
+        ],
+        "CajuCard": [
+          "CajuCardData"
+        ],
+        "CajuCardProps": [
+          "CajuCard",
+          "CajuCardElement"
+        ],
+        "CajuCardDataProps": [
+          "CajuCardProps"
         ]
       }
     },
@@ -5107,6 +5254,12 @@
             "default": "false",
             "description": "Exibe borda ao redor do card."
           }
+        ]
+      },
+      "refs": {
+        "CardProps": [
+          "BoxProps",
+          "OmittedBoxProps"
         ]
       }
     },
@@ -5179,6 +5332,13 @@
             "default": "Próximo item",
             "description": "Rótulo acessível da seta de próximo item."
           }
+        ]
+      },
+      "refs": {
+        "CarouselProps": [
+          "BoxProps",
+          "OmittedBoxProps",
+          "Carousel"
         ]
       }
     },
@@ -5290,6 +5450,18 @@
             "values": null,
             "description": "Valor selecionado (controlled)."
           }
+        ]
+      },
+      "refs": {
+        "CheckboxProps": [
+          "Checkbox",
+          "InputHTMLAttributes",
+          "CheckboxElement"
+        ],
+        "CheckboxGroupProps": [
+          "CheckboxGroup",
+          "InputHTMLAttributes",
+          "CheckboxGroupElement"
         ]
       }
     },
@@ -5414,6 +5586,28 @@
             "description": "Quando `true`, chips quebram em múltiplas linhas. Quando `false`, rolagem horizontal."
           }
         ]
+      },
+      "refs": {
+        "ChipInput": [
+          "ChipBaseProps"
+        ],
+        "ChipFilter": [
+          "ChipBaseProps"
+        ],
+        "ChipInputProps": [
+          "ChipInput",
+          "ButtonHTMLAttributes",
+          "ChipInputElement"
+        ],
+        "ChipFilterProps": [
+          "ChipFilter",
+          "ButtonHTMLAttributes",
+          "ChipFilterElement"
+        ],
+        "ChipGroupProps": [
+          "ChipGroup",
+          "ChipGroupElement"
+        ]
       }
     },
     {
@@ -5470,6 +5664,12 @@
             "description": "Título em destaque, renderizado como heading."
           }
         ]
+      },
+      "refs": {
+        "ConfirmationMessageProps": [
+          "ConfirmationMessage",
+          "ConfirmationMessageElement"
+        ]
       }
     },
     {
@@ -5524,25 +5724,40 @@
           {
             "name": "intent",
             "required": false,
-            "type": "'default'",
+            "type": "'default' | 'navigation' | 'transaction'",
             "values": [
-              "default"
+              "default",
+              "navigation",
+              "transaction"
             ]
           },
           {
             "name": "trailingItem",
-            "required": true,
-            "type": "'checkbox'",
-            "values": [
-              "checkbox"
-            ],
+            "required": false,
+            "type": "'checkbox' | 'radio' | 'switch' | 'icon' | never",
+            "values": null,
             "description": "Exibe um `Checkbox` no trailing. Use `trailingItemProps` para controlar estado."
           },
           {
             "name": "trailingItemProps",
             "required": false,
-            "type": "Pick< CheckboxProps, 'checked' | 'defaultChecked' | 'indeterminate' | 'onChange' >",
+            "type": "Pick< CheckboxProps, 'checked' | 'defaultChecked' | 'indeterminate' | 'onChange' > | Pick<RadioProps, 'checked' | 'name' | 'onChange'> | Pick<SwitchProps, 'checked' | Pick<IconProps, 'name'> | never",
             "values": null
+          },
+          {
+            "name": "trailingTag",
+            "required": false,
+            "type": "Pick<TagProps, 'appearance' | 'children' | 'leadIcon'>",
+            "values": null,
+            "default": "appearance: 'warning'",
+            "description": "Tag opcional exibida antes do ícone de navegação."
+          },
+          {
+            "name": "trailingText",
+            "required": false,
+            "type": "{ currency: string; description?: string }",
+            "values": null,
+            "description": "Texto exibido no trailing. `currency` é obrigatório; `description` é opcional."
           }
         ],
         "ContentListItem": [
@@ -5674,6 +5889,19 @@
             "description": "Trailing padrão repassado a todos os itens com `intent=\"default\"`. Cada item pode sobrescrever individualmente."
           }
         ]
+      },
+      "refs": {
+        "ContentListItem": [
+          "LeadSlot",
+          "TrailingByIntent"
+        ],
+        "ContentListItemProps": [
+          "ContentListItem"
+        ],
+        "ContentListProps": [
+          "ContentList",
+          "ContentListElement"
+        ]
       }
     },
     {
@@ -5761,6 +5989,12 @@
             "values": null
           }
         ]
+      },
+      "refs": {
+        "CsatScoreProps": [
+          "CsatScore",
+          "CsatScoreElement"
+        ]
       }
     },
     {
@@ -5836,6 +6070,18 @@
             "values": null,
             "description": "Valor numérico formatado automaticamente com `Intl.NumberFormat` no locale da moeda. Ignorado quando `children` é fornecido."
           }
+        ]
+      },
+      "refs": {
+        "CurrencySize": [
+          "Size"
+        ],
+        "CurrencyCode": [
+          "CURRENCIES"
+        ],
+        "CurrencyProps": [
+          "Currency",
+          "CurrencyElement"
         ]
       }
     },
@@ -6028,6 +6274,23 @@
             "values": null,
             "description": "Modo controlled: intervalo preenchido."
           }
+        ]
+      },
+      "refs": {
+        "DateInputSingle": [
+          "DateInputShared"
+        ],
+        "DateInputRange": [
+          "DateInputShared"
+        ],
+        "DateInput": [
+          "DateInputRange",
+          "DateInputSingle"
+        ],
+        "DateInputProps": [
+          "DateInput",
+          "InputHTMLAttributes",
+          "DateInputElement"
         ]
       }
     },
@@ -6331,6 +6594,22 @@
             "description": "`0` no dia que detém o ponto de tabulação da grade, `-1` nos demais."
           }
         ]
+      },
+      "refs": {
+        "DatePickerSingle": [
+          "DatePickerShared"
+        ],
+        "DatePickerRange": [
+          "DatePickerShared"
+        ],
+        "DatePicker": [
+          "DatePickerRange",
+          "DatePickerSingle"
+        ],
+        "DatePickerProps": [
+          "DatePicker",
+          "DatePickerElement"
+        ]
       }
     },
     {
@@ -6495,6 +6774,22 @@
             "description": "Modo controlled: intervalo vigente, que o rascunho assume a cada abertura."
           }
         ]
+      },
+      "refs": {
+        "DatePickerModalSingle": [
+          "DatePickerModalShared"
+        ],
+        "DatePickerModalRange": [
+          "DatePickerModalShared"
+        ],
+        "DatePickerModal": [
+          "DatePickerModalRange",
+          "DatePickerModalSingle"
+        ],
+        "DatePickerModalProps": [
+          "DatePickerModal",
+          "DatePickerModalElement"
+        ]
       }
     },
     {
@@ -6542,6 +6837,15 @@
             "default": "horizontal",
             "description": "Define a orientação do divisor."
           }
+        ]
+      },
+      "refs": {
+        "Divider": [
+          "BoxProps"
+        ],
+        "DividerProps": [
+          "Divider",
+          "DividerElement"
         ]
       }
     },
@@ -6634,6 +6938,31 @@
             "description": "Callback disparado ao fechar."
           }
         ]
+      },
+      "refs": {
+        "DrawerHeaderProps": [
+          "DrawerHeader",
+          "DrawerHeaderElement"
+        ],
+        "DrawerContentProps": [
+          "DrawerContentElement"
+        ],
+        "DrawerFooterChild": [
+          "ButtonProps"
+        ],
+        "DrawerFooterProps": [
+          "DrawerFooter",
+          "DrawerFooterElement"
+        ],
+        "DrawerChildren": [
+          "DrawerHeaderProps",
+          "DrawerContentProps",
+          "DrawerFooterProps"
+        ],
+        "DrawerProps": [
+          "Drawer",
+          "DrawerElement"
+        ]
       }
     },
     {
@@ -6674,6 +7003,12 @@
             "values": null,
             "description": "Texto do botão."
           }
+        ]
+      },
+      "refs": {
+        "DropButtonProps": [
+          "ButtonProps",
+          "OmittedButtonProps"
         ]
       }
     },
@@ -6796,6 +7131,15 @@
             "description": "Substitui os textos pela linha única de dragover."
           }
         ]
+      },
+      "refs": {
+        "DropzoneProps": [
+          "Dropzone",
+          "DropzoneElement"
+        ],
+        "DropzonePromptProps": [
+          "Dropzone"
+        ]
       }
     },
     {
@@ -6891,6 +7235,14 @@
             "values": null
           }
         ]
+      },
+      "refs": {
+        "FieldRoot": [
+          "UseTextFieldOptions"
+        ],
+        "FieldRootProps": [
+          "FieldRoot"
+        ]
       }
     },
     {
@@ -6940,6 +7292,12 @@
             "default": "false",
             "description": "Desabilita o botão."
           }
+        ]
+      },
+      "refs": {
+        "FilterButtonProps": [
+          "ButtonHTMLAttributes",
+          "FilterButtonElement"
         ]
       }
     },
@@ -7330,6 +7688,16 @@
             "description": "Define o alinhamento do item no eixo inline."
           }
         ]
+      },
+      "refs": {
+        "GridProps": [
+          "Grid",
+          "GridElement"
+        ],
+        "GridItemProps": [
+          "GridItem",
+          "GridElement"
+        ]
       }
     },
     {
@@ -7378,6 +7746,15 @@
             "default": "medium",
             "description": "Define o tamanho do ícone."
           }
+        ]
+      },
+      "refs": {
+        "IconSize": [
+          "Size"
+        ],
+        "IconProps": [
+          "Icon",
+          "IconElement"
         ]
       }
     },
@@ -7461,6 +7838,16 @@
             "description": "Define o tamanho do botão."
           }
         ]
+      },
+      "refs": {
+        "IconButtonNotification": [
+          "BadgeProps"
+        ],
+        "IconButtonProps": [
+          "IconButton",
+          "ButtonHTMLAttributes",
+          "IconButtonElement"
+        ]
       }
     },
     {
@@ -7504,6 +7891,18 @@
             "default": "medium",
             "description": "Define o tamanho da ilustração."
           }
+        ]
+      },
+      "refs": {
+        "IllustrationSize": [
+          "Size"
+        ],
+        "Illustration": [
+          "BoxProps"
+        ],
+        "IllustrationProps": [
+          "Illustration",
+          "IllustrationElement"
         ]
       }
     },
@@ -7596,6 +7995,12 @@
             "description": "Largura do container da imagem."
           }
         ]
+      },
+      "refs": {
+        "ImageProps": [
+          "Image",
+          "ImageElement"
+        ]
       }
     },
     {
@@ -7649,6 +8054,13 @@
             "default": "NavigationRightLine",
             "description": "Ícone exibido à direita do texto. `false` oculta o ícone."
           }
+        ]
+      },
+      "refs": {
+        "LinkProps": [
+          "Link",
+          "AnchorHTMLAttributes",
+          "LinkElement"
         ]
       }
     },
@@ -7764,6 +8176,35 @@
             "description": "Callback disparado ao fechar."
           }
         ]
+      },
+      "refs": {
+        "ModalHeaderProps": [
+          "ModalHeader",
+          "ModalHeaderElement"
+        ],
+        "ModalContentChild": [
+          "ConfirmationMessageProps"
+        ],
+        "ModalContentProps": [
+          "ModalContent",
+          "ModalContentElement"
+        ],
+        "ModalFooterChild": [
+          "ButtonProps"
+        ],
+        "ModalFooterProps": [
+          "ModalFooter",
+          "ModalFooterElement"
+        ],
+        "ModalChildren": [
+          "ModalHeaderProps",
+          "ModalContentProps",
+          "ModalFooterProps"
+        ],
+        "ModalProps": [
+          "Modal",
+          "ModalElement"
+        ]
       }
     },
     {
@@ -7853,6 +8294,28 @@
             "description": "Dados JSON da animação Lottie customizada."
           }
         ]
+      },
+      "refs": {
+        "LottieRef": [
+          "LottieRefCurrentProps"
+        ],
+        "BaseMotionProps": [
+          "BoxProps"
+        ],
+        "RegistryMotionProps": [
+          "BaseMotionProps"
+        ],
+        "CustomMotionProps": [
+          "BaseMotionProps"
+        ],
+        "Motion": [
+          "RegistryMotionProps",
+          "CustomMotionProps"
+        ],
+        "MotionProps": [
+          "Motion",
+          "MotionElement"
+        ]
       }
     },
     {
@@ -7938,6 +8401,12 @@
             "description": "Rótulo acessível da seta de próximo item."
           }
         ]
+      },
+      "refs": {
+        "NavControlProps": [
+          "NavControl",
+          "NavControlElement"
+        ]
       }
     },
     {
@@ -8013,6 +8482,12 @@
             "type": "(value: number | undefined) => void",
             "values": null
           }
+        ]
+      },
+      "refs": {
+        "NpsScoreProps": [
+          "NpsScore",
+          "NpsScoreElement"
         ]
       }
     },
@@ -8114,6 +8589,12 @@
             "description": "Opções de itens por página exibidas no seletor."
           }
         ]
+      },
+      "refs": {
+        "PaginationProps": [
+          "Pagination",
+          "PaginationElement"
+        ]
       }
     },
     {
@@ -8197,6 +8678,13 @@
             "values": null,
             "description": "Mensagem de suporte exibida abaixo do input."
           }
+        ]
+      },
+      "refs": {
+        "PasswordInputProps": [
+          "PasswordInput",
+          "InputHTMLAttributes",
+          "PasswordInputElement"
         ]
       }
     },
@@ -8285,6 +8773,12 @@
             "description": "Padding em px das bordas do viewport."
           }
         ]
+      },
+      "refs": {
+        "PopoverProps": [
+          "Popover",
+          "PopoverElement"
+        ]
       }
     },
     {
@@ -8313,7 +8807,8 @@
             "values": null
           }
         ]
-      }
+      },
+      "refs": {}
     },
     {
       "name": "ProgressLine",
@@ -8363,6 +8858,12 @@
             "default": "0",
             "description": "Valor atual do progresso. Fixado automaticamente entre `min` e `max`."
           }
+        ]
+      },
+      "refs": {
+        "ProgressLineProps": [
+          "ProgressLine",
+          "ProgressLineElement"
         ]
       }
     },
@@ -8426,22 +8927,24 @@
           {
             "name": "kind",
             "required": false,
-            "type": "'number'",
+            "type": "'number' | 'icon'",
             "values": [
-              "number"
+              "number",
+              "icon"
             ],
             "default": "number"
           },
           {
             "name": "icon",
             "required": false,
-            "type": "never",
-            "values": null
+            "type": "never | IconProps['name']",
+            "values": null,
+            "description": "Ícone exibido no marcador enquanto `status` não é `completed`. Quando `completed`, o marcador sempre exibe o ícone de confirmação, ignorando este valor."
           },
           {
             "name": "markerLabel",
-            "required": true,
-            "type": "string",
+            "required": false,
+            "type": "string | never",
             "values": null,
             "description": "Texto exibido no marcador enquanto `status` não é `completed`."
           }
@@ -8497,6 +9000,19 @@
             "default": "vertical",
             "description": "Orientação do layout: vertical (rótulo ao lado) ou horizontal (rótulo abaixo). Propagada aos itens."
           }
+        ]
+      },
+      "refs": {
+        "ProgressTrackerItem": [
+          "ProgressTrackerItemMarker"
+        ],
+        "ProgressTrackerItemProps": [
+          "ProgressTrackerItem",
+          "ProgressTrackerItemElement"
+        ],
+        "ProgressTrackerProps": [
+          "ProgressTracker",
+          "ProgressTrackerElement"
         ]
       }
     },
@@ -8608,6 +9124,18 @@
             "description": "Valor selecionado (controlled)."
           }
         ]
+      },
+      "refs": {
+        "RadioProps": [
+          "Radio",
+          "InputHTMLAttributes",
+          "RadioElement"
+        ],
+        "RadioGroupProps": [
+          "RadioGroup",
+          "InputHTMLAttributes",
+          "RadioGroupElement"
+        ]
       }
     },
     {
@@ -8690,6 +9218,13 @@
             "description": "Mensagem de suporte exibida abaixo do input."
           }
         ]
+      },
+      "refs": {
+        "SearchInputProps": [
+          "SearchInput",
+          "InputHTMLAttributes",
+          "SearchInputElement"
+        ]
       }
     },
     {
@@ -8763,23 +9298,23 @@
         "CreatableSlot": [
           {
             "name": "creatable",
-            "required": true,
-            "type": "true",
+            "required": false,
+            "type": "true | false",
             "values": null,
             "description": "Exibe opção para criar um novo item quando nenhum resultado é encontrado."
           },
           {
             "name": "createOptionLabel",
             "required": false,
-            "type": "(inputValue: string) => string",
+            "type": "(inputValue: string) => string | never",
             "values": null,
             "default": "(v) => `Criar \"${v}\"`",
             "description": "Customiza o label exibido na opção de criação."
           },
           {
             "name": "onCreateOption",
-            "required": true,
-            "type": "(inputValue: string) => void",
+            "required": false,
+            "type": "(inputValue: string) => void | never",
             "values": null,
             "description": "Callback executado quando o usuário confirma a criação de uma nova opção."
           }
@@ -8991,6 +9526,25 @@
             "description": "Valores selecionados, na ordem em que viram chips."
           }
         ]
+      },
+      "refs": {
+        "SelectInputShared": [
+          "CreatableSlot"
+        ],
+        "SelectInputSingle": [
+          "SelectInputShared"
+        ],
+        "SelectInputMulti": [
+          "SelectInputShared"
+        ],
+        "SelectInput": [
+          "SelectInputSingle",
+          "SelectInputMulti"
+        ],
+        "SelectInputProps": [
+          "SelectInput",
+          "SelectInputElement"
+        ]
       }
     },
     {
@@ -9028,32 +9582,28 @@
         "LeadSlot": [
           {
             "name": "leadItem",
-            "required": true,
-            "type": "'icon'",
-            "values": [
-              "icon"
-            ]
+            "required": false,
+            "type": "'icon' | 'avatar' | 'image' | never",
+            "values": null
           },
           {
             "name": "leadItemProps",
-            "required": true,
-            "type": "Pick<IconProps, 'name'>",
+            "required": false,
+            "type": "Pick<IconProps, 'name'> | DistributiveOmit<AvatarProps, 'size'> | Pick<ImageProps, 'alt' | 'src'> | never",
             "values": null
           }
         ],
         "TrailingSlot": [
           {
             "name": "trailingItem",
-            "required": true,
-            "type": "'checkbox'",
-            "values": [
-              "checkbox"
-            ]
+            "required": false,
+            "type": "'checkbox' | 'tag' | 'icon' | 'radio' | 'switch' | never",
+            "values": null
           },
           {
             "name": "trailingItemProps",
             "required": false,
-            "type": "Pick<CheckboxProps, 'indeterminate'>",
+            "type": "Pick<CheckboxProps, 'indeterminate'> | Pick<TagProps, 'appearance' | 'children' | 'leadIcon'> | Pick<IconProps, 'name'> | never",
             "values": null
           }
         ],
@@ -9205,6 +9755,21 @@
             "description": "Valores selecionados (`controlled`)."
           }
         ]
+      },
+      "refs": {
+        "SelectionListItem": [
+          "BaseSelectionListItem",
+          "LeadSlot",
+          "TrailingSlot"
+        ],
+        "SelectionListItemProps": [
+          "SelectionListItem",
+          "SelectionListItemElement"
+        ],
+        "SelectionListProps": [
+          "SelectionList",
+          "SelectionListElement"
+        ]
       }
     },
     {
@@ -9250,6 +9815,12 @@
             "type": "Extract<Size, 'small' | 'medium' | 'large' | 'largest'>",
             "values": null
           }
+        ]
+      },
+      "refs": {
+        "ShapedIconProps": [
+          "ShapedIcon",
+          "ShapedIconElement"
         ]
       }
     },
@@ -9348,6 +9919,23 @@
             "description": "Atalhos exibidos em linha, na ordem recebida. Use a partir de dois."
           }
         ]
+      },
+      "refs": {
+        "ShortcutBadge": [
+          "BadgeProps"
+        ],
+        "ShortcutCurrency": [
+          "CurrencyProps"
+        ],
+        "ShortcutProps": [
+          "Shortcut",
+          "ButtonHTMLAttributes",
+          "ShortcutElement"
+        ],
+        "ShortcutCarouselProps": [
+          "ShortcutCarousel",
+          "ShortcutCarouselElement"
+        ]
       }
     },
     {
@@ -9396,6 +9984,12 @@
             "default": "round",
             "description": "Forma do placeholder: round para avatar, ícone e badge; square para imagem, card e bloco de texto."
           }
+        ]
+      },
+      "refs": {
+        "SkeletonProps": [
+          "Skeleton",
+          "SkeletonElement"
         ]
       }
     },
@@ -9584,6 +10178,19 @@
             "description": "Chamado ao soltar o controle ou ao confirmar pelo teclado. Recebe `[mínimo, máximo]`."
           }
         ]
+      },
+      "refs": {
+        "SliderSingle": [
+          "SliderShared"
+        ],
+        "SliderRange": [
+          "SliderShared"
+        ],
+        "SliderProps": [
+          "SliderSingle",
+          "SliderRange",
+          "SliderElement"
+        ]
       }
     },
     {
@@ -9632,6 +10239,12 @@
             "description": "Define o tamanho do spinner."
           }
         ]
+      },
+      "refs": {
+        "SpinnerProps": [
+          "Spinner",
+          "SpinnerElement"
+        ]
       }
     },
     {
@@ -9667,6 +10280,25 @@
             "type": "boolean",
             "values": null
           }
+        ]
+      },
+      "refs": {
+        "StackProps": [
+          "BoxProps"
+        ],
+        "PolymorphicStackProps": [
+          "T",
+          "JSX",
+          "IntrinsicElements",
+          "PolymorphicBoxProps"
+        ],
+        "StackCast": [
+          "T",
+          "JSX",
+          "IntrinsicElements",
+          "PolymorphicStackProps",
+          "StackCast",
+          "StackProps"
         ]
       }
     },
@@ -9723,6 +10355,12 @@
             "default": "small",
             "description": "Escala tipográfica do rótulo. O ponto e a altura do componente não mudam."
           }
+        ]
+      },
+      "refs": {
+        "StatusDotProps": [
+          "StatusDot",
+          "StatusDotElement"
         ]
       }
     },
@@ -9795,6 +10433,13 @@
             "values": null,
             "description": "Callback executado quando o estado muda."
           }
+        ]
+      },
+      "refs": {
+        "SwitchProps": [
+          "Switch",
+          "InputHTMLAttributes",
+          "SwitchElement"
         ]
       }
     },
@@ -9874,6 +10519,12 @@
             "description": "Callback ao clicar no botão de fechar — o consumidor decide se desmonta ou oculta a instância."
           }
         ]
+      },
+      "refs": {
+        "SystemBannerProps": [
+          "SystemBanner",
+          "SystemBannerElement"
+        ]
       }
     },
     {
@@ -9952,6 +10603,12 @@
             "values": null,
             "description": "Callback ao selecionar uma aba. Recebe o índice da aba selecionada."
           }
+        ]
+      },
+      "refs": {
+        "TabViewProps": [
+          "TabView",
+          "TabViewElement"
         ]
       }
     },
@@ -10094,38 +10751,44 @@
           {
             "name": "kind",
             "required": false,
-            "type": "never",
+            "type": "never | 'balance' | 'percentual' | 'checkbox' | 'text'",
             "values": null
           },
           {
             "name": "value",
             "required": false,
-            "type": "never",
-            "values": null
+            "type": "never | number",
+            "values": null,
+            "description": "Valor monetário a formatar."
           },
           {
             "name": "currency",
             "required": false,
-            "type": "never",
-            "values": null
+            "type": "never | CurrencyCode",
+            "values": null,
+            "default": "BRL",
+            "description": "Código ISO da moeda."
           },
           {
             "name": "icon",
             "required": false,
-            "type": "never",
-            "values": null
+            "type": "never | IconName | string",
+            "values": null,
+            "description": "Ícone decorativo à esquerda do título (16 px)."
           },
           {
             "name": "title",
             "required": false,
-            "type": "never",
-            "values": null
+            "type": "never | string",
+            "values": null,
+            "description": "Texto principal — renderizado em `body/regular`."
           },
           {
             "name": "description",
             "required": false,
-            "type": "never",
-            "values": null
+            "type": "never | string",
+            "values": null,
+            "description": "Texto secundário opcional — renderizado em `caption/regular`."
           }
         ],
         "TableCell": [
@@ -10146,6 +10809,42 @@
             ],
             "description": "Fixa a coluna na borda indicada ao rolar horizontalmente."
           }
+        ]
+      },
+      "refs": {
+        "TableProps": [
+          "Table",
+          "TableElement"
+        ],
+        "TableHeaderProps": [
+          "TableHeader",
+          "TableHeaderElement"
+        ],
+        "TableBodyProps": [
+          "TableBodyElement"
+        ],
+        "TableRowProps": [
+          "TableRow",
+          "TableRowElement"
+        ],
+        "TableHeadProps": [
+          "TableHead",
+          "ThHTMLAttributes",
+          "TableHeadElement"
+        ],
+        "TableCell": [
+          "TableCellKindVariants"
+        ],
+        "TableCellProps": [
+          "TableCell",
+          "TdHTMLAttributes",
+          "TableCellElement"
+        ],
+        "TableToolbarProps": [
+          "TableToolbarElement"
+        ],
+        "TablePaginationProps": [
+          "PaginationProps"
         ]
       }
     },
@@ -10278,6 +10977,26 @@
             "description": "Label acessível da lista de abas. Obrigatório quando há mais de uma tablist na página."
           }
         ]
+      },
+      "refs": {
+        "TabsBadge": [
+          "BadgeProps"
+        ],
+        "TabsProps": [
+          "Tabs",
+          "TabsElement"
+        ],
+        "TabListProps": [
+          "TabList",
+          "TabListElement"
+        ],
+        "TabItemProps": [
+          "TabItem"
+        ],
+        "TabPanelProps": [
+          "TabPanel",
+          "TabPanelElement"
+        ]
       }
     },
     {
@@ -10328,6 +11047,12 @@
             "values": null,
             "description": "Ícone exibido antes do texto."
           }
+        ]
+      },
+      "refs": {
+        "TagProps": [
+          "Tag",
+          "TagElement"
         ]
       }
     },
@@ -10622,6 +11347,65 @@
             "description": "Tamanhos: 'bold' | 'medium' | 'regular'"
           }
         ]
+      },
+      "refs": {
+        "SizesBody": [
+          "FontWeights"
+        ],
+        "SizesCaption": [
+          "FontWeights"
+        ],
+        "SizesDisclaimer": [
+          "FontWeights"
+        ],
+        "SizesLabel": [
+          "FontWeights"
+        ],
+        "SizesTitle": [
+          "FontWeights"
+        ],
+        "TextBody": [
+          "BaseText"
+        ],
+        "TextCaption": [
+          "BaseText"
+        ],
+        "TextDecorative": [
+          "BaseText"
+        ],
+        "TextDisclaimer": [
+          "BaseText"
+        ],
+        "TextHeading": [
+          "BaseText"
+        ],
+        "TextLabel": [
+          "BaseText"
+        ],
+        "TextLink": [
+          "BaseText"
+        ],
+        "TextSubtitle": [
+          "BaseText"
+        ],
+        "TextTitle": [
+          "BaseText"
+        ],
+        "Text": [
+          "TextBody",
+          "TextCaption",
+          "TextDecorative",
+          "TextDisclaimer",
+          "TextHeading",
+          "TextLabel",
+          "TextLink",
+          "TextSubtitle",
+          "TextTitle"
+        ],
+        "TextProps": [
+          "Text",
+          "TextElement"
+        ]
       }
     },
     {
@@ -10713,6 +11497,13 @@
             "description": "Mensagem de suporte exibida abaixo do input."
           }
         ]
+      },
+      "refs": {
+        "TextInputProps": [
+          "TextInput",
+          "InputHTMLAttributes",
+          "TextInputElement"
+        ]
       }
     },
     {
@@ -10781,6 +11572,13 @@
             "values": null,
             "description": "Mensagem de suporte exibida abaixo do textarea."
           }
+        ]
+      },
+      "refs": {
+        "TextareaProps": [
+          "Textarea",
+          "TextareaHTMLAttributes",
+          "TextareaElement"
         ]
       }
     },
@@ -10890,6 +11688,11 @@
             "description": "Posicionamento padrão dos toasts."
           }
         ]
+      },
+      "refs": {
+        "ToastPlacement": [
+          "ScreenPlacement"
+        ]
       }
     },
     {
@@ -10938,6 +11741,15 @@
             "default": "top",
             "description": "Posicionamento do tooltip em relação ao trigger. Inverte automaticamente se não houver espaço no viewport."
           }
+        ]
+      },
+      "refs": {
+        "TooltipPlacement": [
+          "RelativePlacement"
+        ],
+        "TooltipProps": [
+          "Tooltip",
+          "TooltipElement"
         ]
       }
     },
@@ -10997,6 +11809,12 @@
             "default": "horizontal",
             "description": "Orientação do layout."
           }
+        ]
+      },
+      "refs": {
+        "TopicProps": [
+          "Topic",
+          "TopicElement"
         ]
       }
     },
@@ -11164,6 +11982,16 @@
             "description": "Fonte da imagem exibida."
           }
         ]
+      },
+      "refs": {
+        "UploadListProps": [
+          "UploadList",
+          "UploadListElement"
+        ],
+        "UploadListItemProps": [
+          "UploadListItem",
+          "UploadListItemElement"
+        ]
       }
     },
     {
@@ -11195,6 +12023,15 @@
             "default": "permanent",
             "description": "Define se o elemento permanece oculto ou fica visível ao receber foco."
           }
+        ]
+      },
+      "refs": {
+        "VisuallyHidden": [
+          "BoxProps"
+        ],
+        "VisuallyHiddenProps": [
+          "VisuallyHidden",
+          "VisuallyHiddenElement"
         ]
       }
     }

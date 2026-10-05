@@ -560,3 +560,6 @@
   background:var(--common-colors-surface-01); font:var(--text-style-disclaimer-regular); font-family:var(--pg-mono); color:var(--common-colors-text-intense); white-space:pre-wrap; }
 .pg-doc-code__pre:focus-visible{ outline:var(--common-border-width-thin) solid var(--common-colors-border-intense); }
 .pg-doc-gloss [hidden]{ display:none; }
+.pg-doc-table.is-wrap th, .pg-doc-table.is-wrap td{ white-space:normal; vertical-align:top; }
+.pg-doc-table.is-wrap td code{ overflow-wrap:anywhere; }
+.pg-doc-table.is-wrap td:first-child{ min-width:var(--common-sizes-104); }

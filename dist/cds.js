@@ -8947,7 +8947,7 @@ CDS.register({
 try {
 /* Documentação — Text Input
    Fonte: [CastanhaDS] Component use documentation · página Text fields · seção 5308:2266 · frame [Documentação] Text input (5308:2304)
-   Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs. Capa = mockup com imagem do frame [Header] Text input (5308:2902).
+   Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs. Capa: o [Header] Text input (5308:2902) é um mockup de produto (imagem); sem o PNG exportado, a capa usa o componente vivo (C95).
    Oculto no Figma: Acessibilidade (5308:2548), só com placeholder ("Tópico 1" / "Ordem de leitura") → tab com nota de sem conteúdo.
    Clear Button (prop "Show clear button" e item 5 da anatomia) é legado da doc: a lib atual (5743:325) não tem; ignorado (C96).
    Gaps: Required Asterisk
@@ -8959,11 +8959,9 @@ CDS.docs["text-input"] = {
   tag: "cds-text-input",
   base: { label: "Label", "required-text": "*", supporting: "Supporting Message", "character-counter": "-0000" },
   source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=5308-2266",
-  // Capa (frame [Header] do Figma): mockup de produto, imagem exportada à parte
+  // Capa: o [Header] do Figma é um mockup (imagem) ainda não exportado → componente vivo com o base (C95)
   cover: {
-    description: "O Text Input é um campo de entrada para coleta de informações textuais curtas fornecidas pela pessoa usuária.",
-    image: "assets/docs/covers/text-input.png",
-    alt: "Tela de produto com um formulário usando Text Input"
+    description: "O Text Input é um campo de entrada para coleta de informações textuais curtas fornecidas pela pessoa usuária."
   },
   tabs: [
     { id: "uso", title: "Uso", blocks: [

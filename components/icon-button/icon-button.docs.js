@@ -1,6 +1,6 @@
 /* Documentação — Icon Button
    Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Icon button, 388224) reaproveitado; props e padrões validados no set da lib estável
-   (Icon Button 4464:636); acessibilidade do componente do playground. Divergências zeroheight × lib no CONFERIR (C117). */
+   (Icon Button 4464:636); acessibilidade do componente do playground. Divergências zeroheight × lib no CONFERIR (C142). */
 window.CDS = window.CDS || {};
 CDS.docs = CDS.docs || {};
 CDS.docs["icon-button"] = {
@@ -54,7 +54,7 @@ CDS.docs["icon-button"] = {
         { name: "Icon", type: "Swap component", default: "placeholder-line" },
         { name: "Show Notification", type: "Boolean", default: "false" }
       ] },
-      { note: "Props e padrões lidos do set Icon Button da lib estável. O zeroheight ainda lista Type e Style (lib: `Kind` e `Appearance`), não tem Inversed nem `Show Notification` (CONFERIR C117). No código, `label` é o nome acessível e é obrigatório." }
+      { note: "Props e padrões lidos do set Icon Button da lib estável. O zeroheight ainda lista Type e Style (lib: `Kind` e `Appearance`), não tem Inversed nem `Show Notification` (CONFERIR C142). No código, `label` é o nome acessível e é obrigatório." }
     ] },
 
     { id: "estilos", title: "Estilos", blocks: [

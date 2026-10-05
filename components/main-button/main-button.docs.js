@@ -1,7 +1,7 @@
 /* Documentação — Main Button
    Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Main button, 0983f6) reaproveitado; props e padrões validados no set da lib estável
    (Main Button 4464:427, key 3805ac7e…); acessibilidade e contrastes medidos no componente do playground; tab Conteúdo do [NEW] Content (6400:15361, D98).
-   Divergências zeroheight × lib no CONFERIR (C117): nomes Type/Style (lib: Kind/Appearance), estado Loading (não existe na lib), Trailing Icon aninhado. */
+   Divergências zeroheight × lib no CONFERIR (C142): nomes Type/Style (lib: Kind/Appearance), estado Loading (não existe na lib), Trailing Icon aninhado. */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   CDS.docs["main-button"] = {
@@ -70,7 +70,7 @@
           { name: "Lead Icon", type: "Swap component", default: "placeholder-line" },
           { name: "Show Trailing Icon", type: "Boolean", default: "true" }
         ] },
-        { note: "Props e padrões lidos do set Main Button da lib estável. No zeroheight, `Kind` e `Appearance` aparecem como Type e Style, e há um estado Loading que a lib não tem (CONFERIR C117). Todas as props podem ser testadas na tab Playground." }
+        { note: "Props e padrões lidos do set Main Button da lib estável. No zeroheight, `Kind` e `Appearance` aparecem como Type e Style, e há um estado Loading que a lib não tem (CONFERIR C142). Todas as props podem ser testadas na tab Playground." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [

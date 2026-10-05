@@ -77,7 +77,7 @@ CDS.docs["spinner"] = {
     { id: "diretrizes", title: "Diretrizes", blocks: [
       { h2: "Diretrizes de uso" },
       { guides: [{ attrs: { _tag: "cds-main-button", label: "Enviando", disabled: true, "show-lead-icon": false, "show-trailing-icon": false }, title: "Utilize o spinner apenas quando houver bloqueio temporário da ação", text: "O Spinner deve aparecer somente quando a operação impede o avanço da pessoa usuária. Ele reforça que a ação foi recebida e está em execução, evitando cliques repetidos ou dúvidas sobre o estado atual." }] },
-      { note: "O Main Button da lib não tem estado Loading (CONFERIR C117): por enquanto, o exemplo usa o botão desabilitado com texto de andamento." }
+      { note: "O Main Button da lib não tem estado Loading (CONFERIR C142): por enquanto, o exemplo usa o botão desabilitado com texto de andamento." }
     ] },
 
     { id: "motion", title: "Motion", blocks: [

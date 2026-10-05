@@ -1,6 +1,6 @@
 /* Documentação — Drop Button
    Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Drop button, 1044fa) reaproveitado; props e padrões validados no set da lib estável
-   (Drop Button 6955:6985); acessibilidade do componente do playground. Divergências no CONFERIR (C117). */
+   (Drop Button 6955:6985); acessibilidade do componente do playground. Divergências no CONFERIR (C142). */
 window.CDS = window.CDS || {};
 CDS.docs = CDS.docs || {};
 CDS.docs["drop-button"] = {
@@ -60,7 +60,7 @@ CDS.docs["drop-button"] = {
         { name: "Show Lead Icon", type: "Boolean", default: "true" },
         { name: "Lead Icon", type: "Swap component", default: "placeholder-line" }
       ] },
-      { note: "Props e padrões lidos do set Drop Button da lib estável. O zeroheight chama `Appearance` de Style e não lista `Is Active` (CONFERIR C117)." }
+      { note: "Props e padrões lidos do set Drop Button da lib estável. O zeroheight chama `Appearance` de Style e não lista `Is Active` (CONFERIR C142)." }
     ] },
 
     { id: "estilos", title: "Estilos", blocks: [
@@ -124,7 +124,7 @@ CDS.docs["drop-button"] = {
         { title: "Is Active → True", rows: [["Gatilho", "On click"], ["Motion Style", "`Selected In/01`"]] },
         { title: "Is Active → False", rows: [["Gatilho", "On click"], ["Motion Style", "`Selected Out/01`"]] }
       ] },
-      { note: "No zeroheight, o Pressed do Drop button usa easing systemic/default com duração medium/03, que não corresponde a nenhum Motion Style; aqui vale `Pressed/01`, como nos outros botões (CONFERIR C117)." },
+      { note: "No zeroheight, o Pressed do Drop button usa easing systemic/default com duração medium/03, que não corresponde a nenhum Motion Style; aqui vale `Pressed/01`, como nos outros botões (CONFERIR C142)." },
       { p: "Reduced motion: honrar `prefers-reduced-motion: reduce` (as transições são desligadas no código)." }
     ] }
   ]

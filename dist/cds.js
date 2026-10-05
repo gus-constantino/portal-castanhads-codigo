@@ -7785,7 +7785,7 @@ try {
         { h3: "Nomes alternativos comuns" },
         { p: "Dimensions, Spacing, Sizing units." },
         { h2: "Anatomia" },
-        { p: "A escala parte de uma unidade base de 4px: os valores de 4 a 200px são múltiplos dela. Abaixo de 4px e em poucos pontos intermediários (1, 2, 6 e 14px) há valores para ajustes finos, como bordas e espaçamentos internos. Use sempre o token (`Common/Sizes/*`), nunca o valor solto." },
+        { p: "A escala parte de uma unidade base de 4px: quase todos os valores, de 4 a 200px, são múltiplos dela. As exceções são quatro valores de ajuste fino (1, 2, 6 e 14px), usados em bordas e espaçamentos internos. Use sempre o token (`Common/Sizes/*`), nunca o valor solto." },
         { tokens: "sizes" },
         { h2: "Tamanhos padrão" },
         { p: "Embora toda a escala esteja disponível, na construção das interfaces usamos por padrão um conjunto de seis tamanhos, que atende cerca de 90% dos layouts." },

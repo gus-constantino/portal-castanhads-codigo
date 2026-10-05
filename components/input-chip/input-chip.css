@@ -4,5 +4,5 @@
    ===================================================================== */
 cds-input-chip{ display:inline-flex; }
 cds-input-chip > .cds-chip{ --_bd:var(--common-colors-border-semi-soft); }
-cds-input-chip > .cds-chip:hover{ --_bd:var(--common-colors-border-medium); }
-cds-input-chip > .cds-chip:active{ --_bd:var(--common-colors-border-intense); --_fg:var(--common-colors-text-intense); --_ic:var(--common-colors-icons-intense); }
+cds-input-chip > .cds-chip:hover, cds-input-chip[state="hovered"] > .cds-chip{ --_bd:var(--common-colors-border-medium); }
+cds-input-chip > .cds-chip:active, cds-input-chip[state="pressed"] > .cds-chip{ --_bd:var(--common-colors-border-intense); --_fg:var(--common-colors-text-intense); --_ic:var(--common-colors-icons-intense); }

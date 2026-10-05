@@ -5,10 +5,10 @@
              Hovered Neutral/Solid/semi-intense + Border/semi-intense · Pressed Border/intense thin
    ===================================================================== */
 cds-filter-chip{ display:inline-flex; }
-cds-filter-chip > .cds-chip:hover{ --_bd:var(--common-colors-border-medium); }
-cds-filter-chip > .cds-chip:active{ --_bd:var(--common-colors-border-intense); --_bw:var(--common-border-width-thin); --_fg:var(--common-colors-text-intense); --_ic:var(--common-colors-icons-intense); }
+cds-filter-chip > .cds-chip:hover, cds-filter-chip[state="hovered"] > .cds-chip{ --_bd:var(--common-colors-border-medium); }
+cds-filter-chip > .cds-chip:active, cds-filter-chip[state="pressed"] > .cds-chip{ --_bd:var(--common-colors-border-intense); --_bw:var(--common-border-width-thin); --_fg:var(--common-colors-text-intense); --_ic:var(--common-colors-icons-intense); }
 
 cds-filter-chip[selected] > .cds-chip{ --_bg:var(--common-colors-surface-inversed); --_bd:var(--common-colors-border-intense); --_fg:var(--common-colors-text-inversed); --_ic:var(--common-colors-icons-inversed); }
-cds-filter-chip[selected] > .cds-chip:hover{ --_bg:var(--common-colors-neutral-solid-semi-intense); --_bd:var(--common-colors-border-semi-intense); }
-cds-filter-chip[selected] > .cds-chip:active{ --_bg:var(--common-colors-neutral-solid-semi-intense); --_bd:var(--common-colors-border-intense); --_bw:var(--common-border-width-thin); --_fg:var(--common-colors-text-inversed); --_ic:var(--common-colors-icons-inversed); }
+cds-filter-chip[selected] > .cds-chip:hover, cds-filter-chip[state="hovered"][selected] > .cds-chip{ --_bg:var(--common-colors-neutral-solid-semi-intense); --_bd:var(--common-colors-border-semi-intense); }
+cds-filter-chip[selected] > .cds-chip:active, cds-filter-chip[state="pressed"][selected] > .cds-chip{ --_bg:var(--common-colors-neutral-solid-semi-intense); --_bd:var(--common-colors-border-intense); --_bw:var(--common-border-width-thin); --_fg:var(--common-colors-text-inversed); --_ic:var(--common-colors-icons-inversed); }
 cds-filter-chip[selected][disabled] > .cds-chip{ --_bg:var(--common-colors-surface-inversed); --_bd:var(--common-colors-border-intense); }

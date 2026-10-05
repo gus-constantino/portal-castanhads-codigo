@@ -83,9 +83,13 @@ function docsIndex(){
     const rel = `components/${id}/${id}.docs.js`, abs = path.join(ROOT, rel);
     if (!fs.existsSync(abs)) return;
     const src = fs.readFileSync(abs, "utf8");
-    const needs = [...new Set([...src.matchAll(/CDS\.docs\["([\w-]+)"\]/g)].map((m) => m[1]).filter((d) => d !== id))];
-    idx[id] = { src: rel + "?v=" + crypto.createHash("sha1").update(src).digest("hex").slice(0, 8) };
-    if (needs.length) idx[id].needs = needs;
+    // a chave é o id que a doc define (= id do playground); a pasta pode ter outro nome (filter-chip → filter-chips) ou várias docs (selection-group)
+    const own = [...new Set([...src.matchAll(/CDS\.docs\["([\w-]+)"\]\s*=(?!=)/g)].map((m) => m[1]))];
+    if (!own.length) own.push(id);
+    const needs = [...new Set([...src.matchAll(/CDS\.docs\["([\w-]+)"\]/g)].map((m) => m[1]).filter((d) => !own.includes(d)))];
+    const file = { src: rel + "?v=" + crypto.createHash("sha1").update(src).digest("hex").slice(0, 8) };
+    if (needs.length) file.needs = needs;
+    own.forEach((d) => { idx[d] = file; });
   });
   return "\n/* ==== docs sob demanda (gerado) ==== */\nwindow.CDS = window.CDS || {}; CDS.docsIndex = " + JSON.stringify(idx) + ";\n";
 }

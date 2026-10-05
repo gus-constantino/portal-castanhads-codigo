@@ -17,10 +17,12 @@
 <!-- @components:css -->
 <link rel="stylesheet" href="dist/cds.css?v=090a1d4f" />
 <!-- /@components:css -->
+<!-- Templates provisórios (fora do menu) -->
+<link rel="stylesheet" href="templates/sponsor-header/sponsor-header.css?v=e2f880d5" />
 <!-- Shell do playground -->
-<link rel="stylesheet" href="styles/playground.css?v=3f77e0ca" />
+<link rel="stylesheet" href="styles/playground.css?v=62d4b794" />
 <link rel="stylesheet" href="styles/report.css?v=afdad39f" />
-<link rel="stylesheet" href="styles/docs.css?v=cbc2e706" />
+<link rel="stylesheet" href="styles/docs.css?v=7a524779" />
 </head>
 <body>
 
@@ -46,17 +48,14 @@
   </nav>
 
   <main class="pg-canvas">
-    <div class="pg-cover" id="cover" hidden></div>
-    <div class="pg-toolbar">
-      <div>
-        <div class="pg-title-row"><h1 id="cmp-title"></h1><span id="cmp-badge"></span></div>
-        <p class="pg-desc" id="cmp-desc" hidden></p>
-        <div class="pg-links" id="cmp-links"></div>
-      </div>
-      <div id="viewport"></div>
+    <!-- Cabeçalho da página = Header do [CastanhaDS] Sponsor Templates (template provisório, templates/sponsor-header) -->
+    <div class="pg-toolbar" id="toolbar">
+      <cds-sponsor-header id="page-header" show-notification="false" show-close="false"></cds-sponsor-header>
     </div>
+    <div class="pg-cover" id="cover" hidden></div>
     <div class="pg-tabs" id="tabs" hidden></div>
     <div class="pg-stage" id="stage">
+      <div class="pg-stage-bar" id="viewport"></div>
       <div class="pg-frame" id="frame">
         <div class="pg-frame-meta"><span><span id="vp-frame-lbl">Viewport:</span> <code id="vp-readout">fluido</code></span><span><span id="rval-lbl">Valor:</span> <code id="rval">—</code> <span id="rdone"></span></span></div>
         <div class="pg-preview" id="preview"></div>
@@ -86,9 +85,11 @@
 <!-- @components:js -->
 <script src="dist/cds.js?v=fcd039ff"></script>
 <!-- /@components:js -->
+<!-- Templates provisórios (fora do menu) -->
+<script src="templates/sponsor-header/sponsor-header.js?v=908e46c7"></script>
 <!-- Shell: side menu, rotas, tema, viewport, relatório -->
 <script src="scripts/figma-status.js?v=84fbd323"></script>
 <script src="scripts/report.js?v=1e2fbbab"></script>
-<script src="scripts/app.js?v=4b022be3"></script>
+<script src="scripts/app.js?v=b67e2068"></script>
 </body>
 </html>

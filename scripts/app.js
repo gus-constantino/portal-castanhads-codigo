@@ -7,7 +7,7 @@
   var CDS = window.CDS, kit = CDS.kit;
   var JIRA = "https://caju746.atlassian.net/browse/";
   var $ = function(id){ return document.getElementById(id); };
-  var nav = $("nav"), navHome = $("nav-home"), navRes = $("nav-res"), navResTitle = $("nav-res-title"), search = $("search"), title = $("cmp-title"), links = $("cmp-links"), desc = $("cmp-desc"), canvas = document.querySelector(".pg-canvas");
+  var nav = $("nav"), navHome = $("nav-home"), navRes = $("nav-res"), navResTitle = $("nav-res-title"), search = $("search"), header = $("page-header"), canvas = document.querySelector(".pg-canvas");
   var preview = $("preview"), panel = $("panel"), frame = $("frame");
   var rval = $("rval"), rdone = $("rdone"), vpOut = $("vp-readout");
   var tabsEl = $("tabs"), coverEl = $("cover"), docsEl = $("docs"), stage = $("stage"), shell = document.querySelector(".pg-shell");
@@ -222,6 +222,46 @@
     else docsEl.innerHTML = "";
   }
 
+  // ---------- Cabeçalho da página (Header do Sponsor Templates, template provisório) ----------
+  // ← volta à página anterior do playground (ou ao Início) · 🔍 foca a busca do menu · Breadcrumb Componentes › Categoria › Nome
+  var head = (function(){
+    var bar = $("toolbar"), steps = 0, pop = null;
+    header.backBtn.addEventListener("click", function(){ if (steps > 0){ steps -= 2; history.back(); } else location.hash = "#/"; });
+    window.addEventListener("hashchange", function(){ steps++; });
+    header.searchBtn.addEventListener("click", function(){ var c = search.control || search.querySelector("input"); if (c) c.focus(); });
+    header.mainBtn.addEventListener("click", function(){ if (head.figma) window.open(head.figma, "_blank", "noopener"); });
+    header.dropBtn.id = "page-links-btn";
+    header.setAttribute("drop-label", "Links"); header.setAttribute("main-label", "Abrir no Figma");
+    CDS.attr(header.dropBtn, "lead-icon", "link-line"); CDS.attr(header.mainBtn, "lead-icon", "figma-line");
+    CDS.attr(header.tag, "show-lead-item", "false");
+    var o = {
+      infoTip: kit.tip(header.infoBtn, "", { container: bar }),
+      tagTip: kit.tip(header.tag, "", { container: bar }),
+      mainTip: kit.tip(header.mainBtn, "", { container: bar }),
+      figma: "",
+      links: function(items){
+        // Popover novo a cada página: o conteúdo precisa entrar antes do connect (A59)
+        if (pop) pop.remove();
+        header.setAttribute("show-drop-button", String(items.length > 0));
+        if (header.dropBtn.hasAttribute("active")) header.dropBtn.removeAttribute("active");
+        if (!items.length){ pop = null; return; }
+        pop = kit.el("cds-popover", { "for": "page-links-btn", placement: "bottom-end", label: "Links do componente", "class": "pg-links-pop" },
+          items.map(function(l){ return kit.el("cds-link", { label: l[1], href: l[0], target: "_blank", appearance: "neutral", icon: "link-line" }); }));
+        bar.appendChild(pop);
+      }
+    };
+    kit.tip(header.backBtn, "Voltar", { container: bar });
+    kit.tip(header.searchBtn, "Buscar componente", { container: bar });
+    return o;
+  })();
+  function crumbs(def){
+    if (def.home) return [{ label: def.name, href: "#/" + def.id }];
+    if (def.resource) return [{ label: "Recursos de suporte", href: "#/" }, { label: def.name, href: "#/" + def.id }];
+    var cat = def.block ? "Building blocks" : (def.category || "Outros");
+    var first = list.filter(function(c){ return !c.resource && (def.block ? c.block : !c.block && (c.category || "Outros") === cat); })[0] || def;
+    return [{ label: "Componentes", href: "#/" }, { label: cat, href: "#/" + first.id }, { label: def.name, href: "#/" + def.id }];
+  }
+
   var mountedId = null, reportBtn = $("report-btn"), report = $("report"), lastHash = "#/";
   reportBtn.addEventListener("click", function(){ location.hash = route()[0] === "relatorio" ? lastHash : "#/relatorio"; });
   function onRoute(){
@@ -243,11 +283,12 @@
     buildTabs(def.id);
     preview.innerHTML = ""; panel.innerHTML = "";
     kit.surface(preview, null); // cada componente começa na superfície padrão
-    title.textContent = def.name;
-    // Com capa (doc.cover): título maior, Tag do zeroheight e a descrição curta abaixo, como no [Header] do Figma
+    // Cabeçalho = Header do Sponsor Templates (template provisório): Title = nome · (i) = descrição curta da capa
     var cdoc = CDS.docs && CDS.docs[def.id], cover = cdoc && cdoc.cover;
-    $("cmp-badge").innerHTML = ""; desc.hidden = !(cover && cover.description); desc.textContent = (cover && cover.description) || "";
-    canvas.classList.toggle("has-cover", !!cover);
+    header.setAttribute("title", def.name);
+    header.setAttribute("show-info", String(!!(cover && cover.description)));
+    head.infoTip.setAttribute("text", (cover && cover.description) || "");
+    header.setBreadcrumb(crumbs(def));
     // Tag = status de publicação na lib do Figma (scripts/figma-status.js, lido via MCP: a página não acessa a API). Todos os componentes.
     var FS = CDS.figmaStatus || {}, st = (FS.items || {})[def.id];
     var PUB = { current: ["positive", "Publicado no Figma", "Publicado na lib [CastanhaDS] Components, sem alterações pendentes."],
@@ -257,21 +298,15 @@
                   : ["negative", "Não publicado no Figma", "Ainda não publicado na lib [CastanhaDS] Components."],
                 branch: ["warning", "Não publicado · em branch", "Existe só numa branch do Figma; ainda não está na main nem publicado na lib."] };
     var pub = st && PUB[st];
-    if (pub){
-      var ptag = $("cmp-badge").appendChild(kit.el("cds-tag", { appearance: pub[0], label: pub[1], "show-lead-item": "false" }));
-      kit.tip(ptag, pub[2] + " Conferido em " + FS.checked + ".", { container: $("cmp-badge") });
-    }
+    header.setAttribute("show-tag", String(!!pub)); // Tag = status de publicação
+    if (pub){ header.setAttribute("tag-appearance", pub[0]); header.setAttribute("tag-label", pub[1]); head.tagTip.setAttribute("text", pub[2] + " Conferido em " + FS.checked + "."); }
     document.title = def.name + " — Castanha DS";
-    links.innerHTML = "";
-    // Link do DS (Neutral, ícone de link no lugar da seta: abre em outra aba)
+    // Main Button = abrir no Figma; Drop Button "Links" = Jira e zeroheight num Popover do DS
     var branch = /\/branch\//.test(def.figma || "") ? " O link abre uma branch, não a main." : "";
-    [[def.task && JIRA + def.task, def.task, "Abre a task " + def.task + " no Jira, em outra aba."],
-     [def.figma, "Figma", "Abre o componente no Figma, em outra aba." + branch],
-     [def.zeroheight, "Zeroheight", "Abre a página publicada no zeroheight, em outra aba."]].forEach(function(l){
-      if (!l[0]) return;
-      var a = links.appendChild(kit.el("cds-link", { label: l[1], href: l[0], target: "_blank", appearance: "neutral", icon: "link-line" }));
-      kit.tip(a, l[2], { container: links });
-    });
+    head.figma = def.figma || "";
+    header.setAttribute("show-main-button", String(!!def.figma));
+    head.mainTip.setAttribute("text", "Abre o componente no Figma, em outra aba." + branch);
+    head.links([[def.task && JIRA + def.task, "Jira · " + def.task], [def.zeroheight, "Zeroheight"]].filter(function(l){ return l[0]; }));
     readout("", false);
     if (def.mount) def.mount({ preview: preview, panel: panel, kit: kit, readout: readout });
     if (CDS.renderReact) CDS.renderReact(def, preview, $("react")); // "No React": tradução Figma → castanha-react (scripts/react-kit.js)

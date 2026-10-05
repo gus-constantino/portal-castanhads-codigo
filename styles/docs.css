@@ -41,12 +41,6 @@
 .pg-cover__frame.is-tall{ align-self:end; justify-content:flex-start; height:93.7%; overflow:hidden; border-bottom-left-radius:0; border-bottom-right-radius:0; }
 @media (max-width:760px){ .pg-cover{ margin:var(--common-sizes-16) var(--common-sizes-16) 0; border-radius:var(--common-border-radius-large); } }
 
-/* Título com capa: Heading/Medium + Tag do zeroheight ao lado + descrição curta */
-.pg-title-row{ display:flex; align-items:center; flex-wrap:wrap; gap:var(--common-sizes-4) var(--common-sizes-12); }
-#cmp-badge:empty{ display:none; }
-.pg-canvas.has-cover .pg-toolbar h1{ font:var(--text-style-heading-medium); }
-.pg-desc{ margin:var(--common-sizes-4) 0 0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
-.pg-desc[hidden]{ display:none; }
 
 /* ---------- Página de doc ---------- */
 .pg-doc{

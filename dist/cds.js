@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 223 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 225 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.js ==== */
 try {
 /**
@@ -7837,6 +7837,91 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] compositions/clickable-card/clickable-card.playground.js", e); }
+
+/* ==== compositions/do-dont/do-dont.js ==== */
+try {
+/**
+ * <cmp-do-dont> — Do/Don't · COMPOSIÇÃO do playground (não é componente do Castanha DS)
+ *
+ * Exemplo + legenda de uso certo/errado das docs (bloco dodont do docs-kit, usado em dezenas de docs). O DS não tem
+ * esse bloco (C87): a composição monta com tokens, no padrão do Hub — Use: Feedback/Positive/soft · Não use:
+ * Accent/Solid/soft · Use com cautela: Feedback/Warning/soft · raio medium · Elevation/level 2.
+ *
+ * Anatomia (figure):
+ *   .Example  filhos com slot="example" · Surface/default · mín. Sizes/200 · pad 16 · conteúdo centralizado
+ *             (sem filhos de exemplo, a caixa some: Do/Don't só de texto)
+ *   .Caption  (figcaption) Veredito (Body/Bold: "Use" · "Não use" · "Use com cautela") · Heading opcional (Body/Bold · Text/intense)
+ *             · demais filhos (texto, lista de passos) em Body/Regular · Text/medium
+ *
+ * Atributos: kind ("do" padrão | "dont" | "caution") · heading (título opcional; não é "title" para não virar tooltip nativo)
+ *   · label (troca o texto do veredito)
+ * Referências: exampleEl · captionEl · verdictEl · headingEl
+ */
+(function(){
+  "use strict";
+  var VERDICT = { "do": "Use", dont: "Não use", caution: "Use com cautela" };
+  class CmpDoDont extends CDS.Element {
+    static get observedAttributes(){ return ["kind", "heading", "label"]; }
+    render(){
+      if (!this._built){
+        this._built = true;
+        var c = CDS.create, kids = [].slice.call(this.childNodes);
+        var fig = this.appendChild(c("figure", null, "cmp-dd"));
+        this.exampleEl = fig.appendChild(c("div", null, "cmp-dd__example"));
+        this.captionEl = fig.appendChild(c("figcaption", null, "cmp-dd__caption"));
+        this.verdictEl = this.captionEl.appendChild(c("strong", null, "cmp-dd__verdict"));
+        this.headingEl = this.captionEl.appendChild(c("span", null, "cmp-dd__heading"));
+        var self = this;
+        // Slot: filhos com slot="example" vão para a caixa do exemplo; o resto vai para a legenda
+        kids.forEach(function(n){
+          if (n.nodeType === 1 && n.getAttribute("slot") === "example"){ n.removeAttribute("slot"); self.exampleEl.appendChild(n); }
+          else if (n.nodeType === 1 || String(n.textContent).trim()) self.captionEl.appendChild(n);
+          else n.remove();
+        });
+        this.exampleEl.hidden = !this.exampleEl.childNodes.length;
+      }
+      var kind = VERDICT[this.getAttribute("kind")] ? this.getAttribute("kind") : "do";
+      this.dataset.kind = kind;
+      this.verdictEl.textContent = this.text("label", VERDICT[kind]);
+      var h = this.getAttribute("heading") || "";
+      this.headingEl.textContent = h; this.headingEl.hidden = !h;
+    }
+  }
+  CmpDoDont.define("cmp-do-dont");
+})();
+} catch (e) { console.error("[cds] compositions/do-dont/do-dont.js", e); }
+
+/* ==== compositions/do-dont/do-dont.playground.js ==== */
+try {
+/* Playground — Do/Don't (composição do playground, não é do DS: ver do-dont.js · C87) */
+CDS.register({
+  id: "do-dont", name: "Do/Don't", composition: true, category: "Composições",
+  description: "Exemplo e legenda de uso certo ou errado (Use, Não use, Use com cautela), como nas páginas do Hub. Usado nas tabs de diretrizes das docs.",
+  mount: function(ctx){
+    var kit = ctx.kit, panel = ctx.panel;
+    var st = { kind: "do", heading: "", text: "Use um Main Button por tela para a ação principal.", example: true };
+    var wrap = kit.el("div", { style: "width:calc(var(--common-sizes-200) + var(--common-sizes-120))" });
+    ctx.preview.appendChild(wrap);
+    // Exemplo e legenda entram pelo Slot antes de conectar: trocar o exemplo recria o card
+    function build(){
+      wrap.innerHTML = "";
+      var kids = [];
+      if (st.example) kids.push(kit.el("div", { slot: "example" }, [kit.el("cds-main-button", { label: "Salvar alterações", "show-lead-icon": "false", "show-trailing-icon": "false" })]));
+      kids.push(kit.el("span", { text: st.text }));
+      wrap.appendChild(kit.el("cmp-do-dont", { kind: st.kind, heading: st.heading || null }, kids));
+    }
+    build();
+    kit.hint(panel, "Composição do playground (prefixo cmp-): o bloco Do/Don't das docs, no padrão do Hub, só com tokens. Filhos com slot=\"example\" vão para a caixa do exemplo; o resto, para a legenda.");
+    kit.section(panel, "Variants");
+    kit.seg(panel, { label: "Kind", value: "do", options: [["do", "Do · Use"], ["dont", "Don't · Não use"], ["caution", "Caution · Use com cautela"]], onChange: function(v){ st.kind = v; wrap.firstChild.setAttribute("kind", v); } });
+    kit.section(panel, "Booleans");
+    kit.toggle(panel, { label: "Show Example", checked: true, onChange: function(on){ st.example = on; build(); } });
+    kit.section(panel, "Texts");
+    kit.text(panel, { label: "Heading", value: "", onInput: function(v){ st.heading = v; kit.attr(wrap.firstChild, "heading", v || null); } });
+    kit.text(panel, { label: "Text", value: st.text, onInput: function(v){ st.text = v; build(); } });
+  }
+});
+} catch (e) { console.error("[cds] compositions/do-dont/do-dont.playground.js", e); }
 
 /* ==== compositions/thumbnail/thumbnail.js ==== */
 try {

@@ -134,20 +134,9 @@
 .pg-doc-guide__text .pg-doc-h3{ margin:0; font:var(--text-style-body-bold); }
 @media (max-width:900px){ .pg-doc-guide{ grid-template-columns:minmax(0, 1fr); } }
 
-/* Do's and Don'ts — Use: Feedback/Positive/soft · Não use: Accent/Solid/soft · raio medium · Elevation/level 2 */
+/* Do's and Don'ts: cards = composição <cmp-do-dont> (compositions/do-dont); aqui só a grade */
 .pg-doc-dodont{ display:grid; grid-template-columns:repeat(auto-fit, minmax(min(calc(var(--common-sizes-200) + var(--common-sizes-104)), 100%), 1fr)); gap:var(--common-sizes-16); }
-.pg-doc-dd{
-  margin:0; display:flex; flex-direction:column; gap:var(--common-sizes-12);
-  padding:var(--common-sizes-16) var(--common-sizes-24);
-  border-radius:var(--common-border-radius-medium); box-shadow:var(--common-elevation-level-2);
-  background:var(--_dd-bg);
-}
-.pg-doc-dd--do{ --_dd-bg:var(--common-colors-feedback-positive-soft); }
-.pg-doc-dd--dont{ --_dd-bg:var(--common-colors-accent-solid-soft); }
-.pg-doc-dd--caution{ --_dd-bg:var(--common-colors-feedback-warning-soft); }
-.pg-doc-dd__box{ display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:var(--common-sizes-16); min-height:var(--common-sizes-200); padding:var(--common-sizes-16); background:var(--common-colors-surface-default); }
-.pg-doc-dd__text{ display:flex; flex-direction:column; gap:var(--common-sizes-8); font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
-.pg-doc-dd__text strong{ font:var(--text-style-body-bold); }
+.pg-doc-dd__ex{ display:contents; } /* o exemplo entra direto na caixa flex da composição */
 
 /* Tabela (Motion) */
 .pg-doc-table-wrap{ overflow-x:auto; }
@@ -516,9 +505,8 @@
 .pg-cnt-phone__title{ margin:0; font:var(--text-style-title-small); color:var(--common-colors-text-intense); }
 .pg-cnt-phone__text{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
 
-/* Do/Don't com título e passos */
-.pg-doc-dd__title{ font:var(--text-style-body-bold); color:var(--common-colors-text-intense); }
-.pg-doc-dd__text .pg-doc-list{ margin:0; }
+/* Do/Don't com passos */
+cmp-do-dont .pg-doc-list{ margin:0; }
 
 /* Paleta de ilustração (cores fora dos tokens Common/*; hex do Figma como dado) */
 .pg-doc-palette-wrap{ overflow-x:auto; padding-bottom:var(--common-sizes-4); }

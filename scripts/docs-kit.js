@@ -277,22 +277,21 @@
       });
       return g;
     },
+    // Do/Don't = composição <cmp-do-dont> (compositions/do-dont: o DS não tem esse bloco, C87)
     dodont: function(d, v){
       var g = el("div", "pg-doc-dodont");
       v.forEach(function(it){
-        var card = el("figure", "pg-doc-dd pg-doc-dd--" + it.kind);
+        var card = el("cmp-do-dont");
+        card.setAttribute("kind", it.kind);
+        if (it.title) card.setAttribute("heading", it.title);
         if (it.attrs){ // sem attrs: Do/Don't só de texto (ex.: regras de motion, cujas imagens são animações)
-          var box = el("div", "pg-doc-dd__box"), c = examples(d, it.attrs);
+          var ex = el("div", "pg-doc-dd__ex"), c = examples(d, it.attrs);
           if (it.style && c.setAttribute) c.setAttribute("style", it.style);
-          box.appendChild(c);
-          card.appendChild(box);
+          ex.setAttribute("slot", "example"); ex.appendChild(c);
+          card.appendChild(ex);
         }
-        var cap = el("figcaption", "pg-doc-dd__text");
-        cap.appendChild(el("strong", null, it.kind === "do" ? "Use" : it.kind === "caution" ? "Use com cautela" : "Não use"));
-        if (it.title) cap.appendChild(el("span", "pg-doc-dd__title", it.title));
-        cap.appendChild(rich(el("span"), it.text));
-        if (it.steps) cap.appendChild(list("ol", it.steps));
-        card.appendChild(cap);
+        card.appendChild(rich(el("span"), it.text)); // Slot: texto e passos vão para a legenda
+        if (it.steps) card.appendChild(list("ol", it.steps));
         g.appendChild(card);
       });
       return g;

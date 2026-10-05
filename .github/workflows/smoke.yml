@@ -5,7 +5,7 @@ name: Smoke
 
 on:
   push:
-    branches: [main, teste]
+    branches: [main, teste, 'rotina/**'] # rotina/**: a rotina diária sobe aqui, espera o check e só então avança a main protegida
   pull_request:
   workflow_dispatch:
 

@@ -7,7 +7,7 @@
  *     tag: "cds-credit-card-input",       // componente usado nos exemplos
  *     base: { label: "…" },               // atributos comuns a todos os exemplos
  *     source: "https://figma…",           // frame [Documentação] no Figma
- *     cover: { description, attrs | examples: [attrs…] | image, tall }   // opcional: capa acima das tabs (frame [Header])
+ *     cover: { description, attrs | examples: [attrs…] | image, tall, wide }   // opcional: capa acima das tabs (frame [Header])
  *     tabs: [{ id: "uso", title: "Uso", blocks: [ { h2: "Sobre" }, { p: "…" }, … ] }]
  *   };
  *
@@ -610,7 +610,7 @@
       root.appendChild(img); return;
     }
     // moldura interna = frame do Figma (Surface/default), não um componente: só tokens
-    var frame = el("div", "pg-cover__frame" + (cv.tall ? " is-tall" : ""));
+    var frame = el("div", "pg-cover__frame" + (cv.tall ? " is-tall" : "") + (cv.wide ? " is-wide" : "")); // wide: componente mais largo que a moldura (ex.: Drawer, 640)
     (cv.examples || [cv.attrs]).forEach(function(a){ frame.appendChild(example(doc, a, true)); }); // exemplos vivos
     root.appendChild(frame);
   };

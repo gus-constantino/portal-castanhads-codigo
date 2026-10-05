@@ -242,7 +242,7 @@
     else tag("neutral", "Mapa ainda não curado", "Por enquanto só o import, os valores do Code Connect e as props do React.");
     tag(it.via === "code-connect" ? "informative" : "neutral", it.via === "code-connect" ? "Casado pelo Code Connect" : "Casado pela story",
       it.via === "code-connect" ? "O node do Figma deste componente está no Code Connect do castanha-react (branch feat/figma-code-connect)." : "Casado pelo node do Figma da story no Storybook (ainda sem Code Connect).");
-    if (dir && dir.staging) tag("warning", "Só na staging", "Ainda não chegou na main do castanha-react.");
+    if (dir && dir.staging) tag("warning", "Só na staging", "Ainda não chegou na main do castanha-react nem no Storybook publicado.");
     (dir ? dir.tags : []).forEach(function(t){ if (/^(new|soon|deprecated|refactor)$/.test(t)) tag(t === "deprecated" ? "negative" : "accent", t); });
 
     // R2: saúde Figma × React (scripts/integration/check-stack.js) — etiqueta com o pior nível
@@ -340,7 +340,8 @@
     var lb = root.appendChild(el("div", "pg-react__useful"));
     lb.appendChild(el("h3", "pg-react__h3", "Links úteis"));
     var ul = lb.appendChild(el("ul", "pg-react__list"));
-    [[dir && dir.storybook, "Storybook", "doc e stories do componente no castanha-react"],
+    // o Storybook publicado (castanha-web, exige VPN) mostra a main: componente só na staging ainda não tem story lá
+    [[dir && !dir.staging && dir.storybook, "Storybook", "doc e stories do componente no castanha-react (precisa da VPN da Caju)"],
      [dir && dir.zeroheight, "Zeroheight", "especificações de UX"],
      [def.figma, "Figma", "componente no [CastanhaDS] Components"],
      ["#/relatorio/stack", "Saúde da stack", "check Figma × castanha-react × playground", true],

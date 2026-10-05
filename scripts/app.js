@@ -550,7 +550,7 @@
     head.mainTip.setAttribute("text", "Abre o componente no Figma, em outra aba." + branch);
     // R5: + Storybook do castanha-react e o zeroheight do .mdx oficial quando o playground não tem (integration/react-data.js)
     var rx = CDS.react && CDS.react.items[def.id], rdir = rx && rx.dir && CDS.react.dirs[rx.dir];
-    head.links([[def.issue, "GitHub · issue de melhoria"], [def.task && JIRA + def.task, "Jira · " + def.task], [def.zeroheight || (rdir && rdir.zeroheight), "Zeroheight"], [rdir && rdir.storybook, "Storybook (castanha-react)"]].filter(function(l){ return l[0]; }));
+    head.links([[def.issue, "GitHub · issue de melhoria"], [def.task && JIRA + def.task, "Jira · " + def.task], [def.zeroheight || (rdir && rdir.zeroheight), "Zeroheight"], [rdir && !rdir.staging && rdir.storybook, "Storybook (castanha-react)"]].filter(function(l){ return l[0]; }));
     readout("", false);
     kit.state.begin(panel);
     if (def.mount) def.mount({ preview: preview, panel: panel, kit: kit, readout: readout });

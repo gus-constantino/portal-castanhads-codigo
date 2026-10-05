@@ -23,6 +23,7 @@ const EXCEPTIONS = [
   { file: /styles\/docs\.css$/, re: /--pg-cover-bg:#f7f3ed/, why: "fundo decorativo da capa = hex do [Header] do Figma, sem token (Gustavo, C91)" },
   { file: /scripts\/docs-kit\.js$/, re: /el\("(button)", "pg-doc-icons__tile/, why: "tile de galeria clicável (C87)" },
   { file: /scripts\/docs-kit\.js$/, re: /el\("button", "pg-doc-icons__tile/, why: "tile de galeria clicável (C87)" },
+  { file: /scripts\/docs-kit\.js$/, re: /el\("button", "pg-doc-palette__sw/, why: "amostra da paleta de ilustração, copia o hex (C87 · C110)" },
   { file: /scripts\/tokens-kit\.js$/, re: /el\("button", "pg-tok-tile/, why: "tile do mostruário de tokens, copia a variável (C87)" },
   { file: /scripts\/report\.js$/, re: /el\(d\.href \? "a" : "div", "rp-bar"\)/, why: "linha de gráfico clicável (C87)" },
 ];

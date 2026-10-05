@@ -32,10 +32,10 @@ Tudo com componentes e tokens do DS; exemplos visuais com as ilustrações e com
 
 | Fase | Escopo | Tamanho |
 |---|---|---|
-| H0 | Início (Castanha Hub) | pequeno |
-| H1 | Motion: pilares + Velocidade (uso das curvas e durações) + regras; CONFERIR das divergências | médio |
-| H2 | Conteúdo → Princípios de escrita ([NEW]) | médio |
-| H3 | Ilustração: princípios (após conferir no Chrome) + Painel semântico + Guidelines + Aplicações + Do's & Don'ts | grande |
+| H0 | Início (Castanha Hub) — **feito** | pequeno |
+| H1 | Motion: pilares + Velocidade (uso das curvas e durações) + regras; CONFERIR das divergências — **feito** (D84) | médio |
+| H2 | Conteúdo → Princípios de escrita ([NEW]) — **feito** (D85) | médio |
+| H3 | Ilustração: princípios + Painel semântico + Guidelines + Aplicações + Do's & Don'ts — **feito** como tab "Guia de ilustração" (D86) | grande |
 | Depois | Restante do [NEW] Content; Motion · Transições quando ficar estável | a decidir |
 
 ## 4. Limitações

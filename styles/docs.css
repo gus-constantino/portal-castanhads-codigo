@@ -502,3 +502,41 @@
 .pg-cnt-phone__ill{ width:var(--common-sizes-120); height:var(--common-sizes-120); align-self:center; }
 .pg-cnt-phone__title{ margin:0; font:var(--text-style-title-small); color:var(--common-colors-text-intense); }
 .pg-cnt-phone__text{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+
+/* Do/Don't com título e passos */
+.pg-doc-dd__title{ font:var(--text-style-body-bold); color:var(--common-colors-text-intense); }
+.pg-doc-dd__text .pg-doc-list{ margin:0; }
+
+/* Paleta de ilustração (cores fora dos tokens Common/*; hex do Figma como dado) */
+.pg-doc-palette-wrap{ overflow-x:auto; padding-bottom:var(--common-sizes-4); }
+.pg-doc-palette{ display:grid; grid-template-columns:var(--common-sizes-88) repeat(var(--_cols), minmax(var(--common-sizes-72), 1fr)); gap:var(--common-sizes-4); min-width:min-content; }
+.pg-doc-palette__corner, .pg-doc-palette__name, .pg-doc-palette__step{ font:var(--text-style-caption-bold); color:var(--common-colors-text-medium); text-transform:capitalize; }
+.pg-doc-palette__name{ align-self:end; padding-bottom:var(--common-sizes-4); }
+.pg-doc-palette__corner{ align-self:end; padding-bottom:var(--common-sizes-4); text-transform:none; font:var(--text-style-caption-regular); }
+.pg-doc-palette__step{ display:flex; flex-direction:column; justify-content:center; }
+.pg-doc-palette__step small{ font:var(--text-style-caption-regular); text-transform:none; }
+.pg-doc-palette__sw{ display:flex; align-items:flex-end; min-height:var(--common-sizes-56); padding:var(--common-sizes-4) var(--common-sizes-6); border:var(--common-border-width-thin) solid var(--common-colors-border-soft);
+  border-radius:var(--common-border-radius-small); cursor:pointer; transition:transform var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
+.pg-doc-palette__sw:hover{ transform:translateY(calc(-1 * var(--common-sizes-2))); }
+.pg-doc-palette__sw:focus-visible{ outline:var(--common-border-width-thick) solid var(--common-colors-border-intense); outline-offset:var(--common-sizes-2); }
+.pg-doc-palette__hex{ padding:0 var(--common-sizes-4); border-radius:var(--common-border-radius-small); background:var(--common-colors-surface-default); font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-intense); }
+
+/* Simulação de condições visuais */
+.pg-doc-sim{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:var(--common-sizes-16); max-width:calc(var(--common-sizes-200) * 3); } /* 3×3 como no Figma */
+.pg-doc-sim__defs{ position:absolute; width:0; height:0; overflow:hidden; }
+.pg-doc-sim__item{ margin:0; display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-8); font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+.pg-doc-sim__box{ position:relative; display:flex; justify-content:center; width:100%; padding:var(--common-sizes-16); border-radius:var(--common-border-radius-medium); background:var(--common-colors-surface-01); }
+.pg-doc-sim__img{ width:var(--common-sizes-120); max-width:100%; height:auto; aspect-ratio:1; }
+.pg-doc-sim__box.is-double .pg-doc-sim__img + .pg-doc-sim__img{ position:absolute; top:var(--common-sizes-16); left:50%; transform:translateX(calc(-50% + var(--common-sizes-8))); opacity:var(--common-opacity-medium); }
+
+/* Telas de exemplo: tamanhos de ilustração (Sm 80 · Md 144 · Lg 200), alinhamento à esquerda e ações extras */
+.pg-cnt-phone__ill--sm{ width:var(--common-sizes-80); height:var(--common-sizes-80); }
+.pg-cnt-phone__ill--md{ width:calc(var(--common-sizes-120) + var(--common-sizes-24)); height:calc(var(--common-sizes-120) + var(--common-sizes-24)); }
+.pg-cnt-phone__ill--lg{ width:var(--common-sizes-200); height:var(--common-sizes-200); }
+.pg-cnt-phone--start .pg-cnt-phone__ill{ align-self:flex-start; }
+.pg-cnt-phone--center .pg-cnt-phone__title, .pg-cnt-phone--center .pg-cnt-phone__text{ text-align:center; }
+.pg-cnt-phone__actions{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+.pg-cnt-phone--hero{ background:var(--common-colors-surface-01); }
+.pg-cnt-phone--hero .pg-cnt-phone__body{ padding:0; gap:0; }
+.pg-cnt-phone__hero{ width:100%; height:auto; display:block; }
+.pg-cnt-phone__cta{ display:block; width:100%; margin-top:var(--common-sizes-8); }

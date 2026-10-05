@@ -21,9 +21,11 @@
  *   props: [{ name, type, icon, nested: [{ name, type, values }] }]
  *   specimens: { title, min, items: [{ label, attrs }] }   min = largura mínima da coluna
  *   guides: [{ attrs, title, text }]
- *   dodont: [{ kind: "do"|"dont", attrs, text, style }]
+ *   dodont: [{ kind: "do"|"dont", attrs, title, text, steps, style }]   sem attrs: só texto · steps: lista numerada
  *   table: { head: [...], rows: [[...]] }
- *   shortcuts: [{ title, text, href, cta, illustration, external }]   atalhos em Cards (capa do Castanha Hub)
+ *   shortcuts: [{ title, text, href, cta, illustration, external }]   atalhos em Cards (capa do Castanha Hub); sem href, card só informativo
+ *   palette: { label, names: [...], steps: [...], hex: [[hex por passo] por cor], notes: { passo: "nota" } }   paleta fora dos tokens (ilustração)
+ *   simulate: { illustration, matrices: { id: "feColorMatrix" }, items: [{ label, matrix | filter, double }] }   condições visuais sobre uma ilustração
  *   specs: [{ title, rows: [[rótulo, valor], …] }]   cards de ficha técnica (ex.: Motion Style por interação)
  *   iconGallery: { only }              galeria do [Caju] Icons por categoria, com busca por nome e palavra-chave; only: "deprecated" mostra só os deprecated
  *   illustrationGallery: {}             galeria do [Caju] Illustrations por categoria (imagens com lazy load), busca por nome, categoria e description
@@ -281,7 +283,9 @@
         }
         var cap = el("figcaption", "pg-doc-dd__text");
         cap.appendChild(el("strong", null, it.kind === "do" ? "Use" : it.kind === "caution" ? "Use com cautela" : "Não use"));
+        if (it.title) cap.appendChild(el("span", "pg-doc-dd__title", it.title));
         cap.appendChild(rich(el("span"), it.text));
+        if (it.steps) cap.appendChild(list("ol", it.steps));
         card.appendChild(cap);
         g.appendChild(card);
       });
@@ -455,9 +459,57 @@
         if (it.illustration && ills[it.illustration]){ var im = el("img", "pg-doc-shortcut__img"); im.alt = ""; im.loading = "lazy"; im.src = ills[it.illustration]; c.appendChild(im); }
         c.appendChild(el("h3", "pg-doc-h4", it.title));
         if (it.text) c.appendChild(rich(el("p", "pg-doc-p"), it.text));
-        var l = el("cds-link", "pg-doc-shortcut__link"); l.setAttribute("label", it.cta || "Abrir"); l.setAttribute("href", it.href); l.setAttribute("appearance", "accent");
-        if (it.external){ l.setAttribute("target", "_blank"); l.setAttribute("icon", "link-line"); }
-        c.appendChild(l); g.appendChild(c);
+        if (it.href){ // sem href: card só informativo (ex.: categorias de ilustração)
+          var l = el("cds-link", "pg-doc-shortcut__link"); l.setAttribute("label", it.cta || "Abrir"); l.setAttribute("href", it.href); l.setAttribute("appearance", "accent");
+          if (it.external){ l.setAttribute("target", "_blank"); l.setAttribute("icon", "link-line"); }
+          c.appendChild(l);
+        }
+        g.appendChild(c);
+      });
+      return g;
+    },
+    // Paleta fora dos tokens Common/* (ex.: cores exclusivas das ilustrações): linhas = passos, colunas = cores.
+    // Os hex vêm do Figma como dado (não são tokens de UI); clique copia o hex.
+    palette: function(d, v){
+      var wrap = el("div", "pg-doc-palette-wrap"), g = el("div", "pg-doc-palette");
+      g.style.setProperty("--_cols", v.names.length);
+      g.appendChild(el("span", "pg-doc-palette__corner", v.label || ""));
+      v.names.forEach(function(n){ g.appendChild(el("span", "pg-doc-palette__name", n)); });
+      v.steps.forEach(function(st, r){
+        var head = el("span", "pg-doc-palette__step", String(st));
+        if (v.notes && v.notes[st]) head.appendChild(el("small", null, v.notes[st]));
+        g.appendChild(head);
+        v.names.forEach(function(n, c){
+          var hex = "#" + v.hex[c][r], b = el("button", "pg-doc-palette__sw");
+          b.type = "button"; b.style.background = hex; b.setAttribute("aria-label", n + " " + st + " · " + hex);
+          b.appendChild(el("span", "pg-doc-palette__hex", hex.toUpperCase()));
+          b.addEventListener("click", function(){ if (navigator.clipboard) navigator.clipboard.writeText(hex.toUpperCase()); if (CDS.docToast) CDS.docToast(hex.toUpperCase() + " copiado"); });
+          g.appendChild(b);
+        });
+      });
+      wrap.appendChild(g);
+      return wrap;
+    },
+    // Simulação de condições visuais sobre uma ilustração da biblioteca (filtros SVG/CSS; aproximação)
+    simulate: function(d, v){
+      var NS = "http://www.w3.org/2000/svg", g = el("div", "pg-doc-sim"), ills = {};
+      ((window.CDS.assets || {}).illustrations || []).forEach(function(i){ ills[i.name] = i.src; });
+      var svg = document.createElementNS(NS, "svg"); svg.setAttribute("class", "pg-doc-sim__defs"); svg.setAttribute("aria-hidden", "true");
+      var defs = svg.appendChild(document.createElementNS(NS, "defs"));
+      Object.keys(v.matrices || {}).forEach(function(id){
+        var f = defs.appendChild(document.createElementNS(NS, "filter")); f.setAttribute("id", "pg-sim-" + id);
+        var m = f.appendChild(document.createElementNS(NS, "feColorMatrix")); m.setAttribute("type", "matrix"); m.setAttribute("values", v.matrices[id]);
+      });
+      g.appendChild(svg);
+      v.items.forEach(function(it){
+        var f = el("figure", "pg-doc-sim__item"), box = el("div", "pg-doc-sim__box" + (it.double ? " is-double" : ""));
+        [0, 1].slice(0, it.double ? 2 : 1).forEach(function(){
+          var im = el("img", "pg-doc-sim__img"); im.alt = ""; im.loading = "lazy"; im.src = ills[v.illustration] || "";
+          im.style.filter = it.matrix ? "url(#pg-sim-" + it.matrix + ")" : (it.filter || "none");
+          box.appendChild(im);
+        });
+        f.appendChild(box); f.appendChild(el("figcaption", null, it.label));
+        g.appendChild(f);
       });
       return g;
     },

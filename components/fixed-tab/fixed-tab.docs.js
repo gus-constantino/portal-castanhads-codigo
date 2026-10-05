@@ -133,7 +133,7 @@
         ] },
         { h3: "Como pedir ajuda ao Borô" },
         { p: "Ao solicitar novos nomes ou revisão de tabs, sempre forneça o contexto da arquitetura e uma descrição funcional da área." },
-        { code: "A tab está localizada em [caminho da navegação]. Nesta área é possível: ]liste ações e visualizações disponíveis]." },
+        { code: "A tab está localizada em [caminho da navegação]. Nesta área é possível: [liste ações e visualizações disponíveis]." },
         { p: "Exemplo: A tab está localizada no Portal para empresas em Despesas → Adiantamentos. Nesta área a pessoa encontra o saldo disponível de cada colaborador e o número de adiantamentos. Também é possível adicionar ou resgatar saldo individualmente. Não é possível criar novos adiantamentos ou adicionar colaboradores." },
         { h3: "Do's and Don'ts" },
         { dodont: [
@@ -141,7 +141,7 @@
           { kind: "dont", text: "Não utilize as Tabs como filtros. Caso precise adicionar um mecanismo de filtragem, reveja a experiência e opte por outro componente." },
           { kind: "do", attrs: tabs(["Painel de premiações", "Pedidos por colaborador", "Pedidos por identificador", "Extrato de colaboradores", "Saldo dos colaboradores"]), text: "O usuário deve conseguir prever o conteúdo antes de clicar." },
           { kind: "dont", attrs: tabs(["Dashboard", "Pedidos por colaborador", "Pedidos por identificador", "Extrato de colaboradores", "Saldo dos colaboradores"]), text: "Termos genéricos e estrangeiros." }
-        ] },,
+        ] },
         { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Tabs. Regras de escrita do time de Content; os exemplos usam componentes do DS com os mesmos textos." }
       ] }
     ]

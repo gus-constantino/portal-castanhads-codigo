@@ -200,7 +200,7 @@
           ["Voltar", "Retorna a uma etapa anterior sem sair do fluxo. Exceção: use \"Voltar\" em vez de \"Continuar editando\" quando o contexto não for coerente com edição."],
           ["[Apenas Sponsor] Voltar para [Nome da área]", "Telas de finalização (sucesso ou erro). Leva de volta a uma área principal após concluir ou falhar um fluxo. Nome da área sempre com letra maiúscula."],
           ["[Apenas Employee] Fechar", "Telas de finalização (sucesso ou erro). Leva de volta a uma área principal após concluir ou falhar um fluxo."]
-        ] } },,
+        ] } },
         { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Botões. Regras de escrita do time de Content; os exemplos usam componentes do DS com os mesmos textos." }
       ] }
     ]

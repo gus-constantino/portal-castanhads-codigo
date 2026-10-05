@@ -142,7 +142,7 @@
           ],
           C: [
             ["Cadastro", "Etapa de cadastro no app feita pela pessoa colaboradora.", "\"ativar conta\"."],
-            ["Cartão físico / Cartão Caju / Cartão do Colaborador", "Nome do cartão físico de Multibenefícios e Despesas para colaboradores. Use ”Cartão do Colaborador” apenas no contexto de Sponsor app. Não deve aparecer em employee.", "\"plástico\" ou \"Cajuzinho\" — reservados para comunicações de marketing."],
+            ["Cartão físico / Cartão Caju / Cartão do Colaborador", "Nome do cartão físico de Multibenefícios e Despesas para colaboradores. Use “Cartão do Colaborador” apenas no contexto de Sponsor app. Não deve aparecer em employee.", "\"plástico\" ou \"Cajuzinho\" — reservados para comunicações de marketing."],
             ["Cartão virtual", "Sempre especifique se o cartão virtual é de Despesas ou de Benefícios."],
             ["Carteiras", "\"Bolsões\" de saldo. Hoje temos duas: Benefícios e Despesas. Para usar o saldo de uma carteira, ela precisa estar selecionada no app."],
             ["Carteiras digitais / wallets", "Apps como Samsung Wallet, Google Pay e Apple Pay, onde é possível adicionar o cartão virtual da Caju para pagamentos pelo celular.", "\"carteiras\" sozinho — pode confundir com as carteiras de Benefícios e Despesas."],
@@ -190,7 +190,7 @@
             ["Resgate de saldo", "Ação no Portal para empresas que permite retirar o saldo depositado de uma pessoa colaboradora. Acontece em casos de contestação negada, expiração de adiantamento ou colaborador desligado."]
           ],
           S: [
-            ["Saldo Livre", "Categoria que permite compras em qualquer loja, pagamento de boletos e saque. Volta como opção para depósito, simplificando o fluxo para empresas que não precisam de Pix. A empresa deposita o saldoe a pessoa colaboradora usa no cartão dentro de MCCs mais amplos. O Saldo Livre está disponível como opção, mas não deve ser incentivado ativamente nas comunicações."],
+            ["Saldo Livre", "Categoria que permite compras em qualquer loja, pagamento de boletos e saque. Volta como opção para depósito, simplificando o fluxo para empresas que não precisam de Pix. A empresa deposita o saldo e a pessoa colaboradora usa no cartão dentro de MCCs mais amplos. O Saldo Livre está disponível como opção, mas não deve ser incentivado ativamente nas comunicações."],
             ["Saldo Multi", "Categoria que reúne todas as categorias de benefícios em uma só. A empresa deposita saldo sem precisar distribuir entre categorias específicas. O Saldo Multi continua disponível, mas não deve ser incentivado ativamente nas comunicações."],
             ["Saúde", "Categoria de benefícios para compras em farmácias, exames médicos e apps de bem-estar (Zenklub, Headspace, Calm)."],
             ["Selfie", "Não use o termo sozinho. Sempre peça uma foto do rosto (selfie), com o termo em inglês entre parênteses."],
@@ -398,7 +398,7 @@
         { h2: "Códigos e dados pessoais" },
         { p: "Nesta seção, você consulta como formatar alguns dados. Para regras de mascaramento, consulte Mascaramento e omissão de dados." },
         { table: { wrap: true, head: ["Dado", "Como apresentar"], rows: [
-          ["Cartões", "O cartão tem xx dígitos numéricos. Apresente em blocos de"],
+          ["Cartões", "O cartão tem 16 dígitos numéricos. Apresente em blocos de 4 números separados por espaço: `1234 5678 9012 3456`."],
           ["Código de ativação", "Apresente em blocos de 4 números separados por espaço."],
           ["Código de autenticação", "Códigos de 6 dígitos. Apresente todos os números seguidos, sem espaçamento."],
           ["Senha do cartão", "Senha de 4 números. Apresente todos os números seguidos, sem espaçamento."],
@@ -407,7 +407,7 @@
         { h3: "Aplicações" },
         { table: { wrap: true, head: ["Exemplo", "Onde"], rows: [
           ["`Informe o código de autenticação: 123456`", "Código de autenticação"],
-          ["`Seu código de ativação é: 123 456 789 101 112`", "Código de ativação"],
+          ["`Seu código de ativação é: 1234 5678 9012 3456`", "Código de ativação"],
           ["`(99) 9 9999-9999`", "Celular"]
         ] } },
 
@@ -458,7 +458,7 @@
           ["CPF", "De acordo com o BACEN, mostre os 6 números do meio — `•••.456.789-••`"],
           ["Números do cartão", "Mostre apenas os 4 últimos números — `•••• •••• •••• 1234`"],
           ["Celular", "Não precisa mascarar"],
-          ["E-mail", "Mostre apenas o provedor (gmail) e a 1ª e as 2 últimas letras do e-mail - `j•••••••••sd@gmai.com`"],
+          ["E-mail", "Mostre apenas o provedor (gmail) e a 1ª e as 2 últimas letras do e-mail - `j•••••••••sd@gmail.com`"],
           ["Push notification", "`Pix de R$ 1.000,00 para Juca Castanha •••.456.789-•• enviado.`"]
         ] } },
 
@@ -474,7 +474,7 @@
         { h3: "Tarifas" },
         { ul: [
           "Use sempre a palavra \"tarifa\" — nunca \"taxa\".",
-          "Quando não houver tarifa, use ”Sem tarifa” ou ”Isento de tarifa”."
+          "Quando não houver tarifa, use “Sem tarifa” ou “Isento de tarifa”."
         ] },
         { note: "Fonte: Figma · 📁 [NEW] Content → Formatação de dados (Regras universais, Valores monetários e moedas, Códigos e dados pessoais, Datas e horários, Quantidades e unidades, Mascaramento e omissão de dados, Porcentagens e tarifas). Exemplos em `código`, como no Figma (C113)." }
       ] }
@@ -508,7 +508,7 @@
           { kind: "do", attrs: screen("notificacoes/error", "Cartão não adicionado", "Não foi possível adicionar seu cartão. Você também pode tentar diretamente pelo app da carteira digital.", "Tentar de novo", "Acessar carteira digital"),
             text: "O título cumpre a função de informar exatamente o que aconteceu, enquanto a descrição foca em como resolver. Além de usar um tom acolhedor e empático." },
           { kind: "dont", attrs: screen("notificacoes/error", "Algo deu errado", "Não foi possível adicionar seu cartão na carteira digital no momento."),
-            text: "Não explicamos o erro e não damos um caminho para resolução, tudo isso com um tom ”robotizado” e nada amigável." },
+            text: "Não explicamos o erro e não damos um caminho para resolução, tudo isso com um tom “robotizado” e nada amigável." },
           { kind: "do", attrs: screen("notificacoes/error", "Parece que você está sem internet", "Confira sua conexão de internet e tente de novo.", "Recarregar"),
             text: "Por mais a falha seja do usuário (está sem internet), usamos termos não-acusatórios: parece, confira." },
           { kind: "dont", attrs: screen("notificacoes/error", "Ops, você está offline", "Sua conexão está meio preguiçosa e não é possível carregar a tela agora.", "Recarregar"),
@@ -531,7 +531,7 @@
         ] },
         { dodont: [
           { kind: "do", attrs: screen("notificacoes/alert", "Pix temporariamente fora do ar", "Enquanto resolvemos, você pode pagar com o cartão virtual ou boleto. Podemos te avisar aqui no app assim que normalizar.", "Quero ser avisado", "Fechar"),
-            text: "Tom colaborativo (”estamos”) + alternativa de solução + estimativa de prazo de resolução + canal de notificação" },
+            text: "Tom colaborativo (“estamos”) + alternativa de solução + estimativa de prazo de resolução + canal de notificação" },
           { kind: "dont", attrs: screen("notificacoes/alert", "Pix indisponível", "Estamos passando por uma instabilidade no sistema e não é possível fazer pagamentos via Pix no momento.", "Fechar"),
             text: "Uso de termos complexos, sem solução ou prazo e tom robotizado." }
         ] },
@@ -553,8 +553,8 @@
         ] } },
         { dodont: [
           { kind: "do", attrs: screen("notificacoes/success", "Tudo pronto com seu cartão físico!", "Use a senha de 4 números que você acabou de criar para pagar na maquininha. Quer mais praticidade? Adicione o virtual nas carteiras digitais e pague por aproximação.", "Acessar cartão físico", "Criar cartão virtual"),
-            text: "Esse é um momento ”WOW”, se possível use uma ilustração diferente e sempre dê informações contextuais sobre a ação realizada." },
-          { kind: "dont", attrs: screen("notificacoes/success", "Feito!", "Seu cartão físico foi ativado com sucesso e você já por aproveitar seus benefícios.", "Acessar cartão físico", "Criar cartão virtual"),
+            text: "Esse é um momento “WOW”, se possível use uma ilustração diferente e sempre dê informações contextuais sobre a ação realizada." },
+          { kind: "dont", attrs: screen("notificacoes/success", "Feito!", "Seu cartão físico foi ativado com sucesso e você já pode aproveitar seus benefícios.", "Acessar cartão físico", "Criar cartão virtual"),
             text: "Não explicamos como usar e deixamos os CTAs sem contexto. Além de um título genérico, perdemos a chance de celebrar esse momento." }
         ] },
         { h3: "Empty state" },
@@ -634,13 +634,13 @@
         ] },
         { h3: "Botões padronizados" },
         { table: { wrap: true, head: ["Label", "Quando usar", "Não use"], rows: [
-          ["Começar", "Inicia o tour guiado — exclusivo para a primeira tela.", "”iniciar” ou ”explorar”"],
-          ["Continuar", "Avança para a próxima etapa — use a partir da segunda tela, nunca na última.", "”Avançar” ou ”Próximo”"],
-          ["Voltar", "Retorna para a etapa anterior.", "”Anterior”"],
-          ["Fechar", "Encerra o tour quando há apenas uma etapa.", "”Encerrar\", “Entendi”, ”Finalizar\""],
-          ["Concluir", "Encerra o tour quando há mais de uma etapa.", "”Encerrar\", “Entendi”, ”Finalizar\""],
-          ["Quero saber mais", "Leva para outra página com mais detalhes ou FAQ.", "”Saber mais”, ”Saiba mais”"],
-          ["Me lembrar mais tarde", "Pula o tour, que voltará a aparecer até ser concluído.", "”Ver depois”, ”Agora não”, ”Pular”, “Ignorar\""],
+          ["Começar", "Inicia o tour guiado — exclusivo para a primeira tela.", "“iniciar” ou “explorar”"],
+          ["Continuar", "Avança para a próxima etapa — use a partir da segunda tela, nunca na última.", "“Avançar” ou “Próximo”"],
+          ["Voltar", "Retorna para a etapa anterior.", "“Anterior”"],
+          ["Fechar", "Encerra o tour quando há apenas uma etapa.", "“Encerrar”, “Entendi”, “Finalizar”"],
+          ["Concluir", "Encerra o tour quando há mais de uma etapa.", "“Encerrar”, “Entendi”, “Finalizar”"],
+          ["Quero saber mais", "Leva para outra página com mais detalhes ou FAQ.", "“Saber mais”, “Saiba mais”"],
+          ["Me lembrar mais tarde", "Pula o tour, que voltará a aparecer até ser concluído.", "“Ver depois”, “Agora não”, “Pular”, “Ignorar”"],
           ["Não mostrar novamente", "Pula o tour definitivamente e não volta a aparecer.", "—"]
         ] } },
 
@@ -658,7 +658,7 @@
           "Crítico e com bloqueio: não é uma punição e tem maneiras de resolver."
         ] },
         { steps: [
-          { title: "Nível 1: Aviso inicial", text: "Tom leve e informativo. Foque no valor da proteção, ainda não é hora de falar em prazo ou consequência.", list: [
+          { title: "Nível 1 — Aviso inicial", text: "Tom leve e informativo. Foque no valor da proteção, ainda não é hora de falar em prazo ou consequência.", list: [
             "Apresente a ação como um benefício, não uma obrigação.", "Não cite bloqueio ou limitação.", "Não use prazo rígido."
           ] },
           { title: "Nível 2 — Reforço com impacto", text: "Tom claro e mais imediato. Reforce o valor e introduza sutilmente que há uma etapa necessária.", list: [
@@ -691,7 +691,7 @@
         { h3: "Nível 3 · Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: sheetActions("Mais segurança para você", "Para aumentar a proteção do seu app, faça o reconhecimento facial até [DD/MM]. Sem essa etapa, seu app pode ficar temporariamente limitado.", "Aumentar proteção"),
-            text: "O prazo está destacado e a Ilustração remete a ação necessária: fazer reconhecimento facial." },
+            text: "O prazo está destacado e a ilustração remete à ação necessária: fazer reconhecimento facial." },
           { kind: "dont", attrs: sheetActions("Você tem até [DD/MM] para ativar!", "Após essa data, seu acesso será bloqueado permanentemente. Não deixe isso acontecer.", "Ativar agora"),
             text: "O prazo vira protagonista negativo em vez de referência informativa e o tom é de ameaça direta." }
         ] },
@@ -705,7 +705,7 @@
         { h3: "Nível 5 · Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: screen("seguranca/cadeado", "Protegemos seu acesso", "Sua segurança vem em primeiro lugar, autorize esse dispositivo para que apenas você acesse seu app!", "Fazer reconhecimento facial"),
-            text: "Aplicamos o nível máximo de ”punição”, mas o tom é acolhedor e o valor do bloqueio é a segurança do app." },
+            text: "Aplicamos o nível máximo de “punição”, mas o tom é acolhedor e o valor do bloqueio é a segurança do app." },
           { kind: "dont", attrs: screen("seguranca/cadeado", "Acesso limitado", "Você ainda não autorizou este dispositivo com reconhecimento facial. Faça isso agora mesmo para liberar o acesso ao app!", "Liberar acesso"),
             text: "Tom pouco acolhedor, culpando o usuário por não ter tomado a ação e agora ele foi punido." },
           { kind: "do", attrs: screen("seguranca/cadeado", "Limitamos seu acesso", "Sua conta está protegida por uma trava de segurança. Faça o reconhecimento facial para continuar aproveitando seu Caju.", "Liberar acesso"),
@@ -802,7 +802,7 @@
           ] },
           { title: "Título", text: "Resume o conteúdo do e-mail. É com ele que a pessoa decide se vai ler ou não.", list: [
             "Coloque a informação mais importante primeiro.", "Prefira frases positivas — reduzem a carga cognitiva.", "Nunca use \"com sucesso\".", "Não use emojis.", "Não use ponto final.",
-            "O nome da empresa só aparece no título se fizer parte do conteúdo — nunca como saudação. Exemplo: `As faturas do Grupo Boticário já estão disponíveis`"
+            "O nome da empresa só aparece no título se fizer parte do conteúdo — nunca como saudação. Exemplo: `As faturas da Juca Castanha Ltda. já estão disponíveis`"
           ] },
           { title: "Saudação", list: [
             "Evite usar variável de nome próprio ou nome da empresa na saudação — recomendação do jurídico. Essas variáveis podem aparecer no corpo do e-mail se forem relevantes para o contexto.",
@@ -816,7 +816,7 @@
           ] },
           { title: "CTA", list: ["Use apenas um CTA por e-mail. Sem botões secundários.", "Use os mesmos verbos e termos do corpo do e-mail e do fluxo no produto.", "Siga as regras de Botões."] },
           { title: "Call out", text: "Use ao final do e-mail para indicar ajuda extra sobre o tema. Use o template indicado nessa documentação. Fontes: Roboto - Regular - 14", after: "Exemplo: `Precisa de ajuda? Tire suas dúvidas na Central de ajuda ou Fale com a gente.`" },
-          { title: "Footer", text: "Sessão fixa — não altere o conteúdo. Para correções ou atualizações, entre em contato pelo canal #castanha-suporte." },
+          { title: "Footer", text: "Seção fixa — não altere o conteúdo. Para correções ou atualizações, entre em contato pelo canal #castanha-suporte." },
           { title: "Números", text: "Use para indicar senhas ou códigos enviados para a pessoa usuária.", after: "Exemplo: `1 2 3 4 5 6 7 8`" }
         ] },
         { h3: "Depois de escrever" },

@@ -14,7 +14,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | [Refactor](#refactor) | 38 |
 | [Naming](#naming) | 10 |
 | [Acessibilidade](#acessibilidade) | 7 |
-| [Documentação](#documentação) | 6 |
+| [Documentação](#documentação) | 8 |
 | [Integração React](#integração-react) | 9 |
 
 ## Ajuste de texto
@@ -164,6 +164,8 @@ Frames de documentação no Figma.
 | C153 | Scale (zeroheight, Fundação → Layout) · Anatomia | Texto: "unidade base de 4px, onde cada valor é múltiplo da unidade base, de 2 a 200px". A imagem "anatomia - scale" mostra 14 valores | `Common/Sizes` tem **26** valores, e 1, 2, 6 e 14 não são múltiplos de 4; faltam na imagem 0, 1, 6, 14, 28, 44, 56, 80, 92, 104, 120 e 160 | Playground (Caju - Tema → Tamanhos) gera a escala dos tokens reais e explica os valores finos | Corrigir o texto e trocar a imagem pela escala completa |
 | C154 | Scale (zeroheight) · texto e links | "com nossos**,** produtos", "ao utiliz**amos**", aspas misturadas em "soltos”"; link "consulte nossa FAQ" aponta para `zeroheight.com/…/p/76d532-faq` (domínio antigo; não há mais página de FAQ no Hub); bloco de specs mostra "Commom.Colors.Surface.default" e medidas do frame; página marcada "In progress" | Texto revisado e sem o link quebrado (ou FAQ recriada); esconder o bloco de specs do frame | Playground já usa o texto corrigido | Colar `docs/zeroheight/scale.md` no zeroheight (texto pronto e o que fazer com cada imagem) |
 | C157 | Treinamento: Como usar as Documentações? (zeroheight, Capacitações) | 7 tabs só com vídeo do Drive, sem texto; arquivos "[HOLD] Castanha DS_ Lançamento da nossa Documentação_…" (um com "recusos"); sem legenda nem transcrição; tab "Duvidas" sem acento; números e links de janeiro (20 de 62/64 componentes, Storybook 2.0 temporário, seções com nomes antigos) | Resumo em texto por tab, aviso de data, legendas, arquivos renomeados; decidir se regrava os trechos velhos | Playground: Recursos de suporte → Treinamento, com o resumo de cada tema (das Anotações do Gemini) e link para o vídeo | Colar `docs/zeroheight/treinamento.md`; renomear e legendar os vídeos no Drive |
+| C158 | Castanha Hub · capa (`/p/111e49`) e Changelog (`/p/327118`) | Capa: todos os atalhos no domínio antigo `zeroheight.com/…`; "Content" → Princípios de escrita (`108ccb`) e "Designers" → onboarding (`80dfb0`) levam a páginas que não existem mais. Changelog: 4 links caem na capa (Notificações `625967`, Princípios de escrita `108ccb`, Feedback pages `116ab2`, SMS `177b5e`) e o do Main Button abre o editor (`castanha.zeroheight.com/styleguide/…`) | Atalhos e links no domínio atual, apontando para as páginas de hoje; SMS sem página (tirar o link ou recriar) | Início do playground: o atalho "Designers" agora leva a Recursos de suporte → Treinamento | Colar `docs/zeroheight/sobre.md` (capa e Changelog) |
+| C159 | Princípios de Design (`/p/42fc2b`) · ícones | SVGs em `#DF3141` sobre `#F7F3ED`, fora dos tokens (o Accent do DS é `#E80537`) | Redesenhar os três ícones com os tokens do tema | Playground mostra os princípios em Cards do DS, sem os ícones | Trocar as três imagens no zeroheight |
 
 ## Integração React
 

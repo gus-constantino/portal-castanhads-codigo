@@ -442,7 +442,9 @@
 @media (max-width:760px){ .pg-tok-mstyle{ grid-template-columns:minmax(0, 1fr); } }
 
 @media (prefers-reduced-motion:reduce){
-  .pg-tok-tile, .pg-tok__sample, .pg-tok-run__fill, .pg-tok-ease__dot,   .pg-tok-tile:hover .pg-tok__sample{ transform:none; }
+  .pg-tok-tile, .pg-tok__sample, .pg-tok-run__fill, .pg-tok-ease__dot{ animation:none; transition:none; }
+  .pg-tok-tile:hover .pg-tok__sample, .pg-tok-tile:focus-visible .pg-tok__sample{ transform:none; }
+  .pg-tok-tile.pg-tok-chip{ transition:none; } /* o chip de cor cresce no hover sem animar */
 }
 
 /* Atalhos (capa do Castanha Hub · bloco shortcuts): Cards do DS com ilustração */

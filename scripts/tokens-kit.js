@@ -297,7 +297,7 @@
       var lab = s.appendChild(el("div", "pg-el-lab")), ctl = lab.appendChild(el("div", "pg-el-lab__ctl"));
       var stage = lab.appendChild(el("div", "pg-el-stage")), card = stage.appendChild(el("div", "pg-el-card"));
       card.appendChild(el("span", "pg-el-card__title")); card.appendChild(el("span", "pg-el-card__sub", "Card sobre Surface/01"));
-      var parts = ctl.appendChild(el("dl", "pg-el-parts"));
+      var partsHost = ctl.appendChild(el("cmp-definition-list", "pg-el-parts")), parts = partsHost.listEl; // composição <cmp-definition-list>
       function show(n){
         card.style.boxShadow = n ? "var(" + n + ")" : "none";
         card.dataset.level = n ? n.replace(/.*-/, "") : "0";
@@ -311,7 +311,7 @@
       }
       if (CDS.kit) CDS.kit.seg(ctl, { label: "Nível", value: lvl, options: [[null, "Nenhuma"]].concat(list.map(function(n){ return [n, label(n, "--common-elevation-")]; })),
         onChange: function(v){ show(v); } });
-      ctl.insertBefore(ctl.lastChild, parts); // chips antes da decomposição
+      ctl.insertBefore(ctl.lastChild, partsHost); // chips antes da decomposição
       var g = s.appendChild(el("div", "pg-el-row"));
       list.forEach(function(n){
         var t = g.appendChild(tile("pg-el-tile", n, null)); t.addEventListener("click", function(){ show(n); });
@@ -571,7 +571,7 @@
       if (isIcon){ var g = prev.appendChild(el("span", "cds-icon pg-ic-glyph is-big " + (it.cls || ""))); g.setAttribute("aria-hidden", "true"); /* o nome vem no título logo abaixo */ if (!it.cls){ var u = 'url("' + it.file + '")'; g.style.webkitMaskImage = u; g.style.maskImage = u; } }
       else { var im3 = prev.appendChild(el("img", "pg-ic-img is-big")); im3.alt = it.name; im3.src = it.src; }
       panel.appendChild(el("span", "pg-ic-panel__title", it.name));
-      var dl = panel.appendChild(el("dl", "pg-el-parts"));
+      var dl = panel.appendChild(el("cmp-definition-list", "pg-el-parts")).listEl;
       [["Categoria", it.catName], isIcon ? null : ["Figma", it.figma], isIcon ? null : ["Tamanho", it.size], it.deprecated ? ["Status", "Deprecated"] : null].filter(Boolean).forEach(function(r){ if (!r[1]) return; dl.appendChild(el("dt", null, r[0])); dl.appendChild(el("dd", null, r[1])); });
       if (it.description) panel.appendChild(el("p", "pg-doc-p", it.description));
       if (it.keywords.length){ var tags = panel.appendChild(el("div", "pg-ic-tags"));
@@ -592,7 +592,7 @@
           if (!isIcon && info[2]) rtag("warning", "Nome diferente no pacote");
           if (!isIcon && info[3]) rtag("informative", "Desenho difere do pacote");
           if (it.deprecated) rtag("neutral", "Deprecated no Figma");
-          var rdl = panel.appendChild(el("dl", "pg-el-parts"));
+          var rdl = panel.appendChild(el("cmp-definition-list", "pg-el-parts")).listEl;
           [["Lazy", react], ["Eager", "import { " + pascal + " } from '" + rx.pkg + "';"]].forEach(function(r){ rdl.appendChild(el("dt", null, r[0])); var dd = rdl.appendChild(el("dd")); dd.appendChild(el("code", "pg-tok__code", r[1])); });
           if (!isIcon && info[2]) panel.appendChild(el("p", "pg-doc-p", "No Figma: " + it.id + ". O pacote usa outro nome: " + rname + "."));
         }

@@ -299,7 +299,7 @@
       v.forEach(function(c){
         var card = el("cds-card", "pg-doc-spec"); card.setAttribute("has-border", "true"); // Card do DS
         card.appendChild(el("h3", "pg-doc-h4", c.title));
-        var dl = el("dl");
+        var host = el("cmp-definition-list"), dl = host.listEl; host.setAttribute("layout", "stacked"); // composição <cmp-definition-list>
         c.rows.forEach(function(r){
           dl.appendChild(el("dt", null, r[0]));
           var dd = dl.appendChild(rich(el("dd"), r[1]));
@@ -311,7 +311,7 @@
             if (dur) CDS.kit.lazyTip(code, dur + " · " + ease, { label: "Motion Style/" + code.textContent });
           });
         });
-        card.appendChild(dl);
+        card.appendChild(host);
         g.appendChild(card);
       });
       return g;

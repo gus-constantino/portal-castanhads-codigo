@@ -159,9 +159,7 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
 .pg-nested__title{ font:var(--text-style-caption-medium); }
 .pg-nested .pg-hint{ margin:0 0 var(--common-sizes-12); }
 .pg-nested .pg-choice{ margin-bottom:var(--common-sizes-12); }
-.pg-props{ display:grid; grid-template-columns:auto 1fr; gap:var(--common-sizes-8) var(--common-sizes-12); margin:0; }
-.pg-props dt{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
-.pg-props dd{ margin:0; text-align:right; font:var(--text-style-disclaimer-regular); font-family:var(--pg-mono); color:var(--common-colors-text-intense); word-break:break-all; }
+/* Props da instância: composição <cmp-definition-list> (compositions/definition-list) */
 
 
 

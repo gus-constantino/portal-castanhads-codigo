@@ -148,10 +148,7 @@
 /* Fichas (specs) — ex.: Motion Style por interação */
 .pg-doc-specs{ display:grid; grid-template-columns:repeat(auto-fit, minmax(min(calc(var(--common-sizes-200) + var(--common-sizes-40)), 100%), 1fr)); gap:var(--common-sizes-16); }
 .pg-doc-spec{ min-width:0; } /* Card do DS (Has Border) */
-.pg-doc-spec dl{ margin:0; display:flex; flex-direction:column; gap:var(--common-sizes-4); }
-.pg-doc-spec dd + dt{ margin-top:var(--common-sizes-8); }
-.pg-doc-spec dt{ font:var(--text-style-caption-medium); color:var(--common-colors-text-soft); }
-.pg-doc-spec dd{ margin:0; min-width:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+/* rótulo · valor da ficha = composição <cmp-definition-list layout="stacked"> */
 
 /* Toast do DS para "Copiado" — fixo no rodapé, centralizado */
 .pg-toast{ position:fixed; z-index:20; left:50%; bottom:var(--common-sizes-24); transform:translateX(-50%); }
@@ -291,8 +288,7 @@
 /* Elevação (Material/Polaris/Radix): palco + card que sobe; mini cards dos níveis */
 .pg-el-lab{ display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1.4fr); align-items:center; gap:var(--common-sizes-32); }
 .pg-el-lab__ctl{ display:flex; flex-direction:column; gap:var(--common-sizes-16); min-width:0; }
-.pg-el-parts{ margin:0; display:grid; grid-template-columns:auto minmax(0, 1fr); gap:var(--common-sizes-4) var(--common-sizes-12); align-items:center; font:var(--text-style-caption-regular); color:var(--common-colors-text-soft); }
-.pg-el-parts dd{ margin:0; }
+/* .pg-el-parts = composição <cmp-definition-list> (Caju Tema: elevação e detalhe de ícone/ilustração) */
 .pg-el-stage{ display:grid; place-items:center; min-height:calc(var(--common-sizes-200) + var(--common-sizes-40)); padding:var(--common-sizes-40) var(--common-sizes-24);
   border-radius:var(--common-border-radius-big); background:var(--common-colors-surface-01); }
 .pg-el-card{ display:flex; flex-direction:column; justify-content:flex-end; gap:var(--common-sizes-4); width:min(100%, calc(var(--common-sizes-200) + var(--common-sizes-80))); height:var(--common-sizes-160);

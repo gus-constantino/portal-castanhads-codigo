@@ -246,7 +246,8 @@
     if (o.note) box.appendChild(el("div", { "class": "pg-hint", html: o.note }));
     var picker = null, sel = 0;
     if (o.items){ picker = el("cds-chips-group", { kind: "filter", "role-kind": "multiple", label: "Instância", "class": "pg-choice" }); box.appendChild(picker); }
-    var dl = el("dl", { "class": "pg-props" });
+    // Props da instância = composição <cmp-definition-list> (rótulo · valor em mono, à direita)
+    var dl = el("cmp-definition-list", { "class": "pg-props", mono: "true", align: "end" });
     box.appendChild(dl);
     panel.appendChild(box);
     function refresh(){
@@ -263,11 +264,7 @@
         }
         Array.prototype.forEach.call(picker.children, function(b, i){ CDS.attr(b, "selected", i === sel); });
       }
-      dl.innerHTML = "";
-      o.props(sel).forEach(function(kv){
-        dl.appendChild(el("dt", { text: kv[0] }));
-        dl.appendChild(el("dd", { text: String(kv[1]) }));
-      });
+      dl.setItems(o.props(sel).map(function(kv){ return [kv[0], String(kv[1])]; }));
     }
     refresh();
     return refresh;

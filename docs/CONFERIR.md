@@ -15,6 +15,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | [Naming](#naming) | 10 |
 | [Acessibilidade](#acessibilidade) | 3 |
 | [Documentação](#documentação) | 3 |
+| [Integração React](#integração-react) | 3 |
 
 ## Ajuste de texto
 
@@ -154,6 +155,16 @@ Frames de documentação no Figma.
 | C12 | Doc do Credit Card · Estilos | Card "Is Active" usa `State=Disabled`; "Warning · Enabled" usa `State=Pressed` (frame 24931:8090) | Is Active e Enabled | Segue o Figma: specimens com as props do frame | Ajustar os dois `attrs` em `credit-card-input.docs.js` |
 | C13 | Docs (Credit Card e OTP) · Motion | Ilustração de empty state como placeholder | Demo de motion | **Exceção** (adaptação para web): exemplo interativo | Se o Figma ganhar uma demo, nada muda |
 | C78 | [Caju] Illustrations · descriptions | A description de Análise ("A ilustração de Anáise deve ser utilizada em contextos onde sistema de verificar informações…", com erro de digitação) foi copiada em 8 que não são de análise: `perguntas-frequentes`, `ampulheta`, `foguete`, `kit-medico`, `kit-onboarding`, `malas-viagem`, `mochila` e o próprio `analysis-low-detail`. A maioria das 237 não tem description | Description própria (uso + palavras-chave) em cada ilustração | Mostra a description como está (tooltip e busca da galeria) | Corrigir no Figma e reimportar |
+
+## Integração React
+
+Divergências entre o Figma e o castanha-react (staging + Code Connect), encontradas ao mapear a tradução "No React" (D89). O playground segue o Figma; o JSX gerado segue o React e a nota aparece na tabela Figma → React. Para levar ao time DS.
+
+| # | Componente | No Figma hoje | No castanha-react | No playground | Quando decidir |
+|---|---|---|---|---|---|
+| C112 | Checkbox Select Input | Seleção múltipla com checkbox; o campo mostra "N Selecionados" | Não há variante própria: o Code Connect gera o mesmo `<SelectInput mode="multi">` do Multi Select Input, e os valores aparecem como chips | Segue o Figma ("N Selecionados"); o JSX sai com `mode="multi"` e a nota da divergência | Se o React ganhar o modo "contador", atualizar `integration/prop-map/checkbox-select-input.json`; se o Figma passar a usar chips, o componente vira o Multi |
+| C113 | Radio Select Input | Escolha única **sem busca** (clique, Enter, Espaço ou seta abrem a lista) | Code Connect aponta para o `SelectInput` básico, que **sempre** filtra pelo texto digitado | Segue o Figma (sem busca); o JSX sai como `SelectInput` básico com a nota | Se o React ganhar uma prop para desligar a busca, incluir no mapa `radio-select-input.json` |
+| C114 | Async creatable Select Input | A opção de criar diz **Adicionar “…”** | O texto padrão é **Criar "…"** (`createOptionLabel`) | Segue o Figma ("Adicionar") | Alinhar o texto em um dos dois; se ficar "Adicionar", o React precisa trocar o padrão de `createOptionLabel` |
 
 ## Como usar esta lista
 

@@ -11,7 +11,7 @@ CDS.docs = CDS.docs || {};
   CDS.docs["modal"] = {
     tag: "cds-modal",
     source: "https://castanha.caju.com.br/858426090/v/latest/p/596323-modal", sourceLabel: "Abrir o Modal no zeroheight",
-    cover: { description: "O Modal é um componente de sobreposição que bloqueia a interface base para exibir conteúdos focados, como formulários, informações detalhadas ou confirmações. Ele exige atenção da pessoa usuária antes de retornar ao fluxo principal." },
+    cover: { description: "O Modal é um componente de sobreposição que bloqueia a interface base para exibir conteúdos focados, como formulários, informações detalhadas ou confirmações. Ele exige atenção da pessoa usuária antes de retornar ao fluxo principal.", examples: [modal("Alterar grupo", TEXT)] },
     tabs: [
       { id: "uso", title: "Uso", blocks: [
         { h2: "Sobre" },

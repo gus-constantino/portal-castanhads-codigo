@@ -10,7 +10,7 @@ CDS.docs = CDS.docs || {};
   CDS.docs["drawer"] = {
     tag: "cds-drawer",
     source: "https://castanha.caju.com.br/858426090/v/latest/p/0256b2-drawer", sourceLabel: "Abrir o Drawer no zeroheight",
-    cover: { description: "O Drawer é um painel lateral deslizante utilizado para expor conteúdos complementares ou etapas adicionais dentro de um fluxo principal, sem interromper a tela atual. Ele aparece sobreposto à interface e permite que a pessoa usuária mantenha o contexto enquanto realiza uma interação específica." },
+    cover: { description: "O Drawer é um painel lateral deslizante utilizado para expor conteúdos complementares ou etapas adicionais dentro de um fluxo principal, sem interromper a tela atual. Ele aparece sobreposto à interface e permite que a pessoa usuária mantenha o contexto enquanto realiza uma interação específica.", tall: true, wide: true, examples: [drawer("Novo centro de custo", FORM)] },
     tabs: [
       { id: "uso", title: "Uso", blocks: [
         { alert: { appearance: "informative", label: "Desktop-only", text: "No Figma, o Drawer só existe no Desktop: em Tablet e Mobile, o painel é substituído por um Viewport Restriction." } },

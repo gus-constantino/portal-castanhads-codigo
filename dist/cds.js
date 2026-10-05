@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 243 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 244 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.js ==== */
 try {
 /**
@@ -29,6 +29,88 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/backdrop/backdrop.playground.js", e); }
+
+/* ==== components/backdrop/backdrop.docs.js ==== */
+try {
+/* Documentação — Backdrop
+   Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Backdrop, 383013) reaproveitado; componente da lib estável (Backdrop 13784:3271, sem props
+   nem description); visual e comportamento do playground (o ::backdrop do <dialog> de Modal, Drawer e Bottom Sheet usa o mesmo visual). */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+(function(){
+  // Backdrop dentro de uma área posicionada, com conteúdo por baixo e (opcional) um elemento em foco por cima
+  function stage(top){
+    var kids = [
+      { _tag: "div", class: "pg-cnt-card", _children: [{ _tag: "h4", class: "pg-cnt-phone__title", _text: "Conteúdo da tela" }, { _tag: "p", class: "pg-cnt-phone__text", _text: "A interface por baixo continua visível, mas fica em segundo plano." }] },
+      { _tag: "cds-backdrop" }
+    ];
+    if (top) kids.push(top);
+    return { _tag: "div", class: "pg-doc-backdrop-stage", _children: kids };
+  }
+  var MODAL = { _tag: "cds-modal", inline: true, open: true, "text-title": "Excluir rascunho?", "primary-label": "Excluir rascunho", "secondary-label": "Cancelar", "show-lead-icon": "false", class: "pg-doc-backdrop-stage__top", _children: [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Essa ação não pode ser desfeita." }] };
+  CDS.docs["backdrop"] = {
+    tag: "cds-backdrop",
+    source: "https://castanha.caju.com.br/858426090/v/latest/p/383013-backdrop", sourceLabel: "Abrir o Backdrop no zeroheight",
+    cover: { description: "Backdrop é um componente de superfície utilizado para criar uma camada de bloqueio visual entre o conteúdo base da interface e elementos em primeiro plano, como modais e drawers.", examples: [Object.assign(stage(MODAL), { style: "width:calc(var(--common-sizes-200) * 2 + var(--common-sizes-120))" })] },
+    tabs: [
+      { id: "uso", title: "Uso", blocks: [
+        { h2: "Sobre" },
+        { p: "Backdrop é um componente de superfície utilizado para criar uma camada de bloqueio visual entre o conteúdo base da interface e elementos em primeiro plano, como modais e drawers." },
+        { h3: "Nomes alternativos comuns" },
+        { p: "Overlay, scrim, layer de bloqueio" },
+        { h2: "Quando usar" },
+        { p: "Utilize Backdrop sempre que um elemento em primeiro plano exigir foco exclusivo da pessoa usuária e bloquear temporariamente a interação com o restante da interface, como em fluxos críticos, decisões importantes ou conteúdos que precisam de atenção isolada. Os principais componentes que exigem o uso de Backdrop são: Modal ou Dialog, Drawer e Bottom sheet." },
+        { h3: "Utilize para:" },
+        { ul: ["Criar barreira visual entre fundo e conteúdo ativo", "Reduzir ruído visual da interface", "Reforçar foco em modais, drawers e similares", "Indicar bloqueio de interação no fundo"] },
+        { h3: "Não utilize para:" },
+        { ul: ["Apenas escurecer a interface sem mudança de estado", "Criar efeito visual decorativo", "Substituir hierarquia de layout", "Destacar elementos que não bloqueiam interação"] },
+        { alert: { appearance: "informative", label: "Nome na documentação", text: "O nome correto da camada é Backdrop. Overlay e scrim aparecem como nomes alternativos, mas não use \"Overlay\" na documentação nem nas interfaces." } },
+        { note: "Suporte: canal #castanha-suporte no Slack." }
+      ] },
+
+      { id: "anatomia", title: "Anatomia", blocks: [
+        { h2: "Anatomia" },
+        { display: { attrs: stage() } },
+        { p: "Uma camada única: `Surface/inversed` com opacidade `Common/Opacity/medium`, cobrindo toda a área interativa por baixo do elemento em foco." },
+        { h2: "Propriedades" },
+        { p: "O Backdrop não tem propriedades na lib: é um componente fixo." },
+        { note: "No código, `cds-backdrop` cobre o pai posicionado (`inset: 0`). Modal, Drawer e Bottom Sheet já trazem o mesmo visual no `::backdrop` do `<dialog>`: não é preciso colocar o componente à mão." }
+      ] },
+
+      { id: "estilos", title: "Estilos", blocks: [
+        { h2: "Com um elemento em foco" },
+        { display: { attrs: stage(MODAL) } },
+        { note: "O Backdrop fica acima do conteúdo base e abaixo do elemento em foco." }
+      ] },
+
+      { id: "acessibilidade", title: "Acessibilidade", blocks: [
+        { h2: "Leitor de tela" },
+        { ul: [
+          "O Backdrop é visual: o bloqueio de verdade vem do diálogo modal, que deixa o resto da página inerte.",
+          "Por isso, use o Backdrop junto com Modal, Drawer ou Bottom Sheet — sozinho, ele não impede o foco de chegar ao fundo.",
+          "Quando o componente permite, o clique no Backdrop fecha a camada; mantenha também o fechamento por botão e por Esc."
+        ] },
+        { h2: "Contraste" },
+        { p: "O conteúdo por baixo do Backdrop não precisa atender contraste: ele está temporariamente fora de interação." }
+      ] },
+
+      { id: "diretrizes", title: "Diretrizes", blocks: [
+        { h2: "Diretrizes de uso" },
+        { ol: [
+          "Uso do componente da biblioteca: utilize o componente Backdrop disponível na biblioteca do design system. Evite recriar manualmente.",
+          "Posicionamento na hierarquia: o backdrop deve estar acima do conteúdo base e abaixo do elemento em foco (ex: modal ou drawer). Certifique-se de que o backdrop cobre toda a área interativa.",
+          "Bloqueio para edição: recomenda-se bloquear o componente no Figma para evitar seleções acidentais durante a edição."
+        ] }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { h2: "Motion" },
+        { p: "O Backdrop entra e sai junto com o elemento em foco. Não há especificação de Motion própria na lib nem no zeroheight." }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/backdrop/backdrop.docs.js", e); }
 
 /* ==== components/badge/badge.js ==== */
 try {
@@ -10243,9 +10325,10 @@ CDS.register({
 
 /* ==== components/bottom-sheet/bottom-sheet.docs.js ==== */
 try {
-/* Documentação — bottom-sheet: tab Conteúdo (regras de texto)
-   Fonte: [CastanhaDS] Component use documentation · 📁 [NEW] Content → Componentes · frame [Componentes] Bottom sheet (6400:15668).
-   Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D98). */
+/* Documentação — Bottom Sheet
+   Fontes (PLANO-DOCS §5, 05/10): o zeroheight não tem página do componente (só a de regras de texto, já na tab Conteúdo); o texto de Uso,
+   Composição e Diretrizes vem da description do componente na lib estável (Bottom Sheet 20848:2679, texto do time); props e padrões do mesmo
+   componente; comportamento e acessibilidade do playground. Tab Conteúdo do [NEW] Content (6400:15668, D98). */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   // Bottom Sheet (inline) com título, texto e duas ações em Main Buttons sem ícone (o Footer do sheet não expõe o Lead Icon)
@@ -10259,10 +10342,88 @@ try {
       ] }
     ] };
   }
+  // Bottom Sheet inline numa moldura de tela (pg-cnt-phone), para mostrar a folha sobre o fundo
+  function sheet(attrs, kids){ return { _tag: "div", class: "pg-cnt-phone pg-cnt-phone--sheet", _children: [Object.assign({ _tag: "cds-bottom-sheet", inline: true, "text-title": "Title", "primary-label": "Confirmar", "secondary-label": "Cancelar", _children: kids || [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Conteúdo curto, rápido de ler e agir." }] }, attrs || {})] }; }
+  function confirm(app, icon, title, text){ return [{ _tag: "cds-confirmation-message", appearance: app, icon: icon, title: title, description: text }]; }
+  function opt(label, active){ return { _tag: "cds-selection-list-item", label: label, "show-description": false, "show-lead-item": false, "trailing-item": "radio-button", name: "ordem", "is-active": active ? true : null }; }
   CDS.docs["bottom-sheet"] = {
     tag: "cds-bottom-sheet",
-    source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=6400-15668", sourceLabel: "Abrir Bottom sheet em [NEW] Content no Figma",
+    source: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=20848-2679", sourceLabel: "Abrir o Bottom Sheet no Figma",
+    cover: { description: "Camada que surge da base da tela para apresentar conteúdo ou ações complementares sem tirar a pessoa do contexto. A tela de fundo continua visível.", tall: true, examples: [sheet({ "show-header": "false", "primary-label": "Sair sem salvar", "secondary-label": "Continuar editando" }, confirm("warning", "timer-line", "Sair sem salvar?", "As alterações feitas serão perdidas."))] },
     tabs: [
+      { id: "uso", title: "Uso", blocks: [
+        { alert: { appearance: "informative", label: "Mobile only", text: "Bottom Sheet é um componente mobile. Em desktop e tablet, use Modal ou Drawer." } },
+        { h2: "Sobre" },
+        { p: "Camada que surge da base da tela para apresentar conteúdo ou ações complementares sem tirar a pessoa do contexto. A tela de fundo continua visível. Use sempre sobre um Backdrop — no Castanha é ele que separa a camada da interface por baixo, e sem ele a folha não se distingue do fundo." },
+        { h2: "Quando usar" },
+        { h3: "Utilize para:" },
+        { ul: ["Ações a partir de um elemento da tela.", "Escolha entre poucas opções.", "Confirmações em que ver o fundo ajuda.", "Conteúdo complementar curto."] },
+        { h3: "Não utilize para:" },
+        { ul: ["Desktop e tablet — use Modal ou Drawer.", "Fluxos com várias etapas.", "Conteúdo extenso.", "Navegação principal.", "No lugar de uma página."] },
+        { h2: "Bottom Sheet vs Modal" },
+        { p: "Use o Bottom Sheet quando preservar o contexto da tela ajuda a decisão. Use o Modal quando a interrupção é o ponto." },
+        { note: "Texto da description do componente na lib. O zeroheight ainda não tem página do componente Bottom Sheet (só a de regras de texto, na tab Conteúdo). Suporte: canal #castanha-suporte no Slack." }
+      ] },
+
+      { id: "anatomia", title: "Anatomia", blocks: [
+        { h2: "Anatomia" },
+        { anatomy: {
+          attrs: sheet(),
+          markers: [{ n: 1, target: ".cds-sheet__handle", side: "right" }, { n: 2, target: "cds-header", side: "left" }, { n: 3, target: ".cds-overlay__slot", side: "left" }, { n: 4, target: "cds-footer", side: "left" }],
+          legend: ["Handle", "Header (opcional)", "Content · Slot (obrigatório)", "Footer (opcional)"]
+        } },
+        { h2: "Composição" },
+        { ul: [
+          "Handle: fixo na borda superior. Indica que a folha pode ser arrastada e dispensada. Não remova.",
+          "Header (opcional): título e botão de fechar. Escreva títulos curtos e diretos.",
+          "Content (obrigatório): monte o conteúdo no Slot. Use um componente do Castanha — texto, lista, seleção ou Confirmation Message. Se você criou uma composição própria, transforme em componente antes de inserir.",
+          "Footer (opcional): ação primária e secundária. Não altere a orientação nem a ordem dos botões."
+        ] },
+        { h2: "Propriedades" },
+        { props: [
+          { name: "Show Header", type: "Boolean", default: "true" },
+          { name: "Show Footer", type: "Boolean", default: "true" },
+          { name: "Slot", type: "Slot" }
+        ] },
+        { note: "Props e padrões lidos do componente Bottom Sheet da lib estável. No código: `text-title`, `show-close-button`, `primary-label`, `secondary-label`, `show-secondary-action-button` e `dismissible`. Raio 16 16 0 0; Footer em Pilled." }
+      ] },
+
+      { id: "estilos", title: "Estilos", blocks: [
+        { h2: "Padrões de composição" },
+        { specimens: { min: "calc(var(--common-sizes-200) + var(--common-sizes-120))", items: [
+          { label: "Default · texto no Slot", attrs: sheet() },
+          { label: "Confirmação · Confirmation Message", attrs: sheet({ "show-header": "false", "primary-label": "Sair sem salvar", "secondary-label": "Continuar editando" }, confirm("warning", "timer-line", "Sair sem salvar?", "As alterações feitas serão perdidas.")) },
+          { label: "Seleção · Selection List", attrs: sheet({ "text-title": "Ordenar por", "show-footer": "false" }, [opt("Mais recentes", true), opt("Mais antigos"), opt("Maior valor")]) }
+        ] } },
+        { note: "Confirmação: insira Confirmation Message no Slot, com estilo Neutral, Positive ou Warning conforme o impacto da ação. Seleção: insira Selection List no Slot quando a folha existir para escolher entre opções." }
+      ] },
+
+      { id: "acessibilidade", title: "Acessibilidade", blocks: [
+        { h2: "Leitor de tela" },
+        { ul: [
+          "É um `<dialog>` modal: o resto da página fica inerte enquanto a folha está aberta.",
+          "O título do Header é o nome acessível; sem Header, informe `label`.",
+          "O Handle é decorativo (`aria-hidden`): arrastar não é o único jeito de fechar — há o botão de fechar, as ações e o Esc."
+        ] },
+        { h2: "Teclado e foco" },
+        { ul: ["Ao abrir, o foco entra na folha e fica preso nela.", "Esc fecha (exceto com `dismissible=\"false\"`).", "Ao fechar, o foco volta para o elemento que abriu a folha."] },
+        { note: "O zeroheight ainda não tem seção de Acessibilidade para o Bottom Sheet." }
+      ] },
+
+      { id: "diretrizes", title: "Diretrizes", blocks: [
+        { h2: "Boas práticas" },
+        { guides: [
+          { attrs: sheet({ "show-header": "false", "primary-label": "Sair sem salvar", "secondary-label": "Continuar editando" }, confirm("warning", "timer-line", "Sair sem salvar?", "As alterações feitas serão perdidas.")), title: "Uma decisão por folha", text: "Destaque a ação primária e evite ambiguidade entre as opções." },
+          { attrs: sheet({ "text-title": "Cartão virtual" }, [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Use o cartão virtual em compras online e nas carteiras digitais." }]), title: "Conteúdo curto", text: "A folha precisa ser rápida de ler e agir. Se o conteúdo exige rolagem longa, o caso pede uma página." },
+          { attrs: sheet({ "text-title": "Ordenar por", "show-footer": "false" }, [opt("Mais recentes", true), opt("Mais antigos")]), title: "Alinhe o conteúdo do Slot", text: "Alinhe o conteúdo do Slot com o header e o footer, usando a mesma margem lateral — a menos que a imagem ou lista deva ocupar a largura inteira de propósito." }
+        ] },
+        { note: "Regras de texto do Bottom Sheet (títulos em pergunta, como encerrar) estão na tab Conteúdo." }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { h2: "Motion" },
+        { alert: { appearance: "warning", label: "Especificação pendente", text: "Não há especificação de Motion para o Bottom Sheet na lib nem no zeroheight, e a entrada e a saída não estão animadas no playground." } }
+      ] },
       { id: "conteudo", title: "Conteúdo", blocks: [
         { h2: "Regras de texto" },
         { p: "O bottom sheet aparece para oferecer ações ou informações adicionais sem tirar a pessoa do fluxo. Por ser um espaço reduzido, o conteúdo precisa ser direto e focado." },
@@ -10363,7 +10524,7 @@ CDS.docs = CDS.docs || {};
   CDS.docs["drawer"] = {
     tag: "cds-drawer",
     source: "https://castanha.caju.com.br/858426090/v/latest/p/0256b2-drawer", sourceLabel: "Abrir o Drawer no zeroheight",
-    cover: { description: "O Drawer é um painel lateral deslizante utilizado para expor conteúdos complementares ou etapas adicionais dentro de um fluxo principal, sem interromper a tela atual. Ele aparece sobreposto à interface e permite que a pessoa usuária mantenha o contexto enquanto realiza uma interação específica." },
+    cover: { description: "O Drawer é um painel lateral deslizante utilizado para expor conteúdos complementares ou etapas adicionais dentro de um fluxo principal, sem interromper a tela atual. Ele aparece sobreposto à interface e permite que a pessoa usuária mantenha o contexto enquanto realiza uma interação específica.", tall: true, wide: true, examples: [drawer("Novo centro de custo", FORM)] },
     tabs: [
       { id: "uso", title: "Uso", blocks: [
         { alert: { appearance: "informative", label: "Desktop-only", text: "No Figma, o Drawer só existe no Desktop: em Tablet e Mobile, o painel é substituído por um Viewport Restriction." } },
@@ -10526,7 +10687,7 @@ CDS.docs = CDS.docs || {};
   CDS.docs["modal"] = {
     tag: "cds-modal",
     source: "https://castanha.caju.com.br/858426090/v/latest/p/596323-modal", sourceLabel: "Abrir o Modal no zeroheight",
-    cover: { description: "O Modal é um componente de sobreposição que bloqueia a interface base para exibir conteúdos focados, como formulários, informações detalhadas ou confirmações. Ele exige atenção da pessoa usuária antes de retornar ao fluxo principal." },
+    cover: { description: "O Modal é um componente de sobreposição que bloqueia a interface base para exibir conteúdos focados, como formulários, informações detalhadas ou confirmações. Ele exige atenção da pessoa usuária antes de retornar ao fluxo principal.", examples: [modal("Alterar grupo", TEXT)] },
     tabs: [
       { id: "uso", title: "Uso", blocks: [
         { h2: "Sobre" },

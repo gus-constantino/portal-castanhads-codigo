@@ -25,9 +25,80 @@
     if (c.task) notes.push("Task no Jira: " + c.task + ".");
     if (/\[Beta\]/.test(c.name)) notes.push("Em beta no Figma: props e visual ainda podem mudar.");
     if (/\/branch\//.test(c.figma || "")) notes.push("O link do Figma abre uma branch, não a main.");
-    if (notes.length) kit.lazyTip(a, notes.join(" "), { label: c.name.replace(/^\[Beta\] /, "") });
+    // As notas vão no card de preview do hover (peek); leitor de tela recebe por aria-description
+    if (notes.length) a.setAttribute("aria-description", notes.join(" "));
+    if (c.mount) peek.bind(a, c, notes);
     return kit.el("li", null, [a]);
   }
+  // ---------- Preview no hover (peek) ----------
+  // Como as navegações de Carbon, M3 e Wise: miniatura do componente ao lado do menu. É o playground real
+  // montado num Popover do DS (manual, sem foco) e reduzido para caber; abre no hover ou no foco por teclado.
+  var peek = (function(){
+    var card = kit.el("cds-popover", { "class": "pg-peek", popover: "manual", "aria-hidden": "true" });
+    var stage = kit.el("div", { "class": "pg-peek__stage", "data-viewport": "desktop" });
+    var nameEl = kit.el("p", { "class": "pg-peek__name" }), metaEl = kit.el("p", { "class": "pg-peek__meta" }), notesEl = kit.el("p", { "class": "pg-peek__notes" });
+    card.appendChild(kit.el("div", { "class": "pg-peek__body" }, [stage, nameEl, metaEl, notesEl]));
+    card.inert = true;
+    document.body.appendChild(card);
+    var showT = 0, cur = null, prev = null, ro = window.ResizeObserver ? new ResizeObserver(function(){ fit(); }) : null;
+    function fit(){
+      if (!prev) return;
+      prev.style.transform = "none";
+      var pr = prev.getBoundingClientRect(), x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+      [].forEach.call(prev.children, function(n){
+        var r = n.getBoundingClientRect(); if (!r.width || !r.height) return; // overlays fechados ficam de fora
+        x0 = Math.min(x0, r.left); y0 = Math.min(y0, r.top); x1 = Math.max(x1, r.right); y1 = Math.max(y1, r.bottom);
+      });
+      if (x1 < x0) return;
+      var pad = 16, sw = stage.clientWidth, sh = stage.clientHeight, w = x1 - x0, h = y1 - y0;
+      // Nunca amplia; reduz até 50% para caber e, se ainda sobrar (Table, Drawer, listas), corta ancorado no topo/início com fade
+      var k = Math.max(Math.min(1, (sw - 2 * pad) / w, (sh - 2 * pad) / h), Math.min(1, 0.5));
+      var cutX = w * k > sw - 2 * pad, cutY = h * k > sh - 2 * pad;
+      var tx = cutX ? pad - (x0 - pr.left) * k : sw / 2 - (x0 - pr.left + w / 2) * k;
+      var ty = cutY ? pad - (y0 - pr.top) * k : sh / 2 - (y0 - pr.top + h / 2) * k;
+      prev.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + k + ")";
+      stage.classList.toggle("is-cut-x", cutX); stage.classList.toggle("is-cut-y", cutY);
+    }
+    function place(a){
+      var side = document.querySelector(".pg-sidebar").getBoundingClientRect(), r = a.getBoundingClientRect(), me = card.getBoundingClientRect();
+      var top = Math.max(8, Math.min(r.top + r.height / 2 - me.height / 2, window.innerHeight - me.height - 8));
+      card.style.position = "fixed"; card.style.left = Math.round(side.right + 8) + "px"; card.style.top = Math.round(top) + "px";
+    }
+    function show(a, c, notes){
+      if (narrow.matches) return;
+      cur = a;
+      if (ro && prev) ro.unobserve(prev);
+      stage.innerHTML = ""; stage.style.background = ""; stage.classList.remove("is-dark"); // a superfície do playground (kit.surface) cai no stage
+      prev = kit.el("div", { "class": "pg-peek__preview" });
+      prev.addEventListener("load", fit, true); // imagem/ilustração que chega depois muda o tamanho
+      stage.appendChild(prev);
+      try { c.mount({ preview: prev, panel: document.createElement("div"), kit: kit, readout: function(){} }); }
+      catch (e){ prev.innerHTML = ""; }
+      [].forEach.call(prev.querySelectorAll("img[loading=lazy]"), function(i){ i.loading = "eager"; }); // lazy não carrega dentro do recorte da miniatura
+      nameEl.textContent = c.name;
+      metaEl.textContent = (c.block ? "Building block" : (c.category || "Outros")) + (c.task ? " · " + c.task : "");
+      notesEl.textContent = notes.join(" "); notesEl.hidden = !notes.length;
+      card.show(); fit(); place(a);
+      if (ro) ro.observe(prev);
+    }
+    function hide(){
+      clearTimeout(showT); cur = null;
+      if (ro && prev) ro.unobserve(prev);
+      card.hide(); stage.innerHTML = ""; prev = null; // desmonta: nada do preview fica no documento
+    }
+    function bind(a, c, notes){
+      a.addEventListener("pointerenter", function(e){ if (e.pointerType !== "mouse") return; clearTimeout(showT); showT = setTimeout(function(){ show(a, c, notes); }, cur ? 0 : 250); });
+      a.addEventListener("pointerleave", function(){ if (cur === a || !cur) hide(); });
+      a.addEventListener("focusin", function(){ if (a.matches(":focus-visible")) show(a, c, notes); });
+      a.addEventListener("focusout", function(){ if (cur === a) hide(); });
+      a.addEventListener("click", hide);
+    }
+    document.addEventListener("keydown", function(e){ if (e.key === "Escape" && cur) hide(); });
+    document.querySelector(".pg-sidebar").addEventListener("scroll", function(){ if (cur) hide(); }, { passive: true });
+    window.addEventListener("hashchange", hide);
+    return { bind: bind, hide: hide };
+  })();
+
   // Categoria = Accordion Item do DS (Label = categoria, Description = quantidade, sem Lead Item) — Fase 3 do plano UI no DS
   var narrow = window.matchMedia("(max-width:1100px)"); // menu vira faixa horizontal: tudo aberto, sem cabeçalho
   var openCats = {};

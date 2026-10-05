@@ -59,6 +59,23 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
 .pg-nav-blocks{ margin-top:var(--common-sizes-12); padding-top:var(--common-sizes-8); box-shadow:inset 0 var(--common-border-width-hairline) 0 var(--pg-line); }
 .pg-nav-empty{ padding:var(--common-sizes-8); font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
 
+/* Preview no hover do menu (peek): Popover do DS à direita do menu, com o playground real reduzido */
+.pg-peek{ pointer-events:none; min-width:0; }
+.pg-peek__body{ display:flex; flex-direction:column; gap:var(--common-sizes-4); width:calc(var(--common-sizes-200) + var(--common-sizes-80)); }
+.pg-peek__stage{
+  position:relative; overflow:hidden; height:var(--common-sizes-160); margin-bottom:var(--common-sizes-4);
+  border-radius:var(--common-border-radius-medium); background:var(--common-colors-surface-01);
+}
+/* Corte (componente maior que a miniatura): some em fade na borda cortada */
+.pg-peek__stage.is-cut-y{ -webkit-mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent); mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent); }
+.pg-peek__stage.is-cut-x{ -webkit-mask-image:linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); mask-image:linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); }
+.pg-peek__stage.is-cut-x.is-cut-y{ -webkit-mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent), linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent), linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); -webkit-mask-composite:source-in; mask-composite:intersect; }
+.pg-peek__preview{ position:absolute; left:0; top:0; width:calc(var(--common-sizes-200) * 2); display:flex; justify-content:safe center; transform-origin:0 0; }
+.pg-peek__name, .pg-peek__meta, .pg-peek__notes{ margin:0 var(--common-sizes-4); }
+.pg-peek__name{ font:var(--text-style-caption-medium); color:var(--common-colors-text-intense); }
+.pg-peek__meta{ font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); }
+.pg-peek__notes{ margin-bottom:var(--common-sizes-4); font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-soft); }
+
 /* Categorias do side menu = Accordion Item do DS (Fase 3): ocupa a largura do menu; links no Slot */
 .pg-nav-cat{ --cds-accordion-width:100%; }
 /* Alça de redimensionar o menu: 8px na borda direita; linha Border/medium no hover e Support/system no foco */

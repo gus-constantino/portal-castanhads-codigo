@@ -9017,11 +9017,9 @@ try {
       ] },
       { id: "icones", title: "Ícones", blocks: [
         { h2: "Ícones" },
-        { p: "[Caju] Icons, na ordem e nas categorias do Figma: " + nIcons + " ícones de 24px, um vetor só e cor herdada do token (`Icons/*`). Passe o mouse para ver as palavras-chave; clique para copiar o nome." },
-        { iconGallery: {} },
-        { h2: "Deprecated" },
-        { p: "Ícones do frame [Deprecated] do Figma. Os arquivos continuam no repo, mas não aparecem no instance swap dos componentes." },
-        { iconGallery: { only: "deprecated" } },
+        { p: "[Caju] Icons, na ordem e nas categorias do Figma: " + nIcons + " ícones de 24px, um vetor só e cor herdada do token (`Icons/*`). Troque cor e tamanho para ver a grade inteira mudar; clique num ícone para ver o detalhe e copiar." },
+        { tokens: "icons" },
+        { note: "Os ícones do frame [Deprecated] do Figma ficam na categoria Deprecated: os arquivos continuam no repo, mas não aparecem no instance swap dos componentes." },
         { h3: "Como usar" },
         { ul: [
           "O [Caju] Icons é a fonte dos desenhos; o componente Icon (`<cds-icon icon=\"credit-card-line\">`) aplica tamanho, Appearance e cor.",
@@ -9032,8 +9030,8 @@ try {
       ] },
       { id: "ilustracoes", title: "Ilustrações", blocks: [
         { h2: "Ilustrações" },
-        { p: "[Caju] Illustrations, na ordem e nas categorias do Figma: " + nIlls + " ilustrações em " + nCats + " categorias (Caju UI 200×200 e Hero). Passe o mouse para ver o nome no Figma e o tamanho; clique para copiar o nome." },
-        { illustrationGallery: {} },
+        { p: "[Caju] Illustrations, na ordem e nas categorias do Figma: " + nIlls + " ilustrações em " + nCats + " categorias (Caju UI 200×200 e Hero). Troque o fundo para testar o contraste; clique numa ilustração para ver o detalhe e copiar." },
+        { tokens: "illustrations" },
         { h3: "Como usar" },
         { ul: [
           "Quem usa a ilustração é o componente: Banner (`<cds-banner illustration=\"notificacoes/sino\">`) e Table (Kind=Empty, `notificacoes/empty-state`).",

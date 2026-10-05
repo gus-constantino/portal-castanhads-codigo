@@ -334,7 +334,9 @@
       var ul = s.appendChild(el("div", "pg-tok-styles")), rows = {};
       keys.forEach(function(k){
         var t = "--motion-" + k + "-01-timing", e = "--motion-" + k + "-01-easing", d = "--motion-" + k + "-01-delay", hasD = names().indexOf(d) !== -1;
-        var row = ul.appendChild(tile("pg-tok-mstyle", t, function(){ go(k); }));
+        // só clique/foco (não hover): o painel muda de conteúdo e, no hover, a lista andava sob o cursor e o estilo "tremia"
+        var row = ul.appendChild(tile("pg-tok-mstyle", t, null));
+        row.addEventListener("click", function(){ go(k); }); row.addEventListener("focus", function(){ go(k); });
         row.setAttribute("aria-label", title(k) + " — copiar var(" + t + ")");
         var nm = row.appendChild(el("span", "pg-tok-mstyle__name"));
         nm.appendChild(el("span", "pg-tok__name", title(k)));
@@ -351,7 +353,9 @@
         if (target){ tag(figmaName(target), "neutral"); var prim = PRIMITIVE[target.replace("--common-motion-easing-", "")]; if (prim && /easing/.test(target)){ arrow(); tag(prim, "neutral"); } arrow(); }
         line.appendChild(code(val(n), n));
       }
+      var curK = null;
       function go(k){
+        if (k === curK){ if (LAB.replay) LAB.replay(); return; } curK = k;
         Object.keys(rows).forEach(function(x){ rows[x].classList.toggle("is-current", x === k); });
         panel.innerHTML = "";
         var head = panel.appendChild(el("div", "pg-mo-panel__head"));
@@ -415,6 +419,7 @@
         timer = setTimeout(function(){ var t0 = performance.now();
           (function step(now){ var x = Math.min(1, (now - t0) / ms); pt.setAttribute("cx", x * 100); pt.setAttribute("cy", 100 - f(x) * 100); if (x < 1) raf = requestAnimationFrame(step); })(t0); }, wait);
       }
+      LAB.replay = run;
       LAB.set = function(e, d, y){
         if (e && eases.indexOf(e) !== -1) st.e = e;
         if (d){ var i = durs.indexOf(d); if (i !== -1){ st.d = i; CDS.attr(slD, "value", String(i)); } }
@@ -448,6 +453,10 @@
         });
       });
     },
+    // ===== Ícones (Phosphor / Material Symbols / Lucide): busca, categorias, cor e tamanho ao vivo, painel de detalhe
+    icons: function(root){ library(root, "icons"); },
+    // ===== Ilustrações (unDraw / Storyset): busca, categorias, fundo, painel de detalhe
+    illustrations: function(root){ library(root, "illustrations"); },
     duration: function(root){ runs(root, "Duration", pick("--common-motion-duration-"), "--common-motion-duration-", "duration"); },
     delay: function(root){ runs(root, "Delay", pick("--common-motion-delay-"), "--common-motion-delay-", "delay"); }
   };
@@ -475,6 +484,87 @@
       var fill = bar.firstChild; if (kind === "duration") fill.style.transitionDuration = "var(" + n + ")"; else fill.style.transitionDelay = "var(" + n + ")";
       row.appendChild(code(val(n), n));
     });
+  }
+  function fold(t){ return String(t || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, ""); }
+  // Biblioteca de ícones/ilustrações: Search Input + Filter Chips + grade de tiles (C87) + painel de detalhe com Tags e Main Buttons do DS
+  function library(root, kind){
+    var A = CDS.assets || {}, isIcon = kind === "icons", items = [], cats = [];
+    if (isIcon){
+      var meta = {}; (A.icons || []).forEach(function(i){ meta[i.name] = i; });
+      (A.iconBuckets || []).filter(function(b){ return !b.glyphs; }).forEach(function(b){
+        cats.push([b.id, b.name]);
+        b.icons.forEach(function(n){ var m = meta[n] || {}; items.push({ id: n, name: n, cat: b.id, catName: b.name, cls: b.deprecated ? "" : m.cls, deprecated: !!b.deprecated, file: "assets/icons/" + b.id + "/" + n + ".svg", keywords: m.keywords || [] }); });
+      });
+    } else {
+      var im = {}; (A.illustrations || []).forEach(function(i){ im[i.name] = i; });
+      (A.illustrationBuckets || []).forEach(function(b){ cats.push([b.id, b.name]);
+        b.items.forEach(function(k){ var m = im[k] || { label: k, src: "" }; items.push({ id: k, name: m.label, cat: b.id, catName: b.name, src: m.src, figma: m.figma, size: m.size, description: m.description || "", keywords: [] }); }); });
+    }
+    items.forEach(function(it){ it.text = fold([it.name, it.catName, it.figma, it.description].concat(it.keywords).join(" ")); });
+    var st = { q: "", cat: "all", tone: "--common-colors-icons-intense", size: "--common-sizes-24", bg: "surface-default", sel: null };
+    var box = root.appendChild(el("div", "pg-ic"));
+    var bar = box.appendChild(el("div", "pg-ic-bar"));
+    var search = bar.appendChild(document.createElement("cds-search-input"));
+    [["label", isIcon ? "Buscar ícone" : "Buscar ilustração"], ["placeholder", isIcon ? "Nome ou palavra-chave (ex.: cartão, seta, pix)" : "Nome, categoria ou uso (ex.: cartão, pix, erro)"], ["show-required", "false"], ["show-supporting-content", "false"]].forEach(function(a){ search.setAttribute(a[0], a[1]); });
+    var opts = bar.appendChild(el("div", "pg-ic-opts"));
+    if (CDS.kit){
+      CDS.kit.seg(opts, { label: "Categoria", value: "all", options: [["all", "Todas"]].concat(cats), onChange: function(v){ st.cat = v; filter(); } });
+      if (isIcon){
+        CDS.kit.seg(opts, { label: "Cor", value: st.tone, options: [["--common-colors-icons-intense", "Neutral"], ["--common-colors-icons-accent", "Accent"], ["--common-colors-feedback-positive-intense", "Positive"], ["--common-colors-feedback-warning-intense", "Warning"], ["--common-colors-feedback-negative-intense", "Negative"], ["--common-colors-feedback-informative-intense", "Informative"]],
+          onChange: function(v){ st.tone = v; box.style.setProperty("--_ic-tone", "var(" + v + ")"); } });
+        CDS.kit.seg(opts, { label: "Tamanho", value: st.size, options: [["--common-sizes-16", "Small · 16"], ["--common-sizes-24", "Medium · 24"], ["--common-sizes-32", "Large · 32"]],
+          onChange: function(v){ st.size = v; box.style.setProperty("--_ic-size", "var(" + v + ")"); } });
+      } else {
+        CDS.kit.seg(opts, { label: "Fundo", value: st.bg, options: [["surface-default", "Surface/default"], ["surface-01", "Surface/01"], ["surface-inversed", "Inversed"]],
+          onChange: function(v){ st.bg = v; box.style.setProperty("--_ic-bg", "var(--common-colors-" + v + ")"); } });
+      }
+    }
+    var count = box.appendChild(el("p", "pg-ic-count")); count.setAttribute("aria-live", "polite");
+    var body = box.appendChild(el("div", "pg-ic-body")), gridEl = body.appendChild(el("ul", "pg-ic-grid" + (isIcon ? "" : " is-ills"))), panel = body.appendChild(el("aside", "pg-ic-panel"));
+    panel.setAttribute("aria-label", "Detalhe");
+    items.forEach(function(it, i){
+      var li = gridEl.appendChild(el("li")), b = li.appendChild(el("button", "pg-tok-tile pg-ic-tile"));
+      b.type = "button"; b.setAttribute("aria-label", it.name + " — ver detalhe"); b.style.setProperty("--_i", String(Math.min(i, 24)));
+      if (isIcon){ var ic = b.appendChild(el("span", "cds-icon pg-ic-glyph " + (it.cls || ""))); ic.setAttribute("aria-hidden", "true");
+        if (!it.cls){ var u = 'url("' + it.file + '")'; ic.style.webkitMaskImage = u; ic.style.maskImage = u; } }
+      else { var im2 = b.appendChild(el("img", "pg-ic-img")); im2.alt = ""; im2.loading = "lazy"; im2.decoding = "async"; im2.src = it.src; }
+      b.appendChild(el("span", "pg-ic-name", it.name));
+      b.addEventListener("click", function(){ select(it, b);
+        // no mobile o painel fica acima da grade: rola até ele para o detalhe não mudar fora da tela
+        if (window.matchMedia && matchMedia("(max-width:900px)").matches) panel.scrollIntoView({ block: "nearest", behavior: reduced ? "auto" : "smooth" }); });
+      it.li = li; it.btn = b;
+    });
+    function copy(text){ try { navigator.clipboard.writeText(text); } catch (e) {} if (CDS.docToast) CDS.docToast("Copiado: " + text); }
+    function select(it, b){
+      if (st.sel && st.sel.btn) st.sel.btn.classList.remove("is-current"); st.sel = it; if (b) b.classList.add("is-current");
+      panel.innerHTML = "";
+      var prev = panel.appendChild(el("div", "pg-ic-preview"));
+      if (isIcon){ var g = prev.appendChild(el("span", "cds-icon pg-ic-glyph is-big " + (it.cls || ""))); if (!it.cls){ var u = 'url("' + it.file + '")'; g.style.webkitMaskImage = u; g.style.maskImage = u; } }
+      else { var im3 = prev.appendChild(el("img", "pg-ic-img is-big")); im3.alt = it.name; im3.src = it.src; }
+      panel.appendChild(el("span", "pg-ic-panel__title", it.name));
+      var dl = panel.appendChild(el("dl", "pg-el-parts"));
+      [["Categoria", it.catName], isIcon ? null : ["Figma", it.figma], isIcon ? null : ["Tamanho", it.size], it.deprecated ? ["Status", "Deprecated"] : null].filter(Boolean).forEach(function(r){ if (!r[1]) return; dl.appendChild(el("dt", null, r[0])); dl.appendChild(el("dd", null, r[1])); });
+      if (it.description) panel.appendChild(el("p", "pg-doc-p", it.description));
+      if (it.keywords.length){ var tags = panel.appendChild(el("div", "pg-ic-tags"));
+        it.keywords.forEach(function(k){ var t = tags.appendChild(document.createElement("cds-tag")); t.setAttribute("label", k); t.setAttribute("appearance", "neutral"); t.setAttribute("show-lead-item", "false"); }); }
+      var acts = panel.appendChild(el("div", "pg-ic-actions"));
+      if (CDS.docMainButton){
+        var b1 = acts.appendChild(CDS.docMainButton("Copiar nome")); b1.addEventListener("click", function(){ copy(it.id); });
+        var snippet = isIcon ? '<cds-icon icon="' + it.id + '"></cds-icon>' : '<cds-banner illustration="' + it.id + '"></cds-banner>';
+        var b2 = acts.appendChild(CDS.docMainButton("Copiar código")); b2.addEventListener("click", function(){ copy(snippet); });
+      }
+    }
+    function filter(){
+      var q = fold(st.q.trim()), shown = 0, first = null;
+      items.forEach(function(it){
+        var ok = (st.cat === "all" ? !it.deprecated : it.cat === st.cat) && (!q || it.text.indexOf(q) !== -1);
+        it.li.hidden = !ok; if (ok){ shown++; if (!first) first = it; }
+      });
+      count.textContent = shown + (isIcon ? (shown === 1 ? " ícone" : " ícones") : (shown === 1 ? " ilustração" : " ilustrações")) + (q ? " para “" + st.q.trim() + "”" : "") + (st.cat === "all" ? "" : " em " + (cats.filter(function(c){ return c[0] === st.cat; })[0] || [])[1]) + ". Clique para ver o detalhe.";
+      if (first && (!st.sel || st.sel.li.hidden)) select(first, first.btn);
+    }
+    search.addEventListener("cds-change", function(e){ e.stopPropagation(); st.q = String(search.value || ""); filter(); });
+    filter();
   }
   var LAB = {}; // laboratório de motion: set(easing, duração, delay) — preenchido pelo bloco easing-lab
 

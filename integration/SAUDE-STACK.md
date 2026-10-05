@@ -98,3 +98,9 @@ Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`
 3. `node scripts/integration/build-manifest.js`: regera manifesto, cobertura, `react-data.js` e este relatório.
 
 O lado Figma × playground continua no check de props (`docs/CHECK-PROPS.md`). Divergências que pedem decisão do time DS vão para o CONFERIR (grupo Integração React).
+
+## Histórico
+
+### 05/10/2026 · staging `1e0a5335`
+
+- Primeira leitura com histórico (sem versão anterior para comparar).

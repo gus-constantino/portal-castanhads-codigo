@@ -1,0 +1,324 @@
+{
+ "source": {
+  "ref": "origin/staging",
+  "commit": "1e0a5335",
+  "date": "2026-09-25"
+ },
+ "codeConnect": {
+  "ref": "origin/feat/figma-code-connect",
+  "commit": "f02b6f2b"
+ },
+ "coverage": {
+  "playground": 105,
+  "comReact": 70,
+  "viaCodeConnect": 68,
+  "viaStory": 2,
+  "buildingBlocks": 26,
+  "soFigma": 9,
+  "soReact": 12,
+  "comNotas": 22
+ },
+ "reactOnly": [
+  "Box",
+  "Carousel",
+  "Field",
+  "Grid",
+  "Illustration",
+  "Motion",
+  "Portal",
+  "Shortcut",
+  "Skeleton",
+  "Stack",
+  "Text",
+  "VisuallyHidden"
+ ],
+ "tokens": {
+  "ok": 211,
+  "official": 211
+ },
+ "assets": {
+  "icons": {
+   "pkg": 265,
+   "ours": 273,
+   "same": 262,
+   "onlyHere": 11,
+   "onlyPkg": 3
+  },
+  "ills": {
+   "pkg": 259,
+   "ours": 260,
+   "same": 218,
+   "renamed": 40,
+   "onlyHere": 2,
+   "onlyPkg": 1,
+   "svgDiff": 12
+  },
+  "motion": 44
+ },
+ "findings": [
+  {
+   "id": "alert",
+   "level": "media",
+   "kind": "padrao-diferente",
+   "msg": "Padrão diferente em `Appearance`: uma instância nova no Figma vem Positive (`positive`); no React, sem a prop, vem `informative`."
+  },
+  {
+   "id": "async-creatable-select-input",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Lead Icon`, `Error Message`, `Lead Icon`."
+  },
+  {
+   "id": "async-select-input",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Lead Icon`, `Error Message`, `Lead Icon`."
+  },
+  {
+   "id": "avatar",
+   "level": "media",
+   "kind": "padrao-diferente",
+   "msg": "Padrão diferente em `Size`: uma instância nova no Figma vem Small (`small`); no React, sem a prop, vem `medium`."
+  },
+  {
+   "id": "badge",
+   "level": "media",
+   "kind": "padrao-diferente",
+   "msg": "Padrão diferente em `Appearance`: uma instância nova no Figma vem Warning (`warning`); no React, sem a prop, vem `neutral`."
+  },
+  {
+   "id": "banner",
+   "level": "info",
+   "kind": "sem-code-connect",
+   "msg": "Sem Code Connect: o par com o React vem só do node da story."
+  },
+  {
+   "id": "breadcrumb",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `showItem03`, `showItem04`, `showItem05`, `showItem06`, `Kind`."
+  },
+  {
+   "id": "checkbox-select-input",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`."
+  },
+  {
+   "id": "chips-group",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Kind`."
+  },
+  {
+   "id": "content-list-item",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Navigation Indicator`, `Show Tag`."
+  },
+  {
+   "id": "date-input",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Character Counter`, `Error Message`."
+  },
+  {
+   "id": "date-picker",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Show week 01`, `Show week 02`, `Show week 03`, `Show week 04`, `Show week 05`, `Show week 06`, `Selected Date Label`, `First Day Selected`, `Last Day Selected`, `Show First Day Selected`, `Show Last Day Selected`, `Role`."
+  },
+  {
+   "id": "divider",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Kind`."
+  },
+  {
+   "id": "drawer",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Show Secondary Action Button`."
+  },
+  {
+   "id": "dropzone",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Show Main button`."
+  },
+  {
+   "id": "icon-button",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Show Notification`."
+  },
+  {
+   "id": "multi-select-input",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`."
+  },
+  {
+   "id": "pagination",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Show Itens per page`, `Show Item display`, `Items range`, `Items display`."
+  },
+  {
+   "id": "password-input",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Text Content`, `Show Lead Icon`, `Error Message`, `Lead Icon`, `Show Content`."
+  },
+  {
+   "id": "progress-tracker",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Orientation`."
+  },
+  {
+   "id": "progress-tracker-item",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Show Connector`, `Show Link`, `Orientation`."
+  },
+  {
+   "id": "radio-select-input",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`."
+  },
+  {
+   "id": "search-input",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`."
+  },
+  {
+   "id": "selection-list-item",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Trailing Item`."
+  },
+  {
+   "id": "slider",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Value`."
+  },
+  {
+   "id": "spinner",
+   "level": "media",
+   "kind": "padrao-diferente",
+   "msg": "Padrão diferente em `Appearance`: uma instância nova no Figma vem Neutral (`neutral`); no React, sem a prop, vem `accent`."
+  },
+  {
+   "id": "spinner",
+   "level": "media",
+   "kind": "padrao-diferente",
+   "msg": "Padrão diferente em `Size`: uma instância nova no Figma vem Small (`small`); no React, sem a prop, vem `medium`."
+  },
+  {
+   "id": "status-dot",
+   "level": "info",
+   "kind": "sem-code-connect",
+   "msg": "Sem Code Connect: o par com o React vem só do node da story."
+  },
+  {
+   "id": "table",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Kind`."
+  },
+  {
+   "id": "tag",
+   "level": "media",
+   "kind": "padrao-diferente",
+   "msg": "Padrão diferente em `Appearance`: uma instância nova no Figma vem Neutral (`neutral`); no React, sem a prop, vem `accent`."
+  },
+  {
+   "id": "text-area",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Text Content`, `Show Required`, `Error Message`."
+  },
+  {
+   "id": "text-input",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`."
+  },
+  {
+   "id": "toast",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`."
+  },
+  {
+   "id": "topic",
+   "level": "alta",
+   "kind": "cc-prop-react-inexistente",
+   "msg": "O Code Connect gera `label` em `<Topic>`, que não existe nas props do React (o código gerado não compila em TypeScript)."
+  },
+  {
+   "id": "topic",
+   "level": "alta",
+   "kind": "cc-prop-react-inexistente",
+   "msg": "O Code Connect gera `supportingMessage` em `<Topic>`, que não existe nas props do React (o código gerado não compila em TypeScript)."
+  },
+  {
+   "id": "tokens",
+   "level": "info",
+   "kind": "token-so-no-playground",
+   "msg": "Alias sem par no castanha-tokens (o Figma tem, o pacote ainda não): `--castanha-carousel-gap`."
+  },
+  {
+   "id": "assets",
+   "level": "media",
+   "kind": "icone-so-no-pacote",
+   "msg": "O castanha-icons exporta ícones que não existem no [Caju] Icons: `balance-canceled`, `calendar-non-recurrent`, `file-line-1`."
+  },
+  {
+   "id": "assets",
+   "level": "info",
+   "kind": "icone-deprecated-no-pacote",
+   "msg": "Deprecated no Figma, mas ainda exportados pelo pacote: `dark-mode-line`."
+  },
+  {
+   "id": "assets",
+   "level": "info",
+   "kind": "icone-deprecated-fora",
+   "msg": "Deprecated no Figma e já fora do pacote: `phone-line`, `megaphone-line`, `delivery-line`, `conversation-line`, `airplane-line`, `several-line`, `file-text-error-line`, `benefit-line`, `pause-line`, `caju-ciclos`, `bus-sideview`."
+  },
+  {
+   "id": "assets",
+   "level": "alta",
+   "kind": "ilustracao-fora-do-pacote",
+   "msg": "Ilustrações do [Caju] Illustrations sem par no castanha-illustrations: `alimentos/drink`, `notificacoes/analysis-low-detail`."
+  },
+  {
+   "id": "assets",
+   "level": "media",
+   "kind": "ilustracao-so-no-pacote",
+   "msg": "O castanha-illustrations exporta ilustrações sem par no [Caju] Illustrations: `hero-sponsor-splash-screen`."
+  },
+  {
+   "id": "assets",
+   "level": "media",
+   "kind": "ilustracao-renomeada",
+   "msg": "40 ilustrações têm outro nome no pacote (o nome do Figma não serve no `<Illustration name>`): `hub-de-beneficios/pet` → `hub-pet`, `hub-de-beneficios/departamento` → `hub-departamento`, `hub-de-beneficios/plano-saude` → `hub-plano-saude`, `hub-de-beneficios/servicos` → `hub-servicos`, `hub-de-beneficios/entretenimento` → `hub-entretenimento`, `hub-de-beneficios/plano-odonto` → `hub-plano-odonto`, `hub-de-beneficios/educacao` → `hub-educacao`, `hub-de-beneficios/cajuzinho` → `hub-cajuzinho`, `hub-de-beneficios/alimentacao` → `hub-alimentacao`, `hub-de-beneficios/outros` → `hub-outros`, `hub-de-beneficios/saude` → `hub-saude`, `hub-de-beneficios/ofertas` → `hub-ofertas`, `hub-de-beneficios/mobilidade` → `hub-mobilidade`, `hub-de-beneficios/esportes` → `hub-esportes`, `hub-de-beneficios/familia` → `hub-familia`, `hub-de-beneficios/seguro-vida-previdencia` → `hub-previdencia`, `documentos/socio-low-detail` → `low-detail-socio`, `documentos/rg-cnh-frente-low-detail` → `low-detail-rg-cnh-frente`, `documentos/rg-cnh-verso-low-detail` → `low-detail-rg-cnh-verso`, `documentos/rg-papeis-low-detail` → `low-detail-rg-papeis`, `documentos/ctps-low-detail` → `low-detail-ctps`, `financas/cartao-bilhete-unico-low-detail` → `low-detail-cartao-bilhete-unico`, `financas/cartao-customizacao-low-detail` → `low-detail-cartao-customizacao`, `objetos/gema-rubi` → `premiacoes-gema-rubi`, `objetos/gema-esmeralda` → `premiacoes-gema-esmeralda`, `objetos/gema-ouro` → `premiacoes-gema-ouro`, `graficos-e-dashboards/pizza` → `grafico-pizza`, `graficos-e-dashboards/setores` → `grafico-setores`, `graficos-e-dashboards/barra` → `grafico-barra`, `graficos-e-dashboards/objetivo-1` → `graficos-objetivo-1`, `graficos-e-dashboards/objetivo-2` → `graficos-objetivo-2`, `graficos-e-dashboards/objetivo-3` → `graficos-objetivo-3`, `interfaces/lista` → `interface-lista`, `interfaces/assinatura` → `interface-assinatura`, `interfaces/nota-fiscal` → `interface-nota-fiscal`, `interfaces/carrossel` → `interface-carrossel`, `interfaces/customizacao` → `interface-customizacao`, `interfaces/planilha` → `interface-planilha`, `interfaces/home` → `interface-home`, `hero-hub-de-beneficios/seguros-previdencia` → `hero-hub-de-beneficios-seguro-previdencia`."
+  },
+  {
+   "id": "assets",
+   "level": "info",
+   "kind": "ilustracao-svg-difere",
+   "msg": "12 ilustrações têm o desenho diferente do pacote além do arredondamento (posição no quadro ou forma; conferir qual é a atual): `autenticacao-ocr-cartao-2`, `financas-moeda-verde-1`, `financas-moeda-verde-2`, `financas-moeda-verde-3`, `financas-moeda-verde-4`, `hero-hub-de-beneficios-plano-saude`, `hero-hub-de-beneficios-alimentacao`, `hero-hub-de-beneficios-educacao`, `hero-hub-de-beneficios-plano-odonto`, `hero-hub-de-beneficios-mobilidade`, `hero-hub-de-beneficios-cajuzinho`, `hero-hub-de-beneficios-outros`."
+  },
+  {
+   "id": "assets",
+   "level": "info",
+   "kind": "motion-so-no-pacote",
+   "msg": "44 animações Lottie no castanha-motion, ainda sem tab no playground (Animações volta ao Caju - Tema quando a lib existir)."
+  }
+ ]
+}

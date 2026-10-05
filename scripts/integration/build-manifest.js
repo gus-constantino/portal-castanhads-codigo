@@ -332,7 +332,18 @@ smd.push("## Como rodar", "",
   "2. Se o Figma mudou: reler as props via MCP (só leitura) e regravar `integration/figma-props.tsv` (formato no topo de `scripts/integration/check-stack.js`).",
   "3. `node scripts/integration/build-manifest.js`: regera manifesto, cobertura, `react-data.js` e este relatório.", "",
   "O lado Figma × playground continua no check de props (`docs/CHECK-PROPS.md`). Divergências que pedem decisão do time DS vão para o CONFERIR (grupo Integração React).", "");
+// R6: histórico das leituras diárias (escrito por scripts/integration/daily.js) entra no fim do relatório
+const HIST = path.join(ROOT, "integration", "HISTORICO.md");
+if (fs.existsSync(HIST)) smd.push("## Histórico", "", fs.readFileSync(HIST, "utf8").replace(/^#[^\n]*\n+(Escrito[^\n]*\n+)?/, "").trim(), "");
 fs.writeFileSync(path.join(ROOT, "integration", "SAUDE-STACK.md"), smd.join("\n"));
+// R6: resultado estável do check (sem data de geração) para comparar uma leitura com a anterior
+const allFindings = findings.concat(tokCheck.findings, assetCheck.findings).map((f) => ({ id: f.id, level: f.level, kind: f.kind, msg: f.msg }));
+fs.writeFileSync(path.join(ROOT, "integration", "stack-check.json"), JSON.stringify({
+  source: { ref: REF, commit: String(src.commit).slice(0, 8), date: String(src.date).slice(0, 10) },
+  codeConnect: { ref: CC, commit: String(ccMeta[0]).slice(0, 8) },
+  coverage: S, reactOnly: reactOnly.map((r) => r.name), tokens: { ok: tokCheck.ok, official: tokCheck.official }, assets: assetCheck.summary,
+  findings: allFindings
+}, null, 1) + "\n");
 
 const slim = (p) => { const o = { n: p.name, t: p.type }; if (p.required) o.r = 1; if (p.default !== undefined) o.d = p.default; if (p.description) o.s = p.description; return o; };
 const data = { source: { ref: REF, commit: String(src.commit).slice(0, 8), date: String(src.date).slice(0, 10) }, dirs: {}, items: {} };

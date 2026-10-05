@@ -8593,7 +8593,7 @@ CDS.register({
 try {
 /* Documentação — Password Input
    Fonte: [CastanhaDS] Component use documentation · página Text fields · seção 4054:50 · frame [Documentação] Password input (4054:88)
-   Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs. Capa = mockup com imagem (frame [Header] 4054:686).
+   Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs. Capa: o [Header] (4054:686) é um mockup de produto (imagem); sem o PNG exportado, a capa usa o componente vivo (C95).
    Oculto no Figma: Acessibilidade (4054:332) — só placeholder ("Tópico 1" / "Ordem de leitura"), então ficou de fora (note na tab).
    Motion ainda é placeholder (lorem ipsum / "Especificação").
    Diretrizes e Do/Don't no Figma são imagens: os exemplos usam o componente real com os textos padrão do componente (CONFERIR).
@@ -8604,8 +8604,8 @@ CDS.docs["password-input"] = {
   tag: "cds-password-input",
   base: { label: "Label", supporting: "Supporting Message", error: "Error Message", "character-counter": "0000" },
   source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=4054-50",
-  // Capa (frame [Header] do Figma): mockup com imagem de tela de produto
-  cover: { description: "O Password Input é um campo de entrada específico para senhas.", image: "assets/docs/covers/password-input.png", alt: "Tela de produto com um Password Input" },
+  // Capa: o [Header] do Figma é um mockup (imagem) ainda não exportado → componente vivo com o base (C95)
+  cover: { description: "O Password Input é um campo de entrada específico para senhas." },
   tabs: [
     { id: "uso", title: "Uso", blocks: [
       { h2: "Sobre" },
@@ -9166,7 +9166,7 @@ try {
 /* Documentação — Text Area Input
    Fonte: [CastanhaDS] Component use documentation · página Text fields · seção 4944:309 · frame [Documentação] Text area (4944:347)
    Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs.
-   Capa: o [Header] (4944:937) é um mockup mobile (tela Pix Copia e Cola) → imagem em assets/docs/covers/text-area.png.
+   Capa: o [Header] (4944:937) é um mockup mobile (tela Pix Copia e Cola) → sem o PNG exportado, a capa usa o componente vivo (C95).
    Oculto no Figma: Acessibilidade (4944:591) — só placeholder ("Tópico 1" / "Ordem de leitura"), por isso a tab fica com nota.
    Motion ainda é placeholder no Figma (lorem ipsum + "Especificação").
    A doc do Figma usa um set legado (State Default/Hover/Active-focus/Filled, Error…); Propriedades e Estilos seguem o set do código,
@@ -9178,11 +9178,9 @@ CDS.docs["text-area"] = {
   tag: "cds-text-area",
   base: { "show-required": false },
   source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=4944-309",
-  // Capa (frame [Header] do Figma), acima das tabs
+  // Capa: o [Header] do Figma é um mockup (imagem) ainda não exportado → componente vivo com o base (C95)
   cover: {
-    description: "O Text Area é um campo de entrada multilinha que permite à pessoa usuária digitar textos mais longos, como descrições, observações ou comentários.",
-    image: "assets/docs/covers/text-area.png",
-    alt: "Tela Pix Copia e Cola com um Text Area para inserir ou colar o código"
+    description: "O Text Area é um campo de entrada multilinha que permite à pessoa usuária digitar textos mais longos, como descrições, observações ou comentários."
   },
   tabs: [
     { id: "uso", title: "Uso", blocks: [

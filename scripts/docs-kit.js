@@ -25,6 +25,9 @@
  *   table: { head: [...], rows: [[...]] }
  *   shortcuts: [{ title, text, href, cta, illustration, external }]   atalhos em Cards (capa do Castanha Hub); sem href, card só informativo
  *   palette: { label, names: [...], steps: [...], hex: [[hex por passo] por cor], notes: { passo: "nota" } }   paleta fora dos tokens (ilustração)
+ *   steps: [{ title, text, list, table, after }]   passos numerados
+ *   code: "texto"                      bloco monoespaçado com botão Copiar
+ *   glossary: { label, placeholder, letters: { A: [[termo, definição, "não use"], …] } }   glossário com busca
  *   simulate: { illustration, matrices: { id: "feColorMatrix" }, items: [{ label, matrix | filter, double }] }   condições visuais sobre uma ilustração
  *   specs: [{ title, rows: [[rótulo, valor], …] }]   cards de ficha técnica (ex.: Motion Style por interação)
  *   iconGallery: { only }              galeria do [Caju] Icons por categoria, com busca por nome e palavra-chave; only: "deprecated" mostra só os deprecated
@@ -512,6 +515,69 @@
         g.appendChild(f);
       });
       return g;
+    },
+    // Glossário com busca (Search Input do DS): termos por letra; "Não use" com Tag Negative
+    glossary: function(d, v){
+      var wrap = el("div", "pg-doc-gloss"), fold = function(s){ return String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); };
+      var search = wrap.appendChild(document.createElement("cds-search-input"));
+      [["label", v.label || "Buscar termo"], ["placeholder", v.placeholder || "Termo ou definição"], ["show-required", "false"], ["show-supporting-content", "false"]].forEach(function(a){ search.setAttribute(a[0], a[1]); });
+      var count = wrap.appendChild(el("p", "pg-doc-gloss__count")); count.setAttribute("aria-live", "polite");
+      var groups = [], total = 0;
+      Object.keys(v.letters).forEach(function(L){
+        var sec = wrap.appendChild(el("section", "pg-doc-gloss__group"));
+        sec.appendChild(el("h3", "pg-doc-gloss__letter", L));
+        var dl = sec.appendChild(el("dl", "pg-doc-gloss__list")), items = [];
+        v.letters[L].forEach(function(e){
+          var row = dl.appendChild(el("div", "pg-doc-gloss__item"));
+          row.appendChild(el("dt", null, e[0]));
+          var dd = row.appendChild(el("dd"));
+          dd.appendChild(rich(el("p", "pg-doc-p"), e[1]));
+          if (e[2]){
+            var av = dd.appendChild(el("p", "pg-doc-gloss__avoid")), t = document.createElement("cds-tag");
+            t.setAttribute("label", "Não use"); t.setAttribute("appearance", "negative"); t.setAttribute("icon", "close-line");
+            av.appendChild(t); av.appendChild(rich(el("span"), e[2]));
+          }
+          items.push({ row: row, text: fold(e.join(" ")) }); total++;
+        });
+        groups.push({ sec: sec, items: items });
+      });
+      var empty = wrap.appendChild(el("p", "pg-doc-gloss__empty", "Nenhum termo encontrado. Não encontrou um termo ou quer sugerir uma correção? Fale com o time de Content no canal #content-suporte."));
+      function filter(){
+        var q = fold(search.value).trim(), n = 0;
+        groups.forEach(function(g){
+          var shown = 0;
+          g.items.forEach(function(it){ var ok = !q || it.text.indexOf(q) >= 0; it.row.hidden = !ok; if (ok) shown++; });
+          g.sec.hidden = !shown; n += shown;
+        });
+        count.textContent = q ? n + " de " + total + " termos" : total + " termos";
+        empty.hidden = n > 0;
+      }
+      search.addEventListener("cds-change", function(e){ e.stopPropagation(); filter(); });
+      search.addEventListener("cds-clear", function(e){ e.stopPropagation(); filter(); });
+      filter();
+      return wrap;
+    },
+    // Passos numerados com título, texto, lista e tabela opcionais (ex.: processo de naming)
+    steps: function(d, v){
+      var ol = el("ol", "pg-doc-steps");
+      v.forEach(function(st){
+        var li = ol.appendChild(el("li", "pg-doc-step"));
+        li.appendChild(el("h4", "pg-doc-step__title", st.title));
+        (Array.isArray(st.text) ? st.text : st.text ? [st.text] : []).forEach(function(t){ li.appendChild(rich(el("p", "pg-doc-p"), t)); });
+        if (st.list) li.appendChild(list("ul", st.list));
+        if (st.table) li.appendChild(BLOCKS.table(d, st.table));
+        (Array.isArray(st.after) ? st.after : st.after ? [st.after] : []).forEach(function(t){ li.appendChild(rich(el("p", "pg-doc-p"), t)); });
+      });
+      return ol;
+    },
+    // Texto para copiar (ex.: prompt): bloco monoespaçado + Main Button do DS "Copiar"
+    code: function(d, v){
+      var wrap = el("div", "pg-doc-code"), pre = el("pre", "pg-doc-code__pre"), c = pre.appendChild(el("code", null, v));
+      pre.tabIndex = 0;
+      var b = wrap.appendChild(mainButton("Copiar"));
+      b.addEventListener("click", function(){ if (navigator.clipboard) navigator.clipboard.writeText(v); toast("Copiado"); });
+      wrap.appendChild(pre);
+      return wrap;
     },
     table: function(d, v){
       var wrap = el("div", "pg-doc-table-wrap"), t = el("table", "pg-doc-table");

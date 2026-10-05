@@ -540,3 +540,29 @@
 .pg-cnt-phone--hero .pg-cnt-phone__body{ padding:0; gap:0; }
 .pg-cnt-phone__hero{ width:100%; height:auto; display:block; }
 .pg-cnt-phone__cta{ display:block; width:100%; margin-top:var(--common-sizes-8); }
+
+/* Glossário com busca */
+.pg-doc-gloss{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
+.pg-doc-gloss__count, .pg-doc-gloss__empty{ margin:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+.pg-doc-gloss__group{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+.pg-doc-gloss__letter{ margin:0; padding-bottom:var(--common-sizes-4); border-bottom:var(--common-border-width-thin) solid var(--common-colors-border-soft); font:var(--text-style-title-small); color:var(--common-colors-text-intense); }
+.pg-doc-gloss__list{ margin:0; display:flex; flex-direction:column; gap:var(--common-sizes-16); }
+.pg-doc-gloss__item dt{ font:var(--text-style-body-bold); color:var(--common-colors-text-intense); }
+.pg-doc-gloss__item dd{ margin:var(--common-sizes-4) 0 0; display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+.pg-doc-gloss__item dd .pg-doc-p{ margin:0; }
+.pg-doc-gloss__avoid{ margin:0; display:flex; flex-wrap:wrap; align-items:center; gap:var(--common-sizes-8); font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+
+/* Passos numerados */
+.pg-doc-steps{ margin:0; padding:0; list-style:none; counter-reset:pg-step; display:flex; flex-direction:column; gap:var(--common-sizes-24); }
+.pg-doc-step{ counter-increment:pg-step; position:relative; padding-left:calc(var(--common-sizes-32) + var(--common-sizes-12)); display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+.pg-doc-step::before{ content:counter(pg-step); position:absolute; left:0; top:0; width:var(--common-sizes-32); height:var(--common-sizes-32); display:grid; place-items:center;
+  border-radius:var(--common-border-radius-pill); background:var(--common-colors-accent-solid-soft); color:var(--common-colors-accent-solid-intense); font:var(--text-style-label-bold); }
+.pg-doc-step__title{ margin:0; min-height:var(--common-sizes-32); display:flex; align-items:center; font:var(--text-style-body-bold); color:var(--common-colors-text-intense); }
+.pg-doc-step .pg-doc-p, .pg-doc-step .pg-doc-list{ margin:0; }
+
+/* Texto para copiar (prompt) */
+.pg-doc-code{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-8); }
+.pg-doc-code__pre{ align-self:stretch; margin:0; max-height:calc(var(--common-sizes-200) * 2); overflow:auto; padding:var(--common-sizes-16); border-radius:var(--common-border-radius-small);
+  background:var(--common-colors-surface-01); font:var(--text-style-disclaimer-regular); font-family:var(--pg-mono); color:var(--common-colors-text-intense); white-space:pre-wrap; }
+.pg-doc-code__pre:focus-visible{ outline:var(--common-border-width-thin) solid var(--common-colors-border-intense); }
+.pg-doc-gloss [hidden]{ display:none; }

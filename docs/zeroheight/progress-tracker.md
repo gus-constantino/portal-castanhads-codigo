@@ -108,7 +108,6 @@ Dúvidas ou comentários? Fale com o time pelo canal [#castanha-suporte](https:/
 
 ## Pendências — não publicar
 
-* 🔴 Código: a lib estável tem Orientation=Horizontal (container 21470:2390 e item 14415:3778), mas o componente do playground só monta a Vertical.
 * 🔴 A seção Motion está com o texto modelo e a tabela vazia (Enabled, Hovered, Loading, Pressed) — o componente não tem estados de interação; sem especificação para a troca de etapa.
 * 🟡 Acessibilidade e contrastes são novos (não estão na página).
 * 🟡 Contraste: marcador Pending e conector neutro 1,25:1 sobre Surface/default (o status também vem em texto).

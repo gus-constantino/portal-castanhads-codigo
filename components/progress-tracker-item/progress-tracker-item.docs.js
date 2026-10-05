@@ -38,8 +38,7 @@
           { name: "Show Link", type: "Boolean", default: "true" },
           { name: "Show Connector", type: "Boolean", default: "true" }
         ] },
-        { note: "Props e padrões lidos do set Progress Tracker Item da lib estável. No código: `kind` (number|icon), `status` (pending|current|completed), `marker-label`, `marker-icon`, `label`, `description`, `show-description`, `show-connector`, `show-link`, `link-label` e `href`. Dentro do Progress Tracker com `current`, status, número e conector são calculados." },
-        { alert: { appearance: "warning", label: "Só Vertical no código", text: "Orientation=Horizontal (rótulo abaixo do marcador) existe na lib estável, mas ainda não no componente do playground (CONFERIR C150)." } }
+        { note: "Props e padrões lidos do set Progress Tracker Item da lib estável. No código: `kind` (number|icon), `orientation` (vertical|horizontal), `status` (pending|current|completed), `marker-label`, `marker-icon`, `label`, `description`, `show-description`, `show-connector`, `show-link`, `link-label` e `href`. Dentro do Progress Tracker com `current`, status, número e conector são calculados." },
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -56,6 +55,13 @@
           { label: "Number", attrs: it({ label: "Documentos", "marker-label": "2", "show-link": false, "show-description": false }) },
           { label: "Icon", attrs: it({ label: "Documentos", kind: "icon", "marker-icon": "file-line", "show-link": false, "show-description": false }) }
         ] } },
+        { h2: "Orientation" },
+        { p: "Orientation precisa acompanhar a do container. Vertical posiciona o rótulo ao lado do marcador; Horizontal posiciona abaixo." },
+        { specimens: { min: "calc(2 * var(--common-sizes-120))", items: [
+          { label: "Vertical", attrs: it({ label: "Documentos", status: "current", "marker-label": "2", "show-connector": null }) },
+          { label: "Horizontal", attrs: it({ label: "Documentos", status: "current", "marker-label": "2", "show-connector": null, orientation: "horizontal" }) }
+        ] } },
+        { note: "Dentro do Progress Tracker, o container aplica a orientação dele aos itens." },
         { h2: "Show Connector" },
         { p: "Show Connector desenha o traço até a etapa seguinte e deve ficar desligado no último item. O traço acompanha a cor do Status: accent quando a etapa está concluída, neutro nas demais." },
         { specimens: { min: "calc(2 * var(--common-sizes-120))", items: [

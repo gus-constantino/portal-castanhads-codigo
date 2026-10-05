@@ -50,15 +50,15 @@
           { name: "Orientation", type: "Variant", default: "Vertical", values: ["Vertical", "Horizontal"] },
           { name: "Tracker", type: "Slot", default: "—" }
         ] },
-        { note: "Slot — recebe de 2 a 6 instâncias de Progress Tracker Item. No código: os filhos `<cds-progress-tracker-item>` são as etapas; `current` (1, 2, 3…) calcula os status (antes = Completed, depois = Pending), numera os marcadores e tira o Connector do último; `label` dá o nome da lista (\"Progresso\")." },
-        { alert: { appearance: "warning", label: "Só Vertical no código", text: "A lib estável tem Orientation=Horizontal (etapas lado a lado, rótulo abaixo do marcador), mas o componente do playground ainda só monta a Vertical (CONFERIR C150)." } }
+        { note: "Slot — recebe de 2 a 6 instâncias de Progress Tracker Item. No código: os filhos `<cds-progress-tracker-item>` são as etapas; `current` (1, 2, 3…) calcula os status (antes = Completed, depois = Pending), numera os marcadores e tira o Connector do último; `label` dá o nome da lista (\"Progresso\"); `orientation` (vertical|horizontal) — no Figma o container não propaga a Orientation para o Slot, aqui o container aplica a mesma aos itens." },
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
         { h2: "Orientation" },
+        { p: "Orientation=Vertical — etapas empilhadas, com o rótulo ao lado do marcador. Suporta descrição e link em cada etapa. Largura fixa de 200px. Orientation=Horizontal — etapas lado a lado, com o rótulo abaixo do marcador. Indicado para rótulos breves. A largura acompanha o conteúdo, então avalie o espaço disponível antes de usar em telas estreitas." },
         { compare: [
           { title: "Vertical", attrs: {} },
-          { title: "Horizontal", empty: "Ainda não implementada no código" }
+          { title: "Horizontal", attrs: { orientation: "horizontal", current: "2", _children: ["Identificação", "Documentos", "Revisão"].map(function(l){ return step(l); }) } }
         ] },
         { h2: "Progress Tracker Item" },
         { specimens: { min: "calc(2 * var(--common-sizes-120))", items: [

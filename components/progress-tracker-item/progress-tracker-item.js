@@ -5,7 +5,9 @@
  * Description (Caption/Regular Text/medium) · Link (Neutral, navigation-right-line).
  *   Pending: Marker Neutral/Solid/semi-soft · Current: Surface/default + anel 2px Accent/Solid/medium ·
  *   Completed: Surface/accent + check-line, Connector Surface/accent (nos outros, Neutral/Solid/semi-soft).
- * Atributos: kind (number|icon) · status (pending|current|completed) · marker-label ("1") · marker-icon (placeholder-line)
+ * Orientation=Horizontal (set 14415:3778): coluna gap 8 — linha do Marker (32 + gap 8 + Connector 2 que preenche) e o Text section embaixo;
+ *   200 de largura · Description maxHeight 88. Só CSS: o atributo orientation troca o layout.
+ * Atributos: kind (number|icon) · orientation (vertical|horizontal) · status (pending|current|completed) · marker-label ("1") · marker-icon (placeholder-line)
  *   label ("Label") · description ("Description content") · show-description · show-connector · show-link
  *   link-label ("Link content") · href
  * Acessibilidade: a etapa atual leva aria-current="step"; o status entra no nome ("Etapa 2, atual: Label").
@@ -14,7 +16,7 @@
   "use strict";
   var STATUS = { pending: "pendente", current: "atual", completed: "concluída" };
   class CdsProgressTrackerItem extends CDS.Element {
-    static get observedAttributes(){ return ["kind","status","marker-label","marker-icon","label","description","show-description","show-connector","show-link","link-label","href"]; }
+    static get observedAttributes(){ return ["kind","orientation","status","marker-label","marker-icon","label","description","show-description","show-connector","show-link","link-label","href"]; }
     get status(){ var s = this.getAttribute("status"); return s === "current" || s === "completed" ? s : "pending"; }
     render(){
       if (!this._built){

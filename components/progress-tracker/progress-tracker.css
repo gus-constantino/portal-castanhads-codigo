@@ -1,3 +1,6 @@
 /* Progress Tracker · 14524:1024 — 200 · coluna gap 8 */
 cds-progress-tracker{ display:flex; flex-direction:column; gap:var(--common-sizes-8); width:200px; max-width:100%; }
 cds-progress-tracker > cds-progress-tracker-item{ width:100%; }
+/* Orientation=Horizontal (21470:2390) — Tracker em linha gap 8, largura acompanha o conteúdo · itens de 158 nas instâncias do Figma (C151) */
+cds-progress-tracker[orientation="horizontal"]{ flex-direction:row; align-items:flex-start; width:max-content; }
+cds-progress-tracker[orientation="horizontal"] > cds-progress-tracker-item{ width:158px; }

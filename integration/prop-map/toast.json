@@ -1,0 +1,13 @@
+{
+  "element": "cds-toast",
+  "defaults": { "appearance": "positive", "text": "A descrição web ou mobile deve ter no máximo 2 linhas", "show-trailing-item": "true" },
+  "imports": ["useToast"],
+  "vars": { "kind": { "attr": "appearance", "map": { "positive": "success" } } },
+  "pre": ["const { show } = useToast();", "", "show('{@text}', { kind: '{@kind}' });"],
+  "figma": [
+    ["Text Description", "text", "show(content)", "O texto é o 1º argumento de `show`. No React o Toast é um hook: `useToast()` dentro do `ToastProvider` (na raiz do app)."],
+    ["Appearance", "appearance", "kind", "Positive vira `success`."],
+    ["Show Trailing Item", "show-trailing-item", "—", "O React sempre mostra o botão de fechar; `show` devolve uma função para fechar pelo código."],
+    ["—", "—", "timeout + placement", "Tempo em ms e posição (padrão `bottom` no `ToastProvider`): o Figma não especifica."]
+  ]
+}

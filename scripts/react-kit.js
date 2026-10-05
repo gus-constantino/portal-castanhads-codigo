@@ -11,7 +11,9 @@
  * Formato do mapa (integration/prop-map/<id>.json):
  *   element   seletor do elemento no preview (o primeiro que casar)
  *   defaults  valor de cada atributo quando ausente (show-* ausente = "true")
- *   pre       linhas antes do JSX (ex.: useState); {@atributo} vira o valor atual
+ *   pre       linhas antes do JSX (ex.: useState); {@atributo} vira o valor atual; {@var} usa vars[var] = { attr, map }
+ *   imports   nomes extras do pacote no import (ex.: hook useToast) · jsx pode faltar (só o pre)
+ *   num       número; offset soma ao valor (ex.: -1 para base 0)
  *   jsx       nó: { tag, if, defaults, props: [prop], children: [nó | { attr } | { text } | { code } | { each, node }] }
  *             tag "" = fragmento <>…</> (ex.: gatilho + Popover)
  *             each: seletor dos filhos do elemento; repete `node` para cada um, lendo os atributos dele ({i} = posição)
@@ -123,7 +125,7 @@
     }
     if (v == null || v === "") return null;
     if (p.map && p.map[v] != null) v = p.map[v];
-    if (p.num) return { name: p.prop, kind: "expr", value: String(parseInt(v, 10)) };
+    if (p.num){ var n = parseInt(v, 10) + (p.offset || 0); return d != null && String(d) === String(n) ? null : { name: p.prop, kind: "expr", value: String(n) }; } // offset: base 1 → base 0
     if (d != null && String(d) === String(v)) return null;
     return { name: p.prop, kind: "str", value: v };
   }
@@ -175,13 +177,19 @@
   }
   function snippet(data, it, get){
     var tags = {}, body = [];
-    jsx(data, it.map.jsx, get, "", body, tags);
+    if (it.map.jsx) jsx(data, it.map.jsx, get, "", body, tags); // sem jsx: só o pre (ex.: hook useToast)
+    (it.map.imports || []).forEach(function(n){ tags[n] = 1; });
     var pkg = (String(it.import || "").match(/from '([^']+)'/) || [])[1] || PKG;
     function imp(names, from){ return [["k", "import"], [null, " { " + names.join(", ") + " } "], ["k", "from"], [null, " "], ["v", "'" + from + "'"], [null, ";"]]; }
     var hooks = ["useRef", "useState"].filter(function(h){ return (it.map.pre || []).join(" ").indexOf(h) >= 0; });
     var lines = (hooks.length ? [imp(hooks, "react")] : []).concat([imp(Object.keys(tags).sort(), pkg), []]);
-    (it.map.pre || []).forEach(function(l){ lines.push([[null, l.replace(/\{@([a-z-]+)\}/g, function(m, a){ return get(a) || ""; })]]); }); // {@attr} = valor atual
-    if (it.map.pre) lines.push([]);
+    function pv(a){ // {@attr} = valor atual; {@var} = vars[var] (attr + map), ex.: appearance positive → kind success
+      var vr = it.map.vars && it.map.vars[a], v = get(vr ? vr.attr : a);
+      if (vr && vr.map && vr.map[v] != null) v = vr.map[v];
+      return v == null ? "" : v;
+    }
+    (it.map.pre || []).forEach(function(l){ lines.push([[null, l.replace(/\{@([A-Za-z-]+)\}/g, function(m, a){ return pv(a); })]]); });
+    if (it.map.pre && it.map.jsx) lines.push([]);
     return lines.concat(body);
   }
   function paint(pre, lines){

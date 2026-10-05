@@ -1,0 +1,25 @@
+{
+  "element": "cds-pagination",
+  "defaults": { "page": "1", "per-page": "10", "total": "250", "per-page-options": "10,20,30,40,50", "show-items-per-page": "true" },
+  "pre": ["const [page, setPage] = useState({@page});", "const [pageSize, setPageSize] = useState({@per-page});"],
+  "jsx": {
+    "tag": "Pagination",
+    "props": [
+      { "prop": "page", "expr": "page" },
+      { "prop": "pageSize", "expr": "pageSize" },
+      { "prop": "total", "attr": "total", "num": true },
+      { "prop": "onPageChange", "expr": "setPage" },
+      { "prop": "onPageSizeChange", "expr": "setPageSize", "if": { "show-items-per-page": "true" } },
+      { "prop": "pageSizeOptions", "attr": "per-page-options", "expr": "[{v}]", "if": { "show-items-per-page": "true" } }
+    ]
+  },
+  "figma": [
+    ["Show Itens per page", "show-items-per-page", "onPageSizeChange", "No React o seletor de itens por página aparece quando `onPageSizeChange` existe."],
+    ["Items display", "total", "total", "Total de itens (número)."],
+    ["Page number", "pages", "—", "O React calcula as páginas a partir de `total` e `pageSize`."],
+    ["Items range", "items-range", "—", "Calculado pelo React (\"1-10 de 250\")."],
+    ["Show Item display", "show-item-display", "—", "O React sempre mostra o intervalo."],
+    ["Show Rows per page", "show-rows-per-page", "—", "O React sempre mostra a navegação por página."],
+    ["—", "per-page-options", "pageSizeOptions", "Padrão do React: `[10, 25, 50]`; o do Figma, 10 a 50 de 10 em 10."]
+  ]
+}

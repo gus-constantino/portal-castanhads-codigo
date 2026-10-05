@@ -1,0 +1,21 @@
+{
+  "element": "cds-tab-view",
+  "defaults": { "active-option": "first", "label": "Visualização" },
+  "vars": { "active": { "attr": "active-option", "map": { "first": "0", "second": "1" } } },
+  "pre": ["const [active, setActive] = useState({@active});"],
+  "jsx": {
+    "tag": "TabView",
+    "props": [
+      { "prop": "active", "expr": "active" },
+      { "prop": "onChange", "expr": "setActive" },
+      { "prop": "disabled", "attr": "disabled", "bool": true },
+      { "prop": "aria-label", "attr": "label" }
+    ]
+  },
+  "figma": [
+    ["Active Option", "active-option", "active", "Índice base 0: First → `0`, Second → `1`."],
+    ["State", "disabled", "disabled", "Só Disabled vira prop."],
+    ["—", "first-icon / second-icon + labels", "items", "Padrão lista e grade nos dois lados; para outros ícones passe `items` com `icon` e `aria-label`."],
+    ["—", "label", "aria-label", "Padrão do React: \"Alternar visualização\"."]
+  ]
+}

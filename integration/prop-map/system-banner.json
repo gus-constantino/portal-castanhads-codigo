@@ -1,0 +1,21 @@
+{
+  "element": "cds-system-banner",
+  "defaults": { "appearance": "positive", "label": "Label", "text": "A message about the system here! You can turn words bold also add a link.", "show-label": "true", "show-close-button": "true" },
+  "jsx": {
+    "tag": "SystemBanner",
+    "props": [
+      { "prop": "appearance", "attr": "appearance" },
+      { "prop": "label", "attr": "label", "if": { "show-label": "true" } },
+      { "prop": "content", "attr": "text" },
+      { "prop": "hideCloseButton", "attr": "show-close-button", "bool": "not" },
+      { "prop": "onClose", "expr": "handleClose", "if": { "show-close-button": "true" } }
+    ]
+  },
+  "figma": [
+    ["Appearance", "appearance", "appearance", "Padrão Positive nos dois lados."],
+    ["Show Label", "show-label", "label", "Desligado: omita `label` (ou use `hideLabel`)."],
+    ["Text Label", "label", "label", ""],
+    ["Text Content", "text", "content", "No React a mensagem vai na prop `content` (aceita negrito e link), não como filho."],
+    ["Show Close Button", "show-close-button", "hideCloseButton", "Invertido: desligado no Figma = `hideCloseButton`. Ligado: trate o `onClose`."]
+  ]
+}

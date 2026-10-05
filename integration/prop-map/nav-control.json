@@ -1,0 +1,21 @@
+{
+  "element": "cds-nav-control",
+  "defaults": { "appearance": "accent", "current": "1", "total": "10", "prev-label": "Anterior", "next-label": "Próximo" },
+  "jsx": {
+    "tag": "NavControl",
+    "props": [
+      { "prop": "itemCount", "attr": "total", "num": true },
+      { "prop": "defaultActiveIndex", "attr": "current", "num": true, "offset": -1 },
+      { "prop": "appearance", "attr": "appearance", "map": { "inversed": "inverted" } },
+      { "prop": "onChange", "expr": "goToSlide" },
+      { "prop": "previousLabel", "attr": "prev-label", "if": { "prev-label": "!Anterior" } },
+      { "prop": "nextLabel", "attr": "next-label", "if": { "next-label": "!Próximo" } }
+    ]
+  },
+  "figma": [
+    ["Appearance", "appearance", "appearance", "Inversed vira `inverted`."],
+    ["—", "total", "itemCount", "Obrigatório. O Figma tem 10 posições fixas."],
+    ["—", "current", "defaultActiveIndex / activeIndex", "O playground conta a partir de 1; o React, de 0 (`current=3` → `defaultActiveIndex={2}`). Use `activeIndex` no modo controlado."],
+    ["—", "prev-label / next-label", "previousLabel / nextLabel", "Padrões diferentes: \"Anterior\"/\"Próximo\" aqui, \"Item anterior\"/\"Próximo item\" no React."]
+  ]
+}

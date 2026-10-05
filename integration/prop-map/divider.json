@@ -1,0 +1,17 @@
+{
+  "element": "cds-divider",
+  "defaults": { "kind": "solid", "intensity": "soft", "orientation": "horizontal" },
+  "jsx": {
+    "tag": "Divider",
+    "props": [
+      { "prop": "intensity", "attr": "intensity" },
+      { "prop": "orientation", "attr": "orientation" }
+    ]
+  },
+  "figma": [
+    ["Intensity", "intensity", "intensity", ""],
+    ["Orientation", "orientation", "orientation", ""],
+    ["Kind", "kind", "—", "O React não tem a linha tracejada (Dashed)."],
+    ["—", "separator", "—", "No playground, `separator` marca o divisor como separador de grupos (role=\"separator\"); sem ele é decorativo."]
+  ]
+}

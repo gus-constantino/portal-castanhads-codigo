@@ -1,0 +1,174 @@
+{
+  "element": "cds-breadcrumb",
+  "defaults": {
+    "label": "Breadcrumb"
+  },
+  "jsx": {
+    "tag": "Breadcrumbs",
+    "props": [
+      {
+        "prop": "aria-label",
+        "attr": "label",
+        "if": {
+          "label": "!Breadcrumb"
+        }
+      }
+    ],
+    "children": [
+      {
+        "tag": "Breadcrumbs.Item",
+        "props": [
+          {
+            "prop": "href",
+            "value": "/"
+          }
+        ],
+        "children": [
+          {
+            "text": "Label"
+          }
+        ]
+      },
+      {
+        "tag": "Breadcrumbs.Item",
+        "props": [
+          {
+            "prop": "href",
+            "value": "/"
+          }
+        ],
+        "children": [
+          {
+            "text": "Label"
+          }
+        ]
+      },
+      {
+        "tag": "Breadcrumbs.Item",
+        "props": [
+          {
+            "prop": "href",
+            "value": "/"
+          }
+        ],
+        "children": [
+          {
+            "text": "Label"
+          }
+        ]
+      },
+      {
+        "tag": "Breadcrumbs.Item",
+        "if": {
+          "show-item03": "!false"
+        },
+        "props": [
+          {
+            "prop": "href",
+            "value": "/"
+          }
+        ],
+        "children": [
+          {
+            "text": "Label"
+          }
+        ]
+      },
+      {
+        "tag": "Breadcrumbs.Item",
+        "if": {
+          "show-item04": "!false"
+        },
+        "props": [
+          {
+            "prop": "href",
+            "value": "/"
+          }
+        ],
+        "children": [
+          {
+            "text": "Label"
+          }
+        ]
+      },
+      {
+        "tag": "Breadcrumbs.Item",
+        "if": {
+          "show-item05": "!false"
+        },
+        "props": [
+          {
+            "prop": "href",
+            "value": "/"
+          }
+        ],
+        "children": [
+          {
+            "text": "Label"
+          }
+        ]
+      },
+      {
+        "tag": "Breadcrumbs.Item",
+        "if": {
+          "show-item06": "!false"
+        },
+        "children": [
+          {
+            "text": "Label"
+          }
+        ]
+      }
+    ]
+  },
+  "figma": [
+    [
+      "showItem03",
+      "show-item03",
+      "<Breadcrumbs.Item>",
+      "Liga o 3º nível da amostra. Um item por nível; o último (página atual) vai sem `href`."
+    ],
+    [
+      "showItem04",
+      "show-item04",
+      "<Breadcrumbs.Item>",
+      "Liga o 4º nível da amostra."
+    ],
+    [
+      "showItem05",
+      "show-item05",
+      "<Breadcrumbs.Item>",
+      "Liga o 5º nível da amostra."
+    ],
+    [
+      "showItem06",
+      "show-item06",
+      "<Breadcrumbs.Item>",
+      "Liga o 6º nível da amostra."
+    ],
+    [
+      "Show Popover",
+      "show-popover",
+      "—",
+      "No React o \"…\" e o Popover são automáticos: acima de `maxItems` (padrão 5) os níveis do meio colapsam. No mobile, sempre \"… > atual\"."
+    ],
+    [
+      "Kind",
+      "—",
+      "—",
+      "Só Default no Figma."
+    ],
+    [
+      "—",
+      "label",
+      "aria-label",
+      "Padrão do React: \"Navegação estrutural\"."
+    ],
+    [
+      "—",
+      "—",
+      "linkComponent",
+      "Para usar o `Link` do router (ex.: Next) em todos os itens."
+    ]
+  ]
+}

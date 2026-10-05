@@ -226,6 +226,7 @@ Medições no código atual:
 | **P2** | Subir `build()`/`update()` de `CDS.SelectionControl` para `CDS.Element` (opcional por componente) quando a 2ª família usar | A3 | ~1h | Lote 4 |
 | ✅ | ~~Estados forçados como contrato da família de inputs~~ (base `CDS.TextField`) | A19 | feito | Lote 4 |
 | **P2** | Smoke: checar a cor do Label/mensagem por Appearance nos inputs (o bug do Warning passou nos dois) | — | ~20min | Lote 4 |
+| **P3** | **Docs sob demanda**: tirar os `*.docs.js` do `dist/cds.js` e carregar só ao abrir uma tab de doc (com índice leve de quem tem doc/capa). Gatilho: o orçamento do build passar de 600 KB gzip | peso | ~2h | quando o aviso aparecer |
 | **P3** | Separar `keywords` do manifest (carregar só na galeria) se o manifest passar de ~100 KB | A27 | ~20min | ilustrações |
 | **P3** | Smoke montar as tabs de doc e checar overflow horizontal em 375px | A21 | ~30min | 2ª doc |
 | **P3** | Extrator do frame `[Documentação]` → `.docs.js` (estrutura estável: seções por nome) | A17 | ~1h | se a doc virar padrão |

@@ -123,3 +123,27 @@ rewrite("index.html", "");
 const smoke = rewrite("tests/smoke.html", ""); // smoke.html usa <base href="../">
 console.log(`${order.length} componentes em ordem de dependência → index.html${smoke ? " + tests/smoke.html" : ""} · dist/cds.css (${bundled.css.length}) + dist/cds.js (${bundled.js.length})`);
 console.log(order.map((id) => deps[id].length ? `${id} ← ${deps[id].join(", ")}` : id).join("\n"));
+
+// ---------- Orçamento de peso (primeira visita) ----------
+// Mede o que o index.html carrega (CSS e JS locais), comprimido como o GitHub Pages serve (gzip), e quebra o
+// dist/cds.js por tipo. Passou do limite → aviso (o build não falha; BUDGET_STRICT=1 faz falhar, para CI).
+// Medição de 05/10/2026: ~400 KB gzip, página pronta em ~0,85 s na rede e ~32 ms de JS (D118).
+const BUDGET_KB = 600;
+const zlib = require("zlib");
+const gz = (buf) => zlib.gzipSync(buf, { level: 9 }).length;
+const kb = (n) => (n / 1024).toFixed(0).padStart(5) + " KB";
+const indexHtml = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
+const loaded = [...indexHtml.matchAll(/(?:href|src)="([\w./-]+\.(?:js|css))(?:\?v=[0-9a-f]+)?"/g)].map((m) => m[1]).filter((r) => fs.existsSync(path.join(ROOT, r)));
+let raw = 0, zip = 0;
+loaded.forEach((r) => { const b = fs.readFileSync(path.join(ROOT, r)); raw += b.length; zip += gz(b); });
+const parts = { "componentes": [], "playgrounds": [], "docs": [], "recursos": [] };
+bundled.js.forEach((r) => parts[r.startsWith("resources/") ? "recursos" : r.endsWith(".docs.js") ? "docs" : r.endsWith(".playground.js") ? "playgrounds" : "componentes"].push(r));
+console.log(`\nPeso da primeira visita (index.html): ${kb(raw).trim()} · gzip ${kb(zip).trim()} · limite ${BUDGET_KB} KB gzip`);
+Object.keys(parts).forEach((k) => {
+  const b = Buffer.concat(parts[k].map((r) => fs.readFileSync(path.join(ROOT, r))));
+  console.log(`  dist/cds.js · ${k.padEnd(12)} ${kb(b.length)} · gzip ${kb(gz(b))} · ${parts[k].length} arquivos`);
+});
+if (zip / 1024 > BUDGET_KB){
+  console.warn(`⚠️  Passou do orçamento: ${kb(zip).trim()} gzip > ${BUDGET_KB} KB. Próximo passo planejado: docs sob demanda (carregar *.docs.js só ao abrir a tab).`);
+  if (process.env.BUDGET_STRICT === "1") process.exit(1);
+}

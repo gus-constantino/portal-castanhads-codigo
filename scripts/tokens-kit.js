@@ -268,8 +268,56 @@
         var pad = vis.appendChild(el("span", "pg-sz-pad")); pad.style.padding = v; pad.appendChild(el("span"));
       });
     },
-    elevation: function(root){ group(root, "Elevations", pick("--common-elevation-level-"), "--common-elevation-", function(sw, n){ sw.classList.add("pg-tok__shadow"); sw.style.boxShadow = "var(" + n + ")"; }, "is-wide"); },
-    opacity: function(root){ group(root, "Opacity", pick("--common-opacity-"), "--common-opacity-", opacityView, "is-wide", "is-row"); },
+    // Elevação (Material/Polaris/Radix): palco com um card que sobe de nível (Filter Chips do DS) + sombra decomposta
+    elevation: function(root){
+      var list = pick("--common-elevation-level-"), s = section(root, "Elevations", list.length), lvl = list.length ? list[list.length - 1] : null;
+      var lab = s.appendChild(el("div", "pg-el-lab")), ctl = lab.appendChild(el("div", "pg-el-lab__ctl"));
+      var stage = lab.appendChild(el("div", "pg-el-stage")), card = stage.appendChild(el("div", "pg-el-card"));
+      card.appendChild(el("span", "pg-el-card__title")); card.appendChild(el("span", "pg-el-card__sub", "Card sobre Surface/01"));
+      var parts = ctl.appendChild(el("dl", "pg-el-parts"));
+      function show(n){
+        card.style.boxShadow = n ? "var(" + n + ")" : "none";
+        card.dataset.level = n ? n.replace(/.*-/, "") : "0";
+        card.firstChild.textContent = n ? label(n, "--common-elevation-") : "Nenhuma";
+        parts.innerHTML = "";
+        ["x", "y", "blur", "spread", "color"].forEach(function(k){
+          var t = n ? n.replace("--common-elevation-level-", "--common-elevations-level-") + "-" + k : null;
+          parts.appendChild(el("dt", null, cap(k)));
+          parts.appendChild(el("dd")).appendChild(code(t ? val(t) : "—", t));
+        });
+      }
+      if (CDS.kit) CDS.kit.seg(ctl, { label: "Nível", value: lvl, options: [[null, "Nenhuma"]].concat(list.map(function(n){ return [n, label(n, "--common-elevation-")]; })),
+        onChange: function(v){ show(v); } });
+      ctl.insertBefore(ctl.lastChild, parts); // chips antes da decomposição
+      var g = s.appendChild(el("div", "pg-el-row"));
+      list.forEach(function(n){
+        var t = g.appendChild(tile("pg-el-tile", n, null)); t.addEventListener("click", function(){ show(n); });
+        var c = t.appendChild(el("span", "pg-el-mini")); c.style.boxShadow = "var(" + n + ")";
+        var cp = t.appendChild(el("span", "pg-tok__text")); cp.appendChild(el("span", "pg-tok__name", label(n, "--common-elevation-"))); cp.appendChild(code(val(n), n));
+      });
+      show(lvl);
+    },
+    // Opacidade: laboratório (Slider do DS) com a comparação imagem | Accent sólido em tamanho grande + faixa com todos os níveis
+    opacity: function(root){
+      var list = pick("--common-opacity-"), cur = Math.max(0, list.indexOf("--common-opacity-medium"));
+      var s = section(root, "Opacity", list.length), lab = s.appendChild(el("div", "pg-bd-lab"));
+      var ctl = lab.appendChild(el("div", "pg-ctrl pg-bd-lab__ctl")); ctl.appendChild(el("span", "pg-lbl", "Opacidade"));
+      var sl = ctl.appendChild(document.createElement("cds-slider"));
+      [["label", "Opacidade"], ["min", "0"], ["max", String(list.length - 1)], ["step", "1"], ["value", String(cur)], ["show-value-indicator", "false"], ["show-stops", "false"], ["value-text", ""]].forEach(function(a){ sl.setAttribute(a[0], a[1]); });
+      var read = ctl.appendChild(el("p", "pg-bd-lab__read"));
+      var big = lab.appendChild(el("span", "pg-tok__op is-big")); opacityView(big, list[cur]); var layer = big.querySelector(".pg-tok__op-layer");
+      var g = s.appendChild(grid("is-shapes"));
+      function show(i){ cur = i; var n = list[i]; layer.style.opacity = "var(" + n + ")"; read.textContent = label(n, "--common-opacity-") + " · var(" + n + ") · " + Math.round(parseFloat(val(n)) * 100) + "%";
+        CDS.attr(sl, "value", String(i)); [].forEach.call(g.children, function(t, k){ t.classList.toggle("is-current", k === i); }); }
+      sl.addEventListener("cds-change", function(e){ e.stopPropagation(); show(Math.round(e.detail.value)); });
+      sl.addEventListener("input", function(){ var v = parseInt(sl.getAttribute("value"), 10); if (!isNaN(v)) show(v); });
+      list.forEach(function(n, i){
+        var t = g.appendChild(tile("pg-bd-tile", n, null)); t.addEventListener("click", function(){ show(i); });
+        opacityView(t.appendChild(el("span", "pg-tok__op")), n);
+        var cp = t.appendChild(el("span", "pg-tok__text")); cp.appendChild(el("span", "pg-tok__name", label(n, "--common-opacity-"))); cp.appendChild(code(Math.round(parseFloat(val(n)) * 100) + "%", null));
+      });
+      show(cur);
+    },
     duration: function(root){ runs(root, "Duration", pick("--common-motion-duration-"), "--common-motion-duration-", "duration"); },
     delay: function(root){ runs(root, "Delay", pick("--common-motion-delay-"), "--common-motion-delay-", "delay"); },
     // Curva desenhada + bolinha que percorre a trilha com aquela curva (Long/04)

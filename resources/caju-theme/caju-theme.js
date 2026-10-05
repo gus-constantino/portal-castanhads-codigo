@@ -5,17 +5,17 @@
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   var FIGMA = "https://www.figma.com/design/Zx9KwwRFqZrOfeuXpYZiTx/-Caju--Theme?node-id=4309-2";
-  CDS.register({ id: "caju-theme", name: "Caju Theme", resource: true, order: 1, status: "250", figma: FIGMA });
+  CDS.register({ id: "caju-theme", name: "Caju - Tema", resource: true, order: 1, status: "250", figma: FIGMA });
   // Rotas antigas de Ícones e Ilustrações → tabs do Caju Theme (links salvos continuam funcionando)
-  var MOVED = { "caju-icons": "icones", "caju-illustrations": "ilustracoes" };
-  function moved(){ var m = (location.hash || "").match(/^#\/(caju-icons|caju-illustrations)(?:\/([\w-]+))?/); if (m) location.replace("#/caju-theme/" + MOVED[m[1]]); }
+  var MOVED = { "caju-icons": "icones", "caju-illustrations": "ilustracoes", "animations": "motion" }; // Animações: volta para cá quando a lib existir
+  function moved(){ var m = (location.hash || "").match(/^#\/(caju-icons|caju-illustrations|animations)(?:\/([\w-]+))?/); if (m) location.replace("#/caju-theme/" + MOVED[m[1]]); }
   moved(); window.addEventListener("hashchange", moved);
   var A = window.CDS.assets || {};
   var nIcons = (A.iconBuckets || []).filter(function(b){ return !b.deprecated && !b.glyphs; }).reduce(function(t, b){ return t + b.icons.length; }, 0);
   var nIlls = (A.illustrations || []).length, nCats = (A.illustrationBuckets || []).length;
   var LIVE = "Os valores são lidos ao vivo dos tokens do playground: troque o tema (ícone de lua no topo) para ver os valores do dark. Clique numa amostra para copiar a variável CSS.";
   CDS.docs["caju-theme"] = {
-    source: FIGMA, sourceLabel: "Abrir o Caju Theme no Figma",
+    source: FIGMA, sourceLabel: "Abrir o [Caju] Theme no Figma",
     tabs: [
       { id: "cores", title: "Cores", blocks: [
         { h2: "Cores" },
@@ -43,10 +43,10 @@
       ] },
       { id: "elevacao", title: "Elevação e opacidade", blocks: [
         { h2: "Elevations" },
-        { p: "Sombras `Common/Elevation/level 1–3` (x · y · blur · spread · cor)." },
+        { p: "Sombras `Common/Elevation/level 1–3`. Escolha o nível para ver o card subir; a sombra aparece decomposta em x · y · blur · spread · cor." },
         { tokens: "elevation" },
         { h2: "Opacity" },
-        { p: "Níveis `Common/Opacity/*`. Como no Figma, cada amostra compara imagem e cor sólida (`Accent/Solid/medium`) sob uma camada `Support/darker` na opacidade do token." },
+        { p: "Níveis `Common/Opacity/*`. Como no Figma, a amostra compara imagem e cor sólida (`Accent/Solid/medium`) sob uma camada `Support/darker` na opacidade do token. Arraste o Slider ou clique num nível." },
         { tokens: "opacity" }
       ] },
       { id: "motion", title: "Motion", blocks: [
@@ -90,7 +90,7 @@
         { note: "Nomes repetidos no Figma (ex.: três `moeda-verde-pilha-2` em Finanças) ganharam sufixo `-1`, `-2` no repo. Estão no CONFERIR para corrigir na origem." }
       ] },
       { id: "visao-geral", title: "Visão geral", blocks: [
-        { h2: "Caju Theme" },
+        { h2: "Caju - Tema" },
         { p: "Fonte de tudo que os componentes usam por baixo: tokens (cores, tipografia, bordas, tamanhos, elevações, opacidade e motion, em light e dark), ícones e ilustrações." },
         { h3: "O que tem" },
         { ul: ["250 tokens `Common/*` (89 com valor dark)", "34 text styles, incluindo Decorative em Work Sans", "3 elevações (`Elevation/level 1–3`)", "15 variáveis de Motion Styles (`.Motion Styles`, modo Normal)"] },

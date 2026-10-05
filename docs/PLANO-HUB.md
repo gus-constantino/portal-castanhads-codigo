@@ -36,7 +36,7 @@ Tudo com componentes e tokens do DS; exemplos visuais com as ilustrações e com
 | H1 | Motion: pilares + Velocidade (uso das curvas e durações) + regras; CONFERIR das divergências — **feito** (D84) | médio |
 | H2 | Conteúdo → Princípios de escrita ([NEW]) — **feito** (D85) | médio |
 | H3 | Ilustração: princípios + Painel semântico + Guidelines + Aplicações + Do's & Don'ts — **feito** na tab Ilustrações, antes da biblioteca (D88) | grande |
-| Depois | Restante do [NEW] Content; Motion · Transições quando ficar estável | a decidir |
+| Depois | Restante do [NEW] Content — **feito** (tabs Escrevendo para produto, Vocabulário, Formatação de dados, Componentes, Contextos e Canais); Motion · Transições quando ficar estável | a decidir |
 
 ## 4. Limitações
 - **Imagens do zeroheight/Figma** (GIFs de motion, prints de telas nos Do/Don'ts e Aplicações) não podem ser baixadas por aqui (o curl está bloqueado e o MCP só devolve link temporário). Onde der, refaço com componentes/ilustrações reais; onde não der, fica o texto, ou você exporta os arquivos.

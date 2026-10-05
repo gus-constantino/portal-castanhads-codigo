@@ -9306,6 +9306,12 @@ try {
       ].filter(function(x){ return x._tag !== "cds-main-button" || x.label; }) } // b opcional: uma ação só
     ] };
   }
+  // Notificação in-app de exemplo: Card do DS com título, texto e CTA em Link do DS
+  function notif(title, text, cta){
+    var kids = [{ _tag: "h4", class: "pg-cnt-phone__title", _text: title }, { _tag: "p", class: "pg-cnt-phone__text", _text: text }];
+    if (cta) kids.push({ _tag: "cds-link", label: cta, href: "#", appearance: "accent" });
+    return { _tag: "cds-card", "has-border": true, class: "pg-cnt-card", style: "width:100%", _children: kids };
+  }
   CDS.docs["conteudo"] = {
     source: FIGMA, sourceLabel: "Abrir Princípios de escrita no Figma",
     tabs: [
@@ -10154,6 +10160,195 @@ try {
             text: "Não explica que a limitação é uma medida de proteção da Caju e culpa a pessoa diretamente." }
         ] },
         { note: "Fonte: Figma · 📁 [NEW] Content → Contextos (Apresentando funcionalidades, Explicando primeiro uso, Urgências e bloqueios). As telas foram refeitas com Card, Bottom Sheet, Main Button e Fixed Bar do DS, com os mesmos textos; os mockups de carrossel e de tooltips do tour ficam de fora (C115)." }
+      ] }
+      ,
+      { id: "canais", title: "Canais", blocks: [
+        { h2: "Push" },
+        { p: "Notificações push são mensagens curtas enviadas diretamente para o dispositivo da pessoa. Aparecem como pop-up na tela, mesmo com o app fechado. Por isso, cada push precisa ter um motivo real para existir." },
+        { h3: "Limite de caracteres" },
+        { table: { wrap: true, head: ["Elemento", "Limite", "Observação"], rows: [
+          ["Título", "30 caracteres", "Quanto menor, melhor"], ["Título + descrição", "200 caracteres", "Garante visibilidade completa"], ["Emoji", "2 caracteres cada", "Se puder, evite"]
+        ] } },
+        { h3: "Como escrever" },
+        { ul: [
+          "O título deve resumir o motivo do disparo.",
+          "A descrição complementa o título com contexto, referência (valor, data, nome) e próximo passo.",
+          "Não use letras maiúsculas no meio da frase.",
+          "Não use \"com sucesso\" em confirmações — se aconteceu, não existe uma forma de acontecer com erros.",
+          "Não use \"ops\", \"que pena\" ou \"desculpa\" em falhas.",
+          "Não use emojis em notificações negativas.",
+          "Sempre confira a documentação regulatória quando houver. O BACEN, por exemplo, exige mascaramento específico de CPF em notificações de Pix."
+        ] },
+
+        { h2: "In-app" },
+        { p: "Notificações in-app aparecem dentro do produto enquanto a pessoa navega — na Central de Notificações do Employee ou do Sponsor. Diferente do push, ela não interrompe: a pessoa acessa quando quiser." },
+        { p: "Por isso, o in-app é ideal para destravar ações pendentes, registrar eventos importantes e servir como histórico de comunicações." },
+        { h3: "Limite de caracteres" },
+        { table: { wrap: true, head: ["Elemento", "Limite"], rows: [["Título", "30 caracteres"], ["Descrição", "110 caracteres"], ["Total", "140 caracteres"], ["CTA", "Não pode quebrar em mais de uma linha"]] } },
+        { h3: "Regras de uso" },
+        { ul: ["Nunca use in-app como canal único. Ele sempre precisa estar atrelado a outro canal — push ou e-mail.", "Quando houver ação pendente, o deep link para o destino útil é obrigatório."] },
+        { h3: "Como escrever" },
+        { ul: [
+          "O título deve resumir o motivo do disparo.",
+          "A descrição complementa o título com contexto, referência (valor, data, nome) e próximo passo.",
+          "Use infinitivo nos CTAs.", "Não use ponto de exclamação.", "Não use letras maiúsculas no meio da frase.",
+          "Não use \"com sucesso\" em confirmações — se aconteceu, não existe uma forma de acontecer com erros.",
+          "Não use \"ops\", \"que pena\" ou \"desculpa\" em falhas.", "Não use emojis em notificações negativas.",
+          "Sempre confira a documentação regulatória quando houver. O BACEN, por exemplo, exige mascaramento específico de CPF em notificações de Pix."
+        ] },
+        { h3: "Datas na notificação" },
+        { table: { wrap: true, head: ["Quando", "Formato"], rows: [["No mesmo dia", "`Hoje HH:MM`"], ["No dia anterior", "`Ontem HH:MM`"], ["Dois dias ou mais", "`DD/MM/AAAA HH:MM`"]] } },
+        { h3: "Quando usar" },
+        { table: { wrap: true, head: ["Tipo", "Quando"], rows: [
+          ["Lembrete", "Prazo se aproximando, ação não finalizada, recorrências importantes."],
+          ["Transacional", "Confirmação imediata de algo que aconteceu: pagamento, Pix, pedido."],
+          ["Status ou andamento", "Atualização relevante de um processo em curso."],
+          ["Segurança", "Proteção ativa: reconhecimento facial, dispositivo autorizado."],
+          ["Urgência", "Situação crítica com app ainda funcional e ação necessária agora."]
+        ] } },
+        { p: "Urgência é diferente de incidente técnico. Se o app está fora do ar, a Central de Notificações também fica indisponível — use outros canais nesses casos." },
+        { h3: "Templates por tipo" },
+        { guides: [
+          { title: "Lembrete", text: "Título: Que evento está chegando · Descrição: contexto + consequência de não agir + tempo de reação · CTA (opcional): Finalizar / Revisar / Continuar · Deep link: retoma o estado anterior sempre que possível",
+            attrs: notif("Seu cartão físico vai expirar", "Solicite uma nova via ou siga usando seus cartões virtuais.", "Solicitar") },
+          { title: "Transacional", text: "Título: confirmação objetiva · Descrição: o que aconteceu + detalhes claros (valor, destino, data) · CTA (opcional): Detalhes · Deep link: detalhes da ação concluída",
+            attrs: notif("Pix enviado", "Pix de R$ 1.000,00 para Juca Castanha •••.456.789-•• enviado.", "Detalhes") },
+          { title: "Falha ou bloqueio", text: "Título: o que impediu a ação · Descrição: o que falhou + por que falhou + o que fazer agora · CTA (opcional): Tentar de novo / Recarregar · Deep link: tela ou área que permite resolver",
+            attrs: notif("Pagamento de R$ 36,00 recusado", "Cartão bloqueado temporariamente. Acesse a área de Cartões para desbloquear.", "Cartões") },
+          { title: "Status ou andamento", text: "Título: atualização de status · Descrição: em que etapa está + o que esperar agora · CTA (opcional): Detalhes · Deep link: linha do tempo ou detalhes do processo",
+            attrs: notif("Contestação em análise", "Recebemos sua solicitação e vamos te avisar quando houver atualização.") },
+          { title: "Segurança ou prevenção", text: "Título: proteção em destaque · Descrição: risco evitado + benefício claro · CTA (opcional): infinitivo da ação · Deep link: tela de configuração ou validação",
+            attrs: notif("Proteja seu acesso", "Ative o reconhecimento facial para aumentar a segurança da sua conta.", "Ativar") },
+          { title: "Urgência", text: "Título: urgência explícita e direta · Descrição: o que está acontecendo + impacto imediato + o que fazer · CTA (opcional): infinitivo da ação · Deep link: sempre para a ação crítica ou tela de resolução",
+            attrs: notif("Pix indisponível", "A área Pix estará temporariamente indisponível amanhã até 12:00.") }
+        ] },
+
+        { h2: "E-mails transacionais" },
+        { p: "E-mails transacionais informam ou orientam a pessoa na conclusão de uma tarefa. São disparados automaticamente por um evento: cadastro, pagamento, redefinição de senha. Diferente do push e do SMS, permitem comunicações mais longas e servem como histórico." },
+        { h3: "Antes de escrever" },
+        { ul: [
+          "Entenda o fluxo em que o e-mail está inserido.",
+          "Defina o objetivo: o que a pessoa precisa saber ou fazer depois de ler?",
+          "Verifique se já existe um template ativo, sempre prefira atualizar um existente a criar um novo."
+        ] },
+        { h3: "Anatomia" },
+        { p: "O e-mail segue sempre esta ordem:" },
+        { steps: [
+          { title: "Assunto", text: "Primeiro ponto de contato. Deve informar claramente o que aconteceu ou o que vai acontecer.", list: [
+            "Use palavras-chave logo no início. Exemplo: `Confirme seu e-mail`.",
+            "Tamanho ideal para mobile: até 33 caracteres. Máximo recomendado: entre 35 e 50 caracteres.",
+            "Evite termos como \"oferta\" ou \"grátis\" — estão associados a spam.",
+            "Sem letras maiúsculas fora do padrão e sem ponto de exclamação."
+          ] },
+          { title: "Preview text", text: "Complementa o assunto e dá um motivo adicional para abrir o e-mail.", list: [
+            "Tamanho recomendado para visibilidade é de até 37 caracteres, e o aceitável é entre 40 e 80 caracteres.",
+            "O tamanho máximo é de 40 a 100 caracteres, mas lembre que textos muito longos são cortados.",
+            "Não repita exatamente o mesmo texto do assunto.",
+            "Antecipe o valor ou ação esperada daquele e-mail."
+          ] },
+          { title: "Título", text: "Resume o conteúdo do e-mail. É com ele que a pessoa decide se vai ler ou não.", list: [
+            "Coloque a informação mais importante primeiro.", "Prefira frases positivas — reduzem a carga cognitiva.", "Nunca use \"com sucesso\".", "Não use emojis.", "Não use ponto final.",
+            "O nome da empresa só aparece no título se fizer parte do conteúdo — nunca como saudação. Exemplo: `As faturas do Grupo Boticário já estão disponíveis`"
+          ] },
+          { title: "Saudação", list: [
+            "Evite usar variável de nome próprio ou nome da empresa na saudação — recomendação do jurídico. Essas variáveis podem aparecer no corpo do e-mail se forem relevantes para o contexto.",
+            "Para temas sensíveis ou técnicos (ex: KYC), prefira a saudação mais neutra: \"Oi, tudo bem?\" ou simplesmente \"Oi,\"."
+          ] },
+          { title: "Corpo do e-mail", list: [
+            "A informação mais importante vem primeiro.", "Parágrafos curtos — máximo 3 linhas.",
+            "Use listas para passo a passo e instruções e o numeral da lista deve estar usando a cor #C3032C. Confira as regras em Escrevendo para produto.",
+            "Para destacar um botão ou área da plataforma no texto, use SemiBold.",
+            "Título: Roboto - SemiBold - 23", "Descrição: Roboto - Regular 16"
+          ] },
+          { title: "CTA", list: ["Use apenas um CTA por e-mail. Sem botões secundários.", "Use os mesmos verbos e termos do corpo do e-mail e do fluxo no produto.", "Siga as regras de Botões."] },
+          { title: "Call out", text: "Use ao final do e-mail para indicar ajuda extra sobre o tema. Use o template indicado nessa documentação. Fontes: Roboto - Regular - 14", after: "Exemplo: `Precisa de ajuda? Tire suas dúvidas na Central de ajuda ou Fale com a gente.`" },
+          { title: "Footer", text: "Sessão fixa — não altere o conteúdo. Para correções ou atualizações, entre em contato pelo canal #castanha-suporte." },
+          { title: "Números", text: "Use para indicar senhas ou códigos enviados para a pessoa usuária.", after: "Exemplo: `1 2 3 4 5 6 7 8`" }
+        ] },
+        { h3: "Depois de escrever" },
+        { ul: [
+          "A informação mais importante aparece primeiro?", "Os termos são consistentes com o fluxo no produto?", "Os termos estão no Glossário Caju? Se não, solicite a inclusão.",
+          "O texto pode ser resumido sem perder informação?", "Revisou ortografia e digitação?", "Pediu feedback de alguém familiarizado com o fluxo?"
+        ] },
+        { h3: "Aplicações" },
+        { guides: [
+          { title: "Precisamos de novas fotos", text: "Recebemos suas informações, mas não foi possível validar as fotos enviadas para criar o cadastro. Escolha como deseja enviar os documentos: Versão digital do documento · Versão física do documento · Foto do rosto (selfie).",
+            attrs: notif("Precisamos de novas fotos", "É bem fácil enviar suas fotos novamente: 1. Acesse o app, digite seu e-mail e senha e clique em Entrar. 2. Informe o código de autenticação recebido por e-mail ou SMS e clique em Continuar. 3. Faça os ajustes dos problemas que indicamos e confirme o envio. A validação pode levar até 2 dias úteis", "Enviar as fotos novamente") },
+          { title: "Nova autorização pendente", text: "A empresa [nome da empresa] solicitou autorização no seu app. Com a autorização, a empresa tem acesso aos seus dados e pode fazer recargas de saldo nas carteiras.",
+            attrs: notif("Nova autorização pendente", "1. Acesse o app da Caju para colaboradores. 2. Informe seu CPF e senha e clique em Entrar. 3. Autorize sua nova empresa no app. Não reconhece essa empresa? Fale com seu RH para entender o que aconteceu. Se realmente for um engano, clique em Não reconheço esta empresa no app.") },
+          { title: "Cartão adicionado", text: "Agora você já pode usar o cartão {{maskedNumber}} direto pelo seu dispositivo móvel com Apple Pay. Para a sua segurança, você pode conferir abaixo qual o dispositivo cadastrado e qual a data e hora em que o cartão foi adicionado.",
+            attrs: notif("Cartão adicionado", "Não foi você? Recomendamos que bloqueie preventivamente seu cartão no app e entre em contato com a gente.") }
+        ] },
+        { h3: "Ferramentas e processo · Sendgrid" },
+        { p: "O Sendgrid é a plataforma de e-mail marketing usada na Caju para o envio de e-mails transacionais em massa." },
+        { steps: [
+          { title: "Solicitando acesso", list: [
+            "Acesse o canal do Slack #sos-tech e preencha o formulário Portal de acessos.",
+            "Nos comentários, informe que você é responsável por atualizar os e-mails da sua squad.",
+            "Depois que seu líder aprovar, você vai receber um convite da Twilio. Você tem 7 dias para aceitar — após esse prazo, o convite expira e será necessário solicitar novamente.",
+            "Crie uma senha de acesso ou entre pelo login do Google.", "Valide o e-mail pelo código enviado para o seu e-mail da Caju.", "Valide seu número de celular.", "Salve o código de recuperação antes de continuar."
+          ] },
+          { title: "Atualizando um e-mail existente", list: [
+            "Vídeo com o passo a passo completo.", "Acesse o Sendgrid.", "No menu lateral, clique em Email API e depois em Dynamic template.",
+            "Encontre o e-mail que deseja atualizar e clique nele. A versão ativa é a última da lista.", "Clique em Add Version, selecione o modelo e clique em Select.",
+            "Escolha Code Editor para editar. Se não tiver noção de HTML e CSS, passe para o front da sua squad.", "Após editar, clique em Save no menu superior.",
+            "Em Settings, atualize o assunto e o nome da versão seguindo o versionamento da última versão ativa.", "Faça envios de teste em Test your email.",
+            "Quando tudo estiver pronto, encontre o e-mail na lista, clique nos três pontos e depois em Make Active.",
+            "Para e-mails com variáveis como códigos e senhas, sinalize para o dev da squad conferir antes de ativar."
+          ] },
+          { title: "Criando um e-mail novo", list: [
+            "Vídeo com o passo a passo completo.", "Evite criar novos modelos. Sempre que possível, atualize um template existente.", "Acesse o Sendgrid.",
+            "No menu lateral, clique em Email API e depois em Dynamic template.", "Clique em Create a Dynamic Template.",
+            "Nomeie o template seguindo o padrão: `[Número no Figma] Jornada | Objetivo do e-mail [público-alvo]` Exemplo: `[09] Cadastro | Menor de idade [colaboradores]`",
+            "Encontre o template criado na lista e clique nele.", "Clique em Add Version, selecione o modelo e clique em Select.", "Escolha Code Editor para editar.", "Após editar, clique em Save.",
+            "Em Settings, atualize o assunto e nomeie a versão como v1.", "Faça envios de teste em Test your email.", "Quando tudo estiver pronto, passe o Template ID para o front da squad implementar.",
+            "Para e-mails com variáveis como códigos e senhas, sinalize para o dev da squad conferir antes de ativar."
+          ] }
+        ] },
+
+        { h2: "SMS" },
+        { p: "SMS é um canal premium — o custo é cobrado por segmento e varia conforme o tipo de caractere usado. Use apenas em cenários de urgência real e alto impacto, quando o tempo de reação importa mais que o custo." },
+        { h3: "Hierarquia de canais" },
+        { p: "Avance para SMS apenas se os canais anteriores falharam ou se a urgência não permite esperar por eles." },
+        { ol: ["Push (gratuito)", "E-mail (baixo custo)", "WhatsApp", "SMS (premium)"] },
+        { h3: "Quando usar" },
+        { table: { wrap: true, head: ["Cenário", "Exemplos"], rows: [
+          ["Autenticação", "OTP, códigos, confirmação de acesso"], ["Segurança", "Login suspeito, alteração de dados críticos, acesso não reconhecido"],
+          ["Financeiro crítico", "Cobrança próxima, acesso temporariamente limitado"], ["Ações com prazo", "Documentos pendentes, acesso expirado"]
+        ] } },
+        { h3: "Como escrever" },
+        { ul: [
+          "Sempre use \"Caju:\" antes do texto. Isso identifica o remetente, transmite confiança e evita confusão com golpes.",
+          "Coloque a informação principal na primeira linha. A pessoa precisa entender o que está acontecendo de imediato.",
+          "Use frases curtas e verbos diretos no imperativo: \"Acesse\", \"Envie\", \"Confirme\".",
+          "Use links encurtados sempre. URLs completas desperdiçam caracteres e parecem suspeitas.",
+          "Não use acentuação. Escreva sem til, acento agudo ou cedilha: \"voce\", \"acao\", \"adesao\", \"autenticacao\".",
+          "Não use emojis — aumentam o tamanho em bytes e podem não renderizar em todos os dispositivos.",
+          "Não use caixa alta na mensagem inteira.",
+          "Evite palavras desnecessárias: artigos, preposições longas, locuções verbais quando um verbo direto resolve."
+        ] },
+        { p: "Exemplos:" },
+        { ul: [
+          "`Caju: Nao compartilhe com outras pessoas, nunca solicitamos senha ou dados do cartao. Codigo de autenticação {{code}} - MFA_ACTIVATION`",
+          "`Caju: Envie os documentos pendentes para acessar o app: link.co/`",
+          "`Caju: Fale com o RH da sua empresa para fazer cadastro no app`"
+        ] },
+        { h3: "Limites técnicos" },
+        { ul: [
+          "Teste sempre na ferramenta Message Segment Calculator da Twilio antes de enviar.",
+          "O texto precisa ser GSM-7. Se virar Unicode, o custo aumenta — por isso a regra de não usar acentos ou emojis.",
+          "Limite ideal: até 160 caracteres. Acima disso, o SMS quebra em mais de um segmento.",
+          "Mantenha sempre 1 segmento. 2 segmentos custam o dobro; 3, o triplo."
+        ] },
+        { h3: "Checklist antes de enviar" },
+        { ul: [
+          "A mensagem não tem acento nem emoji?", "O link está encurtado?", "A situação é realmente urgente e de alto impacto?", "Outros canais já foram tentados antes?",
+          "Existe risco de envio duplicado?", "A mensagem está em GSM-7 e dentro de 160 caracteres?", "A mensagem está em 1 segmento?"
+        ] },
+        { h3: "Métricas de controle" },
+        { p: "Em caso de dúvida sobre o uso do canal, monitore:" },
+        { table: { wrap: true, head: ["Métrica", "Cálculo"], rows: [["Custo por conversão", "custo total ÷ conversões"], ["Taxa de entrega", "entregues ÷ enviados"], ["Custo por pessoa impactada", "custo total ÷ pessoas impactadas"]] } },
+        { note: "Fonte: Figma · 📁 [NEW] Content → Canais (Push, In-app, E-mails · Diretrizes de conteúdo, Aplicações, Ferramentas e processo, SMS). Tabelas em imagem transcritas; os exemplos de notificação usam Card e Link do DS; o mockup de anatomia do e-mail e o Template em HTML ficam de fora (C116)." }
       ] }
     ]
   };

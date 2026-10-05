@@ -8610,7 +8610,7 @@ try {
             list: ["A linguagem faz companhia ou apenas dá instruções?", "A pessoa entende o que está acontecendo neste momento?", "Existe uma oportunidade de dividir a responsabilidade com \"vamos\", \"estamos\" ou \"a gente\"?", "Se algo der errado, mostramos que ainda existe um caminho e que vamos resolver juntos?"] },
           { title: "Aproximar pelo cuidado, não pela informalidade", text: [
               "Em vez de tentar soar como um amigo, com gírias, onomatopeias ou memes, escreva como alguém atento à experiência de quem está do outro lado. Faça perguntas, dê contexto, explique os próximos passos e confira se tudo está claro antes de seguir. Em vez de parecer descontraído, pareça presente.",
-              "Expressões como \"Ei\", \"Ops!\", \"Hmm…\" ou \"Beleza?\" simulam uma conversa, mas nem sempre acolhem. Depois de um erro, elas podem soar impacientes, irônicas ou infantilizadas — por isso nunca entram em mensagens de erro (ver Feedback Pages)."],
+              "Expressões como \"Ei\", \"Ops!\", \"Hmm…\" ou \"Beleza?\" simulam uma conversa, mas nem sempre acolhem: depois de um erro, podem soar impacientes, irônicas ou infantilizadas. Por isso, evite em qualquer momento (ver Vocabulário)."],
             list: ["Existe uma oportunidade de perguntar, acolher ou orientar antes de simplesmente informar?", "A pessoa consegue seguir com mais confiança depois de ler este texto?", "A conversa parece escrita para alguém ou apenas sobre uma funcionalidade?"] },
           { title: "Pensar títulos com foco na conversa", text: [
               "Quem abre o aplicativo não está procurando funcionalidades: está tentando resolver um problema, economizar tempo ou concluir uma tarefa. Em vez de começar pelo que o produto faz, comece pelo que a novidade representa para a pessoa, com chamadas que façam sentido desde a primeira leitura.",
@@ -9204,7 +9204,7 @@ try {
         { p: "Use para situações que exigem atenção ou estados de espera. O alerta não é necessariamente um bloqueio, mas um pedido de ação consciente." },
         { ul: [
           "Use tom acolhedor e preventivo. \"Antes de continuar\" sinaliza revisão sem punição.",
-          "Explique o porquê do alerta: \"Para garantir sua segurança\" ou \"Para uma melhor experiência\".",
+          "Explique o porquê do alerta: \"Para sua segurança\" ou \"Para uma melhor experiência\". Evite \"garantir\": promete o que pode não depender de nós.",
           "Sempre informe prazos: \"em até 2 dias úteis\". Se não houver prazo definido, ofereça a opção de ser notificado: \"Quero ser avisado\".",
           "Informe o canal de notificação: \"te avisaremos via push\" ou \"enviamos um e-mail\".",
           "Se a pessoa não puder sair da tela, deixe isso claro no título: \"Não feche esta página ainda\".",
@@ -9516,31 +9516,12 @@ try {
           { title: "Cartão adicionado", text: "Agora você já pode usar o cartão {{maskedNumber}} direto pelo seu dispositivo móvel com Apple Pay. Para a sua segurança, você pode conferir abaixo qual o dispositivo cadastrado e qual a data e hora em que o cartão foi adicionado.",
             attrs: notif("Cartão adicionado", "Não foi você? Recomendamos que bloqueie preventivamente seu cartão no app e entre em contato com a gente.") }
         ] },
-        { h3: "Ferramentas e processo · Sendgrid" },
-        { p: "O Sendgrid é a plataforma de e-mail marketing usada na Caju para o envio de e-mails transacionais em massa." },
-        { steps: [
-          { title: "Solicitando acesso", list: [
-            "Acesse o canal do Slack #sos-tech e preencha o formulário Portal de acessos.",
-            "Nos comentários, informe que você é responsável por atualizar os e-mails da sua squad.",
-            "Depois que seu líder aprovar, você vai receber um convite da Twilio. Você tem 7 dias para aceitar — após esse prazo, o convite expira e será necessário solicitar novamente.",
-            "Crie uma senha de acesso ou entre pelo login do Google.", "Valide o e-mail pelo código enviado para o seu e-mail da Caju.", "Valide seu número de celular.", "Salve o código de recuperação antes de continuar."
-          ] },
-          { title: "Atualizando um e-mail existente", list: [
-            "Vídeo com o passo a passo completo.", "Acesse o Sendgrid.", "No menu lateral, clique em Email API e depois em Dynamic template.",
-            "Encontre o e-mail que deseja atualizar e clique nele. A versão ativa é a última da lista.", "Clique em Add Version, selecione o modelo e clique em Select.",
-            "Escolha Code Editor para editar. Se não tiver noção de HTML e CSS, passe para o front da sua squad.", "Após editar, clique em Save no menu superior.",
-            "Em Settings, atualize o assunto e o nome da versão seguindo o versionamento da última versão ativa.", "Faça envios de teste em Test your email.",
-            "Quando tudo estiver pronto, encontre o e-mail na lista, clique nos três pontos e depois em Make Active.",
-            "Para e-mails com variáveis como códigos e senhas, sinalize para o dev da squad conferir antes de ativar."
-          ] },
-          { title: "Criando um e-mail novo", list: [
-            "Vídeo com o passo a passo completo.", "Evite criar novos modelos. Sempre que possível, atualize um template existente.", "Acesse o Sendgrid.",
-            "No menu lateral, clique em Email API e depois em Dynamic template.", "Clique em Create a Dynamic Template.",
-            "Nomeie o template seguindo o padrão: `[Número no Figma] Jornada | Objetivo do e-mail [público-alvo]` Exemplo: `[09] Cadastro | Menor de idade [colaboradores]`",
-            "Encontre o template criado na lista e clique nele.", "Clique em Add Version, selecione o modelo e clique em Select.", "Escolha Code Editor para editar.", "Após editar, clique em Save.",
-            "Em Settings, atualize o assunto e nomeie a versão como v1.", "Faça envios de teste em Test your email.", "Quando tudo estiver pronto, passe o Template ID para o front da squad implementar.",
-            "Para e-mails com variáveis como códigos e senhas, sinalize para o dev da squad conferir antes de ativar."
-          ] }
+        { h3: "Ferramentas e processo" },
+        { p: "Os e-mails transacionais são publicados na plataforma de envio usada pela Caju. Para ter acesso, peça pelo canal de suporte do time; o passo a passo fica na documentação interna." },
+        { ul: [
+          "Evite criar novos modelos: sempre que possível, atualize um template existente.",
+          "Template novo segue o padrão de nome `[Número no Figma] Jornada | Objetivo do e-mail [público-alvo]`. Exemplo: `[09] Cadastro | Menor de idade [colaboradores]`",
+          "Em e-mails com variáveis, como códigos e senhas, peça para o dev da squad conferir antes de ativar."
         ] },
 
         { h2: "SMS" },

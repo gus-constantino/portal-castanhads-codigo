@@ -51,6 +51,8 @@ O Figma "Como a Caju Fala" (fonte original do playground) ainda tem a versão an
 7. Explicar no onboarding: o playbook antigo diz "não é o momento de explicar regras de negócio" e a Premissa #6 inclui "Explicar". **Decidido em 05/10:** explica o conceito e a utilidade; regra de negócio detalhada vai para a FAQ. Atualizar o playbook Comunicando Novidades.
 8. Feedback Pages: os textos sugeridos do .Feedback Content no Figma (tabela da seção 3).
 9. Erros: manter "Assuma a responsabilidade" (o Hub diz "culpa") e o botão destrutivo de exemplo "Excluir rascunho".
+10. Interjeições: evitar em qualquer momento (a Premissa #3 diz "nem sempre acolhem"; decidido como regra única).
+11. "Para garantir sua segurança" (Alertas) → "Para sua segurança"; "garantir" continua em Palavras para evitar.
 
 ## 2. O que falta no playground e entra depois das decisões
 

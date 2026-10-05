@@ -23,6 +23,7 @@
  *   guides: [{ attrs, title, text }]
  *   dodont: [{ kind: "do"|"dont", attrs, title, text, steps, style }]   sem attrs: só texto · steps: lista numerada
  *   table: { head: [...], rows: [[...]], wrap }   wrap: células quebram linha
+ *   video: { src, title, caption, href, cta }   player embutido 16:9 (iframe do serviço; o DS não tem componente de vídeo)
  *   shortcuts: [{ title, text, href, cta, illustration, external }]   atalhos em Cards (capa do Castanha Hub); sem href, card só informativo
  *   palette: { label, names: [...], steps: [...], hex: [[hex por passo] por cor], notes: { passo: "nota" } }   paleta fora dos tokens (ilustração)
  *   steps: [{ title, text, list, table, after }]   passos numerados
@@ -457,6 +458,21 @@
       return wrap;
     },
     // Atalhos (capa do Castanha Hub): Card do DS com ilustração da biblioteca + título + texto + Link do DS
+    // Vídeo embutido (ex.: treinamentos gravados no Google Drive). O DS não tem componente de vídeo (C160):
+    // o player é o do próprio serviço num iframe 16:9, com título acessível e um Link do DS para abrir fora.
+    video: function(d, v){
+      var box = el("figure", "pg-doc-video");
+      var fr = el("iframe", "pg-doc-video__frame");
+      fr.src = v.src; fr.title = v.title || "Vídeo"; fr.loading = "lazy";
+      fr.setAttribute("allow", "autoplay; fullscreen"); fr.setAttribute("allowfullscreen", "");
+      box.appendChild(fr);
+      if (v.href || v.caption){
+        var cap = box.appendChild(el("figcaption", "pg-doc-video__caption"));
+        if (v.caption) cap.appendChild(rich(el("span", "pg-doc-p"), v.caption));
+        if (v.href){ var l = el("cds-link"); l.setAttribute("label", v.cta || "Abrir em outra aba"); l.setAttribute("href", v.href); l.setAttribute("target", "_blank"); l.setAttribute("icon", "link-line"); l.setAttribute("appearance", "neutral"); cap.appendChild(l); }
+      }
+      return box;
+    },
     shortcuts: function(d, v){
       var g = el("div", "pg-doc-shortcuts"), ills = {}; ((window.CDS.assets || {}).illustrations || []).forEach(function(i){ ills[i.name] = i.src; });
       v.forEach(function(it){

@@ -11,7 +11,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | [Ajuste de texto](#ajuste-de-texto) | 6 |
 | [Ajuste de UI](#ajuste-de-ui) | 25 |
 | [Motion](#motion) | 7 |
-| [Refactor](#refactor) | 38 |
+| [Refactor](#refactor) | 39 |
 | [Naming](#naming) | 10 |
 | [Acessibilidade](#acessibilidade) | 7 |
 | [Documentação](#documentação) | 8 |
@@ -120,6 +120,7 @@ Props, estrutura ou comportamento do componente (camada sem uso, prop sem efeito
 | C104 | Check de props Figma × código (105 componentes, 03/10 · `docs/CHECK-PROPS.md`) | 2 divergências reais: **.Lead item (File)** abria em Image (Figma: File); **Date Picker** sem Show First/Last Day Selected. 3 só de nome/forma: Toast `Text Description` = `text`; Chips Group `Kind` vem dos filhos; Breadcrumb `showItem0X` = `show-item0X` | — | Corrigidas as 2 (padrão File; `show-first-day-selected` e `show-last-day-selected`); as 3 ficam registradas | Rodar de novo após publicar a lib |
 | C105 | Caju Theme · página **Caju Benefícios** (Zx9KwwRFqZrOfeuXpYZiTx · 4309:2) × mostruário do playground | O Figma mostra a **paleta primitiva da marca** (Accent, Neutral, Support, Overlay, Decorative 01–06, Charts com `pale`/`mild`) e Motion em anéis; o playground só tem os tokens **`Common/*`** que os componentes usam (sem Overlay nem Decorative 01–06 em escala) | — | Mostruário com os `Common/*` agrupados como no Figma, valores lidos ao vivo de `styles/tokens.css` (light/dark); durações e delays em barras (Progress Line do DS, escala até 1 s) no lugar dos anéis; grades responsivas no lugar das colunas fixas | Se a paleta primitiva entrar no snapshot, acrescentar os grupos |
 | C106 | Caju Theme · Motion · cascata | O explicador castanhads-motion mostra 4 camadas (Primitives → Theme → Brand Style → .Motion Styles); o snapshot do playground só tem **Brand Style** (`Common/Motion/*`) e **.Motion Styles**. Os nomes primitivos de easing (`ease-in-out/01`…) e os gatilhos vêm do repo castanhads-motion, não do snapshot | Primitives e Theme de motion no snapshot (ler do Figma) | Cascata mostra Motion Style → Brand Style → valor (lidos do `tokens.css`) + primitivo de easing do castanhads-motion, com nota | Ler Primitives/Theme do Figma e trocar a tabela fixa |
+| C160 | Docs do playground · vídeo embutido (Treinamento) | O DS não tem componente de vídeo/player | Um componente de vídeo do DS (ou a decisão de usar sempre o player do serviço) | **Exceção** (pedido do Gustavo, 05/10): bloco `video` do docs-kit com o player do Google Drive num iframe 16:9 (título acessível) e um Link do DS "Abrir no Drive" embaixo; só toca com login Caju | Trocar o iframe pelo componente quando existir |
 
 ## Naming
 

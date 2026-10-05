@@ -36,7 +36,7 @@
         { _tag: "p", class: "pg-cnt-phone__text", _text: text },
         { _tag: "cds-main-button", class: "pg-cnt-phone__cta", label: a, "show-lead-icon": false, "show-trailing-icon": false },
         { _tag: "cds-main-button", class: "pg-cnt-phone__cta", appearance: "neutral", label: b, "show-lead-icon": false, "show-trailing-icon": false }
-      ] }
+      ].filter(function(x){ return x._tag !== "cds-main-button" || x.label; }) } // b opcional: uma ação só
     ] };
   }
   CDS.docs["conteudo"] = {
@@ -748,6 +748,145 @@
         { h3: "Stepper vs. Breadcrumb" },
         { p: "O stepper comunica progresso dentro de um fluxo linear. O breadcrumb reflete a hierarquia de navegação do produto. Os dois têm responsabilidades distintas e não devem se sobrepor. Confira mais detalhes na página Breadcrumbs." },
         { note: "Fonte: Figma · 📁 [NEW] Content → Componentes (Tabs, Botões, Breadcrumb, Bottom sheet, Links, Feedback Pages, Stepper). Os exemplos foram refeitos com Scrollable Tab, Breadcrumb, Bottom Sheet, Main Button, Link e Fixed Bar do DS, com os mesmos textos (C114)." }
+      ] }
+      ,
+      { id: "contextos", title: "Contextos", blocks: [
+        { h2: "Apresentando novas funcionalidades (onboarding)" },
+        { p: "Apresentar uma funcionalidade nova é uma interrupção intencional na navegação da pessoa. Por isso, cada palavra precisa ter um motivo para estar ali. O objetivo é fisgar a atenção, comunicar valor e levar a pessoa para a ação sem sobrecarregar." },
+        { h3: "Quando usar" },
+        { ul: [
+          "No lançamento de funcionalidades relevantes para a estratégia da Caju.",
+          "Quando a novidade cria valor real para a pessoa usuária, não para melhorias pontuais no que já existia.",
+          "Quando o time entende que vale a pena interromper uma tarefa para apresentar algo novo.",
+          "Quando o objetivo é aumentar o engajamento com um produto da Caju."
+        ] },
+        { h3: "Como escrever" },
+        { ul: [
+          "Priorize o valor percebido pela pessoa, não o funcionamento técnico.",
+          "Foque no potencial de uso: como essa funcionalidade resolve uma dor real?",
+          "Escreva só o que é importante para aquele contexto e momento.",
+          "Não é o momento de explicar regras de negócio, detalhar o funcionamento ou responder dúvidas. Isso vai para a FAQ.",
+          "Evite termos nichados de produto: \"funcionalidades\", \"desenvolvimento\", \"feature\".",
+          "Não use emojis, as ilustrações e animações já dão suporte visual ao texto."
+        ] },
+        { h3: "Tom" },
+        { p: "Use um tom encorajador: reforce as vantagens e convide a pessoa para explorar. Exemplos:" },
+        { ul: ["`Você só precisa configurar uma vez. Vamos lá?`", "`Evite pagar contas manualmente todo mês e ative o Pix Automático.`", "`Ler a nota fiscal de uma despesa nunca foi tão fácil. Ative o leitor automático e economize tempo.`"] },
+        { h3: "Boas práticas" },
+        { ul: [
+          "Inclua microinterações para reforçar o conteúdo. Se a mensagem fala sobre pagamentos mensais, a ilustração pode mostrar onde encontrar a próxima data de cobrança.",
+          "Deixe o onboarding acessível para ser visto em outro momento. Use os botões padrão para isso.",
+          "Defina um período para a comunicação ficar no ar e lembre de removê-la quando o prazo encerrar.",
+          "Antes de subir uma nova comunicação, verifique quantas interrupções já existem no produto. Se possível, remova uma antes de adicionar outra."
+        ] },
+
+        { h2: "Explicando primeiro uso (tour guiado)" },
+        { p: "O tour guiado orienta a pessoa dentro da própria interface, mostrando áreas e botões em sequência. É dinâmico, contextual e deve guiar sem pressionar." },
+        { h3: "Quando usar" },
+        { ul: [
+          "Quando ações importantes mudaram de lugar ou ganharam novos nomes.",
+          "Quando há mudança visual ou estrutural em uma etapa importante da experiência.",
+          "Para explicar regras de negócio que podem impactar o uso.",
+          "Para detalhar o que uma área ou botão faz.",
+          "Para orientar como completar uma tarefa pela primeira vez."
+        ] },
+        { p: "Antes de criar um tour guiado, verifique se o fluxo realmente precisa de explicação ou se exige baixo esforço da pessoa usuária para ser concluído." },
+        { h3: "Como escrever" },
+        { ul: [
+          "Na primeira tooltip, resuma o valor da funcionalidade. A quantidade de cliques cai bastante a partir da primeira mensagem e ela precisa ser convincente o suficiente para a pessoa continuar.",
+          "Sempre mostre o impacto da ação que está sendo explicada.",
+          "Use a barra de progresso para indicar quantas etapas existem.",
+          "Títulos e itens de lista não levam pontuação. Descrições levam ponto final.",
+          "Não use emojis."
+        ] },
+        { h3: "Tom" },
+        { p: "Use um tom tranquilizador para reduzir a ansiedade com mudanças, e encorajador para reforçar o valor da ação. Os dois trabalham juntos nesse contexto. Exemplos:" },
+        { ul: [
+          "`O caminho para fazer pedidos mudou de lugar, mas continua fácil de usar.`", "`A funcionalidade que você usava antes agora fica em outra área.`", "`Você decide quando alterar.`",
+          "`Você só precisa configurar uma vez. Vamos lá?`", "`Reorganizamos para facilitar sua rotina. Confira o que mudou.`", "`Configure agora ou deixe para mais tarde.`"
+        ] },
+        { h3: "Botões padronizados" },
+        { table: { wrap: true, head: ["Label", "Quando usar", "Não use"], rows: [
+          ["Começar", "Inicia o tour guiado — exclusivo para a primeira tela.", "”iniciar” ou ”explorar”"],
+          ["Continuar", "Avança para a próxima etapa — use a partir da segunda tela, nunca na última.", "”Avançar” ou ”Próximo”"],
+          ["Voltar", "Retorna para a etapa anterior.", "”Anterior”"],
+          ["Fechar", "Encerra o tour quando há apenas uma etapa.", "”Encerrar\", “Entendi”, ”Finalizar\""],
+          ["Concluir", "Encerra o tour quando há mais de uma etapa.", "”Encerrar\", “Entendi”, ”Finalizar\""],
+          ["Quero saber mais", "Leva para outra página com mais detalhes ou FAQ.", "”Saber mais”, ”Saiba mais”"],
+          ["Me lembrar mais tarde", "Pula o tour, que voltará a aparecer até ser concluído.", "”Ver depois”, ”Agora não”, ”Pular”, “Ignorar\""],
+          ["Não mostrar novamente", "Pula o tour definitivamente e não volta a aparecer.", "—"]
+        ] } },
+
+        { h2: "Urgências e bloqueios" },
+        { p: "Algumas situações exigem que a pessoa tome uma ação obrigatória, com prazo e consequências reais. Mesmo nesses casos, o tom da Caju não muda: queremos mostrar o valor da ação, não pressionar com a ameaça do bloqueio." },
+        { p: "A comunicação é escalonada: começa mostrando o benefício da proteção e vai tornando a urgência mais evidente conforme o prazo se aproxima. A consequência existe, mas sempre aparece como resultado de uma proteção ativa, nunca como punição." },
+        { h3: "Quando usar" },
+        { ul: ["Fluxos de segurança e conformidade.", "Bloqueios de acesso.", "Mudanças obrigatórias na experiência."] },
+        { h3: "Régua de urgência" },
+        { ol: [
+          "Leve e informativo: dar consciência para a pessoa usuária.",
+          "Informativo com impacto: chamar a atenção para o tema.",
+          "Moderado com urgência: alerta.",
+          "Urgente: aumentamos o foco no tempo para realizar.",
+          "Crítico e com bloqueio: não é uma punição e tem maneiras de resolver."
+        ] },
+        { steps: [
+          { title: "Nível 1: Aviso inicial", text: "Tom leve e informativo. Foque no valor da proteção, ainda não é hora de falar em prazo ou consequência.", list: [
+            "Apresente a ação como um benefício, não uma obrigação.", "Não cite bloqueio ou limitação.", "Não use prazo rígido."
+          ] },
+          { title: "Nível 2 — Reforço com impacto", text: "Tom claro e mais imediato. Reforce o valor e introduza sutilmente que há uma etapa necessária.", list: [
+            "Explique o que a ação protege e como funciona.", "Introduza a consequência futura de forma leve, sem prazo ainda."
+          ] },
+          { title: "Nível 3 — Urgência moderada", text: "Tom moderado e direto. A consequência deixa de ser futura e passa a ser próxima, mas ainda enquadrada como proteção.", list: [
+            "Introduza o prazo de forma suave: \"até [data]\".", "Use \"temporariamente limitado\" em vez de \"bloqueado\".", "Reduza explicações secundárias."
+          ] },
+          { title: "Nível 4 — Prazo crítico", text: "Tom urgente. O prazo é explícito e próximo, mas o enquadramento de proteção se mantém.", list: [
+            "Informe o prazo de forma direta.", "Frases curtas, sem distrações visuais ou textuais."
+          ] },
+          { title: "Nível 5 — Bloqueio", text: "Tom crítico e objetivo. A ação é o único caminho, mas ainda enquadrada como proteção ativa, não punição.", list: [
+            "Nenhuma navegação alternativa.", "Nenhuma justificativa longa.", "Uma instrução, um CTA."
+          ] }
+        ] },
+        { h3: "Nível 1 · Do's and Dont's" },
+        { dodont: [
+          { kind: "do", attrs: { _tag: "cds-card", "has-border": true, class: "pg-cnt-card", _children: [{ _tag: "h4", class: "pg-cnt-phone__title", _text: "Seu Caju ainda mais seguro 🔒" }, { _tag: "p", class: "pg-cnt-phone__text", _text: "Faça o reconhecimento facial e aumente a segurança da sua conta." }] }, style: "width:100%",
+            text: "Tom leve e informativo que não cita o impacto negativo (ex: bloqueio). Estamos introduzindo o conceito nesse momento." },
+          { kind: "dont", attrs: { _tag: "cds-card", "has-border": true, class: "pg-cnt-card", _children: [{ _tag: "h4", class: "pg-cnt-phone__title", _text: "É você mesmo por aqui? 👀" }, { _tag: "p", class: "pg-cnt-phone__text", _text: "Confirme sua identidade para que apenas você tenha acesso ao app." }] }, style: "width:100%",
+            text: "Cuidado com o tom brincalhão em temas como segurança e privacidade." }
+        ] },
+        { h3: "Nível 2 · Do's and Dont's" },
+        { dodont: [
+          { kind: "do", attrs: sheetActions("Seu Caju ainda mais seguro", "Faça o reconhecimento facial e mantenha seu acesso protegido e exclusivo.", "Reforçar proteção", "Me lembrar mais tarde"),
+            text: "Introduz a consequência futura e explica o valor da ação e tudo que é necessário para finalizá-la." },
+          { kind: "dont", attrs: sheetActions("Ative já sua biometria", "Seu acesso será bloqueado se você não fizer isso agora. Garantimos que é rápido.", "Ativar conta", "Bloquear conta"),
+            text: "Palavras de comando que aumentam a ansiedade e vendemos a consequência como punição, não como proteção." }
+        ] },
+        { h3: "Nível 3 · Do's and Dont's" },
+        { dodont: [
+          { kind: "do", attrs: sheetActions("Mais segurança para você", "Para aumentar a proteção do seu app, faça o reconhecimento facial até [DD/MM]. Sem essa etapa, seu app pode ficar temporariamente limitado.", "Aumentar proteção"),
+            text: "O prazo está destacado e a Ilustração remete a ação necessária: fazer reconhecimento facial." },
+          { kind: "dont", attrs: sheetActions("Você tem até [DD/MM] para ativar!", "Após essa data, seu acesso será bloqueado permanentemente. Não deixe isso acontecer.", "Ativar agora"),
+            text: "O prazo vira protagonista negativo em vez de referência informativa e o tom é de ameaça direta." }
+        ] },
+        { h3: "Nível 4 · Do's and Dont's" },
+        { dodont: [
+          { kind: "do", attrs: screen("seguranca/cadeado", "Não deixe pra última hora", "Faça o reconhecimento facial para aumentar a proteção do seu Caju. Essa é uma etapa obrigatória para a sua segurança. A partir de amanhã (dd/mm), seu app fica temporariamente limitado.", "Fazer reconhecimento facial"),
+            text: "A urgência aumentou mas o tom segue acolhedor: o bloqueio não é uma punição e sim uma medida preventiva." },
+          { kind: "dont", attrs: screen("seguranca/cadeado", "Seu acesso será bloqueado amanhã!", "Você ainda não fez a autenticação por biometria. Garanta seu acesso antes que seja tarde.", "Ativar agora"),
+            text: "Título anuncia punição em vez de orientar a ação." }
+        ] },
+        { h3: "Nível 5 · Do's and Dont's" },
+        { dodont: [
+          { kind: "do", attrs: screen("seguranca/cadeado", "Protegemos seu acesso", "Sua segurança vem em primeiro lugar, autorize esse dispositivo para que apenas você acesse seu app!", "Fazer reconhecimento facial"),
+            text: "Aplicamos o nível máximo de ”punição”, mas o tom é acolhedor e o valor do bloqueio é a segurança do app." },
+          { kind: "dont", attrs: screen("seguranca/cadeado", "Acesso limitado", "Você ainda não autorizou este dispositivo com reconhecimento facial. Faça isso agora mesmo para liberar o acesso ao app!", "Liberar acesso"),
+            text: "Tom pouco acolhedor, culpando o usuário por não ter tomado a ação e agora ele foi punido." },
+          { kind: "do", attrs: screen("seguranca/cadeado", "Limitamos seu acesso", "Sua conta está protegida por uma trava de segurança. Faça o reconhecimento facial para continuar aproveitando seu Caju.", "Liberar acesso"),
+            text: "Explicamos que a trava de segurança é mais uma medida de proteção da Caju e não uma burocracia." },
+          { kind: "dont", attrs: screen("seguranca/cadeado", "Seu acesso foi bloqueado", "Você não completou a autenticação no prazo. Para desbloquear, faça a biometria.", "Liberar acesso"),
+            text: "Não explica que a limitação é uma medida de proteção da Caju e culpa a pessoa diretamente." }
+        ] },
+        { note: "Fonte: Figma · 📁 [NEW] Content → Contextos (Apresentando funcionalidades, Explicando primeiro uso, Urgências e bloqueios). As telas foram refeitas com Card, Bottom Sheet, Main Button e Fixed Bar do DS, com os mesmos textos; os mockups de carrossel e de tooltips do tour ficam de fora (C115)." }
       ] }
     ]
   };

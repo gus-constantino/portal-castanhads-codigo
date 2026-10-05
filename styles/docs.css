@@ -563,3 +563,4 @@
 .pg-doc-table.is-wrap th, .pg-doc-table.is-wrap td{ white-space:normal; vertical-align:top; }
 .pg-doc-table.is-wrap td code{ overflow-wrap:anywhere; }
 .pg-doc-table.is-wrap td:first-child{ min-width:var(--common-sizes-104); }
+.pg-cnt-card{ display:flex; flex-direction:column; gap:var(--common-sizes-8); text-align:left; }

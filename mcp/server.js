@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * MCP do Castanha DS — M1: consulta (docs/local/PLANO-MCP.md).
+ * MCP do Castanha DS — M1 consulta + M2 gerar e revisar JSX (docs/local/PLANO-MCP.md).
  *
  * Servidor MCP por stdio, sem dependências (Node 18+): JSON-RPC 2.0, uma mensagem por linha.
  * Lê o catálogo gerado no build (dist/mcp/catalog.json). Para usar fora do repo, aponte para o catálogo publicado:
@@ -10,12 +10,14 @@
  *   claude mcp add castanha-ds -- node mcp/server.js
  *
  * Ferramentas: listar_componentes · componente · docs · buscar · tokens · icone · ilustracao · diretrizes · divergencias
+ *              gerar_jsx · revisar_codigo (M2, mcp/react.js)
  * Resources:   castanha://componente/{id} · castanha://docs/{id}/{tab}
  * Prompts:     implementar-tela · revisar-handoff · escrever-texto
  */
 "use strict";
 const fs = require("fs"), path = require("path"), readline = require("readline");
-const VERSION = "0.1.0";
+const VERSION = "0.2.0";
+const REACT = require("./react"); // M2: gerar_jsx e revisar_codigo
 const SRC = process.env.CASTANHA_CATALOG || path.join(__dirname, "..", "dist", "mcp", "catalog.json");
 
 // ---------- catálogo ----------
@@ -147,6 +149,19 @@ const TOOLS = [
       const nm = fold(x.name), conf = D.conferir.filter((k) => (a.incluir_resolvidos || !k.resolved) && (fold(k.text).indexOf(nm) !== -1 || fold(k.text).indexOf(x.id) !== -1));
       const st = D.stack.filter((f) => f.id === x.id);
       return "# Divergências · " + x.name + "\n\n## CONFERIR\n" + (conf.map((k) => "- **" + k.id + "** (" + k.group + ") " + k.text).join("\n") || "Nenhum item.") + "\n\n## Check da stack\n" + (st.map((f) => "- [" + f.level + "] " + f.msg).join("\n") || "Nenhum item."); } }
+  ,
+  { name: "gerar_jsx", description: "Gera o JSX do castanha-react para um componente a partir das props como estão no Figma (ex.: {\"Appearance\": \"Inversed\", \"Show Lead Icon\": false, \"Text Label\": \"Salvar\"}). Mesmo código do painel \"No React\" do playground: import, hooks e props, omitindo o que é padrão do React.",
+    inputSchema: { type: "object", properties: {
+      nome: { type: "string", description: "id, nome ou componente React (ex.: main-button, Tag, Button)" },
+      props_figma: { type: "object", description: "Props do Figma → valor (Variant: nome da opção; Boolean: true/false; Text: o texto; Instance swap: nome do ícone)", additionalProperties: true },
+      atributos: { type: "object", description: "Avançado: atributos do web component do playground (ex.: {\"appearance\": \"inversed\"})", additionalProperties: true },
+      itens: { description: "Para componentes com itens (abas, chips, listas): quantidade ou lista de atributos por item" } }, required: ["nome"] },
+    run: async (a) => { const c = await catalog(), x = findComponent(c, a.nome);
+      if (!x) return "Não achei \"" + a.nome + "\". Parecidos: " + (suggest(c, a.nome).join(", ") || "nenhum") + ".";
+      return "# " + x.name + " → `<" + ((x.react && x.react.component) || "?") + ">`\n\n" + await REACT.generate(c, x, a); } },
+  { name: "revisar_codigo", description: "Revisa um trecho JSX/TSX que usa o castanha-react: componente inexistente ou sem import, prop inexistente, valor fora das opções, prop obrigatória faltando, ícone ou ilustração com nome errado, cor ou tamanho cru que tem token, e padrões do React diferentes do Figma.",
+    inputSchema: { type: "object", properties: { codigo: { type: "string", description: "Trecho JSX/TSX (com os imports, se houver)" } }, required: ["codigo"] },
+    run: async (a) => REACT.reviewText(await catalog(), a.codigo) }
 ];
 
 // ---------- resources e prompts ----------
@@ -164,7 +179,7 @@ async function resourceRead(uri){
 }
 const PROMPTS = [
   { name: "implementar-tela", description: "Implementar uma tela ou fluxo usando só componentes e tokens do Castanha DS no castanha-react.", arguments: [{ name: "descricao", description: "O que a tela faz", required: true }],
-    text: (a) => "Implemente a tela abaixo com o Castanha DS (castanha-react). Regras: use só componentes e tokens do DS; antes de usar um componente, consulte `componente` (props, padrões e tradução Figma → React) e `divergencias`; ícones com `icone`, ilustrações com `ilustracao`; textos seguindo `diretrizes` (conteúdo). Se algo não existir no DS, diga em vez de inventar.\n\nTela: " + a.descricao },
+    text: (a) => "Implemente a tela abaixo com o Castanha DS (castanha-react). Regras: use só componentes e tokens do DS; antes de usar um componente, consulte `componente` (props, padrões e tradução Figma → React) e `divergencias`; gere o JSX de cada componente com `gerar_jsx` a partir das props do Figma; no fim, passe o código por `revisar_codigo`; ícones com `icone`, ilustrações com `ilustracao`; textos seguindo `diretrizes` (conteúdo). Se algo não existir no DS, diga em vez de inventar.\n\nTela: " + a.descricao },
   { name: "revisar-handoff", description: "Revisar o handoff de um componente: Figma × docs × castanha-react.", arguments: [{ name: "componente", description: "id ou nome", required: true }],
     text: (a) => "Revise o handoff do componente \"" + a.componente + "\" no Castanha DS. Use `componente`, `docs` e `divergencias`: compare as props do Figma com as do castanha-react, aponte padrões diferentes, valores sem tradução, docs em rascunho e itens abertos no CONFERIR. Termine com uma lista curta do que precisa de decisão do time." },
   { name: "escrever-texto", description: "Escrever ou revisar texto de interface seguindo as diretrizes de conteúdo da Caju.", arguments: [{ name: "texto", description: "Texto ou contexto da tela", required: true }],

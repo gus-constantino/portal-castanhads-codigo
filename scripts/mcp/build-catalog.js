@@ -191,6 +191,9 @@ function build(){
     return { id: i.name, name: i.label, category: illCat[i.name] || i.bucket, description: i.description || "", size: i.size || "", figma: i.figma || i.label,
       react: m ? { name: m[0], export: m[1], import: "import { " + m[1] + " } from '" + RA.ills.pkg + "';", renamed: !!m[2], drawingDiffers: !!m[3] } : null }; });
 
+  // dados no formato do react-kit (mapas curados + props/tipos/refs por pasta do castanha-react), para gerar e revisar JSX no MCP
+  const reactData = { items: {}, dirs: R.dirs };
+  Object.keys(R.items).forEach((id) => { const it = R.items[id]; if (it.component) reactData.items[id] = { component: it.component, import: it.import || null, map: it.map || null }; });
   const stack = exists("integration/stack-check.json") ? JSON.parse(read("integration/stack-check.json")) : null;
   const catalog = {
     about: "Catálogo do Castanha DS (playground de handoff Figma ↔ código). Gerado por scripts/mcp/build-catalog.js; fonte do MCP (docs/local/PLANO-MCP.md).",
@@ -199,7 +202,8 @@ function build(){
     reactSource: stack ? stack.source : null,
     counts: {},
     components, reactOnly, tokens: tokens(), icons, illustrations,
-    divergences: { conferir: conferir(), stack: stack ? stack.findings : [] }
+    divergences: { conferir: conferir(), stack: stack ? stack.findings : [] },
+    reactData
   };
   catalog.counts = {
     components: components.filter((c) => c.kind === "component").length, buildingBlocks: components.filter((c) => c.kind === "building-block").length,

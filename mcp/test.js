@@ -34,7 +34,18 @@ const CALLS = [
   ["diretrizes", {}, /Conteúdo/],
   ["diretrizes", { tema: "formatação de dados" }, /Formatação/i],
   ["divergencias", {}, /CONFERIR/],
-  ["divergencias", { nome: "topic" }, /Check da stack[\s\S]*alta/]
+  ["divergencias", { nome: "topic" }, /Check da stack[\s\S]*alta/],
+  // M2 · gerar_jsx: props do Figma → JSX do castanha-react
+  ["gerar_jsx", { nome: "main-button", props_figma: { "Appearance": "Inversed", "Show Lead Icon": false, "Show Trailing Icon": false, "Text Label": "Salvar", "State": "Disabled" } }, /<Button appearance="inverted" disabled>Salvar<\/Button>/],
+  ["gerar_jsx", { nome: "Tag", props_figma: { "Appearance": "Positive", "Text Label": "Aprovado", "Show Lead Item": false } }, /<Tag appearance="positive">Aprovado<\/Tag>/],
+  ["gerar_jsx", { nome: "text-input", props_figma: { "Appearance": "Warning", "Error Message": "CPF inválido", "Text Label": "CPF" } }, /error[\s\S]*supportingMessage="CPF inválido"/],
+  ["gerar_jsx", { nome: "fixed-tab", props_figma: { "Active Item": "2" }, itens: [{ label: "Resumo" }, { label: "Extrato" }] }, /useState\('item-2'\)[\s\S]*Extrato/],
+  ["gerar_jsx", { nome: "chips-group", props_figma: { "Kind": "Filter Chips" }, itens: 2 }, /Chips\.Filter/],
+  ["gerar_jsx", { nome: "tag", props_figma: { "Appearance": "Roxo" } }, /não é opção no Figma/],
+  // M2 · revisar_codigo
+  ["revisar_codigo", { codigo: "import { Button, TextInput } from '@caju-beneficios/castanha-react';\n<Button appearance=\"primary\" variant=\"ghost\" leadIcon=\"seta\">Ok</Button>\n<TextInput lable=\"CPF\" error=\"inválido\" />\n<div style={{ color: '#1a1a1a', padding: '16px' }} />" },
+    /appearance="primary"[\s\S]*variant[\s\S]*seta[\s\S]*lable[\s\S]*supportingMessage[\s\S]*colors-text-intense[\s\S]*sizes-16/],
+  ["revisar_codigo", { codigo: "import { Tag } from '@caju-beneficios/castanha-react';\n<Tag appearance=\"positive\">Ok</Tag>" }, /Nenhum problema/]
 ];
 
 (async () => {
@@ -42,7 +53,7 @@ const CALLS = [
   expect("initialize", init.result && init.result.serverInfo.name === "castanha-ds");
   srv.stdin.write(JSON.stringify({ jsonrpc: "2.0", method: "notifications/initialized" }) + "\n");
   const tl = await rpc("tools/list", {});
-  expect("tools/list", tl.result && tl.result.tools.length === 9, tl.result && tl.result.tools.length + " ferramentas");
+  expect("tools/list", tl.result && tl.result.tools.length === 11, tl.result && tl.result.tools.length + " ferramentas");
   for (const [name, args, re] of CALLS){
     const r = await rpc("tools/call", { name, arguments: args }), text = r.result && r.result.content[0].text || "";
     expect(name + " " + JSON.stringify(args), r.result && !r.result.isError && re.test(text), text.slice(0, 160).replace(/\n/g, " "));
@@ -56,9 +67,15 @@ const CALLS = [
   expect("prompts/list", pl.result && pl.result.prompts.length === 3);
   const pg = await rpc("prompts/get", { name: "implementar-tela", arguments: { descricao: "tela de login" } });
   expect("prompts/get", pg.result && /tela de login/.test(pg.result.messages[0].content.text));
+  // cruzamento: o JSX gerado de cada mapa curado passa sem erro na revisão
+  const R = require("./react.js"), S = require("./server.js"), cat = await S.catalog();
+  const ids = Object.keys(cat.reactData.items).filter((i) => cat.reactData.items[i].map), bads = [];
+  for (const id of ids){ const out = await R.generate(cat, cat.components.find((x) => x.id === id), {}), code = (out.match(/```tsx\n([\s\S]*?)```/) || [])[1] || "";
+    if (!code || R.review(cat, code).findings.some((f) => f.lv === "alta")) bads.push(id); }
+  expect("gerar → revisar (" + ids.length + " mapas)", ids.length >= 70 && !bads.length, bads.join(", "));
   const bad = await rpc("metodo/inexistente", {});
   expect("método desconhecido", bad.error && bad.error.code === -32601);
   srv.kill();
   if (fails.length){ console.error("❌ MCP: " + fails.length + " de " + n + " falharam\n- " + fails.join("\n- ")); process.exit(1); }
-  console.log("✅ MCP: " + n + " verificações ok (9 ferramentas, resources e prompts)");
+  console.log("✅ MCP: " + n + " verificações ok (11 ferramentas, resources, prompts e o cruzamento gerar → revisar dos mapas)");
 })();

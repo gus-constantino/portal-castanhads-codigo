@@ -69,7 +69,7 @@
     var get = function(a){
       var n = find(), v = n ? n.getAttribute(a) : null;
       if (v === null) v = defaults && defaults[a] != null ? defaults[a] : null;
-      return v === "" ? "true" : v; // atributo booleano presente
+      return v === "" && !(defaults && defaults[a] === "") ? "true" : v; // vazio = atributo booleano presente, exceto quando o mapa declara "" como valor (ex.: alt="" de imagem decorativa)
     };
     get.el = find; get.i = i || 1;
     return get;
@@ -202,6 +202,9 @@
     pre.appendChild(c);
     return lines.map(function(l){ return l.map(function(s){ return s[1]; }).join(""); }).join("\n");
   }
+
+  // Núcleo puro (sem DOM) para gerar o JSX fora do navegador: usado pelo MCP (mcp/react.js, ferramenta gerar_jsx)
+  CDS.reactCore = { snippet: snippet, scoped: scoped, text: function(lines){ return lines.map(function(l){ return l.map(function(s){ return s[1]; }).join(""); }).join("\n"); } };
 
   var NONE = {
     "building-block": ["Building block", "Peça interna do Figma (nome com ponto). No React ela fica dentro do componente que a usa, sem export próprio."],

@@ -9,7 +9,7 @@
 | Smoke dos componentes (claro, escuro, mobile 360) | ✅ 106/106 ok · ⚠️ 10 com aviso |
 | Smoke das docs (desktop e 375px) | ✅ 111 docs · 672 tabs · 0 com problema |
 | Peso da primeira visita | ✅ 364 KB gzip de 600 KB · docs sob demanda: 103 arquivos |
-| Numeração D/C | ✅ D 162 · C 165 |
+| Numeração D/C | ✅ D 163 · C 165 |
 
 ## Componentes
 
@@ -40,7 +40,7 @@ Nenhum aviso.
 
 | Parte | Bruto | gzip |
 |---|---|---|
-| Primeira visita (tudo o que o index.html carrega) | 1620 KB | 364 KB |
+| Primeira visita (tudo o que o index.html carrega) | 1621 KB | 364 KB |
 | dist/cds.js · componentes (110 arquivos) | 300 KB | 75 KB |
 | dist/cds.js · playgrounds (103 arquivos) | 149 KB | 25 KB |
 | dist/cds.js · recursos (8 arquivos) | 170 KB | 54 KB |
@@ -50,7 +50,7 @@ Limite: 600 KB gzip na primeira visita (aviso no build; `BUDGET_STRICT=1` faz fa
 
 ## Numeração D/C
 
-Última decisão: **D162** (docs/ROADMAP.md) · último item a conferir: **C165** (docs/CONFERIR.md).
+Última decisão: **D163** (docs/ROADMAP.md) · último item a conferir: **C165** (docs/CONFERIR.md).
 
 Linha nova usa apelido (`D+nome` / `C+nome`); `node scripts/dev/numerar.js` numera depois do merge. O CI roda `numerar.js --check`.
 

@@ -97,8 +97,18 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
 .pg-tile__stage.is-cut-x{ -webkit-mask-image:linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); mask-image:linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); }
 .pg-tile__stage.is-cut-x.is-cut-y{ -webkit-mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent), linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent), linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); -webkit-mask-composite:source-in; mask-composite:intersect; }
 
-/* Canvas */
-.pg-canvas{ min-width:0; display:flex; flex-direction:column; }
+/* Canvas: Surface/default em todas as tabs (Playground e docs) */
+.pg-canvas{ min-width:0; display:flex; flex-direction:column; background:var(--common-colors-surface-default); }
+/* Na tab Playground a capa separada some: a própria prévia ganha o visual do [Header] (fundo + forma do caju, C91),
+   e os controles mudam o que está nela. Nas tabs de doc a capa continua acima das tabs. */
+.pg-shell:not(.is-doc) .pg-cover:not([hidden]){ display:none; }
+.pg-stage-cover{
+  align-self:stretch; box-sizing:border-box; display:flex; justify-content:safe center; align-items:center;
+  min-height:calc(var(--common-sizes-200) + var(--common-sizes-120)); padding:var(--common-sizes-40) var(--common-sizes-24); overflow-x:auto;
+  background:var(--pg-cover-bg) url("../assets/brand/cover-cashew.svg") center / cover no-repeat;
+  border-radius:var(--common-border-radius-extra-large);
+}
+@media (max-width:760px){ .pg-stage-cover{ padding:var(--common-sizes-24) var(--common-sizes-12); border-radius:var(--common-border-radius-large); } }
 /* Cabeçalho da página: Header do Sponsor Templates (template provisório) numa faixa Surface/default */
 .pg-toolbar{ padding:0 var(--common-sizes-32); background:var(--common-colors-surface-default); }
 .pg-links-pop .cds-popover__slot{ gap:var(--common-sizes-4); padding:var(--common-sizes-8); }

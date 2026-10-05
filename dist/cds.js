@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 238 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 243 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.js ==== */
 try {
 /**
@@ -261,6 +261,122 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/card/card.playground.js", e); }
+
+/* ==== components/card/card.docs.js ==== */
+try {
+/* Documentação — Card
+   Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Card, 838f0f) reaproveitado; props e padrões do set da lib estável (Card 5256:540);
+   acessibilidade do componente do playground. Divergências no CONFERIR (C131): na lib, Has Border tem padrão True; no código, False. */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+(function(){
+  // Card de exemplo: título + texto (+ ação opcional) no Slot
+  function card(title, text, attrs, action){
+    var kids = [{ _tag: "h4", class: "pg-cnt-phone__title", _text: title }, { _tag: "p", class: "pg-cnt-phone__text", _text: text }];
+    if (action) kids.push({ _tag: "cds-main-button", label: action, size: "small", appearance: "neutral", "show-lead-icon": false, "show-trailing-icon": false });
+    return Object.assign({ _tag: "cds-card", "has-border": true, class: "pg-cnt-card", style: "width:100%", _children: kids }, attrs || {});
+  }
+  CDS.docs["card"] = {
+    tag: "cds-card",
+    source: "https://castanha.caju.com.br/858426090/v/latest/p/838f0f-card", sourceLabel: "Abrir o Card no zeroheight",
+    cover: { description: "O componente Card é um contêiner visual usado para agrupar informações relacionadas de forma clara e compacta.", examples: [
+      card("Saldo de Benefícios", "R$ 1.250,00 disponíveis em 4 categorias.", { style: "width:calc(var(--common-sizes-200) + var(--common-sizes-120))" }, "Detalhes")
+    ] },
+    tabs: [
+      { id: "uso", title: "Uso", blocks: [
+        { h2: "Sobre" },
+        { p: "O componente Card é um contêiner visual usado para agrupar informações relacionadas de forma clara e compacta." },
+        { h3: "Nomes alternativos comuns" },
+        { p: "Container, Box, Tile" },
+        { h3: "Princípios" },
+        { cards: [
+          ["Clareza", "Os cards devem comunicar sua função principal de forma imediata. A hierarquia visual precisa ser clara, com informações bem organizadas e de fácil leitura."],
+          ["Consistência", "Cards devem manter um padrão visual e estrutural em toda a interface, independentemente do contexto em que aparecem."],
+          ["Modularidade", "O componente deve ser flexível e escalável, atendendo a diferentes necessidades sem duplicar código ou quebrar o padrão visual."]
+        ] },
+        { h2: "Quando usar" },
+        { p: "O componente Card é usado para apresentar conteúdos agrupados de forma visualmente organizada, promovendo escaneabilidade e interação." },
+        { h3: "Utilize para:" },
+        { ul: ["Exibir resumos de dados em painéis (dashboards).", "Agrupar informações relacionadas.", "Usar em listas ou grids para navegação em apps mobile/web.", "Apresentar registros individuais com ações com botão."] },
+        { h3: "Não utilize para:" },
+        { ul: ["Destacar apenas uma informação isolada.", "Como elemento interativo principal.", "Usar em listas ou grids para navegação em apps mobile/web.", "Como enfeite visual sem propósito de agrupamento.", "Destaque de números grandes, para isso utilize o componente de Big numbers."] },
+        { h2: "Casos de uso" },
+        { h3: "Card vs Shortcut" },
+        { p: "O componente Card tem como objetivo principal exibir informações agrupadas de forma estruturada, servindo como contêiner visual para conteúdo variado — como textos, imagens, títulos e ações — sendo ideal para previews, painéis e listagens. Já o componente Shortcut é focado em oferecer acesso rápido a funcionalidades ou seções do sistema, com foco em ação imediata. Enquanto o Card prioriza a apresentação de conteúdo, o Shortcut prioriza a navegação e a interação direta com o sistema." },
+        { h3: "Card vs Banner" },
+        { p: "Cards e Banners se diferenciam pela função e destaque visual. Cards organizam conteúdos relacionados de forma modular e neutra, enquanto banners são usados para comunicar mensagens importantes, com apelo visual mais forte e foco na atenção imediata." },
+        { h3: "Card vs Modal" },
+        { p: "Cards e Modais têm funções diferentes na interface: o Card é um elemento estático usado para organizar e agrupar conteúdo relacionado dentro da página, promovendo leitura modular e visualmente separada. Já o Modal é um componente interativo e sobreposto, que interrompe o fluxo da interface para exibir uma informação, confirmação ou ação específica, exigindo atenção imediata e interação do usuário antes de retornar ao conteúdo principal." },
+        { note: "O zeroheight lista \"Usar em listas ou grids para navegação em apps mobile/web\" tanto em Utilize para quanto em Não utilize para (CONFERIR C131). Suporte: canal #castanha-suporte no Slack." }
+      ] },
+
+      { id: "anatomia", title: "Anatomia", blocks: [
+        { h2: "Anatomia" },
+        { anatomy: { attrs: card("Título do card", "Conteúdo do Slot: textos, imagens e ações."), markers: [{ n: 1, target: ".cds-card__slot", side: "left" }], legend: ["Container com Slot (conteúdo de quem usa)"] } },
+        { h2: "Composição do componente" },
+        { p: "O Card é um container com Slot: todo o conteúdo vem de quem usa (textos, imagens, componentes). O padding interno é fixo em 24px." },
+        { h2: "Propriedades" },
+        { props: [
+          { name: "Has Border", type: "Variant", default: "True", values: ["True", "False"] },
+          { name: "Slot", type: "Slot" }
+        ] },
+        { note: "Props e padrões lidos do set Card da lib estável. No código, `has-border` precisa ser ligado explicitamente (o componente abre sem borda) — divergência registrada em C131." }
+      ] },
+
+      { id: "estilos", title: "Estilos", blocks: [
+        { h2: "Has Border" },
+        { specimens: { min: "var(--common-sizes-200)", items: [
+          { label: "True", attrs: card("Com borda", "Stroke `Border/semi-soft`.") },
+          { label: "False", attrs: card("Sem borda", "Só a superfície e a elevação.", { "has-border": "false" }) }
+        ] } }
+      ] },
+
+      { id: "acessibilidade", title: "Acessibilidade", blocks: [
+        { h2: "Leitor de tela" },
+        { ul: [
+          "O Card é só um container visual: não tem papel próprio nem é focável.",
+          "A estrutura vem do conteúdo: use um título (heading) no início do Card para que o leitor de tela encontre a seção.",
+          "Em grupo, coloque os Cards numa lista (`<ul>`) para o leitor anunciar a quantidade.",
+          "Ações dentro do Card são botões ou links próprios, com rótulos que façam sentido fora do contexto visual."
+        ] },
+        { note: "O zeroheight ainda não tem seção de Acessibilidade para o Card." }
+      ] },
+
+      { id: "diretrizes", title: "Diretrizes", blocks: [
+        { h2: "Diretrizes de uso" },
+        { guides: [
+          { attrs: card("Cartão virtual", "Use em compras online e nas carteiras digitais."), title: "Conteúdo", text: "Use cartões para exibir informações relacionadas a um único assunto." },
+          { attrs: card("Pedido #1234", "Entrega prevista para 12/10.", null, "Detalhes"), title: "Hierarquia do conteúdo", text: "O conteúdo dos cards é flexível permitindo diferentes composições de acordo com experiência desejada" },
+          { attrs: [card("Benefícios", "R$ 1.250,00"), card("Despesas", "R$ 320,00")], title: "Espaçamentos entre cards", text: "Os cartões podem ser exibidos juntos em uma grade, lista vertical ou carrossel, desde que se respeite o espaçamento mínimo entre eles de 20px (web) e 16px (mobile)." },
+          { attrs: card("Padding fixo", "24px em todos os lados."), title: "Espaçamento interno", text: "Os espaçamentos internos (paddings) do Card são fixos em 24px e devem ser mantidos em todas as aplicações para garantir a consistência visual e o padrão do componente." }
+        ] },
+        { h2: "Do's and Don'ts" },
+        { h3: "Conteúdo" },
+        { dodont: [
+          { kind: "do", attrs: card("Endereço de entrega", "Rua das Flores, 123 · São Paulo, SP"), text: "Use o Card para destacar um agrupamento de conteúdo relacionado, como informações que pertencem ao mesmo contexto" },
+          { kind: "dont", attrs: { _tag: "cds-card", "has-border": true, class: "pg-cnt-card", style: "width:100%", _children: [{ _tag: "cds-link", label: "Confira os termos de uso.", href: "#", appearance: "accent" }] }, text: "Não use Cards para conteúdo isolado que não precisa de agrupamento visual, como uma única frase ou link." }
+        ] },
+        { h3: "Agrupamento" },
+        { dodont: [
+          { kind: "do", text: "Utilize Cards em layouts de lista, grid ou colunas, promovendo organização modular e responsiva." },
+          { kind: "dont", text: "Não organize os cards em layout mosaico." }
+        ] },
+        { h3: "Alterações" },
+        { dodont: [
+          { kind: "do", attrs: card("Pedido #1234", "Entrega prevista para 12/10.", null, "Detalhes"), text: "Quando necessário uma ação no card, insira um botão de forma hierárquica dentro do card ou utilize outro componente." },
+          { kind: "dont", text: "Não use o Card como botão ou link principal." },
+          { kind: "dont", text: "Não aplique sombras, bordas, cor de fundo ou estilos extras fora que não existam como variável do componente. Ao fazer isso, são geradas inconsistências no produto." }
+        ] }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { h2: "Motion" },
+        { p: "O Card é estático: não tem estados de interação nem animação própria. Ações dentro dele seguem o motion do componente usado (ex.: Main Button)." }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/card/card.docs.js", e); }
 
 /* ==== components/card-flag/card-flag.js ==== */
 try {
@@ -3109,6 +3225,110 @@ CDS.register({
 });
 } catch (e) { console.error("[cds] components/fixed-bar/fixed-bar.playground.js", e); }
 
+/* ==== components/fixed-bar/fixed-bar.docs.js ==== */
+try {
+/* Documentação — Fixed Bar
+   Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Fixed bar, 04e411) reaproveitado e completado com a description do set da lib
+   ([Beta] Fixed Bar 24037:2929: Quando não usar dentro de Modal, Drawer e Bottom Sheet); props e padrões do set; acessibilidade do playground.
+   O zeroheight não tem a tab Style e o Motion é placeholder (C131). */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+CDS.docs["fixed-bar"] = {
+  tag: "cds-fixed-bar",
+  base: { "primary-label": "Continuar", "secondary-label": "Voltar", "show-lead-icon": false, style: "width:100%" },
+  source: "https://castanha.caju.com.br/858426090/v/latest/p/04e411-fixed-bar", sourceLabel: "Abrir a Fixed bar no zeroheight",
+  cover: { description: "A Fixed bar é uma área fixa posicionada na base da interface que agrupa duas ações relacionadas — uma primária e outra secundária. Ela é utilizada para decisões importantes no final de fluxos ou seções, permanecendo sempre acessível para a pessoa usuária.", examples: [
+    { "primary-label": "Continuar", "secondary-label": "Voltar", "show-lead-icon": false, style: "width:calc(var(--common-sizes-200) * 2)" }
+  ] },
+  tabs: [
+    { id: "uso", title: "Uso", blocks: [
+      { alert: { appearance: "informative", label: "Beta", text: "O set ainda está como [Beta] Fixed Bar na lib. Escopo: Mobile e Desktop." } },
+      { h2: "Sobre" },
+      { p: "A Fixed bar é uma área fixa posicionada na base da interface que agrupa duas ações relacionadas — uma primária e outra secundária. Ela é utilizada para decisões importantes no final de fluxos ou seções, permanecendo sempre acessível para a pessoa usuária." },
+      { h3: "Nomes alternativos comuns" },
+      { p: "Bottom Action Bar, Sticky Footer Actions, Footer Button Group, Sticky Action Bar" },
+      { h3: "Princípios" },
+      { cards: [
+        ["Prioridade clara", "A ação primária deve ser evidente, mantendo hierarquia visual entre os botões."],
+        ["Consistência responsiva", "O componente adapta sua organização conforme o dispositivo, preservando usabilidade e clareza."],
+        ["Acesso imediato", "Mantém ações críticas sempre disponíveis, eliminando scroll desnecessário."]
+      ] },
+      { h2: "Quando usar" },
+      { p: "Use a Fixed bar quando for necessário manter uma ou duas ações essenciais sempre visíveis, especialmente ao final de fluxos, em decisões importantes ou em etapas que exigem resposta imediata da pessoa usuária. Ela ajuda a evitar que a pessoa usuária precise rolar até o fim da página para concluir uma tarefa." },
+      { h3: "Utilize para:" },
+      { ul: ["Exibir apenas uma ação primária de conclusão ou avanço.", "Exibir ação primária + ação secundária (ex.: confirmar e cancelar).", "Finalização de fluxos como pagamentos, revisões ou envios.", "Telas onde a tomada de decisão acontece ao fim do conteúdo, mas precisa permanecer visível."] },
+      { h3: "Não utilize para:" },
+      { ul: [
+        "Exibir mais de duas ações simultâneas.", "Ações que não têm relação direta entre si.", "Estruturas em que as ações já estão evidentes no próprio conteúdo.", "Apenas ações secundárias em que a ação principal não esteja no final da página.",
+        "Dentro de Modal, Drawer ou Bottom Sheet: esses componentes já têm rodapé de ações próprio.",
+        "Navegação entre seções do produto: esse é papel da barra de navegação, não do Fixed Bar."
+      ] },
+      { note: "Os dois últimos itens de Não utilize para vêm da description do set na lib. Suporte: canal #castanha-suporte no Slack." }
+    ] },
+
+    { id: "anatomia", title: "Anatomia", blocks: [
+      { h2: "Anatomia" },
+      { anatomy: {
+        attrs: { "primary-label": "Continuar", "secondary-label": "Voltar", "show-lead-icon": false, style: "width:calc(var(--common-sizes-200) * 2)" },
+        markers: [{ n: 1, target: "cds-divider", side: "top" }, { n: 2, target: ".cds-footer__actions > cds-main-button:first-child", side: "left" }, { n: 3, target: ".cds-footer__actions > cds-main-button:last-child", side: "right" }],
+        legend: ["Divider (Show Divider)", "Ação secundária (Show Secondary Action)", "Ação primária"]
+      } },
+      { h2: "Composição do componente" },
+      { p: "Mesma estrutura do .Footer: Divider e Action Buttons com Main Buttons Neutral (secundária) e Accent (primária). Em `Horizontal`, os botões ficam lado a lado no tamanho do conteúdo; em `Pilled`, empilhados e com largura total." },
+      { h2: "Propriedades" },
+      { props: [
+        { name: "Kind", type: "Variant", default: "Horizontal", values: ["Horizontal", "Pilled"] },
+        { name: "Show Divider", type: "Boolean", default: "true" },
+        { name: "Show Secondary Action", type: "Boolean", default: "true" }
+      ] },
+      { note: "Props e padrões lidos do set [Beta] Fixed Bar da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, `fixed` ancora a barra no fim da viewport." }
+    ] },
+
+    { id: "estilos", title: "Estilos", blocks: [
+      { h2: "Kind" },
+      { specimens: { min: "var(--common-sizes-200)", items: [{ label: "Horizontal", attrs: {} }, { label: "Pilled", attrs: { kind: "pilled" } }] } },
+      { h2: "Variações" },
+      { specimens: { min: "var(--common-sizes-200)", items: [
+        { label: "Só a ação primária", attrs: { "show-secondary-action": false } },
+        { label: "Sem Divider", attrs: { "show-divider": false } }
+      ] } }
+    ] },
+
+    { id: "acessibilidade", title: "Acessibilidade", blocks: [
+      { h2: "Leitor de tela" },
+      { ul: [
+        "As ações são Main Buttons (`<button>`) com o Label como nome; a ordem de leitura segue a visual: secundária e depois primária.",
+        "Ancorada (`fixed`), a barra não pode cobrir o conteúdo: reserve espaço no fim da página para o último item ficar visível.",
+        "O Divider é decorativo."
+      ] },
+      { h2: "Teclado e foco" },
+      { ul: ["Tab percorre as ações na ordem visual.", "Ao rolar com o foco num campo, o campo não pode ficar escondido atrás da barra."] },
+      { note: "O zeroheight ainda não tem seção de Acessibilidade para a Fixed bar." }
+    ] },
+
+    { id: "diretrizes", title: "Diretrizes", blocks: [
+      { h2: "Diretrizes de uso" },
+      { guides: [
+        { attrs: { "show-secondary-action": false, kind: "pilled" }, title: "Use a Fixed bar somente quando o conteúdo da página exige rolagem", text: "A Fixed bar é mais efetiva em telas longas, onde o botão primário poderia ficar escondido ao final do conteúdo. Em telas curtas, em que a ação já está visível sem rolagem, a Fixed bar se torna redundante e pode gerar saturação visual." },
+        { attrs: { kind: "pilled", "secondary-label": "Ignorar por agora" }, title: "Escolha entre “ação primária” ou “primária + secundária” conforme a complexidade da decisão", text: "Use apenas a ação primária quando há um único caminho esperado para prosseguir. Use primária + secundária quando existe uma alternativa relevante — como “Voltar”, “Cancelar” ou “Ignorar por agora”. Evite adicionar ações sem importância real, pois a Fixed bar tem forte poder de chamar atenção." },
+        { attrs: { "primary-label": "Enviar pedido", "secondary-label": "Revisar" }, title: "Use a Fixed bar como finalização orquestrada do fluxo", text: "A Fixed bar deve marcar a etapa em que a pessoa usuária tomou conhecimento do conteúdo da tela e está pronta para avançar. Em fluxos de leitura, preenchimento ou tomada de decisão, ela deve aparecer como o “próximo passo natural”, não de forma precipitada." },
+        { attrs: [{ kind: "pilled" }, {}], title: "Respeite a largura total da tela em mobile e layout fluido em desktop", text: "Em mobile, a Fixed bar deve ocupar toda a largura para parecer integrada ao rodapé. Em desktop, ela funciona melhor com alinhamento horizontal dos botões, respeitando a grid e evitando largura excessiva que gere sensação de peso." }
+      ] },
+      { h2: "Do's and Don'ts" },
+      { dodont: [
+        { kind: "do", attrs: { "primary-label": "Concluir", "show-secondary-action": false }, text: "Use a Fixed bar apenas para ações críticas da tela, como o próximo passo lógico ou a conclusão do fluxo. Ela deve destacar somente aquilo que a pessoa usuária realmente precisa fazer naquele momento." },
+        { kind: "dont", text: "Evite inserir links secundários, atalhos ou informações complementares na Fixed bar. Isso reduz a clareza da ação principal e pode desviar a pessoa usuária do objetivo do fluxo." }
+      ] }
+    ] },
+
+    { id: "motion", title: "Motion", blocks: [
+      { h2: "Motion" },
+      { alert: { appearance: "warning", label: "Especificação pendente", text: "A seção de Motion da Fixed bar no zeroheight ainda é placeholder. Os botões seguem o motion do Main Button (`Hover In/01`, `Pressed/01`)." } }
+    ] }
+  ]
+};
+} catch (e) { console.error("[cds] components/fixed-bar/fixed-bar.docs.js", e); }
+
 /* ==== components/nav-control-item/nav-control-item.js ==== */
 try {
 /**
@@ -3408,6 +3628,107 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/popover/popover.playground.js", e); }
+
+/* ==== components/popover/popover.docs.js ==== */
+try {
+/* Documentação — Popover
+   Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Popover, 62c31f) reaproveitado; props do componente da lib estável (Popover 2270:102);
+   comportamento (Popover API nativa) e acessibilidade do playground. O zeroheight não tem a tab Style; a description do set tem um trecho
+   de texto gerado por IA ("Com certeza! …") a limpar na lib (C131). */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+(function(){
+  function item(label, icon){ return { _tag: "cds-content-list-item", label: label, "lead-icon": icon, "show-description": false, "show-trailing-item": false, "show-divider": false }; }
+  var MENU = [item("Baixar relatório", "download-line"), item("Compartilhar", "share-line"), item("Editar", "edit-line")];
+  function pop(kids){ return { _tag: "cds-popover", inline: true, label: "Mais ações", _children: kids || MENU }; }
+  CDS.docs["popover"] = {
+    tag: "cds-popover",
+    source: "https://castanha.caju.com.br/858426090/v/latest/p/62c31f-popover", sourceLabel: "Abrir o Popover no zeroheight",
+    cover: { description: "Popover é um pequeno overlay contextual que aparece quando o usuário interage com um elemento da interface. Ele permite exibir conteúdos adicionais, ações ou informações complementares de forma leve, sem interromper o fluxo principal da experiência.", examples: [pop()] },
+    tabs: [
+      { id: "uso", title: "Uso", blocks: [
+        { alert: { appearance: "informative", label: "Web only", text: "O Popover é um componente web only, ou seja, utilizado apenas em experiencias web." } },
+        { h2: "Sobre" },
+        { p: "Popover é um pequeno overlay contextual que aparece quando o usuário interage com um elemento da interface. Ele permite exibir conteúdos adicionais, ações ou informações complementares de forma leve, sem interromper o fluxo principal da experiência." },
+        { h3: "Nomes alternativos comuns" },
+        { p: "Overlay, Floating panel, Context menu." },
+        { h3: "Princípios" },
+        { cards: [
+          ["Contextualidade", "Deve aparecer sempre em relação direta a um elemento disparador."],
+          ["Clareza", "O conteúdo precisa ser fácil de entender e diretamente útil."],
+          ["Leveza", "Deve ser usado para interações breves, sem interromper o fluxo do usuário."]
+        ] },
+        { h2: "Quando usar" },
+        { p: "Use o Popover para apresentar informações ou ações diretamente relacionadas a um elemento, permitindo interações rápidas e contextuais. Ele deve sempre ser acionado por um componente que o dispare e desaparecer quando o foco for perdido." },
+        { h3: "Utilize para:" },
+        { ul: ["Exibir opções ou ações relacionadas a um elemento interativo.", "Mostrar conteúdos complementares de forma temporária.", "Disponibilizar pequenos blocos de interação sem abrir novas janelas.", "Organizar elementos de escolha ou seleção em contexto."] },
+        { h3: "Não utilize para:" },
+        { ul: ["Mostrar dicas ou explicações simples (use Tooltip).", "Exibir informações persistentes que exigem confirmação (use Modal).", "Apresentar conteúdos extensos ou fluxos complexos.", "Exibir mensagens informativas não relacionadas a um trigger."] },
+        { h2: "Casos de uso" },
+        { h3: "Popover vs Tooltip" },
+        { p: "Enquanto o Tooltip serve para apresentar pequenas dicas textuais passivas (geralmente no hover), o Popover é interativo e permite inserir qualquer tipo de conteúdo (botões, textos, formulários) via slot." },
+        { compare: [
+          { title: "Popover: conteúdo interativo", attrs: pop() },
+          { title: "Tooltip: dica textual", attrs: { _tag: "cds-tooltip", text: "Baixa o relatório do mês atual em PDF.", "show-label": false } }
+        ] },
+        { h3: "Popover vs Modal" },
+        { p: "O Modal bloqueia a interação com o restante da interface e é usado para fluxos mais importantes ou decisões críticas. Já o Popover é leve, contextual e não bloqueia o restante da página." },
+        { note: "Suporte: canal #castanha-suporte no Slack." }
+      ] },
+
+      { id: "anatomia", title: "Anatomia", blocks: [
+        { h2: "Anatomia" },
+        { anatomy: { attrs: pop(), markers: [{ n: 1, target: ".cds-popover__slot", side: "left" }], legend: ["Container com Slot (conteúdo de quem usa)"] } },
+        { h2: "Composição do componente" },
+        { p: "Container com Surface/default, raio large, Elevation/level 3 e padding 8. O conteúdo é o Slot. Como menu de ações, use o List do DS (ex.: Content List Item), como no Drop Button." },
+        { h2: "Propriedades" },
+        { props: [{ name: "Slot", type: "Slot" }] },
+        { note: "Na lib, o Popover só tem o Slot. No código: `for` (id do gatilho), `placement` (bottom-start, bottom-end, bottom, top), `label` e os métodos `show()`, `hide()` e `toggle()`." }
+      ] },
+
+      { id: "estilos", title: "Estilos", blocks: [
+        { h2: "Gatilho e posição" },
+        { p: "Abra o Popover pela tab Playground: ele usa a Popover API nativa e fica ancorado no gatilho, abaixo e alinhado à esquerda (`bottom-start`) por padrão." },
+        { display: { attrs: pop() } }
+      ] },
+
+      { id: "acessibilidade", title: "Acessibilidade", blocks: [
+        { h2: "Leitor de tela" },
+        { ul: [
+          "O painel tem nome acessível via `label` (ex.: \"Mais ações\").",
+          "O gatilho anuncia o estado aberto ou fechado (`aria-expanded`); com Drop Button, o chevron acompanha.",
+          "O conteúdo do Slot mantém a semântica dos componentes usados (lista, botões, links)."
+        ] },
+        { h2: "Teclado e foco" },
+        { ul: ["Enter ou Espaço no gatilho abre e fecha.", "Esc e clique fora fecham.", "Ao fechar, o foco volta para o gatilho."] },
+        { note: "O zeroheight ainda não tem seção de Acessibilidade para o Popover." }
+      ] },
+
+      { id: "diretrizes", title: "Diretrizes", blocks: [
+        { h2: "Diretrizes de uso" },
+        { p: "Não dê detach ao utilizar o slot: o slot do Popover foi projetado para permitir a troca de conteúdo de forma flexível e não destrutiva. Ao dar detach, você perde a conexão com o componente principal, comprometendo o comportamento padrão, o posicionamento e futuras atualizações do design system. Sempre insira o conteúdo dentro do slot mantendo o componente instanciado." },
+        { h2: "Do's and Don'ts" },
+        { dodont: [
+          { kind: "do", attrs: [{ _tag: "cds-drop-button", label: "Mais ações", appearance: "neutral", "show-lead-icon": false, active: true }, pop()], text: "Use o Popover para exibir opções ou ações diretamente ligadas ao elemento disparador." },
+          { kind: "dont", text: "Não utilize para destacar conteúdos que não estejam associados a um disparador." },
+          { kind: "do", attrs: pop(), text: "Mantenha o conteúdo dentro do Popover curto e funcional." },
+          { kind: "dont", text: "Evite colocar fluxos longos, formulários extensos ou múltiplas seções dentro do Popover." }
+        ] }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { h2: "Motion" },
+        { p: "A animação do Popover fornece feedback visual único após ação do usuário ou ativação contextual. É executada uma vez por invocação com entrada/saída suaves para evitar distrações. A reprodução reforça a percepção temporária do conteúdo expandido no sistema." },
+        { specs: [
+          { title: "Is Active → True (abrir)", rows: [["Gatilho", "On click"], ["Motion Style", "`Selected In/01`"]] },
+          { title: "Is Active → False (fechar)", rows: [["Gatilho", "On click"], ["Motion Style", "`Selected Out/01`"]] }
+        ] },
+        { note: "A entrada e a saída ainda não estão animadas no componente do playground (CONFERIR C131)." }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/popover/popover.docs.js", e); }
 
 /* ==== components/breadcrumb/breadcrumb.js ==== */
 try {
@@ -10028,6 +10349,115 @@ CDS.register({
 });
 } catch (e) { console.error("[cds] components/drawer/drawer.playground.js", e); }
 
+/* ==== components/drawer/drawer.docs.js ==== */
+try {
+/* Documentação — Drawer
+   Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Drawer, 0256b2) reaproveitado; props e padrões do componente da lib estável
+   (Drawer 16456:4381, description); comportamento e acessibilidade do playground. Divergências no CONFERIR (C131):
+   o zeroheight diz que abre da esquerda para a direita e a lib diz que surge da direita; "Overlay" no zeroheight é o Backdrop. */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+(function(){
+  var FORM = [{ _tag: "cds-text-input", label: "Nome do centro de custo", value: "Marketing", "show-lead-icon": false, "show-supporting-content": false }, { _tag: "cds-text-input", label: "Responsável", value: "Ana Souza", "show-lead-icon": false, "show-supporting-content": false, "show-required": false }];
+  function drawer(title, kids, extra){ return Object.assign({ _tag: "cds-drawer", inline: true, open: true, viewport: "desktop", "text-title": title, "primary-label": "Salvar", "secondary-label": "Cancelar", _children: kids }, extra || {}); }
+  CDS.docs["drawer"] = {
+    tag: "cds-drawer",
+    source: "https://castanha.caju.com.br/858426090/v/latest/p/0256b2-drawer", sourceLabel: "Abrir o Drawer no zeroheight",
+    cover: { description: "O Drawer é um painel lateral deslizante utilizado para expor conteúdos complementares ou etapas adicionais dentro de um fluxo principal, sem interromper a tela atual. Ele aparece sobreposto à interface e permite que a pessoa usuária mantenha o contexto enquanto realiza uma interação específica." },
+    tabs: [
+      { id: "uso", title: "Uso", blocks: [
+        { alert: { appearance: "informative", label: "Desktop-only", text: "No Figma, o Drawer só existe no Desktop: em Tablet e Mobile, o painel é substituído por um Viewport Restriction." } },
+        { h2: "Sobre" },
+        { p: "O Drawer é um painel lateral deslizante utilizado para expor conteúdos complementares ou etapas adicionais dentro de um fluxo principal, sem interromper a tela atual. Ele aparece sobreposto à interface e permite que a pessoa usuária mantenha o contexto enquanto realiza uma interação específica." },
+        { h3: "Nomes alternativos comuns" },
+        { p: "Side Panel, Painel Lateral, Lateral Sheet, Sheet." },
+        { h3: "Princípios" },
+        { cards: [
+          ["Contextual", "Mantém a pessoa usuária no fluxo principal, exibindo apenas informações ou ações diretamente relacionadas ao contexto atual."],
+          ["Direto", "Suporta apenas interações simples e de baixa complexidade, evitando múltiplas etapas, subfluxos ou navegações internas."],
+          ["Não obstrutivo", "Ocupa parte da tela e pode ser fechado facilmente a qualquer momento, preservando a continuidade do fluxo."]
+        ] },
+        { h2: "Quando usar" },
+        { p: "Use o Drawer para apresentar funcionalidades ou tarefas que exigem mais espaço do que um Modal, mas que ainda precisam manter o contexto da navegação primária. É a escolha adequada para interações mais complexas, como formulários mais longos, visualização detalhada de itens em uma lista, ou configurações secundárias que não justificam uma navegação de página completa." },
+        { h3: "Utilize para:" },
+        { ul: ["Formulários que contenham múltiplos campos, ideais para formulários longos, e exigem foco sem abandonar a página principal.", "Visualização de detalhes e configurações de um item que exige uma área de tela significativa.", "Fluxos de interação que são mais complexos do que os suportados por um Modal, mas cujas ações são de interação simples."] },
+        { h3: "Não utilize para:" },
+        { ul: ["Interações muito simples ou críticas que exijam apenas uma confirmação rápida — nesses casos, o Modal é mais apropriado.", "Exibir conteúdo principal de uma página ou substituir navegação primária — o Drawer não deve assumir papel de tela principal.", "Fluxos que dependem de subfluxos, navegação interna ou múltiplas etapas — o Drawer não possui fluxo interno, não suporta subfluxo e não deve ser utilizado dentro de estruturas desse tipo."] },
+        { h2: "Casos de uso" },
+        { h3: "Drawer vs. Modal" },
+        { p: "O Modal é indicado para interações simples, diretas e potencialmente críticas, sempre com foco total da pessoa usuária e apresentação centralizada. Já o Drawer é ideal para conteúdos mais extensos — como formulários maiores, consultas detalhadas ou edições pontuais — oferecendo um espaço lateral que preserva o contexto da página." },
+        { note: "Suporte: canal #castanha-suporte no Slack." }
+      ] },
+
+      { id: "anatomia", title: "Anatomia", blocks: [
+        { h2: "Anatomia" },
+        { anatomy: {
+          attrs: drawer("Novo centro de custo", FORM),
+          markers: [{ n: 1, target: "cds-header .cds-header__title", side: "left" }, { n: 2, target: ".cds-overlay__slot", side: "left" }, { n: 3, target: "cds-footer", side: "left" }, { n: 4, target: "cds-header cds-icon-button", side: "right" }, { n: 5, target: ".cds-drawer__panel", side: "right" }],
+          legend: ["Header", "Slot", "Footer action", "Close button", "Drawer container"]
+        } },
+        { h2: "Composição do componente" },
+        { p: "O Drawer é composto por um header obrigatório, que inclui um título e um botão de fechar fixo; um slot de conteúdo, responsável por receber qualquer estrutura definida pela pessoa usuária e uma barra de ações opcional na base do componente, destinada a ações primárias e secundárias." },
+        { h3: "Backdrop" },
+        { p: "O Drawer é apresentado sobre um Backdrop semitransparente, que escurece discretamente o restante da interface para reforçar o foco no conteúdo lateral. No playground, o Backdrop vem junto com o Drawer: ele sempre fecha ao clicar fora ou no Esc." },
+        { h2: "Propriedades" },
+        { props: [
+          { name: "Text Title", type: "Text", default: "Title" },
+          { name: "Show Action Buttons", type: "Boolean", default: "true" },
+          { name: "Show Secondary Action Button", type: "Boolean", default: "true" },
+          { name: "Slot", type: "Slot" }
+        ] },
+        { note: "Props e padrões lidos do componente Drawer da lib estável. O zeroheight ainda lista With button? e Heading (CONFERIR C131). 640 de largura · Elevation/level 1 · Surface/default." }
+      ] },
+
+      { id: "estilos", title: "Estilos", blocks: [
+        { h2: "Ações" },
+        { specimens: { min: "calc(var(--common-sizes-200) * 3 + var(--common-sizes-40))", items: [
+          { label: "Com ações (padrão)", attrs: drawer("Detalhes do pedido", [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Pedido #1234 · 12 colaboradores · R$ 3.600,00" }]) },
+          { label: "Só a ação primária", attrs: drawer("Detalhes do pedido", [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Pedido #1234 · 12 colaboradores · R$ 3.600,00" }], { "show-secondary-action-button": "false" }) },
+          { label: "Sem ações", attrs: drawer("Detalhes do pedido", [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Pedido #1234 · 12 colaboradores · R$ 3.600,00" }], { "show-action-buttons": "false" }) }
+        ] } }
+      ] },
+
+      { id: "acessibilidade", title: "Acessibilidade", blocks: [
+        { h2: "Leitor de tela" },
+        { ul: [
+          "É um `<dialog>` modal: o resto da página fica inerte enquanto o Drawer está aberto.",
+          "O título do Header é o nome acessível do painel.",
+          "O botão de fechar é um Icon Button com rótulo (\"Fechar\")."
+        ] },
+        { h2: "Teclado e foco" },
+        { ul: ["Ao abrir, o foco entra no Drawer e fica preso nele.", "Esc fecha; clique no Backdrop também fecha.", "Ao fechar, o foco volta para o elemento que abriu o Drawer."] },
+        { note: "O zeroheight ainda não tem seção de Acessibilidade para o Drawer." }
+      ] },
+
+      { id: "diretrizes", title: "Diretrizes", blocks: [
+        { h2: "Diretrizes de uso" },
+        { ul: [
+          "Padrão de abertura lateral: o Drawer surge da borda direita da tela, sempre do mesmo lado, para manter a previsibilidade da interação.",
+          "Uso obrigatório de Backdrop: ele direciona o foco para o painel lateral, reduz interferências visuais e indica que o conteúdo principal está temporariamente em segundo plano. O clique fora fecha o Drawer.",
+          "Limitação de complexidade: a Drawer não deve conter fluxos internos, subetapas nem componentes complexos como abas, tabelas, listas densas ou estruturas que exijam navegação própria.",
+          "Complemento ao fluxo principal: todas as ações previstas para a Drawer precisam ser concluídas ali mesmo, permitindo retornar imediatamente ao fluxo principal com clareza e continuidade."
+        ] },
+        { note: "O zeroheight diz que a Drawer abre \"do lado esquerdo da tela para o direito\"; a description da lib diz que surge da direita, e o playground segue a lib (CONFERIR C131)." },
+        { h2: "Do's and Don'ts" },
+        { dodont: [
+          { kind: "do", text: "Use um título claro e direto: Ajuda a pessoa usuária a entender imediatamente o propósito da Drawer." },
+          { kind: "dont", text: "Não utilize títulos genéricos ou vagos: Eles dificultam a compreensão do contexto e prejudicam a tomada de decisão." },
+          { kind: "do", text: "Organize o conteúdo de forma objetiva e hierarquizada: Facilita leitura, escaneabilidade e execução da ação." },
+          { kind: "dont", text: "Não insira conteúdo denso ou componentes complexos: Tabelas, abas e estruturas profundas tornam a Drawer pesada e inadequada." }
+        ] }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { h2: "Motion" },
+        { alert: { appearance: "warning", label: "Especificação pendente", text: "A seção de Motion do Drawer no zeroheight ainda é placeholder, e o componente não tem animação de entrada e saída no playground." } }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/drawer/drawer.docs.js", e); }
+
 /* ==== components/modal/modal.js ==== */
 try {
 /**
@@ -10080,6 +10510,127 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/modal/modal.playground.js", e); }
+
+/* ==== components/modal/modal.docs.js ==== */
+try {
+/* Documentação — Modal
+   Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Modal, 596323) reaproveitado; props e padrões do componente da lib estável
+   (Modal 16362:3267, description); comportamento e acessibilidade do playground. Divergências no CONFERIR (C131):
+   o zeroheight lista Kind (Default/Confirmation), que a lib não tem — na lib, Confirmation é o Confirmation Message no Slot. */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+(function(){
+  function modal(title, kids, extra){ return Object.assign({ _tag: "cds-modal", inline: true, open: true, "text-title": title, "primary-label": "Confirmar", "secondary-label": "Cancelar", "show-lead-icon": "false", _children: kids }, extra || {}); }
+  var TEXT = [{ _tag: "p", class: "pg-cnt-phone__text", _text: "As alterações valem para todos os colaboradores do grupo." }];
+  function confirmation(app, icon, title, text){ return [{ _tag: "cds-confirmation-message", appearance: app, icon: icon, title: title, description: text }]; }
+  CDS.docs["modal"] = {
+    tag: "cds-modal",
+    source: "https://castanha.caju.com.br/858426090/v/latest/p/596323-modal", sourceLabel: "Abrir o Modal no zeroheight",
+    cover: { description: "O Modal é um componente de sobreposição que bloqueia a interface base para exibir conteúdos focados, como formulários, informações detalhadas ou confirmações. Ele exige atenção da pessoa usuária antes de retornar ao fluxo principal." },
+    tabs: [
+      { id: "uso", title: "Uso", blocks: [
+        { h2: "Sobre" },
+        { p: "O Modal é um componente de sobreposição que bloqueia a interface base para exibir conteúdos focados, como formulários, informações detalhadas ou confirmações. Ele exige atenção da pessoa usuária antes de retornar ao fluxo principal." },
+        { h3: "Nomes alternativos comuns" },
+        { p: "Dialog modal, Overlay dialog, Pop-up" },
+        { h3: "Princípios" },
+        { cards: [
+          ["Foco e interrupção", "O modal deve ser utilizado apenas quando for necessário interromper o fluxo da pessoa usuária para uma ação ou informação relevante. Seu uso excessivo prejudica a experiência."],
+          ["Clareza de ação", "Toda interação dentro do modal deve ser clara e objetiva, deixando evidente o que acontecerá ao interagir com os botões disponíveis."],
+          ["Hierarquia bem definida", "A estrutura (header, conteúdo e footer) deve guiar a leitura e facilitar a tomada de decisão, evitando sobrecarga cognitiva."]
+        ] },
+        { h2: "Quando usar" },
+        { p: "Utilize o Modal quando for necessário interromper temporariamente o fluxo da pessoa usuária para apresentar informações importantes, coletar dados ou solicitar uma ação que não pode ser ignorada, garantindo foco total no conteúdo exibido." },
+        { h3: "Utilize para:" },
+        { ul: ["Exibir detalhes complementares sem navegação", "Solicitar confirmações importantes", "Destacar mensagens críticas ou estados do sistema"] },
+        { h3: "Não utilize para:" },
+        { ul: ["Apresentar formulários (utilize a Drawer)", "Conteúdos longos ou complexos que exigem rolagem extensa", "Navegação entre múltiplas etapas", "Substituir páginas completas", "Exibir informações não prioritárias"] },
+        { h2: "Casos de uso" },
+        { h3: "Modal vs Drawer" },
+        { p: "O Modal é uma sobreposição central que bloqueia completamente a interface e exige foco total da pessoa usuária em uma ação ou decisão específica, sendo mais indicado para interações curtas, objetivas e críticas; já o Drawer é um painel lateral que mantém o contexto da tela e suporta conteúdos mais densos e estruturados — como formulários longos, configurações e visualização detalhada — permitindo interações mais complexas sem interromper totalmente o fluxo principal." },
+        { note: "Suporte: canal #castanha-suporte no Slack." }
+      ] },
+
+      { id: "anatomia", title: "Anatomia", blocks: [
+        { h2: "Anatomia" },
+        { anatomy: {
+          attrs: modal("Alterar grupo", TEXT),
+          markers: [{ n: 1, target: "cds-header", side: "left" }, { n: 2, target: ".cds-overlay__slot", side: "left" }, { n: 3, target: "cds-footer", side: "right" }],
+          legend: ["Modal header", "Slot", "Modal action footer"]
+        } },
+        { h2: "Composição do componente" },
+        { ul: ["Header (opcional): título, botão de fechar e divisor — via `Show Header`.", "Content (obrigatório): área livre no Slot.", "Footer (opcional): ações primária e secundária — via `Show Footer`."] },
+        { h3: "Slot — como utilizar" },
+        { ol: [
+          "Insira o componente Modal na tela", "Localize a área de Slot (Content)", "Arraste um componente para dentro do slot (ex: text, form, empty state, etc.)",
+          "Caso o conteúdo seja uma composição própria (ex: múltiplos elementos agrupados), é necessário transformá-la em componente antes de inserir no slot",
+          "O conteúdo inserido passa a respeitar o layout e espaçamento do modal automaticamente", "Ajuste o tamanho do conteúdo conforme necessário — o modal se adapta dentro dos limites definidos"
+        ] },
+        { h2: "Propriedades" },
+        { props: [
+          { name: "Show Header", type: "Boolean", default: "true" },
+          { name: "Show Footer", type: "Boolean", default: "true" },
+          { name: "Slot", type: "Slot" }
+        ] },
+        { note: "Props e padrões lidos do componente Modal da lib estável. O zeroheight ainda lista `Kind` (Default · Confirmation), que a lib não tem: a versão Confirmation é o Confirmation Message dentro do Slot (CONFERIR C131). No código, o fechamento é controlado por `show-close-button` e `dismissible`." }
+      ] },
+
+      { id: "estilos", title: "Estilos", blocks: [
+        { h2: "Variações" },
+        { h3: "Default" },
+        { p: "Versão base e mais flexível, permitindo qualquer tipo de conteúdo via slot." },
+        { display: { attrs: modal("Alterar grupo", TEXT) } },
+        { h3: "Confirmation" },
+        { p: "Versão pré-definida para fluxos de confirmação, com estrutura padronizada: layout estruturado (ícone + título + descrição), ênfase em decisão e menos customização." },
+        { specimens: { min: "calc(var(--common-sizes-200) + var(--common-sizes-120))", items: [
+          { label: "Neutral · ações sem impacto crítico", attrs: modal("", confirmation("neutral", "information-line", "Atualizar dados?", "As informações do perfil serão substituídas."), { "show-header": "false" }) },
+          { label: "Warning · possível consequência negativa", attrs: modal("", confirmation("warning", "timer-line", "Sair sem salvar?", "As alterações feitas serão perdidas."), { "show-header": "false", "primary-label": "Sair sem salvar", "secondary-label": "Continuar editando" }) },
+          { label: "Positive · confirmações seguras ou sucesso", attrs: modal("", confirmation("positive", "check-line", "Pedido enviado", "Você recebe a confirmação por e-mail."), { "show-header": "false", "primary-label": "Entendi", "show-secondary-action-button": "false" }) }
+        ] } },
+        { h3: "Dialog" },
+        { p: "O Dialog é uma variação do Modal com comportamento mais restritivo, projetada para cenários em que a pessoa usuária precisa tomar uma decisão obrigatória antes de continuar: não possui botão de fechar, não fecha ao clicar fora e exige ação via botão." },
+        { display: { attrs: modal("Excluir rascunho?", [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Essa ação não pode ser desfeita." }], { "show-close-button": "false", dismissible: "false", "primary-label": "Excluir rascunho", "secondary-label": "Cancelar" }) } }
+      ] },
+
+      { id: "acessibilidade", title: "Acessibilidade", blocks: [
+        { h2: "Leitor de tela" },
+        { ul: [
+          "É um `<dialog>` modal: o resto da página fica inerte enquanto o Modal está aberto.",
+          "O título do Header é o nome acessível; sem Header, informe `label`.",
+          "O botão de fechar é um Icon Button com rótulo (\"Fechar\")."
+        ] },
+        { h2: "Teclado e foco" },
+        { ul: ["Ao abrir, o foco entra no Modal e fica preso nele.", "Esc fecha o Modal comum; no Dialog (`dismissible=\"false\"`), só as ações fecham.", "Ao fechar, o foco volta para o elemento que abriu o Modal."] },
+        { note: "O zeroheight ainda não tem seção de Acessibilidade para o Modal." }
+      ] },
+
+      { id: "diretrizes", title: "Diretrizes", blocks: [
+        { h2: "Diretrizes de uso" },
+        { guides: [
+          { attrs: modal("Alterar grupo", TEXT), title: "Mantenha o conteúdo objetivo", text: "Evite textos longos ou múltiplas decisões. O modal deve ser rápido de entender e agir." },
+          { attrs: modal("Alterar grupo", TEXT), title: "Priorize uma ação principal", text: "Destaque claramente a ação principal no footer e reduza ambiguidade entre opções." },
+          { attrs: modal("Excluir rascunho?", [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Essa ação não pode ser desfeita." }], { "show-close-button": "false" }), title: "Controle o fechamento", text: "Permita fechamento fácil (ícone ou clique fora) em modais comuns, mas restrinja em casos críticos (Dialog)." }
+        ] },
+        { ul: [
+          "Use tamanhos adequados: adapte o conteúdo ao espaço disponível, evitando modais excessivamente grandes ou pequenos.",
+          "Utilize sempre com Backdrop: o modal deve estar sempre associado ao componente Backdrop para reforçar o bloqueio da interface e direcionar o foco para o conteúdo exibido.",
+          "Evite uso excessivo de modais: como o modal interrompe o fluxo da pessoa usuária, seu uso frequente pode gerar frustração e prejudicar a experiência."
+        ] },
+        { h2: "Do's and Don'ts" },
+        { dodont: [
+          { kind: "do", attrs: modal("Alterar grupo", TEXT), text: "Mantenha sempre o botão de fechar quando o modal não for crítico ou quando não necessitar de uma resposta imediata da pessoa usuária." },
+          { kind: "dont", attrs: modal("Excluir rascunho?", [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Essa ação não pode ser desfeita." }]), text: "Quando se tratar de um modal com escolha crítica, não insira o botão de fechar." }
+        ] }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { h2: "Motion" },
+        { alert: { appearance: "warning", label: "Especificação pendente", text: "A seção de Motion do Modal no zeroheight ainda é placeholder, e o componente não tem animação de entrada e saída no playground." } }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/modal/modal.docs.js", e); }
 
 /* ==== components/modal-date-picker/modal-date-picker.js ==== */
 try {

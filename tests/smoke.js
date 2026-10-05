@@ -13,7 +13,7 @@
  * Avisos (não reprovam; vão para o CONFERIR quando forem do DS):
  *   · contraste do texto abaixo do WCAG AA (4,5:1; 3:1 para texto grande), no claro e no escuro;
  *     texto desabilitado fica de fora (o WCAG não exige);
- *   · componente mais largo que o frame mobile (360px).
+ *   · componente mais largo que o frame mobile (360px), exceto quando ele mostra a Viewport Restriction (bloqueado pelo Figma).
  *
  * Resultado na tabela e em window.CDS_SMOKE = { pass, fail, warnings, rows } (para automação).
  */
@@ -142,9 +142,11 @@
   defs.forEach(function(def){
     var r = byId[def.id], m = mount(def, "mobile", MOBILE_W);
     if (m.error) r.errors.push("mount no mobile: " + m.error);
+    // Componente que o Figma bloqueia no mobile (Viewport Restriction visível, ex.: Modal Date Picker) não conta largura
+    var blocked = [].some.call(m.preview.querySelectorAll("cds-viewport-restriction"), function(v){ return v.getBoundingClientRect().width > 0 && getComputedStyle(v).display !== "none"; });
     var widest = 0;
     [].forEach.call(m.preview.children, function(c){ widest = Math.max(widest, c.getBoundingClientRect().width); });
-    if (widest > MOBILE_W + TOL) r.warnings.push("mobile: " + Math.round(widest) + "px > " + MOBILE_W + "px do frame");
+    if (!blocked && widest > MOBILE_W + TOL) r.warnings.push("mobile: " + Math.round(widest) + "px > " + MOBILE_W + "px do frame");
   });
   stage.innerHTML = "";
 

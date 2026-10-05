@@ -273,10 +273,12 @@
       var g = el("div", "pg-doc-dodont");
       v.forEach(function(it){
         var card = el("figure", "pg-doc-dd pg-doc-dd--" + it.kind);
-        var box = el("div", "pg-doc-dd__box"), c = examples(d, it.attrs);
-        if (it.style && c.setAttribute) c.setAttribute("style", it.style);
-        box.appendChild(c);
-        card.appendChild(box);
+        if (it.attrs){ // sem attrs: Do/Don't só de texto (ex.: regras de motion, cujas imagens são animações)
+          var box = el("div", "pg-doc-dd__box"), c = examples(d, it.attrs);
+          if (it.style && c.setAttribute) c.setAttribute("style", it.style);
+          box.appendChild(c);
+          card.appendChild(box);
+        }
         var cap = el("figcaption", "pg-doc-dd__text");
         cap.appendChild(el("strong", null, it.kind === "do" ? "Use" : it.kind === "caution" ? "Use com cautela" : "Não use"));
         cap.appendChild(rich(el("span"), it.text));

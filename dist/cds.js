@@ -9005,15 +9005,39 @@ try {
         { tokens: "opacity" }
       ] },
       { id: "motion", title: "Motion", blocks: [
-        { h2: "Motion" },
-        { p: "Duração, easing e delay definem cada momento de interação. Os componentes usam os Motion Styles (`/01`), que descem a cascata até os primitivos `Common/Motion/*`. Baseado no explicador castanhads-motion, refeito com os componentes do Castanha DS." },
+        { h2: "Princípios de Motion" },
+        { p: "É projetado para criar experiências fluidas, intuitivas e agradáveis para os usuários, com base em três pilares fundamentais: Simples, Eficiente e Consistente. O movimento torna as interações suaves e harmoniosas, refletindo a simplicidade e acolhimento brasileiro." },
+        { cards: [
+          ["Simples", "As transições são suaves e intuitivas, facilitando o aprendizado em sistemas complexos."],
+          ["Eficiente", "O movimento fornece respostas claras e destaca o que realmente importa, sinalizando mudanças e orientando o usuário de forma eficaz."],
+          ["Consistente", "Movimentos suaves e previsíveis garantem uniformidade em todas as plataformas, orientando o usuário no ecossistema."]
+        ] },
+        { h2: "Motion Styles" },
+        { p: "Os componentes usam os Motion Styles (`/01`), que descem a cascata até os primitivos `Common/Motion/*`. Baseado no explicador castanhads-motion, refeito com os componentes do Castanha DS." },
         { tokens: "motion-live" },
         { tokens: "easing-lab" },
-        { h2: "Referência" },
-        { p: "Primitivos `Common/Motion/*`. Passe o mouse para ver em movimento; clique para levar ao laboratório (e copiar a variável)." },
+        { h2: "Velocidade" },
+        { p: "Para garantir uma experiência fluida e consistente em todas as interações digitais estabelecemos diretrizes claras sobre a velocidade e duração. As curvas ajudam a dar vida aos movimentos: são suavizações em que elementos na tela aceleram no início e desaceleram quando param. A duração é determinada pelo tamanho do movimento e pela distância que ele percorre na tela: quanto maior for a distância, mais longa será a animação." },
+        { p: "Passe o mouse para ver cada token em movimento; clique para levar ao laboratório (e copiar a variável)." },
         { tokens: "easing" },
         { tokens: "duration" },
-        { tokens: "delay" }
+        { tokens: "delay" },
+        { h2: "Regras" },
+        { dodont: [
+          { kind: "do", text: "Combine durações adequadas com curvas de easing para criar animações suaves e naturais." },
+          { kind: "dont", text: "A escolha da curva de easing é tão importante quanto a duração." },
+          { kind: "do", text: "Use durações mais curtas para ações simples e mais longas para transições complexas, garantindo que o movimento seja perceptível, mas não lento demais." },
+          { kind: "dont", text: "Movimentos rápidos demais podem parecer abruptos, enquanto movimentos lentos podem frustrar o usuário." },
+          { kind: "do", text: "Use o movimento para fornecer feedback, destacar mudanças, simplificar interações, guiar a atenção, manter o fluxo e informar o usuário." },
+          { kind: "dont", text: "Se não ajudar o usuário a entender o que aconteceu, o que está acontecendo atualmente ou o que ele pode esperar em seguida, o movimento é desnecessário para adicionar à experiência." },
+          { kind: "do", text: "Movimentos mais longos devem ter durações maiores para parecerem naturais, enquanto movimentos curtos podem ser mais rápidos." },
+          { kind: "dont", text: "Evite usar a mesma duração para todas as interações; adapte-se ao tipo de ação e à hierarquia visual." },
+          { kind: "do", text: "Antes de criar animações, defina o objetivo, o público-alvo e a mensagem que deseja transmitir para garantir que as durações sejam adequadas ao contexto." },
+          { kind: "dont", text: "Não criar feedbacks quase imperceptíveis." },
+          { kind: "do", text: "Teste sempre como as animações se comportam em diferentes dispositivos e plataformas para garantir consistência." },
+          { kind: "dont", text: "Para evitar distrações ou confusão no fluxo do usuário, não use quando desperdiça o tempo do usuário." }
+        ] },
+        { note: "Fonte: zeroheight · Princípios de Motion (734995) e Velocidade (24e587). Transições (757a5f) está \"In progress\" e fica de fora até ficar estável." }
       ] },
       { id: "icones", title: "Ícones", blocks: [
         { h2: "Ícones" },

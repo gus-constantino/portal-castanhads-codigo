@@ -489,3 +489,7 @@
 .pg-doc-shortcut__img{ display:block; width:var(--common-sizes-88); height:var(--common-sizes-88); object-fit:contain; margin-bottom:var(--common-sizes-8); }
 .pg-doc-shortcut__link{ margin-top:auto; padding-top:var(--common-sizes-8); }
 @media (prefers-reduced-motion:reduce){ .pg-doc-shortcut{ transition:none; } .pg-doc-shortcut:hover{ transform:none; } }
+
+/* Motion · textos de uso (zeroheight · Velocidade) */
+.pg-mo-curve__use{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+.pg-mo-fam-use{ margin:0 0 var(--common-sizes-4); font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }

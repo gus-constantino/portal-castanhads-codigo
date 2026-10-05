@@ -432,7 +432,8 @@
     // Curvas em dois grupos (Material/Carbon): cartão com a curva; no hover o ponto anda sobre ela; clique leva ao laboratório
     easing: function(root){
       var all = pick("--common-motion-easing-");
-      [["Systemic", "Interações funcionais e frequentes: rápidas e discretas, para não atrasar a tarefa."], ["Expressive", "Momentos de destaque, entradas e mudanças grandes: mais personalidade e ênfase."]].forEach(function(gr){
+      // textos de uso: zeroheight · Motion · Velocidade (24e587, Available); Systemic = "Curvas Produtivas"
+      [["Systemic", "Curvas produtivas. Este conjunto é usado para transições simples, pequenas ou focadas em utilidades."], ["Expressive", "Curvas expressivas. Conjunto de curvas expressivas."]].forEach(function(gr){
         var list = all.filter(function(n){ return n.indexOf("-" + gr[0].toLowerCase() + "-") !== -1; }); if (!list.length) return;
         var s = section(root, "Easing · " + gr[0], list.length); s.appendChild(el("p", "pg-doc-p", gr[1]));
         var g = s.appendChild(grid("is-curves"));
@@ -449,6 +450,7 @@
           var c = svg.appendChild(document.createElementNS(NS, "path")); c.setAttribute("d", "M0 100 C" + p[0] * 100 + " " + (100 - p[1] * 100) + " " + p[2] * 100 + " " + (100 - p[3] * 100) + " 100 0"); c.setAttribute("class", "pg-tok-lab__path");
           pt = svg.appendChild(document.createElementNS(NS, "circle")); pt.setAttribute("r", "5"); pt.setAttribute("cx", "0"); pt.setAttribute("cy", "100"); pt.setAttribute("class", "pg-mo-lab__pt");
           var cp = t.appendChild(el("span", "pg-tok__text")); cp.appendChild(el("span", "pg-tok__name", label(n, "--common-motion-easing-")));
+          var use = EASE_USE[n.replace("--common-motion-easing-", "")]; if (use) cp.appendChild(el("span", "pg-mo-curve__use", use));
           cp.appendChild(el("span", "pg-mo-curve__prim", PRIMITIVE[n.replace("--common-motion-easing-", "")] || "")); cp.appendChild(code(val(n), n));
         });
       });
@@ -474,7 +476,8 @@
     var max = Math.max.apply(null, list.map(function(n){ return msOf(val(n)); }).filter(function(v){ return v <= 1000; }).concat([1]));
     list.forEach(function(n){
       var f = n.slice(prefix.length).replace(/-\d+$/, "");
-      if (f !== fam){ fam = f; ul.appendChild(el("p", "pg-tok-sub", f.split("-").map(cap).join(" "))); }
+      if (f !== fam){ fam = f; ul.appendChild(el("p", "pg-tok-sub", f.split("-").map(cap).join(" ")));
+        var fu = kind === "duration" ? DUR_USE[f] : null; if (fu) ul.appendChild(el("p", "pg-mo-fam-use", fu)); }
       var bar, row = ul.appendChild(tile("pg-tok-bar", n, function(){ replay(bar); }));
       row.addEventListener("click", function(){ if (LAB.set) LAB.set(null, kind === "duration" ? n : null, kind === "delay" ? n : null); });
       row.appendChild(el("span", "pg-tok__name", label(n, prefix).replace(/-(\d+)$/, "/$1")));
@@ -566,6 +569,21 @@
     search.addEventListener("cds-change", function(e){ e.stopPropagation(); st.q = String(search.value || ""); filter(); });
     filter();
   }
+  // Quando usar cada curva e cada família de duração — zeroheight · Motion · Velocidade (24e587, Available)
+  var EASE_USE = {
+    "systemic-default": "Utilizado em interações recorrentes da interface. Oferece transição equilibrada, com percepção clara de movimento, sem comprometer a fluidez da navegação. Recomendado para ações diretas como botões, cards e elementos de foco.",
+    "systemic-accelerate": "Entrada fluida com antecipação suave. Chama atenção sem pressa. Ideal para elementos com impacto narrativo.",
+    "systemic-decelerate": "Empregado na remoção de elementos. Favorece uma saída rápida e contínua, mantendo a interface responsiva e evitando quebras abruptas. Ideal para feedbacks temporários, notificações e estados transitórios.",
+    "expressive-default": "Transição com presença e intenção. Dá peso visual e valor emocional ao movimento. Usado em transições, modais e telas com destaque.",
+    "expressive-accelerate": "Entrada fluida com antecipação suave. Chama atenção sem pressa. Ideal para elementos com impacto narrativo.",
+    "expressive-decelerate": "Saída desacelerada e elegante. Evita cortes bruscos. Reforça conclusão com clareza e leveza."
+  };
+  var DUR_USE = {
+    "short": "Para interações rápidas, como hover, cliques e elementos pequenos. Garantem agilidade e feedback imediato.",
+    "medium": "Usadas em cliques de botões, entrada de caixas, transformações e animações de saída. Oferecem equilíbrio entre dinamismo e clareza.",
+    "long": "Utilizadas para entradas de toast, expansões, transformações e animações de entrada na tela. Criam transições mais suaves e envolventes.",
+    "extra-long": "Reservadas para momentos especiais, como efeitos \"uau\" ou celebrações. Encantam o usuário com transições marcantes e memoráveis."
+  };
   var LAB = {}; // laboratório de motion: set(easing, duração, delay) — preenchido pelo bloco easing-lab
 
   CDS.docBlocks.tokens = function(doc, kind){

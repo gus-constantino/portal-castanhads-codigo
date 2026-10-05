@@ -16,7 +16,7 @@
  *             tag "" = fragmento <>…</> (ex.: gatilho + Popover)
  *             each: seletor dos filhos do elemento; repete `node` para cada um, lendo os atributos dele ({i} = posição)
  *   prop      { prop, attr | value | expr | tpl, map, bool: true|"not", eq, num, if }
- *             expr com attr: {v} vira o valor do atributo (ex.: "{ label: '{v}' }") · replace: [de, para] no valor
+ *             expr com attr: {v} vira o valor do atributo (ex.: "{ label: '{v}' }")
  *             tpl: texto com {v} (valor do atributo) e {i} (posição no each), ex.: "item-{i}"
  *             if = { atributo: "valor" | "!valor" } (todas as condições valem)
  *             a prop some quando o valor é o padrão do React (lido do .types.ts) ou vazio
@@ -115,7 +115,6 @@
     if (p.value != null) return d === p.value ? null : { name: p.prop, kind: "str", value: p.value };
     var v = p.attr ? get(p.attr) : null;
     if (p.tpl) v = fill(p.tpl, v, get); // ex.: "item-{v}" (valor do atributo) ou "item-{i}" (posição no each)
-    if (p.replace && v != null) v = String(v).split(p.replace[0]).join(p.replace[1]); // ex.: ["/", "-"] (nome da ilustração no pacote)
     if (p.bool || p.eq != null){
       var b = p.eq != null ? v === p.eq : p.bool === "not" ? !truthy(v) : truthy(v);
       if (b === (d === "true")) return null; // igual ao padrão (sem padrão = false)

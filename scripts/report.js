@@ -15,7 +15,7 @@
       ["Em aberto, por tipo", ["Ajuste de texto", "Ajuste de UI", "Motion", "Refactor", "Naming", "Acessibilidade", "Documentação", "Integração React"]],
       ["Fechados", ["Resolvidos"]], ["Referência", ["Como usar esta lista"]] ] },
     { id: "stack", title: "Stack React", file: "integration/SAUDE-STACK.md", groups: [ // R2: check Figma × castanha-react × playground
-      ["Resumo", ["Resumo"]], ["Por nível", ["Alta", "Média", "Informativo"]], ["Tokens", ["Tokens"]], ["Referência", ["Como rodar"]] ] },
+      ["Resumo", ["Resumo"]], ["Por nível", ["Alta", "Média", "Informativo"]], ["Tokens e assets", ["Tokens", "Assets"]], ["Referência", ["Como rodar"]] ] },
     { id: "arquitetura", title: "Arquitetura", file: "docs/ARCHITECTURE.md", groups: [
       ["Visão", ["1", "2"]], ["Evolução", ["7", "6", "5"]], ["Referência técnica", ["3", "4", "8"]] ] },
     { id: "roadmap", title: "Roadmap", file: "docs/ROADMAP.md", groups: [

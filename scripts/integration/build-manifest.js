@@ -277,6 +277,17 @@ if (fs.existsSync(MAPS)) fs.readdirSync(MAPS).filter((f) => /\.json$/.test(f)).f
 // ---------- R2 · saúde da stack (Figma × Code Connect/React × playground) ----------
 const figmaProps = STACK.readFigma(path.join(ROOT, "integration", "figma-props.tsv"));
 const findings = STACK.run({ components, react, maps, figma: figmaProps, codeText: STACK.codeAttrs(ROOT) });
+// R4: assets do playground × castanha-icons / castanha-illustrations / castanha-motion
+const ASSETS = require("./check-assets");
+const ourAssets = (() => { const ctxA = { window: {} }; ctxA.window.CDS = {}; ctxA.CDS = ctxA.window.CDS;
+  require("vm").runInNewContext(fs.readFileSync(path.join(ROOT, "scripts", "assets-manifest.js"), "utf8"), ctxA); return ctxA.CDS.assets; })();
+const pk = (p) => show(REF, "packages/" + p + "/src/index.ts") || "";
+const assetCheck = ASSETS.run({ root: ROOT, assets: ourAssets,
+  icons: ASSETS.exportsOf(pk("castanha-icons")), ills: ASSETS.exportsOf(pk("castanha-illustrations")), motion: ASSETS.exportsOf(pk("castanha-motion")),
+  pkgSvg: (k) => show(REF, "packages/castanha-illustrations/src/assets/" + k + ".svg") || "" });
+fs.writeFileSync(path.join(ROOT, "integration", "assets-react.js"),
+  "/* GERADO por scripts/integration/build-manifest.js (R4) a partir de " + REF + " (" + String(src.commit).slice(0, 8) + ") · não editar à mão */\n" +
+  "window.CDS = window.CDS || {}; CDS.reactAssets = " + JSON.stringify(assetCheck.data) + ";\n");
 // R3: tokens --castanha-* × castanha-tokens (figma-tokens.json + figma-meta.json da mesma ref)
 const TOK = "packages/castanha-tokens/src/tokens/";
 const tokCheck = STACK.checkTokens(STACK.officialTokens(JSON.parse(show(REF, TOK + "figma-tokens.json") || "{}"), JSON.parse(show(REF, TOK + "figma-meta.json") || "{\"collections\":[]}")),
@@ -293,6 +304,15 @@ const smd = ["# Saúde da stack — Figma × castanha-react × playground", "",
   "## Resumo", "", "| Nível | O que significa | Itens |", "|---|---|---:|"]
   .concat(["alta", "media", "info"].map((l) => "| " + LV[l] + " | " + LVH[l] + " | " + cnt(l) + " |"))
   .concat(["", "Componentes com algum item: " + Object.keys(byId).length + " de " + components.filter((c) => c.react).length + " com par no React.", ""]);
+const AS = assetCheck.summary;
+smd.push("## Assets", "", "Nomes que o código usa (`<Icon name>`, `<Illustration name>`, `<Motion name>`) × [Caju] Icons e [Caju] Illustrations do playground.", "",
+  "| Pacote | No pacote | No playground | Mesmo nome | Renomeado | Só aqui | Só no pacote |", "|---|---:|---:|---:|---:|---:|---:|",
+  "| castanha-icons | " + AS.icons.pkg + " | " + AS.icons.ours + " | " + AS.icons.same + " | — | " + AS.icons.onlyHere + " | " + AS.icons.onlyPkg + " |",
+  "| castanha-illustrations | " + AS.ills.pkg + " | " + AS.ills.ours + " | " + AS.ills.same + " | " + AS.ills.renamed + " | " + AS.ills.onlyHere + " | " + AS.ills.onlyPkg + " |",
+  "| castanha-motion | " + AS.motion + " | 0 | — | — | — | " + AS.motion + " |", "",
+  "| Nível | Tipo | O quê |", "|---|---|---|");
+assetCheck.findings.forEach((f) => smd.push("| " + LV[f.level] + " | " + f.kind + " | " + f.msg.replace(/\|/g, "\\|") + " |"));
+smd.push("");
 smd.push("## Tokens", "", "Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`" + REF + "`): **" + tokCheck.ok + " de " + tokCheck.official + "** batem em nome e valor (light, dark e os três modos de viewport).", "",
   "| Nível | Tipo | O quê |", "|---|---|---|");
 if (!tokCheck.findings.length) smd.push("| — | — | Nenhuma diferença. |");
@@ -329,4 +349,4 @@ components.forEach((c) => {
 fs.writeFileSync(path.join(ROOT, "integration", "react-data.js"),
   "/* GERADO por scripts/integration/build-manifest.js a partir de " + REF + " (" + data.source.commit + ") e de integration/prop-map/ · não editar à mão */\n" +
   "window.CDS = window.CDS || {}; CDS.react = " + JSON.stringify(data) + ";\n");
-console.log(JSON.stringify(S), "· prop-maps:", Object.keys(maps).length, "· saúde:", JSON.stringify({ alta: cnt("alta"), media: cnt("media"), info: cnt("info") }), "· tokens:", tokCheck.ok + "/" + tokCheck.official, tokCheck.findings.length ? JSON.stringify(tokCheck.findings.map((f) => f.kind)) : "");
+console.log(JSON.stringify(S), "· prop-maps:", Object.keys(maps).length, "· saúde:", JSON.stringify({ alta: cnt("alta"), media: cnt("media"), info: cnt("info") }), "· tokens:", tokCheck.ok + "/" + tokCheck.official, "· assets:", JSON.stringify(assetCheck.summary), tokCheck.findings.length ? JSON.stringify(tokCheck.findings.map((f) => f.kind)) : "");

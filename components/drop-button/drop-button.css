@@ -6,6 +6,6 @@
    · Default Inversed Pressed: sem fundo, padding 0, raio 0 — variante quebrada no Figma, replicada (CONFERIR.md)
    · Trailing: dropdown-open-line ↔ dropdown-close-line (Is Active)
    ===================================================================== */
-cds-drop-button[appearance="neutral"]:not([kind="ghost"]) > .cds-btn:hover{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); }
-cds-drop-button[kind="ghost"][appearance="neutral"] > .cds-btn:active{ --_bg:transparent; }
-cds-drop-button[appearance="inversed"]:not([kind="ghost"]) > .cds-btn:active{ --_bg:transparent; padding:var(--common-sizes-0); border-radius:var(--common-border-radius-none); }
+cds-drop-button[appearance="neutral"]:not([kind="ghost"]) > .cds-btn:hover, cds-drop-button[appearance="neutral"]:not([kind="ghost"])[state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); }
+cds-drop-button[kind="ghost"][appearance="neutral"] > .cds-btn:active, cds-drop-button[kind="ghost"][appearance="neutral"][state="pressed"] > .cds-btn{ --_bg:transparent; }
+cds-drop-button[appearance="inversed"]:not([kind="ghost"]) > .cds-btn:active, cds-drop-button[appearance="inversed"]:not([kind="ghost"])[state="pressed"] > .cds-btn{ --_bg:transparent; padding:var(--common-sizes-0); border-radius:var(--common-border-radius-none); }

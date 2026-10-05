@@ -355,28 +355,28 @@ cds-icon-button[size="small"] > .cds-ib{ width:var(--common-sizes-40); height:va
 cds-icon-button > .cds-ib > cds-badge{ position:absolute; top:6px; right:5px; }
 
 /* Default · Accent */
-cds-icon-button .cds-ib:hover{ --_bg:var(--common-colors-accent-solid-semi-intense); }
-cds-icon-button .cds-ib:active{ --_bg:var(--common-colors-accent-solid-medium); }
+cds-icon-button .cds-ib:hover, cds-icon-button[state="hovered"] .cds-ib{ --_bg:var(--common-colors-accent-solid-semi-intense); }
+cds-icon-button .cds-ib:active, cds-icon-button[state="pressed"] .cds-ib{ --_bg:var(--common-colors-accent-solid-medium); }
 /* Ghost · Accent */
 cds-icon-button[kind="ghost"] > .cds-ib{ --_bg:transparent; --_fg:var(--common-colors-icons-accent); }
-cds-icon-button[kind="ghost"] > .cds-ib:hover{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); }
-cds-icon-button[kind="ghost"] > .cds-ib:active{ --_bg:transparent; --_fg:var(--common-colors-icons-accent); --_bd:var(--common-colors-accent-solid-medium); }
+cds-icon-button[kind="ghost"] > .cds-ib:hover, cds-icon-button[kind="ghost"][state="hovered"] > .cds-ib{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); }
+cds-icon-button[kind="ghost"] > .cds-ib:active, cds-icon-button[kind="ghost"][state="pressed"] > .cds-ib{ --_bg:transparent; --_fg:var(--common-colors-icons-accent); --_bd:var(--common-colors-accent-solid-medium); }
 /* Default · Neutral */
 cds-icon-button[appearance="neutral"] > .cds-ib{ --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-icons-intense); }
-cds-icon-button[appearance="neutral"] > .cds-ib:hover{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
-cds-icon-button[appearance="neutral"] > .cds-ib:active{ --_bg:var(--common-colors-neutral-solid-medium); }
+cds-icon-button[appearance="neutral"] > .cds-ib:hover, cds-icon-button[appearance="neutral"][state="hovered"] > .cds-ib{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
+cds-icon-button[appearance="neutral"] > .cds-ib:active, cds-icon-button[appearance="neutral"][state="pressed"] > .cds-ib{ --_bg:var(--common-colors-neutral-solid-medium); }
 /* Default · Inversed */
 cds-icon-button[appearance="inversed"] > .cds-ib{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-icons-intense); }
-cds-icon-button[appearance="inversed"] > .cds-ib:hover{ --_bg:var(--common-colors-surface-inversed); --_fg:var(--common-colors-support-lighter); }
-cds-icon-button[appearance="inversed"] > .cds-ib:active{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-icons-intense); }
+cds-icon-button[appearance="inversed"] > .cds-ib:hover, cds-icon-button[appearance="inversed"][state="hovered"] > .cds-ib{ --_bg:var(--common-colors-surface-inversed); --_fg:var(--common-colors-support-lighter); }
+cds-icon-button[appearance="inversed"] > .cds-ib:active, cds-icon-button[appearance="inversed"][state="pressed"] > .cds-ib{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-icons-intense); }
 /* Ghost · Neutral */
 cds-icon-button[kind="ghost"][appearance="neutral"] > .cds-ib{ --_bg:transparent; --_fg:var(--common-colors-icons-intense); --_bd:transparent; }
-cds-icon-button[kind="ghost"][appearance="neutral"] > .cds-ib:hover{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
-cds-icon-button[kind="ghost"][appearance="neutral"] > .cds-ib:active{ --_bg:var(--common-colors-neutral-solid-medium); }
+cds-icon-button[kind="ghost"][appearance="neutral"] > .cds-ib:hover, cds-icon-button[kind="ghost"][appearance="neutral"][state="hovered"] > .cds-ib{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
+cds-icon-button[kind="ghost"][appearance="neutral"] > .cds-ib:active, cds-icon-button[kind="ghost"][appearance="neutral"][state="pressed"] > .cds-ib{ --_bg:var(--common-colors-neutral-solid-medium); }
 /* Ghost · Inversed */
 cds-icon-button[kind="ghost"][appearance="inversed"] > .cds-ib{ --_bg:transparent; --_fg:var(--common-colors-support-lighter); --_bd:transparent; }
-cds-icon-button[kind="ghost"][appearance="inversed"] > .cds-ib:hover{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); --_fg:var(--common-colors-support-lighter); }
-cds-icon-button[kind="ghost"][appearance="inversed"] > .cds-ib:active{ --_bg:var(--common-colors-neutral-opacity-intense-light); --_fg:var(--common-colors-support-lighter); }
+cds-icon-button[kind="ghost"][appearance="inversed"] > .cds-ib:hover, cds-icon-button[kind="ghost"][appearance="inversed"][state="hovered"] > .cds-ib{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); --_fg:var(--common-colors-support-lighter); }
+cds-icon-button[kind="ghost"][appearance="inversed"] > .cds-ib:active, cds-icon-button[kind="ghost"][appearance="inversed"][state="pressed"] > .cds-ib{ --_bg:var(--common-colors-neutral-opacity-intense-light); --_fg:var(--common-colors-support-lighter); }
 
 /* Disabled — Opacity/medium (Figma); Ghost Inversed troca o ícone para Icons/intense (🟡 ver roadmap) */
 cds-icon-button[disabled]{ opacity:var(--common-opacity-medium); pointer-events:none; }
@@ -413,12 +413,12 @@ cds-filter-button > .cds-fb{
   transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
 }
 cds-filter-button > .cds-fb{ --cds-icon-color:var(--_ic); } /* override do .Icons/Icon aninhado */
-cds-filter-button > .cds-fb:hover{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); --_ic:var(--common-colors-accent-solid-semi-intense); font:var(--text-style-label-bold); }
-cds-filter-button > .cds-fb:active{ --_bg:transparent; --_bd:var(--common-colors-accent-solid-medium); --_fg:var(--common-colors-accent-solid-medium); --_ic:var(--common-colors-accent-solid-medium); font:var(--text-style-label-medium); }
+cds-filter-button > .cds-fb:hover, cds-filter-button[state="hovered"] > .cds-fb{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); --_ic:var(--common-colors-accent-solid-semi-intense); font:var(--text-style-label-bold); }
+cds-filter-button > .cds-fb:active, cds-filter-button[state="pressed"] > .cds-fb{ --_bg:transparent; --_bd:var(--common-colors-accent-solid-medium); --_fg:var(--common-colors-accent-solid-medium); --_ic:var(--common-colors-accent-solid-medium); font:var(--text-style-label-medium); }
 
 /* Is Active */
 cds-filter-button[active] > .cds-fb{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); }
-cds-filter-button[active] > .cds-fb:active{ --_bg:transparent; --_fg:var(--common-colors-text-accent); }
+cds-filter-button[active] > .cds-fb:active, cds-filter-button[active][state="pressed"] > .cds-fb{ --_bg:transparent; --_fg:var(--common-colors-text-accent); }
 
 /* Mobile e Tablet — só o ícone, 48×48; o Badge vai para o canto */
 [data-viewport="mobile"] cds-filter-button:not([viewport]) > .cds-fb,
@@ -535,6 +535,7 @@ cds-list-lead-item[kind="image"] > cds-image{ width:var(--common-sizes-40); heig
    Small:  40 · raio small  · Caption/Medium (Pressed: Caption/Bold)
    padding 0 20 · gap 8 · ícones 20 · Disabled Opacity/light
    Motion (reactions): Hover e Press var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate)
+   state="hovered|pressed" força o estado (specimen da doc), como no Tab Item
    Viewport (Specific/Buttons/Main Button/Width/min-width): Desktop 136 · Tablet 220 · Mobile 328
    ===================================================================== */
 cds-main-button, cds-drop-button{ display:inline-flex; flex:0 0 auto; max-width:100%; }
@@ -550,7 +551,7 @@ cds-main-button > .cds-btn{ --_min-w:136px; }
   transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
 }
 .cds-btn{ --cds-icon-color:var(--_fg); } /* override do Icon aninhado */
-.cds-btn:active{ font:var(--_font-pressed); }
+.cds-btn:active, [state="pressed"] > .cds-btn{ font:var(--_font-pressed); }
 [size="small"] > .cds-btn{ height:var(--common-sizes-40); border-radius:var(--common-border-radius-small); --_font:var(--text-style-caption-medium); --_font-pressed:var(--text-style-caption-bold); }
 
 /* Viewport → largura mínima */
@@ -558,28 +559,28 @@ cds-main-button > .cds-btn{ --_min-w:136px; }
 [data-viewport="mobile"] cds-main-button > .cds-btn{ --_min-w:328px; }
 
 /* Default · Accent */
-.cds-btn:hover{ --_bg:var(--common-colors-accent-solid-semi-intense); }
-.cds-btn:active{ --_bg:var(--common-colors-accent-solid-medium); }
+.cds-btn:hover, [state="hovered"] > .cds-btn{ --_bg:var(--common-colors-accent-solid-semi-intense); }
+.cds-btn:active, [state="pressed"] > .cds-btn{ --_bg:var(--common-colors-accent-solid-medium); }
 /* Ghost · Accent */
 [kind="ghost"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-text-accent); }
-[kind="ghost"] > .cds-btn:hover{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); }
-[kind="ghost"] > .cds-btn:active{ --_bg:transparent; --_fg:var(--common-colors-text-accent); --_bd:var(--common-colors-accent-solid-medium); }
+[kind="ghost"] > .cds-btn:hover, [kind="ghost"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); }
+[kind="ghost"] > .cds-btn:active, [kind="ghost"][state="pressed"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-text-accent); --_bd:var(--common-colors-accent-solid-medium); }
 /* Default · Neutral */
 [appearance="neutral"] > .cds-btn{ --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-text-intense); }
-[appearance="neutral"] > .cds-btn:hover{ --_bg:var(--common-colors-neutral-solid-medium); }
-[appearance="neutral"] > .cds-btn:active{ --_bg:var(--common-colors-surface-01); }
+[appearance="neutral"] > .cds-btn:hover, [appearance="neutral"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-medium); }
+[appearance="neutral"] > .cds-btn:active, [appearance="neutral"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-surface-01); }
 /* Default · Inversed */
 [appearance="inversed"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-text-intense); }
-[appearance="inversed"] > .cds-btn:hover{ --_bg:var(--common-colors-neutral-solid-intense); --_fg:var(--common-colors-support-lighter); }
-[appearance="inversed"] > .cds-btn:active{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-text-intense); }
+[appearance="inversed"] > .cds-btn:hover, [appearance="inversed"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-intense); --_fg:var(--common-colors-support-lighter); }
+[appearance="inversed"] > .cds-btn:active, [appearance="inversed"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-text-intense); }
 /* Ghost · Neutral */
 [kind="ghost"][appearance="neutral"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-text-intense); --_bd:transparent; }
-[kind="ghost"][appearance="neutral"] > .cds-btn:hover{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
-[kind="ghost"][appearance="neutral"] > .cds-btn:active{ --_bg:var(--common-colors-surface-01); }
+[kind="ghost"][appearance="neutral"] > .cds-btn:hover, [kind="ghost"][appearance="neutral"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
+[kind="ghost"][appearance="neutral"] > .cds-btn:active, [kind="ghost"][appearance="neutral"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-surface-01); }
 /* Ghost · Inversed */
 [kind="ghost"][appearance="inversed"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-support-lighter); --_bd:transparent; }
-[kind="ghost"][appearance="inversed"] > .cds-btn:hover{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); --_fg:var(--common-colors-support-lighter); }
-[kind="ghost"][appearance="inversed"] > .cds-btn:active{ --_bg:var(--common-colors-neutral-opacity-intense-light); --_fg:var(--common-colors-support-lighter); }
+[kind="ghost"][appearance="inversed"] > .cds-btn:hover, [kind="ghost"][appearance="inversed"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); --_fg:var(--common-colors-support-lighter); }
+[kind="ghost"][appearance="inversed"] > .cds-btn:active, [kind="ghost"][appearance="inversed"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-neutral-opacity-intense-light); --_fg:var(--common-colors-support-lighter); }
 
 /* Disabled — Opacity/light; Ghost Inversed troca o texto para Text/intense (🟡 ver roadmap) */
 cds-main-button[disabled], cds-drop-button[disabled]{ opacity:var(--common-opacity-light); pointer-events:none; }
@@ -626,9 +627,9 @@ cds-date-picker[kind="double"] .cds-dn__btn .cds-btn{ width:100%; }
    · Default Inversed Pressed: sem fundo, padding 0, raio 0 — variante quebrada no Figma, replicada (CONFERIR.md)
    · Trailing: dropdown-open-line ↔ dropdown-close-line (Is Active)
    ===================================================================== */
-cds-drop-button[appearance="neutral"]:not([kind="ghost"]) > .cds-btn:hover{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); }
-cds-drop-button[kind="ghost"][appearance="neutral"] > .cds-btn:active{ --_bg:transparent; }
-cds-drop-button[appearance="inversed"]:not([kind="ghost"]) > .cds-btn:active{ --_bg:transparent; padding:var(--common-sizes-0); border-radius:var(--common-border-radius-none); }
+cds-drop-button[appearance="neutral"]:not([kind="ghost"]) > .cds-btn:hover, cds-drop-button[appearance="neutral"]:not([kind="ghost"])[state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); }
+cds-drop-button[kind="ghost"][appearance="neutral"] > .cds-btn:active, cds-drop-button[kind="ghost"][appearance="neutral"][state="pressed"] > .cds-btn{ --_bg:transparent; }
+cds-drop-button[appearance="inversed"]:not([kind="ghost"]) > .cds-btn:active, cds-drop-button[appearance="inversed"]:not([kind="ghost"])[state="pressed"] > .cds-btn{ --_bg:transparent; padding:var(--common-sizes-0); border-radius:var(--common-border-radius-none); }
 
 /* ==== components/footer/footer.css ==== */
 /* .Footer · set 16359:1792 — Divider + Actions pad 20 · gap 8 · Horizontal: botões no tamanho do conteúdo · Pilled: coluna, largura total */

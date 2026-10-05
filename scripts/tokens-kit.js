@@ -552,11 +552,33 @@
       if (it.description) panel.appendChild(el("p", "pg-doc-p", it.description));
       if (it.keywords.length){ var tags = panel.appendChild(el("div", "pg-ic-tags"));
         it.keywords.forEach(function(k){ var t = tags.appendChild(document.createElement("cds-tag")); t.setAttribute("label", k); t.setAttribute("appearance", "neutral"); t.setAttribute("show-lead-item", "false"); }); }
+      // R4 · No React: nome no pacote (castanha-icons / castanha-illustrations), import eager e situação (integration/assets-react.js)
+      var RA = CDS.reactAssets, rx = RA && (isIcon ? RA.icons : RA.ills), info = rx ? rx.map[it.id] : undefined, react = null;
+      if (rx){
+        panel.appendChild(el("span", "pg-ic-panel__sub", "No React"));
+        var rtags = panel.appendChild(el("div", "pg-ic-tags"));
+        var rtag = function(app, label){ var t = rtags.appendChild(document.createElement("cds-tag")); t.setAttribute("appearance", app); t.setAttribute("label", label); t.setAttribute("show-lead-item", "false"); };
+        if (!info){
+          rtag(it.deprecated ? "neutral" : "negative", "Fora do " + rx.pkg.split("/")[1]);
+          panel.appendChild(el("p", "pg-doc-p", it.deprecated ? "Deprecated no Figma e já removido do pacote." : "Existe no Figma e aqui, mas o pacote não exporta. No React não dá para usar pelo nome."));
+        } else {
+          var rname = isIcon ? it.id : info[0], pascal = isIcon ? info : info[1];
+          react = (isIcon ? '<Icon name="' : '<Illustration name="') + rname + '" />';
+          rtag("positive", "No " + rx.pkg.split("/")[1]);
+          if (!isIcon && info[2]) rtag("warning", "Nome diferente no pacote");
+          if (!isIcon && info[3]) rtag("informative", "Desenho difere do pacote");
+          if (it.deprecated) rtag("neutral", "Deprecated no Figma");
+          var rdl = panel.appendChild(el("dl", "pg-el-parts"));
+          [["Lazy", react], ["Eager", "import { " + pascal + " } from '" + rx.pkg + "';"]].forEach(function(r){ rdl.appendChild(el("dt", null, r[0])); var dd = rdl.appendChild(el("dd")); dd.appendChild(el("code", "pg-tok__code", r[1])); });
+          if (!isIcon && info[2]) panel.appendChild(el("p", "pg-doc-p", "No Figma: " + it.id + ". O pacote usa outro nome: " + rname + "."));
+        }
+      }
       var acts = panel.appendChild(el("div", "pg-ic-actions"));
       if (CDS.docMainButton){
         var b1 = acts.appendChild(CDS.docMainButton("Copiar nome")); b1.addEventListener("click", function(){ copy(it.id); });
         var snippet = isIcon ? '<cds-icon icon="' + it.id + '"></cds-icon>' : '<cds-banner illustration="' + it.id + '"></cds-banner>';
         var b2 = acts.appendChild(CDS.docMainButton("Copiar código")); b2.addEventListener("click", function(){ copy(snippet); });
+        if (react){ var b3 = acts.appendChild(CDS.docMainButton("Copiar React")); b3.addEventListener("click", function(){ copy(react); }); }
       }
     }
     function filter(){

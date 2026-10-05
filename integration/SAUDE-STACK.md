@@ -102,4 +102,8 @@ O lado Figma × playground continua no check de props (`docs/CHECK-PROPS.md`). D
 
 ### 05/10/2026 · staging `1e0a5335`
 
+- JSX "No React": primeira validação com TypeScript · 185 trechos · 0 erros.
+
+### 05/10/2026 · staging `1e0a5335`
+
 - Primeira leitura com histórico (sem versão anterior para comparar).

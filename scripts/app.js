@@ -133,7 +133,7 @@
         navView = o[0]; paint(); peek.hide();
         try { localStorage.setItem("cds-pg-nav-view", navView); } catch (e) {}
         buildNav(searchText());
-        var on = nav.querySelector("a[aria-current='page']"); if (on) on.scrollIntoView({ block: "center" }); // a troca não perde o lugar
+        revealCurrent(true); // a troca não perde o lugar
       });
       row.appendChild(b);
       var tip = kit.el("cds-tooltip", { "for": "nav-view-" + o[0], placement: "bottom", "show-label": "false" });
@@ -224,6 +224,19 @@
     }
     if (!comps.length && !blocks.length && !cmps.length) nav.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Nenhum componente encontrado." }));
     markCurrent();
+  }
+  // Rola só o menu (nunca a página) até o item atual, centralizado. Só quando ele está fora de vista
+  // (clicar no menu não mexe em nada); force = centraliza mesmo assim (troca Lista/Grade).
+  // Na faixa horizontal (≤ 1100px) não rola. Segunda tentativa depois da animação do accordion que abriu.
+  function revealCurrent(force){
+    function go(){
+      var side = document.querySelector(".pg-sidebar"), a = side.querySelector("#nav a[aria-current='page'], #nav-res a[aria-current='page']");
+      if (!a || narrow.matches) return;
+      var sr = side.getBoundingClientRect(), r = a.getBoundingClientRect();
+      if (!r.height || (!force && r.top >= sr.top && r.bottom <= sr.bottom)) return;
+      side.scrollTop += r.top - sr.top - (sr.height - r.height) / 2;
+    }
+    requestAnimationFrame(go); setTimeout(function(){ force = false; go(); }, 400);
   }
   function markCurrent(){
     var cur = currentId();
@@ -559,6 +572,7 @@
     if (writtenQs) kit.state.restore(q); // link do estado: reaplica os controles da URL
     if (CDS.renderReact) CDS.renderReact(def, preview, $("react")); // "No React": tradução Figma → castanha-react (scripts/react-kit.js)
     markCurrent();
+    revealCurrent(); // ao abrir (link, recarregar, ⌥←/⌥→, anterior/próximo): o item atual aparece no menu
   }
   window.addEventListener("hashchange", onRoute);
 

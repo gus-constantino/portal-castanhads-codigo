@@ -42,7 +42,7 @@ Nenhum aviso.
 |---|---|---|
 | Primeira visita (tudo o que o index.html carrega) | 1504 KB | 334 KB |
 | dist/cds.js · componentes (110 arquivos) | 300 KB | 75 KB |
-| dist/cds.js · playgrounds (103 arquivos) | 148 KB | 25 KB |
+| dist/cds.js · playgrounds (103 arquivos) | 149 KB | 25 KB |
 | dist/cds.js · recursos (4 arquivos) | 136 KB | 43 KB |
 | Docs sob demanda (103 arquivos, uma por componente aberto) | — | 275 KB no total |
 

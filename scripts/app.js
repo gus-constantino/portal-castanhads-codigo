@@ -69,6 +69,7 @@
       cur = a;
       if (ro && prev) ro.unobserve(prev);
       stage.innerHTML = ""; stage.style.background = ""; stage.classList.remove("is-dark"); // a superfície do playground (kit.surface) cai no stage
+      stage.dataset.viewport = c.viewport || "desktop"; // componente só de um viewport (Bottom Sheet: mobile) aparece nele
       prev = kit.el("div", { "class": "pg-peek__preview" });
       prev.addEventListener("load", fit, true); // imagem/ilustração que chega depois muda o tamanho
       stage.appendChild(prev);

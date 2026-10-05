@@ -118,7 +118,7 @@
             text: "O título não é específico e os botões são confusos para o contexto." },
           { kind: "do", text: "Use Voltar quando o bottom sheet interrompe um fluxo e, ao encerrá-lo, a pessoa retorna para uma área do app (Pix, Cartão, etc.) ou para uma tela que não é de edição." },
           { kind: "dont", text: "Não use Continuar editando se ao fechar o bottom sheet, o usuário retorna para uma área do app (ex: Pix, Cartão) ou a tela não é de input/edição." }
-        ] },,
+        ] },
         { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Bottom sheet. Regras de escrita do time de Content; os exemplos usam componentes do DS com os mesmos textos." }
       ] }
     ]

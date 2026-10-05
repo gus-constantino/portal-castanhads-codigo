@@ -149,7 +149,7 @@
           "Use link para navegar (levar a pessoa a outro destino como termos de uso, FAQ, artigos ou downloads).",
           "Use botão para agir (executar algo no próprio fluxo, como confirmar, salvar, enviar ou cancelar).",
           "Links mudam o contexto e botões geram uma resposta imediata."
-        ] },,
+        ] },
         { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Links. Regras de escrita do time de Content; os exemplos usam componentes do DS com os mesmos textos." }
       ] }
     ]

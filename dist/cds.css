@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 107 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 108 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.css ==== */
 /* Backdrop · 13784:3271 — Surface/inversed · Opacity/medium (0.4). O mesmo visual vale para o ::backdrop dos overlays */
 cds-backdrop{ position:absolute; inset:0; display:block; background:var(--common-colors-surface-inversed); opacity:var(--common-opacity-medium); }
@@ -1917,6 +1917,23 @@ cmp-clickable-card .cmp-cc.cmp-cc:focus-visible{ outline:var(--common-border-wid
 /* media="auto": altura pelo conteúdo (ícones pequenos em galerias) */
 cmp-clickable-card[media="auto"] .cmp-cc__media{ aspect-ratio:auto; min-height:var(--common-sizes-56); padding:var(--common-sizes-12); }
 cmp-clickable-card[media="auto"] .cmp-cc__label{ text-align:center; }
+
+/* ==== compositions/do-dont/do-dont.css ==== */
+/* Do/Don't · composição do playground (ver do-dont.js) — padrão do Hub, só tokens */
+cmp-do-dont{ display:block; min-width:0; }
+cmp-do-dont .cmp-dd{
+  margin:0; height:100%; box-sizing:border-box; display:flex; flex-direction:column; gap:var(--common-sizes-12);
+  padding:var(--common-sizes-16) var(--common-sizes-24); border-radius:var(--common-border-radius-medium); box-shadow:var(--common-elevation-level-2);
+  background:var(--common-colors-feedback-positive-soft);
+}
+cmp-do-dont[data-kind="dont"] .cmp-dd{ background:var(--common-colors-accent-solid-soft); }
+cmp-do-dont[data-kind="caution"] .cmp-dd{ background:var(--common-colors-feedback-warning-soft); }
+cmp-do-dont .cmp-dd__example{ display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:var(--common-sizes-16); min-height:var(--common-sizes-200); padding:var(--common-sizes-16); background:var(--common-colors-surface-default); }
+cmp-do-dont .cmp-dd__example[hidden]{ display:none; }
+cmp-do-dont .cmp-dd__caption{ display:flex; flex-direction:column; gap:var(--common-sizes-8); font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+cmp-do-dont .cmp-dd__verdict{ font:var(--text-style-body-bold); }
+cmp-do-dont .cmp-dd__heading{ font:var(--text-style-body-bold); color:var(--common-colors-text-intense); }
+cmp-do-dont .cmp-dd__heading[hidden]{ display:none; }
 
 /* ==== compositions/thumbnail/thumbnail.css ==== */
 /* Miniatura viva · composição do playground (ver thumbnail.js). Quem usa define largura e altura da caixa. */

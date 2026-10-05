@@ -216,7 +216,7 @@
   })();
 
   // ---------- Roteamento: #/<id> ou #/<id>/<tab> ----------
-  // #/<id>[/<tab>][?prop=valor&…] — a query guarda o estado dos controles (link do estado, D113)
+  // #/<id>[/<tab>][?prop=valor&…] — a query guarda o estado dos controles (link do estado)
   function route(){ return (location.hash || "").replace(/^#\/?/, "").split("?")[0].split("/"); }
   function query(){
     var q = (location.hash.split("?")[1] || ""), out = {};

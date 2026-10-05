@@ -33,7 +33,7 @@
   function id(prefix){ return (prefix || "pg") + "-" + (++uid); }
 
   /**
-   * Estado dos controles na URL (link do estado, D113). Cada controle do kit se registra com uma chave tirada
+   * Estado dos controles na URL (link do estado). Cada controle do kit se registra com uma chave tirada
    * do rótulo ("Text Label" → text-label) e o valor inicial. O shell chama state.begin(panel) antes do mount do
    * playground principal e state.restore(params) depois; a cada mudança, state.onChange(params) recebe só o que
    * difere do inicial. Previews do menu e o smoke montam com outro painel e não entram no registro.

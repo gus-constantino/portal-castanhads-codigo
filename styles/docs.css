@@ -614,4 +614,5 @@ cds-banner.pg-doc-banner{ width:calc(var(--common-sizes-200) + var(--common-size
 .pg-doc-video__frame{ display:block; width:100%; aspect-ratio:16 / 9; border:0; border-radius:var(--common-border-radius-large); background:var(--common-colors-surface-inversed); }
 .pg-doc-video__caption{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:var(--common-sizes-8) var(--common-sizes-16); }
 .pg-doc-video__caption .pg-doc-p{ margin:0; color:var(--common-colors-text-medium); }
+.pg-doc-videos{ display:grid; grid-template-columns:repeat(auto-fill, minmax(min(calc(var(--common-sizes-200) + var(--common-sizes-120)), 100%), 1fr)); gap:var(--common-sizes-32) var(--common-sizes-24); }
 

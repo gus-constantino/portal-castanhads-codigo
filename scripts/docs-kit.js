@@ -462,6 +462,7 @@
     // o player é o do próprio serviço num iframe 16:9, com título acessível e um Link do DS para abrir fora.
     video: function(d, v){
       var box = el("figure", "pg-doc-video");
+      if (v.heading) box.appendChild(el("h3", "pg-doc-h4", v.heading)); // título visível (grade de vídeos)
       var fr = el("iframe", "pg-doc-video__frame");
       fr.src = v.src; fr.title = v.title || "Vídeo"; fr.loading = "lazy";
       fr.setAttribute("allow", "autoplay; fullscreen"); fr.setAttribute("allowfullscreen", "");
@@ -472,6 +473,12 @@
         if (v.href){ var l = el("cds-link"); l.setAttribute("label", v.cta || "Abrir em outra aba"); l.setAttribute("href", v.href); l.setAttribute("target", "_blank"); l.setAttribute("icon", "link-line"); l.setAttribute("appearance", "neutral"); cap.appendChild(l); }
       }
       return box;
+    },
+    // Grade de vídeos: cada item é um bloco video com heading (ex.: treinamentos em várias partes)
+    videos: function(d, v){
+      var g = el("div", "pg-doc-videos");
+      v.forEach(function(it){ g.appendChild(BLOCKS.video(d, it)); });
+      return g;
     },
     shortcuts: function(d, v){
       var g = el("div", "pg-doc-shortcuts"), ills = {}; ((window.CDS.assets || {}).illustrations || []).forEach(function(i){ ills[i.name] = i.src; });

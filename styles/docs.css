@@ -596,3 +596,6 @@
 cds-caju-brand.pg-doc-brand-stretch{ height:var(--common-sizes-56); }
 .pg-doc-brand-recolor path{ fill:var(--common-colors-feedback-informative-intense); }
 .pg-doc-row--tight{ gap:0; }
+/* Listas de exemplo (itens soltos empilhados, na largura das listas do DS: 320) */
+.pg-doc-list-stack{ display:flex; flex-direction:column; width:calc(2 * var(--common-sizes-160)); max-width:100%; }
+.pg-doc-list-stack--card{ gap:var(--common-sizes-8); }

@@ -14,6 +14,8 @@
     { id: "conferir", title: "Conferir", file: "docs/CONFERIR.md", groups: [
       ["Em aberto, por tipo", ["Ajuste de texto", "Ajuste de UI", "Motion", "Refactor", "Naming", "Acessibilidade", "Documentação", "Integração React"]],
       ["Fechados", ["Resolvidos"]], ["Referência", ["Como usar esta lista"]] ] },
+    { id: "saude", title: "Saúde técnica", file: "docs/SAUDE-TECNICA.md", groups: [ // gerado pelo build-index (smoke, peso, numeração)
+      ["Resumo", ["Resumo"]], ["Smoke", ["Componentes", "Docs"]], ["Peso e numeração", ["Peso", "Numeração D/C"]], ["Referência", ["Como rodar"]] ] },
     { id: "stack", title: "Stack React", file: "integration/SAUDE-STACK.md", groups: [ // R2: check Figma × castanha-react × playground
       ["Resumo", ["Resumo"]], ["Por nível", ["Alta", "Média", "Informativo"]], ["Tokens e assets", ["Tokens", "Assets"]], ["Histórico", ["Histórico"]], ["Referência", ["Como rodar"]] ] },
     { id: "arquitetura", title: "Arquitetura", file: "docs/ARCHITECTURE.md", groups: [

@@ -1,0 +1,80 @@
+{
+ "componentes": {
+  "total": 105,
+  "ok": 105,
+  "falhas": [],
+  "avisos": [
+   {
+    "id": "backdrop",
+    "warnings": [
+     "contraste (escuro): “Conteúdo da tela” 1.67:1"
+    ]
+   },
+   {
+    "id": "banner",
+    "warnings": [
+     "contraste (escuro): “Label” 1.67:1",
+     "contraste (escuro): “Description” 1.67:1"
+    ]
+   },
+   {
+    "id": "content-banner",
+    "warnings": [
+     "contraste (escuro): “Label” 1.67:1",
+     "contraste (escuro): “Description” 1.67:1"
+    ]
+   },
+   {
+    "id": "date-input",
+    "warnings": [
+     "contraste (claro): “-0000” 2.50:1",
+     "contraste (escuro): “-0000” 2.14:1"
+    ]
+   },
+   {
+    "id": "dropzone",
+    "warnings": [
+     "contraste (escuro): “Selecionar arquivos” 3.74:1"
+    ]
+   },
+   {
+    "id": "filter-button",
+    "warnings": [
+     "contraste (escuro): “Filtros” 3.74:1"
+    ]
+   },
+   {
+    "id": "pagination",
+    "warnings": [
+     "mobile: 780px > 360px do frame"
+    ]
+   },
+   {
+    "id": "table",
+    "warnings": [
+     "mobile: 1053px > 360px do frame"
+    ]
+   },
+   {
+    "id": "text-area",
+    "warnings": [
+     "contraste (claro): “0/300” 2.50:1",
+     "contraste (escuro): “0/300” 2.14:1"
+    ]
+   },
+   {
+    "id": "text-input",
+    "warnings": [
+     "contraste (claro): “0/100” 2.50:1",
+     "contraste (escuro): “0/100” 2.14:1"
+    ]
+   }
+  ]
+ },
+ "docs": {
+  "docs": 88,
+  "tabs": 528,
+  "falhas": [],
+  "avisos": []
+ }
+}

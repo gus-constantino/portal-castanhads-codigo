@@ -85,7 +85,7 @@ server.listen(0, "127.0.0.1", async () => {
     if (avisos) r.warned.forEach((w) => console.log(`   ⚠️  ${w.id}: ${w.warnings.join(" · ")}`));
 
     // ---------- Docs (D128): o app de verdade, cada tab de cada doc, em desktop e num celular de 375px ----------
-    let docsFail = 0;
+    let docsFail = 0, lastDocs = null;
     if (!process.argv.includes("--sem-docs")){
       const t1 = Date.now(), base = `http://127.0.0.1:${server.address().port}/index.html`;
       const code = fs.readFileSync(path.join(ROOT, "tests", "smoke-docs.js"), "utf8");
@@ -103,12 +103,18 @@ server.listen(0, "127.0.0.1", async () => {
       };
       const d = await runDocs(false), m = await runDocs(true);
       docsFail = d.failures.length + m.failures.length;
+      lastDocs = { docs: d.docs, tabs: d.tabs, falhas: d.failures.concat(m.failures), avisos: m.warned };
       const warnedN = m.warned.length, secs2 = ((Date.now() - t1) / 1000).toFixed(1);
       console.log(`${docsFail ? "❌" : "✅"} Docs: ${d.docs} docs · ${d.tabs} tabs em desktop e em 375px · ${docsFail} com problema · ${warnedN} com aviso · ${secs2} s`);
       d.failures.concat(m.failures).forEach((f) => console.log(`   ❌ ${f.id}: ${f.errors.join(" · ")}`));
       if (avisos) m.warned.forEach((w) => console.log(`   ⚠️  ${w.id}: ${w.warnings.join(" · ")}`));
       if (!avisos && (r.warnings || warnedN)) console.log("   (avisos: node scripts/dev/smoke.js --avisos)");
     } else if (!avisos && r.warnings) console.log("   (avisos: node scripts/dev/smoke.js --avisos)");
+    // Resultado para o painel de saúde (docs/SAUDE-TECNICA.md, gerado pelo build-index): sem horário nem duração,
+    // para o arquivo só mudar quando o resultado mudar
+    const saved = { componentes: { total: r.total, ok: r.pass, falhas: r.failures, avisos: r.warned } };
+    if (lastDocs) saved.docs = lastDocs;
+    fs.writeFileSync(path.join(ROOT, "tests", "ultimo-smoke.json"), JSON.stringify(saved, null, 1) + "\n");
     clearTimeout(timer); ws.close();
     finish(r.fail || docsFail ? 1 : 0);
   } catch (e){ clearTimeout(timer); console.error("❌ Smoke sem resultado: " + e.message); finish(1); }

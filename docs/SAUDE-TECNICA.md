@@ -1,0 +1,65 @@
+# Saúde técnica
+
+> Gerado por `node scripts/build-index.js` (o smoke entra com `--smoke`). Não editar à mão: regere o build.
+
+## Resumo
+
+| Verificação | Resultado |
+|---|---|
+| Smoke dos componentes (claro, escuro, mobile 360) | ✅ 105/105 ok · ⚠️ 10 com aviso |
+| Smoke das docs (desktop e 375px) | ✅ 88 docs · 528 tabs · 0 com problema |
+| Peso da primeira visita | ✅ 323 KB gzip de 600 KB · docs sob demanda: 85 arquivos |
+| Numeração D/C | ✅ D 135 · C 147 |
+
+## Componentes
+
+Nenhuma falha.
+
+**Avisos** (não reprovam; os do DS estão no CONFERIR)
+
+| Componente | Aviso |
+|---|---|
+| backdrop | contraste (escuro): “Conteúdo da tela” 1.67:1 |
+| banner | contraste (escuro): “Label” 1.67:1 · contraste (escuro): “Description” 1.67:1 |
+| content-banner | contraste (escuro): “Label” 1.67:1 · contraste (escuro): “Description” 1.67:1 |
+| date-input | contraste (claro): “-0000” 2.50:1 · contraste (escuro): “-0000” 2.14:1 |
+| dropzone | contraste (escuro): “Selecionar arquivos” 3.74:1 |
+| filter-button | contraste (escuro): “Filtros” 3.74:1 |
+| pagination | mobile: 780px > 360px do frame |
+| table | mobile: 1053px > 360px do frame |
+| text-area | contraste (claro): “0/300” 2.50:1 · contraste (escuro): “0/300” 2.14:1 |
+| text-input | contraste (claro): “0/100” 2.50:1 · contraste (escuro): “0/100” 2.14:1 |
+
+## Docs
+
+Nenhuma falha.
+
+Nenhum aviso.
+
+## Peso
+
+| Parte | Bruto | gzip |
+|---|---|---|
+| Primeira visita (tudo o que o index.html carrega) | 1465 KB | 323 KB |
+| dist/cds.js · componentes (110 arquivos) | 296 KB | 74 KB |
+| dist/cds.js · playgrounds (103 arquivos) | 148 KB | 25 KB |
+| dist/cds.js · recursos (3 arquivos) | 121 KB | 38 KB |
+| Docs sob demanda (85 arquivos, uma por componente aberto) | — | 237 KB no total |
+
+Limite: 600 KB gzip na primeira visita (aviso no build; `BUDGET_STRICT=1` faz falhar).
+
+## Numeração D/C
+
+Última decisão: **D135** (docs/ROADMAP.md) · último item a conferir: **C147** (docs/CONFERIR.md).
+
+Linha nova usa apelido (`D+nome` / `C+nome`); `node scripts/dev/numerar.js` numera depois do merge. O CI roda `numerar.js --check`.
+
+## Como rodar
+
+```
+node scripts/build-index.js --smoke     # build + smoke (componentes e docs) + este painel
+node scripts/dev/smoke.js --avisos      # só o smoke, listando os avisos
+node scripts/dev/numerar.js --check     # numeração D/C
+```
+
+O GitHub roda o mesmo em todo push na `teste` e na `main` (aba Actions).

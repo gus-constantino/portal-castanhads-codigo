@@ -38,6 +38,12 @@ jobs:
       - name: Numeração D/C (sem repetido, sem apelido sobrando)
         run: node scripts/dev/numerar.js --check
 
+      - name: Painel de saúde em dia (aviso)
+        run: |
+          if ! git diff --quiet -- docs/SAUDE-TECNICA.md tests/ultimo-smoke.json; then
+            echo "::warning::O painel de saúde commitado não bate com este run. Rode node scripts/build-index.js --smoke e commite docs/SAUDE-TECNICA.md e tests/ultimo-smoke.json."
+          fi
+
       - name: Build commitado está em dia
         run: |
           if ! git diff --quiet -- index.html tests/smoke.html dist; then

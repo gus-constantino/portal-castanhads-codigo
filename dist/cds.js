@@ -1494,7 +1494,8 @@ try {
  * Entidade removível: clicar no chip inteiro remove (o alvo é o chip de 40px, não o ícone de 16px — WCAG 2.5.8).
  *
  * Atributos (padrões do Figma): label ("Label") · icon (Lead Icon, "placeholder-line") · show-lead-icon · disabled
- * Evento: cds-remove (cancelável) — sem preventDefault() o chip se remove do DOM.
+ * Evento: cds-remove (cancelável) { label, keyboard } — sem preventDefault() o chip se remove do DOM. O chip sozinho não move o foco
+ *   (como o Chips.Input do castanha-react); o Multi Select Input segue a regra do SelectInput do React (D145).
  */
 (function(){
   "use strict";
@@ -1505,8 +1506,9 @@ try {
       var self = this, label = this.text("label", "Label");
       if (!this._btn){
         this._btn = CDS.create("button", { type: "button" }, "cds-chip");
-        this._btn.addEventListener("click", function(){
-          var ev = new CustomEvent("cds-remove", { detail: { label: self.text("label", "Label") }, bubbles: true, cancelable: true });
+        // detail.keyboard: Enter/Espaço geram click com e.detail 0 — quem usa decide o foco (como o Chips.Input do castanha-react)
+        this._btn.addEventListener("click", function(e){
+          var ev = new CustomEvent("cds-remove", { detail: { label: self.text("label", "Label"), keyboard: e.detail === 0 }, bubbles: true, cancelable: true });
           if (self.dispatchEvent(ev)) self.remove();
         });
         this.appendChild(this._btn);
@@ -3744,19 +3746,21 @@ CDS.register({
 /* ==== components/tab-item/tab-item.js ==== */
 try {
 /**
- * @deps icon
+ * @deps icon badge
  * <cds-tab-item> — .Item (Tabs) · .Building Blocks · set 6498:375
  * 48 de altura · Label Content (pad 4 8 · gap 4 · raio micro) com Lead Item (Choose Icon, oculto por padrão) + Label.
  * Is Active=True: sublinhado 2px Accent/Solid/medium · Label/Medium Text/intense.
  * Hovered: sublinhado 2px Border/semi-soft + Label Content Surface/01 · Pressed: sublinhado Accent/Solid/medium + Surface/01 + Label/Medium.
- * Atributos: label ("Label") · icon (placeholder-line) · show-lead-item · is-active · disabled · controls (id do painel)
+ * Show Badge (lib: padrão True; nas instâncias de Fixed Tab e Scrollable Tab, False): Badge Warning "0" depois do Label (gap 4).
+ *   Aqui: ligado no .Item solto; dentro de uma tablist só com show-badge="true" (D145).
+ * Atributos: label ("Label") · icon (placeholder-line) · show-lead-item · show-badge · badge-label ("0") · is-active · disabled · controls (id do painel)
  *   state="hovered|pressed" (specimen)
  * É um <button role="tab"> (a lista cuida de aria-selected, tabindex e teclado).
  */
 (function(){
   "use strict";
   class CdsTabItem extends CDS.Element {
-    static get observedAttributes(){ return ["label","icon","show-lead-item","is-active","disabled","controls"]; }
+    static get observedAttributes(){ return ["label","icon","show-lead-item","show-badge","badge-label","is-active","disabled","controls"]; }
     get button(){ return this.btn; }
     render(){
       if (!this.btn){
@@ -3764,11 +3768,17 @@ try {
         var c = b.appendChild(CDS.create("span", null, "cds-tab__content"));
         this.iconEl = c.appendChild(CDS.create("cds-icon", { size: "small", appearance: "neutral", "aria-hidden": "true" }, "cds-tab__icon"));
         this.labelEl = c.appendChild(CDS.create("span", null, "cds-tab__label"));
+        this.badgeEl = c.appendChild(CDS.create("cds-badge", null, "cds-tab__badge"));
       }
       var on = this.hasAttribute("is-active");
       this.labelEl.textContent = this.text("label", "Label");
       CDS.attr(this.iconEl, "icon", this.getAttribute("icon") || "placeholder-line");
       this.iconEl.hidden = this.getAttribute("show-lead-item") !== "true"; // Show Lead Item: padrão False
+      var inList = !!CDS.TabList && this.parentElement instanceof CDS.TabList, sb = this.getAttribute("show-badge");
+      this.badgeEl.hidden = sb === "false" || (inList && sb !== "true"); // Show Badge: True no .Item, False nas Tabs (como no Figma)
+      CDS.attr(this.badgeEl, "label", this.getAttribute("badge-label"));
+      // nome acessível com o Badge separado ("Label, 3"); sem Badge, o nome é o próprio Label
+      CDS.attr(this.btn, "aria-label", this.badgeEl.hidden ? null : this.labelEl.textContent + ", " + (this.getAttribute("badge-label") || "0"));
       CDS.attr(this.btn, "aria-selected", String(on));
       // foco itinerante: dentro de uma tablist só a aba ativa entra no Tab
       this.btn.tabIndex = !this.parentElement || this.parentElement.getAttribute("role") !== "tablist" || on ? 0 : -1;
@@ -3792,8 +3802,11 @@ CDS.register({
     kit.toggle(panel, { label: "Is Active", checked: false, onChange: function(on){ kit.attr(p, "is-active", on); } });
     kit.section(panel, "Booleans");
     kit.toggle(panel, { label: "Show Lead Item", checked: false, onChange: function(on){ kit.attr(p, "show-lead-item", on ? "true" : null); } });
+    kit.toggle(panel, { label: "Show Badge", checked: true, onChange: function(on){ kit.attr(p, "show-badge", on ? null : "false"); } });
+    kit.hint(panel, "Padrão True no .Item, como na lib; dentro do Fixed Tab e do Scrollable Tab o Badge vem desligado (show-badge=\"true\" liga).");
     kit.section(panel, "Texts");
     kit.text(panel, { label: "Text Label", value: "Label", onInput: function(v){ p.setAttribute("label", v); } });
+    kit.text(panel, { label: "Badge (Label)", value: "0", onInput: function(v){ p.setAttribute("badge-label", v); } });
     kit.section(panel, "Instance swap");
     kit.iconSwap(panel, { label: "Choose Icon", value: "placeholder-line", onChange: function(v){ p.setAttribute("icon", v); } });
   }
@@ -5883,7 +5896,9 @@ try {
  *
  * Atributos: appearance (positive|warning) · text (Text Description, até 2 linhas) · show-trailing-item (.Close Toast)
  *   close-label · viewport (desktop|tablet|mobile — força o modo)
- * Eventos: cds-close (cancelável). Sem preventDefault(), o toast se remove do DOM.
+ * Eventos: cds-close (cancelável). Sem preventDefault(), o toast sai animado e se remove do DOM.
+ * Motion (zeroheight): Entrada expressive/decelerate · long/02 (sem Motion Style — tokens de easing e duração); Saída Selected Out/01.
+ *   O Figma não diz o que se move: aqui opacidade + 8px na vertical (Common/Sizes/8). Reduced motion: sem animação.
  * A11y: role="status" (Positive) ou role="alert" (Warning).
  */
 (function(){
@@ -5908,9 +5923,17 @@ try {
       this.closeEl.hidden = !this.flag("show-trailing-item");
       this.closeEl.setAttribute("label", this.getAttribute("close-label") || "Fechar mensagem");
     }
+    // Saída animada (Selected Out/01, como no zeroheight): marca [closing], espera a transição e remove (D145)
     close(){
+      if (this._closing) return;
       var ev = new CustomEvent("cds-close", { bubbles: true, cancelable: true });
-      if (this.dispatchEvent(ev)) this.remove();
+      if (!this.dispatchEvent(ev)) return;
+      var self = this, ms = this.isConnected ? parseFloat(getComputedStyle(this).getPropertyValue("--motion-selected-out-01-timing")) || 0 : 0;
+      if (!ms || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)){ this.remove(); return; }
+      this._closing = true; this.setAttribute("closing", "");
+      var done = function(){ if (self._closing){ self._closing = false; self.remove(); } };
+      this.addEventListener("transitionend", function h(e){ if (e.target === self && e.propertyName === "opacity"){ self.removeEventListener("transitionend", h); done(); } });
+      setTimeout(done, ms + 50); // garantia se a transição não disparar
     }
   }
   CdsToast.define("cds-toast");
@@ -6473,10 +6496,22 @@ try {
       if (this.multiple){
         this.chipsEl = CDS.create("div", { role: "list", "aria-label": "Selecionados" }, "cds-sel__chips");
         this.content.insertBefore(this.chipsEl, this.control);
+        // Foco ao remover (regra do SelectInput múltiplo do castanha-react): pelo teclado, vai para o chip que fica na mesma
+        // posição (o próximo) ou, sem chip ali, para o campo; pelo mouse, para o campo. Backspace/Delete no chip também removem.
+        var removeChip = function(chip, keyboard){
+          var i = [].indexOf.call(self.chipsEl.querySelectorAll("cds-input-chip"), chip);
+          self.toggleValue(chip.dataset.value);
+          var next = keyboard ? self.chipsEl.querySelectorAll("cds-input-chip")[i] : null;
+          if (next && next.button) next.button.focus(); else self.control.focus();
+        };
         this.chipsEl.addEventListener("cds-remove", function(e){
           e.preventDefault();
-          var chip = e.target.closest("cds-input-chip"); if (chip) self.toggleValue(chip.dataset.value);
-          self.control.focus();
+          var chip = e.target.closest("cds-input-chip");
+          if (chip) removeChip(chip, !!(e.detail && e.detail.keyboard)); else self.control.focus();
+        });
+        this.chipsEl.addEventListener("keydown", function(e){
+          var chip = e.target.closest("cds-input-chip");
+          if (chip && !self.disabled && (e.key === "Backspace" || e.key === "Delete")){ e.preventDefault(); removeChip(chip, true); }
         });
       }
       // Popover (manual: o próprio campo controla abrir e fechar)
@@ -9020,7 +9055,7 @@ try {
 /* Treinamento: Como usar as Documentações? (zeroheight · Capacitações → Treinamentos → Design System · 8276145).
    No Hub, cada tab é só um vídeo do Drive (cortes da gravação do lançamento da documentação, 30/01/2026), sem texto.
    Aqui: resumo de cada tema a partir das Anotações do Gemini da reunião (decisão do Gustavo: resumo basta, com link
-   para o vídeo; os vídeos só abrem com login Caju). Pessoas aparecem pelo papel, não pelo nome. Revisão: CONFERIR C156. */
+   para o vídeo; os vídeos só abrem com login Caju). Pessoas aparecem pelo papel, não pelo nome. Revisão: CONFERIR C157. */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   var ZH = "https://castanha.caju.com.br/858426090/v/latest/p/508bfb-treinamento-como-usar-as-documentacoes";
@@ -9131,4 +9166,4 @@ try {
 } catch (e) { console.error("[cds] resources/treinamento/treinamento.js", e); }
 
 /* ==== docs sob demanda (gerado) ==== */
-window.CDS = window.CDS || {}; CDS.docsIndex = {"backdrop":{"src":"components/backdrop/backdrop.docs.js?v=6b702f80"},"badge":{"src":"components/badge/badge.docs.js?v=13a9d0a4"},"caju-brand":{"src":"components/caju-brand/caju-brand.docs.js?v=182c6287"},"calendar-day":{"src":"components/calendar-day/calendar-day.docs.js?v=eb0c1fc6"},"calendar-week":{"src":"components/calendar-week/calendar-week.docs.js?v=3e7503ac"},"card":{"src":"components/card/card.docs.js?v=385dde05"},"credit-card-flags":{"src":"components/card-flag/card-flag.docs.js?v=1c719fe4"},"currency":{"src":"components/currency/currency.docs.js?v=4019f33b"},"currency-content":{"src":"components/currency-content/currency-content.docs.js?v=b78c8af8"},"currency-symbol":{"src":"components/currency-symbol/currency-symbol.docs.js?v=be193ca9"},"divider":{"src":"components/divider/divider.docs.js?v=a8ce9166"},"icon":{"src":"components/icon/icon.docs.js?v=dcd985e5"},"avatar":{"src":"components/avatar/avatar.docs.js?v=e8f0f357"},"breadcrumb-item":{"src":"components/breadcrumb-item/breadcrumb-item.docs.js?v=f2f90636"},"caju-card":{"src":"components/caju-card/caju-card.docs.js?v=e360b606"},"close-toast":{"src":"components/close-toast/close-toast.docs.js?v=08eb88fc"},"close-alert":{"src":"components/close-alert/close-alert.docs.js?v=66f9acea"},"content-banner":{"src":"components/content-banner/content-banner.docs.js?v=5601185f"},"csat-item":{"src":"components/csat-item/csat-item.docs.js?v=b255734f"},"csat-score":{"src":"components/csat-score/csat-score.docs.js?v=f8c9ddaf"},"filter-chips":{"src":"components/filter-chip/filter-chip.docs.js?v=7cf64b2d"},"icon-button":{"src":"components/icon-button/icon-button.docs.js?v=7876d432"},"header":{"src":"components/header/header.docs.js?v=1f84dc27"},"icons-block":{"src":"components/icons-block/icons-block.docs.js?v=7073a124"},"filter-button":{"src":"components/filter-button/filter-button.docs.js?v=03b317e8"},"image":{"src":"components/image/image.docs.js?v=06de894a"},"banner":{"src":"components/banner/banner.docs.js?v=e8a4ac11"},"input-chips":{"src":"components/input-chip/input-chip.docs.js?v=73afcf89"},"chips-group":{"src":"components/chips-group/chips-group.docs.js?v=e44b9509"},"link":{"src":"components/link/link.docs.js?v=92b6a615"},"list-lead-item":{"src":"components/list-lead-item/list-lead-item.docs.js?v=182b62f9"},"main-button":{"src":"components/main-button/main-button.docs.js?v=c015bdec"},"date-navigation":{"src":"components/date-navigation/date-navigation.docs.js?v=cde6d20f"},"date-picker":{"src":"components/date-picker/date-picker.docs.js?v=2f096325"},"drop-button":{"src":"components/drop-button/drop-button.docs.js?v=2505ce9b"},"footer":{"src":"components/footer/footer.docs.js?v=3521cfdc"},"fixed-bar":{"src":"components/fixed-bar/fixed-bar.docs.js?v=d8835dfd"},"nav-control-item":{"src":"components/nav-control-item/nav-control-item.docs.js?v=68edeeff"},"nav-control":{"src":"components/nav-control/nav-control.docs.js?v=f85a1d1f"},"nps-value-item":{"src":"components/nps-value-item/nps-value-item.docs.js?v=6f52865f"},"nps-score":{"src":"components/nps-score/nps-score.docs.js?v=1839cab6"},"popover":{"src":"components/popover/popover.docs.js?v=2419b81c"},"breadcrumb":{"src":"components/breadcrumb/breadcrumb.docs.js?v=59bd05dd"},"progress-line":{"src":"components/progress-line/progress-line.docs.js?v=1ac0918d"},"progress-tracker-item":{"src":"components/progress-tracker-item/progress-tracker-item.docs.js?v=9df6e167"},"progress-tracker":{"src":"components/progress-tracker/progress-tracker.docs.js?v=97e3646c"},"checkbox":{"src":"components/checkbox/checkbox.docs.js?v=f9f2f82b"},"radio-button":{"src":"components/radio-button/radio-button.docs.js?v=7b075ef9"},"shaped-icon":{"src":"components/shaped-icon/shaped-icon.docs.js?v=2e72045f"},"alert":{"src":"components/alert/alert.docs.js?v=73d9d825"},"confirmation-message":{"src":"components/confirmation-message/confirmation-message.docs.js?v=ebc40fe7"},"dropzone":{"src":"components/dropzone/dropzone.docs.js?v=199cfe2e"},"file-lead-item":{"src":"components/file-lead-item/file-lead-item.docs.js?v=5427c97f"},"lead-item":{"src":"components/lead-item/lead-item.docs.js?v=39cab1a3"},"slider":{"src":"components/slider/slider.docs.js?v=d0f3079e"},"spinner":{"src":"components/spinner/spinner.docs.js?v=f2007190"},"status-dot":{"src":"components/status-dot/status-dot.docs.js?v=51c8f006"},"switch":{"src":"components/switch/switch.docs.js?v=ccb6a3c7"},"checkbox-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf"},"radio-button-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf"},"switch-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf"},"system-banner":{"src":"components/system-banner/system-banner.docs.js?v=7db1a62e"},"tab-item":{"src":"components/tab-item/tab-item.docs.js?v=d7f5f2c4"},"fixed-tab":{"src":"components/fixed-tab/fixed-tab.docs.js?v=92df0e81"},"scrollable-tab":{"src":"components/scrollable-tab/scrollable-tab.docs.js?v=3607a757","needs":["fixed-tab"]},"tab-view":{"src":"components/tab-view/tab-view.docs.js?v=98543998"},"table-head":{"src":"components/table-head/table-head.docs.js?v=48151c1b"},"table-toolbar":{"src":"components/table-toolbar/table-toolbar.docs.js?v=dea5e195"},"tag":{"src":"components/tag/tag.docs.js?v=0990f2f5"},"balance-card":{"src":"components/balance-card/balance-card.docs.js?v=9465f0ce"},"table-cell":{"src":"components/table-cell/table-cell.docs.js?v=72c77164"},"text-content":{"src":"components/text-content/text-content.docs.js?v=3e523e4b"},"accordion-item":{"src":"components/accordion-item/accordion-item.docs.js?v=1ae17b66"},"accordion":{"src":"components/accordion/accordion.docs.js?v=da2d36e9"},"code-input-otp":{"src":"components/code-input-otp/code-input-otp.docs.js?v=f6b13cc5"},"credit-card-input":{"src":"components/credit-card-input/credit-card-input.docs.js?v=38ef2397"},"date-input":{"src":"components/date-input/date-input.docs.js?v=b20aab02"},"password-input":{"src":"components/password-input/password-input.docs.js?v=1a70ffec"},"quantity-input":{"src":"components/quantity-input/quantity-input.docs.js?v=2f150dde"},"search-input":{"src":"components/search-input/search-input.docs.js?v=fe6fd9c3"},"text-area":{"src":"components/text-area/text-area.docs.js?v=beb8d21c"},"text-input":{"src":"components/text-input/text-input.docs.js?v=04e6320c"},"toast":{"src":"components/toast/toast.docs.js?v=3c24014a"},"tooltip":{"src":"components/tooltip/tooltip.docs.js?v=66ed468f"},"topic":{"src":"components/topic/topic.docs.js?v=4f5c7ee5"},"trailing-item":{"src":"components/trailing-item/trailing-item.docs.js?v=e767226e"},"content-list-item":{"src":"components/content-list-item/content-list-item.docs.js?v=08279d28"},"content-list":{"src":"components/content-list/content-list.docs.js?v=663fda73"},"selection-list-item":{"src":"components/selection-list-item/selection-list-item.docs.js?v=a6ae3580"},"async-creatable-select-input":{"src":"components/async-creatable-select-input/async-creatable-select-input.docs.js?v=b89d5e8e","needs":["async-select-input"]},"async-select-input":{"src":"components/async-select-input/async-select-input.docs.js?v=0e4b20ab"},"checkbox-select-input":{"src":"components/checkbox-select-input/checkbox-select-input.docs.js?v=b47659af","needs":["async-select-input"]},"multi-select-input":{"src":"components/multi-select-input/multi-select-input.docs.js?v=aff1ad3a","needs":["async-select-input"]},"radio-select-input":{"src":"components/radio-select-input/radio-select-input.docs.js?v=502ad8c9","needs":["async-select-input"]},"select-number":{"src":"components/select-number/select-number.docs.js?v=847bd368"},"pagination":{"src":"components/pagination/pagination.docs.js?v=e13b1eb0"},"selection-list":{"src":"components/selection-list/selection-list.docs.js?v=62a9303c"},"table":{"src":"components/table/table.docs.js?v=2903c5c5"},"upload-item":{"src":"components/upload-item/upload-item.docs.js?v=b6203890"},"upload-list":{"src":"components/upload-list/upload-list.docs.js?v=b6a8754f"},"viewport-restriction":{"src":"components/viewport-restriction/viewport-restriction.docs.js?v=221daf2e"},"bottom-sheet":{"src":"components/bottom-sheet/bottom-sheet.docs.js?v=b85dcfdb"},"drawer":{"src":"components/drawer/drawer.docs.js?v=ba404bd6"},"modal":{"src":"components/modal/modal.docs.js?v=40da0398"},"modal-date-picker":{"src":"components/modal-date-picker/modal-date-picker.docs.js?v=8d2f58cb"}};
+window.CDS = window.CDS || {}; CDS.docsIndex = {"backdrop":{"src":"components/backdrop/backdrop.docs.js?v=6b702f80"},"badge":{"src":"components/badge/badge.docs.js?v=13a9d0a4"},"caju-brand":{"src":"components/caju-brand/caju-brand.docs.js?v=182c6287"},"calendar-day":{"src":"components/calendar-day/calendar-day.docs.js?v=eb0c1fc6"},"calendar-week":{"src":"components/calendar-week/calendar-week.docs.js?v=3e7503ac"},"card":{"src":"components/card/card.docs.js?v=385dde05"},"credit-card-flags":{"src":"components/card-flag/card-flag.docs.js?v=1c719fe4"},"currency":{"src":"components/currency/currency.docs.js?v=4019f33b"},"currency-content":{"src":"components/currency-content/currency-content.docs.js?v=b78c8af8"},"currency-symbol":{"src":"components/currency-symbol/currency-symbol.docs.js?v=be193ca9"},"divider":{"src":"components/divider/divider.docs.js?v=a8ce9166"},"icon":{"src":"components/icon/icon.docs.js?v=dcd985e5"},"avatar":{"src":"components/avatar/avatar.docs.js?v=e8f0f357"},"breadcrumb-item":{"src":"components/breadcrumb-item/breadcrumb-item.docs.js?v=f2f90636"},"caju-card":{"src":"components/caju-card/caju-card.docs.js?v=e360b606"},"close-toast":{"src":"components/close-toast/close-toast.docs.js?v=08eb88fc"},"close-alert":{"src":"components/close-alert/close-alert.docs.js?v=66f9acea"},"content-banner":{"src":"components/content-banner/content-banner.docs.js?v=5601185f"},"csat-item":{"src":"components/csat-item/csat-item.docs.js?v=b255734f"},"csat-score":{"src":"components/csat-score/csat-score.docs.js?v=f8c9ddaf"},"filter-chips":{"src":"components/filter-chip/filter-chip.docs.js?v=7cf64b2d"},"icon-button":{"src":"components/icon-button/icon-button.docs.js?v=7876d432"},"header":{"src":"components/header/header.docs.js?v=1f84dc27"},"icons-block":{"src":"components/icons-block/icons-block.docs.js?v=7073a124"},"filter-button":{"src":"components/filter-button/filter-button.docs.js?v=03b317e8"},"image":{"src":"components/image/image.docs.js?v=06de894a"},"banner":{"src":"components/banner/banner.docs.js?v=e8a4ac11"},"input-chips":{"src":"components/input-chip/input-chip.docs.js?v=93623dcd"},"chips-group":{"src":"components/chips-group/chips-group.docs.js?v=e44b9509"},"link":{"src":"components/link/link.docs.js?v=92b6a615"},"list-lead-item":{"src":"components/list-lead-item/list-lead-item.docs.js?v=182b62f9"},"main-button":{"src":"components/main-button/main-button.docs.js?v=c015bdec"},"date-navigation":{"src":"components/date-navigation/date-navigation.docs.js?v=cde6d20f"},"date-picker":{"src":"components/date-picker/date-picker.docs.js?v=2f096325"},"drop-button":{"src":"components/drop-button/drop-button.docs.js?v=2505ce9b"},"footer":{"src":"components/footer/footer.docs.js?v=3521cfdc"},"fixed-bar":{"src":"components/fixed-bar/fixed-bar.docs.js?v=d8835dfd"},"nav-control-item":{"src":"components/nav-control-item/nav-control-item.docs.js?v=68edeeff"},"nav-control":{"src":"components/nav-control/nav-control.docs.js?v=f85a1d1f"},"nps-value-item":{"src":"components/nps-value-item/nps-value-item.docs.js?v=6f52865f"},"nps-score":{"src":"components/nps-score/nps-score.docs.js?v=1839cab6"},"popover":{"src":"components/popover/popover.docs.js?v=2419b81c"},"breadcrumb":{"src":"components/breadcrumb/breadcrumb.docs.js?v=59bd05dd"},"progress-line":{"src":"components/progress-line/progress-line.docs.js?v=1ac0918d"},"progress-tracker-item":{"src":"components/progress-tracker-item/progress-tracker-item.docs.js?v=9df6e167"},"progress-tracker":{"src":"components/progress-tracker/progress-tracker.docs.js?v=97e3646c"},"checkbox":{"src":"components/checkbox/checkbox.docs.js?v=f9f2f82b"},"radio-button":{"src":"components/radio-button/radio-button.docs.js?v=7b075ef9"},"shaped-icon":{"src":"components/shaped-icon/shaped-icon.docs.js?v=2e72045f"},"alert":{"src":"components/alert/alert.docs.js?v=73d9d825"},"confirmation-message":{"src":"components/confirmation-message/confirmation-message.docs.js?v=ebc40fe7"},"dropzone":{"src":"components/dropzone/dropzone.docs.js?v=199cfe2e"},"file-lead-item":{"src":"components/file-lead-item/file-lead-item.docs.js?v=5427c97f"},"lead-item":{"src":"components/lead-item/lead-item.docs.js?v=39cab1a3"},"slider":{"src":"components/slider/slider.docs.js?v=d0f3079e"},"spinner":{"src":"components/spinner/spinner.docs.js?v=f2007190"},"status-dot":{"src":"components/status-dot/status-dot.docs.js?v=51c8f006"},"switch":{"src":"components/switch/switch.docs.js?v=ccb6a3c7"},"checkbox-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf"},"radio-button-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf"},"switch-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf"},"system-banner":{"src":"components/system-banner/system-banner.docs.js?v=7db1a62e"},"tab-item":{"src":"components/tab-item/tab-item.docs.js?v=14aec353"},"fixed-tab":{"src":"components/fixed-tab/fixed-tab.docs.js?v=9859d61e"},"scrollable-tab":{"src":"components/scrollable-tab/scrollable-tab.docs.js?v=3607a757","needs":["fixed-tab"]},"tab-view":{"src":"components/tab-view/tab-view.docs.js?v=98543998"},"table-head":{"src":"components/table-head/table-head.docs.js?v=48151c1b"},"table-toolbar":{"src":"components/table-toolbar/table-toolbar.docs.js?v=dea5e195"},"tag":{"src":"components/tag/tag.docs.js?v=0990f2f5"},"balance-card":{"src":"components/balance-card/balance-card.docs.js?v=9465f0ce"},"table-cell":{"src":"components/table-cell/table-cell.docs.js?v=72c77164"},"text-content":{"src":"components/text-content/text-content.docs.js?v=3e523e4b"},"accordion-item":{"src":"components/accordion-item/accordion-item.docs.js?v=1ae17b66"},"accordion":{"src":"components/accordion/accordion.docs.js?v=da2d36e9"},"code-input-otp":{"src":"components/code-input-otp/code-input-otp.docs.js?v=f6b13cc5"},"credit-card-input":{"src":"components/credit-card-input/credit-card-input.docs.js?v=38ef2397"},"date-input":{"src":"components/date-input/date-input.docs.js?v=b20aab02"},"password-input":{"src":"components/password-input/password-input.docs.js?v=1a70ffec"},"quantity-input":{"src":"components/quantity-input/quantity-input.docs.js?v=2f150dde"},"search-input":{"src":"components/search-input/search-input.docs.js?v=fe6fd9c3"},"text-area":{"src":"components/text-area/text-area.docs.js?v=beb8d21c"},"text-input":{"src":"components/text-input/text-input.docs.js?v=04e6320c"},"toast":{"src":"components/toast/toast.docs.js?v=21536c26"},"tooltip":{"src":"components/tooltip/tooltip.docs.js?v=66ed468f"},"topic":{"src":"components/topic/topic.docs.js?v=4f5c7ee5"},"trailing-item":{"src":"components/trailing-item/trailing-item.docs.js?v=e767226e"},"content-list-item":{"src":"components/content-list-item/content-list-item.docs.js?v=08279d28"},"content-list":{"src":"components/content-list/content-list.docs.js?v=663fda73"},"selection-list-item":{"src":"components/selection-list-item/selection-list-item.docs.js?v=a6ae3580"},"async-creatable-select-input":{"src":"components/async-creatable-select-input/async-creatable-select-input.docs.js?v=b89d5e8e","needs":["async-select-input"]},"async-select-input":{"src":"components/async-select-input/async-select-input.docs.js?v=0e4b20ab"},"checkbox-select-input":{"src":"components/checkbox-select-input/checkbox-select-input.docs.js?v=b47659af","needs":["async-select-input"]},"multi-select-input":{"src":"components/multi-select-input/multi-select-input.docs.js?v=aff1ad3a","needs":["async-select-input"]},"radio-select-input":{"src":"components/radio-select-input/radio-select-input.docs.js?v=502ad8c9","needs":["async-select-input"]},"select-number":{"src":"components/select-number/select-number.docs.js?v=847bd368"},"pagination":{"src":"components/pagination/pagination.docs.js?v=e13b1eb0"},"selection-list":{"src":"components/selection-list/selection-list.docs.js?v=62a9303c"},"table":{"src":"components/table/table.docs.js?v=2903c5c5"},"upload-item":{"src":"components/upload-item/upload-item.docs.js?v=b6203890"},"upload-list":{"src":"components/upload-list/upload-list.docs.js?v=b6a8754f"},"viewport-restriction":{"src":"components/viewport-restriction/viewport-restriction.docs.js?v=221daf2e"},"bottom-sheet":{"src":"components/bottom-sheet/bottom-sheet.docs.js?v=b85dcfdb"},"drawer":{"src":"components/drawer/drawer.docs.js?v=ba404bd6"},"modal":{"src":"components/modal/modal.docs.js?v=40da0398"},"modal-date-picker":{"src":"components/modal-date-picker/modal-date-picker.docs.js?v=8d2f58cb"}};

@@ -101,7 +101,7 @@ Perguntas do público no fim do lançamento.
 
 ## Pendências — não publicar
 
-Remover esta seção antes de colar no zeroheight. Origem: página Treinamento: Como usar as Documentações? (Capacitações → Treinamentos → Design System · id 8276145), revisada em 05/10/2026. Item no `docs/CONFERIR.md`: C156.
+Remover esta seção antes de colar no zeroheight. Origem: página Treinamento: Como usar as Documentações? (Capacitações → Treinamentos → Design System · id 8276145), revisada em 05/10/2026. Item no `docs/CONFERIR.md`: C157.
 
 **Página**
 1. Cada tab tinha só o vídeo, sem nenhum texto: quem não pode assistir fica sem o conteúdo, e a busca do Hub não encontra nada. Este arquivo acrescenta um resumo por tab.

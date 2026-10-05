@@ -6,7 +6,9 @@
  *
  * Atributos: appearance (positive|warning) · text (Text Description, até 2 linhas) · show-trailing-item (.Close Toast)
  *   close-label · viewport (desktop|tablet|mobile — força o modo)
- * Eventos: cds-close (cancelável). Sem preventDefault(), o toast se remove do DOM.
+ * Eventos: cds-close (cancelável). Sem preventDefault(), o toast sai animado e se remove do DOM.
+ * Motion (zeroheight): Entrada expressive/decelerate · long/02 (sem Motion Style — tokens de easing e duração); Saída Selected Out/01.
+ *   O Figma não diz o que se move: aqui opacidade + 8px na vertical (Common/Sizes/8). Reduced motion: sem animação.
  * A11y: role="status" (Positive) ou role="alert" (Warning).
  */
 (function(){
@@ -31,9 +33,17 @@
       this.closeEl.hidden = !this.flag("show-trailing-item");
       this.closeEl.setAttribute("label", this.getAttribute("close-label") || "Fechar mensagem");
     }
+    // Saída animada (Selected Out/01, como no zeroheight): marca [closing], espera a transição e remove (D145)
     close(){
+      if (this._closing) return;
       var ev = new CustomEvent("cds-close", { bubbles: true, cancelable: true });
-      if (this.dispatchEvent(ev)) this.remove();
+      if (!this.dispatchEvent(ev)) return;
+      var self = this, ms = this.isConnected ? parseFloat(getComputedStyle(this).getPropertyValue("--motion-selected-out-01-timing")) || 0 : 0;
+      if (!ms || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)){ this.remove(); return; }
+      this._closing = true; this.setAttribute("closing", "");
+      var done = function(){ if (self._closing){ self._closing = false; self.remove(); } };
+      this.addEventListener("transitionend", function h(e){ if (e.target === self && e.propertyName === "opacity"){ self.removeEventListener("transitionend", h); done(); } });
+      setTimeout(done, ms + 50); // garantia se a transição não disparar
     }
   }
   CdsToast.define("cds-toast");

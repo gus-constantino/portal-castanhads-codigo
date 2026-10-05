@@ -108,11 +108,15 @@
       { id: "motion", title: "Motion", blocks: [
         { h2: "Motion" },
         { p: "A animação do Toast fornece feedback visual único após ação do usuário ou evento do sistema. É executada uma vez por invocação com entrada/saída suaves para evitar distrações. A reprodução reforça a percepção temporária do status no aplicativo." },
+        { display: { attrs: {}, live: true } },
+        { note: "Exemplo interativo: feche o Toast para ver a saída; troque de tab e volte para ver a entrada." },
         { specs: [
+          { title: "Entrada", rows: [["Gatilho", "Ao aparecer"], ["Motion Style", "Pendente (sem Motion Style)"]] },
           { title: "Saída", rows: [["Gatilho", "Ao fechar ou ao fim do tempo"], ["Motion Style", "`Selected Out/01`"]] }
         ] },
         { note: "No zeroheight, a Saída usa expressive/decelerate · short/04 — os valores do `Selected Out/01`." },
-        { alert: { appearance: "warning", label: "Especificação pendente", text: "A Entrada (expressive/decelerate · long/02) não corresponde a nenhum Motion Style da `.Motion Styles`. A entrada e a saída ainda não estão animadas no componente do playground (CONFERIR C136)." } },
+        { note: "No código: entrada com os tokens de easing e duração citados pelo zeroheight e saída com o `Selected Out/01`. O Figma não diz o que se move; o componente aparece e some com opacidade e 8px de deslocamento vertical (CONFERIR C156)." },
+        { alert: { appearance: "warning", label: "Especificação pendente", text: "A Entrada (expressive/decelerate · long/02) não corresponde a nenhum Motion Style da `.Motion Styles` — criar o Motion Style no Figma (CONFERIR C136)." } },
         { p: "Reduced motion: honrar `prefers-reduced-motion: reduce` (sem deslocamento; só aparecer e sumir)." }
       ] }
     ]

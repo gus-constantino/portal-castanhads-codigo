@@ -107,7 +107,7 @@ A animação do Toast fornece feedback visual único após ação do usuário ou
 ## Pendências — não publicar
 
 * 🟡 A página atual não tem a tab Style; Anatomia e Propriedades vieram do set da lib (Toast 5234:516), que não tem description.
-* 🔴 Motion: a Entrada (expressive/decelerate · long/02) não corresponde a nenhum Motion Style; a Saída tem os valores do `Selected Out/01`. A entrada e a saída não estão animadas no playground.
+* 🔴 Motion: a Entrada (expressive/decelerate · long/02) não corresponde a nenhum Motion Style; a Saída tem os valores do `Selected Out/01`. No playground, desde 05/10, a entrada usa esses tokens e a saída o Selected Out/01 (opacidade + 8px na vertical, escolha do código: o Figma não diz o que se move) — falta criar o Motion Style da entrada.
 * 🔴 Conteúdo: o exemplo "Perfil atualizado com sucesso" usa o pleonasmo "com sucesso", que as regras de escrita proíbem. Sugestão: "Perfil atualizado".
 * 🟡 Tempo de exibição (quantos segundos) não está especificado.
 * 🟡 Links "Modal" e "Alert" em "Não utilize para" apontam para a mesma página (p/12041c), que não existe; o Alert não tem página.

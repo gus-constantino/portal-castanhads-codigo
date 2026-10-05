@@ -89,10 +89,22 @@
       if (this.multiple){
         this.chipsEl = CDS.create("div", { role: "list", "aria-label": "Selecionados" }, "cds-sel__chips");
         this.content.insertBefore(this.chipsEl, this.control);
+        // Foco ao remover (regra do SelectInput múltiplo do castanha-react): pelo teclado, vai para o chip que fica na mesma
+        // posição (o próximo) ou, sem chip ali, para o campo; pelo mouse, para o campo. Backspace/Delete no chip também removem.
+        var removeChip = function(chip, keyboard){
+          var i = [].indexOf.call(self.chipsEl.querySelectorAll("cds-input-chip"), chip);
+          self.toggleValue(chip.dataset.value);
+          var next = keyboard ? self.chipsEl.querySelectorAll("cds-input-chip")[i] : null;
+          if (next && next.button) next.button.focus(); else self.control.focus();
+        };
         this.chipsEl.addEventListener("cds-remove", function(e){
           e.preventDefault();
-          var chip = e.target.closest("cds-input-chip"); if (chip) self.toggleValue(chip.dataset.value);
-          self.control.focus();
+          var chip = e.target.closest("cds-input-chip");
+          if (chip) removeChip(chip, !!(e.detail && e.detail.keyboard)); else self.control.focus();
+        });
+        this.chipsEl.addEventListener("keydown", function(e){
+          var chip = e.target.closest("cds-input-chip");
+          if (chip && !self.disabled && (e.key === "Backspace" || e.key === "Delete")){ e.preventDefault(); removeChip(chip, true); }
         });
       }
       // Popover (manual: o próprio campo controla abrir e fechar)

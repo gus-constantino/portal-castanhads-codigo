@@ -22,7 +22,7 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: { label: "Resumo", "show-lead-item": "true", icon: "chart-bar-line", "is-active": true }, markers: [{ n: 1, target: ".cds-icon", side: "left" }, { n: 2, target: ".cds-tab__label", side: "top" }, { n: 3, target: ".cds-tab", side: "bottom" }], legend: ["Lead Item (Choose Icon)", "Label", "Sublinhado (Tab divider)"] } },
+        { anatomy: { attrs: { label: "Resumo", "show-lead-item": "true", icon: "chart-bar-line", "is-active": true }, markers: [{ n: 1, target: ".cds-icon", side: "left" }, { n: 2, target: ".cds-tab__label", side: "top" }, { n: 3, target: ".cds-tab", side: "bottom" }, { n: 4, target: "cds-badge", side: "right" }], legend: ["Lead Item (Choose Icon)", "Label", "Sublinhado (Tab divider)", "Badge (Show Badge)"] } },
         { h2: "Propriedades" },
         { props: [
           { name: "State", type: "Variant", default: "Enabled", values: ["Enabled", "Hovered", "Pressed", "Disabled"] },
@@ -32,7 +32,7 @@
           { name: "Choose Icon", type: "Instance swap", default: "placeholder" },
           { name: "Show Badge", type: "Boolean", default: "true" }
         ] },
-        { note: "Props e padrões lidos do set .Item da lib estável. `Show Badge` ainda não existe no código (CONFERIR C138). No código: `label`, `icon`, `show-lead-item`, `is-active`, `disabled`, `controls`; `state=\"hovered|pressed\"` só para exemplos." }
+        { note: "Props e padrões lidos do set .Item da lib estável. No código: `label`, `icon`, `show-lead-item`, `show-badge` e `badge-label` (Badge Warning, padrão \"0\"; ligado no .Item solto e desligado dentro do Fixed e do Scrollable Tab, como nas instâncias do Figma), `is-active`, `disabled`, `controls`; `state=\"hovered|pressed\"` só para exemplos." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -43,7 +43,8 @@
           { label: "Pressed", attrs: { state: "pressed" } },
           { label: "Disabled", attrs: { disabled: true } },
           { label: "Is Active", attrs: { "is-active": true } },
-          { label: "Com Lead Item", attrs: { "show-lead-item": "true", icon: "chart-bar-line" } }
+          { label: "Com Lead Item", attrs: { "show-lead-item": "true", icon: "chart-bar-line" } },
+          { label: "Sem Badge", attrs: { "show-badge": "false" } }
         ] } }
       ] },
 
@@ -52,7 +53,8 @@
         { ul: [
           "É um `<button role=\"tab\">`; a lista (Fixed ou Scrollable Tab) cuida de `aria-selected`, foco e teclado.",
           "`controls` liga a aba ao painel (`aria-controls`).",
-          "O Lead Item é decorativo: o nome vem do Label."
+          "O Lead Item é decorativo: o nome vem do Label.",
+          "Com o Badge visível, o nome da aba inclui o número separado do Label (ex.: \"Pendentes, 3\")."
         ] }
       ] },
 

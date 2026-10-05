@@ -329,9 +329,9 @@
   // ---------- Viewport (global) ----------
   // data-viewport espelha a collection Viewport do Figma (Desktop/Tablet/Mobile); componentes leem via CSS
   function setViewport(w){
-    // categoria pela largura, nas faixas da coleção Viewport (as mesmas dos tokens de grid): ≤599 Mobile · ≤1023 Tablet
+    // categoria pela largura, nas faixas do castanha-tokens (viewport.css, min-width): < 744 Mobile · < 1366 Tablet · resto Desktop
     var n = parseInt(w, 10);
-    frame.dataset.viewport = w === "fluid" || !n ? "desktop" : n <= 599 ? "mobile" : n <= 1023 ? "tablet" : "desktop";
+    frame.dataset.viewport = w === "fluid" || !n ? "desktop" : n < 744 ? "mobile" : n < 1366 ? "tablet" : "desktop";
     if (w === "fluid"){ frame.style.width = "100%"; frame.style.maxWidth = "calc(3 * var(--common-sizes-200))"; vpOut.textContent = "fluido"; }
     else { frame.style.width = w + "px"; frame.style.maxWidth = "none"; vpOut.textContent = w + "px"; }
   }
@@ -357,7 +357,7 @@
     var field = kit.el("cds-text-input", { label: "Largura personalizada (px)", "show-label": "false", placeholder: "px", "show-lead-icon": "false", "show-required": "false", "show-supporting-content": "false", "class": "pg-vp-field" });
     row.appendChild(field);
     kit.tip(vpLbl, "Simula a coleção Viewport do Figma (Mobile, Tablet, Desktop). O componente muda de comportamento, não só de largura.", { text: true, container: host });
-    kit.tip(field, "Largura livre de 240 a 1920 px. Até 599 vira Mobile; até 1023, Tablet; acima, Desktop.", { container: host });
+    kit.tip(field, "Largura livre de 240 a 1920 px. Até 743 vira Mobile; de 744 a 1365, Tablet; a partir de 1366, Desktop (faixas do castanha-tokens).", { container: host });
     setTimeout(function(){ if (field.control){ field.control.inputMode = "numeric"; field.control.maxLength = 4; } }, 0);
     field.addEventListener("cds-change", function(e){
       e.stopPropagation();

@@ -50,6 +50,7 @@
         { tokens: "font" },
         { h2: "Text styles" },
         { p: "Os estilos de texto combinam os primitivos e são aplicados com o shorthand `font: var(--text-style-…)`." },
+        { note: "Os text styles não existem no `castanha-tokens` (só os primitivos `--castanha-font-*`): no castanha-react eles vêm do componente `Text` e dos mixins SCSS." },
         { tokens: "text-styles" }
       ] },
       { id: "bordas", title: "Bordas", blocks: [
@@ -67,6 +68,7 @@
         { h2: "Elevations" },
         { p: "Sombras `Common/Elevation/level 1–3`. Escolha o nível para ver o card subir; a sombra aparece decomposta em x · y · blur · spread · cor." },
         { tokens: "elevation" },
+        { note: "No `castanha-tokens` a sombra vem só decomposta (`--castanha-elevations-level-2-x`, `-y`, `-blur`, `-spread`, `-color`); a sombra pronta `--common-elevation-level-*` é do playground." },
         { h2: "Opacity" },
         { p: "Níveis `Common/Opacity/*`. Como no Figma, a amostra compara imagem e cor sólida (`Accent/Solid/medium`) sob uma camada `Support/darker` na opacidade do token. Arraste o Slider ou clique num nível." },
         { tokens: "opacity" }
@@ -81,6 +83,7 @@
         ] },
         { h2: "Motion Styles" },
         { p: "Os componentes usam os Motion Styles (`/01`), que descem a cascata até os primitivos `Common/Motion/*`. Baseado no explicador castanhads-motion, refeito com os componentes do Castanha DS." },
+        { note: "Motion não existe no `castanha-tokens`: estes tokens são do playground (lidos do Figma). No castanha-react, as transições vêm dos mixins SCSS (`_motion.scss`)." },
         { tokens: "motion-live" },
         { tokens: "easing-lab" },
         { h2: "Velocidade" },
@@ -290,7 +293,7 @@
         { h2: "Caju - Tema" },
         { p: "Fonte de tudo que os componentes usam por baixo: tokens (cores, tipografia, bordas, tamanhos, elevações, opacidade e motion, em light e dark), ícones e ilustrações." },
         { h3: "O que tem" },
-        { ul: ["250 tokens `Common/*` (89 com valor dark)", "34 text styles, incluindo Decorative em Work Sans", "3 elevações (`Elevation/level 1–3`)", "15 variáveis de Motion Styles (`.Motion Styles`, modo Normal)"] },
+        { ul: ["250 tokens `Common/*` (89 com valor dark)", "12 tokens da coleção Viewport (`Common/Grids/*` e `Specific/*`, por Mobile, Tablet e Desktop)", "34 text styles, incluindo Decorative em Work Sans", "3 elevações (`Elevation/level 1–3`)", "15 variáveis de Motion Styles (`.Motion Styles`, modo Normal)"] },
         { h3: "No repo" },
         { ul: ["Snapshot: `tokens/figma-snapshot.json`", "Gerado: `styles/tokens.css`", "Tema escuro: `html[data-theme=\"dark\"]`"] },
         { h3: "Atualizar" },
@@ -299,7 +302,16 @@
         { ul: [
           "`Common/Colors/Text/intense` → `--common-colors-text-intense`",
           "`Label/Medium Label` → `--text-style-label-medium` (shorthand `font`)",
-          "`Hover In/01/Timing` → `--motion-hover-in-01-timing`, apontando para o primitivo `Common/Motion/*`"
+          "`Hover In/01/Timing` → `--motion-hover-in-01-timing`, apontando para o primitivo `Common/Motion/*`",
+          "`Specific/Buttons/Main Button/Width/min-width` → `--specific-buttons-main-button-width-min-width` (coleção Viewport)"
+        ] },
+        { h3: "No castanha-react" },
+        { p: "O pacote `castanha-tokens` gera os mesmos tokens com o prefixo `--castanha-` e sem o grupo `Common`/`Specific`: `Common/Colors/Text/intense` → `--castanha-colors-text-intense`. Aqui os dois nomes existem: o alias `--castanha-*` aponta para o `--common-*` e segue o tema escuro. Clique numa amostra para copiar o nome do pacote." },
+        { ul: [
+          "Batem com o pacote, em nome e valor (light e dark): os 200 tokens de marca e os 11 da coleção Viewport.",
+          "Faixas de viewport iguais às do pacote (min-width): Mobile até 743, Tablet de 744 a 1365, Desktop a partir de 1366.",
+          "Só aqui, fora do `castanha-tokens`: Motion (`Common/Motion/*` e Motion Styles), text styles e as elevações prontas para `box-shadow`. No React, motion e tipografia vêm dos mixins SCSS do castanha-react.",
+          "`Specific/Carousel/gap` está no Figma e aqui, mas ainda não no pacote (staging)."
         ] },
         { note: "A página Caju Benefícios do Figma mostra a paleta primitiva da marca (ex.: Decorative 01–06, Overlay). Aqui aparecem os tokens `Common/*` que os componentes usam — é a camada semântica que aponta para essa paleta." }
       ] }

@@ -15,7 +15,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | [Naming](#naming) | 10 |
 | [Acessibilidade](#acessibilidade) | 3 |
 | [Documentação](#documentação) | 3 |
-| [Integração React](#integração-react) | 5 |
+| [Integração React](#integração-react) | 6 |
 
 ## Ajuste de texto
 
@@ -167,6 +167,7 @@ Divergências entre o Figma e o castanha-react (staging + Code Connect), encontr
 | C119 | Async creatable Select Input | A opção de criar diz **Adicionar “…”** | O texto padrão é **Criar "…"** (`createOptionLabel`) | Segue o Figma ("Adicionar") | Alinhar o texto em um dos dois; se ficar "Adicionar", o React precisa trocar o padrão de `createOptionLabel` |
 | C120 | Topic | Props `Show Title`/`Text Title` e `Text Description` | O Code Connect gera `label` e `supportingMessage`, mas o `Topic` do React só aceita `title` e `description`: o código que o Dev Mode mostra não compila | Segue o Figma | Corrigir o `Topic.figma.ts` (branch `feat/figma-code-connect`) para `title`/`description`; achado pelo check do R2 (`integration/SAUDE-STACK.md`) |
 | C121 | Alert · Avatar · Badge · Spinner · Tag | Instância nova vem **Positive** (Alert), **Small** (Avatar), **Warning** (Badge), **Neutral/Small** (Spinner), **Neutral** (Tag) | Sem a prop, o React usa **informative**, **medium**, **neutral**, **accent/medium** e **accent** | Segue o Figma; o JSX do "No React" declara o valor quando difere do padrão do React | Decidir qual padrão vale e alinhar o outro lado (o Code Connect sempre declara a prop, então o Dev Mode não mostra a diferença) |
+| C122 | Tokens · coleção Viewport | `Specific/Carousel/gap` (16 · 16 · 8 por Desktop, Tablet, Mobile) | O `castanha-tokens` da staging (tokens de 14/09) ainda não tem `--castanha-carousel-gap`; os outros 211 tokens batem em nome e valor | O playground gera `--specific-carousel-gap` e o alias `--castanha-carousel-gap` | Reexportar os tokens do Figma no pacote (Castoken); achado pelo check de tokens do R3 (`integration/SAUDE-STACK.md`) |
 
 ## Como usar esta lista
 

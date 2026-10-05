@@ -1,6 +1,6 @@
 {
- "_source": "[CastanhaDS] Components (LKZBwmlb7fIbDKdGrMncuA) · collections Brand Style + .Motion Styles · text styles · effect styles · lido via Figma MCP em 01/10/2026",
- "_format": "brand/motion: [nome, tipo (F=float C=color S=string E=easing T=timing em s), light, dark?]",
+ "_source": "[CastanhaDS] Components (LKZBwmlb7fIbDKdGrMncuA) · collections Brand Style + .Motion Styles · text styles · effect styles · lido via Figma MCP em 01/10/2026 · coleção Viewport (floats: Common/Grids e Specific/*; os booleans Is Mobile/Is Tablet/Is Desktop ficam de fora, não são CSS) lida via MCP em 05/10/2026",
+ "_format": "brand/motion: [nome, tipo (F=float C=color S=string E=easing T=timing em s), light, dark?] · viewport: [nome, {Desktop, Tablet, Mobile}] com número (px) ou alias (nome da variável)",
  "brand": [
   [
    "Common/Border/Radius/none",
@@ -1724,7 +1724,7 @@
   "Disabled/01/Timing": "Common/Motion/Duration/Short/03",
   "Disabled/01/Easing": "Common/Motion/Easing/Systemic/default"
  },
- "grids": [
+ "viewport": [
   [
    "Common/Grids/margin",
    {
@@ -1739,6 +1739,86 @@
     "Desktop": "Common/Sizes/20",
     "Tablet": "Common/Sizes/8",
     "Mobile": "Common/Sizes/16"
+   }
+  ],
+  [
+   "Specific/Buttons/Main Button/Width/min-width",
+   {
+    "Desktop": 136,
+    "Tablet": 220,
+    "Mobile": 328
+   }
+  ],
+  [
+   "Specific/Lists/Content List Item/max-width",
+   {
+    "Desktop": 3000,
+    "Tablet": 1329,
+    "Mobile": 703
+   }
+  ],
+  [
+   "Specific/Lists/Selection List Item/max-width",
+   {
+    "Desktop": 3000,
+    "Tablet": 1329,
+    "Mobile": 703
+   }
+  ],
+  [
+   "Specific/Selection Controls/Filter Chips/height",
+   {
+    "Desktop": "Common/Sizes/40",
+    "Tablet": "Common/Sizes/40",
+    "Mobile": "Common/Sizes/40"
+   }
+  ],
+  [
+   "Specific/Selection Controls/Input Chips/height",
+   {
+    "Desktop": "Common/Sizes/40",
+    "Tablet": "Common/Sizes/40",
+    "Mobile": "Common/Sizes/40"
+   }
+  ],
+  [
+   "Specific/Text Fields/Text/min-width",
+   {
+    "Desktop": 320,
+    "Tablet": 320,
+    "Mobile": 320
+   }
+  ],
+  [
+   "Specific/Text Fields/Text/max-width",
+   {
+    "Desktop": 846,
+    "Tablet": 830,
+    "Mobile": 723
+   }
+  ],
+  [
+   "Specific/Text Fields/Password/min-width",
+   {
+    "Desktop": 320,
+    "Tablet": 320,
+    "Mobile": 320
+   }
+  ],
+  [
+   "Specific/Text Fields/Password/max-width",
+   {
+    "Desktop": 846,
+    "Tablet": 830,
+    "Mobile": 723
+   }
+  ],
+  [
+   "Specific/Carousel/gap",
+   {
+    "Desktop": "Common/Sizes/16",
+    "Tablet": "Common/Sizes/16",
+    "Mobile": "Common/Sizes/8"
    }
   ]
  ]

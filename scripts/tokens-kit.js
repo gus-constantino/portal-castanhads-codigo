@@ -46,15 +46,17 @@
   var reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   var order = 0; // entrada em sequência (limitada no CSS)
 
-  // Tile clicável (C87): copia var(--token) e confirma com o Toast do DS; Tooltip do DS com o nome da variável
+  // Nome no código do castanha-react (R3): --common-X / --specific-X → --castanha-X quando o alias existe (styles/tokens.css)
+  function codeName(n){ var c = n.replace(/^--(common|specific)-/, "--castanha-"); return c !== n && names().indexOf(c) !== -1 ? c : null; }
+  // Tile clicável (C87): copia var(--castanha-…) (ou o nome do playground, se o token não existe no pacote) e confirma com o Toast do DS
   function tile(cls, n, onPlay){
-    var b = el("button", "pg-tok-tile " + cls); b.type = "button";
-    b.setAttribute("aria-label", "Copiar var(" + n + ")");
+    var b = el("button", "pg-tok-tile " + cls), cn = codeName(n) || n; b.type = "button";
+    b.setAttribute("aria-label", "Copiar var(" + cn + ")");
     b.style.setProperty("--_i", String(Math.min(order++, 24)));
-    if (CDS.kit) CDS.kit.lazyTip(b, "Clique para copiar", { label: "var(" + n + ")" });
+    if (CDS.kit) CDS.kit.lazyTip(b, cn === n ? "Só no playground: não existe no castanha-tokens. Clique para copiar." : "Nome no castanha-tokens. No playground: " + n + ". Clique para copiar.", { label: "var(" + cn + ")" });
     b.addEventListener("click", function(){
-      try { navigator.clipboard.writeText("var(" + n + ")"); } catch (e) {}
-      if (CDS.docToast) CDS.docToast("Copiado: var(" + n + ")");
+      try { navigator.clipboard.writeText("var(" + cn + ")"); } catch (e) {}
+      if (CDS.docToast) CDS.docToast("Copiado: var(" + cn + ")");
       if (onPlay) onPlay();
     });
     if (onPlay){ b.addEventListener("mouseenter", onPlay); b.addEventListener("focus", onPlay); }

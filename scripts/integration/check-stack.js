@@ -170,4 +170,57 @@ function codeAttrs(root){
   return set;
 }
 
-module.exports = { parseBindings, readFigma, run, codeAttrs };
+// ---------- R3 · tokens: --castanha-* do playground × castanha-tokens (figma-tokens.json da staging) ----------
+/** Tokens oficiais: nome CSS (regra name/cti/castanha-css do pacote) → { "Light"|"Dark"|"Desktop"|…: valor }. */
+function officialTokens(json, meta){
+  const axis = (c, m) => { const col = meta.collections.find((x) => x.name === c), mo = col && col.modes.find((x) => x.name === m); return mo && mo.axisModes && mo.axisModes.length; };
+  const out = {};
+  (function walk(o, p){
+    if (o && typeof o === "object" && "$value" in o){
+      const d = axis(p[0], p[1]) ? 3 : 2, seg = p.slice(d).filter((x) => x !== "Common" && x !== "Specific");
+      const n = "--castanha-" + seg.map((x) => x.replace(/\s+/g, "-")).join("-").toLowerCase();
+      (out[n] = out[n] || {})[p[d - 1]] = o.$value; return;
+    }
+    if (o && typeof o === "object") Object.keys(o).forEach((k) => walk(o[k], p.concat(k)));
+  })(json, []);
+  return out;
+}
+function cssBlocks(css){
+  const blocks = {};
+  const re = /(^|\n)\s*(?:@media \(min-width:(\d+)px\)\s*\{\s*)?([^{}\n]+)\{([^{}]*)\}/g; let m;
+  while ((m = re.exec(css))){
+    const sel = (m[2] ? "@" + m[2] + " " : "") + m[3].trim(), o = blocks[sel] = blocks[sel] || {};
+    (m[4].match(/--[a-z0-9-]+\s*:[^;]+/g) || []).forEach((l) => { const i = l.indexOf(":"); o[l.slice(0, i).trim()] = l.slice(i + 1).trim(); });
+  }
+  return blocks;
+}
+function norm(v){
+  v = String(v).trim().toLowerCase();
+  let m = v.match(/^#([0-9a-f]{6})([0-9a-f]{2})?$/);
+  if (m) return [0, 2, 4].map((i) => parseInt(m[1].substr(i, 2), 16)).join(",") + "," + (m[2] ? parseInt(m[2], 16) / 255 : 1).toFixed(2);
+  m = v.match(/^rgba?\(([^)]+)\)$/);
+  if (m){ const p = m[1].split(/[ ,/]+/).filter(Boolean).map(Number); return p.slice(0, 3).join(",") + "," + (p[3] == null ? 1 : p[3]).toFixed(2); }
+  return v.replace(/px$/, "").replace(/^["']|["']$/g, "");
+}
+/** Compara: alias que falta aqui, valor diferente (por tema e por modo de viewport) e alias que o pacote não tem. */
+function checkTokens(official, css){
+  const B = cssBlocks(css), root = Object.assign({}, B[":root"]), findings = [];
+  const scope = { Light: root, Dark: Object.assign({}, root, B['html[data-theme="dark"]']),
+    Mobile: Object.assign({}, root, B['[data-viewport="mobile"]']), Tablet: Object.assign({}, root, B['[data-viewport="tablet"]']), Desktop: Object.assign({}, root, B['[data-viewport="desktop"]']) };
+  const res = (o, v, d) => { const m = String(v).match(/^var\((--[a-z0-9-]+)\)$/); return m && (d || 0) < 12 ? res(o, o[m[1]], (d || 0) + 1) : v; };
+  const ours = new Set(Object.keys(root).filter((n) => n.indexOf("--castanha-") === 0));
+  let ok = 0;
+  Object.keys(official).forEach((n) => {
+    if (!ours.has(n)){ findings.push({ id: "tokens", level: "media", kind: "token-sem-alias", msg: "`" + n + "` existe no castanha-tokens e não tem alias no playground." }); return; }
+    const ourVal = (mode) => res(scope[mode], "var(" + n + ")");
+    const diffs = Object.keys(official[n]).filter((mode) => scope[mode] && norm(official[n][mode]) !== norm(ourVal(mode)))
+      .map((mode) => mode + ": pacote `" + official[n][mode] + "` × playground `" + ourVal(mode) + "`");
+    if (diffs.length) findings.push({ id: "tokens", level: "alta", kind: "token-valor", msg: "`" + n + "` com valor diferente (" + diffs.join("; ") + ")." });
+    else ok++;
+  });
+  const extra = Array.from(ours).filter((n) => !official[n]);
+  if (extra.length) findings.push({ id: "tokens", level: "info", kind: "token-so-no-playground", msg: "Alias sem par no castanha-tokens (o Figma tem, o pacote ainda não): " + extra.map((x) => "`" + x + "`").join(", ") + "." });
+  return { findings, ok, official: Object.keys(official).length, ours: ours.size };
+}
+
+module.exports = { parseBindings, readFigma, run, codeAttrs, officialTokens, checkTokens };

@@ -1,6 +1,6 @@
 /* =====================================================================
    Tokens — Castanha DS · GERADO por scripts/build-tokens.js · não editar à mão
-   Fonte: tokens/figma-snapshot.json ([CastanhaDS] Components (LKZBwmlb7fIbDKdGrMncuA) · collections Brand Style + .Motion Styles · text styles · effect styles · lido via Figma MCP em 01/10/2026)
+   Fonte: tokens/figma-snapshot.json ([CastanhaDS] Components (LKZBwmlb7fIbDKdGrMncuA) · collections Brand Style + .Motion Styles · text styles · effect styles · lido via Figma MCP em 01/10/2026 · coleção Viewport (floats: Common/Grids e Specific/*; os booleans Is Mobile/Is Tablet/Is Desktop ficam de fora, não são CSS) lida via MCP em 05/10/2026)
    ===================================================================== */
 :root{
   --common-border-radius-none:0px;
@@ -303,6 +303,209 @@
   --motion-press-duration:var(--motion-pressed-01-timing);      --motion-press-easing:var(--motion-pressed-01-easing);
   --motion-active-duration:var(--motion-selected-in-01-timing); --motion-active-easing:var(--motion-selected-in-01-easing);
 }
+/* Alias do castanha-tokens (pacote React): --castanha-X → --common-X. Seguem o tema escuro porque apontam para --common-* */
+:root{
+  --castanha-border-radius-none:var(--common-border-radius-none);
+  --castanha-border-radius-quark:var(--common-border-radius-quark);
+  --castanha-border-radius-micro:var(--common-border-radius-micro);
+  --castanha-border-radius-extra-small:var(--common-border-radius-extra-small);
+  --castanha-border-radius-small:var(--common-border-radius-small);
+  --castanha-border-radius-medium:var(--common-border-radius-medium);
+  --castanha-border-radius-large:var(--common-border-radius-large);
+  --castanha-border-radius-extra-large:var(--common-border-radius-extra-large);
+  --castanha-border-radius-big:var(--common-border-radius-big);
+  --castanha-border-radius-pill:var(--common-border-radius-pill);
+  --castanha-border-width-none:var(--common-border-width-none);
+  --castanha-border-width-hairline:var(--common-border-width-hairline);
+  --castanha-border-width-thin:var(--common-border-width-thin);
+  --castanha-border-width-thick:var(--common-border-width-thick);
+  --castanha-border-width-heavy:var(--common-border-width-heavy);
+  --castanha-colors-surface-default:var(--common-colors-surface-default);
+  --castanha-colors-surface-01:var(--common-colors-surface-01);
+  --castanha-colors-surface-02:var(--common-colors-surface-02);
+  --castanha-colors-surface-inversed:var(--common-colors-surface-inversed);
+  --castanha-colors-surface-accent:var(--common-colors-surface-accent);
+  --castanha-colors-text-soft:var(--common-colors-text-soft);
+  --castanha-colors-icons-soft:var(--common-colors-icons-soft);
+  --castanha-colors-icons-medium:var(--common-colors-icons-medium);
+  --castanha-colors-icons-intense:var(--common-colors-icons-intense);
+  --castanha-colors-icons-inversed:var(--common-colors-icons-inversed);
+  --castanha-colors-icons-accent:var(--common-colors-icons-accent);
+  --castanha-colors-text-medium:var(--common-colors-text-medium);
+  --castanha-colors-text-intense:var(--common-colors-text-intense);
+  --castanha-colors-text-inversed:var(--common-colors-text-inversed);
+  --castanha-colors-text-accent:var(--common-colors-text-accent);
+  --castanha-colors-border-soft:var(--common-colors-border-soft);
+  --castanha-colors-border-semi-soft:var(--common-colors-border-semi-soft);
+  --castanha-colors-border-medium:var(--common-colors-border-medium);
+  --castanha-colors-border-semi-intense:var(--common-colors-border-semi-intense);
+  --castanha-colors-border-intense:var(--common-colors-border-intense);
+  --castanha-colors-feedback-positive-soft:var(--common-colors-feedback-positive-soft);
+  --castanha-colors-feedback-positive-semi-soft:var(--common-colors-feedback-positive-semi-soft);
+  --castanha-colors-feedback-positive-medium:var(--common-colors-feedback-positive-medium);
+  --castanha-colors-feedback-positive-semi-intense:var(--common-colors-feedback-positive-semi-intense);
+  --castanha-colors-feedback-positive-intense:var(--common-colors-feedback-positive-intense);
+  --castanha-colors-feedback-warning-soft:var(--common-colors-feedback-warning-soft);
+  --castanha-colors-feedback-warning-semi-soft:var(--common-colors-feedback-warning-semi-soft);
+  --castanha-colors-feedback-warning-medium:var(--common-colors-feedback-warning-medium);
+  --castanha-colors-feedback-warning-semi-intense:var(--common-colors-feedback-warning-semi-intense);
+  --castanha-colors-feedback-warning-intense:var(--common-colors-feedback-warning-intense);
+  --castanha-colors-feedback-negative-soft:var(--common-colors-feedback-negative-soft);
+  --castanha-colors-feedback-negative-semi-soft:var(--common-colors-feedback-negative-semi-soft);
+  --castanha-colors-feedback-negative-medium:var(--common-colors-feedback-negative-medium);
+  --castanha-colors-feedback-informative-soft:var(--common-colors-feedback-informative-soft);
+  --castanha-colors-feedback-informative-semi-soft:var(--common-colors-feedback-informative-semi-soft);
+  --castanha-colors-feedback-informative-medium:var(--common-colors-feedback-informative-medium);
+  --castanha-colors-feedback-informative-semi-intense:var(--common-colors-feedback-informative-semi-intense);
+  --castanha-colors-feedback-negative-semi-intense:var(--common-colors-feedback-negative-semi-intense);
+  --castanha-colors-feedback-informative-intense:var(--common-colors-feedback-informative-intense);
+  --castanha-colors-feedback-negative-intense:var(--common-colors-feedback-negative-intense);
+  --castanha-colors-accent-solid-soft:var(--common-colors-accent-solid-soft);
+  --castanha-colors-accent-solid-semi-soft:var(--common-colors-accent-solid-semi-soft);
+  --castanha-colors-accent-solid-medium:var(--common-colors-accent-solid-medium);
+  --castanha-colors-accent-solid-semi-intense:var(--common-colors-accent-solid-semi-intense);
+  --castanha-colors-accent-solid-intense:var(--common-colors-accent-solid-intense);
+  --castanha-colors-neutral-solid-soft:var(--common-colors-neutral-solid-soft);
+  --castanha-colors-neutral-solid-semi-soft:var(--common-colors-neutral-solid-semi-soft);
+  --castanha-colors-neutral-solid-medium:var(--common-colors-neutral-solid-medium);
+  --castanha-colors-neutral-solid-semi-intense:var(--common-colors-neutral-solid-semi-intense);
+  --castanha-colors-neutral-solid-intense:var(--common-colors-neutral-solid-intense);
+  --castanha-colors-decorative-01:var(--common-colors-decorative-01);
+  --castanha-colors-decorative-02:var(--common-colors-decorative-02);
+  --castanha-colors-decorative-03:var(--common-colors-decorative-03);
+  --castanha-colors-decorative-04:var(--common-colors-decorative-04);
+  --castanha-colors-support-system:var(--common-colors-support-system);
+  --castanha-colors-support-lighter:var(--common-colors-support-lighter);
+  --castanha-colors-support-darker:var(--common-colors-support-darker);
+  --castanha-colors-support-accent-soft:var(--common-colors-support-accent-soft);
+  --castanha-elevations-level-1-x:var(--common-elevations-level-1-x);
+  --castanha-elevations-level-1-y:var(--common-elevations-level-1-y);
+  --castanha-elevations-level-1-blur:var(--common-elevations-level-1-blur);
+  --castanha-elevations-level-1-spread:var(--common-elevations-level-1-spread);
+  --castanha-elevations-level-1-color:var(--common-elevations-level-1-color);
+  --castanha-elevations-level-2-x:var(--common-elevations-level-2-x);
+  --castanha-elevations-level-2-y:var(--common-elevations-level-2-y);
+  --castanha-elevations-level-2-blur:var(--common-elevations-level-2-blur);
+  --castanha-elevations-level-2-spread:var(--common-elevations-level-2-spread);
+  --castanha-elevations-level-2-color:var(--common-elevations-level-2-color);
+  --castanha-elevations-level-3-x:var(--common-elevations-level-3-x);
+  --castanha-elevations-level-3-y:var(--common-elevations-level-3-y);
+  --castanha-elevations-level-3-blur:var(--common-elevations-level-3-blur);
+  --castanha-elevations-level-3-spread:var(--common-elevations-level-3-spread);
+  --castanha-elevations-level-3-color:var(--common-elevations-level-3-color);
+  --castanha-font-family-default:var(--common-font-family-default);
+  --castanha-font-family-decorative:var(--common-font-family-decorative);
+  --castanha-font-family-fallback:var(--common-font-family-fallback);
+  --castanha-font-line-height-small:var(--common-font-line-height-small);
+  --castanha-font-line-height-medium:var(--common-font-line-height-medium);
+  --castanha-font-line-height-large:var(--common-font-line-height-large);
+  --castanha-font-size-12:var(--common-font-size-12);
+  --castanha-font-size-14:var(--common-font-size-14);
+  --castanha-font-size-16:var(--common-font-size-16);
+  --castanha-font-size-18:var(--common-font-size-18);
+  --castanha-font-size-20:var(--common-font-size-20);
+  --castanha-font-size-24:var(--common-font-size-24);
+  --castanha-font-size-28:var(--common-font-size-28);
+  --castanha-font-size-32:var(--common-font-size-32);
+  --castanha-font-size-40:var(--common-font-size-40);
+  --castanha-font-size-48:var(--common-font-size-48);
+  --castanha-font-size-56:var(--common-font-size-56);
+  --castanha-font-size-64:var(--common-font-size-64);
+  --castanha-font-size-72:var(--common-font-size-72);
+  --castanha-font-size-80:var(--common-font-size-80);
+  --castanha-font-size-92:var(--common-font-size-92);
+  --castanha-font-size-120:var(--common-font-size-120);
+  --castanha-font-weight-light:var(--common-font-weight-light);
+  --castanha-font-weight-regular:var(--common-font-weight-regular);
+  --castanha-font-weight-medium:var(--common-font-weight-medium);
+  --castanha-font-weight-bold:var(--common-font-weight-bold);
+  --castanha-font-weight-extra-bold:var(--common-font-weight-extra-bold);
+  --castanha-opacity-transparent:var(--common-opacity-transparent);
+  --castanha-opacity-semi-transparent:var(--common-opacity-semi-transparent);
+  --castanha-opacity-light:var(--common-opacity-light);
+  --castanha-opacity-medium:var(--common-opacity-medium);
+  --castanha-opacity-intense:var(--common-opacity-intense);
+  --castanha-opacity-semi-opaque:var(--common-opacity-semi-opaque);
+  --castanha-opacity-opaque:var(--common-opacity-opaque);
+  --castanha-sizes-0:var(--common-sizes-0);
+  --castanha-sizes-1:var(--common-sizes-1);
+  --castanha-sizes-2:var(--common-sizes-2);
+  --castanha-sizes-4:var(--common-sizes-4);
+  --castanha-sizes-6:var(--common-sizes-6);
+  --castanha-sizes-8:var(--common-sizes-8);
+  --castanha-sizes-12:var(--common-sizes-12);
+  --castanha-sizes-14:var(--common-sizes-14);
+  --castanha-sizes-16:var(--common-sizes-16);
+  --castanha-sizes-20:var(--common-sizes-20);
+  --castanha-sizes-24:var(--common-sizes-24);
+  --castanha-sizes-28:var(--common-sizes-28);
+  --castanha-sizes-32:var(--common-sizes-32);
+  --castanha-sizes-40:var(--common-sizes-40);
+  --castanha-sizes-44:var(--common-sizes-44);
+  --castanha-sizes-48:var(--common-sizes-48);
+  --castanha-sizes-56:var(--common-sizes-56);
+  --castanha-sizes-64:var(--common-sizes-64);
+  --castanha-sizes-72:var(--common-sizes-72);
+  --castanha-sizes-80:var(--common-sizes-80);
+  --castanha-sizes-88:var(--common-sizes-88);
+  --castanha-sizes-92:var(--common-sizes-92);
+  --castanha-sizes-104:var(--common-sizes-104);
+  --castanha-sizes-120:var(--common-sizes-120);
+  --castanha-sizes-160:var(--common-sizes-160);
+  --castanha-sizes-200:var(--common-sizes-200);
+  --castanha-colors-accent-opacity-semi-transparent:var(--common-colors-accent-opacity-semi-transparent);
+  --castanha-colors-accent-opacity-light:var(--common-colors-accent-opacity-light);
+  --castanha-colors-accent-opacity-medium:var(--common-colors-accent-opacity-medium);
+  --castanha-colors-accent-opacity-intense:var(--common-colors-accent-opacity-intense);
+  --castanha-colors-accent-opacity-semi-opaque:var(--common-colors-accent-opacity-semi-opaque);
+  --castanha-colors-neutral-opacity-soft-semi-transparent:var(--common-colors-neutral-opacity-soft-semi-transparent);
+  --castanha-colors-neutral-opacity-soft-light:var(--common-colors-neutral-opacity-soft-light);
+  --castanha-colors-neutral-opacity-soft-medium:var(--common-colors-neutral-opacity-soft-medium);
+  --castanha-colors-neutral-opacity-soft-intense:var(--common-colors-neutral-opacity-soft-intense);
+  --castanha-colors-neutral-opacity-soft-semi-opaque:var(--common-colors-neutral-opacity-soft-semi-opaque);
+  --castanha-colors-neutral-opacity-intense-semi-transparent:var(--common-colors-neutral-opacity-intense-semi-transparent);
+  --castanha-colors-neutral-opacity-intense-light:var(--common-colors-neutral-opacity-intense-light);
+  --castanha-colors-neutral-opacity-intense-medium:var(--common-colors-neutral-opacity-intense-medium);
+  --castanha-colors-neutral-opacity-intense-intense:var(--common-colors-neutral-opacity-intense-intense);
+  --castanha-colors-neutral-opacity-intense-semi-opaque:var(--common-colors-neutral-opacity-intense-semi-opaque);
+  --castanha-colors-charts-01-pale:var(--common-colors-charts-01-pale);
+  --castanha-colors-charts-01-soft:var(--common-colors-charts-01-soft);
+  --castanha-colors-charts-01-semi-soft:var(--common-colors-charts-01-semi-soft);
+  --castanha-colors-charts-01-mild:var(--common-colors-charts-01-mild);
+  --castanha-colors-charts-01-medium:var(--common-colors-charts-01-medium);
+  --castanha-colors-charts-01-semi-intense:var(--common-colors-charts-01-semi-intense);
+  --castanha-colors-charts-01-intense:var(--common-colors-charts-01-intense);
+  --castanha-colors-charts-02-pale:var(--common-colors-charts-02-pale);
+  --castanha-colors-charts-02-soft:var(--common-colors-charts-02-soft);
+  --castanha-colors-charts-02-semi-soft:var(--common-colors-charts-02-semi-soft);
+  --castanha-colors-charts-02-mild:var(--common-colors-charts-02-mild);
+  --castanha-colors-charts-02-medium:var(--common-colors-charts-02-medium);
+  --castanha-colors-charts-02-semi-intense:var(--common-colors-charts-02-semi-intense);
+  --castanha-colors-charts-02-intense:var(--common-colors-charts-02-intense);
+  --castanha-colors-charts-03-pale:var(--common-colors-charts-03-pale);
+  --castanha-colors-charts-03-soft:var(--common-colors-charts-03-soft);
+  --castanha-colors-charts-03-semi-soft:var(--common-colors-charts-03-semi-soft);
+  --castanha-colors-charts-03-mild:var(--common-colors-charts-03-mild);
+  --castanha-colors-charts-03-medium:var(--common-colors-charts-03-medium);
+  --castanha-colors-charts-03-semi-intense:var(--common-colors-charts-03-semi-intense);
+  --castanha-colors-charts-03-intense:var(--common-colors-charts-03-intense);
+  --castanha-colors-charts-04-soft:var(--common-colors-charts-04-soft);
+  --castanha-colors-charts-04-semi-soft:var(--common-colors-charts-04-semi-soft);
+  --castanha-colors-charts-04-medium:var(--common-colors-charts-04-medium);
+  --castanha-colors-charts-04-intense:var(--common-colors-charts-04-intense);
+  --castanha-colors-charts-05-soft:var(--common-colors-charts-05-soft);
+  --castanha-colors-charts-05-semi-soft:var(--common-colors-charts-05-semi-soft);
+  --castanha-colors-charts-05-medium:var(--common-colors-charts-05-medium);
+  --castanha-colors-charts-05-intense:var(--common-colors-charts-05-intense);
+  --castanha-colors-charts-06-soft:var(--common-colors-charts-06-soft);
+  --castanha-colors-charts-06-semi-soft:var(--common-colors-charts-06-semi-soft);
+  --castanha-colors-charts-06-medium:var(--common-colors-charts-06-medium);
+  --castanha-colors-charts-06-intense:var(--common-colors-charts-06-intense);
+  --castanha-colors-charts-07-soft:var(--common-colors-charts-07-soft);
+  --castanha-colors-charts-07-semi-soft:var(--common-colors-charts-07-semi-soft);
+  --castanha-colors-charts-07-medium:var(--common-colors-charts-07-medium);
+  --castanha-colors-charts-07-intense:var(--common-colors-charts-07-intense);
+}
 html[data-theme="dark"]{
   --common-colors-surface-default:#1a1a1a;
   --common-colors-surface-01:#4d4d4d;
@@ -395,10 +598,10 @@ html[data-theme="dark"]{
   --common-colors-charts-07-intense:#e3e3e3;
 }
 
-/* Grids (coleção Viewport · Desktop no :root) */
-:root{ --common-grids-margin:var(--common-sizes-104); --common-grids-gutter:var(--common-sizes-20); }
-@media (max-width:1023px){ :root{ --common-grids-margin:var(--common-sizes-16); --common-grids-gutter:var(--common-sizes-8); } }
-@media (max-width:599px){ :root{ --common-grids-margin:var(--common-sizes-20); --common-grids-gutter:var(--common-sizes-16); } }
-[data-viewport="desktop"]{ --common-grids-margin:var(--common-sizes-104); --common-grids-gutter:var(--common-sizes-20); }
-[data-viewport="tablet"]{ --common-grids-margin:var(--common-sizes-16); --common-grids-gutter:var(--common-sizes-8); }
-[data-viewport="mobile"]{ --common-grids-margin:var(--common-sizes-20); --common-grids-gutter:var(--common-sizes-16); }
+/* Coleção Viewport · faixas do castanha-tokens: Mobile no :root, Tablet ≥ 744, Desktop ≥ 1366; o frame do playground usa [data-viewport] */
+:root{ --common-grids-margin:var(--common-sizes-20); --castanha-grids-margin:var(--common-grids-margin); --common-grids-gutter:var(--common-sizes-16); --castanha-grids-gutter:var(--common-grids-gutter); --specific-buttons-main-button-width-min-width:328px; --castanha-buttons-main-button-width-min-width:var(--specific-buttons-main-button-width-min-width); --specific-lists-content-list-item-max-width:703px; --castanha-lists-content-list-item-max-width:var(--specific-lists-content-list-item-max-width); --specific-lists-selection-list-item-max-width:703px; --castanha-lists-selection-list-item-max-width:var(--specific-lists-selection-list-item-max-width); --specific-selection-controls-filter-chips-height:var(--common-sizes-40); --castanha-selection-controls-filter-chips-height:var(--specific-selection-controls-filter-chips-height); --specific-selection-controls-input-chips-height:var(--common-sizes-40); --castanha-selection-controls-input-chips-height:var(--specific-selection-controls-input-chips-height); --specific-text-fields-text-min-width:320px; --castanha-text-fields-text-min-width:var(--specific-text-fields-text-min-width); --specific-text-fields-text-max-width:723px; --castanha-text-fields-text-max-width:var(--specific-text-fields-text-max-width); --specific-text-fields-password-min-width:320px; --castanha-text-fields-password-min-width:var(--specific-text-fields-password-min-width); --specific-text-fields-password-max-width:723px; --castanha-text-fields-password-max-width:var(--specific-text-fields-password-max-width); --specific-carousel-gap:var(--common-sizes-8); --castanha-carousel-gap:var(--specific-carousel-gap); }
+@media (min-width:744px){ :root{ --common-grids-margin:var(--common-sizes-16); --castanha-grids-margin:var(--common-grids-margin); --common-grids-gutter:var(--common-sizes-8); --castanha-grids-gutter:var(--common-grids-gutter); --specific-buttons-main-button-width-min-width:220px; --castanha-buttons-main-button-width-min-width:var(--specific-buttons-main-button-width-min-width); --specific-lists-content-list-item-max-width:1329px; --castanha-lists-content-list-item-max-width:var(--specific-lists-content-list-item-max-width); --specific-lists-selection-list-item-max-width:1329px; --castanha-lists-selection-list-item-max-width:var(--specific-lists-selection-list-item-max-width); --specific-selection-controls-filter-chips-height:var(--common-sizes-40); --castanha-selection-controls-filter-chips-height:var(--specific-selection-controls-filter-chips-height); --specific-selection-controls-input-chips-height:var(--common-sizes-40); --castanha-selection-controls-input-chips-height:var(--specific-selection-controls-input-chips-height); --specific-text-fields-text-min-width:320px; --castanha-text-fields-text-min-width:var(--specific-text-fields-text-min-width); --specific-text-fields-text-max-width:830px; --castanha-text-fields-text-max-width:var(--specific-text-fields-text-max-width); --specific-text-fields-password-min-width:320px; --castanha-text-fields-password-min-width:var(--specific-text-fields-password-min-width); --specific-text-fields-password-max-width:830px; --castanha-text-fields-password-max-width:var(--specific-text-fields-password-max-width); --specific-carousel-gap:var(--common-sizes-16); --castanha-carousel-gap:var(--specific-carousel-gap); } }
+@media (min-width:1366px){ :root{ --common-grids-margin:var(--common-sizes-104); --castanha-grids-margin:var(--common-grids-margin); --common-grids-gutter:var(--common-sizes-20); --castanha-grids-gutter:var(--common-grids-gutter); --specific-buttons-main-button-width-min-width:136px; --castanha-buttons-main-button-width-min-width:var(--specific-buttons-main-button-width-min-width); --specific-lists-content-list-item-max-width:3000px; --castanha-lists-content-list-item-max-width:var(--specific-lists-content-list-item-max-width); --specific-lists-selection-list-item-max-width:3000px; --castanha-lists-selection-list-item-max-width:var(--specific-lists-selection-list-item-max-width); --specific-selection-controls-filter-chips-height:var(--common-sizes-40); --castanha-selection-controls-filter-chips-height:var(--specific-selection-controls-filter-chips-height); --specific-selection-controls-input-chips-height:var(--common-sizes-40); --castanha-selection-controls-input-chips-height:var(--specific-selection-controls-input-chips-height); --specific-text-fields-text-min-width:320px; --castanha-text-fields-text-min-width:var(--specific-text-fields-text-min-width); --specific-text-fields-text-max-width:846px; --castanha-text-fields-text-max-width:var(--specific-text-fields-text-max-width); --specific-text-fields-password-min-width:320px; --castanha-text-fields-password-min-width:var(--specific-text-fields-password-min-width); --specific-text-fields-password-max-width:846px; --castanha-text-fields-password-max-width:var(--specific-text-fields-password-max-width); --specific-carousel-gap:var(--common-sizes-16); --castanha-carousel-gap:var(--specific-carousel-gap); } }
+[data-viewport="desktop"]{ --common-grids-margin:var(--common-sizes-104); --castanha-grids-margin:var(--common-grids-margin); --common-grids-gutter:var(--common-sizes-20); --castanha-grids-gutter:var(--common-grids-gutter); --specific-buttons-main-button-width-min-width:136px; --castanha-buttons-main-button-width-min-width:var(--specific-buttons-main-button-width-min-width); --specific-lists-content-list-item-max-width:3000px; --castanha-lists-content-list-item-max-width:var(--specific-lists-content-list-item-max-width); --specific-lists-selection-list-item-max-width:3000px; --castanha-lists-selection-list-item-max-width:var(--specific-lists-selection-list-item-max-width); --specific-selection-controls-filter-chips-height:var(--common-sizes-40); --castanha-selection-controls-filter-chips-height:var(--specific-selection-controls-filter-chips-height); --specific-selection-controls-input-chips-height:var(--common-sizes-40); --castanha-selection-controls-input-chips-height:var(--specific-selection-controls-input-chips-height); --specific-text-fields-text-min-width:320px; --castanha-text-fields-text-min-width:var(--specific-text-fields-text-min-width); --specific-text-fields-text-max-width:846px; --castanha-text-fields-text-max-width:var(--specific-text-fields-text-max-width); --specific-text-fields-password-min-width:320px; --castanha-text-fields-password-min-width:var(--specific-text-fields-password-min-width); --specific-text-fields-password-max-width:846px; --castanha-text-fields-password-max-width:var(--specific-text-fields-password-max-width); --specific-carousel-gap:var(--common-sizes-16); --castanha-carousel-gap:var(--specific-carousel-gap); }
+[data-viewport="tablet"]{ --common-grids-margin:var(--common-sizes-16); --castanha-grids-margin:var(--common-grids-margin); --common-grids-gutter:var(--common-sizes-8); --castanha-grids-gutter:var(--common-grids-gutter); --specific-buttons-main-button-width-min-width:220px; --castanha-buttons-main-button-width-min-width:var(--specific-buttons-main-button-width-min-width); --specific-lists-content-list-item-max-width:1329px; --castanha-lists-content-list-item-max-width:var(--specific-lists-content-list-item-max-width); --specific-lists-selection-list-item-max-width:1329px; --castanha-lists-selection-list-item-max-width:var(--specific-lists-selection-list-item-max-width); --specific-selection-controls-filter-chips-height:var(--common-sizes-40); --castanha-selection-controls-filter-chips-height:var(--specific-selection-controls-filter-chips-height); --specific-selection-controls-input-chips-height:var(--common-sizes-40); --castanha-selection-controls-input-chips-height:var(--specific-selection-controls-input-chips-height); --specific-text-fields-text-min-width:320px; --castanha-text-fields-text-min-width:var(--specific-text-fields-text-min-width); --specific-text-fields-text-max-width:830px; --castanha-text-fields-text-max-width:var(--specific-text-fields-text-max-width); --specific-text-fields-password-min-width:320px; --castanha-text-fields-password-min-width:var(--specific-text-fields-password-min-width); --specific-text-fields-password-max-width:830px; --castanha-text-fields-password-max-width:var(--specific-text-fields-password-max-width); --specific-carousel-gap:var(--common-sizes-16); --castanha-carousel-gap:var(--specific-carousel-gap); }
+[data-viewport="mobile"]{ --common-grids-margin:var(--common-sizes-20); --castanha-grids-margin:var(--common-grids-margin); --common-grids-gutter:var(--common-sizes-16); --castanha-grids-gutter:var(--common-grids-gutter); --specific-buttons-main-button-width-min-width:328px; --castanha-buttons-main-button-width-min-width:var(--specific-buttons-main-button-width-min-width); --specific-lists-content-list-item-max-width:703px; --castanha-lists-content-list-item-max-width:var(--specific-lists-content-list-item-max-width); --specific-lists-selection-list-item-max-width:703px; --castanha-lists-selection-list-item-max-width:var(--specific-lists-selection-list-item-max-width); --specific-selection-controls-filter-chips-height:var(--common-sizes-40); --castanha-selection-controls-filter-chips-height:var(--specific-selection-controls-filter-chips-height); --specific-selection-controls-input-chips-height:var(--common-sizes-40); --castanha-selection-controls-input-chips-height:var(--specific-selection-controls-input-chips-height); --specific-text-fields-text-min-width:320px; --castanha-text-fields-text-min-width:var(--specific-text-fields-text-min-width); --specific-text-fields-text-max-width:723px; --castanha-text-fields-text-max-width:var(--specific-text-fields-text-max-width); --specific-text-fields-password-min-width:320px; --castanha-text-fields-password-min-width:var(--specific-text-fields-password-min-width); --specific-text-fields-password-max-width:723px; --castanha-text-fields-password-max-width:var(--specific-text-fields-password-max-width); --specific-carousel-gap:var(--common-sizes-8); --castanha-carousel-gap:var(--specific-carousel-gap); }

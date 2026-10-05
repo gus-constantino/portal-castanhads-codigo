@@ -338,15 +338,18 @@
         { p: "Nosso estilo é simples e humano, mas isso não é uma abertura para termos conhecidos apenas por uma bolha ou região." },
         { table: { wrap: true, head: ["Não use", "Por quê"], rows: [
           ["Desenrolar, resolver na mão", "Jargão informal que pode soar descuidado em contextos financeiros"],
-          ["Vixe, Ops", "Interjeições regionais ou infantis — evite em qualquer momento"],
-          ["Mandar ver, arrasar", "Gírias que podem não ser compreendidas por toda a base"]
+          ["Vixe, Ops, Hummm", "Interjeições regionais ou infantis que podem soar como deboche — evite em qualquer momento"],
+          ["Mandar ver, arrasar", "Gírias que podem não ser compreendidas por toda a base"],
+          ["Valeu!", "Soa como conversa entre amigos, não como cuidado — destoa em momentos formais ou de encerramento (pesquisas, confirmações, agradecimentos)"]
         ] } },
         { h3: "Termos que causam ansiedade ou perda de confiança" },
         { p: "Algumas palavras tecnicamente corretas geram reações negativas nas pessoas usuárias — confirmado em pesquisas realizadas no Maze. Prefira sempre as alternativas." },
+        { note: "Esses termos não são proibidos. Sempre avalie o contexto em que cada um vai ser usado." },
         { table: { wrap: true, head: ["Não use", "Use", "Por quê"], rows: [
           ["Bloqueado", "Temporariamente limitado", "\"Bloqueado\" soa como punição"],
-          ["Agora", "—", "Palavras de comando aumentam a ansiedade"],
-          ["Libere", "—", "Mesmo efeito de \"Agora\""],
+          ["Agora", "Reescreva a frase sem o advérbio de urgência. Exemplo: \"Ativar agora\" vira \"Ativar\". Exceção: em tours guiados e onboarding, \"agora\" pode ser usado quando oferece uma escolha livre (\"agora ou depois\"), sem prazo nem consequência — não é comando, é opção.", "Palavras de comando aumentam a ansiedade"],
+          ["Libere", "Reescreva a frase sem o verbo de comando, usando a ação exata do fluxo. Exemplo: \"Libere seu acesso\" vira \"Fazer reconhecimento facial\".", "Mesmo efeito de \"Agora\": aumenta a ansiedade e pressiona sem explicar"],
+          ["Conta (em bloqueio do app)", "Fale do acesso ao app. Exemplo: \"Limitamos seu acesso\"", "Em cenários de bloqueio do app, \"conta\" remete aos benefícios e ao bloqueio do cartão"],
           ["Garantir", "Proteger, manter", "Soa como venda de serviço ou brinde"],
           ["Taxa", "Tarifa", "Confira as regras em Porcentagens e tarifas"],
           ["Biometria", "Reconhecimento facial", "\"Biometria\" foi confundida com biometria de dedo em testes"]
@@ -392,14 +395,35 @@
         { h3: "Ponto final (.)" },
         { p: "Use em descrições — textos de apoio abaixo de títulos. Isso se aplica a todo componente que tem a estrutura de H1 + descrição." },
         { p: "Não use em: títulos, placeholders, itens de lista, tooltips, toasts, CTAs e hiperlinks. Exceto quando houver mais de uma frase — nesse caso, pontue ao final de cada uma." },
+        { table: { wrap: true, head: ["Faça", "Não faça"], rows: [
+          ["Título: `Seu Pix foi enviado` · Descrição: `O valor vai chegar de forma imediata.`", "Título: `Seu Pix foi enviado.` · Descrição: `O valor vai chegar de forma imediata`"],
+          ["CTA: `Confirmar pagamento`", "CTA: `Confirmar pagamento.`"],
+          ["Placeholder: `Digite seu CPF`", "Placeholder: `Digite seu CPF.`"],
+          ["Descrição com duas frases: `Seu cartão não foi desbloqueado. Tente de novo mais tarde.`", "Descrição com duas frases: `Seu cartão não foi desbloqueado, tente de novo mais tarde`"]
+        ] } },
         { h3: "Ponto de exclamação (!)" },
         { p: "Use apenas em descrições — nunca em títulos, mesmo em momentos felizes. Use no máximo um por tela. Muitas exclamações soam como urgência forçada ou infantilidade. Nunca use duplos ou triplos (!!!)." },
+        { table: { wrap: true, head: ["Faça", "Não faça"], rows: [
+          ["Título: `Pagamento confirmado` · Descrição: `Seu dinheiro já está a caminho!`", "Título: `Pagamento confirmado!`"],
+          ["Uma exclamação por tela, somente em descrição", "Descrição: `Seu dinheiro já está a caminho!!`"]
+        ] } },
         { h3: "Ponto de interrogação (?)" },
         { p: "Use para confirmar uma informação com a pessoa. Evite colocar viés na pergunta — isso pode causar insegurança. Nunca use duplos ou triplos (???)." },
+        { table: { wrap: true, head: ["Faça", "Não faça"], rows: [
+          ["`Deseja cancelar o pagamento?`", "`Tem certeza que quer cancelar?` (viés negativo)"],
+          ["`Os dados estão corretos?`", "`Você verificou mesmo os dados???`"]
+        ] } },
         { h3: "Dois pontos (:)" },
         { ul: ["Use para introduzir uma lista ou dar mais explicações após um tema.", "Não use em títulos.", "Não use letra maiúscula depois dos dois pontos.", "Em leitores de tela, o comportamento é de uma pequena pausa."] },
+        { table: { wrap: true, head: ["Faça", "Não faça"], rows: [
+          ["`Para continuar, você vai precisar:` seguido da lista `• RG ou CNH` `• Uma foto do seu rosto (selfie)`", "`Para continuar, você vai precisar: Rg ou cnh e uma selfie`"],
+          ["Descrição: `Informe seus dados abaixo.`", "Título: `Confirme seus dados:`"]
+        ] } },
         { h3: "Vírgula (,)" },
         { p: "Use no máximo 3 vírgulas por frase. Mais que isso é sinal de que o texto precisa ser quebrado em frases menores. Siga as regras gramaticais da língua portuguesa." },
+        { table: { wrap: true, head: ["Faça", "Não faça"], rows: [
+          ["`1. Acesse o app.` `2. Vá em Cartões, escolha o cartão virtual e clique em Detalhes.`", "`Acesse o app, vá em Cartões, escolha o cartão virtual, clique em Detalhes, e veja as informações.`"]
+        ] } },
         { h3: "Maiúsculas" },
         { p: "Inicie toda frase com letra maiúscula. Use caixa alta apenas em siglas. Nunca use para dar ênfase — leitores de tela podem soletrar palavras em caixa alta. Exemplos: `O valor inclui taxas, como IOF`, `Informe o código de autenticação`" },
         { p: "Exceções — sempre com letra maiúscula:" },
@@ -410,27 +434,40 @@
         ] },
         { h3: "Emojis" },
         { p: "Use com moderação. Emojis trazem leveza, mas podem causar ambiguidade e problemas de acessibilidade se usados sem critério. Nunca use emoticons (:-)) — leitores de tela leem cada caractere separadamente." },
-        { ul: ["Use em contextos leves: avisos amigáveis, celebrações, confirmações", "Apenas em textos de apoio (descrições), nunca em títulos", "Sempre ao final da frase, nunca no início ou no meio", "Nunca em fluxos críticos: pagamento, erro, dados sensíveis"] },
+        { ul: ["Use em contextos leves: avisos amigáveis, celebrações, confirmações", "Apenas em textos de apoio (descrições), nunca em títulos", "Sempre ao final da frase, nunca no início ou no meio", "Nunca em fluxos críticos: pagamento, erro, dados sensíveis",
+          "Não use mais de um emoji seguido (`😃😆😄`): leitores de tela leem cada um separadamente",
+          "Emojis complementam o texto, nunca substituem texto funcional ou estrutural",
+          "Se o componente já for muito visual, com muitos elementos além do texto (cor, negrito, ilustrações), não use emojis",
+          "Fora do produto, podem ser usados em redes sociais, e-mails marketing e conteúdos institucionais leves",
+          "Teste com leitor de tela (VoiceOver) quando possível"] },
         { table: { wrap: true, head: ["Momento de uso", "Emoji"], rows: [
           ["Humanização e acolhimento", "🙌 🤗 🤝 🧡"], ["Celebrar conquistas e avanços", "🎉 🏆 ✨ ⭐ 🎯 ✅ 💡"], ["Guiar o olhar ou chamar atenção", "🔔 📢 👀"], ["Contexto corporativo ou benefícios", "💼 💳 📝 📊 💰"]
         ] } },
         { h3: "Listas" },
         { p: "Use para facilitar o escaneamento. Use no máximo uma lista por tela. Não pontue os itens." },
         { ul: ["Bullet points — para itens sem ordem específica e de pesos iguais.", "Lista numerada — para sequências de ações ou instruções."] },
+        { table: { wrap: true, head: ["Faça", "Não faça"], rows: [
+          ["`1. Acesse o app` `2. Vá em Cartões` `3. Clique em Desbloquear`", "`Acesse o app > Vá em Cartões > Clique em Desbloquear`"],
+          ["`• CNH ou RG` `• Selfie` `• Comprovante de residência`", "Bullets com ponto final: `- CNH ou RG.` `- Selfie.` `- Comprovante de residência.`"]
+        ] } },
         { h3: "Negrito" },
         { p: "Use com moderação, o excesso desvia a atenção e pode dificultar a leitura de pessoas neurodivergentes." },
         { p: "Use para destacar informações relevantes. Nunca use como substituto de títulos (H2, H3)." },
+        { table: { wrap: true, head: ["Faça", "Não faça"], rows: [
+          ["`Seu Pix de R$ 50,00 foi enviado às 14:32`, com negrito só em `R$ 50,00` e `14:32`", "A mesma frase sem nenhum destaque para o valor e o horário"],
+          ["`Acesse a área de Cartões e clique em Desbloquear`, com negrito só em `Cartões` e `Desbloquear`", "Negrito em trechos inteiros: `Acesse a área de Cartões` e `clique em Desbloquear`"]
+        ] } },
         { h3: "O que não usamos" },
-        { table: { wrap: true, head: ["Recurso", "Por quê"], rows: [
-          ["Itálico", "Inclina e aproxima os caracteres, dificultando a leitura."],
-          ["Tachado", "Pode impossibilitar o entendimento e não tem feedback em leitores de tela."],
-          ["Travessão (–)", "Para pausar o texto, prefira vírgula ou ponto final."],
-          ["Barra vertical (|)", "Para separar frases, prefira vírgula ou ponto final."],
-          ["Ponto e vírgula (;)", "Para pausar o texto, prefira vírgula ou ponto final. Nunca ao final de itens de lista."],
-          ["E comercial (&)", "Exceto quando fizer parte do nome de uma marca ou parceiro."],
-          ["Aspas (\"\")", "Para destacar botões ou áreas do produto, use negrito."],
-          ["Sublinhado", "Reservado exclusivamente para links."],
-          ["Asterisco (*)", "Interrompe o fluxo de leitura, especialmente em leitores de tela."]
+        { table: { wrap: true, head: ["Recurso", "Por quê", "Substitua por"], rows: [
+          ["Itálico", "Inclina e aproxima os caracteres, dificultando a leitura.", "Negrito ou texto sem formatação"],
+          ["Tachado", "Pode impossibilitar o entendimento e não tem feedback em leitores de tela.", "Reescreva a frase sem o trecho removido"],
+          ["Travessão (–)", "Interrompe o ritmo da leitura e pode soar como texto gerado por IA.", "Vírgula ou ponto final"],
+          ["Barra vertical (|)", "Para separar frases, prejudica a leitura linear.", "Vírgula ou ponto final"],
+          ["Ponto e vírgula (;)", "Para pausar o texto, é ambíguo. Nunca ao final de itens de lista.", "Vírgula ou ponto final"],
+          ["E comercial (&)", "Exceto quando fizer parte do nome de uma marca ou parceiro.", "\"e\" por extenso"],
+          ["Aspas (\"\")", "Para destacar botões ou áreas do produto, gera ambiguidade.", "Negrito"],
+          ["Sublinhado", "Reservado exclusivamente para links — usar em outros contextos confunde.", "Negrito ou texto sem formatação"],
+          ["Asterisco (*)", "Interrompe o fluxo de leitura, especialmente em leitores de tela.", "Bullet points (`•`) para mascarar dados"]
         ] } },
 
         { h2: "Valores monetários e moedas" },
@@ -443,15 +480,21 @@
           "Números acima de 3 dígitos recebem ponto na casa do milhar. Não use \"k\" para substituir \"mil\".",
           "Se o número for muito extenso e não couber no componente, diminua o tamanho da fonte até o mínimo permitido pelo Castanha ou use tooltip para exibir o valor completo ao passar o cursor."
         ] },
+        { table: { wrap: true, head: ["Faça", "Não faça"], rows: [
+          ["`R$ 1.000,00`", "`R$1000` ou `R$1.000`"],
+          ["`−R$ 45,00` (subtração)", "`-R$ 45,00` (hífen)"],
+          ["`R$ 100,00`", "`R$ 100`"],
+          ["`R$ 1.500,00`", "`R$ 1500` ou `R$ 1,5k`"]
+        ] } },
         { h3: "Aplicações" },
         { table: { wrap: true, head: ["Exemplo", "Onde"], rows: [
-          ["`Caiu reembolso R$ 25,80`", "Extrato"],
-          ["`Existe uma tarfia de R$ 1,99 para depósitos em Saldo Livre.`", "Alert"],
+          ["`Caiu reembolso de R$ 25,80`", "Extrato"],
+          ["`Existe uma tarifa de R$ 1,99 para depósitos em Saldo Livre.`", "Alert"],
           ["`Pix enviado −R$ 45,00`", "Extrato"],
           ["`Compra no cartão −R$ 131,44`", "Extrato"],
           ["`Pix de R$ 1.000,00 para Juca Castanha •••.456.789-•• enviado.`", "Push notification"]
         ] } },
-        { p: "Para regras de mascaramento de valores em comprovantes e extratos, consulte Mascaramento e omissão de dados." },
+        { p: "Caso necessário, em comprovantes e extratos, oculte todos os dígitos do valor com 1 bullet por número. Exemplo: `R$ ••••`. Regras completas em Mascaramento e omissão de dados." },
 
         { h2: "Códigos e dados pessoais" },
         { p: "Nesta seção, você consulta como formatar alguns dados. Para regras de mascaramento, consulte Mascaramento e omissão de dados." },
@@ -460,7 +503,16 @@
           ["Código de desbloqueio", "Apresente em blocos de 4 números separados por espaço."],
           ["Código de autenticação", "Códigos de 6 dígitos. Apresente todos os números seguidos, sem espaçamento."],
           ["Senha do cartão", "Senha de 4 números. Apresente todos os números seguidos, sem espaçamento."],
-          ["Celular", "Use sempre o formato com DDD. Ao pedir o número como input, oriente que o DDD é obrigatório. Use o termo \"celular\" ou \"número de celular\" — nunca \"telefone\"."]
+          ["Celular", "Use sempre o formato com DDD. Ao pedir o número como input, oriente que o DDD é obrigatório. Use o termo \"celular\" ou \"número de celular\" — nunca \"telefone\"."],
+          ["CPF", "Apresente com pontos e hífen: `123.456.789-00`. Para exibição mascarada, consulte Mascaramento e omissão de dados."]
+        ] } },
+        { table: { wrap: true, head: ["Faça", "Não faça"], rows: [
+          ["`1234 5678 9012 3456` (cartão e código de desbloqueio)", "`1234567890123456`"],
+          ["`Informe o código de autenticação: 123456`", "`Informe o código de autenticação: 123 456`"],
+          ["`Digite sua senha: ••••`", "`Digite sua senha: *****`"],
+          ["`(11) 99999-9999`", "`11999999999` ou `99999-9999`"],
+          ["`Informe seu celular com DDD`", "`Informe seu telefone`"],
+          ["`123.456.789-00`", "`12345678900`"]
         ] } },
         { h3: "Aplicações" },
         { table: { wrap: true, head: ["Exemplo", "Onde"], rows: [
@@ -476,7 +528,7 @@
           "Formato completo: `01 de janeiro de 2025`",
           "Formato compacto: `01/12/2025` ou `12/25`",
           "Se o componente não permitir o nome completo, use abreviações com a primeira letra maiúscula. Exemplo: `Segunda = Seg`, `Janeiro = Jan`",
-          "No extrato, use o formato completo. Se a transação for do ano atual, omita o ano. Exemplo: `04 de janeiro`",
+          "No extrato, use o formato completo. Se a transação for do ano atual, omita o ano. Exemplo: `04 de janeiro`. Se for de outro ano, mostre o ano: `04 de janeiro de 2024`",
           "Em comprovantes, use hífen para separar data de hora. Exemplo: `12/12/25 - 14:05`"
         ] },
         { h3: "Horários" },
@@ -487,6 +539,11 @@
           "Para falar de prazo, use o \"h\" minúsculo junto ao numeral. Exemplo: `Em até 2h úteis`",
           "No Pix, por regra do BACEN, mostre também os segundos. Exemplo: `14:05:32`"
         ] },
+        { table: { wrap: true, head: ["Faça", "Não faça"], rows: [
+          ["`das 08:00 às 18:00`", "`08:00 - 18:00`"],
+          ["`Em até 2h úteis`", "`Em até 2H úteis`"],
+          ["`14:05:32` (Pix, obrigatório por regra do BACEN)", "`14:05` (insuficiente para Pix)"]
+        ] } },
 
         { h2: "Quantidades e unidades" },
         { h3: "Numerais" },
@@ -494,6 +551,13 @@
           "Use numerais em vez de escrever o número por extenso. Números são informações importantes e ficam mais fáceis de escanear em formato numérico. Exemplo: `Você tem 3 cartões virtuais ativos`",
           "Escreva por extenso apenas quando o número fizer parte de uma expressão da língua portuguesa. Exemplo: `A Caju tem mil e uma utilidades`"
         ] },
+        { table: { wrap: true, head: ["Faça", "Não faça"], rows: [
+          ["`Você tem 3 cartões virtuais ativos`", "`Você tem três cartões virtuais ativos`"],
+          ["`A Caju tem mil e uma utilidades`", "`A Caju tem 1001 utilidades`"],
+          ["`Parcele em até 12×`", "`Parcele em até 12x` ou `Parcele em até 12 vezes`"],
+          ["`de 1 a 12 parcelas`", "`1 - 12 parcelas`"],
+          ["`Carregue arquivos de até 1GB`", "`1 GB` ou `1 gigabyte`"]
+        ] } },
         { h3: "Parcelas e repetições" },
         { p: "Use o símbolo × (vezes) — nunca a letra \"x\". Em leitores de tela, o \"x\" minúsculo pode confundir a pessoa usuária. Exemplo: `Parcele em até 12×`" },
         { h3: "Intervalos" },
@@ -505,6 +569,12 @@
           "Use o \"h\" minúsculo junto ao numeral para indicar horas em prazos. Para minutos, escreva por extenso. Exemplo: `Em até 2h úteis`, `Em até 30 minutos`",
           "Prazos em dias sempre devem especificar se são dias úteis ou corridos."
         ] },
+        { table: { wrap: true, head: ["Faça", "Não faça"], rows: [
+          ["`Em até 2h úteis`", "`Em até 2H` ou `2 horas úteis`"],
+          ["`Em até 30 minutos`", "`Em até 30min` ou `30m`"],
+          ["`Em até 3 dias úteis`", "`Em até 3 dias`"],
+          ["`Em até 5 dias corridos`", "`Em até 5 dias`"]
+        ] } },
 
         { h2: "Mascaramento e omissão de dados" },
         { ul: [
@@ -514,10 +584,17 @@
         { h3: "O que mostrar" },
         { table: { wrap: true, head: ["Dado", "Regra"], rows: [
           ["CPF", "De acordo com o BACEN, mostre os 6 números do meio — `•••.456.789-••`"],
-          ["Números do cartão", "Mostre apenas os 4 últimos números — `•••• •••• •••• 1234`"],
-          ["Celular", "Não precisa mascarar"],
-          ["E-mail", "Mostre apenas o provedor (gmail) e a 1ª e as 2 últimas letras do e-mail - `j•••••••••sd@gmail.com`"],
+          ["Números do cartão", "Mostre apenas os 4 últimos números — `•••• •••• •••• 1234` ou `cartão final 1234`"],
+          ["Celular", "Não precisa mascarar. Mostre completo — `(11) 99999-9999` — ou, se o espaço for reduzido, só os 4 últimos dígitos — `Celular final 9999`. Isso não é mascaramento, é abreviação de exibição."],
+          ["E-mail", "Mostre apenas o provedor (gmail) e a 1ª e as 2 últimas letras do e-mail — `j•••••••••sd@gmail.com`"],
+          ["CNPJ", "Mostre apenas os 4 primeiros dígitos — `12.34•.•••/••••-••`"],
+          ["Valores monetários", "Oculte todos os dígitos, com 1 bullet por número — `R$ ••••`"],
           ["Push notification", "`Pix de R$ 1.000,00 para Juca Castanha •••.456.789-•• enviado.`"]
+        ] } },
+        { table: { wrap: true, head: ["Faça", "Não faça"], rows: [
+          ["`•••.456.789-••`", "`*.456.789-*`"],
+          ["`•••• •••• •••• 1234`", "`**** **** **** 1234`"],
+          ["`R$ ••••`", "`R$ *****`"]
         ] } },
 
         { h2: "Porcentagens e tarifas" },
@@ -532,8 +609,15 @@
         { h3: "Tarifas" },
         { ul: [
           "Use sempre a palavra \"tarifa\" — nunca \"taxa\".",
-          "Quando não houver tarifa, use “Sem tarifa” ou “Isento de tarifa”."
+          "Quando não houver tarifa, use “Sem tarifa” em tabelas e “Isento de tarifa” em descrições."
         ] },
+        { table: { wrap: true, head: ["Faça", "Não faça"], rows: [
+          ["`Tarifa de 1,99% para depósitos em Conta Caju`", "`Tarifa de 1.99%` ou `tarifa de um vírgula noventa e nove por cento`"],
+          ["`A tarifa pode variar de 1,99% a 3,50%`", "`A tarifa pode variar de 1,99% - 3,50%`"],
+          ["`Existe uma tarifa de R$ 1,99 para depósitos em Saldo Livre.`", "`Existe uma taxa de R$ 1,99 para depósitos em Saldo Livre.`"],
+          ["`Sem tarifa` (em tabela)", "`Grátis`, `Free` ou `Zero`"],
+          ["`Isento de tarifa` (em descrição)", "`Sem cobrança de taxa`"]
+        ] } },
         { note: "Fonte: Figma · 📁 [NEW] Content → Formatação de dados (Regras universais, Valores monetários e moedas, Códigos e dados pessoais, Datas e horários, Quantidades e unidades, Mascaramento e omissão de dados, Porcentagens e tarifas). Exemplos em `código`, como no Figma (C113)." }
       ] }
       ,

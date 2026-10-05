@@ -25,8 +25,7 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
 .pg-header{
   position:sticky; top:0; z-index:10; height:var(--pg-header-h);
   display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-12);
-  padding:0 var(--common-sizes-16); background:var(--common-colors-surface-default);
-  box-shadow:inset 0 calc(-1 * var(--common-border-width-hairline)) 0 var(--pg-line);
+  padding:0 var(--common-sizes-16); background:var(--common-colors-surface-default); /* sem divisor embaixo, como o Header do template */
 }
 .pg-brand{ display:flex; align-items:baseline; gap:var(--common-sizes-8); margin:0; font:var(--text-style-subtitle-small); }
 .pg-brand span{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }

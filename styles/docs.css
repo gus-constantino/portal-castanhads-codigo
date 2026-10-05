@@ -578,3 +578,20 @@
 .pg-doc-sc-group{ display:flex; flex-direction:column; align-items:flex-start; }
 .pg-doc-sc-group--row{ flex-direction:row; flex-wrap:wrap; gap:var(--common-sizes-4); }
 .pg-doc-sc-group__nested{ display:flex; flex-direction:column; align-items:flex-start; padding-left:var(--common-sizes-24); }
+
+/* Images: superfícies e medidas dos exemplos (Inversed sobre fundo escuro, Image e ilustração com largura de token) */
+.pg-doc-on-inversed{ display:inline-flex; align-items:center; gap:var(--common-sizes-8); padding:var(--common-sizes-16); border-radius:var(--common-border-radius-medium); background:var(--common-colors-surface-inversed); }
+.pg-doc-row{ display:inline-flex; align-items:center; gap:var(--common-sizes-8); }
+.pg-doc-row--wide{ gap:var(--common-sizes-16); }
+.pg-doc-media{ display:flex; align-items:flex-start; gap:var(--common-sizes-16); max-width:calc(2 * var(--common-sizes-160)); }
+.pg-doc-media__text{ display:flex; flex-direction:column; gap:var(--common-sizes-4); margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+.pg-doc-media__text strong{ font:var(--text-style-body-bold); color:var(--common-colors-text-intense); }
+.pg-doc-stack-center{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-8); text-align:center; max-width:calc(2 * var(--common-sizes-120)); font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+.pg-doc-img{ width:var(--common-sizes-200); }
+.pg-doc-img--sm{ width:var(--common-sizes-120); }
+.pg-doc-illus{ display:block; width:var(--common-sizes-120); height:auto; }
+/* Don'ts: imagem como layer solto (Image) · marca redimensionada ou recolorida à mão (Caju Brand) */
+.pg-doc-loose-frame{ position:relative; width:var(--common-sizes-200); aspect-ratio:3 / 2; background:var(--common-colors-surface-01); }
+.pg-doc-loose-frame > img{ position:absolute; top:var(--common-sizes-24); left:var(--common-sizes-40); width:var(--common-sizes-120); }
+cds-caju-brand.pg-doc-brand-stretch{ height:var(--common-sizes-56); }
+.pg-doc-brand-recolor path{ fill:var(--common-colors-feedback-informative-intense); }

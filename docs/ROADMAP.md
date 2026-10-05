@@ -288,6 +288,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D116 | **Docs · lote 6 Selection controls** (branch `teste`): Checkbox, Radio Button e Switch com as 6 tabs, `state="hovered\|pressed"` nos três para os exemplos, grupos (`.pg-doc-sc-group`, hierarquia pai-filho do Checkbox), contrastes medidos (borda do Unselected 2,78:1 em análise) e `.md` em `docs/zeroheight/`. C134 | 05/10 |
 | D117 | **Capas do Password Input e do Text Area sem 404**: mesmo caso do D115 — `cover.image` apontava para PNGs nunca exportados (C95); o `image` saiu e as duas capas usam o componente vivo com o `base`. Nenhuma doc referencia mais `assets/docs/covers/`. C95 | 05/10 |
 | D118 | **Desempenho medido e orçamento no build** (05/10, site publicado): primeira visita ~400 KB gzip em 38 requisições, página pronta em ~0,85 s (rede), ~32 ms de JS; recarga com cache 0,09 s (o `?v=` funciona). Sem problema hoje; o que cresce são as docs (36 de 105 = 66 KB gzip; todas ≈ +125 KB). `build-index.js` agora imprime o peso da primeira visita e o `dist/cds.js` por tipo (componentes, playgrounds, docs, recursos) e avisa acima de **600 KB gzip** (`BUDGET_STRICT=1` faz falhar). Próximo passo planejado no backlog: docs sob demanda | 05/10 |
+| D119 | **Docs · lote 7 Images** (branch `teste`): Avatar, Icon, Shaped Icon, Image e Caju Brand com as 6 tabs, contrastes medidos (Icon 4,54–16,96:1; Shaped Icon ≥ 4,20:1; iniciais do Avatar 5,95–15,27:1), superfícies de exemplo `.pg-doc-on-inversed` e `.md` em `docs/zeroheight/`. C135 | 05/10 |
 
 ## 5. Dúvidas abertas
 

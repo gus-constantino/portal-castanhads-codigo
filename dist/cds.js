@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 252 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 257 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.js ==== */
 try {
 /**
@@ -332,6 +332,120 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/caju-brand/caju-brand.playground.js", e); }
+
+/* ==== components/caju-brand/caju-brand.docs.js ==== */
+try {
+/* Documentação — Caju Brand
+   Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Caju brand, 62eaf1) reaproveitado; props, padrões e description do set da lib estável (Caju Brand 11271:154);
+   acessibilidade e contrastes do playground. O zeroheight não tem a tab Style nem Motion (C135). */
+(function(){
+  window.CDS = window.CDS || {};
+  CDS.docs = CDS.docs || {};
+  function cb(kind, more){ return Object.assign({ _tag: "cds-caju-brand", kind: kind || "default" }, more || {}); }
+  function on(cls, items){ return { _tag: "div", class: cls, _children: items }; }
+  function row(items){ return { _tag: "div", class: "pg-doc-row pg-doc-row--wide", _children: items }; }
+
+  CDS.docs["caju-brand"] = {
+    tag: "cds-caju-brand",
+    base: {},
+    source: "https://castanha.caju.com.br/858426090/v/latest/p/62eaf1-caju-brand", sourceLabel: "Abrir o Caju Brand no zeroheight",
+    cover: { description: "O Caju Brand é um elemento visual fundamental que representa a identidade da Caju dentro dos fluxos do produto. Ele garante consistência no uso da marca, evitando distorções, cores inadequadas ou aplicações incorretas.", examples: [
+      row([cb("default"), on("pg-doc-on-accent", [cb("inversed")]), on("pg-doc-on-inversed", [cb("full-white")])])
+    ] },
+    tabs: [
+      { id: "uso", title: "Uso", blocks: [
+        { h2: "Sobre" },
+        { p: "O Caju Brand é um elemento visual fundamental que representa a identidade da Caju dentro dos fluxos do produto. Ele garante consistência no uso da marca, evitando distorções, cores inadequadas ou aplicações incorretas." },
+        { h3: "Nomes alternativos comuns" },
+        { p: "Logo Caju, Marca Caju, Identidade visual, Brand." },
+        { h3: "Princípios" },
+        { cards: [
+          ["Consistência visual", "O Caju Brand deve sempre reforçar a identidade da empresa de forma uniforme, utilizando apenas as variantes e tokens definidos no design system."],
+          ["Legibilidade e contraste", "A aplicação da marca deve priorizar a clareza, escolhendo a variante correta para garantir contraste adequado em qualquer fundo ou contexto."],
+          ["Uso institucional", "O componente existe para representar a marca de forma oficial dentro dos fluxos. Ele não deve ser usado como elemento decorativo ou fora do contexto institucional."]
+        ] },
+        { h2: "Quando usar" },
+        { p: "Use o Caju Brand sempre que for necessário representar institucionalmente a marca dentro da interface — em áreas de autenticação, telas de boas-vindas, campanhas internas ou materiais digitais que exigem a presença do logotipo de forma padronizada." },
+        { h3: "Utilize para:" },
+        { ul: ["Identificação institucional em fluxos oficiais (login, onboarding, dashboards principais).", "Campanhas internas ou badges em que a marca precise estar presente.", "Reforço visual em comunicações digitais, mantendo consistência da identidade.", "Áreas de rodapé ou header em que a marca é necessária para credibilidade."] },
+        { h3: "Não utilize para:" },
+        { ul: ["Representar conteúdos de usuários ou terceiros.", "Criar novas variações da marca que não existam no design system.", "Usar como ícone decorativo sem relação institucional.", "Aplicar em contextos informais ou fora do ecossistema de produtos oficiais."] },
+        { h2: "Casos de uso" },
+        { h3: "Caju Brand vs Ilustrações" },
+        { p: "As ilustrações são elementos gráficos criativas e até estilizadas para transmitir mensagens visuais ou apoiar narrativas da interface. Já o Caju Brand segue regras rígidas: proporção, cor e forma não podem ser alteradas. Use ilustrações quando quiser apoiar storytelling ou humanizar a comunicação. Use o Caju Brand apenas quando a identidade institucional da Caju precisa estar explícita." },
+        { compare: [
+          { title: "Caju Brand: identidade institucional", attrs: cb("default") },
+          { title: "Ilustração: storytelling", attrs: { _tag: "img", src: "assets/illustrations/comunicacao/perguntas-frequentes.svg", alt: "", class: "pg-doc-illus" } }
+        ] },
+        { note: "Suporte: canal #castanha-suporte no Slack." }
+      ] },
+
+      { id: "anatomia", title: "Anatomia", blocks: [
+        { h2: "Anatomia" },
+        { anatomy: { attrs: { _tag: "div", class: "pg-doc-row", _children: [cb("default")] }, markers: [{ n: 1, target: "path:nth-of-type(1)", side: "top", align: "start" }, { n: 2, target: "path:nth-of-type(2)", side: "bottom", align: "start" }, { n: 3, target: "path:nth-of-type(3)", side: "right" }], legend: ["Folha", "Caju", "Typography (opcional)"] } },
+        { h2: "Propriedades" },
+        { props: [
+          { name: "Kind", type: "Variant", default: "Default", values: ["Default", "Inversed", "Full Red", "Full White", "Full Black"] },
+          { name: "Show Typography", type: "Boolean", default: "true" }
+        ] },
+        { note: "Props e padrões lidos do set Caju Brand da lib estável. O zeroheight ainda não tem a tab Style deste componente. Tamanho fixo: 69×28 com a tipografia e 18×28 só com o símbolo. As cores são da marca (vêm do SVG do Figma), não tokens. No código, `label` muda o nome acessível (padrão \"Caju\")." }
+      ] },
+
+      { id: "estilos", title: "Estilos", blocks: [
+        { h2: "Kind" },
+        { specimens: { min: "var(--common-sizes-160)", items: [
+          { label: "Default", attrs: { kind: "default" } },
+          { label: "Inversed · sobre Accent", attrs: on("pg-doc-on-accent", [cb("inversed")]) },
+          { label: "Full Red", attrs: { kind: "full-red" } },
+          { label: "Full White · sobre Inversed", attrs: on("pg-doc-on-inversed", [cb("full-white")]) },
+          { label: "Full Black", attrs: { kind: "full-black" } }
+        ] } },
+        { h2: "Show Typography" },
+        { specimens: { min: "var(--common-sizes-160)", items: [
+          { label: "true · 69×28", attrs: { kind: "default" } }, { label: "false · 18×28", attrs: { kind: "default", "show-typography": false } }
+        ] } }
+      ] },
+
+      { id: "acessibilidade", title: "Acessibilidade", blocks: [
+        { h2: "Leitor de tela" },
+        { ul: [
+          "O Caju Brand é anunciado como imagem com o nome \"Caju\" (`role=\"img\"`).",
+          "Dentro de um link para a página inicial, mude o nome para o destino (ex.: `label=\"Caju, página inicial\"`).",
+          "Se a marca já aparece em texto ao lado, o nome repetido é dispensável."
+        ] },
+        { h2: "Contraste (WCAG)" },
+        { ul: ["Default: tipografia (vermelho da marca) sobre Surface/default 4,54:1; no símbolo, folha 1,41:1 e caju 2,65:1.", "Inversed: tipografia branca sobre Surface/accent 4,66:1.", "Full White sobre Surface/inversed 17,40:1 · Full Black sobre Surface/default 20,47:1.", "Logotipos são isentos dos critérios de contraste (1.4.3 e 1.4.11); ainda assim, use a variante indicada para cada fundo nas Diretrizes."] },
+        { note: "Contrastes medidos no tema light do playground. O zeroheight ainda não tem seção de Acessibilidade para o Caju Brand." }
+      ] },
+
+      { id: "diretrizes", title: "Diretrizes", blocks: [
+        { h2: "Diretrizes de uso" },
+        { guides: [
+          { attrs: cb("default"), title: "Default", text: "Use a variante Default em fundos claros e neutros, garantindo contraste e legibilidade. Ideal para a maioria dos cenários institucionais." },
+          { attrs: row([on("pg-doc-on-accent", [cb("inversed")]), on("pg-doc-on-inversed", [cb("inversed")])]), title: "Inversed", text: "Use a variante Inversed sobre fundos Accent e Inversed, assegurando contraste adequado e consistência visual em contextos não neutros." },
+          { attrs: cb("full-red"), title: "Full red", text: "Utilize em fundos brancos ou claros, principalmente em momentos de ênfase institucional em ambientes monocromáticos. Evite em fundos coloridos ou texturizados." },
+          { attrs: on("pg-doc-on-inversed", [cb("full-white")]), title: "Full white", text: "Use em fundos escuros ou coloridos quando apenas versões monocromáticas forem permitidas. Mantém a legibilidade sem comprometer a identidade." },
+          { attrs: cb("full-black"), title: "Full black", text: "Aplique em fundos claros quando for necessário manter neutralidade visual ou em contextos impressos que não suportem cor." }
+        ] },
+        { h2: "Do's and Don'ts" },
+        { dodont: [
+          { kind: "do", attrs: cb("default"), text: "Use o Caju Brand apenas em contextos institucionais, como login, onboarding, menus ou rodapé, reforçando a identidade oficial." },
+          { kind: "dont", attrs: row([cb("default", { "show-typography": false }), cb("full-red", { "show-typography": false }), cb("full-black", { "show-typography": false })]), text: "Não utilize o Caju Brand como elemento decorativo em ilustrações, componente visual ou fundos sem função institucional." },
+          { kind: "do", attrs: cb("default"), text: "Mantenha o tamanho e proporções originais do Caju Brand, respeitando o espaço mínimo pré definido no Design System." },
+          { kind: "dont", attrs: { _tag: "div", class: "pg-doc-row", _children: [cb("default", { class: "pg-doc-brand-stretch" })] }, text: "Não redimensione manualmente o componente — o uso deve respeitar os tamanhos disponíveis." },
+          { kind: "do", attrs: row([cb("default"), cb("full-red"), cb("full-black")]), text: "Utilize apenas as variantes disponíveis no design system (Default, Inversed, Full Red, Full White, Full Black)." },
+          { kind: "dont", attrs: cb("default", { class: "pg-doc-brand-recolor" }), text: "Não aplique cores que não fazem parte das variantes oficiais." }
+        ] }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { h2: "Motion" },
+        { p: "O Caju Brand é estático: não tem estados de interação nem animação própria." }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/caju-brand/caju-brand.docs.js", e); }
 
 /* ==== components/calendar-day/calendar-day.js ==== */
 try {
@@ -995,6 +1109,106 @@ CDS.register({
 });
 } catch (e) { console.error("[cds] components/icon/icon.playground.js", e); }
 
+/* ==== components/icon/icon.docs.js ==== */
+try {
+/* Documentação — Icon
+   Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Icon, 6598b8) reaproveitado; props, padrões e description do set da lib estável (Icon 2261:1126);
+   acessibilidade e contrastes do playground. O zeroheight não tem a tab Style nem Motion (C135). */
+(function(){
+  window.CDS = window.CDS || {};
+  CDS.docs = CDS.docs || {};
+  function ic(icon, more){ return Object.assign({ _tag: "cds-icon", icon: icon }, more || {}); }
+  function row(items, wide){ return { _tag: "div", class: "pg-doc-row" + (wide ? " pg-doc-row--wide" : ""), _children: items }; }
+
+  CDS.docs["icon"] = {
+    tag: "cds-icon",
+    base: { icon: "placeholder-line" },
+    source: "https://castanha.caju.com.br/858426090/v/latest/p/6598b8-icon", sourceLabel: "Abrir o Icon no zeroheight",
+    cover: { description: "Icon (ícone) é uma representação visual simples que auxilia na comunicação de ações, estados, tipos de conteúdo ou categorias.", examples: [
+      row([ic("home-line", { size: "large", appearance: "neutral" }), ic("meal-line", { size: "large" }), ic("positive-line", { size: "large", appearance: "positive" }), ic("warning-line", { size: "large", appearance: "warning" }), ic("information-line", { size: "large", appearance: "informative" })], true)
+    ] },
+    tabs: [
+      { id: "uso", title: "Uso", blocks: [
+        { h2: "Sobre" },
+        { p: "Icon (ícone) é uma representação visual simples que auxilia na comunicação de ações, estados, tipos de conteúdo ou categorias." },
+        { p: "Usado para comunicar ações, estados ou informações de forma compacta e intuitiva, geralmente complementando texto ou funcionando de maneira independente." },
+        { h3: "Princípios" },
+        { cards: [
+          ["Clareza", "Cada Icon deve comunicar seu significado de forma imediata e reconhecível, evitando ambiguidade ou interpretações duplas."],
+          ["Consistência", "Os Icons devem seguir os tamanhos, cores e estilos definidos pelo Design System para manter harmonia visual em toda a interface."],
+          ["Funcionalidade", "O Icon deve ter um propósito claro — complementar informações ou representar ações — nunca ser apenas decorativo sem intenção definida."]
+        ] },
+        { h2: "Quando usar" },
+        { p: "Use o Icon quando for necessário representar uma ação, status, tipo de conteúdo ou categoria de forma visual e rápida, especialmente em interfaces compactas ou de alta densidade informacional. O Icon deve sempre reforçar a mensagem transmitida, e não substituí-la — por isso, é indicado seu uso acompanhado de texto em casos de possível ambiguidade." },
+        { h3: "Utilize para:" },
+        { ul: ["Use Icon para reforçar ações e tornar a interface mais escaneável.", "Para sinalizar status ou estados do sistema.", "Em componentes de navegação (ex: setas, chevrons, home).", "Para manter consistência visual em interfaces densas ou modulares."] },
+        { h3: "Não utilize para:" },
+        { ul: ["Como único meio de transmitir uma informação crítica ou funcional.", "Em contextos onde o reconhecimento visual não for garantido (ex: públicos diversos ou não familiarizados).", "Se o uso do Icon gerar ruído visual ou competir com outros elementos.", "Quando o significado do Icon não for claro sem suporte textual."] },
+        { h2: "Casos de uso" },
+        { h3: "Icon vs Button Icon" },
+        { p: "O componente Icon representa apenas o símbolo gráfico em si — sem interação por padrão — e deve ser utilizado de forma complementar, como elemento visual dentro de outros componentes ou experiências. Já o Button Icon é um componente interativo que combina um Icon com comportamento de botão, sendo projetado para executar ações ao clique ou toque. Use o Icon isoladamente quando a intenção for reforçar visualmente uma informação ou interface, sem gerar interação direta. Utilize o Button Icon quando o Icon for o elemento acionável principal, como em barras de ferramentas, menus compactos ou ações rápidas com foco na iconografia." },
+        { compare: [
+          { title: "Icon: só o símbolo, sem interação", attrs: ic("edit-line", { size: "large", appearance: "neutral" }) },
+          { title: "Icon Button: ação ao clique ou toque", attrs: { _tag: "cds-icon-button", icon: "edit-line", label: "Editar", appearance: "neutral" } }
+        ] },
+        { note: "Suporte: canal #castanha-suporte no Slack." }
+      ] },
+
+      { id: "anatomia", title: "Anatomia", blocks: [
+        { h2: "Anatomia" },
+        { anatomy: { attrs: { _tag: "div", class: "pg-doc-row", _children: [ic("home-line", { size: "large", appearance: "neutral" })] }, markers: [{ n: 1, target: "cds-icon", side: "right" }], legend: ["Icon (Choose Icon · 16, 20 ou 24)"] } },
+        { h2: "Propriedades" },
+        { props: [
+          { name: "Choose Icon", type: "Instance swap", default: "placeholder" },
+          { name: "Appearance", type: "Variant", default: "Accent", values: ["Accent", "Neutral", "Positive", "Warning", "Negative", "Informative", "Inversed"] },
+          { name: "Size", type: "Variant", default: "Small", values: ["Small", "Medium", "Large"] }
+        ] },
+        { note: "Props e padrões lidos do set Icon da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, `icon` escolhe o ícone (nome do arquivo em `assets/icons`) e `label` dá o nome acessível." }
+      ] },
+
+      { id: "estilos", title: "Estilos", blocks: [
+        { h2: "Size" },
+        { specimens: { min: "var(--common-sizes-120)", items: [
+          { label: "Small · 16", attrs: { icon: "home-line", appearance: "neutral" } }, { label: "Medium · 20", attrs: { icon: "home-line", appearance: "neutral", size: "medium" } }, { label: "Large · 24", attrs: { icon: "home-line", appearance: "neutral", size: "large" } }
+        ] } },
+        { h2: "Appearance" },
+        { specimens: { min: "var(--common-sizes-120)", items: [
+          { label: "Accent", attrs: { icon: "meal-line", size: "large" } }, { label: "Neutral", attrs: { icon: "meal-line", size: "large", appearance: "neutral" } },
+          { label: "Positive", attrs: { icon: "positive-line", size: "large", appearance: "positive" } }, { label: "Warning", attrs: { icon: "warning-line", size: "large", appearance: "warning" } },
+          { label: "Negative", attrs: { icon: "close-line", size: "large", appearance: "negative" } }, { label: "Informative", attrs: { icon: "information-line", size: "large", appearance: "informative" } },
+          { label: "Inversed", attrs: { _tag: "div", class: "pg-doc-on-inversed", _children: [ic("meal-line", { size: "large", appearance: "inversed" })] } }
+        ] } }
+      ] },
+
+      { id: "acessibilidade", title: "Acessibilidade", blocks: [
+        { h2: "Leitor de tela" },
+        { ul: [
+          "Sem `label`, o Icon é decorativo (`aria-hidden`): o significado precisa estar no texto ao lado.",
+          "Com `label`, vira imagem com nome (`role=\"img\"`). Use só quando o ícone informa sozinho, sem texto ao lado.",
+          "O Icon não é interativo. Para ação, use o Icon Button, que tem foco, nome e área de toque."
+        ] },
+        { h2: "Contraste (WCAG)" },
+        { ul: ["Sobre Surface/default: Neutral 16,96:1 · Negative 13,50:1 · Informative 12,03:1 · Warning 10,44:1 · Positive 9,22:1 · Accent 4,54:1 — todos acima de 3:1 para elementos gráficos (1.4.11).", "Inversed sobre Surface/inversed: 16,96:1."] },
+        { note: "Contrastes medidos no tema light do playground. O zeroheight ainda não tem seção de Acessibilidade para o Icon." }
+      ] },
+
+      { id: "diretrizes", title: "Diretrizes", blocks: [
+        { h2: "Diretrizes de uso" },
+        { guides: [
+          { attrs: row([ic("home-line", { appearance: "neutral" }), ic("home-line", { appearance: "neutral", size: "medium" }), ic("home-line", { appearance: "neutral", size: "large" })], true), title: "Tamanhos", text: "Utilize sempre os tamanhos padronizados definidos pelo Design System (SM, MD e LG) para garantir alinhamento visual e consistência entre os componentes. Não redimensione manualmente os Icons no Figma ou via CSS — use apenas os tamanhos definidos nas propriedades do componente." },
+          { attrs: row([ic("positive-line", { size: "large", appearance: "positive" }), ic("warning-line", { size: "large", appearance: "warning" }), ic("close-line", { size: "large", appearance: "negative" }), ic("information-line", { size: "large", appearance: "informative" })], true), title: "Cores", text: "Utilize apenas as cores semânticas disponibilizadas nas propriedades do componente. Essas cores foram definidas para manter consistência visual, comunicar estados corretamente e garantir acessibilidade. Evite aplicar cores arbitrárias ou fora dos tokens semânticos predefinidos, mesmo que visualmente semelhantes." }
+        ] }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { h2: "Motion" },
+        { p: "O Icon é estático: não tem estados de interação nem animação própria. Quando está dentro de outro componente (botões, Tag, Link), segue o Motion do componente pai." }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/icon/icon.docs.js", e); }
+
 /* ==== components/avatar/avatar.js ==== */
 try {
 /**
@@ -1065,6 +1279,114 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/avatar/avatar.playground.js", e); }
+
+/* ==== components/avatar/avatar.docs.js ==== */
+try {
+/* Documentação — Avatar
+   Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Avatar, 76f32f) reaproveitado; props e padrões do set da lib estável (Avatar 2278:92 — sem description);
+   acessibilidade e contrastes do playground. O zeroheight não tem a tab Style e a seção Motion está com o texto modelo (C135). */
+(function(){
+  window.CDS = window.CDS || {};
+  CDS.docs = CDS.docs || {};
+  var PHOTO = "assets/brand/sample-photo.svg";
+  function av(more){ return Object.assign({ _tag: "cds-avatar" }, more || {}); }
+  function row(items){ return { _tag: "div", class: "pg-doc-row pg-doc-row--wide", _children: items }; }
+  function media(avatar, title, text){ return { _tag: "div", class: "pg-doc-media", _children: [avatar, { _tag: "p", class: "pg-doc-media__text", _children: [{ _tag: "strong", _text: title }, { _tag: "span", _text: text }] }] }; }
+
+  CDS.docs["avatar"] = {
+    tag: "cds-avatar",
+    base: {},
+    source: "https://castanha.caju.com.br/858426090/v/latest/p/76f32f-avatar", sourceLabel: "Abrir o Avatar no zeroheight",
+    cover: { description: "O Avatar é um componente utilizado para representar visualmente uma pessoa usuária, seja por meio de imagem, iniciais ou ícone padrão. Ele ajuda na identificação rápida de perfis em áreas onde o contexto pessoal é relevante.", examples: [
+      row([av({ kind: "image", src: PHOTO, size: "large", name: "Ana Alves" }), av({ kind: "initial", label: "AA", size: "large", name: "Ana Alves" }), av({ size: "large" })])
+    ] },
+    tabs: [
+      { id: "uso", title: "Uso", blocks: [
+        { h2: "Sobre" },
+        { p: "O Avatar é um componente utilizado para representar visualmente uma pessoa usuária, seja por meio de imagem, iniciais ou ícone padrão. Ele ajuda na identificação rápida de perfis em áreas onde o contexto pessoal é relevante." },
+        { h3: "Nomes alternativos comuns" },
+        { p: "Foto do perfil, User picture, Imagem do usuário." },
+        { h3: "Princípios" },
+        { cards: [
+          ["Clareza de identificação", "O Avatar deve facilitar o reconhecimento imediato da pessoa usuária."],
+          ["Consistência visual", "Manter proporções, bordas e estilos alinhados ao Design System."],
+          ["Fallback informativo", "Quando não houver imagem, o Avatar deve exibir ícone ou iniciais de forma clara e legível."]
+        ] },
+        { h2: "Quando usar" },
+        { p: "Use Avatares sempre que houver necessidade de identificar ou representar visualmente uma pessoa usuária dentro da interface, especialmente em listas, cabeçalhos, detalhes de perfil e elementos interativos ligados à conta." },
+        { h3: "Utilize para:" },
+        { ul: ["Exibir foto de perfil da pessoa usuária.", "Representar um usuário em listas, tabelas ou cards.", "Indicar o dono de um conteúdo, como comentários ou avaliações."] },
+        { h3: "Não utilize para:" },
+        { ul: ["Representar objetos, marcas ou elementos que não sejam pessoas usuárias.", "Substituir imagens decorativas ou ilustrativas.", "Exibir informações textuais extensas."] },
+        { note: "Suporte: canal #castanha-suporte no Slack." }
+      ] },
+
+      { id: "anatomia", title: "Anatomia", blocks: [
+        { h2: "Anatomia" },
+        { anatomy: { attrs: { _tag: "div", class: "pg-doc-row", _children: [av({ size: "large" })] }, markers: [{ n: 1, target: "cds-avatar", side: "left" }, { n: 2, target: "cds-icon", side: "right" }], legend: ["Container (círculo)", "Conteúdo: Icon (Default), iniciais (Initial) ou foto (Image)"] } },
+        { h2: "Propriedades" },
+        { props: [
+          { name: "Kind", type: "Variant", default: "Default", values: ["Default", "Image", "Initial"] },
+          { name: "Appearance", type: "Variant", default: "Neutral", values: ["Neutral", "Inversed"] },
+          { name: "Size", type: "Variant", default: "Small", values: ["Small", "Medium", "Large"] },
+          { name: "Text Label", type: "Text", default: "AA" }
+        ] },
+        { table: { head: ["Size", "Container", "Icon (Default)", "Iniciais (Initial)"], rows: [["Small", "40", "20", "Label/Medium"], ["Medium", "48", "20", "Subtitle/Small"], ["Large", "64", "24", "Subtitle/Small"]] } },
+        { note: "Props e padrões lidos do set Avatar da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código: `src` é a foto (Kind=Image), `label` são as iniciais (Kind=Initial) e `name` é o nome da pessoa (nome acessível). Na lib, Image só existe em Neutral." }
+      ] },
+
+      { id: "estilos", title: "Estilos", blocks: [
+        { h2: "Kind" },
+        { specimens: { min: "var(--common-sizes-120)", items: [
+          { label: "Default", attrs: { size: "medium" } }, { label: "Initial", attrs: { kind: "initial", label: "AA", size: "medium" } }, { label: "Image", attrs: { kind: "image", src: PHOTO, size: "medium" } }
+        ] } },
+        { h2: "Size" },
+        { specimens: { min: "var(--common-sizes-120)", items: [
+          { label: "Small · 40", attrs: { kind: "initial", label: "AA" } }, { label: "Medium · 48", attrs: { kind: "initial", label: "AA", size: "medium" } }, { label: "Large · 64", attrs: { kind: "initial", label: "AA", size: "large" } }
+        ] } },
+        { h2: "Appearance" },
+        { specimens: { min: "var(--common-sizes-120)", items: [
+          { label: "Neutral", attrs: { kind: "initial", label: "AA", size: "medium" } },
+          { label: "Inversed", attrs: { _tag: "div", class: "pg-doc-on-inversed", _children: [av({ kind: "initial", label: "AA", size: "medium", appearance: "inversed" }), av({ size: "medium", appearance: "inversed" })] } }
+        ] } }
+      ] },
+
+      { id: "acessibilidade", title: "Acessibilidade", blocks: [
+        { h2: "Leitor de tela" },
+        { ul: [
+          "Com `name`, o Avatar é anunciado como imagem com o nome da pessoa (`role=\"img\"`), em qualquer Kind.",
+          "Sem `name`, é decorativo — use assim quando o nome já aparece em texto ao lado, para não repetir a leitura.",
+          "As iniciais e o ícone não são lidos: o nome vem só do `name`.",
+          "O Avatar não é interativo. Se abrir o perfil, coloque-o dentro de um link ou botão com nome."
+        ] },
+        { h2: "Contraste (WCAG)" },
+        { ul: ["Iniciais (Text/intense) sobre Surface/01: 15,27:1 — AA e AAA.", "Inversed: iniciais (Text/inversed) sobre o fundo do Avatar (Neutral/Opacity/Soft/light) em Surface/inversed: 5,95:1 — AA."] },
+        { note: "Contrastes medidos no tema light do playground. O zeroheight ainda não tem seção de Acessibilidade para o Avatar." }
+      ] },
+
+      { id: "diretrizes", title: "Diretrizes", blocks: [
+        { h2: "Diretrizes de uso" },
+        { guides: [
+          { attrs: row([av({ kind: "image", src: PHOTO }), av({ kind: "image", src: PHOTO, size: "medium" }), av({ kind: "image", src: PHOTO, size: "large" })]), title: "Escolha o tamanho adequado ao contexto", text: "Use o tamanho de Avatar disponibilizado pelo DS conforme o espaço e importância da informação." },
+          { attrs: row([av({ kind: "initial", label: "AA", size: "medium" }), av({ size: "medium" })]), title: "Utilize o fallback apenas quando necessário", text: "Se não houver imagem, deixe o componente exibir automáticamente o ícone ou iniciais — não substitua manualmente por outras imagens ou símbolos." }
+        ] },
+        { h2: "Do's and Don'ts" },
+        { h3: "Conteúdo" },
+        { dodont: [
+          { kind: "do", attrs: media(av({ kind: "image", src: PHOTO, size: "medium" }), "Ana Alves", "Comentou há 2 horas"), text: "Use o Avatar apenas para identificar pessoas usuárias, garantindo que ele sempre esteja ligado a um nome, ação ou informação relacionada a alguém." },
+          { kind: "dont", attrs: media(av({ kind: "initial", label: "VR", size: "medium" }), "Vale-refeição", "Saldo disponível"), text: "Não use o Avatar para representar elementos que não sejam pessoas usuárias, como obejtos ou elementos do produto." }
+        ] }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { h2: "Motion" },
+        { p: "O Avatar é estático: não tem estados de interação nem animação própria." },
+        { alert: { appearance: "warning", label: "Especificação pendente", text: "A seção Motion do Avatar no zeroheight ainda está com o texto modelo e a tabela vazia (Enabled, Hovered, Loading, Pressed), e a lib não tem esses estados (CONFERIR C135)." } }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/avatar/avatar.docs.js", e); }
 
 /* ==== components/breadcrumb-item/breadcrumb-item.js ==== */
 try {
@@ -2065,6 +2387,103 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/image/image.playground.js", e); }
+
+/* ==== components/image/image.docs.js ==== */
+try {
+/* Documentação — Image
+   Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Image, 933f87) reaproveitado; props e padrões do set da lib estável (Image 2273:320 — sem description);
+   acessibilidade do playground. O zeroheight não tem a tab Style e a seção Motion está com o texto modelo (C135). */
+(function(){
+  window.CDS = window.CDS || {};
+  CDS.docs = CDS.docs || {};
+  var PHOTO = "assets/brand/sample-photo.svg";
+  function img(ratio, more){ return Object.assign({ _tag: "cds-image", src: PHOTO, alt: "Pessoa sorrindo", "aspect-ratio": ratio || "none", class: "pg-doc-img" }, more || {}); }
+  function row(items){ return { _tag: "div", class: "pg-doc-row pg-doc-row--wide", _children: items }; }
+
+  CDS.docs["image"] = {
+    tag: "cds-image",
+    base: { src: PHOTO, alt: "Pessoa sorrindo", class: "pg-doc-img" },
+    source: "https://castanha.caju.com.br/858426090/v/latest/p/933f87-image", sourceLabel: "Abrir o Image no zeroheight",
+    cover: { description: "O componente Image é utilizado para exibir imagens estáticas em diferentes contextos do produto, garantindo consistência visual e preservação correta das proporções. Ele oferece controle simples e direto permitindo que a imagem se adapte a diferentes layouts sem distorção.", examples: [
+      row([img("1:1", { class: "pg-doc-img pg-doc-img--sm" }), img("3:2", { class: "pg-doc-img" })])
+    ] },
+    tabs: [
+      { id: "uso", title: "Uso", blocks: [
+        { h2: "Sobre" },
+        { p: "O componente Image é utilizado para exibir imagens estáticas em diferentes contextos do produto, garantindo consistência visual e preservação correta das proporções. Ele oferece controle simples e direto permitindo que a imagem se adapte a diferentes layouts sem distorção." },
+        { h3: "Nomes alternativos comuns" },
+        { p: "Imagem, Media / Media Object, Picture" },
+        { h3: "Princípios" },
+        { cards: [
+          ["Clareza visual", "A imagem deve preservar sua proporção original sempre que possível, evitando cortes ou distorções que prejudiquem a compreensão do conteúdo."],
+          ["Consistência", "Aspect ratios padronizados garantem previsibilidade entre componentes que exibem mídia dentro do produto."],
+          ["Flexibilidade", "A variante none permite uso mais livre da imagem, enquanto 1:1 e 3:2 organizam a composição em layouts que exigem estrutura fixa."]
+        ] },
+        { h2: "Quando usar" },
+        { p: "Use o componente Image sempre que for necessário exibir uma imagem estática que complemente ou enriqueça o conteúdo. Ele é indicado para cartões, listas, modais e demais áreas onde a imagem apoia a compreensão ou a tomada de decisão, além de ser útil em layouts que exigem padronização visual por meio de proporções consistentes entre múltiplas imagens." },
+        { h3: "Utilize para:" },
+        { ul: ["Reforçar contexto visual em cards, tabelas, resumos e destaques.", "Mostrar prévias ou thumbnails com proporção consistente.", "Exibir imagens responsivas que devem se adaptar ao container mantendo o ratio."] },
+        { h3: "Não utilize para:" },
+        { ul: ["Exibir mídias interativas, animadas ou em movimento, como GIFs, WebP animado ou vídeos — o componente Image suporta apenas imagens estáticas.", "Ilustrações decorativas que não exigem controle de proporção — nesses casos, utilize diretamente o asset ou outro componente apropriado."] },
+        { note: "Suporte: canal #castanha-suporte no Slack." }
+      ] },
+
+      { id: "anatomia", title: "Anatomia", blocks: [
+        { h2: "Anatomia" },
+        { anatomy: { attrs: { "aspect-ratio": "3:2" }, markers: [{ n: 1, target: "img", side: "right" }], legend: ["Frame com a imagem no Fill (cortada para caber na proporção)"] } },
+        { h2: "Propriedades" },
+        { props: [
+          { name: "Aspect Ratio", type: "Variant", default: "None", values: ["None", "1:1", "3:2"] }
+        ] },
+        { note: "Props e padrões lidos do set Image da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código: `src` é a imagem, `alt` o texto alternativo e `aspect-ratio` a proporção. A largura vem do container; sem `src`, aparece a superfície de placeholder (Surface/01)." }
+      ] },
+
+      { id: "estilos", title: "Estilos", blocks: [
+        { h2: "Aspect Ratio" },
+        { specimens: { min: "var(--common-sizes-200)", items: [
+          { label: "None (proporção da imagem)", attrs: { "aspect-ratio": "none" } }, { label: "1:1", attrs: { "aspect-ratio": "1:1" } }, { label: "3:2", attrs: { "aspect-ratio": "3:2" } }
+        ] } },
+        { h2: "Sem imagem" },
+        { specimens: { min: "var(--common-sizes-200)", items: [
+          { label: "Placeholder 1:1", attrs: { src: null, alt: null, "aspect-ratio": "1:1" } }, { label: "Placeholder 3:2", attrs: { src: null, alt: null, "aspect-ratio": "3:2" } }
+        ] } }
+      ] },
+
+      { id: "acessibilidade", title: "Acessibilidade", blocks: [
+        { h2: "Leitor de tela" },
+        { ul: [
+          "O Image usa `<img>`: o `alt` é o que o leitor de tela anuncia.",
+          "Quando a imagem informa algo, descreva o conteúdo no `alt` (ex.: \"Cartão Caju sobre a mesa\").",
+          "Quando é decorativa ou repete o texto ao lado, deixe o `alt` vazio — o leitor de tela pula a imagem.",
+          "Não coloque texto importante só dentro da imagem: ele não é lido nem se adapta ao zoom."
+        ] },
+        { note: "O zeroheight ainda não tem seção de Acessibilidade para o Image. Contraste não se aplica ao componente: depende da imagem usada." }
+      ] },
+
+      { id: "diretrizes", title: "Diretrizes", blocks: [
+        { h2: "Diretrizes de uso" },
+        { guides: [
+          { attrs: img("1:1", { class: "pg-doc-img pg-doc-img--sm" }), title: "Inserção da imagem no Figma", text: "O componente Image é estruturado por um frame que recebe a imagem diretamente pelo Fill do Figma, onde a pessoa usuária deve inserir exclusivamente arquivos estáticos (JPG, PNG, WebP estático ou SVG estático). A imagem não deve ser adicionada como layer separado, garantindo que o componente mantenha suas proporções e variantes de Aspect Ratio funcionando corretamente." },
+          { attrs: img("3:2"), title: "Imagens", text: "Utilize apenas imagens estáticas (JPG, PNG, WebP estático ou SVG estático) para garantir consistência e performance no produto." }
+        ] },
+        { h2: "Do's and Don'ts" },
+        { h3: "Conteúdo" },
+        { dodont: [
+          { kind: "do", attrs: img("3:2"), text: "Insira a imagem sempre através do Fill, preservando a integridade do componente." },
+          { kind: "dont", attrs: { _tag: "div", class: "pg-doc-loose-frame", _children: [{ _tag: "img", src: PHOTO, alt: "" }] }, text: "Não adicione a imagem como layer solto dentro do frame — isso quebra a estrutura do componente." }
+        ] },
+        { note: "No código, o equivalente ao Fill é o atributo `src`: não coloque um `<img>` solto dentro do `cds-image`." }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { h2: "Motion" },
+        { p: "O Image é estático: não tem estados de interação nem animação própria." },
+        { alert: { appearance: "warning", label: "Especificação pendente", text: "A seção Motion do Image no zeroheight ainda está com o texto modelo e a tabela vazia (Enabled, Hovered, Loading, Pressed), e a lib não tem esses estados (CONFERIR C135)." } }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/image/image.docs.js", e); }
 
 /* ==== components/banner/banner.js ==== */
 try {
@@ -4864,6 +5283,132 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/shaped-icon/shaped-icon.playground.js", e); }
+
+/* ==== components/shaped-icon/shaped-icon.docs.js ==== */
+try {
+/* Documentação — Shaped Icon
+   Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Shaped Icon, 7620fa · status Improvement) reaproveitado; props, padrões e description do set da lib estável (Shaped Icon 2272:146);
+   acessibilidade e contrastes do playground. O zeroheight não tem a tab Style nem Motion (C135). */
+(function(){
+  window.CDS = window.CDS || {};
+  CDS.docs = CDS.docs || {};
+  function si(icon, appearance, more){ return Object.assign({ _tag: "cds-shaped-icon", icon: icon, appearance: appearance || "neutral" }, more || {}); }
+  function row(items){ return { _tag: "div", class: "pg-doc-row pg-doc-row--wide", _children: items }; }
+  function media(shaped, title, text){ return { _tag: "div", class: "pg-doc-media", _children: [shaped, { _tag: "p", class: "pg-doc-media__text", _children: [{ _tag: "strong", _text: title }, { _tag: "span", _text: text }] }] }; }
+
+  CDS.docs["shaped-icon"] = {
+    tag: "cds-shaped-icon",
+    base: { icon: "placeholder-line" },
+    source: "https://castanha.caju.com.br/858426090/v/latest/p/7620fa-shaped-icon", sourceLabel: "Abrir o Shaped Icon no zeroheight",
+    cover: { description: "O Shaped Icon é um ícone envolto por um fundo colorido e com formato definido, que confere maior ênfase visual e peso hierárquico. Ele é utilizado para evidenciar categorias, ações contextuais ou estados visuais sem depender de interação.", examples: [
+      row([si("meal-line", "accent", { size: "medium" }), si("positive-line", "positive", { size: "medium" }), si("warning-line", "warning", { size: "medium" }), si("information-line", "informative", { size: "medium" })])
+    ] },
+    tabs: [
+      { id: "uso", title: "Uso", blocks: [
+        { h2: "Sobre" },
+        { p: "O Shaped Icon é um ícone envolto por um fundo colorido e com formato definido, que confere maior ênfase visual e peso hierárquico. Ele é utilizado para evidenciar categorias, ações contextuais ou estados visuais sem depender de interação." },
+        { h3: "Nomes alternativos comuns" },
+        { p: "Icon Tile" },
+        { h3: "Princípios" },
+        { cards: [
+          ["Clareza visual", "Deve destacar o ícone de forma legível e imediata, reforçando a mensagem sem competir com outros elementos."],
+          ["Consistência semântica", "As cores devem seguir as variantes semânticas do Design System para comunicar estados e significados de forma uniforme."],
+          ["Equilíbrio e hierarquia", "Deve ser usado com moderação, mantendo alinhamento e proporção adequados para preservar a hierarquia visual da interface."]
+        ] },
+        { h2: "Quando usar" },
+        { p: "O Shaped Icon funciona como um marcador visual para ações, estados ou categorias, sem função interativa. Seu papel é puramente comunicativo e decorativo, muitas vezes substituindo ou reforçando elementos textuais. Pode funcionar tanto de forma isolada, quanto acompanhado de texto, agregando clareza e estrutura visual ao conteúdo." },
+        { h3: "Utilize para:" },
+        { ul: ["Para dar destaque visual a um ícone em meio ao conteúdo.", "Quando for necessário reforçar um status ou categoria (por exemplo: erro, sucesso, aviso, etc).", "Para representar ações complementares ao conteúdo, como atalhos ou indicações visuais.", "Em listas, cards ou títulos, para facilitar o escaneamento visual."] },
+        { h3: "Não utilize para:" },
+        { ul: ["Como substituto de botões interativos (use o Button Icon).", "Quando não há necessidade de destacar o ícone visualmente — nesse caso, prefira o Icon simples.", "Para ações ou cliques, já que o componente não possui interação."] },
+        { h2: "Casos de uso" },
+        { h3: "Shaped Icon vs Icon" },
+        { p: "O Shaped Icon é uma versão do ícone que possui um fundo colorido com forma definida, o que o torna mais chamativo e visualmente destacado. Já o componente Icon é simples, sem fundo, e tem uma aparência mais discreta, sendo ideal para contextos mais neutros ou com menor carga visual. Enquanto o Icon é usado principalmente de forma funcional, como apoio em botões, textos ou listas onde a simplicidade é prioridade, o Shaped Icon atua como um marcador visual. Ele reforça mensagens, categorias ou estados — mesmo sem interação — funcionando bem quando se deseja adicionar peso visual e facilitar o reconhecimento." },
+        { compare: [
+          { title: "Shaped Icon", attrs: si("meal-line", "accent", { size: "medium" }) },
+          { title: "Icon", attrs: { _tag: "cds-icon", icon: "meal-line", size: "large" } }
+        ] },
+        { h3: "Shaped Icon vs Button icon" },
+        { p: "A principal diferença entre o Shaped Icon e o Button Icon está na interatividade. Enquanto o Shaped Icon é um elemento exclusivamente visual, utilizado para comunicar categorias, status ou reforçar um contexto, o Button Icon é um componente interativo, desenvolvido para realizar ações específicas, como editar, excluir ou compartilhar." },
+        { compare: [
+          { title: "Shaped Icon: só visual", attrs: si("share-line", "neutral", { size: "small" }) },
+          { title: "Icon Button: interativo", attrs: { _tag: "cds-icon-button", icon: "share-line", label: "Compartilhar", appearance: "neutral" } }
+        ] },
+        { note: "Suporte: canal #castanha-suporte no Slack." }
+      ] },
+
+      { id: "anatomia", title: "Anatomia", blocks: [
+        { h2: "Anatomia" },
+        { anatomy: { attrs: { _tag: "div", class: "pg-doc-row", _children: [si("meal-line", "accent", { size: "large" })] }, markers: [{ n: 1, target: "cds-shaped-icon", side: "left" }, { n: 2, target: "cds-icon", side: "right" }], legend: ["Shape (fundo com raio)", "Icon (nested instance)"] } },
+        { h2: "Propriedades" },
+        { props: [
+          { name: "Icon", type: "Instance swap", default: "placeholder" },
+          { name: "Appearance", type: "Variant", default: "Neutral", values: ["Accent", "Neutral", "Positive", "Warning", "Negative", "Informative", "Inversed"] },
+          { name: "Size", type: "Variant", default: "Smallest", values: ["Smallest", "Small", "Medium", "Large"] }
+        ] },
+        { table: { head: ["Size", "Shape", "Icon"], rows: [["Smallest", "32 · raio extra-small", "16"], ["Small", "40 · raio small", "16"], ["Medium", "48 · raio medium", "20"], ["Large", "56 · raio medium", "24"]] } },
+        { note: "Props e padrões lidos do set Shaped Icon da lib estável. O zeroheight ainda não tem a tab Style deste componente. Size e Appearance do Icon interno derivam do Shaped Icon." }
+      ] },
+
+      { id: "estilos", title: "Estilos", blocks: [
+        { h2: "Size" },
+        { specimens: { min: "var(--common-sizes-120)", items: [
+          { label: "Smallest · 32", attrs: { icon: "meal-line", appearance: "accent" } }, { label: "Small · 40", attrs: { icon: "meal-line", appearance: "accent", size: "small" } },
+          { label: "Medium · 48", attrs: { icon: "meal-line", appearance: "accent", size: "medium" } }, { label: "Large · 56", attrs: { icon: "meal-line", appearance: "accent", size: "large" } }
+        ] } },
+        { h2: "Appearance" },
+        { specimens: { min: "var(--common-sizes-120)", items: [
+          { label: "Neutral", attrs: { icon: "meal-line", size: "medium" } }, { label: "Accent", attrs: { icon: "meal-line", appearance: "accent", size: "medium" } },
+          { label: "Positive", attrs: { icon: "positive-line", appearance: "positive", size: "medium" } }, { label: "Warning", attrs: { icon: "warning-line", appearance: "warning", size: "medium" } },
+          { label: "Negative", attrs: { icon: "close-line", appearance: "negative", size: "medium" } }, { label: "Informative", attrs: { icon: "information-line", appearance: "informative", size: "medium" } },
+          { label: "Inversed", attrs: { _tag: "div", class: "pg-doc-on-inversed", _children: [si("meal-line", "inversed", { size: "medium" })] } }
+        ] } }
+      ] },
+
+      { id: "acessibilidade", title: "Acessibilidade", blocks: [
+        { h2: "Leitor de tela" },
+        { ul: [
+          "Sem `label`, o Shaped Icon é decorativo: o significado precisa estar no texto ao lado.",
+          "Com `label`, vira imagem com nome (`role=\"img\"`). Use só quando ele informa sozinho, sem texto ao lado.",
+          "Não é interativo. Para ação clicável, use o Icon Button."
+        ] },
+        { h2: "Contraste (WCAG)" },
+        { ul: ["Ícone sobre o próprio fundo: Neutral 15,27:1 · Negative 10,33:1 · Informative 9,60:1 · Warning 9,54:1 · Positive 8,02:1 · Accent 4,20:1 · Inversed 16,96:1 — todos acima de 3:1 para elementos gráficos (1.4.11).", "O fundo (Shape) é suave e fica próximo da superfície (1,08 a 1,31:1): o que comunica é o ícone, não o contorno do Shape."] },
+        { note: "Contrastes medidos no tema light do playground. O zeroheight ainda não tem seção de Acessibilidade para o Shaped Icon." }
+      ] },
+
+      { id: "diretrizes", title: "Diretrizes", blocks: [
+        { h2: "Diretrizes de uso" },
+        { guides: [
+          { attrs: row([si("positive-line", "positive", { size: "small" }), si("warning-line", "warning", { size: "small" }), si("close-line", "negative", { size: "small" }), si("information-line", "informative", { size: "small" })]), title: "Cores semânticas", text: "Use apenas cores semânticas (erro, alerta, sucesso, neutro, etc.) disponíveis nas propriedades do componente. Ao utilizar uma cor semântica no Shaped Icon, você garante que o usuário entenda rapidamente o contexto visual." },
+          { attrs: media(si("meal-line", "accent", { size: "small" }), "Vale-refeição", "Use em restaurantes e apps de delivery."), title: "Alinhamento e hierarquia visual", text: "O Shaped Icon deve estar centralizado quando for o elemento principal dentro de um bloco (como em cards ou chamadas de atenção) ou alinhado lateralmente quando estiver acompanhando um título ou texto. Em ambos os casos, respeite os tokens de espaçamento do Design System para garantir uma hierarquia clara e uma leitura fluida da informação." }
+        ] },
+        { h2: "Caso de Exceção" },
+        { h3: "Uso de cores não semânticas" },
+        { p: "O uso padrão do Shaped Icon deve sempre seguir as cores semânticas disponíveis nas variantes do componente." },
+        { p: "No entanto, em casos específicos em que as cores semânticas não atendam ao contexto visual, é permitido utilizar outras cores não semânticas, desde que sejam tokens oficiais do Design System. Essa exceção deve ser aplicada com cautela e apenas quando for necessário preservar a coerência com a identidade visual do produto ou reforçar hierarquia estética em cenários particulares." },
+        { note: "No código, o fundo pode ser trocado por um token oficial com a variável `--cds-shaped-bg` no pai, como prevê a exceção." },
+        { h2: "Do's and Don'ts" },
+        { h3: "Use com moderação" },
+        { dodont: [
+          { kind: "do", attrs: media(si("meal-line", "accent", { size: "small" }), "Vale-refeição", "Saldo disponível para restaurantes."), text: "Use Shaped Icon para destacar pontos importantes e manter a hierarquia visual clara, sem sobrecarga de informações e cores." },
+          { kind: "dont", attrs: row([si("meal-line", "accent", { size: "small" }), si("mobility-line", "positive", { size: "small" }), si("health-line", "warning", { size: "small" }), si("education-line", "informative", { size: "small" }), si("culture-line", "negative", { size: "small" })]), text: "Evite utilizar muitos ícones com fundo em uma mesma tela, pois isso pode poluir o layout e dificultar a leitura do conteúdo principal." }
+        ] },
+        { h3: "Interação" },
+        { dodont: [
+          { kind: "do", attrs: media(si("positive-line", "positive", { size: "small" }), "Pagamento aprovado", "O valor já está disponível."), text: "Use em contextos sintéticos e visuais. O componente funciona melhor em contextos de leitura rápida, onde o ícone reforça uma informação (ex: status, alerta, categoria). Não use em blocos extensos de texto." },
+          { kind: "dont", attrs: row([si("edit-line", "neutral", { size: "small" }), si("delete-line", "neutral", { size: "small" })]), text: "Não utilize o componente como elemento interativo. O Shaped Icon é puramente visual. Para ações clicáveis, utilize o componente Button Icon, que possui suporte a interação e acessibilidade." }
+        ] }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { h2: "Motion" },
+        { p: "O Shaped Icon é estático: não tem estados de interação nem animação própria." }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/shaped-icon/shaped-icon.docs.js", e); }
 
 /* ==== components/alert/alert.js ==== */
 try {

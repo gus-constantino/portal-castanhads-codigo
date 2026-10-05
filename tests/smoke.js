@@ -168,4 +168,10 @@
     "</tbody></table>";
   document.title = (fail ? "❌ " : "✅ ") + pass + "/" + rows.length + (warnings ? " · ⚠️ " + warnings : "") + " — smoke";
   window.CDS_SMOKE = { pass: pass, fail: fail, warnings: warnings, rows: rows };
+  // Para o smoke sem navegador (scripts/dev/smoke.js): o resultado também vai no DOM, como JSON
+  var json = document.createElement("script"); json.type = "application/json"; json.id = "smoke-result";
+  json.textContent = JSON.stringify({ pass: pass, fail: fail, warnings: warnings, total: rows.length,
+    failures: rows.filter(function(r){ return !r.ok; }).map(function(r){ return { id: r.id, errors: r.errors }; }),
+    warned: rows.filter(function(r){ return r.warnings.length; }).map(function(r){ return { id: r.id, warnings: r.warnings }; }) }).replace(/</g, "\\u003c");
+  document.body.appendChild(json);
 })();

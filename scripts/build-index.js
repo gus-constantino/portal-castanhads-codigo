@@ -20,6 +20,8 @@
  * a concatenação dos mesmos arquivos na mesma ordem (sem transpilar nada: o fonte continua sendo o arquivo da pasta).
  * Cada .js entra num try/catch com o nome do arquivo, para um erro não derrubar os seguintes (como era com
  * arquivos separados). Rodar este script depois de qualquer mudança (já era a regra por causa do ?v=hash).
+ *
+ *   node scripts/build-index.js --smoke   → no fim, roda o smoke no Chrome headless (scripts/dev/smoke.js, ~2 s)
  */
 "use strict";
 const fs = require("fs");
@@ -146,4 +148,11 @@ Object.keys(parts).forEach((k) => {
 if (zip / 1024 > BUDGET_KB){
   console.warn(`⚠️  Passou do orçamento: ${kb(zip).trim()} gzip > ${BUDGET_KB} KB. Próximo passo planejado: docs sob demanda (carregar *.docs.js só ao abrir a tab).`);
   if (process.env.BUDGET_STRICT === "1") process.exit(1);
+}
+
+// --smoke: roda o smoke no Chrome headless logo depois do build (scripts/dev/smoke.js). Falha do smoke = build com código 1
+if (process.argv.includes("--smoke")){
+  console.log("");
+  const r = require("child_process").spawnSync(process.execPath, [path.join(__dirname, "dev", "smoke.js")].concat(process.argv.includes("--avisos") ? ["--avisos"] : []), { stdio: "inherit" });
+  if (r.status === 1) process.exit(1);
 }

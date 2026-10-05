@@ -87,30 +87,15 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
 .pg-nav-head .pg-nav-title{ margin:0 var(--common-sizes-8); }
 .pg-nav-view{ display:flex; align-items:center; gap:var(--common-sizes-4); }
 .pg-nav-view[hidden]{ display:none; }
-/* Grade: todas as categorias abertas (sem accordion), título da categoria e cards quadrados com a miniatura real.
-   O DS não tem Card clicável: o card usa os tokens do Card (Surface/default, raio medium, Border/semi-soft hairline) — CONFERIR */
+/* Grade: todas as categorias abertas (sem accordion), título da categoria e cards = composição <cmp-clickable-card> (C165) */
 #nav.is-grid{ gap:var(--common-sizes-16); }
 .pg-nav-grid-group .pg-nav-title{ margin-bottom:var(--common-sizes-8); }
 .pg-nav-grid{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(var(--common-sizes-72), 1fr)); gap:var(--common-sizes-8); }
-.pg-nav-grid .pg-tile{
-  display:flex; flex-direction:column; align-items:stretch; justify-content:flex-start; gap:var(--common-sizes-4); padding:var(--common-sizes-4); text-decoration:none;
-  border-radius:var(--common-border-radius-medium); background:var(--common-colors-surface-default);
-  box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-semi-soft);
-  transition:background-color var(--motion-hover-duration) var(--motion-hover-easing), box-shadow var(--motion-hover-duration) var(--motion-hover-easing);
-}
-.pg-nav-grid .pg-tile__stage{
-  position:relative; overflow:hidden; aspect-ratio:1; border-radius:var(--common-border-radius-small);
-  background:var(--common-colors-surface-01); pointer-events:none;
-}
-.pg-nav-grid .pg-tile__stage.is-cut-y{ -webkit-mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent); mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent); }
-.pg-nav-grid .pg-tile__stage.is-cut-x{ -webkit-mask-image:linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); mask-image:linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); }
-.pg-nav-grid .pg-tile__stage.is-cut-x.is-cut-y{ -webkit-mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent), linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent), linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); -webkit-mask-composite:source-in; mask-composite:intersect; }
-.pg-nav-grid .pg-tile__name{ padding:0 var(--common-sizes-4) var(--common-sizes-4); font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); overflow-wrap:anywhere; }
-.pg-nav-grid .pg-tile:hover{ background:var(--common-colors-surface-01); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-medium); }
-.pg-nav-grid .pg-tile:hover .pg-tile__name{ color:var(--common-colors-text-intense); }
-.pg-nav-grid .pg-tile[aria-current="page"]{ background:var(--common-colors-surface-01); box-shadow:inset 0 0 0 var(--common-border-width-thin) var(--common-colors-border-intense); }
-.pg-nav-grid .pg-tile[aria-current="page"] .pg-tile__name{ font:var(--text-style-disclaimer-medium); color:var(--common-colors-text-intense); }
-.pg-nav-grid .pg-tile:focus-visible{ outline:var(--common-border-width-thin) solid var(--common-colors-support-system); outline-offset:var(--common-border-width-thin); }
+/* Miniatura no Slot do card: ocupa a mídia quadrada; corte (componente maior que a miniatura) some em fade na borda */
+.pg-tile__stage{ position:absolute; inset:0; }
+.pg-tile__stage.is-cut-y{ -webkit-mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent); mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent); }
+.pg-tile__stage.is-cut-x{ -webkit-mask-image:linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); mask-image:linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); }
+.pg-tile__stage.is-cut-x.is-cut-y{ -webkit-mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent), linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent), linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); -webkit-mask-composite:source-in; mask-composite:intersect; }
 
 /* Canvas */
 .pg-canvas{ min-width:0; display:flex; flex-direction:column; }

@@ -182,9 +182,8 @@
   })();
   function isGrid(){ return navView === "grid" && !narrow.matches; }
 
-  // Card da grade: link do tamanho do card (área de clique inteira) com a miniatura quadrada e o nome embaixo.
-  // O DS não tem Card clicável (o Card é container estático, pad 24 + 8): o card usa os tokens do Card
-  // (Surface, raio medium, Border/semi-soft) e os estados de hover/atual do menu. Ver CONFERIR.
+  // Card da grade = composição <cmp-clickable-card> (compositions/clickable-card: o DS não tem Card clicável, C165)
+  // com a miniatura no Slot quadrado e o nome embaixo.
   // Miniaturas montam só quando entram na área visível do menu e desmontam quando saem (100+ playgrounds).
   var thumbs = (function(){
     var side = document.querySelector(".pg-sidebar"), live = [];
@@ -200,11 +199,10 @@
     function tile(c){
       var stage = kit.el("div", { "class": "pg-tile__stage", "data-viewport": "desktop", "aria-hidden": "true" });
       stage._def = c;
-      var a = kit.el("a", { "class": "pg-tile", href: "#/" + c.id }, [stage, kit.el("span", { "class": "pg-tile__name", text: c.name })]);
       var notes = notesOf(c);
-      if (notes.length){ a.setAttribute("aria-description", notes.join(" ")); }
+      var card = kit.el("cmp-clickable-card", { href: "#/" + c.id, label: c.name, description: notes.join(" ") || null }, [stage]); // Slot: entra antes de conectar
       if (c.mount){ live.push(stage); if (io) io.observe(stage); else { stage._prev = mountThumb(stage, c, function(){}); } }
-      return kit.el("li", null, [a]);
+      return kit.el("li", null, [card]);
     }
     function reset(){ live.forEach(function(st){ if (io) io.unobserve(st); st.innerHTML = ""; st._prev = null; }); live = []; }
     return { tile: tile, reset: reset };

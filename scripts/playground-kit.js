@@ -251,7 +251,7 @@
     var has = {}, opts = []; icons.forEach(function(i){ has[i.name] = true; });
     buckets.forEach(function(b){ b.icons.forEach(function(n){ if (has[n]) opts.push([n, n + " · " + b.name]); }); });
     return select(panel, { label: o.label || "Icon (instance swap)", value: o.value, options: opts, searchable: true, placeholder: "Buscar ícone",
-      hint: opts.length + " ícones do [Caju] Icons em " + buckets.length + " categorias · <a href=\"#/caju-icons\">ver biblioteca</a>", onChange: o.onChange });
+      hint: opts.length + " ícones do [Caju] Icons em " + buckets.length + " categorias · <a href=\"#/caju-theme/icones\">ver biblioteca</a>", onChange: o.onChange });
   }
 
   /** Instance swap de ilustração → Async Select Input (valor = "<categoria>/<nome>"). */
@@ -259,7 +259,7 @@
     var A = window.CDS.assets || {}, buckets = A.illustrationBuckets || [], opts = [];
     buckets.forEach(function(b){ b.items.forEach(function(k){ opts.push([k, k.split("/").pop() + " · " + b.name]); }); });
     return select(panel, { label: o.label || "Illustration (instance swap)", value: o.value, options: opts, searchable: true, placeholder: "Buscar ilustração",
-      hint: opts.length + " ilustrações do [Caju] Illustrations em " + buckets.length + " categorias · <a href=\"#/caju-illustrations\">ver biblioteca</a>", onChange: o.onChange });
+      hint: opts.length + " ilustrações do [Caju] Illustrations em " + buckets.length + " categorias · <a href=\"#/caju-theme/ilustracoes\">ver biblioteca</a>", onChange: o.onChange });
   }
 
   /**

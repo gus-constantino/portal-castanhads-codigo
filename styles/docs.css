@@ -445,7 +445,8 @@
 .pg-mo-panel__title{ font:var(--text-style-title-small); color:var(--common-colors-text-intense); }
 .pg-mo-panel__when{ font:var(--text-style-caption-regular); color:var(--common-colors-text-soft); }
 .pg-mo-lab{ display:grid; grid-template-columns:minmax(0, 1.2fr) minmax(0, 1fr); align-items:center; gap:var(--common-sizes-32);
-  padding:var(--common-sizes-24); border-radius:var(--common-border-radius-big); background:var(--common-colors-surface-01); }
+  padding:var(--common-sizes-24); border-radius:var(--common-border-radius-big); background:var(--common-colors-surface-default);
+  box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-semi-soft); } /* Surface/default (os Filter Chips somem no Surface/01) + borda do Card Has Border */
 .pg-mo-lab__view{ display:flex; flex-direction:column; gap:var(--common-sizes-16); min-width:0; }
 .pg-mo-lab__ctl{ display:flex; flex-direction:column; gap:var(--common-sizes-20); min-width:0; }
 .pg-mo-lab__ctl cds-slider{ display:block; width:100%; }

@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 244 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 249 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.js ==== */
 try {
 /**
@@ -159,6 +159,114 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/badge/badge.playground.js", e); }
+
+/* ==== components/badge/badge.docs.js ==== */
+try {
+/* Documentação — Badge
+   Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Badge, 97d72a — página "In progress") reaproveitado; props e padrões do set da lib
+   estável (Badge 4835:1472, description igual à introduction); acessibilidade e contrastes do playground. Divergências no CONFERIR (C133). */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+CDS.docs["badge"] = {
+  tag: "cds-badge",
+  base: { label: "3", viewport: "desktop" },
+  source: "https://castanha.caju.com.br/858426090/v/latest/p/97d72a-badge", sourceLabel: "Abrir o Badge no zeroheight",
+  cover: { description: "O Badge é um elemento visual usado exclusivamente para indicar notificações ou atualizações. Ele serve como um alerta discreto que informa a pessoa usuária sobre algo novo ou pendente em um determinado contexto da interface.", examples: [
+    { _tag: "cds-icon-button", icon: "notification-line", label: "Notificações, 3 novas", appearance: "neutral", "show-notification": true, notification: "3" }, { label: "3" }, { label: "Novo", appearance: "neutral" }
+  ] },
+  tabs: [
+    { id: "uso", title: "Uso", blocks: [
+      { alert: { appearance: "warning", label: "Em andamento", text: "A página do Badge no zeroheight está como \"In progress\": o texto pode mudar." } },
+      { h2: "Sobre" },
+      { p: "O Badge é um elemento visual usado exclusivamente para indicar notificações ou atualizações. Ele serve como um alerta discreto que informa a pessoa usuária sobre algo novo ou pendente em um determinado contexto da interface." },
+      { h3: "Nomes alternativos comuns" },
+      { p: "Notification badge, Counter, Indicator" },
+      { h3: "Princípios" },
+      { cards: [
+        ["Informatividade", "O Badge deve indicar de forma clara a presença de novas notificações ou atualizações, ajudando a pessoa usuária a identificar rapidamente o que requer atenção."],
+        ["Discrição", "Deve chamar atenção sem interromper a experiência da pessoa usuária, mantendo uma presença visual equilibrada e contextual."],
+        ["Consistência", "Deve seguir padrões definidos de posicionamento, cor e tamanho, garantindo previsibilidade e coerência em todas as interfaces."]
+      ] },
+      { h2: "Quando usar" },
+      { p: "Use o Badge apenas para indicar a existência de notificações, contagens de novas mensagens ou atualizações que requerem atenção da pessoa usuária. Ele deve complementar o conteúdo principal, nunca substituí-lo, e ser aplicado de forma sutil e consistente." },
+      { h3: "Utilize para:" },
+      { ul: ["Mostrar o número de notificações não lidas.", "Indicar novas mensagens, alertas ou atualizações.", "Sinalizar que há novos itens em uma lista ou seção."] },
+      { h3: "Não utilize para:" },
+      { ul: ["Indicar status (como ativo, inativo, sucesso ou erro). Para isso, utilize a Tag.", "Classificar ou categorizar conteúdos. Para isso, utilize a Tag.", "Exibir textos descritivos ou informações longas.", "Servir como botão, link ou elemento interativo."] },
+      { h2: "Casos de uso" },
+      { h3: "Badge vs Tag" },
+      { p: "A Tag é usada para categorizar ou rotular conteúdos, podendo aparecer isoladamente. Já o Badge é exclusivamente informativo e indica novas notificações relacionadas a outro elemento, como um ícone, botão ou item de navegação." },
+      { compare: [
+        { title: "Badge: notificação ligada a um elemento", attrs: { _tag: "cds-icon-button", icon: "notification-line", label: "Notificações, 3 novas", appearance: "neutral", "show-notification": true, notification: "3" } },
+        { title: "Tag: categoria ou status", attrs: { _tag: "cds-tag", label: "Em análise", appearance: "warning", "show-lead-item": false } }
+      ] },
+      { h3: "Badge vs Chip Input / Chip Select" },
+      { p: "O Chip é um componente interativo, usado para ações, filtros ou seleção de itens. O Badge, por outro lado, não tem função clicável — ele apenas sinaliza a presença de novas informações." },
+      { note: "Suporte: canal #castanha-suporte no Slack." }
+    ] },
+
+    { id: "anatomia", title: "Anatomia", blocks: [
+      { h2: "Anatomia" },
+      { compare: [
+        { title: "Counter: Container + número", attrs: { label: "3" } },
+        { title: "Text: Container + texto", attrs: { label: "Novo" } },
+        { title: "Counter mobile: ponto", attrs: { label: "3", viewport: "mobile" } }
+      ] },
+      { h2: "Propriedades" },
+      { props: [
+        { name: "Appearance", type: "Variant", default: "Warning", values: ["Warning", "Neutral"] },
+        { name: "Label", type: "Text", default: "0" }
+      ] },
+      { note: "Props e padrões lidos do set Badge da lib estável. O zeroheight lista `Kind` (Text · Counter) e chama `Appearance` de Style; na lib, Counter e Text são o mesmo componente com o conteúdo do `Label`, e o ponto do mobile vem da collection Viewport (CONFERIR C133). No código, `viewport` força Desktop ou Mobile." }
+    ] },
+
+    { id: "estilos", title: "Estilos", blocks: [
+      { h2: "Appearance" },
+      { specimens: { min: "var(--common-sizes-120)", items: [{ label: "Warning", attrs: {} }, { label: "Neutral", attrs: { appearance: "neutral" } }] } },
+      { h2: "Web e Mobile" },
+      { specimens: { min: "var(--common-sizes-120)", items: [
+        { label: "Web · Counter", attrs: { label: "12" } }, { label: "Web · Text", attrs: { label: "Novo" } }, { label: "Web · 99+", attrs: { label: "99+" } }, { label: "Mobile · ponto", attrs: { viewport: "mobile" } }
+      ] } }
+    ] },
+
+    { id: "acessibilidade", title: "Acessibilidade", blocks: [
+      { h2: "Leitor de tela" },
+      { ul: [
+        "O Badge é visual: inclua a contagem no nome do elemento ao qual ele pertence (ex.: Icon Button \"Notificações, 3 novas\").",
+        "No mobile, o ponto não tem número: o nome acessível precisa dizer que há novidades.",
+        "Ao mudar a contagem, use uma região `aria-live=\"polite\"` se a pessoa precisar ser avisada."
+      ] },
+      { h2: "Contraste (WCAG)" },
+      { ul: ["Warning: 10,17:1 — AA e AAA.", "Neutral: 16,96:1 — AA e AAA."] },
+      { note: "Contrastes medidos no tema light do playground. O zeroheight ainda não tem seção de Acessibilidade para o Badge." }
+    ] },
+
+    { id: "diretrizes", title: "Diretrizes", blocks: [
+      { h2: "Diretrizes de uso" },
+      { guides: [
+        { attrs: { _tag: "cds-icon-button", icon: "notification-line", label: "Notificações, 3 novas", appearance: "neutral", "show-notification": true, notification: "3" }, title: "Posicionamento", text: "Posicione o Badge sempre próximo ao elemento que origina a notificação, como um ícone, botão ou item de navegação. Evite posicioná-lo de forma solta ou distante, pois isso pode gerar confusão sobre o que exatamente está sendo notificado." },
+        { attrs: [{ label: "9" }, { label: "42" }, { label: "99+" }], title: "Variante Counter", text: "Na variante Counter, exiba no máximo dois dígitos numéricos para manter a legibilidade e o equilíbrio visual do componente. Quando o valor ultrapassar esse limite, utilize o formato “99+”." },
+        { attrs: { label: "Novo" }, title: "Variante Text", text: "A variante Text do Badge deve ser utilizada exclusivamente em contextos Web e somente para indicar notificações. Ela não deve ser usada para representar status — nesses casos, utilize o componente Tag. O texto exibido (label) precisa ser curto, direto e facilmente compreensível." },
+        { attrs: { viewport: "mobile" }, title: "Counter mobile (dot)", text: "Essa variante é representada por um ponto simples, sem exibir números ou texto, e deve ser usada exclusivamente em interfaces mobile. Seu propósito é indicar de forma discreta que há novas notificações, sem detalhar a quantidade." },
+        { attrs: { _tag: "cds-icon-button", icon: "notification-line", label: "Notificações, 12 novas", appearance: "neutral", "show-notification": true, notification: "12" }, title: "Icon button", text: "Quando o Badge for aplicado em um Icon Button, utilize exclusivamente a variante Counter, exibindo apenas valores numéricos. O uso de texto não é permitido." }
+      ] },
+      { h2: "Do's and Don'ts" },
+      { dodont: [
+        { kind: "do", attrs: { _tag: "cds-icon-button", icon: "notification-line", label: "Notificações, 3 novas", appearance: "neutral", "show-notification": true, notification: "3" }, text: "Use o Badge apenas para indicar notificações." },
+        { kind: "dont", attrs: { label: "Ativo", appearance: "neutral" }, text: "Não use para representar status ou categorias." },
+        { kind: "do", attrs: { label: "99+" }, text: "Mantenha o número curto e dentro do limite visual do componente. Acima de 2 caracteres, utilize 99+" },
+        { kind: "dont", attrs: { label: "1250" }, text: "Não exiba números muito grandes que comprometam a legibilidade." }
+      ] }
+    ] },
+
+    { id: "motion", title: "Motion", blocks: [
+      { h2: "Motion" },
+      { p: "A animação do Badge fornece feedback visual único após ação do usuário ou nova informação. É executada uma vez por evento para evitar distrações. A reprodução reforça a percepção do status atualizado no sistema." },
+      { alert: { appearance: "warning", label: "Especificação pendente", text: "O zeroheight indica a Notificação com easing systemic/decelerate e duração medium/01, que não corresponde a nenhum Motion Style da `.Motion Styles`. A animação ainda não está no componente do playground (CONFERIR C133)." } }
+    ] }
+  ]
+};
+} catch (e) { console.error("[cds] components/badge/badge.docs.js", e); }
 
 /* ==== components/caju-brand/caju-brand.js ==== */
 try {
@@ -4017,6 +4125,99 @@ CDS.register({
 });
 } catch (e) { console.error("[cds] components/progress-line/progress-line.playground.js", e); }
 
+/* ==== components/progress-line/progress-line.docs.js ==== */
+try {
+/* Documentação — Progress Line
+   Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Progress line, 736e43) reaproveitado; props e padrões do set da lib estável
+   (Progress Line 2322:4006); acessibilidade do playground (role="progressbar"). O zeroheight não tem a tab Style e o Motion é placeholder (C133). */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+(function(){
+  var W = "width:calc(var(--common-sizes-200) + var(--common-sizes-120))";
+  function line(pct, extra){ return Object.assign({ _tag: "cds-progress-line", percent: String(pct), label: "Envio dos documentos", style: W }, extra || {}); }
+  function withText(pct, text){ return { _tag: "div", class: "pg-cnt-card", style: W, _children: [line(pct, { style: "width:100%" }), { _tag: "p", class: "pg-cnt-phone__text", _text: text }] }; }
+  CDS.docs["progress-line"] = {
+    tag: "cds-progress-line",
+    source: "https://castanha.caju.com.br/858426090/v/latest/p/736e43-progress-line", sourceLabel: "Abrir a Progress line no zeroheight",
+    cover: { description: "O Progress Line é um indicador visual não interativo que representa o progresso de uma operação ao longo do tempo, ajudando a pessoa usuária a entender em que estágio o processo se encontra.", examples: [withText(50, "Etapa 2 de 4")] },
+    tabs: [
+      { id: "uso", title: "Uso", blocks: [
+        { h2: "Sobre" },
+        { p: "O Progress Line é um indicador visual não interativo que representa o progresso de uma operação ao longo do tempo, ajudando a pessoa usuária a entender em que estágio o processo se encontra." },
+        { h3: "Nomes alternativos comuns" },
+        { p: "Progress Bar, Barra de progresso, Indicador de progresso linear" },
+        { h3: "Princípios" },
+        { cards: [
+          ["Clareza", "O avanço do progresso deve ser imediatamente compreensível, mesmo sem texto auxiliar."],
+          ["Previsibilidade", "O crescimento da barra acontece sempre da esquerda para a direita, refletindo a evolução natural do processo."],
+          ["Consistência", "Mantém padrão visual e comportamento alinhados aos demais indicadores de status do sistema."]
+        ] },
+        { h2: "Quando usar" },
+        { p: "Use o Progress Line quando for necessário comunicar visualmente o andamento de uma operação mensurável, especialmente em fluxos em que a pessoa usuária precisa acompanhar a evolução de uma tarefa até sua conclusão." },
+        { h3: "Utilize para:" },
+        { ul: ["Indicar progresso de carregamentos com percentual conhecido", "Representar etapas concluídas em processos lineares", "Comunicar avanço de ações que levam alguns segundos ou mais"] },
+        { h3: "Não utilize para:" },
+        { ul: ["Estados de carregamento sem previsão de término", "Indicar apenas que algo está em processamento, sem progresso mensurável", "Apenas como um separador visual sem função de indicação de progresso"] },
+        { h2: "Casos de uso" },
+        { h3: "Progress Line vs Spinner" },
+        { p: "O Progress Line deve ser utilizado quando existe a possibilidade de informar avanço real da operação. Já o Spinner é mais adequado para processos indeterminados, em que não há como calcular progresso." },
+        { compare: [
+          { title: "Progress Line: avanço mensurável", attrs: line(60) },
+          { title: "Spinner: duração indeterminada", attrs: { _tag: "cds-spinner", size: "large", appearance: "accent" } }
+        ] },
+        { h3: "Progress Line vs Stepper" },
+        { p: "Enquanto o Progress Line comunica avanço contínuo em percentual, o Stepper é indicado para fluxos divididos em etapas bem definidas e discretas." },
+        { note: "Suporte: canal #castanha-suporte no Slack." }
+      ] },
+
+      { id: "anatomia", title: "Anatomia", blocks: [
+        { h2: "Anatomia" },
+        { anatomy: { attrs: line(60), markers: [{ n: 2, target: ".cds-pl__bar", side: "top" }], legend: ["Track (fundo da barra)", "Indicador de progresso"] } },
+        { h2: "Propriedades" },
+        { props: [{ name: "Percent", type: "Variant", default: "0", values: ["0", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100"] }] },
+        { note: "Props e padrões lidos do set Progress Line da lib estável. No código, `percent` aceita qualquer valor de 0 a 100 e `label` dá o nome acessível. O zeroheight ainda não tem a tab Style deste componente." }
+      ] },
+
+      { id: "estilos", title: "Estilos", blocks: [
+        { h2: "Percent" },
+        { specimens: { min: "calc(var(--common-sizes-200) + var(--common-sizes-120))", items: [
+          { label: "0%", attrs: line(0) }, { label: "30%", attrs: line(30) }, { label: "70%", attrs: line(70) }, { label: "100%", attrs: line(100) }
+        ] } }
+      ] },
+
+      { id: "acessibilidade", title: "Acessibilidade", blocks: [
+        { h2: "Leitor de tela" },
+        { ul: [
+          "É anunciado como barra de progresso (`role=\"progressbar\"`), com `aria-valuenow` de 0 a 100.",
+          "Dê um nome com `label` que diga o que está avançando (ex.: \"Envio dos documentos\").",
+          "Se houver texto complementar (\"Etapa 2 de 4\"), ele fica visível ao lado e também é lido."
+        ] },
+        { note: "O zeroheight ainda não tem seção de Acessibilidade para a Progress line." }
+      ] },
+
+      { id: "diretrizes", title: "Diretrizes", blocks: [
+        { h2: "Diretrizes de uso" },
+        { guides: [
+          { attrs: line(40), title: "Representar progresso real", text: "Utilize valores de progresso que correspondam de fato ao estado da operação, evitando animações artificiais que possam gerar desconfiança." },
+          { attrs: withText(40, "Enviando 2 de 5 arquivos"), title: "Manter visibilidade adequada", text: "Posicione o Progress Line próximo ao conteúdo ou ação relacionada, garantindo que a pessoa usuária associe facilmente o indicador ao processo em andamento." },
+          { attrs: withText(25, "Etapa 1 de 4"), title: "Complementar o Progress Line com indicador textual", text: "Quando for necessário oferecer mais contexto sobre o andamento do processo, associe o Progress Line a um indicador textual complementar, como etapa atual e total de etapas (ex.: “Etapa 1 de 4”). Esse texto deve ser posicionado próximo à barra de progresso, preferencialmente logo abaixo ou acima." }
+        ] },
+        { h2: "Do's and Don'ts" },
+        { dodont: [
+          { kind: "do", attrs: withText(75, "Etapa 3 de 4"), text: "Utilize o Progress Line quando houver um percentual claro de avanço, por exemplo, etapas concluídas" },
+          { kind: "dont", text: "Não use o Progress Line em ações instantâneas ou sem dados de progresso, como uma simples troca de tela." }
+        ] }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { h2: "Motion" },
+        { alert: { appearance: "warning", label: "Especificação pendente", text: "A seção de Motion da Progress line no zeroheight ainda é placeholder." } }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/progress-line/progress-line.docs.js", e); }
+
 /* ==== components/progress-tracker-item/progress-tracker-item.js ==== */
 try {
 /**
@@ -4960,6 +5161,100 @@ CDS.register({
 });
 } catch (e) { console.error("[cds] components/spinner/spinner.playground.js", e); }
 
+/* ==== components/spinner/spinner.docs.js ==== */
+try {
+/* Documentação — Spinner
+   Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Spinner, 842bcc) reaproveitado; props e padrões do set da lib estável
+   (Spinner 4333:3181); acessibilidade do playground (role="status"). Divergências no CONFERIR (C133). */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+CDS.docs["spinner"] = {
+  tag: "cds-spinner",
+  source: "https://castanha.caju.com.br/858426090/v/latest/p/842bcc-spinner", sourceLabel: "Abrir o Spinner no zeroheight",
+  cover: { description: "O Spinner é um indicador visual de atividade não interativa que informa à pessoa usuária que o sistema está processando uma ação em segundo plano.", examples: [
+    { size: "large", appearance: "accent" }, { size: "large" }
+  ] },
+  tabs: [
+    { id: "uso", title: "Uso", blocks: [
+      { h2: "Sobre" },
+      { p: "O Spinner é um indicador visual de atividade não interativa que informa à pessoa usuária que o sistema está processando uma ação em segundo plano. Ele representa estados de carregamento contínuo em que não é possível determinar a duração exata da operação." },
+      { h3: "Nomes alternativos comuns" },
+      { p: "Loading indicator, Loading spinner, Indicador de carregamento." },
+      { h3: "Princípios" },
+      { cards: [
+        ["Clareza de estado", "Comunica de imediato que há um processo em execução, evitando incerteza sobre a resposta do sistema."],
+        ["Discrição visual", "Deve ser utilizado sem competir com o conteúdo; sua função é informar, não chamar atenção excessiva."],
+        ["Coerência temporal", "Só deve aparecer enquanto uma atividade estiver efetivamente em andamento e desaparecer assim que terminar."]
+      ] },
+      { h2: "Quando usar" },
+      { p: "Use o Spinner quando o sistema estiver executando um processamento cujo tempo não pode ser estimado, mas é necessário sinalizar que a ação foi recebida e está em andamento. Ele é adequado para carregamentos curtos ou médios, especialmente em contextos nos quais o conteúdo ainda não está disponível ou a interface não pode ser atualizada até a conclusão do processo." },
+      { h3: "Utilize para:" },
+      { ul: ["Indicar carregamento de dados sem duração conhecida.", "Sinalizar processos breves que não justificam a exibição de um Skeleton ou barra de progresso.", "Ações de envio, busca ou processamento que bloqueiam temporariamente parte da interface.", "Quando é importante mostrar que o sistema está ativo e não travado."] },
+      { h3: "Não utilize para:" },
+      { ul: ["Processos longos e previsíveis (use barra de progresso).", "Substituir conteúdo estruturado sendo carregado (use Skeleton).", "Situações em que a pessoa usuária precisa saber quanto tempo ainda falta."] },
+      { h2: "Casos de uso" },
+      { h3: "Spinner vs Skeleton" },
+      { p: "O Spinner indica uma atividade contínua sem previsão de duração, comunicando apenas que o processo está em andamento. Já o Skeleton representa a estrutura do conteúdo que será exibido, oferecendo uma prévia visual da interface final." },
+      { h3: "Spinner vs Progress line" },
+      { p: "A principal diferença está na previsibilidade do tempo. O Spinner sugere que algo está acontecendo, mas sem indicar duração ou avanço, sendo ideal para ações rápidas ou imprevisíveis. A Progress line, por outro lado, comunica progresso mensurável. Por isso, processos mais longos, ou que têm etapas previsíveis, devem preferencialmente usar Progress line em vez do Spinner." },
+      { compare: [
+        { title: "Spinner: duração indeterminada", attrs: { size: "large", appearance: "accent" } },
+        { title: "Progress Line: avanço mensurável", attrs: { _tag: "cds-progress-line", percent: "60", label: "Envio", style: "width:calc(var(--common-sizes-200) + var(--common-sizes-40))" } }
+      ] },
+      { note: "O Skeleton ainda não existe no Castanha DS. Suporte: canal #castanha-suporte no Slack." }
+    ] },
+
+    { id: "anatomia", title: "Anatomia", blocks: [
+      { h2: "Anatomia" },
+      { display: { attrs: { size: "large", appearance: "accent", style: "width:var(--common-sizes-80);height:var(--common-sizes-80)" } } },
+      { ol: ["Progress indicator (arco de 90° que gira)", "Circle track (anel de fundo)"] },
+      { h2: "Propriedades" },
+      { props: [
+        { name: "Appearance", type: "Variant", default: "Neutral", values: ["Accent", "Neutral", "Inversed"] },
+        { name: "Size", type: "Variant", default: "Small", values: ["Small", "Medium", "Large"] },
+        { name: "Spinner Position", type: "Variant", default: "0", values: ["0", "1", "2", "3"] }
+      ] },
+      { note: "Props e padrões lidos do set Spinner da lib estável (o zeroheight chama `Appearance` de Style). `Spinner Position` é o quadro da animação de protótipo: no código vira rotação contínua. Tamanhos: Small 16, Medium 24, Large 32. No código, `label` é o texto anunciado (padrão \"Carregando\")." }
+    ] },
+
+    { id: "estilos", title: "Estilos", blocks: [
+      { h2: "Appearance" },
+      { specimens: { min: "var(--common-sizes-120)", items: [
+        { label: "Accent", attrs: { size: "large", appearance: "accent" } }, { label: "Neutral", attrs: { size: "large" } },
+        { label: "Inversed", attrs: { _tag: "div", class: "pg-doc-on-accent", _children: [{ _tag: "cds-spinner", size: "large", appearance: "inversed" }] } }
+      ] } },
+      { h2: "Size" },
+      { specimens: { min: "var(--common-sizes-120)", items: [{ label: "Small · 16", attrs: { appearance: "accent" } }, { label: "Medium · 24", attrs: { size: "medium", appearance: "accent" } }, { label: "Large · 32", attrs: { size: "large", appearance: "accent" } }] } }
+    ] },
+
+    { id: "acessibilidade", title: "Acessibilidade", blocks: [
+      { h2: "Leitor de tela" },
+      { ul: [
+        "É anunciado como status (`role=\"status\"`), com o nome de `label` (padrão \"Carregando\"). Use um texto que diga o que carrega (ex.: \"Carregando extrato\").",
+        "O desenho é decorativo (`aria-hidden`).",
+        "Quando o carregamento terminar, remova o Spinner e mostre o conteúdo ou a mensagem de resultado."
+      ] },
+      { h2: "Movimento" },
+      { p: "Com `prefers-reduced-motion: reduce`, o giro precisa continuar indicando atividade de forma suave; não remova o indicador." },
+      { note: "O zeroheight ainda não tem seção de Acessibilidade para o Spinner." }
+    ] },
+
+    { id: "diretrizes", title: "Diretrizes", blocks: [
+      { h2: "Diretrizes de uso" },
+      { guides: [{ attrs: { _tag: "cds-main-button", label: "Enviando", disabled: true, "show-lead-icon": false, "show-trailing-icon": false }, title: "Utilize o spinner apenas quando houver bloqueio temporário da ação", text: "O Spinner deve aparecer somente quando a operação impede o avanço da pessoa usuária. Ele reforça que a ação foi recebida e está em execução, evitando cliques repetidos ou dúvidas sobre o estado atual." }] },
+      { note: "O Main Button da lib não tem estado Loading (CONFERIR C117): por enquanto, o exemplo usa o botão desabilitado com texto de andamento." }
+    ] },
+
+    { id: "motion", title: "Motion", blocks: [
+      { h2: "Motion" },
+      { p: "A animação do Spinner/Loading indica estados de processamento contínuo no sistema. É realizado em loop suave até a conclusão da tarefa, sem distrações indiretas. A reprodução reforça a percepção de atividade em andamento no aplicativo." },
+      { display: { attrs: { size: "large", appearance: "accent" } } },
+      { alert: { appearance: "warning", label: "Sem Motion Style", text: "O zeroheight indica o Carregamento com easing expressive/default e duração extra-long/02, que não corresponde a nenhum Motion Style da `.Motion Styles` (loops não têm estilo próprio). No código, o giro usa 4 passos de `short/04` (CONFERIR C133)." } }
+    ] }
+  ]
+};
+} catch (e) { console.error("[cds] components/spinner/spinner.docs.js", e); }
+
 /* ==== components/status-dot/status-dot.js ==== */
 try {
 /**
@@ -5009,6 +5304,86 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/status-dot/status-dot.playground.js", e); }
+
+/* ==== components/status-dot/status-dot.docs.js ==== */
+try {
+/* Documentação — Status Dot
+   Fontes (PLANO-DOCS §5, 05/10): sem página no zeroheight; o texto vem da description do set na lib estável (Status Dot 21745:69, texto do
+   time); props e padrões do mesmo set; acessibilidade e contrastes do playground (C133). */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+CDS.docs["status-dot"] = {
+  tag: "cds-status-dot",
+  base: { label: "Ativo", appearance: "positive" },
+  source: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=21745-69", sourceLabel: "Abrir o Status Dot no Figma",
+  cover: { description: "Indicador compacto de estado, formado por um ponto colorido e um rótulo em texto.", examples: [
+    { label: "Ativo", appearance: "positive", size: "medium" }, { label: "Pendente", appearance: "warning", size: "medium" }, { label: "Inativo", appearance: "neutral", size: "medium" }
+  ] },
+  tabs: [
+    { id: "uso", title: "Uso", blocks: [
+      { h2: "Sobre" },
+      { p: "Indicador compacto de estado, formado por um ponto colorido e um rótulo em texto. Aparece dentro de linhas de conteúdo, sem o peso visual de um container preenchido." },
+      { h2: "Quando usar" },
+      { h3: "Utilize para:" },
+      { ul: ["Estado em linha: para sinalizar o estado de um item dentro de uma tabela, lista ou cabeçalho de card.", "Leitura em série: quando vários itens exibem estados diferentes e precisam ser comparados rapidamente."] },
+      { h3: "Não utilize para:" },
+      { ul: ["Destaque próprio: se o estado precisa de fundo e contorno para se destacar, use a Tag.", "Contagem de notificações: para indicar itens novos ou pendentes, use o Badge.", "Categorização: para rotular ou agrupar itens por assunto, use a Tag.", "Ação: o componente não é clicável; para iniciar uma ação, use um Botão."] },
+      { h2: "Status Dot vs Tag" },
+      { compare: [
+        { title: "Status Dot: estado em linha, sem container", attrs: { label: "Ativo", appearance: "positive" } },
+        { title: "Tag: estado com destaque próprio", attrs: { _tag: "cds-tag", label: "Ativo", appearance: "positive", "show-lead-item": false } }
+      ] },
+      { note: "Texto da description do set na lib; o zeroheight ainda não tem página do Status Dot. Suporte: canal #castanha-suporte no Slack." }
+    ] },
+
+    { id: "anatomia", title: "Anatomia", blocks: [
+      { h2: "Anatomia" },
+      { anatomy: { attrs: { label: "Ativo", appearance: "positive", size: "large" }, markers: [{ n: 1, target: ".cds-sd__dot", side: "left" }, { n: 2, target: ".cds-sd__label, span:last-child", side: "right" }], legend: ["Ponto (reforço visual)", "Text Label (carrega a informação)"] } },
+      { h2: "Propriedades" },
+      { props: [
+        { name: "Appearance", type: "Variant", default: "Neutral", values: ["Neutral", "Positive", "Warning", "Informative", "Negative"] },
+        { name: "Size", type: "Variant", default: "Small", values: ["Small", "Medium", "Large"] },
+        { name: "Text Label", type: "Text", default: "Label" }
+      ] }
+    ] },
+
+    { id: "estilos", title: "Estilos", blocks: [
+      { h2: "Appearance" },
+      { specimens: { min: "var(--common-sizes-120)", items: [
+        { label: "Neutral", attrs: { label: "Inativo", appearance: "neutral" } }, { label: "Positive", attrs: { label: "Ativo" } }, { label: "Warning", attrs: { label: "Pendente", appearance: "warning" } },
+        { label: "Informative", attrs: { label: "Em rota", appearance: "informative" } }, { label: "Negative", attrs: { label: "Bloqueado", appearance: "negative" } }
+      ] } },
+      { h2: "Size" },
+      { specimens: { min: "var(--common-sizes-120)", items: [{ label: "Small", attrs: {} }, { label: "Medium", attrs: { size: "medium" } }, { label: "Large", attrs: { size: "large" } }] } }
+    ] },
+
+    { id: "acessibilidade", title: "Acessibilidade", blocks: [
+      { h2: "Leitor de tela" },
+      { ul: ["O ponto é decorativo (`aria-hidden`); o estado é lido pelo Label.", "Escreva o status por extenso no label. O ponto é reforço visual, não o portador da informação."] },
+      { h2: "Contraste (WCAG)" },
+      { ul: ["Label (`Text/intense`): 16,96:1 em todas as Appearances — AA e AAA.", "A cor do ponto não precisa atingir 3:1, porque a informação está no texto (1.4.1)."] }
+    ] },
+
+    { id: "diretrizes", title: "Diretrizes", blocks: [
+      { h2: "Boas práticas" },
+      { guides: [
+        { attrs: [{ label: "Ativo" }, { label: "Pendente", appearance: "warning" }, { label: "Bloqueado", appearance: "negative" }], title: "Rótulo que nomeia o estado", text: "Escreva o status por extenso no label. O ponto é reforço visual, não o portador da informação." },
+        { attrs: { label: "Em rota", appearance: "informative" }, title: "Texto curto", text: "Uma ou duas palavras." }
+      ] },
+      { h2: "Do's and Don'ts" },
+      { dodont: [
+        { kind: "do", attrs: { label: "Pendente", appearance: "warning" }, text: "Nomeie o estado no rótulo." },
+        { kind: "dont", attrs: { label: "3 novos", appearance: "informative" }, text: "Contagem de notificações — use o Badge." }
+      ] }
+    ] },
+
+    { id: "motion", title: "Motion", blocks: [
+      { h2: "Motion" },
+      { p: "O Status Dot é estático: não tem estados de interação nem animação própria." }
+    ] }
+  ]
+};
+} catch (e) { console.error("[cds] components/status-dot/status-dot.docs.js", e); }
 
 /* ==== components/switch/switch.js ==== */
 try {
@@ -5625,6 +6000,110 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/tag/tag.playground.js", e); }
+
+/* ==== components/tag/tag.docs.js ==== */
+try {
+/* Documentação — Tag
+   Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Tag, 89e78e) reaproveitado; props e padrões do set da lib estável (Tag 4475:114);
+   acessibilidade e contrastes do playground. O zeroheight não tem a tab Style (C133). */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+CDS.docs["tag"] = {
+  tag: "cds-tag",
+  base: { label: "Tag", "show-lead-item": false },
+  source: "https://castanha.caju.com.br/858426090/v/latest/p/89e78e-tag", sourceLabel: "Abrir a Tag no zeroheight",
+  cover: { description: "Tag são rótulos compactos e visualmente distintos usados para rapidamente categorizar, identificar e organizar itens.", examples: [
+    { label: "Aprovado", appearance: "positive" }, { label: "Em análise", appearance: "warning" }, { label: "Novo", appearance: "accent" }
+  ] },
+  tabs: [
+    { id: "uso", title: "Uso", blocks: [
+      { h2: "Sobre" },
+      { p: "Tag são rótulos compactos e visualmente distintos usados para rapidamente categorizar, identificar e organizar itens. As Tags podem informar a pessoa usuária de situações em andamento, ou atribuírem significado, com informações acessórias próximas a outros componentes." },
+      { h3: "Nomes alternativos comuns" },
+      { p: "Chips, Badge, Tag Status, Bullet." },
+      { h3: "Princípios" },
+      { cards: [
+        ["Clareza", "A Tag deve comunicar informações de forma imediata e fácil de entender."],
+        ["Objetividade", "Use textos curtos e diretos, limitados a uma única ideia ou categoria."],
+        ["Consistência", "Mantenha o uso de cores e estilos conforme as variantes definidas no design system."]
+      ] },
+      { h2: "Quando usar" },
+      { p: "Use as Tag para categorizar, etiquetar e organizar itens em uma tela, usando palavras-chave ou frases curtas que os descrevam." },
+      { h3: "Utilize para:" },
+      { ul: ["Categorizar ou rotular itens e facilitar a organização (ex.: situação de um pedido).", "Identificar atributos: para destacar atributos específicos de um item. (ex.: Novo, Promoção, etc.).", "Representar escolhas feitas pela pessoa usuária de forma compacta (seleção de múltiplos interesses em um formulário, por exemplo)"] },
+      { h3: "Não utilize para:" },
+      { ul: [
+        "Mostrar várias situações e informações de uma vez. Distribua as informações com outros componentes pela tela e evite usar várias Tag diferentes juntas.",
+        "Conteúdo extenso, como frases longas ou parágrafos. Para esse fim, prefira o Topic ou texto corrido.",
+        "Exibir informações críticas, que exigem ação imediata da pessoa usuária. Prefira o uso de um Modal ou Alert nesse caso.",
+        "Links para navegação entre páginas. Nesse caso, prefira o Link.",
+        "Botões de ação principal, como Enviar ou Salvar. Prefira o Main Button e suas variações nesse caso.",
+        "Indicar o progresso de uma ação em andamento na tela, como carregamentos e processamentos de dados. Para indicar o progresso em contexto, use uma Progress Line ou Spinner."
+      ] },
+      { h2: "Casos de uso" },
+      { h3: "Tag vs Alert" },
+      { p: "O Tag exibe informações que não exigem ação da pessoa usuária e são acessórias. O Alert, por outro lado, chama atenção imediata e traz informações mais críticas." },
+      { h3: "Tag vs Topic" },
+      { p: "O Tag concentra uma informação concisa, sem formar frases ou parágrafos. O Topic traz informações mais longas, com frases e se necessário ícones." },
+      { h3: "Tag vs Chip Filter" },
+      { p: "O Tag funciona como informativo na tela, sem ações associadas. Por outro lado, o Chip Filter é acional, contém controles internos, e pode ser usado para gerenciar filtros em tabelas e listas." },
+      { note: "Suporte: canal #castanha-suporte no Slack." }
+    ] },
+
+    { id: "anatomia", title: "Anatomia", blocks: [
+      { h2: "Anatomia" },
+      { anatomy: { attrs: { label: "Em análise", appearance: "warning", "show-lead-item": true, icon: "timer-line" }, markers: [{ n: 1, target: "cds-icon", side: "left" }, { n: 2, target: "span:last-child", side: "right" }], legend: ["Lead Item (Icon · Small)", "Text Label"] } },
+      { h2: "Propriedades" },
+      { props: [
+        { name: "Appearance", type: "Variant", default: "Neutral", values: ["Accent", "Neutral", "Positive", "Warning", "Negative", "Informative", "Inversed"] },
+        { name: "Text Label", type: "Text", default: "Tag" },
+        { name: "Show Lead Item", type: "Boolean", default: "true" }
+      ] },
+      { note: "Props e padrões lidos do set Tag da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, `icon` escolhe o ícone do Lead Item." }
+    ] },
+
+    { id: "estilos", title: "Estilos", blocks: [
+      { h2: "Appearance" },
+      { specimens: { min: "var(--common-sizes-120)", items: [
+        { label: "Neutral", attrs: {} }, { label: "Accent", attrs: { appearance: "accent" } }, { label: "Positive", attrs: { appearance: "positive" } }, { label: "Warning", attrs: { appearance: "warning" } },
+        { label: "Negative", attrs: { appearance: "negative" } }, { label: "Informative", attrs: { appearance: "informative" } }, { label: "Inversed", attrs: { appearance: "inversed" } }
+      ] } },
+      { h2: "Com Lead Item" },
+      { specimens: { min: "var(--common-sizes-120)", items: [
+        { label: "Positive", attrs: { label: "Aprovado", appearance: "positive", "show-lead-item": true, icon: "check-line" } },
+        { label: "Warning", attrs: { label: "Em análise", appearance: "warning", "show-lead-item": true, icon: "timer-line" } }
+      ] } }
+    ] },
+
+    { id: "acessibilidade", title: "Acessibilidade", blocks: [
+      { h2: "Leitor de tela" },
+      { ul: ["A Tag é texto: o leitor de tela lê o Label.", "O ícone é decorativo; a cor também — o significado precisa estar no texto (ex.: \"Aprovado\", não só verde).", "A Tag não é interativa; para filtrar ou remover, use os Chips."] },
+      { h2: "Contraste (WCAG)" },
+      { ul: ["Neutral 15,27:1 · Inversed 16,96:1 · Negative 10,33:1 · Informative 9,60:1 · Warning 9,54:1 · Positive 8,02:1 · Accent 7,62:1 — todos AA e AAA para texto."] },
+      { note: "Contrastes do texto sobre o fundo da própria Tag, medidos no tema light do playground. O zeroheight ainda não tem seção de Acessibilidade para a Tag." }
+    ] },
+
+    { id: "diretrizes", title: "Diretrizes", blocks: [
+      { h2: "Diretrizes de uso" },
+      { guides: [{ attrs: [{ label: "Aprovado", appearance: "positive" }, { label: "Em análise", appearance: "warning" }], title: "Conteúdo", text: "O conteúdo nas Tag deve ser curto, com poucas palavras e conciso, entregando a informação rapidamente." }] },
+      { h2: "Do's and Don'ts" },
+      { dodont: [
+        { kind: "do", attrs: [{ label: "Entregue", appearance: "positive" }, { label: "Em rota", appearance: "informative" }], text: "Use para categorizar rapidamente informações em um grupo, como em tabelas ou listas." },
+        { kind: "dont", attrs: { label: "Seu cartão foi enviado e chega em até 10 dias úteis", appearance: "informative" }, text: "Não use para fornecer informações ou instruções detalhadas sobre um item, com mais de uma frase." },
+        { kind: "do", attrs: { label: "Novo", appearance: "accent" }, text: "Use para destacar informações curtas, objetivas e categorizadas, como benefícios, status ou rótulos." },
+        { kind: "dont", attrs: { label: "Clique para ver os detalhes do pedido", appearance: "neutral" }, text: "Não use para fornecer instruções longas, textos descritivos ou informações detalhadas." },
+        { kind: "do", attrs: { label: "Recusado", appearance: "negative" }, text: "Use para indicar status, categorias ou resultados de forma clara e resumida." },
+        { kind: "dont", attrs: { label: "Excluir", appearance: "negative" }, text: "Não use para ações ou comandos que devem ser executados pelo usuário." }
+      ] }
+    ] },
+
+    { id: "motion", title: "Motion", blocks: [
+      { h2: "Motion" },
+      { p: "A Tag é estática: não tem estados de interação nem animação própria." }
+    ] }
+  ]
+};
+} catch (e) { console.error("[cds] components/tag/tag.docs.js", e); }
 
 /* ==== components/balance-card/balance-card.js ==== */
 try {

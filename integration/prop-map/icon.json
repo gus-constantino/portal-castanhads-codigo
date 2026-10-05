@@ -1,0 +1,19 @@
+{
+  "element": "cds-icon",
+  "defaults": { "icon": "placeholder-line", "appearance": "accent", "size": "small" },
+  "jsx": {
+    "tag": "Icon",
+    "props": [
+      { "prop": "name", "attr": "icon" },
+      { "prop": "appearance", "attr": "appearance", "map": { "inversed": "inverted" } },
+      { "prop": "size", "attr": "size" },
+      { "prop": "aria-label", "attr": "label" }
+    ]
+  },
+  "figma": [
+    ["Choose Icon", "icon", "name", "Nome do ícone (`IconName`, kebab-case). Precisa do `CastanhaProvider`; sem ele, importe o SVG de `castanha-icons`."],
+    ["Appearance", "appearance", "appearance", "Inversed vira `inverted`."],
+    ["Size", "size", "size", "O padrão do Figma é Small (16); o do React é `medium` — declare a prop."],
+    ["—", "label", "aria-label", "Só quando o ícone informa algo sozinho; sem nome, é decorativo."]
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "element": "cds-avatar",
+  "defaults": { "kind": "default", "appearance": "neutral", "size": "small", "label": "AA" },
+  "jsx": {
+    "tag": "Avatar",
+    "props": [
+      { "prop": "kind", "attr": "kind", "map": { "initial": "initials" } },
+      { "prop": "appearance", "attr": "appearance", "map": { "inversed": "inverted" } },
+      { "prop": "size", "attr": "size" },
+      { "prop": "label", "attr": "label", "if": { "kind": "initial" } },
+      { "prop": "src", "attr": "src", "if": { "kind": "image" } },
+      { "prop": "alt", "attr": "alt", "if": { "kind": "image" } },
+      { "prop": "aria-label", "attr": "name" }
+    ]
+  },
+  "figma": [
+    ["Kind", "kind", "kind", "Initial vira `initials`. `kind` é obrigatório no React e define as outras props."],
+    ["Appearance", "appearance", "appearance", "Inversed vira `inverted`. Image só existe em Neutral no Figma."],
+    ["Size", "size", "size", "O padrão do Figma é Small; o do React é `medium` — declare a prop."],
+    ["Text Label", "label", "label", "Só em `kind=\"initials\"` (obrigatório)."],
+    ["—", "src + alt", "src + alt", "Só em `kind=\"image\"` (obrigatórios)."]
+  ]
+}

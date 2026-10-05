@@ -1,0 +1,133 @@
+{
+  "element": "cds-banner",
+  "defaults": {
+    "kind": "illustration",
+    "illustration": "notificacoes/sino",
+    "title": "Label",
+    "show-text-title": "true",
+    "show-cta": "true",
+    "description": "Description",
+    "cta": "Label"
+  },
+  "jsx": {
+    "tag": "Banner",
+    "props": [
+      {
+        "prop": "kind",
+        "attr": "kind"
+      },
+      {
+        "prop": "illustration",
+        "attr": "illustration",
+        "replace": [
+          "/",
+          "-"
+        ],
+        "if": {
+          "kind": "illustration"
+        }
+      },
+      {
+        "prop": "src",
+        "attr": "src",
+        "if": {
+          "kind": "image"
+        }
+      },
+      {
+        "prop": "backgroundColor",
+        "attr": "bg",
+        "tpl": "colors-{v}",
+        "if": {
+          "kind": "illustration",
+          "bg": "!null"
+        }
+      },
+      {
+        "prop": "appearance",
+        "attr": "content"
+      },
+      {
+        "prop": "label",
+        "attr": "title",
+        "if": {
+          "show-text-title": "true"
+        }
+      },
+      {
+        "prop": "description",
+        "attr": "description"
+      },
+      {
+        "prop": "ctaLabel",
+        "attr": "cta",
+        "if": {
+          "show-cta": "true"
+        }
+      },
+      {
+        "prop": "href",
+        "attr": "href"
+      },
+      {
+        "prop": "disabled",
+        "attr": "disabled",
+        "bool": true
+      },
+      {
+        "prop": "aria-label",
+        "attr": "title"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Kind",
+      "kind",
+      "kind",
+      "`illustration` (fundo sólido) ou `image` (imagem de fundo + Backdrop)."
+    ],
+    [
+      "Illustration",
+      "illustration",
+      "illustration",
+      "Nome do pacote `castanha-illustrations` com hífen (`notificacoes-sino`); alguns nomes mudam no pacote (C124)."
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira prop. Hovered e Pressed são interação."
+    ],
+    [
+      "— (.Content Banner) Appearance",
+      "content",
+      "appearance",
+      "`neutral` ou `inversed` (aqui é `inversed`, não `inverted`). Padrão conforme o Kind."
+    ],
+    [
+      "— (.Content Banner) Text Title",
+      "title",
+      "label",
+      "Desligado: omita `label`."
+    ],
+    [
+      "— (.Content Banner) CTA",
+      "cta",
+      "ctaLabel",
+      "Desligado: omita `ctaLabel`. O CTA é só indicação: o banner inteiro é o link."
+    ],
+    [
+      "—",
+      "bg",
+      "backgroundColor",
+      "Token de cor (`colors-decorative-02`). Padrão Decorative/01."
+    ],
+    [
+      "—",
+      "—",
+      "aria-label",
+      "Obrigatório no React: nome do destino. Aqui sai do título; ajuste ao destino real."
+    ]
+  ]
+}

@@ -3,6 +3,9 @@
 .cds-overlay:focus-visible{ outline:none; }
 .cds-overlay.is-inline{ position:relative; inset:auto; margin:0; }
 .cds-overlay[open]{ display:flex; flex-direction:column; }
+/* .Header e .Footer têm fundo próprio: herdam os cantos do painel para não pintar canto reto sobre o raio (Modal com Header/Footer ficava quadrado) */
+.cds-overlay > cds-header{ border-top-left-radius:inherit; border-top-right-radius:inherit; }
+.cds-overlay > cds-footer{ border-bottom-left-radius:inherit; border-bottom-right-radius:inherit; }
 .cds-overlay__slot{ flex:1 1 auto; min-height:0; overflow:auto; display:flex; flex-direction:column; }
 .cds-overlay [hidden]{ display:none !important; }
 /* O host não ocupa espaço quando o dialog está na camada de topo; no specimen (inline) ele envolve o painel */

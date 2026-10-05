@@ -1,0 +1,114 @@
+{
+  "element": "cds-chips-group",
+  "defaults": {
+    "role-kind": "single",
+    "label": "Filtros"
+  },
+  "jsx": {
+    "tag": "Chips.Group",
+    "props": [
+      {
+        "prop": "aria-label",
+        "attr": "label"
+      },
+      {
+        "prop": "wrap",
+        "attr": "role-kind",
+        "eq": "multiple"
+      }
+    ],
+    "children": [
+      {
+        "each": "cds-input-chip",
+        "node": {
+          "tag": "Chips.Input",
+          "defaults": {
+            "label": "Label",
+            "icon": "placeholder-line",
+            "show-lead-icon": "true"
+          },
+          "props": [
+            {
+              "prop": "label",
+              "attr": "label"
+            },
+            {
+              "prop": "leadIcon",
+              "attr": "icon",
+              "if": {
+                "show-lead-icon": "true"
+              }
+            },
+            {
+              "prop": "disabled",
+              "attr": "disabled",
+              "bool": true
+            },
+            {
+              "prop": "onClose",
+              "expr": "handleRemove"
+            }
+          ]
+        }
+      },
+      {
+        "each": "cds-filter-chip",
+        "node": {
+          "tag": "Chips.Filter",
+          "defaults": {
+            "label": "Label",
+            "icon": "placeholder-line",
+            "show-lead-icon": "true"
+          },
+          "props": [
+            {
+              "prop": "label",
+              "attr": "label"
+            },
+            {
+              "prop": "leadIcon",
+              "attr": "icon",
+              "if": {
+                "show-lead-icon": "true"
+              }
+            },
+            {
+              "prop": "defaultSelected",
+              "attr": "selected",
+              "bool": true
+            },
+            {
+              "prop": "disabled",
+              "attr": "disabled",
+              "bool": true
+            },
+            {
+              "prop": "onSelect",
+              "expr": "handleSelect"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Role",
+      "role-kind",
+      "wrap",
+      "Multiple Rows Chip = `wrap`; Single Rows Chips (rolagem horizontal) é o padrão."
+    ],
+    [
+      "Slot",
+      "(filhos)",
+      "children",
+      "Só `Chips.Input` ou `Chips.Filter`."
+    ],
+    [
+      "—",
+      "label",
+      "aria-label",
+      "Obrigatório no React: nomeia o grupo para leitores de tela."
+    ]
+  ]
+}

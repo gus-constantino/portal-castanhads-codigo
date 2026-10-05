@@ -1,0 +1,71 @@
+{
+  "element": "cds-input-chip",
+  "defaults": {
+    "label": "Label",
+    "icon": "placeholder-line",
+    "show-lead-icon": "true"
+  },
+  "jsx": {
+    "tag": "Chips.Input",
+    "props": [
+      {
+        "prop": "label",
+        "attr": "label"
+      },
+      {
+        "prop": "leadIcon",
+        "attr": "icon",
+        "if": {
+          "show-lead-icon": "true"
+        }
+      },
+      {
+        "prop": "disabled",
+        "attr": "disabled",
+        "bool": true
+      },
+      {
+        "prop": "onClose",
+        "expr": "handleRemove"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Text Label",
+      "label",
+      "label",
+      "No React é prop, não filho."
+    ],
+    [
+      "Show Lead Icon",
+      "show-lead-icon",
+      "leadIcon",
+      "Desligado: omita `leadIcon`."
+    ],
+    [
+      "Icon",
+      "icon",
+      "leadIcon",
+      ""
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira prop."
+    ],
+    [
+      "—",
+      "cds-remove",
+      "onClose",
+      "Clique no chip remove: no React, `onClose`."
+    ],
+    [
+      "—",
+      "—",
+      "Chips.Group",
+      "Use dentro de um `Chips.Group` com `aria-label`."
+    ]
+  ]
+}

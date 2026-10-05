@@ -11,9 +11,11 @@
  * Formato do mapa (integration/prop-map/<id>.json):
  *   element   seletor do elemento no preview (o primeiro que casar)
  *   defaults  valor de cada atributo quando ausente (show-* ausente = "true")
- *   pre       linhas antes do JSX (ex.: useState)
- *   jsx       nó: { tag, if, props: [prop], children: [nó | { attr } | { text } | { code }] }
- *   prop      { prop, attr | value | expr, map, bool: true|"not", eq, num, if }
+ *   pre       linhas antes do JSX (ex.: useState); {@atributo} vira o valor atual
+ *   jsx       nó: { tag, if, defaults, props: [prop], children: [nó | { attr } | { text } | { code } | { each, node }] }
+ *             each: seletor dos filhos do elemento; repete `node` para cada um, lendo os atributos dele ({i} = posição)
+ *   prop      { prop, attr | value | expr | tpl, map, bool: true|"not", eq, num, if }
+ *             tpl: texto com {v} (valor do atributo) e {i} (posição no each), ex.: "item-{i}"
  *             if = { atributo: "valor" | "!valor" } (todas as condições valem)
  *             a prop some quando o valor é o padrão do React (lido do .types.ts) ou vazio
  *   figma     linhas da tabela: [prop do Figma, atributo do playground, prop do React, nota]
@@ -22,6 +24,7 @@
   "use strict";
   var CDS = window.CDS = window.CDS || {};
   var PKG = "@caju-beneficios/castanha-react";
+  var WIDTH = 100; // printWidth do .prettierrc.json do castanha
   var observer = null;
 
   function el(tag, cls, text){ var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
@@ -57,15 +60,21 @@
   }
 
   // ---------- leitura do elemento + mapa ----------
-  function reader(map, preview){
-    var node = preview.querySelector(map.element);
-    return function(a){
-      var n = node && node.isConnected ? node : (node = preview.querySelector(map.element));
-      var v = n ? n.getAttribute(a) : null;
-      if (v === null) v = map.defaults && map.defaults[a] != null ? map.defaults[a] : null;
+  /** Leitor de atributos de um elemento: get(attr) com os padrões do mapa; get.el() é o elemento, get.i a posição (each). */
+  function scoped(find, defaults, i){
+    var get = function(a){
+      var n = find(), v = n ? n.getAttribute(a) : null;
+      if (v === null) v = defaults && defaults[a] != null ? defaults[a] : null;
       return v === "" ? "true" : v; // atributo booleano presente
     };
+    get.el = find; get.i = i || 1;
+    return get;
   }
+  function reader(map, preview){
+    var node = null;
+    return scoped(function(){ return node && node.isConnected ? node : (node = preview.querySelector(map.element)); }, map.defaults);
+  }
+  function fill(t, v, get){ return String(t).replace(/\{v\}/g, v == null ? "" : v).replace(/\{i\}/g, get.i); }
   function test(get, ifs){
     return !ifs || Object.keys(ifs).every(function(k){
       var w = ifs[k], neg = w.charAt(0) === "!", v = get(k);
@@ -85,9 +94,11 @@
   function resolve(data, tag, p, get){
     if (!test(get, p.if)) return null;
     var d = reactDefault(data, tag, p.prop);
+    if (p.expr === "true") return { name: p.prop, kind: "bool", value: true }; // creatable, scrollable…
     if (p.expr) return { name: p.prop, kind: "expr", value: p.expr };
     if (p.value != null) return d === p.value ? null : { name: p.prop, kind: "str", value: p.value };
-    var v = get(p.attr);
+    var v = p.attr ? get(p.attr) : null;
+    if (p.tpl) v = fill(p.tpl, v, get); // ex.: "item-{v}" (valor do atributo) ou "item-{i}" (posição no each)
     if (p.bool || p.eq != null){
       var b = p.eq != null ? v === p.eq : p.bool === "not" ? !truthy(v) : truthy(v);
       if (b === (d === "true")) return null; // igual ao padrão (sem padrão = false)
@@ -102,7 +113,13 @@
 
   // ---------- JSX em segmentos [classe, texto] (realce + texto puro para copiar) ----------
   function jsx(data, node, get, ind, out, tags){
-    if (node.code){ out.push([[null, ind], ["c", node.code]]); return; }
+    if (node.code){ out.push([[null, ind], ["c", fill(node.code, null, get)]]); return; }
+    if (node.each){
+      // um nó por elemento filho do preview (abas, chips…), lendo os atributos de cada um
+      var host = get.el(), list = host ? host.querySelectorAll(node.each) : [];
+      [].forEach.call(list, function(child, k){ jsx(data, node.node, scoped(function(){ return child; }, node.node.defaults, k + 1), ind, out, tags); });
+      return;
+    }
     if (node.text != null || node.attr){
       var t = node.text != null ? node.text : get(node.attr);
       if (t) out.push([[null, ind], [null, /[{}<>]/.test(t) ? "{" + JSON.stringify(t) + "}" : t]]);
@@ -119,7 +136,7 @@
       return [["a", p.name], [null, "="], ["v", s]];
     }
     var flat = props.reduce(function(a, p){ return a + 1 + seg(p).map(function(x){ return x[1]; }).join("").length; }, 0);
-    var close = kids.length ? ">" : " />", oneLine = ind.length + node.tag.length + flat + close.length + 1 <= 72;
+    var close = kids.length ? ">" : " />", oneLine = ind.length + node.tag.length + flat + close.length + 1 <= WIDTH;
     if (oneLine){
       var line = [[null, ind + "<"], ["t", node.tag]];
       props.forEach(function(p){ line.push([null, " "]); line = line.concat(seg(p)); });
@@ -131,7 +148,7 @@
     }
     if (kids.length){
       // um único texto curto fica na mesma linha: <Button>Label</Button>
-      if (oneLine && kids.length === 1 && kids[0].length === 2 && !kids[0][1][0] && (out[out.length - 1].map(function(x){ return x[1]; }).join("") + kids[0][1][1]).length < 72){
+      if (oneLine && kids.length === 1 && kids[0].length === 2 && (!kids[0][1][0] || kids[0][1][0] === "c") && (out[out.length - 1].map(function(x){ return x[1]; }).join("") + kids[0][1][1]).length + node.tag.length + 3 <= WIDTH){ // + </Tag>
         out[out.length - 1] = out[out.length - 1].concat([[null, kids[0][1][1]], [null, "</"], ["t", node.tag], [null, ">"]]);
       } else {
         out.push.apply(out, kids);
@@ -146,7 +163,7 @@
     function imp(names, from){ return [["k", "import"], [null, " { " + names.join(", ") + " } "], ["k", "from"], [null, " "], ["v", "'" + from + "'"], [null, ";"]]; }
     var hooks = ["useState"].filter(function(h){ return (it.map.pre || []).join(" ").indexOf(h) >= 0; });
     var lines = (hooks.length ? [imp(hooks, "react")] : []).concat([imp(Object.keys(tags).sort(), pkg), []]);
-    (it.map.pre || []).forEach(function(l){ lines.push([[null, l]]); });
+    (it.map.pre || []).forEach(function(l){ lines.push([[null, l.replace(/\{@([a-z-]+)\}/g, function(m, a){ return get(a) || ""; })]]); }); // {@attr} = valor atual
     if (it.map.pre) lines.push([]);
     return lines.concat(body);
   }

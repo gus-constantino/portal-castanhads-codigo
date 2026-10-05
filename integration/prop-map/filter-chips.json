@@ -1,0 +1,76 @@
+{
+  "element": "cds-filter-chip",
+  "defaults": {
+    "label": "Label",
+    "icon": "placeholder-line",
+    "show-lead-icon": "true"
+  },
+  "jsx": {
+    "tag": "Chips.Filter",
+    "props": [
+      {
+        "prop": "label",
+        "attr": "label"
+      },
+      {
+        "prop": "leadIcon",
+        "attr": "icon",
+        "if": {
+          "show-lead-icon": "true"
+        }
+      },
+      {
+        "prop": "defaultSelected",
+        "attr": "selected",
+        "bool": true
+      },
+      {
+        "prop": "disabled",
+        "attr": "disabled",
+        "bool": true
+      },
+      {
+        "prop": "onSelect",
+        "expr": "handleSelect"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Text Label",
+      "label",
+      "label",
+      "No React é prop, não filho."
+    ],
+    [
+      "Show Lead Icon",
+      "show-lead-icon",
+      "leadIcon",
+      "Desligado: omita `leadIcon`."
+    ],
+    [
+      "Icon",
+      "icon",
+      "leadIcon",
+      ""
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira prop."
+    ],
+    [
+      "Is Selected",
+      "selected",
+      "defaultSelected · selected",
+      "Não controlado: `defaultSelected`. Controlado: `selected` + `onSelect`."
+    ],
+    [
+      "—",
+      "—",
+      "Chips.Group",
+      "Use dentro de um `Chips.Group` com `aria-label`."
+    ]
+  ]
+}

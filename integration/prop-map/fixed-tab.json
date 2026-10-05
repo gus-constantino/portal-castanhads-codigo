@@ -1,0 +1,118 @@
+{
+  "element": "cds-fixed-tab",
+  "defaults": {
+    "active-item": "1"
+  },
+  "pre": [
+    "const [tab, setTab] = useState('item-{@active-item}');"
+  ],
+  "jsx": {
+    "tag": "Tabs",
+    "props": [
+      {
+        "prop": "value",
+        "expr": "tab"
+      },
+      {
+        "prop": "onValueChange",
+        "expr": "setTab"
+      }
+    ],
+    "children": [
+      {
+        "tag": "Tabs.List",
+        "props": [
+          {
+            "prop": "aria-label",
+            "value": "Seções"
+          }
+        ],
+        "children": [
+          {
+            "each": "cds-tab-item",
+            "node": {
+              "tag": "Tabs.Item",
+              "defaults": {
+                "label": "Label",
+                "icon": "placeholder-line",
+                "show-lead-item": "false"
+              },
+              "props": [
+                {
+                  "prop": "value",
+                  "tpl": "item-{i}"
+                },
+                {
+                  "prop": "icon",
+                  "attr": "icon",
+                  "if": {
+                    "show-lead-item": "true"
+                  }
+                },
+                {
+                  "prop": "disabled",
+                  "attr": "disabled",
+                  "bool": true
+                }
+              ],
+              "children": [
+                {
+                  "attr": "label"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "each": "cds-tab-item",
+        "node": {
+          "tag": "Tabs.Panel",
+          "props": [
+            {
+              "prop": "value",
+              "tpl": "item-{i}"
+            }
+          ],
+          "children": [
+            {
+              "code": "{/* conteúdo da aba {i} */}"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Active Item",
+      "active-item",
+      "value",
+      "Aba ativa pelo `value` do item (`item-1`…), controlada com `value` + `onValueChange` (ou `defaultValue`)."
+    ],
+    [
+      ".Item › Text Label",
+      "label",
+      "children de Tabs.Item",
+      ""
+    ],
+    [
+      ".Item › Show Lead Item",
+      "show-lead-item",
+      "icon",
+      "Desligado: omita `icon`."
+    ],
+    [
+      "—",
+      "—",
+      "Tabs.Panel",
+      "Cada aba tem um painel com o mesmo `value`."
+    ],
+    [
+      "Fixed × Scrollable",
+      "—",
+      "scrollable",
+      "Scrollable Tab = `scrollable`; Fixed Tab é o padrão (abas dividem a largura)."
+    ]
+  ]
+}

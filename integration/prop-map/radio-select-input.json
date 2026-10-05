@@ -1,0 +1,152 @@
+{
+  "element": "cds-radio-select-input",
+  "defaults": {
+    "appearance": "neutral",
+    "label": "Label",
+    "supporting": "Supporting Message",
+    "error": "Error Message",
+    "show-label": "true",
+    "show-required": "true",
+    "show-lead-icon": "true",
+    "show-trailing-item": "true",
+    "show-supporting-content": "true",
+    "lead-icon": "placeholder-line"
+  },
+  "pre": [
+    "const [value, setValue] = useState('');"
+  ],
+  "jsx": {
+    "tag": "SelectInput",
+    "props": [
+      {
+        "prop": "options",
+        "expr": "options"
+      },
+      {
+        "prop": "value",
+        "expr": "value"
+      },
+      {
+        "prop": "onChange",
+        "expr": "setValue"
+      },
+      {
+        "prop": "label",
+        "attr": "label",
+        "if": {
+          "show-label": "true"
+        }
+      },
+      {
+        "prop": "placeholder",
+        "attr": "placeholder"
+      },
+      {
+        "prop": "required",
+        "attr": "show-required",
+        "bool": true
+      },
+      {
+        "prop": "leadIcon",
+        "attr": "lead-icon",
+        "if": {
+          "show-lead-icon": "true"
+        }
+      },
+      {
+        "prop": "error",
+        "attr": "appearance",
+        "eq": "warning"
+      },
+      {
+        "prop": "supportingMessage",
+        "attr": "error",
+        "if": {
+          "appearance": "warning",
+          "show-supporting-content": "true"
+        }
+      },
+      {
+        "prop": "supportingMessage",
+        "attr": "supporting",
+        "if": {
+          "appearance": "!warning",
+          "show-supporting-content": "true"
+        }
+      },
+      {
+        "prop": "disabled",
+        "attr": "disabled",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Appearance",
+      "appearance",
+      "error",
+      "Warning vira `error` (boolean). A mensagem vai em `supportingMessage`."
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira prop."
+    ],
+    [
+      "Show Label",
+      "show-label",
+      "label",
+      "Desligado: omita `label`."
+    ],
+    [
+      "Show Required",
+      "show-required",
+      "required",
+      ""
+    ],
+    [
+      "Show Lead Icon",
+      "show-lead-icon",
+      "leadIcon",
+      "Desligado: omita `leadIcon`."
+    ],
+    [
+      "Show Supporting Content",
+      "show-supporting-content",
+      "supportingMessage",
+      "Desligado: omita `supportingMessage`."
+    ],
+    [
+      "Supporting Message / Error Message",
+      "supporting · error",
+      "supportingMessage",
+      "Uma prop só: o texto muda conforme `error`."
+    ],
+    [
+      "Show Trailing Item",
+      "show-trailing-item",
+      "—",
+      "O ícone de aviso aparece sozinho com `error`."
+    ],
+    [
+      "Placeholder",
+      "placeholder",
+      "placeholder",
+      ""
+    ],
+    [
+      "Opções",
+      "(filhos ou .options)",
+      "options",
+      "No React: lista de `{ value, label }`."
+    ],
+    [
+      "—",
+      "—",
+      "—",
+      "O Radio Select Input do Figma não tem busca; o `SelectInput` do React sempre filtra pelo texto digitado (divergência do oficial)."
+    ]
+  ]
+}

@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 257 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 262 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.js ==== */
 try {
 /**
@@ -1586,6 +1586,82 @@ CDS.register({
 });
 } catch (e) { console.error("[cds] components/close-toast/close-toast.playground.js", e); }
 
+/* ==== components/close-toast/close-toast.docs.js ==== */
+try {
+/* Documentação — .Close Toast (building block)
+   Sem página no zeroheight nem description no set (05/10): texto escrito a partir do set da lib estável (.Close Toast 5219:558) e do playground.
+   Peça interna do Toast; não é usada sozinha. Revisar com o time (C136). */
+(function(){
+  window.CDS = window.CDS || {};
+  CDS.docs = CDS.docs || {};
+  function wrap(attrs){ return { _tag: "div", class: "pg-doc-on-inversed", _children: [Object.assign({ _tag: "cds-close-toast" }, attrs)] }; }
+
+  CDS.docs["close-toast"] = {
+    tag: "cds-close-toast",
+    base: {},
+    source: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=5219-558", sourceLabel: "Abrir o .Close Toast no Figma",
+    cover: { description: "Botão de fechar do Toast: 40×40, com o ícone close-line.", examples: [ { _tag: "div", class: "pg-doc-on-inversed", _children: [{ _tag: "cds-close-toast" }] } ] },
+    tabs: [
+      { id: "uso", title: "Uso", blocks: [
+        { alert: { appearance: "warning", label: "Rascunho", text: "Building block sem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
+        { h2: "Sobre" },
+        { p: "O .Close Toast é o botão de fechar usado dentro do Toast. É um building block: aparece quando o Toast está com Show Trailing Item ligado e não deve ser usado sozinho." },
+        { h2: "Quando usar" },
+        { ul: ["Só dentro do Toast, controlado pela prop Show Trailing Item.", "Para fechar outros componentes, use o Icon Button com o ícone close-line."] },
+        { compare: [{ title: "Dentro do Toast", attrs: { _tag: "cds-toast", text: "Perfil atualizado", viewport: "desktop" } }] }
+      ] },
+
+      { id: "anatomia", title: "Anatomia", blocks: [
+        { h2: "Anatomia" },
+        { anatomy: { attrs: wrap({}), markers: [{ n: 1, target: ".cds-close", side: "left" }, { n: 2, target: "cds-icon, .cds-icon", side: "right" }], legend: ["Container 40×40 (raio small)", "Icon close-line (20)"] } },
+        { h2: "Propriedades" },
+        { props: [{ name: "State", type: "Variant", default: "Enabled", values: ["Enabled", "Hovered", "Pressed", "Disabled"] }] },
+        { note: "Props e padrões lidos do set .Close Toast da lib estável. No código, o State vem da interação e do atributo `disabled`; `state=\"hovered|pressed\"` só existe para mostrar o estado em exemplos; `label` é o nome acessível." }
+      ] },
+
+      { id: "estilos", title: "Estilos", blocks: [
+        { h2: "State" },
+        { specimens: { min: "var(--common-sizes-120)", items: [
+          { label: "Enabled", attrs: wrap({}) }, { label: "Hovered", attrs: wrap({ state: "hovered" }) }, { label: "Pressed", attrs: wrap({ state: "pressed" }) }, { label: "Disabled", attrs: wrap({ disabled: true }) }
+        ] } },
+        { note: "Feito para a superfície Surface/inversed do Toast: ícone Neutral/Solid/soft; Hovered e Pressed ganham fundo Neutral/Opacity/Soft; Disabled usa Opacity/light." }
+      ] },
+
+      { id: "acessibilidade", title: "Acessibilidade", blocks: [
+        { h2: "Teclado e leitor de tela" },
+        { ul: [
+          "É um `<button>` nativo: recebe foco com `Tab` e fecha com `Enter` ou `Espaço`.",
+          "O nome acessível vem de `label` (padrão \"Fechar\"); o Toast passa `close-label`.",
+          "Área de toque de 40×40.",
+          "Disabled usa o `disabled` nativo: sai da ordem de foco."
+        ] },
+        { h2: "Contraste (WCAG)" },
+        { ul: ["Ícone (Neutral/Solid/soft) sobre Surface/inversed: 16,96:1."] },
+        { note: "Contraste medido no tema light do playground." }
+      ] },
+
+      { id: "diretrizes", title: "Diretrizes", blocks: [
+        { h2: "Diretrizes de uso" },
+        { ul: ["Mantenha o botão de fechar sempre no fim do Toast, alinhado ao centro.", "Dê um nome que diga o que fecha quando houver mais de um na tela (ex.: \"Fechar aviso de depósito\")."] }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { h2: "Motion" },
+        { display: { attrs: wrap({}), live: true } },
+        { note: "Exemplo interativo: passe o mouse e pressione o botão para ver cada transição." },
+        { specs: [
+          { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
+          { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
+          { title: "→ Disabled", rows: [["Gatilho", "Ao desabilitar"], ["Motion Style", "`Disabled/01`"]] }
+        ] },
+        { note: "Mapeamento pelo padrão da família de botões. No código, todas as transições usam short/03 + systemic/accelerate, a reaction do Figma (CONFERIR C136)." },
+        { p: "Reduced motion: honrar `prefers-reduced-motion: reduce` (as transições são desligadas no código)." }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/close-toast/close-toast.docs.js", e); }
+
 /* ==== components/close-alert/close-alert.js ==== */
 try {
 /**
@@ -1629,6 +1705,82 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/close-alert/close-alert.playground.js", e); }
+
+/* ==== components/close-alert/close-alert.docs.js ==== */
+try {
+/* Documentação — .Close Alert (building block)
+   Sem página no zeroheight nem description no set (05/10): texto escrito a partir do set da lib estável (.Close Alert 11830:5584) e do playground.
+   Peça interna do Alert; não é usada sozinha. Revisar com o time (C136). */
+(function(){
+  window.CDS = window.CDS || {};
+  CDS.docs = CDS.docs || {};
+  function wrap(attrs){ return Object.assign({ _tag: "cds-close-alert" }, attrs); }
+
+  CDS.docs["close-alert"] = {
+    tag: "cds-close-alert",
+    base: {},
+    source: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=11830-5584", sourceLabel: "Abrir o .Close Alert no Figma",
+    cover: { description: "Botão de fechar do Alert: 40×40, com o ícone close-line.", examples: [ { _tag: "cds-close-alert" } ] },
+    tabs: [
+      { id: "uso", title: "Uso", blocks: [
+        { alert: { appearance: "warning", label: "Rascunho", text: "Building block sem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
+        { h2: "Sobre" },
+        { p: "O .Close Alert é o botão de fechar usado dentro do Alert. É um building block: aparece quando o Alert está com Show Close Button ligado e não deve ser usado sozinho." },
+        { h2: "Quando usar" },
+        { ul: ["Só dentro do Alert, controlado pela prop Show Close Button.", "Para fechar outros componentes, use o Icon Button com o ícone close-line."] },
+        { compare: [{ title: "Dentro do Alert", attrs: { _tag: "cds-alert", appearance: "informative", label: "Depósito agendado", text: "O saldo cai no dia 5." } }] }
+      ] },
+
+      { id: "anatomia", title: "Anatomia", blocks: [
+        { h2: "Anatomia" },
+        { anatomy: { attrs: wrap({}), markers: [{ n: 1, target: ".cds-close", side: "left" }, { n: 2, target: "cds-icon, .cds-icon", side: "right" }], legend: ["Container 40×40 (raio small)", "Icon close-line (20)"] } },
+        { h2: "Propriedades" },
+        { props: [{ name: "State", type: "Variant", default: "Enabled", values: ["Enabled", "Hovered", "Pressed", "Disabled"] }] },
+        { note: "Props e padrões lidos do set .Close Alert da lib estável. No código, o State vem da interação e do atributo `disabled`; `state=\"hovered|pressed\"` só existe para mostrar o estado em exemplos; `label` é o nome acessível." }
+      ] },
+
+      { id: "estilos", title: "Estilos", blocks: [
+        { h2: "State" },
+        { specimens: { min: "var(--common-sizes-120)", items: [
+          { label: "Enabled", attrs: wrap({}) }, { label: "Hovered", attrs: wrap({ state: "hovered" }) }, { label: "Pressed", attrs: wrap({ state: "pressed" }) }, { label: "Disabled", attrs: wrap({ disabled: true }) }
+        ] } },
+        { note: "Hovered e Pressed ganham fundo Neutral/Opacity/Intense e o ícone fica Icons/inversed; Disabled usa Opacity/light." }
+      ] },
+
+      { id: "acessibilidade", title: "Acessibilidade", blocks: [
+        { h2: "Teclado e leitor de tela" },
+        { ul: [
+          "É um `<button>` nativo: recebe foco com `Tab` e fecha com `Enter` ou `Espaço`.",
+          "O nome acessível vem de `label` (padrão \"Fechar\"); o Alert passa `close-label`.",
+          "Área de toque de 40×40.",
+          "Disabled usa o `disabled` nativo: sai da ordem de foco."
+        ] },
+        { h2: "Contraste (WCAG)" },
+        { ul: ["Ícone Enabled (Icons/intense) sobre o fundo do Alert: Positive 14,76:1 · Warning 15,50:1 · Informative 13,53:1."] },
+        { note: "Contraste medido no tema light do playground." }
+      ] },
+
+      { id: "diretrizes", title: "Diretrizes", blocks: [
+        { h2: "Diretrizes de uso" },
+        { ul: ["Mantenha o botão de fechar sempre no fim do Alert, alinhado ao centro.", "Dê um nome que diga o que fecha quando houver mais de um na tela (ex.: \"Fechar aviso de depósito\")."] }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { h2: "Motion" },
+        { display: { attrs: wrap({}), live: true } },
+        { note: "Exemplo interativo: passe o mouse e pressione o botão para ver cada transição." },
+        { specs: [
+          { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
+          { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
+          { title: "→ Disabled", rows: [["Gatilho", "Ao desabilitar"], ["Motion Style", "`Disabled/01`"]] }
+        ] },
+        { note: "Mapeamento pelo padrão da família de botões. No código, todas as transições usam short/03 + systemic/accelerate, a reaction do Figma (CONFERIR C136)." },
+        { p: "Reduced motion: honrar `prefers-reduced-motion: reduce` (as transições são desligadas no código)." }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/close-alert/close-alert.docs.js", e); }
 
 /* ==== components/content-banner/content-banner.js ==== */
 try {
@@ -5494,6 +5646,111 @@ CDS.register({
 });
 } catch (e) { console.error("[cds] components/alert/alert.playground.js", e); }
 
+/* ==== components/alert/alert.docs.js ==== */
+try {
+/* Documentação — Alert (rascunho)
+   Sem página no zeroheight, sem seção [Documentation] no arquivo Component use documentation e sem description no set (05/10).
+   Texto escrito a partir do set da lib estável (Alert 11864:12559), do componente do playground e do trecho "Toast vs Alert" da página do Toast
+   (literal). Revisar com o time (C136). */
+(function(){
+  window.CDS = window.CDS || {};
+  CDS.docs = CDS.docs || {};
+  function al(appearance, label, text, more){ return Object.assign({ _tag: "cds-alert", appearance: appearance, label: label, text: text }, more || {}); }
+
+  CDS.docs["alert"] = {
+    tag: "cds-alert",
+    base: { label: "Depósito agendado", text: "O saldo cai na conta das pessoas colaboradoras no dia 5." , appearance: "informative" },
+    source: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=11864-12559", sourceLabel: "Abrir o Alert no Figma",
+    cover: { description: "Mensagem fixa e persistente sobre o sistema, que fica visível até a pessoa usuária ler ou fechar.", wide: true, examples: [
+      al("informative", "Depósito agendado", "O saldo cai na conta das pessoas colaboradoras no dia 5.")
+    ] },
+    tabs: [
+      { id: "uso", title: "Uso", blocks: [
+        { alert: { appearance: "warning", label: "Rascunho", text: "Este componente ainda não tem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
+        { h2: "Sobre" },
+        { p: "O Alert mostra uma mensagem sobre o sistema dentro do fluxo da tela, com um Shaped Icon na cor da Appearance, um Label opcional, o texto (que aceita negrito e link) e o botão de fechar opcional." },
+        { p: "O Alert é um componente fixo e persistente. Ele é indicado para mensagens mais relevantes ou contínuas, que precisam permanecer visíveis até que a pessoa usuária as leia ou feche manualmente." },
+        { h2: "Quando usar" },
+        { h3: "Utilize para:" },
+        { ul: ["Confirmar algo que continua valendo na tela (Positive).", "Avisar de um risco ou pendência que pede atenção (Warning).", "Dar uma informação de contexto que ajuda a decidir (Informative)."] },
+        { h3: "Não utilize para:" },
+        { ul: ["Feedback rápido de uma ação — use o Toast.", "Mensagens críticas ou que bloqueiam o fluxo — use o Modal.", "Avisos que valem para todo o produto, no topo da página — use o System Banner.", "Status curto de um item — use a Tag."] },
+        { h2: "Casos de uso" },
+        { h3: "Alert vs Toast" },
+        { p: "O Toast é temporário e aparece sobre o conteúdo, na parte inferior da tela (em web) ou superior (em mobile). Ele serve para mensagens rápidas e automáticas, como confirmações de sucesso ou avisos leves. Já o Alert é um componente fixo e persistente. Ele é indicado para mensagens mais relevantes ou contínuas, que precisam permanecer visíveis até que a pessoa usuária as leia ou feche manualmente." },
+        { note: "Trecho literal da página do Toast no zeroheight." },
+        { compare: [
+          { title: "Alert: fixo, no fluxo da tela", attrs: al("informative", "Depósito agendado", "O saldo cai na conta das pessoas colaboradoras no dia 5.") },
+          { title: "Toast: temporário, sobre o conteúdo", attrs: { _tag: "cds-toast", text: "Comprovante enviado", viewport: "desktop" } }
+        ] },
+        { h3: "Alert vs System Banner" },
+        { p: "Os dois têm a mesma anatomia e as mesmas props. O Alert fica dentro do conteúdo, com raio; o System Banner ocupa a largura toda da página, sem raio." }
+      ] },
+
+      { id: "anatomia", title: "Anatomia", blocks: [
+        { h2: "Anatomia" },
+        { anatomy: { attrs: { appearance: "positive", label: "Label", text: "A message about the system here! You can turn words bold also add a link." }, markers: [{ n: 1, target: "cds-shaped-icon", side: "left" }, { n: 2, target: ".cds-alert__label", side: "top" }, { n: 3, target: ".cds-alert__msg", side: "bottom" }, { n: 4, target: "cds-close-alert", side: "right" }], legend: ["Shaped Icon (Small, ícone por Appearance)", "Text Label (Show Label)", "Text Content", ".Close Alert (Show Close Button)"] } },
+        { h2: "Propriedades" },
+        { props: [
+          { name: "Appearance", type: "Variant", default: "Positive", values: ["Positive", "Warning", "Informative"] },
+          { name: "Text Label", type: "Text", default: "Label" },
+          { name: "Show Label", type: "Boolean", default: "true" },
+          { name: "Text Content", type: "Text", default: "A message about the system here! You can turn words bold also add a link." },
+          { name: "Show Close Button", type: "Boolean", default: "true" }
+        ] },
+        { note: "Props e padrões lidos do set Alert da lib estável. No código: `label`, `text` (ou conteúdo rico como filho: negrito e link), `show-label`, `show-close-button` e `close-label`. Fechar dispara `cds-close` (cancelável); sem `preventDefault()`, o Alert sai do DOM." }
+      ] },
+
+      { id: "estilos", title: "Estilos", blocks: [
+        { h2: "Appearance" },
+        { specimens: { items: [
+          { label: "Positive", attrs: { appearance: "positive", label: "Pagamento confirmado", text: "O saldo já está disponível para uso." } },
+          { label: "Warning", attrs: { appearance: "warning", label: "Pedido pendente", text: "Revise os dados de entrega para continuar." } },
+          { label: "Informative", attrs: { appearance: "informative" } }
+        ] } },
+        { h2: "Sem Label e sem fechar" },
+        { specimens: { items: [
+          { label: "Show Label = false", attrs: { "show-label": false } },
+          { label: "Show Close Button = false", attrs: { "show-close-button": false } }
+        ] } }
+      ] },
+
+      { id: "acessibilidade", title: "Acessibilidade", blocks: [
+        { h2: "Leitor de tela" },
+        { ul: [
+          "Warning tem `role=\"alert\"` (anúncio imediato); Positive e Informative têm `role=\"status\"` (anúncio sem interromper).",
+          "O Shaped Icon é decorativo: o significado precisa estar no Label e no texto, não só na cor.",
+          "O botão de fechar é um `<button>` com nome (`close-label`, padrão \"Fechar aviso\"). Ao fechar, devolva o foco para um ponto lógico da tela.",
+          "Links dentro do texto precisam fazer sentido fora de contexto (evite \"clique aqui\")."
+        ] },
+        { h2: "Contraste (WCAG)" },
+        { ul: ["Texto sobre o fundo do Alert: Positive 8,02:1 · Warning 9,54:1 · Informative 9,60:1 — AA e AAA.", "Ícone sobre o Shaped Icon: 6,84:1 a 8,52:1 · botão de fechar (Icons/intense): 13,53:1 a 15,50:1."] },
+        { note: "Contrastes medidos no tema light do playground." }
+      ] },
+
+      { id: "diretrizes", title: "Diretrizes", blocks: [
+        { h2: "Diretrizes de uso" },
+        { guides: [
+          { attrs: al("warning", "Pedido pendente", "Revise os dados de entrega para continuar."), title: "Label e texto", text: "Use o Label para dizer o que aconteceu e o texto para dizer o que fazer. Sem Label, o texto precisa se sustentar sozinho." },
+          { attrs: al("positive", "Pagamento confirmado", "O saldo já está disponível para uso."), title: "Appearance pelo significado", text: "Escolha Positive, Warning ou Informative pelo tipo de mensagem, não pela cor que combina com a tela." }
+        ] },
+        { note: "Escrita: veja as regras de Alertas em Conteúdo › Contextos (Feedback Pages) — tom acolhedor e preventivo, explicar o porquê e informar prazos." }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { h2: "Motion" },
+        { p: "O Alert entra e sai junto com o conteúdo da tela; o botão de fechar (.Close Alert) tem os estados de interação abaixo." },
+        { specs: [
+          { title: "Fechar: Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
+          { title: "Fechar: Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] }
+        ] },
+        { alert: { appearance: "warning", label: "Especificação pendente", text: "Não há especificação de Motion para a entrada e a saída do Alert (CONFERIR C136)." } }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/alert/alert.docs.js", e); }
+
 /* ==== components/confirmation-message/confirmation-message.js ==== */
 try {
 /**
@@ -6493,6 +6750,99 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/system-banner/system-banner.playground.js", e); }
+
+/* ==== components/system-banner/system-banner.docs.js ==== */
+try {
+/* Documentação — System Banner (rascunho)
+   Sem página no zeroheight, sem seção [Documentation] e sem description no set (05/10). Mesma anatomia e props do Alert (set 18432:2090).
+   Texto escrito a partir da lib estável e do playground. Revisar com o time (C136). */
+(function(){
+  window.CDS = window.CDS || {};
+  CDS.docs = CDS.docs || {};
+  function sb(appearance, label, text, more){ return Object.assign({ _tag: "cds-system-banner", appearance: appearance, label: label, text: text }, more || {}); }
+
+  CDS.docs["system-banner"] = {
+    tag: "cds-system-banner",
+    base: { appearance: "warning", label: "Instabilidade no Pix", text: "Pagamentos via Pix podem demorar. Já estamos resolvendo." },
+    source: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=18432-2090", sourceLabel: "Abrir o System Banner no Figma",
+    cover: { description: "Aviso do sistema que ocupa a largura toda da página, com a mesma anatomia do Alert.", wide: true, examples: [
+      sb("warning", "Instabilidade no Pix", "Pagamentos via Pix podem demorar. Já estamos resolvendo.")
+    ] },
+    tabs: [
+      { id: "uso", title: "Uso", blocks: [
+        { alert: { appearance: "warning", label: "Rascunho", text: "Este componente ainda não tem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
+        { h2: "Sobre" },
+        { p: "O System Banner mostra um aviso do sistema que vale para a página ou para o produto inteiro. Tem a mesma anatomia e as mesmas props do Alert, mas ocupa a largura toda, sem raio, no topo da área de conteúdo." },
+        { h2: "Quando usar" },
+        { h3: "Utilize para:" },
+        { ul: ["Instabilidades ou manutenções que afetam várias telas.", "Avisos de conta ou empresa que valem em todo o produto.", "Mudanças importantes que a pessoa precisa ver ao entrar."] },
+        { h3: "Não utilize para:" },
+        { ul: ["Mensagens sobre uma parte da tela — use o Alert.", "Feedback rápido de uma ação — use o Toast.", "Mais de um aviso ao mesmo tempo: mostre o mais importante."] },
+        { h2: "Casos de uso" },
+        { h3: "System Banner vs Alert" },
+        { p: "Os dois têm a mesma anatomia e as mesmas props. O System Banner ocupa a largura toda da página, sem raio; o Alert fica dentro do conteúdo, com raio." },
+        { compare: [
+          { title: "System Banner: largura toda", attrs: sb("warning", "Instabilidade no Pix", "Pagamentos via Pix podem demorar.") },
+          { title: "Alert: dentro do conteúdo", attrs: { _tag: "cds-alert", appearance: "warning", label: "Pedido pendente", text: "Revise os dados de entrega." } }
+        ] }
+      ] },
+
+      { id: "anatomia", title: "Anatomia", blocks: [
+        { h2: "Anatomia" },
+        { anatomy: { attrs: { appearance: "positive", label: "Label", text: "A message about the system here! You can turn words bold also add a link." }, markers: [{ n: 1, target: "cds-shaped-icon", side: "left" }, { n: 2, target: ".cds-alert__label", side: "top" }, { n: 3, target: ".cds-alert__msg", side: "bottom" }, { n: 4, target: "cds-close-alert", side: "right" }], legend: ["Shaped Icon (Small, ícone por Appearance)", "Text Label (Show Label)", "Text Content", ".Close Alert (Show Close Button)"] } },
+        { h2: "Propriedades" },
+        { props: [
+          { name: "Appearance", type: "Variant", default: "Positive", values: ["Positive", "Warning", "Informative"] },
+          { name: "Text Label", type: "Text", default: "Label" },
+          { name: "Show Label", type: "Boolean", default: "true" },
+          { name: "Text Content", type: "Text", default: "A message about the system here! You can turn words bold also add a link." },
+          { name: "Show Close Button", type: "Boolean", default: "true" }
+        ] },
+        { note: "Props e padrões lidos do set System Banner da lib estável (iguais aos do Alert). Largura total, sem raio, mínimo 360. Atributos e evento `cds-close` iguais aos do Alert." }
+      ] },
+
+      { id: "estilos", title: "Estilos", blocks: [
+        { h2: "Appearance" },
+        { specimens: { items: [
+          { label: "Positive", attrs: { appearance: "positive", label: "Sistema normalizado", text: "Os pagamentos via Pix voltaram a funcionar." } },
+          { label: "Warning", attrs: { appearance: "warning" } },
+          { label: "Informative", attrs: { appearance: "informative", label: "Manutenção programada", text: "No sábado, das 2h às 4h, o Portal fica fora do ar." } }
+        ] } }
+      ] },
+
+      { id: "acessibilidade", title: "Acessibilidade", blocks: [
+        { h2: "Leitor de tela" },
+        { ul: [
+          "Warning tem `role=\"alert\"`; Positive e Informative têm `role=\"status\"`, como no Alert.",
+          "Coloque o System Banner no começo do conteúdo principal, antes do título da página, para ser encontrado logo.",
+          "O botão de fechar é um `<button>` com nome (`close-label`, padrão \"Fechar aviso\")."
+        ] },
+        { h2: "Contraste (WCAG)" },
+        { ul: ["Texto sobre o fundo: Positive 8,02:1 · Warning 9,54:1 · Informative 9,60:1 — AA e AAA (mesmos tokens do Alert)."] },
+        { note: "Contrastes medidos no tema light do playground." }
+      ] },
+
+      { id: "diretrizes", title: "Diretrizes", blocks: [
+        { h2: "Diretrizes de uso" },
+        { guides: [
+          { attrs: sb("warning", "Instabilidade no Pix", "Pagamentos via Pix podem demorar. Já estamos resolvendo."), title: "Um aviso por vez", text: "Mostre só o aviso mais importante. Se houver prazo de resolução, informe no texto." }
+        ] },
+        { note: "Escrita: veja as regras de Alertas em Conteúdo › Contextos (Feedback Pages) — explicar o porquê, informar prazos e o canal de aviso." }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { h2: "Motion" },
+        { p: "O botão de fechar (.Close Alert) tem os estados de interação abaixo." },
+        { specs: [
+          { title: "Fechar: Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
+          { title: "Fechar: Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] }
+        ] },
+        { alert: { appearance: "warning", label: "Especificação pendente", text: "Não há especificação de Motion para a entrada e a saída do System Banner (CONFERIR C136)." } }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/system-banner/system-banner.docs.js", e); }
 
 /* ==== components/tab-item/tab-item.js ==== */
 try {
@@ -10102,6 +10452,130 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/toast/toast.playground.js", e); }
+
+/* ==== components/toast/toast.docs.js ==== */
+try {
+/* Documentação — Toast
+   Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Toast, 19d79d) reaproveitado; props e padrões do set da lib estável (Toast 5234:516 — sem description);
+   acessibilidade e contrastes do playground. O zeroheight não tem a tab Style (C136). */
+(function(){
+  window.CDS = window.CDS || {};
+  CDS.docs = CDS.docs || {};
+  function t(text, appearance, more){ return Object.assign({ _tag: "cds-toast", text: text, appearance: appearance || "positive", viewport: "desktop" }, more || {}); }
+
+  CDS.docs["toast"] = {
+    tag: "cds-toast",
+    base: { text: "Perfil atualizado", viewport: "desktop" },
+    source: "https://castanha.caju.com.br/858426090/v/latest/p/19d79d-toast", sourceLabel: "Abrir o Toast no zeroheight",
+    cover: { description: "O Toast é um componente de notificação temporária que informa a pessoa usuária sobre o resultado de uma ação ou estado do sistema. Ele aparece de forma discreta na interface e desaparece automaticamente após alguns segundos, sem interromper o fluxo de navegação.", examples: [
+      t("Perfil atualizado")
+    ] },
+    tabs: [
+      { id: "uso", title: "Uso", blocks: [
+        { h2: "Sobre" },
+        { p: "O Toast é um componente de notificação temporária que informa a pessoa usuária sobre o resultado de uma ação ou estado do sistema. Ele aparece de forma discreta na interface e desaparece automaticamente após alguns segundos, sem interromper o fluxo de navegação." },
+        { h3: "Nomes alternativos comuns" },
+        { p: "Snackbar, Notification, Inline Alert." },
+        { h3: "Princípios" },
+        { cards: [
+          ["Imediato", "O feedback deve aparecer logo após a ação da pessoa usuária."],
+          ["Discreto", "Fornece feedback sem interromper a experiência da pessoa usuária."],
+          ["Breve", "O conteúdo deve ser curto, relevante e desaparecer automaticamente."]
+        ] },
+        { h2: "Quando usar" },
+        { p: "Use o Toast para comunicar mensagens breves que não exigem uma ação imediata da pessoa usuária. Ele deve ser usado para feedbacks rápidos, como confirmações de sucesso, avisos ou erros leves que não interrompem o fluxo de uso." },
+        { h3: "Utilize para:" },
+        { ul: ["Confirmar o sucesso de uma ação (ex: item salvo, envio concluído).", "Alertar sobre algo que requer atenção, mas não interrompe a navegação.", "Exibir feedbacks automáticos do sistema, como reconexões ou atualizações."] },
+        { h3: "Não utilize para:" },
+        { ul: ["Exibir mensagens críticas ou bloqueantes (use o Modal).", "Mensagens que precisam permanecer visíveis até serem fechadas.", "Informações complexas ou extensas (use o Alert)."] },
+        { h2: "Casos de uso" },
+        { h3: "Toast vs Alert" },
+        { p: "O Toast é temporário e aparece sobre o conteúdo, na parte inferior da tela (em web) ou superior (em mobile). Ele serve para mensagens rápidas e automáticas, como confirmações de sucesso ou avisos leves. Já o Alert é um componente fixo e persistente. Ele é indicado para mensagens mais relevantes ou contínuas, que precisam permanecer visíveis até que a pessoa usuária as leia ou feche manualmente." },
+        { compare: [
+          { title: "Toast: temporário, sobre o conteúdo", attrs: t("Comprovante enviado") },
+          { title: "Alert: fixo, no fluxo da tela", attrs: { _tag: "cds-alert", appearance: "informative", label: "Depósito agendado", text: "O saldo cai na conta das pessoas colaboradoras no dia 5." } }
+        ] },
+        { h3: "Toast vs Modal" },
+        { p: "O Toast oferece feedback imediato sem interromper o fluxo da pessoa usuária, desaparecendo automaticamente após alguns segundos. É ideal para comunicações breves e não bloqueantes. O Modal, por outro lado, exige uma ação direta — como confirmar, preencher ou fechar — antes de permitir que a pessoa usuária continue a navegação. Por isso, é indicado apenas para mensagens que requerem atenção ou decisão imediata." },
+        { note: "Suporte: canal #castanha-suporte no Slack." }
+      ] },
+
+      { id: "anatomia", title: "Anatomia", blocks: [
+        { h2: "Anatomia" },
+        { anatomy: { attrs: { text: "Perfil atualizado" }, markers: [{ n: 1, target: ".cds-toast__icon", side: "left" }, { n: 2, target: ".cds-toast__text", side: "top" }, { n: 3, target: "cds-close-toast", side: "right" }], legend: ["Ícone (24, cor decorativa por Appearance)", "Text Description (até 2 linhas)", ".Close Toast (Show Trailing Item)"] } },
+        { h2: "Propriedades" },
+        { props: [
+          { name: "Appearance", type: "Variant", default: "Positive", values: ["Positive", "Warning"] },
+          { name: "Text Description", type: "Text", default: "A descrição web ou mobile deve ter no máximo 2 linhas" },
+          { name: "Show Trailing Item", type: "Boolean", default: "true" }
+        ] },
+        { note: "Props e padrões lidos do set Toast da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código: `text`, `appearance`, `show-trailing-item` e `close-label` (nome do botão de fechar). O layout mobile (ícone e fechar no topo, texto embaixo) vem da coleção Viewport; `viewport` força o modo." }
+      ] },
+
+      { id: "estilos", title: "Estilos", blocks: [
+        { h2: "Appearance" },
+        { specimens: { min: "var(--common-sizes-200)", items: [
+          { label: "Positive", attrs: { text: "Perfil atualizado" } }, { label: "Warning", attrs: { text: "Sem conexão, tentando de novo", appearance: "warning" } }
+        ] } },
+        { h2: "Show Trailing Item" },
+        { specimens: { min: "var(--common-sizes-200)", items: [
+          { label: "true", attrs: { text: "Perfil atualizado" } }, { label: "false", attrs: { text: "Perfil atualizado", "show-trailing-item": false } }
+        ] } },
+        { h2: "Viewport" },
+        { specimens: { min: "var(--common-sizes-200)", items: [
+          { label: "Desktop e tablet", attrs: { text: "Perfil atualizado" } }, { label: "Mobile", attrs: { text: "Perfil atualizado", viewport: "mobile" } }
+        ] } }
+      ] },
+
+      { id: "acessibilidade", title: "Acessibilidade", blocks: [
+        { h2: "Leitor de tela" },
+        { ul: [
+          "O Positive tem `role=\"status\"`: o leitor de tela anuncia o texto sem interromper o que estava lendo.",
+          "O Warning tem `role=\"alert\"`: o anúncio é imediato.",
+          "O ícone é decorativo; o significado precisa estar no texto.",
+          "O botão de fechar (.Close Toast) é um `<button>` com nome (`close-label`, padrão \"Fechar\")."
+        ] },
+        { h2: "Tempo" },
+        { ul: [
+          "Dê tempo para ler: o Toast some sozinho, então o texto precisa ser curto (até 2 linhas).",
+          "Mantenha o Toast visível enquanto tiver foco ou o mouse em cima.",
+          "Nada que exija ação deve ficar só no Toast — use o Alert ou o Modal (2.2.1)."
+        ] },
+        { h2: "Contraste (WCAG)" },
+        { ul: ["Texto (Text/inversed) sobre Surface/inversed: 16,96:1 — AA e AAA.", "Ícone Positive (Decorative/03) 8,00:1 · Warning (Decorative/01) 10,17:1 · fechar (Neutral/Solid/soft) 16,96:1 — todos acima de 3:1."] },
+        { note: "Contrastes medidos no tema light do playground. O zeroheight ainda não tem seção de Acessibilidade para o Toast. O tempo de exibição não está especificado (CONFERIR C136)." }
+      ] },
+
+      { id: "diretrizes", title: "Diretrizes", blocks: [
+        { h2: "Diretrizes de uso" },
+        { guides: [
+          { attrs: t("Perfil atualizado"), title: "Use mensagens curtas e diretas", text: "O Toast deve ser objetivo e fácil de ler rapidamente. Limite o texto a uma ou duas linhas e prefira frases afirmativas, que indiquem o estado da ação (“Perfil atualizado com sucesso”) em vez de instruções longas." },
+          { attrs: t("Comprovante enviado"), title: "Posicione corretamente o componente", text: "No Figma, posicione o Toast no canto inferior direito da tela para interfaces web e na extremidade do topo para mobile, refletindo o comportamento real. Essa coerência evita sobreposição com outros elementos interativos." },
+          { attrs: t("Pedido enviado"), title: "Mostre apenas um feedback por ação", text: "Cada ação da pessoa usuária deve resultar em apenas um Toast. Isso evita confusão e sobrecarga de mensagens. Se houver necessidade de comunicar diferentes resultados (por exemplo, sucesso parcial ou erro em parte do processo), priorize a mensagem mais relevante para aquele contexto." }
+        ] },
+        { note: "Regra de conteúdo (Formatação): Toast não leva ponto final, exceto quando houver mais de uma frase. E evite o pleonasmo \"com sucesso\" — o exemplo do zeroheight acima ainda usa (CONFERIR C136)." },
+        { h2: "Do's and Don'ts" },
+        { h3: "Conteúdo" },
+        { dodont: [
+          { kind: "do", attrs: t("Cartão desbloqueado"), text: "Use texto em tom informativo e positivo." },
+          { kind: "dont", attrs: t("Erro 500: falha ao processar a requisição", "warning"), text: "Não use tom negativo ou técnico." }
+        ] }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { h2: "Motion" },
+        { p: "A animação do Toast fornece feedback visual único após ação do usuário ou evento do sistema. É executada uma vez por invocação com entrada/saída suaves para evitar distrações. A reprodução reforça a percepção temporária do status no aplicativo." },
+        { specs: [
+          { title: "Saída", rows: [["Gatilho", "Ao fechar ou ao fim do tempo"], ["Motion Style", "`Selected Out/01`"]] }
+        ] },
+        { note: "No zeroheight, a Saída usa expressive/decelerate · short/04 — os valores do `Selected Out/01`." },
+        { alert: { appearance: "warning", label: "Especificação pendente", text: "A Entrada (expressive/decelerate · long/02) não corresponde a nenhum Motion Style da `.Motion Styles`. A entrada e a saída ainda não estão animadas no componente do playground (CONFERIR C136)." } },
+        { p: "Reduced motion: honrar `prefers-reduced-motion: reduce` (sem deslocamento; só aparecer e sumir)." }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/toast/toast.docs.js", e); }
 
 /* ==== components/tooltip/tooltip.js ==== */
 try {

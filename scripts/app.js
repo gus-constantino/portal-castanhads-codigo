@@ -216,7 +216,14 @@
   })();
 
   // ---------- Roteamento: #/<id> ou #/<id>/<tab> ----------
-  function route(){ return (location.hash || "").replace(/^#\/?/, "").split("/"); }
+  // #/<id>[/<tab>][?prop=valor&…] — a query guarda o estado dos controles (link do estado, D113)
+  function route(){ return (location.hash || "").replace(/^#\/?/, "").split("?")[0].split("/"); }
+  function query(){
+    var q = (location.hash.split("?")[1] || ""), out = {};
+    q.split("&").forEach(function(kv){ if (!kv) return; var i = kv.indexOf("="), k = decodeURIComponent(i < 0 ? kv : kv.slice(0, i)), v = i < 0 ? "" : decodeURIComponent(kv.slice(i + 1).replace(/\+/g, " ")); out[k] = v; });
+    return out;
+  }
+  function qs(p){ return Object.keys(p).map(function(k){ return encodeURIComponent(k) + "=" + encodeURIComponent(p[k]); }).join("&"); }
   function currentId(){
     var id = route()[0];
     if (list.some(function(c){ return c.id === id; })) return id;
@@ -276,6 +283,25 @@
     top.searchBtn.addEventListener("click", function(){ var c = search.control || search.querySelector("input"); if (c) c.focus(); });
     header.mainBtn.addEventListener("click", function(){ if (head.figma) window.open(head.figma, "_blank", "noopener"); });
     header.dropBtn.id = "page-links-btn";
+    // Copiar link: a URL já leva o estado dos controles (?prop=valor). Icon Button Default · Neutral · Medium + Tooltip
+    var copyBtn = kit.el("cds-icon-button", { id: "page-copy-btn", kind: "default", appearance: "neutral", size: "medium", icon: "link-line", label: "Copiar link desta página" });
+    header.dropBtn.parentNode.insertBefore(copyBtn, header.dropBtn);
+    var copyTip = kit.tip(copyBtn, "Copiar link (com as props escolhidas)", { container: bar }), copyT = 0;
+    copyBtn.addEventListener("click", function(){
+      var url = location.href;
+      function done(ok){ copyTip.setAttribute("text", ok ? "Link copiado" : "Não deu para copiar: use a barra de endereço"); copyTip.show && copyTip.show(); clearTimeout(copyT); copyT = setTimeout(function(){ copyTip.setAttribute("text", "Copiar link (com as props escolhidas)"); }, 2000); }
+      // Plano B sem permissão de clipboard (navegador embutido, iframe): o evento copy recebe o texto
+      function legacy(){
+        var ok = false;
+        function onCopy(e){ e.clipboardData.setData("text/plain", url); e.preventDefault(); ok = true; }
+        document.addEventListener("copy", onCopy);
+        try { document.execCommand("copy"); } catch (e) {}
+        document.removeEventListener("copy", onCopy);
+        done(ok);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(function(){ done(true); }, legacy);
+      else legacy();
+    });
     header.setAttribute("drop-label", "Links"); header.setAttribute("main-label", "Abrir no Figma");
     CDS.attr(header.dropBtn, "lead-icon", "link-line"); CDS.attr(header.mainBtn, "lead-icon", "figma-line");
     CDS.attr(header.tag, "show-lead-item", "false");
@@ -349,6 +375,14 @@
     return { render: render };
   })();
 
+  var writtenQs = "";
+  // Estado dos controles → URL (sem criar entrada no histórico). Só na tab Playground.
+  kit.state.onChange(function(p){
+    var r = route(); if (r[1] && r[1] !== "playground") return;
+    writtenQs = qs(p);
+    history.replaceState(null, "", "#/" + currentId() + (writtenQs ? "?" + writtenQs : ""));
+    lastHash = location.hash;
+  });
   var mountedId = null, reportBtn = $("report-btn"), report = $("report"), lastHash = "#/";
   reportBtn.addEventListener("click", function(){ location.hash = route()[0] === "relatorio" ? lastHash : "#/relatorio"; });
   function onRoute(){
@@ -361,10 +395,13 @@
     if (isReport){ setCrumbs([{ label: "Castanha DS", href: "#/" }, { label: "Relatório", href: "#/relatorio" }]); CDS.report.show(r[1], r[2]); return; }
     lastHash = location.hash || "#/";
     if (mountedId) document.title = currentDef().name + " — Castanha DS";
-    var id = currentId();
-    if (id !== mountedId){ mount(); mountedId = id; }
+    var id = currentId(), q = qs(query());
+    // remonta ao trocar de componente ou quando a query chega de fora (link colado); a que o próprio app escreve não remonta
+    if (id !== mountedId || (q && q !== writtenQs)){ mount(); mountedId = id; }
     setCrumbs(crumbs(currentDef())); // também ao voltar do relatório
     applyTab();
+    // De volta à tab Playground (a troca de tab escreve o hash sem a query): o estado continua no painel, então volta à URL
+    if (currentTab() === "playground" && writtenQs && !q) history.replaceState(null, "", "#/" + id + "?" + writtenQs);
   }
   function mount(){
     var def = list.filter(function(c){ return c.id === currentId(); })[0];
@@ -397,7 +434,11 @@
     var rx = CDS.react && CDS.react.items[def.id], rdir = rx && rx.dir && CDS.react.dirs[rx.dir];
     head.links([[def.task && JIRA + def.task, "Jira · " + def.task], [def.zeroheight || (rdir && rdir.zeroheight), "Zeroheight"], [rdir && rdir.storybook, "Storybook (castanha-react)"]].filter(function(l){ return l[0]; }));
     readout("", false);
+    kit.state.begin(panel);
     if (def.mount) def.mount({ preview: preview, panel: panel, kit: kit, readout: readout });
+    kit.state.end();
+    var q = query(); writtenQs = qs(q);
+    if (writtenQs) kit.state.restore(q); // link do estado: reaplica os controles da URL
     if (CDS.renderReact) CDS.renderReact(def, preview, $("react")); // "No React": tradução Figma → castanha-react (scripts/react-kit.js)
     markCurrent();
   }

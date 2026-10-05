@@ -32,6 +32,44 @@
   var STATE_TIP = "Estado de interação. No uso real vem do mouse, do teclado ou do atributo disabled; aqui ele é forçado para você inspecionar.";
   function id(prefix){ return (prefix || "pg") + "-" + (++uid); }
 
+  /**
+   * Estado dos controles na URL (link do estado, D113). Cada controle do kit se registra com uma chave tirada
+   * do rótulo ("Text Label" → text-label) e o valor inicial. O shell chama state.begin(panel) antes do mount do
+   * playground principal e state.restore(params) depois; a cada mudança, state.onChange(params) recebe só o que
+   * difere do inicial. Previews do menu e o smoke montam com outro painel e não entram no registro.
+   */
+  var state = (function(){
+    var owner = null, mounting = false, items = [], listener = null, quiet = false;
+    function slug(t){ return String(t || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/\(.*?\)/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "ctrl"; }
+    function mine(panel){ return mounting || (owner && panel && owner.contains(panel)); }
+    function params(){
+      var out = {};
+      items.forEach(function(it){ if (!it.el.isConnected) return; var v = String(it.get()); if (v !== it.initial) out[it.key] = v; });
+      return out;
+    }
+    function changed(){ if (!quiet && listener) listener(params()); }
+    return {
+      begin: function(panel){ owner = panel; mounting = true; items = []; },
+      end: function(){ mounting = false; },
+      onChange: function(fn){ listener = fn; },
+      params: params,
+      /** Registra um controle. apply(v) muda a UI e chama o onChange do playground. Devolve um aviso de mudança. */
+      add: function(panel, label, el, get, apply, initial){
+        if (!mine(panel)) return function(){};
+        var base = slug(label), key = base, n = 1;
+        while (items.some(function(it){ return it.key === key; })) key = base + "-" + (++n);
+        items.push({ key: key, el: el, initial: String(initial !== undefined ? initial : get()), get: get, apply: apply });
+        return changed;
+      },
+      /** Reaplica os valores da URL na ordem em que os controles foram criados. */
+      restore: function(p){
+        quiet = true;
+        items.forEach(function(it){ if (p && Object.prototype.hasOwnProperty.call(p, it.key) && String(it.get()) !== p[it.key]){ try { it.apply(p[it.key]); } catch (e) {} } });
+        quiet = false;
+      }
+    };
+  })();
+
   function el(tag, attrs, children){
     var n = document.createElement(tag);
     if (attrs) Object.keys(attrs).forEach(function(k){
@@ -118,6 +156,12 @@
       lazyTip(c, "No Figma: " + String(o.label).replace(/\s*\(.*\)$/, "") + " = " + opt[1] + ".");
     });
     group.setValue = mark;
+    var cur = o.value, cb = o.onChange;
+    var notify = state.add(panel, o.label, group, function(){ return cur; }, function(v){
+      var opt = o.options.filter(function(x){ return String(x[0]) === v; })[0]; if (!opt) return;
+      mark(opt[0]); cur = opt[0]; cb(opt[0]);
+    });
+    o.onChange = function(v){ cur = v; cb(v); notify(); };
     wrap.appendChild(group);
     if (o.hint) hint(wrap, o.hint);
     panel.appendChild(wrap);
@@ -129,7 +173,10 @@
   function toggle(panel, o){
     var wrap = el("div", { "class": "pg-ctrl" });
     var sw = el("cds-switch", { label: o.label, status: o.checked ? "selected" : "unselected", "class": "pg-switch-ds" });
-    sw.addEventListener("cds-change", function(e){ e.stopPropagation(); o.onChange(e.detail.status === "selected"); });
+    var notify = state.add(panel, o.label, sw, function(){ return sw.getAttribute("status") === "selected"; }, function(v){
+      var on = v === "true"; CDS.attr(sw, "status", on ? "selected" : "unselected"); o.onChange(on);
+    });
+    sw.addEventListener("cds-change", function(e){ e.stopPropagation(); o.onChange(e.detail.status === "selected"); notify(); });
     wrap.appendChild(sw);
     if (o.hint) hint(wrap, o.hint);
     panel.appendChild(wrap);
@@ -143,7 +190,8 @@
   function text(panel, o){
     var wrap = el("div", { "class": "pg-ctrl" });
     var f = el("cds-text-input", { label: o.label, value: o.value || "", placeholder: o.placeholder, "show-lead-icon": "false", "show-required": "false", "show-supporting-content": "false", "class": "pg-field" });
-    f.addEventListener("cds-change", function(e){ e.stopPropagation(); o.onInput(f.value); });
+    var notify = state.add(panel, o.label, f, function(){ return f.value == null ? "" : f.value; }, function(v){ f.value = v; o.onInput(v); }, o.value || "");
+    f.addEventListener("cds-change", function(e){ e.stopPropagation(); o.onInput(f.value); notify(); });
     wrap.appendChild(f);
     if (o.hint) hint(wrap, o.hint);
     panel.appendChild(wrap);
@@ -156,8 +204,11 @@
     wrap.appendChild(el("span", { "class": "pg-lbl", text: o.label }));
     var sl = el("cds-slider", { min: o.min, max: o.max, step: 1, value: o.value, label: o.label, "show-stops": "false", "class": "pg-slider" });
     var last = o.value;
-    sl.addEventListener("input", function(){ var v = sl.values[0]; if (v !== last){ last = v; o.onInput(v); } });
-    sl.addEventListener("cds-change", function(e){ e.stopPropagation(); var v = sl.values[0]; if (v !== last){ last = v; o.onInput(v); } });
+    var notify = state.add(panel, o.label, sl, function(){ return last; }, function(v){
+      var n = Number(v); if (isNaN(n) || n < o.min || n > o.max) return; last = n; sl.setAttribute("value", n); o.onInput(n);
+    });
+    sl.addEventListener("input", function(){ var v = sl.values[0]; if (v !== last){ last = v; o.onInput(v); notify(); } });
+    sl.addEventListener("cds-change", function(e){ e.stopPropagation(); var v = sl.values[0]; if (v !== last){ last = v; o.onInput(v); notify(); } });
     wrap.appendChild(sl);
     panel.appendChild(wrap);
     return { el: sl, get value(){ return String(sl.values[0]); } };
@@ -236,7 +287,10 @@
     var f = el(o.searchable ? "cds-async-select-input" : "cds-radio-select-input", { label: o.label, "show-lead-icon": "false", "show-required": "false", "show-supporting-content": "false", placeholder: o.placeholder || "Escolher", "class": "pg-field" });
     f.options = o.options.map(function(opt){ return { value: opt[0], label: opt[1] }; });
     if (o.value != null) f.value = o.value;
-    f.addEventListener("cds-change", function(e){ e.stopPropagation(); if (f.value) o.onChange(f.value); });
+    var notify = state.add(panel, o.label, f, function(){ return f.value == null ? "" : f.value; }, function(v){
+      if (!o.options.some(function(x){ return String(x[0]) === v; })) return; f.value = v; o.onChange(v);
+    }, o.value == null ? "" : o.value);
+    f.addEventListener("cds-change", function(e){ e.stopPropagation(); if (f.value){ o.onChange(f.value); notify(); } });
     f.addEventListener("cds-toggle", function(e){ e.stopPropagation(); });
     wrap.appendChild(f);
     if (o.hint) hint(wrap, o.hint);
@@ -399,5 +453,5 @@
     else node.setAttribute(name, val === true ? "" : val);
   }
 
-  CDS.kit = { el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, illustrationSwap: illustrationSwap, button: button, action: action, surface: surface, tip: tip, lazyTip: lazyTip, selectionControl: selectionControl, textField: textField, selectField: selectField, overlay: overlay, attr: attr };
+  CDS.kit = { state: state, el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, illustrationSwap: illustrationSwap, button: button, action: action, surface: surface, tip: tip, lazyTip: lazyTip, selectionControl: selectionControl, textField: textField, selectField: selectField, overlay: overlay, attr: attr };
 })();

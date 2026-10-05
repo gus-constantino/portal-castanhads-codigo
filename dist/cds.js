@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 225 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 232 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.js ==== */
 try {
 /**
@@ -1673,6 +1673,55 @@ CDS.register({
 });
 } catch (e) { console.error("[cds] components/link/link.playground.js", e); }
 
+/* ==== components/link/link.docs.js ==== */
+try {
+/* Documentação — link: tab Conteúdo (regras de texto)
+   Fonte: [CastanhaDS] Component use documentation · 📁 [NEW] Content → Componentes · frame [Componentes] Links (6400:15859).
+   Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D99). */
+(function(){
+  window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
+  CDS.docs["link"] = {
+    tag: "cds-link",
+    source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=6400-15859", sourceLabel: "Abrir Links em [NEW] Content no Figma",
+    tabs: [
+      { id: "conteudo", title: "Conteúdo", blocks: [
+        { h2: "Regras de texto" },
+        { p: "O link direciona a pessoa para outro destino — página interna, site externo, documento ou seção. É navegação, não ação. Se o objetivo é executar algo no próprio fluxo, use um Botão." },
+        { h3: "Como escrever" },
+        { p: "O texto deve descrever com clareza para onde a pessoa vai ou o que vai encontrar. A pessoa não deve precisar clicar para entender o destino. Exemplos:" },
+        { display: { attrs: [
+          { _tag: "cds-link", label: "Confira o artigo com nossas dicas de segurança.", href: "#", appearance: "accent" },
+          { _tag: "cds-link", label: "Leia os termos e condições de uso.", href: "#", appearance: "accent" },
+          { _tag: "cds-link", label: "Seu cartão chegou! Desbloqueie e comece a usar.", href: "#", appearance: "accent" }
+        ] } },
+        { ul: [
+          "Use entre 5 e 8 palavras (cerca de 55 caracteres). Links precisam de mais texto que botões para garantir uma área de clique adequada.",
+          "Não use textos genéricos.",
+          "Se o link for um endereço de e-mail e for a última palavra da frase, não use ponto final."
+        ] },
+        { h3: "Links externos" },
+        { p: "Para links que levam para fora do produto, considere indicar com ícone e abrir em nova aba. Isso prepara a pessoa para a mudança de contexto." },
+        { display: { attrs: { _tag: "cds-link", label: "Leia os termos e condições de uso.", href: "#", appearance: "accent", icon: "link-line", target: "_blank" } } },
+        { h3: "Hiperlinks em texto corrido" },
+        { p: "Quando o link aparecer dentro de um parágrafo ou descrição:" },
+        { ul: [
+          "Inclua pontuação ao final de cada frase normalmente — o link não altera a pontuação da frase.",
+          "Posicione o link próximo ao conteúdo que ele descreve. Links distantes do contexto prejudicam o entendimento.",
+          "Quando houver mais de uma frase com link, inclua pontuação ao final de cada uma."
+        ] },
+        { h3: "Link vs. Botão" },
+        { ul: [
+          "Use link para navegar (levar a pessoa a outro destino como termos de uso, FAQ, artigos ou downloads).",
+          "Use botão para agir (executar algo no próprio fluxo, como confirmar, salvar, enviar ou cancelar).",
+          "Links mudam o contexto e botões geram uma resposta imediata."
+        ] },,
+        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Links. Regras de escrita do time de Content; os exemplos usam componentes do DS com os mesmos textos." }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/link/link.docs.js", e); }
+
 /* ==== components/list-lead-item/list-lead-item.js ==== */
 try {
 /**
@@ -1796,6 +1845,73 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/main-button/main-button.playground.js", e); }
+
+/* ==== components/main-button/main-button.docs.js ==== */
+try {
+/* Documentação — main-button: tab Conteúdo (regras de texto)
+   Fonte: [CastanhaDS] Component use documentation · 📁 [NEW] Content → Componentes · frame [Componentes] Botões (6400:15361).
+   Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D99). */
+(function(){
+  window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
+  CDS.docs["main-button"] = {
+    tag: "cds-main-button",
+    source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=6400-15361", sourceLabel: "Abrir Botões em [NEW] Content no Figma",
+    tabs: [
+      { id: "conteudo", title: "Conteúdo", blocks: [
+        { h2: "Regras de texto" },
+        { p: "O texto do botão é o contrato com a pessoa usuária: ela precisa saber exatamente o que vai acontecer antes de clicar." },
+        { h3: "Como escrever" },
+        { ul: [
+          "Use infinitivo em botões e áreas clicáveis. Não use pronomes possessivos.",
+          "Se precisar usar pronome, use na terceira pessoa (seu/sua).",
+          "Use imperativo apenas em botões de peças de marketing.",
+          "O texto deve seguir os mesmos termos usados no título e na descrição da tela. A pessoa deve conseguir ler o header e o botão e relacionar as duas informações.",
+          "Use no máximo 3 palavras. Nunca quebre o texto em mais de uma linha.",
+          "Nunca use ponto final ou ponto de exclamação.",
+          "Evite labels genéricas como \"Sim\", \"Não\", ”Entendi” ou \"Ok\". Seja específico."
+        ] },
+        { h3: "Ações destrutivas" },
+        { p: "Mesmo sem um estilo visual específico, deixe claro na label quando a ação é irreversível. A pessoa não pode ter dúvida sobre o que vai acontecer. Exemplo:" },
+        { display: { attrs: [
+          { _tag: "cds-main-button", label: "Sair sem salvar", "show-lead-icon": false, "show-trailing-icon": false },
+          { _tag: "cds-main-button", label: "Remover colaborador", "show-lead-icon": false, "show-trailing-icon": false },
+          { _tag: "cds-main-button", label: "Sair do app", "show-lead-icon": false, "show-trailing-icon": false }
+        ] } },
+        { h3: "Labels padronizadas" },
+        { table: { wrap: true, head: ["Label", "Quando usar"], rows: [
+          ["Aplicar", "CTA padrão para aplicar filtros selecionados."],
+          ["Cancelar", "Quando a pessoa desiste de uma edição, sem sair do fluxo. Sempre aparece junto com \"Salvar alterações\"."],
+          ["Confirmar", "Final de fluxo onde a última tela é uma revisão de dados antes da conclusão da ação."],
+          ["Concluir", "Encerra onboardings que tem mais de uma etapa."],
+          ["Continuar", "Avança para a próxima etapa sem finalizar o fluxo. Não usar em telas de revisão ou encerramento."],
+          ["Continuar editando", "Pop-ups ou bottom sheets que desistem de uma confirmação. Nunca use \"Cancelar\" nesses casos. Exceção: use \"Voltar\" quando o contexto não for coerente com \"edição\"."],
+          ["Detalhes", "Abre mais informações sobre uma área, colaborador ou pedido."],
+          ["Dúvidas frequentes", "Leva para artigo na FAQ. Uso exclusivo no componente shortcut."],
+          ["Falar com a Caju", "Abre WhatsApp ou e-mail do time de CX."],
+          ["Fechar", "Encerra algo sem impacto ou decisão (onboardings, modais informativos). Também usado quando o modal não tem \"X\" no canto superior."],
+          ["Já recebi e quero ativar", "Texto fixo — não modifique. Caso seja alterado, deve ser atualizada a carta berço do cartão físico."],
+          ["Limpar", "Remove os filtros aplicados."],
+          ["Me lembrar mais tarde", "Fecha pop-ups ou bottom sheets que voltam a aparecer até a ação ser concluída."],
+          ["Não encontrei o código", "Telas de código de ativação, abre modal explicativo sobre onde encontrar o código."],
+          ["Não mostrar novamente", "Encerra pop-ups ou bottom sheets que não voltam a aparecer."],
+          ["Preciso de ajuda", "Abre artigos da FAQ."],
+          ["Pular", "Pula uma etapa não obrigatória do fluxo."],
+          ["Quero saber mais", "Abre artigo ou categoria da FAQ sobre novidades. Tom mais leve que \"Preciso de ajuda\"."],
+          ["Quero ser avisado", "A pessoa sinaliza que quer ser comunicada sobre uma mudança ou retorno de instabilidade."],
+          ["Sair sem salvar", "Abandona o fluxo com perda de dados. Deixa claro que as informações não serão salvas."],
+          ["Saiba mais", "Exclusivo para peças de marketing (banners, campanhas, formulários externos)."],
+          ["Salvar alterações", "Confirma uma edição em formulário."],
+          ["Sim, cancelar", "Confirma o cancelamento de uma ação já iniciada. Remove ambiguidade do termo \"Cancelar\"."],
+          ["Voltar", "Retorna a uma etapa anterior sem sair do fluxo. Exceção: use \"Voltar\" em vez de \"Continuar editando\" quando o contexto não for coerente com edição."],
+          ["[Apenas Sponsor] Voltar para [Nome da área]", "Telas de finalização (sucesso ou erro). Leva de volta a uma área principal após concluir ou falhar um fluxo. Nome da área sempre com letra maiúscula."],
+          ["[Apenas Employee] Fechar", "Telas de finalização (sucesso ou erro). Leva de volta a uma área principal após concluir ou falhar um fluxo."]
+        ] } },,
+        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Botões. Regras de escrita do time de Content; os exemplos usam componentes do DS com os mesmos textos." }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/main-button/main-button.docs.js", e); }
 
 /* ==== components/date-navigation/date-navigation.js ==== */
 try {
@@ -2654,6 +2770,57 @@ CDS.register({
 });
 } catch (e) { console.error("[cds] components/breadcrumb/breadcrumb.playground.js", e); }
 
+/* ==== components/breadcrumb/breadcrumb.docs.js ==== */
+try {
+/* Documentação — breadcrumb: tab Conteúdo (regras de texto)
+   Fonte: [CastanhaDS] Component use documentation · 📁 [NEW] Content → Componentes · frame [Componentes] Breadcrumb (6400:15502).
+   Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D99). */
+(function(){
+  window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
+  // Breadcrumb do DS com os rótulos do Figma (sem Truncate)
+  function crumbs(labels){ return { _tag: "cds-breadcrumb", collapse: "0", _children: labels.map(function(l){ return { _tag: "a", href: "#", _text: l }; }) }; }
+  CDS.docs["breadcrumb"] = {
+    tag: "cds-breadcrumb",
+    source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=6400-15502", sourceLabel: "Abrir Breadcrumb em [NEW] Content no Figma",
+    tabs: [
+      { id: "conteudo", title: "Conteúdo", blocks: [
+        { h2: "Regras de texto" },
+        { p: "O breadcrumb é uma trilha de navegação que mostra à pessoa onde ela está dentro da hierarquia do produto. É um recurso de navegação secundária e não substitui o menu principal." },
+        { h3: "Anatomia do conteúdo" },
+        { p: "O breadcrumb sempre segue esta ordem:" },
+        { ol: [
+          "Página de origem — nível mais alto da hierarquia. Nunca omitida ou truncada.",
+          "Links intermediários — páginas entre a origem e a atual. São clicáveis e podem ser truncados quando necessário.",
+          "Página atual — último item da trilha. Exibido como texto simples, sem link e nunca truncado."
+        ] },
+        { h3: "Como escrever" },
+        { ul: [
+          "Use o mesmo nome que a página exibe em seu título ou na navegação principal. As labels precisam ser consistentes — elas ainda não são puxadas automaticamente do código, então exigem atenção redobrada.",
+          "Mantenha a mesma label do início ao fim do fluxo. Se começou como \"Novo pedido\", não mude para \"Nova solicitação\" no meio do caminho.",
+          "Seja conciso. Prefira nomes curtos e diretos. Se o nome for muito longo, use uma versão abreviada reconhecível — nunca invente um nome diferente do usado na navegação.",
+          "Evite verbos e chamadas à ação. O breadcrumb é orientação, não ação. Exceção: quando o fluxo parte de uma ação, o verbo é permitido. Exemplo: `Relatórios`, `Configurações`, `Adicionar créditos` (quando o fluxo parte dessa ação)",
+          "Sem pontuação nos rótulos. Os separadores entre itens são responsabilidade do componente.",
+          "Use sentence case — primeira letra maiúscula, demais em minúsculo. Confira as exceções de maiúsculas na página Escrevendo para produto."
+        ] },
+        { h3: "Truncamento" },
+        { p: "O truncamento é ativado quando o total de itens ultrapassa 5 ou quando não há espaço suficiente. Apenas os links intermediários são truncados e agrupados em um dropdown." },
+        { p: "Nunca são truncados:" },
+        { ul: ["Página de origem", "Última página ancestral (nível imediatamente acima da página atual)", "Página atual"] },
+        { h3: "Breadcrumb vs. Stepper" },
+        { p: "O breadcrumb reflete a hierarquia de navegação estática do produto. O stepper comunica o progresso dentro de um fluxo. Os dois têm responsabilidades distintas e não devem se sobrepor." },
+        { p: "O primeiro item do breadcrumb deve ser sempre a página que originou o fluxo — não o \"Painel Inicial\" ou \"Home\". Isso garante que a pessoa consiga retornar ao contexto exato de onde partiu." },
+        { h3: "Do's and Dont's" },
+        { dodont: [
+          { kind: "do", attrs: crumbs(["Créditos Caju", "Transferência entre carteiras"]), text: "O progresso dos passos de um fluxo (stepper) não deve ser representado no Breadcrumb. Ele reflete apenas a hierarquia de navegação estática do produto." },
+          { kind: "dont", attrs: crumbs(["Painel inicial", "Transferência entre carteiras"]), text: "O primeiro item do Breadcrumb deve ser a página que originou o fluxo, e não o \"Painel Inicial\" ou ”Home”." }
+        ] },,
+        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Breadcrumb. Regras de escrita do time de Content; os exemplos usam componentes do DS com os mesmos textos." }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/breadcrumb/breadcrumb.docs.js", e); }
+
 /* ==== components/progress-line/progress-line.js ==== */
 try {
 /**
@@ -2830,6 +2997,42 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/progress-tracker/progress-tracker.playground.js", e); }
+
+/* ==== components/progress-tracker/progress-tracker.docs.js ==== */
+try {
+/* Documentação — progress-tracker: tab Conteúdo (regras de texto)
+   Fonte: [CastanhaDS] Component use documentation · 📁 [NEW] Content → Componentes · frame [Componentes] Stepper (6400:16333).
+   Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D99). */
+(function(){
+  window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
+  CDS.docs["progress-tracker"] = {
+    tag: "cds-progress-tracker",
+    source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=6400-16333", sourceLabel: "Abrir Stepper em [NEW] Content no Figma",
+    tabs: [
+      { id: "conteudo", title: "Conteúdo", blocks: [
+        { h2: "Regras de texto" },
+        { p: "O stepper comunica o progresso dentro de um fluxo com etapas definidas. Ele orienta a pessoa sobre o que ainda falta para concluir um fluxo." },
+        { h3: "Como nomear as etapas do stepper" },
+        { p: "Use substantivos, nunca verbos. Transforme a ação em nominalização: o stepper representa uma etapa, não uma instrução. Exemplo:" },
+        { table: { wrap: true, head: ["Ação", "Etapa"], rows: [["Revisar", "Revisão"], ["Identificar", "Identificação"], ["Pagar", "Pagamento"]] } },
+        { ul: [
+          "Nomeie as etapas do ponto de vista da pessoa usuária — o que ela está fazendo, não o que o sistema faz.",
+          "O nome da etapa no stepper deve estar alinhado ao H1 da página correspondente. O H1 pode usar verbo, mas o termo principal precisa ser o mesmo. Se a etapa é \"Revisão\", o H1 pode ser \"Revise seus dados\"."
+        ] },
+        { h3: "Regras de escrita" },
+        { ul: [
+          "Primeira letra maiúscula, demais em minúsculo.", "Sem ponto final ou qualquer outra pontuação.",
+          "Use no máximo 3 palavras por etapa. O espaço é reduzido, seja direto.",
+          "Mantenha o mesmo padrão gramatical em todas as etapas do mesmo fluxo. Não misture substantivos com verbos."
+        ] },
+        { h3: "Stepper vs. Breadcrumb" },
+        { p: "O stepper comunica progresso dentro de um fluxo linear. O breadcrumb reflete a hierarquia de navegação do produto. Os dois têm responsabilidades distintas e não devem se sobrepor. Confira mais detalhes na página Breadcrumbs." },,
+        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Stepper. Regras de escrita do time de Content; os exemplos usam componentes do DS com os mesmos textos." }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/progress-tracker/progress-tracker.docs.js", e); }
 
 /* ==== components/selection-control/selection-control.js ==== */
 try {
@@ -3877,6 +4080,51 @@ CDS.register({
 });
 } catch (e) { console.error("[cds] components/fixed-tab/fixed-tab.playground.js", e); }
 
+/* ==== components/fixed-tab/fixed-tab.docs.js ==== */
+try {
+/* Documentação — fixed-tab: tab Conteúdo (regras de texto)
+   Fonte: [CastanhaDS] Component use documentation · 📁 [NEW] Content → Componentes · frame [Componentes] Tabs (6400:15174).
+   Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D99). */
+(function(){
+  window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
+  // Abas de exemplo (Scrollable Tab do DS) com os rótulos do Figma
+  function tabs(labels){ return { _tag: "cds-scrollable-tab", label: "Exemplo de abas", _children: labels.map(function(l){ return { _tag: "cds-tab-item", label: l }; }) }; }
+  CDS.docs["fixed-tab"] = {
+    tag: "cds-fixed-tab",
+    source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=6400-15174", sourceLabel: "Abrir Tabs em [NEW] Content no Figma",
+    tabs: [
+      { id: "conteudo", title: "Conteúdo", blocks: [
+        { h2: "Regras de texto" },
+        { p: "As tabs funcionam como placas de sinalização da interface. A pessoa usuária deve saber exatamente o que vai encontrar antes mesmo de clicar." },
+        { h3: "Como nomear tabs" },
+        { p: "Use verbos no infinitivo ou substantivos — escolha o que melhor representa o conteúdo da aba." },
+        { ul: ["Quando o foco é uma ação, use infinitivo: `Gerenciar cartões`", "Quando o foco é uma área, use substantivos: `Histórico de pedidos`"] },
+        { h3: "Regras de escrita" },
+        { ul: ["Primeira letra maiúscula, demais em minúsculo", "Sem ponto final ou qualquer outra pontuação", "Sem quebra de linha, o copy deve caber em uma linha", "Sem estrangeirismos se houver equivalente em português. Exemplo: use Painel e não Dashboard"] },
+        { h3: "Boas práticas" },
+        { ul: [
+          "Evite termos genéricos que não dizem nada: \"Visão geral\", \"Outros\". A tab deve responder o que a pessoa vai encontrar ou o que é possível fazer ali.",
+          "A ordem das tabs (da esquerda para a direita) deve refletir a importância da tarefa ou a frequência de uso na jornada.",
+          "Use entre 2 e 5 tabs. Muitas opções dificultam a leitura e a decisão, especialmente em mobile."
+        ] },
+        { h3: "Como pedir ajuda ao Borô" },
+        { p: "Ao solicitar novos nomes ou revisão de tabs, sempre forneça o contexto da arquitetura e uma descrição funcional da área." },
+        { code: "A tab está localizada em [caminho da navegação]. Nesta área é possível: ]liste ações e visualizações disponíveis]." },
+        { p: "Exemplo: A tab está localizada no Portal para empresas em Despesas → Adiantamentos. Nesta área a pessoa encontra o saldo disponível de cada colaborador e o número de adiantamentos. Também é possível adicionar ou resgatar saldo individualmente. Não é possível criar novos adiantamentos ou adicionar colaboradores." },
+        { h3: "Do's and Dont's" },
+        { dodont: [
+          { kind: "do", text: "Utilize labels diretos e curtos que informem o conteúdo sem que a pessoa usuária tenha necessidade de clicar." },
+          { kind: "dont", text: "Não utilize as Tabs como filtros. Caso precise adicionar um mecanismo de filtragem, reveja a experiência e opte por outro componente." },
+          { kind: "do", attrs: tabs(["Painel de premiações", "Pedidos por colaborador", "Pedidos por identificador", "Extrato de colaboradores", "Saldo dos colaboradores"]), text: "O usuário deve conseguir prever o conteúdo antes de clicar." },
+          { kind: "dont", attrs: tabs(["Dashboard", "Pedidos por colaborador", "Pedidos por identificador", "Extrato de colaboradores", "Saldo dos colaboradores"]), text: "Termos genéricos e estrangeiros." }
+        ] },,
+        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Tabs. Regras de escrita do time de Content; os exemplos usam componentes do DS com os mesmos textos." }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/fixed-tab/fixed-tab.docs.js", e); }
+
 /* ==== components/scrollable-tab/scrollable-tab.js ==== */
 try {
 /**
@@ -3912,6 +4160,21 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/scrollable-tab/scrollable-tab.playground.js", e); }
+
+/* ==== components/scrollable-tab/scrollable-tab.docs.js ==== */
+try {
+/* Documentação — scrollable-tab: tab Conteúdo (regras de texto de Tabs)
+   Mesmas regras de components/fixed-tab/fixed-tab.docs.js ([NEW] Content → Componentes → Tabs): lidas na hora de renderizar,
+   para não duplicar o texto. */
+(function(){
+  window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
+  CDS.docs["scrollable-tab"] = {
+    tag: "cds-scrollable-tab",
+    get source(){ return (CDS.docs["fixed-tab"] || {}).source; }, sourceLabel: "Abrir Tabs em [NEW] Content no Figma",
+    get tabs(){ return (CDS.docs["fixed-tab"] || { tabs: [] }).tabs; }
+  };
+})();
+} catch (e) { console.error("[cds] components/scrollable-tab/scrollable-tab.docs.js", e); }
 
 /* ==== components/tab-view/tab-view.js ==== */
 try {
@@ -8755,6 +9018,57 @@ CDS.register({
 });
 } catch (e) { console.error("[cds] components/bottom-sheet/bottom-sheet.playground.js", e); }
 
+/* ==== components/bottom-sheet/bottom-sheet.docs.js ==== */
+try {
+/* Documentação — bottom-sheet: tab Conteúdo (regras de texto)
+   Fonte: [CastanhaDS] Component use documentation · 📁 [NEW] Content → Componentes · frame [Componentes] Bottom sheet (6400:15668).
+   Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D99). */
+(function(){
+  window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
+  // Bottom Sheet (inline) com título, texto e duas ações em Main Buttons sem ícone (o Footer do sheet não expõe o Lead Icon)
+  function sheetActions(title, text, a, b){
+    return { _tag: "div", class: "pg-cnt-phone pg-cnt-phone--sheet", _children: [
+      { _tag: "cds-bottom-sheet", inline: true, "show-header": false, "show-footer": false, _children: [
+        { _tag: "h4", class: "pg-cnt-phone__title", _text: title },
+        { _tag: "p", class: "pg-cnt-phone__text", _text: text },
+        { _tag: "cds-main-button", class: "pg-cnt-phone__cta", label: a, "show-lead-icon": false, "show-trailing-icon": false },
+        { _tag: "cds-main-button", class: "pg-cnt-phone__cta", appearance: "neutral", label: b, "show-lead-icon": false, "show-trailing-icon": false }
+      ] }
+    ] };
+  }
+  CDS.docs["bottom-sheet"] = {
+    tag: "cds-bottom-sheet",
+    source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=6400-15668", sourceLabel: "Abrir Bottom sheet em [NEW] Content no Figma",
+    tabs: [
+      { id: "conteudo", title: "Conteúdo", blocks: [
+        { h2: "Regras de texto" },
+        { p: "O bottom sheet aparece para oferecer ações ou informações adicionais sem tirar a pessoa do fluxo. Por ser um espaço reduzido, o conteúdo precisa ser direto e focado." },
+        { h3: "Como escrever" },
+        { ul: ["No título, prefira perguntas curtas sempre que possível. Comunique uma coisa de cada vez.", "Use pontuação na descrição.", "Quando houver consequências, sempre informe o impacto da ação na descrição.", "Deixe sempre claro como encerrar o bottom sheet."] },
+        { h3: "Boas práticas" },
+        { ul: [
+          "Apresente apenas informações ”extras”. Nunca esconda informações essenciais para concluir a tarefa do fluxo dentro de um bottom sheet.",
+          "Use para interações rápidas. Conteúdos complexos pedem uma tela dedicada.",
+          "Para ações obrigatórias — quando a pessoa não pode sair sem agir —, abra uma tela inteira, não um bottom sheet."
+        ] },
+        { h3: "Como encerrar" },
+        { p: "Use Voltar ou Continuar editando dependendo do contexto. Confira a regra completa na página Botões." },
+        { h3: "Do's and Dont's" },
+        { dodont: [
+          { kind: "do", attrs: sheetActions("Sair sem salvar os documentos?", "Você pode enviar quando quiser, mas o benefício só fica disponível após a aprovação dos documentos enviados.", "Continuar editando", "Sair sem salvar"),
+            text: "Use perguntas no título de bottom sheets, sempre que possível." },
+          { kind: "dont", attrs: sheetActions("Atenção", "Você pode enviar quando quiser, mas o benefício só fica disponível após a aprovação dos documentos enviados.", "Cancelar", "Sair"),
+            text: "O título não é específico e os botões são confusos para o contexto." },
+          { kind: "do", text: "Use Voltar quando o bottom sheet interrompe um fluxo e, ao encerrá-lo, a pessoa retorna para uma área do app (Pix, Cartão, etc.) ou para uma tela que não é de edição." },
+          { kind: "dont", text: "Não use Continuar editando se ao fechar o bottom sheet, o usuário retorna para uma área do app (ex: Pix, Cartão) ou a tela não é de input/edição." }
+        ] },,
+        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Bottom sheet. Regras de escrita do time de Content; os exemplos usam componentes do DS com os mesmos textos." }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] components/bottom-sheet/bottom-sheet.docs.js", e); }
+
 /* ==== components/drawer/drawer.js ==== */
 try {
 /**
@@ -9292,9 +9606,6 @@ try {
       ] }
     ] };
   }
-  // Abas (Scrollable Tab do DS) e Breadcrumb do DS com rótulos reais, para os Do/Don't de Componentes
-  function tabs(labels){ return { _tag: "cds-scrollable-tab", label: "Exemplo de abas", _children: labels.map(function(l){ return { _tag: "cds-tab-item", label: l }; }) }; }
-  function crumbs(labels){ return { _tag: "cds-breadcrumb", collapse: "0", _children: labels.map(function(l){ return { _tag: "a", href: "#", _text: l }; }) }; }
   // Bottom Sheet (inline) com título, texto e duas ações em Main Buttons sem ícone (o Footer do sheet não expõe o Lead Icon)
   function sheetActions(title, text, a, b){
     return { _tag: "div", class: "pg-cnt-phone pg-cnt-phone--sheet", _children: [
@@ -9749,165 +10060,7 @@ try {
         { note: "Fonte: Figma · 📁 [NEW] Content → Formatação de dados (Regras universais, Valores monetários e moedas, Códigos e dados pessoais, Datas e horários, Quantidades e unidades, Mascaramento e omissão de dados, Porcentagens e tarifas). Exemplos em `código`, como no Figma (C113)." }
       ] }
       ,
-      { id: "componentes", title: "Componentes", blocks: [
-        { h2: "Tabs" },
-        { p: "As tabs funcionam como placas de sinalização da interface. A pessoa usuária deve saber exatamente o que vai encontrar antes mesmo de clicar." },
-        { h3: "Como nomear tabs" },
-        { p: "Use verbos no infinitivo ou substantivos — escolha o que melhor representa o conteúdo da aba." },
-        { ul: ["Quando o foco é uma ação, use infinitivo: `Gerenciar cartões`", "Quando o foco é uma área, use substantivos: `Histórico de pedidos`"] },
-        { h3: "Regras de escrita" },
-        { ul: ["Primeira letra maiúscula, demais em minúsculo", "Sem ponto final ou qualquer outra pontuação", "Sem quebra de linha, o copy deve caber em uma linha", "Sem estrangeirismos se houver equivalente em português. Exemplo: use Painel e não Dashboard"] },
-        { h3: "Boas práticas" },
-        { ul: [
-          "Evite termos genéricos que não dizem nada: \"Visão geral\", \"Outros\". A tab deve responder o que a pessoa vai encontrar ou o que é possível fazer ali.",
-          "A ordem das tabs (da esquerda para a direita) deve refletir a importância da tarefa ou a frequência de uso na jornada.",
-          "Use entre 2 e 5 tabs. Muitas opções dificultam a leitura e a decisão, especialmente em mobile."
-        ] },
-        { h3: "Como pedir ajuda ao Borô" },
-        { p: "Ao solicitar novos nomes ou revisão de tabs, sempre forneça o contexto da arquitetura e uma descrição funcional da área." },
-        { code: "A tab está localizada em [caminho da navegação]. Nesta área é possível: ]liste ações e visualizações disponíveis]." },
-        { p: "Exemplo: A tab está localizada no Portal para empresas em Despesas → Adiantamentos. Nesta área a pessoa encontra o saldo disponível de cada colaborador e o número de adiantamentos. Também é possível adicionar ou resgatar saldo individualmente. Não é possível criar novos adiantamentos ou adicionar colaboradores." },
-        { h3: "Do's and Dont's" },
-        { dodont: [
-          { kind: "do", text: "Utilize labels diretos e curtos que informem o conteúdo sem que a pessoa usuária tenha necessidade de clicar." },
-          { kind: "dont", text: "Não utilize as Tabs como filtros. Caso precise adicionar um mecanismo de filtragem, reveja a experiência e opte por outro componente." },
-          { kind: "do", attrs: tabs(["Painel de premiações", "Pedidos por colaborador", "Pedidos por identificador", "Extrato de colaboradores", "Saldo dos colaboradores"]), text: "O usuário deve conseguir prever o conteúdo antes de clicar." },
-          { kind: "dont", attrs: tabs(["Dashboard", "Pedidos por colaborador", "Pedidos por identificador", "Extrato de colaboradores", "Saldo dos colaboradores"]), text: "Termos genéricos e estrangeiros." }
-        ] },
-
-        { h2: "Botões" },
-        { p: "O texto do botão é o contrato com a pessoa usuária: ela precisa saber exatamente o que vai acontecer antes de clicar." },
-        { h3: "Como escrever" },
-        { ul: [
-          "Use infinitivo em botões e áreas clicáveis. Não use pronomes possessivos.",
-          "Se precisar usar pronome, use na terceira pessoa (seu/sua).",
-          "Use imperativo apenas em botões de peças de marketing.",
-          "O texto deve seguir os mesmos termos usados no título e na descrição da tela. A pessoa deve conseguir ler o header e o botão e relacionar as duas informações.",
-          "Use no máximo 3 palavras. Nunca quebre o texto em mais de uma linha.",
-          "Nunca use ponto final ou ponto de exclamação.",
-          "Evite labels genéricas como \"Sim\", \"Não\", ”Entendi” ou \"Ok\". Seja específico."
-        ] },
-        { h3: "Ações destrutivas" },
-        { p: "Mesmo sem um estilo visual específico, deixe claro na label quando a ação é irreversível. A pessoa não pode ter dúvida sobre o que vai acontecer. Exemplo:" },
-        { display: { attrs: [
-          { _tag: "cds-main-button", label: "Sair sem salvar", "show-lead-icon": false, "show-trailing-icon": false },
-          { _tag: "cds-main-button", label: "Remover colaborador", "show-lead-icon": false, "show-trailing-icon": false },
-          { _tag: "cds-main-button", label: "Sair do app", "show-lead-icon": false, "show-trailing-icon": false }
-        ] } },
-        { h3: "Labels padronizadas" },
-        { table: { wrap: true, head: ["Label", "Quando usar"], rows: [
-          ["Aplicar", "CTA padrão para aplicar filtros selecionados."],
-          ["Cancelar", "Quando a pessoa desiste de uma edição, sem sair do fluxo. Sempre aparece junto com \"Salvar alterações\"."],
-          ["Confirmar", "Final de fluxo onde a última tela é uma revisão de dados antes da conclusão da ação."],
-          ["Concluir", "Encerra onboardings que tem mais de uma etapa."],
-          ["Continuar", "Avança para a próxima etapa sem finalizar o fluxo. Não usar em telas de revisão ou encerramento."],
-          ["Continuar editando", "Pop-ups ou bottom sheets que desistem de uma confirmação. Nunca use \"Cancelar\" nesses casos. Exceção: use \"Voltar\" quando o contexto não for coerente com \"edição\"."],
-          ["Detalhes", "Abre mais informações sobre uma área, colaborador ou pedido."],
-          ["Dúvidas frequentes", "Leva para artigo na FAQ. Uso exclusivo no componente shortcut."],
-          ["Falar com a Caju", "Abre WhatsApp ou e-mail do time de CX."],
-          ["Fechar", "Encerra algo sem impacto ou decisão (onboardings, modais informativos). Também usado quando o modal não tem \"X\" no canto superior."],
-          ["Já recebi e quero ativar", "Texto fixo — não modifique. Caso seja alterado, deve ser atualizada a carta berço do cartão físico."],
-          ["Limpar", "Remove os filtros aplicados."],
-          ["Me lembrar mais tarde", "Fecha pop-ups ou bottom sheets que voltam a aparecer até a ação ser concluída."],
-          ["Não encontrei o código", "Telas de código de ativação, abre modal explicativo sobre onde encontrar o código."],
-          ["Não mostrar novamente", "Encerra pop-ups ou bottom sheets que não voltam a aparecer."],
-          ["Preciso de ajuda", "Abre artigos da FAQ."],
-          ["Pular", "Pula uma etapa não obrigatória do fluxo."],
-          ["Quero saber mais", "Abre artigo ou categoria da FAQ sobre novidades. Tom mais leve que \"Preciso de ajuda\"."],
-          ["Quero ser avisado", "A pessoa sinaliza que quer ser comunicada sobre uma mudança ou retorno de instabilidade."],
-          ["Sair sem salvar", "Abandona o fluxo com perda de dados. Deixa claro que as informações não serão salvas."],
-          ["Saiba mais", "Exclusivo para peças de marketing (banners, campanhas, formulários externos)."],
-          ["Salvar alterações", "Confirma uma edição em formulário."],
-          ["Sim, cancelar", "Confirma o cancelamento de uma ação já iniciada. Remove ambiguidade do termo \"Cancelar\"."],
-          ["Voltar", "Retorna a uma etapa anterior sem sair do fluxo. Exceção: use \"Voltar\" em vez de \"Continuar editando\" quando o contexto não for coerente com edição."],
-          ["[Apenas Sponsor] Voltar para [Nome da área]", "Telas de finalização (sucesso ou erro). Leva de volta a uma área principal após concluir ou falhar um fluxo. Nome da área sempre com letra maiúscula."],
-          ["[Apenas Employee] Fechar", "Telas de finalização (sucesso ou erro). Leva de volta a uma área principal após concluir ou falhar um fluxo."]
-        ] } },
-
-        { h2: "Breadcrumb" },
-        { p: "O breadcrumb é uma trilha de navegação que mostra à pessoa onde ela está dentro da hierarquia do produto. É um recurso de navegação secundária e não substitui o menu principal." },
-        { h3: "Anatomia do conteúdo" },
-        { p: "O breadcrumb sempre segue esta ordem:" },
-        { ol: [
-          "Página de origem — nível mais alto da hierarquia. Nunca omitida ou truncada.",
-          "Links intermediários — páginas entre a origem e a atual. São clicáveis e podem ser truncados quando necessário.",
-          "Página atual — último item da trilha. Exibido como texto simples, sem link e nunca truncado."
-        ] },
-        { h3: "Como escrever" },
-        { ul: [
-          "Use o mesmo nome que a página exibe em seu título ou na navegação principal. As labels precisam ser consistentes — elas ainda não são puxadas automaticamente do código, então exigem atenção redobrada.",
-          "Mantenha a mesma label do início ao fim do fluxo. Se começou como \"Novo pedido\", não mude para \"Nova solicitação\" no meio do caminho.",
-          "Seja conciso. Prefira nomes curtos e diretos. Se o nome for muito longo, use uma versão abreviada reconhecível — nunca invente um nome diferente do usado na navegação.",
-          "Evite verbos e chamadas à ação. O breadcrumb é orientação, não ação. Exceção: quando o fluxo parte de uma ação, o verbo é permitido. Exemplo: `Relatórios`, `Configurações`, `Adicionar créditos` (quando o fluxo parte dessa ação)",
-          "Sem pontuação nos rótulos. Os separadores entre itens são responsabilidade do componente.",
-          "Use sentence case — primeira letra maiúscula, demais em minúsculo. Confira as exceções de maiúsculas na página Escrevendo para produto."
-        ] },
-        { h3: "Truncamento" },
-        { p: "O truncamento é ativado quando o total de itens ultrapassa 5 ou quando não há espaço suficiente. Apenas os links intermediários são truncados e agrupados em um dropdown." },
-        { p: "Nunca são truncados:" },
-        { ul: ["Página de origem", "Última página ancestral (nível imediatamente acima da página atual)", "Página atual"] },
-        { h3: "Breadcrumb vs. Stepper" },
-        { p: "O breadcrumb reflete a hierarquia de navegação estática do produto. O stepper comunica o progresso dentro de um fluxo. Os dois têm responsabilidades distintas e não devem se sobrepor." },
-        { p: "O primeiro item do breadcrumb deve ser sempre a página que originou o fluxo — não o \"Painel Inicial\" ou \"Home\". Isso garante que a pessoa consiga retornar ao contexto exato de onde partiu." },
-        { h3: "Do's and Dont's" },
-        { dodont: [
-          { kind: "do", attrs: crumbs(["Créditos Caju", "Transferência entre carteiras"]), text: "O progresso dos passos de um fluxo (stepper) não deve ser representado no Breadcrumb. Ele reflete apenas a hierarquia de navegação estática do produto." },
-          { kind: "dont", attrs: crumbs(["Painel inicial", "Transferência entre carteiras"]), text: "O primeiro item do Breadcrumb deve ser a página que originou o fluxo, e não o \"Painel Inicial\" ou ”Home”." }
-        ] },
-
-        { h2: "Bottom sheet" },
-        { p: "O bottom sheet aparece para oferecer ações ou informações adicionais sem tirar a pessoa do fluxo. Por ser um espaço reduzido, o conteúdo precisa ser direto e focado." },
-        { h3: "Como escrever" },
-        { ul: ["No título, prefira perguntas curtas sempre que possível. Comunique uma coisa de cada vez.", "Use pontuação na descrição.", "Quando houver consequências, sempre informe o impacto da ação na descrição.", "Deixe sempre claro como encerrar o bottom sheet."] },
-        { h3: "Boas práticas" },
-        { ul: [
-          "Apresente apenas informações ”extras”. Nunca esconda informações essenciais para concluir a tarefa do fluxo dentro de um bottom sheet.",
-          "Use para interações rápidas. Conteúdos complexos pedem uma tela dedicada.",
-          "Para ações obrigatórias — quando a pessoa não pode sair sem agir —, abra uma tela inteira, não um bottom sheet."
-        ] },
-        { h3: "Como encerrar" },
-        { p: "Use Voltar ou Continuar editando dependendo do contexto. Confira a regra completa na página Botões." },
-        { h3: "Do's and Dont's" },
-        { dodont: [
-          { kind: "do", attrs: sheetActions("Sair sem salvar os documentos?", "Você pode enviar quando quiser, mas o benefício só fica disponível após a aprovação dos documentos enviados.", "Continuar editando", "Sair sem salvar"),
-            text: "Use perguntas no título de bottom sheets, sempre que possível." },
-          { kind: "dont", attrs: sheetActions("Atenção", "Você pode enviar quando quiser, mas o benefício só fica disponível após a aprovação dos documentos enviados.", "Cancelar", "Sair"),
-            text: "O título não é específico e os botões são confusos para o contexto." },
-          { kind: "do", text: "Use Voltar quando o bottom sheet interrompe um fluxo e, ao encerrá-lo, a pessoa retorna para uma área do app (Pix, Cartão, etc.) ou para uma tela que não é de edição." },
-          { kind: "dont", text: "Não use Continuar editando se ao fechar o bottom sheet, o usuário retorna para uma área do app (ex: Pix, Cartão) ou a tela não é de input/edição." }
-        ] },
-
-        { h2: "Links" },
-        { p: "O link direciona a pessoa para outro destino — página interna, site externo, documento ou seção. É navegação, não ação. Se o objetivo é executar algo no próprio fluxo, use um Botão." },
-        { h3: "Como escrever" },
-        { p: "O texto deve descrever com clareza para onde a pessoa vai ou o que vai encontrar. A pessoa não deve precisar clicar para entender o destino. Exemplos:" },
-        { display: { attrs: [
-          { _tag: "cds-link", label: "Confira o artigo com nossas dicas de segurança.", href: "#", appearance: "accent" },
-          { _tag: "cds-link", label: "Leia os termos e condições de uso.", href: "#", appearance: "accent" },
-          { _tag: "cds-link", label: "Seu cartão chegou! Desbloqueie e comece a usar.", href: "#", appearance: "accent" }
-        ] } },
-        { ul: [
-          "Use entre 5 e 8 palavras (cerca de 55 caracteres). Links precisam de mais texto que botões para garantir uma área de clique adequada.",
-          "Não use textos genéricos.",
-          "Se o link for um endereço de e-mail e for a última palavra da frase, não use ponto final."
-        ] },
-        { h3: "Links externos" },
-        { p: "Para links que levam para fora do produto, considere indicar com ícone e abrir em nova aba. Isso prepara a pessoa para a mudança de contexto." },
-        { display: { attrs: { _tag: "cds-link", label: "Leia os termos e condições de uso.", href: "#", appearance: "accent", icon: "link-line", target: "_blank" } } },
-        { h3: "Hiperlinks em texto corrido" },
-        { p: "Quando o link aparecer dentro de um parágrafo ou descrição:" },
-        { ul: [
-          "Inclua pontuação ao final de cada frase normalmente — o link não altera a pontuação da frase.",
-          "Posicione o link próximo ao conteúdo que ele descreve. Links distantes do contexto prejudicam o entendimento.",
-          "Quando houver mais de uma frase com link, inclua pontuação ao final de cada uma."
-        ] },
-        { h3: "Link vs. Botão" },
-        { ul: [
-          "Use link para navegar (levar a pessoa a outro destino como termos de uso, FAQ, artigos ou downloads).",
-          "Use botão para agir (executar algo no próprio fluxo, como confirmar, salvar, enviar ou cancelar).",
-          "Links mudam o contexto e botões geram uma resposta imediata."
-        ] },
-
+      { id: "feedback-pages", title: "Feedback Pages", blocks: [
         { h2: "Feedback Pages" },
         { p: "Feedback Pages comunicam estados relevantes após uma ação ou evento do sistema. O objetivo é orientar, confirmar, alertar ou redirecionar a pessoa usuária de forma clara e acionável." },
         { h3: "Erros" },
@@ -10002,25 +10155,7 @@ try {
           { kind: "dont", attrs: screen("notificacoes/empty-state", "Últimas transações", "Sem pagamentos realizados."),
             text: "O texto não engaja e não explica o valor daquela área para a pessoa usuária." }
         ] },
-
-        { h2: "Stepper" },
-        { p: "O stepper comunica o progresso dentro de um fluxo com etapas definidas. Ele orienta a pessoa sobre o que ainda falta para concluir um fluxo." },
-        { h3: "Como nomear as etapas do stepper" },
-        { p: "Use substantivos, nunca verbos. Transforme a ação em nominalização: o stepper representa uma etapa, não uma instrução. Exemplo:" },
-        { table: { wrap: true, head: ["Ação", "Etapa"], rows: [["Revisar", "Revisão"], ["Identificar", "Identificação"], ["Pagar", "Pagamento"]] } },
-        { ul: [
-          "Nomeie as etapas do ponto de vista da pessoa usuária — o que ela está fazendo, não o que o sistema faz.",
-          "O nome da etapa no stepper deve estar alinhado ao H1 da página correspondente. O H1 pode usar verbo, mas o termo principal precisa ser o mesmo. Se a etapa é \"Revisão\", o H1 pode ser \"Revise seus dados\"."
-        ] },
-        { h3: "Regras de escrita" },
-        { ul: [
-          "Primeira letra maiúscula, demais em minúsculo.", "Sem ponto final ou qualquer outra pontuação.",
-          "Use no máximo 3 palavras por etapa. O espaço é reduzido, seja direto.",
-          "Mantenha o mesmo padrão gramatical em todas as etapas do mesmo fluxo. Não misture substantivos com verbos."
-        ] },
-        { h3: "Stepper vs. Breadcrumb" },
-        { p: "O stepper comunica progresso dentro de um fluxo linear. O breadcrumb reflete a hierarquia de navegação do produto. Os dois têm responsabilidades distintas e não devem se sobrepor. Confira mais detalhes na página Breadcrumbs." },
-        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes (Tabs, Botões, Breadcrumb, Bottom sheet, Links, Feedback Pages, Stepper). Os exemplos foram refeitos com Scrollable Tab, Breadcrumb, Bottom Sheet, Main Button, Link e Fixed Bar do DS, com os mesmos textos (C114)." }
+        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Feedback Pages. Feedback Pages não é um componente do DS, por isso fica aqui; as regras de texto dos componentes (Tabs, Botões, Breadcrumb, Bottom sheet, Links, Stepper) estão na tab Conteúdo de cada componente (C114)." }
       ] }
       ,
       { id: "contextos", title: "Contextos", blocks: [

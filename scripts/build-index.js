@@ -157,8 +157,10 @@ rewrite("index.html", "");
 const smoke = rewrite("tests/smoke.html", ""); // smoke.html usa <base href="../">
 // MCP: catálogo do Castanha DS (dist/mcp/catalog.json) — fonte do servidor MCP (docs/local/PLANO-MCP.md). Só grava se o conteúdo mudou.
 const mcpCatalog = require("./mcp/build-catalog").write();
+const mcpBundle = require("./mcp/bundle").write(); // arquivo único do MCP (dist/mcp/castanha-mcp.js): servidor + gerador de JSX + núcleo do react-kit
 console.log(`${order.length} componentes em ordem de dependência → index.html${smoke ? " + tests/smoke.html" : ""} · dist/cds.css (${bundled.css.length}) + dist/cds.js (${bundled.js.length})`);
 console.log(order.map((id) => deps[id].length ? `${id} ← ${deps[id].join(", ")}` : id).join("\n"));
+console.log(`MCP: dist/mcp/castanha-mcp.js${mcpBundle.changed ? " (atualizado)" : ""} · ${Math.round(mcpBundle.bytes / 1024)} KB`);
 console.log(`Catálogo do MCP: dist/mcp/catalog.json${mcpCatalog.changed ? " (atualizado)" : " (sem mudança)"} · ${mcpCatalog.counts.components} componentes · ${mcpCatalog.counts.tokens} tokens · ${mcpCatalog.counts.icons} ícones · ${mcpCatalog.counts.illustrations} ilustrações`);
 
 // ---------- Orçamento de peso (primeira visita) ----------

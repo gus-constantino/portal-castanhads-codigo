@@ -17,6 +17,8 @@ const near = (q, list) => list.map((x) => [x, lev(fold(q), fold(x))]).filter((p)
 let CORE = null;
 async function core(catalog){
   if (CORE) return CORE;
+  // no arquivo único (dist/mcp/castanha-mcp.js) o núcleo já vem embutido, sem vm nem leitura de arquivo
+  if (typeof globalThis.__CASTANHA_REACT_KIT__ === "function") return (CORE = globalThis.__CASTANHA_REACT_KIT__());
   const local = path.join(__dirname, "..", "scripts", "react-kit.js");
   const src = fs.existsSync(local) ? fs.readFileSync(local, "utf8") : await (await fetch(catalog.site + "scripts/react-kit.js")).text();
   const ctx = { document: {}, MutationObserver: null }; ctx.window = ctx; ctx.CDS = {};

@@ -8,6 +8,8 @@
  *
  * Conectar no Claude Code (na pasta do repo):
  *   claude mcp add castanha-ds -- node mcp/server.js
+ * HTTP (Streamable HTTP, para hospedar ou testar como servidor remoto):
+ *   node mcp/server.js --http 8787   →  http://127.0.0.1:8787/mcp   (handleRequest: handler `fetch` para Workers/Deno/Edge)
  *
  * Ferramentas: listar_componentes · componente · docs · buscar · tokens · icone · ilustracao · diretrizes · divergencias
  *              gerar_jsx · revisar_codigo (M2, mcp/react.js)
@@ -15,10 +17,15 @@
  * Prompts:     implementar-tela · revisar-handoff · escrever-texto
  */
 "use strict";
-const fs = require("fs"), path = require("path"), readline = require("readline");
-const VERSION = "0.2.0";
+const fs = require("fs"), path = require("path");
+const VERSION = "0.3.0";
 const REACT = require("./react"); // M2: gerar_jsx e revisar_codigo
-const SRC = process.env.CASTANHA_CATALOG || path.join(__dirname, "..", "dist", "mcp", "catalog.json");
+const SITE_CATALOG = "https://gus-constantino.github.io/castanhads-component-teste/dist/mcp/catalog.json";
+// catálogo: CASTANHA_CATALOG (arquivo ou URL) · o do repo (dist/mcp/) · o ao lado do arquivo único · o publicado no site
+const SRC = (typeof process !== "undefined" && process.env && process.env.CASTANHA_CATALOG) || (function(){
+  if (typeof __dirname === "undefined" || !fs.existsSync) return SITE_CATALOG;
+  return [path.join(__dirname, "..", "dist", "mcp", "catalog.json"), path.join(__dirname, "catalog.json")].find((f) => fs.existsSync(f)) || SITE_CATALOG;
+})();
 
 // ---------- catálogo ----------
 let C = null;
@@ -186,40 +193,75 @@ const PROMPTS = [
     text: (a) => "Escreva ou revise o texto abaixo seguindo as diretrizes de conteúdo do Castanha DS (use `diretrizes` com os temas vocabulário, formatação de dados e escrita para produto, e a tab de conteúdo do componente com `docs`). Explique cada mudança em uma linha.\n\n" + a.texto }
 ];
 
-// ---------- JSON-RPC por stdio ----------
-const send = (msg) => process.stdout.write(JSON.stringify(msg) + "\n");
-const ok = (id, result) => send({ jsonrpc: "2.0", id, result });
-const fail = (id, code, message) => send({ jsonrpc: "2.0", id, error: { code, message } });
-async function handle(m){
-  const p = m.params || {};
-  switch (m.method){
-    case "initialize":
-      return ok(m.id, { protocolVersion: p.protocolVersion || "2025-06-18", capabilities: { tools: {}, resources: {}, prompts: {} },
-        serverInfo: { name: "castanha-ds", title: "Castanha DS", version: VERSION },
-        instructions: "Fonte do Castanha DS (design system da Caju): componentes, docs, props do Figma e do castanha-react, tokens, ícones, ilustrações, diretrizes de conteúdo e divergências. Consulte antes de criar ou revisar interface com o DS; não invente componentes, props ou tokens." });
-    case "ping": return ok(m.id, {});
-    case "tools/list": return ok(m.id, { tools: TOOLS.map((t) => ({ name: t.name, description: t.description, inputSchema: t.inputSchema, annotations: { readOnlyHint: true } })) });
-    case "tools/call": {
-      const t = TOOLS.find((x) => x.name === p.name);
-      if (!t) return fail(m.id, -32602, "Ferramenta desconhecida: " + p.name);
-      try { return ok(m.id, { content: [{ type: "text", text: await t.run(p.arguments || {}) }] }); }
-      catch (e){ return ok(m.id, { content: [{ type: "text", text: "Erro: " + e.message }], isError: true }); }
+// ---------- MCP: uma mensagem JSON-RPC → resposta (ou null para notificação) ----------
+const ok = (id, result) => ({ jsonrpc: "2.0", id, result });
+const fail = (id, code, message) => ({ jsonrpc: "2.0", id, error: { code, message } });
+async function handleMessage(m){
+  if (!m || m.jsonrpc !== "2.0" || typeof m.method !== "string") return fail(m && m.id !== undefined ? m.id : null, -32600, "Requisição inválida");
+  const p = m.params || {}, isNote = m.id === undefined;
+  try {
+    switch (m.method){
+      case "initialize":
+        return ok(m.id, { protocolVersion: p.protocolVersion || "2025-06-18", capabilities: { tools: {}, resources: {}, prompts: {} },
+          serverInfo: { name: "castanha-ds", title: "Castanha DS", version: VERSION },
+          instructions: "Fonte do Castanha DS (design system da Caju): componentes, docs, props do Figma e do castanha-react, tokens, ícones, ilustrações, diretrizes de conteúdo e divergências. Consulte antes de criar ou revisar interface com o DS; não invente componentes, props ou tokens." });
+      case "ping": return ok(m.id, {});
+      case "tools/list": return ok(m.id, { tools: TOOLS.map((t) => ({ name: t.name, description: t.description, inputSchema: t.inputSchema, annotations: { readOnlyHint: true } })) });
+      case "tools/call": {
+        const t = TOOLS.find((x) => x.name === p.name);
+        if (!t) return fail(m.id, -32602, "Ferramenta desconhecida: " + p.name);
+        try { return ok(m.id, { content: [{ type: "text", text: await t.run(p.arguments || {}) }] }); }
+        catch (e){ return ok(m.id, { content: [{ type: "text", text: "Erro: " + e.message }], isError: true }); }
+      }
+      case "resources/list": return ok(m.id, { resources: await resourcesList() });
+      case "resources/templates/list": return ok(m.id, { resourceTemplates: TEMPLATES });
+      case "resources/read": try { return ok(m.id, { contents: [{ uri: p.uri, mimeType: "text/markdown", text: await resourceRead(p.uri) }] }); } catch (e){ return fail(m.id, -32002, e.message); }
+      case "prompts/list": return ok(m.id, { prompts: PROMPTS.map((x) => ({ name: x.name, description: x.description, arguments: x.arguments })) });
+      case "prompts/get": { const x = PROMPTS.find((y) => y.name === p.name); if (!x) return fail(m.id, -32602, "Prompt desconhecido: " + p.name);
+        return ok(m.id, { description: x.description, messages: [{ role: "user", content: { type: "text", text: x.text(p.arguments || {}) } }] }); }
+      default: return isNote ? null : fail(m.id, -32601, "Método não suportado: " + m.method); // notificações (sem id) não têm resposta
     }
-    case "resources/list": return ok(m.id, { resources: await resourcesList() });
-    case "resources/templates/list": return ok(m.id, { resourceTemplates: TEMPLATES });
-    case "resources/read": try { return ok(m.id, { contents: [{ uri: p.uri, mimeType: "text/markdown", text: await resourceRead(p.uri) }] }); } catch (e){ return fail(m.id, -32002, e.message); }
-    case "prompts/list": return ok(m.id, { prompts: PROMPTS.map((x) => ({ name: x.name, description: x.description, arguments: x.arguments })) });
-    case "prompts/get": { const x = PROMPTS.find((y) => y.name === p.name); if (!x) return fail(m.id, -32602, "Prompt desconhecido: " + p.name);
-      return ok(m.id, { description: x.description, messages: [{ role: "user", content: { type: "text", text: x.text(p.arguments || {}) } }] }); }
-    default:
-      if (m.id !== undefined) fail(m.id, -32601, "Método não suportado: " + m.method); // notificações (sem id) são ignoradas
+  } catch (e){ return isNote ? null : fail(m.id, -32603, e.message); }
+}
+
+// ---------- transporte HTTP (Streamable HTTP, só respostas JSON) como handler `fetch` padrão da web ----------
+// Serve para Node 18+ (abaixo, --http), Cloudflare Workers, Deno, Vercel/Netlify Edge: recebe um Request, devolve um Response.
+const CORS = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "GET, POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Accept, Mcp-Session-Id, Mcp-Protocol-Version" };
+async function handleRequest(req){
+  const url = new URL(req.url), json = (body, status) => new Response(JSON.stringify(body), { status: status || 200, headers: Object.assign({ "Content-Type": "application/json" }, CORS) });
+  if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
+  if (!/\/mcp\/?$/.test(url.pathname)){
+    if (req.method === "GET") return new Response("MCP do Castanha DS v" + VERSION + " · endpoint: POST " + url.origin + "/mcp\n", { headers: Object.assign({ "Content-Type": "text/plain; charset=utf-8" }, CORS) });
+    return new Response("Não encontrado", { status: 404, headers: CORS });
+  }
+  if (req.method === "GET") return new Response(null, { status: 405, headers: Object.assign({ Allow: "POST" }, CORS) }); // sem stream SSE: só respostas JSON
+  if (req.method !== "POST") return new Response(null, { status: 405, headers: Object.assign({ Allow: "POST" }, CORS) });
+  let body; try { body = await req.json(); } catch (e){ return json(fail(null, -32700, "JSON inválido"), 400); }
+  const msgs = Array.isArray(body) ? body : [body], out = (await Promise.all(msgs.map(handleMessage))).filter(Boolean);
+  if (!out.length) return new Response(null, { status: 202, headers: CORS }); // só notificações
+  return json(Array.isArray(body) ? out : out[0]);
+}
+
+module.exports = { TOOLS, catalog, resourceRead, handleMessage, handleRequest, main, VERSION };
+/** Sobe o servidor: stdio (padrão) ou HTTP com --http [porta]. */
+function main(){
+  const http = process.argv.indexOf("--http");
+  if (http > 0){
+    // servidor HTTP local: node mcp/server.js --http [porta] → http://127.0.0.1:<porta>/mcp
+    const port = parseInt(process.argv[http + 1], 10) || 8787, host = process.env.HOST || "127.0.0.1";
+    require("http").createServer(async (req, res) => {
+      const chunks = []; for await (const c of req) chunks.push(c);
+      const r = await handleRequest(new Request("http://" + (req.headers.host || host) + req.url, { method: req.method, headers: req.headers, body: /^(GET|HEAD|OPTIONS)$/.test(req.method) ? undefined : Buffer.concat(chunks) }));
+      res.writeHead(r.status, Object.fromEntries(r.headers.entries())); res.end(Buffer.from(await r.arrayBuffer()));
+    }).listen(port, host, () => process.stderr.write("MCP do Castanha DS em http://" + host + ":" + port + "/mcp\n"));
+  } else {
+    // stdio: uma mensagem JSON-RPC por linha (stdout só para o protocolo)
+    const send = (msg) => { if (msg) process.stdout.write(JSON.stringify(msg) + "\n"); };
+    require("readline").createInterface({ input: process.stdin }).on("line", (line) => {
+      if (!line.trim()) return;
+      let m; try { m = JSON.parse(line); } catch (e){ return send(fail(null, -32700, "JSON inválido")); }
+      handleMessage(m).then(send);
+    });
   }
 }
-module.exports = { TOOLS, catalog, resourceRead };
-if (require.main === module){
-  readline.createInterface({ input: process.stdin }).on("line", (line) => {
-    if (!line.trim()) return;
-    let m; try { m = JSON.parse(line); } catch (e){ return fail(null, -32700, "JSON inválido"); }
-    handle(m).catch((e) => { if (m.id !== undefined) fail(m.id, -32603, e.message); });
-  });
-}
+if (typeof require !== "undefined" && require.main === module) main();

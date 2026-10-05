@@ -15,9 +15,9 @@
  "counts": {
   "components": 79,
   "buildingBlocks": 26,
-  "resources": 6,
+  "resources": 7,
   "compositions": 3,
-  "withDocs": 111,
+  "withDocs": 112,
   "withReact": 70,
   "liveMaps": 70,
   "reactOnly": 12,
@@ -15937,6 +15937,37 @@
      "id": "principios",
      "title": "Princípios de Design",
      "text": "## Princípios de Design\n\nOs Princípios de Design da Experiência estabelecem diretrizes estratégicas que orientam decisões de Design e Desenvolvimento em toda a Caju.\n\nEles garantem alinhamento entre equipes, promovem a padronização das experiências digitais e sustentam a escalabilidade e a eficiência na construção de produtos. Servem de base para manter a integridade e a consistência da identidade digital ao longo do tempo.\n\n- **Simples** — Facilitar e reduzir a curva de aprendizado, afinal estamos projetando sistemas com múltiplas regras. Ser simples e objetivo, sem inovar onde não precisa, com interfaces mais limpas e toques de alegria onde podemos encantar sem comprometer a jornada.\n- **Eficiente** — Uniformizar jornadas, habilitar atalhos, garantir a visibilidade da localização e dos estados atualizados para a pessoa usuária e aproveitar melhor o espaço da tela. Isso torna tudo mais claro e mais rápido, e dá orientação de contexto e de tarefa.\n- **Consistente** — Projetar para diferentes tipos de produto com fluidez e capacidade de se adaptar a qualquer movimento do negócio, sem deixar de garantir consistência e coerência na Visão Cliente e no ecossistema Caju.\n\n> Fonte: página Princípios de Design do Castanha Hub (Sobre). Motion, Ilustração e Conteúdo têm princípios próprios: veja Caju - Tema e Conteúdo."
+    }
+   ]
+  },
+  {
+   "id": "mcp",
+   "name": "MCP para IA",
+   "kind": "resource",
+   "category": null,
+   "figma": null,
+   "figmaNode": null,
+   "zeroheight": null,
+   "tabs": [
+    {
+     "id": "conectar",
+     "title": "Conectar",
+     "text": "## MCP do Castanha DS\n\nConecte o seu assistente de IA (Claude, Cursor, VS Code e outros) ao Castanha DS. Em vez de adivinhar, ele consulta os componentes, as docs, as props do Figma e do castanha-react, os tokens, os ícones, as ilustrações e as diretrizes de conteúdo, e gera e revisa código React com o DS.\n\nMCP (Model Context Protocol) é o padrão aberto que os assistentes usam para se conectar a fontes de informação e ferramentas.\n\n> **Primeira versão:** Só consulta: o MCP lê o conteúdo deste site e não altera nada. As respostas seguem o playground e o castanha-react da branch staging; o que está em rascunho aparece marcado.\n\n- **Arquivo do MCP** — Um arquivo só, sem instalar nada. Precisa do Node 18 ou mais novo.\n- **Código e README** — Servidor, gerador de JSX, teste e detalhes técnicos no repositório.\n\n## Passo a passo\n\n1. **Baixe o arquivo** — Salve o `castanha-mcp.js` numa pasta fixa do seu computador (ex.: `~/castanha/`). Pelo terminal:\n2. **Conecte no seu assistente** — Troque `/caminho/para/` pela pasta onde salvou o arquivo. Veja abaixo o comando ou a configuração de cada assistente.\n3. **Teste** — Abra uma conversa nova e pergunte, por exemplo: \"Como uso o Tag em estado de erro no React?\" ou \"Qual ícone do Castanha DS uso para cartão?\". O assistente deve consultar o Castanha DS antes de responder.\n\n```\ncurl -L -o castanha-mcp.js https://gus-constantino.github.io/castanhads-component-teste/dist/mcp/castanha-mcp.js\n```\n\n### Claude Code\n\n```\nclaude mcp add castanha-ds -- node /caminho/para/castanha-mcp.js\n```\n\n### Claude Desktop\n\nEm Configurações › Desenvolvedor › Editar configuração (arquivo `claude_desktop_config.json`), acrescente:\n\n```\n{\n  \"mcpServers\": {\n    \"castanha-ds\": {\n      \"command\": \"node\",\n      \"args\": [\"/caminho/para/castanha-mcp.js\"]\n    }\n  }\n}\n```\n\n### Cursor\n\nEm `.cursor/mcp.json` do projeto (ou nas configurações de MCP do Cursor), use a mesma configuração do Claude Desktop.\n\n### Quem trabalha neste repositório\n\nCom o repositório clonado, use o servidor da pasta `mcp/`: `claude mcp add castanha-ds -- node mcp/server.js`. Ele lê o catálogo gerado no build (`dist/mcp/catalog.json`).\n\n> O arquivo baixado busca o conteúdo neste site a cada vez que o assistente abre, então ele acompanha as atualizações do DS sem baixar de novo. Só baixe outra vez quando houver ferramenta nova."
+    },
+    {
+     "id": "ferramentas",
+     "title": "Ferramentas",
+     "text": "## O que o assistente pode fazer\n\n| Ferramenta | Para quê |\n|---|---|\n| `listar_componentes` | Componentes por categoria, com status no Figma e par no castanha-react; também os que só existem no React. |\n| `componente` | Tudo de um componente: descrição, links (Figma, Storybook, zeroheight), props no Figma, props do React com tipo e padrão, import, tradução Figma → React e divergências. |\n| `docs` | Texto de uma tab da documentação (uso, anatomia, estilos, acessibilidade, diretrizes, motion, conteúdo) ou de todas. |\n| `buscar` | Busca livre em componentes, docs, tokens, ícones e ilustrações. |\n| `tokens` | Valor no claro e no escuro, por viewport, e o nome no castanha-tokens (`--castanha-*`) ou se só existe aqui. |\n| `icone` | Ícones do [Caju] Icons por nome ou palavra-chave, com o uso no React. |\n| `ilustracao` | Ilustrações do [Caju] Illustrations, com o nome no pacote (às vezes diferente do Figma). |\n| `diretrizes` | Conteúdo e escrita, motion, ilustração, patterns e treinamento. |\n| `divergencias` | O que está diferente entre Figma, castanha-react e playground (CONFERIR e check da stack). |\n| `gerar_jsx` | Código do castanha-react a partir das props como estão no Figma. É o mesmo código do painel \"No React\" de cada componente. |\n| `revisar_codigo` | Revisa um trecho JSX: componente ou prop inexistente, valor fora das opções, prop obrigatória faltando, ícone ou ilustração com nome errado, cor ou tamanho cru que tem token e padrão do React diferente do Figma. |\n\n### Prompts prontos\n\n- `implementar-tela`: implementa uma tela só com componentes e tokens do DS, gerando e revisando o código.\n- `revisar-handoff`: compara Figma, docs e castanha-react de um componente e lista o que precisa de decisão.\n- `escrever-texto`: escreve ou revisa texto de interface pelas diretrizes de conteúdo."
+    },
+    {
+     "id": "exemplos",
+     "title": "Exemplos",
+     "text": "## Do Figma para o código\n\nPedido: \"Gera o código do Main Button com Appearance Inversed, sem ícones, desabilitado, com o texto Salvar.\" O assistente chama `gerar_jsx` e recebe:\n\n```\nimport { Button } from '@caju-beneficios/castanha-react';\n\n<Button appearance=\"inverted\" disabled>Salvar</Button>\n```\n\nProps com o valor padrão do React ficam de fora, e o que não tem tradução para o React vem avisado.\n\n## Revisão de código\n\nPedido: \"Revisa este trecho\". Com `revisar_codigo`, o assistente aponta, por exemplo:\n\n```\n<Button appearance=\"primary\" variant=\"ghost\">Salvar</Button>\n<TextInput lable=\"CPF\" error=\"CPF inválido\" />\n<div style={{ color: '#1a1a1a', padding: '16px' }} />\n```\n\n- `appearance=\"primary\"` não existe: as opções são accent, inverted e neutral.\n- `variant` vem de outra biblioteca: no Castanha DS é `appearance` ou `kind`.\n- `lable`: você quis dizer `label`?\n- `error` é boolean: a mensagem vai em `supportingMessage`.\n- `#1a1a1a` em color: use `var(--castanha-colors-text-intense)`. `16px` em padding: use `var(--castanha-sizes-16)`.\n\n## Perguntas que funcionam bem\n\n- \"Qual componente uso para filtrar uma lista?\"\n- \"Quais tokens de cor de texto existem e qual é o valor no tema escuro?\"\n- \"Como escrevo uma data e um valor em reais na interface?\"\n- \"Tem alguma divergência aberta no Drawer entre o Figma e o React?\"\n- \"Monta uma tela de confirmação de pedido usando só o Castanha DS.\""
+    },
+    {
+     "id": "como-funciona",
+     "title": "Como funciona",
+     "text": "## De onde vem o conteúdo\n\nA cada atualização do site, o build junta tudo o que o playground mostra num catálogo (`dist/mcp/catalog.json`): componentes, docs, status e props do Figma, props e mapas do castanha-react, tokens, ícones, ilustrações, CONFERIR e o check da stack. O MCP só lê esse catálogo.\n\nO lado React vem do repositório oficial (branch staging), atualizado pela rotina diária. As props do Figma são relidas toda segunda-feira.\n\n## O que ele não faz\n\n- Não altera nada: nem o Figma, nem o código, nem este site.\n- Não inventa componente: se algo não existe no DS, a resposta diz isso.\n- Não substitui a revisão do time: docs marcadas como rascunho aparecem como rascunho.\n\n## Para quem mantém\n\n- Servidor: `mcp/server.js` (stdio e HTTP) e `mcp/react.js` (gerar e revisar JSX), sem dependências.\n- Arquivo único: `dist/mcp/castanha-mcp.js`, gerado no build com o núcleo do painel \"No React\".\n- Teste: `node mcp/test.js` (também roda na CI) e `node mcp/test.js --server dist/mcp/castanha-mcp.js`.\n- Servidor remoto (HTTP): `node mcp/server.js --http 8787`, ou `handleRequest` como handler `fetch` numa plataforma serverless."
     }
    ]
   },

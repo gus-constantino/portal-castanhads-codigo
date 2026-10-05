@@ -4,11 +4,14 @@
  * cada ferramenta, resource e prompt com perguntas reais. Falha (código 1) se algo vier vazio ou com erro.
  *   node mcp/test.js            resumo
  *   node mcp/test.js --verbose  mostra o começo de cada resposta
+ *   node mcp/test.js --server dist/mcp/castanha-mcp.js   testa o arquivo único
  */
 "use strict";
 const { spawn } = require("child_process"), path = require("path");
 const VERBOSE = process.argv.includes("--verbose");
-const srv = spawn(process.execPath, [path.join(__dirname, "server.js")], { stdio: ["pipe", "pipe", "inherit"] });
+// --server <arquivo>: testa outro servidor (ex.: o arquivo único dist/mcp/castanha-mcp.js)
+const SERVER = process.argv.indexOf("--server") > 0 ? path.resolve(process.argv[process.argv.indexOf("--server") + 1]) : path.join(__dirname, "server.js");
+const srv = spawn(process.execPath, [SERVER], { stdio: ["pipe", "pipe", "inherit"] });
 let buf = "", next = 1; const wait = {};
 srv.stdout.on("data", (d) => { buf += d; let i; while ((i = buf.indexOf("\n")) >= 0){ const line = buf.slice(0, i); buf = buf.slice(i + 1); if (!line.trim()) continue; const m = JSON.parse(line); if (wait[m.id]){ wait[m.id](m); delete wait[m.id]; } } });
 const rpc = (method, params) => new Promise((res) => { const id = next++; wait[id] = res; srv.stdin.write(JSON.stringify({ jsonrpc: "2.0", id, method, params }) + "\n"); });
@@ -77,5 +80,5 @@ const CALLS = [
   expect("método desconhecido", bad.error && bad.error.code === -32601);
   srv.kill();
   if (fails.length){ console.error("❌ MCP: " + fails.length + " de " + n + " falharam\n- " + fails.join("\n- ")); process.exit(1); }
-  console.log("✅ MCP: " + n + " verificações ok (11 ferramentas, resources, prompts e o cruzamento gerar → revisar dos mapas)");
+  console.log("✅ MCP" + (SERVER.endsWith("server.js") ? "" : " (" + path.basename(SERVER) + ")") + ": " + n + " verificações ok (11 ferramentas, resources, prompts e o cruzamento gerar → revisar dos mapas)");
 })();

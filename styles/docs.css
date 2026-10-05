@@ -153,21 +153,6 @@
 .pg-doc-spec dt{ font:var(--text-style-caption-medium); color:var(--common-colors-text-soft); }
 .pg-doc-spec dd{ margin:0; min-width:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
 
-/* Galeria de ícones */
-.pg-doc-icons{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
-.pg-doc-icons__search{ width:100%; }
-.pg-doc-icons__grid{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(var(--common-sizes-120), 1fr)); gap:var(--common-sizes-8); }
-/* Tiles = composição <cmp-clickable-card> (botão: copia o nome); aqui só o tamanho da mídia */
-.pg-doc-icons__tile .cds-icon{ width:var(--common-sizes-24); height:var(--common-sizes-24); }
-.pg-doc-ills__grid{ grid-template-columns:repeat(auto-fill, minmax(calc(var(--common-sizes-120) + var(--common-sizes-16)), 1fr)); }
-.pg-doc-ills__img{ display:block; width:var(--common-sizes-92); height:var(--common-sizes-92); object-fit:contain; }
-.pg-doc-icons__tools{ display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-12); flex-wrap:wrap; }
-
-/* Accordion (categorias) — cabeçalho 56px, divisória Border/semi-soft, chevron gira ao abrir */
-.pg-doc-acc{ display:flex; flex-direction:column; }
-.pg-doc-acc__item{ --cds-accordion-width:100%; } /* Accordion Item do DS */
-.pg-doc-acc__item[hidden]{ display:none; }
-.pg-doc-acc__body{ padding:var(--common-sizes-8) 0 var(--common-sizes-16); }
 /* Toast do DS para "Copiado" — fixo no rodapé, centralizado */
 .pg-toast{ position:fixed; z-index:20; left:50%; bottom:var(--common-sizes-24); transform:translateX(-50%); }
 

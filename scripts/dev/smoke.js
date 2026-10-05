@@ -84,7 +84,7 @@ server.listen(0, "127.0.0.1", async () => {
     r.failures.forEach((f) => console.log(`   ❌ ${f.id}: ${f.errors.join(" · ")}`));
     if (avisos) r.warned.forEach((w) => console.log(`   ⚠️  ${w.id}: ${w.warnings.join(" · ")}`));
 
-    // ---------- Docs (D126): o app de verdade, cada tab de cada doc, em desktop e num celular de 375px ----------
+    // ---------- Docs (D128): o app de verdade, cada tab de cada doc, em desktop e num celular de 375px ----------
     let docsFail = 0;
     if (!process.argv.includes("--sem-docs")){
       const t1 = Date.now(), base = `http://127.0.0.1:${server.address().port}/index.html`;

@@ -1,5 +1,5 @@
 /**
- * Smoke das docs — roda dentro do app (index.html), injetado pelo scripts/dev/smoke.js (D126).
+ * Smoke das docs — roda dentro do app (index.html), injetado pelo scripts/dev/smoke.js (D128).
  * Abre cada tab de cada doc (componentes, carregadas sob demanda, e recursos de suporte) pela rota real e verifica:
  *   reprova · erro de script ao renderizar (exceção ou console.error) · a11y básico (nome acessível, rótulo,
  *             ícone com aria-hidden, img com alt)
@@ -16,7 +16,8 @@ window.CDS_SMOKE_DOCS = async function(opts){
   // Erros durante a renderização: console.error (o docs-kit registra assim) e exceções soltas
   var origErr = console.error;
   console.error = function(){ if (cur) rec("errors", cur.split("/")[0], cur + ": " + [].map.call(arguments, String).join(" ").slice(0, 160)); return origErr.apply(console, arguments); };
-  function onErr(e){ if (cur) rec("errors", cur.split("/")[0], cur + ": " + e.message); }
+  // "ResizeObserver loop…" é aviso benigno do navegador (notificação adiada para o próximo quadro), não erro de script
+  function onErr(e){ if (cur && !/^ResizeObserver loop/.test(e.message || "")) rec("errors", cur.split("/")[0], cur + ": " + e.message); }
   window.addEventListener("error", onErr);
 
   function hiddenIn(el, top){ for (var n = el; n && n !== top; n = n.parentElement){ if (n.hidden || n.inert || n.getAttribute("aria-hidden") === "true") return true; } return false; }

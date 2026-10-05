@@ -304,6 +304,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D132 | **Docs · lote 14 Tooltip e Dividers** (branch `teste`): Divider com as 6 tabs (texto do zeroheight + anotações da lib) e Tooltip (rascunho, com gatilho ligado por `for` nos exemplos); `.md` em `docs/zeroheight/` (tooltip como página nova). C144 | 05/10 |
 | D133 | **Docs · lote 15 Banner e Caju Card** (branch `teste`): Banner com as 6 tabs (texto do [Documentação] Banner e da description da lib), .Content Banner (building block) e Caju Card (rascunho); exemplos do Banner com textos curtos por causa da altura fixa (C145); contrastes medidos (incl. overlay de Hovered/Pressed) e `.md` (banner e caju-card como páginas novas). C145 | 05/10 |
 | D134 | **Docs · lote 16 Slider e Overlays** (branch `teste`): Slider com as 6 tabs (description da lib + rascunho) e os building blocks .Header e .Footer; acessibilidade conferida no código (o overlay usa o título como `aria-label`); contrastes medidos e `.md` (slider como página nova). C146 | 05/10 |
+| D135 | **Docs · lote 17 Tables** (branch `teste`): Table com as 6 tabs (zeroheight Table + Table Columns; exemplos com a amostra do Figma, já que os dados entram por `.columns`/`.rows`) e os building blocks .Data Cell, .Head e .Toolbar; ordenação conferida clicando; contrastes medidos e `.md` (table, table-columns). C147 | 05/10 |
 
 ## 5. Dúvidas abertas
 

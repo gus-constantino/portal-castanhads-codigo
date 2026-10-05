@@ -28,6 +28,28 @@ Revisão de 05/10/2026 das 32 páginas de Conteúdo do Castanha Hub: Tom e Voz, 
 | 13 | "Para garantir sua segurança" | Feedback Pages lista "Garantir" em Palavras para evitar; Alertas manda usar a frase | Copiou a frase de Alertas | O Hub precisa decidir |
 | 14 | Textos do .Feedback Content (Figma) | Proíbe "com sucesso", "Tudo certo", "Entendi" como CTA, "Ver", futuro ("Avisaremos") e pede "Limpar busca" | Patterns usa os textos do Figma: "Ação concluída com sucesso", "Tudo certo!", "Entendi", "Ver detalhes", "Avisaremos em breve", "Limpar filtros" | Reescrever os textos sugeridos no Figma (ver seção 3) |
 
+## Decisões de 05/10/2026 (Gustavo)
+
+Aplicadas no playground:
+- **Etapas futuras:** vale a Premissa #8 do Hub. O "Não faça" de Princípios de escrita deixou de dizer "não entre em detalhes de etapas futuras".
+- **Verbos visuais:** a regra geral continua "evite", com as exceções do Hub: a ação é de fato olhar algo (boleto, comprovante, cartão) ou é uma peça de marketing. Botões de navegação seguem a página Links: o nome da área ou "Acessar {área}".
+- **Pix**, nunca PIX: não é sigla.
+- **CPF, CNPJ e RG** dispensam o nome completo na primeira menção.
+- **"Código de desbloqueio"** no lugar de "Código de ativação" (Conteúdo, Main Button e Caju Card).
+- **Celular** `(11) 99999-9999`.
+- **Tom e voz** entrou como a primeira tab do Conteúdo: pilares, as 9 premissas (numeração corrigida) com as perguntas-guia, e "Comece pelas pessoas".
+
+### Levar ao time de Conteúdo
+
+O Figma "Como a Caju Fala" (fonte original do playground) ainda tem a versão antiga destes pontos, e alguns também divergem dentro do Hub:
+1. Pix × PIX: o Figma lista "PIX" como sigla.
+2. CPF, CNPJ e RG por extenso na primeira menção: está no Figma; o Hub dispensa.
+3. "Código de ativação" × "Código de desbloqueio": o Figma e o Glossário do Hub ainda usam "ativação"; "Desbloquear cartão" diz que "ativar" saiu de uso.
+4. Celular: o Hub tem dois formatos (`(11) 9 9999-9999` em Códigos e `(11) 99999-9999` em Mascarar); o playground adotou o segundo.
+5. Etapas futuras: o "Não faça" do Figma contradiz a Premissa #8.
+6. Verbos visuais: a Premissa #5 manda trocar "Ver mais" por "Saber mais", e as páginas Links e Comunicando Novidades proíbem "Saber mais". O playground seguiu Links.
+7. Explicar no onboarding: o playbook antigo diz "não é o momento de explicar regras de negócio" e a Premissa #6 inclui "Explicar". Ainda em aberto.
+
 ## 2. O que falta no playground e entra depois das decisões
 
 - **Tab nova "Tom e voz":**

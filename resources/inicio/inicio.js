@@ -12,7 +12,7 @@
         { p: "O Castanha é um Hub de soluções para criação de Experiências da Caju, desenvolvido para conectar ideias, pessoas e tecnologia. Ele une Ideação, Design e Código para garantir que os Produtos da Caju mantenham consistência com propósito." },
         { shortcuts: { bento: 4, items: [
           { size: "hero", title: "Componentes", text: "Os componentes do Castanha DS, com Playground ao vivo, documentação de uso e o código React de cada um.", href: "#/main-button", cta: "Ver componentes", illustration: "interfaces/customizacao" },
-          { size: "wide", title: "Conteúdo", text: "Princípios de escrita: como a Caju fala nos produtos.", href: "#/conteudo", cta: "Ver conteúdo", illustration: "comunicacao/perguntas-frequentes" },
+          { size: "wide", title: "Conteúdo", text: "Tom e voz, princípios de escrita e regras de texto: como a Caju fala nos produtos.", href: "#/conteudo", cta: "Ver conteúdo", illustration: "comunicacao/perguntas-frequentes" },
           { title: "Ilustração", text: "Princípios, guidelines e a biblioteca de ilustrações da Caju.", href: "#/caju-theme/ilustracoes", cta: "Ver ilustração", illustration: "personagens/nadia" },
           { title: "Motion", text: "Princípios de motion, curvas, durações e Motion Styles.", href: "#/caju-theme/motion", cta: "Ver motion", illustration: "objetos/foguete" }
         ] } },

@@ -187,7 +187,7 @@
           ["Já recebi e quero ativar", "Texto fixo — não modifique. Caso seja alterado, deve ser atualizada a carta berço do cartão físico."],
           ["Limpar", "Remove os filtros aplicados."],
           ["Me lembrar mais tarde", "Fecha pop-ups ou bottom sheets que voltam a aparecer até a ação ser concluída."],
-          ["Não encontrei o código", "Telas de código de ativação, abre modal explicativo sobre onde encontrar o código."],
+          ["Não encontrei o código", "Telas de código de desbloqueio, abre modal explicativo sobre onde encontrar o código."],
           ["Não mostrar novamente", "Encerra pop-ups ou bottom sheets que não voltam a aparecer."],
           ["Preciso de ajuda", "Abre artigos da FAQ."],
           ["Pular", "Pula uma etapa não obrigatória do fluxo."],

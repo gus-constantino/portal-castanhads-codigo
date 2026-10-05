@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 235 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 238 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.js ==== */
 try {
 /**
@@ -363,6 +363,110 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/currency/currency.playground.js", e); }
+
+/* ==== components/currency/currency.docs.js ==== */
+try {
+/* Documentação — Currency
+   Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Currency, 963ecf) reaproveitado; props e padrões validados no set da lib estável
+   (Currency 5301:2173; a seção [Documentation] Currency 4171:869 usa o mesmo set); acessibilidade e contrastes medidos no playground.
+   Divergências no CONFERIR (C130). */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+CDS.docs["currency"] = {
+  tag: "cds-currency",
+  base: { value: "1.250,00" },
+  source: "https://castanha.caju.com.br/858426090/v/latest/p/963ecf-currency", sourceLabel: "Abrir o Currency no zeroheight",
+  cover: { description: "O Currency é um componente de exibição utilizado para apresentar valores monetários de forma padronizada, legível e consistente nas interfaces da Caju.", examples: [
+    { value: "1.250,00", size: "largest" }, { value: "1.250,00", size: "largest", "show-value": false }
+  ] },
+  tabs: [
+    { id: "uso", title: "Uso", blocks: [
+      { h2: "Sobre" },
+      { p: "O Currency é um componente de exibição utilizado para apresentar valores monetários de forma padronizada, legível e consistente nas interfaces da Caju." },
+      { h3: "Nomes alternativos comuns" },
+      { p: "Valor monetário, Monetary value, Amount" },
+      { h3: "Princípios" },
+      { cards: [
+        ["Clareza", "O valor deve ser facilmente identificado e lido pela pessoa usuária."],
+        ["Consistência", "A apresentação padronizada de moeda em diferentes contextos da interface."],
+        ["Privacidade", "Possibilidade de ocultar valores sensíveis quando necessário."]
+      ] },
+      { h2: "Quando usar" },
+      { p: "Use o Currency sempre que for necessário exibir valores monetários em telas de produto, como saldos, preços, limites, totais, resumos financeiros ou confirmações, garantindo padronização visual e semântica do valor apresentado." },
+      { h3: "Utilize para:" },
+      { ul: ["Exibir saldos, preços e totais financeiros", "Mostrar valores associados a benefícios, cartões ou transações", "Apresentar valores em estados visíveis ou ocultos"] },
+      { h3: "Não utilize para:" },
+      { ul: ["Entrada de dados financeiros (use componentes de Text input)", "Exibição de números não monetários", "Simulações visuais que não representem valores reais"] },
+      { h2: "Casos de uso" },
+      { h3: "Currency vs Text comum" },
+      { p: "Diferente de um texto simples, o Currency aplica regras de formatação, hierarquia tipográfica e alinhamento adequadas para valores monetários, reduzindo ambiguidades e aumentando a legibilidade." },
+      { h3: "Currency vs Text input" },
+      { p: "O Currency é exclusivamente para exibição. Inputs permitem edição e interação, enquanto o Currency comunica informação final ou informativa." },
+      { compare: [
+        { title: "Currency: exibição", attrs: { value: "1.250,00", size: "large" } },
+        { title: "Text Input: entrada", attrs: { _tag: "cds-text-input", label: "Valor", value: "1.250,00", "show-supporting-content": false, "show-required": false } }
+      ] },
+      { note: "Suporte: fale com o time no canal #castanha-suporte no Slack." }
+    ] },
+
+    { id: "anatomia", title: "Anatomia", blocks: [
+      { h2: "Anatomia" },
+      { anatomy: { attrs: { value: "1.250,00", size: "largest" }, markers: [{ n: 1, target: "span:last-child", side: "right" }], legend: ["Currency label (símbolo e valor)"] } },
+      { h2: "Propriedades" },
+      { props: [
+        { name: "Appearance", type: "Variant", default: "Neutral", values: ["Neutral", "Inversed"] },
+        { name: "Size", type: "Variant", default: "Small", values: ["Small", "Medium", "Large", "Largest"] },
+        { name: "Show Value", type: "Variant", default: "True", values: ["True", "False"] }
+      ] },
+      { note: "Props e padrões lidos do set Currency da lib estável. O zeroheight lista Style e `Is hidden` (Boolean); na lib são `Appearance` e `Show Value` (Variant, padrão True) — CONFERIR C130. No código: `value`, `symbol` (padrão R$), `appearance`, `size` e `show-value`." }
+    ] },
+
+    { id: "estilos", title: "Estilos", blocks: [
+      { h2: "Size" },
+      { specimens: { min: "var(--common-sizes-160)", items: [
+        { label: "Small", attrs: {} }, { label: "Medium", attrs: { size: "medium" } }, { label: "Large", attrs: { size: "large" } }, { label: "Largest", attrs: { size: "largest" } }
+      ] } },
+      { h2: "Appearance e Show Value" },
+      { specimens: { min: "var(--common-sizes-160)", items: [
+        { label: "Neutral", attrs: { size: "large" } },
+        { label: "Inversed", attrs: { _tag: "div", class: "pg-doc-on-accent", _children: [{ _tag: "cds-currency", value: "1.250,00", size: "large", appearance: "inversed" }] } },
+        { label: "Show Value · False", attrs: { size: "large", "show-value": false } }
+      ] } }
+    ] },
+
+    { id: "acessibilidade", title: "Acessibilidade", blocks: [
+      { h2: "Leitor de tela" },
+      { ul: [
+        "Visível, o valor é lido como texto: símbolo e valor (ex.: R$ 1.250,00).",
+        "Oculto (`Show Value` False), os pontos são decorativos e o componente vira `role=\"img\"` com o nome \"R$ valor oculto\": a pessoa sabe que existe um valor, sem ouvi-lo.",
+        "Quem controla a exibição (ex.: um Icon Button de olho) deve ter rótulo claro, como \"Mostrar saldo\" e \"Ocultar saldo\"."
+      ] },
+      { h2: "Contraste (WCAG)" },
+      { ul: ["Neutral (`Text/intense`): 16,96:1 — AA e AAA.", "Inversed (`Text/inversed`) sobre `Surface/accent`: 4,54:1 — AA."] },
+      { note: "O zeroheight ainda não tem seção de Acessibilidade para o Currency. Contrastes medidos no tema light do playground." }
+    ] },
+
+    { id: "diretrizes", title: "Diretrizes", blocks: [
+      { h2: "Diretrizes de uso" },
+      { guides: [
+        { attrs: [{ value: "1.250,00", size: "large", "show-value": false }, { _tag: "cds-icon-button", icon: "hide-off-line", label: "Mostrar saldo", kind: "ghost", appearance: "neutral" }], title: "Uso correto do estado oculto", text: "Ative a opção de ocultação para valores sensíveis em contextos de privacidade, garantindo que a pessoa usuária reconheça que existe um valor, mesmo sem visualizá-lo." }
+      ] },
+      { h2: "Do's and Don'ts" },
+      { dodont: [
+        { kind: "do", attrs: { value: "1.250,00", size: "large" }, text: "Utilize o Currency para apresentar valores finais, como saldos ou preços, garantindo formatação monetária consistente e legível." },
+        { kind: "dont", attrs: { value: "3 cartões", size: "large", symbol: "" }, text: "Não utilize o Currency para textos comuns que não representes valores monetários." }
+      ] },
+      { note: "Para as regras de escrita de valores (sinal de subtração, casas decimais, separador de milhar), veja Conteúdo → Formatação de dados." }
+    ] },
+
+    { id: "motion", title: "Motion", blocks: [
+      { h2: "Motion" },
+      { p: "A animação do Currency fornece feedback visual único após ação do usuário. É feito uma vez por interação com escala suave para evitar distrações. A reprodução reforça a percepção do estado validado no sistema." },
+      { alert: { appearance: "warning", label: "Especificação pendente", text: "O zeroheight indica Mostrar e Ocultar com easing expressive/decelerate e duração short/01, que não correspondem a nenhum Motion Style da `.Motion Styles`. A animação ainda não está no componente do playground (CONFERIR C130)." } }
+    ] }
+  ]
+};
+} catch (e) { console.error("[cds] components/currency/currency.docs.js", e); }
 
 /* ==== components/currency-content/currency-content.js ==== */
 try {
@@ -1919,15 +2023,127 @@ CDS.register({
 
 /* ==== components/link/link.docs.js ==== */
 try {
-/* Documentação — link: tab Conteúdo (regras de texto)
-   Fonte: [CastanhaDS] Component use documentation · 📁 [NEW] Content → Componentes · frame [Componentes] Links (6400:15859).
-   Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D98). */
+/* Documentação — Link
+   Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Link, 153ebd) reaproveitado; anatomia e propriedades da seção [Documentation] Link do
+   Component use documentation (3686:475, set atual da lib), validadas no set Link 4926:213; acessibilidade e contrastes medidos no playground;
+   tab Conteúdo do [NEW] Content (6400:15859, D98). Divergências no CONFERIR (C130). */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   CDS.docs["link"] = {
     tag: "cds-link",
-    source: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=6400-15859", sourceLabel: "Abrir Links em [NEW] Content no Figma",
+    base: { label: "Termos de uso", href: "#" },
+    source: "https://castanha.caju.com.br/858426090/v/latest/p/153ebd-link", sourceLabel: "Abrir o Link no zeroheight",
+    cover: { description: "O Link é um elemento interativo que direciona o usuário para outro destino, como páginas internas, externas, seções específicas ou downloads.", examples: [
+      { label: "Histórico de pagamentos", appearance: "accent" }, { label: "Termos de uso" }
+    ] },
     tabs: [
+      { id: "uso", title: "Uso", blocks: [
+        { h2: "Sobre" },
+        { p: "O Link é um elemento interativo que direciona o usuário para outro destino, como páginas internas, externas, seções específicas ou downloads." },
+        { h3: "Nomes alternativos comuns" },
+        { p: "Hiperlink, Text Link, Link Button, Anchor." },
+        { h3: "Princípios" },
+        { cards: [
+          ["Clareza", "O texto deve indicar com precisão o destino ou recurso acessado."],
+          ["Consistência", "Links devem ter estilo e comportamento uniformes, garantindo que o usuário identifique facilmente o elemento como interativo."],
+          ["Previsibilidade", "O usuário deve entender facilmente o que acontecerá ao clicar no link."]
+        ] },
+        { h2: "Quando usar" },
+        { p: "Use o componente Link para direcionar o usuário a outro destino, seja uma página interna, um site externo, um documento ou uma seção específica da mesma página. Ele é indicado para navegação relacionada ao conteúdo apresentado e deve ser aplicado sempre que a interação tiver como objetivo levar o usuário a consumir novas informações, sem executar ações diretas no sistema." },
+        { h3: "Utilize para:" },
+        { ul: ["Para redirecionar para sites externos ou recursos fora do produto.", "Para rolar até uma seção específica na mesma página.", "Para abrir documentos, arquivos ou iniciar downloads.", "Para compartilhar recursos, termos, políticas ou conteúdos adicionais."] },
+        { h3: "Não utilize para:" },
+        { ul: ["Para ações que modificam dados, enviam formulários ou executam comandos (use Main Button).", "Para interações que exigem confirmação ou escolha do usuário.", "Para navegação que faz parte da estrutura principal."] },
+        { h2: "Casos de uso" },
+        { h3: "Link vs Main Button" },
+        { p: "O Link serve para navegação, direcionando o usuário a outro local ou recurso sem alterar o estado do sistema. Já o Main Button executa ações diretas, como enviar dados ou abrir elementos na interface. Links mudam o contexto; Main buttons geram uma resposta imediata no mesmo fluxo." },
+        { alert: { appearance: "informative", label: "Link é para direcionamento", text: "Link é para direcionamento (navegar para outro conteúdo ou recurso) e Main Button é para ação (executar algo no próprio contexto da interface)." } },
+        { compare: [
+          { title: "Este é um Link", attrs: { label: "Termos de uso", appearance: "accent" } },
+          { title: "Este é um Main Button (Ghost)", attrs: { _tag: "cds-main-button", label: "Label", kind: "ghost", "show-lead-icon": false, "show-trailing-icon": false } }
+        ] },
+        { note: "Suporte: fale com o time no canal #castanha-suporte no Slack." }
+      ] },
+
+      { id: "anatomia", title: "Anatomia", blocks: [
+        { h2: "Anatomia" },
+        { anatomy: {
+          attrs: { label: "Link content", appearance: "accent" },
+          markers: [{ n: 1, target: "a > span", side: "top" }, { n: 2, target: "a > cds-icon", side: "right" }],
+          legend: ["Link text", "Icon"]
+        } },
+        { h2: "Propriedades" },
+        { props: [
+          { name: "Appearance", type: "Variant", default: "Neutral", values: ["Accent", "Neutral", "Inversed"] },
+          { name: "State", type: "Variant", default: "Enabled", values: ["Enabled", "Hovered", "Pressed", "Disabled"] },
+          { name: "Link Content", type: "Text", default: "Link content" },
+          { name: "Show Trailing Item", type: "Boolean", default: "true" },
+          { name: "Change Icon", type: "Swap component", default: "navigation-right-line" }
+        ] },
+        { note: "Props e padrões lidos do set Link da lib estável. A doc do Figma chama `Appearance` de Style. O zeroheight ainda não tem a tab Style deste componente (CONFERIR C130)." }
+      ] },
+
+      { id: "estilos", title: "Estilos", blocks: [
+        { h2: "Appearance" },
+        { specimens: { min: "var(--common-sizes-160)", items: [
+          { label: "Accent", attrs: { appearance: "accent" } }, { label: "Neutral", attrs: {} },
+          { label: "Inversed", attrs: { _tag: "div", class: "pg-doc-on-accent", _children: [{ _tag: "cds-link", label: "Termos de uso", href: "#", appearance: "inversed" }] } }
+        ] } },
+        { h2: "State" },
+        { specimens: { min: "var(--common-sizes-160)", items: [
+          { label: "Enabled", attrs: { appearance: "accent" } }, { label: "Hovered", attrs: { appearance: "accent", state: "hovered" } },
+          { label: "Pressed", attrs: { appearance: "accent", state: "pressed" } }, { label: "Disabled", attrs: { appearance: "accent", disabled: true } }
+        ] } },
+        { h2: "Ícone" },
+        { specimens: { min: "var(--common-sizes-160)", items: [
+          { label: "Show Trailing Item", attrs: { appearance: "accent" } }, { label: "Sem ícone", attrs: { appearance: "accent", "show-trailing-item": false } },
+          { label: "Link externo", attrs: { appearance: "accent", icon: "link-line", target: "_blank" } }
+        ] } }
+      ] },
+
+      { id: "acessibilidade", title: "Acessibilidade", blocks: [
+        { h2: "Leitor de tela" },
+        { ul: [
+          "É um `<a href>` nativo: anunciado como link, com o texto como nome.",
+          "O ícone é decorativo; o destino precisa estar claro no texto.",
+          "Em link externo que abre em nova aba (`target=\"_blank\"`), deixe isso claro no texto ou no ícone.",
+          "Disabled usa `aria-disabled=\"true\"` e sai da tabulação."
+        ] },
+        { h2: "Teclado e foco" },
+        { ul: ["Tab foca o link; Enter navega.", "Foco visível segue o padrão global do Castanha."] },
+        { h2: "Contraste (WCAG)" },
+        { ul: ["Neutral (`Text/intense`): 16,96:1 — AA e AAA.", "Accent (`Text/accent`): 4,54:1 — AA.", "Inversed (`Text/inversed`) sobre `Surface/accent`: 4,54:1 — AA.", "Estado desabilitado: isento do critério 1.4.3."] },
+        { note: "A seção Acessibilidade da doc no Figma ainda é placeholder; o zeroheight não tem essa seção. Contrastes medidos no tema light do playground." }
+      ] },
+
+      { id: "diretrizes", title: "Diretrizes", blocks: [
+        { h2: "Diretrizes de uso" },
+        { guides: [
+          { attrs: { label: "Termos de uso", appearance: "accent", icon: "link-line", target: "_blank" }, title: "Link externo", text: "Para links externos, considerar indicar com ícone e/ou abrir em nova aba." },
+          { attrs: [{ label: "Termos de uso", appearance: "accent" }, { _tag: "cds-main-button", label: "Main button", "show-lead-icon": false, "show-trailing-icon": false }], title: "Link vs Button", text: "Não confunda Link com Button: use Link para levar o usuário a outro destino (página, documento ou recurso externo) e Botão para executar ações no próprio contexto da aplicação." }
+        ] },
+        { h2: "Do's and Don'ts" },
+        { dodont: [
+          { kind: "do", attrs: { label: "Histórico de pagamentos", appearance: "accent" }, text: "Usar rótulos descritivos: o texto do link deve indicar claramente para onde o usuário será levado ou qual recurso será acessado." },
+          { kind: "dont", attrs: { label: "Clique aqui", appearance: "accent" }, text: "Textos genéricos não informam para onde o link leva, prejudicando a experiência e a acessibilidade." },
+          { kind: "do", text: "Posicionar links em contextos relevantes: insira próximo ao conteúdo relacionado, evitando que o usuário procure." },
+          { kind: "dont", text: "Não inserir links distantes do conteúdo que descrevem: isso prejudica a relação e o entendimento do destino." }
+        ] }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { h2: "Motion" },
+        { p: "A animação abrange os estados de interação. Não há delay nos estágios da animação, cada estagio acontece em tempo real de acordo com a interação do usuário com o componente." },
+        { display: { attrs: { label: "Termos de uso", appearance: "accent" }, live: true } },
+        { note: "Exemplo interativo: passe o mouse e pressione o link para ver cada transição." },
+        { specs: [
+          { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
+          { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
+          { title: "→ Disabled", rows: [["Gatilho", "Ao desabilitar"], ["Motion Style", "`Disabled/01`"]] }
+        ] },
+        { note: "No zeroheight, o Hovered usa expressive/decelerate · medium/02 e o Pressed systemic/default · short/03, que não correspondem aos Motion Styles de hover e press; aqui ficam os Motion Styles dos botões (CONFERIR C130)." },
+        { p: "Reduced motion: honrar `prefers-reduced-motion: reduce`." }
+      ] },
       { id: "conteudo", title: "Conteúdo", blocks: [
         { h2: "Regras de texto" },
         { p: "O link direciona a pessoa para outro destino — página interna, site externo, documento ou seção. É navegação, não ação. Se o objetivo é executar algo no próprio fluxo, use um Botão." },
@@ -3889,6 +4105,88 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/confirmation-message/confirmation-message.playground.js", e); }
+
+/* ==== components/confirmation-message/confirmation-message.docs.js ==== */
+try {
+/* Documentação — Confirmation Message (rascunho)
+   Sem página no zeroheight e sem description/annotations no Figma (05/10): texto escrito a partir do set da lib estável
+   (Confirmation Message 16359:1803, página Content) e do componente do playground, no template Juntos. Revisar com o time (C130). */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+CDS.docs["confirmation-message"] = {
+  tag: "cds-confirmation-message",
+  base: { icon: "check-line", title: "Pedido enviado", description: "Você recebe a confirmação por e-mail em até 2 dias úteis." },
+  source: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=16359-1803", sourceLabel: "Abrir o Confirmation Message no Figma",
+  cover: { description: "Mostre o resultado de uma ação com ícone, título e descrição centralizados.", examples: [
+    { appearance: "positive", icon: "check-line", title: "Pedido enviado", description: "Você recebe a confirmação por e-mail em até 2 dias úteis." }
+  ] },
+  tabs: [
+    { id: "uso", title: "Uso", blocks: [
+      { alert: { appearance: "warning", label: "Rascunho", text: "Este componente ainda não tem página no zeroheight. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
+      { h2: "Sobre" },
+      { p: "O Confirmation Message mostra o resultado de uma ação em uma composição centralizada: Shaped Icon, título e descrição. Aparece em conteúdos de confirmação, como o corpo de um Modal ou de um Bottom Sheet." },
+      { h2: "Quando usar" },
+      { h3: "Utilize para:" },
+      { ul: ["Confirmar que uma ação foi concluída (`Positive`).", "Avisar sobre algo que pede atenção antes de seguir (`Warning`).", "Informar um estado neutro, sem sucesso nem alerta (`Neutral`)."] },
+      { h3: "Não utilize para:" },
+      { ul: ["Telas inteiras de sucesso, erro ou empty state — use as Feedback Pages.", "Mensagens curtas e temporárias — use o Toast.", "Avisos dentro de um fluxo — use o Alert."] },
+      { note: "Para as regras de texto de mensagens de sucesso, alerta e erro, veja Conteúdo → Feedback Pages." }
+    ] },
+
+    { id: "anatomia", title: "Anatomia", blocks: [
+      { h2: "Anatomia" },
+      { anatomy: {
+        attrs: { appearance: "positive", icon: "check-line", title: "Pedido enviado", description: "Você recebe a confirmação por e-mail em até 2 dias úteis." },
+        markers: [{ n: 1, target: "cds-shaped-icon", side: "left" }, { n: 2, target: ".cds-cm__title", side: "right" }, { n: 3, target: ".cds-cm__desc", side: "left" }],
+        legend: ["Shaped Icon (Large · 56)", "Title (Title/Medium)", "Description (Body/Regular)"]
+      } },
+      { h2: "Composição do componente" },
+      { p: "Usa o Shaped Icon (Large) com a mesma Appearance do componente. Título e descrição ficam centralizados abaixo do ícone." },
+      { h2: "Propriedades" },
+      { props: [{ name: "Appearance", type: "Variant", default: "Neutral", values: ["Neutral", "Positive", "Warning"] }] },
+      { note: "No Figma, só `Appearance` é prop; ícone, título e descrição são texto da amostra. No código ficam expostos como `icon`, `title` e `description`." }
+    ] },
+
+    { id: "estilos", title: "Estilos", blocks: [
+      { h2: "Appearance" },
+      { specimens: { min: "var(--common-sizes-200)", items: [
+        { label: "Neutral", attrs: { icon: "information-line", title: "Dados atualizados", description: "As alterações já aparecem no seu perfil." } },
+        { label: "Positive", attrs: { appearance: "positive" } },
+        { label: "Warning", attrs: { appearance: "warning", icon: "timer-line", title: "Análise em andamento", description: "A análise pode levar até 2 dias úteis." } }
+      ] } }
+    ] },
+
+    { id: "acessibilidade", title: "Acessibilidade", blocks: [
+      { h2: "Leitor de tela" },
+      { ul: [
+        "O ícone é decorativo: o resultado precisa estar no título, nunca só na cor ou no ícone.",
+        "Título e descrição são lidos em ordem, de cima para baixo.",
+        "Quando a mensagem aparece depois de uma ação, quem implementa deve levar o foco ao título ou anunciá-la (ex.: `role=\"status\"` no container)."
+      ] },
+      { h2: "Contraste (WCAG)" },
+      { ul: ["Título (`Text/intense`): 16,96:1 — AA e AAA.", "Descrição (`Text/medium`): 8,24:1 — AA e AAA."] }
+    ] },
+
+    { id: "diretrizes", title: "Diretrizes", blocks: [
+      { h2: "Diretrizes de uso" },
+      { guides: [
+        { attrs: { appearance: "positive" }, title: "Use a Appearance do resultado", text: "Positive para ação concluída, Warning para o que pede atenção e Neutral para informar. O ícone acompanha a Appearance." },
+        { attrs: { appearance: "positive", title: "Pedido enviado", description: "Você recebe a confirmação por e-mail em até 2 dias úteis." }, title: "Título diz o que aconteceu, descrição diz o próximo passo", text: "Siga as regras de Feedback Pages: voz passiva no título, sem \"com sucesso\", e contexto ou prazo na descrição." }
+      ] },
+      { h2: "Do's and Don'ts" },
+      { dodont: [
+        { kind: "do", attrs: { appearance: "positive", title: "Pedido enviado", description: "Você recebe a confirmação por e-mail em até 2 dias úteis." }, text: "Título objetivo e descrição com o próximo passo." },
+        { kind: "dont", attrs: { appearance: "positive", title: "Feito!", description: "Seu pedido foi enviado com sucesso." }, text: "Título genérico e \"com sucesso\" — não explicam o que aconteceu nem o que vem depois." }
+      ] }
+    ] },
+
+    { id: "motion", title: "Motion", blocks: [
+      { h2: "Motion" },
+      { p: "O Confirmation Message é estático: não tem estados de interação nem animação própria. A entrada e a saída seguem o container que o exibe (Modal, Bottom Sheet)." }
+    ] }
+  ]
+};
+} catch (e) { console.error("[cds] components/confirmation-message/confirmation-message.docs.js", e); }
 
 /* ==== components/dropzone/dropzone.js ==== */
 try {
@@ -8104,6 +8402,86 @@ CDS.register({
   }
 });
 } catch (e) { console.error("[cds] components/topic/topic.playground.js", e); }
+
+/* ==== components/topic/topic.docs.js ==== */
+try {
+/* Documentação — Topic (rascunho)
+   Sem página no zeroheight e sem description/annotations no Figma (05/10): texto escrito a partir do set da lib estável
+   (Topic 15621:1175, página Content) e do componente do playground, no template Juntos. Revisar com o time (C130). */
+window.CDS = window.CDS || {};
+CDS.docs = CDS.docs || {};
+CDS.docs["topic"] = {
+  tag: "cds-topic",
+  base: { "lead-icon": "credit-card-line", title: "Cartão virtual", description: "Use o cartão virtual em compras online e nas carteiras digitais." },
+  source: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=15621-1175", sourceLabel: "Abrir o Topic no Figma",
+  cover: { description: "Apresente um tópico com ícone ou imagem, título e descrição.", examples: [
+    { "lead-icon": "credit-card-line", title: "Cartão virtual", description: "Use o cartão virtual em compras online e nas carteiras digitais." }
+  ] },
+  tabs: [
+    { id: "uso", title: "Uso", blocks: [
+      { alert: { appearance: "warning", label: "Rascunho", text: "Este componente ainda não tem página no zeroheight. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
+      { h2: "Sobre" },
+      { p: "O Topic apresenta um item de conteúdo com um .Lead item (Shaped Icon ou imagem), um título e uma descrição. Em lista, organiza benefícios, etapas ou características lado a lado ou empilhados." },
+      { h2: "Quando usar" },
+      { h3: "Utilize para:" },
+      { ul: ["Listar benefícios ou características de um produto.", "Explicar etapas ou pontos de um onboarding.", "Apresentar tópicos curtos com apoio visual."] },
+      { h3: "Não utilize para:" },
+      { ul: ["Itens clicáveis ou de navegação — use o Content List Item.", "Opções selecionáveis — use o Selection List Item.", "Textos longos — prefira parágrafos."] }
+    ] },
+
+    { id: "anatomia", title: "Anatomia", blocks: [
+      { h2: "Anatomia" },
+      { anatomy: {
+        attrs: { "lead-icon": "credit-card-line", title: "Cartão virtual", description: "Use o cartão virtual em compras online e nas carteiras digitais." },
+        markers: [{ n: 1, target: "cds-lead-item", side: "left" }, { n: 2, target: ".cds-topic__title", side: "right" }, { n: 3, target: ".cds-topic__desc", side: "right" }],
+        legend: [".Lead item (Shaped Icon Accent · Small ou Image 1:1)", "Title (Heading/Small)", "Description (Body/Regular)"]
+      } },
+      { h2: "Propriedades" },
+      { props: [
+        { name: "Orientation", type: "Variant", default: "Horizontal", values: ["Horizontal", "Vertical"] },
+        { name: "Show Lead item", type: "Boolean", default: "true" },
+        { name: "Show Title", type: "Boolean", default: "true" },
+        { name: "Text Title", type: "Text", default: "Title" },
+        { name: "Text Description", type: "Text", default: "Lorem Ipsum is simply dummy…" }
+      ] },
+      { note: "Props e padrões lidos do set Topic da lib estável. O tipo do .Lead item (Shaped Icon ou Image) é escolhido no building block; no código, `lead-kind`, `lead-icon`, `lead-src` e `lead-alt`." }
+    ] },
+
+    { id: "estilos", title: "Estilos", blocks: [
+      { h2: "Orientation" },
+      { specimens: { min: "var(--common-sizes-200)", items: [{ label: "Horizontal", attrs: {} }, { label: "Vertical", attrs: { orientation: "vertical" } }] } },
+      { h2: "Variações" },
+      { specimens: { min: "var(--common-sizes-200)", items: [
+        { label: "Sem título", attrs: { "show-title": false } },
+        { label: "Sem .Lead item", attrs: { "show-lead-item": false } }
+      ] } }
+    ] },
+
+    { id: "acessibilidade", title: "Acessibilidade", blocks: [
+      { h2: "Leitor de tela" },
+      { ul: [
+        "O Shaped Icon é decorativo. Com imagem, informe `lead-alt` quando ela trouxer informação; se for só ilustrativa, deixe vazio.",
+        "Em grupo, coloque os Topics numa lista (`<ul>`) para o leitor anunciar a quantidade de itens."
+      ] },
+      { h2: "Contraste (WCAG)" },
+      { ul: ["Título (`Text/intense`): 16,96:1 — AA e AAA.", "Descrição (`Text/medium`): 8,24:1 — AA e AAA."] }
+    ] },
+
+    { id: "diretrizes", title: "Diretrizes", blocks: [
+      { h2: "Diretrizes de uso" },
+      { guides: [
+        { attrs: [{ "lead-icon": "credit-card-line", title: "Cartão virtual", description: "Use em compras online." }, { "lead-icon": "wallet", title: "Carteiras digitais", description: "Pague por aproximação com o celular." }], title: "Mantenha o mesmo padrão no grupo", text: "Em lista, use a mesma Orientation e o mesmo tipo de .Lead item em todos os Topics." },
+        { attrs: { "lead-icon": "lock-line", title: "Mais segurança", description: "Seu cartão fica protegido com reconhecimento facial." }, title: "Texto curto", text: "Título com poucas palavras e descrição de até duas linhas." }
+      ] }
+    ] },
+
+    { id: "motion", title: "Motion", blocks: [
+      { h2: "Motion" },
+      { p: "O Topic é estático: não tem estados de interação nem animação própria." }
+    ] }
+  ]
+};
+} catch (e) { console.error("[cds] components/topic/topic.docs.js", e); }
 
 /* ==== components/trailing-item/trailing-item.js ==== */
 try {

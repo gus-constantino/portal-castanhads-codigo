@@ -16,6 +16,6 @@ cds-link > a{ --cds-icon-color:var(--_fg); } /* override do Icon aninhado */
 cds-link[appearance="accent"] > a{ --_fg:var(--common-colors-text-accent); }
 cds-link[appearance="inversed"] > a{ --_fg:var(--common-colors-text-inversed); }
 
-cds-link > a:hover{ text-decoration:underline; text-decoration-color:currentColor; }
-cds-link > a:active{ font:var(--text-style-label-bold); text-decoration:underline; text-decoration-color:currentColor; }
+cds-link > a:hover, cds-link[state="hovered"] > a{ text-decoration:underline; text-decoration-color:currentColor; }
+cds-link > a:active, cds-link[state="pressed"] > a{ font:var(--text-style-label-bold); text-decoration:underline; text-decoration-color:currentColor; }
 cds-link[disabled]{ opacity:var(--common-opacity-light); pointer-events:none; }

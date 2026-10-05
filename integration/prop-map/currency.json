@@ -1,0 +1,21 @@
+{
+  "element": "cds-currency",
+  "defaults": { "value": "100,00", "symbol": "R$", "appearance": "neutral", "size": "small", "show-value": "true" },
+  "jsx": {
+    "tag": "Currency",
+    "props": [
+      { "prop": "appearance", "attr": "appearance", "map": { "inversed": "inverted" } },
+      { "prop": "size", "attr": "size" },
+      { "prop": "code", "attr": "symbol", "map": { "R$": "BRL", "US$": "USD", "$": "USD", "€": "EUR", "£": "GBP" } },
+      { "prop": "showValue", "attr": "show-value", "bool": "not", "eq": "true" }
+    ],
+    "children": [{ "attr": "value" }]
+  },
+  "figma": [
+    ["Appearance", "appearance", "appearance", "Inversed vira `inverted`."],
+    ["Size", "size", "size", "O padrão do Figma é `small`; o do React é `medium` — declare `size` quando for Small."],
+    ["Show Value", "show-value", "showValue", "False: `showValue={false}` (o valor vira pontos)."],
+    ["—", "value", "children", "Valor já formatado (`\"100,00\"`). Para formatar a partir de número, use `value={100}`."],
+    ["—", "symbol", "code", "O React usa o código ISO da moeda (`BRL`, `USD`…), não o símbolo."]
+  ]
+}

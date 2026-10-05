@@ -1,0 +1,117 @@
+{
+  "element": "cds-drop-button",
+  "defaults": {
+    "label": "Label",
+    "kind": "default",
+    "appearance": "accent",
+    "size": "medium",
+    "show-lead-icon": "true",
+    "lead-icon": "placeholder-line"
+  },
+  "jsx": {
+    "tag": "DropButton",
+    "props": [
+      {
+        "prop": "label",
+        "attr": "label"
+      },
+      {
+        "prop": "kind",
+        "attr": "kind",
+        "if": {
+          "kind": "!default"
+        }
+      },
+      {
+        "prop": "appearance",
+        "attr": "appearance",
+        "map": {
+          "inversed": "inverted"
+        },
+        "if": {
+          "appearance": "!accent"
+        }
+      },
+      {
+        "prop": "size",
+        "attr": "size",
+        "if": {
+          "size": "!medium"
+        }
+      },
+      {
+        "prop": "disabled",
+        "attr": "disabled",
+        "bool": true
+      },
+      {
+        "prop": "leadIcon",
+        "attr": "lead-icon",
+        "if": {
+          "show-lead-icon": "true"
+        }
+      }
+    ],
+    "children": [
+      {
+        "code": "{/* conteúdo do popover (menu, lista de ações) */}"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Text Label",
+      "label",
+      "label",
+      "No React o texto vai na prop `label`; os filhos são o conteúdo do popover."
+    ],
+    [
+      "Kind",
+      "kind",
+      "kind",
+      ""
+    ],
+    [
+      "Appearance",
+      "appearance",
+      "appearance",
+      "Inversed vira `inverted`."
+    ],
+    [
+      "Size",
+      "size",
+      "size",
+      ""
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira prop. Hovered e Pressed são interação."
+    ],
+    [
+      "Show Lead Icon",
+      "show-lead-icon",
+      "leadIcon",
+      "Desligado: omita `leadIcon`."
+    ],
+    [
+      "Lead Icon",
+      "lead-icon",
+      "leadIcon",
+      "Nome do ícone (`IconName`)."
+    ],
+    [
+      "Is Active",
+      "active",
+      "—",
+      "O React abre e fecha o popover sozinho; não há prop de estado. O chevron segue o estado."
+    ],
+    [
+      "—",
+      "—",
+      "—",
+      "Kind, Appearance e Size seguem os padrões do Button (`default`, `accent`, `medium`): o JSX só os mostra quando mudam."
+    ]
+  ]
+}

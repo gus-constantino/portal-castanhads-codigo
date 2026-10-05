@@ -15,6 +15,7 @@
  *   jsx       nó: { tag, if, defaults, props: [prop], children: [nó | { attr } | { text } | { code } | { each, node }] }
  *             each: seletor dos filhos do elemento; repete `node` para cada um, lendo os atributos dele ({i} = posição)
  *   prop      { prop, attr | value | expr | tpl, map, bool: true|"not", eq, num, if }
+ *             expr com attr: {v} vira o valor do atributo (ex.: "{ label: '{v}' }")
  *             tpl: texto com {v} (valor do atributo) e {i} (posição no each), ex.: "item-{i}"
  *             if = { atributo: "valor" | "!valor" } (todas as condições valem)
  *             a prop some quando o valor é o padrão do React (lido do .types.ts) ou vazio
@@ -106,7 +107,10 @@
     if (!test(get, p.if)) return null;
     var d = reactDefault(data, tag, p.prop);
     if (p.expr === "true") return { name: p.prop, kind: "bool", value: true }; // creatable, scrollable…
-    if (p.expr) return { name: p.prop, kind: "expr", value: p.expr };
+    if (p.expr){ // {v} = valor do atributo (ex.: notification={{ label: "{v}" }}); sem valor, a prop some
+      if (p.attr && p.expr.indexOf("{v}") > -1){ var ev = get(p.attr); if (ev == null || ev === "") return null; return { name: p.prop, kind: "expr", value: fill(p.expr, ev, get) }; }
+      return { name: p.prop, kind: "expr", value: p.expr };
+    }
     if (p.value != null) return d === p.value ? null : { name: p.prop, kind: "str", value: p.value };
     var v = p.attr ? get(p.attr) : null;
     if (p.tpl) v = fill(p.tpl, v, get); // ex.: "item-{v}" (valor do atributo) ou "item-{i}" (posição no each)

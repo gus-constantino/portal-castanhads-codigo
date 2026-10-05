@@ -16,7 +16,7 @@
   "buildingBlocks": 26,
   "soFigma": 9,
   "soReact": 12,
-  "comNotas": 22
+  "comNotas": 23
  },
  "reactOnly": [
   "Box",
@@ -173,8 +173,8 @@
   {
    "id": "progress-tracker",
    "level": "info",
-   "kind": "nao-chega-ao-react",
-   "msg": "Não chega ao React pelo Code Connect: `Orientation`."
+   "kind": "sem-figma",
+   "msg": "Sem retrato das props do Figma (rode a leitura via MCP)."
   },
   {
    "id": "progress-tracker-item",

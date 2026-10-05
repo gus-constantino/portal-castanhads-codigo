@@ -1,0 +1,60 @@
+{
+  "element": "cds-confirmation-message",
+  "defaults": {
+    "appearance": "neutral",
+    "icon": "placeholder-line",
+    "title": "Title",
+    "description": "Unleash your potential! Our tools are here to help you transform your ideas into reality with simplicity and flair."
+  },
+  "jsx": {
+    "tag": "ConfirmationMessage",
+    "props": [
+      {
+        "prop": "appearance",
+        "attr": "appearance"
+      },
+      {
+        "prop": "icon",
+        "attr": "icon",
+        "if": {
+          "icon": "!placeholder-line"
+        }
+      },
+      {
+        "prop": "title",
+        "attr": "title"
+      }
+    ],
+    "children": [
+      {
+        "attr": "description"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Appearance",
+      "appearance",
+      "appearance",
+      "Também define o ícone padrão no React."
+    ],
+    [
+      "—",
+      "icon",
+      "icon",
+      "No Figma o ícone é fixo na amostra; no React, sem `icon`, vale o ícone padrão da Appearance."
+    ],
+    [
+      "—",
+      "title",
+      "title",
+      "Obrigatório no React."
+    ],
+    [
+      "—",
+      "description",
+      "children",
+      "O texto de apoio vai como filho."
+    ]
+  ]
+}

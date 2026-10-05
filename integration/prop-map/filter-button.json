@@ -1,0 +1,61 @@
+{
+  "element": "cds-filter-button",
+  "defaults": {
+    "label": "Filtros",
+    "count": "1",
+    "active": "false"
+  },
+  "jsx": {
+    "tag": "FilterButton",
+    "props": [
+      {
+        "prop": "count",
+        "attr": "count",
+        "num": true,
+        "if": {
+          "active": "!false"
+        }
+      },
+      {
+        "prop": "disabled",
+        "attr": "disabled",
+        "bool": true
+      },
+      {
+        "prop": "onClick",
+        "expr": "openFilters"
+      }
+    ],
+    "children": [
+      {
+        "attr": "label"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira prop. Hovered e Pressed são interação."
+    ],
+    [
+      "Is Active",
+      "active + count",
+      "count",
+      "Com filtros aplicados, passe `count`: o Badge entra no lugar do ícone. Sem filtros, omita `count`."
+    ],
+    [
+      "—",
+      "label",
+      "children",
+      "Padrão `Filtros` nos dois lados."
+    ],
+    [
+      "—",
+      "—",
+      "onClick",
+      "Abre o Drawer (desktop) ou o Bottom Sheet (mobile) com os filtros."
+    ]
+  ]
+}

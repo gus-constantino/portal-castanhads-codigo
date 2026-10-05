@@ -1,0 +1,20 @@
+{
+  "element": "cds-topic",
+  "defaults": { "orientation": "horizontal", "title": "Title", "description": "Lorem Ipsum is simply dummy of the printing and typesetting industry lorem Ipsum has been.", "show-lead-item": "true", "show-title": "true", "lead-kind": "shaped-icon", "lead-icon": "placeholder-line" },
+  "jsx": {
+    "tag": "Topic",
+    "props": [
+      { "prop": "orientation", "attr": "orientation" },
+      { "prop": "leadIcon", "attr": "lead-icon", "if": { "show-lead-item": "true", "lead-kind": "shaped-icon" } },
+      { "prop": "title", "attr": "title", "if": { "show-title": "true" } },
+      { "prop": "description", "attr": "description" }
+    ]
+  },
+  "figma": [
+    ["Orientation", "orientation", "orientation", ""],
+    ["Show Lead item", "show-lead-item + lead-icon", "leadIcon", "Shaped Icon: o nome do ícone. Desligado: omita `leadIcon`. O .Lead item com imagem não existe no React."],
+    ["Show Title", "show-title", "title", "Desligado: omita `title`. O Code Connect gera `label`, que não existe no React (C120)."],
+    ["Text Title", "title", "title", ""],
+    ["Text Description", "description", "description", "Obrigatória no React. O Code Connect gera `supportingMessage`, que não existe (C120)."]
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "_about": "Manifesto de integração Figma ↔ playground ↔ castanha-react (R0). Gerado por scripts/integration/build-manifest.js — não editar à mão.",
-  "generated": "2026-10-05T17:46:03.969Z",
+  "generated": "2026-10-05T21:38:07.407Z",
   "source": {
     "repo": "caju-beneficios/castanha",
     "ref": "origin/staging",
@@ -21,7 +21,7 @@
     "buildingBlocks": 26,
     "soFigma": 9,
     "soReact": 12,
-    "comNotas": 22
+    "comNotas": 23
   },
   "components": [
     {
@@ -2429,7 +2429,7 @@
       "block": false,
       "figma": {
         "fileKey": "LKZBwmlb7fIbDKdGrMncuA",
-        "node": "14524-1024"
+        "node": "21470-2390"
       },
       "react": {
         "component": "ProgressTracker",
@@ -2448,7 +2448,9 @@
         ]
       },
       "status": "react",
-      "notes": []
+      "notes": [
+        "o Code Connect aponta para 14524-1024 (Progress Tracker virou set com Orientation; o node antigo é a variante Vertical)"
+      ]
     },
     {
       "id": "progress-tracker-item",

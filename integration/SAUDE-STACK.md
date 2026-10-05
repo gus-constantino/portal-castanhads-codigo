@@ -79,7 +79,7 @@ Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`
 | Multi Select Input (`multi-select-input`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
 | Pagination (`pagination`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Itens per page`, `Show Item display`, `Items range`, `Items display`. |
 | Password Input (`password-input`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Text Content`, `Show Lead Icon`, `Error Message`, `Lead Icon`, `Show Content`. |
-| Progress Tracker (`progress-tracker`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Orientation`. |
+| Progress Tracker (`progress-tracker`) | sem-figma | Sem retrato das props do Figma (rode a leitura via MCP). |
 | Progress Tracker Item (`progress-tracker-item`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Connector`, `Show Link`, `Orientation`. |
 | Radio Select Input (`radio-select-input`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
 | Search Input (`search-input`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |

@@ -1,0 +1,26 @@
+{
+  "element": "cds-icon-button",
+  "defaults": { "icon": "placeholder-line", "kind": "default", "appearance": "accent", "size": "medium", "show-notification": "false", "notification": "0" },
+  "jsx": {
+    "tag": "IconButton",
+    "props": [
+      { "prop": "icon", "attr": "icon" },
+      { "prop": "kind", "attr": "kind" },
+      { "prop": "appearance", "attr": "appearance", "map": { "inversed": "inverted" } },
+      { "prop": "size", "attr": "size" },
+      { "prop": "disabled", "attr": "disabled", "bool": true },
+      { "prop": "notification", "attr": "notification", "expr": "{ label: '{v}' }", "if": { "show-notification": "!false" } },
+      { "prop": "aria-label", "attr": "label" },
+      { "prop": "aria-pressed", "attr": "pressed" }
+    ]
+  },
+  "figma": [
+    ["Icon", "icon", "icon", "Nome do ícone (`IconName`). Obrigatório."],
+    ["Kind", "kind", "kind", ""],
+    ["Appearance", "appearance", "appearance", "Inversed vira `inverted`."],
+    ["Size", "size", "size", ""],
+    ["State", "disabled", "disabled", "Só Disabled vira prop. Hovered e Pressed são interação."],
+    ["Show Notification", "show-notification + notification", "notification", "Objeto do Badge (`{ label }`). Desligado: omita `notification`. O Code Connect ainda não passa essa prop."],
+    ["—", "label", "aria-label", "Botão só com ícone: o nome acessível é obrigatório. Descreva a novidade do Badge aqui."]
+  ]
+}

@@ -9,7 +9,7 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-05 a partir d
 | Building blocks sem par (internos no React) | 26 |
 | Só no Figma/playground | 9 |
 | Só no React | 12 |
-| Com divergência anotada | 22 |
+| Com divergência anotada | 23 |
 
 ## Com par no React
 
@@ -60,7 +60,7 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-05 a partir d
 | `password-input` | Password Input | `PasswordInput` | code-connect |  |
 | `popover` | Popover | `Popover` | code-connect |  |
 | `progress-line` | Progress Line | `ProgressLine` | code-connect |  |
-| `progress-tracker` | Progress Tracker | `ProgressTracker` | code-connect |  |
+| `progress-tracker` | Progress Tracker | `ProgressTracker` | code-connect | o Code Connect aponta para 14524-1024 (Progress Tracker virou set com Orientation; o node antigo é a variante Vertical) |
 | `progress-tracker-item` | Progress Tracker Item | `ProgressTracker.Item` | code-connect |  |
 | `radio-button` | Radio Button | `Radio` | code-connect | node-id da story (4429-10395) não bate com o Code Connect (4429-10437, 4429-11192) |
 | `radio-button-group` | Radio Button Group | `Radio.Group` | code-connect | node-id da story (4429-10395) não bate com o Code Connect (4429-10437, 4429-11192) |

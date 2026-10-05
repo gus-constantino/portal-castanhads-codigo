@@ -1,0 +1,93 @@
+{
+  "element": "cds-link",
+  "defaults": {
+    "label": "Link content",
+    "href": "#",
+    "appearance": "neutral",
+    "icon": "navigation-right-line",
+    "show-trailing-item": "true"
+  },
+  "jsx": {
+    "tag": "Link",
+    "props": [
+      {
+        "prop": "href",
+        "attr": "href"
+      },
+      {
+        "prop": "appearance",
+        "attr": "appearance",
+        "map": {
+          "inversed": "inverted"
+        }
+      },
+      {
+        "prop": "trailingIcon",
+        "expr": "false",
+        "if": {
+          "show-trailing-item": "false"
+        }
+      },
+      {
+        "prop": "trailingIcon",
+        "attr": "icon",
+        "if": {
+          "show-trailing-item": "!false",
+          "icon": "!navigation-right-line"
+        }
+      },
+      {
+        "prop": "target",
+        "attr": "target"
+      },
+      {
+        "prop": "disabled",
+        "attr": "disabled",
+        "bool": true
+      }
+    ],
+    "children": [
+      {
+        "attr": "label"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Link Content",
+      "label",
+      "children",
+      "O texto vai como filho."
+    ],
+    [
+      "Appearance",
+      "appearance",
+      "appearance",
+      "Inversed vira `inverted`."
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira prop: o React remove o `href`."
+    ],
+    [
+      "Show Trailing Item",
+      "show-trailing-item",
+      "trailingIcon",
+      "Desligado: `trailingIcon={false}`."
+    ],
+    [
+      "Change Icon",
+      "icon",
+      "trailingIcon",
+      "Padrão `navigation-right-line` nos dois lados; outro ícone vai pelo nome."
+    ],
+    [
+      "—",
+      "href",
+      "href",
+      "Destino do link."
+    ]
+  ]
+}

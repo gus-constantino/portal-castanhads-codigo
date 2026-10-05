@@ -1,0 +1,21 @@
+{
+  "element": "cds-tooltip",
+  "defaults": { "label": "Label", "text": "Find out how this Caju product can benefit your business today.", "show-label": "true" },
+  "jsx": {
+    "tag": "Tooltip",
+    "props": [
+      { "prop": "label", "attr": "label", "if": { "show-label": "true" } },
+      { "prop": "content", "attr": "text" }
+    ],
+    "children": [{ "tag": "IconButton", "props": [
+      { "prop": "kind", "value": "ghost" }, { "prop": "appearance", "value": "neutral" },
+      { "prop": "icon", "value": "support-line" }, { "prop": "label", "value": "Ajuda" } ] }]
+  },
+  "figma": [
+    ["Show Label", "show-label", "label", "Desligado: omita `label`."],
+    ["Text Label", "label", "label", ""],
+    ["Text Content", "text", "content", "Aceita texto ou elementos inline."],
+    ["—", "for", "children", "No React o gatilho é o filho do Tooltip; no playground, o atributo `for` aponta para ele."],
+    ["—", "placement", "placement", "Padrão `top`; inverte sozinho sem espaço."]
+  ]
+}

@@ -230,4 +230,28 @@ const md = ["# Cobertura Figma ↔ playground ↔ castanha-react", "",
   .concat(reactOnly.map((r) => "| `" + r.name + "` | " + (r.exported ? "sim" : "não") + " | " + (r.inMain ? "sim" : "só staging") + " | " + (r.tags.join(", ") || "—") + " | " + (r.storyNodeIds.join(", ") || "—") + " |"))
   .join("\n") + "\n";
 fs.writeFileSync(path.join(ROOT, "integration", "COBERTURA.md"), md);
-console.log(JSON.stringify(S));
+// ---------- react-data.js (lido pelo playground: tradução "No React", scripts/react-kit.js) ----------
+// Compacto: só o que a página usa. Mapas curados de integration/prop-map/<id>.json entram como `map`.
+const MAPS = path.join(ROOT, "integration", "prop-map"), maps = {};
+if (fs.existsSync(MAPS)) fs.readdirSync(MAPS).filter((f) => /\.json$/.test(f)).forEach((f) => {
+  const id = f.replace(/\.json$/, "");
+  if (!components.some((c) => c.id === id)) throw new Error("prop-map/" + f + ": não existe componente " + id + " no playground");
+  maps[id] = JSON.parse(fs.readFileSync(path.join(MAPS, f), "utf8"));
+});
+const slim = (p) => { const o = { n: p.name, t: p.type }; if (p.required) o.r = 1; if (p.default !== undefined) o.d = p.default; if (p.description) o.s = p.description; return o; };
+const data = { source: { ref: REF, commit: String(src.commit).slice(0, 8), date: String(src.date).slice(0, 10) }, dirs: {}, items: {} };
+Object.values(react).forEach((r) => {
+  const props = {}; Object.keys(r.props).forEach((k) => { props[k] = r.props[k].map(slim); });
+  data.dirs[r.name] = { import: r.import || null, storybook: r.storybook, zeroheight: r.zeroheight, tags: r.tags, staging: !r.inMain, props };
+});
+components.forEach((c) => {
+  const it = { status: c.status };
+  if (c.react) Object.assign(it, { dir: c.react.dir, component: c.react.component, via: c.react.via, import: c.react.import, figma: c.react.figmaProps });
+  if (c.notes.length) it.notes = c.notes;
+  if (maps[c.id]) it.map = maps[c.id];
+  data.items[c.id] = it;
+});
+fs.writeFileSync(path.join(ROOT, "integration", "react-data.js"),
+  "/* GERADO por scripts/integration/build-manifest.js a partir de " + REF + " (" + data.source.commit + ") e de integration/prop-map/ · não editar à mão */\n" +
+  "window.CDS = window.CDS || {}; CDS.react = " + JSON.stringify(data) + ";\n");
+console.log(JSON.stringify(S), "· prop-maps:", Object.keys(maps).length);

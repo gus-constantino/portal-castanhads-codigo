@@ -1,0 +1,26 @@
+{
+  "element": "cds-drawer",
+  "defaults": { "show-action-buttons": "true", "show-secondary-action-button": "true", "text-title": "Title", "primary-label": "Label", "secondary-label": "Label" },
+  "jsx": {
+    "tag": "Drawer",
+    "props": [
+      { "prop": "open", "expr": "open" },
+      { "prop": "onClose", "expr": "() => setOpen(false)" }
+    ],
+    "children": [
+      { "tag": "Drawer.Header", "props": [{ "prop": "title", "attr": "text-title" }] },
+      { "tag": "Drawer.Content", "children": [{ "code": "{/* conteúdo do Slot */}" }] },
+      { "tag": "Drawer.Footer", "if": { "show-action-buttons": "true" }, "children": [
+        { "tag": "Button", "if": { "show-secondary-action-button": "true" }, "props": [{ "prop": "appearance", "value": "neutral" }, { "prop": "onClick", "expr": "() => setOpen(false)" }], "children": [{ "attr": "secondary-label" }] },
+        { "tag": "Button", "props": [{ "prop": "onClick", "expr": "aplicar" }], "children": [{ "attr": "primary-label" }] } ] }
+    ]
+  },
+  "figma": [
+    ["Text Title", "text-title", "Drawer.Header title", ""],
+    ["Slot", "(filhos)", "<Drawer.Content>", ""],
+    ["Show Action Buttons", "show-action-buttons", "<Drawer.Footer>", "Desligado: não use o `Drawer.Footer`."],
+    ["Show Secondary Action Button", "show-secondary-action-button", "<Button> secundário", "Desligado: só o botão principal."],
+    ["—", "—", "side", "Padrão `right`, como no Figma. O React também abre pela esquerda."],
+    ["—", "open", "open + onClose", "No React o estado fica com você (`useState`)."]
+  ]
+}

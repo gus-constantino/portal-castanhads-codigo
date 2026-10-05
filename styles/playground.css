@@ -163,3 +163,7 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
   .pg-panel{ position:static; max-height:none; box-shadow:inset 0 var(--common-border-width-hairline) 0 var(--pg-line); }
   .pg-toolbar{ padding:var(--common-sizes-16) var(--common-sizes-16) 0; }
 }
+
+/* Início (Castanha Hub) no topo do menu, antes de Componentes */
+.pg-nav--home{ margin-bottom:var(--common-sizes-8); }
+.pg-nav--home[hidden]{ display:none; }

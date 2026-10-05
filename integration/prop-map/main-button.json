@@ -1,0 +1,26 @@
+{
+  "element": "cds-main-button",
+  "defaults": { "kind": "default", "appearance": "accent", "size": "medium", "label": "Label", "show-lead-icon": "true", "show-trailing-icon": "true", "lead-icon": "placeholder-line", "trailing-icon": "placeholder-line" },
+  "jsx": {
+    "tag": "Button",
+    "props": [
+      { "prop": "kind", "attr": "kind" },
+      { "prop": "appearance", "attr": "appearance", "map": { "inversed": "inverted" } },
+      { "prop": "size", "attr": "size" },
+      { "prop": "disabled", "attr": "disabled", "bool": true },
+      { "prop": "leadIcon", "attr": "lead-icon", "if": { "show-lead-icon": "true" } },
+      { "prop": "trailingIcon", "attr": "trailing-icon", "if": { "show-trailing-icon": "true" } }
+    ],
+    "children": [{ "attr": "label" }]
+  },
+  "figma": [
+    ["Kind", "kind", "kind", ""],
+    ["Appearance", "appearance", "appearance", "Inversed vira `inverted`."],
+    ["Size", "size", "size", ""],
+    ["State", "disabled", "disabled", "Só Disabled vira prop. Hovered e Pressed são interação."],
+    ["Show Lead Icon", "show-lead-icon", "leadIcon", "Desligado: omita `leadIcon`."],
+    ["Lead Icon", "lead-icon", "leadIcon", "Nome do ícone (`IconName`)."],
+    ["Show Trailing Icon", "show-trailing-icon", "trailingIcon", "Desligado: omita `trailingIcon`."],
+    ["Text Label", "label", "children", "O texto vai como filho."]
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "element": "cds-switch",
+  "defaults": { "label": "Label", "status": "unselected", "show-text-label": "true" },
+  "jsx": {
+    "tag": "Switch",
+    "props": [
+      { "prop": "label", "attr": "label", "if": { "show-text-label": "true" } },
+      { "prop": "defaultChecked", "attr": "status", "eq": "selected" },
+      { "prop": "disabled", "attr": "disabled", "bool": true }
+    ]
+  },
+  "figma": [
+    ["Status", "status", "defaultChecked", "Selected vira `defaultChecked` (ou `checked` + `onChange`, controlado)."],
+    ["State", "disabled", "disabled", "Só Disabled vira prop."],
+    ["Show Text Label", "show-text-label", "label", "Desligado: omita `label`."],
+    ["Text Label", "label", "label", ""]
+  ]
+}

@@ -23,6 +23,7 @@
  *   guides: [{ attrs, title, text }]
  *   dodont: [{ kind: "do"|"dont", attrs, text, style }]
  *   table: { head: [...], rows: [[...]] }
+ *   shortcuts: [{ title, text, href, cta, illustration, external }]   atalhos em Cards (capa do Castanha Hub)
  *   specs: [{ title, rows: [[rótulo, valor], …] }]   cards de ficha técnica (ex.: Motion Style por interação)
  *   iconGallery: { only }              galeria do [Caju] Icons por categoria, com busca por nome e palavra-chave; only: "deprecated" mostra só os deprecated
  *   illustrationGallery: {}             galeria do [Caju] Illustrations por categoria (imagens com lazy load), busca por nome, categoria e description
@@ -443,6 +444,20 @@
       });
       filter();
       return wrap;
+    },
+    // Atalhos (capa do Castanha Hub): Card do DS com ilustração da biblioteca + título + texto + Link do DS
+    shortcuts: function(d, v){
+      var g = el("div", "pg-doc-shortcuts"), ills = {}; ((window.CDS.assets || {}).illustrations || []).forEach(function(i){ ills[i.name] = i.src; });
+      v.forEach(function(it){
+        var c = el("cds-card", "pg-doc-shortcut"); c.setAttribute("has-border", "true");
+        if (it.illustration && ills[it.illustration]){ var im = el("img", "pg-doc-shortcut__img"); im.alt = ""; im.loading = "lazy"; im.src = ills[it.illustration]; c.appendChild(im); }
+        c.appendChild(el("h3", "pg-doc-h4", it.title));
+        if (it.text) c.appendChild(rich(el("p", "pg-doc-p"), it.text));
+        var l = el("cds-link", "pg-doc-shortcut__link"); l.setAttribute("label", it.cta || "Abrir"); l.setAttribute("href", it.href); l.setAttribute("appearance", "accent");
+        if (it.external){ l.setAttribute("target", "_blank"); l.setAttribute("icon", "link-line"); }
+        c.appendChild(l); g.appendChild(c);
+      });
+      return g;
     },
     table: function(d, v){
       var wrap = el("div", "pg-doc-table-wrap"), t = el("table", "pg-doc-table");

@@ -7,7 +7,7 @@
   var CDS = window.CDS, kit = CDS.kit;
   var JIRA = "https://caju746.atlassian.net/browse/";
   var $ = function(id){ return document.getElementById(id); };
-  var nav = $("nav"), navRes = $("nav-res"), navResTitle = $("nav-res-title"), search = $("search"), title = $("cmp-title"), links = $("cmp-links"), desc = $("cmp-desc"), canvas = document.querySelector(".pg-canvas");
+  var nav = $("nav"), navHome = $("nav-home"), navRes = $("nav-res"), navResTitle = $("nav-res-title"), search = $("search"), title = $("cmp-title"), links = $("cmp-links"), desc = $("cmp-desc"), canvas = document.querySelector(".pg-canvas");
   var preview = $("preview"), panel = $("panel"), frame = $("frame");
   var rval = $("rval"), rdone = $("rdone"), vpOut = $("vp-readout");
   var tabsEl = $("tabs"), coverEl = $("cover"), docsEl = $("docs"), stage = $("stage"), shell = document.querySelector(".pg-shell");
@@ -71,7 +71,10 @@
     var shown = list.filter(function(c){ return !q || (c.name + " " + (c.task || "") + " " + (c.category || "")).toLowerCase().indexOf(q) !== -1; });
     var comps = shown.filter(function(c){ return !c.block && !c.resource; }), blocks = shown.filter(function(c){ return c.block && !c.resource; });
     // Recursos de suporte (libs de apoio: ícones, ilustrações…) ficam num espaço próprio, fora dos componentes
-    var res = shown.filter(function(c){ return c.resource; }).sort(function(a, b){ return (a.order || 99) - (b.order || 99); });
+    // Início (home: Castanha Hub) fica no topo do menu, fora de Componentes e de Recursos
+    var home = list.filter(function(c){ return c.home; });
+    if (navHome){ navHome.innerHTML = ""; navHome.hidden = !home.length; home.forEach(function(c){ navHome.appendChild(kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name])])); }); }
+    var res = shown.filter(function(c){ return c.resource && !c.home; }).sort(function(a, b){ return (a.order || 99) - (b.order || 99); });
     navRes.innerHTML = ""; navResTitle.hidden = navRes.hidden = !res.length;
     res.forEach(function(c){ navRes.appendChild(kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name, kit.el("small", { text: c.status || "" })])])); });
     var cats = PAGES.concat(comps.map(function(c){ return c.category || "Outros"; }).filter(function(x, i, a){ return PAGES.indexOf(x) === -1 && a.indexOf(x) === i; }));
@@ -94,7 +97,7 @@
   }
   function markCurrent(){
     var cur = currentId();
-    [].slice.call(nav.querySelectorAll("a")).concat([].slice.call(navRes.querySelectorAll("a"))).forEach(function(a){
+    [].slice.call(nav.querySelectorAll("a")).concat([].slice.call(navRes.querySelectorAll("a")), navHome ? [].slice.call(navHome.querySelectorAll("a")) : []).forEach(function(a){
       if (a.getAttribute("href") === "#/" + cur){ a.setAttribute("aria-current", "page"); var d = a.closest("cds-accordion-item"); if (d && d.collapsed) d.collapsed = false; }
       else a.removeAttribute("aria-current");
     });
@@ -105,7 +108,9 @@
   function route(){ return (location.hash || "").replace(/^#\/?/, "").split("/"); }
   function currentId(){
     var id = route()[0];
-    return list.some(function(c){ return c.id === id; }) ? id : (list.filter(function(c){ return !c.block && !c.resource; })[0] || list[0]).id;
+    if (list.some(function(c){ return c.id === id; })) return id;
+    var home = list.filter(function(c){ return c.home; })[0]; // sem rota: abre o Início (Castanha Hub)
+    return (home || list.filter(function(c){ return !c.block && !c.resource; })[0] || list[0]).id;
   }
   function currentDef(){ var id = currentId(); return list.filter(function(c){ return c.id === id; })[0]; }
   function currentTab(){
@@ -120,7 +125,7 @@
     var doc = CDS.docs && CDS.docs[id];
     if (CDS.renderCover) CDS.renderCover(doc, coverEl); // capa (frame [Header]) acima das tabs, quando a doc tem
     tabsEl.innerHTML = "";
-    tabsEl.hidden = !doc || !CDS.renderDoc;
+    tabsEl.hidden = !doc || !CDS.renderDoc || (currentDef().resource && doc.tabs.length === 1); // página de uma tab só (ex.: Início) não mostra a barra
     if (tabsEl.hidden) return;
     var def = currentDef(), tabs = (def.resource ? [] : [{ id: "playground", title: "Playground" }]).concat(doc.tabs);
     // Scrollable Tab do DS: teclado (setas/Home/End) e foco itinerante vêm do componente
@@ -135,7 +140,7 @@
   }
   function applyTab(){
     var id = currentId(), tab = currentTab(), doc = CDS.docs && CDS.docs[id];
-    var isDoc = !tabsEl.hidden && tab !== "playground";
+    var isDoc = !!(doc && CDS.renderDoc) && tab !== "playground"; // também vale para páginas de uma tab só, que escondem a barra
     var tl = tabsEl.querySelector("cds-scrollable-tab");
     if (tl){ var idx = [].map.call(tl.querySelectorAll("cds-tab-item"), function(b){ return b.dataset.tab; }).indexOf(tab); CDS.attr(tl, "active-item", String(idx + 1)); }
     if (tabsEl.hidden){ stage.removeAttribute("role"); stage.removeAttribute("aria-labelledby"); }

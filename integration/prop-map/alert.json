@@ -1,0 +1,21 @@
+{
+  "element": "cds-alert",
+  "defaults": { "appearance": "positive", "label": "Label", "text": "A message about the system here! You can turn words bold also add a link.", "show-label": "true", "show-close-button": "true" },
+  "jsx": {
+    "tag": "Alert",
+    "props": [
+      { "prop": "appearance", "attr": "appearance" },
+      { "prop": "label", "attr": "label", "if": { "show-label": "true" } },
+      { "prop": "hideCloseButton", "attr": "show-close-button", "bool": "not" },
+      { "prop": "onClose", "expr": "() => setVisible(false)", "if": { "show-close-button": "true" } }
+    ],
+    "children": [{ "attr": "text" }]
+  },
+  "figma": [
+    ["Appearance", "appearance", "appearance", "O padrão do React é `informative`; o do Figma, Positive. Declare sempre."],
+    ["Show Label", "show-label", "label", "Desligado: omita `label`."],
+    ["Show Close Button", "show-close-button", "hideCloseButton", "Invertido: desligado no Figma = `hideCloseButton`."],
+    ["Text Label", "label", "label", ""],
+    ["Text Content", "text", "children", "O texto (com negrito e link) vai como filho."]
+  ]
+}

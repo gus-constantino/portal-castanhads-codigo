@@ -481,3 +481,11 @@
 @media (prefers-reduced-motion:reduce){
   .pg-tok-tile, .pg-tok__sample, .pg-tok-run__fill, .pg-tok-ease__dot,   .pg-tok-tile:hover .pg-tok__sample{ transform:none; }
 }
+
+/* Atalhos (capa do Castanha Hub · bloco shortcuts): Cards do DS com ilustração */
+.pg-doc-shortcuts{ display:grid; grid-template-columns:repeat(auto-fit, minmax(min(var(--common-sizes-160), 100%), 1fr)); gap:var(--common-sizes-16); }
+.pg-doc-shortcut{ min-width:0; transition:box-shadow var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), transform var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
+.pg-doc-shortcut:hover{ box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-semi-soft), var(--common-elevation-level-1); transform:translateY(calc(-1 * var(--common-sizes-2))); }
+.pg-doc-shortcut__img{ display:block; width:var(--common-sizes-88); height:var(--common-sizes-88); object-fit:contain; margin-bottom:var(--common-sizes-8); }
+.pg-doc-shortcut__link{ margin-top:auto; padding-top:var(--common-sizes-8); }
+@media (prefers-reduced-motion:reduce){ .pg-doc-shortcut{ transition:none; } .pg-doc-shortcut:hover{ transform:none; } }

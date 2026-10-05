@@ -1,0 +1,18 @@
+{
+  "element": "cds-tag",
+  "defaults": { "appearance": "neutral", "label": "Tag", "show-lead-item": "true", "icon": "placeholder-line" },
+  "jsx": {
+    "tag": "Tag",
+    "props": [
+      { "prop": "appearance", "attr": "appearance", "map": { "inversed": "inverted" } },
+      { "prop": "leadIcon", "attr": "icon", "if": { "show-lead-item": "true" } }
+    ],
+    "children": [{ "attr": "label" }]
+  },
+  "figma": [
+    ["Appearance", "appearance", "appearance", "Inversed vira `inverted`. O padrão do React é `accent`."],
+    ["Show Lead Item", "show-lead-item", "leadIcon", "Desligado: omita `leadIcon`."],
+    ["Icon › Choose Icon", "icon", "leadIcon", "Nome do ícone (`IconName`)."],
+    ["Text Label", "label", "children", "O texto vai como filho."]
+  ]
+}

@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 216 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 217 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.js ==== */
 try {
 /**
@@ -9014,6 +9014,121 @@ try {
   };
 })();
 } catch (e) { console.error("[cds] resources/inicio/inicio.js", e); }
+
+/* ==== resources/treinamento/treinamento.js ==== */
+try {
+/* Treinamento: Como usar as Documentações? (zeroheight · Capacitações → Treinamentos → Design System · 8276145).
+   No Hub, cada tab é só um vídeo do Drive (cortes da gravação do lançamento da documentação, 30/01/2026), sem texto.
+   Aqui: resumo de cada tema a partir das Anotações do Gemini da reunião (decisão do Gustavo: resumo basta, com link
+   para o vídeo; os vídeos só abrem com login Caju). Pessoas aparecem pelo papel, não pelo nome. Revisão: CONFERIR C156. */
+(function(){
+  window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
+  var ZH = "https://castanha.caju.com.br/858426090/v/latest/p/508bfb-treinamento-como-usar-as-documentacoes";
+  CDS.register({ id: "treinamento", name: "Treinamento", resource: true, order: 3, zeroheight: ZH });
+  function video(id, tema){
+    return { shortcuts: [{ title: "Vídeo: " + tema, text: "Corte da gravação do lançamento da documentação (30/01/2026). Abre no Google Drive, com login Caju.",
+      href: "https://drive.google.com/file/d/" + id + "/view", cta: "Assistir no Drive", external: true }] };
+  }
+  var DATA = { alert: { appearance: "informative", label: "Gravado em janeiro de 2026",
+    text: "Os resumos seguem as anotações automáticas da reunião, organizadas pelo tema de cada vídeo. Números e links citados nos vídeos são daquela data: a situação de hoje está em cada tab." } };
+
+  CDS.docs["treinamento"] = {
+    tabs: [
+      { id: "introducao", title: "Introdução", blocks: [
+        DATA,
+        { h2: "Introdução" },
+        { p: "Abertura do lançamento da documentação do Castanha DS. O time de Design System apresenta como a documentação está organizada e por que ela existe: manter o padrão e a consistência enquanto o time e o produto crescem." },
+        { h3: "Onde fica cada documentação" },
+        { ul: [
+          "Castanha Hub (zeroheight): para design — orientação, uso dos componentes e das experiências.",
+          "Storybook (web) e Widgetbook (mobile): para desenvolvimento — implementação clara e confiável."
+        ] },
+        { h3: "Como elas se conectam no dia a dia" },
+        { steps: [
+          { title: "Consultar o Hub", text: "Quem desenha começa pelo Hub, para entender o uso dos componentes e das experiências." },
+          { title: "Desenhar no Figma", text: "Com as diretrizes em mente, monta o fluxo com as bibliotecas do Castanha." },
+          { title: "Implementar pelo Storybook", text: "No handoff, quem desenvolve usa o Storybook (ou o Widgetbook) para implementar de forma correta e consistente." }
+        ] },
+        video("1PoopyzugGmJDeemX09RoCl_ZVAnCCN54", "Introdução")
+      ] },
+      { id: "componentes", title: "Componentes", blocks: [
+        DATA,
+        { h2: "Componentes" },
+        { p: "Como o Hub está dividido e como uma documentação de componente é construída." },
+        { h3: "Seções do Hub hoje" },
+        { ul: ["Sobre: por onde começar a usar o Castanha.", "Visão Cliente: personas.", "Conteúdo: como a Caju escreve.", "Fundação: ilustração, motion, layout e IA.", "Componentes: um por página.", "Patterns e Templates: padrões de tela.", "Capacitações: as gravações dos treinamentos, como esta.", "Agentes e Skills: o Borô."] },
+        { note: "No vídeo, algumas seções aparecem com os nomes antigos (About, Foundation, Layout e Recursos e Ferramentas)." },
+        { h3: "Como uma doc de componente é feita" },
+        { ul: [
+          "Parte dos fluxos que já existem, para achar as dificuldades de uso e decidir o que precisa ser documentado.",
+          "Explica o que é, quando usar e quando não usar, com comparações com componentes parecidos.",
+          "Traz princípios, estilos, variantes e diretrizes de uso.",
+          "Mostra exemplos certos e errados (incluindo motion e padrões de conteúdo) e aplicações em fluxos reais da Caju."
+        ] },
+        { note: "Hoje: no playground, cada componente com doc tem as tabs Uso, Anatomia, Estilos, Acessibilidade, Diretrizes e Motion, além do Playground." },
+        video("1MlBoeLbLmRM1cqihOSH0v6c18bqBaYOz", "Componentes")
+      ] },
+      { id: "content", title: "Content", blocks: [
+        DATA,
+        { h2: "Content" },
+        { p: "Conteúdo é a forma como a pessoa usuária se relaciona com o produto: sem padrão, a experiência fica inconsistente. O guia oficial de como a Caju escreve fica na documentação de conteúdo, com a meta de escalar para toda a empresa." },
+        { h3: "O que a documentação de conteúdo cobre" },
+        { ul: ["Princípios de escrita.", "Regras gramaticais, como formato de data e pontuação.", "Playbooks para situações específicas, como o tour guiado.", "Vocabulário: a lista de palavras padronizadas da experiência.", "Guias de notificação."] },
+        { h3: "Borô: IA para escalar os padrões" },
+        { p: "O Borô é uma base de conhecimento ativa com IA, pensada como assistente do dia a dia de quem desenha. O primeiro teste usou a documentação de conteúdo, e o primeiro mês teve boa avaliação de resolução, relevância e recomendação. O plano é estender o Borô às documentações do Castanha e a insights de pesquisa." },
+        { note: "Hoje: o guia está no playground em Recursos de suporte → Conteúdo, e o Borô tem página própria no Hub (Agentes e Skills)." },
+        video("1eFRhEc_IBus6E-RAOfk2K7NNhW_tGzGc", "Content")
+      ] },
+      { id: "ilustracao", title: "Ilustração", blocks: [
+        DATA,
+        { h2: "Ilustração" },
+        { p: "A documentação de ilustração serve para comunicar o visual, reforçar a identidade da Caju e garantir uma experiência de excelência." },
+        { h3: "O que ela traz" },
+        { ul: ["Princípios de uso.", "Painel semântico: o processo de criação de quem ilustra.", "Guidelines de aplicação nos produtos.", "Separação por categorias.", "Exemplos de como as ilustrações se comportam em cada contexto (mobile, desktop)."] },
+        { note: "Hoje: o guia completo e a biblioteca estão no playground em Caju - Tema → Ilustrações." },
+        video("1l-bmWY8NfvkE-4za0h42yKaiImNwAjNH", "Ilustração")
+      ] },
+      { id: "motion", title: "Motion", blocks: [
+        DATA,
+        { h2: "Motion" },
+        { p: "UX motion comunica comportamento, estado e intenção, eleva a experiência e fortalece a personalidade da marca. Parte dos princípios de design do Castanha (simples, eficiente e consistente) e das boas práticas do mercado." },
+        { ul: ["Os princípios viraram motion tokens, documentados no Hub para design e desenvolvimento.", "A ideia é que os componentes já venham com as animações configuradas, prontas para quem desenvolve."] },
+        { note: "Hoje: princípios, curvas, durações e os Motion Styles (/01) estão no playground em Caju - Tema → Motion." },
+        video("1fqz1azprKWMYtvSQJlXt1fA8Ijw5oo8C", "Motion")
+      ] },
+      { id: "recursos", title: "Recursos e ferramentas", blocks: [
+        DATA,
+        { h2: "Recursos e ferramentas" },
+        { p: "As evoluções do Castanha no código, apresentadas pela engenharia do time: mais integração entre design e código, componentes mais assertivos, documentação padronizada e uma codebase com foco em acessibilidade, variações e tokens. Todos os entregáveis passam a usar o prefixo castanha-." },
+        { h3: "O que mudou" },
+        { ul: [
+          "Tokens modulares, com saída para SCSS, CSS, JavaScript, TypeScript e Dart.",
+          "Ícones agnósticos (web e mobile), com nomes alinhados ao design e um componente utilitário de ícone.",
+          "Biblioteca React mais leve: num exemplo, o bundle caiu de 500 KB para menos de 15 KB.",
+          "Novas bibliotecas: castanha-illustrations (assets de ilustração) e motion (assets e um componente de animação).",
+          "Extensões: castanha-castoken, plugin do Figma que leva as variáveis para o GitHub, e castanha-intellisense, autocomplete e realce de tokens no editor (com conversão para Dart).",
+          "Storybook 2.0: além dos componentes, documenta plugins, tokens, get started e as novas bibliotecas; tem abas de código e design, com link para o Figma.",
+          "Prompts de migração com IA para os componentes que mudaram de API."
+        ] },
+        video("1k0cvIylVYwX8Fr4SwVL43kow-_LZjBlz", "Recursos e ferramentas")
+      ] },
+      { id: "duvidas", title: "Dúvidas", blocks: [
+        DATA,
+        { h2: "Dúvidas" },
+        { p: "Perguntas do público no fim do lançamento." },
+        { h3: "Todos os componentes já estão na nova estrutura?" },
+        { p: "Na época, não: a migração era feita passo a passo, começando com 20 componentes na nova estrutura, de 62 em React e 64 em Flutter." },
+        { h3: "Os pacotes antigo e novo vão conviver?" },
+        { p: "Sim. Dois pacotes evitam breaking changes: o antigo segue com suporte e atualizações, e as novidades entram no novo. A migração é gradual, feita pelas squads com ajuda das ferramentas de migração." },
+        { h3: "Onde tirar dúvidas e acompanhar novidades?" },
+        { p: "No canal Castanha Suporte, para dúvidas, e no Castanha Novidades, para as atualizações." },
+        { note: "Hoje: o playground espelha 105 componentes do Figma, e 70 deles já têm par no castanha-react (staging); veja a seção \"No React\" de cada componente." },
+        video("1tuP6BnQKIbKoQJdh2quAUTKGMqfQa67D", "Dúvidas")
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] resources/treinamento/treinamento.js", e); }
 
 /* ==== docs sob demanda (gerado) ==== */
 window.CDS = window.CDS || {}; CDS.docsIndex = {"backdrop":{"src":"components/backdrop/backdrop.docs.js?v=6b702f80"},"badge":{"src":"components/badge/badge.docs.js?v=13a9d0a4"},"caju-brand":{"src":"components/caju-brand/caju-brand.docs.js?v=182c6287"},"calendar-day":{"src":"components/calendar-day/calendar-day.docs.js?v=eb0c1fc6"},"calendar-week":{"src":"components/calendar-week/calendar-week.docs.js?v=3e7503ac"},"card":{"src":"components/card/card.docs.js?v=385dde05"},"credit-card-flags":{"src":"components/card-flag/card-flag.docs.js?v=1c719fe4"},"currency":{"src":"components/currency/currency.docs.js?v=4019f33b"},"currency-content":{"src":"components/currency-content/currency-content.docs.js?v=b78c8af8"},"currency-symbol":{"src":"components/currency-symbol/currency-symbol.docs.js?v=be193ca9"},"divider":{"src":"components/divider/divider.docs.js?v=a8ce9166"},"icon":{"src":"components/icon/icon.docs.js?v=dcd985e5"},"avatar":{"src":"components/avatar/avatar.docs.js?v=e8f0f357"},"breadcrumb-item":{"src":"components/breadcrumb-item/breadcrumb-item.docs.js?v=f2f90636"},"caju-card":{"src":"components/caju-card/caju-card.docs.js?v=e360b606"},"close-toast":{"src":"components/close-toast/close-toast.docs.js?v=08eb88fc"},"close-alert":{"src":"components/close-alert/close-alert.docs.js?v=66f9acea"},"content-banner":{"src":"components/content-banner/content-banner.docs.js?v=5601185f"},"csat-item":{"src":"components/csat-item/csat-item.docs.js?v=b255734f"},"csat-score":{"src":"components/csat-score/csat-score.docs.js?v=f8c9ddaf"},"filter-chips":{"src":"components/filter-chip/filter-chip.docs.js?v=7cf64b2d"},"icon-button":{"src":"components/icon-button/icon-button.docs.js?v=7876d432"},"header":{"src":"components/header/header.docs.js?v=1f84dc27"},"icons-block":{"src":"components/icons-block/icons-block.docs.js?v=7073a124"},"filter-button":{"src":"components/filter-button/filter-button.docs.js?v=03b317e8"},"image":{"src":"components/image/image.docs.js?v=06de894a"},"banner":{"src":"components/banner/banner.docs.js?v=e8a4ac11"},"input-chips":{"src":"components/input-chip/input-chip.docs.js?v=73afcf89"},"chips-group":{"src":"components/chips-group/chips-group.docs.js?v=e44b9509"},"link":{"src":"components/link/link.docs.js?v=92b6a615"},"list-lead-item":{"src":"components/list-lead-item/list-lead-item.docs.js?v=182b62f9"},"main-button":{"src":"components/main-button/main-button.docs.js?v=c015bdec"},"date-navigation":{"src":"components/date-navigation/date-navigation.docs.js?v=cde6d20f"},"date-picker":{"src":"components/date-picker/date-picker.docs.js?v=2f096325"},"drop-button":{"src":"components/drop-button/drop-button.docs.js?v=2505ce9b"},"footer":{"src":"components/footer/footer.docs.js?v=3521cfdc"},"fixed-bar":{"src":"components/fixed-bar/fixed-bar.docs.js?v=d8835dfd"},"nav-control-item":{"src":"components/nav-control-item/nav-control-item.docs.js?v=68edeeff"},"nav-control":{"src":"components/nav-control/nav-control.docs.js?v=f85a1d1f"},"nps-value-item":{"src":"components/nps-value-item/nps-value-item.docs.js?v=6f52865f"},"nps-score":{"src":"components/nps-score/nps-score.docs.js?v=1839cab6"},"popover":{"src":"components/popover/popover.docs.js?v=2419b81c"},"breadcrumb":{"src":"components/breadcrumb/breadcrumb.docs.js?v=59bd05dd"},"progress-line":{"src":"components/progress-line/progress-line.docs.js?v=1ac0918d"},"progress-tracker-item":{"src":"components/progress-tracker-item/progress-tracker-item.docs.js?v=9df6e167"},"progress-tracker":{"src":"components/progress-tracker/progress-tracker.docs.js?v=97e3646c"},"checkbox":{"src":"components/checkbox/checkbox.docs.js?v=f9f2f82b"},"radio-button":{"src":"components/radio-button/radio-button.docs.js?v=7b075ef9"},"shaped-icon":{"src":"components/shaped-icon/shaped-icon.docs.js?v=2e72045f"},"alert":{"src":"components/alert/alert.docs.js?v=73d9d825"},"confirmation-message":{"src":"components/confirmation-message/confirmation-message.docs.js?v=ebc40fe7"},"dropzone":{"src":"components/dropzone/dropzone.docs.js?v=199cfe2e"},"file-lead-item":{"src":"components/file-lead-item/file-lead-item.docs.js?v=5427c97f"},"lead-item":{"src":"components/lead-item/lead-item.docs.js?v=39cab1a3"},"slider":{"src":"components/slider/slider.docs.js?v=d0f3079e"},"spinner":{"src":"components/spinner/spinner.docs.js?v=f2007190"},"status-dot":{"src":"components/status-dot/status-dot.docs.js?v=51c8f006"},"switch":{"src":"components/switch/switch.docs.js?v=ccb6a3c7"},"checkbox-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf"},"radio-button-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf"},"switch-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf"},"system-banner":{"src":"components/system-banner/system-banner.docs.js?v=7db1a62e"},"tab-item":{"src":"components/tab-item/tab-item.docs.js?v=d7f5f2c4"},"fixed-tab":{"src":"components/fixed-tab/fixed-tab.docs.js?v=92df0e81"},"scrollable-tab":{"src":"components/scrollable-tab/scrollable-tab.docs.js?v=3607a757","needs":["fixed-tab"]},"tab-view":{"src":"components/tab-view/tab-view.docs.js?v=98543998"},"table-head":{"src":"components/table-head/table-head.docs.js?v=48151c1b"},"table-toolbar":{"src":"components/table-toolbar/table-toolbar.docs.js?v=dea5e195"},"tag":{"src":"components/tag/tag.docs.js?v=0990f2f5"},"balance-card":{"src":"components/balance-card/balance-card.docs.js?v=9465f0ce"},"table-cell":{"src":"components/table-cell/table-cell.docs.js?v=72c77164"},"text-content":{"src":"components/text-content/text-content.docs.js?v=3e523e4b"},"accordion-item":{"src":"components/accordion-item/accordion-item.docs.js?v=1ae17b66"},"accordion":{"src":"components/accordion/accordion.docs.js?v=da2d36e9"},"code-input-otp":{"src":"components/code-input-otp/code-input-otp.docs.js?v=f6b13cc5"},"credit-card-input":{"src":"components/credit-card-input/credit-card-input.docs.js?v=38ef2397"},"date-input":{"src":"components/date-input/date-input.docs.js?v=b20aab02"},"password-input":{"src":"components/password-input/password-input.docs.js?v=1a70ffec"},"quantity-input":{"src":"components/quantity-input/quantity-input.docs.js?v=2f150dde"},"search-input":{"src":"components/search-input/search-input.docs.js?v=fe6fd9c3"},"text-area":{"src":"components/text-area/text-area.docs.js?v=beb8d21c"},"text-input":{"src":"components/text-input/text-input.docs.js?v=04e6320c"},"toast":{"src":"components/toast/toast.docs.js?v=3c24014a"},"tooltip":{"src":"components/tooltip/tooltip.docs.js?v=66ed468f"},"topic":{"src":"components/topic/topic.docs.js?v=4f5c7ee5"},"trailing-item":{"src":"components/trailing-item/trailing-item.docs.js?v=e767226e"},"content-list-item":{"src":"components/content-list-item/content-list-item.docs.js?v=08279d28"},"content-list":{"src":"components/content-list/content-list.docs.js?v=663fda73"},"selection-list-item":{"src":"components/selection-list-item/selection-list-item.docs.js?v=a6ae3580"},"async-creatable-select-input":{"src":"components/async-creatable-select-input/async-creatable-select-input.docs.js?v=b89d5e8e","needs":["async-select-input"]},"async-select-input":{"src":"components/async-select-input/async-select-input.docs.js?v=0e4b20ab"},"checkbox-select-input":{"src":"components/checkbox-select-input/checkbox-select-input.docs.js?v=b47659af","needs":["async-select-input"]},"multi-select-input":{"src":"components/multi-select-input/multi-select-input.docs.js?v=aff1ad3a","needs":["async-select-input"]},"radio-select-input":{"src":"components/radio-select-input/radio-select-input.docs.js?v=502ad8c9","needs":["async-select-input"]},"select-number":{"src":"components/select-number/select-number.docs.js?v=847bd368"},"pagination":{"src":"components/pagination/pagination.docs.js?v=e13b1eb0"},"selection-list":{"src":"components/selection-list/selection-list.docs.js?v=62a9303c"},"table":{"src":"components/table/table.docs.js?v=2903c5c5"},"upload-item":{"src":"components/upload-item/upload-item.docs.js?v=b6203890"},"upload-list":{"src":"components/upload-list/upload-list.docs.js?v=b6a8754f"},"viewport-restriction":{"src":"components/viewport-restriction/viewport-restriction.docs.js?v=221daf2e"},"bottom-sheet":{"src":"components/bottom-sheet/bottom-sheet.docs.js?v=b85dcfdb"},"drawer":{"src":"components/drawer/drawer.docs.js?v=ba404bd6"},"modal":{"src":"components/modal/modal.docs.js?v=40da0398"},"modal-date-picker":{"src":"components/modal-date-picker/modal-date-picker.docs.js?v=8d2f58cb"}};

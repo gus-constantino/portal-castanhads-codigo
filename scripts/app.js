@@ -18,18 +18,54 @@
   // Grupos na ordem das páginas do [CastanhaDS] Components; building blocks numa seção recolhida no fim.
   var PAGES = ["Actions","Banner","Breadcrumbs","Buttons","Caju Card","Containers","Content","Datepicker","Dividers","Feedback","File Upload","Fixed Bar","Flags","Images","Lists","Loaders","Navigation","Pagination","Popovers","Progress Indicators","Rating Score","Selection Controls","Slider","Status","Tabs","Tab View","Tables","Text Fields","Tooltips","Utilities"];
   var blocksOpen = false;
-  function link(c){
-    var a = kit.el("a", { href: "#/" + c.id }, [c.name, kit.el("small", { text: c.task || "" })]);
-    // Tooltip só quando há algo a explicar: task do Jira, [Beta], componente em branch do Figma
+  // Tooltip só quando há algo a explicar: task do Jira, [Beta], componente em branch do Figma
+  function notesOf(c){
     var notes = [];
     if (c.task) notes.push("Task no Jira: " + c.task + ".");
     if (/\[Beta\]/.test(c.name)) notes.push("Em beta no Figma: props e visual ainda podem mudar.");
     if (/\/branch\//.test(c.figma || "")) notes.push("O link do Figma abre uma branch, não a main.");
+    return notes;
+  }
+  function link(c){
+    var a = kit.el("a", { href: "#/" + c.id }, [c.name, kit.el("small", { text: c.task || "" })]);
+    var notes = notesOf(c);
     // As notas vão no card de preview do hover (peek); leitor de tela recebe por aria-description
     if (notes.length) a.setAttribute("aria-description", notes.join(" "));
     if (c.mount) peek.bind(a, c, notes);
     return kit.el("li", null, [a]);
   }
+  // ---------- Miniatura do componente (peek do hover e cards da grade) ----------
+  // É o playground real montado fora da página e reduzido para caber no stage. Nunca amplia; reduz até minK e,
+  // se ainda sobrar (Table, Drawer, listas), corta ancorado no topo/início com fade (is-cut-x / is-cut-y no stage).
+  function fitThumb(prev, stage, minK){
+    prev.style.transform = "none";
+    var pr = prev.getBoundingClientRect(), x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    [].forEach.call(prev.children, function(n){
+      var r = n.getBoundingClientRect(); if (!r.width || !r.height) return; // overlays fechados ficam de fora
+      x0 = Math.min(x0, r.left); y0 = Math.min(y0, r.top); x1 = Math.max(x1, r.right); y1 = Math.max(y1, r.bottom);
+    });
+    if (x1 < x0) return;
+    var sw = stage.clientWidth, sh = stage.clientHeight, pad = Math.min(16, sw / 10), w = x1 - x0, h = y1 - y0;
+    var k = Math.max(Math.min(1, (sw - 2 * pad) / w, (sh - 2 * pad) / h), Math.min(1, minK));
+    var cutX = w * k > sw - 2 * pad, cutY = h * k > sh - 2 * pad;
+    var tx = cutX ? pad - (x0 - pr.left) * k : sw / 2 - (x0 - pr.left + w / 2) * k;
+    var ty = cutY ? pad - (y0 - pr.top) * k : sh / 2 - (y0 - pr.top + h / 2) * k;
+    prev.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + k + ")";
+    stage.classList.toggle("is-cut-x", cutX); stage.classList.toggle("is-cut-y", cutY);
+  }
+  function mountThumb(stage, c, onLoad){
+    stage.innerHTML = ""; stage.style.background = ""; stage.classList.remove("is-dark"); // a superfície do playground (kit.surface) cai no stage
+    stage.dataset.viewport = c.viewport || "desktop"; // componente só de um viewport (Bottom Sheet: mobile) aparece nele
+    var prev = kit.el("div", { "class": "pg-peek__preview" });
+    prev.inert = true; // miniatura: só imagem, sem foco nem clique
+    prev.addEventListener("load", onLoad, true); // imagem/ilustração que chega depois muda o tamanho
+    stage.appendChild(prev);
+    try { c.mount({ preview: prev, panel: document.createElement("div"), kit: kit, readout: function(){} }); }
+    catch (e){ prev.innerHTML = ""; }
+    [].forEach.call(prev.querySelectorAll("img[loading=lazy]"), function(i){ i.loading = "eager"; }); // lazy não carrega dentro do recorte da miniatura
+    return prev;
+  }
+
   // ---------- Preview no hover (peek) ----------
   // Como as navegações de Carbon, M3 e Wise: miniatura do componente ao lado do menu. É o playground real
   // montado num Popover do DS (manual, sem foco) e reduzido para caber; abre no hover ou no foco por teclado.
@@ -41,24 +77,7 @@
     card.inert = true;
     document.body.appendChild(card);
     var showT = 0, cur = null, prev = null, ro = window.ResizeObserver ? new ResizeObserver(function(){ fit(); }) : null;
-    function fit(){
-      if (!prev) return;
-      prev.style.transform = "none";
-      var pr = prev.getBoundingClientRect(), x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
-      [].forEach.call(prev.children, function(n){
-        var r = n.getBoundingClientRect(); if (!r.width || !r.height) return; // overlays fechados ficam de fora
-        x0 = Math.min(x0, r.left); y0 = Math.min(y0, r.top); x1 = Math.max(x1, r.right); y1 = Math.max(y1, r.bottom);
-      });
-      if (x1 < x0) return;
-      var pad = 16, sw = stage.clientWidth, sh = stage.clientHeight, w = x1 - x0, h = y1 - y0;
-      // Nunca amplia; reduz até 50% para caber e, se ainda sobrar (Table, Drawer, listas), corta ancorado no topo/início com fade
-      var k = Math.max(Math.min(1, (sw - 2 * pad) / w, (sh - 2 * pad) / h), Math.min(1, 0.5));
-      var cutX = w * k > sw - 2 * pad, cutY = h * k > sh - 2 * pad;
-      var tx = cutX ? pad - (x0 - pr.left) * k : sw / 2 - (x0 - pr.left + w / 2) * k;
-      var ty = cutY ? pad - (y0 - pr.top) * k : sh / 2 - (y0 - pr.top + h / 2) * k;
-      prev.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + k + ")";
-      stage.classList.toggle("is-cut-x", cutX); stage.classList.toggle("is-cut-y", cutY);
-    }
+    function fit(){ if (prev) fitThumb(prev, stage, 0.5); }
     function place(a){
       var side = document.querySelector(".pg-sidebar").getBoundingClientRect(), r = a.getBoundingClientRect(), me = card.getBoundingClientRect();
       var top = Math.max(8, Math.min(r.top + r.height / 2 - me.height / 2, window.innerHeight - me.height - 8));
@@ -68,14 +87,7 @@
       if (narrow.matches) return;
       cur = a;
       if (ro && prev) ro.unobserve(prev);
-      stage.innerHTML = ""; stage.style.background = ""; stage.classList.remove("is-dark"); // a superfície do playground (kit.surface) cai no stage
-      stage.dataset.viewport = c.viewport || "desktop"; // componente só de um viewport (Bottom Sheet: mobile) aparece nele
-      prev = kit.el("div", { "class": "pg-peek__preview" });
-      prev.addEventListener("load", fit, true); // imagem/ilustração que chega depois muda o tamanho
-      stage.appendChild(prev);
-      try { c.mount({ preview: prev, panel: document.createElement("div"), kit: kit, readout: function(){} }); }
-      catch (e){ prev.innerHTML = ""; }
-      [].forEach.call(prev.querySelectorAll("img[loading=lazy]"), function(i){ i.loading = "eager"; }); // lazy não carrega dentro do recorte da miniatura
+      prev = mountThumb(stage, c, fit);
       nameEl.textContent = c.name;
       metaEl.textContent = (c.block ? "Building block" : (c.category || "Outros")) + (c.task ? " · " + c.task : "");
       notesEl.textContent = notes.join(" "); notesEl.hidden = !notes.length;
@@ -138,6 +150,71 @@
       if (!d) return; e.preventDefault(); cur = apply(cur + d); save();
     });
   })();
+  // ---------- Exibição do menu: Lista (accordion por categoria) ou Grade (miniaturas) ----------
+  // Alternador = Icon Button Small do DS com aria-pressed, como o seletor de viewport (ativo Default · Accent;
+  // o outro Ghost · Neutral). Escolha lembrada no navegador. Na faixa horizontal (≤ 1100px) vale sempre a lista.
+  var navView = "list";
+  try { navView = localStorage.getItem("cds-pg-nav-view") === "grid" ? "grid" : "list"; } catch (e) {}
+  var viewBar = (function(){
+    var row = kit.el("div", { "class": "pg-nav-view", role: "group", "aria-label": "Exibição do menu" }), btns = {};
+    var opts = [["list", "view-list-line", "Lista"], ["grid", "view-module-line", "Grade com previews"]];
+    function paint(){ opts.forEach(function(o){ var on = o[0] === navView, b = btns[o[0]]; b.setAttribute("kind", on ? "default" : "ghost"); b.setAttribute("appearance", on ? "accent" : "neutral"); b.setAttribute("pressed", String(on)); }); }
+    opts.forEach(function(o){
+      var b = btns[o[0]] = kit.el("cds-icon-button", { id: "nav-view-" + o[0], size: "small", icon: o[1], label: "Menu em " + o[2].toLowerCase() });
+      b.addEventListener("click", function(){
+        if (navView === o[0]) return;
+        navView = o[0]; paint(); peek.hide();
+        try { localStorage.setItem("cds-pg-nav-view", navView); } catch (e) {}
+        buildNav(searchText());
+        var on = nav.querySelector("a[aria-current='page']"); if (on) on.scrollIntoView({ block: "center" }); // a troca não perde o lugar
+      });
+      row.appendChild(b);
+      var tip = kit.el("cds-tooltip", { "for": "nav-view-" + o[0], placement: "bottom", "show-label": "false" });
+      tip.setAttribute("text", o[2]);
+      row.appendChild(tip);
+    });
+    // Na linha do título "Componentes", alinhado à direita (o título fica de pé quando o alternador some)
+    var title = nav.previousElementSibling, headRow = kit.el("div", { "class": "pg-nav-head" });
+    title.parentNode.insertBefore(headRow, title);
+    headRow.appendChild(title); headRow.appendChild(row);
+    paint();
+    return row;
+  })();
+  function isGrid(){ return navView === "grid" && !narrow.matches; }
+
+  // Card da grade: link do tamanho do card (área de clique inteira) com a miniatura quadrada e o nome embaixo.
+  // O DS não tem Card clicável (o Card é container estático, pad 24 + 8): o card usa os tokens do Card
+  // (Surface, raio medium, Border/semi-soft) e os estados de hover/atual do menu. Ver CONFERIR.
+  // Miniaturas montam só quando entram na área visível do menu e desmontam quando saem (100+ playgrounds).
+  var thumbs = (function(){
+    var side = document.querySelector(".pg-sidebar"), live = [];
+    var io = window.IntersectionObserver ? new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        var st = en.target;
+        if (en.isIntersecting && !st._prev){
+          st._prev = mountThumb(st, st._def, function(){ if (st._prev) fitThumb(st._prev, st, 0.1); });
+          fitThumb(st._prev, st, 0.1);
+        } else if (!en.isIntersecting && st._prev){ st.innerHTML = ""; st._prev = null; }
+      });
+    }, { root: side, rootMargin: "200px 0px" }) : null;
+    function tile(c){
+      var stage = kit.el("div", { "class": "pg-tile__stage", "data-viewport": "desktop", "aria-hidden": "true" });
+      stage._def = c;
+      var a = kit.el("a", { "class": "pg-tile", href: "#/" + c.id }, [stage, kit.el("span", { "class": "pg-tile__name", text: c.name })]);
+      var notes = notesOf(c);
+      if (notes.length){ a.setAttribute("aria-description", notes.join(" ")); }
+      if (c.mount){ live.push(stage); if (io) io.observe(stage); else { stage._prev = mountThumb(stage, c, function(){}); } }
+      return kit.el("li", null, [a]);
+    }
+    function reset(){ live.forEach(function(st){ if (io) io.unobserve(st); st.innerHTML = ""; st._prev = null; }); live = []; }
+    return { tile: tile, reset: reset };
+  })();
+  function navGrid(label, items){
+    var ul = kit.el("ul", { "class": "pg-nav-grid", "aria-label": label });
+    items.forEach(function(c){ ul.appendChild(thumbs.tile(c)); });
+    return kit.el("li", { "class": "pg-nav-grid-group" }, [kit.el("p", { "class": "pg-nav-title pg-nav-grid-title", text: label }), ul]);
+  }
+
   function buildNav(filter){
     var q = (filter || "").trim().toLowerCase();
     nav.innerHTML = "";
@@ -153,6 +230,20 @@
     var cats = PAGES.concat(comps.map(function(c){ return c.category || "Outros"; }).filter(function(x, i, a){ return PAGES.indexOf(x) === -1 && a.indexOf(x) === i; }));
     // Categorias em accordion: abre a da página atual, as que a pessoa abriu (lembrado no navegador) e todas durante a busca
     var cur = currentId();
+    thumbs.reset();
+    viewBar.hidden = narrow.matches;
+    nav.classList.toggle("is-grid", isGrid());
+    if (isGrid()){
+      // Grade: tudo aberto, sem accordion — categoria vira só um título, building blocks no fim
+      cats.forEach(function(cat){
+        var items = comps.filter(function(c){ return (c.category || "Outros") === cat; });
+        if (items.length) nav.appendChild(navGrid(cat, items));
+      });
+      if (blocks.length) nav.appendChild(navGrid("Building blocks", blocks)).classList.add("pg-nav-blocks");
+      if (!comps.length && !blocks.length) nav.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Nenhum componente encontrado." }));
+      markCurrent();
+      return;
+    }
     cats.forEach(function(cat){
       var items = comps.filter(function(c){ return (c.category || "Outros") === cat; });
       if (!items.length) return;

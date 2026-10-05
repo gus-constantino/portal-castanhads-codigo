@@ -112,7 +112,7 @@
     if (p.expr === "true") return { name: p.prop, kind: "bool", value: true }; // creatable, scrollable…
     if (p.expr){ // {v} = valor do atributo (ex.: notification={{ label: "{v}" }}); sem valor, a prop some
       if (p.attr && p.expr.indexOf("{v}") > -1){ var ev = get(p.attr); if (ev == null || ev === "") return null; return { name: p.prop, kind: "expr", value: fill(p.expr, ev, get) }; }
-      return { name: p.prop, kind: "expr", value: p.expr };
+      return { name: p.prop, kind: "expr", value: p.expr.replace(/\{@([a-z-]+)\}/g, function(m, k){ var x = get(k); return x == null ? "" : x; }) }; // {@attr}: outro atributo (ex.: "[{@start}, {@end}]")
     }
     if (p.value != null) return d === p.value ? null : { name: p.prop, kind: "str", value: p.value };
     var v = p.attr ? get(p.attr) : null;

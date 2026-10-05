@@ -1,0 +1,155 @@
+{
+  "element": "cds-date-input",
+  "defaults": {
+    "appearance": "neutral",
+    "label": "Label",
+    "supporting": "Supporting Message",
+    "error": "Error Message",
+    "show-label": "true",
+    "show-required": "true",
+    "show-trailing-item": "true",
+    "show-supporting-content": "true",
+    "show-character-counter": "true",
+    "kind": "single"
+  },
+  "jsx": {
+    "tag": "DateInput",
+    "props": [
+      {
+        "prop": "label",
+        "attr": "label",
+        "if": {
+          "show-label": "true"
+        }
+      },
+      {
+        "prop": "required",
+        "attr": "show-required",
+        "bool": true
+      },
+      {
+        "prop": "error",
+        "attr": "appearance",
+        "eq": "warning"
+      },
+      {
+        "prop": "supportingMessage",
+        "attr": "error",
+        "if": {
+          "appearance": "warning",
+          "show-supporting-content": "true"
+        }
+      },
+      {
+        "prop": "supportingMessage",
+        "attr": "supporting",
+        "if": {
+          "appearance": "!warning",
+          "show-supporting-content": "true"
+        }
+      },
+      {
+        "prop": "disabled",
+        "attr": "disabled",
+        "bool": true
+      },
+      {
+        "prop": "kind",
+        "attr": "kind",
+        "map": {
+          "single": "single-calendar",
+          "double": "double-calendar"
+        }
+      },
+      {
+        "prop": "minDate",
+        "attr": "min",
+        "expr": "new Date('{v}')"
+      },
+      {
+        "prop": "maxDate",
+        "attr": "max",
+        "expr": "new Date('{v}')"
+      },
+      {
+        "prop": "calendarButtonLabel",
+        "attr": "calendar-label",
+        "if": {
+          "calendar-label": "!Abrir calendário"
+        }
+      },
+      {
+        "prop": "onChange",
+        "expr": "setDate"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Appearance",
+      "appearance",
+      "error",
+      "Warning vira `error` (boolean). A mensagem vai em `supportingMessage`."
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira prop."
+    ],
+    [
+      "Show Label",
+      "show-label",
+      "label",
+      "Desligado: omita `label`."
+    ],
+    [
+      "Show Required",
+      "show-required",
+      "required",
+      "O texto \"(Obrigatório)\" vem do componente; não há prop para trocar."
+    ],
+    [
+      "Show Supporting Content",
+      "show-supporting-content",
+      "supportingMessage",
+      "Desligado: omita `supportingMessage`."
+    ],
+    [
+      "Supporting Message / Error Message",
+      "supporting · error",
+      "supportingMessage",
+      "Uma prop só: o texto muda conforme `error`."
+    ],
+    [
+      "Kind",
+      "kind",
+      "kind",
+      "Single/Double Calendar → `single-calendar`/`double-calendar`."
+    ],
+    [
+      "Show Character Counter",
+      "show-character-counter",
+      "—",
+      "O DateInput do React não tem contador."
+    ],
+    [
+      "Show Trailing Item",
+      "show-trailing-item",
+      "—",
+      "O botão de calendário é fixo no React (`calendarButtonLabel` dá o nome)."
+    ],
+    [
+      "—",
+      "min / max",
+      "minDate / maxDate",
+      "Objetos `Date` no React; no playground, texto AAAA-MM-DD."
+    ],
+    [
+      "—",
+      "value",
+      "value / defaultValue",
+      "No React é um `Date` (ou `{ start, end }` com `mode=\"range\"`), não o texto dd/mm/aaaa."
+    ]
+  ]
+}

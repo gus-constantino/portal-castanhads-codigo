@@ -1,0 +1,86 @@
+{
+  "element": "cds-radio-button-group",
+  "defaults": {
+    "label": "Opções"
+  },
+  "jsx": {
+    "tag": "Radio.Group",
+    "props": [
+      {
+        "prop": "name",
+        "attr": "name",
+        "if": {
+          "name": "!null"
+        }
+      },
+      {
+        "prop": "name",
+        "value": "opcoes",
+        "if": {
+          "name": "null"
+        }
+      },
+      {
+        "prop": "label",
+        "attr": "label"
+      },
+      {
+        "prop": "onChange",
+        "expr": "setSelected"
+      }
+    ],
+    "children": [
+      {
+        "each": "cds-radio-button",
+        "node": {
+          "tag": "Radio",
+          "defaults": {
+            "label": "Label"
+          },
+          "props": [
+            {
+              "prop": "value",
+              "tpl": "opcao-{i}",
+              "attr": "label"
+            },
+            {
+              "prop": "label",
+              "attr": "label"
+            },
+            {
+              "prop": "disabled",
+              "attr": "disabled",
+              "bool": true
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Slot",
+      "(filhos)",
+      "<Radio>",
+      "Um `Radio` por item, com `value` e `label`."
+    ],
+    [
+      "—",
+      "name",
+      "name",
+      "Obrigatório no React; o playground gera um quando falta."
+    ],
+    [
+      "—",
+      "label",
+      "label",
+      "Nome do grupo."
+    ],
+    [
+      "—",
+      "status dos itens",
+      "value / defaultValue",
+      "A opção marcada é o `value` dela (`defaultValue` ou `value` + `onChange`)."
+    ]
+  ]
+}

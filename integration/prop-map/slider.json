@@ -1,0 +1,143 @@
+{
+  "element": "cds-slider",
+  "defaults": {
+    "kind": "single",
+    "min": "0",
+    "max": "100",
+    "step": "10",
+    "value": "0",
+    "start": "0",
+    "end": "100",
+    "show-stops": "true",
+    "show-value-indicator": "true",
+    "label": "Valor",
+    "min-label": "Mínimo",
+    "max-label": "Máximo"
+  },
+  "jsx": {
+    "tag": "Slider",
+    "props": [
+      {
+        "prop": "kind",
+        "attr": "kind"
+      },
+      {
+        "prop": "min",
+        "attr": "min",
+        "num": true
+      },
+      {
+        "prop": "max",
+        "attr": "max",
+        "num": true
+      },
+      {
+        "prop": "step",
+        "attr": "step",
+        "num": true
+      },
+      {
+        "prop": "defaultValue",
+        "attr": "value",
+        "num": true,
+        "if": {
+          "kind": "!range"
+        }
+      },
+      {
+        "prop": "defaultValue",
+        "expr": "[{@start}, {@end}]",
+        "if": {
+          "kind": "range"
+        }
+      },
+      {
+        "prop": "hideStops",
+        "attr": "show-stops",
+        "bool": "not"
+      },
+      {
+        "prop": "hideValueIndicator",
+        "attr": "show-value-indicator",
+        "bool": "not"
+      },
+      {
+        "prop": "disabled",
+        "attr": "disabled",
+        "bool": true
+      },
+      {
+        "prop": "valueLabel",
+        "attr": "label",
+        "if": {
+          "kind": "!range",
+          "label": "!Valor"
+        }
+      },
+      {
+        "prop": "minLabel",
+        "attr": "min-label",
+        "if": {
+          "kind": "range",
+          "min-label": "!Mínimo"
+        }
+      },
+      {
+        "prop": "maxLabel",
+        "attr": "max-label",
+        "if": {
+          "kind": "range",
+          "max-label": "!Máximo"
+        }
+      },
+      {
+        "prop": "onChange",
+        "expr": "setValue"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Kind",
+      "kind",
+      "kind",
+      "`single` ou `range`."
+    ],
+    [
+      "Show Stops",
+      "show-stops",
+      "hideStops",
+      "Invertido: desligado no Figma = `hideStops`."
+    ],
+    [
+      "Show Value Indicator",
+      "show-value-indicator",
+      "hideValueIndicator",
+      "Invertido: desligado = `hideValueIndicator` (a bolha volta no arraste e no foco)."
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira prop."
+    ],
+    [
+      "Value",
+      "value · start/end",
+      "defaultValue / value",
+      "Número no Single; `[mínimo, máximo]` no Range. No Figma, Value é só prototipação."
+    ],
+    [
+      "—",
+      "step",
+      "step",
+      "O padrão do React é `1`; o do playground, `10`."
+    ],
+    [
+      "—",
+      "label · min-label · max-label",
+      "valueLabel · minLabel · maxLabel",
+      "Nomes acessíveis; mesmos padrões nos dois lados."
+    ]
+  ]
+}

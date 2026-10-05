@@ -1,0 +1,72 @@
+{
+  "element": "cds-checkbox-group",
+  "defaults": {
+    "label": "Opções"
+  },
+  "jsx": {
+    "tag": "Checkbox.Group",
+    "props": [
+      {
+        "prop": "label",
+        "attr": "label"
+      },
+      {
+        "prop": "onChange",
+        "expr": "setSelected"
+      }
+    ],
+    "children": [
+      {
+        "each": "cds-checkbox",
+        "node": {
+          "tag": "Checkbox",
+          "defaults": {
+            "label": "Label"
+          },
+          "props": [
+            {
+              "prop": "value",
+              "tpl": "opcao-{i}",
+              "attr": "label"
+            },
+            {
+              "prop": "label",
+              "attr": "label"
+            },
+            {
+              "prop": "disabled",
+              "attr": "disabled",
+              "bool": true
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Slot",
+      "(filhos)",
+      "<Checkbox>",
+      "Um `Checkbox` por item, com `value` e `label`."
+    ],
+    [
+      "—",
+      "label",
+      "label",
+      "Nome do grupo (no playground, `aria-label`)."
+    ],
+    [
+      "—",
+      "status dos itens",
+      "value / defaultValue",
+      "No grupo, a seleção é um `string[]` com os `value` marcados (`defaultValue` ou `value` + `onChange`)."
+    ],
+    [
+      "—",
+      "—",
+      "orientation",
+      "Padrão `vertical`, como no Figma."
+    ]
+  ]
+}

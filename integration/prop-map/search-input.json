@@ -1,0 +1,135 @@
+{
+  "element": "cds-search-input",
+  "defaults": {
+    "appearance": "neutral",
+    "label": "Label",
+    "supporting": "Supporting Message",
+    "error": "Error Message",
+    "show-label": "true",
+    "show-required": "true",
+    "show-trailing-item": "true",
+    "show-supporting-content": "true",
+    "show-character-counter": "true"
+  },
+  "jsx": {
+    "tag": "SearchInput",
+    "props": [
+      {
+        "prop": "label",
+        "attr": "label",
+        "if": {
+          "show-label": "true"
+        }
+      },
+      {
+        "prop": "placeholder",
+        "attr": "placeholder"
+      },
+      {
+        "prop": "defaultValue",
+        "attr": "value"
+      },
+      {
+        "prop": "required",
+        "attr": "show-required",
+        "bool": true
+      },
+      {
+        "prop": "error",
+        "attr": "appearance",
+        "eq": "warning"
+      },
+      {
+        "prop": "supportingMessage",
+        "attr": "error",
+        "if": {
+          "appearance": "warning",
+          "show-supporting-content": "true"
+        }
+      },
+      {
+        "prop": "supportingMessage",
+        "attr": "supporting",
+        "if": {
+          "appearance": "!warning",
+          "show-supporting-content": "true"
+        }
+      },
+      {
+        "prop": "characterCount",
+        "attr": "maxlength",
+        "num": true,
+        "if": {
+          "show-character-counter": "true"
+        }
+      },
+      {
+        "prop": "disabled",
+        "attr": "disabled",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Appearance",
+      "appearance",
+      "error",
+      "Warning vira `error` (boolean). A mensagem vai em `supportingMessage`."
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira prop."
+    ],
+    [
+      "Show Label",
+      "show-label",
+      "label",
+      "Desligado: omita `label`."
+    ],
+    [
+      "Show Required",
+      "show-required",
+      "required",
+      "O texto \"(Obrigatório)\" vem do componente; não há prop para trocar."
+    ],
+    [
+      "Show Supporting Content",
+      "show-supporting-content",
+      "supportingMessage",
+      "Desligado: omita `supportingMessage`."
+    ],
+    [
+      "Supporting Message / Error Message",
+      "supporting · error",
+      "supportingMessage",
+      "Uma prop só: o texto muda conforme `error`."
+    ],
+    [
+      "Show Character Counter",
+      "show-character-counter",
+      "characterCount",
+      "No React é o limite (número), não um boolean."
+    ],
+    [
+      "—",
+      "placeholder",
+      "placeholder",
+      "Não é prop do Figma: o placeholder vem do conteúdo do campo."
+    ],
+    [
+      "Show Trailing Item",
+      "show-trailing-item",
+      "—",
+      "O botão de limpar aparece sozinho com texto no React."
+    ],
+    [
+      "—",
+      "—",
+      "—",
+      "A lupa é fixa nos dois lados (não é Lead Icon trocável)."
+    ]
+  ]
+}

@@ -101,7 +101,7 @@ function literals(p){
   const m = String(p.type).match(/^Extract<\w+,\s*((?:'[^']*'\s*\|?\s*)+)>$/);
   return m ? m[1].match(/'[^']*'/g).map((s) => s.slice(1, -1)) : null;
 }
-const HTML = /^(on[A-Z]\w*|aria-[\w-]+|default\w*|children|id|className|style|value|checked|name|type|placeholder|disabled|required|open|href|target|rel|ref|key)$/;
+const HTML = /^(on[A-Z]\w*|aria-[\w-]+|default\w*|children|id|className|style|value|checked|name|type|placeholder|disabled|required|open|href|target|rel|ref|key|rows)$/;
 
 function run(ctx){
   const { components, react, maps, figma, codeText } = ctx, findings = [], idx = typeIndex(react);

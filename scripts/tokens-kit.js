@@ -2,7 +2,7 @@
  * Mostruário de tokens do Caju Theme (bloco `tokens` da doc) — referência: [Caju] Theme · página Caju Benefícios (4309:2).
  * Lê os nomes direto do :root de styles/tokens.css e os valores ao vivo (getComputedStyle): no tema escuro mostra os valores dark
  * e nunca fica desatualizado em relação ao snapshot.
- *   { tokens: "colors" | "font" | "text-styles" | "radius" | "width" | "sizes" | "elevation" | "opacity" | "duration" | "delay" | "easing" | "motion-live" | "easing-lab" }
+ *   { tokens: "colors" | "font" | "text-styles" | "radius" | "width" | "sizes" | "sizes-default" | "elevation" | "opacity" | "duration" | "delay" | "easing" | "motion-live" | "easing-lab" }
  * Interação: cada amostra é um tile clicável (C87) que copia `var(--token)` e confirma com o Toast do DS; as amostras de motion
  * tocam a animação no hover/foco/clique, e "Tocar todas" (Main Button do DS) toca a lista. Com prefers-reduced-motion nada anima.
  * Tudo com tokens: os exemplos usam var(--token) como valor; o layout vem de styles/docs.css (.pg-tok-*).
@@ -268,6 +268,16 @@
         vis.appendChild(el("span", "pg-sz-bar")).style.width = v;
         var gap = vis.appendChild(el("span", "pg-sz-gap")); gap.style.gap = v; gap.appendChild(el("span")); gap.appendChild(el("span"));
         var pad = vis.appendChild(el("span", "pg-sz-pad")); pad.style.padding = v; pad.appendChild(el("span"));
+      });
+    },
+    // Tamanhos padrão (Scale no zeroheight): os seis que atendem ~90% dos layouts, em quadrados do tamanho do token
+    "sizes-default": function(root){
+      var list = ["16", "20", "24", "40", "48", "64"].map(function(n){ return "--common-sizes-" + n; }), s = section(root, "Sizes padrão", list.length);
+      var row = s.appendChild(el("div", "pg-sz-default"));
+      list.forEach(function(n){
+        var t = row.appendChild(tile("pg-sz-default__tile", n)), sq = t.appendChild(el("span", "pg-sz-default__sq"));
+        sq.style.width = sq.style.height = "var(" + n + ")";
+        var cap = t.appendChild(el("span", "pg-tok__text")); cap.appendChild(el("span", "pg-tok__name", label(n, "--common-sizes-"))); cap.appendChild(code(val(n), n));
       });
     },
     // Elevação (Material/Polaris/Radix): palco com um card que sobe de nível (Filter Chips do DS) + sombra decomposta

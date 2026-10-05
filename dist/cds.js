@@ -7777,10 +7777,42 @@ try {
         { tokens: "radius" },
         { tokens: "width" }
       ] },
+      // Conteúdo da página Scale do zeroheight (Fundação → Layout · 7390834), corrigido e refeito com componentes do DS.
+      // Correções e divergências: CONFERIR C153 e C152
       { id: "tamanhos", title: "Tamanhos", blocks: [
-        { h2: "Sizes" },
-        { p: "Escala `Common/Sizes/*`, usada em espaçamentos, gaps e dimensões." },
-        { tokens: "sizes" }
+        { h2: "Scale" },
+        { p: "Utilizamos tamanhos e espaçamentos padronizados, baseados no grid de 4px, para manter a consistência visual e o alinhamento dos componentes no layout." },
+        { h3: "Nomes alternativos comuns" },
+        { p: "Dimensions, Spacing, Sizing units." },
+        { h2: "Anatomia" },
+        { p: "A escala parte de uma unidade base de 4px: os valores de 4 a 200px são múltiplos dela. Abaixo de 4px e em poucos pontos intermediários (1, 2, 6 e 14px) há valores para ajustes finos, como bordas e espaçamentos internos. Use sempre o token (`Common/Sizes/*`), nunca o valor solto." },
+        { tokens: "sizes" },
+        { h2: "Tamanhos padrão" },
+        { p: "Embora toda a escala esteja disponível, na construção das interfaces usamos por padrão um conjunto de seis tamanhos, que atende cerca de 90% dos layouts." },
+        { tokens: "sizes-default" },
+        { h2: "Acessibilidade" },
+        { p: "Acessibilidade é tornar a interface utilizável por qualquer pessoa, com qualquer nível de familiaridade com aplicativos. Por isso, no mobile tratamos a área de toque e as dimensões dos elementos para facilitar a navegação e a interação." },
+        { h3: "Área de toque" },
+        { p: "É a região da tela em que a pessoa usuária interage com botões, links e ícones usando os dedos: o espaço mínimo para tocar um elemento com precisão, sem acionar por engano o que está ao lado. A referência é 48px (`Common/Sizes/48`)." },
+        { compare: [
+          { title: "Main Button Medium: 48px de altura", attrs: { _tag: "cds-main-button", label: "Ação primária", size: "medium", "show-lead-icon": false, "show-trailing-icon": false } },
+          { title: "Main Button Small: 40px (abaixo da referência)", attrs: { _tag: "cds-main-button", label: "Ação primária", size: "small", "show-lead-icon": false, "show-trailing-icon": false } }
+        ] },
+        { note: "No DS de hoje, Main Button e Icon Button Small têm 40px e não ampliam a área de toque: use o tamanho Medium (48px) nas ações de toque no mobile. A imagem do zeroheight sugere 48px de área em volta do Small, o que ainda não existe nos componentes (CONFERIR C152)." },
+        { h3: "Ícones em tela" },
+        { p: "Considerando a área de toque, todo ícone clicável, no mobile ou na web, precisa estar dentro de um componente de botão. O Icon Button Medium tem 48px em qualquer variante." },
+        { compare: [
+          { title: "Default · Accent · 48px", attrs: { _tag: "cds-icon-button", icon: "placeholder-line", label: "Ação", kind: "default", appearance: "accent" } },
+          { title: "Ghost · Accent · 48px", attrs: { _tag: "cds-icon-button", icon: "placeholder-line", label: "Ação", kind: "ghost", appearance: "accent" } },
+          { title: "Ghost · Neutral · 48px", attrs: { _tag: "cds-icon-button", icon: "placeholder-line", label: "Ação", kind: "ghost", appearance: "neutral" } }
+        ] },
+        { p: "Pensamos nos mais diversos contextos, como a pessoa usuária em movimento ou usando só uma das mãos. Por isso, evite ícones soltos na tela." },
+        { h2: "Diretrizes" },
+        { dodont: [
+          { kind: "do", attrs: { _tag: "cds-icon-button", icon: "placeholder-line", label: "Ação", kind: "default", appearance: "accent" }, title: "Ícones devem estar em elementos interativos", text: "Quando o ícone tem uma ação, use o Icon Button: ele garante a área de toque mínima e mantém a consistência da interface." },
+          { kind: "dont", attrs: { _tag: "cds-icon", icon: "placeholder-line", size: "medium", appearance: "accent" }, title: "Não use ícone solto como ação", text: "Um ícone sozinho não garante área de toque acessível e pode gerar inconsistências e quebras na interface." }
+        ] },
+        { note: "Fonte: página Scale do zeroheight (Fundação → Layout), com correções: a escala tem 26 valores (a imagem do zeroheight mostra 14) e nem todos são múltiplos de 4. Dúvidas: canal #castanha-suporte no Slack." }
       ] },
       { id: "elevacao", title: "Elevação e opacidade", blocks: [
         { h2: "Elevations" },

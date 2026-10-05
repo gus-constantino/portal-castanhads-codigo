@@ -13,8 +13,8 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | [Motion](#motion) | 7 |
 | [Refactor](#refactor) | 38 |
 | [Naming](#naming) | 10 |
-| [Acessibilidade](#acessibilidade) | 6 |
-| [Documentação](#documentação) | 3 |
+| [Acessibilidade](#acessibilidade) | 7 |
+| [Documentação](#documentação) | 5 |
 | [Integração React](#integração-react) | 9 |
 
 ## Ajuste de texto
@@ -150,6 +150,7 @@ Contraste, foco e estados que não se distinguem.
 | C126 | Banner e Content Banner · **tema escuro** (e o exemplo do Backdrop, que usa o mesmo par) | Conferido no Figma (05/10): texto e ícone em `Text/intense` / `Icons/intense` sobre `Decorative/01`. `Decorative/01` não tem valor escuro (`#ffba00` nos dois temas) e `Text/intense` vira `#fcfcfc` → **1,67:1** no escuro. Nenhum token de texto passa no AA sobre `Decorative/01` nos dois temas | **Proposta:** texto e ícone em `Support/darker` (`#1a1a1a` fixo nos dois temas → **10,17:1**); ou dar um valor escuro a `Decorative/01` | Segue o Figma; aviso no smoke | Trocar o token do texto/ícone em `banner.css` / `content-banner.css` |
 | C127 | `Text/accent` sobre fundo escuro · Filter Button, Main Button Ghost Accent (ex.: "Selecionar arquivos" do Dropzone) | Conferido no Figma (05/10): `Text/accent` (e `Icons/Accent`) **não tem valor escuro**: `#e80537` sobre `Surface/default` escuro (`#1a1a1a`) dá **3,74:1** (AA pede 4,5:1 para Label 14–16px; no claro passa com 4,54:1) | **Proposta:** valor escuro de `Text/accent` e `Icons/Accent` = o escuro de `Accent/Solid/semi-intense` (`#fe959b` → **8,28:1**). Não muda `Accent/Solid/medium` (fundo do Main Button) | Segue o Figma; aviso no smoke | Nada no código: só o valor do token (o build de tokens traz) |
 | C128 | `Text/soft` em texto informativo · contador do Text Input / Text Area ("0/100") e máscara do Date Input ("-0000") | Conferido no Figma (05/10): contador em `Text/soft` (Disclaimer/Regular 12px). `Text/soft` sobre `Surface/default`: **2,78:1** no claro e **4,41:1** no escuro (o smoke mede 2,50:1 sobre o fundo do campo) | **Proposta:** contador e máscara em `Text/medium` (**8,24:1** / **10,84:1**); `Text/soft` fica para o placeholder e o desabilitado, que o WCAG não exige. Confirmar com a11y | Segue o Figma; aviso no smoke | Trocar o token em `text-field.css` / `date-input.css` |
+| C152 | Main Button e Icon Button **Small** × área de toque (Scale) | A Scale pede 48px de área de toque e a imagem mostra o Small (40px) dentro de 48px | Small tem **40px** e **não amplia** a área de toque no componente (nem no Figma nem no código). Definir: Small só na web/desktop, ou área de toque de 48px no componente | Segue o Figma (40px). O próprio playground usa Icon Button Small na barra do topo (desktop) | Decidir no DS; se ganhar área de toque, ajustar `main-button.css` / `icon-button.css` |
 
 ## Documentação
 
@@ -160,6 +161,8 @@ Frames de documentação no Figma.
 | C12 | Doc do Credit Card · Estilos | Card "Is Active" usa `State=Disabled`; "Warning · Enabled" usa `State=Pressed` (frame 24931:8090) | Is Active e Enabled | Segue o Figma: specimens com as props do frame | Ajustar os dois `attrs` em `credit-card-input.docs.js` |
 | C13 | Docs (Credit Card e OTP) · Motion | Ilustração de empty state como placeholder | Demo de motion | **Exceção** (adaptação para web): exemplo interativo | Se o Figma ganhar uma demo, nada muda |
 | C78 | [Caju] Illustrations · descriptions | A description de Análise ("A ilustração de Anáise deve ser utilizada em contextos onde sistema de verificar informações…", com erro de digitação) foi copiada em 8 que não são de análise: `perguntas-frequentes`, `ampulheta`, `foguete`, `kit-medico`, `kit-onboarding`, `malas-viagem`, `mochila` e o próprio `analysis-low-detail`. A maioria das 237 não tem description | Description própria (uso + palavras-chave) em cada ilustração | Mostra a description como está (tooltip e busca da galeria) | Corrigir no Figma e reimportar |
+| C153 | Scale (zeroheight, Fundação → Layout) · Anatomia | Texto: "unidade base de 4px, onde cada valor é múltiplo da unidade base, de 2 a 200px". A imagem "anatomia - scale" mostra 14 valores | `Common/Sizes` tem **26** valores, e 1, 2, 6 e 14 não são múltiplos de 4; faltam na imagem 0, 1, 6, 14, 28, 44, 56, 80, 92, 104, 120 e 160 | Playground (Caju - Tema → Tamanhos) gera a escala dos tokens reais e explica os valores finos | Corrigir o texto e trocar a imagem pela escala completa |
+| C154 | Scale (zeroheight) · texto e links | "com nossos**,** produtos", "ao utiliz**amos**", aspas misturadas em "soltos”"; link "consulte nossa FAQ" aponta para `zeroheight.com/…/p/76d532-faq` (domínio antigo; não há mais página de FAQ no Hub); bloco de specs mostra "Commom.Colors.Surface.default" e medidas do frame; página marcada "In progress" | Texto revisado e sem o link quebrado (ou FAQ recriada); esconder o bloco de specs do frame | Playground já usa o texto corrigido | Etapa 2 da revisão: `.md` pronto para colar no zeroheight |
 
 ## Integração React
 

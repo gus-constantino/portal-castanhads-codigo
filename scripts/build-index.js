@@ -155,8 +155,11 @@ function rewrite(file, prefix){
 const bundled = bundle();
 rewrite("index.html", "");
 const smoke = rewrite("tests/smoke.html", ""); // smoke.html usa <base href="../">
+// MCP: catálogo do Castanha DS (dist/mcp/catalog.json) — fonte do servidor MCP (docs/local/PLANO-MCP.md). Só grava se o conteúdo mudou.
+const mcpCatalog = require("./mcp/build-catalog").write();
 console.log(`${order.length} componentes em ordem de dependência → index.html${smoke ? " + tests/smoke.html" : ""} · dist/cds.css (${bundled.css.length}) + dist/cds.js (${bundled.js.length})`);
 console.log(order.map((id) => deps[id].length ? `${id} ← ${deps[id].join(", ")}` : id).join("\n"));
+console.log(`Catálogo do MCP: dist/mcp/catalog.json${mcpCatalog.changed ? " (atualizado)" : " (sem mudança)"} · ${mcpCatalog.counts.components} componentes · ${mcpCatalog.counts.tokens} tokens · ${mcpCatalog.counts.icons} ícones · ${mcpCatalog.counts.illustrations} ilustrações`);
 
 // ---------- Orçamento de peso (primeira visita) ----------
 // Mede o que o index.html carrega (CSS e JS locais), comprimido como o GitHub Pages serve (gzip), e quebra o

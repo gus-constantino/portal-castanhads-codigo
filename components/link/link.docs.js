@@ -131,9 +131,14 @@
         ] } },
         { ul: [
           "Use entre 5 e 8 palavras (cerca de 55 caracteres). Links precisam de mais texto que botões para garantir uma área de clique adequada.",
-          "Não use textos genéricos.",
-          "Se o link for um endereço de e-mail e for a última palavra da frase, não use ponto final."
+          "Não use textos genéricos como label do link (ex.: \"Saiba mais\", \"Clique aqui\", \"Ver mais\"). Prefira um label que descreva o destino, como \"Histórico de pagamentos\".",
+          "Não use verbos centrados em visão, como \"Ver\" — nem toda pessoa usuária enxerga a tela (leitores de tela, baixa visão). Use o nome da área, como \"Comprovante de pagamento\", ou \"Acessar {área}\".",
+          "Se o link for um endereço de e-mail e for a última palavra da frase, não use ponto final. Exemplo: `Em caso de dúvida, entre em contato pelo ajuda@empresa.com.br`"
         ] },
+        { table: { wrap: true, head: ["Faça", "Não faça"], rows: [
+          ["`Histórico de pagamentos`", "`Saiba mais`, `Clique aqui` ou `Ver mais`"],
+          ["`Comprovante de pagamento` ou `Acessar comprovante`", "`Ver comprovante`"]
+        ] } },
         { h3: "Links externos" },
         { p: "Para links que levam para fora do produto, considere indicar com ícone e abrir em nova aba. Isso prepara a pessoa para a mudança de contexto." },
         { display: { attrs: { _tag: "cds-link", label: "Leia os termos e condições de uso.", href: "#", appearance: "accent", icon: "link-line", target: "_blank" } } },

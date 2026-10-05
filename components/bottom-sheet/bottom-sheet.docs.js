@@ -109,7 +109,11 @@
           "Para ações obrigatórias — quando a pessoa não pode sair sem agir —, abra uma tela inteira, não um bottom sheet."
         ] },
         { h3: "Como encerrar" },
-        { p: "Use Voltar ou Continuar editando dependendo do contexto. Confira a regra completa na página Botões." },
+        { ul: [
+          "Use \"Continuar editando\" quando o bottom sheet desiste de uma confirmação. Nunca use \"Cancelar\" nesse caso — ele é reservado para telas de edição de formulário, não para descartar uma ação em andamento.",
+          "Use \"Voltar\" quando o bottom sheet não é de input ou edição e o fechamento leva a pessoa de volta para uma área do app (Pix, Cartão etc.).",
+          "Confira a regra completa de todas as labels padronizadas na página Botões."
+        ] },
         { h3: "Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: sheetActions("Sair sem salvar os documentos?", "Você pode enviar quando quiser, mas o benefício só fica disponível após a aprovação dos documentos enviados.", "Continuar editando", "Sair sem salvar"),

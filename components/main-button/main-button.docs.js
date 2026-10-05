@@ -172,6 +172,11 @@
           { _tag: "cds-main-button", label: "Remover colaborador", "show-lead-icon": false, "show-trailing-icon": false },
           { _tag: "cds-main-button", label: "Excluir rascunho", "show-lead-icon": false, "show-trailing-icon": false }
         ] } },
+        { table: { wrap: true, head: ["Faça", "Não faça", "Por quê"], rows: [
+          ["Sair sem salvar", "Sair", "Não avisa que há perda de dados"],
+          ["Remover colaborador", "Remover", "Ambíguo: remover o quê?"],
+          ["Excluir rascunho", "Excluir", "Ambíguo: excluir o quê?"]
+        ] } },
         { h3: "Labels padronizadas" },
         { table: { wrap: true, head: ["Label", "Quando usar"], rows: [
           ["Aplicar", "CTA padrão para aplicar filtros selecionados."],

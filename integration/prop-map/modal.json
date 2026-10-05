@@ -1,35 +1,173 @@
 {
   "element": "cds-modal",
-  "defaults": { "show-header": "true", "show-footer": "true", "show-close-button": "true", "dismissible": "true", "show-header-divider": "false", "show-footer-divider": "false", "show-secondary-action-button": "true", "text-title": "Title", "primary-label": "Label", "secondary-label": "Label" },
-  "pre": ["const [open, setOpen] = useState(false);"],
+  "defaults": {
+    "show-header": "true",
+    "show-footer": "true",
+    "show-close-button": "true",
+    "dismissible": "true",
+    "show-header-divider": "false",
+    "show-footer-divider": "false",
+    "show-secondary-action-button": "true",
+    "text-title": "Title",
+    "primary-label": "Label",
+    "secondary-label": "Label"
+  },
+  "pre": [
+    "const [open, setOpen] = useState(false);"
+  ],
   "jsx": {
     "tag": "Modal",
     "props": [
-      { "prop": "open", "expr": "open" },
-      { "prop": "dismissible", "attr": "dismissible", "bool": true },
-      { "prop": "onClose", "expr": "() => setOpen(false)" }
+      {
+        "prop": "open",
+        "expr": "open"
+      },
+      {
+        "prop": "dismissible",
+        "attr": "dismissible",
+        "bool": true
+      },
+      {
+        "prop": "onClose",
+        "expr": "() => setOpen(false)"
+      }
     ],
     "children": [
-      { "tag": "Modal.Header", "if": { "show-header": "true" }, "props": [
-        { "prop": "title", "attr": "text-title" },
-        { "prop": "hideCloseButton", "attr": "show-close-button", "bool": "not" },
-        { "prop": "showDivider", "attr": "show-header-divider", "bool": true } ] },
-      { "tag": "Modal.Content", "children": [{ "code": "{/* conteúdo do Slot */}" }] },
-      { "tag": "Modal.Footer", "if": { "show-footer": "true" }, "children": [
-        { "tag": "Button", "if": { "show-secondary-action-button": "true" }, "props": [{ "prop": "appearance", "value": "neutral" }, { "prop": "onClick", "expr": "() => setOpen(false)" }], "children": [{ "attr": "secondary-label" }] },
-        { "tag": "Button", "props": [{ "prop": "onClick", "expr": "handleConfirm" }], "children": [{ "attr": "primary-label" }] } ] }
+      {
+        "tag": "Modal.Header",
+        "if": {
+          "show-header": "true"
+        },
+        "props": [
+          {
+            "prop": "title",
+            "attr": "text-title"
+          },
+          {
+            "prop": "hideCloseButton",
+            "attr": "show-close-button",
+            "bool": "not"
+          },
+          {
+            "prop": "showDivider",
+            "attr": "show-header-divider",
+            "bool": true
+          }
+        ]
+      },
+      {
+        "tag": "Modal.Content",
+        "children": [
+          {
+            "code": "{conteudo}"
+          }
+        ]
+      },
+      {
+        "tag": "Modal.Footer",
+        "if": {
+          "show-footer": "true"
+        },
+        "children": [
+          {
+            "tag": "Button",
+            "if": {
+              "show-secondary-action-button": "true"
+            },
+            "props": [
+              {
+                "prop": "appearance",
+                "value": "neutral"
+              },
+              {
+                "prop": "onClick",
+                "expr": "() => setOpen(false)"
+              }
+            ],
+            "children": [
+              {
+                "attr": "secondary-label"
+              }
+            ]
+          },
+          {
+            "tag": "Button",
+            "props": [
+              {
+                "prop": "onClick",
+                "expr": "handleConfirm"
+              }
+            ],
+            "children": [
+              {
+                "attr": "primary-label"
+              }
+            ]
+          }
+        ]
+      }
     ]
   },
   "figma": [
-    ["Show Header", "show-header", "<Modal.Header>", "Desligado: não use o `Modal.Header`."],
-    ["Show Footer", "show-footer", "<Modal.Footer>", "Desligado: não use o `Modal.Footer`."],
-    ["Slot", "(filhos)", "<Modal.Content>", "Um componente por vez."],
-    [".Header › Text Title", "text-title", "Modal.Header title", ""],
-    [".Header › Show Close Button", "show-close-button", "Modal.Header hideCloseButton", "Invertido."],
-    [".Header › Show Divider", "show-header-divider", "Modal.Header showDivider", ""],
-    [".Footer › Show Divider", "show-footer-divider", "—", "O `Modal.Footer` do React não tem divisor."],
-    [".Footer › botões", "primary-label · secondary-label", "<Button> filhos", "Na ordem: secundário (Neutral) e principal."],
-    ["—", "dismissible", "dismissible", "Comportamento (Backdrop e Esc), não prop do Figma. Padrão `true`."],
-    ["—", "open", "open + onClose", "No React o estado fica com você (`useState`)."]
+    [
+      "Show Header",
+      "show-header",
+      "<Modal.Header>",
+      "Desligado: não use o `Modal.Header`."
+    ],
+    [
+      "Show Footer",
+      "show-footer",
+      "<Modal.Footer>",
+      "Desligado: não use o `Modal.Footer`."
+    ],
+    [
+      "Slot",
+      "(filhos)",
+      "<Modal.Content>",
+      "Um componente por vez."
+    ],
+    [
+      ".Header › Text Title",
+      "text-title",
+      "Modal.Header title",
+      ""
+    ],
+    [
+      ".Header › Show Close Button",
+      "show-close-button",
+      "Modal.Header hideCloseButton",
+      "Invertido."
+    ],
+    [
+      ".Header › Show Divider",
+      "show-header-divider",
+      "Modal.Header showDivider",
+      ""
+    ],
+    [
+      ".Footer › Show Divider",
+      "show-footer-divider",
+      "—",
+      "O `Modal.Footer` do React não tem divisor."
+    ],
+    [
+      ".Footer › botões",
+      "primary-label · secondary-label",
+      "<Button> filhos",
+      "Na ordem: secundário (Neutral) e principal."
+    ],
+    [
+      "—",
+      "dismissible",
+      "dismissible",
+      "Comportamento (Backdrop e Esc), não prop do Figma. Padrão `true`."
+    ],
+    [
+      "—",
+      "open",
+      "open + onClose",
+      "No React o estado fica com você (`useState`)."
+    ]
   ]
 }

@@ -32,7 +32,7 @@
       },
       {
         "prop": "currency",
-        "expr": "{ children: '{@value}', showValue: false }",
+        "expr": "{ value: saldo, showValue: false }",
         "if": {
           "show-value": "false"
         }
@@ -99,7 +99,7 @@
       "—",
       "value + symbol + show-value",
       "currency",
-      "Texto já formatado, ou um objeto do `Currency` (ex.: `showValue: false` para ocultar)."
+      "Texto já formatado (`\"R$ 100,00\"`), ou o objeto do `Currency` com `value` numérico (ex.: `{ value: saldo, showValue: false }` para ocultar)."
     ]
   ]
 }

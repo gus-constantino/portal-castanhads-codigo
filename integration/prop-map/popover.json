@@ -1,22 +1,80 @@
 {
   "element": "cds-popover[for]",
-  "defaults": { "placement": "bottom-start", "label": "Opções" },
-  "pre": ["const [open, setOpen] = useState(false);", "const triggerRef = useRef(null);"],
+  "defaults": {
+    "placement": "bottom-start",
+    "label": "Opções"
+  },
+  "pre": [
+    "const [open, setOpen] = useState(false);",
+    "const triggerRef = useRef(null);"
+  ],
   "jsx": {
     "tag": "",
     "children": [
-      { "tag": "Button", "props": [{ "prop": "ref", "expr": "triggerRef" }, { "prop": "onClick", "expr": "() => setOpen(!open)" }], "children": [{ "attr": "label" }] },
-      { "tag": "Popover", "props": [
-        { "prop": "open", "expr": "open" },
-        { "prop": "onClose", "expr": "() => setOpen(false)" },
-        { "prop": "triggerRef", "expr": "triggerRef" },
-        { "prop": "placement", "attr": "placement" }
-      ], "children": [{ "code": "{/* conteúdo do Slot */}" }] }
+      {
+        "tag": "Button",
+        "props": [
+          {
+            "prop": "ref",
+            "expr": "triggerRef"
+          },
+          {
+            "prop": "onClick",
+            "expr": "() => setOpen(!open)"
+          }
+        ],
+        "children": [
+          {
+            "attr": "label"
+          }
+        ]
+      },
+      {
+        "tag": "Popover",
+        "props": [
+          {
+            "prop": "open",
+            "expr": "open"
+          },
+          {
+            "prop": "onClose",
+            "expr": "() => setOpen(false)"
+          },
+          {
+            "prop": "triggerRef",
+            "expr": "triggerRef"
+          },
+          {
+            "prop": "placement",
+            "attr": "placement"
+          }
+        ],
+        "children": [
+          {
+            "code": "{conteudo}"
+          }
+        ]
+      }
     ]
   },
   "figma": [
-    ["Slot", "(filhos)", "children", "O conteúdo vai como filho."],
-    ["—", "for", "triggerRef", "No React o gatilho é uma ref (`useRef`) passada em `triggerRef`; o estado aberto fica com você (`open` + `onClose`)."],
-    ["—", "placement", "placement", "Padrão `bottom-start` nos dois lados."]
+    [
+      "Slot",
+      "(filhos)",
+      "children",
+      "O conteúdo vai como filho."
+    ],
+    [
+      "—",
+      "for",
+      "triggerRef",
+      "No React o gatilho é uma ref (`useRef`) passada em `triggerRef`; o estado aberto fica com você (`open` + `onClose`)."
+    ],
+    [
+      "—",
+      "placement",
+      "placement",
+      "Padrão `bottom-start` nos dois lados."
+    ]
   ]
 }

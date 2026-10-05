@@ -54,7 +54,7 @@
     ],
     "children": [
       {
-        "code": "{/* conteúdo do popover (menu, lista de ações) */}"
+        "code": "{menu}"
       }
     ]
   },

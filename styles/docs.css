@@ -493,3 +493,12 @@
 /* Motion · textos de uso (zeroheight · Velocidade) */
 .pg-mo-curve__use{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
 .pg-mo-fam-use{ margin:0 0 var(--common-sizes-4); font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+
+/* Conteúdo · telas de exemplo dos Princípios de escrita (Fixed Bar / Bottom Sheet do DS dentro de uma moldura de tela) */
+.pg-cnt-phone{ display:flex; flex-direction:column; justify-content:space-between; width:100%; max-width:calc(var(--common-sizes-200) + var(--common-sizes-120)); min-height:calc(var(--common-sizes-200) * 2);
+  border:var(--common-border-width-thin) solid var(--common-colors-border-soft); border-radius:var(--common-border-radius-large); overflow:hidden; background:var(--common-colors-surface-default); text-align:left; }
+.pg-cnt-phone--sheet{ justify-content:flex-end; background:var(--common-colors-surface-01); }
+.pg-cnt-phone__body{ display:flex; flex-direction:column; gap:var(--common-sizes-12); padding:var(--common-sizes-24); }
+.pg-cnt-phone__ill{ width:var(--common-sizes-120); height:var(--common-sizes-120); align-self:center; }
+.pg-cnt-phone__title{ margin:0; font:var(--text-style-title-small); color:var(--common-colors-text-intense); }
+.pg-cnt-phone__text{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }

@@ -17,28 +17,28 @@ cds-icon-button[size="small"] > .cds-ib{ width:var(--common-sizes-40); height:va
 cds-icon-button > .cds-ib > cds-badge{ position:absolute; top:6px; right:5px; }
 
 /* Default · Accent */
-cds-icon-button .cds-ib:hover{ --_bg:var(--common-colors-accent-solid-semi-intense); }
-cds-icon-button .cds-ib:active{ --_bg:var(--common-colors-accent-solid-medium); }
+cds-icon-button .cds-ib:hover, cds-icon-button[state="hovered"] .cds-ib{ --_bg:var(--common-colors-accent-solid-semi-intense); }
+cds-icon-button .cds-ib:active, cds-icon-button[state="pressed"] .cds-ib{ --_bg:var(--common-colors-accent-solid-medium); }
 /* Ghost · Accent */
 cds-icon-button[kind="ghost"] > .cds-ib{ --_bg:transparent; --_fg:var(--common-colors-icons-accent); }
-cds-icon-button[kind="ghost"] > .cds-ib:hover{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); }
-cds-icon-button[kind="ghost"] > .cds-ib:active{ --_bg:transparent; --_fg:var(--common-colors-icons-accent); --_bd:var(--common-colors-accent-solid-medium); }
+cds-icon-button[kind="ghost"] > .cds-ib:hover, cds-icon-button[kind="ghost"][state="hovered"] > .cds-ib{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); }
+cds-icon-button[kind="ghost"] > .cds-ib:active, cds-icon-button[kind="ghost"][state="pressed"] > .cds-ib{ --_bg:transparent; --_fg:var(--common-colors-icons-accent); --_bd:var(--common-colors-accent-solid-medium); }
 /* Default · Neutral */
 cds-icon-button[appearance="neutral"] > .cds-ib{ --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-icons-intense); }
-cds-icon-button[appearance="neutral"] > .cds-ib:hover{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
-cds-icon-button[appearance="neutral"] > .cds-ib:active{ --_bg:var(--common-colors-neutral-solid-medium); }
+cds-icon-button[appearance="neutral"] > .cds-ib:hover, cds-icon-button[appearance="neutral"][state="hovered"] > .cds-ib{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
+cds-icon-button[appearance="neutral"] > .cds-ib:active, cds-icon-button[appearance="neutral"][state="pressed"] > .cds-ib{ --_bg:var(--common-colors-neutral-solid-medium); }
 /* Default · Inversed */
 cds-icon-button[appearance="inversed"] > .cds-ib{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-icons-intense); }
-cds-icon-button[appearance="inversed"] > .cds-ib:hover{ --_bg:var(--common-colors-surface-inversed); --_fg:var(--common-colors-support-lighter); }
-cds-icon-button[appearance="inversed"] > .cds-ib:active{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-icons-intense); }
+cds-icon-button[appearance="inversed"] > .cds-ib:hover, cds-icon-button[appearance="inversed"][state="hovered"] > .cds-ib{ --_bg:var(--common-colors-surface-inversed); --_fg:var(--common-colors-support-lighter); }
+cds-icon-button[appearance="inversed"] > .cds-ib:active, cds-icon-button[appearance="inversed"][state="pressed"] > .cds-ib{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-icons-intense); }
 /* Ghost · Neutral */
 cds-icon-button[kind="ghost"][appearance="neutral"] > .cds-ib{ --_bg:transparent; --_fg:var(--common-colors-icons-intense); --_bd:transparent; }
-cds-icon-button[kind="ghost"][appearance="neutral"] > .cds-ib:hover{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
-cds-icon-button[kind="ghost"][appearance="neutral"] > .cds-ib:active{ --_bg:var(--common-colors-neutral-solid-medium); }
+cds-icon-button[kind="ghost"][appearance="neutral"] > .cds-ib:hover, cds-icon-button[kind="ghost"][appearance="neutral"][state="hovered"] > .cds-ib{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
+cds-icon-button[kind="ghost"][appearance="neutral"] > .cds-ib:active, cds-icon-button[kind="ghost"][appearance="neutral"][state="pressed"] > .cds-ib{ --_bg:var(--common-colors-neutral-solid-medium); }
 /* Ghost · Inversed */
 cds-icon-button[kind="ghost"][appearance="inversed"] > .cds-ib{ --_bg:transparent; --_fg:var(--common-colors-support-lighter); --_bd:transparent; }
-cds-icon-button[kind="ghost"][appearance="inversed"] > .cds-ib:hover{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); --_fg:var(--common-colors-support-lighter); }
-cds-icon-button[kind="ghost"][appearance="inversed"] > .cds-ib:active{ --_bg:var(--common-colors-neutral-opacity-intense-light); --_fg:var(--common-colors-support-lighter); }
+cds-icon-button[kind="ghost"][appearance="inversed"] > .cds-ib:hover, cds-icon-button[kind="ghost"][appearance="inversed"][state="hovered"] > .cds-ib{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); --_fg:var(--common-colors-support-lighter); }
+cds-icon-button[kind="ghost"][appearance="inversed"] > .cds-ib:active, cds-icon-button[kind="ghost"][appearance="inversed"][state="pressed"] > .cds-ib{ --_bg:var(--common-colors-neutral-opacity-intense-light); --_fg:var(--common-colors-support-lighter); }
 
 /* Disabled — Opacity/medium (Figma); Ghost Inversed troca o ícone para Icons/intense (🟡 ver roadmap) */
 cds-icon-button[disabled]{ opacity:var(--common-opacity-medium); pointer-events:none; }

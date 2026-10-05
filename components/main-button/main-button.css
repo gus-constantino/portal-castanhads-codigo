@@ -4,6 +4,7 @@
    Small:  40 · raio small  · Caption/Medium (Pressed: Caption/Bold)
    padding 0 20 · gap 8 · ícones 20 · Disabled Opacity/light
    Motion (reactions): Hover e Press var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate)
+   state="hovered|pressed" força o estado (specimen da doc), como no Tab Item
    Viewport (Specific/Buttons/Main Button/Width/min-width): Desktop 136 · Tablet 220 · Mobile 328
    ===================================================================== */
 cds-main-button, cds-drop-button{ display:inline-flex; flex:0 0 auto; max-width:100%; }
@@ -19,7 +20,7 @@ cds-main-button > .cds-btn{ --_min-w:136px; }
   transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
 }
 .cds-btn{ --cds-icon-color:var(--_fg); } /* override do Icon aninhado */
-.cds-btn:active{ font:var(--_font-pressed); }
+.cds-btn:active, [state="pressed"] > .cds-btn{ font:var(--_font-pressed); }
 [size="small"] > .cds-btn{ height:var(--common-sizes-40); border-radius:var(--common-border-radius-small); --_font:var(--text-style-caption-medium); --_font-pressed:var(--text-style-caption-bold); }
 
 /* Viewport → largura mínima */
@@ -27,28 +28,28 @@ cds-main-button > .cds-btn{ --_min-w:136px; }
 [data-viewport="mobile"] cds-main-button > .cds-btn{ --_min-w:328px; }
 
 /* Default · Accent */
-.cds-btn:hover{ --_bg:var(--common-colors-accent-solid-semi-intense); }
-.cds-btn:active{ --_bg:var(--common-colors-accent-solid-medium); }
+.cds-btn:hover, [state="hovered"] > .cds-btn{ --_bg:var(--common-colors-accent-solid-semi-intense); }
+.cds-btn:active, [state="pressed"] > .cds-btn{ --_bg:var(--common-colors-accent-solid-medium); }
 /* Ghost · Accent */
 [kind="ghost"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-text-accent); }
-[kind="ghost"] > .cds-btn:hover{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); }
-[kind="ghost"] > .cds-btn:active{ --_bg:transparent; --_fg:var(--common-colors-text-accent); --_bd:var(--common-colors-accent-solid-medium); }
+[kind="ghost"] > .cds-btn:hover, [kind="ghost"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); }
+[kind="ghost"] > .cds-btn:active, [kind="ghost"][state="pressed"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-text-accent); --_bd:var(--common-colors-accent-solid-medium); }
 /* Default · Neutral */
 [appearance="neutral"] > .cds-btn{ --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-text-intense); }
-[appearance="neutral"] > .cds-btn:hover{ --_bg:var(--common-colors-neutral-solid-medium); }
-[appearance="neutral"] > .cds-btn:active{ --_bg:var(--common-colors-surface-01); }
+[appearance="neutral"] > .cds-btn:hover, [appearance="neutral"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-medium); }
+[appearance="neutral"] > .cds-btn:active, [appearance="neutral"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-surface-01); }
 /* Default · Inversed */
 [appearance="inversed"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-text-intense); }
-[appearance="inversed"] > .cds-btn:hover{ --_bg:var(--common-colors-neutral-solid-intense); --_fg:var(--common-colors-support-lighter); }
-[appearance="inversed"] > .cds-btn:active{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-text-intense); }
+[appearance="inversed"] > .cds-btn:hover, [appearance="inversed"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-intense); --_fg:var(--common-colors-support-lighter); }
+[appearance="inversed"] > .cds-btn:active, [appearance="inversed"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-text-intense); }
 /* Ghost · Neutral */
 [kind="ghost"][appearance="neutral"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-text-intense); --_bd:transparent; }
-[kind="ghost"][appearance="neutral"] > .cds-btn:hover{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
-[kind="ghost"][appearance="neutral"] > .cds-btn:active{ --_bg:var(--common-colors-surface-01); }
+[kind="ghost"][appearance="neutral"] > .cds-btn:hover, [kind="ghost"][appearance="neutral"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
+[kind="ghost"][appearance="neutral"] > .cds-btn:active, [kind="ghost"][appearance="neutral"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-surface-01); }
 /* Ghost · Inversed */
 [kind="ghost"][appearance="inversed"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-support-lighter); --_bd:transparent; }
-[kind="ghost"][appearance="inversed"] > .cds-btn:hover{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); --_fg:var(--common-colors-support-lighter); }
-[kind="ghost"][appearance="inversed"] > .cds-btn:active{ --_bg:var(--common-colors-neutral-opacity-intense-light); --_fg:var(--common-colors-support-lighter); }
+[kind="ghost"][appearance="inversed"] > .cds-btn:hover, [kind="ghost"][appearance="inversed"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); --_fg:var(--common-colors-support-lighter); }
+[kind="ghost"][appearance="inversed"] > .cds-btn:active, [kind="ghost"][appearance="inversed"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-neutral-opacity-intense-light); --_fg:var(--common-colors-support-lighter); }
 
 /* Disabled — Opacity/light; Ghost Inversed troca o texto para Text/intense (🟡 ver roadmap) */
 cds-main-button[disabled], cds-drop-button[disabled]{ opacity:var(--common-opacity-light); pointer-events:none; }

@@ -51,9 +51,11 @@ Referência do template original (3 tabs do zeroheight):
 
 Cada fase em lotes por página do Figma, publicados e conferidos um a um.
 
-## 5. Em aberto — perguntar na próxima sessão (Gustavo pausou em 02/10)
+## 5. Decisões de 05/10 (Gustavo)
 
-1. **Fonte do texto dos 47 com página no zeroheight:** reusar o texto do time + completar (recomendado) ou reescrever do Figma?
-2. **`.md` no dialeto do zeroheight** por componente (mesma fonte da doc do playground)? "Vemos depois."
-3. **Ritmo:** lotes por página publicando (recomendado) ou em paralelo com subagentes?
-4. **Cards:** a pasta `Desktop/cards/` estava vazia em 02/10 — pedir os arquivos de novo.
+1. **Texto dos componentes com página no zeroheight:** reusar o texto do time e completar o que falta (Acessibilidade, coluna Padrão, Motion), validando props e padrões no Figma. Divergência vai para o CONFERIR (`diff zeroheight`).
+2. **`.md` no dialeto do zeroheight:** sim, junto com cada doc, a partir da mesma fonte — em `docs/zeroheight/<id>.md`, no template Juntos §11.2 G (3 tabs Specs · Style · Guidelines), com pendências 🟡 numa seção final "não publicar".
+3. **Ritmo:** lotes por página do Figma, com conferência no navegador e commit na `teste` a cada lote.
+4. **Cards:** seguir sem eles; entram depois, quando os arquivos chegarem em `Desktop/cards/`.
+
+Estado em 05/10: 9 docs completas (Accordion, Accordion Item, Balance Card, Code Input OTP, Credit Card Input, Password Input, Quantity Input, Text Area, Text Input) e 7 docs só com a tab Conteúdo (Fixed/Scrollable Tab, Main Button, Breadcrumb, Bottom Sheet, Link, Progress Tracker — D98), que ganham as outras tabs no lote delas.

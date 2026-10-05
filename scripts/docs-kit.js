@@ -18,7 +18,7 @@
  *   display: { attrs, live }              caixa de exibição com um exemplo
  *   compare: [{ title, attrs | empty }]   exemplos lado a lado
  *   anatomy: { attrs, markers: [{ n, target, side: left|right|top|bottom, align: "start", long: true }], legend: [...] }
- *   props: [{ name, type, icon, nested: [{ name, type, values }] }]
+ *   props: [{ name, type, default, icon, nested: [{ name, type, values }] }]   default = valor padrão no Figma
  *   specimens: { title, min, items: [{ label, attrs }] }   min = largura mínima da coluna
  *   guides: [{ attrs, title, text }]
  *   dodont: [{ kind: "do"|"dont", attrs, title, text, steps, style }]   sem attrs: só texto · steps: lista numerada
@@ -171,6 +171,7 @@
       if (p.icon){ var i = document.createElement("cds-icon"); i.setAttribute("icon", p.icon); i.setAttribute("size", "small"); i.setAttribute("appearance", "neutral"); head.appendChild(i); }
       head.appendChild(el("span", "pg-doc-prop__name", p.name));
       if (p.type) head.appendChild(tag(p.type));
+      if (p.default != null){ var df = el("span", "pg-doc-prop__default", "Padrão "); df.appendChild(el("code", null, String(p.default))); head.appendChild(df); } // coluna Padrão do template Juntos
       row.appendChild(head);
       if (p.values){ var pv = el("ul", "pg-doc-prop__values"); p.values.forEach(function(v){ pv.appendChild(el("li", null, v)); }); row.appendChild(pv); }
       (p.nested || []).forEach(function(n){

@@ -1,0 +1,16 @@
+{
+  "element": "cds-backdrop",
+  "defaults": {},
+  "pre": ["const [open, setOpen] = useState(true);"],
+  "jsx": {
+    "tag": "Backdrop",
+    "props": [
+      { "prop": "open", "expr": "open" },
+      { "prop": "onClose", "expr": "() => setOpen(false)" }
+    ]
+  },
+  "figma": [
+    ["—", "—", "open + onClose", "O Backdrop do Figma não tem props. No React o estado fica com você; `dismissible` (padrão `true`) fecha ao clicar."],
+    ["—", "—", "—", "Modal, Drawer e Bottom Sheet já trazem o Backdrop: use direto só em overlays próprios."]
+  ]
+}

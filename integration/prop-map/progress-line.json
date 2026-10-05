@@ -1,0 +1,15 @@
+{
+  "element": "cds-progress-line",
+  "defaults": { "percent": "0" },
+  "jsx": {
+    "tag": "ProgressLine",
+    "props": [
+      { "prop": "percent", "attr": "percent", "num": true },
+      { "prop": "aria-label", "attr": "label" }
+    ]
+  },
+  "figma": [
+    ["Percent", "percent", "percent", "Número. O Figma tem passos de 10; o React e o playground aceitam qualquer valor de 0 a 100."],
+    ["—", "label", "aria-label", "Contexto para o leitor de tela (ex.: \"Carregando dados\")."]
+  ]
+}

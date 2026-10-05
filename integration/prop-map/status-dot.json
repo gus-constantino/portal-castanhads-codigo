@@ -1,0 +1,17 @@
+{
+  "element": "cds-status-dot",
+  "defaults": { "label": "Label", "appearance": "neutral", "size": "small" },
+  "jsx": {
+    "tag": "StatusDot",
+    "props": [
+      { "prop": "appearance", "attr": "appearance" },
+      { "prop": "size", "attr": "size" },
+      { "prop": "label", "attr": "label" }
+    ]
+  },
+  "figma": [
+    ["Text Label", "label", "label", "Obrigatório: é o rótulo que carrega a informação; o ponto é decorativo."],
+    ["Appearance", "appearance", "appearance", ""],
+    ["Size", "size", "size", "Escala do rótulo; o ponto não muda."]
+  ]
+}

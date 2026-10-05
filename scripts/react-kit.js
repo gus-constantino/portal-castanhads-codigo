@@ -13,6 +13,7 @@
  *   defaults  valor de cada atributo quando ausente (show-* ausente = "true")
  *   pre       linhas antes do JSX (ex.: useState); {@atributo} vira o valor atual
  *   jsx       nó: { tag, if, defaults, props: [prop], children: [nó | { attr } | { text } | { code } | { each, node }] }
+ *             tag "" = fragmento <>…</> (ex.: gatilho + Popover)
  *             each: seletor dos filhos do elemento; repete `node` para cada um, lendo os atributos dele ({i} = posição)
  *   prop      { prop, attr | value | expr | tpl, map, bool: true|"not", eq, num, if }
  *             expr com attr: {v} vira o valor do atributo (ex.: "{ label: '{v}' }")
@@ -141,7 +142,7 @@
       return;
     }
     if (!test(get, node.if)) return;
-    tags[node.tag.split(".")[0]] = 1;
+    if (node.tag) tags[node.tag.split(".")[0]] = 1; // tag "" = fragmento <>…</> (sem import)
     var props = (node.props || []).map(function(p){ return resolve(data, node.tag, p, get); }).filter(Boolean);
     var kids = []; (node.children || []).forEach(function(c){ jsx(data, c, get, ind + "  ", kids, tags); });
     function seg(p){
@@ -176,7 +177,7 @@
     jsx(data, it.map.jsx, get, "", body, tags);
     var pkg = (String(it.import || "").match(/from '([^']+)'/) || [])[1] || PKG;
     function imp(names, from){ return [["k", "import"], [null, " { " + names.join(", ") + " } "], ["k", "from"], [null, " "], ["v", "'" + from + "'"], [null, ";"]]; }
-    var hooks = ["useState"].filter(function(h){ return (it.map.pre || []).join(" ").indexOf(h) >= 0; });
+    var hooks = ["useRef", "useState"].filter(function(h){ return (it.map.pre || []).join(" ").indexOf(h) >= 0; });
     var lines = (hooks.length ? [imp(hooks, "react")] : []).concat([imp(Object.keys(tags).sort(), pkg), []]);
     (it.map.pre || []).forEach(function(l){ lines.push([[null, l.replace(/\{@([a-z-]+)\}/g, function(m, a){ return get(a) || ""; })]]); }); // {@attr} = valor atual
     if (it.map.pre) lines.push([]);

@@ -1,0 +1,15 @@
+{
+  "element": "cds-card",
+  "defaults": { "has-border": "true" },
+  "jsx": {
+    "tag": "Card",
+    "props": [
+      { "prop": "hasBorder", "attr": "has-border", "bool": true }
+    ],
+    "children": [{ "code": "{/* conteúdo do Slot */}" }]
+  },
+  "figma": [
+    ["Has Border", "has-border", "hasBorder", "O padrão do Figma (e do playground) é True; o do React é `false` — declare `hasBorder` para ter a borda."],
+    ["Slot", "(filhos)", "children", "O conteúdo vai como filho."]
+  ]
+}

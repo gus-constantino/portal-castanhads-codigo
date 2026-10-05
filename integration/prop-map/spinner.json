@@ -1,0 +1,18 @@
+{
+  "element": "cds-spinner",
+  "defaults": { "appearance": "neutral", "size": "small", "label": "Carregando" },
+  "jsx": {
+    "tag": "Spinner",
+    "props": [
+      { "prop": "appearance", "attr": "appearance", "map": { "inversed": "inverted" } },
+      { "prop": "size", "attr": "size" },
+      { "prop": "aria-label", "attr": "label", "if": { "label": "!Carregando" } }
+    ]
+  },
+  "figma": [
+    ["Appearance", "appearance", "appearance", "Inversed vira `inverted`. O padrão do Figma é Neutral; o do React é `accent` — declare a prop."],
+    ["Size", "size", "size", "O padrão do Figma é Small; o do React é `medium` — declare a prop."],
+    ["Spinner Position", "—", "—", "É o quadro da animação no protótipo; no código o giro é contínuo."],
+    ["—", "label", "aria-label", "Texto anunciado. Só declare quando for diferente de \"Carregando\"."]
+  ]
+}

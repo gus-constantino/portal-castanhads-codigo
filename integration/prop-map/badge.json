@@ -1,0 +1,16 @@
+{
+  "element": "cds-badge",
+  "defaults": { "label": "0", "appearance": "warning" },
+  "jsx": {
+    "tag": "Badge",
+    "props": [
+      { "prop": "appearance", "attr": "appearance" },
+      { "prop": "label", "attr": "label" }
+    ]
+  },
+  "figma": [
+    ["Appearance", "appearance", "appearance", "O padrão do Figma é Warning; o do React é `neutral` — declare `appearance=\"warning\"`."],
+    ["Label", "label", "label", "Número (0–99+) ou texto curto. Obrigatório."],
+    ["—", "viewport", "—", "No Figma o ponto de 8px do Mobile vem da coleção Viewport; o React troca pelo breakpoint."]
+  ]
+}

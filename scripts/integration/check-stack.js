@@ -101,7 +101,7 @@ function literals(p){
   const m = String(p.type).match(/^Extract<\w+,\s*((?:'[^']*'\s*\|?\s*)+)>$/);
   return m ? m[1].match(/'[^']*'/g).map((s) => s.slice(1, -1)) : null;
 }
-const HTML = /^(on[A-Z]\w*|aria-[\w-]+|default\w*|children|id|className|style|value|checked|name|type|placeholder|disabled|required|open|href|target|rel)$/;
+const HTML = /^(on[A-Z]\w*|aria-[\w-]+|default\w*|children|id|className|style|value|checked|name|type|placeholder|disabled|required|open|href|target|rel|ref|key)$/;
 
 function run(ctx){
   const { components, react, maps, figma, codeText } = ctx, findings = [], idx = typeIndex(react);
@@ -145,6 +145,7 @@ function run(ctx){
     if (!map) return;
     const where = "mapa `integration/prop-map/" + c.id + ".json`";
     (function walk(node, rootDir){
+      if (node && node.tag === ""){ (node.children || []).forEach((k) => walk(k, rootDir)); return; } // fragmento
       if (!node || !node.tag){ if (node && node.each) walk(node.node, rootDir); return; }
       const d = react[node.tag.split(".")[0]] || rootDir, props = reactProps(idx, d, node.tag);
       (node.props || []).forEach((p) => {

@@ -1,0 +1,9 @@
+/* Lista de definição · composição do playground (ver definition-list.js) — só tokens */
+cmp-definition-list{ display:block; min-width:0; }
+cmp-definition-list .cmp-dl{ margin:0; display:grid; grid-template-columns:auto minmax(0, 1fr); align-items:baseline; gap:var(--common-sizes-8) var(--common-sizes-12); }
+cmp-definition-list .cmp-dl dt{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+cmp-definition-list .cmp-dl dd{ margin:0; min-width:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-intense); overflow-wrap:anywhere; }
+cmp-definition-list[align="end"] .cmp-dl dd{ text-align:right; }
+cmp-definition-list[mono="true"] .cmp-dl dd{ font:var(--text-style-disclaimer-regular); font-family:var(--pg-mono, ui-monospace, monospace); }
+cmp-definition-list[data-layout="stacked"] .cmp-dl{ display:flex; flex-direction:column; align-items:stretch; gap:var(--common-sizes-2); }
+cmp-definition-list[data-layout="stacked"] .cmp-dl dd + dt{ margin-top:var(--common-sizes-12); }

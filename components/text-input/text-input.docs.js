@@ -60,21 +60,25 @@ CDS.docs["text-input"] = {
       } },
       { h2: "Propriedades" },
       { props: [
-        { name: "Style", type: "Variant", values: ["Neutral", "Warning"] },
-        { name: "State", type: "Variant", values: ["Enabled", "Hovered", "Pressed", "Disabled"] },
-        { name: "Is filled", type: "Boolean" },
-        { name: "Is active", type: "Boolean" },
-        { name: "Show label content", type: "Boolean" },
-        { name: "Label content", type: "Text", values: ["Padrão: Label"] },
-        { name: "Show required asterisk", type: "Boolean" },
-        { name: "Show lead icon", type: "Boolean" },
-        { name: "Text content", type: "Text", values: ["Padrão: Hello"] },
-        { name: "Show supporting message", type: "Boolean" },
-        { name: "Supporting message", type: "Text", values: ["Padrão: Supporting message"] },
-        { name: "Show character counter", type: "Boolean" },
-        { name: "Character counter value", type: "Text", values: ["Padrão: -0000"] }
+        { name: "Appearance", type: "Variant", default: "Neutral", values: ["Neutral", "Warning"] },
+        { name: "State", type: "Variant", default: "Enabled", values: ["Enabled", "Disabled", "Hovered", "Pressed"] },
+        { name: "Is Filled", type: "Variant", default: "False", values: ["False", "True"] },
+        { name: "Is Active", type: "Variant", default: "False", values: ["False", "True"] },
+        { name: "Show Label", type: "Boolean", default: "true" },
+        { name: "Text Label", type: "Text" },
+        { name: "Show Required", type: "Boolean", default: "true" },
+        { name: "Required Text", type: "Text" },
+        { name: "Show Lead Icon", type: "Boolean", default: "true" },
+        { name: "Lead Icon", type: "Instance swap", default: "placeholder-line" },
+        { name: "Show Trailing Item", type: "Boolean", default: "true" },
+        { name: "Show Supporting Content", type: "Boolean", default: "true" },
+        { name: "Supporting Message", type: "Text" },
+        { name: "Error Message", type: "Text" },
+        { name: "Show Character Counter", type: "Boolean", default: "true" },
+        { name: "Character Counter Value", type: "Text" },
+        { name: "Show Caret", type: "Boolean", default: "true" }
       ] },
-      { note: "Todas as props podem ser testadas na tab Playground." }
+      { note: "Nomes, tipos e padrões exatos da lib estável (5743:325), como o Figma escreve — a tabela da documentação antiga usava outros nomes (Style, Is filled…). Todas as props podem ser testadas na tab Playground." }
     ] },
 
     { id: "estilos", title: "Estilos", blocks: [

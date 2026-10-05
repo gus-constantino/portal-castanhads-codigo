@@ -29,6 +29,8 @@ let fetched = true;
 if (process.argv.indexOf("--no-fetch") < 0){
   try { run("git", ["-C", CASTANHA, "fetch", "--quiet", "origin", "staging", "main", "feat/figma-code-connect"], { stdio: "pipe" }); }
   catch (e){ fetched = false; }
+  // castanha-ai (4º vértice, D182): só refs remotas; sem o clone, o check segue sem ele
+  try { run("git", ["-C", path.resolve(ROOT, arg("castanha-ai", "../castanha-ai")), "fetch", "--quiet", "origin", "feat/castanha-plugin"], { stdio: "pipe" }); } catch (e) {}
 }
 
 // 2 · estado anterior (commitado) e build
@@ -56,6 +58,8 @@ if (!before) lines.push("Primeira leitura com histórico (sem versão anterior p
 else {
   if (before.source.commit !== after.source.commit) lines.push("castanha-react `" + after.source.ref + "`: `" + before.source.commit + "` → `" + after.source.commit + "` (" + after.source.date + ").");
   if (before.codeConnect.commit !== after.codeConnect.commit) lines.push("Code Connect: `" + before.codeConnect.commit + "` → `" + after.codeConnect.commit + "`.");
+  const ai0 = before.castanhaAi && before.castanhaAi.commit, ai1 = after.castanhaAi && after.castanhaAi.commit;
+  if (ai0 !== ai1) lines.push("castanha-ai (bridge): `" + (ai0 || "—") + "` → `" + (ai1 || "não lido") + "`.");
   Object.keys(after.coverage).forEach((k) => { if (before.coverage[k] !== after.coverage[k]) lines.push("Cobertura · " + k + ": " + before.coverage[k] + " → " + after.coverage[k] + "."); });
   const newReact = after.reactOnly.filter((n) => before.reactOnly.indexOf(n) < 0), goneReact = before.reactOnly.filter((n) => after.reactOnly.indexOf(n) < 0);
   if (newReact.length) lines.push("Novo só no React: " + newReact.map((n) => "`" + n + "`").join(", ") + ".");

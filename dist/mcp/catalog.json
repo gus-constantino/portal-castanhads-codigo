@@ -25,7 +25,7 @@
   "icons": 273,
   "illustrations": 260,
   "conferirOpen": 111,
-  "stackFindings": 43
+  "stackFindings": 57
  },
  "components": [
   {
@@ -1919,6 +1919,11 @@
       "level": "info",
       "kind": "sem-code-connect",
       "text": "Sem Code Connect: o par com o React vem só do node da story."
+     },
+     {
+      "level": "info",
+      "kind": "so-na-staging",
+      "text": "`Banner` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado)."
      }
     ],
     "notes": []
@@ -7892,7 +7897,13 @@
       "note": "Destino do link."
      }
     ],
-    "checks": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "bridge-nome-figma",
+      "text": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Link Content, Show Trailing Item, Change Icon, Appearance, State)."
+     }
+    ],
     "notes": []
    }
   },
@@ -8165,7 +8176,13 @@
       "note": "O texto vai como filho."
      }
     ],
-    "checks": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "bridge-nome-figma",
+      "text": "O bridge do castanha-ai usa `Show Trailling Icon`, que não existe na lib (props: Text Label, Show Lead Icon, Show Trailing Icon, Lead Icon, Kind, Appearance, State, Size)."
+     }
+    ],
     "notes": []
    }
   },
@@ -9599,7 +9616,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Lead icon\n2. Text label\n3. Text placeholder\n4. Container\n5. Trailling item\n6. Counter\n7. Text supporting message\n\n## Propriedades\n\n- **Style** (Variant): Neutral, Warning\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Is Active** (Boolean)\n- **Is Filled** (Boolean)\n- **Show Content** (Boolean)\n- **Show Label** (Boolean)\n- **Label content** (Text): Padrão: Label\n- **Show Required Asterisk** (Boolean)\n- **Show Lead Icon** (Boolean)\n- **Placeholder content** (Text): Padrão: Placeholder\n- **Show Trailling Item** (Boolean)\n- **Show Supporting Content** (Boolean)\n- **Supporting Message** (Text): Padrão: Supporting Message\n- **Show Character Counter** (Boolean)\n- **Character Counter** (Text): Padrão: 0000\n\n> Todas as props podem ser testadas na tab Playground."
+     "text": "## Anatomia\n\nAnatomia:\n1. Lead icon\n2. Text label\n3. Text placeholder\n4. Container\n5. Trailling item\n6. Counter\n7. Text supporting message\n\n## Propriedades\n\n- **Appearance** (Variant): Neutral, Warning\n- **State** (Variant): Enabled, Disabled, Hovered, Pressed\n- **Is Filled** (Variant): False, True\n- **Is Active** (Variant): False, True\n- **Show Content** (Variant): True, False\n- **Show Label** (Boolean)\n- **Text Label** (Text)\n- **Show Required** (Boolean)\n- **Required Text** (Text)\n- **Show Lead Icon** (Boolean)\n- **Lead Icon** (Instance swap)\n- **Placeholder Content** (Text)\n- **Text Content** (Text)\n- **Show Trailing Item** (Boolean)\n- **Show Supporting Content** (Boolean)\n- **Supporting Message** (Text)\n- **Error Message** (Text)\n- **Show Character Counter** (Boolean)\n- **Character Counter Value** (Text)\n- **Show Caret** (Boolean)\n\n> Nomes, tipos e padrões exatos da lib estável (5798:2677), como o Figma escreve — a tabela da documentação antiga usava outros nomes (Style, Is filled…). Todas as props podem ser testadas na tab Playground."
     },
     {
      "id": "estilos",
@@ -12495,6 +12512,11 @@
       "level": "info",
       "kind": "nao-chega-ao-react",
       "text": "Não chega ao React pelo Code Connect: `Trailing Item`."
+     },
+     {
+      "level": "info",
+      "kind": "bridge-nome-figma",
+      "text": "O bridge do castanha-ai usa `Trailling Item`, que não existe na lib (props: Show Lead Item, Show Divider, Kind, State, Is Active, Trailing Item)."
      }
     ],
     "notes": [
@@ -13172,6 +13194,11 @@
       "level": "info",
       "kind": "sem-code-connect",
       "text": "Sem Code Connect: o par com o React vem só do node da story."
+     },
+     {
+      "level": "info",
+      "kind": "so-na-staging",
+      "text": "`StatusDot` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado)."
      }
     ],
     "notes": []
@@ -14503,7 +14530,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Label Content\n2. Required Asterisk\n3. Lead Icon\n4. Text Content\n5. Supporting Message\n6. Character Counter\n\n## Propriedades\n\n- **Style** (Variant): Neutral, Warning\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Is filled** (Boolean)\n- **Is active** (Boolean)\n- **Show label content** (Boolean)\n- **Label content** (Text): Padrão: Label\n- **Show required asterisk** (Boolean)\n- **Show lead icon** (Boolean)\n- **Text content** (Text): Padrão: Hello\n- **Show supporting message** (Boolean)\n- **Supporting message** (Text): Padrão: Supporting message\n- **Show character counter** (Boolean)\n- **Character counter value** (Text): Padrão: -0000\n\n> Todas as props podem ser testadas na tab Playground."
+     "text": "## Anatomia\n\nAnatomia:\n1. Label Content\n2. Required Asterisk\n3. Lead Icon\n4. Text Content\n5. Supporting Message\n6. Character Counter\n\n## Propriedades\n\n- **Appearance** (Variant): Neutral, Warning\n- **State** (Variant): Enabled, Disabled, Hovered, Pressed\n- **Is Filled** (Variant): False, True\n- **Is Active** (Variant): False, True\n- **Show Label** (Boolean)\n- **Text Label** (Text)\n- **Show Required** (Boolean)\n- **Required Text** (Text)\n- **Show Lead Icon** (Boolean)\n- **Lead Icon** (Instance swap)\n- **Show Trailing Item** (Boolean)\n- **Show Supporting Content** (Boolean)\n- **Supporting Message** (Text)\n- **Error Message** (Text)\n- **Show Character Counter** (Boolean)\n- **Character Counter Value** (Text)\n- **Show Caret** (Boolean)\n\n> Nomes, tipos e padrões exatos da lib estável (5743:325), como o Figma escreve — a tabela da documentação antiga usava outros nomes (Style, Is filled…). Todas as props podem ser testadas na tab Playground."
     },
     {
      "id": "estilos",
@@ -14934,6 +14961,16 @@
       "level": "info",
       "kind": "nao-chega-ao-react",
       "text": "Não chega ao React pelo Code Connect: `Show Trailing Item`."
+     },
+     {
+      "level": "media",
+      "kind": "bridge-componente",
+      "text": "O castanha-ai liga o set a `Toast`; o playground (Code Connect), a `useToast`."
+     },
+     {
+      "level": "info",
+      "kind": "bridge-nome-figma",
+      "text": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Text Description, Show Trailing Item, Appearance)."
      }
     ],
     "notes": []
@@ -27648,31 +27685,36 @@
     "id": "alert",
     "level": "media",
     "kind": "padrao-diferente",
-    "msg": "Padrão diferente em `Appearance`: uma instância nova no Figma vem Positive (`positive`); no React, sem a prop, vem `informative`."
+    "msg": "Padrão diferente em `Appearance`: uma instância nova no Figma vem Positive (`positive`); no React, sem a prop, vem `informative`.",
+    "gap": "APPROXIMATION"
    },
    {
     "id": "async-creatable-select-input",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Lead Icon`, `Error Message`, `Lead Icon`."
+    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Lead Icon`, `Error Message`, `Lead Icon`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "async-select-input",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Lead Icon`, `Error Message`, `Lead Icon`."
+    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Lead Icon`, `Error Message`, `Lead Icon`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "avatar",
     "level": "media",
     "kind": "padrao-diferente",
-    "msg": "Padrão diferente em `Size`: uma instância nova no Figma vem Small (`small`); no React, sem a prop, vem `medium`."
+    "msg": "Padrão diferente em `Size`: uma instância nova no Figma vem Small (`small`); no React, sem a prop, vem `medium`.",
+    "gap": "APPROXIMATION"
    },
    {
     "id": "badge",
     "level": "media",
     "kind": "padrao-diferente",
-    "msg": "Padrão diferente em `Appearance`: uma instância nova no Figma vem Warning (`warning`); no React, sem a prop, vem `neutral`."
+    "msg": "Padrão diferente em `Appearance`: uma instância nova no Figma vem Warning (`warning`); no React, sem a prop, vem `neutral`.",
+    "gap": "APPROXIMATION"
    },
    {
     "id": "banner",
@@ -27684,121 +27726,141 @@
     "id": "breadcrumb",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `showItem03`, `showItem04`, `showItem05`, `showItem06`, `Kind`."
+    "msg": "Não chega ao React pelo Code Connect: `showItem03`, `showItem04`, `showItem05`, `showItem06`, `Kind`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "checkbox-select-input",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`."
+    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "chips-group",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Kind`."
+    "msg": "Não chega ao React pelo Code Connect: `Kind`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "content-list-item",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Navigation Indicator`, `Show Tag`."
+    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Navigation Indicator`, `Show Tag`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "date-input",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Character Counter`, `Error Message`."
+    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Character Counter`, `Error Message`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "date-picker",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Show week 01`, `Show week 02`, `Show week 03`, `Show week 04`, `Show week 05`, `Show week 06`, `Selected Date Label`, `First Day Selected`, `Last Day Selected`, `Show First Day Selected`, `Show Last Day Selected`, `Role`."
+    "msg": "Não chega ao React pelo Code Connect: `Show week 01`, `Show week 02`, `Show week 03`, `Show week 04`, `Show week 05`, `Show week 06`, `Selected Date Label`, `First Day Selected`, `Last Day Selected`, `Show First Day Selected`, `Show Last Day Selected`, `Role`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "divider",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Kind`."
+    "msg": "Não chega ao React pelo Code Connect: `Kind`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "drawer",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Show Secondary Action Button`."
+    "msg": "Não chega ao React pelo Code Connect: `Show Secondary Action Button`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "dropzone",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Show Main button`."
+    "msg": "Não chega ao React pelo Code Connect: `Show Main button`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "icon-button",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Show Notification`."
+    "msg": "Não chega ao React pelo Code Connect: `Show Notification`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "multi-select-input",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`."
+    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "pagination",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Show Itens per page`, `Show Item display`, `Items range`, `Items display`."
+    "msg": "Não chega ao React pelo Code Connect: `Show Itens per page`, `Show Item display`, `Items range`, `Items display`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "password-input",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Text Content`, `Show Lead Icon`, `Error Message`, `Lead Icon`, `Show Content`."
+    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Text Content`, `Show Lead Icon`, `Error Message`, `Lead Icon`, `Show Content`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "progress-tracker-item",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Show Connector`, `Show Link`, `Orientation`."
+    "msg": "Não chega ao React pelo Code Connect: `Show Connector`, `Show Link`, `Orientation`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "radio-select-input",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`."
+    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "search-input",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`."
+    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "selection-list-item",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Trailing Item`."
+    "msg": "Não chega ao React pelo Code Connect: `Trailing Item`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "slider",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Value`."
+    "msg": "Não chega ao React pelo Code Connect: `Value`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "spinner",
     "level": "media",
     "kind": "padrao-diferente",
-    "msg": "Padrão diferente em `Appearance`: uma instância nova no Figma vem Neutral (`neutral`); no React, sem a prop, vem `accent`."
+    "msg": "Padrão diferente em `Appearance`: uma instância nova no Figma vem Neutral (`neutral`); no React, sem a prop, vem `accent`.",
+    "gap": "APPROXIMATION"
    },
    {
     "id": "spinner",
     "level": "media",
     "kind": "padrao-diferente",
-    "msg": "Padrão diferente em `Size`: uma instância nova no Figma vem Small (`small`); no React, sem a prop, vem `medium`."
+    "msg": "Padrão diferente em `Size`: uma instância nova no Figma vem Small (`small`); no React, sem a prop, vem `medium`.",
+    "gap": "APPROXIMATION"
    },
    {
     "id": "status-dot",
@@ -27810,31 +27872,36 @@
     "id": "table",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Kind`."
+    "msg": "Não chega ao React pelo Code Connect: `Kind`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "tag",
     "level": "media",
     "kind": "padrao-diferente",
-    "msg": "Padrão diferente em `Appearance`: uma instância nova no Figma vem Neutral (`neutral`); no React, sem a prop, vem `accent`."
+    "msg": "Padrão diferente em `Appearance`: uma instância nova no Figma vem Neutral (`neutral`); no React, sem a prop, vem `accent`.",
+    "gap": "APPROXIMATION"
    },
    {
     "id": "text-area",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Text Content`, `Show Required`, `Error Message`."
+    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Text Content`, `Show Required`, `Error Message`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "text-input",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`."
+    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "toast",
     "level": "info",
     "kind": "nao-chega-ao-react",
-    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`."
+    "msg": "Não chega ao React pelo Code Connect: `Show Trailing Item`.",
+    "gap": "MISSING-VARIANT"
    },
    {
     "id": "topic",
@@ -27849,58 +27916,153 @@
     "msg": "O Code Connect gera `supportingMessage` em `<Topic>`, que não existe nas props do React (o código gerado não compila em TypeScript)."
    },
    {
+    "id": "banner",
+    "level": "info",
+    "kind": "so-na-staging",
+    "msg": "`Banner` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado).",
+    "gap": "UNRELEASED"
+   },
+   {
+    "id": "status-dot",
+    "level": "info",
+    "kind": "so-na-staging",
+    "msg": "`StatusDot` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado).",
+    "gap": "UNRELEASED"
+   },
+   {
+    "id": "main-button",
+    "level": "info",
+    "kind": "bridge-nome-figma",
+    "msg": "O bridge do castanha-ai usa `Show Trailling Icon`, que não existe na lib (props: Text Label, Show Lead Icon, Show Trailing Icon, Lead Icon, Kind, Appearance, State, Size)."
+   },
+   {
+    "id": "toast",
+    "level": "media",
+    "kind": "bridge-componente",
+    "msg": "O castanha-ai liga o set a `Toast`; o playground (Code Connect), a `useToast`."
+   },
+   {
+    "id": "toast",
+    "level": "info",
+    "kind": "bridge-nome-figma",
+    "msg": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Text Description, Show Trailing Item, Appearance)."
+   },
+   {
+    "id": "selection-list-item",
+    "level": "info",
+    "kind": "bridge-nome-figma",
+    "msg": "O bridge do castanha-ai usa `Trailling Item`, que não existe na lib (props: Show Lead Item, Show Divider, Kind, State, Is Active, Trailing Item)."
+   },
+   {
+    "id": "link",
+    "level": "info",
+    "kind": "bridge-nome-figma",
+    "msg": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Link Content, Show Trailing Item, Change Icon, Appearance, State)."
+   },
+   {
+    "id": "castanha-ai",
+    "level": "info",
+    "kind": "bridge-cobertura",
+    "msg": "Set `Side Menu` está no bridge do castanha-ai e não tem componente no playground."
+   },
+   {
+    "id": "castanha-ai",
+    "level": "info",
+    "kind": "bridge-cobertura",
+    "msg": "Set `Sponsor Side Menu` está no bridge do castanha-ai e não tem componente no playground."
+   },
+   {
+    "id": "castanha-ai",
+    "level": "info",
+    "kind": "bridge-cobertura",
+    "msg": "Set `Header` está no bridge do castanha-ai e não tem componente no playground."
+   },
+   {
+    "id": "castanha-ai",
+    "level": "info",
+    "kind": "bridge-cobertura",
+    "msg": "Set `Device marker` está no bridge do castanha-ai e não tem componente no playground."
+   },
+   {
+    "id": "castanha-ai",
+    "level": "info",
+    "kind": "bridge-cobertura",
+    "msg": "Set `Shortcut` está no bridge do castanha-ai e não tem componente no playground."
+   },
+   {
+    "id": "castanha-ai",
+    "level": "info",
+    "kind": "bridge-cobertura",
+    "msg": "Set `Shortcut Carousel` está no bridge do castanha-ai e não tem componente no playground."
+   },
+   {
+    "id": "castanha-ai",
+    "level": "info",
+    "kind": "bridge-cobertura",
+    "msg": "Com mapa no playground e sem set no bridge do castanha-ai: `balance-card`, `banner`, `date-input`, `date-picker`, `modal-date-picker`, `multi-select-input`, `nav-control`, `slider`, `status-dot`, `system-banner`."
+   },
+   {
     "id": "tokens",
     "level": "info",
     "kind": "token-so-no-playground",
-    "msg": "Alias sem par no castanha-tokens (o Figma tem, o pacote ainda não): `--castanha-carousel-gap`."
+    "msg": "Alias sem par no castanha-tokens (o Figma tem, o pacote ainda não): `--castanha-carousel-gap`.",
+    "gap": "MISSING-TOKEN"
    },
    {
     "id": "assets",
     "level": "media",
     "kind": "icone-so-no-pacote",
-    "msg": "O castanha-icons exporta ícones que não existem no [Caju] Icons: `balance-canceled`, `calendar-non-recurrent`, `file-line-1`."
+    "msg": "O castanha-icons exporta ícones que não existem no [Caju] Icons: `balance-canceled`, `calendar-non-recurrent`, `file-line-1`.",
+    "gap": "MISSING-COMPONENT"
    },
    {
     "id": "assets",
     "level": "info",
     "kind": "icone-deprecated-no-pacote",
-    "msg": "Deprecated no Figma, mas ainda exportados pelo pacote: `dark-mode-line`."
+    "msg": "Deprecated no Figma, mas ainda exportados pelo pacote: `dark-mode-line`.",
+    "gap": "LEGACY"
    },
    {
     "id": "assets",
     "level": "info",
     "kind": "icone-deprecated-fora",
-    "msg": "Deprecated no Figma e já fora do pacote: `phone-line`, `megaphone-line`, `delivery-line`, `conversation-line`, `airplane-line`, `several-line`, `file-text-error-line`, `benefit-line`, `pause-line`, `caju-ciclos`, `bus-sideview`."
+    "msg": "Deprecated no Figma e já fora do pacote: `phone-line`, `megaphone-line`, `delivery-line`, `conversation-line`, `airplane-line`, `several-line`, `file-text-error-line`, `benefit-line`, `pause-line`, `caju-ciclos`, `bus-sideview`.",
+    "gap": "LEGACY"
    },
    {
     "id": "assets",
     "level": "alta",
     "kind": "ilustracao-fora-do-pacote",
-    "msg": "Ilustrações do [Caju] Illustrations sem par no castanha-illustrations: `alimentos/drink`, `notificacoes/analysis-low-detail`."
+    "msg": "Ilustrações do [Caju] Illustrations sem par no castanha-illustrations: `alimentos/drink`, `notificacoes/analysis-low-detail`.",
+    "gap": "MISSING-COMPONENT"
    },
    {
     "id": "assets",
     "level": "media",
     "kind": "ilustracao-so-no-pacote",
-    "msg": "O castanha-illustrations exporta ilustrações sem par no [Caju] Illustrations: `hero-sponsor-splash-screen`."
+    "msg": "O castanha-illustrations exporta ilustrações sem par no [Caju] Illustrations: `hero-sponsor-splash-screen`.",
+    "gap": "MISSING-COMPONENT"
    },
    {
     "id": "assets",
     "level": "media",
     "kind": "ilustracao-renomeada",
-    "msg": "40 ilustrações têm outro nome no pacote (o nome do Figma não serve no `<Illustration name>`): `hub-de-beneficios/pet` → `hub-pet`, `hub-de-beneficios/departamento` → `hub-departamento`, `hub-de-beneficios/plano-saude` → `hub-plano-saude`, `hub-de-beneficios/servicos` → `hub-servicos`, `hub-de-beneficios/entretenimento` → `hub-entretenimento`, `hub-de-beneficios/plano-odonto` → `hub-plano-odonto`, `hub-de-beneficios/educacao` → `hub-educacao`, `hub-de-beneficios/cajuzinho` → `hub-cajuzinho`, `hub-de-beneficios/alimentacao` → `hub-alimentacao`, `hub-de-beneficios/outros` → `hub-outros`, `hub-de-beneficios/saude` → `hub-saude`, `hub-de-beneficios/ofertas` → `hub-ofertas`, `hub-de-beneficios/mobilidade` → `hub-mobilidade`, `hub-de-beneficios/esportes` → `hub-esportes`, `hub-de-beneficios/familia` → `hub-familia`, `hub-de-beneficios/seguro-vida-previdencia` → `hub-previdencia`, `documentos/socio-low-detail` → `low-detail-socio`, `documentos/rg-cnh-frente-low-detail` → `low-detail-rg-cnh-frente`, `documentos/rg-cnh-verso-low-detail` → `low-detail-rg-cnh-verso`, `documentos/rg-papeis-low-detail` → `low-detail-rg-papeis`, `documentos/ctps-low-detail` → `low-detail-ctps`, `financas/cartao-bilhete-unico-low-detail` → `low-detail-cartao-bilhete-unico`, `financas/cartao-customizacao-low-detail` → `low-detail-cartao-customizacao`, `objetos/gema-rubi` → `premiacoes-gema-rubi`, `objetos/gema-esmeralda` → `premiacoes-gema-esmeralda`, `objetos/gema-ouro` → `premiacoes-gema-ouro`, `graficos-e-dashboards/pizza` → `grafico-pizza`, `graficos-e-dashboards/setores` → `grafico-setores`, `graficos-e-dashboards/barra` → `grafico-barra`, `graficos-e-dashboards/objetivo-1` → `graficos-objetivo-1`, `graficos-e-dashboards/objetivo-2` → `graficos-objetivo-2`, `graficos-e-dashboards/objetivo-3` → `graficos-objetivo-3`, `interfaces/lista` → `interface-lista`, `interfaces/assinatura` → `interface-assinatura`, `interfaces/nota-fiscal` → `interface-nota-fiscal`, `interfaces/carrossel` → `interface-carrossel`, `interfaces/customizacao` → `interface-customizacao`, `interfaces/planilha` → `interface-planilha`, `interfaces/home` → `interface-home`, `hero-hub-de-beneficios/seguros-previdencia` → `hero-hub-de-beneficios-seguro-previdencia`."
+    "msg": "40 ilustrações têm outro nome no pacote (o nome do Figma não serve no `<Illustration name>`): `hub-de-beneficios/pet` → `hub-pet`, `hub-de-beneficios/departamento` → `hub-departamento`, `hub-de-beneficios/plano-saude` → `hub-plano-saude`, `hub-de-beneficios/servicos` → `hub-servicos`, `hub-de-beneficios/entretenimento` → `hub-entretenimento`, `hub-de-beneficios/plano-odonto` → `hub-plano-odonto`, `hub-de-beneficios/educacao` → `hub-educacao`, `hub-de-beneficios/cajuzinho` → `hub-cajuzinho`, `hub-de-beneficios/alimentacao` → `hub-alimentacao`, `hub-de-beneficios/outros` → `hub-outros`, `hub-de-beneficios/saude` → `hub-saude`, `hub-de-beneficios/ofertas` → `hub-ofertas`, `hub-de-beneficios/mobilidade` → `hub-mobilidade`, `hub-de-beneficios/esportes` → `hub-esportes`, `hub-de-beneficios/familia` → `hub-familia`, `hub-de-beneficios/seguro-vida-previdencia` → `hub-previdencia`, `documentos/socio-low-detail` → `low-detail-socio`, `documentos/rg-cnh-frente-low-detail` → `low-detail-rg-cnh-frente`, `documentos/rg-cnh-verso-low-detail` → `low-detail-rg-cnh-verso`, `documentos/rg-papeis-low-detail` → `low-detail-rg-papeis`, `documentos/ctps-low-detail` → `low-detail-ctps`, `financas/cartao-bilhete-unico-low-detail` → `low-detail-cartao-bilhete-unico`, `financas/cartao-customizacao-low-detail` → `low-detail-cartao-customizacao`, `objetos/gema-rubi` → `premiacoes-gema-rubi`, `objetos/gema-esmeralda` → `premiacoes-gema-esmeralda`, `objetos/gema-ouro` → `premiacoes-gema-ouro`, `graficos-e-dashboards/pizza` → `grafico-pizza`, `graficos-e-dashboards/setores` → `grafico-setores`, `graficos-e-dashboards/barra` → `grafico-barra`, `graficos-e-dashboards/objetivo-1` → `graficos-objetivo-1`, `graficos-e-dashboards/objetivo-2` → `graficos-objetivo-2`, `graficos-e-dashboards/objetivo-3` → `graficos-objetivo-3`, `interfaces/lista` → `interface-lista`, `interfaces/assinatura` → `interface-assinatura`, `interfaces/nota-fiscal` → `interface-nota-fiscal`, `interfaces/carrossel` → `interface-carrossel`, `interfaces/customizacao` → `interface-customizacao`, `interfaces/planilha` → `interface-planilha`, `interfaces/home` → `interface-home`, `hero-hub-de-beneficios/seguros-previdencia` → `hero-hub-de-beneficios-seguro-previdencia`.",
+    "gap": "APPROXIMATION"
    },
    {
     "id": "assets",
     "level": "info",
     "kind": "ilustracao-svg-difere",
-    "msg": "12 ilustrações têm o desenho diferente do pacote além do arredondamento (posição no quadro ou forma; conferir qual é a atual): `autenticacao-ocr-cartao-2`, `financas-moeda-verde-1`, `financas-moeda-verde-2`, `financas-moeda-verde-3`, `financas-moeda-verde-4`, `hero-hub-de-beneficios-plano-saude`, `hero-hub-de-beneficios-alimentacao`, `hero-hub-de-beneficios-educacao`, `hero-hub-de-beneficios-plano-odonto`, `hero-hub-de-beneficios-mobilidade`, `hero-hub-de-beneficios-cajuzinho`, `hero-hub-de-beneficios-outros`."
+    "msg": "12 ilustrações têm o desenho diferente do pacote além do arredondamento (posição no quadro ou forma; conferir qual é a atual): `autenticacao-ocr-cartao-2`, `financas-moeda-verde-1`, `financas-moeda-verde-2`, `financas-moeda-verde-3`, `financas-moeda-verde-4`, `hero-hub-de-beneficios-plano-saude`, `hero-hub-de-beneficios-alimentacao`, `hero-hub-de-beneficios-educacao`, `hero-hub-de-beneficios-plano-odonto`, `hero-hub-de-beneficios-mobilidade`, `hero-hub-de-beneficios-cajuzinho`, `hero-hub-de-beneficios-outros`.",
+    "gap": "APPROXIMATION"
    },
    {
     "id": "assets",
     "level": "info",
     "kind": "motion-so-no-pacote",
-    "msg": "44 animações Lottie no castanha-motion, ainda sem tab no playground (Animações volta ao Caju - Tema quando a lib existir)."
+    "msg": "44 animações Lottie no castanha-motion, ainda sem tab no playground (Animações volta ao Caju - Tema quando a lib existir).",
+    "gap": "MISSING-COMPONENT"
    }
   ]
  },

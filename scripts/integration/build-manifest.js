@@ -277,6 +277,10 @@ if (fs.existsSync(MAPS)) fs.readdirSync(MAPS).filter((f) => /\.json$/.test(f)).f
 // ---------- R2 · saúde da stack (Figma × Code Connect/React × playground) ----------
 const figmaProps = STACK.readFigma(path.join(ROOT, "integration", "figma-props.tsv"));
 const findings = STACK.run({ components, react, maps, figma: figmaProps, codeText: STACK.codeAttrs(ROOT) });
+// R3: tokens --castanha-* × castanha-tokens (figma-tokens.json + figma-meta.json da mesma ref)
+const TOK = "packages/castanha-tokens/src/tokens/";
+const tokCheck = STACK.checkTokens(STACK.officialTokens(JSON.parse(show(REF, TOK + "figma-tokens.json") || "{}"), JSON.parse(show(REF, TOK + "figma-meta.json") || "{\"collections\":[]}")),
+  fs.readFileSync(path.join(ROOT, "styles", "tokens.css"), "utf8"));
 const LV = { alta: "Alta", media: "Média", info: "Informativo" }, byId = {};
 findings.forEach((f) => { (byId[f.id] = byId[f.id] || []).push(f); });
 const cnt = (l) => findings.filter((f) => f.level === l).length;
@@ -289,6 +293,11 @@ const smd = ["# Saúde da stack — Figma × castanha-react × playground", "",
   "## Resumo", "", "| Nível | O que significa | Itens |", "|---|---|---:|"]
   .concat(["alta", "media", "info"].map((l) => "| " + LV[l] + " | " + LVH[l] + " | " + cnt(l) + " |"))
   .concat(["", "Componentes com algum item: " + Object.keys(byId).length + " de " + components.filter((c) => c.react).length + " com par no React.", ""]);
+smd.push("## Tokens", "", "Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`" + REF + "`): **" + tokCheck.ok + " de " + tokCheck.official + "** batem em nome e valor (light, dark e os três modos de viewport).", "",
+  "| Nível | Tipo | O quê |", "|---|---|---|");
+if (!tokCheck.findings.length) smd.push("| — | — | Nenhuma diferença. |");
+tokCheck.findings.forEach((f) => smd.push("| " + LV[f.level] + " | " + f.kind + " | " + f.msg + " |"));
+smd.push("");
 ["alta", "media", "info"].forEach((l) => {
   smd.push("## " + LV[l], "", "| Componente | Tipo | O quê |", "|---|---|---|");
   const list = findings.filter((f) => f.level === l);
@@ -320,4 +329,4 @@ components.forEach((c) => {
 fs.writeFileSync(path.join(ROOT, "integration", "react-data.js"),
   "/* GERADO por scripts/integration/build-manifest.js a partir de " + REF + " (" + data.source.commit + ") e de integration/prop-map/ · não editar à mão */\n" +
   "window.CDS = window.CDS || {}; CDS.react = " + JSON.stringify(data) + ";\n");
-console.log(JSON.stringify(S), "· prop-maps:", Object.keys(maps).length, "· saúde:", JSON.stringify({ alta: cnt("alta"), media: cnt("media"), info: cnt("info") }));
+console.log(JSON.stringify(S), "· prop-maps:", Object.keys(maps).length, "· saúde:", JSON.stringify({ alta: cnt("alta"), media: cnt("media"), info: cnt("info") }), "· tokens:", tokCheck.ok + "/" + tokCheck.official, tokCheck.findings.length ? JSON.stringify(tokCheck.findings.map((f) => f.kind)) : "");

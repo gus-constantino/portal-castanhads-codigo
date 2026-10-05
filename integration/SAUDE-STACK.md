@@ -12,6 +12,14 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-05 (R2). Figm
 
 Componentes com algum item: 33 de 70 com par no React.
 
+## Tokens
+
+Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`origin/staging`): **211 de 211** batem em nome e valor (light, dark e os três modos de viewport).
+
+| Nível | Tipo | O quê |
+|---|---|---|
+| Informativo | token-so-no-playground | Alias sem par no castanha-tokens (o Figma tem, o pacote ainda não): `--castanha-carousel-gap`. |
+
 ## Alta
 
 | Componente | Tipo | O quê |

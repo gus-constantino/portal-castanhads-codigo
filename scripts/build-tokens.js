@@ -6,8 +6,12 @@
  * Nomenclatura: Common/Colors/Text/intense → --common-colors-text-intense (1:1 com o Figma).
  * Text styles:  Label/Medium Label        → --text-style-label-medium (shorthand `font`)
  * Elevations:   Common/Elevations/Level 1 → --common-elevation-level-1 (box-shadow pronto)
- * Grids (coleção Viewport): Common/Grids/gutter → --common-grids-gutter, valor Desktop no :root e Tablet/Mobile
- *                por [data-viewport] (frame do playground) e por largura de tela (shell): ≤1023 Tablet, ≤599 Mobile
+ * Viewport (coleção Viewport, floats): Common/Grids/gutter → --common-grids-gutter; Specific/Buttons/Main Button/Width/min-width
+ *                → --specific-buttons-main-button-width-min-width. Faixas iguais ao viewport.css do castanha-tokens (min-width):
+ *                Mobile no :root, Tablet ≥ 744, Desktop ≥ 1366; e por [data-viewport] (frame do playground). Booleans (Is Mobile…) ficam de fora.
+ * Alias do pacote React (R3): --castanha-X = var(--common-X | --specific-X), o nome que o castanha-tokens gera (o grupo
+ *                Common/Specific sai do nome). Motion (Common/Motion/*), elevations prontas, text styles e Motion Styles não
+ *                existem no castanha-tokens e ficam sem alias.
  * Motion Styles: Hover In/01/Timing       → --motion-hover-in-01-timing (o índice fica: vão existir outros estilos)
  *                aponta para o primitivo do Figma (motionAlias), ex.: var(--common-motion-duration-short-03)
  *
@@ -37,10 +41,14 @@ function value(name, type, v){
   return `${num(v)}px`;
 }
 
-const light = [], dark = [];
+const light = [], dark = [], aliases = [];
+// nome do castanha-tokens: sem o grupo Common/Specific (scripts de build do castanha: tokenSegments + name/cti/castanha-css)
+const castanha = (name) => "--castanha-" + slug(name.replace(/^(Common|Specific)\//, ""));
+const hasAlias = (name) => /^(Common|Specific)\//.test(name) && !/^Common\/Motion\//.test(name);
 function push(name, type, l, d){
   const prop = "--" + slug(name);
   light.push(`  ${prop}:${value(name, type, l)};`);
+  if (hasAlias(name)) aliases.push(`  ${castanha(name)}:var(${prop});`);
   if (d !== undefined && d !== l) dark.push(`  ${prop}:${value(name, type, d)};`);
 }
 
@@ -70,17 +78,20 @@ const texts = snap.textStyles.map(([name, family, style, size, lh, deco]) => {
   return line;
 });
 
-// Grids: alias para o tamanho (Common/Sizes/N) em cada modo da coleção Viewport
-const grids = snap.grids || [];
-const gridLine = (mode) => grids.map(([n, m]) => `--${slug(n)}:var(--${slug(m[mode])});`).join(" ");
-const gridCss = grids.length ? `
-/* Grids (coleção Viewport · Desktop no :root) */
-:root{ ${gridLine("Desktop")} }
-@media (max-width:1023px){ :root{ ${gridLine("Tablet")} } }
-@media (max-width:599px){ :root{ ${gridLine("Mobile")} } }
-[data-viewport="desktop"]{ ${gridLine("Desktop")} }
-[data-viewport="tablet"]{ ${gridLine("Tablet")} }
-[data-viewport="mobile"]{ ${gridLine("Mobile")} }
+// Coleção Viewport: valor por modo (número em px ou alias para outra variável), com o alias --castanha-* na mesma regra
+// (o var() resolve no elemento da regra: assim o frame do playground com [data-viewport] também troca o alias)
+const vp = snap.viewport || [];
+const vpVal = (v) => typeof v === "number" ? `${num(v)}px` : `var(--${slug(v)})`;
+const vpLine = (mode) => vp.map(([n, m]) => `--${slug(n)}:${vpVal(m[mode])}; ${castanha(n)}:var(--${slug(n)});`).join(" ");
+const BP = { Tablet: 744, Desktop: 1366 }; // castanha-tokens/src/config/breakpoints.ts (small, large)
+const gridCss = vp.length ? `
+/* Coleção Viewport · faixas do castanha-tokens: Mobile no :root, Tablet ≥ ${BP.Tablet}, Desktop ≥ ${BP.Desktop}; o frame do playground usa [data-viewport] */
+:root{ ${vpLine("Mobile")} }
+@media (min-width:${BP.Tablet}px){ :root{ ${vpLine("Tablet")} } }
+@media (min-width:${BP.Desktop}px){ :root{ ${vpLine("Desktop")} } }
+[data-viewport="desktop"]{ ${vpLine("Desktop")} }
+[data-viewport="tablet"]{ ${vpLine("Tablet")} }
+[data-viewport="mobile"]{ ${vpLine("Mobile")} }
 ` : "";
 
 const out = `/* =====================================================================
@@ -101,9 +112,13 @@ ${texts.join("\n")}
   --motion-press-duration:var(--motion-pressed-01-timing);      --motion-press-easing:var(--motion-pressed-01-easing);
   --motion-active-duration:var(--motion-selected-in-01-timing); --motion-active-easing:var(--motion-selected-in-01-easing);
 }
+/* Alias do castanha-tokens (pacote React): --castanha-X → --common-X. Seguem o tema escuro porque apontam para --common-* */
+:root{
+${aliases.join("\n")}
+}
 html[data-theme="dark"]{
 ${dark.join("\n")}
 }
 ${gridCss}`;
 fs.writeFileSync(path.join(ROOT, "styles/tokens.css"), out);
-console.log(`styles/tokens.css: ${light.length} tokens (${dark.length} com valor dark), ${texts.length} text styles, ${elevations.length} elevations, ${grids.length} grids`);
+console.log(`styles/tokens.css: ${light.length} tokens (${dark.length} com valor dark), ${texts.length} text styles, ${elevations.length} elevations, ${vp.length} tokens de viewport, ${aliases.length + vp.length} aliases --castanha-*`);

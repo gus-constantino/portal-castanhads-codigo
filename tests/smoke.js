@@ -109,7 +109,7 @@
     rows.push(r);
     var m = mount(def, "desktop");
     if (m.error) r.errors.push("mount: " + m.error);
-    var el = Array.prototype.find.call(m.preview.querySelectorAll("*"), function(n){ return n.tagName.indexOf("CDS-") === 0; });
+    var el = Array.prototype.find.call(m.preview.querySelectorAll("*"), function(n){ return /^(CDS|CMP)-/.test(n.tagName); }); // cmp-*: composição do playground (compositions/)
     if (!el) r.errors.push("nenhum <cds-*> no preview");
     else if (!customElements.get(el.tagName.toLowerCase())) r.errors.push(el.tagName.toLowerCase() + " não definido");
     else {

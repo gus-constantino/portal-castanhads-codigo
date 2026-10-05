@@ -17,7 +17,10 @@
   // ---------- Side menu ----------
   // Grupos na ordem das páginas do [CastanhaDS] Components; building blocks numa seção recolhida no fim.
   var PAGES = ["Actions","Banner","Breadcrumbs","Buttons","Caju Card","Containers","Content","Datepicker","Dividers","Feedback","File Upload","Fixed Bar","Flags","Images","Lists","Loaders","Navigation","Pagination","Popovers","Progress Indicators","Rating Score","Selection Controls","Slider","Status","Tabs","Tab View","Tables","Text Fields","Tooltips","Utilities"];
-  var blocksOpen = false;
+  var blocksOpen = false, cmpsOpen = false;
+  // Composição (compositions/<id>): peça do playground feita só com tokens do DS onde o DS não tem o componente.
+  // Fica numa seção própria depois dos building blocks, recolhida, como eles.
+  function isPart(c){ return c.block || c.composition; }
   // Tooltip só quando há algo a explicar: task do Jira, [Beta], componente em branch do Figma
   function notesOf(c){
     var notes = [];
@@ -89,7 +92,7 @@
       if (ro && prev) ro.unobserve(prev);
       prev = mountThumb(stage, c, fit);
       nameEl.textContent = c.name;
-      metaEl.textContent = (c.block ? "Building block" : (c.category || "Outros")) + (c.task ? " · " + c.task : "");
+      metaEl.textContent = (c.composition ? "Composição do playground" : c.block ? "Building block" : (c.category || "Outros")) + (c.task ? " · " + c.task : "");
       notesEl.textContent = notes.join(" "); notesEl.hidden = !notes.length;
       card.show(); fit(); place(a);
       if (ro) ro.observe(prev);
@@ -201,12 +204,22 @@
       stage._def = c;
       var notes = notesOf(c);
       var card = kit.el("cmp-clickable-card", { href: "#/" + c.id, label: c.name, description: notes.join(" ") || null }, [stage]); // Slot: entra antes de conectar
+      var li = kit.el("li", null, [card]), d = shortDesc(c);
+      // Hover/foco: Tooltip do DS com a descrição curta (1ª frase, até ~100 caracteres); criado só no 1º hover
+      if (d) kit.lazyTip(card, d, { focus: false, container: li, placement: "bottom" });
       if (c.mount){ live.push(stage); if (io) io.observe(stage); else { stage._prev = mountThumb(stage, c, function(){}); } }
-      return kit.el("li", null, [card]);
+      return li;
     }
     function reset(){ live.forEach(function(st){ if (io) io.unobserve(st); st.innerHTML = ""; st._prev = null; }); live = []; }
     return { tile: tile, reset: reset };
   })();
+  // Descrição da capa da doc (CDS.docsIndex[id].desc, gerado pelo build) ou a do registro; 1ª frase, cortada em ~100 caracteres
+  function shortDesc(c){
+    var ix = CDS.docsIndex && CDS.docsIndex[c.id], d = String((ix && ix.desc) || c.description || "").trim();
+    if (!d) return "";
+    var m = d.match(/^.+?[.!?](?=\s|$)/); d = m ? m[0] : d;
+    return d.length > 100 ? d.slice(0, 100).replace(/\s+\S*$/, "") + "…" : d;
+  }
   function navGrid(label, items){
     var ul = kit.el("ul", { "class": "pg-nav-grid", "aria-label": label });
     items.forEach(function(c){ ul.appendChild(thumbs.tile(c)); });
@@ -217,7 +230,8 @@
     var q = (filter || "").trim().toLowerCase();
     nav.innerHTML = "";
     var shown = list.filter(function(c){ return !q || (c.name + " " + (c.task || "") + " " + (c.category || "")).toLowerCase().indexOf(q) !== -1; });
-    var comps = shown.filter(function(c){ return !c.block && !c.resource; }), blocks = shown.filter(function(c){ return c.block && !c.resource; });
+    var comps = shown.filter(function(c){ return !isPart(c) && !c.resource; }), blocks = shown.filter(function(c){ return c.block && !c.resource; });
+    var cmps = shown.filter(function(c){ return c.composition && !c.resource; });
     // Recursos de suporte (libs de apoio: ícones, ilustrações…) ficam num espaço próprio, fora dos componentes
     // Início (home: Castanha Hub) fica no topo do menu, fora de Componentes e de Recursos
     var home = list.filter(function(c){ return c.home; });
@@ -238,7 +252,8 @@
         if (items.length) nav.appendChild(navGrid(cat, items));
       });
       if (blocks.length) nav.appendChild(navGrid("Building blocks", blocks)).classList.add("pg-nav-blocks");
-      if (!comps.length && !blocks.length) nav.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Nenhum componente encontrado." }));
+      if (cmps.length) nav.appendChild(navGrid("Composições", cmps)).classList.add("pg-nav-blocks", "pg-nav-cmps");
+      if (!comps.length && !blocks.length && !cmps.length) nav.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Nenhum componente encontrado." }));
       markCurrent();
       return;
     }
@@ -254,7 +269,14 @@
       // Tooltip no cabeçalho do Accordion Item (o botão interno), não no item inteiro
       if (bd.btn) kit.tip(bd.btn, "Peças internas usadas por outros componentes (.Item, .Head…). Não se usam sozinhas.", { container: bli });
     }
-    if (!comps.length && !blocks.length) nav.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Nenhum componente encontrado." }));
+    if (cmps.length){
+      var cd = navGroup("Composições", cmps, cmpsOpen || q || narrow.matches || cmps.some(function(c){ return c.id === cur; }), function(open){ cmpsOpen = open; });
+      cd.classList.add("pg-nav-blocks", "pg-nav-cmps");
+      cd.setAttribute("description", cmps.length + (cmps.length === 1 ? " composição" : " composições"));
+      var cli = nav.appendChild(kit.el("li", null, [cd]));
+      if (cd.btn) kit.tip(cd.btn, "Peças do playground montadas com tokens do DS onde o DS ainda não tem o componente. Não são do Castanha DS.", { container: cli });
+    }
+    if (!comps.length && !blocks.length && !cmps.length) nav.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Nenhum componente encontrado." }));
     markCurrent();
   }
   function markCurrent(){
@@ -355,7 +377,7 @@
     var id = route()[0];
     if (list.some(function(c){ return c.id === id; })) return id;
     var home = list.filter(function(c){ return c.home; })[0]; // sem rota: abre o Início (Castanha Hub)
-    return (home || list.filter(function(c){ return !c.block && !c.resource; })[0] || list[0]).id;
+    return (home || list.filter(function(c){ return !isPart(c) && !c.resource; })[0] || list[0]).id;
   }
   function currentDef(){ var id = currentId(); return list.filter(function(c){ return c.id === id; })[0]; }
   function currentTab(){
@@ -461,8 +483,8 @@
     var ds = { label: "Castanha DS", href: "#/" };
     if (def.home) return [ds, { label: def.name, href: "#/" + def.id }];
     if (def.resource) return [ds, { label: "Recursos de suporte", href: "#/" }, { label: def.name, href: "#/" + def.id }];
-    var cat = def.block ? "Building blocks" : (def.category || "Outros");
-    var first = list.filter(function(c){ return !c.resource && (def.block ? c.block : !c.block && (c.category || "Outros") === cat); })[0] || def;
+    var cat = def.composition ? "Composições" : def.block ? "Building blocks" : (def.category || "Outros");
+    var first = list.filter(function(c){ return !c.resource && (def.composition ? c.composition : def.block ? c.block : !isPart(c) && (c.category || "Outros") === cat); })[0] || def;
     return [ds, { label: cat, href: "#/" + first.id }, { label: def.name, href: "#/" + def.id }];
   }
 
@@ -473,10 +495,10 @@
     var mac = /Mac|iP(hone|ad)/.test(navigator.platform || navigator.userAgent), key = mac ? "⌥" : "Alt+";
     var el = kit.el("nav", { "class": "pg-pager", "aria-label": "Anterior e próximo" });
     function order(){
-      var comps = list.filter(function(c){ return !c.block && !c.resource; }), cats = PAGES.concat(comps.map(function(c){ return c.category || "Outros"; }).filter(function(x, i, a){ return PAGES.indexOf(x) === -1 && a.indexOf(x) === i; }));
+      var comps = list.filter(function(c){ return !isPart(c) && !c.resource; }), cats = PAGES.concat(comps.map(function(c){ return c.category || "Outros"; }).filter(function(x, i, a){ return PAGES.indexOf(x) === -1 && a.indexOf(x) === i; }));
       var seq = list.filter(function(c){ return c.home; });
       cats.forEach(function(cat){ seq = seq.concat(comps.filter(function(c){ return (c.category || "Outros") === cat; })); });
-      seq = seq.concat(list.filter(function(c){ return c.block && !c.resource; }));
+      seq = seq.concat(list.filter(function(c){ return c.block && !c.resource; }), list.filter(function(c){ return c.composition && !c.resource; }));
       return seq.concat(list.filter(function(c){ return c.resource && !c.home; }).sort(function(a, b){ return (a.order || 99) - (b.order || 99); }));
     }
     function near(){ var seq = order(), i = seq.map(function(c){ return c.id; }).indexOf(currentId()); return { prev: seq[i - 1], next: seq[i + 1] }; }
@@ -560,8 +582,9 @@
     // Cabeçalho = Header do Sponsor Templates (template provisório): Title = nome · (i) = descrição curta da capa
     var cdoc = CDS.docs && CDS.docs[def.id], cover = cdoc && cdoc.cover;
     header.setAttribute("title", def.name);
-    header.setAttribute("show-info", String(!!(cover && cover.description)));
-    head.infoTip.setAttribute("text", (cover && cover.description) || "");
+    var about = (cover && cover.description) || def.description || ""; // composição sem doc: descrição do registro
+    header.setAttribute("show-info", String(!!about));
+    head.infoTip.setAttribute("text", about);
     // Tag = status de publicação na lib do Figma (scripts/figma-status.js, lido via MCP: a página não acessa a API). Todos os componentes.
     var FS = CDS.figmaStatus || {}, st = (FS.items || {})[def.id];
     var PUB = { current: ["positive", "Publicado no Figma", "Publicado na lib [CastanhaDS] Components, sem alterações pendentes."],
@@ -570,9 +593,9 @@
                   ? ["neutral", "Não publicado · building block", "Building block (nome com ponto): fica fora da publicação de propósito e é usado dentro de outros componentes."]
                   : ["negative", "Não publicado no Figma", "Ainda não publicado na lib [CastanhaDS] Components."],
                 branch: ["warning", "Não publicado · em branch", "Existe só numa branch do Figma; ainda não está na main nem publicado na lib."] };
-    var pub = st && PUB[st];
+    var pub = def.composition ? ["neutral", "Composição do playground", "Não existe na lib do Figma: montada aqui só com tokens do DS até o DS ter o componente."] : st && PUB[st];
     header.setAttribute("show-tag", String(!!pub)); // Tag = status de publicação
-    if (pub){ header.setAttribute("tag-appearance", pub[0]); header.setAttribute("tag-label", pub[1]); head.tagTip.setAttribute("text", pub[2] + " Conferido em " + FS.checked + "."); }
+    if (pub){ header.setAttribute("tag-appearance", pub[0]); header.setAttribute("tag-label", pub[1]); head.tagTip.setAttribute("text", pub[2] + (def.composition ? "" : " Conferido em " + FS.checked + ".")); }
     document.title = def.name + " — Castanha DS";
     // Main Button = abrir no Figma; Drop Button "Links" = Jira e zeroheight num Popover do DS
     var branch = /\/branch\//.test(def.figma || "") ? " O link abre uma branch, não a main." : "";
@@ -581,7 +604,7 @@
     head.mainTip.setAttribute("text", "Abre o componente no Figma, em outra aba." + branch);
     // R5: + Storybook do castanha-react e o zeroheight do .mdx oficial quando o playground não tem (integration/react-data.js)
     var rx = CDS.react && CDS.react.items[def.id], rdir = rx && rx.dir && CDS.react.dirs[rx.dir];
-    head.links([[def.task && JIRA + def.task, "Jira · " + def.task], [def.zeroheight || (rdir && rdir.zeroheight), "Zeroheight"], [rdir && rdir.storybook, "Storybook (castanha-react)"]].filter(function(l){ return l[0]; }));
+    head.links([[def.issue, "GitHub · issue de melhoria"], [def.task && JIRA + def.task, "Jira · " + def.task], [def.zeroheight || (rdir && rdir.zeroheight), "Zeroheight"], [rdir && rdir.storybook, "Storybook (castanha-react)"]].filter(function(l){ return l[0]; }));
     readout("", false);
     kit.state.begin(panel);
     if (def.mount) def.mount({ preview: preview, panel: panel, kit: kit, readout: readout });

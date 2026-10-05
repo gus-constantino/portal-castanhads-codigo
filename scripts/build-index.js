@@ -15,6 +15,8 @@
  *
  * Recursos de suporte (resources/<id>/<id>.js + .css opcional) entram depois dos componentes:
  * são páginas de doc das libs de apoio ([Caju] Icons, Illustrations…), sem dependências.
+ * Composições (compositions/<id>/<id>.js + .css e .playground.js opcionais) entram entre os dois: peças do
+ * playground montadas só com tokens/componentes do DS onde o DS ainda não tem o componente (ex.: Card clicável).
  *
  * Pacotes (desempenho): em vez de ~250 <script>/<link> separados, o HTML carrega dist/cds.css e dist/cds.js,
  * a concatenação dos mesmos arquivos na mesma ordem (sem transpilar nada: o fonte continua sendo o arquivo da pasta).
@@ -31,6 +33,8 @@ const crypto = require("crypto");
 const ROOT = path.join(__dirname, "..");
 const DIR = path.join(ROOT, "components");
 const RES = path.join(ROOT, "resources");
+const CMP = path.join(ROOT, "compositions");
+const compositions = fs.existsSync(CMP) ? fs.readdirSync(CMP).filter((d) => fs.existsSync(path.join(CMP, d, d + ".js"))).sort() : [];
 const resources = fs.existsSync(RES) ? fs.readdirSync(RES).filter((d) => fs.existsSync(path.join(RES, d, d + ".js"))).sort() : [];
 
 const comps = fs.readdirSync(DIR).filter((d) => fs.existsSync(path.join(DIR, d, d + ".js"))).sort();
@@ -58,10 +62,12 @@ if (order.length !== comps.length) throw new Error("ciclo de dependências entre
 // Lista única de arquivos (ordem de dependência): usada pelos pacotes
 function files(){
   const css = order.filter((id) => fs.existsSync(path.join(DIR, id, id + ".css"))).map((id) => `components/${id}/${id}.css`)
+    .concat(compositions.filter((id) => fs.existsSync(path.join(CMP, id, id + ".css"))).map((id) => `compositions/${id}/${id}.css`))
     .concat(resources.filter((id) => fs.existsSync(path.join(RES, id, id + ".css"))).map((id) => `resources/${id}/${id}.css`));
   const js = [];
   // Docs dos componentes ficam fora do pacote: o shell carrega cada uma ao abrir o componente (docsIndex, D124)
   order.forEach((id) => ["", ".playground"].forEach((k) => { const f = `components/${id}/${id}${k}.js`; if (fs.existsSync(path.join(ROOT, f))) js.push(f); }));
+  compositions.forEach((id) => ["", ".playground"].forEach((k) => { const f = `compositions/${id}/${id}${k}.js`; if (fs.existsSync(path.join(ROOT, f))) js.push(f); }));
   resources.forEach((id) => js.push(`resources/${id}/${id}.js`));
   return { css, js };
 }
@@ -89,7 +95,13 @@ function docsIndex(){
     const needs = [...new Set([...src.matchAll(/CDS\.docs\["([\w-]+)"\]/g)].map((m) => m[1]).filter((d) => !own.includes(d)))];
     const file = { src: rel + "?v=" + crypto.createHash("sha1").update(src).digest("hex").slice(0, 8) };
     if (needs.length) file.needs = needs;
-    own.forEach((d) => { idx[d] = file; });
+    // Descrição curta (cover.description) de cada doc: o menu em grade mostra no hover sem carregar a doc
+    const at = own.map((d) => { const m = src.match(new RegExp('CDS\\.docs\\["' + d + '"\\]\\s*=(?!=)')); return m ? m.index : 0; });
+    own.forEach((d, i) => {
+      const end = Math.min(...at.filter((x) => x > at[i]).concat(src.length));
+      const m = src.slice(at[i], end).match(/cover:\s*\{\s*description:\s*"((?:[^"\\]|\\.)*)"/);
+      idx[d] = m ? Object.assign({}, file, { desc: JSON.parse('"' + m[1] + '"') }) : file;
+    });
   });
   return "\n/* ==== docs sob demanda (gerado) ==== */\nwindow.CDS = window.CDS || {}; CDS.docsIndex = " + JSON.stringify(idx) + ";\n";
 }
@@ -159,7 +171,7 @@ const loaded = [...indexHtml.matchAll(/(?:href|src)="([\w./-]+\.(?:js|css))(?:\?
 let raw = 0, zip = 0;
 loaded.forEach((r) => { const b = fs.readFileSync(path.join(ROOT, r)); raw += b.length; zip += gz(b); });
 const parts = { "componentes": [], "playgrounds": [], "docs": [], "recursos": [] };
-bundled.js.forEach((r) => parts[r.startsWith("resources/") ? "recursos" : r.endsWith(".playground.js") ? "playgrounds" : "componentes"].push(r));
+bundled.js.forEach((r) => parts[r.startsWith("resources/") || r.startsWith("compositions/") ? "recursos" : r.endsWith(".playground.js") ? "playgrounds" : "componentes"].push(r));
 delete parts.docs;
 console.log(`\nPeso da primeira visita (index.html): ${kb(raw).trim()} · gzip ${kb(zip).trim()} · limite ${BUDGET_KB} KB gzip`);
 Object.keys(parts).forEach((k) => {

@@ -56,6 +56,7 @@ window.CDS_EXPECTED = {
   "credit-card-input": { w: 320, src: "24614:7155" },
   "viewport-restriction": { w: 200, h: 200, src: "5357:3899" },
   "card":              { w: 254, src: "5256:540 · Has Border=True · altura depende do Slot" },
+  "clickable-card":    { w: 160, src: "composição do playground (sem Figma) · largura do specimen Sizes/120 + Sizes/40; altura = mídia quadrada + label" },
   "backdrop":          { w: 300, h: 300, src: "13784:3271" },
   "popover":           { w: 220, src: "2270:102 · min 220" },
   "header":            { w: 320, h: 73, src: "16362:3241 · 72 + Divider 1" },

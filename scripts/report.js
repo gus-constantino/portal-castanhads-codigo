@@ -127,9 +127,9 @@
     var dec = items(sec(road, function(s){ return s.num === "4"; }).lines).length;
     var qs = items(sec(road, function(s){ return s.num === "5"; }).lines).filter(function(l){ return !/✅/.test(l); }).length;
     var pg = (CDS.playgrounds || []).filter(function(c){ return !c.resource; });
-    var comps = pg.filter(function(c){ return !c.block; }).length;
+    var comps = pg.filter(function(c){ return !c.block && !c.composition; }).length;
     return [
-      { label: "Componentes no playground", value: comps, sub: "+ " + (pg.length - comps) + " building blocks", tip: "Componentes do Figma implementados no playground, sem contar building blocks e recursos de apoio." },
+      { label: "Componentes no playground", value: comps, sub: "+ " + pg.filter(function(c){ return c.block; }).length + " building blocks", tip: "Componentes do Figma implementados no playground, sem contar building blocks e recursos de apoio." },
       { label: "Variantes do Figma cobertas", value: variants.toLocaleString("pt-BR"), sub: "em " + sets + " sets da lib", tip: "Soma das variantes dos sets do inventário da lib (Roadmap §2). Todas estão implementadas no playground." },
       { label: "Débitos e melhorias mapeados", value: openC, sub: solved + " já resolvidos", tip: "Itens em aberto no Conferir: divergências entre Figma e código, gaps e propostas de melhoria." },
       { label: "Decisões registradas", value: dec, sub: qs ? qs + " dúvida(s) em aberto" : "Sem dúvidas em aberto", tip: "Decisões tomadas e registradas no Roadmap (D1, D2…). Embaixo, as dúvidas que ainda aguardam resposta." }
@@ -212,7 +212,7 @@
     parts.forEach(function(pt){ var li = leg.appendChild(el("li")); li.appendChild(el("span", "rp-legend__sw is-" + pt[0])); li.appendChild(el("span", null, esc(pt[1]))); li.appendChild(el("strong", null, String(pt[2]))); li._tip = pt; });
 
     // Componentes por categoria
-    var pg = (CDS.playgrounds || []).filter(function(c){ return !c.resource && !c.block; }), cats = {};
+    var pg = (CDS.playgrounds || []).filter(function(c){ return !c.resource && !c.block && !c.composition; }), cats = {};
     pg.forEach(function(c){ var k = c.category || "Outros"; cats[k] = (cats[k] || 0) + 1; });
     var p4 = panel(grid, "Componentes por página do Figma", pg.length + " componentes em " + Object.keys(cats).length + " páginas");
     var cl = Object.keys(cats).map(function(k){ return { label: k, value: cats[k] }; }).sort(function(a, b){ return b.value - a.value || a.label.localeCompare(b.label, "pt-BR"); });

@@ -164,8 +164,7 @@
     "motion-live": function(root){
       var keys = pick("--motion-", /-easing$/).filter(function(n){ return /-01-timing$/.test(n); }).map(function(n){ return n.replace(/^--motion-|-01-timing$/g, ""); });
       var title = function(k){ return k.split("-").map(cap).join(" ") + "/01"; };
-      var btnAll = CDS.docMainButton ? CDS.docMainButton("Tocar todas") : null;
-      var s = section(root, "Motion Styles em ação", keys.length, btnAll);
+      var s = section(root, "Motion Styles em ação", keys.length);
       s.appendChild(el("p", "pg-doc-p", "Passe o mouse, pressione e solte o botão; marque e desmarque o checkbox. Cada interação dispara o Motion Style correspondente na lista e na cascata abaixo."));
       var stage = s.appendChild(el("div", "pg-tok-stage"));
       var pay = stage.appendChild(document.createElement("cds-main-button"));
@@ -174,18 +173,13 @@
       var ul = s.appendChild(el("div", "pg-tok-styles")), rows = {}, casc = el("div", "pg-tok-cascade");
       keys.forEach(function(k){
         var t = "--motion-" + k + "-01-timing", e = "--motion-" + k + "-01-easing", d = "--motion-" + k + "-01-delay", hasD = names().indexOf(d) !== -1;
-        var demo, row = ul.appendChild(tile("pg-tok-mstyle", t, function(){ go(k); }));
+        var row = ul.appendChild(tile("pg-tok-mstyle", t, function(){ go(k); }));
         row.setAttribute("aria-label", title(k) + " — copiar var(" + t + ")");
-        demo = row.appendChild(el("span", "pg-tok-mstyle__demo"));
-        var box = demo.appendChild(el("span", "pg-tok-mstyle__box"));
-        box.style.transitionDuration = "var(" + t + ")"; box.style.transitionTimingFunction = "var(" + e + ")";
-        if (hasD) box.style.transitionDelay = "var(" + d + ")";
         var nm = row.appendChild(el("span", "pg-tok-mstyle__name"));
         nm.appendChild(el("span", "pg-tok__name", title(k)));
         nm.appendChild(el("span", "pg-tok-mstyle__when", TRIGGER[k] || ""));
         row.appendChild(code(val(t), t));
         row.appendChild(code(val(e) + (hasD ? " · +" + val(d) : ""), e));
-        row._play = function(){ replay(demo); };
         rows[k] = row;
       });
       section(root, "A cascata do estilo").appendChild(casc);
@@ -200,7 +194,6 @@
       }
       function go(k){
         Object.keys(rows).forEach(function(x){ rows[x].classList.toggle("is-current", x === k); });
-        rows[k]._play();
         casc.innerHTML = "";
         casc.appendChild(el("h4", "pg-doc-h4", title(k) + " · " + (TRIGGER[k] || "")));
         ["timing", "easing", "delay"].forEach(function(p){ var n = "--motion-" + k + "-01-" + p; if (names().indexOf(n) !== -1) chain(casc, cap(p), n); });
@@ -211,7 +204,6 @@
       pay.addEventListener("pointerdown", function(){ go("pressed"); });
       pay.addEventListener("pointerup", function(){ go("released"); });
       cb.addEventListener("cds-change", function(ev){ ev.stopPropagation(); go(ev.detail && ev.detail.status === "selected" ? "selected-in" : "selected-out"); });
-      if (btnAll) playAll(btnAll, ul, ".pg-tok-mstyle");
       go(keys[0]);
     },
     // Laboratório de easing: curva escolhida (Filter Chips) + duração (Slider do DS) + bolinha no trilho

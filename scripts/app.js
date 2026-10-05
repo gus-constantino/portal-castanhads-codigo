@@ -220,6 +220,7 @@
     docsEl.hidden = !isDoc;
     if (isDoc){ docsEl.setAttribute("aria-labelledby", "tab-" + tab); CDS.renderDoc(doc, tab, docsEl); docsEl.scrollTop = 0; }
     else docsEl.innerHTML = "";
+    pager.render(isDoc ? docsEl : stage);
   }
 
   // ---------- Cabeçalho (Header do Sponsor Templates, template provisório) ----------
@@ -271,6 +272,42 @@
     var first = list.filter(function(c){ return !c.resource && (def.block ? c.block : !c.block && (c.category || "Outros") === cat); })[0] || def;
     return [ds, { label: cat, href: "#/" + first.id }, { label: def.name, href: "#/" + def.id }];
   }
+
+  // ---------- Anterior / próximo (fim da página) ----------
+  // Como Carbon e M3: dois cards no fim da página, na ordem do menu (Início › componentes por categoria › building blocks › recursos).
+  // Content List Item do DS (Kind Card · Intent Navigation, href). Atalho do Storybook: ⌥← / ⌥→ (Alt no Windows/Linux).
+  var pager = (function(){
+    var mac = /Mac|iP(hone|ad)/.test(navigator.platform || navigator.userAgent), key = mac ? "⌥" : "Alt+";
+    var el = kit.el("nav", { "class": "pg-pager", "aria-label": "Anterior e próximo" });
+    function order(){
+      var comps = list.filter(function(c){ return !c.block && !c.resource; }), cats = PAGES.concat(comps.map(function(c){ return c.category || "Outros"; }).filter(function(x, i, a){ return PAGES.indexOf(x) === -1 && a.indexOf(x) === i; }));
+      var seq = list.filter(function(c){ return c.home; });
+      cats.forEach(function(cat){ seq = seq.concat(comps.filter(function(c){ return (c.category || "Outros") === cat; })); });
+      seq = seq.concat(list.filter(function(c){ return c.block && !c.resource; }));
+      return seq.concat(list.filter(function(c){ return c.resource && !c.home; }).sort(function(a, b){ return (a.order || 99) - (b.order || 99); }));
+    }
+    function near(){ var seq = order(), i = seq.map(function(c){ return c.id; }).indexOf(currentId()); return { prev: seq[i - 1], next: seq[i + 1] }; }
+    function card(def, dir){
+      if (!def) return kit.el("span", { "class": "pg-pager__gap", "aria-hidden": "true" });
+      var prev = dir === "prev";
+      return kit.el("cds-content-list-item", { "class": "pg-pager__item pg-pager__item--" + dir, kind: "card", intent: "navigation", href: "#/" + def.id, label: def.name,
+        description: (prev ? "Anterior" : "Próximo") + " · " + key + (prev ? "←" : "→"), "show-tag": "false", "show-divider": "false",
+        "show-lead-item": String(prev), "lead-kind": "icon", "lead-icon": "back-line", "show-navigation-indicator": String(!prev), "aria-keyshortcuts": "Alt+Arrow" + (prev ? "Left" : "Right") });
+    }
+    function render(host){
+      var n = near(); el.innerHTML = "";
+      el.appendChild(card(n.prev, "prev")); el.appendChild(card(n.next, "next"));
+      host.appendChild(el); // depois do conteúdo: Playground (stage) ou doc
+    }
+    document.addEventListener("keydown", function(e){
+      if (!e.altKey || e.metaKey || e.ctrlKey || e.shiftKey || (e.key !== "ArrowLeft" && e.key !== "ArrowRight")) return;
+      var t = e.target; if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return; // setas com Alt movem o cursor por palavra
+      if (!report.hidden) return;
+      var d = near()[e.key === "ArrowLeft" ? "prev" : "next"]; if (!d) return;
+      e.preventDefault(); location.hash = "#/" + d.id;
+    });
+    return { render: render };
+  })();
 
   var mountedId = null, reportBtn = $("report-btn"), report = $("report"), lastHash = "#/";
   reportBtn.addEventListener("click", function(){ location.hash = route()[0] === "relatorio" ? lastHash : "#/relatorio"; });

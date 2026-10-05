@@ -218,3 +218,9 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
 .pg-react .pg-react__table.is-checks td code{ white-space:normal; overflow-wrap:anywhere; } /* mensagens do check citam listas longas */
 .pg-react .pg-react__table.is-props td:nth-child(2) code{ white-space:normal; overflow-wrap:anywhere; } /* tipos longos (Ref<…>, unions) quebram */
 .pg-react .pg-react__table th:last-child, .pg-react .pg-react__table td:last-child{ padding-right:0; } /* nomes de prop/atributo inteiros: a tabela rola se precisar */
+
+/* Anterior / próximo no fim da página: dois Content List Items (Card · Navigation) lado a lado, na largura do frame fluido */
+.pg-pager{ width:100%; max-width:calc(3 * var(--common-sizes-200)); margin:var(--common-sizes-24) auto 0; display:grid; grid-template-columns:1fr 1fr; gap:var(--common-sizes-16); }
+.pg-pager__item{ min-width:0; }
+.pg-pager__item--next{ grid-column:2; }
+@media (max-width:760px){ .pg-pager{ grid-template-columns:minmax(0,1fr); } .pg-pager__item--next{ grid-column:auto; } .pg-pager__gap{ display:none; } }

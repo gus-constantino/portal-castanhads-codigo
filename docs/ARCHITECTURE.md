@@ -70,6 +70,7 @@ GitHub Pages (gus-constantino.github.io/castanhads-component-teste)
 | **Deploy** | GitHub Pages na `main`, raiz. Build de ~1 min | Cache do Pages: conferir com `?v=N` e recarregar com Cmd+Shift+R |
 | **Servidor local** | `python3 -m http.server 8765 --bind 127.0.0.1` | O sandbox bloqueia porta local, então roda fora dele. O `launch.json` do app falha (o processo do app não acessa ~/Documents). O servidor derruba requisições às vezes (`ERR_CONNECTION_RESET`): recarregar e checar se `styleSheets` têm `cssRules` antes de testar |
 | **Preview `file://`** | Snapshot estático: não carrega CSS/JS separados | Sempre testar via servidor |
+| **CI (GitHub Actions)** | `.github/workflows/smoke.yml` em push na `teste`/`main` e em PR: build + smoke headless + auditoria + build em dia | Resultado no commit (✅/❌) e na aba Actions. Não bloqueia o Pages: o deploy sai da `main` de qualquer jeito |
 | **Git/gh** | `gh`/`git push` precisam sair do sandbox (TLS do proxy corporativo) | — |
 | **Download de assets** | `curl` para `figma.com` é negado nesta sessão | Exportar por `use_figma` → `exportAsync({format:'SVG_STRING'})` |
 | **Figma MCP** | Servidor remoto, `fileKey` + `nodeId`. Branch = `branchKey` como `fileKey` | `get_design_context` estoura em sets grandes; usar extratores `use_figma` (§8). `exportAsync` falha em vetor sem fill no nó → reconstruir via `vectorPaths` + `vectorNetwork.regions` |

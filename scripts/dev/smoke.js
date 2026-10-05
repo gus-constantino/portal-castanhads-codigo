@@ -51,7 +51,9 @@ server.listen(0, "127.0.0.1", async () => {
   const t0 = Date.now();
   // Chrome headless com DevTools Protocol (WebSocket nativo do Node ≥ 22): abre a página, espera o resultado e fecha
   const proc = spawn(chrome, ["--headless=new", "--disable-gpu", "--no-first-run", "--no-default-browser-check", "--hide-scrollbars",
-    "--window-size=1440,900", "--user-data-dir=" + profile, "--remote-debugging-port=0", "about:blank"], { stdio: "ignore" });
+    "--window-size=1440,900", "--user-data-dir=" + profile, "--remote-debugging-port=0"]
+    .concat(process.env.CI ? ["--no-sandbox"] : []) // runner do GitHub (Linux): o sandbox do Chrome não sobe sem namespaces
+    .concat(["about:blank"]), { stdio: "ignore" });
   const finish = (code) => { try { proc.kill(); } catch (e) {} server.close(); fs.rm(profile, { recursive: true, force: true }, () => {}); process.exit(code); };
   const timer = setTimeout(() => { console.error("❌ Smoke sem resultado: passou de " + TIMEOUT_MS / 1000 + " s."); finish(1); }, TIMEOUT_MS);
   try {

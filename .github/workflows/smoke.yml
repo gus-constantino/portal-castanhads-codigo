@@ -1,0 +1,44 @@
+# Smoke do playground em todo push na teste e na main (D121).
+# Mesmo comando do terminal: build + smoke no Chrome headless (scripts/dev/smoke.js), auditoria da UI
+# e conferência de que o build commitado está em dia (index.html, dist/ e tests/smoke.html regerados).
+name: Smoke
+
+on:
+  push:
+    branches: [main, teste]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: smoke-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Build + smoke (Chrome headless)
+        run: node scripts/build-index.js --smoke --avisos
+        env:
+          CHROME: /usr/bin/google-chrome
+
+      - name: Auditoria da UI (tokens e componentes do DS)
+        run: node scripts/dev/audit-ui.js
+
+      - name: Build commitado está em dia
+        run: |
+          if ! git diff --quiet -- index.html tests/smoke.html dist; then
+            echo "::error::O build commitado está desatualizado. Rode node scripts/build-index.js e commite index.html, dist/ e tests/smoke.html."
+            git diff --stat -- index.html tests/smoke.html dist
+            exit 1
+          fi

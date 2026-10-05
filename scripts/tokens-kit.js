@@ -544,7 +544,7 @@
       if (st.sel && st.sel.btn) st.sel.btn.classList.remove("is-current"); st.sel = it; if (b) b.classList.add("is-current");
       panel.innerHTML = "";
       var prev = panel.appendChild(el("div", "pg-ic-preview"));
-      if (isIcon){ var g = prev.appendChild(el("span", "cds-icon pg-ic-glyph is-big " + (it.cls || ""))); if (!it.cls){ var u = 'url("' + it.file + '")'; g.style.webkitMaskImage = u; g.style.maskImage = u; } }
+      if (isIcon){ var g = prev.appendChild(el("span", "cds-icon pg-ic-glyph is-big " + (it.cls || ""))); g.setAttribute("aria-hidden", "true"); /* o nome vem no título logo abaixo */ if (!it.cls){ var u = 'url("' + it.file + '")'; g.style.webkitMaskImage = u; g.style.maskImage = u; } }
       else { var im3 = prev.appendChild(el("img", "pg-ic-img is-big")); im3.alt = it.name; im3.src = it.src; }
       panel.appendChild(el("span", "pg-ic-panel__title", it.name));
       var dl = panel.appendChild(el("dl", "pg-el-parts"));

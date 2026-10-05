@@ -175,8 +175,10 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
   .pg-toolbar{ padding:0 var(--common-sizes-16); }
   /* Barra do topo estreita: a busca já está logo abaixo (menu em faixa), então a 🔍 sai; ← mais perto do caminho */
   .pg-header .cds-sh__lead{ gap:var(--common-sizes-12); }
+  .pg-header .cds-sh__crumb{ flex:1 1 auto; overflow:hidden; } /* nome longo no caminho não empurra Relatório e Tema para fora (achado pelo smoke das docs) */
   #top-header .cds-sh__trail > cds-icon-button[icon="search-line"]{ display:none; }
   .pg-toolbar .cds-sh__title-lead{ flex:1 1 100%; flex-wrap:wrap; min-width:0; } /* Header do template é só desktop: no estreito, Tag e (i) descem em vez de espremer o título */
+  .pg-toolbar .cds-sh__trail{ flex:1 1 100%; flex-wrap:wrap; min-width:0; } /* Copiar link · Links · Abrir no Figma não cabem em 343px: quebram linha em vez de empurrar a página (achado pelo smoke das docs) */
 }
 
 /* Início (Castanha Hub) no topo do menu, antes de Componentes */

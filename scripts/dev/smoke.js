@@ -2,7 +2,9 @@
 /**
  * Smoke sem abrir o navegador: serve o repo num servidor estático do próprio Node (sem dependências), abre
  * tests/smoke.html no Chrome headless, lê o resultado (JSON #smoke-result que o tests/smoke.js escreve) e
- * imprime no terminal. Sai com código 1 se algum componente falhar (aviso não reprova).
+ * imprime no terminal. Depois roda o smoke das docs no app de verdade (tests/smoke-docs.js), em desktop e
+ * emulando um celular de 375px. Sai com código 1 se algum componente ou doc falhar (aviso não reprova).
+ *   --avisos   lista os avisos · --sem-docs   pula as docs
  *
  *   node scripts/dev/smoke.js            (ou: node scripts/build-index.js --smoke)
  *   CHROME=/caminho/do/chrome node scripts/dev/smoke.js
@@ -19,7 +21,7 @@ const { spawn } = require("child_process");
 const sleep = (ms) => new Promise((ok) => setTimeout(ok, ms));
 
 const ROOT = path.join(__dirname, "..", "..");
-const TIMEOUT_MS = 120000;
+const TIMEOUT_MS = 240000;
 const TYPES = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".json": "application/json",
   ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg", ".webp": "image/webp", ".woff2": "font/woff2" };
 
@@ -68,6 +70,7 @@ server.listen(0, "127.0.0.1", async () => {
     let seq = 0; const waiting = {};
     ws.onmessage = (ev) => { const m = JSON.parse(ev.data); if (m.id && waiting[m.id]){ waiting[m.id](m); delete waiting[m.id]; } };
     const send = (method, params) => new Promise((ok) => { const id = ++seq; waiting[id] = ok; ws.send(JSON.stringify({ id, method, params })); });
+    const avisos = process.argv.includes("--avisos");
     await send("Page.navigate", { url });
     let r = null;
     while (!r){
@@ -76,12 +79,37 @@ server.listen(0, "127.0.0.1", async () => {
       const txt = v.result && v.result.result && v.result.result.value;
       if (txt) r = JSON.parse(txt);
     }
-    clearTimeout(timer); ws.close();
     const secs = ((Date.now() - t0) / 1000).toFixed(1);
     console.log(`${r.fail ? "❌" : "✅"} Smoke: ${r.pass}/${r.total} ok · ${r.fail} com problema · ${r.warnings} com aviso · ${secs} s (Chrome headless)`);
     r.failures.forEach((f) => console.log(`   ❌ ${f.id}: ${f.errors.join(" · ")}`));
-    if (process.argv.includes("--avisos")) r.warned.forEach((w) => console.log(`   ⚠️  ${w.id}: ${w.warnings.join(" · ")}`));
-    else if (r.warnings) console.log("   (avisos: node scripts/dev/smoke.js --avisos)");
-    finish(r.fail ? 1 : 0);
+    if (avisos) r.warned.forEach((w) => console.log(`   ⚠️  ${w.id}: ${w.warnings.join(" · ")}`));
+
+    // ---------- Docs (D126): o app de verdade, cada tab de cada doc, em desktop e num celular de 375px ----------
+    let docsFail = 0;
+    if (!process.argv.includes("--sem-docs")){
+      const t1 = Date.now(), base = `http://127.0.0.1:${server.address().port}/index.html`;
+      const code = fs.readFileSync(path.join(ROOT, "tests", "smoke-docs.js"), "utf8");
+      const runDocs = async (mobile) => {
+        if (mobile) await send("Emulation.setDeviceMetricsOverride", { width: 375, height: 812, deviceScaleFactor: 2, mobile: true });
+        await send("Page.navigate", { url: base + "#/" });
+        for (let i = 0; i < 80; i++){ // espera o app montar (índice das docs e o painel de docs)
+          await sleep(100);
+          const v = await send("Runtime.evaluate", { expression: "!!(window.CDS && CDS.docsIndex && CDS.loadDoc && document.getElementById('docs'))", returnByValue: true });
+          if (v.result && v.result.result && v.result.result.value) break;
+        }
+        const v = await send("Runtime.evaluate", { expression: code + "\n;CDS_SMOKE_DOCS({ mobile: " + mobile + " })", awaitPromise: true, returnByValue: true });
+        if (v.result && v.result.exceptionDetails) throw new Error("smoke das docs: " + (v.result.exceptionDetails.exception && v.result.exceptionDetails.exception.description || v.result.exceptionDetails.text));
+        return v.result.result.value;
+      };
+      const d = await runDocs(false), m = await runDocs(true);
+      docsFail = d.failures.length + m.failures.length;
+      const warnedN = m.warned.length, secs2 = ((Date.now() - t1) / 1000).toFixed(1);
+      console.log(`${docsFail ? "❌" : "✅"} Docs: ${d.docs} docs · ${d.tabs} tabs em desktop e em 375px · ${docsFail} com problema · ${warnedN} com aviso · ${secs2} s`);
+      d.failures.concat(m.failures).forEach((f) => console.log(`   ❌ ${f.id}: ${f.errors.join(" · ")}`));
+      if (avisos) m.warned.forEach((w) => console.log(`   ⚠️  ${w.id}: ${w.warnings.join(" · ")}`));
+      if (!avisos && (r.warnings || warnedN)) console.log("   (avisos: node scripts/dev/smoke.js --avisos)");
+    } else if (!avisos && r.warnings) console.log("   (avisos: node scripts/dev/smoke.js --avisos)");
+    clearTimeout(timer); ws.close();
+    finish(r.fail || docsFail ? 1 : 0);
   } catch (e){ clearTimeout(timer); console.error("❌ Smoke sem resultado: " + e.message); finish(1); }
 });

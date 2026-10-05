@@ -308,6 +308,38 @@
   background-image:repeating-linear-gradient(to bottom, transparent 0 calc(var(--_lh) * 1em - var(--common-border-width-hairline)), var(--common-colors-accent-solid-semi-soft) 0 calc(var(--_lh) * 1em)); }
 @media (max-width:760px){ .pg-tok-tile.pg-ty-row, .pg-tok-tile.pg-ty-row.is-style{ grid-template-columns:minmax(0, 1fr); gap:var(--common-sizes-8); } }
 
+/* Bordas (Radix/Material/Tailwind): laboratório de raio + formas inteiras */
+.pg-bd-lab{ display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); align-items:center; gap:var(--common-sizes-32);
+  padding:var(--common-sizes-24); border-radius:var(--common-border-radius-large); background:var(--common-colors-surface-01); }
+.pg-bd-lab__ctl{ display:flex; flex-direction:column; gap:var(--common-sizes-8); min-width:0; }
+.pg-bd-lab__ctl cds-slider{ width:100%; }
+.pg-bd-lab__read{ margin:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+.pg-bd-lab__shape{ justify-self:center; display:grid; place-items:center; width:min(100%, var(--common-sizes-200)); height:var(--common-sizes-120);
+  background:var(--common-colors-accent-solid-medium); color:var(--common-colors-support-lighter); font:var(--text-style-subtitle-small);
+  transition:border-radius var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing); }
+.pg-tok-grid.is-shapes{ grid-template-columns:repeat(auto-fill, minmax(min(var(--common-sizes-104), 100%), 1fr)); }
+.pg-tok-tile.pg-bd-tile{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+.pg-tok-tile.pg-bd-tile.is-current{ background:var(--common-colors-surface-01); }
+.pg-bd-shape{ display:block; width:100%; height:var(--common-sizes-64); background:var(--common-colors-accent-solid-soft);
+  box-shadow:inset 0 0 0 var(--common-border-width-thin) var(--common-colors-accent-solid-medium);
+  transition:transform var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
+.pg-bd-shape.is-stroke{ box-shadow:none; border-style:solid; border-color:var(--common-colors-accent-solid-medium); border-radius:var(--common-border-radius-medium); }
+.pg-tok-tile.pg-bd-tile:hover .pg-bd-shape{ transform:translateY(calc(-1 * var(--common-sizes-2))); }
+@media (max-width:760px){ .pg-bd-lab{ grid-template-columns:minmax(0, 1fr); } }
+/* Tamanhos (Tailwind/Atlassian): escala em linhas; Largura · Gap · Padding */
+.pg-sz{ display:flex; flex-direction:column; }
+.pg-tok-tile.pg-sz-row{ display:grid; grid-template-columns:var(--common-sizes-104) minmax(0, 1fr); align-items:center; gap:var(--common-sizes-24);
+  padding:var(--common-sizes-8); border-radius:var(--common-border-radius-small); box-shadow:inset 0 calc(-1 * var(--common-border-width-hairline)) 0 var(--common-colors-border-semi-soft); }
+.pg-sz-vis{ display:flex; align-items:center; min-width:0; min-height:var(--common-sizes-24); }
+.pg-sz-bar{ display:block; height:var(--common-sizes-12); min-width:var(--common-sizes-1); border-radius:var(--common-border-radius-pill); background:var(--common-colors-accent-solid-medium);
+  transition:width var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing); }
+.pg-sz-gap{ display:flex; align-items:center; }
+.pg-sz-gap > span{ display:block; width:var(--common-sizes-16); height:var(--common-sizes-16); border-radius:var(--common-border-radius-micro); background:var(--common-colors-accent-solid-medium); }
+.pg-sz-gap{ background:linear-gradient(var(--common-colors-accent-solid-soft), var(--common-colors-accent-solid-soft)) center / 100% var(--common-sizes-16) no-repeat; } /* o vão aparece em Accent/soft */
+.pg-sz-pad{ display:inline-block; background:var(--common-colors-accent-solid-soft); border-radius:var(--common-border-radius-micro); }
+.pg-sz-pad > span{ display:block; width:var(--common-sizes-16); height:var(--common-sizes-16); border-radius:var(--common-border-radius-micro); background:var(--common-colors-accent-solid-medium); }
+.pg-sz.is-width .pg-sz-gap, .pg-sz.is-width .pg-sz-pad, .pg-sz.is-gap .pg-sz-bar, .pg-sz.is-gap .pg-sz-pad, .pg-sz.is-padding .pg-sz-bar, .pg-sz.is-padding .pg-sz-gap{ display:none; }
+
 /* Bordas: raio no canto (como no Figma) e espessura */
 .pg-tok__corner, .pg-tok__stroke{ width:var(--common-sizes-80); height:var(--common-sizes-80); min-height:0; background:var(--common-colors-accent-solid-soft); }
 .pg-tok__corner{ border-top:var(--common-border-width-heavy) solid var(--common-colors-accent-solid-medium); border-left:var(--common-border-width-heavy) solid var(--common-colors-accent-solid-medium); }

@@ -222,9 +222,52 @@
         });
       });
     },
-    radius: function(root){ group(root, "Radius", pick("--common-border-radius-"), "--common-border-radius-", function(sw, n){ sw.classList.add("pg-tok__corner"); sw.style.borderTopLeftRadius = "var(" + n + ")"; }, "is-wide"); },
-    width: function(root){ group(root, "Width", pick("--common-border-width-"), "--common-border-width-", function(sw, n){ sw.classList.add("pg-tok__stroke"); sw.style.borderWidth = "var(" + n + ")"; }, "is-wide"); },
-    sizes: function(root){ group(root, "Sizes", pick("--common-sizes-"), "--common-sizes-", function(sw, n){ sw.classList.add("pg-tok__size"); var b = sw.appendChild(el("span")); b.style.width = b.style.height = "var(" + n + ")"; }, "is-sizes", "is-row"); },
+    // Bordas (referências: Radix/Material shape scale, Tailwind border-width): formas inteiras + laboratório com o Slider do DS
+    radius: function(root){
+      var list = pick("--common-border-radius-"), cur = Math.max(0, list.indexOf("--common-border-radius-large"));
+      var s = section(root, "Radius", list.length), lab = s.appendChild(el("div", "pg-bd-lab"));
+      var ctl = lab.appendChild(el("div", "pg-ctrl pg-bd-lab__ctl")); ctl.appendChild(el("span", "pg-lbl", "Raio"));
+      var sl = ctl.appendChild(document.createElement("cds-slider"));
+      [["label", "Raio"], ["min", "0"], ["max", String(list.length - 1)], ["step", "1"], ["value", String(cur)], ["show-value-indicator", "false"], ["show-stops", "false"], ["value-text", ""]].forEach(function(a){ sl.setAttribute(a[0], a[1]); });
+      var read = ctl.appendChild(el("p", "pg-bd-lab__read"));
+      var shape = lab.appendChild(el("div", "pg-bd-lab__shape")); shape.appendChild(el("span", "pg-bd-lab__shape-label"));
+      function show(i){ cur = i; var n = list[i]; shape.style.borderRadius = "var(" + n + ")"; shape.firstChild.textContent = label(n, "--common-border-radius-");
+        read.textContent = "var(" + n + ") · " + val(n); CDS.attr(sl, "value", String(i)); [].forEach.call(g.children, function(t, k){ t.classList.toggle("is-current", k === i); }); }
+      sl.addEventListener("cds-change", function(e){ e.stopPropagation(); show(Math.round(e.detail.value)); });
+      sl.addEventListener("input", function(){ var v = parseInt(sl.getAttribute("value"), 10); if (!isNaN(v)) show(v); });
+      var g = s.appendChild(grid("is-shapes"));
+      list.forEach(function(n, i){
+        var t = g.appendChild(tile("pg-bd-tile", n, null));
+        t.addEventListener("click", function(){ show(i); });
+        var sh = t.appendChild(el("span", "pg-bd-shape")); sh.style.borderRadius = "var(" + n + ")";
+        var cap = t.appendChild(el("span", "pg-tok__text")); cap.appendChild(el("span", "pg-tok__name", label(n, "--common-border-radius-"))); cap.appendChild(code(val(n), n));
+      });
+      show(cur);
+    },
+    width: function(root){
+      var list = pick("--common-border-width-"), g = section(root, "Width", list.length).appendChild(grid("is-shapes"));
+      list.forEach(function(n){
+        var t = g.appendChild(tile("pg-bd-tile", n));
+        var sh = t.appendChild(el("span", "pg-bd-shape is-stroke")); sh.style.borderWidth = "var(" + n + ")";
+        var cap = t.appendChild(el("span", "pg-tok__text")); cap.appendChild(el("span", "pg-tok__name", label(n, "--common-border-width-"))); cap.appendChild(code(val(n), n));
+      });
+    },
+    // Tamanhos (Tailwind spacing / Atlassian space): escala em linhas; Filter Chips do DS trocam a visualização
+    sizes: function(root){
+      var list = pick("--common-sizes-"), s = section(root, "Sizes", list.length);
+      var box = el("div", "pg-sz is-width");
+      if (CDS.kit) CDS.kit.seg(s, { label: "Ver como", value: "width", options: [["width", "Largura"], ["gap", "Gap"], ["padding", "Padding"]],
+        onChange: function(v){ box.className = "pg-sz is-" + v; } });
+      s.appendChild(box);
+      list.forEach(function(n){
+        var row = box.appendChild(tile("pg-sz-row", n)), v = "var(" + n + ")";
+        var meta = row.appendChild(el("span", "pg-ty-row__meta")); meta.appendChild(el("span", "pg-tok__name", label(n, "--common-sizes-"))); meta.appendChild(code(val(n), n));
+        var vis = row.appendChild(el("span", "pg-sz-vis"));
+        vis.appendChild(el("span", "pg-sz-bar")).style.width = v;
+        var gap = vis.appendChild(el("span", "pg-sz-gap")); gap.style.gap = v; gap.appendChild(el("span")); gap.appendChild(el("span"));
+        var pad = vis.appendChild(el("span", "pg-sz-pad")); pad.style.padding = v; pad.appendChild(el("span"));
+      });
+    },
     elevation: function(root){ group(root, "Elevations", pick("--common-elevation-level-"), "--common-elevation-", function(sw, n){ sw.classList.add("pg-tok__shadow"); sw.style.boxShadow = "var(" + n + ")"; }, "is-wide"); },
     opacity: function(root){ group(root, "Opacity", pick("--common-opacity-"), "--common-opacity-", opacityView, "is-wide", "is-row"); },
     duration: function(root){ runs(root, "Duration", pick("--common-motion-duration-"), "--common-motion-duration-", "duration"); },

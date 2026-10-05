@@ -251,7 +251,7 @@
     if (worst){
       var nAlert = checks.filter(function(c){ return c.l !== "info"; }).length;
       tag(CK[worst][0], nAlert ? nAlert + (nAlert === 1 ? " divergência" : " divergências") + " Figma × React" : "Só informativos no check",
-        "Check em três vértices (Figma × Code Connect/React × playground). Detalhes no bloco \"Saúde Figma × React\", abaixo.");
+        "Check em quatro vértices (Figma × Code Connect/React × playground × castanha-ai). Detalhes no bloco \"Saúde Figma × React\", abaixo.");
     } else if (it.component) tag("positive", "Check Figma × React ok", "Nenhuma divergência entre as props do Figma, o Code Connect e o React.");
 
     if (it.notes && it.notes.length){
@@ -329,10 +329,10 @@
     }
 
     if (checks.length){
-      root.appendChild(acc("Saúde Figma × React", checks.length + (checks.length === 1 ? " item" : " itens") + " do check em três vértices (relatório: Stack React)",
-        table(["Nível", "O quê"], checks.map(function(c){
+      root.appendChild(acc("Saúde Figma × React", checks.length + (checks.length === 1 ? " item" : " itens") + " do check em quatro vértices (relatório: Stack React)",
+        table(["Nível", "Gap", "O quê"], checks.map(function(c){
           var t = attrs(document.createElement("cds-tag"), { appearance: CK[c.l][0], label: CK[c.l][1], "show-lead-item": "false" });
-          return [t, c.m];
+          return [t, c.g ? "`" + c.g + "`" : "—", c.m]; // categoria do Gap Report do castanha-ai
         }), "is-checks")));
     }
 

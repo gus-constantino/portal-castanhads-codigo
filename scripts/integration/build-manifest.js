@@ -19,6 +19,7 @@ const ROOT = path.join(__dirname, "..", "..");
 const STACK = require("./check-stack"); // R2: check em três vértices
 const arg = (k, d) => { const i = process.argv.indexOf("--" + k); return i > 0 ? process.argv[i + 1] : d; };
 const CASTANHA = path.resolve(ROOT, arg("castanha", "../castanha"));
+const CASTANHA_AI = path.resolve(ROOT, arg("castanha-ai", "../castanha-ai")), AI_REF = "origin/feat/castanha-plugin"; // 4º vértice (D182)
 const REF = arg("ref", "origin/staging"), CC = arg("cc", "origin/feat/figma-code-connect");
 const FIGMA_KEY = "LKZBwmlb7fIbDKdGrMncuA";
 const STORYBOOK = "https://castanha-web.caju.com.br/?path=";
@@ -283,6 +284,12 @@ if (fs.existsSync(MAPS)) fs.readdirSync(MAPS).filter((f) => /\.json$/.test(f)).f
 // ---------- R2 · saúde da stack (Figma × Code Connect/React × playground) ----------
 const figmaProps = STACK.readFigma(path.join(ROOT, "integration", "figma-props.tsv"));
 const findings = STACK.run({ components, react, maps, figma: figmaProps, codeText: STACK.codeAttrs(ROOT) });
+// Componente com par só na staging: UNRELEASED no Gap Report do castanha-ai (sem story no Storybook publicado)
+components.forEach((c) => { const r = c.react && react[c.react.dir]; if (r && !r.inMain) findings.push({ id: c.id, level: "info", kind: "so-na-staging", msg: "`" + c.react.component + "` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado)." }); });
+// 4º vértice: bridge do castanha-ai (repo interno, só leitura) × mapas curados
+const BRIDGE = require("./check-bridge");
+const bridge = BRIDGE.run({ clone: CASTANHA_AI, ref: AI_REF, components, maps, figma: figmaProps });
+bridge.findings.forEach((f) => findings.push(f));
 // R4: assets do playground × castanha-icons / castanha-illustrations / castanha-motion
 const ASSETS = require("./check-assets");
 const ourAssets = (() => { const ctxA = { window: {} }; ctxA.window.CDS = {}; ctxA.CDS = ctxA.window.CDS;
@@ -305,8 +312,8 @@ const nameOf = (id) => (components.find((c) => c.id === id) || {}).name || id;
 const LVH = { alta: "quebra a tradução: o Code Connect lê prop ou gera valor que não existe",
   media: "muda o resultado sem quebrar: padrão diferente, opção sem tradução, mapa curado errado",
   info: "prop do Figma que não chega ao React pelo Code Connect" };
-const smd = ["# Saúde da stack — Figma × castanha-react × playground", "",
-  "Gerado por `node scripts/integration/build-manifest.js` em " + new Date().toISOString().slice(0, 10) + " (R2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). React: `" + REF + "` (`" + String(src.commit).slice(0, 8) + "`) e Code Connect `" + CC + "`. Playground: mapas de `integration/prop-map/`.", "",
+const smd = ["# Saúde da stack — Figma × castanha-react × playground × castanha-ai", "",
+  "Gerado por `node scripts/integration/build-manifest.js` em " + new Date().toISOString().slice(0, 10) + " (R2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). React: `" + REF + "` (`" + String(src.commit).slice(0, 8) + "`) e Code Connect `" + CC + "`. Playground: mapas de `integration/prop-map/`. castanha-ai (4º vértice, repo interno, só leitura): " + (bridge.skipped ? "não lido (sem o clone `../castanha-ai`)" : "`" + AI_REF + "` (`" + bridge.commit + "`), " + bridge.sets + " sets no bridge") + ". A coluna Gap usa as categorias do Gap Report do castanha-ai.", "",
   "## Resumo", "", "| Nível | O que significa | Itens |", "|---|---|---:|"]
   .concat(["alta", "media", "info"].map((l) => "| " + LV[l] + " | " + LVH[l] + " | " + cnt(l) + " |"))
   .concat(["", "Componentes com algum item: " + Object.keys(byId).length + " de " + components.filter((c) => c.react).length + " com par no React.", ""]);
@@ -325,10 +332,10 @@ if (!tokCheck.findings.length) smd.push("| — | — | Nenhuma diferença. |");
 tokCheck.findings.forEach((f) => smd.push("| " + LV[f.level] + " | " + f.kind + " | " + f.msg + " |"));
 smd.push("");
 ["alta", "media", "info"].forEach((l) => {
-  smd.push("## " + LV[l], "", "| Componente | Tipo | O quê |", "|---|---|---|");
+  smd.push("## " + LV[l], "", "| Componente | Tipo | Gap | O quê |", "|---|---|---|---|");
   const list = findings.filter((f) => f.level === l);
-  if (!list.length) smd.push("| — | — | Nenhum item. |");
-  list.forEach((f) => smd.push("| " + nameOf(f.id) + " (`" + f.id + "`) | " + f.kind + " | " + f.msg.replace(/\|/g, "\\|") + " |"));
+  if (!list.length) smd.push("| — | — | — | Nenhum item. |");
+  list.forEach((f) => smd.push("| " + nameOf(f.id) + " (`" + f.id + "`) | " + f.kind + " | " + (BRIDGE.gapOf(f.kind) || "—") + " | " + f.msg.replace(/\|/g, "\\|") + " |"));
   smd.push("");
 });
 smd.push("## Como rodar", "",
@@ -341,10 +348,11 @@ const HIST = path.join(ROOT, "integration", "HISTORICO.md");
 if (fs.existsSync(HIST)) smd.push("## Histórico", "", fs.readFileSync(HIST, "utf8").replace(/^#[^\n]*\n+(Escrito[^\n]*\n+)?/, "").trim(), "");
 fs.writeFileSync(path.join(ROOT, "integration", "SAUDE-STACK.md"), smd.join("\n"));
 // R6: resultado estável do check (sem data de geração) para comparar uma leitura com a anterior
-const allFindings = findings.concat(tokCheck.findings, assetCheck.findings).map((f) => ({ id: f.id, level: f.level, kind: f.kind, msg: f.msg }));
+const allFindings = findings.concat(tokCheck.findings, assetCheck.findings).map((f) => { const o = { id: f.id, level: f.level, kind: f.kind, msg: f.msg }, g = BRIDGE.gapOf(f.kind); if (g) o.gap = g; return o; });
 fs.writeFileSync(path.join(ROOT, "integration", "stack-check.json"), JSON.stringify({
   source: { ref: REF, commit: String(src.commit).slice(0, 8), date: String(src.date).slice(0, 10) },
   codeConnect: { ref: CC, commit: String(ccMeta[0]).slice(0, 8) },
+  castanhaAi: bridge.skipped ? null : { ref: AI_REF, commit: bridge.commit, sets: bridge.sets },
   coverage: S, reactOnly: reactOnly.map((r) => r.name), tokens: { ok: tokCheck.ok, official: tokCheck.official }, assets: assetCheck.summary,
   findings: allFindings
 }, null, 1) + "\n");
@@ -360,7 +368,7 @@ components.forEach((c) => {
   if (c.react) Object.assign(it, { dir: c.react.dir, component: c.react.component, via: c.react.via, import: c.react.import, figma: c.react.figmaProps });
   if (c.notes.length) it.notes = c.notes;
   if (maps[c.id]) it.map = maps[c.id];
-  if (byId[c.id]) it.checks = byId[c.id].map((f) => ({ l: f.level, k: f.kind, m: f.msg }));
+  if (byId[c.id]) it.checks = byId[c.id].map((f) => { const o = { l: f.level, k: f.kind, m: f.msg }, g = BRIDGE.gapOf(f.kind); if (g) o.g = g; return o; });
   data.items[c.id] = it;
 });
 fs.writeFileSync(path.join(ROOT, "integration", "react-data.js"),

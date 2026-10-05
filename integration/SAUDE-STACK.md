@@ -1,16 +1,16 @@
-# Saúde da stack — Figma × castanha-react × playground
+# Saúde da stack — Figma × castanha-react × playground × castanha-ai
 
-Gerado por `node scripts/integration/build-manifest.js` em 2026-10-05 (R2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). React: `origin/staging` (`1e0a5335`) e Code Connect `origin/feat/figma-code-connect`. Playground: mapas de `integration/prop-map/`.
+Gerado por `node scripts/integration/build-manifest.js` em 2026-10-05 (R2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). React: `origin/staging` (`1e0a5335`) e Code Connect `origin/feat/figma-code-connect`. Playground: mapas de `integration/prop-map/`. castanha-ai (4º vértice, repo interno, só leitura): `origin/feat/castanha-plugin` (`8f8381a`), 67 sets no bridge. A coluna Gap usa as categorias do Gap Report do castanha-ai.
 
 ## Resumo
 
 | Nível | O que significa | Itens |
 |---|---|---:|
 | Alta | quebra a tradução: o Code Connect lê prop ou gera valor que não existe | 2 |
-| Média | muda o resultado sem quebrar: padrão diferente, opção sem tradução, mapa curado errado | 6 |
-| Informativo | prop do Figma que não chega ao React pelo Code Connect | 26 |
+| Média | muda o resultado sem quebrar: padrão diferente, opção sem tradução, mapa curado errado | 7 |
+| Informativo | prop do Figma que não chega ao React pelo Code Connect | 39 |
 
-Componentes com algum item: 32 de 70 com par no React.
+Componentes com algum item: 35 de 70 com par no React.
 
 ## Assets
 
@@ -43,52 +43,66 @@ Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`
 
 ## Alta
 
-| Componente | Tipo | O quê |
-|---|---|---|
-| Topic (`topic`) | cc-prop-react-inexistente | O Code Connect gera `label` em `<Topic>`, que não existe nas props do React (o código gerado não compila em TypeScript). |
-| Topic (`topic`) | cc-prop-react-inexistente | O Code Connect gera `supportingMessage` em `<Topic>`, que não existe nas props do React (o código gerado não compila em TypeScript). |
+| Componente | Tipo | Gap | O quê |
+|---|---|---|---|
+| Topic (`topic`) | cc-prop-react-inexistente | — | O Code Connect gera `label` em `<Topic>`, que não existe nas props do React (o código gerado não compila em TypeScript). |
+| Topic (`topic`) | cc-prop-react-inexistente | — | O Code Connect gera `supportingMessage` em `<Topic>`, que não existe nas props do React (o código gerado não compila em TypeScript). |
 
 ## Média
 
-| Componente | Tipo | O quê |
-|---|---|---|
-| Alert (`alert`) | padrao-diferente | Padrão diferente em `Appearance`: uma instância nova no Figma vem Positive (`positive`); no React, sem a prop, vem `informative`. |
-| Avatar (`avatar`) | padrao-diferente | Padrão diferente em `Size`: uma instância nova no Figma vem Small (`small`); no React, sem a prop, vem `medium`. |
-| Badge (`badge`) | padrao-diferente | Padrão diferente em `Appearance`: uma instância nova no Figma vem Warning (`warning`); no React, sem a prop, vem `neutral`. |
-| Spinner (`spinner`) | padrao-diferente | Padrão diferente em `Appearance`: uma instância nova no Figma vem Neutral (`neutral`); no React, sem a prop, vem `accent`. |
-| Spinner (`spinner`) | padrao-diferente | Padrão diferente em `Size`: uma instância nova no Figma vem Small (`small`); no React, sem a prop, vem `medium`. |
-| Tag (`tag`) | padrao-diferente | Padrão diferente em `Appearance`: uma instância nova no Figma vem Neutral (`neutral`); no React, sem a prop, vem `accent`. |
+| Componente | Tipo | Gap | O quê |
+|---|---|---|---|
+| Alert (`alert`) | padrao-diferente | APPROXIMATION | Padrão diferente em `Appearance`: uma instância nova no Figma vem Positive (`positive`); no React, sem a prop, vem `informative`. |
+| Avatar (`avatar`) | padrao-diferente | APPROXIMATION | Padrão diferente em `Size`: uma instância nova no Figma vem Small (`small`); no React, sem a prop, vem `medium`. |
+| Badge (`badge`) | padrao-diferente | APPROXIMATION | Padrão diferente em `Appearance`: uma instância nova no Figma vem Warning (`warning`); no React, sem a prop, vem `neutral`. |
+| Spinner (`spinner`) | padrao-diferente | APPROXIMATION | Padrão diferente em `Appearance`: uma instância nova no Figma vem Neutral (`neutral`); no React, sem a prop, vem `accent`. |
+| Spinner (`spinner`) | padrao-diferente | APPROXIMATION | Padrão diferente em `Size`: uma instância nova no Figma vem Small (`small`); no React, sem a prop, vem `medium`. |
+| Tag (`tag`) | padrao-diferente | APPROXIMATION | Padrão diferente em `Appearance`: uma instância nova no Figma vem Neutral (`neutral`); no React, sem a prop, vem `accent`. |
+| Toast (`toast`) | bridge-componente | — | O castanha-ai liga o set a `Toast`; o playground (Code Connect), a `useToast`. |
 
 ## Informativo
 
-| Componente | Tipo | O quê |
-|---|---|---|
-| Async creatable Select Input (`async-creatable-select-input`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Lead Icon`, `Error Message`, `Lead Icon`. |
-| Async Select Input (`async-select-input`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Lead Icon`, `Error Message`, `Lead Icon`. |
-| Banner (`banner`) | sem-code-connect | Sem Code Connect: o par com o React vem só do node da story. |
-| Breadcrumb (`breadcrumb`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `showItem03`, `showItem04`, `showItem05`, `showItem06`, `Kind`. |
-| Checkbox Select Input (`checkbox-select-input`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
-| Chips Group (`chips-group`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Kind`. |
-| Content List Item (`content-list-item`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Navigation Indicator`, `Show Tag`. |
-| Date Input (`date-input`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Character Counter`, `Error Message`. |
-| Date Picker (`date-picker`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show week 01`, `Show week 02`, `Show week 03`, `Show week 04`, `Show week 05`, `Show week 06`, `Selected Date Label`, `First Day Selected`, `Last Day Selected`, `Show First Day Selected`, `Show Last Day Selected`, `Role`. |
-| Divider (`divider`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Kind`. |
-| Drawer (`drawer`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Secondary Action Button`. |
-| Dropzone (`dropzone`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Main button`. |
-| Icon Button (`icon-button`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Notification`. |
-| Multi Select Input (`multi-select-input`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
-| Pagination (`pagination`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Itens per page`, `Show Item display`, `Items range`, `Items display`. |
-| Password Input (`password-input`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Text Content`, `Show Lead Icon`, `Error Message`, `Lead Icon`, `Show Content`. |
-| Progress Tracker Item (`progress-tracker-item`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Connector`, `Show Link`, `Orientation`. |
-| Radio Select Input (`radio-select-input`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
-| Search Input (`search-input`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
-| Selection List Item (`selection-list-item`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Trailing Item`. |
-| Slider (`slider`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Value`. |
-| Status Dot (`status-dot`) | sem-code-connect | Sem Code Connect: o par com o React vem só do node da story. |
-| Table (`table`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Kind`. |
-| Text Area Input (`text-area`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Text Content`, `Show Required`, `Error Message`. |
-| Text Input (`text-input`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
-| Toast (`toast`) | nao-chega-ao-react | Não chega ao React pelo Code Connect: `Show Trailing Item`. |
+| Componente | Tipo | Gap | O quê |
+|---|---|---|---|
+| Async creatable Select Input (`async-creatable-select-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Lead Icon`, `Error Message`, `Lead Icon`. |
+| Async Select Input (`async-select-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Lead Icon`, `Error Message`, `Lead Icon`. |
+| Banner (`banner`) | sem-code-connect | — | Sem Code Connect: o par com o React vem só do node da story. |
+| Breadcrumb (`breadcrumb`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `showItem03`, `showItem04`, `showItem05`, `showItem06`, `Kind`. |
+| Checkbox Select Input (`checkbox-select-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
+| Chips Group (`chips-group`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Kind`. |
+| Content List Item (`content-list-item`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Navigation Indicator`, `Show Tag`. |
+| Date Input (`date-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Character Counter`, `Error Message`. |
+| Date Picker (`date-picker`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show week 01`, `Show week 02`, `Show week 03`, `Show week 04`, `Show week 05`, `Show week 06`, `Selected Date Label`, `First Day Selected`, `Last Day Selected`, `Show First Day Selected`, `Show Last Day Selected`, `Role`. |
+| Divider (`divider`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Kind`. |
+| Drawer (`drawer`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Secondary Action Button`. |
+| Dropzone (`dropzone`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Main button`. |
+| Icon Button (`icon-button`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Notification`. |
+| Multi Select Input (`multi-select-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
+| Pagination (`pagination`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Itens per page`, `Show Item display`, `Items range`, `Items display`. |
+| Password Input (`password-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Text Content`, `Show Lead Icon`, `Error Message`, `Lead Icon`, `Show Content`. |
+| Progress Tracker Item (`progress-tracker-item`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Connector`, `Show Link`, `Orientation`. |
+| Radio Select Input (`radio-select-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
+| Search Input (`search-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
+| Selection List Item (`selection-list-item`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Trailing Item`. |
+| Slider (`slider`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Value`. |
+| Status Dot (`status-dot`) | sem-code-connect | — | Sem Code Connect: o par com o React vem só do node da story. |
+| Table (`table`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Kind`. |
+| Text Area Input (`text-area`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Text Content`, `Show Required`, `Error Message`. |
+| Text Input (`text-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
+| Toast (`toast`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`. |
+| Banner (`banner`) | so-na-staging | UNRELEASED | `Banner` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado). |
+| Status Dot (`status-dot`) | so-na-staging | UNRELEASED | `StatusDot` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado). |
+| Main Button (`main-button`) | bridge-nome-figma | — | O bridge do castanha-ai usa `Show Trailling Icon`, que não existe na lib (props: Text Label, Show Lead Icon, Show Trailing Icon, Lead Icon, Kind, Appearance, State, Size). |
+| Toast (`toast`) | bridge-nome-figma | — | O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Text Description, Show Trailing Item, Appearance). |
+| Selection List Item (`selection-list-item`) | bridge-nome-figma | — | O bridge do castanha-ai usa `Trailling Item`, que não existe na lib (props: Show Lead Item, Show Divider, Kind, State, Is Active, Trailing Item). |
+| Link (`link`) | bridge-nome-figma | — | O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Link Content, Show Trailing Item, Change Icon, Appearance, State). |
+| castanha-ai (`castanha-ai`) | bridge-cobertura | — | Set `Side Menu` está no bridge do castanha-ai e não tem componente no playground. |
+| castanha-ai (`castanha-ai`) | bridge-cobertura | — | Set `Sponsor Side Menu` está no bridge do castanha-ai e não tem componente no playground. |
+| castanha-ai (`castanha-ai`) | bridge-cobertura | — | Set `Header` está no bridge do castanha-ai e não tem componente no playground. |
+| castanha-ai (`castanha-ai`) | bridge-cobertura | — | Set `Device marker` está no bridge do castanha-ai e não tem componente no playground. |
+| castanha-ai (`castanha-ai`) | bridge-cobertura | — | Set `Shortcut` está no bridge do castanha-ai e não tem componente no playground. |
+| castanha-ai (`castanha-ai`) | bridge-cobertura | — | Set `Shortcut Carousel` está no bridge do castanha-ai e não tem componente no playground. |
+| castanha-ai (`castanha-ai`) | bridge-cobertura | — | Com mapa no playground e sem set no bridge do castanha-ai: `balance-card`, `banner`, `date-input`, `date-picker`, `modal-date-picker`, `multi-select-input`, `nav-control`, `slider`, `status-dot`, `system-banner`. |
 
 ## Como rodar
 

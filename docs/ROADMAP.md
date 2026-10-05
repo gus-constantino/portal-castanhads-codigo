@@ -269,6 +269,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D95 | **C3b · Conteúdo → Componentes** (branch `teste`): regras de texto de Tabs, Botões (26 labels padronizadas), Breadcrumb, Bottom sheet, Links, Feedback Pages (erros, alertas, sucesso, empty state) e Stepper, com Do's & Don'ts montados em componentes do DS. C114 | 05/10 |
 | D96 | **C4a · Conteúdo → Contextos** (branch `teste`): onboarding de funcionalidades, tour guiado (com tabela de botões padronizados) e Urgências e bloqueios (régua em 5 níveis com Do's & Don'ts em componentes do DS). C115 | 05/10 |
 | D97 | **C4b · Conteúdo → Canais** (branch `teste`): Push, In-app (limites, datas, quando usar e templates por tipo com notificações em Card do DS), E-mails transacionais (anatomia em 9 passos, checklist, aplicações, Sendgrid) e SMS (hierarquia de canais, limites GSM-7, checklist, métricas). Fecha o `[NEW] Content` no playground. C116 | 05/10 |
+| D98 | **Regras de texto na doc de cada componente** (branch `teste`, pedido do Gustavo): as seções de Conteúdo → Componentes viraram a tab **Conteúdo** de Fixed Tab e Scrollable Tab (Tabs; a Scrollable lê a mesma doc), Main Button (Botões), Breadcrumb, Bottom Sheet, Link (Links) e Progress Tracker (Stepper). Feedback Pages não é componente do DS e ficou como tab própria em Conteúdo. Esses componentes não tinham doc: a tab Conteúdo é a primeira | 05/10 |
 
 ## 5. Dúvidas abertas
 

@@ -12,6 +12,27 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-05 (R2). Figm
 
 Componentes com algum item: 33 de 70 com par no React.
 
+## Assets
+
+Nomes que o código usa (`<Icon name>`, `<Illustration name>`, `<Motion name>`) × [Caju] Icons e [Caju] Illustrations do playground.
+
+| Pacote | No pacote | No playground | Mesmo nome | Renomeado | Só aqui | Só no pacote |
+|---|---:|---:|---:|---:|---:|---:|
+| castanha-icons | 265 | 273 | 262 | — | 11 | 3 |
+| castanha-illustrations | 259 | 260 | 218 | 40 | 2 | 1 |
+| castanha-motion | 44 | 0 | — | — | — | 44 |
+
+| Nível | Tipo | O quê |
+|---|---|---|
+| Média | icone-so-no-pacote | O castanha-icons exporta ícones que não existem no [Caju] Icons: `balance-canceled`, `calendar-non-recurrent`, `file-line-1`. |
+| Informativo | icone-deprecated-no-pacote | Deprecated no Figma, mas ainda exportados pelo pacote: `dark-mode-line`. |
+| Informativo | icone-deprecated-fora | Deprecated no Figma e já fora do pacote: `phone-line`, `megaphone-line`, `delivery-line`, `conversation-line`, `airplane-line`, `several-line`, `file-text-error-line`, `benefit-line`, `pause-line`, `caju-ciclos`, `bus-sideview`. |
+| Alta | ilustracao-fora-do-pacote | Ilustrações do [Caju] Illustrations sem par no castanha-illustrations: `alimentos/drink`, `notificacoes/analysis-low-detail`. |
+| Média | ilustracao-so-no-pacote | O castanha-illustrations exporta ilustrações sem par no [Caju] Illustrations: `hero-sponsor-splash-screen`. |
+| Média | ilustracao-renomeada | 40 ilustrações têm outro nome no pacote (o nome do Figma não serve no `<Illustration name>`): `hub-de-beneficios/pet` → `hub-pet`, `hub-de-beneficios/departamento` → `hub-departamento`, `hub-de-beneficios/plano-saude` → `hub-plano-saude`, `hub-de-beneficios/servicos` → `hub-servicos`, `hub-de-beneficios/entretenimento` → `hub-entretenimento`, `hub-de-beneficios/plano-odonto` → `hub-plano-odonto`, `hub-de-beneficios/educacao` → `hub-educacao`, `hub-de-beneficios/cajuzinho` → `hub-cajuzinho`, `hub-de-beneficios/alimentacao` → `hub-alimentacao`, `hub-de-beneficios/outros` → `hub-outros`, `hub-de-beneficios/saude` → `hub-saude`, `hub-de-beneficios/ofertas` → `hub-ofertas`, `hub-de-beneficios/mobilidade` → `hub-mobilidade`, `hub-de-beneficios/esportes` → `hub-esportes`, `hub-de-beneficios/familia` → `hub-familia`, `hub-de-beneficios/seguro-vida-previdencia` → `hub-previdencia`, `documentos/socio-low-detail` → `low-detail-socio`, `documentos/rg-cnh-frente-low-detail` → `low-detail-rg-cnh-frente`, `documentos/rg-cnh-verso-low-detail` → `low-detail-rg-cnh-verso`, `documentos/rg-papeis-low-detail` → `low-detail-rg-papeis`, `documentos/ctps-low-detail` → `low-detail-ctps`, `financas/cartao-bilhete-unico-low-detail` → `low-detail-cartao-bilhete-unico`, `financas/cartao-customizacao-low-detail` → `low-detail-cartao-customizacao`, `objetos/gema-rubi` → `premiacoes-gema-rubi`, `objetos/gema-esmeralda` → `premiacoes-gema-esmeralda`, `objetos/gema-ouro` → `premiacoes-gema-ouro`, `graficos-e-dashboards/pizza` → `grafico-pizza`, `graficos-e-dashboards/setores` → `grafico-setores`, `graficos-e-dashboards/barra` → `grafico-barra`, `graficos-e-dashboards/objetivo-1` → `graficos-objetivo-1`, `graficos-e-dashboards/objetivo-2` → `graficos-objetivo-2`, `graficos-e-dashboards/objetivo-3` → `graficos-objetivo-3`, `interfaces/lista` → `interface-lista`, `interfaces/assinatura` → `interface-assinatura`, `interfaces/nota-fiscal` → `interface-nota-fiscal`, `interfaces/carrossel` → `interface-carrossel`, `interfaces/customizacao` → `interface-customizacao`, `interfaces/planilha` → `interface-planilha`, `interfaces/home` → `interface-home`, `hero-hub-de-beneficios/seguros-previdencia` → `hero-hub-de-beneficios-seguro-previdencia`. |
+| Informativo | ilustracao-svg-difere | 12 ilustrações têm o desenho diferente do pacote além do arredondamento (posição no quadro ou forma; conferir qual é a atual): `autenticacao-ocr-cartao-2`, `financas-moeda-verde-1`, `financas-moeda-verde-2`, `financas-moeda-verde-3`, `financas-moeda-verde-4`, `hero-hub-de-beneficios-plano-saude`, `hero-hub-de-beneficios-alimentacao`, `hero-hub-de-beneficios-educacao`, `hero-hub-de-beneficios-plano-odonto`, `hero-hub-de-beneficios-mobilidade`, `hero-hub-de-beneficios-cajuzinho`, `hero-hub-de-beneficios-outros`. |
+| Informativo | motion-so-no-pacote | 44 animações Lottie no castanha-motion, ainda sem tab no playground (Animações volta ao Caju - Tema quando a lib existir). |
+
 ## Tokens
 
 Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`origin/staging`): **211 de 211** batem em nome e valor (light, dark e os três modos de viewport).

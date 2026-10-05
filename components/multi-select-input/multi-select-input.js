@@ -11,6 +11,7 @@
   class CdsMultiSelectInput extends CDS.SelectField {
     get multiple(){ return true; }
     get popoverGap(){ return 4; }
+    displayText(){ return ""; } // os valores ficam nos Input Chips; o campo é só a busca (com value inicial, não repete o 1º rótulo)
     buildTrailing(box){ this.classList.add("cds-tf--multi"); super.buildTrailing(box); }
   }
   CdsMultiSelectInput.define("cds-multi-select-input");

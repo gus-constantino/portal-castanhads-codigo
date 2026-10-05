@@ -89,7 +89,8 @@
       c.setAttribute(k, v === true ? "" : v === false ? "false" : v); // false → "false" (booleans do Figma ligados por padrão)
     });
     if (a._text != null) c.textContent = a._text;
-    (a._children || []).forEach(function(ch){ c.appendChild(example({ tag: ch._tag || "div" }, ch, true)); });
+    // filhos: os do exemplo; sem eles, os do base (ex.: <option> dos Select Inputs), só quando o exemplo é o próprio componente
+    (a._children || (!a._tag && doc.base && doc.base._children) || []).forEach(function(ch){ c.appendChild(example({ tag: ch._tag || "div" }, ch, true)); });
     if (!live) c.inert = true;
     return c;
   }

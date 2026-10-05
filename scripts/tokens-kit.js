@@ -101,13 +101,45 @@
     ["Accent", [["Solid", "--common-colors-accent-solid-"], ["Opacity", "--common-colors-accent-opacity-"]]],
     ["Neutral", [["Solid", "--common-colors-neutral-solid-"], ["Opacity · Soft", "--common-colors-neutral-opacity-soft-"], ["Opacity · Intense", "--common-colors-neutral-opacity-intense-"]]]
   ];
-  var COLOR_GROUPS = [
-    ["Surface", "--common-colors-surface-"],
-    ["Text", "--common-colors-text-"], ["Icons", "--common-colors-icons-"], ["Border", "--common-colors-border-"],
-    ["Feedback · Positive", "--common-colors-feedback-positive-"], ["Feedback · Warning", "--common-colors-feedback-warning-"],
-    ["Feedback · Negative", "--common-colors-feedback-negative-"], ["Feedback · Informative", "--common-colors-feedback-informative-"],
-    ["Support", "--common-colors-support-"], ["Decorative", "--common-colors-decorative-"]
-  ];
+  // ordem de escala do Figma (do mais claro ao mais intenso)
+  var STEPS = ["pale", "soft", "semi-soft", "mild", "medium", "semi-intense", "intense"], ALPHA = ["semi-transparent", "light", "medium", "intense", "semi-opaque"];
+  function stepOf(n){ var o = /opacity/.test(n) ? ALPHA : STEPS, m = n.match(/-(pale|semi-soft|soft|mild|medium|semi-intense|intense|semi-transparent|light|semi-opaque)$/); return m ? o.indexOf(m[1]) : 99; }
+  // tinta legível sobre a cor: Support/darker ou Support/lighter (constantes nos dois temas), pela luminância do valor atual
+  function ink(chip, n){
+    var v = val(n), m = v.match(/^#([0-9a-f]{6})([0-9a-f]{2})?$/i), dark = true;
+    if (m){ var c = [0, 2, 4].map(function(i){ var x = parseInt(m[1].substr(i, 2), 16) / 255; return x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4); });
+      var lum = 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2], a = m[2] ? parseInt(m[2], 16) / 255 : 1;
+      dark = a < 0.5 || lum > 0.4; }
+    chip.classList.toggle("is-ink-light", !dark); chip.classList.toggle("is-ink-dark", dark);
+  }
+  // Faixa contínua de uma escala: cada tom é um tile (copia o token) com nome e valor dentro da cor
+  function ramp(parent, title, prefix, keepOrder){
+    var list = pick(prefix); if (!list.length) return;
+    if (!keepOrder) list = list.slice().sort(function(a, b){ return stepOf(a) - stepOf(b); });
+    var row = parent.appendChild(el("div", "pg-tok-ramp-row" + (title ? "" : " is-solo")));
+    if (title) row.appendChild(el("span", "pg-tok-ramp__label", title));
+    var bar = row.appendChild(el("div", "pg-tok-ramp"));
+    list.forEach(function(n){
+      var chip = bar.appendChild(tile("pg-tok-chip", n));
+      // opacidade: o tom sobre o xadrez de transparência (Surface/default × Surface/01), como no Radix e no Figma
+      if (/opacity/.test(prefix)){ chip.classList.add("is-alpha"); chip.style.setProperty("--_tone", "var(" + n + ")"); }
+      else chip.style.background = "var(" + n + ")";
+      chip.dataset.ink = n; ink(chip, n);
+      chip.appendChild(el("span", "pg-tok-chip__name", label(n, prefix)));
+      chip.appendChild(el("span", "pg-tok-chip__hex", val(n))).dataset.token = n;
+    });
+  }
+  function rampSection(root, title, rows, keepOrder){
+    var total = rows.reduce(function(t, r){ return t + pick(r[1]).length; }, 0); if (!total) return;
+    var sec = section(root, title, total), box = sec.appendChild(el("div", "pg-tok-ramps"));
+    rows.forEach(function(r){ ramp(box, r[0], r[1], keepOrder); });
+  }
+  // Tokens semânticos mostrados em uso (texto, ícone, contorno) sobre Surface/default
+  function preview(root, title, prefix, paint){
+    var list = pick(prefix); if (!list.length) return;
+    var g = section(root, title, list.length).appendChild(grid("is-preview"));
+    list.forEach(function(n){ g.appendChild(item(n, prefix, function(sw){ sw.classList.add("pg-tok-prev"); paint(sw, n); })); });
+  }
   var swatch = function(sw, n){ sw.classList.add("pg-tok__swatch"); sw.style.background = "var(" + n + ")"; };
   var alpha = function(sw, n){ sw.classList.add("pg-tok__swatch", "is-alpha"); sw.style.setProperty("--_tone", "var(" + n + ")"); };
   // Opacity (como no Figma 4438:32): metade imagem, metade Accent sólido; um quadrado Support/darker atravessa o meio na opacidade do token
@@ -119,20 +151,19 @@
   };
 
   var RENDER = {
+    // Cores (referências: rampas contínuas do Tailwind/Radix, texto dentro da cor do Material/Wise, tokens semânticos
+    // mostrados em uso como no Primer/Polaris): escalas viram faixas que se expandem no hover; Text/Icons/Border viram prévias
     colors: function(root){
-      COLOR_FAMILIES.forEach(function(f){
-        var subs = f[1].map(function(sb){ return [sb[0], sb[1], pick(sb[1])]; }).filter(function(sb){ return sb[2].length; });
-        var total = subs.reduce(function(t, sb){ return t + sb[2].length; }, 0), sec = section(root, f[0], total);
-        subs.forEach(function(sb){
-          sec.appendChild(el("p", "pg-tok-sub", sb[0]));
-          var g = sec.appendChild(grid());
-          // opacidade: o tom aparece sobre a imagem de exemplo, para a transparência ficar visível
-          sb[2].forEach(function(n){ g.appendChild(item(n, sb[1], /opacity/.test(sb[1]) ? alpha : swatch)); });
-        });
-      });
+      COLOR_FAMILIES.forEach(function(f){ rampSection(root, f[0], f[1]); });
+      rampSection(root, "Feedback", [["Positive", "--common-colors-feedback-positive-"], ["Warning", "--common-colors-feedback-warning-"], ["Negative", "--common-colors-feedback-negative-"], ["Informative", "--common-colors-feedback-informative-"]]);
+      rampSection(root, "Surface", [["", "--common-colors-surface-"]], true);
+      preview(root, "Text", "--common-colors-text-", function(sw, n){ var t = sw.appendChild(el("span", "pg-tok-prev__text", "Aa")); t.style.color = "var(" + n + ")"; if (/inversed/.test(n)) sw.classList.add("is-inversed"); });
+      preview(root, "Icons", "--common-colors-icons-", function(sw, n){ var ic = sw.appendChild(document.createElement("cds-icon")); ic.setAttribute("icon", "notification-line"); ic.setAttribute("size", "large"); ic.setAttribute("aria-hidden", "true"); ic.style.setProperty("--cds-icon-color", "var(" + n + ")"); if (/inversed/.test(n)) sw.classList.add("is-inversed"); });
+      preview(root, "Border", "--common-colors-border-", function(sw, n){ var b = sw.appendChild(el("span", "pg-tok-prev__border")); b.style.borderColor = "var(" + n + ")"; });
+      rampSection(root, "Support e Decorative", [["Support", "--common-colors-support-"], ["Decorative", "--common-colors-decorative-"]], true);
       var charts = pick("--common-colors-charts-"), sets = {};
       charts.forEach(function(n){ var k = n.match(/charts-(\d+)/)[1]; (sets[k] = sets[k] || []).push(n); });
-      Object.keys(sets).forEach(function(k){ group(root, "Charts · " + k, sets[k], "--common-colors-charts-" + k + "-", swatch); });
+      rampSection(root, "Charts", Object.keys(sets).map(function(k){ return ["Charts " + k, "--common-colors-charts-" + k + "-"]; }));
     },
     font: function(root){
       var spec = function(prop, text){ return function(sw, n){ sw.classList.add("pg-tok__type"); sw.textContent = text; sw.style[prop] = "var(" + n + ")"; }; };
@@ -290,6 +321,7 @@
   };
   // Troca de tema: atualiza os valores exibidos (as amostras já seguem o var())
   new MutationObserver(function(){
-    [].forEach.call(document.querySelectorAll(".pg-tok-root code[data-token]"), function(c){ c.textContent = val(c.dataset.token); });
+    [].forEach.call(document.querySelectorAll(".pg-tok-root [data-token]"), function(c){ c.textContent = val(c.dataset.token); });
+    [].forEach.call(document.querySelectorAll(".pg-tok-root [data-ink]"), function(c){ ink(c, c.dataset.ink); });
   }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 })();

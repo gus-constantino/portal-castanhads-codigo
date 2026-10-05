@@ -83,7 +83,7 @@
       ,
       { id: "vocabulario", title: "Vocabulário e Nomenclatura", blocks: [
         { h2: "Glossário Caju" },
-        { p: "Definições dos principais termos usados nos produtos da Caju tanto no texto da interface quanto em comunicações com pessoas usuárias." },
+        { p: "Definições dos principais termos usados nos produtos da Caju — tanto no texto da interface quanto em comunicações com pessoas usuárias." },
         { p: "Não encontrou um termo ou quer sugerir uma correção? Fale com o time de Content no canal #content-suporte." },
         { glossary: { label: "Buscar no glossário", placeholder: "Termo ou definição (ex.: cartão, acesso, pix)", letters: {
           A: [
@@ -91,12 +91,12 @@
             ["Acesso por reconhecimento facial", "Acesso no aplicativo através do reconhecimento facial, digital ou pela senha do celular.", "\"acesso por biometria\" ou \"acesso por autenticação\"."],
             ["Adiantamentos", "Saldo depositado em Despesas para gastos corporativos. O depósito é feito antes do gasto, por isso se chama adiantamento."],
             ["Ajuste de crédito", "Ajuste em uma cobrança no cartão feito pelo estabelecimento. Pode ser positivo (ex: estorno de um item não disponível) ou negativo."],
-            ["Alterar empresa", "Alteração do perfil da empresa no app para colaboradores. A pessoa pode usar o mesmo cartão físico para todas as empresas cadastradas.", "\"trocar empresa\" esse termo está vinculado à troca de carteiras."],
+            ["Alterar empresa", "Alteração do perfil da empresa no app para colaboradores. A pessoa pode usar o mesmo cartão físico para todas as empresas cadastradas.", "\"trocar empresa\" — esse termo está vinculado à troca de carteiras."],
             ["App da Caju para colaboradores", "Nome completo da plataforma mobile da Caju. Pode ser abreviado para \"app para colaboradores\" ou \"app\" quando o espaço for limitado.", "\"employee app\" ou \"mobile\"."],
             ["Aproximação", "Pagamento com o cartão físico sem inserir o cartão na maquininha. Todos os cartões vêm com aproximação habilitada por padrão."],
             ["Autenticação em 2 etapas", "Segunda camada de proteção no app, confirmada por e-mail ou celular. É diferente do reconhecimento facial.", "\"verificação por 2 fatores\"."],
             ["Autorizar dispositivo", "Procedimento de segurança que permite o acesso ao app apenas em um dispositivo por vez.", "\"validar celular\"."],
-            ["Autorizar empresa", "Quando a pessoa já teve cadastro na Caju em outra empresa, ela não precisa se cadastrar novamente apenas autoriza a nova empresa a acessar seus dados e fazer depósitos."],
+            ["Autorizar empresa", "Quando a pessoa já teve cadastro na Caju em outra empresa, ela não precisa se cadastrar novamente — apenas autoriza a nova empresa a acessar seus dados e fazer depósitos."],
             ["Auxílio Alimentação", "Categoria de benefícios para compras em restaurantes, mercados, açougues, padarias, hortifrutis, lanchonetes e apps de delivery."]
           ],
           B: [
@@ -104,14 +104,14 @@
           ],
           C: [
             ["Cadastro", "Etapa de cadastro no app feita pela pessoa colaboradora.", "\"ativar conta\"."],
-            ["Cartão físico / Cartão Caju / Cartão do Colaborador", "Nome do cartão físico de Multibenefícios e Despesas para colaboradores. Use Cartão do Colaborador apenas no contexto de Sponsor app. Não deve aparecer em employee.", "\"plástico\" ou \"Cajuzinho\" reservados para comunicações de marketing."],
+            ["Cartão físico / Cartão Caju / Cartão do Colaborador", "Nome do cartão físico de Multibenefícios e Despesas para colaboradores. Use ”Cartão do Colaborador” apenas no contexto de Sponsor app. Não deve aparecer em employee.", "\"plástico\" ou \"Cajuzinho\" — reservados para comunicações de marketing."],
             ["Cartão virtual", "Sempre especifique se o cartão virtual é de Despesas ou de Benefícios."],
             ["Carteiras", "\"Bolsões\" de saldo. Hoje temos duas: Benefícios e Despesas. Para usar o saldo de uma carteira, ela precisa estar selecionada no app."],
-            ["Carteiras digitais / wallets", "Apps como Samsung Wallet, Google Pay e Apple Pay, onde é possível adicionar o cartão virtual da Caju para pagamentos pelo celular.", "\"carteiras\" sozinho pode confundir com as carteiras de Benefícios e Despesas."],
+            ["Carteiras digitais / wallets", "Apps como Samsung Wallet, Google Pay e Apple Pay, onde é possível adicionar o cartão virtual da Caju para pagamentos pelo celular.", "\"carteiras\" sozinho — pode confundir com as carteiras de Benefícios e Despesas."],
             ["Categorias", "Definem em que tipo de estabelecimento o saldo pode ser usado. Podem ter saldo fixo ou flexível, conforme definido pela empresa."],
             ["Código de autenticação", "Código numérico de 6 dígitos enviado para o e-mail ou celular cadastrado para validar a tentativa de acesso.", "\"código de verificação\"."],
             ["Código de ativação", "Código numérico de 16 dígitos no verso do cartão físico, usado uma única vez para ativar o cartão."],
-            ["Conta Caju", "Área para transferências via Pix, saques e pagamento de boletos. Reúne valores de Premiações, reembolsos de Despesas e depósitos de diferentes empresas em um único lugar. A tarifa é de 1,99% sobre o valor depositado pela empresa pacote que inclui Pix, boleto e saque, independente do porte da empresa.", "\"Saldo Caju\" nome descontinuado."],
+            ["Conta Caju", "Área para transferências via Pix, saques e pagamento de boletos. Reúne valores de Premiações, reembolsos de Despesas e depósitos de diferentes empresas em um único lugar. A tarifa é de 1,99% sobre o valor depositado pela empresa — pacote que inclui Pix, boleto e saque, independente do porte da empresa.", "\"Saldo Caju\" — nome descontinuado."],
             ["Contestação", "Quando a pessoa não reconhece uma transação no cartão ou no Pix, ela pode abrir uma contestação para receber o valor de volta, caso a fraude seja confirmada pela Caju."],
             ["Contratar", "Termo usado para a adesão de um dos produtos da Caju."],
             ["Crédito de confiança", "Valores recebidos de volta de pagamentos feitos com o cartão, originados de contestações. Aparece como positivo no extrato como Depósito. Se confirmado que não houve fraude, é feito o Resgate do crédito de confiança."],
@@ -124,7 +124,7 @@
           ],
           E: [
             ["Educação", "Categoria de benefícios para cursos online, idiomas e ensino técnico e superior."],
-            ["Envio de saldo", "Envio de saldo flexível entre categorias na carteira de Benefícios. Substituiu \"Transferir saldo entre categorias\" com o lançamento do Pix o termo \"transferir\" ficou reservado para transações Pix."],
+            ["Envio de saldo", "Envio de saldo flexível entre categorias na carteira de Benefícios. Substituiu \"Transferir saldo entre categorias\" com o lançamento do Pix — o termo \"transferir\" ficou reservado para transações Pix."],
             ["Estorno", "Valores reembolsados por estabelecimentos em compras feitas com o cartão físico ou virtual. O valor devolvido aparece riscado no extrato."]
           ],
           F: [
@@ -139,7 +139,7 @@
             ["Multi", "Categoria que reúne todas as categorias de benefícios em uma só. A empresa deposita saldo sem precisar distribuir entre categorias específicas."]
           ],
           P: [
-            ["Pix", "Sistema de pagamento instantâneo para transferências e pagamentos a qualquer hora e dia da semana. Na Caju, disponível apenas para pessoas com Saldo Caju.", "\"pix\" com p minúsculo regra do BACEN."],
+            ["Pix", "Sistema de pagamento instantâneo para transferências e pagamentos a qualquer hora e dia da semana. Na Caju, disponível apenas para pessoas com Saldo Caju.", "\"pix\" com p minúsculo — regra do BACEN."],
             ["Portal da Caju para colaboradores", "Nome completo da plataforma web da Caju para colaboradores. Pode ser abreviado para \"Portal para colaboradores\". Sempre com P maiúsculo."],
             ["Portal da Caju para empresas", "Nome completo da plataforma web da Caju para empresas. Pode ser abreviado para \"Portal para empresas\" ou \"Portal\". Sempre com P maiúsculo.", "\"sponsor app\"."],
             ["Pré-cadastro", "Processo de cadastro dos dados do colaborador dentro do Portal para empresas pelo RH. A pessoa colaboradora ainda precisa realizar o cadastro no app depois."],
@@ -161,7 +161,7 @@
             ["Senha temporária", "Senha numérica enviada por e-mail ou SMS para o primeiro acesso no app."]
           ],
           T: [
-            ["Tarifa", "Custo cobrado por um serviço ou operação financeira.", "\"taxa\" confira as regras completas em Porcentagens e tarifas."],
+            ["Tarifa", "Custo cobrado por um serviço ou operação financeira.", "\"taxa\" — confira as regras completas em Porcentagens e tarifas."],
             ["Termo de autorização para abertura de conta", "Documento enviado para menores de idade, onde o responsável legal assina e autoriza o cadastro na Caju."],
             ["Transações", "Pagamentos feitos com o Cartão Caju."]
           ],
@@ -172,9 +172,9 @@
         } } },
 
         { h2: "Naming de produto e funcionalidades" },
-        { p: "Naming é o processo de dar nome às coisas. Mais importante que o nome em si são o significado, as associações e os sentimentos que ele desperta. Um bom nome não é escolhido ele é construído a partir de um processo." },
+        { p: "Naming é o processo de dar nome às coisas. Mais importante que o nome em si são o significado, as associações e os sentimentos que ele desperta. Um bom nome não é escolhido — ele é construído a partir de um processo." },
         { h3: "Tipos de nome" },
-        { table: { head: ["Tipo", "Definição", "Exemplos"], rows: [
+        { table: { wrap: true, head: ["Tipo", "Definição", "Exemplos"], rows: [
           ["Descritivo", "Descreve o que o produto faz. Didático e de interpretação rápida. Indicado para públicos técnicos e relacionamentos B2B.", "Google Ads, Telefonica"],
           ["Associativo", "Não descreve literalmente, mas sugere por associação.", "iFood, Waze, Spotify"],
           ["Antropônimo", "Nome de pessoa — geralmente o criador da marca. Depende de uma personalidade forte e reconhecida.", "Lacoste, Walt Disney"],
@@ -184,7 +184,7 @@
         ] } },
         { h3: "O processo de naming" },
         { steps: [
-          { title: "Nomeie o projeto", text: "Antes de nomear o produto, dê um nome temporário ao projeto isso evita que o nome do projeto vire o nome do produto por falta de alternativa. Use termos internos ou criativos: \"Projeto Engajamento\", \"Projeto HCM\"." },
+          { title: "Nomeie o projeto", text: "Antes de nomear o produto, dê um nome temporário ao projeto — isso evita que o nome do projeto vire o nome do produto por falta de alternativa. Use termos internos ou criativos: \"Projeto Engajamento\", \"Projeto HCM\"." },
           { title: "Defina o tipo de nome", text: "Responda:", list: [
             "Qual tipo de nome é mais adequado para essa funcionalidade ou produto?",
             "Cite 2 exemplos de nomes de produto que podem servir de referência.",
@@ -192,16 +192,16 @@
           ] },
           { title: "Conecte com a essência da marca", text: "O nome precisa conversar com os atributos da Caju: facilidade, versatilidade e brasilidade. Quando não souber por onde começar, volte para esses três pilares." },
           { title: "Defina as associações pretendidas", text: [
-            "Que mensagens e sensações você quer que o nome transmita? Coloque o nome do projeto no centro de um mindmap e mapeie as associações que quer criar e depois justifique por que a pessoa usuária acreditaria nessas associações a partir do que o produto faz.",
+            "Que mensagens e sensações você quer que o nome transmita? Coloque o nome do projeto no centro de um mindmap e mapeie as associações que quer criar — e depois justifique por que a pessoa usuária acreditaria nessas associações a partir do que o produto faz.",
             "Esse exercício também serve para validar o nome escolhido: se o nome não sustenta as associações que você listou, ele provavelmente não é o certo."
           ] },
-          { title: "Brainstorming", text: "Envolva pessoas de fora do contexto do time elas estarão livres de vícios que o time pode ter desenvolvido em relação ao tema. Sugestão de dinâmica:", list: [
-            "20 min contextualize os participantes: o que o produto resolve, quem é o público, como conversa com a estratégia da Caju.",
-            "30 min geração livre de nomes em um quadro no Miro ou FigJam.",
-            "30 min cada participante explica seu racional."
-          ], after: "Importante: Não use estrangeirismos confira as regras em Termos para evitar." },
+          { title: "Brainstorming", text: "Envolva pessoas de fora do contexto do time — elas estarão livres de vícios que o time pode ter desenvolvido em relação ao tema. Sugestão de dinâmica:", list: [
+            "20 min — contextualize os participantes: o que o produto resolve, quem é o público, como conversa com a estratégia da Caju.",
+            "30 min — geração livre de nomes em um quadro no Miro ou FigJam.",
+            "30 min — cada participante explica seu racional."
+          ], after: "Importante: Não use estrangeirismos — confira as regras em Termos para evitar." },
           { title: "Categorize os nomes", text: [
-            "Depois da dinâmica, agrupe os nomes por tipo e por atributo. Ainda não é hora de eliminar registre tudo.",
+            "Depois da dinâmica, agrupe os nomes por tipo e por atributo. Ainda não é hora de eliminar — registre tudo.",
             "Monte uma tabela cruzando tipo de nome (horizontal) com atributos e associações (vertical). Isso vai facilitar a seleção na próxima etapa."
           ] },
           { title: "Filtro e seleção", text: "Com a tabela em mãos, faça rodadas eliminatórias com seus stakeholders. A cada rodada, questione:", list: [
@@ -209,8 +209,8 @@
             "Qual atributo é mais essencial?",
             "O nome conflita com algum produto ou funcionalidade já existente na Caju?",
             "Há riscos jurídicos?"
-          ], after: "Registre o resultado de cada rodada você pode precisar resgatar um nome que ficou pelo caminho." },
-          { title: "Critérios de desempate", text: "Ainda dividido entre dois nomes? Avalie:", table: { head: ["Critério", "Pergunta"], rows: [
+          ], after: "Registre o resultado de cada rodada — você pode precisar resgatar um nome que ficou pelo caminho." },
+          { title: "Critérios de desempate", text: "Ainda dividido entre dois nomes? Avalie:", table: { wrap: true, head: ["Critério", "Pergunta"], rows: [
             ["Elasticidade", "Como esse nome se comporta no ecossistema de produtos da Caju?"],
             ["Som e imagem", "Quais significados e associações ele carrega — inclusive os indesejados?"],
             ["Longevidade", "O nome vai envelhecer bem? Evite nomes ligados a tecnologias específicas."],
@@ -219,35 +219,35 @@
         ] },
         { h3: "Prompt para IA" },
         { p: "Não tem tempo para o processo completo? Use o prompt abaixo para funcionalidades de baixa complexidade." },
-        { alert: { appearance: "warning", label: "Atenção", text: "A etapa de filtro e seleção não pode ser delegada para a IA ela precisa ser feita com o time e stakeholders." } },
+        { alert: { appearance: "warning", label: "Atenção", text: "A etapa de filtro e seleção não pode ser delegada para a IA — ela precisa ser feita com o time e stakeholders." } },
         { p: "Como usar: cole o prompt no Claude ou no Gemini e responda as perguntas conforme forem sendo feitas." },
-        { code: "CONTEXTO\nVocê é um assistente para o processo de naming de funcionalidades e produtos na Caju. Você vai rodar um framework e ao final chegaremos a no mínimo 5 opções de nomes para que o time tome a decisão.\n\nPROCESSO\n1. Pergunte o nome temporário do projeto.\n2. Pergunte qual tipo de nome é mais adequado (Descritivo, Associativo, Antropônimo, Topônimo, Acrônimo ou Transgressor).\n3. Pergunte quais atributos da Caju o produto deve reforçar (facilidade, versatilidade, brasilidade ou outros).\n4. Pergunte quais associações e sensações o nome deve transmitir.\n5. Gere uma lista de nomes com base nas respostas.\n6. Pergunte se quer novas opções. Peça para escolher no mínimo 5 nomes para continuar.\n7. Com os 5 nomes escolhidos, monte uma tabela cruzando tipo de nome (horizontal) com atributos e associações (vertical).\n8. Informe que o processo de filtro e validação precisa ser feito com o time essa etapa não pode ser delegada para a IA.\n\nRESTRIÇÕES\nNão sugira os seguintes termos: Benefícios, Ciclos, Caju Mais, Hub, Multibenefícios.\nNão use estrangeirismos." },
+        { code: "CONTEXTO\nVocê é um assistente para o processo de naming de funcionalidades e produtos na Caju. Você vai rodar um framework e ao final chegaremos a no mínimo 5 opções de nomes para que o time tome a decisão.\n\nPROCESSO\n1. Pergunte o nome temporário do projeto.\n2. Pergunte qual tipo de nome é mais adequado (Descritivo, Associativo, Antropônimo, Topônimo, Acrônimo ou Transgressor).\n3. Pergunte quais atributos da Caju o produto deve reforçar (facilidade, versatilidade, brasilidade ou outros).\n4. Pergunte quais associações e sensações o nome deve transmitir.\n5. Gere uma lista de nomes com base nas respostas.\n6. Pergunte se quer novas opções. Peça para escolher no mínimo 5 nomes para continuar.\n7. Com os 5 nomes escolhidos, monte uma tabela cruzando tipo de nome (horizontal) com atributos e associações (vertical).\n8. Informe que o processo de filtro e validação precisa ser feito com o time — essa etapa não pode ser delegada para a IA.\n\nRESTRIÇÕES\nNão sugira os seguintes termos: Benefícios, Ciclos, Caju Mais, Hub, Multibenefícios.\nNão use estrangeirismos." },
 
         { h2: "Termos para evitar" },
         { p: "Esta página reúne os termos que não usamos nos produtos da Caju e os motivos para cada escolha. Quando houver dúvida entre dois termos, consulte também o Glossário Caju." },
         { h3: "Estrangeirismos" },
-        { p: "Palavras estrangeiras vão contra a brasilidade um dos pilares da marca Caju. Além disso, leitores de tela leem no idioma em que estão configurados, o que pode comprometer a acessibilidade." },
-        { table: { head: ["Não use", "Use"], rows: [
+        { p: "Palavras estrangeiras vão contra a brasilidade — um dos pilares da marca Caju. Além disso, leitores de tela leem no idioma em que estão configurados, o que pode comprometer a acessibilidade." },
+        { table: { wrap: true, head: ["Não use", "Use"], rows: [
           ["Download", "Baixar"], ["Feedback", "Sugerir, sugestão"], ["Gift", "Cartão-presente, premiação"], ["Login", "Entrar, acessar"], ["MFA", "Código de autenticação"],
           ["Status", "Situação, andamento — exceção: permitido em documentação interna e nomes de categoria"], ["Upgrade", "Melhorar, aumentar, evoluir"], ["Upload", "Carregar"],
           ["Tips", "Dicas"], ["Dashboard", "Painel"], ["Overview", "Resumo"]
         ] } },
         { h3: "Verbos sensoriais" },
         { p: "Verbos sensoriais descrevem os cinco sentidos e são comuns na linguagem cotidiana, mas criam barreiras de acessibilidade e inclusão. Nem todas as pessoas experienciam o mundo da mesma forma." },
-        { table: { head: ["Não use", "Use"], rows: [
+        { table: { wrap: true, head: ["Não use", "Use"], rows: [
           ["Ver, visualizar", "Conferir, mostrar, abrir, acessar"], ["Ver mais", "Abrir {variável}, acessar {variável}"], ["Prove a experiência", "Explore, descubra"], ["Ouvir", "Reproduzir, tocar"]
         ] } },
         { h3: "Gírias, jargões e regionalismos" },
-        { p: "A Caju usa gírias e regionalismos no branding mas não no produto. Na interface, precisamos garantir o entendimento de todas as pessoas usuárias, independente de região ou contexto." },
+        { p: "A Caju usa gírias e regionalismos no branding — mas não no produto. Na interface, precisamos garantir o entendimento de todas as pessoas usuárias, independente de região ou contexto." },
         { p: "Nosso estilo é simples e humano, mas isso não é uma abertura para termos conhecidos apenas por uma bolha ou região." },
-        { table: { head: ["Não use", "Por quê"], rows: [
+        { table: { wrap: true, head: ["Não use", "Por quê"], rows: [
           ["Desenrolar, resolver na mão", "Jargão informal que pode soar descuidado em contextos financeiros"],
           ["Vixe, Ops", "Interjeições regionais ou infantis — evite em qualquer momento"],
           ["Mandar ver, arrasar", "Gírias que podem não ser compreendidas por toda a base"]
         ] } },
         { h3: "Termos que causam ansiedade ou perda de confiança" },
-        { p: "Algumas palavras tecnicamente corretas geram reações negativas nas pessoas usuárias confirmado em pesquisas realizadas no Maze. Prefira sempre as alternativas." },
-        { table: { head: ["Não use", "Use", "Por quê"], rows: [
+        { p: "Algumas palavras tecnicamente corretas geram reações negativas nas pessoas usuárias — confirmado em pesquisas realizadas no Maze. Prefira sempre as alternativas." },
+        { table: { wrap: true, head: ["Não use", "Use", "Por quê"], rows: [
           ["Bloqueado", "Temporariamente limitado", "\"Bloqueado\" soa como punição"],
           ["Agora", "—", "Palavras de comando aumentam a ansiedade"],
           ["Libere", "—", "Mesmo efeito de \"Agora\""],
@@ -257,7 +257,7 @@
         ] } },
         { h3: "Termos internos" },
         { p: "Termos usados internamente pelo time da Caju que não devem aparecer no produto ou em comunicações com pessoas usuárias." },
-        { table: { head: ["Não use", "Use"], rows: [
+        { table: { wrap: true, head: ["Não use", "Use"], rows: [
           ["Employee app", "App da Caju para colaboradores, app para colaboradores"], ["Sponsor app", "Portal da Caju para empresas, Portal para empresas"],
           ["Feature", "Funcionalidade"], ["BU", "Área, unidade de negócio"], ["Cajuzinho", "Cartão físico de Benefícios"], ["Plástico", "Cartão físico de Benefícios"],
           ["2ª via", "Novo cartão"], ["Conta digital", "Conta Caju"]
@@ -267,15 +267,15 @@
         { h3: "Siglas" },
         { ul: [
           "Sempre escreva o nome completo na primeira menção, seguido da sigla entre parênteses. Nas menções seguintes, use apenas a sigla.",
-          "Use caixa alta para siglas nunca minúsculo.",
+          "Use caixa alta para siglas — nunca minúsculo.",
           "Não use ponto entre as letras."
         ] },
-        { table: { head: ["Faça", "Não faça"], rows: [
+        { table: { wrap: true, head: ["Faça", "Não faça"], rows: [
           ["O custo efetivo total (CET) inclui todas as tarifas. O CET é calculado anualmente.", "O C.E.T. inclui todas as tarifas."], ["IOF", "I.O.F."]
         ] } },
         { h3: "Siglas da Caju" },
         { p: "Algumas siglas são usadas com frequência nos produtos da Caju. Sempre que aparecerem pela primeira vez em uma tela ou comunicação, escreva o nome completo." },
-        { table: { head: ["Sigla", "Nome completo"], rows: [
+        { table: { wrap: true, head: ["Sigla", "Nome completo"], rows: [
           ["CPF", "Cadastro de Pessoas Físicas"], ["CNPJ", "Cadastro Nacional da Pessoa Jurídica"], ["CET", "Custo Efetivo Total"], ["IOF", "Imposto sobre Operações Financeiras"],
           ["MCC", "Merchant Category Code — código de categoria do estabelecimento"], ["OTP", "Código de uso único — use sempre \"código de autenticação\" no produto"],
           ["RG", "Registro Geral"], ["PIX", "Pagamentos Instantâneos — sempre com P maiúsculo, por regra do BACEN"]
@@ -283,11 +283,116 @@
         { h3: "Abreviações de data e hora" },
         { p: "Use abreviações apenas quando o componente não permitir o nome completo. Sempre com primeira letra maiúscula. Confira mais detalhes em Data e horários." },
         { h3: "O que não abreviamos" },
-        { p: "Alguns termos são abreviados no mercado mas não usamos na Caju ou porque geram confusão, ou porque conflitam com outros termos." },
-        { table: { head: ["Não use", "Use"], rows: [
+        { p: "Alguns termos são abreviados no mercado mas não usamos na Caju — ou porque geram confusão, ou porque conflitam com outros termos." },
+        { table: { wrap: true, head: ["Não use", "Use"], rows: [
           ["2ª via", "Novo cartão"], ["Tel, Fone", "Celular, número de celular"], ["Qtd", "Quantidade"], ["Nº", "Use \"#\" para número de pedido no Sponsor. Nas demais situações, escreva por extenso"]
         ] } },
         { note: "Fonte: Figma · 📁 [NEW] Content → Vocabulário e Nomenclatura (Glossário Caju, Naming de produto e funcionalidades, Termos para evitar, Abreviação e siglas). As tabelas são imagens no Figma e foram transcritas como texto (C112)." }
+      ] }
+      ,
+      { id: "formatacao", title: "Formatação de dados", blocks: [
+        { h2: "Valores monetários e moedas" },
+        { ul: [
+          "Valores negativos (saídas, débitos, estornos) usam o símbolo de subtração (`−`), não o hífen (`-`) nem o travessão (`—`). O hífen impacta a leitura de tela.",
+          "Sempre mostre as casas decimais, mesmo sem centavos quebrados. Isso garante consistência, especialmente em tabelas.",
+          "Deixe um espaço entre o símbolo R$ e o número.",
+          "Use vírgula para separar as casas decimais.",
+          "Use numerais. Nunca escreva o valor por extenso.",
+          "Números acima de 3 dígitos recebem ponto na casa do milhar. Não use \"k\" para substituir \"mil\".",
+          "Se o número for muito extenso e não couber no componente, diminua o tamanho da fonte até o mínimo permitido pelo Castanha ou use tooltip para exibir o valor completo ao passar o cursor."
+        ] },
+        { h3: "Aplicações" },
+        { table: { wrap: true, head: ["Exemplo", "Onde"], rows: [
+          ["`Caiu reembolso R$ 25,80`", "Extrato"],
+          ["`Existe uma tarfia de R$ 1,99 para depósitos em Saldo Livre.`", "Alert"],
+          ["`Pix enviado −R$ 45,00`", "Extrato"],
+          ["`Compra no cartão −R$ 131,44`", "Extrato"],
+          ["`Pix de R$ 1.000,00 para Juca Castanha •••.456.789-•• enviado.`", "Push notification"]
+        ] } },
+        { p: "Para regras de mascaramento de valores em comprovantes e extratos, consulte Mascaramento e omissão de dados." },
+
+        { h2: "Códigos e dados pessoais" },
+        { p: "Nesta seção, você consulta como formatar alguns dados. Para regras de mascaramento, consulte Mascaramento e omissão de dados." },
+        { table: { wrap: true, head: ["Dado", "Como apresentar"], rows: [
+          ["Cartões", "O cartão tem xx dígitos numéricos. Apresente em blocos de"],
+          ["Código de ativação", "Apresente em blocos de 4 números separados por espaço."],
+          ["Código de autenticação", "Códigos de 6 dígitos. Apresente todos os números seguidos, sem espaçamento."],
+          ["Senha do cartão", "Senha de 4 números. Apresente todos os números seguidos, sem espaçamento."],
+          ["Celular", "Use sempre o formato com DDD. Ao pedir o número como input, oriente que o DDD é obrigatório. Use o termo \"celular\" ou \"número de celular\" — nunca \"telefone\"."]
+        ] } },
+        { h3: "Aplicações" },
+        { table: { wrap: true, head: ["Exemplo", "Onde"], rows: [
+          ["`Informe o código de autenticação: 123456`", "Código de autenticação"],
+          ["`Seu código de ativação é: 123 456 789 101 112`", "Código de ativação"],
+          ["`(99) 9 9999-9999`", "Celular"]
+        ] } },
+
+        { h2: "Datas e horários" },
+        { p: "Use o formato de acordo com o espaço disponível no componente." },
+        { h3: "Datas" },
+        { ul: [
+          "Formato completo: `01 de janeiro de 2025`",
+          "Formato compacto: `01/12/2025` ou `12/25`",
+          "Se o componente não permitir o nome completo, use abreviações com a primeira letra maiúscula. Exemplo: `Segunda = Seg`, `Janeiro = Jan`",
+          "No extrato, use o formato completo. Se a transação for do ano atual, omita o ano. Exemplo: `04 de janeiro`",
+          "Em comprovantes, use hífen para separar data de hora. Exemplo: `12/12/25 - 14:05`"
+        ] },
+        { h3: "Horários" },
+        { ul: [
+          "Use dois pontos para separar horas dos minutos.",
+          "Use o modelo de 24 horas para evitar ambiguidades. Exemplo: `12:00` (meio-dia), `00:00` (meia-noite)",
+          "Para indicar faixa de horário, escreva por extenso, nunca use traço. Exemplo: `das 08:00 às 18:00`",
+          "Para falar de prazo, use o \"h\" minúsculo junto ao numeral. Exemplo: `Em até 2h úteis`",
+          "No Pix, por regra do BACEN, mostre também os segundos. Exemplo: `14:05:32`"
+        ] },
+
+        { h2: "Quantidades e unidades" },
+        { h3: "Numerais" },
+        { ul: [
+          "Use numerais em vez de escrever o número por extenso. Números são informações importantes e ficam mais fáceis de escanear em formato numérico. Exemplo: `Você tem 3 cartões virtuais ativos`",
+          "Escreva por extenso apenas quando o número fizer parte de uma expressão da língua portuguesa. Exemplo: `A Caju tem mil e uma utilidades`"
+        ] },
+        { h3: "Parcelas e repetições" },
+        { p: "Use o símbolo × (vezes) — nunca a letra \"x\". Em leitores de tela, o \"x\" minúsculo pode confundir a pessoa usuária. Exemplo: `Parcele em até 12×`" },
+        { h3: "Intervalos" },
+        { p: "Use preposição para indicar intervalos, nunca símbolo de hífen. Exemplo: `de 1 a 12 parcelas`, `de R$ 50,00 a R$ 200,00`" },
+        { h3: "Unidades de medida digital" },
+        { p: "Use a abreviação padrão junto ao numeral, sem espaço. Exemplo: `Carregue um arquivo de até 1GB`" },
+        { h3: "Prazos" },
+        { ul: [
+          "Use o \"h\" minúsculo junto ao numeral para indicar horas em prazos. Para minutos, escreva por extenso. Exemplo: `Em até 2h úteis`, `Em até 30 minutos`",
+          "Prazos em dias sempre devem especificar se são dias úteis ou corridos."
+        ] },
+
+        { h2: "Mascaramento e omissão de dados" },
+        { ul: [
+          "Use mascaramento sempre que um dado sensível precisar aparecer na tela, mas não pode estar completamente visível.",
+          "Use sempre bullet points (`•`) para mascarar. Nunca asterisco (`*`) nem elipse (`...`)."
+        ] },
+        { h3: "O que mostrar" },
+        { table: { wrap: true, head: ["Dado", "Regra"], rows: [
+          ["CPF", "De acordo com o BACEN, mostre os 6 números do meio — `•••.456.789-••`"],
+          ["Números do cartão", "Mostre apenas os 4 últimos números — `•••• •••• •••• 1234`"],
+          ["Celular", "Não precisa mascarar"],
+          ["E-mail", "Mostre apenas o provedor (gmail) e a 1ª e as 2 últimas letras do e-mail - `j•••••••••sd@gmai.com`"],
+          ["Push notification", "`Pix de R$ 1.000,00 para Juca Castanha •••.456.789-•• enviado.`"]
+        ] } },
+
+        { h2: "Porcentagens e tarifas" },
+        { p: "Use o formato de acordo com o espaço disponível no componente." },
+        { h3: "Porcentagens" },
+        { ul: [
+          "Use sempre o símbolo % — nunca escreva \"por cento\" por extenso.",
+          "Use vírgula para separar casas decimais. Exemplo: `Tarifa de 1,99% para depósitos em Conta Caju`",
+          "Em tabelas, alinhe porcentagens à direita.",
+          "Para exibir uma faixa de valores use preposição, nunca hífen. Exemplo: `A tarifa pode variar de 1,99% a 3,50%`"
+        ] },
+        { h3: "Tarifas" },
+        { ul: [
+          "Use sempre a palavra \"tarifa\" — nunca \"taxa\".",
+          "Quando não houver tarifa, use ”Sem tarifa” ou ”Isento de tarifa”."
+        ] },
+        { note: "Fonte: Figma · 📁 [NEW] Content → Formatação de dados (Valores monetários e moedas, Códigos e dados pessoais, Datas e horários, Quantidades e unidades, Mascaramento e omissão de dados, Porcentagens e tarifas). Exemplos em `código`, como no Figma (C113)." }
       ] }
     ]
   };

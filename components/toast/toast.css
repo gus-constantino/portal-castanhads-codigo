@@ -22,3 +22,10 @@ cds-toast > cds-close-toast{ grid-area:close; }
   grid-template-columns:auto minmax(0,1fr) auto; grid-template-areas:"icon . close" "text text text";
   row-gap:var(--common-sizes-12); padding:var(--common-sizes-24) var(--common-sizes-20); border-radius:var(--common-border-radius-none);
 }
+/* Motion (zeroheight · D145): Entrada expressive/decelerate · long/02 (sem Motion Style) · Saída Selected Out/01
+   O Figma não especifica o movimento: opacidade + 8px na vertical */
+@keyframes cds-toast-in{ from{ opacity:0; transform:translateY(var(--common-sizes-8)); } }
+cds-toast{ animation:cds-toast-in var(--common-motion-duration-long-02) var(--common-motion-easing-expressive-decelerate); }
+cds-toast[closing]{ opacity:0; transform:translateY(var(--common-sizes-8)); pointer-events:none;
+  transition:opacity var(--motion-selected-out-01-timing) var(--motion-selected-out-01-easing), transform var(--motion-selected-out-01-timing) var(--motion-selected-out-01-easing); }
+@media (prefers-reduced-motion:reduce){ cds-toast{ animation:none; } cds-toast[closing]{ transition:none; } }

@@ -60,7 +60,8 @@
           "O alvo de clique é o chip de 40px, não o ícone de 16px (WCAG 2.5.8).",
           "`Tab` leva ao chip; `Enter` ou `Espaço` removem.",
           "Os ícones são decorativos.",
-          "Depois de remover, leve o foco para o próximo chip (ou para o campo, se não sobrar nenhum): o componente não faz isso sozinho."
+          "Sozinho, o chip não move o foco (como o `Chips.Input` do castanha-react): o `cds-remove` informa `keyboard` para quem usa decidir.",
+          "No Multi Select Input vale a regra do SelectInput do castanha-react: removido pelo teclado, o foco vai para o próximo chip ou, sem chip ali, para o campo; pelo mouse, para o campo. `Backspace` e `Delete` no chip também removem."
         ] },
         { h2: "Contraste (WCAG)" },
         { ul: ["Label e ícones (Text/medium e Icons/medium sobre Surface/01): 7,42:1 — AA e AAA.", "Borda (Border/semi-soft) sobre Surface/default: 1,25:1; no Hovered (Border/medium): 2,78:1 — abaixo de 3:1; o Label e o close-line identificam o chip."] },

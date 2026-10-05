@@ -75,7 +75,7 @@ window.CDS_EXPECTED = {
   "multi-select-input": { w: 320, h: 100, src: "13795:4984" },
   "breadcrumb-item":   { w: 75, h: 48, src: "6713:3 · Default · Is Active · 16 + 55 + pad 4" },
   "breadcrumb":        { w: 423, h: 48, src: "6792:24 · itens 48 + 5×75 (o frame do Figma é fixo em 434, C48)" },
-  "tab-item":          { w: 55, h: 48, src: "6498:375" },
+  "tab-item":          { w: 75, h: 48, src: "6498:375 · com Show Badge (padrão True)" },
   "fixed-tab":         { w: 320, h: 48, src: "6500:6958" },
   "scrollable-tab":    { w: 320, h: 48, src: "6646:181" },
   "tab-view":          { w: 120, h: 64, src: "15713:2488" },

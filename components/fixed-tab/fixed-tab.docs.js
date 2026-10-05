@@ -58,10 +58,11 @@
           { name: "Is Active", type: "Variant", default: "False", values: ["True", "False"] },
           { name: "Text Label", type: "Text", default: "Label" },
           { name: "Show Lead Item", type: "Boolean", default: "false" },
+          { name: "Show Badge", type: "Boolean", default: "false (nas Tabs)" },
           { name: "Choose Icon", type: "Instance swap", default: "placeholder" },
           { name: "Show Badge", type: "Boolean", default: "true" }
         ] },
-        { note: "Props e padrões lidos dos sets Fixed Tab (6500:6958), Scrollable Tab (6646:181) e .Item (6498:375) da lib estável. No código: filhos `<cds-tab-item label>`, `active-item` (1-based) e `label` (nome da lista). O .Item tem `Show Badge` na lib, ainda sem o Badge no código (CONFERIR C138)." }
+        { note: "Props e padrões lidos dos sets Fixed Tab (6500:6958), Scrollable Tab (6646:181) e .Item (6498:375) da lib estável. No código: filhos `<cds-tab-item label>`, `active-item` (1-based) e `label` (nome da lista). O .Item tem `Show Badge` (padrão True no .Item, False nas instâncias de Fixed e Scrollable Tab): no código, `show-badge=\"true\"` e `badge-label` no `<cds-tab-item>` mostram o Badge dentro das Tabs." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [

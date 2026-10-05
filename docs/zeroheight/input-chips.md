@@ -68,7 +68,7 @@ Dúvidas ou comentários? Fale com o time pelo canal [#castanha-suporte](https:/
 * O alvo de clique é o chip de 40px, não o ícone de 16px (WCAG 2.5.8).
 * `Tab` leva ao chip; `Enter` ou `Espaço` removem.
 * Os ícones são decorativos.
-* Depois de remover, leve o foco para o próximo chip (ou para o campo, se não sobrar nenhum).
+* Sozinho, o chip não move o foco: quem usa decide. Dentro do Multi Select Input, removido pelo teclado, o foco vai para o próximo chip ou, sem chip ali, para o campo; pelo mouse, para o campo (mesma regra do castanha-react).
 
 ### Contraste
 
@@ -93,5 +93,5 @@ Dúvidas ou comentários? Fale com o time pelo canal [#castanha-suporte](https:/
 
 * 🔴 Página nova: os Chips não têm página no zeroheight, nem seção [Documentation], nem description no set (12365:2728). Todo o texto precisa de revisão do time.
 * 🔴 Contraste: borda (Border/semi-soft) 1,25:1 e Hovered (Border/medium) 2,78:1 sobre Surface/default.
-* 🟡 Foco depois de remover: o componente não move o foco; hoje fica a cargo de quem usa.
+* 🟡 Foco depois de remover (decidido em 05/10): segue o castanha-react — o chip sozinho não move o foco; o Multi Select Input aplica a regra do SelectInput.
 * 🟡 Motion: transições em systemic/accelerate · short/03 (não bate com nenhum Motion Style); sem especificação para a saída do chip.

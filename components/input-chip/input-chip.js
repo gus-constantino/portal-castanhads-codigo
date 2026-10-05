@@ -4,7 +4,8 @@
  * Entidade removível: clicar no chip inteiro remove (o alvo é o chip de 40px, não o ícone de 16px — WCAG 2.5.8).
  *
  * Atributos (padrões do Figma): label ("Label") · icon (Lead Icon, "placeholder-line") · show-lead-icon · disabled
- * Evento: cds-remove (cancelável) — sem preventDefault() o chip se remove do DOM.
+ * Evento: cds-remove (cancelável) { label, keyboard } — sem preventDefault() o chip se remove do DOM. O chip sozinho não move o foco
+ *   (como o Chips.Input do castanha-react); o Multi Select Input segue a regra do SelectInput do React (D145).
  */
 (function(){
   "use strict";
@@ -15,8 +16,9 @@
       var self = this, label = this.text("label", "Label");
       if (!this._btn){
         this._btn = CDS.create("button", { type: "button" }, "cds-chip");
-        this._btn.addEventListener("click", function(){
-          var ev = new CustomEvent("cds-remove", { detail: { label: self.text("label", "Label") }, bubbles: true, cancelable: true });
+        // detail.keyboard: Enter/Espaço geram click com e.detail 0 — quem usa decide o foco (como o Chips.Input do castanha-react)
+        this._btn.addEventListener("click", function(e){
+          var ev = new CustomEvent("cds-remove", { detail: { label: self.text("label", "Label"), keyboard: e.detail === 0 }, bubbles: true, cancelable: true });
           if (self.dispatchEvent(ev)) self.remove();
         });
         this.appendChild(this._btn);

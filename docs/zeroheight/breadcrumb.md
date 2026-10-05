@@ -96,7 +96,7 @@ Dúvidas ou comentários? Fale com o time pelo canal [#castanha-suporte](https:/
 ## Pendências — não publicar
 
 * 🟡 A página atual não tem a tab Style; Anatomia e Propriedades vieram dos sets da lib (Breadcrumb 6792:24 e .Item 6713:3).
-* 🔴 Conflito: a tab Conteúdo diz que a página de origem "nunca é omitida ou truncada"; o componente (1º item Truncate) e a diretriz Mobile truncam o primeiro nível.
+* 🟡 Conflito (decidido em 05/10: vale o componente do Figma, com o 1º item Truncate): a tab Conteúdo diz que a página de origem "nunca é omitida ou truncada"; o componente e a diretriz Mobile truncam o primeiro nível — levar ao time de Conteúdo para ajustar a regra.
 * 🔴 A seção Motion está com o texto modelo e a tabela vazia. No código, o hover usa medium/02 + systemic/accelerate.
 * 🟡 O State padrão do .Item está como "Enable" na lib (os outros sets usam "Enabled").
 * 🟡 Texto: "Em experiências para desktop Ao clicar" (maiúscula no meio da frase).

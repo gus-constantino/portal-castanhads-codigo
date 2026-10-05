@@ -10,7 +10,9 @@
  *    tsc do próprio castanha (node_modules do clone, sem instalar nada) com os imports apontando para os fontes.
  * 4. Lista só os erros dos nossos trechos e grava integration/JSX-CHECK.md.
  *
- *   node scripts/integration/check-jsx.js            (CASTANHA=/caminho/do/clone · REF=origin/staging)
+ *   node scripts/integration/check-jsx.js [--castanha /caminho/do/clone]   (ou CASTANHA=… · REF=origin/staging)
+ * Saída: integration/JSX-CHECK.md (leitura) e integration/jsx-check.json (sem data: a rotina diária compara com o commitado).
+ * Código de saída: 0 sem erros · 1 com erros · 2 não rodou (sem Chrome, sem porta ou sem o clone).
  * Precisa: Chrome, porta local (fora do sandbox) e o clone do castanha com node_modules.
  */
 "use strict";
@@ -18,7 +20,8 @@ const http = require("http"), fs = require("fs"), os = require("os"), path = req
 const { spawn, execFileSync } = require("child_process");
 const sleep = (ms) => new Promise((ok) => setTimeout(ok, ms));
 const ROOT = path.join(__dirname, "..", "..");
-const CASTANHA = process.env.CASTANHA || path.join(ROOT, "..", "castanha");
+const argv = (k) => { const i = process.argv.indexOf("--" + k); return i > 0 ? process.argv[i + 1] : null; };
+const CASTANHA = path.resolve(argv("castanha") || process.env.CASTANHA || path.join(ROOT, "..", "castanha"));
 const REF = process.env.REF || "origin/staging";
 const TYPES = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".json": "application/json",
   ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg", ".webp": "image/webp", ".woff2": "font/woff2" };
@@ -168,6 +171,8 @@ function check(snippets){
     errs.forEach((e) => md.push("| `" + e.id + "` | `" + e.variant.replace(/\|/g, "\\|") + "` | " + e.code + ": " + e.msg.replace(/\|/g, "\\|") + " | `" + e.src.replace(/\|/g, "\\|").slice(0, 120) + "` |"));
   } else md.push("Nenhum erro: todo JSX gerado compila contra os tipos do React.");
   fs.writeFileSync(path.join(ROOT, "integration", "JSX-CHECK.md"), md.join("\n") + "\n");
+  fs.writeFileSync(path.join(ROOT, "integration", "jsx-check.json"), JSON.stringify({ ref: REF, commit, componentes: comps, trechos: total,
+    erros: errs.map((e) => ({ id: e.id, variant: e.variant, code: e.code, msg: e.msg })) }, null, 1) + "\n");
   console.log((errs.length ? "❌" : "✅") + " JSX: " + comps + " componentes · " + total + " trechos · " + errs.length + " erros em " + bad.size + " componentes (" + REF + " " + commit + ")");
   errs.slice(0, 80).forEach((e) => console.log("   " + e.id + " " + e.variant + " · " + e.code + ": " + e.msg.slice(0, 200)));
   if (!process.env.KEEP) fs.rm(work, { recursive: true, force: true }, () => {}); else console.log("   pasta: " + work);

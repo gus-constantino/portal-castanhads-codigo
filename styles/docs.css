@@ -595,3 +595,4 @@
 .pg-doc-loose-frame > img{ position:absolute; top:var(--common-sizes-24); left:var(--common-sizes-40); width:var(--common-sizes-120); }
 cds-caju-brand.pg-doc-brand-stretch{ height:var(--common-sizes-56); }
 .pg-doc-brand-recolor path{ fill:var(--common-colors-feedback-informative-intense); }
+.pg-doc-row--tight{ gap:0; }

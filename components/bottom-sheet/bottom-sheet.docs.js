@@ -110,7 +110,7 @@
         ] },
         { h3: "Como encerrar" },
         { p: "Use Voltar ou Continuar editando dependendo do contexto. Confira a regra completa na página Botões." },
-        { h3: "Do's and Dont's" },
+        { h3: "Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: sheetActions("Sair sem salvar os documentos?", "Você pode enviar quando quiser, mas o benefício só fica disponível após a aprovação dos documentos enviados.", "Continuar editando", "Sair sem salvar"),
             text: "Use perguntas no título de bottom sheets, sempre que possível." },

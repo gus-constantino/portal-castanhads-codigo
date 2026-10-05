@@ -82,7 +82,7 @@
           ["Introdução", [["Ilustrações na Caju", "1Kg0GGWPUvFRfrAQhyQJvq4S37RkUBb11"], ["Princípios de Ilustração", "1WF4S0VIsub_daG2mjihLS41A1DQb8XoC"], ["Bibliotecas de ilustração", "17g68PMUCzkeSIwazixiRc9Lnyyy4TyQ0"]]],
           ["Breakpoints", [["Breakpoints", "1Plx1y5RQ1cPuW38ndx1PqaodU4CRYW9H"]]],
           ["Aplicações", [["Aplicações", "19poNh_yJ9WGc48gZ9g3IHD7HF4tjtEqH"]]],
-          ["Faça e não faça", [["Faça e não faça", "1tjld9QNWarTo_6a5Ox4PUpwwHK-y34gs"]]],
+          ["Do's and Don'ts", [["Do's and Don'ts", "1tjld9QNWarTo_6a5Ox4PUpwwHK-y34gs"]]],
           ["Como solicitar ilustrações", [["Como solicitar ilustrações", "1DS7Gtz7Fe2U6tZqqD-8YDSX0YTXHTAX8"]]],
           ["Dúvidas", [["Dúvidas", "18mC17Su38DNKQ9swAj3DIOu8JKUDFy7x"]]]
         ]),

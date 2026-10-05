@@ -7860,7 +7860,7 @@ try {
       ] },
       { id: "motion", title: "Motion", blocks: [
         { h2: "Princípios de Motion" },
-        { p: "É projetado para criar experiências fluidas, intuitivas e agradáveis para os usuários, com base em três pilares fundamentais: Simples, Eficiente e Consistente. O movimento torna as interações suaves e harmoniosas, refletindo a simplicidade e acolhimento brasileiro." },
+        { p: "O motion do Castanha é projetado para criar experiências fluidas, intuitivas e agradáveis, com base em três pilares: Simples, Eficiente e Consistente. O movimento torna as interações suaves e harmoniosas, refletindo a simplicidade e o acolhimento brasileiro." },
         { cards: [
           ["Simples", "As transições são suaves e intuitivas, facilitando o aprendizado em sistemas complexos."],
           ["Eficiente", "O movimento fornece respostas claras e destaca o que realmente importa, sinalizando mudanças e orientando o usuário de forma eficaz."],
@@ -7892,7 +7892,7 @@ try {
           { kind: "do", text: "Teste sempre como as animações se comportam em diferentes dispositivos e plataformas para garantir consistência." },
           { kind: "dont", text: "Para evitar distrações ou confusão no fluxo do usuário, não use quando desperdiça o tempo do usuário." }
         ] },
-        { note: "Fonte: zeroheight · Princípios de Motion (734995) e Velocidade (24e587). Transições (757a5f) está \"In progress\" e fica de fora até ficar estável." }
+        { note: "Fonte: zeroheight · Princípios de Motion (734995) e Velocidade (24e587); os valores das curvas e durações vêm das variáveis do Figma. No Hub, três curvas Expressive não batem com o Figma e faltam Smooth, Overshoot, Short/00 e os delays (C163). Transições (757a5f) está \"In progress\" e fica de fora até ficar estável." }
       ] },
       { id: "icones", title: "Ícones", blocks: [
         { h2: "Ícones" },
@@ -7908,19 +7908,22 @@ try {
         ] }
       ] },
       { id: "ilustracoes", title: "Ilustrações", blocks: [
+        { p: "As ilustrações servem para comunicar ideias de forma visual, atrair a atenção da pessoa usuária, ajudar a entender funcionalidades e reforçar a identidade da marca. Elas explicam processos complexos, tornam o produto mais agradável visualmente e criam uma experiência memorável." },
         { h2: "Princípios de ilustração" },
         { p: "O novo estilo de ilustração da Caju é orgânico e fluido, com a capacidade de transmitir suavidade, naturalidade e acessibilidade para uma comunicação amigável e convidativa." },
 
-        { h2: "Painel Semântico" },
-        { p: "Incorporar a brasilidade nas ilustrações contribui para a valorização da identidade cultural, refletindo a riqueza e a pluralidade do Brasil." },
+        { h2: "Painel semântico" },
+        { p: "Incorporar a brasilidade nas ilustrações contribui para a valorização da identidade cultural, refletindo a riqueza e a pluralidade do Brasil. A construção do novo estilo foi influenciada por artistas modernistas e contemporâneos:" },
         { cards: [
-          ["Artistas Modernistas", "Anita Malfati, Di Cavalcante, Cândido Portinari e Tarsila do Amaral"],
+          ["Artistas Modernistas", "Anita Malfatti, Di Cavalcante, Cândido Portinari e Tarsila do Amaral"],
           ["Artistas Contemporâneos", "Wilson Tibério, Zé Palito, Bianca Foratori e Victor Fidelis"]
         ] },
+        { h3: "Elementos culturais e materiais" },
+        { p: "Diversos elementos presentes no dia a dia dos brasileiros serviram de inspiração para o clima que as novas ilustrações querem passar." },
 
         { h2: "Cores" },
         { h3: "Tons Base" },
-        { p: "As ilustrações tem uma paleta de cores exclusiva, com tons mais quentes, tanto para as cores base quanto para tons neutros." },
+        { p: "As ilustrações têm uma paleta de cores exclusiva, com tons mais quentes, tanto para as cores base quanto para tons neutros." },
         { palette: { label: "Tons base", names: ["Neutral", "Off Red", "Safety Orange", "Yellow Green", "Egg Blue", "Mulberry", "Orchid"], steps: [20, 40, 60, 80, 100, 200], hex: [
           ["fff7f8", "f2e8e9", "d9c3c5", "968486", "554d50", "201418"],
           ["ffd7d6", "ffa3a1", "ff6a66", "e82f05", "99231f", "640b08"],
@@ -7960,17 +7963,22 @@ try {
         { display: { attrs: [sizeImg("objetos/foguete", "lg"), sizeImg("objetos/presente-aberto", "lg"), sizeImg("objetos/trofeu", "lg")] } },
         { h2: "Linhas" },
         { p: "As linhas de contorno cumprem a função de separar planos e reforçar contraste." },
-        { p: "As cores utilizadas nas linhas de contorno sempre deverão favorecer seu contraste em relação às formas sobrepostas. Além disso, é mandatório que essa sobreposição obedeça a relação entre cores quentes x cores frias." },
+        { p: "As cores utilizadas nas linhas de contorno sempre deverão favorecer seu contraste em relação às formas sobrepostas. Além disso, a sobreposição deve respeitar a relação entre cores quentes e cores frias." },
+        { dodont: [
+          { kind: "do", text: "Aplique linhas em tons quentes sobre formas em tons quentes." },
+          { kind: "dont", text: "Não use linhas com baixo contraste em relação à área sobreposta." },
+          { kind: "dont", text: "Não aplique linhas em tons frios sobre formas em tons quentes." }
+        ] },
 
         { h2: "Tamanhos" },
-        { p: "Para uso nas plataformas Employee e Sponsor, as ilustrações Caju obedecem a alguns breakpoints para visualização em diferentes dispositivos." },
+        { p: "Nas plataformas Employee e Sponsor, as ilustrações entram nas telas por meio de Slots e seguem alguns tamanhos fixos (property Size das variants) para cada dispositivo." },
         { specimens: { min: "var(--common-sizes-160)", items: [
           { label: "80x80 · Apenas Employee", attrs: sizeImg("notificacoes/success", "sm") },
           { label: "144x144 · Employee + Sponsor", attrs: sizeImg("notificacoes/success", "md") },
           { label: "200x200 · Employee + Sponsor", attrs: sizeImg("notificacoes/success", "lg") },
           { label: "320x320 · Apenas Sponsor", attrs: { _tag: "img", class: "pg-cnt-phone__ill", style: "width:calc(var(--common-sizes-200) + var(--common-sizes-120));height:auto;max-width:100%", src: ILL["notificacoes/success"] || "", alt: "" } }
         ] } },
-        { p: "As ilustrações Hero têm a intenção de gerar momentos WOW e, por isso, possuem tamanhos específicos. Abordamos mais sobre essa categoria de ilustração no capítulo 4. Categorias." },
+        { p: "As ilustrações Hero têm a intenção de gerar momentos WOW e, por isso, possuem tamanhos específicos. Mais sobre essa categoria em Categorias, logo abaixo." },
         { table: { head: ["Size", "Medida", "Plataforma"], rows: [
           ["Small", "80x80", "Apenas Employee"], ["Medium", "144x144", "Employee + Sponsor"], ["Large", "200x200", "Employee + Sponsor"], ["Extra Large", "320x320", "Apenas Sponsor"],
           ["Hero Employee", "360x440", "Employee"], ["Hero Sponsor", "673x768", "Sponsor"]
@@ -7999,23 +8007,26 @@ try {
             { label: "Tritanopia", matrix: "tritanopia" }, { label: "Visão Turva", filter: "blur(var(--common-sizes-2))" }, { label: "Diplopia", double: true },
             { label: "Amarelamento", filter: "sepia(0.7) saturate(1.4)" }, { label: "Perda de Contraste", filter: "contrast(0.45)" }, { label: "Luz Intensa", filter: "brightness(1.6) contrast(0.6)" }
           ] } },
-        { p: "Já para pessoas usuárias com perda total de visão e que utilizam leitores de tela em seus dispositivos, em breve teremos a opção do Alt Text (ou textos alternativos) para descrever o conteúdo das ilustrações." },
+        { p: "Já para pessoas usuárias com perda total de visão e que utilizam leitores de tela em seus dispositivos, em breve teremos a opção do Alt Text (ou textos alternativos) para descrever o conteúdo das ilustrações. Exemplos de texto alternativo do Hub:" },
+        { ul: ["Ilustração de um caixote de feira vazio, com algumas folhas de árvore voando ao vento por cima.", "Ilustração de um galo curvando a cabeça para trás e cacarejando."] },
+        { p: "Quando a ilustração só decora e o texto ao lado já diz tudo, ela fica sem texto alternativo (`alt=\"\"`), para o leitor de tela não repetir a mensagem. É assim nos componentes do playground." },
         { note: "Simulação aproximada, feita ao vivo com filtros sobre uma ilustração da biblioteca (o Figma mostra prints dos testes)." },
 
         { h2: "Aplicações" },
+        { p: "Cada contexto pede uma relação diferente entre ilustração, texto e componentes. Se surgir uma necessidade que estas diretrizes não cobrem, fale com o time no #castanha-suporte." },
         { h3: "Cenários de uso" },
         { guides: [
           { title: "Onboarding", text: "As ilustrações em onboardings explicam funcionalidades e apresentam novidades do app de forma visual e engajadora, facilitando a compreensão e melhorando a experiência da pessoa usuária.",
             attrs: scr({ ill: "objetos/kit-onboarding", size: "lg", title: "Seu app cheio de borogodó!", text: "Descubra as mudanças e novidades do app da Caju. Vamos lá?", primary: "Começar" }) },
           { title: "Alertas", text: "Ilustrações de alerta chamam atenção de forma visual e rápida, comunicando mensagens importantes com clareza e impacto.",
             attrs: scr({ ill: "notificacoes/alert", title: "Atualize seu app para continuar usando", text: "Temos novidades incríveis esperando por você! Atualize o app para aproveitar tudo que preparamos.", primary: "Atualizar aplicativo" }) },
-          { title: "Telas de Sucesso", text: "Ilustrações de sucesso reforçam feedbacks positivos, celebrando conquistas e motivando o usuário a continuar em sua jornada.",
+          { title: "Telas de sucesso", text: "Ilustrações de sucesso reforçam feedbacks positivos, celebrando conquistas e motivando o usuário a continuar em sua jornada.",
             attrs: scr({ ill: "notificacoes/success", title: "Seu pagamento foi enviado!", text: "A confirmação pode levar até 3 dias úteis. Confira no seu histórico de pagamentos.", primary: "Entendi", secondary: "Abrir comprovante" }) },
-          { title: "Telas de Erro", text: "Ilustrações de erro comunicam falhas de forma leve e intuitiva, ajudando o usuário a entender e resolver o problema rapidamente.",
+          { title: "Telas de erro", text: "Ilustrações de erro comunicam falhas de forma leve e intuitiva, ajudando o usuário a entender e resolver o problema rapidamente.",
             attrs: scr({ ill: "notificacoes/error", title: "Seu cartão está bloqueado", text: "O pagamento do boleto só pode ser feito com o cartão desbloqueado. Altere sua senha ou fale com a Caju para resolver.", primary: "Falar com a Caju", secondary: "Alterar senha" }) },
           { title: "Estados vazios e páginas vazias", text: "Ilustrações do tipo Estados Vazios e Telas Vazias informam ausência de dados/informações e orientam as pessoas usuárias sobre como prosseguir em suas jornadas.",
             attrs: scr({ ill: "notificacoes/empty-state", title: "Empty State", text: "Texto para explicar o empty state, tendo no máximo 2 linhas", primary: "Opção de redirecionamento 1", secondary: "Opção de redirecionamento 2" }) },
-          { title: "Splash Screens", text: "Aproveitando o uso das ilustrações Hero para gerar momentos WOW, as Splash Screens servem para dar as boas-vindas para a pessoa usuária enquanto reforçam a identidade visual da Caju!",
+          { title: "Splash Screen", text: "Aproveitando o uso das ilustrações Hero para gerar momentos WOW, as Splash Screens servem para dar as boas-vindas para a pessoa usuária enquanto reforçam a identidade visual da Caju!",
             attrs: hero("hero-employee/splash-screen") }
         ] },
         { h3: "Employee" },
@@ -8035,7 +8046,7 @@ try {
             ] } },
           { title: "Feedbacks", text: "As ilustrações de Feedback (alertas, telas de sucesso/erro e empty states/empty pages) possuem menos detalhes, por isso suas aplicações em Employee devem seguir o padrão de 144x144 (Md).",
             attrs: scr({ ill: "notificacoes/empty-state", size: "md", title: "Empty State", text: "Texto para explicar o empty state, tendo no máximo 2 linhas", primary: "Opção de redirecionamento 1", secondary: "Opção de redirecionamento 2" }) },
-          { title: "Exceções contextuais", text: "Geralmente as ilustrações são aplicadas no centro da tela, mas há uma excessão: nas telas de saldo e extrato, elas ficam alinhadas à esquerda. Nesse cenário a ilustração de Sucesso segue o padrão de 80x80 (Sm).",
+          { title: "Exceções contextuais", text: "Geralmente as ilustrações são aplicadas no centro da tela, mas há uma exceção: nas telas de saldo e extrato, elas ficam alinhadas à esquerda. Nesse cenário a ilustração de Sucesso segue o padrão de 80x80 (Sm).",
             attrs: scr({ ill: "notificacoes/success-low-detail", size: "sm", align: "start", title: "Envio de saldo confirmado", text: "Retirado de Home Office: - R$ 100,00. Enviado para Cultura: + R$ 100,00.", primary: "Acessar extrato", secondary: "Compartilhar comprovante" }) },
           { title: "Hero", text: "Como mencionado no tópico anterior, as ilustrações do tipo Hero possuem especificações próprias. Em Employee elas são aplicadas no padrão de 360x440.",
             attrs: hero("hero-employee/login", "Acessar") }
@@ -8050,17 +8061,24 @@ try {
         { p: "As ilustrações de Feedback (alertas, telas de sucesso/erro e empty states/empty pages) possuem menos detalhes. Por isso, em telas onde há pouca informação de texto e componentes, suas aplicações em Sponsor deverão seguir o padrão de 200x200 (Lg)." },
         { p: "Assim como ocorre em Employee, as ilustrações do tipo Hero possuem especificações próprias. No caso de Sponsor elas são aplicadas no padrão de 673x768." },
 
-        { h2: "Do's & Dont's" },
+        { h2: "Do's and Don'ts" },
+        { p: "No Hub, estas diretrizes se chamam Bom pra Caju (faça) e Sem Sabor (não faça)." },
         { dodont: [
-          { kind: "do", title: "Sempre adicione a Biblioteca de Ilustrações ao seu arquivo Figma.", text: "Dessa forma, seu arquivo se manterá atualizado toda vez alguma mudança nas ilustrações. Para isso, siga os passos a seguir:",
+          { kind: "do", title: "Sempre adicione a Biblioteca de Ilustrações ao seu arquivo Figma.", text: "Dessa forma, seu arquivo se mantém atualizado toda vez que houver alguma mudança nas ilustrações. Para isso, siga os passos a seguir:",
             steps: ["No seu arquivo, clique em Review Library Updates;", "Busque por 4. [Castanha DS] Illustration e clique em Add to file."] },
-          { kind: "do", title: "Respeite os breakpoints e suas respectivas aplicações.", text: "As ilustrações seguem alguns padrões de tamanhos para atender diferentes contextos, que exigem diferentes níveis de detalhamento e composição. Uma ilustração utilizada em uma Splash Page não segue o mesmo padrão de tamanho de um Alerta, por exemplo. Para mais informações sobre aplicações, consulte o capítulo 5. Aplicações." },
-          { kind: "dont", title: "Não dê Detach nas Instâncias dos Componentes de ilustração.", text: "Para que possamos garantir que as ilustrações estejam sempre atualizadas nos arquivos linkados, é necessário mantê-las integralmente como Instâncias. Dar Detach podem causar inconsistências ao longo das jornadas e dificultar a manutenção das ilustrações nesses arquivos." },
-          { kind: "dont", title: "Não redimensione as ilustrações para além dos padrões de Size", text: "Para assegurar a consistência no uso e aplicação das ilustrações, sempre respeite os tamanhos estabelecidos nas propriedade Size das variants:",
+          { kind: "do", title: "Respeite os breakpoints e suas respectivas aplicações.", text: "As ilustrações seguem alguns padrões de tamanhos para atender diferentes contextos, que exigem diferentes níveis de detalhamento e composição. Uma ilustração usada em uma Splash Screen não segue o mesmo padrão de tamanho de um Alerta, por exemplo. Para mais informações sobre aplicações, consulte Aplicações, acima." },
+          { kind: "dont", title: "Não dê Detach nas Instâncias dos Componentes de ilustração.", text: "Para que possamos garantir que as ilustrações estejam sempre atualizadas nos arquivos linkados, é necessário mantê-las integralmente como Instâncias. Dar Detach pode causar inconsistências ao longo das jornadas e dificultar a manutenção das ilustrações nesses arquivos." },
+          { kind: "dont", title: "Não redimensione as ilustrações para além dos padrões de Size", text: "Para assegurar a consistência no uso e aplicação das ilustrações, sempre respeite os tamanhos estabelecidos na propriedade Size das variants:",
             steps: ["Small (80x80)", "Medium (144x144)", "Large (200x200)", "Extra Large (320x320)"] },
-          { kind: "dont", title: "Não mude as cores das ilustraçòes", text: "As cores utilizadas na composição de cada uma das ilustrações levam em consideração critérios como acessibilidade e a própria harmonização entre elas. Evite alterar as cores das ilustrações para que o padrão das paletas seja mantido, assim como o equilíbrio e consistência nas interfaces." }
+          { kind: "dont", title: "Não mude as cores das ilustrações", text: "As cores utilizadas na composição de cada uma das ilustrações levam em consideração critérios como acessibilidade e a própria harmonização entre elas. Evite alterar as cores das ilustrações para que o padrão das paletas seja mantido, assim como o equilíbrio e consistência nas interfaces." }
         ] },
-        { note: "Fonte: Figma [CastanhaDS] Component use documentation · páginas IL-Painel Semântico, IL-Guidelines, IL-Aplicações e IL-Dos&Donts, e zeroheight · Princípios de ilustração (943842). IL-Intro, IL-Princípios e IL-Como solicitar estão vazias. As telas de exemplo foram refeitas com componentes do DS e ilustrações da biblioteca (C110)." },
+        { note: "Fonte: Figma [CastanhaDS] Component use documentation · páginas IL-Painel Semântico, IL-Guidelines, IL-Aplicações e IL-Dos&Donts, e zeroheight · Princípios de ilustração (943842). No Figma, IL-Intro, IL-Princípios e IL-Como solicitar estão vazias; o texto dessas partes vem do Hub (Ilustração, Princípios e Como solicitar ilustrações, revisados em 05/10, C164). As telas de exemplo foram refeitas com componentes do DS e ilustrações da biblioteca (C110)." },
+        { h2: "Como solicitar ilustrações" },
+        { p: "Peça ao time de Ilustração do Castanha pelo canal #castanha-suporte no Slack:" },
+        { cards: [
+          ["Novas ilustrações", "Para contextos de uso que a biblioteca ainda não cobre."],
+          ["Adaptação de tamanho", "Quando uma ilustração existente precisa de um tamanho que ainda não está disponível."]
+        ] },
         { h2: "Biblioteca" },
         { p: "[Caju] Illustrations, na ordem e nas categorias do Figma: " + nIlls + " ilustrações em " + nCats + " categorias (Caju UI 200×200 e Hero). Troque o fundo para testar o contraste; clique numa ilustração para ver o detalhe e copiar." },
         { tokens: "illustrations" },
@@ -8191,7 +8209,7 @@ try {
           ["Introdução", [["Ilustrações na Caju", "1Kg0GGWPUvFRfrAQhyQJvq4S37RkUBb11"], ["Princípios de Ilustração", "1WF4S0VIsub_daG2mjihLS41A1DQb8XoC"], ["Bibliotecas de ilustração", "17g68PMUCzkeSIwazixiRc9Lnyyy4TyQ0"]]],
           ["Breakpoints", [["Breakpoints", "1Plx1y5RQ1cPuW38ndx1PqaodU4CRYW9H"]]],
           ["Aplicações", [["Aplicações", "19poNh_yJ9WGc48gZ9g3IHD7HF4tjtEqH"]]],
-          ["Faça e não faça", [["Faça e não faça", "1tjld9QNWarTo_6a5Ox4PUpwwHK-y34gs"]]],
+          ["Do's and Don'ts", [["Do's and Don'ts", "1tjld9QNWarTo_6a5Ox4PUpwwHK-y34gs"]]],
           ["Como solicitar ilustrações", [["Como solicitar ilustrações", "1DS7Gtz7Fe2U6tZqqD-8YDSX0YTXHTAX8"]]],
           ["Dúvidas", [["Dúvidas", "18mC17Su38DNKQ9swAj3DIOu8JKUDFy7x"]]]
         ]),
@@ -8743,7 +8761,7 @@ try {
           "Nunca culpe a pessoa usuária diretamente.",
           "Evite humor em momentos críticos. Pode soar como deboche."
         ] },
-        { h3: "Do's and Dont's" },
+        { h3: "Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: screen("notificacoes/error", "Cartão não adicionado", "Não foi possível adicionar seu cartão. Você também pode tentar diretamente pelo app da carteira digital.", "Tentar de novo", "Acessar carteira digital"),
             text: "O título cumpre a função de informar exatamente o que aconteceu, enquanto a descrição foca em como resolver. Além de usar um tom acolhedor e empático." },
@@ -8914,35 +8932,35 @@ try {
             "Nenhuma navegação alternativa.", "Nenhuma justificativa longa.", "Uma instrução, um CTA."
           ] }
         ] },
-        { h3: "Nível 1 · Do's and Dont's" },
+        { h3: "Nível 1 · Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: { _tag: "cds-card", "has-border": true, class: "pg-cnt-card", _children: [{ _tag: "h4", class: "pg-cnt-phone__title", _text: "Seu Caju ainda mais seguro 🔒" }, { _tag: "p", class: "pg-cnt-phone__text", _text: "Faça o reconhecimento facial e aumente a segurança da sua conta." }] }, style: "width:100%",
             text: "Tom leve e informativo que não cita o impacto negativo (ex: bloqueio). Estamos introduzindo o conceito nesse momento." },
           { kind: "dont", attrs: { _tag: "cds-card", "has-border": true, class: "pg-cnt-card", _children: [{ _tag: "h4", class: "pg-cnt-phone__title", _text: "É você mesmo por aqui? 👀" }, { _tag: "p", class: "pg-cnt-phone__text", _text: "Confirme sua identidade para que apenas você tenha acesso ao app." }] }, style: "width:100%",
             text: "Cuidado com o tom brincalhão em temas como segurança e privacidade." }
         ] },
-        { h3: "Nível 2 · Do's and Dont's" },
+        { h3: "Nível 2 · Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: sheetActions("Seu Caju ainda mais seguro", "Faça o reconhecimento facial e mantenha seu acesso protegido e exclusivo.", "Reforçar proteção", "Me lembrar mais tarde"),
             text: "Introduz a consequência futura e explica o valor da ação e tudo que é necessário para finalizá-la." },
           { kind: "dont", attrs: sheetActions("Ative já sua biometria", "Seu acesso será bloqueado se você não fizer isso agora. Garantimos que é rápido.", "Ativar conta", "Bloquear conta"),
             text: "Palavras de comando que aumentam a ansiedade e vendemos a consequência como punição, não como proteção." }
         ] },
-        { h3: "Nível 3 · Do's and Dont's" },
+        { h3: "Nível 3 · Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: sheetActions("Mais segurança para você", "Para aumentar a proteção do seu app, faça o reconhecimento facial até [DD/MM]. Sem essa etapa, seu app pode ficar temporariamente limitado.", "Aumentar proteção"),
             text: "O prazo está destacado e a Ilustração remete a ação necessária: fazer reconhecimento facial." },
           { kind: "dont", attrs: sheetActions("Você tem até [DD/MM] para ativar!", "Após essa data, seu acesso será bloqueado permanentemente. Não deixe isso acontecer.", "Ativar agora"),
             text: "O prazo vira protagonista negativo em vez de referência informativa e o tom é de ameaça direta." }
         ] },
-        { h3: "Nível 4 · Do's and Dont's" },
+        { h3: "Nível 4 · Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: screen("seguranca/cadeado", "Não deixe pra última hora", "Faça o reconhecimento facial para aumentar a proteção do seu Caju. Essa é uma etapa obrigatória para a sua segurança. A partir de amanhã (dd/mm), seu app fica temporariamente limitado.", "Fazer reconhecimento facial"),
             text: "A urgência aumentou mas o tom segue acolhedor: o bloqueio não é uma punição e sim uma medida preventiva." },
           { kind: "dont", attrs: screen("seguranca/cadeado", "Seu acesso será bloqueado amanhã!", "Você ainda não fez a autenticação por biometria. Garanta seu acesso antes que seja tarde.", "Ativar agora"),
             text: "Título anuncia punição em vez de orientar a ação." }
         ] },
-        { h3: "Nível 5 · Do's and Dont's" },
+        { h3: "Nível 5 · Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: screen("seguranca/cadeado", "Protegemos seu acesso", "Sua segurança vem em primeiro lugar, autorize esse dispositivo para que apenas você acesse seu app!", "Fazer reconhecimento facial"),
             text: "Aplicamos o nível máximo de ”punição”, mas o tom é acolhedor e o valor do bloqueio é a segurança do app." },
@@ -9289,7 +9307,7 @@ try {
       ]) }];
   }
   var DODONT = [
-    { h2: "Faça e não faça" },
+    { h2: "Do's and Don'ts" },
     { dodont: [
       { kind: "do", attrs: sponsor(byKind("No Results"), { close: false }), text: "Use No Results quando a busca ou o filtro não retorna nada, com ação de limpar o filtro." },
       { kind: "dont", attrs: sponsor(byKind("Empty State"), { close: false, title: "Nenhum item por aqui", text: "Ainda não há nada aqui.", pri: "Adicionar item" }), text: "Não use Empty State para resultado de busca. Ele comunica ausência de conteúdo, não recorte sem resultado." },
@@ -9500,4 +9518,4 @@ try {
 } catch (e) { console.error("[cds] resources/treinamento/treinamento.js", e); }
 
 /* ==== docs sob demanda (gerado) ==== */
-window.CDS = window.CDS || {}; CDS.docsIndex = {"backdrop":{"src":"components/backdrop/backdrop.docs.js?v=6b702f80"},"badge":{"src":"components/badge/badge.docs.js?v=13a9d0a4"},"caju-brand":{"src":"components/caju-brand/caju-brand.docs.js?v=182c6287"},"calendar-day":{"src":"components/calendar-day/calendar-day.docs.js?v=eb0c1fc6"},"calendar-week":{"src":"components/calendar-week/calendar-week.docs.js?v=3e7503ac"},"card":{"src":"components/card/card.docs.js?v=385dde05"},"credit-card-flags":{"src":"components/card-flag/card-flag.docs.js?v=1c719fe4"},"currency":{"src":"components/currency/currency.docs.js?v=4019f33b"},"currency-content":{"src":"components/currency-content/currency-content.docs.js?v=b78c8af8"},"currency-symbol":{"src":"components/currency-symbol/currency-symbol.docs.js?v=be193ca9"},"divider":{"src":"components/divider/divider.docs.js?v=a8ce9166"},"icon":{"src":"components/icon/icon.docs.js?v=dcd985e5"},"avatar":{"src":"components/avatar/avatar.docs.js?v=e8f0f357"},"breadcrumb-item":{"src":"components/breadcrumb-item/breadcrumb-item.docs.js?v=f2f90636"},"caju-card":{"src":"components/caju-card/caju-card.docs.js?v=e360b606"},"close-toast":{"src":"components/close-toast/close-toast.docs.js?v=08eb88fc"},"close-alert":{"src":"components/close-alert/close-alert.docs.js?v=66f9acea"},"content-banner":{"src":"components/content-banner/content-banner.docs.js?v=5601185f"},"csat-item":{"src":"components/csat-item/csat-item.docs.js?v=b255734f"},"csat-score":{"src":"components/csat-score/csat-score.docs.js?v=f8c9ddaf"},"filter-chips":{"src":"components/filter-chip/filter-chip.docs.js?v=7cf64b2d"},"icon-button":{"src":"components/icon-button/icon-button.docs.js?v=7876d432"},"header":{"src":"components/header/header.docs.js?v=1f84dc27"},"icons-block":{"src":"components/icons-block/icons-block.docs.js?v=7073a124"},"filter-button":{"src":"components/filter-button/filter-button.docs.js?v=03b317e8"},"image":{"src":"components/image/image.docs.js?v=06de894a"},"banner":{"src":"components/banner/banner.docs.js?v=e8a4ac11"},"input-chips":{"src":"components/input-chip/input-chip.docs.js?v=93623dcd"},"chips-group":{"src":"components/chips-group/chips-group.docs.js?v=e44b9509"},"link":{"src":"components/link/link.docs.js?v=92b6a615"},"list-lead-item":{"src":"components/list-lead-item/list-lead-item.docs.js?v=182b62f9"},"main-button":{"src":"components/main-button/main-button.docs.js?v=c015bdec"},"date-navigation":{"src":"components/date-navigation/date-navigation.docs.js?v=cde6d20f"},"date-picker":{"src":"components/date-picker/date-picker.docs.js?v=2f096325"},"drop-button":{"src":"components/drop-button/drop-button.docs.js?v=2505ce9b"},"footer":{"src":"components/footer/footer.docs.js?v=3521cfdc"},"fixed-bar":{"src":"components/fixed-bar/fixed-bar.docs.js?v=d8835dfd"},"nav-control-item":{"src":"components/nav-control-item/nav-control-item.docs.js?v=68edeeff"},"nav-control":{"src":"components/nav-control/nav-control.docs.js?v=f85a1d1f"},"nps-value-item":{"src":"components/nps-value-item/nps-value-item.docs.js?v=6f52865f"},"nps-score":{"src":"components/nps-score/nps-score.docs.js?v=1839cab6"},"popover":{"src":"components/popover/popover.docs.js?v=2419b81c"},"breadcrumb":{"src":"components/breadcrumb/breadcrumb.docs.js?v=59bd05dd"},"progress-line":{"src":"components/progress-line/progress-line.docs.js?v=1ac0918d"},"progress-tracker-item":{"src":"components/progress-tracker-item/progress-tracker-item.docs.js?v=9df6e167"},"progress-tracker":{"src":"components/progress-tracker/progress-tracker.docs.js?v=97e3646c"},"checkbox":{"src":"components/checkbox/checkbox.docs.js?v=f9f2f82b"},"radio-button":{"src":"components/radio-button/radio-button.docs.js?v=7b075ef9"},"shaped-icon":{"src":"components/shaped-icon/shaped-icon.docs.js?v=2e72045f"},"alert":{"src":"components/alert/alert.docs.js?v=73d9d825"},"confirmation-message":{"src":"components/confirmation-message/confirmation-message.docs.js?v=ebc40fe7"},"dropzone":{"src":"components/dropzone/dropzone.docs.js?v=199cfe2e"},"file-lead-item":{"src":"components/file-lead-item/file-lead-item.docs.js?v=5427c97f"},"lead-item":{"src":"components/lead-item/lead-item.docs.js?v=39cab1a3"},"slider":{"src":"components/slider/slider.docs.js?v=d0f3079e"},"spinner":{"src":"components/spinner/spinner.docs.js?v=f2007190"},"status-dot":{"src":"components/status-dot/status-dot.docs.js?v=51c8f006"},"switch":{"src":"components/switch/switch.docs.js?v=ccb6a3c7"},"checkbox-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf"},"radio-button-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf"},"switch-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf"},"system-banner":{"src":"components/system-banner/system-banner.docs.js?v=7db1a62e"},"tab-item":{"src":"components/tab-item/tab-item.docs.js?v=14aec353"},"fixed-tab":{"src":"components/fixed-tab/fixed-tab.docs.js?v=9859d61e"},"scrollable-tab":{"src":"components/scrollable-tab/scrollable-tab.docs.js?v=3607a757","needs":["fixed-tab"]},"tab-view":{"src":"components/tab-view/tab-view.docs.js?v=98543998"},"table-head":{"src":"components/table-head/table-head.docs.js?v=48151c1b"},"table-toolbar":{"src":"components/table-toolbar/table-toolbar.docs.js?v=dea5e195"},"tag":{"src":"components/tag/tag.docs.js?v=0990f2f5"},"balance-card":{"src":"components/balance-card/balance-card.docs.js?v=9465f0ce"},"table-cell":{"src":"components/table-cell/table-cell.docs.js?v=72c77164"},"text-content":{"src":"components/text-content/text-content.docs.js?v=3e523e4b"},"accordion-item":{"src":"components/accordion-item/accordion-item.docs.js?v=1ae17b66"},"accordion":{"src":"components/accordion/accordion.docs.js?v=da2d36e9"},"code-input-otp":{"src":"components/code-input-otp/code-input-otp.docs.js?v=f6b13cc5"},"credit-card-input":{"src":"components/credit-card-input/credit-card-input.docs.js?v=38ef2397"},"date-input":{"src":"components/date-input/date-input.docs.js?v=b20aab02"},"password-input":{"src":"components/password-input/password-input.docs.js?v=1a70ffec"},"quantity-input":{"src":"components/quantity-input/quantity-input.docs.js?v=2f150dde"},"search-input":{"src":"components/search-input/search-input.docs.js?v=fe6fd9c3"},"text-area":{"src":"components/text-area/text-area.docs.js?v=beb8d21c"},"text-input":{"src":"components/text-input/text-input.docs.js?v=04e6320c"},"toast":{"src":"components/toast/toast.docs.js?v=21536c26"},"tooltip":{"src":"components/tooltip/tooltip.docs.js?v=66ed468f"},"topic":{"src":"components/topic/topic.docs.js?v=4f5c7ee5"},"trailing-item":{"src":"components/trailing-item/trailing-item.docs.js?v=e767226e"},"content-list-item":{"src":"components/content-list-item/content-list-item.docs.js?v=08279d28"},"content-list":{"src":"components/content-list/content-list.docs.js?v=663fda73"},"selection-list-item":{"src":"components/selection-list-item/selection-list-item.docs.js?v=a6ae3580"},"async-creatable-select-input":{"src":"components/async-creatable-select-input/async-creatable-select-input.docs.js?v=b89d5e8e","needs":["async-select-input"]},"async-select-input":{"src":"components/async-select-input/async-select-input.docs.js?v=0e4b20ab"},"checkbox-select-input":{"src":"components/checkbox-select-input/checkbox-select-input.docs.js?v=b47659af","needs":["async-select-input"]},"multi-select-input":{"src":"components/multi-select-input/multi-select-input.docs.js?v=aff1ad3a","needs":["async-select-input"]},"radio-select-input":{"src":"components/radio-select-input/radio-select-input.docs.js?v=502ad8c9","needs":["async-select-input"]},"select-number":{"src":"components/select-number/select-number.docs.js?v=847bd368"},"pagination":{"src":"components/pagination/pagination.docs.js?v=e13b1eb0"},"selection-list":{"src":"components/selection-list/selection-list.docs.js?v=62a9303c"},"table":{"src":"components/table/table.docs.js?v=2903c5c5"},"upload-item":{"src":"components/upload-item/upload-item.docs.js?v=b6203890"},"upload-list":{"src":"components/upload-list/upload-list.docs.js?v=b6a8754f"},"viewport-restriction":{"src":"components/viewport-restriction/viewport-restriction.docs.js?v=221daf2e"},"bottom-sheet":{"src":"components/bottom-sheet/bottom-sheet.docs.js?v=b85dcfdb"},"drawer":{"src":"components/drawer/drawer.docs.js?v=ba404bd6"},"modal":{"src":"components/modal/modal.docs.js?v=40da0398"},"modal-date-picker":{"src":"components/modal-date-picker/modal-date-picker.docs.js?v=8d2f58cb"}};
+window.CDS = window.CDS || {}; CDS.docsIndex = {"backdrop":{"src":"components/backdrop/backdrop.docs.js?v=6b702f80"},"badge":{"src":"components/badge/badge.docs.js?v=13a9d0a4"},"caju-brand":{"src":"components/caju-brand/caju-brand.docs.js?v=182c6287"},"calendar-day":{"src":"components/calendar-day/calendar-day.docs.js?v=eb0c1fc6"},"calendar-week":{"src":"components/calendar-week/calendar-week.docs.js?v=3e7503ac"},"card":{"src":"components/card/card.docs.js?v=385dde05"},"credit-card-flags":{"src":"components/card-flag/card-flag.docs.js?v=1c719fe4"},"currency":{"src":"components/currency/currency.docs.js?v=4019f33b"},"currency-content":{"src":"components/currency-content/currency-content.docs.js?v=b78c8af8"},"currency-symbol":{"src":"components/currency-symbol/currency-symbol.docs.js?v=be193ca9"},"divider":{"src":"components/divider/divider.docs.js?v=a8ce9166"},"icon":{"src":"components/icon/icon.docs.js?v=dcd985e5"},"avatar":{"src":"components/avatar/avatar.docs.js?v=e8f0f357"},"breadcrumb-item":{"src":"components/breadcrumb-item/breadcrumb-item.docs.js?v=f2f90636"},"caju-card":{"src":"components/caju-card/caju-card.docs.js?v=e360b606"},"close-toast":{"src":"components/close-toast/close-toast.docs.js?v=08eb88fc"},"close-alert":{"src":"components/close-alert/close-alert.docs.js?v=66f9acea"},"content-banner":{"src":"components/content-banner/content-banner.docs.js?v=5601185f"},"csat-item":{"src":"components/csat-item/csat-item.docs.js?v=b255734f"},"csat-score":{"src":"components/csat-score/csat-score.docs.js?v=f8c9ddaf"},"filter-chips":{"src":"components/filter-chip/filter-chip.docs.js?v=7cf64b2d"},"icon-button":{"src":"components/icon-button/icon-button.docs.js?v=7876d432"},"header":{"src":"components/header/header.docs.js?v=1f84dc27"},"icons-block":{"src":"components/icons-block/icons-block.docs.js?v=7073a124"},"filter-button":{"src":"components/filter-button/filter-button.docs.js?v=03b317e8"},"image":{"src":"components/image/image.docs.js?v=06de894a"},"banner":{"src":"components/banner/banner.docs.js?v=e8a4ac11"},"input-chips":{"src":"components/input-chip/input-chip.docs.js?v=93623dcd"},"chips-group":{"src":"components/chips-group/chips-group.docs.js?v=e44b9509"},"link":{"src":"components/link/link.docs.js?v=92b6a615"},"list-lead-item":{"src":"components/list-lead-item/list-lead-item.docs.js?v=182b62f9"},"main-button":{"src":"components/main-button/main-button.docs.js?v=c015bdec"},"date-navigation":{"src":"components/date-navigation/date-navigation.docs.js?v=cde6d20f"},"date-picker":{"src":"components/date-picker/date-picker.docs.js?v=2f096325"},"drop-button":{"src":"components/drop-button/drop-button.docs.js?v=2505ce9b"},"footer":{"src":"components/footer/footer.docs.js?v=3521cfdc"},"fixed-bar":{"src":"components/fixed-bar/fixed-bar.docs.js?v=d8835dfd"},"nav-control-item":{"src":"components/nav-control-item/nav-control-item.docs.js?v=68edeeff"},"nav-control":{"src":"components/nav-control/nav-control.docs.js?v=f85a1d1f"},"nps-value-item":{"src":"components/nps-value-item/nps-value-item.docs.js?v=6f52865f"},"nps-score":{"src":"components/nps-score/nps-score.docs.js?v=1839cab6"},"popover":{"src":"components/popover/popover.docs.js?v=2419b81c"},"breadcrumb":{"src":"components/breadcrumb/breadcrumb.docs.js?v=58313c95"},"progress-line":{"src":"components/progress-line/progress-line.docs.js?v=1ac0918d"},"progress-tracker-item":{"src":"components/progress-tracker-item/progress-tracker-item.docs.js?v=9df6e167"},"progress-tracker":{"src":"components/progress-tracker/progress-tracker.docs.js?v=dc917455"},"checkbox":{"src":"components/checkbox/checkbox.docs.js?v=f9f2f82b"},"radio-button":{"src":"components/radio-button/radio-button.docs.js?v=7b075ef9"},"shaped-icon":{"src":"components/shaped-icon/shaped-icon.docs.js?v=2e72045f"},"alert":{"src":"components/alert/alert.docs.js?v=73d9d825"},"confirmation-message":{"src":"components/confirmation-message/confirmation-message.docs.js?v=ebc40fe7"},"dropzone":{"src":"components/dropzone/dropzone.docs.js?v=199cfe2e"},"file-lead-item":{"src":"components/file-lead-item/file-lead-item.docs.js?v=5427c97f"},"lead-item":{"src":"components/lead-item/lead-item.docs.js?v=39cab1a3"},"slider":{"src":"components/slider/slider.docs.js?v=d0f3079e"},"spinner":{"src":"components/spinner/spinner.docs.js?v=f2007190"},"status-dot":{"src":"components/status-dot/status-dot.docs.js?v=51c8f006"},"switch":{"src":"components/switch/switch.docs.js?v=ccb6a3c7"},"checkbox-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf"},"radio-button-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf"},"switch-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf"},"system-banner":{"src":"components/system-banner/system-banner.docs.js?v=7db1a62e"},"tab-item":{"src":"components/tab-item/tab-item.docs.js?v=14aec353"},"fixed-tab":{"src":"components/fixed-tab/fixed-tab.docs.js?v=99f773eb"},"scrollable-tab":{"src":"components/scrollable-tab/scrollable-tab.docs.js?v=3607a757","needs":["fixed-tab"]},"tab-view":{"src":"components/tab-view/tab-view.docs.js?v=98543998"},"table-head":{"src":"components/table-head/table-head.docs.js?v=48151c1b"},"table-toolbar":{"src":"components/table-toolbar/table-toolbar.docs.js?v=dea5e195"},"tag":{"src":"components/tag/tag.docs.js?v=0990f2f5"},"balance-card":{"src":"components/balance-card/balance-card.docs.js?v=9465f0ce"},"table-cell":{"src":"components/table-cell/table-cell.docs.js?v=72c77164"},"text-content":{"src":"components/text-content/text-content.docs.js?v=3e523e4b"},"accordion-item":{"src":"components/accordion-item/accordion-item.docs.js?v=1ae17b66"},"accordion":{"src":"components/accordion/accordion.docs.js?v=da2d36e9"},"code-input-otp":{"src":"components/code-input-otp/code-input-otp.docs.js?v=f6b13cc5"},"credit-card-input":{"src":"components/credit-card-input/credit-card-input.docs.js?v=38ef2397"},"date-input":{"src":"components/date-input/date-input.docs.js?v=b20aab02"},"password-input":{"src":"components/password-input/password-input.docs.js?v=1a70ffec"},"quantity-input":{"src":"components/quantity-input/quantity-input.docs.js?v=2f150dde"},"search-input":{"src":"components/search-input/search-input.docs.js?v=fe6fd9c3"},"text-area":{"src":"components/text-area/text-area.docs.js?v=beb8d21c"},"text-input":{"src":"components/text-input/text-input.docs.js?v=04e6320c"},"toast":{"src":"components/toast/toast.docs.js?v=21536c26"},"tooltip":{"src":"components/tooltip/tooltip.docs.js?v=66ed468f"},"topic":{"src":"components/topic/topic.docs.js?v=4f5c7ee5"},"trailing-item":{"src":"components/trailing-item/trailing-item.docs.js?v=e767226e"},"content-list-item":{"src":"components/content-list-item/content-list-item.docs.js?v=08279d28"},"content-list":{"src":"components/content-list/content-list.docs.js?v=663fda73"},"selection-list-item":{"src":"components/selection-list-item/selection-list-item.docs.js?v=a6ae3580"},"async-creatable-select-input":{"src":"components/async-creatable-select-input/async-creatable-select-input.docs.js?v=b89d5e8e","needs":["async-select-input"]},"async-select-input":{"src":"components/async-select-input/async-select-input.docs.js?v=0e4b20ab"},"checkbox-select-input":{"src":"components/checkbox-select-input/checkbox-select-input.docs.js?v=b47659af","needs":["async-select-input"]},"multi-select-input":{"src":"components/multi-select-input/multi-select-input.docs.js?v=aff1ad3a","needs":["async-select-input"]},"radio-select-input":{"src":"components/radio-select-input/radio-select-input.docs.js?v=502ad8c9","needs":["async-select-input"]},"select-number":{"src":"components/select-number/select-number.docs.js?v=847bd368"},"pagination":{"src":"components/pagination/pagination.docs.js?v=e13b1eb0"},"selection-list":{"src":"components/selection-list/selection-list.docs.js?v=62a9303c"},"table":{"src":"components/table/table.docs.js?v=2903c5c5"},"upload-item":{"src":"components/upload-item/upload-item.docs.js?v=b6203890"},"upload-list":{"src":"components/upload-list/upload-list.docs.js?v=b6a8754f"},"viewport-restriction":{"src":"components/viewport-restriction/viewport-restriction.docs.js?v=221daf2e"},"bottom-sheet":{"src":"components/bottom-sheet/bottom-sheet.docs.js?v=fc3b7530"},"drawer":{"src":"components/drawer/drawer.docs.js?v=ba404bd6"},"modal":{"src":"components/modal/modal.docs.js?v=40da0398"},"modal-date-picker":{"src":"components/modal-date-picker/modal-date-picker.docs.js?v=8d2f58cb"}};

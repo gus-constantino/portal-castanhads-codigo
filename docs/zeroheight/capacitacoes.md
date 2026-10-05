@@ -42,7 +42,7 @@ Ordem das tabs: Introdução · Atuações do motion na caju · Aplicações · 
 
 Ordem das tabs: Introdução · Breakpoints · Aplicações · Dos & Dont's · Como solicitar ilustrações · Dúvidas · Apresentação.
 
-- **"Dos & Dont's"** → "Faça e não faça" (como nas docs) ou, se ficar em inglês, "Do's and Don'ts".
+- **"Dos & Dont's"** → "Do's and Don'ts", como nas docs.
 - **"Ilustrações na caju"** → "Ilustrações na Caju".
 - **Tab "Como solicitar ilustrações ":** espaço no fim.
 - **Tab Apresentação:** link solto para o Figma, como no Motion. Mesma sugestão; o nome também difere das outras páginas ("Slide").

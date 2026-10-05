@@ -90,7 +90,7 @@
       ]) }];
   }
   var DODONT = [
-    { h2: "Faça e não faça" },
+    { h2: "Do's and Don'ts" },
     { dodont: [
       { kind: "do", attrs: sponsor(byKind("No Results"), { close: false }), text: "Use No Results quando a busca ou o filtro não retorna nada, com ação de limpar o filtro." },
       { kind: "dont", attrs: sponsor(byKind("Empty State"), { close: false, title: "Nenhum item por aqui", text: "Ainda não há nada aqui.", pri: "Adicionar item" }), text: "Não use Empty State para resultado de busca. Ele comunica ausência de conteúdo, não recorte sem resultado." },

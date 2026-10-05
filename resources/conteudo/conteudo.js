@@ -503,7 +503,7 @@
           "Nunca culpe a pessoa usuária diretamente.",
           "Evite humor em momentos críticos. Pode soar como deboche."
         ] },
-        { h3: "Do's and Dont's" },
+        { h3: "Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: screen("notificacoes/error", "Cartão não adicionado", "Não foi possível adicionar seu cartão. Você também pode tentar diretamente pelo app da carteira digital.", "Tentar de novo", "Acessar carteira digital"),
             text: "O título cumpre a função de informar exatamente o que aconteceu, enquanto a descrição foca em como resolver. Além de usar um tom acolhedor e empático." },
@@ -674,35 +674,35 @@
             "Nenhuma navegação alternativa.", "Nenhuma justificativa longa.", "Uma instrução, um CTA."
           ] }
         ] },
-        { h3: "Nível 1 · Do's and Dont's" },
+        { h3: "Nível 1 · Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: { _tag: "cds-card", "has-border": true, class: "pg-cnt-card", _children: [{ _tag: "h4", class: "pg-cnt-phone__title", _text: "Seu Caju ainda mais seguro 🔒" }, { _tag: "p", class: "pg-cnt-phone__text", _text: "Faça o reconhecimento facial e aumente a segurança da sua conta." }] }, style: "width:100%",
             text: "Tom leve e informativo que não cita o impacto negativo (ex: bloqueio). Estamos introduzindo o conceito nesse momento." },
           { kind: "dont", attrs: { _tag: "cds-card", "has-border": true, class: "pg-cnt-card", _children: [{ _tag: "h4", class: "pg-cnt-phone__title", _text: "É você mesmo por aqui? 👀" }, { _tag: "p", class: "pg-cnt-phone__text", _text: "Confirme sua identidade para que apenas você tenha acesso ao app." }] }, style: "width:100%",
             text: "Cuidado com o tom brincalhão em temas como segurança e privacidade." }
         ] },
-        { h3: "Nível 2 · Do's and Dont's" },
+        { h3: "Nível 2 · Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: sheetActions("Seu Caju ainda mais seguro", "Faça o reconhecimento facial e mantenha seu acesso protegido e exclusivo.", "Reforçar proteção", "Me lembrar mais tarde"),
             text: "Introduz a consequência futura e explica o valor da ação e tudo que é necessário para finalizá-la." },
           { kind: "dont", attrs: sheetActions("Ative já sua biometria", "Seu acesso será bloqueado se você não fizer isso agora. Garantimos que é rápido.", "Ativar conta", "Bloquear conta"),
             text: "Palavras de comando que aumentam a ansiedade e vendemos a consequência como punição, não como proteção." }
         ] },
-        { h3: "Nível 3 · Do's and Dont's" },
+        { h3: "Nível 3 · Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: sheetActions("Mais segurança para você", "Para aumentar a proteção do seu app, faça o reconhecimento facial até [DD/MM]. Sem essa etapa, seu app pode ficar temporariamente limitado.", "Aumentar proteção"),
             text: "O prazo está destacado e a Ilustração remete a ação necessária: fazer reconhecimento facial." },
           { kind: "dont", attrs: sheetActions("Você tem até [DD/MM] para ativar!", "Após essa data, seu acesso será bloqueado permanentemente. Não deixe isso acontecer.", "Ativar agora"),
             text: "O prazo vira protagonista negativo em vez de referência informativa e o tom é de ameaça direta." }
         ] },
-        { h3: "Nível 4 · Do's and Dont's" },
+        { h3: "Nível 4 · Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: screen("seguranca/cadeado", "Não deixe pra última hora", "Faça o reconhecimento facial para aumentar a proteção do seu Caju. Essa é uma etapa obrigatória para a sua segurança. A partir de amanhã (dd/mm), seu app fica temporariamente limitado.", "Fazer reconhecimento facial"),
             text: "A urgência aumentou mas o tom segue acolhedor: o bloqueio não é uma punição e sim uma medida preventiva." },
           { kind: "dont", attrs: screen("seguranca/cadeado", "Seu acesso será bloqueado amanhã!", "Você ainda não fez a autenticação por biometria. Garanta seu acesso antes que seja tarde.", "Ativar agora"),
             text: "Título anuncia punição em vez de orientar a ação." }
         ] },
-        { h3: "Nível 5 · Do's and Dont's" },
+        { h3: "Nível 5 · Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: screen("seguranca/cadeado", "Protegemos seu acesso", "Sua segurança vem em primeiro lugar, autorize esse dispositivo para que apenas você acesse seu app!", "Fazer reconhecimento facial"),
             text: "Aplicamos o nível máximo de ”punição”, mas o tom é acolhedor e o valor do bloqueio é a segurança do app." },

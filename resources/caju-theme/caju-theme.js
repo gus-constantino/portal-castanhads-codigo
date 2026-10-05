@@ -107,7 +107,7 @@
       ] },
       { id: "motion", title: "Motion", blocks: [
         { h2: "Princípios de Motion" },
-        { p: "É projetado para criar experiências fluidas, intuitivas e agradáveis para os usuários, com base em três pilares fundamentais: Simples, Eficiente e Consistente. O movimento torna as interações suaves e harmoniosas, refletindo a simplicidade e acolhimento brasileiro." },
+        { p: "O motion do Castanha é projetado para criar experiências fluidas, intuitivas e agradáveis, com base em três pilares: Simples, Eficiente e Consistente. O movimento torna as interações suaves e harmoniosas, refletindo a simplicidade e o acolhimento brasileiro." },
         { cards: [
           ["Simples", "As transições são suaves e intuitivas, facilitando o aprendizado em sistemas complexos."],
           ["Eficiente", "O movimento fornece respostas claras e destaca o que realmente importa, sinalizando mudanças e orientando o usuário de forma eficaz."],
@@ -139,7 +139,7 @@
           { kind: "do", text: "Teste sempre como as animações se comportam em diferentes dispositivos e plataformas para garantir consistência." },
           { kind: "dont", text: "Para evitar distrações ou confusão no fluxo do usuário, não use quando desperdiça o tempo do usuário." }
         ] },
-        { note: "Fonte: zeroheight · Princípios de Motion (734995) e Velocidade (24e587). Transições (757a5f) está \"In progress\" e fica de fora até ficar estável." }
+        { note: "Fonte: zeroheight · Princípios de Motion (734995) e Velocidade (24e587); os valores das curvas e durações vêm das variáveis do Figma. No Hub, três curvas Expressive não batem com o Figma e faltam Smooth, Overshoot, Short/00 e os delays (C163). Transições (757a5f) está \"In progress\" e fica de fora até ficar estável." }
       ] },
       { id: "icones", title: "Ícones", blocks: [
         { h2: "Ícones" },
@@ -155,19 +155,22 @@
         ] }
       ] },
       { id: "ilustracoes", title: "Ilustrações", blocks: [
+        { p: "As ilustrações servem para comunicar ideias de forma visual, atrair a atenção da pessoa usuária, ajudar a entender funcionalidades e reforçar a identidade da marca. Elas explicam processos complexos, tornam o produto mais agradável visualmente e criam uma experiência memorável." },
         { h2: "Princípios de ilustração" },
         { p: "O novo estilo de ilustração da Caju é orgânico e fluido, com a capacidade de transmitir suavidade, naturalidade e acessibilidade para uma comunicação amigável e convidativa." },
 
-        { h2: "Painel Semântico" },
-        { p: "Incorporar a brasilidade nas ilustrações contribui para a valorização da identidade cultural, refletindo a riqueza e a pluralidade do Brasil." },
+        { h2: "Painel semântico" },
+        { p: "Incorporar a brasilidade nas ilustrações contribui para a valorização da identidade cultural, refletindo a riqueza e a pluralidade do Brasil. A construção do novo estilo foi influenciada por artistas modernistas e contemporâneos:" },
         { cards: [
-          ["Artistas Modernistas", "Anita Malfati, Di Cavalcante, Cândido Portinari e Tarsila do Amaral"],
+          ["Artistas Modernistas", "Anita Malfatti, Di Cavalcante, Cândido Portinari e Tarsila do Amaral"],
           ["Artistas Contemporâneos", "Wilson Tibério, Zé Palito, Bianca Foratori e Victor Fidelis"]
         ] },
+        { h3: "Elementos culturais e materiais" },
+        { p: "Diversos elementos presentes no dia a dia dos brasileiros serviram de inspiração para o clima que as novas ilustrações querem passar." },
 
         { h2: "Cores" },
         { h3: "Tons Base" },
-        { p: "As ilustrações tem uma paleta de cores exclusiva, com tons mais quentes, tanto para as cores base quanto para tons neutros." },
+        { p: "As ilustrações têm uma paleta de cores exclusiva, com tons mais quentes, tanto para as cores base quanto para tons neutros." },
         { palette: { label: "Tons base", names: ["Neutral", "Off Red", "Safety Orange", "Yellow Green", "Egg Blue", "Mulberry", "Orchid"], steps: [20, 40, 60, 80, 100, 200], hex: [
           ["fff7f8", "f2e8e9", "d9c3c5", "968486", "554d50", "201418"],
           ["ffd7d6", "ffa3a1", "ff6a66", "e82f05", "99231f", "640b08"],
@@ -207,17 +210,22 @@
         { display: { attrs: [sizeImg("objetos/foguete", "lg"), sizeImg("objetos/presente-aberto", "lg"), sizeImg("objetos/trofeu", "lg")] } },
         { h2: "Linhas" },
         { p: "As linhas de contorno cumprem a função de separar planos e reforçar contraste." },
-        { p: "As cores utilizadas nas linhas de contorno sempre deverão favorecer seu contraste em relação às formas sobrepostas. Além disso, é mandatório que essa sobreposição obedeça a relação entre cores quentes x cores frias." },
+        { p: "As cores utilizadas nas linhas de contorno sempre deverão favorecer seu contraste em relação às formas sobrepostas. Além disso, a sobreposição deve respeitar a relação entre cores quentes e cores frias." },
+        { dodont: [
+          { kind: "do", text: "Aplique linhas em tons quentes sobre formas em tons quentes." },
+          { kind: "dont", text: "Não use linhas com baixo contraste em relação à área sobreposta." },
+          { kind: "dont", text: "Não aplique linhas em tons frios sobre formas em tons quentes." }
+        ] },
 
         { h2: "Tamanhos" },
-        { p: "Para uso nas plataformas Employee e Sponsor, as ilustrações Caju obedecem a alguns breakpoints para visualização em diferentes dispositivos." },
+        { p: "Nas plataformas Employee e Sponsor, as ilustrações entram nas telas por meio de Slots e seguem alguns tamanhos fixos (property Size das variants) para cada dispositivo." },
         { specimens: { min: "var(--common-sizes-160)", items: [
           { label: "80x80 · Apenas Employee", attrs: sizeImg("notificacoes/success", "sm") },
           { label: "144x144 · Employee + Sponsor", attrs: sizeImg("notificacoes/success", "md") },
           { label: "200x200 · Employee + Sponsor", attrs: sizeImg("notificacoes/success", "lg") },
           { label: "320x320 · Apenas Sponsor", attrs: { _tag: "img", class: "pg-cnt-phone__ill", style: "width:calc(var(--common-sizes-200) + var(--common-sizes-120));height:auto;max-width:100%", src: ILL["notificacoes/success"] || "", alt: "" } }
         ] } },
-        { p: "As ilustrações Hero têm a intenção de gerar momentos WOW e, por isso, possuem tamanhos específicos. Abordamos mais sobre essa categoria de ilustração no capítulo 4. Categorias." },
+        { p: "As ilustrações Hero têm a intenção de gerar momentos WOW e, por isso, possuem tamanhos específicos. Mais sobre essa categoria em Categorias, logo abaixo." },
         { table: { head: ["Size", "Medida", "Plataforma"], rows: [
           ["Small", "80x80", "Apenas Employee"], ["Medium", "144x144", "Employee + Sponsor"], ["Large", "200x200", "Employee + Sponsor"], ["Extra Large", "320x320", "Apenas Sponsor"],
           ["Hero Employee", "360x440", "Employee"], ["Hero Sponsor", "673x768", "Sponsor"]
@@ -246,23 +254,26 @@
             { label: "Tritanopia", matrix: "tritanopia" }, { label: "Visão Turva", filter: "blur(var(--common-sizes-2))" }, { label: "Diplopia", double: true },
             { label: "Amarelamento", filter: "sepia(0.7) saturate(1.4)" }, { label: "Perda de Contraste", filter: "contrast(0.45)" }, { label: "Luz Intensa", filter: "brightness(1.6) contrast(0.6)" }
           ] } },
-        { p: "Já para pessoas usuárias com perda total de visão e que utilizam leitores de tela em seus dispositivos, em breve teremos a opção do Alt Text (ou textos alternativos) para descrever o conteúdo das ilustrações." },
+        { p: "Já para pessoas usuárias com perda total de visão e que utilizam leitores de tela em seus dispositivos, em breve teremos a opção do Alt Text (ou textos alternativos) para descrever o conteúdo das ilustrações. Exemplos de texto alternativo do Hub:" },
+        { ul: ["Ilustração de um caixote de feira vazio, com algumas folhas de árvore voando ao vento por cima.", "Ilustração de um galo curvando a cabeça para trás e cacarejando."] },
+        { p: "Quando a ilustração só decora e o texto ao lado já diz tudo, ela fica sem texto alternativo (`alt=\"\"`), para o leitor de tela não repetir a mensagem. É assim nos componentes do playground." },
         { note: "Simulação aproximada, feita ao vivo com filtros sobre uma ilustração da biblioteca (o Figma mostra prints dos testes)." },
 
         { h2: "Aplicações" },
+        { p: "Cada contexto pede uma relação diferente entre ilustração, texto e componentes. Se surgir uma necessidade que estas diretrizes não cobrem, fale com o time no #castanha-suporte." },
         { h3: "Cenários de uso" },
         { guides: [
           { title: "Onboarding", text: "As ilustrações em onboardings explicam funcionalidades e apresentam novidades do app de forma visual e engajadora, facilitando a compreensão e melhorando a experiência da pessoa usuária.",
             attrs: scr({ ill: "objetos/kit-onboarding", size: "lg", title: "Seu app cheio de borogodó!", text: "Descubra as mudanças e novidades do app da Caju. Vamos lá?", primary: "Começar" }) },
           { title: "Alertas", text: "Ilustrações de alerta chamam atenção de forma visual e rápida, comunicando mensagens importantes com clareza e impacto.",
             attrs: scr({ ill: "notificacoes/alert", title: "Atualize seu app para continuar usando", text: "Temos novidades incríveis esperando por você! Atualize o app para aproveitar tudo que preparamos.", primary: "Atualizar aplicativo" }) },
-          { title: "Telas de Sucesso", text: "Ilustrações de sucesso reforçam feedbacks positivos, celebrando conquistas e motivando o usuário a continuar em sua jornada.",
+          { title: "Telas de sucesso", text: "Ilustrações de sucesso reforçam feedbacks positivos, celebrando conquistas e motivando o usuário a continuar em sua jornada.",
             attrs: scr({ ill: "notificacoes/success", title: "Seu pagamento foi enviado!", text: "A confirmação pode levar até 3 dias úteis. Confira no seu histórico de pagamentos.", primary: "Entendi", secondary: "Abrir comprovante" }) },
-          { title: "Telas de Erro", text: "Ilustrações de erro comunicam falhas de forma leve e intuitiva, ajudando o usuário a entender e resolver o problema rapidamente.",
+          { title: "Telas de erro", text: "Ilustrações de erro comunicam falhas de forma leve e intuitiva, ajudando o usuário a entender e resolver o problema rapidamente.",
             attrs: scr({ ill: "notificacoes/error", title: "Seu cartão está bloqueado", text: "O pagamento do boleto só pode ser feito com o cartão desbloqueado. Altere sua senha ou fale com a Caju para resolver.", primary: "Falar com a Caju", secondary: "Alterar senha" }) },
           { title: "Estados vazios e páginas vazias", text: "Ilustrações do tipo Estados Vazios e Telas Vazias informam ausência de dados/informações e orientam as pessoas usuárias sobre como prosseguir em suas jornadas.",
             attrs: scr({ ill: "notificacoes/empty-state", title: "Empty State", text: "Texto para explicar o empty state, tendo no máximo 2 linhas", primary: "Opção de redirecionamento 1", secondary: "Opção de redirecionamento 2" }) },
-          { title: "Splash Screens", text: "Aproveitando o uso das ilustrações Hero para gerar momentos WOW, as Splash Screens servem para dar as boas-vindas para a pessoa usuária enquanto reforçam a identidade visual da Caju!",
+          { title: "Splash Screen", text: "Aproveitando o uso das ilustrações Hero para gerar momentos WOW, as Splash Screens servem para dar as boas-vindas para a pessoa usuária enquanto reforçam a identidade visual da Caju!",
             attrs: hero("hero-employee/splash-screen") }
         ] },
         { h3: "Employee" },
@@ -282,7 +293,7 @@
             ] } },
           { title: "Feedbacks", text: "As ilustrações de Feedback (alertas, telas de sucesso/erro e empty states/empty pages) possuem menos detalhes, por isso suas aplicações em Employee devem seguir o padrão de 144x144 (Md).",
             attrs: scr({ ill: "notificacoes/empty-state", size: "md", title: "Empty State", text: "Texto para explicar o empty state, tendo no máximo 2 linhas", primary: "Opção de redirecionamento 1", secondary: "Opção de redirecionamento 2" }) },
-          { title: "Exceções contextuais", text: "Geralmente as ilustrações são aplicadas no centro da tela, mas há uma excessão: nas telas de saldo e extrato, elas ficam alinhadas à esquerda. Nesse cenário a ilustração de Sucesso segue o padrão de 80x80 (Sm).",
+          { title: "Exceções contextuais", text: "Geralmente as ilustrações são aplicadas no centro da tela, mas há uma exceção: nas telas de saldo e extrato, elas ficam alinhadas à esquerda. Nesse cenário a ilustração de Sucesso segue o padrão de 80x80 (Sm).",
             attrs: scr({ ill: "notificacoes/success-low-detail", size: "sm", align: "start", title: "Envio de saldo confirmado", text: "Retirado de Home Office: - R$ 100,00. Enviado para Cultura: + R$ 100,00.", primary: "Acessar extrato", secondary: "Compartilhar comprovante" }) },
           { title: "Hero", text: "Como mencionado no tópico anterior, as ilustrações do tipo Hero possuem especificações próprias. Em Employee elas são aplicadas no padrão de 360x440.",
             attrs: hero("hero-employee/login", "Acessar") }
@@ -297,17 +308,24 @@
         { p: "As ilustrações de Feedback (alertas, telas de sucesso/erro e empty states/empty pages) possuem menos detalhes. Por isso, em telas onde há pouca informação de texto e componentes, suas aplicações em Sponsor deverão seguir o padrão de 200x200 (Lg)." },
         { p: "Assim como ocorre em Employee, as ilustrações do tipo Hero possuem especificações próprias. No caso de Sponsor elas são aplicadas no padrão de 673x768." },
 
-        { h2: "Do's & Dont's" },
+        { h2: "Do's and Don'ts" },
+        { p: "No Hub, estas diretrizes se chamam Bom pra Caju (faça) e Sem Sabor (não faça)." },
         { dodont: [
-          { kind: "do", title: "Sempre adicione a Biblioteca de Ilustrações ao seu arquivo Figma.", text: "Dessa forma, seu arquivo se manterá atualizado toda vez alguma mudança nas ilustrações. Para isso, siga os passos a seguir:",
+          { kind: "do", title: "Sempre adicione a Biblioteca de Ilustrações ao seu arquivo Figma.", text: "Dessa forma, seu arquivo se mantém atualizado toda vez que houver alguma mudança nas ilustrações. Para isso, siga os passos a seguir:",
             steps: ["No seu arquivo, clique em Review Library Updates;", "Busque por 4. [Castanha DS] Illustration e clique em Add to file."] },
-          { kind: "do", title: "Respeite os breakpoints e suas respectivas aplicações.", text: "As ilustrações seguem alguns padrões de tamanhos para atender diferentes contextos, que exigem diferentes níveis de detalhamento e composição. Uma ilustração utilizada em uma Splash Page não segue o mesmo padrão de tamanho de um Alerta, por exemplo. Para mais informações sobre aplicações, consulte o capítulo 5. Aplicações." },
-          { kind: "dont", title: "Não dê Detach nas Instâncias dos Componentes de ilustração.", text: "Para que possamos garantir que as ilustrações estejam sempre atualizadas nos arquivos linkados, é necessário mantê-las integralmente como Instâncias. Dar Detach podem causar inconsistências ao longo das jornadas e dificultar a manutenção das ilustrações nesses arquivos." },
-          { kind: "dont", title: "Não redimensione as ilustrações para além dos padrões de Size", text: "Para assegurar a consistência no uso e aplicação das ilustrações, sempre respeite os tamanhos estabelecidos nas propriedade Size das variants:",
+          { kind: "do", title: "Respeite os breakpoints e suas respectivas aplicações.", text: "As ilustrações seguem alguns padrões de tamanhos para atender diferentes contextos, que exigem diferentes níveis de detalhamento e composição. Uma ilustração usada em uma Splash Screen não segue o mesmo padrão de tamanho de um Alerta, por exemplo. Para mais informações sobre aplicações, consulte Aplicações, acima." },
+          { kind: "dont", title: "Não dê Detach nas Instâncias dos Componentes de ilustração.", text: "Para que possamos garantir que as ilustrações estejam sempre atualizadas nos arquivos linkados, é necessário mantê-las integralmente como Instâncias. Dar Detach pode causar inconsistências ao longo das jornadas e dificultar a manutenção das ilustrações nesses arquivos." },
+          { kind: "dont", title: "Não redimensione as ilustrações para além dos padrões de Size", text: "Para assegurar a consistência no uso e aplicação das ilustrações, sempre respeite os tamanhos estabelecidos na propriedade Size das variants:",
             steps: ["Small (80x80)", "Medium (144x144)", "Large (200x200)", "Extra Large (320x320)"] },
-          { kind: "dont", title: "Não mude as cores das ilustraçòes", text: "As cores utilizadas na composição de cada uma das ilustrações levam em consideração critérios como acessibilidade e a própria harmonização entre elas. Evite alterar as cores das ilustrações para que o padrão das paletas seja mantido, assim como o equilíbrio e consistência nas interfaces." }
+          { kind: "dont", title: "Não mude as cores das ilustrações", text: "As cores utilizadas na composição de cada uma das ilustrações levam em consideração critérios como acessibilidade e a própria harmonização entre elas. Evite alterar as cores das ilustrações para que o padrão das paletas seja mantido, assim como o equilíbrio e consistência nas interfaces." }
         ] },
-        { note: "Fonte: Figma [CastanhaDS] Component use documentation · páginas IL-Painel Semântico, IL-Guidelines, IL-Aplicações e IL-Dos&Donts, e zeroheight · Princípios de ilustração (943842). IL-Intro, IL-Princípios e IL-Como solicitar estão vazias. As telas de exemplo foram refeitas com componentes do DS e ilustrações da biblioteca (C110)." },
+        { note: "Fonte: Figma [CastanhaDS] Component use documentation · páginas IL-Painel Semântico, IL-Guidelines, IL-Aplicações e IL-Dos&Donts, e zeroheight · Princípios de ilustração (943842). No Figma, IL-Intro, IL-Princípios e IL-Como solicitar estão vazias; o texto dessas partes vem do Hub (Ilustração, Princípios e Como solicitar ilustrações, revisados em 05/10, C164). As telas de exemplo foram refeitas com componentes do DS e ilustrações da biblioteca (C110)." },
+        { h2: "Como solicitar ilustrações" },
+        { p: "Peça ao time de Ilustração do Castanha pelo canal #castanha-suporte no Slack:" },
+        { cards: [
+          ["Novas ilustrações", "Para contextos de uso que a biblioteca ainda não cobre."],
+          ["Adaptação de tamanho", "Quando uma ilustração existente precisa de um tamanho que ainda não está disponível."]
+        ] },
         { h2: "Biblioteca" },
         { p: "[Caju] Illustrations, na ordem e nas categorias do Figma: " + nIlls + " ilustrações em " + nCats + " categorias (Caju UI 200×200 e Hero). Troque o fundo para testar o contraste; clique numa ilustração para ver o detalhe e copiar." },
         { tokens: "illustrations" },

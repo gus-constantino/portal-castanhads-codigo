@@ -84,7 +84,7 @@
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
         { ul: ["Mantenha uma única etapa atual", "Numere as etapas na ordem em que aparecem", "Escreva rótulos curtos, sobretudo na horizontal", "Case a orientação do container e das etapas", "Avalie o espaço antes de usar seis etapas na horizontal"] },
-        { h2: "Do's and Dont's" },
+        { h2: "Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: {}, text: "Use o mesmo Kind em todas as etapas do tracker." },
           { kind: "dont", attrs: { current: null, _children: [step("Identificação", { status: "completed", "marker-label": "1" }), step("Documentos", { status: "current", kind: "icon", "marker-icon": "file-line" }), step("Revisão", { "marker-label": "3", "show-connector": false })] }, text: "Não use Number em algumas etapas e Icon em outras — o marcador deixa de ser comparável entre elas." },

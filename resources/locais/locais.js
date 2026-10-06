@@ -88,7 +88,6 @@
         { ul: [
           "Início: capa vermelha do Castanha Hub.",
           "Recursos: a capa de cada página (Tema Caju, Motion, Personas, FAQ…) traz a seção, a frase da página e a pilha da área, com um toque da cor no fundo.",
-          "Menu: uma pilha pequena antes do título de cada seção (Padrões, Aprenda, Ferramentas e Ajuda).",
           "Estados vazios e página não encontrada: a pilha cinza do componente local Vazio.",
           "Preview do link: a imagem que aparece ao colar o endereço no Slack (`assets/brand/og-image.png`)."
         ] },
@@ -99,7 +98,7 @@
           { kind: "do", title: "Na capa", text: "Uma pilha por capa, à direita do texto." },
           { kind: "dont", title: "Cor fora da escala", text: "Nada de pintar os cartões à mão. A cor vem da área." },
           { kind: "dont", title: "Conteúdo dentro", text: "Os cartões não levam texto, ícone nem imagem." },
-          { kind: "dont", title: "Enfeite de card", text: "A pilha não vai no canto de cards nem de itens de lista (Gustavo, 06/10)." }
+          { kind: "dont", title: "Enfeite", text: "A pilha não vai no canto de cards, em itens de lista nem como marcador no menu: nada disso existe no Castanha Assets (Gustavo, 06/10)." }
         ] },
         { code: "<section class=\"loc-pilha-trigger\">\n  <h2>Tema Caju</h2>\n  <loc-pilha area=\"padroes\" cards=\"3\" style=\"height:var(--common-sizes-200)\"></loc-pilha>\n</section>" }
       ] },

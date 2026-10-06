@@ -248,9 +248,7 @@
     [navFound, navRes].forEach(function(box){ box.innerHTML = ""; });
     resSections(res).forEach(function(sec){
       var box = sec.top ? navFound : navRes, tid = "nav-sec-" + sec.id;
-      // Marcador da área: pilha pequena na cor da seção (D223)
-      var mark = AREAS[sec.id] ? [kit.el("loc-pilha", { "class": "pg-nav-pilha", area: sec.id, cards: "3" })] : [];
-      var title = box.appendChild(kit.el("p", { "class": "pg-nav-title" + (mark.length ? " has-pilha" : ""), id: tid }, mark.concat([sec.title])));
+      var title = box.appendChild(kit.el("p", { "class": "pg-nav-title", id: tid, text: sec.title }));
       if (sec.tip) kit.tip(title, sec.tip, { text: true });
       var ul = box.appendChild(kit.el("ul", { "class": "pg-nav", "aria-labelledby": tid }));
       sec.items.forEach(function(c){ ul.appendChild(kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name, c.soon ? kit.el("cds-tag", { appearance: "neutral", label: "Em breve", "show-lead-item": "false" }) : kit.el("small", { text: c.status || "" })])])); });

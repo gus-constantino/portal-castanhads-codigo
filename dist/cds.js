@@ -3915,7 +3915,17 @@ try {
   "use strict";
   class CdsScrollableTab extends CDS.TabList {
     get sampleCount(){ return 6; }
-    afterRender(a){ var it = this.items[a - 1]; if (it && this._shown) it.scrollIntoView({ block: "nearest", inline: "nearest" }); this._shown = true; }
+    // Rola a própria faixa de abas até a ativa, sem scrollIntoView: ele mexia na rolagem da página e cortava a rolagem
+    // suave quando a aba ativa acompanha a leitura (ex.: capítulos da Proposta, docs/pitch)
+    afterRender(a){
+      var it = this.items[a - 1];
+      if (it && this._shown){
+        var r = it.getBoundingClientRect(), c = this.getBoundingClientRect();
+        if (r.left < c.left) this.scrollLeft += r.left - c.left;
+        else if (r.right > c.right) this.scrollLeft += r.right - c.right;
+      }
+      this._shown = true;
+    }
   }
   CdsScrollableTab.define("cds-scrollable-tab");
 })();

@@ -695,14 +695,24 @@ cds-banner.pg-doc-banner{ width:calc(var(--common-sizes-200) + var(--common-size
 .pg-faq__hero .pg-doc-p{ margin:0; color:var(--common-colors-text-medium); }
 .pg-faq__search{ display:block; width:100%; }
 .pg-faq__hero-ill{ width:calc(var(--common-sizes-160) + var(--common-sizes-40)); height:auto; animation:pg-faq-in var(--common-motion-duration-extra-long-01) var(--common-motion-easing-expressive-decelerate) backwards, pg-faq-float var(--common-motion-duration-extended-01) var(--common-motion-easing-systemic-smooth) var(--common-motion-duration-extra-long-01) infinite; }
-/* temas: Content List Item do DS (Kind Card, Checkbox no .Trailing Item) */
+/* temas */
 .pg-faq__topics{ display:grid; grid-template-columns:repeat(auto-fill, minmax(calc(var(--common-sizes-200) + var(--common-sizes-20)), 1fr)); gap:var(--common-sizes-8); }
-/* mais perguntadas: Content List Item do DS (Kind Card, Intent Navigation) */
+.pg-faq__topic, .pg-faq__rank-item{ animation:pg-faq-in var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing) backwards; animation-delay:calc(var(--_i, 0) * var(--common-motion-duration-short-01)); }
+.pg-faq__topic .cmp-cc.cmp-cc, .pg-faq__rank-item .cmp-cc.cmp-cc{ transition:transform var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), box-shadow var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
+.pg-faq__topic .cmp-cc.cmp-cc:hover, .pg-faq__rank-item .cmp-cc.cmp-cc:hover{ transform:translateY(calc(-1 * var(--common-sizes-2))); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-medium), var(--common-elevation-level-1); }
+.pg-faq__topic .cmp-cc__media, .pg-faq__rank-item .cmp-cc__media{ background:none; justify-content:flex-start; }
+.pg-faq__topic[media="auto"] .cmp-cc__media{ flex-direction:column; align-items:flex-start; gap:var(--common-sizes-12); padding:var(--common-sizes-12) var(--common-sizes-12) var(--common-sizes-4); }
+.pg-faq__topic-name{ font:var(--text-style-label-medium); color:var(--common-colors-text-intense); }
+.pg-faq__topic[media="auto"] .cmp-cc__label, .pg-faq__rank-item[media="auto"] .cmp-cc__label{ text-align:left; padding:0 var(--common-sizes-12) var(--common-sizes-8); }
+.pg-faq__topic .cmp-cc.cmp-cc[aria-pressed="true"]{ background:var(--common-colors-surface-01); box-shadow:inset 0 0 0 var(--common-border-width-thick) var(--common-colors-border-intense); }
+/* mais perguntadas */
 .pg-faq__top{ display:flex; flex-direction:column; gap:var(--common-sizes-12); }
 .pg-faq__sec-head{ display:flex; align-items:baseline; flex-wrap:wrap; gap:var(--common-sizes-4) var(--common-sizes-12); }
 .pg-faq__sec-head .pg-doc-h2{ margin:0; }
 .pg-faq__note{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
 .pg-faq__rank{ margin:0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(auto-fit, minmax(calc(var(--common-sizes-200) + var(--common-sizes-120)), 1fr)); gap:var(--common-sizes-8); }
+.pg-faq__rank-item[media="auto"] .cmp-cc__media{ flex-direction:row; align-items:center; gap:var(--common-sizes-12); padding:var(--common-sizes-12) var(--common-sizes-12) var(--common-sizes-4); }
+.pg-faq__rank-q{ font:var(--text-style-label-medium); color:var(--common-colors-text-intense); }
 /* resultados */
 .pg-faq__bar-row{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--common-sizes-8); padding-top:var(--common-sizes-8); box-shadow:inset 0 var(--common-border-width-hairline) 0 var(--common-colors-border-soft); }
 .pg-faq__count{ margin:0; font:var(--text-style-caption-medium); color:var(--common-colors-text-medium); }
@@ -726,7 +736,7 @@ cds-banner.pg-doc-banner{ width:calc(var(--common-sizes-200) + var(--common-size
 .pg-faq__cta-title{ margin:0; font:var(--text-style-title-small); color:var(--common-colors-text-intense); }
 .pg-faq__cta .pg-doc-p{ margin:0; }
 @media (max-width:640px){ .pg-faq__hero{ grid-template-columns:minmax(0, 1fr); padding:var(--common-sizes-24); } .pg-faq__hero-ill{ display:none; }
-  .pg-faq__topics{ grid-template-columns:minmax(0, 1fr); } }
+  .pg-faq__topics{ grid-template-columns:repeat(2, minmax(0, 1fr)); } .pg-faq__topic[media="auto"] .cmp-cc__media{ gap:var(--common-sizes-8); } }
 @media (prefers-reduced-motion:reduce){ .pg-faq *, .pg-faq *::after{ animation:none !important; transition:none !important; } }
 
 /* Link no meio do texto ([texto](url) nos blocos de texto): segue a linha, sem quebrar o parágrafo */

@@ -6,9 +6,9 @@
 
 | Verificação | Resultado |
 |---|---|
-| Smoke dos componentes (claro, escuro, mobile 360) | ✅ 116/116 ok · ⚠️ 11 com aviso |
-| Smoke das docs (desktop e 375px) | ✅ 127 docs · 711 tabs · 0 com problema |
-| Peso da primeira visita | ✅ 475 KB gzip de 600 KB · docs sob demanda: 109 arquivos |
+| Smoke dos componentes (claro, escuro, mobile 360) | ✅ 115/115 ok · ⚠️ 10 com aviso |
+| Smoke das docs (desktop e 375px) | ✅ 126 docs · 709 tabs · 0 com problema |
+| Peso da primeira visita | ✅ 473 KB gzip de 600 KB · docs sob demanda: 108 arquivos |
 ## Componentes
 
 Nenhuma falha.
@@ -24,7 +24,6 @@ Nenhuma falha.
 | dropzone | contraste (escuro): “Selecionar arquivos” 3.74:1 (C127) |
 | filter-button | contraste (escuro): “Filtros” 3.74:1 (C127) |
 | pagination | mobile: 780px > 360px do frame (C129) |
-| sponsor-toolbar | contraste (escuro): “Filtros” 3.74:1 (C127) |
 | table | mobile: 1053px > 360px do frame (C129) |
 | text-area | contraste (claro): “0/300” 2.50:1 (C128) · contraste (escuro): “0/300” 2.14:1 (C128) |
 | text-input | contraste (claro): “0/100” 2.50:1 (C128) · contraste (escuro): “0/100” 2.14:1 (C128) |
@@ -39,11 +38,11 @@ Nenhum aviso.
 
 | Parte | Bruto | gzip |
 |---|---|---|
-| Primeira visita (tudo o que o index.html carrega) | 2049 KB | 475 KB |
-| dist/cds.js · componentes (116 arquivos) | 329 KB | 82 KB |
-| dist/cds.js · playgrounds (109 arquivos) | 162 KB | 28 KB |
+| Primeira visita (tudo o que o index.html carrega) | 2041 KB | 473 KB |
+| dist/cds.js · componentes (115 arquivos) | 325 KB | 81 KB |
+| dist/cds.js · playgrounds (108 arquivos) | 161 KB | 28 KB |
 | dist/cds.js · recursos (28 arquivos) | 448 KB | 131 KB |
-| Docs sob demanda (109 arquivos, uma por componente aberto) | — | 284 KB no total |
+| Docs sob demanda (108 arquivos, uma por componente aberto) | — | 283 KB no total |
 
 Limite: 600 KB gzip na primeira visita (aviso no build; `BUDGET_STRICT=1` faz falhar).
 

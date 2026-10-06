@@ -13,18 +13,18 @@
   "date": "2026-09-25"
  },
  "counts": {
-  "components": 85,
+  "components": 84,
   "buildingBlocks": 26,
   "resources": 14,
   "compositions": 5,
-  "withDocs": 125,
+  "withDocs": 124,
   "withReact": 70,
   "liveMaps": 70,
   "reactOnly": 12,
   "tokens": 308,
   "icons": 273,
   "illustrations": 260,
-  "conferirOpen": 119,
+  "conferirOpen": 117,
   "stackFindings": 57
  },
  "components": [
@@ -13172,28 +13172,6 @@
      "id": "anatomia",
      "title": "Anatomia",
      "text": "## Propriedades\n\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Text Label** (Text)\n- **Show Lead Icon** (Boolean)\n- **Lead Icon** (Instance swap)\n- **Show Trailing Icon** (Boolean)\n- **Trailing Icon** (Instance swap)\n- **Show Badge** (Boolean)\n\n188×32, fundo `Surface/01`, raio `Border/Radius/small`, padding 0 8 e gap 8. Label em `Label/Regular` e `Text/medium`. No Hovered e no Pressed, `Label/Bold` (no Hovered, também `Text/intense`). Largura de preenchimento e altura mínima 32."
-    }
-   ]
-  },
-  {
-   "id": "sponsor-toolbar",
-   "name": "Toolbar",
-   "kind": "component",
-   "category": null,
-   "figma": "https://www.figma.com/design/9Tkkk4lusVKNEButGjvsNW/-CastanhaDS--Sponsor-Templates?node-id=5585-2",
-   "figmaNode": "5585-2",
-   "zeroheight": null,
-   "description": "Barra de abas, busca e ações no topo das listas das páginas do Sponsor.",
-   "tabs": [
-    {
-     "id": "uso",
-     "title": "Uso",
-     "text": "> **Sem description no Figma:** O componente Toolbar não tem description nem props na lib. Esta página descreve a composição lida no Figma.\n\n## Composição\n\n- Scrollable Tab no topo, com largura fixa de 320.\n- Filter Controls: os campos de busca à esquerda e as ações à direita.\n- Search Fields: Text Input e Async creatable Select Input, sem label nem supporting content, dividindo a largura.\n- Action Controls: dois Main Buttons Default Neutral Medium com Lead Icon e o Filter button.\n\n> No Figma a Toolbar tem 1158 de largura. No código ela ocupa o container: abaixo de 900 as ações descem para a linha de baixo e abaixo de 560 os campos empilham."
-    },
-    {
-     "id": "anatomia",
-     "title": "Anatomia",
-     "text": "## Medidas\n\n| Parte | Layout | Tamanho |\n|---|---|---|\n| Toolbar | Coluna, gap 24 | 1158 × 120 (largura fixa no Figma) |\n| Scrollable Tab | Active Item 1 | 320 × 48 (fixo) |\n| Filter Controls | Linha, gap 58, itens ao centro | Preenche |\n| Search Fields | Linha, gap 20 | Preenche e cresce; cada campo cresce igual (364) |\n| Action Controls | Linha, gap 12 | Conteúdo (352) |\n\n> O gap de 58 não usa token no Figma (C179). Os Main Buttons da Toolbar estão com 107, abaixo do mínimo de 136 do componente (C180). No código: `active-item`, `first-action`, `second-action`, `search-placeholder`, `select-placeholder`, `filter-active`, `filter-count` e `show-tabs`, `show-search`, `show-select`, `show-actions`."
     }
    ]
   },
@@ -27196,18 +27174,6 @@
     "group": "Ajuste de UI",
     "resolved": false,
     "text": "Side Menu · `.User Profile` · O Icon Button do rodapé (Show Icon Button) usa `menu-line`, mas a ação não está descrita no set · Descrever a ação (ex.: menu da conta, trocar de empresa, sair) · `menu-line`, nome acessível \"Opções da conta\", evento `cds-action` · Próxima revisão do Sponsor Templates"
-   },
-   {
-    "id": "C179",
-    "group": "Ajuste de UI",
-    "resolved": false,
-    "text": "Toolbar (Sponsor Templates 5585:2) · Filter Controls · Gap de 58 entre Search Fields e Action Controls, sem variável · Token da escala (`Sizes/56` ou `Sizes/64`) · 58px, igual ao Figma · Próxima revisão do Sponsor Templates"
-   },
-   {
-    "id": "C180",
-    "group": "Ajuste de UI",
-    "resolved": false,
-    "text": "Toolbar · Action Controls · Main Buttons com 107 de largura (Hug), abaixo do mínimo de 136 do Main Button Medium · Respeitar o mínimo do componente ou registrar a exceção · 107, como no Figma (mínimo zerado só dentro da Toolbar) · Próxima revisão do Sponsor Templates"
    },
    {
     "id": "C01",

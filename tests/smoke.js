@@ -155,7 +155,7 @@
   // para que um aviso novo não se perca no meio deles. [id, tipo do aviso, item]
   var KNOWN = [
     [/^(banner|content-banner|backdrop)$/, /^contraste \(escuro\)/, "C126"],
-    [/^(dropzone|filter-button|sponsor-toolbar)$/, /^contraste \(escuro\)/, "C127"],
+    [/^(dropzone|filter-button)$/, /^contraste \(escuro\)/, "C127"],
     [/^(text-input|text-area|date-input)$/, /^contraste/, "C128"],
     [/^(pagination|table)$/, /^mobile:/, "C129"]
   ];

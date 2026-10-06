@@ -34,18 +34,18 @@
   .pt-chapter.is-inversed{ background:var(--common-colors-surface-inversed); color:var(--common-colors-text-inversed); }
   .pt-chapter.is-tint{ background:color-mix(in srgb, var(--loc-front) 8%, var(--common-colors-surface-default)); }
 
-  /* ---------- Tipografia (estilos de texto do tema) ---------- */
-  .pt-eyebrow{ margin:0; font:var(--text-style-label-bold); letter-spacing:.06em; text-transform:uppercase; color:var(--common-colors-text-accent); }
-  .is-accent .pt-eyebrow, .is-inversed .pt-eyebrow{ color:inherit; opacity:.8; }
-  .pt-display{ margin:0; font:var(--text-style-decorative-display); line-height:1.05; text-wrap:balance; hyphens:auto; overflow-wrap:break-word; }
-  .pt-h2{ margin:0; font:var(--text-style-decorative-big); line-height:1.1; text-wrap:balance; }
-  .pt-h3{ margin:0; font:var(--text-style-decorative-large); line-height:1.2; text-wrap:balance; }
+  /* ---------- Tipografia: só os Text Styles do tema, sem trocar altura de linha, espaçamento, caixa ou opacidade ---------- */
+  .pt-eyebrow{ margin:0; font:var(--text-style-label-bold); color:var(--common-colors-text-accent); }
+  .is-accent .pt-eyebrow, .is-inversed .pt-eyebrow{ color:inherit; }
+  .pt-display{ margin:0; font:var(--text-style-decorative-display); text-wrap:balance; hyphens:auto; overflow-wrap:break-word; }
+  .pt-h2{ margin:0; font:var(--text-style-decorative-big); text-wrap:balance; }
+  .pt-h3{ margin:0; font:var(--text-style-decorative-large); text-wrap:balance; }
   .pt-h4{ margin:0; font:var(--text-style-title-medium); }
-  .pt-lede{ margin:0; font:var(--text-style-subtitle-large); line-height:1.45; color:var(--common-colors-text-medium); text-wrap:pretty; max-width:min(100%, calc(4 * var(--common-sizes-200))); }
-  .is-accent .pt-lede, .is-inversed .pt-lede{ color:inherit; opacity:.9; }
+  .pt-lede{ margin:0; font:var(--text-style-subtitle-large); color:var(--common-colors-text-medium); text-wrap:pretty; max-width:min(100%, calc(4 * var(--common-sizes-200))); }
+  .is-accent .pt-lede, .is-inversed .pt-lede{ color:inherit; }
   .pt-p{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); text-wrap:pretty; }
   .pt-step{ margin:0; font:var(--text-style-label-bold); color:var(--common-colors-text-accent); }
-  .pt-num{ margin:0; font:var(--text-style-decorative-big); line-height:1; font-variant-numeric:tabular-nums; }
+  .pt-num{ margin:0; font:var(--text-style-decorative-big); font-variant-numeric:tabular-nums; }
   .pt-head{ display:flex; flex-direction:column; gap:var(--common-sizes-16); margin-bottom:var(--common-sizes-56); max-width:calc(5 * var(--common-sizes-200)); }
   .pt-sub{ margin-top:var(--common-sizes-120); }
   .pt-fill b{ font-weight:700; color:var(--common-colors-text-intense); }
@@ -64,9 +64,9 @@
   .pt-hero .pt-wrap, .pt-end .pt-wrap, .pt-virada{ display:grid; grid-template-columns:minmax(0, 1.5fr) minmax(0, 1fr); gap:var(--common-sizes-56); align-items:center; }
   .pt-hero__text, .pt-end__text, .pt-virada__text{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-32); }
   .pt-hero__brand{ height:var(--common-sizes-56); width:auto; }
-  .pt-hero__meta{ margin:0; font:var(--text-style-label-medium); opacity:.85; }
+  .pt-hero__meta{ margin:0; font:var(--text-style-label-medium); }
   .pt-pilha{ justify-self:end; width:100%; height:auto; max-width:calc(55svh * 1.27); }
-  @media (max-width:1600px){ .pt-chapter .pt-display{ font:var(--text-style-decorative-big); line-height:1.08; } }
+  @media (max-width:1600px){ .pt-chapter .pt-display{ font:var(--text-style-decorative-big); } }
 
   /* ---------- Grades de Cards do DS ---------- */
   .pt-grid{ display:grid; gap:var(--common-sizes-16); }
@@ -82,12 +82,12 @@
   /* ---------- Capacidades: texto rolando e o portal ao vivo fixo ao lado ---------- */
   .pt-caps{ display:grid; grid-template-columns:minmax(0, 0.8fr) minmax(0, 1.2fr); gap:var(--common-sizes-56); align-items:start; }
   .pt-caps__list{ display:flex; flex-direction:column; }
-  .pt-cap{ min-height:70svh; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap:var(--common-sizes-12); opacity:.35;
+  .pt-cap{ min-height:70svh; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap:var(--common-sizes-12); opacity:var(--common-opacity-medium);
     transition:opacity var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing); }
-  .pt-cap.is-active{ opacity:1; }
+  .pt-cap.is-active{ opacity:var(--common-opacity-opaque); }
   .pt-cap__n{ display:inline-flex; align-items:center; gap:var(--common-sizes-8); }
-  .pt-cap h3{ margin:0; font:var(--text-style-decorative-large); line-height:1.2; }
-  .pt-cap .pt-p{ font:var(--text-style-subtitle-small); line-height:1.5; }
+  .pt-cap h3{ margin:0; font:var(--text-style-decorative-large); }
+  .pt-cap .pt-p{ font:var(--text-style-subtitle-small); }
   .pt-demo{ position:sticky; top:calc(var(--pt-top-h) + var(--common-sizes-24)); height:calc(100svh - var(--pt-top-h) - var(--common-sizes-48)); display:flex; flex-direction:column; gap:var(--common-sizes-12); }
   .pt-demo__frame{ position:relative; flex:1 1 auto; overflow:hidden; border-radius:var(--common-border-radius-large); background:var(--common-colors-neutral-solid-soft);
     box-shadow:var(--common-elevation-level-3), inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-semi-soft);
@@ -100,19 +100,19 @@
   .pt-ask .pt-num{ grid-row:span 2; color:var(--common-colors-text-accent); }
 
   /* ---------- Fim ---------- */
-  .pt-end ol{ margin:0; padding-left:var(--common-sizes-32); font:var(--text-style-subtitle-large); line-height:1.6; }
+  .pt-end ol{ margin:0; padding-left:var(--common-sizes-32); font:var(--text-style-subtitle-large); }
   .pt-end__links{ display:flex; flex-wrap:wrap; gap:var(--common-sizes-24); }
 
   /* ---------- Efeitos ligados à rolagem (progressive enhancement: sem suporte, tudo aparece parado) ---------- */
   @property --_fan{ syntax:"<number>"; inherits:true; initial-value:0; }
   @media (prefers-reduced-motion: no-preference){
     @supports (animation-timeline: scroll()){
-      @keyframes pt-fan{ to{ --_fan:1.6; scale:1.06; } }
+      @keyframes pt-fan{ to{ --_fan:1.6; } }
       .pt-hero .pt-pilha{ animation:pt-fan auto linear both; animation-timeline:scroll(root); animation-range:0 80svh; }
     }
     @supports ((animation-timeline: view()) and (animation-range: entry)){
-      @keyframes pt-in{ from{ opacity:0; translate:0 var(--common-sizes-40); } }
-      @keyframes pt-zoom{ from{ scale:.85; opacity:.4; } }
+      @keyframes pt-in{ from{ opacity:var(--common-opacity-transparent); translate:0 var(--common-sizes-40); } }
+      @keyframes pt-zoom{ from{ opacity:var(--common-opacity-medium); translate:0 var(--common-sizes-56); } } /* sem token de escala no tema: só opacidade e deslocamento */
       @keyframes pt-fan-view{ from{ --_fan:0; } to{ --_fan:1.6; } }
       .pt-reveal{ animation:pt-in auto var(--common-motion-easing-systemic-decelerate) backwards; animation-timeline:view(); animation-range:entry 0% entry 60%; }
       .pt-grid > .pt-reveal:nth-child(2){ animation-range:entry 10% entry 70%; }
@@ -127,8 +127,8 @@
   @media (max-width:1100px){
     :root{ --pt-gutter:var(--common-sizes-32); }
     .pt-grid--4{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
-    .pt-chapter .pt-display{ font:var(--text-style-decorative-big); line-height:1.08; }
-    .pt-h2{ font:var(--text-style-decorative-extra-large); line-height:1.15; }
+    .pt-chapter .pt-display{ font:var(--text-style-decorative-big); }
+    .pt-h2{ font:var(--text-style-decorative-extra-large); }
   }
   @media (max-width:860px){
     :root{ --pt-gutter:var(--common-sizes-20); }
@@ -136,9 +136,9 @@
     .pt-sub{ margin-top:var(--common-sizes-80); }
     .pt-hero .pt-wrap, .pt-end .pt-wrap, .pt-virada, .pt-grid--2, .pt-grid--3{ grid-template-columns:minmax(0, 1fr); }
     .pt-pilha{ justify-self:start; width:auto; height:var(--common-sizes-160); }
-    .pt-chapter .pt-display{ font:var(--text-style-decorative-extra-large); line-height:1.1; }
-    .pt-h2{ font:var(--text-style-decorative-large); line-height:1.2; }
-    .pt-h3, .pt-cap h3{ font:var(--text-style-decorative-medium); line-height:1.25; }
+    .pt-chapter .pt-display{ font:var(--text-style-decorative-extra-large); }
+    .pt-h2{ font:var(--text-style-decorative-large); }
+    .pt-h3, .pt-cap h3{ font:var(--text-style-decorative-medium); }
     .pt-lede, .pt-end ol{ font:var(--text-style-subtitle-medium); }
     /* capacidades: o portal fica fixo em cima e o texto rola embaixo */
     .pt-caps{ grid-template-columns:minmax(0, 1fr); gap:0; }
@@ -393,6 +393,8 @@
     if (!header.setBreadcrumb) return requestAnimationFrame(setupHeader);
     header.setBreadcrumb([{ label: "Castanha DS", href: ROOT + "index.html#/" }, { label: "Relatório", href: ROOT + "index.html#/relatorio/arquitetura" }, { label: "Proposta" }], narrow.matches ? 2 : 0);
     header.backBtn.addEventListener("click", function(){ location.href = ROOT + "index.html#/relatorio/arquitetura"; });
+    header.backBtn.id = "pt-back"; // Tooltip "Voltar", como no portal
+    header.trailEl.appendChild(CDS.create("cds-tooltip", { for: "pt-back", placement: "bottom", "show-label": "false", text: "Voltar" }));
     var actions = [["pt-edit", "edit-line", "Editar valores da proposta", "Valores da proposta"], ["pt-full", "fullscreen-line", "Tela cheia", "Tela cheia (F)"]];
     actions.forEach(function(a){
       var b = header.trailEl.appendChild(CDS.create("cds-icon-button", { id: a[0], icon: a[1], kind: "default", appearance: "neutral", size: "small", label: a[2] }));

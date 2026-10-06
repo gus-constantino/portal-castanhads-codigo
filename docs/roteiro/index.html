@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Roteiro do Playground: 20 coisas para abrir, clicar e mexer no portal (D236; revisão com uso estrito do DS, D238).
+<!-- Roteiro do Playground: 20 coisas para abrir, clicar e mexer no portal (D236; revisão com uso estrito do DS, D238; ajuste fino D239).
      Página ESCONDIDA: fora do menu e da busca. O link fica no Relatório › Arquitetura, embaixo da Proposta.
      Feita para quem chega pela primeira vez (Gustavo, 06/10): cada parada tem o link direto para a página no portal.
      Regra: só o que o Castanha DS tem.
@@ -23,7 +23,7 @@
   /* Guia de passeio: barra do topo do portal, abertura com a ação principal, "Se tiver 5 minutos" e cinco blocos de paradas.
      Mobile no :root; Tablet ≥ 744; Desktop ≥ 1366 (coleção Viewport do castanha-tokens). */
   :root{ --rt-max:calc(5 * var(--common-sizes-200) + var(--common-sizes-160)); }
-  body{ margin:0; background:var(--common-colors-surface-01); color:var(--common-colors-text-intense); font:var(--text-style-body-regular); }
+  body{ margin:0; background:var(--common-colors-surface-default); color:var(--common-colors-text-intense); font:var(--text-style-body-regular); }
   p, h1, h2, h3{ margin:0; }
 
   /* Barra do topo: .Heading do Header do Sponsor (← · Breadcrumb · tema) */
@@ -66,7 +66,7 @@
   .rt-item > cds-card, .rt-trio > cds-card{ flex:1 1 auto; min-width:0; }
   .rt-item .cds-card__slot, .rt-trio .cds-card__slot{ height:100%; }
   .rt-item__top{ display:flex; align-items:baseline; gap:var(--common-sizes-8); }
-  .rt-item__n{ font:var(--text-style-disclaimer-medium); color:var(--common-colors-text-soft); font-variant-numeric:tabular-nums; flex:none; }
+  .rt-item__n{ font:var(--text-style-disclaimer-medium); color:var(--common-colors-text-medium); /* Text/soft reprova contraste em texto informativo (C128) */ font-variant-numeric:tabular-nums; flex:none; }
   .rt-item__title{ font:var(--text-style-title-small); }
   .rt-item__text{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); flex:1 1 auto; }
   .rt-item__foot{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--common-sizes-8) var(--common-sizes-12); }
@@ -150,6 +150,8 @@
 (function(){
   "use strict";
   var B = "../../";
+  // Mesma conta da página de Ícones do Tema Caju: categorias do [Caju] Icons, sem Deprecated e sem glifos
+  function nIcons(){ return ((window.CDS.assets || {}).iconBuckets || []).filter(function(b){ return !b.deprecated && !b.glyphs; }).reduce(function(t, b){ return t + b.icons.length; }, 0); }
   var STOPS = [
     { id: "menu", title: "Menu e navegação", text: "O menu lateral mostra cada componente funcionando, além do nome.", ill: "interfaces/carrossel", items: [
       ["Menu em grade com miniaturas vivas", "Clique no ícone de grade ao lado de \"Componentes\". Cada card é o componente real, reduzido.", "#/main-button"],
@@ -171,7 +173,7 @@
     { id: "marca", title: "Marca e visual", text: "Tokens, ícones e ilustrações da Caju, todos clicáveis.", ill: "objetos/gema-rubi", items: [
       ["Cores do Tema Caju", "A paleta entra animada e cada amostra copia o token com um clique.", "#/caju-theme/cores"],
       ["Elevação", "Escolha o nível e o card sobe com a sombra, decomposta em x, y, blur, spread e cor.", "#/caju-theme/elevacao"],
-      ["Galeria de ícones", "Os 274 ícones com troca de cor e tamanho para a grade toda e o detalhe de cada um.", "#/caju-theme/icones"],
+      ["Galeria de ícones", "Os " + nIcons() + " ícones com troca de cor e tamanho para a grade toda e o detalhe de cada um.", "#/caju-theme/icones"],
       ["Ilustração", "Paletas clicáveis, personagens e uma simulação de condições visuais, como o daltonismo, sobre uma ilustração.", "#/ilustracao"]
     ] },
     { id: "docs", title: "Documentação", text: "Uso, anatomia, diretrizes e conteúdo, com exemplos montados com os componentes reais.", ill: "documentos/relatorios-1", items: [
@@ -179,7 +181,7 @@
       ["Patterns", "Os 9 tipos de Feedback Page do Sponsor ao vivo, com as ilustrações do Figma.", "#/patterns/sponsor"],
       ["Tom e voz", "Os pilares e as perguntas-guia para escrever como a Caju.", "#/conteudo/tom-e-voz"],
       ["Capacitações", "Os vídeos dos treinamentos do Hub tocando na própria página.", "#/capacitacoes"],
-      ["Relatório do projeto", "Números, ritmo, decisões e o que falta conferir, num painel.", "#/relatorio"]
+      ["Relatório do projeto", "Números, sinais vitais, decisões e o que falta conferir, num painel.", "#/relatorio"]
     ] }
   ];
   var PICKS = [[1, "Menu em grade", "Clique no ícone de grade ao lado de \"Componentes\" e veja cada componente em miniatura, ao vivo."],
@@ -242,6 +244,8 @@
     function crumbs(){ header.setBreadcrumb([{ label: "Castanha DS", href: B + "index.html#/" }, { label: "Relatório", href: B + "index.html#/relatorio/arquitetura" }, { label: "Roteiro" }], narrow.matches ? 2 : 0); }
     crumbs(); narrow.addEventListener("change", crumbs);
     header.backBtn.addEventListener("click", function(){ location.href = B + "index.html#/relatorio/arquitetura"; });
+    header.backBtn.id = "rt-back"; // Tooltip "Voltar", como no portal
+    header.trailEl.appendChild(CDS.create("cds-tooltip", { "for": "rt-back", placement: "bottom", "show-label": "false", text: "Voltar" }));
     var tb = header.trailEl.appendChild(CDS.create("cds-icon-button", { id: "rt-theme", icon: "dark-mode-line", kind: "default", appearance: "neutral", size: "small", label: "Ativar tema escuro", pressed: "false" }));
     var tip = header.trailEl.appendChild(CDS.create("cds-tooltip", { "for": "rt-theme", placement: "bottom", "show-label": "false" }));
     function paintTheme(){

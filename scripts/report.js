@@ -129,10 +129,10 @@
     var pg = (CDS.playgrounds || []).filter(function(c){ return !c.resource; });
     var comps = pg.filter(function(c){ return !c.block && !c.composition; }).length;
     return [
-      { label: "Componentes no playground", value: comps, sub: "+ " + pg.filter(function(c){ return c.block; }).length + " building blocks", tip: "Componentes do Figma implementados no playground, sem contar building blocks e recursos de apoio." },
-      { label: "Variantes do Figma cobertas", value: variants.toLocaleString("pt-BR"), sub: "em " + sets + " sets da lib", tip: "Soma das variantes dos sets do inventário da lib (Roadmap §2). Todas estão implementadas no playground." },
-      { label: "Débitos e melhorias mapeados", value: openC, sub: solved + " já resolvidos", tip: "Itens em aberto no Conferir: divergências entre Figma e código, gaps e propostas de melhoria." },
-      { label: "Decisões registradas", value: dec, sub: qs ? qs + " dúvida(s) em aberto" : "Sem dúvidas em aberto", tip: "Decisões tomadas e registradas no Roadmap (D1, D2…). Embaixo, as dúvidas que ainda aguardam resposta." }
+      { label: "Componentes no playground", value: comps, sub: "+ " + pg.filter(function(c){ return c.block; }).length + " building blocks", icon: "view-module-line", app: "accent", tip: "Componentes do Figma implementados no playground, sem contar building blocks e recursos de apoio." },
+      { label: "Variantes do Figma cobertas", value: variants, sub: "em " + sets + " sets da lib · todas no playground", icon: "check-line", app: "positive", pct: 100, tip: "Soma das variantes dos sets do inventário da lib (Roadmap §2). Todas estão implementadas no playground." },
+      { label: "Débitos e melhorias mapeados", value: openC, sub: solved + " já resolvidos (" + Math.round(solved / ((openC + solved) || 1) * 100) + "%)", icon: "warning-line", app: "warning", pct: Math.round(solved / ((openC + solved) || 1) * 1000) / 10, href: "#/relatorio/conferir", tip: "Itens em aberto no Conferir: divergências entre Figma e código, gaps e propostas de melhoria. A barra mostra a parte já resolvida." },
+      { label: "Decisões registradas", value: dec, sub: qs ? qs + " dúvida(s) em aberto" : "Sem dúvidas em aberto", icon: "bookmark-line", app: "informative", href: "#/relatorio/roadmap", tip: "Decisões tomadas e registradas no Roadmap (D1, D2…). Embaixo, as dúvidas que ainda aguardam resposta." }
     ];
   }
 
@@ -174,12 +174,31 @@
       row.appendChild(el("span", "rp-bar__label", esc(d.label)));
       // Progress Line do DS (decorativa: o rótulo e o número já estão na linha)
       var pl = row.appendChild(el("cds-progress-line", "rp-bar__line" + (d.tone || (opts && opts.tone) ? " is-" + (d.tone || opts.tone) : "")));
-      pl.setAttribute("percent", String(Math.round(d.value / max * 1000) / 10)); pl.setAttribute("aria-hidden", "true");
+      pl.setAttribute("percent", "0"); pl.dataset.pct = String(Math.round(d.value / max * 1000) / 10); pl.setAttribute("aria-hidden", "true");
       row.appendChild(el("span", "rp-bar__value", String(d.value)));
       // Tooltip da linha: valor e % do total; nos débitos, o que entra naquele tipo (1ª frase da seção no Conferir)
       var total = (opts && opts.total) || data.reduce(function(a, x){ return a + x.value; }, 0); // total real (o painel pode mostrar só as maiores)
       if (CDS.kit) CDS.kit.lazyTip(row, d.value + " de " + total + " (" + Math.round(d.value / (total || 1) * 100) + "%)" + (d.desc ? ". " + d.desc : "") + (d.href ? " Clique para ver os itens." : ""), { label: d.label });
     });
+  }
+  // ---------- Movimento (Motion Styles/tokens; nada anima com prefers-reduced-motion) ----------
+  var still = function(){ return matchMedia("(prefers-reduced-motion:reduce)").matches; };
+  function ms(token){ return parseFloat(getComputedStyle(document.documentElement).getPropertyValue(token)) || 0; }
+  function fmt(n){ return typeof n === "number" ? n.toLocaleString("pt-BR") : String(n); }
+  // conta de 0 até o valor na duração Extra Long/04 com desaceleração (Expressive decelerate ≈ ease-out)
+  function countUp(node, to){
+    if (typeof to !== "number" || still()) return;
+    var dur = ms("--common-motion-duration-extra-long-04"), t0 = null;
+    node.textContent = "0";
+    function step(t){ if (t0 == null) t0 = t; var k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3); node.textContent = fmt(Math.round(to * e)); if (k < 1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+  // Progress Line e segmentos nascem em 0 e crescem até o valor (a transição de largura está no report.css)
+  function grow(scope){
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){
+      [].forEach.call(scope.querySelectorAll("cds-progress-line[data-pct]"), function(pl){ pl.setAttribute("percent", pl.dataset.pct); });
+      [].forEach.call(scope.querySelectorAll("[data-grow]"), function(n){ n.classList.add("is-grown"); });
+    }); });
   }
   function overview(){
     var road = docs.roadmap, conf = docs.conferir;
@@ -203,22 +222,52 @@
     var parts = [["seg", "Segue o Figma", kinds.seg, "O código faz o que o Figma faz hoje, mesmo quando parece errado. A divergência fica registrada para corrigir no Figma."],
       ["exc", "Exceção aprovada (web, sem especificação ou decisão)", kinds.exc, "O código difere do Figma por decisão do Gustavo, falta de especificação ou adaptação para web aprovada."],
       ["deb", "Débito ou erro no Figma", kinds.deb, "Problema confirmado no Figma, a corrigir lá. O código acompanha quando a correção entrar."]];
-    var donut = p3.appendChild(el("div", "rp-donut"));
-    var acc = 0, stops = parts.map(function(pt){ var a = acc; acc += pt[2] / (all.length || 1) * 360; return "var(--rp-c-" + pt[0] + ") " + a + "deg " + acc + "deg"; });
-    var ring = donut.appendChild(el("div", "rp-donut__ring", "<strong>" + all.length + "</strong><span>itens</span>"));
-    ring.style.background = "conic-gradient(" + stops.join(", ") + ")";
-    ring.setAttribute("role", "img"); ring.setAttribute("aria-label", parts.map(function(pt){ return pt[1] + ": " + pt[2]; }).join("; "));
+    // Rosca em SVG (traços com pathLength 100): desenha ao abrir; passar o mouse ou focar uma fatia/legenda destaca e mostra o número no centro
+    var donut = p3.appendChild(el("div", "rp-donut")), NS = "http://www.w3.org/2000/svg", n = all.length || 1;
+    var box = donut.appendChild(el("div", "rp-donut__ring"));
+    var svg = box.appendChild(document.createElementNS(NS, "svg")); svg.setAttribute("viewBox", "0 0 42 42"); svg.setAttribute("class", "rp-donut__svg");
+    svg.setAttribute("role", "img"); svg.setAttribute("aria-label", parts.map(function(pt){ return pt[1] + ": " + pt[2]; }).join("; "));
+    var trk = svg.appendChild(document.createElementNS(NS, "circle")); trk.setAttribute("class", "rp-donut__track");
+    var acc = 0, segs = {};
+    parts.forEach(function(pt){
+      var c = svg.appendChild(document.createElementNS(NS, "circle")), len = pt[2] / n * 100;
+      c.setAttribute("class", "rp-donut__seg is-" + pt[0]); c.setAttribute("pathLength", "100");
+      c.style.setProperty("--_len", String(Math.max(0, len - (len > 1 ? 0.6 : 0)))); c.style.setProperty("--_off", String(-acc));
+      c.setAttribute("data-grow", ""); acc += len; segs[pt[0]] = c;
+    });
+    [trk].concat(Object.keys(segs).map(function(k){ return segs[k]; })).forEach(function(c){ c.setAttribute("cx", "21"); c.setAttribute("cy", "21"); c.setAttribute("r", "15.915"); });
+    var mid = box.appendChild(el("div", "rp-donut__mid", "<strong>" + all.length + "</strong><span>itens</span>"));
     var leg = donut.appendChild(el("ul", "rp-legend"));
-    parts.forEach(function(pt){ var li = leg.appendChild(el("li")); li.appendChild(el("span", "rp-legend__sw is-" + pt[0])); li.appendChild(el("span", null, esc(pt[1]))); li.appendChild(el("strong", null, String(pt[2]))); li._tip = pt; });
+    function focusPart(k){
+      donut.classList.toggle("is-focus", !!k);
+      Object.keys(segs).forEach(function(x){ segs[x].classList.toggle("is-on", x === k); });
+      [].forEach.call(leg.children, function(li){ li.classList.toggle("is-on", li._tip && li._tip[0] === k); });
+      var pt = parts.filter(function(x){ return x[0] === k; })[0];
+      mid.innerHTML = pt ? "<strong>" + pt[2] + "</strong><span>" + Math.round(pt[2] / n * 100) + "% · " + esc(pt[1].replace(/ \(.*$/, "")) + "</span>" : "<strong>" + all.length + "</strong><span>itens</span>";
+    }
+    parts.forEach(function(pt){
+      var li = leg.appendChild(el("li")); li.appendChild(el("span", "rp-legend__sw is-" + pt[0])); li.appendChild(el("span", null, esc(pt[1]))); li.appendChild(el("strong", null, String(pt[2]))); li._tip = pt;
+      li.addEventListener("mouseenter", function(){ focusPart(pt[0]); }); li.addEventListener("mouseleave", function(){ focusPart(null); });
+      li.addEventListener("focusin", function(){ focusPart(pt[0]); }); li.addEventListener("focusout", function(){ focusPart(null); });
+      segs[pt[0]].addEventListener("mouseenter", function(){ focusPart(pt[0]); }); segs[pt[0]].addEventListener("mouseleave", function(){ focusPart(null); });
+    });
 
     // Componentes por categoria
     var pg = (CDS.playgrounds || []).filter(function(c){ return !c.resource && !c.block && !c.composition; }), cats = {};
     pg.forEach(function(c){ var k = c.category || "Outros"; cats[k] = (cats[k] || 0) + 1; });
     var p4 = panel(grid, "Componentes por página do Figma", pg.length + " componentes em " + Object.keys(cats).length + " páginas");
-    var cl = Object.keys(cats).map(function(k){ return { label: k, value: cats[k] }; }).sort(function(a, b){ return b.value - a.value || a.label.localeCompare(b.label, "pt-BR"); });
-    var rest = cl.length > 8 ? cl.splice(8) : []; // painel curto: as 8 maiores; o resto vira uma linha de texto
+    var first = {}; pg.forEach(function(c){ var k = c.category || "Outros"; if (!first[k]) first[k] = c.id; });
+    var cl = Object.keys(cats).map(function(k){ return { label: k, value: cats[k], href: "#/" + first[k], desc: "Abre o primeiro componente da página " + k + "." }; }).sort(function(a, b){ return b.value - a.value || a.label.localeCompare(b.label, "pt-BR"); });
     bars(p4, cl, { tone: "components", total: pg.length });
-    if (rest.length) p4.appendChild(el("p", "rp-panel__foot", "+ " + rest.length + " páginas com até " + rest[0].value + " componente(s): " + esc(rest.map(function(d){ return d.label; }).join(", "))));
+    // painel curto: as 8 maiores; o resto abre com Main Button Ghost do DS
+    var rowsC = [].slice.call(p4.querySelectorAll(".rp-bars > li"));
+    if (rowsC.length > 8){
+      rowsC.slice(8).forEach(function(li){ li.hidden = true; });
+      var more = p4.appendChild(el("cds-main-button", "rp-expand"));
+      [["kind", "ghost"], ["appearance", "neutral"], ["size", "small"], ["label", "Ver todas as " + rowsC.length + " páginas"], ["lead-icon", "dropdown-open-line"], ["show-trailing-icon", "false"]].forEach(function(x){ more.setAttribute(x[0], x[1]); });
+      more.addEventListener("click", function(){ var open = rowsC[8].hidden; rowsC.slice(8).forEach(function(li){ li.hidden = !open; });
+        more.setAttribute("label", open ? "Ver só as 8 maiores" : "Ver todas as " + rowsC.length + " páginas"); more.setAttribute("lead-icon", open ? "dropdown-close-line" : "dropdown-open-line"); });
+    }
 
     // Publicação na lib do Figma (scripts/figma-status.js, lido via MCP com getPublishStatusAsync)
     var FS = CDS.figmaStatus || { items: {} }, byId = {}, pubN = {};
@@ -234,11 +283,19 @@
     var un = pubN.unpublished || []; pubN["unpublished-comp"] = un.filter(function(n){ return !blocks[n]; }); pubN["unpublished-block"] = un.filter(function(n){ return blocks[n]; });
     var pubTotal = Object.keys(FS.items).length;
     var p5 = panel(grid, "Publicação na lib do Figma", (pubN.current || []).length + " de " + pubTotal + " em dia com a lib · leitura de " + FS.checked, "rp-panel--wide");
-    bars(p5, PUBS.map(function(pt){
-      var names = (pubN[pt[0]] || []).slice().sort(function(a, b){ return a.localeCompare(b, "pt-BR"); });
-      var list = names.length <= 8 ? names.join(", ") : "Ex.: " + names.slice(0, 6).join(", ") + "…";
-      return { label: pt[1], value: names.length, tone: "pub-" + pt[3], desc: pt[2] + (names.length ? " " + list + "." : "") };
-    }), { total: pubTotal });
+    // Barra única empilhada (100% = todos os componentes lidos) + legenda com número e %; cores da Tag de status
+    var stack = p5.appendChild(el("div", "rp-stack")); stack.setAttribute("role", "img");
+    var legP = p5.appendChild(el("ul", "rp-legend rp-legend--grid"));
+    stack.setAttribute("aria-label", PUBS.map(function(pt){ return pt[1] + ": " + (pubN[pt[0]] || []).length; }).join("; "));
+    PUBS.forEach(function(pt, i){
+      var names = (pubN[pt[0]] || []).slice().sort(function(a, b){ return a.localeCompare(b, "pt-BR"); }), nn = names.length;
+      var list = nn <= 8 ? names.join(", ") : "Ex.: " + names.slice(0, 6).join(", ") + "…", tipTx = nn + " de " + pubTotal + " (" + Math.round(nn / (pubTotal || 1) * 100) + "%). " + pt[2] + (nn ? " " + list + "." : "");
+      if (nn){ var sg = stack.appendChild(el("span", "rp-stack__seg is-pub-" + pt[3])); sg.style.setProperty("--_w", String(nn / (pubTotal || 1))); sg.style.setProperty("--_i", String(i)); sg.setAttribute("data-grow", "");
+        if (CDS.kit) CDS.kit.lazyTip(sg, tipTx, { label: pt[1], focus: false }); }
+      var li = legP.appendChild(el("li")); li.appendChild(el("span", "rp-legend__sw is-pub-" + pt[3])); li.appendChild(el("span", null, esc(pt[1])));
+      li.appendChild(el("strong", null, nn + " <span class=\"rp-legend__pct\">" + Math.round(nn / (pubTotal || 1) * 100) + "%</span>"));
+      if (CDS.kit) CDS.kit.lazyTip(li, tipTx, { label: pt[1] });
+    });
     var pend = pubN["unpublished-comp"].concat(pubN.branch || []);
     if (pend.length) p5.appendChild(el("p", "rp-panel__foot", "Fora da lib: " + esc(pend.join(", ")) + ". Lido no Figma via MCP (<code>getPublishStatusAsync</code>); o status de cada componente aparece numa Tag ao lado do título."));
 
@@ -249,11 +306,14 @@
     var dl = p6.appendChild(el("ul", "rp-list rp-list--cols"));
     dec.slice(-6).reverse().forEach(function(r){
       var li = dl.appendChild(el("li"));
-      li.appendChild(el("p", "rp-list__text", "<strong>" + esc(r[0]) + "</strong> · " + esc(plain(r[1]).replace(/^(.{180}).+$/, "$1…"))));
+      var tx = li.appendChild(el("p", "rp-list__text")), tg = tx.appendChild(el("cds-tag", "rp-list__tag"));
+      tg.setAttribute("label", r[0]); tg.setAttribute("appearance", "informative"); tg.setAttribute("show-lead-item", "false");
+      tx.appendChild(el("span", null, esc(plain(r[1]).replace(/^(.{180}).+$/, "$1…"))));
       if (r[2]) li.appendChild(el("p", "rp-list__note", esc(plain(r[2]))));
     });
     // Ordem (Gustavo, 02/10): Componentes · Adaptações para código · Publicação no Figma · Débitos e melhorias · Decisões
-    [p4, p3, p5, p2, p6].forEach(function(p){ grid.appendChild(p.closest("cds-card")); });
+    [p4, p3, p5, p2, p6].forEach(function(p, i){ var c = p.closest("cds-card"); c.style.setProperty("--_i", String(i)); grid.appendChild(c); });
+    grow(grid);
     // Tooltips da legenda (precisam do item já no documento)
     if (CDS.kit) [].forEach.call(leg.children, function(li){ if (li._tip) CDS.kit.tip(li, li._tip[3], { label: li._tip[1].replace(/ \(.*$/, ""), container: leg.parentNode }); });
     p6.appendChild(dsLink("rp-more", "Ver decisões", "#/relatorio/roadmap/" + slug(sec(road, function(s){ return s.num === "4"; }).title)));
@@ -374,14 +434,22 @@
       Promise.all(DOCS.map(function(t){ return load(t.file); })).then(function(texts){
         docs = {}; DOCS.forEach(function(t, i){ docs[t.id] = parse(texts[i]); });
         kpiEl.innerHTML = "";
-        kpis(docs).forEach(function(k){
-          var c = card("rp-kpi");
-          c.appendChild(el("p", "rp-kpi__label", k.label));
-          c.appendChild(el("p", "rp-kpi__value", String(k.value)));
+        kpis(docs).forEach(function(k, i){
+          // Número com Shaped Icon do DS na cor do assunto; o valor conta até o total (Motion: Extra Long/04) e a
+          // Progress Line mostra a parte concluída quando faz sentido
+          var c = card("rp-kpi rp-kpi--" + k.app); c.style.setProperty("--_i", String(i));
+          var h = c.appendChild(el("div", "rp-kpi__head"));
+          var ic = h.appendChild(el("cds-shaped-icon")); ic.setAttribute("icon", k.icon); ic.setAttribute("appearance", k.app); ic.setAttribute("size", "smallest");
+          h.appendChild(el("p", "rp-kpi__label", k.label));
+          var v = c.appendChild(el("p", "rp-kpi__value", fmt(k.value)));
           c.appendChild(el("p", "rp-kpi__sub", k.sub));
+          if (k.pct != null){ var pl = c.appendChild(el("cds-progress-line", "rp-kpi__pl")); pl.setAttribute("percent", "0"); pl.dataset.pct = String(k.pct); pl.setAttribute("aria-hidden", "true"); }
+          if (k.href) c.appendChild(dsLink("rp-kpi__more", "Ver detalhes", k.href));
           kpiEl.appendChild(c);
-          if (k.tip && CDS.kit) CDS.kit.tip(c, k.tip, { label: k.label, container: kpiEl });
+          countUp(v, k.value);
+          if (k.tip && CDS.kit) CDS.kit.tip(h, k.tip, { label: k.label, container: kpiEl });
         });
+        grow(kpiEl);
         current = id; renderTab(id); goTo(section);
       }).catch(function(err){ bodyEl.innerHTML = '<p class="rp-meta">Não foi possível ler os registros (' + esc(String(err.message || err)) + ").</p>"; });
     }

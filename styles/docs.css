@@ -654,14 +654,14 @@ cds-banner.pg-doc-banner{ width:calc(var(--common-sizes-200) + var(--common-size
 /* topo */
 .pg-faq__hero{ display:grid; grid-template-columns:minmax(0, 1fr) auto; align-items:center; gap:var(--common-sizes-24); padding:var(--common-sizes-32);
   border-radius:var(--common-border-radius-big); background:var(--common-colors-feedback-positive-soft); overflow:hidden; }
-.pg-faq__hero-text{ display:flex; flex-direction:column; gap:var(--common-sizes-12); min-width:0; animation:pg-faq-in var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing) both; }
+.pg-faq__hero-text{ display:flex; flex-direction:column; gap:var(--common-sizes-12); min-width:0; animation:pg-faq-in var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing) backwards; }
 .pg-faq__hero-title{ margin:0; font:var(--text-style-title-large); color:var(--common-colors-text-intense); }
 .pg-faq__hero .pg-doc-p{ margin:0; color:var(--common-colors-text-medium); }
 .pg-faq__search{ display:block; width:100%; }
-.pg-faq__hero-ill{ width:calc(var(--common-sizes-160) + var(--common-sizes-40)); height:auto; animation:pg-faq-in var(--common-motion-duration-extra-long-01) var(--common-motion-easing-expressive-decelerate) both, pg-faq-float var(--common-motion-duration-extended-01) var(--common-motion-easing-systemic-smooth) var(--common-motion-duration-extra-long-01) infinite; }
+.pg-faq__hero-ill{ width:calc(var(--common-sizes-160) + var(--common-sizes-40)); height:auto; animation:pg-faq-in var(--common-motion-duration-extra-long-01) var(--common-motion-easing-expressive-decelerate) backwards, pg-faq-float var(--common-motion-duration-extended-01) var(--common-motion-easing-systemic-smooth) var(--common-motion-duration-extra-long-01) infinite; }
 /* temas */
 .pg-faq__topics{ display:grid; grid-template-columns:repeat(auto-fill, minmax(calc(var(--common-sizes-200) + var(--common-sizes-20)), 1fr)); gap:var(--common-sizes-8); }
-.pg-faq__topic, .pg-faq__rank-item{ animation:pg-faq-in var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing) both; animation-delay:calc(var(--_i, 0) * var(--common-motion-duration-short-01)); }
+.pg-faq__topic, .pg-faq__rank-item{ animation:pg-faq-in var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing) backwards; animation-delay:calc(var(--_i, 0) * var(--common-motion-duration-short-01)); }
 .pg-faq__topic .cmp-cc.cmp-cc, .pg-faq__rank-item .cmp-cc.cmp-cc{ transition:transform var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), box-shadow var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
 .pg-faq__topic .cmp-cc.cmp-cc:hover, .pg-faq__rank-item .cmp-cc.cmp-cc:hover{ transform:translateY(calc(-1 * var(--common-sizes-2))); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-medium), var(--common-elevation-level-1); }
 .pg-faq__topic .cmp-cc__media, .pg-faq__rank-item .cmp-cc__media{ background:none; justify-content:flex-start; }
@@ -691,7 +691,7 @@ cds-banner.pg-doc-banner{ width:calc(var(--common-sizes-200) + var(--common-size
 .pg-faq__group-head .pg-doc-h2{ margin:0; }
 .pg-faq__list{ display:flex; flex-direction:column; --cds-accordion-width:100%; }
 .pg-faq__list cds-accordion-item{ border-radius:var(--common-border-radius-small); }
-.pg-faq__list cds-accordion-item.is-in{ animation:pg-faq-in var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing) both; animation-delay:calc(var(--_i, 0) * var(--common-motion-duration-short-01)); }
+.pg-faq__list cds-accordion-item.is-in{ animation:pg-faq-in var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing) backwards; animation-delay:calc(var(--_i, 0) * var(--common-motion-duration-short-01)); }
 .pg-faq__list cds-accordion-item.is-flash{ animation:pg-faq-flash var(--common-motion-duration-extra-long-04) var(--common-motion-easing-systemic-smooth); }
 .pg-faq__a{ display:flex; flex-direction:column; gap:var(--common-sizes-8); max-width:calc(3 * var(--common-sizes-200)); }
 .pg-faq__a .pg-doc-p, .pg-faq__a .pg-doc-list{ margin:0; }

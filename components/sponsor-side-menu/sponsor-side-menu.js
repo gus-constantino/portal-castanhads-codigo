@@ -1,5 +1,5 @@
 /**
- * @deps caju-brand sponsor-category sponsor-subcategory sponsor-user-profile tag
+ * @deps caju-brand icon-button sponsor-category sponsor-subcategory sponsor-user-profile tag
  * <cds-sponsor-side-menu> — Side Menu · [CastanhaDS] Sponsor Templates (set 5576:445, componente de template Sponsor)
  * Description do Figma: navegação lateral do app Sponsor. Colapsado (80px, só ícones) e expandido (360px). No desktop expande por
  * hover, em overlay sobre o conteúdo. Um item selecionado por vez, derivado da rota. Um accordion aberto por vez.
@@ -12,6 +12,7 @@
  *   Colapsado: .Category e .User Profile em Kind=Reduced (só ícone e avatar)
  *
  * Atributos: collapsed (Is Collapsed · padrão do Figma: true; "false" fixa expandido) · show-slot · show-shortcuts
+ *   show-close (camada oculta no Figma: Icon Button close-line no Heading, para o menu em gaveta; evento cds-close)
  * Filhos: <cds-sponsor-category> vão para Categories; com slot="shortcuts" para Shortcuts; slot="help" para Help;
  *   <cds-sponsor-user-profile> (ou slot="profile") para o rodapé; slot="slot" para o Slot livre.
  * Comportamento: colapsado, abre por hover ou foco em overlay (a largura de 80 continua reservada); clicar num item seleciona
@@ -20,7 +21,7 @@
 (function(){
   "use strict";
   class CdsSponsorSideMenu extends CDS.Element {
-    static get observedAttributes(){ return ["collapsed","show-slot","show-shortcuts"]; }
+    static get observedAttributes(){ return ["collapsed","show-slot","show-shortcuts","show-close"]; }
     get collapsed(){ return this.getAttribute("collapsed") !== "false"; }
     render(){
       var c = CDS.create, self = this;
@@ -32,6 +33,9 @@
         var box = p.appendChild(c("div", null, "cds-ssm__container"));
         var head = box.appendChild(c("div", null, "cds-ssm__heading"));
         this.brandEl = head.appendChild(c("div", null, "cds-ssm__brand")).appendChild(c("cds-caju-brand", { label: "Caju" }));
+        // camada oculta no Figma (Heading › Icon Button close-line): fechar o menu em gaveta, no celular
+        this.closeBtn = head.appendChild(c("cds-icon-button", { icon: "close-line", kind: "default", appearance: "neutral", size: "small", label: "Fechar menu" }, "cds-ssm__close"));
+        this.closeBtn.addEventListener("click", function(){ self.dispatchEvent(new CustomEvent("cds-close", { bubbles: true })); });
         this.slotEl = box.appendChild(c("div", null, "cds-ssm__slot"));
         this.shortEl = box.appendChild(c("div", { role: "list", "aria-label": "Atalhos" }, "cds-ssm__shortcuts"));
         this.catEl = box.appendChild(c("div", { role: "list", "aria-label": "Categorias" }, "cds-ssm__categories"));
@@ -65,6 +69,7 @@
         });
       }
       this.slotEl.hidden = this.getAttribute("show-slot") !== "true";
+      this.closeBtn.hidden = this.getAttribute("show-close") !== "true";
       this.shortEl.hidden = this.getAttribute("show-shortcuts") !== "true";
       this.sync();
     }

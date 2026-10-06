@@ -18,6 +18,14 @@ CDS.docs["sponsor-side-menu"] = {
         "Slot (opcional): conteúdo livre abaixo da marca (Show Slot).",
         "Shortcuts (opcional): atalhos rápidos (Show Shortcuts), com `.Category` Appearance=Accent."
       ] },
+      { h2: "Conteúdo do componente no Figma" },
+      { table: { head: ["Área", "Itens", "No Figma"], wrap: true, rows: [
+        ["Categories", "Painel Incial, Gestão de pessoas, Pedidos, Benefícios e Premiações, Cartão do colaborador, Reembolso e despesas, Financeiro, Relatórios e Personalizações. Seis são Accordion: Gestão de pessoas, Benefícios e Premiações, Reembolso e despesas, Financeiro, Relatórios e Personalizações", "Visíveis, nenhum selecionado e sem Badge"],
+        ["Categories (reserva)", "4 `.Category` com o rótulo Category e Badge, para menus maiores", "Camadas ocultas"],
+        ["Shortcuts", "Painel Inicial, Soluções Caju, Novo Pedido, Adicionar Colaborador e Cartões (Appearance=Accent)", "Ocultos até ligar Show Shortcuts"],
+        ["Heading", "Icon Button `close-line` para fechar o menu em gaveta", "Camada oculta (no código, `show-close`)"],
+        ["User Area", "Ajuda (Accordion, `support-line`) e `.User Profile` (User Name, CNPJ e `menu-line`)", "Visíveis"]
+      ] } },
       { h2: "Boas práticas" },
       { cards: [
         ["Um item selecionado", "Um item selecionado por vez, derivado da rota."],
@@ -35,7 +43,7 @@ CDS.docs["sponsor-side-menu"] = {
         { name: "Show Shortcuts", type: "Boolean", default: "false" },
         { name: "Slot", type: "Slot", default: "—" }
       ] },
-      { note: "No código: `collapsed=\"false\"` fixa o menu expandido. Filhos: `<cds-sponsor-category>` vão para Categories, com `slot=\"shortcuts\"` para os atalhos, `slot=\"help\"` para a Ajuda e `slot=\"slot\"` para o Slot livre. O `<cds-sponsor-user-profile>` vai para o rodapé. Evento `cds-select` ao selecionar um item." }
+      { note: "No código: `collapsed=\"false\"` fixa o menu expandido e `show-close=\"true\"` mostra o botão de fechar (evento `cds-close`). Filhos: `<cds-sponsor-category>` vão para Categories, com `slot=\"shortcuts\"` para os atalhos, `slot=\"help\"` para a Ajuda e `slot=\"slot\"` para o Slot livre. O `<cds-sponsor-user-profile>` vai para o rodapé. Evento `cds-select` ao selecionar um item." }
     ] },
     { id: "acessibilidade", title: "Acessibilidade", blocks: [
       { h2: "Acessibilidade" },

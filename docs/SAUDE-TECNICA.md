@@ -38,9 +38,9 @@ Nenhum aviso.
 
 | Parte | Bruto | gzip |
 |---|---|---|
-| Primeira visita (tudo o que o index.html carrega) | 2038 KB | 472 KB |
-| dist/cds.js · componentes (115 arquivos) | 324 KB | 81 KB |
-| dist/cds.js · playgrounds (108 arquivos) | 159 KB | 27 KB |
+| Primeira visita (tudo o que o index.html carrega) | 2040 KB | 472 KB |
+| dist/cds.js · componentes (115 arquivos) | 325 KB | 81 KB |
+| dist/cds.js · playgrounds (108 arquivos) | 160 KB | 27 KB |
 | dist/cds.js · recursos (28 arquivos) | 448 KB | 131 KB |
 | Docs sob demanda (108 arquivos, uma por componente aberto) | — | 283 KB no total |
 

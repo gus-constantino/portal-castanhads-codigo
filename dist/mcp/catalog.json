@@ -24,7 +24,7 @@
   "tokens": 308,
   "icons": 273,
   "illustrations": 260,
-  "conferirOpen": 115,
+  "conferirOpen": 116,
   "stackFindings": 57
  },
  "components": [
@@ -13139,12 +13139,12 @@
     {
      "id": "uso",
      "title": "Uso",
-     "text": "## Sobre\n\nNavegação lateral do app Sponsor. Colapsado (80px, só ícones) e expandido (360px). No desktop expande por hover, em overlay sobre o conteúdo. É componente de template do Sponsor, não do Core.\n\nEscopo: Mobile e Desktop.\n\n## Composição\n\n- `.Category` (obrigatório): itens de navegação. Intent=Accordion abre subitens.\n- `.Subcategory`: subitens dentro do Slot do `.Category` Accordion.\n- `.User Profile`: rodapé com avatar, nome e CNPJ.\n- Slot (opcional): conteúdo livre abaixo da marca (Show Slot).\n- Shortcuts (opcional): atalhos rápidos (Show Shortcuts), com `.Category` Appearance=Accent.\n\n## Boas práticas\n\n- **Um item selecionado** — Um item selecionado por vez, derivado da rota.\n- **Um accordion aberto** — Abrir um accordion fecha os outros.\n\n> Texto da description do Side Menu no [CastanhaDS] Sponsor Templates."
+     "text": "## Sobre\n\nNavegação lateral do app Sponsor. Colapsado (80px, só ícones) e expandido (360px). No desktop expande por hover, em overlay sobre o conteúdo. É componente de template do Sponsor, não do Core.\n\nEscopo: Mobile e Desktop.\n\n## Composição\n\n- `.Category` (obrigatório): itens de navegação. Intent=Accordion abre subitens.\n- `.Subcategory`: subitens dentro do Slot do `.Category` Accordion.\n- `.User Profile`: rodapé com avatar, nome e CNPJ.\n- Slot (opcional): conteúdo livre abaixo da marca (Show Slot).\n- Shortcuts (opcional): atalhos rápidos (Show Shortcuts), com `.Category` Appearance=Accent.\n\n## Conteúdo do componente no Figma\n\n| Área | Itens | No Figma |\n|---|---|---|\n| Categories | Painel Incial, Gestão de pessoas, Pedidos, Benefícios e Premiações, Cartão do colaborador, Reembolso e despesas, Financeiro, Relatórios e Personalizações. Seis são Accordion: Gestão de pessoas, Benefícios e Premiações, Reembolso e despesas, Financeiro, Relatórios e Personalizações | Visíveis, nenhum selecionado e sem Badge |\n| Categories (reserva) | 4 `.Category` com o rótulo Category e Badge, para menus maiores | Camadas ocultas |\n| Shortcuts | Painel Inicial, Soluções Caju, Novo Pedido, Adicionar Colaborador e Cartões (Appearance=Accent) | Ocultos até ligar Show Shortcuts |\n| Heading | Icon Button `close-line` para fechar o menu em gaveta | Camada oculta (no código, `show-close`) |\n| User Area | Ajuda (Accordion, `support-line`) e `.User Profile` (User Name, CNPJ e `menu-line`) | Visíveis |\n\n## Boas práticas\n\n- **Um item selecionado** — Um item selecionado por vez, derivado da rota.\n- **Um accordion aberto** — Abrir um accordion fecha os outros.\n\n> Texto da description do Side Menu no [CastanhaDS] Sponsor Templates."
     },
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Composição do componente\n\nFundo `Surface/01` com `Elevation/level 2`, cantos da direita em `Border/Radius/large`, padding 32 20 0 20, altura mínima 788 e uma coluna com espaço entre o topo e o rodapé. No topo, o Container (gap 20) com o Heading de 44 (marca centralizada na altura: expandida à esquerda com padding 16 e tipografia, colapsada centralizada e só com o símbolo), o Slot (padding 16, raio small, altura máxima 160), os Shortcuts (padding-top 8, gap 8) e as Categories (gap 20, padding 16 0). No rodapé, a User Area (padding 20 0) com a Ajuda (`.Category` Accordion) e o `.User Profile`. Colapsado, os `.Category` e o `.User Profile` ficam em Kind=Reduced.\n\n## Propriedades\n\n- **Is Collapsed** (Variant): True, False\n- **Show Slot** (Boolean)\n- **Show Shortcuts** (Boolean)\n- **Slot** (Slot)\n\n> No código: `collapsed=\"false\"` fixa o menu expandido. Filhos: `<cds-sponsor-category>` vão para Categories, com `slot=\"shortcuts\"` para os atalhos, `slot=\"help\"` para a Ajuda e `slot=\"slot\"` para o Slot livre. O `<cds-sponsor-user-profile>` vai para o rodapé. Evento `cds-select` ao selecionar um item."
+     "text": "## Composição do componente\n\nFundo `Surface/01` com `Elevation/level 2`, cantos da direita em `Border/Radius/large`, padding 32 20 0 20, altura mínima 788 e uma coluna com espaço entre o topo e o rodapé. No topo, o Container (gap 20) com o Heading de 44 (marca centralizada na altura: expandida à esquerda com padding 16 e tipografia, colapsada centralizada e só com o símbolo), o Slot (padding 16, raio small, altura máxima 160), os Shortcuts (padding-top 8, gap 8) e as Categories (gap 20, padding 16 0). No rodapé, a User Area (padding 20 0) com a Ajuda (`.Category` Accordion) e o `.User Profile`. Colapsado, os `.Category` e o `.User Profile` ficam em Kind=Reduced.\n\n## Propriedades\n\n- **Is Collapsed** (Variant): True, False\n- **Show Slot** (Boolean)\n- **Show Shortcuts** (Boolean)\n- **Slot** (Slot)\n\n> No código: `collapsed=\"false\"` fixa o menu expandido e `show-close=\"true\"` mostra o botão de fechar (evento `cds-close`). Filhos: `<cds-sponsor-category>` vão para Categories, com `slot=\"shortcuts\"` para os atalhos, `slot=\"help\"` para a Ajuda e `slot=\"slot\"` para o Slot livre. O `<cds-sponsor-user-profile>` vai para o rodapé. Evento `cds-select` ao selecionar um item."
     },
     {
      "id": "acessibilidade",
@@ -26994,6 +26994,12 @@
     "group": "Ajuste de texto",
     "resolved": false,
     "text": "Date Input · Character Counter e máscara · `Show Character Counter` ligado com o texto `-0000`; Mask=Date com placeholder `dd/mm/aaaa`, enquanto o Text Input usa `00/00/0000` para a mesma máscara · Desligar o contador (não há limite) e um placeholder só para Date · Segue o Figma: contador \"-0000\" e `dd/mm/aaaa` no Date Input · **Débito** (Gustavo, 02/10): remover o Character Counter do Date Input no Figma; aí desligar o padrão em `date-input.js` (`updateCounter`). A máscara `dd/mm/aaaa` × `00/00/0000` segue para alinhar"
+   },
+   {
+    "id": "C177",
+    "group": "Ajuste de texto",
+    "resolved": false,
+    "text": "Side Menu (Sponsor Templates 5576:445) · `.Category` das Categories · Text Label \"Painel Incial\" · \"Painel Inicial\" (como no atalho dos Shortcuts) · Igual ao Figma, \"Painel Incial\" (nome exato, decisão de 05/10) · Próxima revisão do Sponsor Templates"
    },
    {
     "id": "C03",

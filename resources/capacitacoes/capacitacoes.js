@@ -24,12 +24,12 @@
   function slide(titulo, href){
     return [{ h2: "Slides" }, { shortcuts: [{ title: titulo, text: "Apresentação usada no treinamento, no Figma.", href: href, cta: "Abrir no Figma", external: true }] }];
   }
+  // Topo de cada trilha = banner das Notion thumbnails do Castanha Assets (componente local <loc-banner>, D230);
+  // o sobretítulo com o número de vídeos é preenchido depois, contando os vídeos da tab
   function topo(titulo, intro, pagina){
     return [
-      { h2: titulo },
-      { p: intro },
-      { note: "Os vídeos tocam com login Caju. Cada um também abre no Drive, em outra aba." },
-      { shortcuts: [{ title: "Página no Hub", text: "A mesma trilha no Castanha Hub.", href: HUB + pagina, cta: "Abrir no Hub", external: true }] }
+      { banner: { area: "aprenda", eyebrow: "", heading: titulo, text: intro, href: HUB + pagina, cta: "Abrir no Hub", external: true } },
+      { note: "Os vídeos tocam com login Caju. Cada um também abre no Drive, em outra aba." }
     ];
   }
   var CONTENT = "Faz parte da trilha de Content, em três partes: Estratégia de conteúdo, Organização de tela e Linguagem. Juntas, ensinam a criar conteúdos que conectam estratégia, layout e comunicação clara em apps e na web.";
@@ -124,4 +124,8 @@
       ) }
     ]
   };
+  CDS.docs["capacitacoes"].tabs.forEach(function(t){
+    var n = t.blocks.reduce(function(a, b){ return a + (b.videos ? b.videos.length : 0); }, 0);
+    t.blocks.forEach(function(b){ if (b.banner && !b.banner.eyebrow) b.banner.eyebrow = n + (n === 1 ? " vídeo" : " vídeos"); });
+  });
 })();

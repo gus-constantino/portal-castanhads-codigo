@@ -25,6 +25,8 @@
  *   table: { head: [...], rows: [[...]], wrap }   wrap: células quebram linha
  *   video: { src, title, caption, href, cta }   player embutido 16:9 (iframe do serviço; o DS não tem componente de vídeo)
  *   shortcuts: [{ title, text, href, cta, illustration | src, external }]   atalhos em Cards (capa do Castanha Hub); sem href, card só informativo
+ *   banner: { area, eyebrow, heading, text, href, cta, external }   banner de divulgação (componente local <loc-banner>)
+ *   banners: [banner, …]               grade de banners: o primeiro ocupa a linha inteira, os outros dividem a linha
  *   vazio: { heading, text, link: { label, href } }   estado vazio (componente local <loc-vazio>), ex.: página não encontrada
  *   hero: { eyebrow, title, text, area, cards }   capa da marca (conceito do Castanha Assets): sem area = Surface/accent com a pilha
  *                                       rosada; com area = fundo com um toque da cor da área e a pilha encostada embaixo (<loc-pilha>)
@@ -492,6 +494,18 @@
       return g;
     },
 
+    // Banner de divulgação (componente local <loc-banner>, das Notion thumbnails do Castanha Assets)
+    banner: function(d, v){
+      var b = el("loc-banner", "pg-doc-banner");
+      ["area", "eyebrow", "heading", "text", "href", "cta"].forEach(function(k){ if (v[k] != null) b.setAttribute(k, v[k]); });
+      if (v.external) b.setAttribute("external", "true");
+      return b;
+    },
+    banners: function(d, v){
+      var g = el("div", "pg-doc-banners");
+      v.forEach(function(it){ g.appendChild(BLOCKS.banner(d, it)); });
+      return g;
+    },
     // Estado vazio (componente local <loc-vazio>): página não encontrada e afins. { heading, text, link: { label, href } }
     vazio: function(d, v){
       var e = vazio(v.heading, v.text, false);

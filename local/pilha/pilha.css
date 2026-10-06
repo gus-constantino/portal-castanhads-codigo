@@ -34,5 +34,8 @@ loc-pilha[align="end"] > span{ top:auto; bottom:0; transform:translateX(calc(var
    mas a escala accent-solid inverte: no Dark os mesmos tons vêm dos stops opostos. */
 loc-pilha[on="accent"]{ --_back:var(--common-colors-accent-solid-intense); --_front:var(--common-colors-accent-solid-semi-soft); }
 html[data-theme="dark"] loc-pilha[on="accent"]{ --_back:var(--common-colors-accent-solid-soft); --_front:var(--common-colors-accent-solid-intense); }
+/* Sobre Surface/inversed (topo do Relatório, cor Black do Assets): faixas claras atrás e o cartão da frente escuro.
+   A escala neutral-solid inverte no Dark junto com o fundo (variação White). */
+loc-pilha[on="inversed"]{ --_back:var(--common-colors-neutral-solid-semi-soft); --_front:var(--common-colors-neutral-solid-semi-intense); }
 
 @media (prefers-reduced-motion: reduce){ loc-pilha > span{ transition:none; } }

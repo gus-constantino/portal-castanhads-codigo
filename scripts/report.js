@@ -403,15 +403,17 @@
   function build(){
     root = document.getElementById("report");
     root.innerHTML = "";
-    var head = root.appendChild(el("div", "rp-head"));
-    var t = head.appendChild(el("div"));
+    // Topo = capa da Thumbnail Castanha na cor Black do Castanha Assets (D230): Surface/inversed e a pilha em cinza
+    var head = root.appendChild(el("div", "rp-head loc-pilha-trigger"));
+    var t = head.appendChild(el("div", "rp-head__text"));
     t.appendChild(el("h1", "rp-title", "Saúde da stack Figma"));
     t.appendChild(el("p", "rp-meta", "Castanha DS · implementação da lib <em>[CastanhaDS] Components</em> no playground. Atualizado direto dos registros do repositório."));
     // Search Input do DS (lupa fixa e botão de limpar); rótulo oculto, o nome acessível continua
     searchEl = document.createElement("cds-search-input"); searchEl.className = "rp-search";
     ["label", "placeholder"].forEach(function(k){ searchEl.setAttribute(k, "Buscar no relatório"); });
     searchEl.setAttribute("show-label", "false"); searchEl.setAttribute("show-required", "false"); searchEl.setAttribute("show-supporting-content", "false");
-    head.appendChild(searchEl);
+    t.appendChild(searchEl);
+    var pilha = head.appendChild(el("loc-pilha", "rp-head__pilha")); pilha.setAttribute("on", "inversed");
     searchEl.addEventListener("cds-change", function(e){ e.stopPropagation(); filter(); });
     kpiEl = root.appendChild(el("div", "rp-kpis"));
     // Scrollable Tab do DS (teclado e foco itinerante vêm do componente)

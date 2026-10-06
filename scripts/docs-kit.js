@@ -614,7 +614,7 @@
       return wrap;
     },
     // FAQ (Atlassian, Polaris, Carbon): topo com ilustração da biblioteca e busca, cards de tema com Shaped Icon
-    // do DS (filtram), ranking "Mais perguntadas" com barra de frequência, perguntas em Accordion Item com divisória e
+    // do DS (filtram), ranking "Mais perguntadas" (pergunta e tema, na ordem da frequência), perguntas em Accordion Item com divisória e
     // Card "Não achou?". Ordem por relevância (items = [pergunta, resposta, peso]; grupos pela soma dos pesos).
     // Movimento só com Motion Styles/tokens (entrada, hover, resultados ao filtrar); prefers-reduced-motion desliga.
     faq: function(d, v){
@@ -649,9 +649,9 @@
         c.addEventListener("click", function(){ setCat(cat === g.title ? null : g.title); });
         topics[g.title] = tgrid.appendChild(c);
       });
-      // 3. Mais perguntadas: ranking com barra relativa à mais frequente, na cor do tema
+      // 3. Mais perguntadas: as mais frequentes, na ordem (sem número em círculo nem barra feitos à mão: não são do DS; Gustavo, 06/10)
       var all = []; groups.forEach(function(g){ g.items.forEach(function(q){ all.push({ q: q, g: g }); }); });
-      var top = all.slice().sort(function(a, b){ return w(b.q) - w(a.q); }).slice(0, v.top || 5), max = top.length ? w(top[0].q) : 1;
+      var top = all.slice().sort(function(a, b){ return w(b.q) - w(a.q); }).slice(0, v.top || 5);
       var topSec = wrap.appendChild(el("section", "pg-faq__top"));
       var th = topSec.appendChild(el("div", "pg-faq__sec-head"));
       th.appendChild(el("h2", "pg-doc-h2", "Mais perguntadas"));
@@ -661,11 +661,8 @@
         var li = rank.appendChild(el("li"));
         var c = document.createElement("cmp-clickable-card");
         c.className = "pg-faq__rank-item pg-faq--" + x.g.app; c.setAttribute("media", "auto"); c.setAttribute("label", x.g.title);
-        c.style.setProperty("--_i", String(i)); c.style.setProperty("--_w", String(Math.max(0.08, w(x.q) / max)));
-        c.appendChild(el("span", "pg-faq__rank-n", String(i + 1)));
-        var body = c.appendChild(el("span", "pg-faq__rank-body"));
-        body.appendChild(el("span", "pg-faq__rank-q", x.q[0]));
-        body.appendChild(el("span", "pg-faq__bar")).setAttribute("aria-hidden", "true");
+        c.style.setProperty("--_i", String(i));
+        c.appendChild(el("span", "pg-faq__rank-q", x.q[0]));
         c.addEventListener("click", function(){ open(x.q); });
         li.appendChild(c);
       });

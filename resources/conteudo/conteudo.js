@@ -266,7 +266,7 @@
         { table: { wrap: true, head: ["Estilo do tema", "Tamanhos (px)"], rows: [
           ["Heading", "24 (Small) · 32 · 40 · 48 · 64 · 80"], ["Title", "20 · 24 · 32"], ["Subtitle", "18 · 20 · 24"], ["Body", "16"], ["Label", "16"], ["Caption", "14"], ["Disclaimer", "12"]
         ] } },
-        { p: "Os tamanhos vêm dos estilos de texto do tema (veja Caju - Tema → Tipografia). Para texto de leitura, o Hub recomenda no mínimo 14px; o Disclaimer, de 12px, fica para textos curtos de apoio." },
+        { p: "Os tamanhos vêm dos estilos de texto do tema (veja Tema Caju → Tipografia). Para texto de leitura, o Hub recomenda no mínimo 14px; o Disclaimer, de 12px, fica para textos curtos de apoio." },
 
         { h3: "Priorização" },
         { p: "O que vem primeiro é mais importante." },

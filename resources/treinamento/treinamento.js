@@ -69,7 +69,7 @@
         { p: "A documentação de ilustração serve para comunicar o visual, reforçar a identidade da Caju e garantir uma experiência de excelência." },
         { h3: "O que ela traz" },
         { ul: ["Princípios de uso.", "Painel semântico: o processo de criação de quem ilustra.", "Guidelines de aplicação nos produtos.", "Separação por categorias.", "Exemplos de como as ilustrações se comportam em cada contexto (mobile, desktop)."] },
-        { note: "Hoje: o guia completo e a biblioteca estão no playground em Caju - Tema → Ilustrações." }
+        { note: "Hoje: o guia completo e a biblioteca estão no playground em Padrões → Ilustração." }
       ] },
       { id: "motion", title: "Motion", blocks: [
         DATA,
@@ -77,7 +77,7 @@
         video("1fqz1azprKWMYtvSQJlXt1fA8Ijw5oo8C", "Motion"),
         { p: "UX motion comunica comportamento, estado e intenção, eleva a experiência e fortalece a personalidade da marca. Parte dos princípios de design do Castanha (simples, eficiente e consistente) e das boas práticas do mercado." },
         { ul: ["Os princípios viraram motion tokens, documentados no Hub para design e desenvolvimento.", "A ideia é que os componentes já venham com as animações configuradas, prontas para quem desenvolve."] },
-        { note: "Hoje: princípios, curvas, durações e os Motion Styles (/01) estão no playground em Caju - Tema → Motion." }
+        { note: "Hoje: princípios, curvas, durações e os Motion Styles (/01) estão no playground em Padrões → Motion." }
       ] },
       { id: "recursos", title: "Recursos e ferramentas", blocks: [
         DATA,

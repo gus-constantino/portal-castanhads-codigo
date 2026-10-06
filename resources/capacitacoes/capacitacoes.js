@@ -66,7 +66,7 @@
       ) },
 
       { id: "motion", title: "Motion", blocks: [].concat(
-        topo("Motion", "Construindo novas experiências com motion: como o motion faz parte da construção das interfaces da Caju. Os tokens e Motion Styles estão em Caju - Tema → Motion.", "656735-motion"),
+        topo("Motion", "Construindo novas experiências com motion: como o motion faz parte da construção das interfaces da Caju. Os tokens e Motion Styles estão em Padrões → Motion.", "656735-motion"),
         secoes(MOTION, [
           ["Introdução", [["Introdução", "1MwFVZxWWgMGUTILC6iExWDGzBPd8cf2j"], ["Motion System e Princípios de Motion", "110CspYspdcMLrb56CTO1Z9ddIjqeXp_P"]]],
           ["Atuações do motion na Caju", [["Informativo", "1gu3Tx2CuhjSYovSeEAXebgDd-6Ypkanh"], ["Feedback", "11xrIXy6dbs9VQOTGB4W8mIsgVzY028zl"], ["Efeito UAU", "11D1CRV9R8IzmdCtIOug6L-jEfiaPJ0cy"], ["Navegação", "1dY4DFmFzAitogJ0wjxKP-lCYoRpTA8EQ"]]],
@@ -77,7 +77,7 @@
       ) },
 
       { id: "ilustracao", title: "Ilustração", blocks: [].concat(
-        topo("Ilustração", "Construindo novas experiências com ilustração: como as ilustrações são aplicadas nas interfaces da Caju. A biblioteca está em Caju - Tema → Ilustração.", "45da15-ilustracao"),
+        topo("Ilustração", "Construindo novas experiências com ilustração: como as ilustrações são aplicadas nas interfaces da Caju. A biblioteca está em Tema Caju → Ilustração.", "45da15-ilustracao"),
         secoes(ILU, [
           ["Introdução", [["Ilustrações na Caju", "1Kg0GGWPUvFRfrAQhyQJvq4S37RkUBb11"], ["Princípios de Ilustração", "1WF4S0VIsub_daG2mjihLS41A1DQb8XoC"], ["Bibliotecas de ilustração", "17g68PMUCzkeSIwazixiRc9Lnyyy4TyQ0"]]],
           ["Breakpoints", [["Breakpoints", "1Plx1y5RQ1cPuW38ndx1PqaodU4CRYW9H"]]],

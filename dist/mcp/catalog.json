@@ -15,9 +15,9 @@
  "counts": {
   "components": 79,
   "buildingBlocks": 26,
-  "resources": 7,
+  "resources": 8,
   "compositions": 5,
-  "withDocs": 112,
+  "withDocs": 113,
   "withReact": 70,
   "liveMaps": 70,
   "reactOnly": 12,
@@ -15926,6 +15926,27 @@
    ]
   },
   {
+   "id": "changelog",
+   "name": "Changelog",
+   "kind": "resource",
+   "category": null,
+   "figma": null,
+   "figmaNode": null,
+   "zeroheight": null,
+   "tabs": [
+    {
+     "id": "2026",
+     "title": "2026",
+     "text": "## Releases de 2026\n\n77 releases: React (16), Ilustrações (14), Documentação (11), Flutter (10), Outro (8), Figma (8), Ícones (6), Tokens (4). Da mais recente para a mais antiga.\n\n### Setembro de 2026\n\n### Agosto de 2026\n\n### Julho de 2026\n\n### Junho de 2026\n\n### Maio de 2026\n\n### Abril de 2026\n\n### Março de 2026\n\n### Fevereiro de 2026\n\n### Janeiro de 2026\n\n> Fonte: anúncios do canal #castanha-novidades no Slack, de setembro de 2025 a setembro de 2026. Ilustrações têm duas numerações: a Biblioteca do Figma e o pacote castanha-illustrations. Links do Storybook e do Widgetbook ficam de fora (exigem VPN)."
+    },
+    {
+     "id": "2025",
+     "title": "2025",
+     "text": "## Releases de 2025\n\n18 releases: Documentação (6), Ilustrações (4), Flutter (3), Figma (2), React (2), Ícones (1). Da mais recente para a mais antiga.\n\n### Dezembro de 2025\n\n### Novembro de 2025\n\n### Outubro de 2025\n\n### Setembro de 2025\n\n> Fonte: anúncios do canal #castanha-novidades no Slack, de setembro de 2025 a setembro de 2026. Ilustrações têm duas numerações: a Biblioteca do Figma e o pacote castanha-illustrations. Links do Storybook e do Widgetbook ficam de fora (exigem VPN)."
+    }
+   ]
+  },
+  {
    "id": "conteudo",
    "name": "Conteúdo",
    "kind": "resource",
@@ -27698,6 +27719,12 @@
     "group": "Resolvidos",
     "resolved": true,
     "text": "**Conteúdo · correções no Hub** (32 páginas, `docs/zeroheight/conteudo.md` §4). 🔴 Links com o domínio antigo em Comunicando Novidades (2) e Estruturando Conteúdo (7). 🔴 Breadcrumb com imagens em URL S3 assinada (identificador de credencial AWS). 🟡 Premissas na Prática com números trocados e fora de ordem; exemplos que quebram a própria regra (Formatação, Tour, Ações Obrigatórias, In-app); e erros de digitação. ✅ Corrigido no playground: nome de cliente real no exemplo de e-mail, texto do cartão cortado, `gmai.com`, `saldoe`, aspas desencontradas, código em blocos de 3, colchete invertido no Fixed Tab, \"Sessão fixa\", \"você já por\", \"remete a ação\", nível 1 com dois-pontos · 05/10"
+   },
+   {
+    "id": "C169",
+    "group": "Resolvidos",
+    "resolved": true,
+    "text": "**Changelog** (recurso novo, D190), extraído do Slack #castanha-novidades (117 mensagens lidas, set/2025 a set/2026 → 95 releases; 57 mensagens que não eram release ficaram de fora). 🟡 `castanha-icons` v1.2.0 aparece em duas datas (14/05 e 22/06; a segunda provavelmente era v1.3.0). 🟡 Ilustrações com duas numerações (Biblioteca do Figma 0.19→v1.5 e pacote `castanha-illustrations` v1.0→v1.8), registradas separadas. 🟡 Datas = data do anúncio (algumas notas trazem a data da release, 1 dia antes). 🟡 Motion ficou em \"Outro\". 🟡 Sem nomes de pessoas; links do Storybook/Widgetbook fora (VPN); 3 links para páginas que saíram do Hub removidos. Atualização: hoje é manual (reler o canal) · 05/10"
    }
   ],
   "stack": [

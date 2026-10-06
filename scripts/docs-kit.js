@@ -333,6 +333,21 @@
       }
       return box;
     },
+    // Release do changelog: Card do DS com data, Tag da área e da versão, título, itens e Link (opcional)
+    release: function(d, v){
+      var c = el("cds-card", "pg-doc-release"); c.setAttribute("has-border", "true");
+      var head = c.appendChild(el("div", "pg-doc-release__head"));
+      head.appendChild(el("span", "pg-doc-release__date", v.date));
+      [[v.area, "neutral"], [v.version, "informative"]].forEach(function(t){
+        if (!t[0]) return;
+        var tag = el("cds-tag"); tag.setAttribute("label", t[0]); tag.setAttribute("appearance", t[1]); tag.setAttribute("show-lead-item", "false");
+        head.appendChild(tag);
+      });
+      c.appendChild(el("h3", "pg-doc-h4", v.title));
+      if (v.items && v.items.length) c.appendChild(list("ul", v.items));
+      if (v.href){ var l = el("cds-link", "pg-doc-release__link"); l.setAttribute("label", v.cta || "Abrir"); l.setAttribute("href", v.href); l.setAttribute("target", "_blank"); l.setAttribute("icon", "link-line"); l.setAttribute("appearance", "neutral"); c.appendChild(l); }
+      return c;
+    },
     // Grade de vídeos: cada item é um bloco video com heading (ex.: treinamentos em várias partes)
     videos: function(d, v){
       var g = el("div", "pg-doc-videos");

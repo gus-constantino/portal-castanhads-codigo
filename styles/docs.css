@@ -452,6 +452,7 @@
 .pg-doc-shortcut__link{ margin-top:auto; padding-top:var(--common-sizes-8); }
 /* Bento: grade fixa de 3 ou 4 colunas; hero ocupa 2×2, wide ocupa 2 colunas; wide e row põem a ilustração ao lado do texto */
 .pg-doc-shortcuts.is-bento{ grid-auto-flow:row dense; }
+.pg-doc-shortcuts.is-cols-2{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
 .pg-doc-shortcuts.is-cols-3{ grid-template-columns:repeat(3, minmax(0, 1fr)); }
 .pg-doc-shortcuts.is-cols-4{ grid-template-columns:repeat(4, minmax(0, 1fr)); }
 .pg-doc-shortcut.is-hero{ grid-column:span 2; grid-row:span 2; }
@@ -469,7 +470,7 @@
   .pg-doc-shortcut.is-hero .pg-doc-shortcut__img{ width:var(--common-sizes-120); height:var(--common-sizes-120); margin:0; }
 }
 @media (max-width:640px){
-  .pg-doc-shortcuts.is-cols-4, .pg-doc-shortcuts.is-cols-3{ grid-template-columns:minmax(0, 1fr); }
+  .pg-doc-shortcuts.is-cols-4, .pg-doc-shortcuts.is-cols-3, .pg-doc-shortcuts.is-cols-2{ grid-template-columns:minmax(0, 1fr); }
   .pg-doc-shortcut.is-hero, .pg-doc-shortcut.is-wide{ grid-column:auto; }
   .pg-doc-shortcut.is-hero .cds-card__slot, .pg-doc-shortcut.is-wide .cds-card__slot{ flex-direction:column; align-items:stretch; gap:var(--common-sizes-8); }
 }
@@ -605,3 +606,8 @@ cds-banner.pg-doc-banner{ width:calc(var(--common-sizes-200) + var(--common-size
 .pg-doc-video__caption .pg-doc-p{ margin:0; color:var(--common-colors-text-medium); }
 .pg-doc-videos{ display:grid; grid-template-columns:repeat(auto-fill, minmax(min(calc(var(--common-sizes-200) + var(--common-sizes-120)), 100%), 1fr)); gap:var(--common-sizes-32) var(--common-sizes-24); }
 
+/* Changelog: uma release por Card, em coluna de leitura */
+.pg-doc-release{ max-width:calc(3 * var(--common-sizes-200) + var(--common-sizes-160)); }
+.pg-doc-release__head{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--common-sizes-8); }
+.pg-doc-release__date{ font:var(--text-style-caption-medium); color:var(--common-colors-text-medium); }
+.pg-doc-release__link{ align-self:flex-start; }

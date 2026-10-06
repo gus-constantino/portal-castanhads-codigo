@@ -24,10 +24,11 @@
           { layout: "row", title: "Dev. React", text: "Onboarding para desenvolvedores web.", href: "https://castanha-staging.caju.com.br/?path=/docs/actions-button--docs", cta: "Castanha React", external: true, illustration: "dispositivos/notebook-relatorios" }
         ] } },
         { h2: "Mais recursos" },
-        { shortcuts: { bento: 3, items: [
+        { shortcuts: { bento: 2, items: [
           { layout: "row", title: "Caju - Tema", text: "Cores, tipografia, tamanhos, bordas, elevação e ícones.", href: "#/caju-theme", cta: "Ver tema", illustration: "interfaces/home" },
           { layout: "row", title: "Patterns", text: "Feedback Pages e Tela de loading, montadas com componentes do DS.", href: "#/patterns", cta: "Ver patterns", illustration: "notificacoes/success" },
-          { layout: "row", title: "Capacitações", text: "Os treinamentos do Hub em vídeo: Sponsor, Employee, Motion, Ilustração e Content.", href: "#/capacitacoes", cta: "Ver capacitações", illustration: "objetos/medalha-1" }
+          { layout: "row", title: "Capacitações", text: "Os treinamentos do Hub em vídeo: Sponsor, Employee, Motion, Ilustração e Content.", href: "#/capacitacoes", cta: "Ver capacitações", illustration: "objetos/medalha-1" },
+          { layout: "row", title: "Changelog", text: "O que saiu em cada release do Castanha: React, Flutter, Figma, ilustrações, ícones e documentação.", href: "#/changelog", cta: "Ver changelog", illustration: "notificacoes/sino" }
         ] } }
       ] },
       // Sobre → Princípios de Design (zeroheight · 7379702). Texto do Hub; os ícones da página usam cores fora dos tokens

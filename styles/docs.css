@@ -63,6 +63,7 @@
 
 .pg-doc-h2{ margin:var(--common-sizes-16) 0 0; font:var(--text-style-heading-small); color:var(--common-colors-text-medium); }
 .pg-doc-h2:first-child{ margin-top:0; }
+.pg-doc-h2{ scroll-margin-top:calc(var(--pg-header-h) + var(--common-sizes-16)); } /* busca no conteúdo: a seção não fica sob o cabeçalho fixo */
 .pg-doc-h3{ margin:var(--common-sizes-8) 0 0; font:var(--text-style-title-small); color:var(--common-colors-text-medium); }
 .pg-doc-h4{ margin:0; font:var(--text-style-body-bold); color:var(--common-colors-text-medium); }
 .pg-doc-p, .pg-doc-list{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }

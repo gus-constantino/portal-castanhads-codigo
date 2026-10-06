@@ -77,8 +77,17 @@ function bundle(){
   const head = (n) => `/* GERADO por scripts/build-index.js · ${n} arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */\n`;
   fs.writeFileSync(path.join(DIST, "cds.css"), head(f.css.length) + f.css.map((r) => `/* ==== ${r} ==== */\n` + fs.readFileSync(path.join(ROOT, r), "utf8").trim()).join("\n\n") + "\n");
   fs.writeFileSync(path.join(DIST, "cds.js"), head(f.js.length) + f.js.map((r) =>
-    `/* ==== ${r} ==== */\ntry {\n${fs.readFileSync(path.join(ROOT, r), "utf8").trim()}\n} catch (e) { console.error("[cds] ${r}", e); }`).join("\n\n") + "\n" + docsIndex());
+    `/* ==== ${r} ==== */\ntry {\n${fs.readFileSync(path.join(ROOT, r), "utf8").trim()}\n} catch (e) { console.error("[cds] ${r}", e); }`).join("\n\n") + "\n" + docsIndex() + searchIndex(DIST));
   return f;
+}
+
+// Busca no conteúdo (D209): dist/search.json, baixado pelo shell só na primeira busca
+function searchIndex(DIST){
+  const r = require("./search-index.js")(ROOT), json = JSON.stringify(r.items);
+  fs.writeFileSync(path.join(DIST, "search.json"), json + "\n");
+  r.errors.forEach((e) => console.warn("⚠️ busca: doc que não entrou no índice · " + e));
+  const v = crypto.createHash("sha1").update(json).digest("hex").slice(0, 8);
+  return "CDS.searchIndex = " + JSON.stringify("dist/search.json?v=" + v) + "; /* " + r.items.length + " seções */\n";
 }
 
 // Índice das docs (fim do dist/cds.js): id → arquivo com ?v=hash e as docs de que ela depende

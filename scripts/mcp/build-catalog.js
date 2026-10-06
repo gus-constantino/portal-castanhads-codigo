@@ -84,6 +84,8 @@ const BLOCK = {
   arqStack: (v) => v.items.map((l, i) => (i + 1) + ". **" + l.name + "**" + (l.group ? " (" + l.group[0] + ")" : "") + " — " + S(l.text) +
     (l.examples ? " Exemplos: " + l.examples.join(", ") + "." : "") + (l.where ? " " + S(l.where) : "")).join("\n"),
   arqCascade: (v) => "Do token à tela (exemplo interativo): " + v.targets.map((t) => t.name + ": " + t.brand + " → " + t.brand.replace(/^Common\/Colors\//, "") + " no tema → valor do primitivo").join("; ") + ".",
+  arqRules: (v) => v.items.map((r, i) => (i + 1) + ". **" + r.title + "** — " + S(r.text || "") + (r.do ? " Faça: " + S(r.do.text) : "") + (r.dont ? " Evite: " + S(r.dont.text) : "")).join("\n"),
+  arqOwners: (v) => v.items.map((o) => "- **" + o.title + "** — " + S(o.text || "") + " " + o.rows.map((r) => r[0] + ": " + r[1]).join(" · ")).join("\n"),
   faq: (v) => v.groups.map((g) => "### " + g.title + "\n" + g.items.map((q) => "**" + q[0] + "**\n" + [].concat(q[1]).map((t) => Array.isArray(t) ? t.map((x) => "- " + x).join("\n") : S(t)).join("\n")).join("\n\n")).join("\n\n")
 };
 function blockText(b){

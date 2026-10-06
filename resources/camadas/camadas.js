@@ -145,6 +145,72 @@
       applyMode(); applyVp(); go(st.cur);
       return wrap;
     };
+
+    // Regras em pares Faça × Evite, cada lado com um mini diagrama montado com Tags do DS, ícones e cores reais do tema
+    // (amostras leem o token ao vivo; "modes" mostra o valor em Light e Dark lido das regras do tokens.css)
+    var GROUP_APP = { fund: "informative", est: "accent", ds: "positive", prod: "warning", code: "neutral" };
+    function ruleProps(sel){
+      var out = {};
+      [].forEach.call(document.styleSheets, function(sh){ var rules; try { rules = sh.cssRules; } catch (e){ return; }
+        [].forEach.call(rules || [], function(r){ if (r.selectorText === sel) for (var k = 0; k < r.style.length; k++){ var p = r.style[k]; if (p.indexOf("--") === 0) out[p] = r.style.getPropertyValue(p).trim(); } }); });
+      return out;
+    }
+    var LIGHT_P = null, DARK_P = null;
+    function diagram(parent, spec, bad){
+      var row = parent.appendChild(el("div", "pg-arq-dia" + (bad ? " is-bad" : "")));
+      spec.forEach(function(s){
+        if (s === "→") return arrow(row);
+        if (s === "⇢"){ var i = arrow(row); i.classList.add("is-skip"); i.setAttribute("appearance", "negative"); return; }
+        if (s.chip) return tag(row, s.chip, GROUP_APP[s.group] || "neutral");
+        if (s.bad){ var t = tag(row, s.bad, "negative"); return t; }
+        if (s.skip) return row.appendChild(el("span", "pg-arq-dia__skip", s.skip));
+        if (s.code){ var c = row.appendChild(el("code", "pg-arq-dia__code", s.code)); return c; }
+        if (s.swatch){ var w = row.appendChild(el("span", "pg-arq-dia__sw")); w.style.background = "var(" + s.swatch + ")"; w.setAttribute("aria-hidden", "true"); return w; }
+        if (s.modes){
+          if (!LIGHT_P){ LIGHT_P = ruleProps(":root"); DARK_P = ruleProps('html[data-theme="dark"]'); }
+          [["Light", LIGHT_P[s.modes]], ["Dark", DARK_P[s.modes] || LIGHT_P[s.modes]]].forEach(function(m){
+            var g = row.appendChild(el("span", "pg-arq-dia__mode"));
+            var sw = g.appendChild(el("span", "pg-arq-dia__sw")); sw.style.background = m[1] || ""; sw.setAttribute("aria-hidden", "true");
+            g.appendChild(el("span", null, m[0] + " " + (m[1] || "")));
+          });
+        }
+      });
+      return row;
+    }
+    CDS.docBlocks.arqRules = function(d, v){
+      var list = el("div", "pg-arq-rules");
+      v.items.forEach(function(it, i){
+        var card = list.appendChild(el("cds-card", "pg-arq-rule")); card.setAttribute("has-border", "true");
+        var head = card.appendChild(el("div", "pg-arq-rule__head"));
+        head.appendChild(el("span", "pg-arq-rule__n", String(i + 1)));
+        var ht = head.appendChild(el("div", "pg-arq-rule__ht"));
+        ht.appendChild(el("h3", "pg-arq-rule__title", it.title));
+        if (it.text) ht.appendChild(rich(el("p", "pg-doc-p"), it.text));
+        var cols = card.appendChild(el("div", "pg-arq-rule__cols"));
+        [["do", "Faça", "positive", "check-line"], ["dont", "Evite", "negative", "close-line"]].forEach(function(k){
+          var side = it[k[0]]; if (!side) return;
+          var c = cols.appendChild(el("div", "pg-arq-rule__side is-" + k[0]));
+          var lab = c.appendChild(document.createElement("cds-tag")); lab.setAttribute("label", k[1]); lab.setAttribute("appearance", k[2]); lab.setAttribute("icon", k[3]);
+          if (side.diagram) diagram(c, side.diagram, k[0] === "dont");
+          c.appendChild(rich(el("p", "pg-doc-p"), side.text));
+        });
+      });
+      return list;
+    };
+    // Quem cria e quem mantém: um card por tipo, com Shaped Icon do DS e lista de definição (composição cmp-definition-list)
+    CDS.docBlocks.arqOwners = function(d, v){
+      var grid = el("div", "pg-arq-owners");
+      v.items.forEach(function(it){
+        var card = grid.appendChild(el("cds-card", "pg-arq-owner")); card.setAttribute("has-border", "true");
+        var h = card.appendChild(el("div", "pg-arq-owner__head"));
+        var sh = h.appendChild(document.createElement("cds-shaped-icon")); sh.setAttribute("icon", it.icon); sh.setAttribute("appearance", it.app); sh.setAttribute("size", "small");
+        h.appendChild(el("h3", "pg-arq-rule__title", it.title));
+        if (it.text) card.appendChild(rich(el("p", "pg-doc-p"), it.text));
+        var dl = card.appendChild(document.createElement("cmp-definition-list")); dl.setAttribute("layout", "stacked");
+        if (dl.setItems) dl.setItems(it.rows); else it.rows.forEach(function(r){ dl.appendChild(el("dt", null, r[0])); dl.appendChild(el("dd", null, r[1])); });
+      });
+      return grid;
+    };
   }
 
   CDS.docs["camadas"] = {
@@ -204,22 +270,34 @@
       ] },
       { id: "regras", title: "Regras", blocks: [
         { h2: "Regras de ouro" },
-        { dodont: [
-          { kind: "do", title: "Siga a cascata", text: "Cada camada aponta para a de cima: Componente → Brand Style → Theme → Primitives." },
-          { kind: "dont", title: "Pular camada", text: "Componente ou tela apontando direto para um primitivo ou para um valor fixo." },
-          { kind: "do", title: "Marca e tema escuro no tema", text: "Trocar de marca, ligar o Dark ou criar um tema de produto muda o tema e o Brand Style. Componentes e primitivos ficam como estão." },
-          { kind: "dont", title: "Cor nova no componente", text: "Mudar a cor dentro do componente para atender uma marca ou um modo." },
-          { kind: "do", title: "Espelhe em Common/", text: "Todo token que o código usa tem espelho no Brand Style. Sem esse espelho, ele não chega ao pacote de tokens." },
-          { kind: "dont", title: "Intenção no primitivo", text: "Primitivo com nome de uso, como `Duration/short`. O primitivo se chama pelo valor (`150`) e quem diz que ele é curto é o tema." },
-          { kind: "do", title: "Publique em cascata", text: "Primitives, depois Theme, depois Brand Style, depois código. Nomes decididos antes de publicar." },
-          { kind: "dont", title: "Token fora do scope", text: "Usar token de texto em borda ou de superfície em texto. Os scopes das variáveis no Figma evitam isso." }
-        ] },
+        { p: "Seis regras que mantêm o tema, as marcas e o código em ordem. Em cada uma, o jeito certo e o que evitar, com a cadeia de tokens que acontece de verdade." },
+        { arqRules: { items: [
+          { title: "Siga a cascata", text: "Cada camada aponta para a de cima, sem pular nenhuma.",
+            do: { text: "O componente usa o Brand Style, que aponta para o tema, que aponta para o primitivo.", diagram: [{ chip: "Componente", group: "ds" }, "→", { chip: "Brand Style", group: "est" }, "→", { chip: "Theme", group: "fund" }, "→", { chip: "Primitive", group: "fund" }] },
+            dont: { text: "Componente ou tela apontando direto para um primitivo ou para um valor fixo: o tema escuro e as outras marcas deixam de funcionar.", diagram: [{ chip: "Componente", group: "ds" }, "⇢", { skip: "Brand Style" }, { skip: "Theme" }, "⇢", { bad: "Primitive" }] } },
+          { title: "Marca e tema escuro mudam no tema", text: "O componente não sabe qual é a marca nem o modo.",
+            do: { text: "O mesmo token aponta para outro valor em cada mode. O componente continua igual.", diagram: [{ chip: "Text/intense", group: "fund" }, "→", { modes: "--common-colors-text-intense" }] },
+            dont: { text: "Cor fixa dentro do componente para atender uma marca ou um modo: no Dark, o texto some.", diagram: [{ chip: "Título do card", group: "ds" }, "→", { bad: "#1a1a1a" }] } },
+          { title: "Espelhe em Common/", text: "Só o Brand Style chega ao código.",
+            do: { text: "Todo token que o código usa tem espelho com o prefixo Common/ e vira variável CSS no pacote de tokens.", diagram: [{ chip: "Accent/Solid/medium", group: "fund" }, "→", { chip: "Common/Colors/Accent/Solid/medium", group: "est" }, "→", { code: "--castanha-colors-accent-solid-medium" }] },
+            dont: { text: "Token do tema sem espelho no Brand Style: ele não chega ao código.", diagram: [{ chip: "Theme", group: "fund" }, "⇢", { bad: "código" }] } },
+          { title: "Primitivo se chama pelo valor", text: "A intenção mora no tema, não no primitivo.",
+            do: { text: "O primitivo é `150`. Quem diz que ele é curto é o tema.", diagram: [{ chip: "Motion/Duration/short-03", group: "fund" }, "→", { chip: "Motion/Duration/150", group: "fund" }] },
+            dont: { text: "Primitivo com nome de uso, como `Duration/short`: quando o valor mudar, o nome mente.", diagram: [{ bad: "Primitive: Duration/short" }] } },
+          { title: "Publique em cascata", text: "Os aliases sobrevivem por ID, mas a ordem importa.",
+            do: { text: "Primitives, depois Theme, depois Brand Style, depois código. Nomes decididos antes de publicar.", diagram: [{ chip: "1 · Primitives", group: "fund" }, "→", { chip: "2 · Theme", group: "fund" }, "→", { chip: "3 · Brand Style", group: "est" }, "→", { chip: "4 · Código", group: "code" }] },
+            dont: { text: "Publicar o Brand Style antes do tema: ele aponta para um alias que ainda não existe na biblioteca.", diagram: [{ chip: "Brand Style", group: "est" }, "⇢", { bad: "Theme (não publicado)" }] } },
+          { title: "Cada token no seu lugar", text: "Os scopes das variáveis no Figma limitam onde cada token aparece.",
+            do: { text: "Token de texto em texto, de borda em borda, de superfície em fundo.", diagram: [{ chip: "Text/intense", group: "est" }, "→", { chip: "texto", group: "code" }, { swatch: "--common-colors-text-intense" }] },
+            dont: { text: "Token de borda num texto ou de superfície numa borda: o contraste e o tema escuro saem do controle.", diagram: [{ chip: "Border/soft", group: "est" }, "⇢", { bad: "texto" }] } }
+        ] } },
         { h2: "Quem cria e quem mantém" },
-        { table: { wrap: true, head: ["Tipo", "Quem cria", "Quem mantém", "Onde mora", "Documentação"], rows: [
-          ["Componente do DS", "Time do DS", "Time do DS", "Biblioteca do Castanha", "Obrigatória e pública"],
-          ["Evolutiva (variante ou prop nova)", "Designer do produto propõe", "Time do DS aprova e mantém", "Biblioteca do Castanha", "Obrigatória"],
-          ["Local asset (team component)", "Designer do produto", "Squad", "Biblioteca do time", "Recomendada"],
-          ["Composição", "Designer do produto", "Ninguém: é uma tela", "Arquivo do produto", "Não precisa"]
+        { p: "Antes de criar algo, a pergunta do InnerSource: outro time precisaria disso sem saber que você criou?" },
+        { arqOwners: { items: [
+          { title: "Componente do DS", icon: "view-module-line", app: "positive", text: "Serve a todos os produtos.", rows: [["Quem cria", "Time do DS"], ["Quem mantém", "Time do DS"], ["Onde mora", "Biblioteca do Castanha"], ["Documentação", "Obrigatória e pública"]] },
+          { title: "Evolutiva", icon: "plus-line", app: "accent", text: "Variante ou prop nova num componente que já existe.", rows: [["Quem cria", "Designer do produto propõe"], ["Quem mantém", "Time do DS aprova e mantém"], ["Onde mora", "Biblioteca do Castanha"], ["Documentação", "Obrigatória"]] },
+          { title: "Local asset", icon: "folder-line", app: "warning", text: "Componente, módulo ou asset de um time só.", rows: [["Quem cria", "Designer do produto"], ["Quem mantém", "Squad"], ["Onde mora", "Biblioteca do time"], ["Documentação", "Recomendada"]] },
+          { title: "Composição", icon: "home-line", app: "neutral", text: "Arranjo de componentes para resolver uma tela.", rows: [["Quem cria", "Designer do produto"], ["Quem mantém", "Ninguém: é uma tela"], ["Onde mora", "Arquivo do produto"], ["Documentação", "Não precisa"]] }
         ] } },
         { p: "Composição não vira team component: isso aumenta a biblioteca do time e o custo de manutenção sem ganho de reuso." }
       ] },

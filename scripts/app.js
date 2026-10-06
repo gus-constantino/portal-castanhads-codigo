@@ -335,11 +335,11 @@
     function input(){ return search.control || search.querySelector("input"); }
     function results(){
       // links visíveis do menu, na ordem da tela (Início, componentes das categorias abertas, recursos); buscando, só os resultados
-      var sel = searchText() ? "#nav a[href^='#/'], #nav-res a[href^='#/'], #nav-found a[href^='#/']" : ".pg-sidebar a[href^='#/']";
+      var sel = searchText() ? "#nav a[href^='#/'], #nav-res a[href^='#/'], #nav-found a[href^='#/'], #nav-hits a[href^='#/']" : ".pg-sidebar a[href^='#/']";
       return [].slice.call(document.querySelectorAll(sel)).filter(function(a){ return a.getClientRects().length > 0; });
     }
     function focusSearch(){ var i = input(); if (i){ i.focus(); i.select(); } }
-    search.setAttribute("placeholder", "Buscar componente (" + (mac ? "⌘K" : "Ctrl+K") + ")");
+    search.setAttribute("placeholder", "Buscar componente ou conteúdo (" + (mac ? "⌘K" : "Ctrl+K") + ")");
     document.addEventListener("keydown", function(e){
       var t = e.target, typing = t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
       if ((e.key === "k" || e.key === "K") && (mac ? e.metaKey : e.ctrlKey) && !e.altKey && !e.shiftKey){ e.preventDefault(); focusSearch(); return; }
@@ -364,6 +364,63 @@
       if (e.key.length === 1 && e.key !== " "){ var inp = input(); inp.focus(); } // a tecla cai no campo e a busca continua
     });
   })();
+
+  // ---------- Busca no conteúdo das docs (D209) ----------
+  // A partir de 3 letras, além de filtrar o menu pelo nome, procura no texto das docs (dist/search.json, gerado no build e
+  // baixado só na primeira busca). Todas as palavras precisam aparecer (sem diferenciar acento e caixa); título e nome pesam mais.
+  // O resultado abre a tab e rola até a seção (h2) encontrada.
+  var hits = $("nav-hits"), hitsTitle = $("nav-hits-title"), sidx = null, pendingSection = null;
+  function norm(s){ return String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase(); }
+  function loadIndex(){
+    if (!sidx) sidx = (CDS.searchIndex && window.fetch ? fetch(CDS.searchIndex).then(function(r){ return r.json(); }) : Promise.resolve([]))
+      .then(function(a){ a.forEach(function(e){ e._h = norm(e.n + " " + e.tt + " " + e.h); e._x = norm(e.x); }); return a; })
+      .catch(function(){ return []; });
+    return sidx;
+  }
+  function snippet(e, words){
+    var x = e.x, nx = e._x, i = -1;
+    words.some(function(w){ i = nx.indexOf(w); return i !== -1; });
+    if (i < 0) return x.slice(0, 110) + (x.length > 110 ? "…" : "");
+    var a = Math.max(0, i - 40), b = Math.min(x.length, a + 120);
+    return (a ? "…" : "") + x.slice(a, b).trim() + (b < x.length ? "…" : "");
+  }
+  function contentHits(q){
+    if (!hits) return;
+    var words = norm(q).split(/\s+/).filter(Boolean);
+    if (norm(q).replace(/\s/g, "").length < 3){ hits.innerHTML = ""; hits.hidden = hitsTitle.hidden = true; return; }
+    loadIndex().then(function(idx){
+      if (norm(searchText()) !== norm(q)) return; // a pessoa já digitou outra coisa
+      var res = [];
+      idx.forEach(function(e){
+        var all = e._h + " " + e._x;
+        if (words.every(function(w){ return all.indexOf(w) !== -1; })) res.push([words.reduce(function(s, w){ return s + (e._h.indexOf(w) !== -1 ? 3 : 1); }, 0), e]);
+      });
+      res.sort(function(a, b){ return b[0] - a[0]; });
+      hits.innerHTML = ""; hits.hidden = hitsTitle.hidden = false;
+      if (!res.length){ hits.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Nada encontrado no conteúdo." })); return; }
+      res.slice(0, 8).forEach(function(r){
+        var e = r[1], href = "#/" + e.d + (e.t ? "/" + e.t : "");
+        var a = kit.el("a", { href: href, "class": "pg-nav-hit" }, [
+          kit.el("span", { "class": "pg-nav-hit__title", text: e.n + " › " + e.tt + (e.h !== e.tt ? " · " + e.h : "") }),
+          kit.el("span", { "class": "pg-nav-hit__snip", text: snippet(e, words) })
+        ]);
+        a.addEventListener("click", function(){
+          pendingSection = e.h;
+          if (location.hash.split("?")[0] === href){ revealSection(); } // mesma página: o hashchange não dispara
+        });
+        hits.appendChild(kit.el("li", null, [a]));
+      });
+      if (res.length > 8) hits.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Mais " + (res.length - 8) + " seções: refine a busca." }));
+    });
+  }
+  function revealSection(){
+    if (!pendingSection) return;
+    var want = norm(pendingSection), h = [].slice.call(docsEl.querySelectorAll(".pg-doc-h2")).filter(function(x){ return norm(x.textContent) === want; })[0];
+    pendingSection = null;
+    if (h) setTimeout(function(){ h.scrollIntoView({ block: "start" }); }, 0); // setTimeout e não rAF: a aba em segundo plano não roda rAF
+  }
+  if (hits) search.addEventListener("cds-change", function(){ contentHits(searchText()); });
+  if (hits) search.addEventListener("cds-clear", function(){ contentHits(""); });
 
   // ---------- Roteamento: #/<id> ou #/<id>/<tab> ----------
   // #/<id>[/<tab>][?prop=valor&…] — a query guarda o estado dos controles (link do estado)
@@ -415,7 +472,7 @@
     else { stage.setAttribute("role", "tabpanel"); stage.setAttribute("aria-labelledby", "tab-playground"); }
     shell.classList.toggle("is-doc", isDoc);
     docsEl.hidden = !isDoc;
-    if (isDoc){ docsEl.setAttribute("aria-labelledby", "tab-" + tab); CDS.renderDoc(doc, tab, docsEl); docsEl.scrollTop = 0; }
+    if (isDoc){ docsEl.setAttribute("aria-labelledby", "tab-" + tab); CDS.renderDoc(doc, tab, docsEl); docsEl.scrollTop = 0; if (typeof revealSection === "function") revealSection(); }
     else docsEl.innerHTML = "";
     pager.render(isDoc ? docsEl : stage);
   }
@@ -475,7 +532,7 @@
       }
     };
     kit.tip(top.backBtn, "Voltar", { container: top.trailEl });
-    kit.tip(top.searchBtn, "Buscar componente", { container: top.trailEl });
+    kit.tip(top.searchBtn, "Buscar componente ou conteúdo", { container: top.trailEl });
     return o;
   })();
   // Barra do topo estreita (≤760): os níveis anteriores vão para o "…" do Breadcrumb e fica só a página atual

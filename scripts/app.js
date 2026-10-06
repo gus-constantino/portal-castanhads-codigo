@@ -494,7 +494,7 @@
   function buildTabs(id){
     var doc = CDS.docs && CDS.docs[id];
     if (CDS.renderCover) CDS.renderCover(doc, coverEl, heroOf(currentDef())); // capa acima das tabs: frame [Header] do componente ou hero do recurso
-    // Legado (legacy: "motivo" no CDS.register): capa em cinza com a faixa "Legado | Arquivado" (componente local <loc-faixa>)
+    // Legado (legacy: "motivo" no CDS.register): a faixa "Legado | Arquivado" na capa (componente local <loc-faixa>)
     var leg = currentDef().legacy;
     coverEl.classList.toggle("is-legacy", !!leg && !coverEl.hidden);
     if (leg && !coverEl.hidden) coverEl.appendChild(kit.el("loc-faixa", { role: "note", "aria-label": "Legado: " + leg }));

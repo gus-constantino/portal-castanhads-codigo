@@ -1,21 +1,23 @@
 /* <loc-pilha> · componente local do playground (ver pilha.js) — só tokens.
    Cartões quadrados; o da frente tem a altura da pilha e encosta à direita. Cada cartão de trás começa 9cqh mais à esquerda
    e encolhe 14cqh, então aparece como uma faixa à esquerda do seguinte.
-   Cor: mistura do tom de trás (--_back) para o da frente (--_front), um passo por cartão. A área vem do atributo area
-   ou de um ancestral com data-loc-area (ex.: a capa do recurso), que também pode usar --loc-back/--loc-front no fundo. */
-loc-pilha{
-  --_back:var(--loc-back, var(--common-colors-accent-solid-intense)); --_front:var(--loc-front, var(--common-colors-accent-solid-medium));
-  --_n:4; --_step:33.33%; --_fan:0;
-  display:block; position:relative; aspect-ratio:127 / 100; container-type:size; pointer-events:none;
-}
-loc-pilha[cards="3"]{ --_n:3; --_step:50%; aspect-ratio:118 / 100; }
+   Cor: cada cartão usa um stop da escala da área, do mais escuro (atrás, --loc-f3) ao mais claro (na frente, --loc-f).
+   Só stops que existem no tema, sem misturar cores (Gustavo, 06/10: "só tokens existentes").
+   A área vem do atributo area ou de um ancestral com data-loc-area (ex.: a capa do recurso), que também usa:
+     --loc-back  tom escuro da área (fundo do banner, sobretítulo da capa clara)
+     --loc-tint  fundo suave da área (pale ou soft da escala; capa clara, capítulos tingidos, cartão do banner) */
+loc-pilha{ --_n:4; --_fan:0; display:block; position:relative; aspect-ratio:127 / 100; container-type:size; pointer-events:none; }
+loc-pilha[cards="3"]{ --_n:3; aspect-ratio:118 / 100; }
 loc-pilha > span{
   position:absolute; top:50%; left:calc((var(--_n) - 1 - var(--_k)) * 9cqh); height:calc(100cqh - var(--_k) * 14cqh); aspect-ratio:1;
   border-radius:var(--common-border-radius-large);
-  background:color-mix(in srgb, var(--_front) calc(100% - var(--_k) * var(--_step)), var(--_back));
   transform:translate(calc(var(--_k) * var(--_fan) * -6cqh), -50%);
   transition:transform var(--motion-hover-out-01-timing) var(--motion-hover-out-01-easing) var(--motion-hover-out-01-delay);
 }
+loc-pilha > span:nth-last-child(1){ background:var(--loc-f); }
+loc-pilha > span:nth-last-child(2){ background:var(--loc-f1); }
+loc-pilha > span:nth-last-child(3){ background:var(--loc-f2); }
+loc-pilha > span:nth-last-child(4){ background:var(--loc-f3); }
 loc-pilha[align="end"] > span{ top:auto; bottom:0; transform:translateX(calc(var(--_k) * var(--_fan) * -6cqh)); border-end-start-radius:0; border-end-end-radius:0; }
 /* Leque: hover/foco de quem usa (.loc-pilha-trigger) ou parado na doc ([fan]) */
 .loc-pilha-trigger:hover loc-pilha, .loc-pilha-trigger:focus-within loc-pilha, loc-pilha[fan]{ --_fan:1; }
@@ -23,19 +25,40 @@ loc-pilha[align="end"] > span{ top:auto; bottom:0; transform:translateX(calc(var
   transition:transform var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing);
 }
 
-/* Escalas por área (CDS.local.areas). Charts 04–07 não têm semi-intense: a mistura cobre o meio. */
-[data-loc-area], loc-pilha[area]{ --loc-back:var(--common-colors-accent-solid-intense); --loc-front:var(--common-colors-accent-solid-medium); }
-[data-loc-area="padroes"], loc-pilha[area="padroes"]{ --loc-back:var(--common-colors-charts-03-intense); --loc-front:var(--common-colors-charts-03-medium); }
-[data-loc-area="aprenda"], loc-pilha[area="aprenda"]{ --loc-back:var(--common-colors-charts-04-intense); --loc-front:var(--common-colors-charts-04-medium); }
-[data-loc-area="ferramentas"], loc-pilha[area="ferramentas"]{ --loc-back:var(--common-colors-charts-02-intense); --loc-front:var(--common-colors-charts-02-medium); }
-[data-loc-area="ajuda"], loc-pilha[area="ajuda"]{ --loc-back:var(--common-colors-charts-01-intense); --loc-front:var(--common-colors-charts-01-medium); }
-[data-loc-area="legado"], loc-pilha[area="legado"]{ --loc-back:var(--common-colors-charts-07-intense); --loc-front:var(--common-colors-charts-07-medium); }
-/* Sobre Surface/accent (hero vermelho): do mais escuro ao rosado, como a capa do Assets. O fundo não muda no Dark,
-   mas a escala accent-solid inverte: no Dark os mesmos tons vêm dos stops opostos. */
-loc-pilha[on="accent"]{ --_back:var(--common-colors-accent-solid-intense); --_front:var(--common-colors-accent-solid-semi-soft); }
-html[data-theme="dark"] loc-pilha[on="accent"]{ --_back:var(--common-colors-accent-solid-soft); --_front:var(--common-colors-accent-solid-intense); }
-/* Sobre Surface/inversed (topo do Relatório, cor Black do Assets): faixas claras atrás e o cartão da frente escuro.
+/* Escalas por área (CDS.local.areas). Accent e Charts 01–03 têm 5 a 7 stops; Charts 04 e 07 têm 4 (intense, medium,
+   semi-soft, soft): na pilha de 4 cartões os dois de trás repetem intense. */
+/* padrão (Accent) no :root para herdar; quem tem area ou data-loc-area troca a escala */
+:root, [data-loc-area], loc-pilha[area]{
+  --loc-f3:var(--common-colors-accent-solid-intense); --loc-f2:var(--common-colors-accent-solid-semi-intense);
+  --loc-f1:var(--common-colors-accent-solid-medium); --loc-f:var(--common-colors-accent-solid-semi-soft);
+  --loc-back:var(--common-colors-accent-solid-intense); --loc-tint:var(--common-colors-accent-solid-soft);
+}
+[data-loc-area="padroes"], loc-pilha[area="padroes"]{
+  --loc-f3:var(--common-colors-charts-03-intense); --loc-f2:var(--common-colors-charts-03-semi-intense); --loc-f1:var(--common-colors-charts-03-medium); --loc-f:var(--common-colors-charts-03-mild);
+  --loc-back:var(--common-colors-charts-03-intense); --loc-tint:var(--common-colors-charts-03-pale);
+}
+[data-loc-area="ferramentas"], loc-pilha[area="ferramentas"]{
+  --loc-f3:var(--common-colors-charts-02-intense); --loc-f2:var(--common-colors-charts-02-semi-intense); --loc-f1:var(--common-colors-charts-02-medium); --loc-f:var(--common-colors-charts-02-mild);
+  --loc-back:var(--common-colors-charts-02-intense); --loc-tint:var(--common-colors-charts-02-pale);
+}
+[data-loc-area="ajuda"], loc-pilha[area="ajuda"]{
+  --loc-f3:var(--common-colors-charts-01-intense); --loc-f2:var(--common-colors-charts-01-semi-intense); --loc-f1:var(--common-colors-charts-01-medium); --loc-f:var(--common-colors-charts-01-mild);
+  --loc-back:var(--common-colors-charts-01-intense); --loc-tint:var(--common-colors-charts-01-pale);
+}
+[data-loc-area="aprenda"], loc-pilha[area="aprenda"]{
+  --loc-f3:var(--common-colors-charts-04-intense); --loc-f2:var(--common-colors-charts-04-intense); --loc-f1:var(--common-colors-charts-04-medium); --loc-f:var(--common-colors-charts-04-semi-soft);
+  --loc-back:var(--common-colors-charts-04-intense); --loc-tint:var(--common-colors-charts-04-soft);
+}
+[data-loc-area="legado"], loc-pilha[area="legado"]{
+  --loc-f3:var(--common-colors-charts-07-intense); --loc-f2:var(--common-colors-charts-07-intense); --loc-f1:var(--common-colors-charts-07-medium); --loc-f:var(--common-colors-charts-07-semi-soft);
+  --loc-back:var(--common-colors-charts-07-intense); --loc-tint:var(--common-colors-charts-07-soft);
+}
+/* Sobre Surface/accent (capa vermelha): do mais escuro ao rosado, sem o medium (é a cor do fundo). O fundo não muda no
+   Dark, mas a escala accent-solid inverte: no Dark os mesmos tons vêm dos stops opostos. */
+loc-pilha[on="accent"]{ --loc-f3:var(--common-colors-accent-solid-intense); --loc-f2:var(--common-colors-accent-solid-semi-intense); --loc-f1:var(--common-colors-accent-solid-semi-soft); --loc-f:var(--common-colors-accent-solid-soft); }
+html[data-theme="dark"] loc-pilha[on="accent"]{ --loc-f3:var(--common-colors-accent-solid-soft); --loc-f2:var(--common-colors-accent-solid-semi-soft); --loc-f1:var(--common-colors-accent-solid-semi-intense); --loc-f:var(--common-colors-accent-solid-intense); }
+/* Sobre Surface/inversed (topo do Relatório e a virada, cor Black do Assets): faixas claras atrás e o cartão da frente escuro.
    A escala neutral-solid inverte no Dark junto com o fundo (variação White). */
-loc-pilha[on="inversed"]{ --_back:var(--common-colors-neutral-solid-semi-soft); --_front:var(--common-colors-neutral-solid-semi-intense); }
+loc-pilha[on="inversed"]{ --loc-f3:var(--common-colors-neutral-solid-soft); --loc-f2:var(--common-colors-neutral-solid-semi-soft); --loc-f1:var(--common-colors-neutral-solid-medium); --loc-f:var(--common-colors-neutral-solid-semi-intense); }
 
 @media (prefers-reduced-motion: reduce){ loc-pilha > span{ transition:none; } }

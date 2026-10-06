@@ -26,7 +26,7 @@
         this._built = true;
         this.textContent = "";
         var stack = this.appendChild(CDS.create("div", null, "loc-banner__stack"));
-        for (var k = 4; k >= 1; k--){ var s = stack.appendChild(document.createElement("span")); s.className = "loc-banner__strip"; s.setAttribute("aria-hidden", "true"); s.style.setProperty("--_k", String(k)); }
+        for (var k = 3; k >= 1; k--){ var s = stack.appendChild(document.createElement("span")); s.className = "loc-banner__strip"; s.setAttribute("aria-hidden", "true"); s.style.setProperty("--_k", String(k)); }
         var front = stack.appendChild(CDS.create("div", null, "loc-banner__front"));
         this._e = front.appendChild(CDS.create("p", null, "loc-banner__eyebrow"));
         this._h = front.appendChild(CDS.create("h3", null, "loc-banner__title"));

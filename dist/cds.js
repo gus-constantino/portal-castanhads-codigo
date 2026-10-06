@@ -8195,7 +8195,7 @@ try {
         this._built = true;
         this.textContent = "";
         var stack = this.appendChild(CDS.create("div", null, "loc-banner__stack"));
-        for (var k = 4; k >= 1; k--){ var s = stack.appendChild(document.createElement("span")); s.className = "loc-banner__strip"; s.setAttribute("aria-hidden", "true"); s.style.setProperty("--_k", String(k)); }
+        for (var k = 3; k >= 1; k--){ var s = stack.appendChild(document.createElement("span")); s.className = "loc-banner__strip"; s.setAttribute("aria-hidden", "true"); s.style.setProperty("--_k", String(k)); }
         var front = stack.appendChild(CDS.create("div", null, "loc-banner__front"));
         this._e = front.appendChild(CDS.create("p", null, "loc-banner__eyebrow"));
         this._h = front.appendChild(CDS.create("h3", null, "loc-banner__title"));
@@ -10878,7 +10878,7 @@ try {
         { ul: [
           "Cartão da frente: quadrado com a altura da pilha e raio Large.",
           "Cartões de trás: cada um recua 9% e encolhe 14% da altura, e aparece como uma faixa à esquerda.",
-          "Cor: mistura do tom de trás para o da frente, um passo por cartão. O meio sai da mistura, sem tom novo.",
+          "Cor: cada cartão usa um tom da escala da área, do mais escuro atrás ao mais claro na frente. Só tons que existem como token, sem misturar cores.",
           "Proporção: vem do número de cartões. Quem usa define a altura."
         ] },
         { h3: "Propriedades" },
@@ -10949,7 +10949,7 @@ try {
         { ul: ["Changelog: busca e filtros sem release.", "Conteúdo › Vocabulário: glossário sem termo.", "Qualquer endereço que não existe: página não encontrada, com o link para o Início."] },
         { note: "O FAQ continua com a ilustração de busca sem resultado da biblioteca de ilustrações, que já é da Caju." },
         { h2: "Faixa" },
-        { p: "A tarja \"Legado | Arquivado\" das thumbnails arquivadas do Castanha Assets. Um componente ou página com `legacy: \"motivo\"` no `CDS.register` ganha a faixa na capa, a capa em cinza, a Tag Legado no cabeçalho com o motivo no Tooltip e a palavra Legado no menu." },
+        { p: "A tarja \"Legado | Arquivado\" das thumbnails arquivadas do Castanha Assets. Um componente ou página com `legacy: \"motivo\"` no `CDS.register` ganha a faixa na capa, a Tag Legado no cabeçalho com o motivo no Tooltip e a palavra Legado no menu." },
         { display: { attrs: { _tag: "div", style: "position:relative; width:100%; min-height:var(--common-sizes-120)", _children: [{ _tag: "loc-faixa" }] } } },
         { note: "Nenhum componente do playground é legado hoje: as docs de sets legados do Figma ficam de fora. A faixa fica pronta para quando um sair de uso." },
         { code: "CDS.register({ id: \"meu-componente\", name: \"Meu componente\", legacy: \"Substituído pelo Main Button.\", … });" }
@@ -10965,14 +10965,15 @@ try {
           { label: "Ajuda · Charts 01", attrs: { area: "ajuda", style: H } },
           { label: "Legado · Charts 07", attrs: { area: "legado", style: H } }
         ] } },
-        { table: { wrap: true, head: ["Área", "Escala", "Atrás → frente", "Seções"], rows: [
-          ["Marca e Componentes", "Accent/Solid", "`accent-solid-intense` → `accent-solid-medium`", "Início, componentes, building blocks e composições"],
-          ["Padrões", "Charts 03", "`charts-03-intense` → `charts-03-medium`", "Tema Caju, Ilustração, Motion, Camadas, Conteúdo e Patterns"],
-          ["Aprenda", "Charts 04", "`charts-04-intense` → `charts-04-medium`", "Treinamento e Capacitações"],
-          ["Ferramentas", "Charts 02", "`charts-02-intense` → `charts-02-medium`", "Personas, Agentes e Skills e MCP"],
-          ["Ajuda", "Charts 01", "`charts-01-intense` → `charts-01-medium`", "FAQ e Changelog"],
-          ["Legado", "Charts 07", "`charts-07-intense` → `charts-07-medium`", "Componente ou página fora de uso"]
+        { table: { wrap: true, head: ["Área", "Escala", "Cartões, de trás para a frente", "Fundo suave", "Seções"], rows: [
+          ["Marca e Componentes", "Accent/Solid", "intense, semi-intense, medium, semi-soft", "soft", "Início, componentes, building blocks e composições"],
+          ["Padrões", "Charts 03", "intense, semi-intense, medium, mild", "pale", "Tema Caju, Ilustração, Motion, Camadas, Conteúdo e Patterns"],
+          ["Aprenda", "Charts 04", "intense, intense, medium, semi-soft", "soft", "Treinamento e Capacitações"],
+          ["Ferramentas", "Charts 02", "intense, semi-intense, medium, mild", "pale", "Personas, Agentes e Skills e MCP"],
+          ["Ajuda", "Charts 01", "intense, semi-intense, medium, mild", "pale", "FAQ e Changelog"],
+          ["Legado", "Charts 07", "intense, intense, medium, semi-soft", "soft", "Componente ou página fora de uso"]
         ] } },
+        { p: "Só tons que existem como token, sem misturar cores (decisão de 06/10). Charts 04 e 07 têm 4 tons: na pilha de 4 cartões os dois de trás repetem `intense`, e o fundo suave é o `soft`, mais forte que o `pale` das outras escalas." },
         { note: "As cores do Castanha Assets estão cruas no Figma e não batem com os tokens. O playground usa as escalas do tema mais próximas (C173 no CONFERIR)." }
       ] }
     ]

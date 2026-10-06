@@ -1,10 +1,11 @@
 /* <loc-banner> · componente local do playground (ver banner.js) — só tokens.
-   Fundo = tom de trás da área (--loc-back); faixas misturam do tom da frente para o de trás; o cartão da frente é claro
-   (um toque da cor da área sobre Surface/default) e leva o texto. Escala da área: [data-loc-area] em local/pilha/pilha.css. */
+   Fundo = tom escuro da área (--loc-back); três faixas com os stops da escala (--loc-f2, --loc-f1, --loc-f, do fundo para a
+   frente); o cartão da frente usa o fundo suave da área (--loc-tint) e leva o texto. Só tokens existentes, sem misturar cores.
+   Escala da área: [data-loc-area] em local/pilha/pilha.css. */
 loc-banner{
   --_step:var(--common-sizes-20); --_fan:0;
   display:flex; align-items:center; justify-content:center; min-width:0; box-sizing:border-box; overflow:hidden;
-  padding:var(--common-sizes-40) var(--common-sizes-32) var(--common-sizes-40) calc(var(--common-sizes-32) + 4 * var(--_step));
+  padding:var(--common-sizes-40) var(--common-sizes-32) var(--common-sizes-40) calc(var(--common-sizes-32) + 3 * var(--_step));
   border-radius:var(--common-border-radius-extra-large); background:var(--loc-back);
 }
 loc-banner:hover, loc-banner:focus-within{ --_fan:1; }
@@ -12,25 +13,28 @@ loc-banner .loc-banner__stack{ position:relative; width:100%; max-width:calc(3 *
 loc-banner .loc-banner__strip{
   position:absolute; inset-block:calc(var(--_k) * var(--common-sizes-12)); left:calc(-1 * var(--_k) * var(--_step)); width:100%;
   border-radius:var(--common-border-radius-large);
-  background:color-mix(in srgb, var(--loc-front) calc(100% - var(--_k) * 20%), var(--loc-back));
+  background:var(--_c);
   transform:translateX(calc(-1 * var(--_k) * var(--_fan) * var(--common-sizes-6)));
   transition:transform var(--motion-hover-out-01-timing) var(--motion-hover-out-01-easing) var(--motion-hover-out-01-delay);
 }
+loc-banner .loc-banner__strip:nth-child(1){ --_c:var(--loc-f2); }
+loc-banner .loc-banner__strip:nth-child(2){ --_c:var(--loc-f1); }
+loc-banner .loc-banner__strip:nth-child(3){ --_c:var(--loc-f); }
 loc-banner:hover .loc-banner__strip, loc-banner:focus-within .loc-banner__strip{ transition:transform var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
 loc-banner .loc-banner__front{
   position:relative; display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-8);
   min-height:var(--common-sizes-160); box-sizing:border-box; padding:var(--common-sizes-32);
   border-radius:var(--common-border-radius-large); color:var(--common-colors-text-intense);
-  background:color-mix(in srgb, var(--loc-front) 28%, var(--common-colors-surface-default));
+  background:var(--loc-tint);
 }
 loc-banner .loc-banner__eyebrow{ margin:0; font:var(--text-style-label-bold); color:var(--common-colors-text-medium); }
-loc-banner .loc-banner__title{ margin:0; font:var(--text-style-decorative-large); line-height:1.2; text-wrap:balance; }
+loc-banner .loc-banner__title{ margin:0; font:var(--text-style-decorative-large); text-wrap:balance; }
 loc-banner .loc-banner__text{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); text-wrap:pretty; }
 loc-banner .loc-banner__link{ margin-top:auto; padding-top:var(--common-sizes-8); }
 loc-banner [hidden]{ display:none; }
 @media (max-width:760px){
-  loc-banner{ --_step:var(--common-sizes-12); padding:var(--common-sizes-24) var(--common-sizes-16) var(--common-sizes-24) calc(var(--common-sizes-16) + 4 * var(--_step)); border-radius:var(--common-border-radius-large); }
+  loc-banner{ --_step:var(--common-sizes-12); padding:var(--common-sizes-24) var(--common-sizes-16) var(--common-sizes-24) calc(var(--common-sizes-16) + 3 * var(--_step)); border-radius:var(--common-border-radius-large); }
   loc-banner .loc-banner__front{ padding:var(--common-sizes-20); }
-  loc-banner .loc-banner__title{ font:var(--text-style-decorative-medium); line-height:1.25; }
+  loc-banner .loc-banner__title{ font:var(--text-style-decorative-medium); }
 }
 @media (prefers-reduced-motion: reduce){ loc-banner .loc-banner__strip{ transition:none; } }

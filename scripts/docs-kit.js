@@ -354,6 +354,30 @@
       if (v.href){ var l = el("cds-link", "pg-doc-release__link"); l.setAttribute("label", v.cta || "Abrir"); l.setAttribute("href", v.href); l.setAttribute("target", "_blank"); l.setAttribute("icon", "link-line"); l.setAttribute("appearance", "neutral"); c.appendChild(l); }
       return c;
     },
+    // Persona: Card do DS com ilustração, nome, apelido (Tag), frase, dados, história e colunas Objetivos · Dores · Necessidades
+    persona: function(d, v){
+      var ills = {}; ((window.CDS.assets || {}).illustrations || []).forEach(function(i){ ills[i.name] = i.src; });
+      var c = el("cds-card", "pg-doc-persona"); c.setAttribute("has-border", "true"); c.id = "persona-" + v.id;
+      var top = c.appendChild(el("div", "pg-doc-persona__top"));
+      if (v.illustration && ills[v.illustration]){ var im = el("img", "pg-doc-persona__img"); im.alt = ""; im.loading = "lazy"; im.src = ills[v.illustration]; top.appendChild(im); }
+      var id = top.appendChild(el("div", "pg-doc-persona__id"));
+      id.appendChild(el("h3", "pg-doc-h3", v.name));
+      if (v.nick){ var tag = el("cds-tag"); tag.setAttribute("label", v.nick); tag.setAttribute("appearance", "neutral"); tag.setAttribute("show-lead-item", "false"); id.appendChild(tag); }
+      if (v.quote) id.appendChild(el("p", "pg-doc-persona__quote", "“" + v.quote.replace(/^[“"]|[”"]$/g, "") + "”"));
+      if (v.data && v.data.length){
+        var dl = id.appendChild(el("dl", "pg-doc-persona__data"));
+        v.data.forEach(function(p){ dl.appendChild(el("dt", null, p[0])); dl.appendChild(el("dd", null, p[1])); });
+      }
+      if (v.story) c.appendChild(rich(el("p", "pg-doc-p"), v.story));
+      var cols = c.appendChild(el("div", "pg-doc-persona__cols"));
+      (v.cols || []).forEach(function(col){
+        if (!col.items || !col.items.length) return;
+        var box = cols.appendChild(el("div", "pg-doc-persona__col"));
+        box.appendChild(el("h4", "pg-doc-h4", col.title));
+        box.appendChild(list("ul", col.items));
+      });
+      return c;
+    },
     // Lista de releases com busca (Search Input) e Filter Chips por área; agrupa por mês. v = { items, areas, months }
     releases: function(d, v){
       var wrap = el("div", "pg-doc-releases");

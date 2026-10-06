@@ -2,7 +2,9 @@
 
 Revisão de 05/10/2026 da seção Visão Cliente do Castanha Hub: Personas (5 páginas), Personas Operador (8), Personas Colaborador B2C (2) e Personas Empresa B2B (3), mais a página Sobre. Item no `docs/CONFERIR.md`: C166.
 
-**O que não entra no playground:** nenhuma das páginas. São pesquisa de usuário e estratégia comercial, não componentes, tema ou texto de interface. Elas também trazem dados internos que não devem ir para um repositório público, como resultados de pesquisa, processos, fornecedores, links para decks internos e fotos. Este arquivo lista **só as correções de texto e de links** e não reproduz nenhum desses dados. A lista do que é sensível foi passada ao Gustavo na conversa, sem entrar no repositório.
+**Atualização 05/10/2026:** a pedido do Gustavo, as páginas entraram no playground (recurso Personas) em versão pública, sem os dados sensíveis listados abaixo (C171).
+
+**O que não entra no playground:** nenhuma das páginas como estão. São pesquisa de usuário e estratégia comercial, não componentes, tema ou texto de interface. Elas também trazem dados internos que não devem ir para um repositório público, como resultados de pesquisa, processos, fornecedores, links para decks internos e fotos. Este arquivo lista **só as correções de texto e de links** e não reproduz nenhum desses dados. A lista do que é sensível foi passada ao Gustavo na conversa, sem entrar no repositório.
 
 Sugestão para o time: antes de qualquer reaproveitamento fora do Hub, passar as páginas Operador e as seções ICP das páginas B2B pelo dono do conteúdo.
 

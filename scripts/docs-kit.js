@@ -550,33 +550,75 @@
       filter();
       return wrap;
     },
-    // FAQ (Polaris, Carbon, M3): busca grande, Filter Chips por tema, "Mais perguntadas" em Content List Item Kind Card e
-    // perguntas em Accordion Item com divisória, ordenadas por relevância (v.groups[].items = [pergunta, resposta, peso]);
-    // os grupos seguem a soma dos pesos. Fecha com um Card "Não achou?" e Main Button para abrir chamado.
+    // FAQ (Atlassian, Polaris, Carbon): topo com ilustração da biblioteca e busca, cards de tema com Shaped Icon
+    // do DS (filtram), ranking "Mais perguntadas" com barra de frequência, perguntas em Accordion Item com divisória e
+    // Card "Não achou?". Ordem por relevância (items = [pergunta, resposta, peso]; grupos pela soma dos pesos).
+    // Movimento só com Motion Styles/tokens (entrada, hover, resultados ao filtrar); prefers-reduced-motion desliga.
     faq: function(d, v){
       var wrap = el("div", "pg-faq"), fold = function(s){ return String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, ""); };
+      var ills = {}; ((window.CDS.assets || {}).illustrations || []).forEach(function(i){ ills[i.name] = i.src; });
       var w = function(q){ return q[2] || 1; };
-      var groups = v.groups.map(function(g){ var items = g.items.slice().sort(function(a, b){ return w(b) - w(a); }); return { title: g.title, items: items, score: items.reduce(function(s, q){ return s + w(q); }, 0) }; })
+      var groups = v.groups.map(function(g){ var items = g.items.slice().sort(function(a, b){ return w(b) - w(a); }); return { title: g.title, icon: g.icon || "information-line", app: g.appearance || "neutral", items: items, score: items.reduce(function(s, q){ return s + w(q); }, 0) }; })
         .sort(function(a, b){ return b.score - a.score; });
-      var search = wrap.appendChild(document.createElement("cds-search-input"));
+      var byTitle = {}; groups.forEach(function(g){ byTitle[g.title] = g; });
+      var shaped = function(icon, app, size){ var s = document.createElement("cds-shaped-icon"); s.setAttribute("icon", icon); s.setAttribute("appearance", app); s.setAttribute("size", size || "small"); return s; };
+      var ghost = function(label, icon){ var b = document.createElement("cds-main-button"); [["label", label], ["kind", "ghost"], ["appearance", "neutral"], ["size", "small"], ["show-trailing-icon", "false"]].concat(icon ? [["lead-icon", icon]] : [["show-lead-icon", "false"]]).forEach(function(a){ b.setAttribute(a[0], a[1]); }); return b; };
+      var img = function(name, cls){ var i = el("img", cls); i.alt = ""; i.src = ills[name] || ""; i.loading = "lazy"; return i; };
+      // 1. Topo: título, busca e atalho, ilustração
+      var hero = wrap.appendChild(el("section", "pg-faq__hero"));
+      var ht = hero.appendChild(el("div", "pg-faq__hero-text"));
+      ht.appendChild(el("h2", "pg-faq__hero-title", v.title || "Como podemos ajudar?"));
+      if (v.intro) ht.appendChild(rich(el("p", "pg-doc-p"), v.intro));
+      var search = ht.appendChild(document.createElement("cds-search-input"));
       search.className = "pg-faq__search";
-      [["label", "Buscar pergunta"], ["placeholder", "Ex.: tema escuro, token, ícone, componente novo"], ["show-required", "false"], ["show-supporting-content", "false"]].forEach(function(a){ search.setAttribute(a[0], a[1]); });
-      var chips = wrap.appendChild(el("div", "pg-faq__chips")), cat = "*";
-      var chipGroup = chips.appendChild(choice("Tema", "*", [["*", "Todas"]].concat(groups.map(function(g){ return [g.title, g.title]; })), function(x){ cat = x; filter(); }));
-      // Mais perguntadas: as de maior peso, de qualquer grupo
-      var all = [], rows = [];
-      groups.forEach(function(g){ g.items.forEach(function(q){ all.push({ q: q, g: g.title }); }); });
-      var topSec = wrap.appendChild(el("section", "pg-faq__top"));
-      topSec.appendChild(el("h2", "pg-doc-h2", "Mais perguntadas"));
-      var topGrid = topSec.appendChild(el("div", "pg-faq__top-grid"));
-      all.slice().sort(function(a, b){ return w(b.q) - w(a.q); }).slice(0, v.top || 4).forEach(function(x){
-        var it = topGrid.appendChild(document.createElement("cds-content-list-item"));
-        [["kind", "card"], ["intent", "navigation"], ["label", x.q[0]], ["description", x.g], ["show-tag", "false"], ["show-divider", "false"], ["show-lead-item", "false"], ["show-navigation-indicator", "true"]].forEach(function(a){ it.setAttribute(a[0], a[1]); });
-        it.addEventListener("click", function(){ open(x.q); });
+      [["label", "Buscar pergunta"], ["show-label", "false"], ["placeholder", "Buscar: tema escuro, token, ícone, componente novo…"], ["show-required", "false"], ["show-supporting-content", "false"]].forEach(function(a){ search.setAttribute(a[0], a[1]); });
+      if (v.illustration) hero.appendChild(img(v.illustration, "pg-faq__hero-ill"));
+      // 2. Temas: cards com Shaped Icon (cor do tema) que filtram a lista; clicar de novo limpa
+      var cat = null, topics = {};
+      var tgrid = wrap.appendChild(el("div", "pg-faq__topics"));
+      tgrid.setAttribute("role", "group"); tgrid.setAttribute("aria-label", "Filtrar por tema");
+      groups.forEach(function(g, i){
+        var c = document.createElement("cmp-clickable-card");
+        c.className = "pg-faq__topic"; c.setAttribute("media", "auto"); c.setAttribute("label", g.items.length + (g.items.length === 1 ? " pergunta" : " perguntas")); c.setAttribute("current", "false");
+        c.style.setProperty("--_i", String(i));
+        c.appendChild(shaped(g.icon, g.app));
+        c.appendChild(el("span", "pg-faq__topic-name", g.title));
+        c.addEventListener("click", function(){ setCat(cat === g.title ? null : g.title); });
+        topics[g.title] = tgrid.appendChild(c);
       });
-      var count = wrap.appendChild(el("p", "pg-faq__count")); count.setAttribute("aria-live", "polite");
+      // 3. Mais perguntadas: ranking com barra relativa à mais frequente, na cor do tema
+      var all = []; groups.forEach(function(g){ g.items.forEach(function(q){ all.push({ q: q, g: g }); }); });
+      var top = all.slice().sort(function(a, b){ return w(b.q) - w(a.q); }).slice(0, v.top || 5), max = top.length ? w(top[0].q) : 1;
+      var topSec = wrap.appendChild(el("section", "pg-faq__top"));
+      var th = topSec.appendChild(el("div", "pg-faq__sec-head"));
+      th.appendChild(el("h2", "pg-doc-h2", "Mais perguntadas"));
+      th.appendChild(el("span", "pg-faq__note", "pela frequência nos chamados de suporte"));
+      var rank = topSec.appendChild(el("ol", "pg-faq__rank"));
+      top.forEach(function(x, i){
+        var li = rank.appendChild(el("li"));
+        var c = document.createElement("cmp-clickable-card");
+        c.className = "pg-faq__rank-item pg-faq--" + x.g.app; c.setAttribute("media", "auto"); c.setAttribute("label", x.g.title);
+        c.style.setProperty("--_i", String(i)); c.style.setProperty("--_w", String(Math.max(0.08, w(x.q) / max)));
+        c.appendChild(el("span", "pg-faq__rank-n", String(i + 1)));
+        var body = c.appendChild(el("span", "pg-faq__rank-body"));
+        body.appendChild(el("span", "pg-faq__rank-q", x.q[0]));
+        body.appendChild(el("span", "pg-faq__bar")).setAttribute("aria-hidden", "true");
+        c.addEventListener("click", function(){ open(x.q); });
+        li.appendChild(c);
+      });
+      // 4. Barra de resultados: contagem, filtro ativo, limpar e expandir/recolher
+      var bar = wrap.appendChild(el("div", "pg-faq__bar-row"));
+      var count = bar.appendChild(el("p", "pg-faq__count")); count.setAttribute("aria-live", "polite");
+      var actions = bar.appendChild(el("div", "pg-faq__actions"));
+      var clear = actions.appendChild(ghost("Limpar filtros", "close-line"));
+      clear.addEventListener("click", function(){ search.value = ""; setCat(null); });
+      var expand = actions.appendChild(ghost("Expandir tudo", "dropdown-open-line")), expanded = false;
+      expand.addEventListener("click", function(){ expanded = !expanded; rows.forEach(function(x){ if (!x.row.hidden) x.row.collapsed = !expanded; }); expand.setAttribute("label", expanded ? "Recolher tudo" : "Expandir tudo"); expand.setAttribute("lead-icon", expanded ? "dropdown-close-line" : "dropdown-open-line"); });
+      // 5. Grupos com as perguntas
+      var rows = [];
       var secs = groups.map(function(g){
-        var sec = wrap.appendChild(el("section", "pg-faq__group")), h = sec.appendChild(el("div", "pg-faq__group-head"));
+        var sec = wrap.appendChild(el("section", "pg-faq__group pg-faq--" + g.app)), h = sec.appendChild(el("div", "pg-faq__group-head"));
+        h.appendChild(shaped(g.icon, g.app, "smallest"));
         h.appendChild(el("h2", "pg-doc-h2", g.title));
         var n = h.appendChild(document.createElement("cds-tag")); n.setAttribute("appearance", "neutral"); n.setAttribute("show-lead-item", "false");
         var box = sec.appendChild(el("div", "pg-faq__list"));
@@ -590,28 +632,41 @@
         });
         return { sec: sec, tag: n, title: g.title };
       });
-      var empty = wrap.appendChild(el("p", "pg-faq__count", v.empty || "Nenhuma pergunta encontrada."));
+      // 6. Vazio e "Não achou?"
+      var empty = wrap.appendChild(el("div", "pg-faq__empty"));
+      if (v.emptyIllustration) empty.appendChild(img(v.emptyIllustration, "pg-faq__empty-ill"));
+      empty.appendChild(el("p", "pg-doc-p", v.empty || "Nenhuma pergunta encontrada."));
+      var ctaBtn = null;
       if (v.cta){
         var cta = wrap.appendChild(el("cds-card", "pg-faq__cta")); cta.setAttribute("has-border", "true");
+        if (v.cta.illustration) cta.appendChild(img(v.cta.illustration, "pg-faq__cta-ill"));
         var tx = cta.appendChild(el("div", "pg-faq__cta-text"));
         tx.appendChild(el("h2", "pg-faq__cta-title", v.cta.title));
         tx.appendChild(rich(el("p", "pg-doc-p"), v.cta.text));
-        var b = cta.appendChild(document.createElement("cds-main-button"));
-        [["label", v.cta.label], ["appearance", "accent"], ["show-lead-icon", "false"], ["trailing-icon", "link-line"]].forEach(function(a){ b.setAttribute(a[0], a[1]); });
-        b.addEventListener("click", function(){ window.open(v.cta.href, "_blank", "noopener"); });
+        ctaBtn = cta.appendChild(document.createElement("cds-main-button"));
+        [["label", v.cta.label], ["appearance", "accent"], ["show-lead-icon", "false"], ["trailing-icon", "link-line"]].forEach(function(a){ ctaBtn.setAttribute(a[0], a[1]); });
+        ctaBtn.addEventListener("click", function(){ window.open(v.cta.href, "_blank", "noopener"); });
       }
+      function setCat(x){ cat = x; Object.keys(topics).forEach(function(t){ topics[t].setAttribute("current", String(t === cat)); }); filter(); }
       function open(q){
         var r = rows.filter(function(x){ return x.q === q; })[0]; if (!r) return;
-        search.value = ""; cat = "*"; chipGroup.setValue("*"); filter();
+        search.value = ""; setCat(null);
         r.row.collapsed = false; r.row.scrollIntoView({ block: "center", behavior: "smooth" });
+        r.row.classList.remove("is-flash"); void r.row.offsetWidth; r.row.classList.add("is-flash");
         var btn = r.row.querySelector("button"); if (btn) btn.focus({ preventScroll: true });
       }
       function filter(){
-        var q = fold(search.value).trim(), n = 0;
-        rows.forEach(function(x){ var ok = (cat === "*" || x.g === cat) && (!q || x.text.indexOf(q) >= 0); x.row.hidden = !ok; if (ok) n++; });
+        var q = fold(search.value).trim(), n = 0, k = 0;
+        rows.forEach(function(x){
+          var ok = (!cat || x.g === cat) && (!q || x.text.indexOf(q) >= 0), was = !x.row.hidden;
+          x.row.hidden = !ok; if (ok) n++;
+          if (ok && (q || cat)){ x.row.style.setProperty("--_i", String(Math.min(k++, 8))); x.row.classList.remove("is-in"); void x.row.offsetWidth; x.row.classList.add("is-in"); }
+          else if (!was) x.row.classList.remove("is-in");
+        });
         secs.forEach(function(s){ var c = rows.filter(function(x){ return x.g === s.title && !x.row.hidden; }).length; s.sec.hidden = !c; s.tag.setAttribute("label", String(c)); });
-        topSec.hidden = !!q || cat !== "*";
-        count.textContent = q || cat !== "*" ? n + " de " + rows.length + " perguntas" : rows.length + " perguntas, das mais frequentes para as menos";
+        var filtered = !!q || !!cat;
+        topSec.hidden = filtered; clear.hidden = !filtered;
+        count.textContent = filtered ? n + " de " + rows.length + " perguntas" + (cat ? " em " + cat : "") : rows.length + " perguntas, das mais frequentes para as menos";
         empty.hidden = n > 0;
       }
       search.addEventListener("cds-change", function(e){ e.stopPropagation(); filter(); });

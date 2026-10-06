@@ -10085,9 +10085,8 @@ try {
   CDS.docs["faq"] = {
     tabs: [
       { id: "perguntas", title: "Perguntas", blocks: [
-        { p: "As dúvidas que mais chegam ao time do Castanha DS, com a resposta curta. A ordem segue a frequência das dúvidas nos chamados de suporte." },
-        { faq: { top: 4, cta: { title: "Não achou sua resposta?", text: "Abra um chamado no canal de suporte do Castanha DS no Slack, com a tela, a plataforma e a versão da lib.", label: "Abrir chamado", href: "https://caju.slack.com/archives/C07NM4UQ2S3" }, empty: "Nenhuma pergunta encontrada. Abra um chamado no canal de suporte do Castanha DS.", groups: [
-          { title: "Camadas e tokens", items: [
+        { faq: { title: "Como podemos ajudar?", intro: "As dúvidas que mais chegam ao time do Castanha DS, com a resposta curta e na ordem da frequência nos chamados de suporte.", illustration: "comunicacao/perguntas-frequentes", emptyIllustration: "notificacoes/search-not-found", top: 5, cta: { illustration: "objetos/foguete", title: "Não achou sua resposta?", text: "Abra um chamado no canal de suporte do Castanha DS no Slack, com a tela, a plataforma e a versão da lib.", label: "Abrir chamado", href: "https://caju.slack.com/archives/C07NM4UQ2S3" }, empty: "Nenhuma pergunta encontrada. Abra um chamado no canal de suporte do Castanha DS.", groups: [
+          { title: "Camadas e tokens", icon: "customize-line", appearance: "neutral", items: [
             ["Posso usar um primitivo direto no componente ou na tela?", "Não. Componentes e telas usam tokens semânticos do Brand Style (`Common/…`). O primitivo existe para o tema escolher valores, e usar o primitivo direto quebra o tema escuro e as outras marcas.", 4],
             ["Qual a diferença entre Primitives, Theme e Brand Style?", ["Primitives são os valores crus, como `Colors/<família>/500`.", "O Theme dá função a eles, como `Accent/Solid/medium`, em Light e Dark.", "O Brand Style espelha o Theme com o prefixo `Common/` e tem um mode por marca. É a camada que componentes e código consomem."], 3],
             ["Por que o token do tema não aparece no código?", "Porque falta o espelho em `Common/` no Brand Style. Só o que está no Brand Style chega ao pacote de tokens.", 2],
@@ -10098,14 +10097,14 @@ try {
             ["Posso criar um primitivo novo?", "Primitivo novo é exceção: entra quando nenhuma combinação dos que existem resolve, e quem decide é o time do DS.", 1],
             ["Tipografia é token?", "Os estilos de texto são `.Text Styles` no Figma, que combinam fonte, tamanho, peso e altura de linha a partir dos tokens `Common/Font`. No React, use o componente `Text` em vez de montar o estilo à mão.", 2]
           ] },
-          { title: "Temas, marcas e modos", items: [
+          { title: "Temas, marcas e modos", icon: "dark-mode-line", appearance: "inversed", items: [
             ["Onde fica o tema escuro?", "Nos modes Light e Dark do tema. Componentes e telas não mudam: o mesmo token aponta para outro valor no Dark. No app, o tema do Castanha vai na raiz, com claro, escuro e o modo do sistema.", 2],
             ["Como entra uma marca nova?", "Como um mode novo no Brand Style, apontando para o tema da marca. Componentes e primitivos ficam como estão. Os tokens de feedback (sucesso, aviso, erro) não variam por marca.", 1],
             ["Motion muda no tema escuro?", "Não. Motion tem o mesmo valor em Light e Dark. A variação de motion é o mode Reduced, para quem prefere menos movimento. No código, isso vem de `prefers-reduced-motion`.", 1],
             ["Quais são as faixas de viewport?", "Mobile abaixo de 744 px, Tablet de 744 a 1365 px e Desktop a partir de 1366 px. Grids e medidas por faixa ficam na coleção Viewport.", 1],
             ["Um accent claro pede texto escuro. Onde resolvo?", "No Brand Style, com o par de conteúdo sobre o accent (`Text/inversed` ou `Text/intense`). Quando der, prefira ajustar o tom do accent no tema.", 1]
           ] },
-          { title: "Componentes", items: [
+          { title: "Componentes", icon: "view-module-line", appearance: "accent", items: [
             ["O componente está diferente do Figma. É bug?", "Depende de onde está o erro. Se o código diverge do Figma, entra numa correção. Se o erro está no Figma, ele é corrigido primeiro e o código acompanha. Abra um pedido com a tela, a plataforma e a versão da lib.", 35],
             ["Preciso de um componente que não existe. Ele entra no DS?", "Se outros times também precisam, ele é candidato ao DS e entra numa release planejada. Se é específico de um produto, vira Local asset (team component) ou Composição, mantido pela squad com tokens e componentes do Castanha.", 20],
             ["Quero uma variante ou um estado novo num componente", "É uma evolutiva: o designer do produto propõe, o time do DS avalia e, se aprovar, publica e documenta. Alguns pedidos ficam como não suportados, com orientação de uso.", 20],
@@ -10117,20 +10116,20 @@ try {
             ["Encontrei um problema de acessibilidade", "Abra um pedido: tamanho de área de toque, contraste, nome acessível e foco visível são tratados como bug ou melhoria. O contraste das cores vem dos tokens do tema, que seguem o WCAG 2.2 AA.", 6],
             ["Disabled precisa passar em contraste?", "Não. O critério de contraste do WCAG (1.4.3) não se aplica a componentes inativos. Os demais estados seguem o WCAG 2.2 AA.", 2]
           ] },
-          { title: "Figma e código", items: [
+          { title: "Figma e código", icon: "code", appearance: "informative", items: [
             ["O estilo do DS sobrescreve o meu CSS. O que faço?", "Use `className` ou `style` nas partes que o componente expõe. Se o problema é um estilo global do DS vazando, abra um pedido: já houve casos assim, corrigidos na lib.", 10],
             ["O bug some se eu atualizar a lib?", "Atualize e teste no Storybook primeiro. Correção não muda o contrato do componente. Mudança de props ou de comportamento vem anunciada como breaking change.", 8],
             ["O ícone aparece no Storybook e não no meu projeto", "Atualize o pacote e limpe o cache do build. Se continuar, abra um pedido com a versão e o ambiente.", 5],
             ["Como passo uma prop do Figma para o React?", "Abra o componente neste site: o painel No React mostra o código do castanha-react com as props como estão no Figma, e a tradução de cada prop.", 2],
             ["Onde vejo o que existe e o que saiu?", "O Storybook mostra o que está em produção. As releases são anunciadas no canal de novidades do Castanha DS, com Figma, React e Flutter separados. Neste site, consulte o Changelog.", 6]
           ] },
-          { title: "Ícones, ilustrações e motion", items: [
+          { title: "Ícones, ilustrações e motion", icon: "image-file", appearance: "warning", items: [
             ["Falta um ícone. Como peço?", "Pelo formulário de suporte. O time cria o ícone na lib de ícones do Figma e publica no pacote. Para ícones legados, a lib estável indica o equivalente.", 18],
             ["Preciso de uma ilustração ou de um motion para o meu fluxo", "Peça pelo formulário de suporte, com o contexto e o prazo. O que serve a várias squads vai para a biblioteca. O que é de um fluxo só fica com a squad, como Local asset.", 45],
             ["Quais durações e curvas de motion uso?", "As dos Motion Styles por interação (Hover In, Pressed, Selected In e os outros), sempre o estilo `/01`. Não escreva duração nem easing à mão.", 2],
             ["Por que o protótipo do Figma não usa o token de motion?", "O Figma não liga uma transição de protótipo a uma variável. Os valores dos Motion Styles são repetidos no protótipo, e o código usa os tokens.", 1]
           ] },
-          { title: "Pedidos e suporte", items: [
+          { title: "Pedidos e suporte", icon: "support-line", appearance: "positive", items: [
             ["Como peço algo ao time do DS?", ["Pelo formulário de suporte do Castanha DS no Slack, com título, detalhes, prioridade e anexos.", "O time assume o pedido, pede o contexto que faltar (versão, plataforma, prazo) e decide entre orientação de uso, correção, evolução no roadmap ou asset da squad.", "A entrega é anunciada no canal de novidades e o time volta ao pedido para você confirmar."], 30],
             ["Meu prazo é curto e o DS ainda não tem o que preciso", "Use uma solução local com tokens e componentes do Castanha e combine a migração com o time. Quando o DS publicar, troque pela versão oficial.", 4],
             ["Como uma tarefa do DS é organizada?", "Por frente (Design System, Fundação, Plataforma, Capacitação e IA) e por stack, com o prefixo no título: `[Design]`, `[React]`, `[Flutter]`. Uma mesma entrega costuma ter uma tarefa por stack. O valor de um token é Fundação, o caminho que leva o token ao código é Plataforma.", 1],

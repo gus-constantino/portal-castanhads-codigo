@@ -10487,7 +10487,17 @@ try {
   "id": "colaborador",
   "title": "Colaborador (B2C)",
   "blocks": [
-   { "shortcuts": [ { "title": "Escreva para estas pessoas", "text": "O Tom e voz do Conteúdo parte delas: pilares, premissas e as expressões que repetimos.", "href": "#/conteudo", "cta": "Ver Tom e voz", "illustration": "comunicacao/perguntas-frequentes" } ] },
+   {
+    "shortcuts": [
+     {
+      "title": "Escreva para estas pessoas",
+      "text": "O Tom e voz do Conteúdo parte delas: pilares, premissas e as expressões que repetimos.",
+      "href": "#/conteudo",
+      "cta": "Ver Tom e voz",
+      "illustration": "comunicacao/perguntas-frequentes"
+     }
+    ]
+   },
    {
     "p": "Pessoas que usam o cartão e o app de benefícios no dia a dia."
    },
@@ -10523,6 +10533,7 @@ try {
      ],
      "story": "Felipe Gabriel cresceu em um bairro simples, onde as palavras “sonhos” e “oportunidades” pareciam distantes, e aprendeu desde cedo o valor do trabalho duro. Com muita determinação, ele se desdobrou para estudar, trabalhar e ajudar a família. Quando anunciou que tinha sido aprovado em um curso de engenharia, a alegria iluminou o rosto da mãe, enquanto o pai, emocionado, aplaudia com lágrimas nos olhos. Felipe sentiu que todo o esforço valia a pena. Com o diploma em mãos, teve certeza de que ali a sua jornada apenas começava.",
      "illustration": "personagens/felipe-gabriel",
+     "icon": null,
      "cols": [
       {
        "title": "Objetivos",
@@ -10577,6 +10588,7 @@ try {
      ],
      "story": "Joana é uma jovem recém-formada, determinada e cheia de sonhos. E tem uma novidade: acaba de ser aprovada em um programa de trainee em uma multinacional. Por causa dessa oportunidade, decidiu se mudar para a capital do seu estado e está aprendendo a lidar com os desafios e as novidades de viver longe de casa. Agora ela divide um apartamento com uma amiga. Entre o trabalho, os momentos de lazer e a adaptação à nova rotina, Joana está construindo sua trajetória com coragem, foco e um entusiasmo que a impulsiona a ir cada vez mais longe.",
      "illustration": "personagens/joana",
+     "icon": null,
      "cols": [
       {
        "title": "Objetivos",
@@ -10637,6 +10649,7 @@ try {
      ],
      "story": "Sandra sempre foi uma mulher guerreira. Nos seus trinta e poucos anos, enfrentou desafios que muitas vezes a fizeram questionar suas escolhas. Mãe dedicada de dois filhos, ela equilibra a rotina entre o trabalho e as responsabilidades da casa. Recentemente, recebeu a promoção que desejava: agora é coordenadora de uma equipe. A estabilidade sempre foi fundamental para ela, e dividir as contas da casa com o companheiro trouxe ainda mais tranquilidade. Juntos, organizaram um orçamento, discutiram prioridades e aprenderam a sonhar mais alto.",
      "illustration": "personagens/sandra",
+     "icon": null,
      "cols": [
       {
        "title": "Objetivos",
@@ -10691,6 +10704,7 @@ try {
      ],
      "story": "Pedro valoriza cada momento do seu dia. Acorda bem cedo e começa o dia com uma corrida pelo parque perto do seu flat. Para ir ao trabalho, opta por transportes alternativos e aplicativos de mobilidade, que em muitas situações acabam sendo a escolha mais prática. Sua vida é perfeitamente organizada: para ele, a organização é essencial, especialmente porque a profissão exige muitas viagens a trabalho. Pedro tenta sempre manter o equilíbrio entre saúde, trabalho e vida pessoal, em busca de ser a melhor versão de si mesmo.",
      "illustration": "personagens/pedro",
+     "icon": null,
      "cols": [
       {
        "title": "Objetivos",
@@ -10745,6 +10759,7 @@ try {
      ],
      "story": "Ademir é um operário dedicado que trabalha em uma grande multinacional. Todos os dias, batalha em suas funções na linha de produção, sempre com um sorriso no rosto e uma atitude positiva, mesmo diante das dificuldades financeiras. A vida financeira dele não é fácil: tem algumas dívidas, mas pretende quitá-las em um feirão de renegociação no fim do ano. Caçar descontos e promoções é uma diversão para ele. Com gratidão, olha para cada pequena conquista com orgulho e sonha com o dia em que vai viver a vida que tanto almeja.",
      "illustration": "personagens/ademir",
+     "icon": null,
      "cols": [
       {
        "title": "Objetivos",
@@ -10799,6 +10814,7 @@ try {
      ],
      "story": "Maria Clara é cheia de sonhos e determinação. De manhã, trabalha como auxiliar de limpeza em uma empresa terceirizada e, à tarde, como manicure, atendendo as clientes em casa e transformando a sala em um pequeno salão improvisado. Seu maior sonho é abrir o próprio salão de beleza. Com muito empenho e carinho, ela sabe que um dia o “salão dos sonhos” vai deixar de ser só um sonho e virar realidade — um lugar onde ela não vai apenas trabalhar, mas também inspirar outras mulheres a sonhar e conquistar seus objetivos.",
      "illustration": "personagens/maria-clara",
+     "icon": null,
      "cols": [
       {
        "title": "Objetivos",
@@ -10871,6 +10887,7 @@ try {
      ],
      "story": "Desde a infância, Cris sempre quis empreender. Hoje, aos 35 anos, ela luta para equilibrar a gestão do negócio com as responsabilidades pessoais. Sob pressão por resultados em um mercado competitivo, lida com o estresse e reconhece a importância de cuidar da saúde mental. Suas principais necessidades incluem capacitação, acesso a capital e o apoio de uma rede de relacionamentos. Para equilibrar a vida pessoal e a profissional, adota práticas de bem-estar e usa ferramentas tecnológicas. Suas aspirações são alcançar independência financeira e sucesso profissional.",
      "illustration": "personagens/cris",
+     "icon": null,
      "cols": [
       {
        "title": "Objetivos",
@@ -10927,6 +10944,7 @@ try {
      ],
      "story": "Aos 43 anos, Eliane é assistente financeira e de RH em uma empresa pequena e trabalha diretamente com o dono. Mãe solo, divide o tempo entre o trabalho e os filhos, mostrando na prática força e determinação. É muito dedicada, conhecida por todos na empresa e sempre procurada quando alguém precisa de ajuda. Seu trabalho é essencial para o bom funcionamento e o sucesso do negócio.",
      "illustration": "personagens/eliana",
+     "icon": null,
      "cols": [
       {
        "title": "Objetivos",
@@ -10988,6 +11006,7 @@ try {
      ],
      "story": "Maria Beatriz, ou Mabê para o time, é gerente de RH em uma empresa de médio porte e lidera uma equipe de quatro pessoas. É reconhecida pela ética, pelo jeito colaborativo e por colocar a mão na massa sempre que precisa. Equilibra a carreira com causas pessoais, atuando com empatia, compromisso e vontade real de fazer a diferença.",
      "illustration": "personagens/mabe",
+     "icon": null,
      "cols": [
       {
        "title": "Objetivos",
@@ -11043,6 +11062,7 @@ try {
      ],
      "story": "Sônia é uma analista de RH muito focada e dedicada. Cheia de planos para o futuro, quer fazer uma pós-graduação para crescer na carreira. No trabalho, enfrenta uma rotina puxada: cuida das demandas do setor e ainda treina Enzo, o estagiário que está em fase de aprendizado. Sua chefe, Mabê, é parceira e aberta a ajudar, mas tem a agenda cheia, o que faz Sônia precisar ser cada vez mais organizada e autônoma no dia a dia.",
      "illustration": "personagens/sonia",
+     "icon": null,
      "cols": [
       {
        "title": "Objetivos",
@@ -11097,6 +11117,7 @@ try {
      ],
      "story": "Enzo está no último ano da faculdade e acabou de começar como estagiário na equipe de Mabê. Animado com a nova fase, busca independência e crescimento profissional — inclusive acabou de alugar o primeiro apartamento. No trabalho, aprende principalmente com Sônia, a analista que o acompanha de perto: ela é atenciosa e uma referência técnica, mas está sobrecarregada. Já Mabê, a gestora, é simpática, porém mais distante, o que faz Enzo depender bastante do apoio de Sônia para se desenvolver.",
      "illustration": "personagens/enzo",
+     "icon": null,
      "cols": [
       {
        "title": "Objetivos",
@@ -11151,6 +11172,7 @@ try {
      ],
      "story": "Robson é um analista financeiro experiente e detalhista, responsável pela análise de notas fiscais, conciliações e reembolsos. Valoriza organização, precisão e conformidade com o compliance; é cético, orientado por dados e confere tudo antes de validar uma decisão. Seu foco está em reduzir erros, otimizar processos e garantir transparência nas operações financeiras.",
      "illustration": "personagens/robson",
+     "icon": null,
      "cols": [
       {
        "title": "Objetivos",
@@ -11214,6 +11236,7 @@ try {
      ],
      "story": "Adriana é uma executiva experiente e uma referência para muitas pessoas, inclusive para as duas filhas. Construiu uma carreira sólida, superando desafios até se tornar uma líder respeitada no mercado. Hoje é head da área de Benefícios na Diretoria de Pessoas e lidera um time de 25 pessoas. Sua liderança é inclusiva e motivadora, e a equipe se sente valorizada e satisfeita no trabalho. Seu maior desejo é que esse clima positivo se espalhe para as outras áreas da empresa.",
      "illustration": "personagens/adriana",
+     "icon": null,
      "cols": [
       {
        "title": "Objetivos",
@@ -11269,6 +11292,7 @@ try {
      ],
      "story": "Andrea faz parte da equipe de Adriana, uma líder que ela admira muito. Ao longo da carreira, trabalhou em várias áreas de RH, o que a tornou uma profissional versátil e experiente. Recentemente, realizou o sonho de comprar a casa própria, o que aumentou a importância da estabilidade no trabalho. Mesmo assim, segue ambiciosa e acredita que dedicação e esforço serão fundamentais para continuar crescendo na carreira.",
      "illustration": "personagens/andrea",
+     "icon": null,
      "cols": [
       {
        "title": "Objetivos",
@@ -11323,6 +11347,7 @@ try {
      ],
      "story": "Jonas é um funcionário antigo da empresa e já passou por várias áreas, começando pela logística. Em busca de um ritmo de trabalho mais tranquilo, decidiu ir para o RH como um novo desafio. Conhece bem a empresa e tem boa influência entre os colegas, mas ainda conta com o apoio de Andrea para aprender as rotinas do setor. Mesmo em adaptação, contribui bastante nas reuniões, trazendo insights valiosos graças à experiência e à conexão com outras áreas.",
      "illustration": "personagens/jonas",
+     "icon": null,
      "cols": [
       {
        "title": "Objetivos",
@@ -11396,6 +11421,7 @@ try {
      ],
      "story": "John é o especialista acionado quando o caso é complexo demais para o nível anterior — e ele entra em cena pedindo uma coisa: evidência. Com alta dependência do Admin, atua em casos críticos, mapeamento de processos e gestão de crise, navegando por um arsenal de ferramentas que vai do CRM a painéis de dados e portais externos. Sua maior frustração é gastar tempo ensinando o que já sabe enquanto falta contexto centralizado para investigar o que ainda não sabe. Para ele, um Admin com dados completos, acessíveis e confiáveis não é luxo — é o pré-requisito para fechar qualquer caso.",
      "illustration": null,
+     "icon": "support-line",
      "cols": [
       {
        "title": "Objetivos",
@@ -11459,6 +11485,7 @@ try {
      ],
      "story": "Cláudia é a linha de frente entre o colaborador e a solução — e carrega isso com orgulho. Sua maior ambição é resolver na primeira chamada, sem retorno, sem ruído. Para isso, depende fortemente do Admin e de dados atualizados, mas esbarra constantemente em sistemas desintegrados, informações desatualizadas e falta de sinergia entre áreas. Acredita que cada atendimento é uma oportunidade de transformar dúvida em confiança — e é exatamente isso que a move.",
      "illustration": null,
+     "icon": "support-line",
      "cols": [
       {
        "title": "Objetivos",
@@ -11521,6 +11548,7 @@ try {
      ],
      "story": "Dolores é a ponte entre o RH das empresas clientes e as soluções da Caju — e opera com dependência máxima do Admin. Seu dia é marcado por múltiplas abas abertas, planilhas paralelas e dados espalhados em sistemas que nem sempre conversam entre si. Ela quer ser rápida e assertiva, mas esbarra constantemente na falta de uma visão unificada do cliente: quem é a empresa, quem são os admins, qual o status do cadastro. Sem uma base de conhecimento confiável e centralizada, o chat interno vira sua fonte da verdade — e isso diz muito. Acredita que o fluxo \"feliz\" do cliente começa com ela tendo as informações certas, no lugar certo, na hora certa.",
      "illustration": null,
+     "icon": "support-line",
      "cols": [
       {
        "title": "Objetivos",
@@ -11588,6 +11616,7 @@ try {
      ],
      "story": "Márcia é quem fica entre o cliente e o valor que ele ainda não enxerga no produto Caju — e tem dependência máxima do Admin para fazer esse trabalho. Seu dia vai da implementação às reuniões executivas de resultados, passando por treinamentos, retenção e expansão, mas esbarra na falta de autonomia para resolver situações críticas sem depender de outras áreas ou de processos manuais que travam o que deveria fluir. Opera num ecossistema extenso de ferramentas — CRM, painéis de dados, assinatura eletrônica e mais —, costurando informações que deveriam estar integradas. Quer provar valor, construir cases e expandir contas, mas sente que é difícil ser especialista quando faltam referências de preço, acompanhamento de satisfação e dados confiáveis para sustentar o discurso.",
      "illustration": null,
+     "icon": "chart-up-line",
      "cols": [
       {
        "title": "Objetivos",
@@ -11654,6 +11683,7 @@ try {
      ],
      "story": "Jaqueline monitora cada cartão físico que sai — e entra em ação antes que o colaborador perceba que algo deu errado. Com dependência máxima do Admin, opera ao mesmo tempo em painéis de dados, plataformas de transportadoras, CRM e planilhas para rastrear pedidos, confirmar remessas e evitar escalonamentos. Sua maior dor é a falta de rastreabilidade e de histórico dentro do próprio Admin, o que a força a buscar dados em vários sistemas para ter uma visão que deveria estar em um só lugar.",
      "illustration": null,
+     "icon": "delivery-line",
      "cols": [
       {
        "title": "Objetivos",
@@ -11720,6 +11750,7 @@ try {
      ],
      "story": "Serena é quem garante que cada centavo da Caju esteja no lugar certo — faturado, cobrado e conciliado. Com dependência moderada do Admin, transita entre o Admin, o ERP, a ferramenta de cobrança, painéis de dados e o CRM para dar conta de um fluxo que mistura obrigações fiscais, regulatórias e demandas internas que nem sempre chegam completas. Seu maior inimigo é o processo manual e urgente que a impede de evoluir o que realmente importa: a saúde contábil da operação.",
      "illustration": null,
+     "icon": "bank-line",
      "cols": [
       {
        "title": "Objetivos",
@@ -11785,6 +11816,7 @@ try {
      ],
      "story": "Camila é quem vigia o que os outros não veem — e age antes que o problema se torne prejuízo. Com dependência máxima do Admin, seu trabalho exige dados claros, rastreáveis e consolidados, mas esbarra em informações espalhadas e em etapas que acontecem fora do sistema. Opera em um ecossistema denso de ferramentas de dados e de verificação de identidade, além do CRM, costurando informações que deveriam estar integradas.",
      "illustration": null,
+     "icon": "lock-line",
      "cols": [
       {
        "title": "Objetivos",
@@ -11844,6 +11876,7 @@ try {
      ],
      "story": "Mariana é a primeira voz que o lead ouve — e a responsável por garantir que ele chegue ao vendedor pronto para fechar. Com baixa dependência do Admin, mas máxima do CRM e da ferramenta de agendamento, seu maior problema está justamente aí: processos manuais, campos duplicados, cadências que não funcionam e consultas em dois lugares ao mesmo tempo. O que mais escuta dos clientes é \"não entendi\" — e sabe que a causa está nas informações desatualizadas que chegam até ela. Quer centralizar, automatizar e passar dados limpos adiante, mas o sistema ainda a obriga a compensar com planilhas o que a ferramenta não entrega.",
      "illustration": null,
+     "icon": "calendar-check-line",
      "cols": [
       {
        "title": "Objetivos",
@@ -11907,6 +11940,7 @@ try {
      ],
      "story": "Socorro é o ponto-chave entre o cliente que considera usar a Caju e o momento em que ele realmente usa — e carrega esse papel com intenção. Com baixa dependência do Admin para ativar vendas, mas alta dependência do CRM para expansão, seu maior obstáculo é a fragmentação: dados de porte pouco confiáveis no CRM, informações de uso espalhadas entre Admin, CRM e painéis de dados, e processos repetitivos que dependem de outras pessoas para avançar. Quer ter uma atuação consultiva, mas ainda gasta energia demais operando — preenchendo campos redundantes, consolidando planilhas e compensando o que a integração entre ferramentas não entrega.",
      "illustration": null,
+     "icon": "shop-line",
      "cols": [
       {
        "title": "Objetivos",
@@ -11971,6 +12005,7 @@ try {
      ],
      "story": "Natália equilibra múltiplas campanhas, jornadas e gatilhos ao mesmo tempo — e torce para que nenhum caia. Com alta dependência do CRM e da plataforma de automação de marketing, seu trabalho é transformar dados em comunicações certeiras, mas esbarra num processo ainda muito manual e operacional: dados de leads que não viram gatilho, e-mails enviados na hora errada e respostas que a plataforma não contabiliza. Quer vender bem e apoiar a venda, mas passa boa parte do tempo remediando o que a integração entre ferramentas deveria resolver.",
      "illustration": null,
+     "icon": "megaphone-line",
      "cols": [
       {
        "title": "Objetivos",

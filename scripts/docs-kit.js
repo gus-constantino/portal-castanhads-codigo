@@ -360,6 +360,7 @@
       var c = el("cds-card", "pg-doc-persona"); c.setAttribute("has-border", "true"); c.id = "persona-" + v.id;
       var top = c.appendChild(el("div", "pg-doc-persona__top"));
       if (v.illustration && ills[v.illustration]){ var im = el("img", "pg-doc-persona__img"); im.alt = ""; im.loading = "lazy"; im.src = ills[v.illustration]; top.appendChild(im); }
+      else if (v.icon){ var si = el("cds-shaped-icon", "pg-doc-persona__icon"); si.setAttribute("icon", v.icon); si.setAttribute("size", "large"); si.setAttribute("appearance", "neutral"); top.appendChild(si); } // persona sem personagem (Operador): Shaped Icon da área
       var id = top.appendChild(el("div", "pg-doc-persona__id"));
       id.appendChild(el("h3", "pg-doc-h3", v.name));
       if (v.nick){ var tag = el("cds-tag"); tag.setAttribute("label", v.nick); tag.setAttribute("appearance", "neutral"); tag.setAttribute("show-lead-item", "false"); id.appendChild(tag); }

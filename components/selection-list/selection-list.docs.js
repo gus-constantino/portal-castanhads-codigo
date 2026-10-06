@@ -24,19 +24,19 @@
         { p: "Lista de seleção, Listbox, Option list, Selectable list." },
         { h3: "Princípios" },
         { cards: [
-          ["Clareza de intenção", "Cada item deve deixar explícito se a ação esperada é selecionar, navegar ou visualizar, evitando ambiguidades."],
+          ["Clareza de intenção", "Cada item deve deixar explícito se a ação esperada é selecionar, navegar ou consultar, evitando ambiguidades."],
           ["Consistência de comportamento", "Todos os itens da lista devem seguir o mesmo padrão de interação, mantendo previsibilidade para o usuário."],
           ["Foco na escolha", "O componente deve priorizar a seleção de opções, sem misturar elementos que desviem a atenção da decisão principal."]
         ] },
         { h2: "Quando usar" },
-        { p: "O componente Selection List deve ser usado quando é necessário apresentar um conjunto de opções de forma clara e acessível, permitindo que o usuário selecione uma ou várias delas diretamente na lista. Ele é ideal para situações em que a visualização completa das escolhas disponíveis é importante, como em filtros, preferências, configurações ou seleções que exigem comparação entre itens." },
+        { p: "O componente Selection List deve ser usado quando é necessário apresentar um conjunto de opções de forma clara e acessível, permitindo que o usuário selecione uma ou várias delas diretamente na lista. Ele é ideal para situações em que a exibição completa das escolhas disponíveis é importante, como em filtros, preferências, configurações ou seleções que exigem comparação entre itens." },
         { h3: "Utilize para:" },
         { ul: ["Quando o usuário precisa escolher um ou múltiplos itens em um conjunto limitado.", "Em fluxos de filtros, preferências ou configurações.", "Quando a clareza da lista completa é mais importante do que a economia de espaço."] },
         { h3: "Não utilize para:" },
-        { ul: ["Para seleção de apenas uma opção simples em um espaço reduzido.", "Para escolhas binárias. Use Checkbox ou Switch.", "Quando há muitas opções extensas. Prefira mecanismos de busca, autocomplete ou combo box."] },
+        { ul: ["Para seleção de uma única opção direta em um espaço reduzido.", "Para escolhas binárias. Use Checkbox ou Switch.", "Quando há muitas opções extensas. Prefira mecanismos de busca, autocomplete ou combo box."] },
         { h2: "Casos de uso" },
         { h3: "Selection list vs Content list" },
-        { p: "Embora visualmente semelhantes, o Content List e o Selection List têm propósitos distintos. O Content List é voltado para a exibição de informações, permitindo a navegação ou visualização de conteúdos sem necessariamente envolver escolha de itens. Já o Selection List é específico para cenários de decisão, em que o usuário deve selecionar uma ou várias opções dentro da lista. Enquanto o primeiro prioriza a apresentação de conteúdo, o segundo prioriza a interação e a seleção." },
+        { p: "Embora visualmente semelhantes, o Content List e o Selection List têm propósitos distintos. O Content List é voltado para a exibição de informações, permitindo a navegação ou consulta de conteúdos sem necessariamente envolver escolha de itens. Já o Selection List é específico para cenários de decisão, em que o usuário deve selecionar uma ou várias opções dentro da lista. Enquanto o primeiro prioriza a apresentação de conteúdo, o segundo prioriza a interação e a seleção." },
         { note: "Suporte: canal #castanha-suporte no Slack." }
       ] },
 
@@ -49,7 +49,7 @@
         { props: [
           { name: "Kind", type: "Variant", default: "Default", values: ["Default", "Card"] }
         ] },
-        { note: "O set Selection List da lib estável tem só Kind; o zeroheight também lista Trailing Item (Checkbox, Radio Button, Switch, Tag, None), que é prop dos itens (CONFERIR C139). No código: filhos `<cds-selection-list-item>` (a lista repassa `kind`), `label` (nome do grupo) e, na amostra sem filhos, `count` e `trailing-item`. Evento `cds-change { values }`." }
+        { note: "O set Selection List da lib estável tem uma única prop, Kind. O zeroheight também lista Trailing Item (Checkbox, Radio Button, Switch, Tag, None), que é prop dos itens (CONFERIR C139). No código: filhos `<cds-selection-list-item>` (a lista repassa `kind`), `label` (nome do grupo) e, na amostra sem filhos, `count` e `trailing-item`. Evento `cds-change { values }`." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -70,8 +70,8 @@
         { h2: "Teclado e leitor de tela" },
         { ul: [
           "A lista é um grupo (`role=\"group\"`) com nome (`label`): o leitor de tela anuncia a pergunta antes das opções.",
-          "Cada item é um controle nativo (Checkbox, Radio Button ou Switch) nomeado pela linha; `Tab` percorre os itens (no Radio, as setas trocam a opção).",
-          "A seleção não depende só da cor: o controle muda de estado."
+          "Cada item é um controle nativo (Checkbox, Radio Button ou Switch) nomeado pela linha. `Tab` percorre os itens (no Radio, as setas trocam a opção).",
+          "A seleção não depende exclusivamente da cor: o controle muda de estado."
         ] },
         { note: "Contrastes: ver o Selection List Item." }
       ] },
@@ -80,9 +80,9 @@
         { h2: "Do's and Don'ts" },
         { h3: "Conteúdo" },
         { dodont: [
-          { kind: "do", attrs: list("default", "checkbox", [0, 2]), text: "Mantenha consistência no tipo de seleção dentro da lista, utilizando apenas um mesmo padrão (ex.: somente checkboxes)." },
-          { kind: "dont", attrs: { _tag: "cds-selection-list", label: "Benefícios", _children: [{ _tag: "cds-selection-list-item", label: "Vale-refeição", description: "Restaurantes e delivery", "lead-icon": "meal-line", "is-active": true }, { _tag: "cds-selection-list-item", label: "Mobilidade", description: "Transporte e combustível", "lead-icon": "mobility-line", "trailing-item": "switch" }] }, text: "Não misturare diferentes tipos de seletores (como checkbox e switch) dentro da mesma lista." },
-          { kind: "do", attrs: list("default", "checkbox", [0]), text: "Mantenha títulos curtos e claros, acompanhados de descrições objetivas. Isso ajuda o usuário a entender rapidamente o que está selecionando." },
+          { kind: "do", attrs: list("default", "checkbox", [0, 2]), text: "Mantenha consistência no tipo de seleção dentro da lista, utilizando um mesmo padrão (ex.: checkboxes em todos os itens)." },
+          { kind: "dont", attrs: { _tag: "cds-selection-list", label: "Benefícios", _children: [{ _tag: "cds-selection-list-item", label: "Vale-refeição", description: "Restaurantes e delivery", "lead-icon": "meal-line", "is-active": true }, { _tag: "cds-selection-list-item", label: "Mobilidade", description: "Transporte e combustível", "lead-icon": "mobility-line", "trailing-item": "switch" }] }, text: "Não misture diferentes tipos de seletores (como checkbox e switch) dentro da mesma lista." },
+          { kind: "do", attrs: list("default", "checkbox", [0]), text: "Mantenha títulos curtos e claros, acompanhados de descrições objetivas. Isso ajuda o usuário a entender de imediato o que está selecionando." },
           { kind: "dont", attrs: { _tag: "cds-selection-list", label: "Benefícios", _children: [{ _tag: "cds-selection-list-item", label: "Vale-refeição para usar em restaurantes", description: "Pode ser usado em restaurantes, lanchonetes, padarias e aplicativos de delivery em todo o Brasil, sem limite de valor por compra", "lead-icon": "meal-line" }] }, text: "Evite títulos longos ou descrições excessivas que dificultem a leitura. Informações em excesso tornam a lista cansativa e confusa." }
         ] }
       ] },

@@ -20,7 +20,7 @@ CDS.docs["confirmation-message"] = {
       { ul: ["Confirmar que uma ação foi concluída (`Positive`).", "Avisar sobre algo que pede atenção antes de seguir (`Warning`).", "Informar um estado neutro, sem sucesso nem alerta (`Neutral`)."] },
       { h3: "Não utilize para:" },
       { ul: ["Telas inteiras de sucesso, erro ou empty state — use as Feedback Pages.", "Mensagens curtas e temporárias — use o Toast.", "Avisos dentro de um fluxo — use o Alert."] },
-      { note: "Para as regras de texto de mensagens de sucesso, alerta e erro, veja Conteúdo → Feedback Pages." }
+      { note: "Para as regras de texto de mensagens de sucesso, alerta e erro, consulte Conteúdo → Feedback Pages." }
     ] },
 
     { id: "anatomia", title: "Anatomia", blocks: [
@@ -34,7 +34,7 @@ CDS.docs["confirmation-message"] = {
       { p: "Usa o Shaped Icon (Large) com a mesma Appearance do componente. Título e descrição ficam centralizados abaixo do ícone." },
       { h2: "Propriedades" },
       { props: [{ name: "Appearance", type: "Variant", default: "Neutral", values: ["Neutral", "Positive", "Warning"] }] },
-      { note: "No Figma, só `Appearance` é prop; ícone, título e descrição são texto da amostra. No código ficam expostos como `icon`, `title` e `description`." }
+      { note: "No Figma, `Appearance` é a única prop. Ícone, título e descrição são texto da amostra. No código ficam expostos como `icon`, `title` e `description`." }
     ] },
 
     { id: "estilos", title: "Estilos", blocks: [
@@ -49,7 +49,7 @@ CDS.docs["confirmation-message"] = {
     { id: "acessibilidade", title: "Acessibilidade", blocks: [
       { h2: "Leitor de tela" },
       { ul: [
-        "O ícone é decorativo: o resultado precisa estar no título, nunca só na cor ou no ícone.",
+        "O ícone é decorativo: o resultado precisa estar no título, nunca exclusivamente na cor ou no ícone.",
         "Título e descrição são lidos em ordem, de cima para baixo.",
         "Quando a mensagem aparece depois de uma ação, quem implementa deve levar o foco ao título ou anunciá-la (ex.: `role=\"status\"` no container)."
       ] },

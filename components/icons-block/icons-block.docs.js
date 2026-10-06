@@ -14,9 +14,9 @@
       { id: "uso", title: "Uso", blocks: [
         { alert: { appearance: "warning", label: "Rascunho", text: "Building block sem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
         { h2: "Sobre" },
-        { p: "O .Icons é o ícone à esquerda do Filter Button: filter-line em Kind=Default e calendar-line em Kind=Date (filtros de período). Tamanho medium; a cor vem do Filter Button." },
+        { p: "O .Icons é o ícone à esquerda do Filter Button: filter-line em Kind=Default e calendar-line em Kind=Date (filtros de período). Tamanho medium, e a cor vem do Filter Button." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do Filter Button, que monta e controla os itens.", "Fora dele, use o componente completo (Filter Button)."] },
+        { ul: ["Peça interna do Filter Button, que monta e controla os itens.", "Fora dele, use o componente completo (Filter Button)."] },
         { compare: [{ title: "Dentro do Filter Button", attrs: { _tag: "cds-filter-button" } }] }
       ] },
 
@@ -27,7 +27,7 @@
         { props: [
           { name: "Kind", type: "Variant", default: "Default", values: ["Default", "Date"] }
         ] },
-        { note: "Props e padrões lidos do set .Icons da lib estável. No código: `kind` (default|date); a tag é `<cds-icons>`." }
+        { note: "Props e padrões lidos do set .Icons da lib estável. No código: `kind` (default|date), e a tag é `<cds-icons>`." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -47,7 +47,7 @@
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
-        { ul: ["Use Date só em filtros de data ou período."] }
+        { ul: ["Use Date exclusivamente em filtros de data ou período."] }
       ] },
 
       { id: "motion", title: "Motion", blocks: [

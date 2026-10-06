@@ -13,26 +13,26 @@ CDS.docs = CDS.docs || {};
     cover: { description: "O Drawer é um painel lateral deslizante utilizado para expor conteúdos complementares ou etapas adicionais dentro de um fluxo principal, sem interromper a tela atual. Ele aparece sobreposto à interface e permite que a pessoa usuária mantenha o contexto enquanto realiza uma interação específica.", tall: true, wide: true, examples: [drawer("Novo centro de custo", FORM)] },
     tabs: [
       { id: "uso", title: "Uso", blocks: [
-        { alert: { appearance: "informative", label: "Desktop-only", text: "No Figma, o Drawer só existe no Desktop: em Tablet e Mobile, o painel é substituído por um Viewport Restriction." } },
+        { alert: { appearance: "informative", label: "Desktop-only", text: "No Figma, o Drawer existe exclusivamente no Desktop: em Tablet e Mobile, o painel é substituído por um Viewport Restriction." } },
         { h2: "Sobre" },
         { p: "O Drawer é um painel lateral deslizante utilizado para expor conteúdos complementares ou etapas adicionais dentro de um fluxo principal, sem interromper a tela atual. Ele aparece sobreposto à interface e permite que a pessoa usuária mantenha o contexto enquanto realiza uma interação específica." },
         { h3: "Nomes alternativos comuns" },
         { p: "Side Panel, Painel Lateral, Lateral Sheet, Sheet." },
         { h3: "Princípios" },
         { cards: [
-          ["Contextual", "Mantém a pessoa usuária no fluxo principal, exibindo apenas informações ou ações diretamente relacionadas ao contexto atual."],
-          ["Direto", "Suporta apenas interações simples e de baixa complexidade, evitando múltiplas etapas, subfluxos ou navegações internas."],
-          ["Não obstrutivo", "Ocupa parte da tela e pode ser fechado facilmente a qualquer momento, preservando a continuidade do fluxo."]
+          ["Contextual", "Mantém a pessoa usuária no fluxo principal, exibindo informações ou ações diretamente relacionadas ao contexto atual."],
+          ["Direto", "Suporta interações de baixa complexidade, evitando múltiplas etapas, subfluxos ou navegações internas."],
+          ["Não obstrutivo", "Ocupa parte da tela e pode ser fechado a qualquer momento, preservando a continuidade do fluxo."]
         ] },
         { h2: "Quando usar" },
         { p: "Use o Drawer para apresentar funcionalidades ou tarefas que exigem mais espaço do que um Modal, mas que ainda precisam manter o contexto da navegação primária. É a escolha adequada para interações mais complexas, como formulários mais longos, visualização detalhada de itens em uma lista, ou configurações secundárias que não justificam uma navegação de página completa." },
         { h3: "Utilize para:" },
-        { ul: ["Formulários que contenham múltiplos campos, ideais para formulários longos, e exigem foco sem abandonar a página principal.", "Visualização de detalhes e configurações de um item que exige uma área de tela significativa.", "Fluxos de interação que são mais complexos do que os suportados por um Modal, mas cujas ações são de interação simples."] },
+        { ul: ["Formulários que contenham múltiplos campos, ideais para formulários longos, e exigem foco sem abandonar a página principal.", "Visualização de detalhes e configurações de um item que exige uma área de tela significativa.", "Fluxos de interação que são mais complexos do que os suportados por um Modal, mas cujas ações são de baixa complexidade."] },
         { h3: "Não utilize para:" },
-        { ul: ["Interações muito simples ou críticas que exijam apenas uma confirmação rápida — nesses casos, o Modal é mais apropriado.", "Exibir conteúdo principal de uma página ou substituir navegação primária — o Drawer não deve assumir papel de tela principal.", "Fluxos que dependem de subfluxos, navegação interna ou múltiplas etapas — o Drawer não possui fluxo interno, não suporta subfluxo e não deve ser utilizado dentro de estruturas desse tipo."] },
+        { ul: ["Interações curtas ou críticas que exijam uma única confirmação pontual — nesses casos, o Modal é mais apropriado.", "Exibir conteúdo principal de uma página ou substituir navegação primária — o Drawer não deve assumir papel de tela principal.", "Fluxos que dependem de subfluxos, navegação interna ou múltiplas etapas — o Drawer não possui fluxo interno, não suporta subfluxo e não deve ser utilizado dentro de estruturas desse tipo."] },
         { h2: "Casos de uso" },
         { h3: "Drawer vs. Modal" },
-        { p: "O Modal é indicado para interações simples, diretas e potencialmente críticas, sempre com foco total da pessoa usuária e apresentação centralizada. Já o Drawer é ideal para conteúdos mais extensos — como formulários maiores, consultas detalhadas ou edições pontuais — oferecendo um espaço lateral que preserva o contexto da página." },
+        { p: "O Modal é indicado para interações curtas, diretas e potencialmente críticas, sempre com foco total da pessoa usuária e apresentação centralizada. Já o Drawer é ideal para conteúdos mais extensos — como formulários maiores, consultas detalhadas ou edições pontuais — oferecendo um espaço lateral que preserva o contexto da página." },
         { note: "Suporte: canal #castanha-suporte no Slack." }
       ] },
 
@@ -44,7 +44,7 @@ CDS.docs = CDS.docs || {};
           legend: ["Header", "Slot", "Footer action", "Close button", "Drawer container"]
         } },
         { h2: "Composição do componente" },
-        { p: "O Drawer é composto por um header obrigatório, que inclui um título e um botão de fechar fixo; um slot de conteúdo, responsável por receber qualquer estrutura definida pela pessoa usuária e uma barra de ações opcional na base do componente, destinada a ações primárias e secundárias." },
+        { p: "O Drawer é composto por um header obrigatório, que inclui um título e um botão de fechar fixo, um slot de conteúdo, responsável por receber qualquer estrutura definida pela pessoa usuária, e uma barra de ações opcional na base do componente, destinada a ações primárias e secundárias." },
         { h3: "Backdrop" },
         { p: "O Drawer é apresentado sobre um Backdrop semitransparente, que escurece discretamente o restante da interface para reforçar o foco no conteúdo lateral. No playground, o Backdrop vem junto com o Drawer: ele sempre fecha ao clicar fora ou no Esc." },
         { h2: "Propriedades" },
@@ -61,7 +61,7 @@ CDS.docs = CDS.docs || {};
         { h2: "Ações" },
         { specimens: { min: "calc(var(--common-sizes-200) * 3 + var(--common-sizes-40))", items: [
           { label: "Com ações (padrão)", attrs: drawer("Detalhes do pedido", [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Pedido #1234 · 12 colaboradores · R$ 3.600,00" }]) },
-          { label: "Só a ação primária", attrs: drawer("Detalhes do pedido", [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Pedido #1234 · 12 colaboradores · R$ 3.600,00" }], { "show-secondary-action-button": "false" }) },
+          { label: "Ação primária, sem a secundária", attrs: drawer("Detalhes do pedido", [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Pedido #1234 · 12 colaboradores · R$ 3.600,00" }], { "show-secondary-action-button": "false" }) },
           { label: "Sem ações", attrs: drawer("Detalhes do pedido", [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Pedido #1234 · 12 colaboradores · R$ 3.600,00" }], { "show-action-buttons": "false" }) }
         ] } }
       ] },
@@ -74,7 +74,7 @@ CDS.docs = CDS.docs || {};
           "O botão de fechar é um Icon Button com rótulo (\"Fechar\")."
         ] },
         { h2: "Teclado e foco" },
-        { ul: ["Ao abrir, o foco entra no Drawer e fica preso nele.", "Esc fecha; clique no Backdrop também fecha.", "Ao fechar, o foco volta para o elemento que abriu o Drawer."] },
+        { ul: ["Ao abrir, o foco entra no Drawer e fica preso nele.", "Esc fecha. O clique no Backdrop também fecha.", "Ao fechar, o foco volta para o elemento que abriu o Drawer."] },
         { note: "O zeroheight ainda não tem seção de Acessibilidade para o Drawer." }
       ] },
 
@@ -86,7 +86,7 @@ CDS.docs = CDS.docs || {};
           "Limitação de complexidade: a Drawer não deve conter fluxos internos, subetapas nem componentes complexos como abas, tabelas, listas densas ou estruturas que exijam navegação própria.",
           "Complemento ao fluxo principal: todas as ações previstas para a Drawer precisam ser concluídas ali mesmo, permitindo retornar imediatamente ao fluxo principal com clareza e continuidade."
         ] },
-        { note: "O zeroheight diz que a Drawer abre \"do lado esquerdo da tela para o direito\"; a description da lib diz que surge da direita, e o playground segue a lib (CONFERIR C131)." },
+        { note: "O zeroheight diz que a Drawer abre \"do lado esquerdo da tela para o direito\". A description da lib diz que surge da direita, e o playground segue a lib (CONFERIR C131)." },
         { h2: "Do's and Don'ts" },
         { dodont: [
           { kind: "do", text: "Use um título claro e direto: Ajuda a pessoa usuária a entender imediatamente o propósito da Drawer." },

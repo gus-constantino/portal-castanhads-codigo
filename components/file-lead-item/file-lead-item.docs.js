@@ -14,9 +14,9 @@
       { id: "uso", title: "Uso", blocks: [
         { alert: { appearance: "warning", label: "Rascunho", text: "Building block sem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
         { h2: "Sobre" },
-        { p: "O .Lead item é a miniatura do arquivo no Upload Item, com 48×48 e raio medium. Appearance=Image mostra a imagem enviada; File mostra um Shaped Icon de anexo. Kind=View file é um botão que abre o arquivo e, no hover, mostra um overlay com o ícone de visualizar; Kind=Static é só a miniatura." },
+        { p: "O .Lead item é a miniatura do arquivo no Upload Item, com 48×48 e raio medium. Appearance=Image mostra a imagem enviada. File mostra um Shaped Icon de anexo. Kind=View file é um botão que abre o arquivo e, no hover, mostra um overlay com o ícone de abrir o arquivo. Kind=Static é a miniatura, sem ação." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do Upload Item, que monta e controla os itens.", "Fora dele, use o componente completo (Upload Item)."] },
+        { ul: ["Peça interna do Upload Item, que monta e controla os itens.", "Fora dele, use o componente completo (Upload Item)."] },
         { compare: [{ title: "Dentro do Upload Item", attrs: { _tag: "cds-upload-item", status: "success", "text-title": "rg-frente", "file-extension": ".jpg", src: "assets/brand/sample-photo.svg" } }] }
       ] },
 
@@ -29,7 +29,7 @@
           { name: "Appearance", type: "Variant", default: "File", values: ["Image", "File"] },
           { name: "State", type: "Variant", default: "Enabled", values: ["Enabled", "Hovered", "Pressed"] }
         ] },
-        { note: "Props e padrões lidos do set .Lead item da lib estável. Não confundir com o .Lead Item das listas nem com o .Lead item do Topic. No código: `kind` (static|view-file), `appearance` (image|file), `src`, `alt` e `label` (nome do botão, \"Ver arquivo\"); `state` só para exemplos. Evento `cds-view`." }
+        { note: "Props e padrões lidos do set .Lead item da lib estável. Não confundir com o .Lead Item das listas nem com o .Lead item do Topic. No código: `kind` (static|view-file), `appearance` (image|file), `src`, `alt` e `label` (nome do botão, \"Ver arquivo\"). O `state` serve exclusivamente para exemplos. Evento `cds-view`." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -45,7 +45,7 @@
       { id: "acessibilidade", title: "Acessibilidade", blocks: [
         { h2: "Teclado e leitor de tela" },
         { ul: [
-          "Kind=View file é um botão com nome (`label`, padrão \"Ver arquivo\"); o Upload Item pode dar um nome com o arquivo.",
+          "Kind=View file é um botão com nome (`label`, padrão \"Ver arquivo\"), e o Upload Item pode dar um nome com o arquivo.",
           "O overlay e o ícone são decorativos.",
           "Kind=Static é decorativo."
         ] }
@@ -53,7 +53,7 @@
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
-        { ul: ["Image para arquivos de imagem (com miniatura); File para os demais.", "View file quando o arquivo pode ser aberto."] }
+        { ul: ["Image para arquivos de imagem (com miniatura) e File para os demais.", "View file quando o arquivo pode ser aberto."] }
       ] },
 
       { id: "motion", title: "Motion", blocks: [

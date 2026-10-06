@@ -13,13 +13,13 @@
     tag: "cds-avatar",
     base: {},
     source: "https://castanha.caju.com.br/858426090/v/latest/p/76f32f-avatar", sourceLabel: "Abrir o Avatar no zeroheight",
-    cover: { description: "O Avatar é um componente utilizado para representar visualmente uma pessoa usuária, seja por meio de imagem, iniciais ou ícone padrão. Ele ajuda na identificação rápida de perfis em áreas onde o contexto pessoal é relevante.", examples: [
+    cover: { description: "O Avatar é um componente utilizado para representar visualmente uma pessoa usuária, seja por meio de imagem, iniciais ou ícone padrão. Ele agiliza a identificação de perfis em áreas onde o contexto pessoal é relevante.", examples: [
       row([av({ kind: "image", src: PHOTO, size: "large", name: "Ana Alves" }), av({ kind: "initial", label: "AA", size: "large", name: "Ana Alves" }), av({ size: "large" })])
     ] },
     tabs: [
       { id: "uso", title: "Uso", blocks: [
         { h2: "Sobre" },
-        { p: "O Avatar é um componente utilizado para representar visualmente uma pessoa usuária, seja por meio de imagem, iniciais ou ícone padrão. Ele ajuda na identificação rápida de perfis em áreas onde o contexto pessoal é relevante." },
+        { p: "O Avatar é um componente utilizado para representar visualmente uma pessoa usuária, seja por meio de imagem, iniciais ou ícone padrão. Ele agiliza a identificação de perfis em áreas onde o contexto pessoal é relevante." },
         { h3: "Nomes alternativos comuns" },
         { p: "Foto do perfil, User picture, Imagem do usuário." },
         { h3: "Princípios" },
@@ -48,7 +48,7 @@
           { name: "Text Label", type: "Text", default: "AA" }
         ] },
         { table: { head: ["Size", "Container", "Icon (Default)", "Iniciais (Initial)"], rows: [["Small", "40", "20", "Label/Medium"], ["Medium", "48", "20", "Subtitle/Small"], ["Large", "64", "24", "Subtitle/Small"]] } },
-        { note: "Props e padrões lidos do set Avatar da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código: `src` é a foto (Kind=Image), `label` são as iniciais (Kind=Initial) e `name` é o nome da pessoa (nome acessível). Na lib, Image só existe em Neutral." }
+        { note: "Props e padrões lidos do set Avatar da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código: `src` é a foto (Kind=Image), `label` são as iniciais (Kind=Initial) e `name` é o nome da pessoa (nome acessível). Na lib, Image existe exclusivamente em Neutral." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -72,7 +72,7 @@
         { ul: [
           "Com `name`, o Avatar é anunciado como imagem com o nome da pessoa (`role=\"img\"`), em qualquer Kind.",
           "Sem `name`, é decorativo — use assim quando o nome já aparece em texto ao lado, para não repetir a leitura.",
-          "As iniciais e o ícone não são lidos: o nome vem só do `name`.",
+          "As iniciais e o ícone não são lidos: o nome vem exclusivamente do `name`.",
           "O Avatar não é interativo. Se abrir o perfil, coloque-o dentro de um link ou botão com nome."
         ] },
         { h2: "Contraste (WCAG)" },
@@ -84,12 +84,12 @@
         { h2: "Diretrizes de uso" },
         { guides: [
           { attrs: row([av({ kind: "image", src: PHOTO }), av({ kind: "image", src: PHOTO, size: "medium" }), av({ kind: "image", src: PHOTO, size: "large" })]), title: "Escolha o tamanho adequado ao contexto", text: "Use o tamanho de Avatar disponibilizado pelo DS conforme o espaço e importância da informação." },
-          { attrs: row([av({ kind: "initial", label: "AA", size: "medium" }), av({ size: "medium" })]), title: "Utilize o fallback apenas quando necessário", text: "Se não houver imagem, deixe o componente exibir automáticamente o ícone ou iniciais — não substitua manualmente por outras imagens ou símbolos." }
+          { attrs: row([av({ kind: "initial", label: "AA", size: "medium" }), av({ size: "medium" })]), title: "Reserve o fallback para quando for necessário", text: "Se não houver imagem, deixe o componente exibir automáticamente o ícone ou iniciais — não substitua manualmente por outras imagens ou símbolos." }
         ] },
         { h2: "Do's and Don'ts" },
         { h3: "Conteúdo" },
         { dodont: [
-          { kind: "do", attrs: media(av({ kind: "image", src: PHOTO, size: "medium" }), "Ana Alves", "Comentou há 2 horas"), text: "Use o Avatar apenas para identificar pessoas usuárias, garantindo que ele sempre esteja ligado a um nome, ação ou informação relacionada a alguém." },
+          { kind: "do", attrs: media(av({ kind: "image", src: PHOTO, size: "medium" }), "Ana Alves", "Comentou há 2 horas"), text: "Reserve o Avatar para identificar pessoas usuárias, garantindo que ele sempre esteja ligado a um nome, ação ou informação relacionada a alguém." },
           { kind: "dont", attrs: media(av({ kind: "initial", label: "VR", size: "medium" }), "Vale-refeição", "Saldo disponível"), text: "Não use o Avatar para representar elementos que não sejam pessoas usuárias, como obejtos ou elementos do produto." }
         ] }
       ] },

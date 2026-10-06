@@ -214,7 +214,7 @@
       var lh = pick("--common-font-line-height-"), g2 = section(root, "Line height", lh.length).appendChild(grid("is-wide"));
       lh.forEach(function(n){
         var t = g2.appendChild(tile("pg-ty-lh", n));
-        var para = t.appendChild(el("span", "pg-ty-lh__para", "Seus benefícios num só cartão: alimentação, mobilidade, saúde e cultura, com saldo flexível para usar onde fizer sentido.")); para.style.setProperty("--_lh", "var(" + n + ")");
+        var para = t.appendChild(el("span", "pg-ty-lh__para", "Seus benefícios em um cartão: alimentação, mobilidade, saúde e cultura, com saldo flexível para usar onde fizer sentido.")); para.style.setProperty("--_lh", "var(" + n + ")");
         var cap = t.appendChild(el("span", "pg-tok__text")); cap.appendChild(el("span", "pg-tok__name", label(n, "--common-font-line-height-"))); cap.appendChild(code(val(n), n));
       });
     },
@@ -348,7 +348,7 @@
       var keys = pick("--motion-", /-easing$/).filter(function(n){ return /-01-timing$/.test(n); }).map(function(n){ return n.replace(/^--motion-|-01-timing$/g, ""); });
       var title = function(k){ return k.split("-").map(cap).join(" ") + "/01"; };
       var s = section(root, "Motion Styles em ação", keys.length);
-      s.appendChild(el("p", "pg-doc-p", "Passe o mouse, pressione e solte o botão; marque e desmarque o checkbox. Cada interação dispara o Motion Style correspondente: o painel mostra a cascata e o laboratório toca com o timing, a curva e o delay dele."));
+      s.appendChild(el("p", "pg-doc-p", "Passe o mouse, pressione e solte o botão. Marque e desmarque o checkbox. Cada interação dispara o Motion Style correspondente: o painel mostra a cascata e o laboratório toca com o timing, a curva e o delay dele."));
       var live = s.appendChild(el("div", "pg-mo-live")), stage = live.appendChild(el("div", "pg-tok-stage"));
       var pay = stage.appendChild(document.createElement("cds-main-button"));
       [["label", "Pagar"], ["kind", "default"], ["appearance", "accent"], ["show-lead-icon", "false"], ["show-trailing-icon", "false"]].forEach(function(a){ pay.setAttribute(a[0], a[1]); });

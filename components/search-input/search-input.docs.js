@@ -69,8 +69,8 @@
       { id: "acessibilidade", title: "Acessibilidade", blocks: [
         { h2: "Teclado e leitor de tela" },
         { ul: [
-          "O campo é um `<input type=\"search\">` com o Label como nome; `Enter` dispara a busca (`cds-search`).",
-          "O botão de limpar é um Icon Button com nome (\"Limpar busca\"); depois de limpar, o foco volta ao campo.",
+          "O campo é um `<input type=\"search\">` com o Label como nome. `Enter` dispara a busca (`cds-search`).",
+          "O botão de limpar é um Icon Button com nome (\"Limpar busca\"). Depois de limpar, o foco volta ao campo.",
           "A lupa é decorativa.",
           "Ao filtrar resultados, anuncie a quantidade encontrada (ex.: \"12 resultados\") numa região viva da tela."
         ] },
@@ -80,7 +80,7 @@
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
-        { ul: ["Diga no placeholder o que pode ser buscado (\"Nome ou CPF\"), sem substituir o Label.", "Posicione o campo junto ao conteúdo que ele filtra, acima da lista ou da tabela.", "Quando não houver resultado, explique e ofereça \"Limpar busca\" (ver Empty state em Feedback Pages)."] }
+        { ul: ["Diga no placeholder o que pode ser buscado (\"Nome ou CPF\"), sem substituir o Label.", "Posicione o campo junto ao conteúdo que ele filtra, acima da lista ou da tabela.", "Quando não houver resultado, explique e ofereça \"Limpar busca\" (consulte Empty state em Feedback Pages)."] }
       ] },
 
       { id: "motion", title: "Motion", blocks: [
@@ -90,7 +90,7 @@
           { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
           { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] }
         ] },
-        { note: "Mapeamento pelo padrão da família Text Fields; sem especificação própria (CONFERIR C141)." }
+        { note: "Mapeamento pelo padrão da família Text Fields, sem especificação própria (CONFERIR C141)." }
       ] }
     ]
   };

@@ -11,8 +11,8 @@
   var MEMBERS = [
     ["cds-async-select-input", "Async", "Escolha única com busca: digitar filtra as opções (ou busca no servidor)."],
     ["cds-async-creatable-select-input", "Async creatable", "Como o Async e, quando o texto digitado não existe, oferece \"Adicionar “…”\" para criar a opção."],
-    ["cds-radio-select-input", "Radio", "Escolha única sem busca: o campo só abre a lista, com Radio Button."],
-    ["cds-checkbox-select-input", "Checkbox", "Vários valores sem busca: a lista fica aberta enquanto marca; o campo mostra \"N Selecionados\"."],
+    ["cds-radio-select-input", "Radio", "Escolha única sem busca: o campo abre a lista, com Radio Button."],
+    ["cds-checkbox-select-input", "Checkbox", "Vários valores sem busca: a lista fica aberta enquanto marca e o campo mostra \"N Selecionados\"."],
     ["cds-multi-select-input", "Multi", "Vários valores com busca: cada escolha vira um Input Chip dentro do campo."]
   ];
 
@@ -31,7 +31,7 @@
         { cards: [
           ["Clareza", "O componente deve comunicar de forma imediata quais opções estão disponíveis e qual valor está selecionado, evitando ambiguidades ou interpretações incorretas."],
           ["Previsibilidade", "O comportamento do Select input deve seguir padrões conhecidos, garantindo que a pessoa usuária saiba o que esperar ao interagir com o componente."],
-          ["Eficiência", "A seleção deve exigir o mínimo de esforço possível, permitindo escolhas rápidas e reduzindo a necessidade de correções ou retrabalho."]
+          ["Eficiência", "A seleção deve exigir o mínimo de esforço possível, permitindo escolhas ágeis e reduzindo a necessidade de correções ou retrabalho."]
         ] },
         { h2: "Quando usar" },
         { p: "Use o Select input quando houver um conjunto conhecido e limitado de opções e quando for importante garantir padronização da resposta sem exigir digitação livre, seja para seleção única ou múltipla." },
@@ -41,10 +41,10 @@
         { ul: ["Listas muito longas sem agrupamento ou busca", "Entradas abertas ou valores personalizados", "Comparação direta entre muitas opções"] },
         { h2: "Tipos de Select Input" },
         { table: { wrap: true, head: ["Componente", "Como escolhe"], rows: MEMBERS.map(function(m){ return [m[1] + " Select Input", m[2]]; }) } },
-        { note: "O zeroheight documenta a família numa página só (Select input). Na lib, cada tipo é um set: Async (11030:7644), Async creatable (11018:5694), Radio (11143:3056), Checkbox (11143:4833) e Multi (13795:4984)." },
+        { note: "O zeroheight documenta a família numa única página (Select input). Na lib, cada tipo é um set: Async (11030:7644), Async creatable (11018:5694), Radio (11143:3056), Checkbox (11143:4833) e Multi (13795:4984)." },
         { h2: "Casos de uso" },
         { h3: "Select input vs Selection list / Selection list item" },
-        { p: "O Select input é indicado quando é necessário economizar espaço e apresentar as opções apenas no momento da interação. Ao ser ativado, ele utiliza a Selection list internamente para exibir as opções disponíveis. A Selection list e Selection list item, por sua vez, são mais adequadas quando as opções precisam estar sempre visíveis, facilitando leitura, comparação e tomada de decisão direta, sem depender de um campo de entrada." },
+        { p: "O Select input é indicado quando é necessário economizar espaço e apresentar as opções no momento da interação. Ao ser ativado, ele utiliza a Selection list internamente para exibir as opções disponíveis. A Selection list e Selection list item, por sua vez, são mais adequadas quando as opções precisam estar sempre visíveis, facilitando leitura, comparação e tomada de decisão direta, sem depender de um campo de entrada." },
         { note: "Suporte: canal #castanha-suporte no Slack." }
       ] },
 
@@ -72,7 +72,7 @@
           { name: "Error Message", type: "Text", default: "Error Message" },
           { name: "Show Caret", type: "Boolean", default: "true" }
         ] },
-        { note: "Props e padrões iguais nos 5 sets da lib estável (o Multi tem também o slot Content, com os Input Chips). O zeroheight lista Style (Neutral · Negative), \"Is filled?\" e Placeholder; na lib são Appearance (Neutral · Warning) e Is Filled, e o placeholder não é prop (CONFERIR C141). No código: opções como filhos `<option value>` ou `.options`, `value`, `open`, `empty-text`, `.loadOptions(query)` (Async) e os atributos do Text Input. Eventos `cds-change`, `cds-toggle` e `cds-create` (creatable)." }
+        { note: "Props e padrões iguais nos 5 sets da lib estável (o Multi tem também o slot Content, com os Input Chips). O zeroheight lista Style (Neutral · Negative), \"Is filled?\" e Placeholder. Na lib são Appearance (Neutral · Warning) e Is Filled, e o placeholder não é prop (CONFERIR C141). No código: opções como filhos `<option value>` ou `.options`, `value`, `open`, `empty-text`, `.loadOptions(query)` (Async) e os atributos do Text Input. Eventos `cds-change`, `cds-toggle` e `cds-create` (creatable)." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -93,20 +93,20 @@
         { h2: "Teclado e leitor de tela" },
         { ul: [
           "Segue o padrão combobox do WAI-ARIA: o foco fica no campo (`role=\"combobox\"`), as opções ficam numa `listbox` e a opção atual vai em `aria-activedescendant`.",
-          "`↓`/`↑` abrem e percorrem as opções; `Enter` escolhe; `Esc` fecha; `Tab` sai do campo.",
+          "`↓`/`↑` abrem e percorrem as opções, `Enter` escolhe, `Esc` fecha e `Tab` sai do campo.",
           "O Label é o nome do campo e a mensagem de apoio (ou de erro) é a descrição.",
           "No Warning, o erro aparece em texto além da cor.",
-          "No Multi, cada Input Chip tem um botão de remover com nome; `Backspace` com o campo vazio remove o último."
+          "No Multi, cada Input Chip tem um botão de remover com nome. `Backspace` com o campo vazio remove o último."
         ] },
         { h2: "Contraste (WCAG)" },
-        { ul: ["Label e valor (Text/intense) 16,96:1 · mensagem de apoio (Text/medium) 8,24:1 · mensagem de erro (Warning) 6,41:1 sobre Surface/default — AA.", "Placeholder: 2,78:1 — abaixo de 4,5:1 para texto (1.4.3).", "Contorno do campo (Enabled): 1,25:1 — abaixo de 3:1 para identificar o campo (1.4.11); no Warning, 6,41:1. Vale para toda a família Text Fields (CONFERIR C141)."] },
+        { ul: ["Label e valor (Text/intense) 16,96:1 · mensagem de apoio (Text/medium) 8,24:1 · mensagem de erro (Warning) 6,41:1 sobre Surface/default — AA.", "Placeholder: 2,78:1 — abaixo de 4,5:1 para texto (1.4.3).", "Contorno do campo (Enabled): 1,25:1 — abaixo de 3:1 para identificar o campo (1.4.11). No Warning, 6,41:1. Vale para toda a família Text Fields (CONFERIR C141)."] },
         { note: "Contrastes medidos no tema light do playground. O zeroheight ainda não tem seção de Acessibilidade para o Select input." }
       ] },
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
         { guides: [
-          { attrs: {}, title: "Label e suporte", text: "Use labels claros e objetivos e complemente com support text apenas quando necessário para explicar regras, contexto ou consequências da escolha." },
+          { attrs: {}, title: "Label e suporte", text: "Use labels claros e objetivos e complemente com support text quando necessário para explicar regras, contexto ou consequências da escolha." },
           { attrs: { label: "Benefício", placeholder: "Selecione um benefício" }, title: "Placeholder", text: "Utilize o placeholder como instrução inicial, não como substituto do label." }
         ] },
         { h2: "Do's and Don'ts" },
@@ -126,7 +126,7 @@
           { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
           { title: "→ Disabled", rows: [["Gatilho", "Ao desabilitar"], ["Motion Style", "`Disabled/01`"]] }
         ] },
-        { alert: { appearance: "warning", label: "Especificação pendente", text: "A seção Motion do Select input no zeroheight está com o texto modelo e a tabela vazia; abrir e fechar o Popover não têm Motion Style definido. No código, o hover usa short/03 + systemic/accelerate (Multi: medium/02; Checkbox: sem transição, C42) (CONFERIR C141)." } }
+        { alert: { appearance: "warning", label: "Especificação pendente", text: "A seção Motion do Select input no zeroheight está com o texto modelo e a tabela vazia. Abrir e fechar o Popover não têm Motion Style definido. No código, o hover usa short/03 + systemic/accelerate (Multi: medium/02 · Checkbox: sem transição, C42) (CONFERIR C141)." } }
       ] }
     ]
   };

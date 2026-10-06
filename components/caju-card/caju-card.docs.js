@@ -16,7 +16,7 @@
     ] },
     tabs: [
       { id: "uso", title: "Uso", blocks: [
-        { alert: { appearance: "warning", label: "Rascunho", text: "Este componente ainda não tem página no zeroheight. Só a primeira frase é do time (description do Figma); o resto foi escrito a partir do Figma e do playground e precisa de revisão." } },
+        { alert: { appearance: "warning", label: "Rascunho", text: "Este componente ainda não tem página no zeroheight. A primeira frase é a única do time (description do Figma). O resto foi escrito a partir do Figma e do playground e precisa de revisão." } },
         { h2: "Sobre" },
         { p: "O Caju Card simula visualmente os diferentes tipos de cartões da Caju nos cenários físicos e virtuais seguindo as diretrizes das lojinhas de app." },
         { p: "Mostra a frente ou o verso do cartão, na vertical ou na horizontal, com os dados (número, validade, CVV, código de desbloqueio) trocados por propriedade. Is Blocked cobre o cartão com um Backdrop e um cadeado." },
@@ -66,10 +66,10 @@
       { id: "acessibilidade", title: "Acessibilidade", blocks: [
         { h2: "Leitor de tela" },
         { ul: [
-          "O cartão é uma imagem (`role=\"img\"`) com nome que diz o tipo, o lado e o final do número (ex.: \"Cartão Caju Físico, final 0001\"); bloqueado, acrescenta \", bloqueado\".",
-          "A arte e o cadeado são decorativos; os dados completos não são lidos.",
-          "Dado sensível: mostre o número completo, o CVV e o código de desbloqueio só quando a pessoa pedir, e nunca no nome acessível.",
-          "O cartão não é interativo; ações (bloquear, ver dados) ficam em botões ao lado."
+          "O cartão é uma imagem (`role=\"img\"`) com nome que diz o tipo, o lado e o final do número (ex.: \"Cartão Caju Físico, final 0001\"). Quando bloqueado, acrescenta \", bloqueado\".",
+          "A arte e o cadeado são decorativos, e os dados completos não são lidos.",
+          "Dado sensível: mostre o número completo, o CVV e o código de desbloqueio quando a pessoa pedir, e nunca no nome acessível.",
+          "O cartão não é interativo. As ações (bloquear, ver dados) ficam em botões ao lado."
         ] }
       ] },
 

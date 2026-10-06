@@ -20,8 +20,8 @@
         { h3: "Princípios" },
         { cards: [
           ["Clareza", "O texto deve indicar com precisão o destino ou recurso acessado."],
-          ["Consistência", "Links devem ter estilo e comportamento uniformes, garantindo que o usuário identifique facilmente o elemento como interativo."],
-          ["Previsibilidade", "O usuário deve entender facilmente o que acontecerá ao clicar no link."]
+          ["Consistência", "Links devem ter estilo e comportamento uniformes, garantindo que o usuário identifique de imediato o elemento como interativo."],
+          ["Previsibilidade", "O usuário deve entender de imediato o que acontecerá ao clicar no link."]
         ] },
         { h2: "Quando usar" },
         { p: "Use o componente Link para direcionar o usuário a outro destino, seja uma página interna, um site externo, um documento ou uma seção específica da mesma página. Ele é indicado para navegação relacionada ao conteúdo apresentado e deve ser aplicado sempre que a interação tiver como objetivo levar o usuário a consumir novas informações, sem executar ações diretas no sistema." },
@@ -31,7 +31,7 @@
         { ul: ["Para ações que modificam dados, enviam formulários ou executam comandos (use Main Button).", "Para interações que exigem confirmação ou escolha do usuário.", "Para navegação que faz parte da estrutura principal."] },
         { h2: "Casos de uso" },
         { h3: "Link vs Main Button" },
-        { p: "O Link serve para navegação, direcionando o usuário a outro local ou recurso sem alterar o estado do sistema. Já o Main Button executa ações diretas, como enviar dados ou abrir elementos na interface. Links mudam o contexto; Main buttons geram uma resposta imediata no mesmo fluxo." },
+        { p: "O Link serve para navegação, direcionando o usuário a outro local ou recurso sem alterar o estado do sistema. Já o Main Button executa ações diretas, como enviar dados ou abrir elementos na interface. Links mudam o contexto. Main buttons geram uma resposta imediata no mesmo fluxo." },
         { alert: { appearance: "informative", label: "Link é para direcionamento", text: "Link é para direcionamento (navegar para outro conteúdo ou recurso) e Main Button é para ação (executar algo no próprio contexto da interface)." } },
         { compare: [
           { title: "Este é um Link", attrs: { label: "Termos de uso", appearance: "accent" } },
@@ -80,15 +80,15 @@
         { h2: "Leitor de tela" },
         { ul: [
           "É um `<a href>` nativo: anunciado como link, com o texto como nome.",
-          "O ícone é decorativo; o destino precisa estar claro no texto.",
+          "O ícone é decorativo. O destino precisa estar claro no texto.",
           "Em link externo que abre em nova aba (`target=\"_blank\"`), deixe isso claro no texto ou no ícone.",
           "Disabled usa `aria-disabled=\"true\"` e sai da tabulação."
         ] },
         { h2: "Teclado e foco" },
-        { ul: ["Tab foca o link; Enter navega.", "Foco visível segue o padrão global do Castanha."] },
+        { ul: ["Tab foca o link. Enter navega.", "Foco visível segue o padrão global do Castanha."] },
         { h2: "Contraste (WCAG)" },
         { ul: ["Neutral (`Text/intense`): 16,96:1 — AA e AAA.", "Accent (`Text/accent`): 4,54:1 — AA.", "Inversed (`Text/inversed`) sobre `Surface/accent`: 4,54:1 — AA.", "Estado desabilitado: isento do critério 1.4.3."] },
-        { note: "A seção Acessibilidade da doc no Figma ainda é placeholder; o zeroheight não tem essa seção. Contrastes medidos no tema light do playground." }
+        { note: "A seção Acessibilidade da doc no Figma ainda é placeholder. O zeroheight não tem essa seção. Contrastes medidos no tema light do playground." }
       ] },
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
@@ -116,7 +116,7 @@
           { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
           { title: "→ Disabled", rows: [["Gatilho", "Ao desabilitar"], ["Motion Style", "`Disabled/01`"]] }
         ] },
-        { note: "No zeroheight, o Hovered usa expressive/decelerate · medium/02 e o Pressed systemic/default · short/03, que não correspondem aos Motion Styles de hover e press; aqui ficam os Motion Styles dos botões (CONFERIR C130)." },
+        { note: "No zeroheight, o Hovered usa expressive/decelerate · medium/02 e o Pressed systemic/default · short/03, que não correspondem aos Motion Styles de hover e press. Aqui ficam os Motion Styles dos botões (CONFERIR C130)." },
         { p: "Reduced motion: honrar `prefers-reduced-motion: reduce`." }
       ] },
       { id: "conteudo", title: "Conteúdo", blocks: [
@@ -155,7 +155,7 @@
           "Use botão para agir (executar algo no próprio fluxo, como confirmar, salvar, enviar ou cancelar).",
           "Links mudam o contexto e botões geram uma resposta imediata."
         ] },
-        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Links. Regras de escrita do time de Content; os exemplos usam componentes do DS com os mesmos textos." }
+        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Links. Regras de escrita do time de Content. Os exemplos usam componentes do DS com os mesmos textos." }
       ] }
     ]
   };

@@ -22,7 +22,7 @@
         { ul: ["Trocar de conteúdo ou de contexto — use Tabs.", "Filtrar itens — use filtros (Filter Button, chips).", "Mais de duas opções."] },
         { h2: "Casos de uso" },
         { h3: "Tab View vs Tabs" },
-        { p: "O Tab View muda só a apresentação do mesmo conteúdo; as Tabs mudam o conteúdo mostrado." }
+        { p: "O Tab View muda a apresentação do mesmo conteúdo, e as Tabs mudam o conteúdo mostrado." }
       ] },
 
       { id: "anatomia", title: "Anatomia", blocks: [
@@ -51,7 +51,7 @@
         { h2: "Teclado e leitor de tela" },
         { ul: [
           "É um grupo de opções (`role=\"radiogroup\"` com nome \"Visualização\") com dois radios: o leitor de tela anuncia qual está selecionado.",
-          "`Tab` entra no grupo; as setas trocam a opção.",
+          "`Tab` entra no grupo e as setas trocam a opção.",
           "Os ícones não têm texto visível: os nomes vêm de `first-label` e `second-label` (\"Lista\", \"Grade\").",
           "Disabled tira o grupo da ordem de foco."
         ] },

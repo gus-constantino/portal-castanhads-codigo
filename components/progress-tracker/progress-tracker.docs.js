@@ -22,7 +22,7 @@
         { p: "Stepper, Step indicator, Wizard steps, Progress steps." },
         { h3: "Princípios" },
         { cards: [
-          ["Uma etapa atual por vez", "O fluxo tem um único ponto presente. Tudo antes dele está concluído, tudo depois está pendente. Essa leitura só se sustenta se a sequência for respeitada."],
+          ["Uma etapa atual por vez", "O fluxo tem um único ponto presente. Tudo antes dele está concluído, tudo depois está pendente. Essa leitura depende de a sequência ser respeitada."],
           ["Posição, não navegação", "O Progress Tracker informa onde a pessoa usuária está, sem oferecer caminho. Quando uma etapa tem ação, ela vem do Link, não do componente."],
           ["Etapas nomeadas, não porcentagem", "Cada etapa tem rótulo próprio e significado. Progresso sem nome de etapa pede outro tipo de indicador."]
         ] },
@@ -34,7 +34,7 @@
         { ul: ["Progresso contínuo de uma única tarefa, como carregamento ou upload", "Organizar conteúdo paralelo sem ordem definida (utilize o Tabs)", "Navegar entre níveis de hierarquia (utilize o Breadcrumb)", "Fluxos com ordem variável ou etapas opcionais", "Sinalizar erro ou reprovação de etapa"] },
         { h2: "Casos de uso" },
         { h3: "Progress Tracker vs. Breadcrumb" },
-        { p: "Exemplo: numa tela de abertura de conta, o breadcrumb mostra \"Início > Conta > Abertura\" (onde a pessoa está na estrutura do app); o progress tracker na mesma tela mostra \"1. Identificação 2. Documentos 3. Revisão 4. Pagamento\" (quanto falta para concluir o fluxo)." },
+        { p: "Exemplo: numa tela de abertura de conta, o breadcrumb mostra \"Início > Conta > Abertura\" (onde a pessoa está na estrutura do app). O progress tracker na mesma tela mostra \"1. Identificação 2. Documentos 3. Revisão 4. Pagamento\" (quanto falta para concluir o fluxo)." },
         { compare: [
           { title: "Breadcrumb", attrs: { _tag: "cds-breadcrumb", collapse: "0", _children: [{ _tag: "a", href: "#", _text: "Início" }, { _tag: "a", href: "#", _text: "Conta" }, { _tag: "a", href: "#", _text: "Abertura" }] } },
           { title: "Progress Tracker", attrs: {} }
@@ -50,7 +50,7 @@
           { name: "Orientation", type: "Variant", default: "Vertical", values: ["Vertical", "Horizontal"] },
           { name: "Tracker", type: "Slot", default: "—" }
         ] },
-        { note: "Slot — recebe de 2 a 6 instâncias de Progress Tracker Item. No código: os filhos `<cds-progress-tracker-item>` são as etapas; `current` (1, 2, 3…) calcula os status (antes = Completed, depois = Pending), numera os marcadores e tira o Connector do último; `label` dá o nome da lista (\"Progresso\"); `orientation` (vertical|horizontal) — no Figma o container não propaga a Orientation para o Slot, aqui o container aplica a mesma aos itens." },
+        { note: "Slot — recebe de 2 a 6 instâncias de Progress Tracker Item. No código: os filhos `<cds-progress-tracker-item>` são as etapas. `current` (1, 2, 3…) calcula os status (antes = Completed, depois = Pending), numera os marcadores e tira o Connector do último. `label` dá o nome da lista (\"Progresso\"). `orientation` (vertical|horizontal) — no Figma o container não propaga a Orientation para o Slot, aqui o container aplica a mesma aos itens." },
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -71,13 +71,13 @@
       { id: "acessibilidade", title: "Acessibilidade", blocks: [
         { h2: "Teclado e leitor de tela" },
         { ul: [
-          "A lista tem `role=\"list\"` com nome (`label`, padrão \"Progresso\"); cada etapa é um item da lista.",
-          "Cada etapa é lida com o número e o status antes do rótulo (ex.: \"Etapa 2, atual: Documentos\"); a etapa atual tem `aria-current=\"step\"`.",
-          "O marcador e o conector são decorativos; o status não depende só da cor.",
-          "A etapa não é clicável; o Link é o único elemento interativo e entra na ordem do `Tab`."
+          "A lista tem `role=\"list\"` com nome (`label`, padrão \"Progresso\"). Cada etapa é um item da lista.",
+          "Cada etapa é lida com o número e o status antes do rótulo (ex.: \"Etapa 2, atual: Documentos\"). A etapa atual tem `aria-current=\"step\"`.",
+          "O marcador e o conector são decorativos. O status não depende exclusivamente da cor.",
+          "A etapa não é clicável. O Link é o único elemento interativo e entra na ordem do `Tab`."
         ] },
         { h2: "Contraste (WCAG)" },
-        { ul: ["Rótulo (Text/intense) 16,96:1 e descrição (Text/medium) 8,24:1 sobre Surface/default — AA e AAA.", "Marcador: número 13,56:1 (Pending) e 16,96:1 (Current); check do Completed (Icons/inversed sobre Surface/accent) 4,54:1.", "Anel do Current e marcador Completed (Accent) 4,54:1 sobre Surface/default — acima de 3:1.", "Marcador Pending (Neutral/Solid/semi-soft) e conector neutro 1,25:1 sobre Surface/default — abaixo de 3:1; o status também vem no texto lido pelo leitor de tela."] },
+        { ul: ["Rótulo (Text/intense) 16,96:1 e descrição (Text/medium) 8,24:1 sobre Surface/default — AA e AAA.", "Marcador: número 13,56:1 (Pending) e 16,96:1 (Current). Check do Completed (Icons/inversed sobre Surface/accent) 4,54:1.", "Anel do Current e marcador Completed (Accent) 4,54:1 sobre Surface/default — acima de 3:1.", "Marcador Pending (Neutral/Solid/semi-soft) e conector neutro 1,25:1 sobre Surface/default — abaixo de 3:1. O status também vem no texto lido pelo leitor de tela."] },
         { note: "Contrastes medidos no tema light do playground." }
       ] },
 
@@ -88,7 +88,7 @@
         { dodont: [
           { kind: "do", attrs: {}, text: "Use o mesmo Kind em todas as etapas do tracker." },
           { kind: "dont", attrs: { current: null, _children: [step("Identificação", { status: "completed", "marker-label": "1" }), step("Documentos", { status: "current", kind: "icon", "marker-icon": "file-line" }), step("Revisão", { "marker-label": "3", "show-connector": false })] }, text: "Não use Number em algumas etapas e Icon em outras — o marcador deixa de ser comparável entre elas." },
-          { kind: "do", attrs: { current: null, _children: [step("Identificação", { status: "completed", "marker-label": "1" }), step("Documentos", { status: "current", "marker-label": "2", "show-link": true, "link-label": "Ver documentos aceitos" }), step("Revisão", { "marker-label": "3", "show-connector": false })] }, text: "Use Link apenas na etapa que tem ação de verdade." },
+          { kind: "do", attrs: { current: null, _children: [step("Identificação", { status: "completed", "marker-label": "1" }), step("Documentos", { status: "current", "marker-label": "2", "show-link": true, "link-label": "Ver documentos aceitos" }), step("Revisão", { "marker-label": "3", "show-connector": false })] }, text: "Reserve o Link para a etapa que tem ação de verdade." },
           { kind: "dont", attrs: { current: null, _children: [step("Identificação", { status: "completed", "marker-label": "1", "show-link": true, "link-label": "Editar" }), step("Documentos", { status: "current", "marker-label": "2", "show-link": true, "link-label": "Enviar" }), step("Revisão", { "marker-label": "3", "show-connector": false, "show-link": true, "link-label": "Ver" })] }, text: "Não use Link em todas as etapas, competindo com a leitura do progresso." },
           { kind: "do", attrs: {}, text: "Use o Progress Tracker quando as etapas têm nome e ordem." },
           { kind: "dont", attrs: { _tag: "cds-spinner" }, text: "Não use o Progress Tracker para carregamento sem etapas definidas — utilize o Spinner ou o Skeleton." }
@@ -97,8 +97,8 @@
 
       { id: "motion", title: "Motion", blocks: [
         { h2: "Motion" },
-        { p: "O Progress Tracker não tem estados de interação próprios; o Link segue o Motion do Link." },
-        { alert: { appearance: "warning", label: "Especificação pendente", text: "O zeroheight traz só o texto modelo de Motion (tabela vazia). Sem especificação para a troca de etapa (CONFERIR C150)." } }
+        { p: "O Progress Tracker não tem estados de interação próprios. O Link segue o Motion do Link." },
+        { alert: { appearance: "warning", label: "Especificação pendente", text: "O zeroheight traz o texto modelo de Motion, com a tabela vazia. Sem especificação para a troca de etapa (CONFERIR C150)." } }
       ] },
 
       { id: "conteudo", title: "Conteúdo", blocks: [
@@ -119,7 +119,7 @@
         ] },
         { h3: "Stepper vs. Breadcrumb" },
         { p: "O stepper comunica progresso dentro de um fluxo linear. O breadcrumb reflete a hierarquia de navegação do produto. Os dois têm responsabilidades distintas e não devem se sobrepor. Confira mais detalhes na página Breadcrumbs." },
-        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Stepper. Regras de escrita do time de Content; os exemplos usam componentes do DS com os mesmos textos." }
+        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Stepper. Regras de escrita do time de Content. Os exemplos usam componentes do DS com os mesmos textos." }
       ] }
     ]
   };

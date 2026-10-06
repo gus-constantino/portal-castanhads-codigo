@@ -16,20 +16,20 @@
       { id: "uso", title: "Uso", blocks: [
         { alert: { appearance: "warning", label: "Rascunho", text: "Os Chips ainda não têm página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
         { h2: "Sobre" },
-        { p: "O Chips Group reúne chips do mesmo tipo (Filter Chips ou Input Chips) com espaço de 8 entre eles. Em Single Rows Chips, os chips ficam numa linha que rola na horizontal; em Multiple Rows Chip, quebram linha." },
-        { p: "O grupo só organiza: cores, estados e eventos são dos chips." },
+        { p: "O Chips Group reúne chips do mesmo tipo (Filter Chips ou Input Chips) com espaço de 8 entre eles. Em Single Rows Chips, os chips ficam numa linha que rola na horizontal. Em Multiple Rows Chip, quebram linha." },
+        { p: "O grupo organiza o layout: cores, estados e eventos são dos chips." },
         { h2: "Quando usar" },
         { h3: "Utilize para:" },
         { ul: ["Agrupar Filter Chips sobre uma lista, tabela ou extrato.", "Mostrar os Input Chips de valores escolhidos ou filtros aplicados."] },
         { h3: "Não utilize para:" },
-        { ul: ["Misturar Filter Chips e Input Chips no mesmo grupo.", "Um chip só — use o chip direto."] },
+        { ul: ["Misturar Filter Chips e Input Chips no mesmo grupo.", "Um único chip — use o chip direto."] },
         { h2: "Casos de uso" },
         { h3: "Single Rows Chips vs Multiple Rows Chip" },
         { compare: [
           { title: "Single Rows Chips (rolagem)", attrs: { "role-kind": "single" } },
           { title: "Multiple Rows Chip (quebra linha)", attrs: {} }
         ] },
-        { p: "Use Single Rows Chips no mobile e em espaços baixos, quando a lista pode rolar; use Multiple Rows Chip quando todos os chips precisam ficar visíveis." }
+        { p: "Use Single Rows Chips no mobile e em espaços baixos, quando a lista pode rolar. Use Multiple Rows Chip quando todos os chips precisam ficar visíveis." }
       ] },
 
       { id: "anatomia", title: "Anatomia", blocks: [
@@ -41,7 +41,7 @@
           { name: "Role", type: "Variant", default: "Single Rows Chips", values: ["Single Rows Chips", "Multiple Rows Chip"] },
           { name: "Slot", type: "Slot", default: "—" }
         ] },
-        { note: "Props e padrões lidos do set Chips Group da lib estável. No código: `role-kind` (single|multiple, padrão single; \"role\" é reservado no HTML), `kind` (informativo — o tipo vem dos filhos) e `label` (nome do grupo). Os chips são filhos diretos." }
+        { note: "Props e padrões lidos do set Chips Group da lib estável. No código: `role-kind` (single|multiple, padrão single — \"role\" é reservado no HTML), `kind` (informativo — o tipo vem dos filhos) e `label` (nome do grupo). Os chips são filhos diretos." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -61,8 +61,8 @@
         { h2: "Teclado e leitor de tela" },
         { ul: [
           "O grupo tem `role=\"group\"` e o nome vem de `label` (ex.: \"Filtrar por categoria\").",
-          "`Tab` passa de chip em chip; em Single Rows Chips, o chip com foco entra na área visível pela rolagem do navegador.",
-          "Cada chip mantém o próprio comportamento (Filter: `aria-pressed`; Input: botão de remover)."
+          "`Tab` passa de chip em chip. Em Single Rows Chips, o chip com foco entra na área visível pela rolagem do navegador.",
+          "Cada chip mantém o próprio comportamento (Filter: `aria-pressed` · Input: botão de remover)."
         ] }
       ] },
 

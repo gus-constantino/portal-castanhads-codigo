@@ -16,7 +16,7 @@
         { h2: "Sobre" },
         { p: "O .Item é cada aba das Tabs: 48 de altura, Label com Lead Item opcional e o sublinhado (Tab divider). Is Active deixa o sublinhado em Accent e o Label em Label/Medium." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do Fixed Tab e Scrollable Tab, que monta e controla os itens.", "Fora dele, use o componente completo (Fixed Tab e Scrollable Tab)."] },
+        { ul: ["Peça interna do Fixed Tab e Scrollable Tab, que monta e controla os itens.", "Fora dele, use o componente completo (Fixed Tab e Scrollable Tab)."] },
         { compare: [{ title: "Dentro do Fixed Tab e Scrollable Tab", attrs: { _tag: "cds-fixed-tab", label: "Abas", _children: [{ _tag: "cds-tab-item", label: "Resumo" }, { _tag: "cds-tab-item", label: "Detalhes" }, { _tag: "cds-tab-item", label: "Histórico" }] } }] }
       ] },
 
@@ -32,7 +32,7 @@
           { name: "Choose Icon", type: "Instance swap", default: "placeholder" },
           { name: "Show Badge", type: "Boolean", default: "true" }
         ] },
-        { note: "Props e padrões lidos do set .Item da lib estável. No código: `label`, `icon`, `show-lead-item`, `show-badge` e `badge-label` (Badge Warning, padrão \"0\"; ligado no .Item solto e desligado dentro do Fixed e do Scrollable Tab, como nas instâncias do Figma), `is-active`, `disabled`, `controls`; `state=\"hovered|pressed\"` só para exemplos." }
+        { note: "Props e padrões lidos do set .Item da lib estável. No código: `label`, `icon`, `show-lead-item`, `show-badge` e `badge-label` (Badge Warning, padrão \"0\", ligado no .Item solto e desligado dentro do Fixed e do Scrollable Tab, como nas instâncias do Figma), `is-active`, `disabled`, `controls`. `state=\"hovered|pressed\"` é exclusivo dos exemplos." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -51,7 +51,7 @@
       { id: "acessibilidade", title: "Acessibilidade", blocks: [
         { h2: "Teclado e leitor de tela" },
         { ul: [
-          "É um `<button role=\"tab\">`; a lista (Fixed ou Scrollable Tab) cuida de `aria-selected`, foco e teclado.",
+          "É um `<button role=\"tab\">`. A lista (Fixed ou Scrollable Tab) cuida de `aria-selected`, foco e teclado.",
           "`controls` liga a aba ao painel (`aria-controls`).",
           "O Lead Item é decorativo: o nome vem do Label.",
           "Com o Badge visível, o nome da aba inclui o número separado do Label (ex.: \"Pendentes, 3\")."

@@ -14,9 +14,9 @@
       { id: "uso", title: "Uso", blocks: [
         { alert: { appearance: "warning", label: "Rascunho", text: "Building block sem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
         { h2: "Sobre" },
-        { p: "O .Text Content é o bloco de texto dos itens de lista e do Accordion Item: um Label e uma Description. Kind=Highlight Label destaca o Label (Description menor, em Text/medium); Kind=Highlight Description inverte, com o Label pequeno em cima." },
+        { p: "O .Text Content é o bloco de texto dos itens de lista e do Accordion Item: um Label e uma Description. Kind=Highlight Label destaca o Label (Description menor, em Text/medium). Kind=Highlight Description inverte, com o Label pequeno em cima." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do Accordion Item e itens de lista, que monta e controla os itens.", "Fora dele, use o componente completo (Accordion Item e itens de lista)."] },
+        { ul: ["Peça interna do Accordion Item e itens de lista, que monta e controla os itens.", "Fora dele, use o componente completo (Accordion Item e itens de lista)."] },
         { compare: [{ title: "Dentro do Accordion Item e itens de lista", attrs: { _tag: "cds-accordion-item", label: "Vale-refeição", description: "Saldo de R$ 1.250,00" } }] }
       ] },
 
@@ -45,7 +45,7 @@
       { id: "acessibilidade", title: "Acessibilidade", blocks: [
         { h2: "Teclado e leitor de tela" },
         { ul: [
-          "Label e Description são texto simples, lidos nessa ordem (o destaque é só visual)."
+          "Label e Description são texto puro, lidos nessa ordem (o destaque é puramente visual)."
         ] }
       ] },
 

@@ -14,9 +14,9 @@
       { id: "uso", title: "Uso", blocks: [
         { alert: { appearance: "warning", label: "Rascunho", text: "Building block sem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
         { h2: "Sobre" },
-        { p: "O Viewport Restriction cobre um componente que não existe naquele viewport, com o texto \"Componente não disponível nesse viewport\". O Drawer e o Modal Date Picker o mostram no mobile e no tablet (só existem no desktop); o Bottom Sheet, no desktop." },
+        { p: "O Viewport Restriction cobre um componente que não existe naquele viewport, com o texto \"Componente não disponível nesse viewport\". O Drawer e o Modal Date Picker o mostram no mobile e no tablet (existem exclusivamente no desktop), e o Bottom Sheet, no desktop." },
         { h2: "Quando usar" },
-        { ul: ["Dentro de componentes que não existem em todos os viewports: o Drawer e o Modal Date Picker (só desktop) e o Bottom Sheet (sem desktop) o mostram onde não estão disponíveis.", "Não use em telas de produto."] },
+        { ul: ["Dentro de componentes que não existem em todos os viewports: o Drawer e o Modal Date Picker (exclusivos do desktop) e o Bottom Sheet (sem desktop) o mostram onde não estão disponíveis.", "Não use em telas de produto."] },
         { compare: [{ title: "Drawer no viewport mobile", attrs: { _tag: "cds-drawer", inline: true, viewport: "mobile" } }] }
       ] },
 

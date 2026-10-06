@@ -56,7 +56,7 @@
           { label: "Icon", attrs: it({ label: "Documentos", kind: "icon", "marker-icon": "file-line", "show-link": false, "show-description": false }) }
         ] } },
         { h2: "Orientation" },
-        { p: "Orientation precisa acompanhar a do container. Vertical posiciona o rótulo ao lado do marcador; Horizontal posiciona abaixo." },
+        { p: "Orientation precisa acompanhar a do container. Vertical posiciona o rótulo ao lado do marcador. Horizontal posiciona abaixo." },
         { specimens: { min: "calc(2 * var(--common-sizes-120))", items: [
           { label: "Vertical", attrs: it({ label: "Documentos", status: "current", "marker-label": "2", "show-connector": null }) },
           { label: "Horizontal", attrs: it({ label: "Documentos", status: "current", "marker-label": "2", "show-connector": null, orientation: "horizontal" }) }
@@ -77,22 +77,22 @@
           "O número e o status entram no nome da etapa, antes do rótulo (ex.: \"Etapa 2, atual: Documentos\").",
           "A etapa atual tem `aria-current=\"step\"`.",
           "Marcador e conector são decorativos (`aria-hidden`).",
-          "O item não é clicável; o Link é o único elemento interativo e entra na ordem do `Tab`."
+          "O item não é clicável. O Link é o único elemento interativo e entra na ordem do `Tab`."
         ] },
         { h2: "Contraste (WCAG)" },
-        { ul: ["Rótulo (Text/intense) 16,96:1 e descrição (Text/medium) 8,24:1 sobre Surface/default — AA e AAA.", "Marcador: número 13,56:1 (Pending) e 16,96:1 (Current); check do Completed (Icons/inversed sobre Surface/accent) 4,54:1.", "Anel do Current e marcador Completed (Accent) 4,54:1 sobre Surface/default — acima de 3:1.", "Marcador Pending (Neutral/Solid/semi-soft) e conector neutro 1,25:1 sobre Surface/default — abaixo de 3:1; o status também vem no texto lido pelo leitor de tela."] },
+        { ul: ["Rótulo (Text/intense) 16,96:1 e descrição (Text/medium) 8,24:1 sobre Surface/default — AA e AAA.", "Marcador: número 13,56:1 (Pending) e 16,96:1 (Current). Check do Completed (Icons/inversed sobre Surface/accent) 4,54:1.", "Anel do Current e marcador Completed (Accent) 4,54:1 sobre Surface/default — acima de 3:1.", "Marcador Pending (Neutral/Solid/semi-soft) e conector neutro 1,25:1 sobre Surface/default — abaixo de 3:1. O status também vem no texto lido pelo leitor de tela."] },
         { note: "Contrastes medidos no tema light do playground." }
       ] },
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
-        { ul: ["Insira dentro do Slot Tracker do componente Progress Tracker, nunca solto na tela.", "Orientation precisa acompanhar a do container. Vertical posiciona o rótulo ao lado do marcador; Horizontal posiciona abaixo.", "Show Connector deve ficar desligado no último item."] },
+        { ul: ["Insira dentro do Slot Tracker do componente Progress Tracker, nunca solto na tela.", "Orientation precisa acompanhar a do container. Vertical posiciona o rótulo ao lado do marcador. Horizontal posiciona abaixo.", "Show Connector deve ficar desligado no último item."] },
         { note: "Textos literais da description do set." }
       ] },
 
       { id: "motion", title: "Motion", blocks: [
         { h2: "Motion" },
-        { p: "O item não tem estados de interação; o Link segue o Motion do Link." },
+        { p: "O item não tem estados de interação. O Link segue o Motion do Link." },
         { alert: { appearance: "warning", label: "Especificação pendente", text: "Sem especificação para a troca de Status (CONFERIR C150)." } }
       ] }
     ]

@@ -705,10 +705,10 @@
                 unpublished: def.block
                   ? ["neutral", "Não publicado · building block", "Building block (nome com ponto): fica fora da publicação de propósito e é usado dentro de outros componentes."]
                   : ["negative", "Não publicado no Figma", "Ainda não publicado na lib [CastanhaDS] Components."],
-                branch: ["warning", "Não publicado · em branch", "Existe só numa branch do Figma; ainda não está na main nem publicado na lib."] };
+                branch: ["warning", "Não publicado · em branch", "Existe numa branch do Figma e ainda não está na main nem publicado na lib."] };
     var pub = def.legacy ? ["neutral", "Legado", def.legacy] // fora de uso: motivo no Tooltip (D225)
       : def.soon ? ["neutral", "Em breve", def.soon] // recurso ainda não ofertado (texto do Tooltip em def.soon)
-      : def.composition ? ["neutral", "Composição do playground", "Não existe na lib do Figma: montada aqui só com tokens do DS até o DS ter o componente."] : st && PUB[st];
+      : def.composition ? ["neutral", "Composição do playground", "Não existe na lib do Figma: montada aqui com tokens do DS até o DS ter o componente."] : st && PUB[st];
     header.setAttribute("show-tag", String(!!pub)); // Tag = status de publicação (ou Em breve)
     if (pub){ header.setAttribute("tag-appearance", pub[0]); header.setAttribute("tag-label", pub[1]); head.tagTip.setAttribute("text", pub[2] + (def.composition || def.soon || def.legacy ? "" : " Conferido em " + FS.checked + ".")); }
     document.title = def.name + " — Castanha DS";
@@ -766,8 +766,8 @@
     var MIN = 240, MAX = 1920, timer = 0;
     var field = kit.el("cds-text-input", { label: "Largura personalizada (px)", "show-label": "false", placeholder: "px", "show-lead-icon": "false", "show-required": "false", "show-supporting-content": "false", "class": "pg-vp-field" });
     row.appendChild(field);
-    kit.tip(vpLbl, "Simula a coleção Viewport do Figma (Mobile, Tablet, Desktop). O componente muda de comportamento, não só de largura.", { text: true, container: host });
-    kit.tip(field, "Largura livre de 240 a 1920 px. Até 743 vira Mobile; de 744 a 1365, Tablet; a partir de 1366, Desktop (faixas do castanha-tokens).", { container: host });
+    kit.tip(vpLbl, "Simula a coleção Viewport do Figma (Mobile, Tablet, Desktop). O componente muda de comportamento, além da largura.", { text: true, container: host });
+    kit.tip(field, "Largura livre de 240 a 1920 px. Até 743 vira Mobile, de 744 a 1365 vira Tablet e a partir de 1366 vira Desktop (faixas do castanha-tokens).", { container: host });
     setTimeout(function(){ if (field.control){ field.control.inputMode = "numeric"; field.control.maxLength = 4; } }, 0);
     field.addEventListener("cds-change", function(e){
       e.stopPropagation();

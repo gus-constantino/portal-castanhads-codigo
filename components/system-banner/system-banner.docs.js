@@ -22,10 +22,10 @@
         { h3: "Utilize para:" },
         { ul: ["Instabilidades ou manutenções que afetam várias telas.", "Avisos de conta ou empresa que valem em todo o produto.", "Mudanças importantes que a pessoa precisa ver ao entrar."] },
         { h3: "Não utilize para:" },
-        { ul: ["Mensagens sobre uma parte da tela — use o Alert.", "Feedback rápido de uma ação — use o Toast.", "Mais de um aviso ao mesmo tempo: mostre o mais importante."] },
+        { ul: ["Mensagens sobre uma parte da tela — use o Alert.", "Feedback pontual de uma ação — use o Toast.", "Mais de um aviso ao mesmo tempo: mostre o mais importante."] },
         { h2: "Casos de uso" },
         { h3: "System Banner vs Alert" },
-        { p: "Os dois têm a mesma anatomia e as mesmas props. O System Banner ocupa a largura toda da página, sem raio; o Alert fica dentro do conteúdo, com raio." },
+        { p: "Os dois têm a mesma anatomia e as mesmas props. O System Banner ocupa a largura toda da página, sem raio, e o Alert fica dentro do conteúdo, com raio." },
         { compare: [
           { title: "System Banner: largura toda", attrs: sb("warning", "Instabilidade no Pix", "Pagamentos via Pix podem demorar.") },
           { title: "Alert: dentro do conteúdo", attrs: { _tag: "cds-alert", appearance: "warning", label: "Pedido pendente", text: "Revise os dados de entrega." } }
@@ -58,7 +58,7 @@
       { id: "acessibilidade", title: "Acessibilidade", blocks: [
         { h2: "Leitor de tela" },
         { ul: [
-          "Warning tem `role=\"alert\"`; Positive e Informative têm `role=\"status\"`, como no Alert.",
+          "Warning tem `role=\"alert\"`, e Positive e Informative têm `role=\"status\"`, como no Alert.",
           "Coloque o System Banner no começo do conteúdo principal, antes do título da página, para ser encontrado logo.",
           "O botão de fechar é um `<button>` com nome (`close-label`, padrão \"Fechar aviso\")."
         ] },
@@ -70,9 +70,9 @@
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
         { guides: [
-          { attrs: sb("warning", "Instabilidade no Pix", "Pagamentos via Pix podem demorar. Já estamos resolvendo."), title: "Um aviso por vez", text: "Mostre só o aviso mais importante. Se houver prazo de resolução, informe no texto." }
+          { attrs: sb("warning", "Instabilidade no Pix", "Pagamentos via Pix podem demorar. Já estamos resolvendo."), title: "Um aviso por vez", text: "Mostre um único aviso, o mais importante. Se houver prazo de resolução, informe no texto." }
         ] },
-        { note: "Escrita: veja as regras de Alertas em Conteúdo › Contextos (Feedback Pages) — explicar o porquê, informar prazos e o canal de aviso." }
+        { note: "Escrita: consulte as regras de Alertas em Conteúdo › Contextos (Feedback Pages) — explicar o porquê, informar prazos e o canal de aviso." }
       ] },
 
       { id: "motion", title: "Motion", blocks: [

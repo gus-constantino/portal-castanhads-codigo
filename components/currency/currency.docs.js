@@ -19,7 +19,7 @@ CDS.docs["currency"] = {
       { p: "Valor monetário, Monetary value, Amount" },
       { h3: "Princípios" },
       { cards: [
-        ["Clareza", "O valor deve ser facilmente identificado e lido pela pessoa usuária."],
+        ["Clareza", "O valor deve ser identificado e lido sem esforço pela pessoa usuária."],
         ["Consistência", "A apresentação padronizada de moeda em diferentes contextos da interface."],
         ["Privacidade", "Possibilidade de ocultar valores sensíveis quando necessário."]
       ] },
@@ -50,7 +50,7 @@ CDS.docs["currency"] = {
         { name: "Size", type: "Variant", default: "Small", values: ["Small", "Medium", "Large", "Largest"] },
         { name: "Show Value", type: "Variant", default: "True", values: ["True", "False"] }
       ] },
-      { note: "Props e padrões lidos do set Currency da lib estável. O zeroheight lista Style e `Is hidden` (Boolean); na lib são `Appearance` e `Show Value` (Variant, padrão True) — CONFERIR C130. No código: `value`, `symbol` (padrão R$), `appearance`, `size` e `show-value`." }
+      { note: "Props e padrões lidos do set Currency da lib estável. O zeroheight lista Style e `Is hidden` (Boolean). Na lib são `Appearance` e `Show Value` (Variant, padrão True) — CONFERIR C130. No código: `value`, `symbol` (padrão R$), `appearance`, `size` e `show-value`." }
     ] },
 
     { id: "estilos", title: "Estilos", blocks: [
@@ -81,14 +81,14 @@ CDS.docs["currency"] = {
     { id: "diretrizes", title: "Diretrizes", blocks: [
       { h2: "Diretrizes de uso" },
       { guides: [
-        { attrs: [{ value: "1.250,00", size: "large", "show-value": false }, { _tag: "cds-icon-button", icon: "hide-off-line", label: "Mostrar saldo", kind: "ghost", appearance: "neutral" }], title: "Uso correto do estado oculto", text: "Ative a opção de ocultação para valores sensíveis em contextos de privacidade, garantindo que a pessoa usuária reconheça que existe um valor, mesmo sem visualizá-lo." }
+        { attrs: [{ value: "1.250,00", size: "large", "show-value": false }, { _tag: "cds-icon-button", icon: "hide-off-line", label: "Mostrar saldo", kind: "ghost", appearance: "neutral" }], title: "Uso correto do estado oculto", text: "Ative a opção de ocultação para valores sensíveis em contextos de privacidade, garantindo que a pessoa usuária reconheça que existe um valor, mesmo sem vê-lo." }
       ] },
       { h2: "Do's and Don'ts" },
       { dodont: [
         { kind: "do", attrs: { value: "1.250,00", size: "large" }, text: "Utilize o Currency para apresentar valores finais, como saldos ou preços, garantindo formatação monetária consistente e legível." },
         { kind: "dont", attrs: { value: "3 cartões", size: "large", symbol: "" }, text: "Não utilize o Currency para textos comuns que não representes valores monetários." }
       ] },
-      { note: "Para as regras de escrita de valores (sinal de subtração, casas decimais, separador de milhar), veja Conteúdo → Formatação de dados." }
+      { note: "Para as regras de escrita de valores (sinal de subtração, casas decimais, separador de milhar), consulte Conteúdo → Formatação de dados." }
     ] },
 
     { id: "motion", title: "Motion", blocks: [

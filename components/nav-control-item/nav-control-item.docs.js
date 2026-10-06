@@ -16,7 +16,7 @@
         { h2: "Sobre" },
         { p: "O .Item Nav Control é cada indicador de posição do Nav Control: um ponto 6×6 que vira uma pílula 16×6 quando é o item ativo (Is Active)." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do Nav Control, que monta e controla os itens.", "Fora dele, use o componente completo (Nav Control)."] },
+        { ul: ["Peça interna do Nav Control, que monta e controla os itens.", "Fora dele, use o componente completo (Nav Control)."] },
         { compare: [{ title: "Dentro do Nav Control", attrs: { _tag: "cds-nav-control", total: "5", current: "2", viewport: "mobile" } }] }
       ] },
 
@@ -50,7 +50,7 @@
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
-        { ul: ["Apenas um item ativo por vez.", "Use a Appearance igual à do Nav Control."] }
+        { ul: ["Um único item ativo por vez.", "Use a Appearance igual à do Nav Control."] }
       ] },
 
       { id: "motion", title: "Motion", blocks: [

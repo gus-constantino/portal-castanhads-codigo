@@ -18,13 +18,13 @@ CDS.docs["status-dot"] = {
       { h3: "Utilize para:" },
       { ul: ["Estado em linha: para sinalizar o estado de um item dentro de uma tabela, lista ou cabeçalho de card.", "Leitura em série: quando vários itens exibem estados diferentes e precisam ser comparados rapidamente."] },
       { h3: "Não utilize para:" },
-      { ul: ["Destaque próprio: se o estado precisa de fundo e contorno para se destacar, use a Tag.", "Contagem de notificações: para indicar itens novos ou pendentes, use o Badge.", "Categorização: para rotular ou agrupar itens por assunto, use a Tag.", "Ação: o componente não é clicável; para iniciar uma ação, use um Botão."] },
+      { ul: ["Destaque próprio: se o estado precisa de fundo e contorno para se destacar, use a Tag.", "Contagem de notificações: para indicar itens novos ou pendentes, use o Badge.", "Categorização: para rotular ou agrupar itens por assunto, use a Tag.", "Ação: o componente não é clicável. Para iniciar uma ação, use um Botão."] },
       { h2: "Status Dot vs Tag" },
       { compare: [
         { title: "Status Dot: estado em linha, sem container", attrs: { label: "Ativo", appearance: "positive" } },
         { title: "Tag: estado com destaque próprio", attrs: { _tag: "cds-tag", label: "Ativo", appearance: "positive", "show-lead-item": false } }
       ] },
-      { note: "Texto da description do set na lib; o zeroheight ainda não tem página do Status Dot. Suporte: canal #castanha-suporte no Slack." }
+      { note: "Texto da description do set na lib. O zeroheight ainda não tem página do Status Dot. Suporte: canal #castanha-suporte no Slack." }
     ] },
 
     { id: "anatomia", title: "Anatomia", blocks: [
@@ -50,7 +50,7 @@ CDS.docs["status-dot"] = {
 
     { id: "acessibilidade", title: "Acessibilidade", blocks: [
       { h2: "Leitor de tela" },
-      { ul: ["O ponto é decorativo (`aria-hidden`); o estado é lido pelo Label.", "Escreva o status por extenso no label. O ponto é reforço visual, não o portador da informação."] },
+      { ul: ["O ponto é decorativo (`aria-hidden`), e o estado é lido pelo Label.", "Escreva o status por extenso no label. O ponto é reforço visual, não o portador da informação."] },
       { h2: "Contraste (WCAG)" },
       { ul: ["Label (`Text/intense`): 16,96:1 em todas as Appearances — AA e AAA.", "A cor do ponto não precisa atingir 3:1, porque a informação está no texto (1.4.1)."] }
     ] },

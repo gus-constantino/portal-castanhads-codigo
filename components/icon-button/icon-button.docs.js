@@ -7,19 +7,19 @@ CDS.docs["icon-button"] = {
   tag: "cds-icon-button",
   base: { icon: "edit-line", label: "Editar" },
   source: "https://castanha.caju.com.br/858426090/v/latest/p/388224-icon-button", sourceLabel: "Abrir o Icon button no zeroheight",
-  cover: { description: "O Icon Button é um botão compacto que exibe apenas um ícone, sem rótulo de texto. Ele é utilizado para ações rápidas, geralmente secundárias, em interfaces que exigem economia de espaço e onde o significado do ícone é amplamente reconhecido.", examples: [
+  cover: { description: "O Icon Button é um botão compacto que exibe um ícone, sem rótulo de texto. Ele é utilizado para ações pontuais, geralmente secundárias, em interfaces que exigem economia de espaço e onde o significado do ícone é amplamente reconhecido.", examples: [
     { icon: "edit-line", label: "Editar" }, { icon: "share-line", label: "Compartilhar", appearance: "neutral" }, { icon: "delete-line", label: "Excluir", kind: "ghost", appearance: "neutral" }
   ] },
   tabs: [
     { id: "uso", title: "Uso", blocks: [
       { h2: "Sobre" },
-      { p: "O Icon Button é um botão compacto que exibe apenas um ícone, sem rótulo de texto. Ele é utilizado para ações rápidas, geralmente secundárias, em interfaces que exigem economia de espaço e onde o significado do ícone é amplamente reconhecido." },
+      { p: "O Icon Button é um botão compacto que exibe um ícone, sem rótulo de texto. Ele é utilizado para ações pontuais, geralmente secundárias, em interfaces que exigem economia de espaço e onde o significado do ícone é amplamente reconhecido." },
       { h3: "Nomes alternativos comuns" },
       { p: "Action Button, Icon Action, Quick Action." },
       { h3: "Princípios" },
       { cards: [
         ["Reconhecível", "O ícone deve comunicar de forma imediata e clara a ação que executa, sem depender de texto."],
-        ["Localizável", "O botão deve ser fácil de identificar e selecionar, mesmo em interfaces densas ou com muitos outros elementos próximos."],
+        ["Localizável", "O botão deve ser identificado e selecionado sem esforço, mesmo em interfaces densas ou com muitos outros elementos próximos."],
         ["Consistente", "Deve manter alinhamento visual e comportamental com outros botões e ícones do sistema, reforçando a previsibilidade."]
       ] },
       { h2: "Quando usar" },
@@ -27,7 +27,7 @@ CDS.docs["icon-button"] = {
       { h3: "Utilize para:" },
       { ul: ["Para ações com espaço limitado (ex: toolbars, cards, tabelas).", "Quando o ícone for amplamente compreendido e não necessitar de texto.", "Para representar ações recorrentes como “editar”, “fechar”, “favoritar” ou “compartilhar”."] },
       { h3: "Não utilize para:" },
-      { ul: ["Quando a ação não for óbvia apenas com o ícone.", "Para ações críticas sem texto ou contexto adicional.", "Como substituto de botões principais em fluxos essenciais (use Main Button nesses casos)."] },
+      { ul: ["Quando o ícone sozinho não deixar a ação óbvia.", "Para ações críticas sem texto ou contexto adicional.", "Como substituto de botões principais em fluxos essenciais (use Main Button nesses casos)."] },
       { h2: "Casos de uso" },
       { h3: "Icon button vs Main button" },
       { p: "O Main Button possui rótulo textual e é usado para ações principais e mais evidentes. Já o Icon Button é usado para ações complementares ou de menor prioridade, sendo visualmente mais discreto." },
@@ -81,13 +81,13 @@ CDS.docs["icon-button"] = {
       { h2: "Leitor de tela" },
       { ul: [
         "É um `<button>` nativo. Como não tem texto visível, o nome vem do atributo `label` (`aria-label`) — obrigatório.",
-        "O ícone é decorativo; nunca dependa dele para o nome.",
+        "O ícone é decorativo. Nunca dependa dele para o nome.",
         "Para ações de alternar (ex.: favoritar), use `pressed` (`aria-pressed`).",
         "Com Show Notification, o Badge é visual: inclua a contagem no `label` (ex.: \"Notificações, 3 novas\").",
         "Disabled usa `disabled` nativo: sai da tabulação."
       ] },
       { h2: "Teclado e foco" },
-      { ul: ["Tab foca o botão; Enter e Espaço acionam.", "Foco visível segue o padrão global do Castanha.", "Área de toque: 48 (Medium) e 40 (Small)."] },
+      { ul: ["Tab foca o botão. Enter e Espaço acionam.", "Foco visível segue o padrão global do Castanha.", "Área de toque: 48 (Medium) e 40 (Small)."] },
       { h2: "Tooltip" },
       { p: "Em web, forneça uma tooltip com a descrição da ação para garantir compreensão e acessibilidade." },
       { note: "O zeroheight ainda não tem seção de Acessibilidade para o Icon button. Contraste do ícone: medir junto com a doc do Icon (Appearance do ícone)." }
@@ -99,8 +99,8 @@ CDS.docs["icon-button"] = {
       { display: { attrs: [{}, { appearance: "neutral" }, { kind: "ghost", appearance: "neutral" }] } },
       { guides: [
         { attrs: [{ _tag: "cds-icon-button", icon: "edit-line", label: "Editar", kind: "ghost", appearance: "neutral" }, { _tag: "cds-tooltip", text: "Editar", "show-label": false }], title: "Use tooltips sempre que possível", text: "Em web, forneça uma tooltip com a descrição da ação para garantir compreensão e acessibilidade." },
-        { attrs: [{ icon: "delete-line", label: "Excluir", kind: "ghost", appearance: "neutral" }, { icon: "edit-line", label: "Editar", kind: "ghost", appearance: "neutral" }, { icon: "share-line", label: "Compartilhar", kind: "ghost", appearance: "neutral" }], title: "Escolha ícones claros e universalmente reconhecíveis", text: "Use apenas ícones com significados amplamente compreendidos (como lixeira para excluir, lápis para editar, seta para seguir)" },
-        { attrs: [{ _tag: "cds-main-button", label: "Salvar", "show-lead-icon": false, "show-trailing-icon": false }, { icon: "share-line", label: "Compartilhar", kind: "ghost", appearance: "neutral" }], title: "Reserve para ações secundárias ou rápidas", text: "Use Icon Buttons para ações complementares. Ações principais devem ser feitas com Main Button." }
+        { attrs: [{ icon: "delete-line", label: "Excluir", kind: "ghost", appearance: "neutral" }, { icon: "edit-line", label: "Editar", kind: "ghost", appearance: "neutral" }, { icon: "share-line", label: "Compartilhar", kind: "ghost", appearance: "neutral" }], title: "Escolha ícones claros e universalmente reconhecíveis", text: "Use ícones com significados amplamente compreendidos (como lixeira para excluir, lápis para editar, seta para seguir)" },
+        { attrs: [{ _tag: "cds-main-button", label: "Salvar", "show-lead-icon": false, "show-trailing-icon": false }, { icon: "share-line", label: "Compartilhar", kind: "ghost", appearance: "neutral" }], title: "Reserve para ações secundárias ou pontuais", text: "Use Icon Buttons para ações complementares. Ações principais devem ser feitas com Main Button." }
       ] },
       { h2: "Do's and Don'ts" },
       { dodont: [

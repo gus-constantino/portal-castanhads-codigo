@@ -252,7 +252,7 @@
     var all = [].concat.apply([], open.map(function(s){ return rows(s.lines).filter(function(r){ return /^(~~)?C\d+/.test(r[0]); }); }));
     var kinds = { exc: 0, deb: 0, seg: 0 };
     all.forEach(function(r){ var code = r[4] || "", act = r[5] || ""; if (/débito|erro no figma/i.test(act)) kinds.deb++; else if (/exceção/i.test(code)) kinds.exc++; else kinds.seg++; });
-    var p3 = panel(grid, "Adaptações para código", "Regra D40: o código segue o Figma; o que muda é exceção aprovada ou débito registrado");
+    var p3 = panel(grid, "Adaptações para código", "Regra D40: o código segue o Figma, e o que muda é exceção aprovada ou débito registrado");
     var parts = [["seg", "Segue o Figma", kinds.seg, "O código faz o que o Figma faz hoje, mesmo quando parece errado. A divergência fica registrada para corrigir no Figma."],
       ["exc", "Exceção aprovada (web, sem especificação ou decisão)", kinds.exc, "O código difere do Figma por decisão do Gustavo, falta de especificação ou adaptação para web aprovada."],
       ["deb", "Débito ou erro no Figma", kinds.deb, "Problema confirmado no Figma, a corrigir lá. O código acompanha quando a correção entrar."]];
@@ -300,7 +300,7 @@
       var more = p4.appendChild(el("cds-main-button", "rp-expand"));
       [["kind", "ghost"], ["appearance", "neutral"], ["size", "small"], ["label", "Ver todas as " + rowsC.length + " páginas"], ["lead-icon", "dropdown-open-line"], ["show-trailing-icon", "false"]].forEach(function(x){ more.setAttribute(x[0], x[1]); });
       more.addEventListener("click", function(){ var open = rowsC[8].hidden; rowsC.slice(8).forEach(function(li){ li.hidden = !open; });
-        more.setAttribute("label", open ? "Ver só as 8 maiores" : "Ver todas as " + rowsC.length + " páginas"); more.setAttribute("lead-icon", open ? "dropdown-close-line" : "dropdown-open-line"); });
+        more.setAttribute("label", open ? "Mostrar as 8 maiores" : "Ver todas as " + rowsC.length + " páginas"); more.setAttribute("lead-icon", open ? "dropdown-close-line" : "dropdown-open-line"); });
     }
 
     // Publicação na lib do Figma (scripts/figma-status.js, lido via MCP com getPublishStatusAsync)
@@ -311,7 +311,7 @@
     var PUBS = [["current", "Publicado no Figma", "Publicado na lib sem alterações pendentes.", "positive"],
       ["changed", "Publicado com alterações pendentes", "Publicado, mas o arquivo tem alterações que ainda não foram publicadas.", "informative"],
       ["unpublished-comp", "Não publicado", "Componente que ainda não está publicado na lib.", "negative"],
-      ["branch", "Não publicado · em branch", "Existe só numa branch do Figma; ainda não está na main.", "warning"],
+      ["branch", "Não publicado · em branch", "Existe numa branch do Figma e ainda não está na main.", "warning"],
       ["unpublished-block", "Não publicado · building block", "Building blocks (nome com ponto) ficam fora da publicação de propósito.", "neutral"]];
     var blocks = {}; (CDS.playgrounds || []).forEach(function(c){ if (c.block) blocks[c.name] = true; });
     var un = pubN.unpublished || []; pubN["unpublished-comp"] = un.filter(function(n){ return !blocks[n]; }); pubN["unpublished-block"] = un.filter(function(n){ return blocks[n]; });
@@ -331,7 +331,7 @@
       if (CDS.kit) CDS.kit.lazyTip(li, tipTx, { label: pt[1] });
     });
     var pend = pubN["unpublished-comp"].concat(pubN.branch || []);
-    if (pend.length) p5.appendChild(el("p", "rp-panel__foot", "Fora da lib: " + esc(pend.join(", ")) + ". Lido no Figma via MCP (<code>getPublishStatusAsync</code>); o status de cada componente aparece numa Tag ao lado do título."));
+    if (pend.length) p5.appendChild(el("p", "rp-panel__foot", "Fora da lib: " + esc(pend.join(", ")) + ". Lido no Figma via MCP (<code>getPublishStatusAsync</code>). O status de cada componente aparece numa Tag ao lado do título."));
 
     // Últimas decisões
     var dec = rows(sec(road, function(s){ return s.num === "4"; }).lines).filter(function(r){ return /^D\d+/.test(r[0]); })

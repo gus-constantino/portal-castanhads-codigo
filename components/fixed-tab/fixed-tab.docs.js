@@ -26,7 +26,7 @@
           ["Hierarquia", "As abas devem refletir divisões equivalentes no nível hierárquico, sem misturar navegação global com seções locais."]
         ] },
         { h2: "Quando usar" },
-        { p: "Use Tabs quando houver conteúdos relacionados e de mesmo nível hierárquico que precisam ocupar o mesmo espaço de interface, permitindo alternância rápida sem recarregar a página ou perder o contexto da pessoa usuária." },
+        { p: "Use Tabs quando houver conteúdos relacionados e de mesmo nível hierárquico que precisam ocupar o mesmo espaço de interface, permitindo alternância ágil sem recarregar a página ou perder o contexto da pessoa usuária." },
         { h3: "Utilize para:" },
         { ul: ["Alternar entre visões de um mesmo objeto, como Resumo, Detalhes, Histórico.", "Organizar categorias paralelas de conteúdo", "Separar estados ou filtros principais de um mesmo dataset"] },
         { h3: "Não utilize para:" },
@@ -36,7 +36,7 @@
         { p: "Ao alternar entre abas, a pessoa usuária está mudando de contexto de conteúdo, e não refinando um mesmo conjunto de dados." },
         { p: "O componente Tabs não é um mecanismo de filtro e não deve ser utilizado dessa forma." },
         { h2: "Fixed Tab vs Scrollable Tab" },
-        { p: "As duas usam o mesmo .Item. Na Fixed Tab, as abas dividem a largura igualmente (até 3 abas); na Scrollable Tab, cada aba tem a largura do conteúdo e a lista rola na horizontal (até 6 abas)." },
+        { p: "As duas usam o mesmo .Item. Na Fixed Tab, as abas dividem a largura igualmente (até 3 abas). Na Scrollable Tab, cada aba tem a largura do conteúdo e a lista rola na horizontal (até 6 abas)." },
         { compare: [
           { title: "Fixed Tab", attrs: fixed(["Resumo", "Detalhes", "Histórico"]) },
           { title: "Scrollable Tab", attrs: tabs(["Resumo", "Detalhes", "Histórico", "Documentos", "Pagamentos"]) }
@@ -86,9 +86,9 @@
         { table: { head: ["Tecla", "Ação"], rows: [["`Tab`", "Entra na lista (na aba ativa) e sai para o painel"], ["`←` `→`", "Move e ativa a aba anterior ou a próxima"], ["`Home` `End`", "Vai para a primeira ou a última aba"]] } },
         { h2: "Leitor de tela" },
         { ul: [
-          "Segue o padrão tablist do WAI-ARIA: a lista tem `role=\"tablist\"` com nome (`label`); cada .Item é um `<button role=\"tab\">` com `aria-selected`.",
+          "Segue o padrão tablist do WAI-ARIA: a lista tem `role=\"tablist\"` com nome (`label`), e cada .Item é um `<button role=\"tab\">` com `aria-selected`.",
           "Ligue cada aba ao seu painel com `controls` (id do painel, `role=\"tabpanel\"`).",
-          "A aba ativa não depende só do sublinhado: o peso do texto também muda (Label/Medium).",
+          "A aba ativa não depende exclusivamente do sublinhado: o peso do texto também muda (Label/Medium).",
           "Na Scrollable Tab, a aba ativa rola para a vista."
         ] },
         { h2: "Contraste (WCAG)" },
@@ -142,7 +142,7 @@
           { kind: "do", attrs: tabs(["Painel de premiações", "Pedidos por colaborador", "Pedidos por identificador", "Extrato de colaboradores", "Saldo dos colaboradores"]), text: "O usuário deve conseguir prever o conteúdo antes de clicar." },
           { kind: "dont", attrs: tabs(["Dashboard", "Pedidos por colaborador", "Pedidos por identificador", "Extrato de colaboradores", "Saldo dos colaboradores"]), text: "Termos genéricos e estrangeiros." }
         ] },
-        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Tabs. Regras de escrita do time de Content; os exemplos usam componentes do DS com os mesmos textos." }
+        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Tabs. Regras de escrita do time de Content. Os exemplos usam componentes do DS com os mesmos textos." }
       ] }
     ]
   };

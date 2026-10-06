@@ -23,24 +23,24 @@
         { h3: "Princípios" },
         { cards: [
           ["Ação binária", "Representa um estado entre “ligado” ou “desligado” para uma função específica. Cada Switch deve controlar uma única configuração binária."],
-          ["Mudança instantânea", "Use o Switch apenas quando a ação for instantânea e não exigir um botão de \"Salvar\" ou \"Aplicar\"."],
-          ["Contexto de controle", "Deve ser usado apenas para configurações que afetam diretamente o sistema ou funcionalidade."]
+          ["Mudança instantânea", "Use o Switch quando a ação for instantânea e não exigir um botão de \"Salvar\" ou \"Aplicar\"."],
+          ["Contexto de controle", "Deve ser usado exclusivamente para configurações que afetam diretamente o sistema ou funcionalidade."]
         ] },
         { h2: "Quando usar" },
-        { p: "O switch é utilizado para configurações cujo efeito é instantâneo e visível, sem a necessidade de confirmar a ação. É importante usá-lo somente para configurações que o usuário possa reverter facilmente pelo componente." },
+        { p: "O switch é utilizado para configurações cujo efeito é instantâneo e visível, sem a necessidade de confirmar a ação. É importante usá-lo somente para configurações que o usuário possa reverter pelo próprio componente." },
         { h3: "Utilize para:" },
         { ul: ["Ajustes instantâneos como ativar notificações ou mudar para o modo escuro.", "Ações contínuas e binárias, como ligar ou desligar.", "Alterar entre estados."] },
         { h3: "Não utilize para:" },
-        { ul: ["Executar uma única ação.", "Em listas com apenas uma opção de escolha."] },
+        { ul: ["Executar uma única ação.", "Em listas com uma única opção de escolha."] },
         { h2: "Casos de uso" },
         { h3: "Switch vs Radio button" },
-        { p: "O Switch é ideal para um controle imediato binário, no caso de um controle de som, o switch trocaria o status entre ligado e desligado, pois o usuário percebe o efeito no mesmo instante. Nesse caso, um cenário para utilizar o Radio button seria escolher entre diferentes modos de som, como ”alto”, \"médio” e \"silencioso\", onde apenas uma opção pode estar ativa por vez." },
+        { p: "O Switch é ideal para um controle imediato binário, no caso de um controle de som, o switch trocaria o status entre ligado e desligado, pois o usuário percebe o efeito no mesmo instante. Nesse caso, um cenário para utilizar o Radio button seria escolher entre diferentes modos de som, como ”alto”, \"médio” e \"silencioso\", onde uma única opção pode estar ativa por vez." },
         { compare: [
           { title: "Switch", attrs: sw("Som", "selected") },
           { title: "Radio Button", attrs: { _tag: "div", class: "pg-doc-sc-group", _children: [["Alto", "unselected"], ["Médio", "selected"], ["Silencioso", "unselected"]].map(function(o){ return { _tag: "cds-radio-button", label: o[0], status: o[1], name: "doc-sw-vs" }; }) } }
         ] },
         { h3: "Switch vs Checkbox" },
-        { p: "O Switch funciona como um interruptor, alterando imediatamente o estado de uma configuração entre opções binárias, como sim e não e ligado e desligado, sem necessidade de confirmação. Ideal para ajustes instantâneos como ativar notificações ou mudar para o modo escuro. Já o Checkbox é usado para permitir que o usuário selecione ou aceite uma ou mais opções, geralmente aplicadas apenas após um ação de confirmação, como enviar o formulário." },
+        { p: "O Switch funciona como um interruptor, alterando imediatamente o estado de uma configuração entre opções binárias, como sim e não e ligado e desligado, sem necessidade de confirmação. Ideal para ajustes instantâneos como ativar notificações ou mudar para o modo escuro. Já o Checkbox é usado para permitir que o usuário selecione ou aceite uma ou mais opções, geralmente aplicadas depois de uma ação de confirmação, como enviar o formulário." },
         { compare: [
           { title: "Switch", attrs: sw("Notificações", "selected") },
           { title: "Checkbox", attrs: { _tag: "cds-checkbox", label: "Li e concordo com os termos de uso", status: "selected" } }
@@ -58,7 +58,7 @@
           { name: "Text Label", type: "Text", default: "Label" },
           { name: "Show Text Label", type: "Boolean", default: "true" }
         ] },
-        { note: "Props e padrões lidos do set Switch da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, State vem da interação e do atributo `disabled`; `state=\"hovered|pressed\"` só existe para mostrar o estado em exemplos." }
+        { note: "Props e padrões lidos do set Switch da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, State vem da interação e do atributo `disabled`. O `state=\"hovered|pressed\"` existe para mostrar o estado em exemplos." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -88,7 +88,7 @@
           "O Disabled usa o `disabled` nativo: sai da ordem de foco e é anunciado como indisponível."
         ] },
         { h2: "Contraste (WCAG)" },
-        { ul: ["Label (Text/intense) sobre Surface/default: 16,96:1 — AA e AAA.", "Track do Unselected (Surface/inversed) sobre Surface/default: 16,96:1; Track do Selected (Surface/accent): 4,54:1 — ambos passam o mínimo de 3:1 para componentes (1.4.11).", "Toggle sobre o Track: 16,96:1 no Unselected e 4,54:1 no Selected."] },
+        { ul: ["Label (Text/intense) sobre Surface/default: 16,96:1 — AA e AAA.", "Track do Unselected (Surface/inversed) sobre Surface/default: 16,96:1. Track do Selected (Surface/accent): 4,54:1 — ambos passam o mínimo de 3:1 para componentes (1.4.11).", "Toggle sobre o Track: 16,96:1 no Unselected e 4,54:1 no Selected."] },
         { note: "Contrastes medidos no tema light do playground. O Disabled (Opacity/light) é isento (1.4.3). O zeroheight ainda não tem seção de Acessibilidade para o Switch." }
       ] },
 

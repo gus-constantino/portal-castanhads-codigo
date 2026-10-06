@@ -23,8 +23,8 @@
         { h3: "Princípios" },
         { cards: [
           ["Conciso", "Deve trazer poucas opções curtas, com poucas palavras, que não pedem explicação adicional."],
-          ["Unitário", "Deve trazer apenas decisões únicas e em um grupo fechado"],
-          ["Exclusividade", "Permite selecionar apenas uma opção dentro de um mesmo grupo, evitando ambiguidades."]
+          ["Unitário", "Deve trazer decisões únicas, em um grupo fechado"],
+          ["Exclusividade", "Permite selecionar uma única opção dentro de um mesmo grupo, evitando ambiguidades."]
         ] },
         { h2: "Quando usar" },
         { p: "O Radio Button é muito útil em formulários, pesquisas e fluxos de cadastro, onde a pessoa usuária precisa escolher uma opção em uma lista curta, ou responder uma pergunta de escopo fechado." },
@@ -41,12 +41,12 @@
           "Ação de Comando: Se o clique executa uma função ou comando, e não uma seleção (use um Botão).",
           "Navegação: Se o item leva a outra página ou seção (use um Link ou Botão).",
           "Alternância de Estado Imediata: Se a ação é imediata e alterna um estado sem necessidade de confirmação (use um Toggle Switch).",
-          "Sinalizar apenas consentimento ou uma confirmação por parte da pessoa usuária, com uma opção. Para esse caso, o checkbox é mais adequado.",
+          "Sinalizar consentimento ou uma confirmação por parte da pessoa usuária, com uma opção. Para esse caso, o checkbox é mais adequado.",
           "Exibir uma lista com mais de cinco itens. Considere o uso de um Select Input nesse caso."
         ] },
         { h2: "Casos de uso" },
         { h3: "Radio button vs Checkbox" },
-        { p: "O Radio Button permite a escolha de apenas uma opção, dentre um grupo de opções mutuamente excludentes. Ele é comum durante o preenchimento de um formulário, por exemplo. Já Checkbox permite que a pessoa usuária selecione ou aceite uma, ou mais opções ao mesmo tempo, geralmente aplicadas apenas após uma ação de confirmação, como enviar o formulário." },
+        { p: "O Radio Button permite a escolha de uma única opção, dentre um grupo de opções mutuamente excludentes. Ele é comum durante o preenchimento de um formulário, por exemplo. Já Checkbox permite que a pessoa usuária selecione ou aceite uma, ou mais opções ao mesmo tempo, geralmente aplicadas depois de uma ação de confirmação, como enviar o formulário." },
         { compare: [
           { title: "Radio Button", attrs: group(["Vale-refeição", "Vale-alimentação"], 0) },
           { title: "Checkbox", attrs: { _tag: "div", class: "pg-doc-sc-group", _children: [{ _tag: "cds-checkbox", label: "Vale-refeição", status: "selected" }, { _tag: "cds-checkbox", label: "Vale-alimentação", status: "selected" }] } }
@@ -70,7 +70,7 @@
           { name: "Text Label", type: "Text", default: "Label" },
           { name: "Show Text Label", type: "Boolean", default: "true" }
         ] },
-        { note: "Props e padrões lidos do set Radio Button da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, `name` agrupa os Radio Buttons (só um selecionado por grupo); State vem da interação e do atributo `disabled`; `state=\"hovered|pressed\"` só existe para mostrar o estado em exemplos." }
+        { note: "Props e padrões lidos do set Radio Button da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, `name` agrupa os Radio Buttons (um único selecionado por grupo). State vem da interação e do atributo `disabled`. O `state=\"hovered|pressed\"` existe exclusivamente para mostrar o estado em exemplos." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -108,7 +108,7 @@
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
         { guides: [
-          { attrs: group(["Mensal", "Anual"], 0), title: "Conteúdo", text: "A label deve ser curta e descritiva, informando rapidamente a opção correspondente, com poucas palavras." }
+          { attrs: group(["Mensal", "Anual"], 0), title: "Conteúdo", text: "A label deve ser curta e descritiva, informando de imediato a opção correspondente, com poucas palavras." }
         ] },
         { h2: "Do's and Don'ts" },
         { dodont: [

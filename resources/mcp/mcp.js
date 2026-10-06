@@ -17,15 +17,15 @@
         { h2: "MCP do Castanha DS" },
         { p: "Conecte o seu assistente de IA (Claude, Cursor, VS Code e outros) ao Castanha DS. Em vez de adivinhar, ele consulta os componentes, as docs, as props do Figma e do castanha-react, os tokens, os ícones, as ilustrações e as diretrizes de conteúdo, e gera e revisa código React com o DS." },
         { p: "MCP (Model Context Protocol) é o padrão aberto que os assistentes usam para se conectar a fontes de informação e ferramentas." },
-        { alert: { appearance: "informative", label: "Em breve", text: "O MCP ainda não foi ofertado ao time: está em teste e será liberado depois. As instruções abaixo valem para quem está testando. Ele só consulta: lê o conteúdo deste site e não altera nada." } },
+        { alert: { appearance: "informative", label: "Em breve", text: "O MCP ainda não foi ofertado ao time: está em teste e será liberado depois. As instruções abaixo valem para quem está testando. Ele consulta o conteúdo deste site e não altera nada." } },
         { shortcuts: [
-          { title: "Arquivo do MCP", text: "Um arquivo só, sem instalar nada. Precisa do Node 18 ou mais novo.", href: "dist/mcp/castanha-mcp.js", cta: "Abrir castanha-mcp.js", external: true },
+          { title: "Arquivo do MCP", text: "Um arquivo único, sem instalação. Precisa do Node 18 ou mais novo.", href: "dist/mcp/castanha-mcp.js", cta: "Abrir castanha-mcp.js", external: true },
           { title: "Código e README", text: "Servidor, gerador de JSX, teste e detalhes técnicos no repositório.", href: REPO + "mcp/README.md", cta: "Abrir no GitHub", external: true }
         ] },
         { h2: "Passo a passo" },
         { steps: [
           { title: "Baixe o arquivo", text: "Salve o `castanha-mcp.js` numa pasta fixa do seu computador (ex.: `~/castanha/`). Pelo terminal:" },
-          { title: "Conecte no seu assistente", text: "Troque `/caminho/para/` pela pasta onde salvou o arquivo. Veja abaixo o comando ou a configuração de cada assistente." },
+          { title: "Conecte no seu assistente", text: "Troque `/caminho/para/` pela pasta onde salvou o arquivo. Abaixo estão o comando ou a configuração de cada assistente." },
           { title: "Teste", text: "Abra uma conversa nova e pergunte, por exemplo: \"Como uso o Tag em estado de erro no React?\" ou \"Qual ícone do Castanha DS uso para cartão?\". O assistente deve consultar o Castanha DS antes de responder." }
         ] },
         { code: BAIXAR },
@@ -43,11 +43,11 @@
       { id: "ferramentas", title: "Ferramentas", blocks: [
         { h2: "O que o assistente pode fazer" },
         { table: { wrap: true, head: ["Ferramenta", "Para quê"], rows: [
-          ["`listar_componentes`", "Componentes por categoria, com status no Figma e par no castanha-react; também os que só existem no React."],
+          ["`listar_componentes`", "Componentes por categoria, com status no Figma e par no castanha-react; e os que existem no React sem par no Figma."],
           ["`componente`", "Tudo de um componente: descrição, links (Figma, Storybook, zeroheight), props no Figma, props do React com tipo e padrão, import, tradução Figma → React e divergências."],
           ["`docs`", "Texto de uma tab da documentação (uso, anatomia, estilos, acessibilidade, diretrizes, motion, conteúdo) ou de todas."],
           ["`buscar`", "Busca livre em componentes, docs, tokens, ícones e ilustrações."],
-          ["`tokens`", "Valor no claro e no escuro, por viewport, e o nome no castanha-tokens (`--castanha-*`) ou se só existe aqui."],
+          ["`tokens`", "Valor no claro e no escuro, por viewport, e o nome no castanha-tokens (`--castanha-*`) ou o aviso de que ainda não está no pacote."],
           ["`icone`", "Ícones do [Caju] Icons por nome ou palavra-chave, com o uso no React."],
           ["`ilustracao`", "Ilustrações do [Caju] Illustrations, com o nome no pacote (às vezes diferente do Figma)."],
           ["`diretrizes`", "Conteúdo e escrita, motion, ilustração, patterns e treinamento."],
@@ -56,7 +56,7 @@
           ["`revisar_codigo`", "Revisa um trecho JSX: componente ou prop inexistente, valor fora das opções, prop obrigatória faltando, ícone ou ilustração com nome errado, cor ou tamanho cru que tem token e padrão do React diferente do Figma."]
         ] } },
         { h3: "Prompts prontos" },
-        { ul: ["`implementar-tela`: implementa uma tela só com componentes e tokens do DS, gerando e revisando o código.",
+        { ul: ["`implementar-tela`: implementa uma tela inteira com componentes e tokens do DS, gerando e revisando o código.",
           "`revisar-handoff`: compara Figma, docs e castanha-react de um componente e lista o que precisa de decisão.",
           "`escrever-texto`: escreve ou revisa texto de interface pelas diretrizes de conteúdo."] }
       ] },
@@ -78,11 +78,11 @@
           "\"Quais tokens de cor de texto existem e qual é o valor no tema escuro?\"",
           "\"Como escrevo uma data e um valor em reais na interface?\"",
           "\"Tem alguma divergência aberta no Drawer entre o Figma e o React?\"",
-          "\"Monta uma tela de confirmação de pedido usando só o Castanha DS.\""] }
+          "\"Monta uma tela de confirmação de pedido com componentes e tokens do Castanha DS.\""] }
       ] },
       { id: "como-funciona", title: "Como funciona", blocks: [
         { h2: "De onde vem o conteúdo" },
-        { p: "A cada atualização do site, o build junta tudo o que o playground mostra num catálogo (`dist/mcp/catalog.json`): componentes, docs, status e props do Figma, props e mapas do castanha-react, tokens, ícones, ilustrações, CONFERIR e o check da stack. O MCP só lê esse catálogo." },
+        { p: "A cada atualização do site, o build junta tudo o que o playground mostra num catálogo (`dist/mcp/catalog.json`): componentes, docs, status e props do Figma, props e mapas do castanha-react, tokens, ícones, ilustrações, CONFERIR e o check da stack. O MCP lê esse catálogo e não altera nada." },
         { p: "O lado React vem do repositório oficial (branch staging), atualizado pela rotina diária. As props do Figma são relidas toda segunda-feira." },
         { h2: "O que ele não faz" },
         { ul: ["Não altera nada: nem o Figma, nem o código, nem este site.",

@@ -36,10 +36,10 @@ CDS.docs = CDS.docs || {};
         { cards: [
           ["Revelar sob demanda", "O conteúdo extra fica no Slot, oculto até a pessoa expandir — reduz a carga visual e deixa a leitura previsível."],
           ["Título claro e curto", "O header (Label + Description) resume o que há dentro, pra pessoa prever o conteúdo antes de abrir."],
-          ["Estado além da cor", "O chevron (open/close) e a revelação do conteúdo sinalizam expandido ou recolhido — não dependa só de cor."]
+          ["Estado além da cor", "O chevron (open/close) e a revelação do conteúdo sinalizam expandido ou recolhido — não dependa exclusivamente da cor."]
         ] },
         { h2: "Quando usar" },
-        { p: "Utilize o Accordion para agrupar conteúdo extenso em seções expansíveis, mostrando só os títulos até a pessoa abrir cada uma." },
+        { p: "Utilize o Accordion para agrupar conteúdo extenso em seções expansíveis, com os títulos visíveis e o conteúdo recolhido até a pessoa abrir cada uma." },
         { h3: "Utilize para:" },
         { ul: ["Perguntas frequentes (FAQ)", "Detalhes de um pedido ou resumo expansível", "Formulários longos agrupados por tema ou etapa"] },
         { h3: "Não utilize para:" },
@@ -57,7 +57,7 @@ CDS.docs = CDS.docs || {};
           legend: ["Accordion Item (seções empilhadas)", "Espaçamento entre as seções"]
         } },
         { h2: "Composição do componente" },
-        { p: "O Accordion distribui vários Accordion Items no frame Items, com Kind Default (linhas) ou Card (cartões). Cada item traz seu header + Slot; o conjunto cuida do empilhamento e do espaçamento." },
+        { p: "O Accordion distribui vários Accordion Items no frame Items, com Kind Default (linhas) ou Card (cartões). Cada item traz seu header + Slot. O conjunto cuida do empilhamento e do espaçamento." },
         { h2: "Propriedades" },
         { props: [
           { name: "Kind", type: "Variant", values: ["Default", "Card"] }
@@ -82,11 +82,11 @@ CDS.docs = CDS.docs || {};
         { h2: "Diretrizes" },
         { guides: [
           { attrs: {}, title: "Use para conteúdo secundário, não essencial",
-            text: "O accordion esconde conteúdo atrás de um clique. Reserve-o para informação complementar; o que é essencial deve ficar sempre visível." },
+            text: "O accordion esconde conteúdo atrás de um clique. Reserve-o para informação complementar. O que é essencial deve ficar sempre visível." },
           { attrs: {}, title: "Controle de abertura",
-            text: "Defina se o conjunto permite vários itens abertos ao mesmo tempo ou só um por vez — abra um por vez quando as seções competem pela mesma atenção." },
+            text: "Defina se o conjunto permite vários itens abertos ao mesmo tempo ou um único por vez — abra um por vez quando as seções competem pela mesma atenção." },
           { attrs: {}, title: "Títulos curtos e escaneáveis",
-            text: "Escreva labels curtos e descritivos; a pessoa precisa prever o conteúdo de cada seção antes de abrir." }
+            text: "Escreva labels curtos e descritivos. A pessoa precisa prever o conteúdo de cada seção antes de abrir." }
         ] },
         { h2: "Do's and Don'ts" },
         { h3: "Conteúdo" },

@@ -16,7 +16,7 @@
     ] };
   }
   // Bottom Sheet inline numa moldura de tela (pg-cnt-phone), para mostrar a folha sobre o fundo
-  function sheet(attrs, kids){ return { _tag: "div", class: "pg-cnt-phone pg-cnt-phone--sheet", _children: [Object.assign({ _tag: "cds-bottom-sheet", inline: true, "text-title": "Title", "primary-label": "Confirmar", "secondary-label": "Cancelar", _children: kids || [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Conteúdo curto, rápido de ler e agir." }] }, attrs || {})] }; }
+  function sheet(attrs, kids){ return { _tag: "div", class: "pg-cnt-phone pg-cnt-phone--sheet", _children: [Object.assign({ _tag: "cds-bottom-sheet", inline: true, "text-title": "Title", "primary-label": "Confirmar", "secondary-label": "Cancelar", _children: kids || [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Conteúdo curto, de leitura e ação imediatas." }] }, attrs || {})] }; }
   function confirm(app, icon, title, text){ return [{ _tag: "cds-confirmation-message", appearance: app, icon: icon, title: title, description: text }]; }
   function opt(label, active){ return { _tag: "cds-selection-list-item", label: label, "show-description": false, "show-lead-item": false, "trailing-item": "radio-button", name: "ordem", "is-active": active ? true : null }; }
   CDS.docs["bottom-sheet"] = {
@@ -35,7 +35,7 @@
         { ul: ["Desktop e tablet — use Modal ou Drawer.", "Fluxos com várias etapas.", "Conteúdo extenso.", "Navegação principal.", "No lugar de uma página."] },
         { h2: "Bottom Sheet vs Modal" },
         { p: "Use o Bottom Sheet quando preservar o contexto da tela ajuda a decisão. Use o Modal quando a interrupção é o ponto." },
-        { note: "Texto da description do componente na lib. O zeroheight ainda não tem página do componente Bottom Sheet (só a de regras de texto, na tab Conteúdo). Suporte: canal #castanha-suporte no Slack." }
+        { note: "Texto da description do componente na lib. O zeroheight ainda não tem página do componente Bottom Sheet (existe a de regras de texto, na tab Conteúdo). Suporte: canal #castanha-suporte no Slack." }
       ] },
 
       { id: "anatomia", title: "Anatomia", blocks: [
@@ -58,7 +58,7 @@
           { name: "Show Footer", type: "Boolean", default: "true" },
           { name: "Slot", type: "Slot" }
         ] },
-        { note: "Props e padrões lidos do componente Bottom Sheet da lib estável. No código: `text-title`, `show-close-button`, `primary-label`, `secondary-label`, `show-secondary-action-button` e `dismissible`. Raio 16 16 0 0; Footer em Pilled." }
+        { note: "Props e padrões lidos do componente Bottom Sheet da lib estável. No código: `text-title`, `show-close-button`, `primary-label`, `secondary-label`, `show-secondary-action-button` e `dismissible`. Raio 16 16 0 0. Footer em Pilled." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -75,7 +75,7 @@
         { h2: "Leitor de tela" },
         { ul: [
           "É um `<dialog>` modal: o resto da página fica inerte enquanto a folha está aberta.",
-          "O título do Header é o nome acessível; sem Header, informe `label`.",
+          "O título do Header é o nome acessível. Sem Header, informe `label`.",
           "O Handle é decorativo (`aria-hidden`): arrastar não é o único jeito de fechar — há o botão de fechar, as ações e o Esc."
         ] },
         { h2: "Teclado e foco" },
@@ -87,7 +87,7 @@
         { h2: "Boas práticas" },
         { guides: [
           { attrs: sheet({ "show-header": "false", "primary-label": "Sair sem salvar", "secondary-label": "Continuar editando" }, confirm("warning", "timer-line", "Sair sem salvar?", "As alterações feitas serão perdidas.")), title: "Uma decisão por folha", text: "Destaque a ação primária e evite ambiguidade entre as opções." },
-          { attrs: sheet({ "text-title": "Cartão virtual" }, [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Use o cartão virtual em compras online e nas carteiras digitais." }]), title: "Conteúdo curto", text: "A folha precisa ser rápida de ler e agir. Se o conteúdo exige rolagem longa, o caso pede uma página." },
+          { attrs: sheet({ "text-title": "Cartão virtual" }, [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Use o cartão virtual em compras online e nas carteiras digitais." }]), title: "Conteúdo curto", text: "A leitura e a ação na folha precisam ser imediatas. Se o conteúdo exige rolagem longa, o caso pede uma página." },
           { attrs: sheet({ "text-title": "Ordenar por", "show-footer": "false" }, [opt("Mais recentes", true), opt("Mais antigos")]), title: "Alinhe o conteúdo do Slot", text: "Alinhe o conteúdo do Slot com o header e o footer, usando a mesma margem lateral — a menos que a imagem ou lista deva ocupar a largura inteira de propósito." }
         ] },
         { note: "Regras de texto do Bottom Sheet (títulos em pergunta, como encerrar) estão na tab Conteúdo." }
@@ -104,8 +104,8 @@
         { ul: ["No título, prefira perguntas curtas sempre que possível. Comunique uma coisa de cada vez.", "Use pontuação na descrição.", "Quando houver consequências, sempre informe o impacto da ação na descrição.", "Deixe sempre claro como encerrar o bottom sheet."] },
         { h3: "Boas práticas" },
         { ul: [
-          "Apresente apenas informações ”extras”. Nunca esconda informações essenciais para concluir a tarefa do fluxo dentro de um bottom sheet.",
-          "Use para interações rápidas. Conteúdos complexos pedem uma tela dedicada.",
+          "Reserve o bottom sheet para informações ”extras”. Nunca esconda informações essenciais para concluir a tarefa do fluxo dentro de um bottom sheet.",
+          "Use para interações breves. Conteúdos complexos pedem uma tela dedicada.",
           "Para ações obrigatórias — quando a pessoa não pode sair sem agir —, abra uma tela inteira, não um bottom sheet."
         ] },
         { h3: "Como encerrar" },
@@ -123,7 +123,7 @@
           { kind: "do", text: "Use Voltar quando o bottom sheet interrompe um fluxo e, ao encerrá-lo, a pessoa retorna para uma área do app (Pix, Cartão, etc.) ou para uma tela que não é de edição." },
           { kind: "dont", text: "Não use Continuar editando se ao fechar o bottom sheet, o usuário retorna para uma área do app (ex: Pix, Cartão) ou a tela não é de input/edição." }
         ] },
-        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Bottom sheet. Regras de escrita do time de Content; os exemplos usam componentes do DS com os mesmos textos." }
+        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Bottom sheet. Regras de escrita do time de Content. Os exemplos usam componentes do DS com os mesmos textos." }
       ] }
     ]
   };

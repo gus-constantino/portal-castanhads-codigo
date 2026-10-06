@@ -14,9 +14,9 @@
       { id: "uso", title: "Uso", blocks: [
         { alert: { appearance: "warning", label: "Rascunho", text: "Building block sem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
         { h2: "Sobre" },
-        { p: "O .Select Number escolhe um número numa lista curta: itens por página e página atual, no Pagination. É uma pílula com o número e o ícone de abrir; aberto (Is Active), mostra um Popover com a lista." },
+        { p: "O .Select Number escolhe um número numa lista curta: itens por página e página atual, no Pagination. É uma pílula com o número e o ícone de abrir. Aberto (Is Active), mostra um Popover com a lista." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do Pagination, que monta e controla os itens.", "Fora dele, use o componente completo (Pagination)."] },
+        { ul: ["Peça interna do Pagination, que monta e controla os itens.", "Fora dele, use o componente completo (Pagination)."] },
         { compare: [{ title: "Dentro do Pagination", attrs: { _tag: "cds-pagination", total: "87", "per-page": "10", page: "3" } }] }
       ] },
 
@@ -43,7 +43,7 @@
         { h2: "Teclado e leitor de tela" },
         { ul: [
           "É um botão com lista (`aria-haspopup=\"listbox\"`) e nome (`label`).",
-          "Ao abrir, o foco vai para a opção atual; setas, `Home`/`End`, `Enter` escolhe e `Esc` fecha.",
+          "Ao abrir, o foco vai para a opção atual. Setas e `Home`/`End` navegam, `Enter` escolhe e `Esc` fecha.",
           "Fechar devolve o foco ao botão."
         ] }
       ] },

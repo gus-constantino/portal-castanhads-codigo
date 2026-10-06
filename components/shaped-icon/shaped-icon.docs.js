@@ -32,10 +32,10 @@
         { h3: "Utilize para:" },
         { ul: ["Para dar destaque visual a um ícone em meio ao conteúdo.", "Quando for necessário reforçar um status ou categoria (por exemplo: erro, sucesso, aviso, etc).", "Para representar ações complementares ao conteúdo, como atalhos ou indicações visuais.", "Em listas, cards ou títulos, para facilitar o escaneamento visual."] },
         { h3: "Não utilize para:" },
-        { ul: ["Como substituto de botões interativos (use o Button Icon).", "Quando não há necessidade de destacar o ícone visualmente — nesse caso, prefira o Icon simples.", "Para ações ou cliques, já que o componente não possui interação."] },
+        { ul: ["Como substituto de botões interativos (use o Button Icon).", "Quando não há necessidade de destacar o ícone visualmente — nesse caso, prefira o Icon, sem fundo.", "Para ações ou cliques, já que o componente não possui interação."] },
         { h2: "Casos de uso" },
         { h3: "Shaped Icon vs Icon" },
-        { p: "O Shaped Icon é uma versão do ícone que possui um fundo colorido com forma definida, o que o torna mais chamativo e visualmente destacado. Já o componente Icon é simples, sem fundo, e tem uma aparência mais discreta, sendo ideal para contextos mais neutros ou com menor carga visual. Enquanto o Icon é usado principalmente de forma funcional, como apoio em botões, textos ou listas onde a simplicidade é prioridade, o Shaped Icon atua como um marcador visual. Ele reforça mensagens, categorias ou estados — mesmo sem interação — funcionando bem quando se deseja adicionar peso visual e facilitar o reconhecimento." },
+        { p: "O Shaped Icon é uma versão do ícone que possui um fundo colorido com forma definida, o que o torna mais chamativo e visualmente destacado. Já o componente Icon não tem fundo e tem uma aparência mais discreta, sendo ideal para contextos mais neutros ou com menor carga visual. Enquanto o Icon é usado principalmente de forma funcional, como apoio em botões, textos ou listas onde a simplicidade é prioridade, o Shaped Icon atua como um marcador visual. Ele reforça mensagens, categorias ou estados — mesmo sem interação — funcionando bem quando se deseja adicionar peso visual e facilitar o reconhecimento." },
         { compare: [
           { title: "Shaped Icon", attrs: si("meal-line", "accent", { size: "medium" }) },
           { title: "Icon", attrs: { _tag: "cds-icon", icon: "meal-line", size: "large" } }
@@ -43,7 +43,7 @@
         { h3: "Shaped Icon vs Button icon" },
         { p: "A principal diferença entre o Shaped Icon e o Button Icon está na interatividade. Enquanto o Shaped Icon é um elemento exclusivamente visual, utilizado para comunicar categorias, status ou reforçar um contexto, o Button Icon é um componente interativo, desenvolvido para realizar ações específicas, como editar, excluir ou compartilhar." },
         { compare: [
-          { title: "Shaped Icon: só visual", attrs: si("share-line", "neutral", { size: "small" }) },
+          { title: "Shaped Icon: visual, sem interação", attrs: si("share-line", "neutral", { size: "small" }) },
           { title: "Icon Button: interativo", attrs: { _tag: "cds-icon-button", icon: "share-line", label: "Compartilhar", appearance: "neutral" } }
         ] },
         { note: "Suporte: canal #castanha-suporte no Slack." }
@@ -81,7 +81,7 @@
         { h2: "Leitor de tela" },
         { ul: [
           "Sem `label`, o Shaped Icon é decorativo: o significado precisa estar no texto ao lado.",
-          "Com `label`, vira imagem com nome (`role=\"img\"`). Use só quando ele informa sozinho, sem texto ao lado.",
+          "Com `label`, vira imagem com nome (`role=\"img\"`). Use quando ele informa sozinho, sem texto ao lado.",
           "Não é interativo. Para ação clicável, use o Icon Button."
         ] },
         { h2: "Contraste (WCAG)" },
@@ -92,13 +92,13 @@
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
         { guides: [
-          { attrs: row([si("positive-line", "positive", { size: "small" }), si("warning-line", "warning", { size: "small" }), si("close-line", "negative", { size: "small" }), si("information-line", "informative", { size: "small" })]), title: "Cores semânticas", text: "Use apenas cores semânticas (erro, alerta, sucesso, neutro, etc.) disponíveis nas propriedades do componente. Ao utilizar uma cor semântica no Shaped Icon, você garante que o usuário entenda rapidamente o contexto visual." },
+          { attrs: row([si("positive-line", "positive", { size: "small" }), si("warning-line", "warning", { size: "small" }), si("close-line", "negative", { size: "small" }), si("information-line", "informative", { size: "small" })]), title: "Cores semânticas", text: "Use as cores semânticas (erro, alerta, sucesso, neutro, etc.) disponíveis nas propriedades do componente. Ao utilizar uma cor semântica no Shaped Icon, você garante que o usuário entenda de imediato o contexto visual." },
           { attrs: media(si("meal-line", "accent", { size: "small" }), "Vale-refeição", "Use em restaurantes e apps de delivery."), title: "Alinhamento e hierarquia visual", text: "O Shaped Icon deve estar centralizado quando for o elemento principal dentro de um bloco (como em cards ou chamadas de atenção) ou alinhado lateralmente quando estiver acompanhando um título ou texto. Em ambos os casos, respeite os tokens de espaçamento do Design System para garantir uma hierarquia clara e uma leitura fluida da informação." }
         ] },
         { h2: "Caso de Exceção" },
         { h3: "Uso de cores não semânticas" },
         { p: "O uso padrão do Shaped Icon deve sempre seguir as cores semânticas disponíveis nas variantes do componente." },
-        { p: "No entanto, em casos específicos em que as cores semânticas não atendam ao contexto visual, é permitido utilizar outras cores não semânticas, desde que sejam tokens oficiais do Design System. Essa exceção deve ser aplicada com cautela e apenas quando for necessário preservar a coerência com a identidade visual do produto ou reforçar hierarquia estética em cenários particulares." },
+        { p: "No entanto, em casos específicos em que as cores semânticas não atendam ao contexto visual, é permitido utilizar outras cores não semânticas, desde que sejam tokens oficiais do Design System. Essa exceção deve ser aplicada com cautela e restrita aos casos em que for necessário preservar a coerência com a identidade visual do produto ou reforçar hierarquia estética em cenários particulares." },
         { note: "No código, o fundo pode ser trocado por um token oficial com a variável `--cds-shaped-bg` no pai, como prevê a exceção." },
         { h2: "Do's and Don'ts" },
         { h3: "Use com moderação" },
@@ -108,7 +108,7 @@
         ] },
         { h3: "Interação" },
         { dodont: [
-          { kind: "do", attrs: media(si("positive-line", "positive", { size: "small" }), "Pagamento aprovado", "O valor já está disponível."), text: "Use em contextos sintéticos e visuais. O componente funciona melhor em contextos de leitura rápida, onde o ícone reforça uma informação (ex: status, alerta, categoria). Não use em blocos extensos de texto." },
+          { kind: "do", attrs: media(si("positive-line", "positive", { size: "small" }), "Pagamento aprovado", "O valor já está disponível."), text: "Use em contextos sintéticos e visuais. O componente funciona melhor em contextos de leitura de relance, onde o ícone reforça uma informação (ex: status, alerta, categoria). Não use em blocos extensos de texto." },
           { kind: "dont", attrs: row([si("edit-line", "neutral", { size: "small" }), si("delete-line", "neutral", { size: "small" })]), text: "Não utilize o componente como elemento interativo. O Shaped Icon é puramente visual. Para ações clicáveis, utilize o componente Button Icon, que possui suporte a interação e acessibilidade." }
         ] }
       ] },

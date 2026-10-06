@@ -20,7 +20,7 @@ CDS.docs = CDS.docs || {};
         { p: "Dialog modal, Overlay dialog, Pop-up" },
         { h3: "Princípios" },
         { cards: [
-          ["Foco e interrupção", "O modal deve ser utilizado apenas quando for necessário interromper o fluxo da pessoa usuária para uma ação ou informação relevante. Seu uso excessivo prejudica a experiência."],
+          ["Foco e interrupção", "O modal deve ser reservado para quando for necessário interromper o fluxo da pessoa usuária para uma ação ou informação relevante. Seu uso excessivo prejudica a experiência."],
           ["Clareza de ação", "Toda interação dentro do modal deve ser clara e objetiva, deixando evidente o que acontecerá ao interagir com os botões disponíveis."],
           ["Hierarquia bem definida", "A estrutura (header, conteúdo e footer) deve guiar a leitura e facilitar a tomada de decisão, evitando sobrecarga cognitiva."]
         ] },
@@ -32,7 +32,7 @@ CDS.docs = CDS.docs || {};
         { ul: ["Apresentar formulários (utilize a Drawer)", "Conteúdos longos ou complexos que exigem rolagem extensa", "Navegação entre múltiplas etapas", "Substituir páginas completas", "Exibir informações não prioritárias"] },
         { h2: "Casos de uso" },
         { h3: "Modal vs Drawer" },
-        { p: "O Modal é uma sobreposição central que bloqueia completamente a interface e exige foco total da pessoa usuária em uma ação ou decisão específica, sendo mais indicado para interações curtas, objetivas e críticas; já o Drawer é um painel lateral que mantém o contexto da tela e suporta conteúdos mais densos e estruturados — como formulários longos, configurações e visualização detalhada — permitindo interações mais complexas sem interromper totalmente o fluxo principal." },
+        { p: "O Modal é uma sobreposição central que bloqueia completamente a interface e exige foco total da pessoa usuária em uma ação ou decisão específica, sendo mais indicado para interações curtas, objetivas e críticas. Já o Drawer é um painel lateral que mantém o contexto da tela e suporta conteúdos mais densos e estruturados — como formulários longos, configurações e exibição detalhada — permitindo interações mais complexas sem interromper totalmente o fluxo principal." },
         { note: "Suporte: canal #castanha-suporte no Slack." }
       ] },
 
@@ -81,20 +81,20 @@ CDS.docs = CDS.docs || {};
         { h2: "Leitor de tela" },
         { ul: [
           "É um `<dialog>` modal: o resto da página fica inerte enquanto o Modal está aberto.",
-          "O título do Header é o nome acessível; sem Header, informe `label`.",
+          "O título do Header é o nome acessível. Sem Header, informe `label`.",
           "O botão de fechar é um Icon Button com rótulo (\"Fechar\")."
         ] },
         { h2: "Teclado e foco" },
-        { ul: ["Ao abrir, o foco entra no Modal e fica preso nele.", "Esc fecha o Modal comum; no Dialog (`dismissible=\"false\"`), só as ações fecham.", "Ao fechar, o foco volta para o elemento que abriu o Modal."] },
+        { ul: ["Ao abrir, o foco entra no Modal e fica preso nele.", "Esc fecha o Modal comum. No Dialog (`dismissible=\"false\"`), as ações são a única forma de fechar.", "Ao fechar, o foco volta para o elemento que abriu o Modal."] },
         { note: "O zeroheight ainda não tem seção de Acessibilidade para o Modal." }
       ] },
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
         { guides: [
-          { attrs: modal("Alterar grupo", TEXT), title: "Mantenha o conteúdo objetivo", text: "Evite textos longos ou múltiplas decisões. O modal deve ser rápido de entender e agir." },
+          { attrs: modal("Alterar grupo", TEXT), title: "Mantenha o conteúdo objetivo", text: "Evite textos longos ou múltiplas decisões. O modal deve permitir entender e agir de imediato." },
           { attrs: modal("Alterar grupo", TEXT), title: "Priorize uma ação principal", text: "Destaque claramente a ação principal no footer e reduza ambiguidade entre opções." },
-          { attrs: modal("Excluir rascunho?", [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Essa ação não pode ser desfeita." }], { "show-close-button": "false" }), title: "Controle o fechamento", text: "Permita fechamento fácil (ícone ou clique fora) em modais comuns, mas restrinja em casos críticos (Dialog)." }
+          { attrs: modal("Excluir rascunho?", [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Essa ação não pode ser desfeita." }], { "show-close-button": "false" }), title: "Controle o fechamento", text: "Permita fechar pelo ícone ou com clique fora em modais comuns, mas restrinja em casos críticos (Dialog)." }
         ] },
         { ul: [
           "Use tamanhos adequados: adapte o conteúdo ao espaço disponível, evitando modais excessivamente grandes ou pequenos.",

@@ -22,14 +22,14 @@
         { p: "Customer Satisfaction Score, Avaliação de satisfação, Rating CSAT" },
         { h3: "Princípios" },
         { cards: [
-          ["Clareza", "A escala deve ser facilmente compreendida, com rótulos textuais que explicitem o significado de cada nível de avaliação."],
+          ["Clareza", "A escala deve ser compreensível de imediato, com rótulos textuais que explicitem o significado de cada nível de avaliação."],
           ["Consistência", "A quantidade de pontos, ícones e estados visuais deve permanecer estável em todos os contextos de uso."],
           ["Simplicidade", "A interação deve exigir o mínimo de esforço cognitivo da pessoa usuária."]
         ] },
         { h2: "Quando usar" },
-        { p: "Use o CSAT Score quando for necessário coletar feedback rápido e quantitativo sobre satisfação após uma ação, fluxo ou experiência específica, como conclusão de tarefas, uso de funcionalidades ou atendimento." },
+        { p: "Use o CSAT Score quando for necessário coletar feedback breve e quantitativo sobre satisfação após uma ação, fluxo ou experiência específica, como conclusão de tarefas, uso de funcionalidades ou atendimento." },
         { h3: "Utilize para:" },
-        { ul: ["Medir satisfação imediata da pessoa usuária.", "Coletar feedback pontual em pesquisas rápidas.", "Comparar percepção de qualidade entre fluxos ou versões"] },
+        { ul: ["Medir satisfação imediata da pessoa usuária.", "Coletar feedback pontual em pesquisas curtas.", "Comparar percepção de qualidade entre fluxos ou versões"] },
         { h3: "Não utilize para:" },
         { ul: ["Avaliações qualitativas profundas.", "Coleta de feedback aberto sem escala.", "Medir esforço ou lealdade (Utilize NPS Score)"] },
         { h2: "Casos de uso" },
@@ -69,9 +69,9 @@
         { h2: "Teclado e leitor de tela" },
         { ul: [
           "É um grupo de radios nativo (`radiogroup`) com nome (`label`): use a própria pergunta como nome.",
-          "`Tab` entra no grupo; as setas trocam a nota.",
+          "`Tab` entra no grupo, e as setas trocam a nota.",
           "Cada opção é anunciada pelo rótulo e pela posição (ex.: \"Bom, 4 de 5\").",
-          "Os rótulos visíveis (Muito ruim … Muito bom) dão o significado de cada nível; as estrelas são decorativas.",
+          "Os rótulos visíveis (Muito ruim … Muito bom) dão o significado de cada nível. As estrelas são decorativas.",
           "Disabled tira o grupo da ordem de foco."
         ] },
         { h2: "Contraste (WCAG)" },
@@ -101,7 +101,7 @@
           { title: "Item: Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
           { title: "Item: Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] }
         ] },
-        { alert: { appearance: "warning", label: "Especificação pendente", text: "A seção Motion do CSAT Score no zeroheight está com o texto modelo e a tabela vazia; a troca de Is Active (estrela preenchendo) não tem Motion Style. No código, o hover usa short/03 + systemic/accelerate (CONFERIR C143)." } }
+        { alert: { appearance: "warning", label: "Especificação pendente", text: "A seção Motion do CSAT Score no zeroheight está com o texto modelo e a tabela vazia. A troca de Is Active (estrela preenchendo) não tem Motion Style. No código, o hover usa short/03 + systemic/accelerate (CONFERIR C143)." } }
       ] }
     ]
   };

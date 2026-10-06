@@ -16,7 +16,7 @@
         { h2: "Sobre" },
         { p: "O .Trailing Item é o elemento à direita dos itens de lista: um controle de seleção (Checkbox, Radio Button ou Switch, sem rótulo visível), um Icon ou uma Tag. Ocupa 48×48 (a Tag, o tamanho dela)." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do Selection List Item e do Content List Item, que monta e controla os itens.", "Fora dele, use o componente completo (Selection List Item e do Content List Item)."] },
+        { ul: ["Peça interna do Selection List Item e do Content List Item, que monta e controla os itens.", "Fora dele, use o componente completo (Selection List Item e do Content List Item)."] },
         { compare: [{ title: "Dentro do Selection List Item e do Content List Item", attrs: { _tag: "cds-selection-list-item", label: "Vale-refeição", description: "Restaurantes e delivery", "lead-icon": "meal-line", "is-active": true } }] }
       ] },
 
@@ -45,13 +45,13 @@
         { h2: "Teclado e leitor de tela" },
         { ul: [
           "Os controles não têm rótulo próprio: o item de lista dá o nome (o Label da linha).",
-          "Icon e Tag são informativos; o significado precisa estar no texto da linha."
+          "Icon e Tag são informativos. O significado precisa estar no texto da linha."
         ] }
       ] },
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
-        { ul: ["Use o mesmo Kind em todos os itens de uma lista (ver Selection List).", "Radio Button só em grupos com o mesmo `name`."] }
+        { ul: ["Use o mesmo Kind em todos os itens de uma lista (ver Selection List).", "Radio Button exclusivamente em grupos com o mesmo `name`."] }
       ] },
 
       { id: "motion", title: "Motion", blocks: [

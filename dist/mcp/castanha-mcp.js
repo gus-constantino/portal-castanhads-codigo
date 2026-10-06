@@ -256,7 +256,7 @@
           return;
         }
         if (it.map) tag("positive", "JSX ao vivo", "Mapa Figma → React curado: o código abaixo acompanha os controles do playground.");
-        else tag("neutral", "Mapa ainda não curado", "Por enquanto só o import, os valores do Code Connect e as props do React.");
+        else tag("neutral", "Mapa ainda não curado", "Por enquanto: o import, os valores do Code Connect e as props do React.");
         tag(it.via === "code-connect" ? "informative" : "neutral", it.via === "code-connect" ? "Casado pelo Code Connect" : "Casado pela story",
           it.via === "code-connect" ? "O node do Figma deste componente está no Code Connect do castanha-react (branch feat/figma-code-connect)." : "Casado pelo node do Figma da story no Storybook (ainda sem Code Connect).");
         if (dir && dir.staging) tag("warning", "Só na staging", "Ainda não chegou na main do castanha-react nem no Storybook publicado.");
@@ -336,7 +336,7 @@
             var codes = function(x){ return x === "—" ? "—" : x.split(" ").map(function(w){ return /^[·+]$/.test(w) ? w : "`" + w + "`"; }).join(" "); };
             return { cells: [r[0], codes(r[1]), codes(r[2]), now], note: r[3] };
           });
-          root.appendChild(acc("Figma → React", "Como cada prop do Figma vira prop no React; \"Agora\" segue os controles", table(["Figma", "Playground", "React", "Agora"], rows)));
+          root.appendChild(acc("Figma → React", "Como cada prop do Figma vira prop no React. \"Agora\" segue os controles", table(["Figma", "Playground", "React", "Agora"], rows)));
         } else if (it.figma && it.figma.length){
           rows = it.figma.map(function(f){
             var m = f.map ? Object.keys(f.map).map(function(k){ return "`" + k + "` → `" + (f.map[k] === "undefined" ? "omitir" : f.map[k]) + "`"; }).join(" · ") : "";

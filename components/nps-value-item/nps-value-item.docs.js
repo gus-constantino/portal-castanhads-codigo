@@ -16,7 +16,7 @@
         { h2: "Sobre" },
         { p: "O .Value Item é cada valor do NPS Score: uma pílula de 24 com o número. Selected marca o valor escolhido (Surface/accent e texto Inversed)." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do NPS Score, que monta e controla os itens.", "Fora dele, use o componente completo (NPS Score)."] },
+        { ul: ["Peça interna do NPS Score, que monta e controla os itens.", "Fora dele, use o componente completo (NPS Score)."] },
         { compare: [{ title: "Dentro do NPS Score", attrs: { _tag: "cds-nps-score", value: "9" } }] }
       ] },
 
@@ -28,7 +28,7 @@
           { name: "State", type: "Variant", default: "Enabled", values: ["Enabled", "Hovered", "Pressed"] },
           { name: "Status", type: "Variant", default: "Unselected", values: ["Unselected", "Selected"] }
         ] },
-        { note: "Props e padrões lidos do set .Value Item da lib estável. No código: `value`, `selected`, `disabled` e `name`; `state` só para exemplos." }
+        { note: "Props e padrões lidos do set .Value Item da lib estável. No código: `value`, `selected`, `disabled` e `name`. O `state` serve exclusivamente para exemplos." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -45,8 +45,8 @@
       { id: "acessibilidade", title: "Acessibilidade", blocks: [
         { h2: "Teclado e leitor de tela" },
         { ul: [
-          "É um `<label>` com um `<input type=\"radio\">` nativo; o NPS Score faz o grupo e o nome (\"9 de 10\").",
-          "O valor escolhido muda de fundo e de cor do texto, não só de cor."
+          "É um `<label>` com um `<input type=\"radio\">` nativo. O NPS Score faz o grupo e o nome (\"9 de 10\").",
+          "O valor escolhido muda de fundo e de cor do texto: a cor não é o único sinal."
         ] }
       ] },
 

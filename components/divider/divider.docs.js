@@ -32,12 +32,12 @@
         { h3: "Utilize para:" },
         { ul: ["Separar itens em listas de navegação, como menus laterais ou lista em dropdown.", "Demarcar o fim de uma seção de conteúdo e o início de outra (quando na orientação horizontal).", "Separar diferentes tipos de informação em um painel ou cartão, como cabeçalhos, corpo e rodapé."] },
         { h3: "Não utilize para:" },
-        { ul: ["Substituir espaçamento (espaço em branco). A separação primária deve ser feita pelo espaço em branco; o Divider é um complemento visual.", "Separar elementos já claramente distintos por layout ou cores de fundo contrastantes.", "Criar divisões que não correspondem a uma mudança lógica ou hierárquica no conteúdo."] },
+        { ul: ["Substituir espaçamento (espaço em branco). A separação primária deve ser feita pelo espaço em branco, e o Divider é um complemento visual.", "Separar elementos já claramente distintos por layout ou cores de fundo contrastantes.", "Criar divisões que não correspondem a uma mudança lógica ou hierárquica no conteúdo."] },
         { h2: "Casos de uso" },
         { h3: "Espaço em branco" },
         { p: "O Espaço em Branco (Whitespace) é uma ferramenta essencial de design de interface, definida pela ausência intencional de conteúdo ou elementos visuais, e atua como o princípio fundamental para estruturar a página, agrupar informações relacionadas (Lei da Proximidade da Gestalt), e fornecer respiro, garantindo a legibilidade, o fluxo visual e a clareza da hierarquia para a pessoa usuária." },
         { h3: "Divider vs Espaço em branco" },
-        { p: "O Espaço em Branco (Whitespace) é a principal e mais sutil ferramenta de design para estabelecer hierarquia, agrupar e separar conteúdo, sendo fundamental para a legibilidade e o fluxo da leitura. Em contraste, o Divider é um elemento visual explícito e secundário, que deve ser usado com moderação, apenas para reforçar uma separação de seções ou quebra de contexto quando o Espaço em Branco, por si só, não é suficiente ou ambíguo. O uso do Divider nunca deve ser uma substituição ou compensação para um espaçamento mal planejado no layout." },
+        { p: "O Espaço em Branco (Whitespace) é a principal e mais sutil ferramenta de design para estabelecer hierarquia, agrupar e separar conteúdo, sendo fundamental para a legibilidade e o fluxo da leitura. Em contraste, o Divider é um elemento visual explícito e secundário, que deve ser usado com moderação, para reforçar uma separação de seções ou quebra de contexto quando o Espaço em Branco, por si só, não é suficiente ou ambíguo. O uso do Divider nunca deve ser uma substituição ou compensação para um espaçamento mal planejado no layout." },
         { compare: [
           { title: "Espaço em branco separa", attrs: stack([block("Dados da empresa", "CNPJ, endereço e contatos"), block("Responsáveis", "Pessoas com acesso ao Portal")]) },
           { title: "Divider reforça uma quebra de seção", attrs: stack([block("Dados da empresa", "CNPJ, endereço e contatos"), dv(), block("Responsáveis", "Pessoas com acesso ao Portal")]) }
@@ -47,8 +47,8 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Construção por Kind" },
-        { table: { wrap: true, head: ["Kind", "Construção", "Cor"], rows: [["Solid", "Barra preenchida, raio pill", "Neutral/Solid/{Intensity} (fill)"], ["Dashed", "Linha com traço 4 · 4, ponta arredondada, 1px; container sem raio", "Border/{Intensity} (stroke)"]] } },
-        { p: "Orientation define o eixo de escala: Horizontal estica na largura; Vertical estica na altura. A espessura permanece fixa em 1px." },
+        { table: { wrap: true, head: ["Kind", "Construção", "Cor"], rows: [["Solid", "Barra preenchida, raio pill", "Neutral/Solid/{Intensity} (fill)"], ["Dashed", "Linha com traço 4 · 4, ponta arredondada, 1px, container sem raio", "Border/{Intensity} (stroke)"]] } },
+        { p: "Orientation define o eixo de escala: Horizontal estica na largura e Vertical estica na altura. A espessura permanece fixa em 1px." },
         { note: "Anotações do set Divider na lib: Solid e Dashed usam tokens diferentes de propósito (não unificar) e o Dashed é desenhado em SVG (`stroke-dasharray=\"4 4\"` + `stroke-linecap=\"round\"`), porque `border-style: dashed` varia entre navegadores." },
         { h2: "Propriedades" },
         { props: [
@@ -80,7 +80,7 @@
         ] },
         { h2: "Contraste (WCAG)" },
         { ul: ["Divisor decorativo é isento de 1.4.11. Soft (1,25:1) e Medium (2,78:1) ficam abaixo de 3:1 por design — não corrigir.", "Se o divisor for o único meio de comunicar separação, usar Intense (8,24:1)."] },
-        { note: "Texto da anotação \"Contraste não é falha aqui\" do set Divider na lib; valores conferidos no tema light do playground." }
+        { note: "Texto da anotação \"Contraste não é falha aqui\" do set Divider na lib. Valores conferidos no tema light do playground." }
       ] },
 
       { id: "diretrizes", title: "Diretrizes", blocks: [

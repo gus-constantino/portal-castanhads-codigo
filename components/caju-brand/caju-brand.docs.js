@@ -23,7 +23,7 @@
         { p: "Logo Caju, Marca Caju, Identidade visual, Brand." },
         { h3: "Princípios" },
         { cards: [
-          ["Consistência visual", "O Caju Brand deve sempre reforçar a identidade da empresa de forma uniforme, utilizando apenas as variantes e tokens definidos no design system."],
+          ["Consistência visual", "O Caju Brand deve sempre reforçar a identidade da empresa de forma uniforme, utilizando exclusivamente as variantes e tokens definidos no design system."],
           ["Legibilidade e contraste", "A aplicação da marca deve priorizar a clareza, escolhendo a variante correta para garantir contraste adequado em qualquer fundo ou contexto."],
           ["Uso institucional", "O componente existe para representar a marca de forma oficial dentro dos fluxos. Ele não deve ser usado como elemento decorativo ou fora do contexto institucional."]
         ] },
@@ -35,7 +35,7 @@
         { ul: ["Representar conteúdos de usuários ou terceiros.", "Criar novas variações da marca que não existam no design system.", "Usar como ícone decorativo sem relação institucional.", "Aplicar em contextos informais ou fora do ecossistema de produtos oficiais."] },
         { h2: "Casos de uso" },
         { h3: "Caju Brand vs Ilustrações" },
-        { p: "As ilustrações são elementos gráficos criativas e até estilizadas para transmitir mensagens visuais ou apoiar narrativas da interface. Já o Caju Brand segue regras rígidas: proporção, cor e forma não podem ser alteradas. Use ilustrações quando quiser apoiar storytelling ou humanizar a comunicação. Use o Caju Brand apenas quando a identidade institucional da Caju precisa estar explícita." },
+        { p: "As ilustrações são elementos gráficos criativas e até estilizadas para transmitir mensagens visuais ou apoiar narrativas da interface. Já o Caju Brand segue regras rígidas: proporção, cor e forma não podem ser alteradas. Use ilustrações quando quiser apoiar storytelling ou humanizar a comunicação. Reserve o Caju Brand para quando a identidade institucional da Caju precisa estar explícita." },
         { compare: [
           { title: "Caju Brand: identidade institucional", attrs: cb("default") },
           { title: "Ilustração: storytelling", attrs: { _tag: "img", src: "assets/illustrations/comunicacao/perguntas-frequentes.svg", alt: "", class: "pg-doc-illus" } }
@@ -51,7 +51,7 @@
           { name: "Kind", type: "Variant", default: "Default", values: ["Default", "Inversed", "Full Red", "Full White", "Full Black"] },
           { name: "Show Typography", type: "Boolean", default: "true" }
         ] },
-        { note: "Props e padrões lidos do set Caju Brand da lib estável. O zeroheight ainda não tem a tab Style deste componente. Tamanho fixo: 69×28 com a tipografia e 18×28 só com o símbolo. As cores são da marca (vêm do SVG do Figma), não tokens. No código, `label` muda o nome acessível (padrão \"Caju\")." }
+        { note: "Props e padrões lidos do set Caju Brand da lib estável. O zeroheight ainda não tem a tab Style deste componente. Tamanho fixo: 69×28 com a tipografia e 18×28 com o símbolo sozinho. As cores são da marca (vêm do SVG do Figma), não tokens. No código, `label` muda o nome acessível (padrão \"Caju\")." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -77,7 +77,7 @@
           "Se a marca já aparece em texto ao lado, o nome repetido é dispensável."
         ] },
         { h2: "Contraste (WCAG)" },
-        { ul: ["Default: tipografia (vermelho da marca) sobre Surface/default 4,54:1; no símbolo, folha 1,41:1 e caju 2,65:1.", "Inversed: tipografia branca sobre Surface/accent 4,66:1.", "Full White sobre Surface/inversed 17,40:1 · Full Black sobre Surface/default 20,47:1.", "Logotipos são isentos dos critérios de contraste (1.4.3 e 1.4.11); ainda assim, use a variante indicada para cada fundo nas Diretrizes."] },
+        { ul: ["Default: tipografia (vermelho da marca) sobre Surface/default 4,54:1. No símbolo, folha 1,41:1 e caju 2,65:1.", "Inversed: tipografia branca sobre Surface/accent 4,66:1.", "Full White sobre Surface/inversed 17,40:1 · Full Black sobre Surface/default 20,47:1.", "Logotipos são isentos dos critérios de contraste (1.4.3 e 1.4.11). Ainda assim, use a variante indicada para cada fundo nas Diretrizes."] },
         { note: "Contrastes medidos no tema light do playground. O zeroheight ainda não tem seção de Acessibilidade para o Caju Brand." }
       ] },
 
@@ -87,16 +87,16 @@
           { attrs: cb("default"), title: "Default", text: "Use a variante Default em fundos claros e neutros, garantindo contraste e legibilidade. Ideal para a maioria dos cenários institucionais." },
           { attrs: row([on("pg-doc-on-accent", [cb("inversed")]), on("pg-doc-on-inversed", [cb("inversed")])]), title: "Inversed", text: "Use a variante Inversed sobre fundos Accent e Inversed, assegurando contraste adequado e consistência visual em contextos não neutros." },
           { attrs: cb("full-red"), title: "Full red", text: "Utilize em fundos brancos ou claros, principalmente em momentos de ênfase institucional em ambientes monocromáticos. Evite em fundos coloridos ou texturizados." },
-          { attrs: on("pg-doc-on-inversed", [cb("full-white")]), title: "Full white", text: "Use em fundos escuros ou coloridos quando apenas versões monocromáticas forem permitidas. Mantém a legibilidade sem comprometer a identidade." },
+          { attrs: on("pg-doc-on-inversed", [cb("full-white")]), title: "Full white", text: "Use em fundos escuros ou coloridos quando as versões monocromáticas forem as únicas permitidas. Mantém a legibilidade sem comprometer a identidade." },
           { attrs: cb("full-black"), title: "Full black", text: "Aplique em fundos claros quando for necessário manter neutralidade visual ou em contextos impressos que não suportem cor." }
         ] },
         { h2: "Do's and Don'ts" },
         { dodont: [
-          { kind: "do", attrs: cb("default"), text: "Use o Caju Brand apenas em contextos institucionais, como login, onboarding, menus ou rodapé, reforçando a identidade oficial." },
+          { kind: "do", attrs: cb("default"), text: "Reserve o Caju Brand para contextos institucionais, como login, onboarding, menus ou rodapé, reforçando a identidade oficial." },
           { kind: "dont", attrs: row([cb("default", { "show-typography": false }), cb("full-red", { "show-typography": false }), cb("full-black", { "show-typography": false })]), text: "Não utilize o Caju Brand como elemento decorativo em ilustrações, componente visual ou fundos sem função institucional." },
           { kind: "do", attrs: cb("default"), text: "Mantenha o tamanho e proporções originais do Caju Brand, respeitando o espaço mínimo pré definido no Design System." },
           { kind: "dont", attrs: { _tag: "div", class: "pg-doc-row", _children: [cb("default", { class: "pg-doc-brand-stretch" })] }, text: "Não redimensione manualmente o componente — o uso deve respeitar os tamanhos disponíveis." },
-          { kind: "do", attrs: row([cb("default"), cb("full-red"), cb("full-black")]), text: "Utilize apenas as variantes disponíveis no design system (Default, Inversed, Full Red, Full White, Full Black)." },
+          { kind: "do", attrs: row([cb("default"), cb("full-red"), cb("full-black")]), text: "Utilize exclusivamente as variantes disponíveis no design system (Default, Inversed, Full Red, Full White, Full Black)." },
           { kind: "dont", attrs: cb("default", { class: "pg-doc-brand-recolor" }), text: "Não aplique cores que não fazem parte das variantes oficiais." }
         ] }
       ] },

@@ -49,7 +49,7 @@
           ] },
           { title: "Ícones, ilustrações e motion", icon: "image-file", appearance: "warning", items: [
             ["Falta um ícone. Como peço?", "Pelo formulário de suporte. O time cria o ícone na lib de ícones do Figma e publica no pacote. Para ícones legados, a lib estável indica o equivalente.", 18],
-            ["Preciso de uma ilustração ou de um motion para o meu fluxo", "Peça pelo formulário de suporte, com o contexto e o prazo. O que serve a várias squads vai para a biblioteca. O que é de um fluxo só fica com a squad, como Local asset.", 45],
+            ["Preciso de uma ilustração ou de um motion para o meu fluxo", "Peça pelo formulário de suporte, com o contexto e o prazo. O que serve a várias squads vai para a biblioteca. O que é de um único fluxo fica com a squad, como Local asset.", 45],
             ["Quais durações e curvas de motion uso?", "As dos Motion Styles por interação (Hover In, Pressed, Selected In e os outros), sempre o estilo `/01`. Não escreva duração nem easing à mão.", 2],
             ["Por que o protótipo do Figma não usa o token de motion?", "O Figma não liga uma transição de protótipo a uma variável. Os valores dos Motion Styles são repetidos no protótipo, e o código usa os tokens.", 1]
           ] },

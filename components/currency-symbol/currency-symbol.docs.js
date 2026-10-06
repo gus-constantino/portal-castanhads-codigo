@@ -14,9 +14,9 @@
       { id: "uso", title: "Uso", blocks: [
         { alert: { appearance: "warning", label: "Rascunho", text: "Building block sem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
         { h2: "Sobre" },
-        { p: "O .Currency Symbol é o símbolo da moeda (R$, US$, €…) que acompanha os valores na .Data Cell da Table. O set tem 20 moedas; o padrão é Brazil Real." },
+        { p: "O .Currency Symbol é o símbolo da moeda (R$, US$, €…) que acompanha os valores na .Data Cell da Table. O set tem 20 moedas. O padrão é Brazil Real." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do Table (.Data Cell), que monta e controla os itens.", "Fora dele, use o componente completo (Table (.Data Cell))."] },
+        { ul: ["Peça interna do Table (.Data Cell), que monta e controla os itens.", "Fora dele, use o componente completo (Table (.Data Cell))."] },
         { compare: [{ title: "Dentro do Table (.Data Cell)", attrs: { _tag: "cds-table" } }] }
       ] },
 

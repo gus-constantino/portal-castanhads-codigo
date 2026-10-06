@@ -32,7 +32,7 @@ CDS.docs["quantity-input"] = {
       { h3: "Utilize para:" },
       { ul: ["Quantidade de itens em uma solicitação", "Número de dias, parcelas ou ciclos", "Nível de zoom ou escala", "Ajustes finos em torno de um valor padrão"] },
       { h3: "Não utilize para:" },
-      { ul: ["Seleção entre opções pré-definidas (use Select input)", "Saltos grandes dentro de faixas amplas (use Text input)", "Valores apenas de leitura (use Currency)", "Entrada de texto ou códigos (use Text input ou Code input)"] },
+      { ul: ["Seleção entre opções pré-definidas (use Select input)", "Saltos grandes dentro de faixas amplas (use Text input)", "Valores de leitura, sem edição (use Currency)", "Entrada de texto ou códigos (use Text input ou Code input)"] },
       { h3: "Text input vs Quantity Input" },
       { p: "Use o Quantity Input quando o valor varia em passos previsíveis e a pessoa usuária ajusta poucas unidades por vez — especialmente quando acompanhar o valor durante o ajuste faz parte da tarefa. O Text input é indicado para valores numéricos sem faixa definida ou com variação ampla, desde que digitar seja o caminho natural de preenchimento." },
       { compare: [
@@ -125,7 +125,7 @@ CDS.docs["quantity-input"] = {
         { kind: "do", attrs: { label: "Dias de antecedência", value: "15", "show-required": false, supporting: "Entre 10 e 30 dias" },
           text: "Informe o mínimo e o máximo na mensagem de apoio." },
         { kind: "dont", attrs: { label: "Dias de antecedência", value: "15", "show-required": false, "show-supporting-content": false },
-          text: "Não deixe a pessoa usuária descobrir o limite só quando o valor é corrigido sozinho." }
+          text: "Não espere a correção automática do valor para a pessoa usuária descobrir o limite." }
       ] },
       { h3: "Escolha do componente" },
       { dodont: [

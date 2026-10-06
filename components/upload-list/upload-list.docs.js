@@ -16,7 +16,7 @@
       { id: "uso", title: "Uso", blocks: [
         { alert: { appearance: "informative", label: "Sem página própria", text: "O Upload List não tem página no zeroheight. O texto abaixo é o da seção \"Upload Item e Upload List\" da página do Upload Item." } },
         { h2: "Sobre" },
-        { p: "O Upload Item representa um arquivo. Quando o fluxo aceita mais de um, os itens são agrupados no Upload List, que é um Auto Layout vertical com espaçamento fixo e um slot que só aceita Upload Item. O List existe para garantir ordem e espaçamento consistentes entre os arquivos, sem acrescentar conteúdo próprio: nome, estado e ações continuam sendo do item. Com um arquivo só, o Upload Item pode ser usado direto, sem a lista." },
+        { p: "O Upload Item representa um arquivo. Quando o fluxo aceita mais de um, os itens são agrupados no Upload List, que é um Auto Layout vertical com espaçamento fixo e um slot que aceita exclusivamente Upload Item. O List existe para garantir ordem e espaçamento consistentes entre os arquivos, sem acrescentar conteúdo próprio: nome, estado e ações continuam sendo do item. Com um único arquivo, o Upload Item pode ser usado direto, sem a lista." },
         { h2: "Quando usar" },
         { ul: ["Exibir arquivos já enviados (no Dropzone: \"Não utilize para: Exibir arquivos já enviados (utilize o Upload List)\").", "Agrupar os arquivos adicionados por um Dropzone que aceita mais de um arquivo."] },
         { compare: [
@@ -31,7 +31,7 @@
         { props: [
           { name: "Upload itens", type: "Slot", default: "—" }
         ] },
-        { note: "Prop lida do componente Upload List da lib estável: um slot que só aceita Upload Item. No código: filhos `<cds-upload-item>` (sem filhos, mostra a amostra do Figma) e `label` (nome da lista, padrão \"Arquivos\")." }
+        { note: "Prop lida do componente Upload List da lib estável: um slot que aceita exclusivamente Upload Item. No código: filhos `<cds-upload-item>` (sem filhos, mostra a amostra do Figma) e `label` (nome da lista, padrão \"Arquivos\")." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -43,19 +43,19 @@
         { h2: "Leitor de tela" },
         { ul: [
           "É uma lista com nome (`label`): o leitor de tela anuncia quantos arquivos há.",
-          "Cada item anuncia o próprio estado; a lista não acrescenta conteúdo.",
+          "Cada item anuncia o próprio estado. A lista não acrescenta conteúdo.",
           "Ao remover um item, mova o foco para o item seguinte (ou para o Dropzone, se a lista ficar vazia)."
         ] }
       ] },
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
-        { ul: ["Use logo abaixo do Dropzone que originou os arquivos.", "Só Upload Items dentro da lista.", "Com um arquivo só, use o Upload Item direto, sem a lista."] }
+        { ul: ["Use logo abaixo do Dropzone que originou os arquivos.", "Exclusivamente Upload Items dentro da lista.", "Com um único arquivo, use o Upload Item direto, sem a lista."] }
       ] },
 
       { id: "motion", title: "Motion", blocks: [
         { h2: "Motion" },
-        { p: "A lista é estática; a entrada e a saída de itens não têm Motion especificado." },
+        { p: "A lista é estática. A entrada e a saída de itens não têm Motion especificado." },
         { alert: { appearance: "warning", label: "Especificação pendente", text: "Sem especificação de Motion para itens entrando ou saindo da lista (CONFERIR C140)." } }
       ] }
     ]

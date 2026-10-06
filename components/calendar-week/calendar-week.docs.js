@@ -16,7 +16,7 @@
         { h2: "Sobre" },
         { p: "O .Week é uma linha do calendário com 7 .Day (280 × 40, raio small). No Date Picker cada semana é uma linha da grade." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do Date Picker, que monta e controla os itens.", "Fora dele, use o componente completo (Date Picker)."] },
+        { ul: ["Peça interna do Date Picker, que monta e controla os itens.", "Fora dele, use o componente completo (Date Picker)."] },
         { compare: [{ title: "Dentro do Date Picker", attrs: { _tag: "cds-date-picker", today: "2026-01-20", month: "2026-01", start: "2026-01-13", end: "2026-01-24" } }] }
       ] },
 
@@ -27,7 +27,7 @@
         { props: [
           { name: "—", type: "Componente", default: "7 .Day" }
         ] },
-        { note: "O .Week não tem props na lib estável (17465:280). No código, sem filhos, mostra a amostra do Figma (7 dias \"30\"); no Date Picker, recebe os dias do mês." }
+        { note: "O .Week não tem props na lib estável (17465:280). No código, sem filhos, mostra a amostra do Figma (7 dias \"30\"). No Date Picker, recebe os dias do mês." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -46,12 +46,12 @@
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
-        { ul: ["Use dentro do Date Picker; sozinho, só como amostra."] }
+        { ul: ["Use dentro do Date Picker. Sozinho, serve exclusivamente como amostra."] }
       ] },
 
       { id: "motion", title: "Motion", blocks: [
         { h2: "Motion" },
-        { p: "O .Week é estático; os dias seguem o .Day." }
+        { p: "O .Week é estático. Os dias seguem o .Day." }
       ] }
     ]
   };

@@ -16,7 +16,7 @@
         { h2: "Sobre" },
         { p: "O .CSAT Item é cada nível do CSAT Score: um item de 48 com a estrela (rate-line inativa, rate-filled ativa) e o rótulo embaixo. Is Active marca os níveis até a nota escolhida." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do CSAT Score, que monta e controla os itens.", "Fora dele, use o componente completo (CSAT Score)."] },
+        { ul: ["Peça interna do CSAT Score, que monta e controla os itens.", "Fora dele, use o componente completo (CSAT Score)."] },
         { compare: [{ title: "Dentro do CSAT Score", attrs: { _tag: "cds-csat-score", value: "4" } }] }
       ] },
 
@@ -30,7 +30,7 @@
           { name: "Label Content", type: "Text", default: "Label" },
           { name: "Show Label Content", type: "Boolean", default: "true" }
         ] },
-        { note: "Props e padrões lidos do set .CSAT Item da lib estável. No código: `label`, `show-label-content`, `active` (Is Active), `selected`, `value`, `name` e `disabled`; `state` só para exemplos." }
+        { note: "Props e padrões lidos do set .CSAT Item da lib estável. No código: `label`, `show-label-content`, `active` (Is Active), `selected`, `value`, `name` e `disabled`. `state` é exclusivo dos exemplos." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -47,7 +47,7 @@
       { id: "acessibilidade", title: "Acessibilidade", blocks: [
         { h2: "Teclado e leitor de tela" },
         { ul: [
-          "É um `<label>` com um `<input type=\"radio\">` nativo; o CSAT Score faz o grupo e o nome (\"Bom, 4 de 5\").",
+          "É um `<label>` com um `<input type=\"radio\">` nativo. O CSAT Score faz o grupo e o nome (\"Bom, 4 de 5\").",
           "Sem o rótulo visível, o rótulo continua como nome acessível.",
           "A estrela é decorativa."
         ] }

@@ -9,13 +9,13 @@
     tag: "cds-modal-date-picker",
     base: { inline: true, viewport: "desktop", today: "2026-01-20", month: "2026-01", "role-kind": "range", start: "2026-01-13", end: "2026-01-24" },
     source: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=17560-51555", sourceLabel: "Abrir o Modal Date Picker no Figma",
-    cover: { description: "Calendário num Modal, com Cancelar e Confirmar: a data só vale depois de confirmada.", tall: true, examples: [ {} ] },
+    cover: { description: "Calendário num Modal, com Cancelar e Confirmar: a data vale depois de confirmada.", tall: true, examples: [ {} ] },
     tabs: [
       { id: "uso", title: "Uso", blocks: [
         { alert: { appearance: "warning", label: "Rascunho", text: "O Modal Date Picker ainda não tem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
         { h2: "Sobre" },
-        { p: "O Modal Date Picker é um Modal com o Date Picker dentro: título \"Selecione uma data\", o calendário e o rodapé com Cancelar e Confirmar. A data só é aplicada no Confirmar; Cancelar, Esc e o Backdrop descartam a escolha." },
-        { p: "É só para desktop: em mobile e tablet, o componente é coberto pelo Viewport Restriction, como no Figma." },
+        { p: "O Modal Date Picker é um Modal com o Date Picker dentro: título \"Selecione uma data\", o calendário e o rodapé com Cancelar e Confirmar. A data é aplicada no Confirmar. Cancelar, Esc e o Backdrop descartam a escolha." },
+        { p: "É exclusivo para desktop: em mobile e tablet, o componente é coberto pelo Viewport Restriction, como no Figma." },
         { h2: "Quando usar" },
         { h3: "Utilize para:" },
         { ul: ["Escolher uma data ou intervalo que muda algo importante e precisa de confirmação (ex.: período de um relatório).", "Filtros de data em telas do Portal (desktop)."] },
@@ -31,7 +31,7 @@
           { name: "Kind", type: "Variant", default: "Single Calendar", values: ["Single Calendar", "Double Calendar"] },
           { name: "Role", type: "Variant", default: "None Selected", values: ["None Selected", "Single Date Select", "Range Date Select"] }
         ] },
-        { note: "Props e padrões lidos do set Modal Date Picker da lib estável. No código: `open`, `inline` (exemplo no fluxo), `kind`, `role-kind` (none|single|range), `value`/`start`/`end`, `min`, `max`, `today`, `month`, `viewport`, `text-title`, `primary-label` e `secondary-label`; métodos `show()` e `close()`. Eventos `cds-change` (no Confirmar) e `cds-close`." }
+        { note: "Props e padrões lidos do set Modal Date Picker da lib estável. No código: `open`, `inline` (exemplo no fluxo), `kind`, `role-kind` (none|single|range), `value`/`start`/`end`, `min`, `max`, `today`, `month`, `viewport`, `text-title`, `primary-label` e `secondary-label`. Métodos `show()` e `close()`. Eventos `cds-change` (no Confirmar) e `cds-close`." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -49,7 +49,7 @@
           "É um Modal (`<dialog>`): o foco fica preso dentro dele, `Esc` fecha (descartando) e o foco volta para quem abriu.",
           "O título \"Selecione uma data\" é o nome do diálogo.",
           "O calendário segue o teclado do Date Picker (grade, setas, PageUp/PageDown).",
-          "Confirmar e Cancelar são Main Buttons; a data só muda no Confirmar."
+          "Confirmar e Cancelar são Main Buttons. A data muda no Confirmar, e não antes."
         ] }
       ] },
 

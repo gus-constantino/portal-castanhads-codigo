@@ -15,18 +15,18 @@
     cover: { description: "Calendário para escolher uma data ou um intervalo de datas, com navegação por mês e ano.", examples: [ {} ] },
     tabs: [
       { id: "uso", title: "Uso", blocks: [
-        { alert: { appearance: "warning", label: "Rascunho", text: "O Datepicker ainda não tem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time; as regras de datas são do Conteúdo." } },
+        { alert: { appearance: "warning", label: "Rascunho", text: "O Datepicker ainda não tem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time. As regras de datas são do Conteúdo." } },
         { h2: "Sobre" },
         { p: "O Date Picker é o calendário do Castanha: mostra os dias de um mês (ou de dois, no Double Calendar), permite escolher uma data ou um intervalo e navegar por mês e ano. Embaixo, mostra a data selecionada por extenso." },
-        { p: "Ele aparece dentro do Date Input (num Popover) e do Modal Date Picker; sozinho, serve para calendários fixos na tela." },
+        { p: "Ele aparece dentro do Date Input (num Popover) e do Modal Date Picker. Sozinho, serve para calendários fixos na tela." },
         { h2: "Quando usar" },
         { h3: "Utilize para:" },
         { ul: ["Escolher uma data em que o dia da semana ou a proximidade com hoje importa (agendamento, vencimento).", "Escolher um intervalo (início e fim), como o período de um relatório ou extrato.", "Ver disponibilidade num calendário fixo na tela."] },
         { h3: "Não utilize para:" },
-        { ul: ["Datas conhecidas e distantes, como data de nascimento — prefira digitar no Date Input.", "Só mês e ano (validade de cartão) — use campos próprios.", "Horários — o Date Picker não escolhe hora."] },
+        { ul: ["Datas conhecidas e distantes, como data de nascimento — prefira digitar no Date Input.", "Mês e ano sem o dia (validade de cartão) — use campos próprios.", "Horários — o Date Picker não escolhe hora."] },
         { h2: "Casos de uso" },
         { h3: "Date Picker, Date Input e Modal Date Picker" },
-        { table: { wrap: true, head: ["Componente", "Quando"], rows: [["Date Input", "Campo de formulário: digitar a data ou abrir o calendário num Popover."], ["Modal Date Picker", "Escolha que precisa de confirmação (Cancelar · Confirmar), só no desktop."], ["Date Picker", "Calendário fixo na tela, ou dentro dos dois acima."]] } }
+        { table: { wrap: true, head: ["Componente", "Quando"], rows: [["Date Input", "Campo de formulário: digitar a data ou abrir o calendário num Popover."], ["Modal Date Picker", "Escolha que precisa de confirmação (Cancelar · Confirmar), exclusivamente no desktop."], ["Date Picker", "Calendário fixo na tela, ou dentro dos dois acima."]] } }
       ] },
 
       { id: "anatomia", title: "Anatomia", blocks: [
@@ -65,14 +65,14 @@
       { id: "acessibilidade", title: "Acessibilidade", blocks: [
         { h2: "Teclado e leitor de tela" },
         { ul: [
-          "Cada mês é uma grade (`role=\"grid\"`) com o nome do mês e do ano; os dias da semana são cabeçalhos de coluna com o nome completo.",
-          "Cada dia é um botão com a data por extenso e `aria-selected`; o dia de hoje tem `aria-current=\"date\"`.",
+          "Cada mês é uma grade (`role=\"grid\"`) com o nome do mês e do ano. Os dias da semana são cabeçalhos de coluna com o nome completo.",
+          "Cada dia é um botão com a data por extenso e `aria-selected`. O dia de hoje tem `aria-current=\"date\"`.",
           "A Data Selecionada fica numa região viva: a escolha é anunciada sem tirar o foco.",
           "Datas fora de `min`/`max` ficam desabilitadas."
         ] },
         { table: { head: ["Tecla", "Ação"], rows: [["`←` `→`", "Dia anterior / próximo"], ["`↑` `↓`", "Semana anterior / próxima"], ["`Home` / `End`", "Início / fim da semana"], ["`PageUp` / `PageDown`", "Mês anterior / próximo (com `Shift`: ano)"], ["`Enter` / `Espaço`", "Seleciona o dia"]] } },
         { h2: "Contraste (WCAG)" },
-        { ul: ["Dia (Text/medium) 8,24:1 · dias da semana 8,24:1 sobre Surface/default — AA e AAA.", "Dia selecionado (início e fim): número 4,54:1 sobre Surface/accent — AA; dias do meio do intervalo: 15,27:1 sobre Surface/01.", "Ponto do dia atual (Surface/accent) 4,54:1 — acima de 3:1."] },
+        { ul: ["Dia (Text/medium) 8,24:1 · dias da semana 8,24:1 sobre Surface/default — AA e AAA.", "Dia selecionado (início e fim): número 4,54:1 sobre Surface/accent — AA. Dias do meio do intervalo: 15,27:1 sobre Surface/01.", "Ponto do dia atual (Surface/accent) 4,54:1 — acima de 3:1."] },
         { note: "Contrastes medidos no tema light do playground." }
       ] },
 

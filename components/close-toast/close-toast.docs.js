@@ -17,7 +17,7 @@
         { h2: "Sobre" },
         { p: "O .Close Toast é o botão de fechar usado dentro do Toast. É um building block: aparece quando o Toast está com Show Trailing Item ligado e não deve ser usado sozinho." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do Toast, controlado pela prop Show Trailing Item.", "Para fechar outros componentes, use o Icon Button com o ícone close-line."] },
+        { ul: ["Peça interna do Toast, controlada pela prop Show Trailing Item.", "Para fechar outros componentes, use o Icon Button com o ícone close-line."] },
         { compare: [{ title: "Dentro do Toast", attrs: { _tag: "cds-toast", text: "Perfil atualizado", viewport: "desktop" } }] }
       ] },
 
@@ -26,7 +26,7 @@
         { anatomy: { attrs: wrap({}), markers: [{ n: 1, target: ".cds-close", side: "left" }, { n: 2, target: "cds-icon, .cds-icon", side: "right" }], legend: ["Container 40×40 (raio small)", "Icon close-line (20)"] } },
         { h2: "Propriedades" },
         { props: [{ name: "State", type: "Variant", default: "Enabled", values: ["Enabled", "Hovered", "Pressed", "Disabled"] }] },
-        { note: "Props e padrões lidos do set .Close Toast da lib estável. No código, o State vem da interação e do atributo `disabled`; `state=\"hovered|pressed\"` só existe para mostrar o estado em exemplos; `label` é o nome acessível." }
+        { note: "Props e padrões lidos do set .Close Toast da lib estável. No código, o State vem da interação e do atributo `disabled`. O `state=\"hovered|pressed\"` existe exclusivamente para mostrar o estado em exemplos, e `label` é o nome acessível." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -34,14 +34,14 @@
         { specimens: { min: "var(--common-sizes-120)", items: [
           { label: "Enabled", attrs: wrap({}) }, { label: "Hovered", attrs: wrap({ state: "hovered" }) }, { label: "Pressed", attrs: wrap({ state: "pressed" }) }, { label: "Disabled", attrs: wrap({ disabled: true }) }
         ] } },
-        { note: "Feito para a superfície Surface/inversed do Toast: ícone Neutral/Solid/soft; Hovered e Pressed ganham fundo Neutral/Opacity/Soft; Disabled usa Opacity/light." }
+        { note: "Feito para a superfície Surface/inversed do Toast: ícone Neutral/Solid/soft. Hovered e Pressed ganham fundo Neutral/Opacity/Soft, e Disabled usa Opacity/light." }
       ] },
 
       { id: "acessibilidade", title: "Acessibilidade", blocks: [
         { h2: "Teclado e leitor de tela" },
         { ul: [
           "É um `<button>` nativo: recebe foco com `Tab` e fecha com `Enter` ou `Espaço`.",
-          "O nome acessível vem de `label` (padrão \"Fechar\"); o Toast passa `close-label`.",
+          "O nome acessível vem de `label` (padrão \"Fechar\"). O Toast passa `close-label`.",
           "Área de toque de 40×40.",
           "Disabled usa o `disabled` nativo: sai da ordem de foco."
         ] },

@@ -14,7 +14,7 @@ CDS.docs = CDS.docs || {};
     cover: { description: "Popover é um pequeno overlay contextual que aparece quando o usuário interage com um elemento da interface. Ele permite exibir conteúdos adicionais, ações ou informações complementares de forma leve, sem interromper o fluxo principal da experiência.", examples: [pop()] },
     tabs: [
       { id: "uso", title: "Uso", blocks: [
-        { alert: { appearance: "informative", label: "Web only", text: "O Popover é um componente web only, ou seja, utilizado apenas em experiencias web." } },
+        { alert: { appearance: "informative", label: "Web only", text: "O Popover é um componente web only, ou seja, utilizado exclusivamente em experiências web." } },
         { h2: "Sobre" },
         { p: "Popover é um pequeno overlay contextual que aparece quando o usuário interage com um elemento da interface. Ele permite exibir conteúdos adicionais, ações ou informações complementares de forma leve, sem interromper o fluxo principal da experiência." },
         { h3: "Nomes alternativos comuns" },
@@ -22,15 +22,15 @@ CDS.docs = CDS.docs || {};
         { h3: "Princípios" },
         { cards: [
           ["Contextualidade", "Deve aparecer sempre em relação direta a um elemento disparador."],
-          ["Clareza", "O conteúdo precisa ser fácil de entender e diretamente útil."],
+          ["Clareza", "O conteúdo precisa ser claro e diretamente útil."],
           ["Leveza", "Deve ser usado para interações breves, sem interromper o fluxo do usuário."]
         ] },
         { h2: "Quando usar" },
-        { p: "Use o Popover para apresentar informações ou ações diretamente relacionadas a um elemento, permitindo interações rápidas e contextuais. Ele deve sempre ser acionado por um componente que o dispare e desaparecer quando o foco for perdido." },
+        { p: "Use o Popover para apresentar informações ou ações diretamente relacionadas a um elemento, permitindo interações pontuais e contextuais. Ele deve sempre ser acionado por um componente que o dispare e desaparecer quando o foco for perdido." },
         { h3: "Utilize para:" },
         { ul: ["Exibir opções ou ações relacionadas a um elemento interativo.", "Mostrar conteúdos complementares de forma temporária.", "Disponibilizar pequenos blocos de interação sem abrir novas janelas.", "Organizar elementos de escolha ou seleção em contexto."] },
         { h3: "Não utilize para:" },
-        { ul: ["Mostrar dicas ou explicações simples (use Tooltip).", "Exibir informações persistentes que exigem confirmação (use Modal).", "Apresentar conteúdos extensos ou fluxos complexos.", "Exibir mensagens informativas não relacionadas a um trigger."] },
+        { ul: ["Mostrar dicas ou explicações curtas (use Tooltip).", "Exibir informações persistentes que exigem confirmação (use Modal).", "Apresentar conteúdos extensos ou fluxos complexos.", "Exibir mensagens informativas não relacionadas a um trigger."] },
         { h2: "Casos de uso" },
         { h3: "Popover vs Tooltip" },
         { p: "Enquanto o Tooltip serve para apresentar pequenas dicas textuais passivas (geralmente no hover), o Popover é interativo e permite inserir qualquer tipo de conteúdo (botões, textos, formulários) via slot." },
@@ -50,7 +50,7 @@ CDS.docs = CDS.docs || {};
         { p: "Container com Surface/default, raio large, Elevation/level 3 e padding 8. O conteúdo é o Slot. Como menu de ações, use o List do DS (ex.: Content List Item), como no Drop Button." },
         { h2: "Propriedades" },
         { props: [{ name: "Slot", type: "Slot" }] },
-        { note: "Na lib, o Popover só tem o Slot. No código: `for` (id do gatilho), `placement` (bottom-start, bottom-end, bottom, top), `label` e os métodos `show()`, `hide()` e `toggle()`." }
+        { note: "Na lib, o Slot é a única prop do Popover. No código: `for` (id do gatilho), `placement` (bottom-start, bottom-end, bottom, top), `label` e os métodos `show()`, `hide()` e `toggle()`." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -63,7 +63,7 @@ CDS.docs = CDS.docs || {};
         { h2: "Leitor de tela" },
         { ul: [
           "O painel tem nome acessível via `label` (ex.: \"Mais ações\").",
-          "O gatilho anuncia o estado aberto ou fechado (`aria-expanded`); com Drop Button, o chevron acompanha.",
+          "O gatilho anuncia o estado aberto ou fechado (`aria-expanded`). Com Drop Button, o chevron acompanha.",
           "O conteúdo do Slot mantém a semântica dos componentes usados (lista, botões, links)."
         ] },
         { h2: "Teclado e foco" },

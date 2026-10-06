@@ -91,7 +91,7 @@
           "Biblioteca React mais leve: num exemplo, o bundle caiu de 500 KB para menos de 15 KB.",
           "Novas bibliotecas: castanha-illustrations (assets de ilustração) e motion (assets e um componente de animação).",
           "Extensões: castanha-castoken, plugin do Figma que leva as variáveis para o GitHub, e castanha-intellisense, autocomplete e realce de tokens no editor (com conversão para Dart).",
-          "Storybook 2.0: além dos componentes, documenta plugins, tokens, get started e as novas bibliotecas; tem abas de código e design, com link para o Figma.",
+          "Storybook 2.0: além dos componentes, documenta plugins, tokens, get started e as novas bibliotecas, com abas de código e design, com link para o Figma.",
           "Prompts de migração com IA para os componentes que mudaram de API."
         ] }
       ] },
@@ -106,7 +106,7 @@
         { p: "Sim. Dois pacotes evitam breaking changes: o antigo segue com suporte e atualizações, e as novidades entram no novo. A migração é gradual, feita pelas squads com ajuda das ferramentas de migração." },
         { h3: "Onde tirar dúvidas e acompanhar novidades?" },
         { p: "No canal Castanha Suporte, para dúvidas, e no Castanha Novidades, para as atualizações." },
-        { note: "Hoje: o playground espelha 105 componentes do Figma, e 70 deles já têm par no castanha-react (staging); veja a seção \"No React\" de cada componente." }
+        { note: "Hoje: o playground espelha 105 componentes do Figma, e 70 deles já têm par no castanha-react (staging). Consulte a seção \"No React\" de cada componente." }
       ] }
     ]
   };

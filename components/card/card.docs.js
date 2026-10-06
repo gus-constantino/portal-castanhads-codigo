@@ -24,7 +24,7 @@ CDS.docs = CDS.docs || {};
         { p: "Container, Box, Tile" },
         { h3: "Princípios" },
         { cards: [
-          ["Clareza", "Os cards devem comunicar sua função principal de forma imediata. A hierarquia visual precisa ser clara, com informações bem organizadas e de fácil leitura."],
+          ["Clareza", "Os cards devem comunicar sua função principal de forma imediata. A hierarquia visual precisa ser clara, com informações bem organizadas e legíveis."],
           ["Consistência", "Cards devem manter um padrão visual e estrutural em toda a interface, independentemente do contexto em que aparecem."],
           ["Modularidade", "O componente deve ser flexível e escalável, atendendo a diferentes necessidades sem duplicar código ou quebrar o padrão visual."]
         ] },
@@ -33,10 +33,10 @@ CDS.docs = CDS.docs || {};
         { h3: "Utilize para:" },
         { ul: ["Exibir resumos de dados em painéis (dashboards).", "Agrupar informações relacionadas.", "Usar em listas ou grids para navegação em apps mobile/web.", "Apresentar registros individuais com ações com botão."] },
         { h3: "Não utilize para:" },
-        { ul: ["Destacar apenas uma informação isolada.", "Como elemento interativo principal.", "Usar em listas ou grids para navegação em apps mobile/web.", "Como enfeite visual sem propósito de agrupamento.", "Destaque de números grandes, para isso utilize o componente de Big numbers."] },
+        { ul: ["Destacar uma única informação isolada.", "Como elemento interativo principal.", "Usar em listas ou grids para navegação em apps mobile/web.", "Como enfeite visual sem propósito de agrupamento.", "Destaque de números grandes, para isso utilize o componente de Big numbers."] },
         { h2: "Casos de uso" },
         { h3: "Card vs Shortcut" },
-        { p: "O componente Card tem como objetivo principal exibir informações agrupadas de forma estruturada, servindo como contêiner visual para conteúdo variado — como textos, imagens, títulos e ações — sendo ideal para previews, painéis e listagens. Já o componente Shortcut é focado em oferecer acesso rápido a funcionalidades ou seções do sistema, com foco em ação imediata. Enquanto o Card prioriza a apresentação de conteúdo, o Shortcut prioriza a navegação e a interação direta com o sistema." },
+        { p: "O componente Card tem como objetivo principal exibir informações agrupadas de forma estruturada, servindo como contêiner visual para conteúdo variado — como textos, imagens, títulos e ações — sendo ideal para previews, painéis e listagens. Já o componente Shortcut é focado em oferecer acesso direto a funcionalidades ou seções do sistema, com foco em ação imediata. Enquanto o Card prioriza a apresentação de conteúdo, o Shortcut prioriza a navegação e a interação direta com o sistema." },
         { h3: "Card vs Banner" },
         { p: "Cards e Banners se diferenciam pela função e destaque visual. Cards organizam conteúdos relacionados de forma modular e neutra, enquanto banners são usados para comunicar mensagens importantes, com apelo visual mais forte e foco na atenção imediata." },
         { h3: "Card vs Modal" },
@@ -54,21 +54,21 @@ CDS.docs = CDS.docs || {};
           { name: "Has Border", type: "Variant", default: "True", values: ["True", "False"] },
           { name: "Slot", type: "Slot" }
         ] },
-        { note: "Props e padrões lidos do set Card da lib estável. No código, `has-border` vem ligado por padrão, como na lib; `has-border=\"false\"` tira a borda." }
+        { note: "Props e padrões lidos do set Card da lib estável. No código, `has-border` vem ligado por padrão, como na lib, e `has-border=\"false\"` tira a borda." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
         { h2: "Has Border" },
         { specimens: { min: "var(--common-sizes-200)", items: [
           { label: "True", attrs: card("Com borda", "Stroke `Border/semi-soft`.") },
-          { label: "False", attrs: card("Sem borda", "Só a superfície e a elevação.", { "has-border": "false" }) }
+          { label: "False", attrs: card("Sem borda", "Superfície e elevação, sem contorno.", { "has-border": "false" }) }
         ] } }
       ] },
 
       { id: "acessibilidade", title: "Acessibilidade", blocks: [
         { h2: "Leitor de tela" },
         { ul: [
-          "O Card é só um container visual: não tem papel próprio nem é focável.",
+          "O Card é um container visual: não tem papel próprio nem é focável.",
           "A estrutura vem do conteúdo: use um título (heading) no início do Card para que o leitor de tela encontre a seção.",
           "Em grupo, coloque os Cards numa lista (`<ul>`) para o leitor anunciar a quantidade.",
           "Ações dentro do Card são botões ou links próprios, com rótulos que façam sentido fora do contexto visual."

@@ -28,9 +28,9 @@ CDS.docs["password-input"] = {
       { h2: "Quando usar" },
       { p: "Use quando o fluxo exigir entrada de informação sensível que deve ser mascarada e conferida com segurança." },
       { h3: "Utilize para:" },
-      { ul: ["Fluxos de login, alteração de senha e campos sensíveis.", "Situações em que a pessoa usuária precisa controlar a visualização da senha."] },
+      { ul: ["Fluxos de login, alteração de senha e campos sensíveis.", "Situações em que a pessoa usuária precisa controlar a exibição da senha."] },
       { h3: "Não utilize para:" },
-      { ul: ["Informações não sensíveis que não exigem mascaramento.", "Códigos rápidos ou segmentados, como OTP e PIN (Code input)."] },
+      { ul: ["Informações não sensíveis que não exigem mascaramento.", "Códigos curtos ou segmentados, como OTP e PIN (Code input)."] },
       { h3: "Password Input vs Text Input" },
       { p: "O Password Input mascara o conteúdo e oferece controle de visibilidade, enquanto o Text Input exibe tudo abertamente." },
       { compare: [
@@ -38,7 +38,7 @@ CDS.docs["password-input"] = {
         { title: "Este é um Text input", attrs: { _tag: "cds-text-input", label: "Novo número de celular com DDD", placeholder: "(00) 00000-0000", "show-required": false, "show-lead-icon": false, "show-supporting-content": false, "show-character-counter": false } }
       ] },
       { h3: "Password Input vs Code input" },
-      { p: "O Password Input é contínuo e adequado para senhas completas, enquanto Code input é segmentado e pensado para verificações rápidas." },
+      { p: "O Password Input é contínuo e adequado para senhas completas, enquanto Code input é segmentado e pensado para verificações pontuais." },
       { compare: [
         { title: "Este é um Password input", attrs: { label: "Senha", placeholder: "Digite a senha", "show-required": false, "show-lead-icon": false, "show-supporting-content": false, "show-character-counter": false } },
         { title: "Este é um Code input", attrs: { _tag: "cds-code-input", type: "numeric", value: "10835", separators: "none", "show-label": false, "show-supporting-content": false, "show-trailing-item": false } }
@@ -113,13 +113,13 @@ CDS.docs["password-input"] = {
         { attrs: [{ label: "Senha", value: "P@ssword", "show-required": false, "show-lead-icon": false, "show-supporting-content": false, "show-character-counter": false }, { label: "Confirmar a senha", value: "P@ssword", "show-required": false, "show-lead-icon": false, "show-supporting-content": false, "show-character-counter": false }], title: "Use mensagens de apoio para orientar requisitos",
           text: "Forneça instruções claras sobre a criação da senha para evitar tentativas e erros." }
       ] },
-      { note: "No Figma, os exemplos de comparação, diretriz e Do's and Don'ts são telas de produto; aqui são os componentes reais com os mesmos textos (sem o resto da tela). A lista de requisitos da senha da diretriz não tem componente equivalente." },
+      { note: "No Figma, os exemplos de comparação, diretriz e Do's and Don'ts são telas de produto. Aqui são os componentes reais com os mesmos textos (sem o resto da tela). A lista de requisitos da senha da diretriz não tem componente equivalente." },
       { h2: "Do's and Don'ts" },
       { dodont: [
         { kind: "do", attrs: { label: "Digite sua senha de 4 números", value: "123a", supporting: "A senha deve conter somente números", "show-required": false, "show-lead-icon": false, "show-character-counter": false },
           text: "Use a mensagem de apoio para orientar previamente que os detalhes e restrições para a criação da senha." },
         { kind: "dont", attrs: { label: "Digite sua senha de 4 números", value: "123a", "show-required": false, "show-lead-icon": false, "show-supporting-content": false, "show-character-counter": false },
-          text: "Não deixe para informar essa restrição apenas após um erro ou no envio do formulário." }
+          text: "Não deixe para informar essa restrição depois de um erro ou no envio do formulário." }
       ] }
     ] },
 

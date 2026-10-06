@@ -11,31 +11,31 @@
     tag: "cds-icon",
     base: { icon: "placeholder-line" },
     source: "https://castanha.caju.com.br/858426090/v/latest/p/6598b8-icon", sourceLabel: "Abrir o Icon no zeroheight",
-    cover: { description: "Icon (ícone) é uma representação visual simples que auxilia na comunicação de ações, estados, tipos de conteúdo ou categorias.", examples: [
+    cover: { description: "Icon (ícone) é uma representação visual direta que auxilia na comunicação de ações, estados, tipos de conteúdo ou categorias.", examples: [
       row([ic("home-line", { size: "large", appearance: "neutral" }), ic("meal-line", { size: "large" }), ic("positive-line", { size: "large", appearance: "positive" }), ic("warning-line", { size: "large", appearance: "warning" }), ic("information-line", { size: "large", appearance: "informative" })], true)
     ] },
     tabs: [
       { id: "uso", title: "Uso", blocks: [
         { h2: "Sobre" },
-        { p: "Icon (ícone) é uma representação visual simples que auxilia na comunicação de ações, estados, tipos de conteúdo ou categorias." },
+        { p: "Icon (ícone) é uma representação visual direta que auxilia na comunicação de ações, estados, tipos de conteúdo ou categorias." },
         { p: "Usado para comunicar ações, estados ou informações de forma compacta e intuitiva, geralmente complementando texto ou funcionando de maneira independente." },
         { h3: "Princípios" },
         { cards: [
           ["Clareza", "Cada Icon deve comunicar seu significado de forma imediata e reconhecível, evitando ambiguidade ou interpretações duplas."],
           ["Consistência", "Os Icons devem seguir os tamanhos, cores e estilos definidos pelo Design System para manter harmonia visual em toda a interface."],
-          ["Funcionalidade", "O Icon deve ter um propósito claro — complementar informações ou representar ações — nunca ser apenas decorativo sem intenção definida."]
+          ["Funcionalidade", "O Icon deve ter um propósito claro — complementar informações ou representar ações — nunca ser decorativo sem intenção definida."]
         ] },
         { h2: "Quando usar" },
-        { p: "Use o Icon quando for necessário representar uma ação, status, tipo de conteúdo ou categoria de forma visual e rápida, especialmente em interfaces compactas ou de alta densidade informacional. O Icon deve sempre reforçar a mensagem transmitida, e não substituí-la — por isso, é indicado seu uso acompanhado de texto em casos de possível ambiguidade." },
+        { p: "Use o Icon quando for necessário representar uma ação, status, tipo de conteúdo ou categoria de forma visual e imediata, especialmente em interfaces compactas ou de alta densidade informacional. O Icon deve sempre reforçar a mensagem transmitida, e não substituí-la — por isso, é indicado seu uso acompanhado de texto em casos de possível ambiguidade." },
         { h3: "Utilize para:" },
         { ul: ["Use Icon para reforçar ações e tornar a interface mais escaneável.", "Para sinalizar status ou estados do sistema.", "Em componentes de navegação (ex: setas, chevrons, home).", "Para manter consistência visual em interfaces densas ou modulares."] },
         { h3: "Não utilize para:" },
         { ul: ["Como único meio de transmitir uma informação crítica ou funcional.", "Em contextos onde o reconhecimento visual não for garantido (ex: públicos diversos ou não familiarizados).", "Se o uso do Icon gerar ruído visual ou competir com outros elementos.", "Quando o significado do Icon não for claro sem suporte textual."] },
         { h2: "Casos de uso" },
         { h3: "Icon vs Button Icon" },
-        { p: "O componente Icon representa apenas o símbolo gráfico em si — sem interação por padrão — e deve ser utilizado de forma complementar, como elemento visual dentro de outros componentes ou experiências. Já o Button Icon é um componente interativo que combina um Icon com comportamento de botão, sendo projetado para executar ações ao clique ou toque. Use o Icon isoladamente quando a intenção for reforçar visualmente uma informação ou interface, sem gerar interação direta. Utilize o Button Icon quando o Icon for o elemento acionável principal, como em barras de ferramentas, menus compactos ou ações rápidas com foco na iconografia." },
+        { p: "O componente Icon representa o símbolo gráfico em si — sem interação por padrão — e deve ser utilizado de forma complementar, como elemento visual dentro de outros componentes ou experiências. Já o Button Icon é um componente interativo que combina um Icon com comportamento de botão, sendo projetado para executar ações ao clique ou toque. Use o Icon isoladamente quando a intenção for reforçar visualmente uma informação ou interface, sem gerar interação direta. Utilize o Button Icon quando o Icon for o elemento acionável principal, como em barras de ferramentas, menus compactos ou ações diretas com foco na iconografia." },
         { compare: [
-          { title: "Icon: só o símbolo, sem interação", attrs: ic("edit-line", { size: "large", appearance: "neutral" }) },
+          { title: "Icon: o símbolo, sem interação", attrs: ic("edit-line", { size: "large", appearance: "neutral" }) },
           { title: "Icon Button: ação ao clique ou toque", attrs: { _tag: "cds-icon-button", icon: "edit-line", label: "Editar", appearance: "neutral" } }
         ] },
         { note: "Suporte: canal #castanha-suporte no Slack." }
@@ -71,7 +71,7 @@
         { h2: "Leitor de tela" },
         { ul: [
           "Sem `label`, o Icon é decorativo (`aria-hidden`): o significado precisa estar no texto ao lado.",
-          "Com `label`, vira imagem com nome (`role=\"img\"`). Use só quando o ícone informa sozinho, sem texto ao lado.",
+          "Com `label`, vira imagem com nome (`role=\"img\"`). Use quando o ícone informa sozinho, sem texto ao lado.",
           "O Icon não é interativo. Para ação, use o Icon Button, que tem foco, nome e área de toque."
         ] },
         { h2: "Contraste (WCAG)" },
@@ -82,8 +82,8 @@
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
         { guides: [
-          { attrs: row([ic("home-line", { appearance: "neutral" }), ic("home-line", { appearance: "neutral", size: "medium" }), ic("home-line", { appearance: "neutral", size: "large" })], true), title: "Tamanhos", text: "Utilize sempre os tamanhos padronizados definidos pelo Design System (SM, MD e LG) para garantir alinhamento visual e consistência entre os componentes. Não redimensione manualmente os Icons no Figma ou via CSS — use apenas os tamanhos definidos nas propriedades do componente." },
-          { attrs: row([ic("positive-line", { size: "large", appearance: "positive" }), ic("warning-line", { size: "large", appearance: "warning" }), ic("close-line", { size: "large", appearance: "negative" }), ic("information-line", { size: "large", appearance: "informative" })], true), title: "Cores", text: "Utilize apenas as cores semânticas disponibilizadas nas propriedades do componente. Essas cores foram definidas para manter consistência visual, comunicar estados corretamente e garantir acessibilidade. Evite aplicar cores arbitrárias ou fora dos tokens semânticos predefinidos, mesmo que visualmente semelhantes." }
+          { attrs: row([ic("home-line", { appearance: "neutral" }), ic("home-line", { appearance: "neutral", size: "medium" }), ic("home-line", { appearance: "neutral", size: "large" })], true), title: "Tamanhos", text: "Utilize sempre os tamanhos padronizados definidos pelo Design System (SM, MD e LG) para garantir alinhamento visual e consistência entre os componentes. Não redimensione manualmente os Icons no Figma ou via CSS — use os tamanhos definidos nas propriedades do componente." },
+          { attrs: row([ic("positive-line", { size: "large", appearance: "positive" }), ic("warning-line", { size: "large", appearance: "warning" }), ic("close-line", { size: "large", appearance: "negative" }), ic("information-line", { size: "large", appearance: "informative" })], true), title: "Cores", text: "Utilize as cores semânticas disponibilizadas nas propriedades do componente. Essas cores foram definidas para manter consistência visual, comunicar estados corretamente e garantir acessibilidade. Evite aplicar cores arbitrárias ou fora dos tokens semânticos predefinidos, mesmo que visualmente semelhantes." }
         ] }
       ] },
 

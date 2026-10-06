@@ -18,8 +18,8 @@ CDS.docs["spinner"] = {
       { h3: "Princípios" },
       { cards: [
         ["Clareza de estado", "Comunica de imediato que há um processo em execução, evitando incerteza sobre a resposta do sistema."],
-        ["Discrição visual", "Deve ser utilizado sem competir com o conteúdo; sua função é informar, não chamar atenção excessiva."],
-        ["Coerência temporal", "Só deve aparecer enquanto uma atividade estiver efetivamente em andamento e desaparecer assim que terminar."]
+        ["Discrição visual", "Deve ser utilizado sem competir com o conteúdo. Sua função é informar, não chamar atenção excessiva."],
+        ["Coerência temporal", "Aparece enquanto uma atividade está efetivamente em andamento e desaparece assim que ela termina."]
       ] },
       { h2: "Quando usar" },
       { p: "Use o Spinner quando o sistema estiver executando um processamento cujo tempo não pode ser estimado, mas é necessário sinalizar que a ação foi recebida e está em andamento. Ele é adequado para carregamentos curtos ou médios, especialmente em contextos nos quais o conteúdo ainda não está disponível ou a interface não pode ser atualizada até a conclusão do processo." },
@@ -29,9 +29,9 @@ CDS.docs["spinner"] = {
       { ul: ["Processos longos e previsíveis (use barra de progresso).", "Substituir conteúdo estruturado sendo carregado (use Skeleton).", "Situações em que a pessoa usuária precisa saber quanto tempo ainda falta."] },
       { h2: "Casos de uso" },
       { h3: "Spinner vs Skeleton" },
-      { p: "O Spinner indica uma atividade contínua sem previsão de duração, comunicando apenas que o processo está em andamento. Já o Skeleton representa a estrutura do conteúdo que será exibido, oferecendo uma prévia visual da interface final." },
+      { p: "O Spinner indica uma atividade contínua sem previsão de duração, limitando-se a comunicar que o processo está em andamento. Já o Skeleton representa a estrutura do conteúdo que será exibido, oferecendo uma prévia visual da interface final." },
       { h3: "Spinner vs Progress line" },
-      { p: "A principal diferença está na previsibilidade do tempo. O Spinner sugere que algo está acontecendo, mas sem indicar duração ou avanço, sendo ideal para ações rápidas ou imprevisíveis. A Progress line, por outro lado, comunica progresso mensurável. Por isso, processos mais longos, ou que têm etapas previsíveis, devem preferencialmente usar Progress line em vez do Spinner." },
+      { p: "A principal diferença está na previsibilidade do tempo. O Spinner sugere que algo está acontecendo, mas sem indicar duração ou avanço, sendo ideal para ações curtas ou imprevisíveis. A Progress line, por outro lado, comunica progresso mensurável. Por isso, processos mais longos, ou que têm etapas previsíveis, devem preferencialmente usar Progress line em vez do Spinner." },
       { compare: [
         { title: "Spinner: duração indeterminada", attrs: { size: "large", appearance: "accent" } },
         { title: "Progress Line: avanço mensurável", attrs: { _tag: "cds-progress-line", percent: "60", label: "Envio", style: "width:calc(var(--common-sizes-200) + var(--common-sizes-40))" } }
@@ -70,13 +70,13 @@ CDS.docs["spinner"] = {
         "Quando o carregamento terminar, remova o Spinner e mostre o conteúdo ou a mensagem de resultado."
       ] },
       { h2: "Movimento" },
-      { p: "Com `prefers-reduced-motion: reduce`, o giro precisa continuar indicando atividade de forma suave; não remova o indicador." },
+      { p: "Com `prefers-reduced-motion: reduce`, o giro precisa continuar indicando atividade de forma suave. Não remova o indicador." },
       { note: "O zeroheight ainda não tem seção de Acessibilidade para o Spinner." }
     ] },
 
     { id: "diretrizes", title: "Diretrizes", blocks: [
       { h2: "Diretrizes de uso" },
-      { guides: [{ attrs: { _tag: "cds-main-button", label: "Enviando", disabled: true, "show-lead-icon": false, "show-trailing-icon": false }, title: "Utilize o spinner apenas quando houver bloqueio temporário da ação", text: "O Spinner deve aparecer somente quando a operação impede o avanço da pessoa usuária. Ele reforça que a ação foi recebida e está em execução, evitando cliques repetidos ou dúvidas sobre o estado atual." }] },
+      { guides: [{ attrs: { _tag: "cds-main-button", label: "Enviando", disabled: true, "show-lead-icon": false, "show-trailing-icon": false }, title: "Reserve o spinner para bloqueios temporários da ação", text: "O Spinner deve aparecer somente quando a operação impede o avanço da pessoa usuária. Ele reforça que a ação foi recebida e está em execução, evitando cliques repetidos ou dúvidas sobre o estado atual." }] },
       { note: "O Main Button da lib não tem estado Loading (CONFERIR C142): por enquanto, o exemplo usa o botão desabilitado com texto de andamento." }
     ] },
 

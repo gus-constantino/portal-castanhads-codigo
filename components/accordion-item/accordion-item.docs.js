@@ -33,7 +33,7 @@ CDS.docs = CDS.docs || {};
         { cards: [
           ["Revelar sob demanda", "O conteúdo extra fica no Slot, oculto até a pessoa expandir — reduz a carga visual e deixa a leitura previsível."],
           ["Título claro e curto", "O header (Label + Description) resume o que há dentro, pra pessoa prever o conteúdo antes de abrir."],
-          ["Estado além da cor", "O chevron (open/close) e a revelação do conteúdo sinalizam expandido ou recolhido — não dependa só de cor."]
+          ["Estado além da cor", "O chevron (open/close) e a revelação do conteúdo sinalizam expandido ou recolhido — não use a cor como único sinal."]
         ] },
         { h2: "Quando usar" },
         { p: "Utilize o Accordion Item para organizar conteúdo extenso em seções que a pessoa abre sob demanda, agrupando informação secundária sem tirá-la da página." },
@@ -95,11 +95,11 @@ CDS.docs = CDS.docs || {};
         { h2: "Diretrizes" },
         { guides: [
           { attrs: { collapsed: true }, title: "Use para conteúdo secundário, não essencial",
-            text: "O accordion esconde conteúdo atrás de um clique. Reserve-o para informação complementar; o que é essencial deve ficar sempre visível." },
+            text: "O accordion esconde conteúdo atrás de um clique. Reserve-o para informação complementar. O que é essencial fica sempre visível." },
           { attrs: {}, title: "Sinalize o estado além da cor",
-            text: "O chevron (aberto/fechado) e a revelação do conteúdo indicam o estado — não dependa só de cor pra mostrar se está expandido." },
+            text: "O chevron (aberto/fechado) e a revelação do conteúdo indicam o estado — não use a cor como único sinal de que está expandido." },
           { attrs: {}, title: "Títulos curtos e escaneáveis",
-            text: "Escreva labels curtos e descritivos; a pessoa precisa prever o conteúdo de cada seção antes de abrir." }
+            text: "Escreva labels curtos e descritivos. A pessoa precisa prever o conteúdo de cada seção antes de abrir." }
         ] },
         { h2: "Do's and Don'ts" },
         { h3: "Conteúdo" },

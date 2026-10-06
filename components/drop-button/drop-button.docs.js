@@ -7,30 +7,30 @@ CDS.docs["drop-button"] = {
   tag: "cds-drop-button",
   base: { label: "Mais ações", "show-lead-icon": false },
   source: "https://castanha.caju.com.br/858426090/v/latest/p/1044fa-drop-button", sourceLabel: "Abrir o Drop button no zeroheight",
-  cover: { description: "O Drop Button é um botão interativo que, ao ser acionado, abre um menu suspenso com opções de ação diretamente relacionadas ao contexto do botão. Ele combina a função de acionador visual com o acesso rápido a um conjunto de comandos organizados.", examples: [
+  cover: { description: "O Drop Button é um botão interativo que, ao ser acionado, abre um menu suspenso com opções de ação diretamente relacionadas ao contexto do botão. Ele combina a função de acionador visual com o acesso direto a um conjunto de comandos organizados.", examples: [
     { label: "Mais ações" }, { label: "Exportar", appearance: "neutral", "show-lead-icon": true, "lead-icon": "download-line" }
   ] },
   tabs: [
     { id: "uso", title: "Uso", blocks: [
       { h2: "Sobre" },
-      { p: "O Drop Button é um botão interativo que, ao ser acionado, abre um menu suspenso com opções de ação diretamente relacionadas ao contexto do botão. Ele combina a função de acionador visual com o acesso rápido a um conjunto de comandos organizados." },
+      { p: "O Drop Button é um botão interativo que, ao ser acionado, abre um menu suspenso com opções de ação diretamente relacionadas ao contexto do botão. Ele combina a função de acionador visual com o acesso direto a um conjunto de comandos organizados." },
       { h3: "Nomes alternativos comuns" },
       { p: "Split Button, Dropdown Button, Menu Button." },
       { h3: "Princípios" },
       { cards: [
         ["Clareza", "O Drop Button deve deixar evidente que abre um menu de ações, usando rótulos e ícones claros."],
         ["Consistência", "O menu deve ser sempre construído com o componente List, garantindo padrão visual e de uso."],
-        ["Foco na ação", "O Drop Button deve apresentar apenas ações relevantes e relacionadas ao contexto imediato."]
+        ["Foco na ação", "O Drop Button deve apresentar exclusivamente ações relevantes e relacionadas ao contexto imediato."]
       ] },
       { h2: "Quando usar" },
       { p: "Use o Drop Button quando for necessário oferecer, a partir de um único acionador, um conjunto de ações relacionadas em formato de menu suspenso. Ele é ideal para agrupar comandos que compartilham o mesmo contexto, reduzindo a quantidade de botões visíveis e mantendo a interface organizada." },
       { h3: "Utilize para:" },
-      { ul: ["Para oferecer um conjunto de ações relacionadas ao contexto atual;", "Quando houver múltiplas variações ou sub-ações de uma mesma função principal;", "Para otimizar espaço na interface, agrupando controles relacionados."] },
+      { ul: ["Para oferecer um conjunto de ações relacionadas ao contexto atual.", "Quando houver múltiplas variações ou sub-ações de uma mesma função principal.", "Para otimizar espaço na interface, agrupando controles relacionados."] },
       { h3: "Não utilize para:" },
-      { ul: ["Para exibir listas de seleção de dados (use um Select ou Combobox);", "Como navegação primária de alto nível (use um Menu de navegação dedicado);", "Para exibir conteúdos complexos, formulários ou filtros."] },
+      { ul: ["Para exibir listas de seleção de dados (use um Select ou Combobox).", "Como navegação primária de alto nível (use um Menu de navegação dedicado).", "Para exibir conteúdos complexos, formulários ou filtros."] },
       { h2: "Casos de uso" },
       { h3: "Main button vs Drop button" },
-      { p: "O Main Button executa uma única ação imediata ao ser clicado, sem apresentar opções adicionais. Ele é indicado quando há apenas um comando direto a ser realizado, enquanto o Drop Button é usado quando existe a necessidade de oferecer múltiplas ações em um menu suspenso." },
+      { p: "O Main Button executa uma única ação imediata ao ser clicado, sem apresentar opções adicionais. Ele é indicado quando há um único comando direto a ser realizado, enquanto o Drop Button é usado quando existe a necessidade de oferecer múltiplas ações em um menu suspenso." },
       { alert: { appearance: "warning", label: "Atenção", text: "Apesar dos componentes serem visualmente semelhantes, é importante se atentar sobre o contexto e indicação de uso." } },
       { compare: [
         { title: "Main Button: uma ação", attrs: { _tag: "cds-main-button", label: "Exportar", "show-lead-icon": false, "show-trailing-icon": false } },
@@ -48,7 +48,7 @@ CDS.docs["drop-button"] = {
       } },
       { h2: "Composição do componente" },
       { p: "O Drop Button é composto por um botão acionador, contendo rótulo e ícone indicativo de menu, e por um Popover com slot suspenso que é exibido no estado pressed. Nesse slot, podem ser inseridos itens de composição, como List Items, permitindo a criação de um menu suspenso por meio de swap components." },
-      { note: "No playground, o Popover (4) é de quem implementa: o Drop Button alterna `active` e dispara `cds-toggle`. Veja o exemplo na tab Playground." },
+      { note: "No playground, o Popover (4) é de quem implementa: o Drop Button alterna `active` e dispara `cds-toggle`. Confira o exemplo na tab Playground." },
       { h2: "Propriedades" },
       { props: [
         { name: "Kind", type: "Variant", default: "Default", values: ["Default", "Ghost"] },
@@ -86,12 +86,12 @@ CDS.docs["drop-button"] = {
       { h2: "Leitor de tela" },
       { ul: [
         "É um `<button>` nativo com `aria-haspopup` e `aria-expanded` (aberto ou fechado), anunciado como botão de menu.",
-        "O chevron é decorativo; o estado vem de `aria-expanded`.",
+        "O chevron é decorativo. O estado vem de `aria-expanded`.",
         "O menu aberto deve usar o List do DS, com itens focáveis.",
         "Disabled usa `disabled` nativo: sai da tabulação."
       ] },
       { h2: "Teclado e foco" },
-      { ul: ["Tab foca o botão; Enter e Espaço abrem e fecham o menu.", "Esc fecha o menu e devolve o foco ao Drop Button.", "Foco visível segue o padrão global do Castanha."] },
+      { ul: ["Tab foca o botão. Enter e Espaço abrem e fecham o menu.", "Esc fecha o menu e devolve o foco ao Drop Button.", "Foco visível segue o padrão global do Castanha."] },
       { h2: "Contraste (WCAG)" },
       { ul: ["Mesmos pares do Main Button: Default · Accent 4,54:1 (AA), Neutral 15,27:1 e Inversed 16,96:1 (AA e AAA).", "Estado desabilitado: isento do critério 1.4.3."] },
       { note: "O zeroheight ainda não tem seção de Acessibilidade para o Drop button." }
@@ -105,7 +105,7 @@ CDS.docs["drop-button"] = {
       ] },
       { h2: "Do's and Don'ts" },
       { dodont: [
-        { kind: "do", text: "Usar o Drop Button apenas para abrir menus de ações diretamente relacionadas ao contexto." },
+        { kind: "do", text: "Usar o Drop Button exclusivamente para abrir menus de ações diretamente relacionadas ao contexto." },
         { kind: "dont", text: "Não use o Drop Button como substituto para outros componentes de seleção ou navegação." },
         { kind: "do", text: "Construir o menu exclusivamente com os componentes List do design system." },
         { kind: "dont", text: "Não usar o Drop Button para exibir formulários, filtros ou qualquer conteúdo que não seja menu." }
@@ -124,7 +124,7 @@ CDS.docs["drop-button"] = {
         { title: "Is Active → True", rows: [["Gatilho", "On click"], ["Motion Style", "`Selected In/01`"]] },
         { title: "Is Active → False", rows: [["Gatilho", "On click"], ["Motion Style", "`Selected Out/01`"]] }
       ] },
-      { note: "No zeroheight, o Pressed do Drop button usa easing systemic/default com duração medium/03, que não corresponde a nenhum Motion Style; aqui vale `Pressed/01`, como nos outros botões (CONFERIR C142)." },
+      { note: "No zeroheight, o Pressed do Drop button usa easing systemic/default com duração medium/03, que não corresponde a nenhum Motion Style. Aqui vale `Pressed/01`, como nos outros botões (CONFERIR C142)." },
       { p: "Reduced motion: honrar `prefers-reduced-motion: reduce` (as transições são desligadas no código)." }
     ] }
   ]

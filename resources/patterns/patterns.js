@@ -70,20 +70,20 @@
 
   var QUANDO = [
     { h2: "Quando usar" },
-    { p: "Use Feedback Pages quando uma condição precisa ser comunicada no lugar do conteúdo: na tela inteira, quando ela impede seguir com o fluxo, ou em uma seção, quando afeta só aquela parte da interface." },
+    { p: "Use Feedback Pages quando uma condição precisa ser comunicada no lugar do conteúdo: na tela inteira, quando ela impede seguir com o fluxo, ou em uma seção, quando afeta uma parte da interface." },
     { h3: "Use para" },
     { ul: ["Confirmar a conclusão de um fluxo.", "Informar falhas que impedem seguir, incluindo erros de sistema como 404 e 502.", "Representar ausência de conteúdo, por estar vazio ou por filtro sem resultado.", "Preencher uma área sem conteúdo dentro da página, como uma tabela ainda sem registros ou uma busca sem resultado.", "Comunicar espera, quando algo está em análise ou em processamento.", "Informar que a pessoa usuária não tem acesso ao conteúdo."] }
   ];
   function naoUse(decisao){
     return [{ h3: "Não use para" },
-      { ul: ["Mensagens rápidas ou transitórias: use o Toast.", "Avisos que não interrompem o fluxo: use o Alert.", decisao, "Carregamento breve de um trecho da tela: indique o carregamento só naquele trecho. O DS ainda não tem Skeleton."] }];
+      { ul: ["Mensagens rápidas ou transitórias: use o Toast.", "Avisos que não interrompem o fluxo: use o Alert.", decisao, "Carregamento breve de um trecho da tela: indique o carregamento no próprio trecho. O DS ainda não tem Skeleton."] }];
   }
   function diretrizes(where, extra){
     var w = where === "tela" ? "tela" : "página";
     return [{ h2: "Diretrizes de uso" },
       { cards: [
-        ["Escolha o cenário pela condição, não pela cor", "O Kind carrega o significado da " + w + ". Selecione pelo que aconteceu no fluxo, e deixe que ilustração e texto comuniquem junto com a cor, nunca só por ela."],
-        ["Mantenha o texto padrão quando ele resolver", "Cada cenário vem com título e descrição agnósticos, pensados para servir à maioria dos casos. Substitua apenas quando o contexto for mais específico ou pedir outra redação, preservando o tom."],
+        ["Escolha o cenário pela condição, não pela cor", "O Kind carrega o significado da " + w + ". Selecione pelo que aconteceu no fluxo, e deixe que ilustração e texto comuniquem junto com a cor, sem depender dela."],
+        ["Mantenha o texto padrão quando ele resolver", "Cada cenário vem com título e descrição agnósticos, pensados para servir à maioria dos casos. Substitua quando o contexto for mais específico ou pedir outra redação, preservando o tom."],
         ["Ofereça uma saída clara", "A ação primária precisa resolver o que a " + w + " comunica: tentar de novo no erro, voltar no conteúdo inexistente, criar o primeiro item no vazio. " + (w === "tela" ? "Tela" : "Página") + " sem saída deixa a pessoa usuária parada."]
       ].concat(extra || []).concat([
         ["Componha casos específicos a partir dos cenários", "Situações como sessão expirada, manutenção programada ou falta de conexão não têm cenário próprio. Use o Kind mais próximo e ajuste o texto: sessão expirada é Warning, manutenção é Warning, " + w + " fora do ar é Error."]
@@ -164,14 +164,14 @@
         { ul: ["Experiências que pedem impacto visual ou encantamento: use a Splash screen.", "Carregamento de conteúdo que pode ser antecipado.", "Atualizações parciais da interface."] },
         { h2: "Casos de uso" },
         { cards: [
-          ["Tela de loading × carregamento parcial", "A Tela de loading bloqueia a interface e não mostra conteúdo intermediário. Quando dá para antecipar a estrutura da tela (o papel do Skeleton, que o DS ainda não tem), prefira carregar só o trecho e manter a percepção de progresso sem interromper toda a interação."],
+          ["Tela de loading × carregamento parcial", "A Tela de loading bloqueia a interface e não mostra conteúdo intermediário. Quando dá para antecipar a estrutura da tela (o papel do Skeleton, que o DS ainda não tem), prefira carregar o trecho e manter a percepção de progresso sem interromper toda a interação."],
           ["Tela de loading × Splash screen", "A Tela de loading é funcional e neutra, usada em carregamentos sistêmicos. A Splash screen tem caráter mais visual: entra quando se quer criar impacto ou percepção de valor durante o carregamento."]
         ] },
         { h2: "Diretrizes de uso" },
         { cards: [
-          ["Use em momentos coerentes com bloqueio total", "A Tela de loading deve aparecer só quando a pessoa usuária realmente não pode interagir com a interface."],
+          ["Use em momentos coerentes com bloqueio total", "A Tela de loading aparece quando a pessoa usuária não pode interagir com a interface."],
           ["Garanta relação com a ação anterior", "O loading deve ser claramente consequência de uma ação da pessoa usuária ou de uma transição esperada no fluxo."],
-          ["Prefira alternativas menos intrusivas quando possível", "Antes de usar a Tela de loading, avalie se um carregamento só no trecho atende ao contexto, reduzindo a sensação de espera."]
+          ["Prefira alternativas menos intrusivas quando possível", "Antes de usar a Tela de loading, avalie se carregar o trecho atende ao contexto, reduzindo a sensação de espera."]
         ] },
         { h3: "Texto do loading" },
         { p: "O label diz o que está acontecendo, no gerúndio e com reticências: \"Estamos processando sua solicitação...\". A Progress Line recebe o mesmo texto como nome acessível." },

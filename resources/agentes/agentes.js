@@ -28,7 +28,7 @@
         { persona: { id: "boro", name: "Borô", nick: "Assistente do Castanha", src: BORO_IMG,
           quote: "Tire suas dúvidas consultando a documentação em tempo real.",
           data: [["Onde", "Slack, em conversa direta"], ["Temas", "Design System, Content Design, Motion e Ilustração"], ["No ar desde", "25 de agosto de 2026"]],
-          story: "O Borô é o assistente do Castanha, o design system da Caju, e o parceiro na aplicação do Tom e Voz. Ele tem jeito próprio: fala de forma amigável e fácil de entender, mesmo para quem tem pouca familiaridade com tecnologia, e explica o porquê de cada regra.",
+          story: "O Borô é o assistente do Castanha, o design system da Caju, e o parceiro na aplicação do Tom e Voz. Ele tem jeito próprio: fala de forma amigável e clara, mesmo para quem tem pouca familiaridade com tecnologia, e explica o porquê de cada regra.",
           cols: [
             { title: "Utilize para", items: [
               "Confirmar como usar um componente: anatomia, estados e tokens aplicados.",
@@ -49,7 +49,7 @@
         { h3: "Princípios" },
         { cards: [
           ["Verdade vem da fonte", "O Borô responde com base na documentação oficial do Castanha, nunca de memória. Se a doc não cobre o assunto, ele avisa em vez de inventar."],
-          ["A favor de quem usa", "Fala de um jeito amigável e fácil de entender, mesmo para quem tem pouca familiaridade com tecnologia."],
+          ["A favor de quem usa", "Fala de um jeito amigável e claro, mesmo para quem tem pouca familiaridade com tecnologia."],
           ["Parceiro do time", "Explica o motivo documentado por trás de cada regra, então você aprende no processo."]
         ] },
 

@@ -16,7 +16,7 @@
         { h2: "Sobre" },
         { p: "A .Data Cell é cada célula de dados da Table: 64 de altura, fundo Surface/default e borda inferior. A Kind define o conteúdo: Text (com descrição), Balance (R$, à direita), Percentage (à direita), Tag, Checkbox, Link ou Action Controls (3 Icon Buttons)." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do Table, que monta e controla os itens.", "Fora dele, use o componente completo (Table)."] },
+        { ul: ["Peça interna do Table, que monta e controla os itens.", "Fora dele, use o componente completo (Table)."] },
         { compare: [{ title: "Dentro do Table", attrs: { _tag: "cds-table", "per-page": "3", "show-pagination": false, "show-toolbar": false } }] }
       ] },
 
@@ -33,7 +33,7 @@
           { name: "Value", type: "Text", default: "1.000,00" },
           { name: "Percentual", type: "Text", default: "0,00" }
         ] },
-        { note: "Props e padrões lidos do set .Data Cell da lib estável. No código, `<cds-data-cell>` (building block): `kind` (text|balance|percentage|tag|checkbox|link|actions), `text`, `description`, `show-description`, `value`, `percentual` e `icon`; `state=\"hovered\"` só para exemplos. Na Table, o conteúdo vem de `.rows`." }
+        { note: "Props e padrões lidos do set .Data Cell da lib estável. No código, `<cds-data-cell>` (building block): `kind` (text|balance|percentage|tag|checkbox|link|actions), `text`, `description`, `show-description`, `value`, `percentual` e `icon`. `state=\"hovered\"` é exclusivo dos exemplos. Na Table, o conteúdo vem de `.rows`." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -53,8 +53,8 @@
         { h2: "Teclado e leitor de tela" },
         { ul: [
           "Na Table, a célula é um `<td>`: o leitor de tela anuncia o cabeçalho da coluna junto.",
-          "Valores (Balance, Percentage) ficam alinhados à direita; o símbolo R$ e o % são lidos com o número.",
-          "Link e ações têm nome; os ícones são decorativos."
+          "Valores (Balance, Percentage) ficam alinhados à direita. O símbolo R$ e o % são lidos com o número.",
+          "Link e ações têm nome. Os ícones são decorativos."
         ] }
       ] },
 

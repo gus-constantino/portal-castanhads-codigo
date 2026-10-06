@@ -16,7 +16,7 @@
         { h2: "Sobre" },
         { p: "Building block interno do Banner. Agrupa título, descrição e indicação de CTA. Appearance=Neutral para fundos claros, Inversed para fundos escuros ou sobre imagem. Não use isolado — consuma o componente Banner." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do Banner, que monta e controla os itens.", "Fora dele, use o componente completo (Banner)."] },
+        { ul: ["Peça interna do Banner, que monta e controla os itens.", "Fora dele, use o componente completo (Banner)."] },
         { compare: [{ title: "Dentro do Banner", attrs: { _tag: "cds-banner", href: "#", title: "Saldo refeição", description: "Confira quanto ainda dá para gastar este mês.", cta: "Ver saldo" } }] }
       ] },
 
@@ -48,19 +48,19 @@
       { id: "acessibilidade", title: "Acessibilidade", blocks: [
         { h2: "Teclado e leitor de tela" },
         { ul: [
-          "O CTA é só indicação visual: o Banner inteiro é o link ou o botão.",
+          "O CTA é uma indicação visual: o Banner inteiro é o link ou o botão.",
           "O ícone do CTA (go-line) é decorativo."
         ] }
       ] },
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
-        { ul: ["Neutral em fundos claros; Inversed em fundos escuros ou sobre imagem.", "Não use isolado — consuma o componente Banner."] }
+        { ul: ["Neutral em fundos claros e Inversed em fundos escuros ou sobre imagem.", "Não use isolado — consuma o componente Banner."] }
       ] },
 
       { id: "motion", title: "Motion", blocks: [
         { h2: "Motion" },
-        { p: "O .Content Banner é estático; as transições são as do Banner." }
+        { p: "O .Content Banner é estático. As transições são as do Banner." }
       ] }
     ]
   };

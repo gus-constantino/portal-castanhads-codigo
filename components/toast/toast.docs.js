@@ -26,20 +26,20 @@
           ["Breve", "O conteúdo deve ser curto, relevante e desaparecer automaticamente."]
         ] },
         { h2: "Quando usar" },
-        { p: "Use o Toast para comunicar mensagens breves que não exigem uma ação imediata da pessoa usuária. Ele deve ser usado para feedbacks rápidos, como confirmações de sucesso, avisos ou erros leves que não interrompem o fluxo de uso." },
+        { p: "Use o Toast para comunicar mensagens breves que não exigem uma ação imediata da pessoa usuária. Ele deve ser usado para feedbacks breves, como confirmações de sucesso, avisos ou erros leves que não interrompem o fluxo de uso." },
         { h3: "Utilize para:" },
         { ul: ["Confirmar o sucesso de uma ação (ex: item salvo, envio concluído).", "Alertar sobre algo que requer atenção, mas não interrompe a navegação.", "Exibir feedbacks automáticos do sistema, como reconexões ou atualizações."] },
         { h3: "Não utilize para:" },
         { ul: ["Exibir mensagens críticas ou bloqueantes (use o Modal).", "Mensagens que precisam permanecer visíveis até serem fechadas.", "Informações complexas ou extensas (use o Alert)."] },
         { h2: "Casos de uso" },
         { h3: "Toast vs Alert" },
-        { p: "O Toast é temporário e aparece sobre o conteúdo, na parte inferior da tela (em web) ou superior (em mobile). Ele serve para mensagens rápidas e automáticas, como confirmações de sucesso ou avisos leves. Já o Alert é um componente fixo e persistente. Ele é indicado para mensagens mais relevantes ou contínuas, que precisam permanecer visíveis até que a pessoa usuária as leia ou feche manualmente." },
+        { p: "O Toast é temporário e aparece sobre o conteúdo, na parte inferior da tela (em web) ou superior (em mobile). Ele serve para mensagens breves e automáticas, como confirmações de sucesso ou avisos leves. Já o Alert é um componente fixo e persistente. Ele é indicado para mensagens mais relevantes ou contínuas, que precisam permanecer visíveis até que a pessoa usuária as leia ou feche manualmente." },
         { compare: [
           { title: "Toast: temporário, sobre o conteúdo", attrs: t("Comprovante enviado") },
           { title: "Alert: fixo, no fluxo da tela", attrs: { _tag: "cds-alert", appearance: "informative", label: "Depósito agendado", text: "O saldo cai na conta das pessoas colaboradoras no dia 5." } }
         ] },
         { h3: "Toast vs Modal" },
-        { p: "O Toast oferece feedback imediato sem interromper o fluxo da pessoa usuária, desaparecendo automaticamente após alguns segundos. É ideal para comunicações breves e não bloqueantes. O Modal, por outro lado, exige uma ação direta — como confirmar, preencher ou fechar — antes de permitir que a pessoa usuária continue a navegação. Por isso, é indicado apenas para mensagens que requerem atenção ou decisão imediata." },
+        { p: "O Toast oferece feedback imediato sem interromper o fluxo da pessoa usuária, desaparecendo automaticamente após alguns segundos. É ideal para comunicações breves e não bloqueantes. O Modal, por outro lado, exige uma ação direta — como confirmar, preencher ou fechar — antes de permitir que a pessoa usuária continue a navegação. Por isso, é indicado exclusivamente para mensagens que requerem atenção ou decisão imediata." },
         { note: "Suporte: canal #castanha-suporte no Slack." }
       ] },
 
@@ -52,7 +52,7 @@
           { name: "Text Description", type: "Text", default: "A descrição web ou mobile deve ter no máximo 2 linhas" },
           { name: "Show Trailing Item", type: "Boolean", default: "true" }
         ] },
-        { note: "Props e padrões lidos do set Toast da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código: `text`, `appearance`, `show-trailing-item` e `close-label` (nome do botão de fechar). O layout mobile (ícone e fechar no topo, texto embaixo) vem da coleção Viewport; `viewport` força o modo." }
+        { note: "Props e padrões lidos do set Toast da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código: `text`, `appearance`, `show-trailing-item` e `close-label` (nome do botão de fechar). O layout mobile (ícone e fechar no topo, texto embaixo) vem da coleção Viewport, e `viewport` força o modo." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -75,14 +75,14 @@
         { ul: [
           "O Positive tem `role=\"status\"`: o leitor de tela anuncia o texto sem interromper o que estava lendo.",
           "O Warning tem `role=\"alert\"`: o anúncio é imediato.",
-          "O ícone é decorativo; o significado precisa estar no texto.",
+          "O ícone é decorativo. O significado precisa estar no texto.",
           "O botão de fechar (.Close Toast) é um `<button>` com nome (`close-label`, padrão \"Fechar\")."
         ] },
         { h2: "Tempo" },
         { ul: [
           "Dê tempo para ler: o Toast some sozinho, então o texto precisa ser curto (até 2 linhas).",
           "Mantenha o Toast visível enquanto tiver foco ou o mouse em cima.",
-          "Nada que exija ação deve ficar só no Toast — use o Alert ou o Modal (2.2.1)."
+          "Nada que exija ação deve depender exclusivamente do Toast — use o Alert ou o Modal (2.2.1)."
         ] },
         { h2: "Contraste (WCAG)" },
         { ul: ["Texto (Text/inversed) sobre Surface/inversed: 16,96:1 — AA e AAA.", "Ícone Positive (Decorative/03) 8,00:1 · Warning (Decorative/01) 10,17:1 · fechar (Neutral/Solid/soft) 16,96:1 — todos acima de 3:1."] },
@@ -92,9 +92,9 @@
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
         { guides: [
-          { attrs: t("Perfil atualizado"), title: "Use mensagens curtas e diretas", text: "O Toast deve ser objetivo e fácil de ler rapidamente. Limite o texto a uma ou duas linhas e prefira frases afirmativas, que indiquem o estado da ação (“Perfil atualizado com sucesso”) em vez de instruções longas." },
+          { attrs: t("Perfil atualizado"), title: "Use mensagens curtas e diretas", text: "O Toast deve ser objetivo e legível de relance. Limite o texto a uma ou duas linhas e prefira frases afirmativas, que indiquem o estado da ação (“Perfil atualizado com sucesso”) em vez de instruções longas." },
           { attrs: t("Comprovante enviado"), title: "Posicione corretamente o componente", text: "No Figma, posicione o Toast no canto inferior direito da tela para interfaces web e na extremidade do topo para mobile, refletindo o comportamento real. Essa coerência evita sobreposição com outros elementos interativos." },
-          { attrs: t("Pedido enviado"), title: "Mostre apenas um feedback por ação", text: "Cada ação da pessoa usuária deve resultar em apenas um Toast. Isso evita confusão e sobrecarga de mensagens. Se houver necessidade de comunicar diferentes resultados (por exemplo, sucesso parcial ou erro em parte do processo), priorize a mensagem mais relevante para aquele contexto." }
+          { attrs: t("Pedido enviado"), title: "Mostre um único feedback por ação", text: "Cada ação da pessoa usuária deve resultar em um único Toast. Isso evita confusão e sobrecarga de mensagens. Se houver necessidade de comunicar diferentes resultados (por exemplo, sucesso parcial ou erro em parte do processo), priorize a mensagem mais relevante para aquele contexto." }
         ] },
         { note: "Regra de conteúdo (Formatação): Toast não leva ponto final, exceto quando houver mais de uma frase. E evite o pleonasmo \"com sucesso\" — o exemplo do zeroheight acima ainda usa (CONFERIR C136)." },
         { h2: "Do's and Don'ts" },
@@ -109,15 +109,15 @@
         { h2: "Motion" },
         { p: "A animação do Toast fornece feedback visual único após ação do usuário ou evento do sistema. É executada uma vez por invocação com entrada/saída suaves para evitar distrações. A reprodução reforça a percepção temporária do status no aplicativo." },
         { display: { attrs: {}, live: true } },
-        { note: "Exemplo interativo: feche o Toast para ver a saída; troque de tab e volte para ver a entrada." },
+        { note: "Exemplo interativo: feche o Toast para conferir a saída. Troque de tab e volte para conferir a entrada." },
         { specs: [
           { title: "Entrada", rows: [["Gatilho", "Ao aparecer"], ["Motion Style", "Pendente (sem Motion Style)"]] },
           { title: "Saída", rows: [["Gatilho", "Ao fechar ou ao fim do tempo"], ["Motion Style", "`Selected Out/01`"]] }
         ] },
         { note: "No zeroheight, a Saída usa expressive/decelerate · short/04 — os valores do `Selected Out/01`." },
-        { note: "No código: entrada com os tokens de easing e duração citados pelo zeroheight e saída com o `Selected Out/01`. O Figma não diz o que se move; o componente aparece e some com opacidade e 8px de deslocamento vertical (CONFERIR C156)." },
+        { note: "No código: entrada com os tokens de easing e duração citados pelo zeroheight e saída com o `Selected Out/01`. O Figma não diz o que se move. O componente aparece e some com opacidade e 8px de deslocamento vertical (CONFERIR C156)." },
         { alert: { appearance: "warning", label: "Especificação pendente", text: "A Entrada (expressive/decelerate · long/02) não corresponde a nenhum Motion Style da `.Motion Styles` — criar o Motion Style no Figma (CONFERIR C136)." } },
-        { p: "Reduced motion: honrar `prefers-reduced-motion: reduce` (sem deslocamento; só aparecer e sumir)." }
+        { p: "Reduced motion: honrar `prefers-reduced-motion: reduce` (sem deslocamento: o Toast aparece e some)." }
       ] }
     ]
   };

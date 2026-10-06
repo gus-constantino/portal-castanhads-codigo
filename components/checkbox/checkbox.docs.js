@@ -23,7 +23,7 @@
         { cards: [
           ["Clareza", "O checkbox deve comunicar de forma imediata se uma opção está selecionada ou não. O estado (marcado, desmarcado ou indeterminado) precisa ser visualmente distinto."],
           ["Consistência", "Deve ser usado sempre para representar escolhas independentes entre si, garantindo uma experiência uniforme em diferentes contextos da interface."],
-          ["Eficiência", "Permite ao usuário realizar seleções rápidas e diretas, reduzindo esforço cognitivo em listas de múltiplas opções."]
+          ["Eficiência", "Permite ao usuário realizar seleções ágeis e diretas, reduzindo esforço cognitivo em listas de múltiplas opções."]
         ] },
         { h2: "Quando usar" },
         { p: "O checkbox é um componente de confirmação explícita, utilizado em situações onde o usuário precisa realizar uma ação de consentimento, concordância ou ativação de múltiplas escolhas, indicando que o usuário leu a label e concorda com seu conteúdo, garantindo que a ação seja consciente e voluntária." },
@@ -35,7 +35,7 @@
         ] },
         { h3: "Não utilize para:" },
         { ul: [
-          "Escolha Única: Se o usuário deve escolher apenas uma opção de um conjunto (use Radio Buttons).",
+          "Escolha Única: Se o usuário deve escolher uma única opção de um conjunto (use Radio Buttons).",
           "Ação Imediata/Alternância de Estado: Se a ação é imediata e altera um estado diretamente (use um Toggle Switch).",
           "Ação de Comando: Se o clique executa uma função ou comando, não uma seleção (use um Botão).",
           "Navegação: Se o item leva a outra página ou seção (use um Link ou Botão)."
@@ -49,7 +49,7 @@
           { title: "Checkbox", attrs: group([cb("Vale-refeição", "selected"), cb("Vale-alimentação", "selected")]) }
         ] },
         { h3: "Checkbox vs Switch" },
-        { p: "O Checkbox é usado para permitir que o usuário selecione ou aceite uma ou mais opções, geralmente aplicadas apenas após um ação de confirmação, como enviar o formulário. Já o Switch funciona como um interruptor, alterando imediatamente o estado de uma configuração entre opções binárias, como sim e não e ligado e desligado, sem necessidade de confirmação. Ideal para ajustes instantâneos como ativar notificações ou mudar para o modo escuro." },
+        { p: "O Checkbox é usado para permitir que o usuário selecione ou aceite uma ou mais opções, geralmente aplicadas depois de uma ação de confirmação, como enviar o formulário. Já o Switch funciona como um interruptor, alterando imediatamente o estado de uma configuração entre opções binárias, como sim e não e ligado e desligado, sem necessidade de confirmação. Ideal para ajustes instantâneos como ativar notificações ou mudar para o modo escuro." },
         { compare: [
           { title: "Checkbox", attrs: cb("Li e concordo com os termos de uso", "selected") },
           { title: "Switch", attrs: { _tag: "cds-switch", label: "Notificações", status: "selected" } }
@@ -67,7 +67,7 @@
           { name: "Text Label", type: "Text", default: "Label" },
           { name: "Show Text Label", type: "Boolean", default: "true" }
         ] },
-        { note: "Props e padrões lidos do set Checkbox da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, State vem da interação (Hovered/Pressed) e do atributo `disabled`; `state=\"hovered|pressed\"` só existe para mostrar o estado em exemplos." }
+        { note: "Props e padrões lidos do set Checkbox da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, State vem da interação (Hovered/Pressed) e do atributo `disabled`. `state=\"hovered|pressed\"` existe exclusivamente para mostrar o estado em exemplos." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [

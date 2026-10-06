@@ -27,9 +27,9 @@
         { h2: "Quando usar" },
         { p: "Use o Breadcrumb para ajudar os usuários a acompanhar sua localização em longos fluxos ou hierarquias, mostrando a posição da página atual." },
         { h3: "Utilize para:" },
-        { ul: ["Em sites ou aplicativos com vários níveis de hierarquia ou páginas aninhadas;", "Para ajudar o usuário a entender onde ele está no contexto geral do sistema;", "Para permitir que o usuário navegue rapidamente para níveis superiores sem precisar usar o botão \"voltar\"."] },
+        { ul: ["Em sites ou aplicativos com vários níveis de hierarquia ou páginas aninhadas.", "Para ajudar o usuário a entender onde ele está no contexto geral do sistema.", "Para permitir que o usuário navegue diretamente para níveis superiores sem precisar usar o botão \"voltar\"."] },
         { h3: "Não utilize para:" },
-        { ul: ["Em sites ou aplicativos com pouca ou nenhuma hierarquia (menos de três níveis de profundidade);", "Como substituto para a navegação primária (menus ou abas). O Breadcrumb é um elemento de navegação secundária;", "Em situações onde o caminho do usuário é baseado em filtros ou buscas e não em uma hierarquia fixa (nesses casos, use Tags ou Filtros visíveis).", "Ações de Comando, se o elemento tem o objetivo de executar uma ação ou submeter dados (use um Main Button)."] },
+        { ul: ["Em sites ou aplicativos com pouca ou nenhuma hierarquia (menos de três níveis de profundidade).", "Como substituto para a navegação primária (menus ou abas). O Breadcrumb é um elemento de navegação secundária.", "Em situações onde o caminho do usuário é baseado em filtros ou buscas e não em uma hierarquia fixa (nesses casos, use Tags ou Filtros visíveis).", "Ações de Comando, se o elemento tem o objetivo de executar uma ação ou submeter dados (use um Main Button)."] },
         { note: "Suporte: canal #castanha-suporte no Slack." }
       ] },
 
@@ -42,7 +42,7 @@
           { name: "Show Popover", type: "Boolean", default: "false" },
           { name: "showItem03 … showItem06", type: "Boolean", default: "true" }
         ] },
-        { note: "Props e padrões lidos do set Breadcrumb da lib estável; cada nível é um .Item (building block). No código: os filhos `<a href>` são os níveis (o último vira a página atual, com `aria-current`) e `collapse` diz quantos níveis iniciais vão para o \"…\" (padrão 1; \"0\" mostra o caminho todo)." }
+        { note: "Props e padrões lidos do set Breadcrumb da lib estável. Cada nível é um .Item (building block). No código: os filhos `<a href>` são os níveis (o último vira a página atual, com `aria-current`) e `collapse` diz quantos níveis iniciais vão para o \"…\" (padrão 1, e \"0\" mostra o caminho todo)." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -57,8 +57,8 @@
         { h2: "Teclado e leitor de tela" },
         { ul: [
           "É um `<nav aria-label=\"Breadcrumb\">` com uma lista ordenada: o leitor de tela anuncia a região e quantos níveis há.",
-          "Os níveis superiores são links; a página atual é texto com `aria-current=\"page\"`.",
-          "O \"…\" é um botão que abre o Popover com os níveis escondidos; `Esc` fecha e devolve o foco.",
+          "Os níveis superiores são links, e a página atual é texto com `aria-current=\"page\"`.",
+          "O \"…\" é um botão que abre o Popover com os níveis escondidos. `Esc` fecha e devolve o foco.",
           "Os separadores são decorativos e não são lidos."
         ] },
         { h2: "Contraste (WCAG)" },
@@ -70,9 +70,9 @@
         { h2: "Diretrizes de uso" },
         { guides: [
           { attrs: crumbs(["Despesas", "Adiantamentos", "Colaboradores", "Detalhes do adiantamento"], "2"), title: "Link externo", text: "Em experiências para desktop Ao clicar no item truncado ele expande exibindo o caminho completo do breadcrumb." },
-          { attrs: crumbs(["Despesas", "Adiantamentos", "Detalhes"], "2"), title: "Mobile", text: "Em experiências mobile, utilize apenas 2 itens, sendo o primeiro kind=truncate e o segundo a página atual do usuário; Ao clicar no item truncado mostrar o popover com a lista do caminho completo." }
+          { attrs: crumbs(["Despesas", "Adiantamentos", "Detalhes"], "2"), title: "Mobile", text: "Em experiências mobile, utilize exatamente 2 itens, sendo o primeiro kind=truncate e o segundo a página atual do usuário. Ao clicar no item truncado mostrar o popover com a lista do caminho completo." }
         ] },
-        { note: "Atenção: as regras de Conteúdo dizem que a página de origem nunca é truncada; o componente e a diretriz Mobile truncam o primeiro nível (CONFERIR C138)." },
+        { note: "Atenção: as regras de Conteúdo dizem que a página de origem nunca é truncada, mas o componente e a diretriz Mobile truncam o primeiro nível (CONFERIR C138)." },
         { h2: "Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: crumbs(["Despesas", "Adiantamentos", "Detalhes"], "0"), text: "Reflita sempre a estrutura hierárquica real da aplicação" },
@@ -95,7 +95,7 @@
         { ol: [
           "Página de origem — nível mais alto da hierarquia. Nunca omitida ou truncada.",
           "Links intermediários — páginas entre a origem e a atual. São clicáveis e podem ser truncados quando necessário.",
-          "Página atual — último item da trilha. Exibido como texto simples, sem link e nunca truncado."
+          "Página atual — último item da trilha. Exibido como texto puro, sem link e nunca truncado."
         ] },
         { h3: "Como escrever" },
         { ul: [
@@ -107,7 +107,7 @@
           "Use sentence case — primeira letra maiúscula, demais em minúsculo. Confira as exceções de maiúsculas na página Escrevendo para produto."
         ] },
         { h3: "Truncamento" },
-        { p: "O truncamento é ativado quando o total de itens ultrapassa 5 ou quando não há espaço suficiente. Apenas os links intermediários são truncados e agrupados em um dropdown." },
+        { p: "O truncamento é ativado quando o total de itens ultrapassa 5 ou quando não há espaço suficiente. Os links intermediários são os únicos truncados e ficam agrupados em um dropdown." },
         { p: "Nunca são truncados:" },
         { ul: ["Página de origem", "Última página ancestral (nível imediatamente acima da página atual)", "Página atual"] },
         { h3: "Breadcrumb vs. Stepper" },
@@ -115,10 +115,10 @@
         { p: "O primeiro item do breadcrumb deve ser sempre a página que originou o fluxo — não o \"Painel Inicial\" ou \"Home\". Isso garante que a pessoa consiga retornar ao contexto exato de onde partiu." },
         { h3: "Do's and Don'ts" },
         { dodont: [
-          { kind: "do", attrs: crumbs(["Créditos Caju", "Transferência entre carteiras"]), text: "O progresso dos passos de um fluxo (stepper) não deve ser representado no Breadcrumb. Ele reflete apenas a hierarquia de navegação estática do produto." },
+          { kind: "do", attrs: crumbs(["Créditos Caju", "Transferência entre carteiras"]), text: "O progresso dos passos de um fluxo (stepper) não deve ser representado no Breadcrumb. Ele reflete exclusivamente a hierarquia de navegação estática do produto." },
           { kind: "dont", attrs: crumbs(["Painel inicial", "Transferência entre carteiras"]), text: "O primeiro item do Breadcrumb deve ser a página que originou o fluxo, e não o \"Painel Inicial\" ou ”Home”." }
         ] },
-        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Breadcrumb. Regras de escrita do time de Content; os exemplos usam componentes do DS com os mesmos textos." }
+        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Breadcrumb. Regras de escrita do time de Content. Os exemplos usam componentes do DS com os mesmos textos." }
       ] }
     ]
   };

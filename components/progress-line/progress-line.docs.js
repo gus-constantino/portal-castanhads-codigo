@@ -28,7 +28,7 @@ CDS.docs = CDS.docs || {};
         { h3: "Utilize para:" },
         { ul: ["Indicar progresso de carregamentos com percentual conhecido", "Representar etapas concluídas em processos lineares", "Comunicar avanço de ações que levam alguns segundos ou mais"] },
         { h3: "Não utilize para:" },
-        { ul: ["Estados de carregamento sem previsão de término", "Indicar apenas que algo está em processamento, sem progresso mensurável", "Apenas como um separador visual sem função de indicação de progresso"] },
+        { ul: ["Estados de carregamento sem previsão de término", "Indicar que algo está em processamento, sem progresso mensurável", "Como um separador visual, sem função de indicação de progresso"] },
         { h2: "Casos de uso" },
         { h3: "Progress Line vs Spinner" },
         { p: "O Progress Line deve ser utilizado quando existe a possibilidade de informar avanço real da operação. Já o Spinner é mais adequado para processos indeterminados, em que não há como calcular progresso." },
@@ -70,13 +70,13 @@ CDS.docs = CDS.docs || {};
         { h2: "Diretrizes de uso" },
         { guides: [
           { attrs: line(40), title: "Representar progresso real", text: "Utilize valores de progresso que correspondam de fato ao estado da operação, evitando animações artificiais que possam gerar desconfiança." },
-          { attrs: withText(40, "Enviando 2 de 5 arquivos"), title: "Manter visibilidade adequada", text: "Posicione o Progress Line próximo ao conteúdo ou ação relacionada, garantindo que a pessoa usuária associe facilmente o indicador ao processo em andamento." },
+          { attrs: withText(40, "Enviando 2 de 5 arquivos"), title: "Manter visibilidade adequada", text: "Posicione o Progress Line próximo ao conteúdo ou ação relacionada, garantindo que a pessoa usuária associe de imediato o indicador ao processo em andamento." },
           { attrs: withText(25, "Etapa 1 de 4"), title: "Complementar o Progress Line com indicador textual", text: "Quando for necessário oferecer mais contexto sobre o andamento do processo, associe o Progress Line a um indicador textual complementar, como etapa atual e total de etapas (ex.: “Etapa 1 de 4”). Esse texto deve ser posicionado próximo à barra de progresso, preferencialmente logo abaixo ou acima." }
         ] },
         { h2: "Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: withText(75, "Etapa 3 de 4"), text: "Utilize o Progress Line quando houver um percentual claro de avanço, por exemplo, etapas concluídas" },
-          { kind: "dont", text: "Não use o Progress Line em ações instantâneas ou sem dados de progresso, como uma simples troca de tela." }
+          { kind: "dont", text: "Não use o Progress Line em ações instantâneas ou sem dados de progresso, como uma troca de tela." }
         ] }
       ] },
 

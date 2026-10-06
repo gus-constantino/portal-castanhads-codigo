@@ -51,7 +51,7 @@
       { id: "estilos", title: "Estilos", blocks: [
         { h2: "Completo" },
         { display: { attrs: { total: "87", "per-page": "10", page: "3" } } },
-        { h2: "Só a navegação entre páginas" },
+        { h2: "Navegação entre páginas, sem seletor nem contagem" },
         { display: { attrs: { total: "87", "per-page": "10", page: "3", "show-items-per-page": false, "show-item-display": false } } }
       ] },
 
@@ -59,8 +59,8 @@
         { h2: "Teclado e leitor de tela" },
         { ul: [
           "É uma região de navegação com nome (`label`, padrão \"Paginação\").",
-          "Os .Select Number são botões com lista (`aria-haspopup=\"listbox\"`): ao abrir, o foco vai para a opção atual; setas, `Home`/`End`, `Enter` e `Esc`.",
-          "Anterior e próxima são Icon Buttons com nome; ficam desabilitados na primeira e na última página.",
+          "Os .Select Number são botões com lista (`aria-haspopup=\"listbox\"`): ao abrir, o foco vai para a opção atual, com setas, `Home`/`End`, `Enter` e `Esc`.",
+          "Anterior e próxima são Icon Buttons com nome e ficam desabilitados na primeira e na última página.",
           "Ao trocar de página, leve o foco ou anuncie a mudança no conteúdo (ex.: título da tabela), para quem usa leitor de tela saber que a lista mudou."
         ] },
         { h2: "Contraste (WCAG)" },

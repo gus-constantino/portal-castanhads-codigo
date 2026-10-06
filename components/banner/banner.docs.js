@@ -20,9 +20,9 @@
         { p: "Hero card, Promo banner, Feature card, Callout." },
         { h3: "Princípios" },
         { cards: [
-          ["Uma mensagem, uma ação", "O Banner comunica um assunto só e leva a um único destino. Mais de uma chamada dilui a mensagem e quebra a lógica da área clicável única."],
+          ["Uma mensagem, uma ação", "O Banner comunica um único assunto e leva a um único destino. Mais de uma chamada dilui a mensagem e quebra a lógica da área clicável única."],
           ["Convite, não interrupção", "Diferente dos componentes de sobreposição, o Banner convive com o conteúdo da página. Ele atrai a atenção, mas a pessoa usuária pode seguir seu fluxo sem interagir."],
-          ["Legibilidade acima da estética", "A cor de fundo e a imagem são livres. A escolha precisa preservar o contraste do texto em todos os estados, não apenas no estado inicial."]
+          ["Legibilidade acima da estética", "A cor de fundo e a imagem são livres. A escolha precisa preservar o contraste do texto em todos os estados: Enabled, Hovered, Pressed e Disabled."]
         ] },
         { h2: "Quando usar" },
         { p: "Utilize o Banner para destacar uma oferta, novidade ou informação relevante que leve a pessoa usuária a um destino específico, sem interromper o fluxo em que ela está." },
@@ -52,7 +52,7 @@
         { anatomy: { attrs: { kind: "image", src: PHOTO, alt: "", title: "Cursos", description: "Faculdades parceiras da Caju.", cta: "Ver cursos" }, markers: [{ n: 1, target: ".cds-banner__img", side: "left" }, { n: 2, target: ".cds-banner__backdrop", side: "right" }, { n: 3, target: ".cds-cb__title", side: "top", align: "start" }, { n: 4, target: ".cds-cb__desc", side: "left" }, { n: 5, target: ".cds-cb__cta", side: "bottom", align: "start" }], legend: ["Imagem de fundo", "Backdrop", "Título", "Descrição", "Indicação de CTA"] } },
         { h2: "Composição do componente" },
         { p: "O Banner é composto por:" },
-        { ul: ["Fundo (obrigatório): cor livre na variante Illustration, imagem com Backdrop na variante Image", "Conteúdo (obrigatório): título e descrição", "Indicação de CTA (opcional): rótulo e ícone, sem componente Button", "Ilustração (opcional): apenas na variante Illustration"] },
+        { ul: ["Fundo (obrigatório): cor livre na variante Illustration, imagem com Backdrop na variante Image", "Conteúdo (obrigatório): título e descrição", "Indicação de CTA (opcional): rótulo e ícone, sem componente Button", "Ilustração (opcional): exclusiva da variante Illustration"] },
         { h2: "Propriedades" },
         { props: [
           { name: "Kind", type: "Variant", default: "Illustration", values: ["Illustration", "Image"] },
@@ -68,7 +68,7 @@
           { name: "Show Text Title", type: "Boolean", default: "true" },
           { name: "Show CTA", type: "Boolean", default: "true" }
         ] },
-        { note: "Props e padrões lidos dos sets Banner (20051:15726) e .Content Banner (20028:15153) da lib estável. Largura mínima de 280px; a altura acompanha o conteúdo. No código: `kind`, `illustration` (\"<categoria>/<nome>\" do [Caju] Illustrations), `src`/`alt` (Image), `bg` (token de cor do fundo, padrão Decorative/01), `content` (Appearance do conteúdo), `title`, `description`, `cta`, `show-text-title`, `show-cta`, `href` e `disabled`; `state` só para exemplos." }
+        { note: "Props e padrões lidos dos sets Banner (20051:15726) e .Content Banner (20028:15153) da lib estável. Largura mínima de 280px, e a altura acompanha o conteúdo. No código: `kind`, `illustration` (\"<categoria>/<nome>\" do [Caju] Illustrations), `src`/`alt` (Image), `bg` (token de cor do fundo, padrão Decorative/01), `content` (Appearance do conteúdo), `title`, `description`, `cta`, `show-text-title`, `show-cta`, `href` e `disabled`. O `state` serve exclusivamente para exemplos." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -92,8 +92,8 @@
         { h2: "Teclado e leitor de tela" },
         { ul: [
           "O Banner inteiro é a área clicável: com `href` é um link (`<a>`), sem `href` é um botão. O nome é o título, a descrição e o texto do CTA.",
-          "O CTA é apenas indicação visual da ação — não é um botão, não é focável separadamente e não deve haver mais de um por banner.",
-          "A ilustração é decorativa; na variante Image, use `alt` vazio quando a imagem só ilustra.",
+          "O CTA é uma indicação visual da ação — não é um botão, não é focável separadamente e não deve haver mais de um por banner.",
+          "A ilustração é decorativa. Na variante Image, use `alt` vazio quando a imagem é decorativa.",
           "Disabled usa o `disabled` nativo e sai da ordem de foco."
         ] },
         { h2: "Contraste (WCAG)" },
@@ -131,7 +131,7 @@
           { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
           { title: "→ Disabled", rows: [["Gatilho", "Ao desabilitar"], ["Motion Style", "`Disabled/01`"]] }
         ] },
-        { alert: { appearance: "warning", label: "Especificação pendente", text: "A seção Motion do [Documentação] Banner está com \"Especificação\" na tabela; o mapeamento acima segue o padrão de estados de interação. No código, o overlay usa short/03 + systemic/accelerate (CONFERIR C145)." } }
+        { alert: { appearance: "warning", label: "Especificação pendente", text: "A seção Motion do [Documentação] Banner está com \"Especificação\" na tabela. O mapeamento acima segue o padrão de estados de interação. No código, o overlay usa short/03 + systemic/accelerate (CONFERIR C145)." } }
       ] }
     ]
   };

@@ -16,7 +16,7 @@
         { h2: "Sobre" },
         { p: "O .Header é o cabeçalho do Modal e do Bottom Sheet: o título (Body/Bold), o botão de fechar (Icon Button Ghost Neutral Medium, close-line) e o Divider Soft embaixo." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do Modal e do Bottom Sheet, que monta e controla os itens.", "Fora dele, use o componente completo (Modal e do Bottom Sheet)."] },
+        { ul: ["Peça interna do Modal e do Bottom Sheet, que monta e controla os itens.", "Fora dele, use o componente completo (Modal e do Bottom Sheet)."] },
         { compare: [{ title: "Dentro do Modal e do Bottom Sheet", attrs: { _tag: "div", class: "pg-cnt-phone pg-cnt-phone--sheet", _children: [{ _tag: "cds-bottom-sheet", inline: true, "text-title": "Pedido de cartões", "primary-label": "Confirmar", "secondary-label": "Cancelar", _children: [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Revise os dados antes de confirmar." }] }] } }] }
       ] },
 
@@ -58,7 +58,7 @@
 
       { id: "motion", title: "Motion", blocks: [
         { h2: "Motion" },
-        { p: "O .Header é estático; o botão de fechar segue o Motion do Icon Button." }
+        { p: "O .Header é estático. O botão de fechar segue o Motion do Icon Button." }
       ] }
     ]
   };

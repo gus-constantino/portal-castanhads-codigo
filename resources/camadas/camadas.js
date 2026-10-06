@@ -128,7 +128,7 @@
         head.appendChild(el("span", "pg-mo-panel__title", t.name));
         head.appendChild(el("span", "pg-mo-panel__when", t.what + " · da tela até o valor"));
         row("Composição", 9, function(c){ c.appendChild(el("span", "pg-arq-row__t", v.screen)); });
-        row("Local assets", 8, function(c){ c.appendChild(el("span", "pg-arq-row__t is-none", "Nenhum: a tela usa só o DS")); });
+        row("Local assets", 8, function(c){ c.appendChild(el("span", "pg-arq-row__t is-none", "Nenhum: a tela usa componentes e tokens do DS")); });
         row("Templates", 7, function(c){ c.appendChild(el("span", "pg-arq-row__t is-none", "Nenhum: card solto na tela")); });
         row("Componentes", 6, function(c){ tag(c, t.component); });
         row("Styles", 5, function(c){ t.styles.forEach(function(s){ tag(c, s); }); tag(c, "Viewport " + VP[st.vp]); });
@@ -353,7 +353,7 @@
         { arqOwners: { items: [
           { title: "Componente do DS", icon: "view-module-line", app: "positive", text: "Serve a todos os produtos.", rows: [["Quem cria", "Time do DS"], ["Quem mantém", "Time do DS"], ["Onde mora", "Biblioteca do Castanha"], ["Documentação", "Obrigatória e pública"]] },
           { title: "Evolutiva", icon: "plus-line", app: "accent", text: "Variante ou prop nova num componente que já existe.", rows: [["Quem cria", "Designer do produto propõe"], ["Quem mantém", "Time do DS aprova e mantém"], ["Onde mora", "Biblioteca do Castanha"], ["Documentação", "Obrigatória"]] },
-          { title: "Local asset", icon: "folder-line", app: "warning", text: "Componente, módulo ou asset de um time só.", rows: [["Quem cria", "Designer do produto"], ["Quem mantém", "Squad"], ["Onde mora", "Biblioteca do time"], ["Documentação", "Recomendada"]] },
+          { title: "Local asset", icon: "folder-line", app: "warning", text: "Componente, módulo ou asset de um único time.", rows: [["Quem cria", "Designer do produto"], ["Quem mantém", "Squad"], ["Onde mora", "Biblioteca do time"], ["Documentação", "Recomendada"]] },
           { title: "Composição", icon: "home-line", app: "neutral", text: "Arranjo de componentes para resolver uma tela.", rows: [["Quem cria", "Designer do produto"], ["Quem mantém", "Ninguém: é uma tela"], ["Onde mora", "Arquivo do produto"], ["Documentação", "Não precisa"]] }
         ] } },
         { p: "Composição não vira team component: isso aumenta a biblioteca do time e o custo de manutenção sem ganho de reuso." }

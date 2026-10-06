@@ -33,9 +33,9 @@ CDS.docs["text-input"] = {
       { h3: "Utilize para:" },
       { ul: ["Inserção de nome, sobrenome ou apelido", "E-mail", "CPF, CNPJ ou outros identificadores", "Código promocional", "Informações curtas de identificação"] },
       { h3: "Não utilize para:" },
-      { ul: ["Seleção entre opções pré-definidas (use Select input ou Selection List)", "Respostas longas e descritivas (use Text Area)", "Escolhas múltiplas com visualização de alternativas simultâneas", "Filtros rápidos de navegação"] },
+      { ul: ["Seleção entre opções pré-definidas (use Select input ou Selection List)", "Respostas longas e descritivas (use Text Area)", "Escolhas múltiplas com exibição de alternativas simultâneas", "Filtros pontuais de navegação"] },
       { h3: "Text Area vs Text input" },
-      { p: "O Text input é indicado para textos curtos e objetivos, enquanto o Text Area deve ser usado quando a pessoa usuária precisa escrever conteúdos mais longos, com múltiplas linhas e maior flexibilidade de visualização." },
+      { p: "O Text input é indicado para textos curtos e objetivos, enquanto o Text Area deve ser usado quando a pessoa usuária precisa escrever conteúdos mais longos, com múltiplas linhas e maior flexibilidade de exibição." },
       { compare: [
         { title: "Este é um Text area", attrs: { _tag: "cds-text-area", label: "Descrição da solicitação", placeholder: "Explique o contexto ou a situação",
             "show-required": false, "show-supporting-content": false, "show-character-counter": false } },
@@ -105,7 +105,7 @@ CDS.docs["text-input"] = {
           title: "Escreva labels claras e específicas",
           text: "Prefira labels objetivas que descrevam exatamente o dado esperado, evitando termos genéricos como “Informação” ou “Digite aqui”." },
         { attrs: { label: "Insira o CPF ou CNPJ", placeholder: "000.000.000-00", "show-required": false, "show-lead-icon": false, "show-supporting-content": false, "show-character-counter": false },
-          title: "Evite depender apenas de placeholder",
+          title: "Evite depender exclusivamente do placeholder",
           text: "O placeholder não substitui o label. Ele deve complementar a orientação, oferecendo exemplo de formato quando necessário." },
         { attrs: { label: "Insira a chave Pix", value: "abc", appearance: "warning", error: "Insira um formato de chave válido.", "show-required": false, "show-lead-icon": false, "show-character-counter": false },
           title: "Valide no momento certo",
@@ -114,7 +114,7 @@ CDS.docs["text-input"] = {
           title: "Defina tipo e máscara corretamente",
           text: "Sempre que possível, utilize o tipo apropriado (ex: e-mail, número) e máscaras coerentes para reduzir erros e facilitar o preenchimento." }
       ] },
-      { note: "No Figma, os exemplos das diretrizes e dos Do's and Don'ts são imagens de tela; aqui são o Text Input real com os mesmos textos (sem o título da tela)." },
+      { note: "No Figma, os exemplos das diretrizes e dos Do's and Don'ts são imagens de tela. Aqui são o Text Input real com os mesmos textos (sem o título da tela)." },
       { h2: "Do's and Don'ts" },
       { h3: "Conteúdo" },
       { dodont: [

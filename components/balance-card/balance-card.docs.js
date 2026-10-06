@@ -20,8 +20,8 @@ CDS.docs["balance-card"] = {
       { h3: "Princípios" },
       { cards: [
         ["Um saldo por card", "Cada card representa uma única categoria. Não agrupe valores de categorias diferentes no mesmo bloco."],
-        ["Status complementa, não substitui", "As tags apoiam a leitura do saldo. Ative apenas quando a informação muda a decisão da pessoa usuária."],
-        ["Toque previsível", "O card é sempre clicável e leva ao detalhe da categoria. Não utilize como elemento apenas informativo."]
+        ["Status complementa, não substitui", "As tags apoiam a leitura do saldo. Reserve as tags para quando a informação muda a decisão da pessoa usuária."],
+        ["Toque previsível", "O card é sempre clicável e leva ao detalhe da categoria. Não utilize como elemento puramente informativo."]
       ] },
       { h2: "Quando usar" },
       { p: "Utilize o Balance Card quando a pessoa usuária precisar consultar o saldo de uma categoria e acessar seu detalhe a partir dali. Ele funciona bem em listas e grids, onde comparar valores entre categorias faz parte da tarefa, e suporta status complementares quando o saldo tem alguma condição associada." },
@@ -31,12 +31,12 @@ CDS.docs["balance-card"] = {
       { ul: ["Exibir um valor isolado, sem categoria (utilize o Currency)", "Elementos não clicáveis, já que o card tem estados de interação", "Agrupar vários valores no mesmo bloco (utilize List ou Table)", "Ações sem valor monetário associado (utilize o Shortcut)"] },
       { h3: "Balance Card vs Shortcut" },
       { p: "Use o Balance Card quando o saldo de uma categoria for a informação principal e a pessoa usuária precisar consultá-lo para decidir algo — especialmente quando o valor precisa de destaque ou vem acompanhado de um status, como bloqueio ou vencimento." },
-      { p: "O Shortcut é indicado para acessos rápidos e recorrentes, em que o valor aparece apenas como apoio e o objetivo é chegar à ação em menos toques, desde que a categoria seja reconhecível pelo ícone e por um rótulo curto." },
+      { p: "O Shortcut é indicado para acessos diretos e recorrentes, em que o valor aparece como apoio e o objetivo é chegar à ação em menos toques, desde que a categoria seja reconhecível pelo ícone e por um rótulo curto." },
       { compare: [{ title: "Este é um Balance Card", attrs: {} }] },
       { h3: "Balance Card vs Big number" },
-      { p: "Use o Balance Card quando o saldo precisar ser consultado e levar a um destino, como o detalhe ou o extrato da categoria — o card é sempre clicável e responde a interação. O Big number é indicado quando o valor existe apenas para ser lido com ênfase, sem nenhuma ação associada, como em painéis e resumos de leitura." },
+      { p: "Use o Balance Card quando o saldo precisar ser consultado e levar a um destino, como o detalhe ou o extrato da categoria — o card é sempre clicável e responde a interação. O Big number é indicado quando o valor existe para ser lido com ênfase, sem nenhuma ação associada, como em painéis e resumos de leitura." },
       { compare: [{ title: "Este é um Balance Card", attrs: {} }] },
-      { note: "Shortcut e Big number ainda não estão na lib do playground; por isso a comparação mostra só o Balance Card." }
+      { note: "Shortcut e Big number ainda não estão na lib do playground, por isso a comparação mostra o Balance Card sozinho." }
     ] },
 
     { id: "anatomia", title: "Anatomia", blocks: [
@@ -108,7 +108,7 @@ CDS.docs["balance-card"] = {
         { attrs: { icon: "meal-line", "header-tag": "Novo", label: "Alimentação", "bottom-tag": "Voucher" }, title: "Mantenha o rótulo curto",
           text: "Use o nome da categoria sem complementos. O card cresce com o conteúdo a partir de 144px, e rótulos longos alargam o bloco e quebram o alinhamento do grid." },
         { attrs: { icon: "meal-line", "header-tag": "Novo saldo", label: "Alimentação", "show-bottom-tag": false }, title: "Ative as tags com parcimônia",
-          text: "Cada tag comunica um único status. Ativar as duas ao mesmo tempo só se justifica quando as duas informações mudam a decisão da pessoa usuária." },
+          text: "Cada tag comunica um único status. Ativar as duas ao mesmo tempo se justifica exclusivamente quando as duas informações mudam a decisão da pessoa usuária." },
         { attrs: { icon: "meal-line", label: "Alimentação", "show-header-tag": false, "show-bottom-tag": false }, title: "Escolha um ícone que comunique a categoria",
           text: "Substituir o placeholder não é suficiente. O ícone precisa comunicar qual categoria o card representa, sem depender do rótulo para ser compreendido." },
         { attrs: [
@@ -128,7 +128,7 @@ CDS.docs["balance-card"] = {
         { kind: "do", attrs: { icon: "meal-line", label: "Alimentação", value: "420,00", "show-header-tag": false, "show-bottom-tag": false },
           text: "Use o Balance Card quando houver um detalhe ou extrato para abrir." },
         { kind: "dont", attrs: { label: "Total do mês", value: "600,00", "show-header-tag": false, "show-bottom-tag": false },
-          text: "Não use o card apenas para exibir informação, sem destino. Ele tem estados de interação." },
+          text: "Não use o card para exibir informação sem destino. Ele tem estados de interação." },
         { kind: "do", attrs: { icon: "meal-line", label: "Alimentação", value: "420,00", "show-header-tag": false, "show-bottom-tag": false },
           text: "Use o Balance Card quando o valor é o motivo da consulta." },
         { kind: "dont", attrs: { label: "Pedir cartão", value: "", "show-header-tag": false, "show-bottom-tag": false },

@@ -17,16 +17,16 @@
       { id: "uso", title: "Uso", blocks: [
         { alert: { appearance: "warning", label: "Rascunho", text: "Os Chips ainda não têm página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
         { h2: "Sobre" },
-        { p: "O Filter Chip é um botão de liga/desliga para filtros rápidos. Cada clique alterna Is Selected: selecionado, o Lead Icon vira o check-line e o chip fica com o fundo invertido. Vários chips podem ficar selecionados ao mesmo tempo." },
+        { p: "O Filter Chip é um botão de liga/desliga para filtros imediatos. Cada clique alterna Is Selected: selecionado, o Lead Icon vira o check-line e o chip fica com o fundo invertido. Vários chips podem ficar selecionados ao mesmo tempo." },
         { p: "Os Filter Chips aparecem em grupo, dentro do Chips Group, logo acima do conteúdo que filtram." },
         { h2: "Quando usar" },
         { h3: "Utilize para:" },
-        { ul: ["Filtros rápidos e visíveis sobre uma lista, tabela ou extrato (ex.: categorias de benefício).", "Poucas opções curtas, que cabem numa ou duas linhas."] },
+        { ul: ["Filtros imediatos e visíveis sobre uma lista, tabela ou extrato (ex.: categorias de benefício).", "Poucas opções curtas, que cabem numa ou duas linhas."] },
         { h3: "Não utilize para:" },
         { ul: ["Filtros complexos, com vários campos — use o Filter Button com Drawer ou Bottom Sheet.", "Ações (salvar, enviar) — use um Main Button.", "Mostrar valores já escolhidos que a pessoa pode remover — use o Input Chip.", "Escolhas de formulário — use Checkbox ou Radio Button."] },
         { h2: "Casos de uso" },
         { h3: "Filter Chip vs Input Chip" },
-        { p: "O Filter Chip liga e desliga um filtro e continua na tela. O Input Chip mostra um valor já escolhido; clicar nele remove o chip." },
+        { p: "O Filter Chip liga e desliga um filtro e continua na tela. O Input Chip mostra um valor já escolhido. Clicar nele remove o chip." },
         { compare: [
           { title: "Filter Chip", attrs: row([fc("Alimentação", { selected: true }), fc("Refeição")]) },
           { title: "Input Chip", attrs: row([{ _tag: "cds-input-chip", label: "Alimentação", "show-lead-icon": false }, { _tag: "cds-input-chip", label: "Refeição", "show-lead-icon": false }]) }
@@ -44,7 +44,7 @@
           { name: "Text Label", type: "Text", default: "Label" },
           { name: "Icon", type: "Instance swap", default: "placeholder-line" }
         ] },
-        { note: "Props e padrões lidos do set Filter Chips da lib estável. No código: `label`, `icon`, `show-lead-icon`, `selected` e `disabled`; `state=\"hovered|pressed\"` só para exemplos. Evento `cds-change` com `{ selected }`." }
+        { note: "Props e padrões lidos do set Filter Chips da lib estável. No código: `label`, `icon`, `show-lead-icon`, `selected` e `disabled`. `state=\"hovered|pressed\"` é exclusivo dos exemplos. Evento `cds-change` com `{ selected }`." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -66,19 +66,19 @@
         { h2: "Teclado e leitor de tela" },
         { ul: [
           "Cada chip é um `<button>` com `aria-pressed`: o leitor de tela anuncia o nome e se está selecionado.",
-          "`Tab` leva ao chip; `Enter` ou `Espaço` alternam a seleção.",
-          "A seleção não depende só da cor: o ícone vira o check-line.",
-          "Os ícones são decorativos; o nome vem do Label.",
+          "`Tab` leva ao chip. `Enter` ou `Espaço` alternam a seleção.",
+          "A seleção não depende exclusivamente da cor: o ícone vira o check-line.",
+          "Os ícones são decorativos. O nome vem do Label.",
           "Em grupo, use o Chips Group com `label` para nomear o conjunto (ex.: \"Filtrar por categoria\")."
         ] },
         { h2: "Contraste (WCAG)" },
-        { ul: ["Label e ícone (Text/medium e Icons/medium sobre Surface/01): 7,42:1 — AA e AAA.", "Selecionado (Text/inversed sobre Surface/inversed): 16,96:1 — AA e AAA.", "Sem seleção, o chip não tem borda: o fundo (Surface/01) fica a 1,11:1 da Surface/default e a borda do Hovered (Border/medium) a 2,78:1 — abaixo de 3:1; o Label é o que identifica o chip."] },
+        { ul: ["Label e ícone (Text/medium e Icons/medium sobre Surface/01): 7,42:1 — AA e AAA.", "Selecionado (Text/inversed sobre Surface/inversed): 16,96:1 — AA e AAA.", "Sem seleção, o chip não tem borda: o fundo (Surface/01) fica a 1,11:1 da Surface/default e a borda do Hovered (Border/medium) a 2,78:1 — abaixo de 3:1. O Label é o que identifica o chip."] },
         { note: "Contrastes medidos no tema light do playground." }
       ] },
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
-        { ul: ["Labels curtos, de uma ou duas palavras, com a primeira letra maiúscula.", "Aplique o filtro na hora, sem botão de confirmar.", "Mantenha a ordem dos chips fixa; não reordene ao selecionar.", "Mostre um jeito de limpar todos os filtros quando houver vários selecionados."] },
+        { ul: ["Labels curtos, de uma ou duas palavras, com a primeira letra maiúscula.", "Aplique o filtro na hora, sem botão de confirmar.", "Mantenha a ordem dos chips fixa e não reordene ao selecionar.", "Mostre um jeito de limpar todos os filtros quando houver vários selecionados."] },
         { dodont: [
           { kind: "do", attrs: row([fc("Alimentação", { selected: true }), fc("Refeição"), fc("Mobilidade")]), text: "Use labels curtos e do mesmo tipo de informação." },
           { kind: "dont", attrs: row([fc("Mostrar só as despesas de alimentação"), fc("Salvar")]), text: "Não use frases longas nem ações dentro do grupo de filtros." }

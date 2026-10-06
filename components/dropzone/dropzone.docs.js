@@ -25,7 +25,7 @@
         { cards: [
           ["Área explícita", "A área delimitada mostra onde o arquivo deve ser solto antes de qualquer interação, em vez de depender de a pessoa usuária descobrir que pode arrastar."],
           ["Restrição antes do erro", "Os formatos e limites aceitos aparecem na própria área, para que a pessoa usuária saiba o que enviar antes de tentar."],
-          ["Caminho de toque garantido", "Existe sempre um caminho de clique ou toque: no Desktop, o Main Button; no Mobile, a área inteira, que funciona como um único botão. Arrastar é complemento, nunca o único caminho."]
+          ["Caminho de toque garantido", "Existe sempre um caminho de clique ou toque: no Desktop, o Main Button. No Mobile, a área inteira, que funciona como um único botão. Arrastar é complemento, nunca o único caminho."]
         ] },
         { h2: "Quando usar" },
         { p: "Use o Dropzone quando a pessoa usuária precisa anexar um ou mais arquivos dentro de um fluxo, e é importante deixar claro quais formatos e limites o envio aceita. Ele funciona bem em formulários, cadastros e envio de documentos, onde o arquivo é parte da tarefa e não a tarefa inteira. Na maioria dos casos ele não aparece sozinho: o Dropzone cobre a entrada dos arquivos e o Upload Item, agrupado no Upload List, cobre o acompanhamento do envio." },
@@ -49,7 +49,7 @@
           { name: "Show Text description", type: "Boolean", default: "true" },
           { name: "Show Main button", type: "Boolean", default: "true" }
         ] },
-        { note: "Props e padrões lidos do set Dropzone da lib estável. Desktop e Mobile vêm da coleção File Upload (Is Desktop / Is Mobile; tablet usa o Mobile). No código: `text-title`, `text-description`, `show-text-description`, `show-main-button`, `button-label` (\"Selecionar arquivos\"), `accept`, `multiple`, `disabled` e `viewport`; `state` só para exemplos. Evento `cds-files { files }`." }
+        { note: "Props e padrões lidos do set Dropzone da lib estável. Desktop e Mobile vêm da coleção File Upload (Is Desktop / Is Mobile, e o tablet usa o Mobile). No código: `text-title`, `text-description`, `show-text-description`, `show-main-button`, `button-label` (\"Selecionar arquivos\"), `accept`, `multiple`, `disabled` e `viewport`. O `state` serve exclusivamente para exemplos. Evento `cds-files { files }`." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -69,19 +69,19 @@
         { ul: [
           "Desktop: o seletor de arquivos do sistema abre pelo Main Button (\"Selecionar arquivos\", `button-label`), que recebe foco e funciona com `Enter`/`Espaço`.",
           "Mobile: a área inteira é um botão (`role=\"button\"`) com o título como nome e a descrição (formatos e limites) como descrição.",
-          "O `<input type=\"file\">` nativo fica escondido do leitor de tela; quem é anunciado é o botão.",
+          "O `<input type=\"file\">` nativo fica escondido do leitor de tela. Quem é anunciado é o botão.",
           "Arrastar é opcional: tudo o que se faz arrastando também se faz pelo botão.",
           "Ao adicionar, anuncie o resultado no Upload Item (envio, sucesso ou falha)."
         ] },
         { h2: "Contraste (WCAG)" },
-        { ul: ["Título (Text/intense) 16,96:1 · descrição (Text/medium) 8,24:1 sobre Surface/default — AA e AAA; no Dragover, 15,70:1 e 7,63:1.", "Contorno tracejado (Border/medium): 2,78:1 — abaixo de 3:1 (1.4.11). A área também é identificada pelo ícone, pelo texto e pelo botão, mas o contorno é o que mostra o limite para soltar (mesmo token da borda do Checkbox, C134). No Dragover, 4,54:1."] },
+        { ul: ["Título (Text/intense) 16,96:1 · descrição (Text/medium) 8,24:1 sobre Surface/default — AA e AAA. No Dragover, 15,70:1 e 7,63:1.", "Contorno tracejado (Border/medium): 2,78:1 — abaixo de 3:1 (1.4.11). A área também é identificada pelo ícone, pelo texto e pelo botão, mas o contorno é o que mostra o limite para soltar (mesmo token da borda do Checkbox, C134). No Dragover, 4,54:1."] },
         { note: "Contrastes medidos no tema light do playground. O zeroheight ainda não tem seção de Acessibilidade para o Dropzone." }
       ] },
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
         { guides: [
-          { attrs: pair({ "text-title": "Adicionar comprovante" }, [ui("uploading", "comprovante-residencia", ".pdf", { percent: "60" })]), title: "Use o Dropzone com o Upload Item", text: "O Dropzone cobre só a entrada dos arquivos. O acompanhamento do envio, o erro e a remoção ficam no Upload Item, listado logo abaixo da área. Sem esse par, a pessoa usuária adiciona o arquivo e não recebe retorno do que aconteceu com ele." },
+          { attrs: pair({ "text-title": "Adicionar comprovante" }, [ui("uploading", "comprovante-residencia", ".pdf", { percent: "60" })]), title: "Use o Dropzone com o Upload Item", text: "O Dropzone cobre a entrada dos arquivos. O acompanhamento do envio, o erro e a remoção ficam no Upload Item, listado logo abaixo da área. Sem esse par, a pessoa usuária adiciona o arquivo e não recebe retorno do que aconteceu com ele." },
           { attrs: dz({ "text-title": "Adicionar arquivos", "text-description": "PDF, JPG ou PNG · até 10 MB · máximo 5 arquivos" }), title: "Deixe as restrições visíveis", text: "Informe os formatos, o tamanho e a quantidade aceitos na própria área, antes do envio. A pessoa usuária não deve descobrir a regra pela mensagem de erro." },
           { attrs: dz({ viewport: "mobile" }), title: "Trate a área inteira como botão no Mobile", text: "No Desktop a seleção acontece pelo Main Button. No Mobile não há botão: a área inteira é o gatilho, porque arrastar não funciona em dispositivos de toque. Nada dentro da área deve competir com esse toque." },
           { attrs: dz({ "text-title": "Adicionar comprovante" }), title: "Adeque o título ao arquivo esperado", text: "Troque o título padrão quando o fluxo pede um documento específico, como “Adicionar comprovante”. O título genérico serve de ponto de partida, não de resposta final." }
@@ -105,7 +105,7 @@
           { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
           { title: "→ Disabled", rows: [["Gatilho", "Ao desabilitar"], ["Motion Style", "`Disabled/01`"]] }
         ] },
-        { alert: { appearance: "warning", label: "Especificação pendente", text: "O zeroheight não tem seção de Motion para o Dropzone; o mapeamento acima segue o padrão de estados de interação, e a transição para Dragover não tem Motion Style definido. No código, short/03 + systemic/accelerate (CONFERIR C140)." } }
+        { alert: { appearance: "warning", label: "Especificação pendente", text: "O zeroheight não tem seção de Motion para o Dropzone. O mapeamento acima segue o padrão de estados de interação, e a transição para Dragover não tem Motion Style definido. No código, short/03 + systemic/accelerate (CONFERIR C140)." } }
       ] }
     ]
   };

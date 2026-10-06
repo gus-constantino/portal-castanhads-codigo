@@ -23,7 +23,7 @@ CDS.docs["credit-card-input"] = {
       { h3: "Princípios" },
       { cards: [
         ["Número mascarado e agrupado", "Exibe o número em grupos (#### #### #### ####), facilitando a conferência e reduzindo erro de digitação."],
-        ["Dado sensível", "O número do cartão é um dado sensível: exiba mascarado e, em um cartão salvo, mostre apenas os últimos dígitos."],
+        ["Dado sensível", "O número do cartão é um dado sensível: exiba mascarado e, em um cartão salvo, mostre exclusivamente os últimos dígitos."],
         ["Parte da família de inputs", "Herda label, obrigatoriedade, mensagem de apoio e estado de erro dos text fields, mantendo consistência com os demais campos do formulário."]
       ] },
       { h2: "Quando usar" },
@@ -89,7 +89,7 @@ CDS.docs["credit-card-input"] = {
         "Texto (Label, valor, apoio): 8,2:1 a 17:1 — AA e AAA.",
         "Warning (#974602) sobre o fundo: 6,4:1 — AA.",
         "Placeholder (Text/soft #999): 2,78:1 — isento, texto de dica.",
-        "Borda em interação (Active/Pressed): 8,2:1; repouso/hover < 3:1, herança da família.",
+        "Borda em interação (Active/Pressed): 8,2:1. Repouso/hover < 3:1, herança da família.",
         "Estado desabilitado: isento do critério 1.4.3."
       ] }
     ] },
@@ -97,12 +97,12 @@ CDS.docs["credit-card-input"] = {
     { id: "diretrizes", title: "Diretrizes", blocks: [
       { h2: "Diretrizes" },
       { guides: [
-        { attrs: { label: "Número do cartão", "show-required": false }, title: "Use só para número de cartão",
-          text: "O Credit Card Input é para o número do cartão. Para validade ou CVV, use campos próprios; para texto ou números longos, o Text Input." },
+        { attrs: { label: "Número do cartão", "show-required": false }, title: "Use exclusivamente para número de cartão",
+          text: "O Credit Card Input é para o número do cartão. Para validade ou CVV, use campos próprios. Para texto ou números longos, use o Text Input." },
         { attrs: { label: "Número do cartão", appearance: "warning" }, title: "Comunique o erro além da cor",
-          text: "No número inválido, a borda Warning vem acompanhada da mensagem de erro; a cor sozinha não comunica a falha." },
+          text: "No número inválido, a borda Warning vem acompanhada da mensagem de erro. A cor sozinha não comunica a falha." },
         { attrs: { label: "Número do cartão", "show-required": false }, title: "Proteja o número do cartão",
-          text: "Ao exibir um cartão já salvo, mostre apenas os últimos dígitos; não exponha o número completo nem registre o valor." }
+          text: "Ao exibir um cartão já salvo, mostre exclusivamente os últimos dígitos. Não exponha o número completo nem registre o valor." }
       ] },
       { h2: "Do's and Don'ts" },
       { h3: "Conteúdo" },

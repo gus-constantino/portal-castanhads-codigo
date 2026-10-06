@@ -24,7 +24,7 @@ CDS.docs["badge"] = {
         ["Consistência", "Deve seguir padrões definidos de posicionamento, cor e tamanho, garantindo previsibilidade e coerência em todas as interfaces."]
       ] },
       { h2: "Quando usar" },
-      { p: "Use o Badge apenas para indicar a existência de notificações, contagens de novas mensagens ou atualizações que requerem atenção da pessoa usuária. Ele deve complementar o conteúdo principal, nunca substituí-lo, e ser aplicado de forma sutil e consistente." },
+      { p: "Use o Badge exclusivamente para indicar a existência de notificações, contagens de novas mensagens ou atualizações que requerem atenção da pessoa usuária. Ele deve complementar o conteúdo principal, nunca substituí-lo, e ser aplicado de forma sutil e consistente." },
       { h3: "Utilize para:" },
       { ul: ["Mostrar o número de notificações não lidas.", "Indicar novas mensagens, alertas ou atualizações.", "Sinalizar que há novos itens em uma lista ou seção."] },
       { h3: "Não utilize para:" },
@@ -37,7 +37,7 @@ CDS.docs["badge"] = {
         { title: "Tag: categoria ou status", attrs: { _tag: "cds-tag", label: "Em análise", appearance: "warning", "show-lead-item": false } }
       ] },
       { h3: "Badge vs Chip Input / Chip Select" },
-      { p: "O Chip é um componente interativo, usado para ações, filtros ou seleção de itens. O Badge, por outro lado, não tem função clicável — ele apenas sinaliza a presença de novas informações." },
+      { p: "O Chip é um componente interativo, usado para ações, filtros ou seleção de itens. O Badge, por outro lado, não tem função clicável — ele sinaliza a presença de novas informações." },
       { note: "Suporte: canal #castanha-suporte no Slack." }
     ] },
 
@@ -53,7 +53,7 @@ CDS.docs["badge"] = {
         { name: "Appearance", type: "Variant", default: "Warning", values: ["Warning", "Neutral"] },
         { name: "Label", type: "Text", default: "0" }
       ] },
-      { note: "Props e padrões lidos do set Badge da lib estável. O zeroheight lista `Kind` (Text · Counter) e chama `Appearance` de Style; na lib, Counter e Text são o mesmo componente com o conteúdo do `Label`, e o ponto do mobile vem da collection Viewport (CONFERIR C133). No código, `viewport` força Desktop ou Mobile." }
+      { note: "Props e padrões lidos do set Badge da lib estável. O zeroheight lista `Kind` (Text · Counter) e chama `Appearance` de Style. Na lib, Counter e Text são o mesmo componente com o conteúdo do `Label`, e o ponto do mobile vem da collection Viewport (CONFERIR C133). No código, `viewport` força Desktop ou Mobile." }
     ] },
 
     { id: "estilos", title: "Estilos", blocks: [
@@ -82,13 +82,13 @@ CDS.docs["badge"] = {
       { guides: [
         { attrs: { _tag: "cds-icon-button", icon: "notification-line", label: "Notificações, 3 novas", appearance: "neutral", "show-notification": true, notification: "3" }, title: "Posicionamento", text: "Posicione o Badge sempre próximo ao elemento que origina a notificação, como um ícone, botão ou item de navegação. Evite posicioná-lo de forma solta ou distante, pois isso pode gerar confusão sobre o que exatamente está sendo notificado." },
         { attrs: [{ label: "9" }, { label: "42" }, { label: "99+" }], title: "Variante Counter", text: "Na variante Counter, exiba no máximo dois dígitos numéricos para manter a legibilidade e o equilíbrio visual do componente. Quando o valor ultrapassar esse limite, utilize o formato “99+”." },
-        { attrs: { label: "Novo" }, title: "Variante Text", text: "A variante Text do Badge deve ser utilizada exclusivamente em contextos Web e somente para indicar notificações. Ela não deve ser usada para representar status — nesses casos, utilize o componente Tag. O texto exibido (label) precisa ser curto, direto e facilmente compreensível." },
-        { attrs: { viewport: "mobile" }, title: "Counter mobile (dot)", text: "Essa variante é representada por um ponto simples, sem exibir números ou texto, e deve ser usada exclusivamente em interfaces mobile. Seu propósito é indicar de forma discreta que há novas notificações, sem detalhar a quantidade." },
-        { attrs: { _tag: "cds-icon-button", icon: "notification-line", label: "Notificações, 12 novas", appearance: "neutral", "show-notification": true, notification: "12" }, title: "Icon button", text: "Quando o Badge for aplicado em um Icon Button, utilize exclusivamente a variante Counter, exibindo apenas valores numéricos. O uso de texto não é permitido." }
+        { attrs: { label: "Novo" }, title: "Variante Text", text: "A variante Text do Badge deve ser utilizada exclusivamente em contextos Web e somente para indicar notificações. Ela não deve ser usada para representar status — nesses casos, utilize o componente Tag. O texto exibido (label) precisa ser curto, direto e compreensível." },
+        { attrs: { viewport: "mobile" }, title: "Counter mobile (dot)", text: "Essa variante é representada por um ponto, sem exibir números ou texto, e deve ser usada exclusivamente em interfaces mobile. Seu propósito é indicar de forma discreta que há novas notificações, sem detalhar a quantidade." },
+        { attrs: { _tag: "cds-icon-button", icon: "notification-line", label: "Notificações, 12 novas", appearance: "neutral", "show-notification": true, notification: "12" }, title: "Icon button", text: "Quando o Badge for aplicado em um Icon Button, utilize exclusivamente a variante Counter, com valores numéricos. O uso de texto não é permitido." }
       ] },
       { h2: "Do's and Don'ts" },
       { dodont: [
-        { kind: "do", attrs: { _tag: "cds-icon-button", icon: "notification-line", label: "Notificações, 3 novas", appearance: "neutral", "show-notification": true, notification: "3" }, text: "Use o Badge apenas para indicar notificações." },
+        { kind: "do", attrs: { _tag: "cds-icon-button", icon: "notification-line", label: "Notificações, 3 novas", appearance: "neutral", "show-notification": true, notification: "3" }, text: "Use o Badge exclusivamente para indicar notificações." },
         { kind: "dont", attrs: { label: "Ativo", appearance: "neutral" }, text: "Não use para representar status ou categorias." },
         { kind: "do", attrs: { label: "99+" }, text: "Mantenha o número curto e dentro do limite visual do componente. Acima de 2 caracteres, utilize 99+" },
         { kind: "dont", attrs: { label: "1250" }, text: "Não exiba números muito grandes que comprometam a legibilidade." }

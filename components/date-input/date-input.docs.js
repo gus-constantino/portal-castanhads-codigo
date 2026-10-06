@@ -18,12 +18,12 @@
         { p: "O Date Input é o Text Input com máscara de data (dd/mm/aaaa) e o botão de calendário. A pessoa pode digitar a data ou abrir o Date Picker num Popover." },
         { h2: "Quando usar" },
         { h3: "Utilize para:" },
-        { ul: ["Datas em formulários (vencimento, início de vigência, data de nascimento).", "Quando digitar é mais rápido que navegar no calendário, mas o calendário ajuda a conferir o dia da semana."] },
+        { ul: ["Datas em formulários (vencimento, início de vigência, data de nascimento).", "Quando digitar exige menos esforço que navegar no calendário, mas o calendário ajuda a conferir o dia da semana."] },
         { h3: "Não utilize para:" },
-        { ul: ["Escolha de data que precisa de confirmação separada — use o Modal Date Picker.", "Só mês e ano — use campos próprios.", "Horários."] },
+        { ul: ["Escolha de data que precisa de confirmação separada — use o Modal Date Picker.", "Mês e ano sem o dia — use campos próprios.", "Horários."] },
         { h2: "Casos de uso" },
         { h3: "Date Input vs Modal Date Picker" },
-        { p: "O Date Input fica no formulário e aceita digitar; o calendário abre num Popover e a data vale na hora. O Modal Date Picker abre uma janela e só aplica a data no Confirmar." }
+        { p: "O Date Input fica no formulário e aceita digitar. O calendário abre num Popover e a data vale na hora. O Modal Date Picker abre uma janela e espera o Confirmar para aplicar a data." }
       ] },
 
       { id: "anatomia", title: "Anatomia", blocks: [
@@ -47,7 +47,7 @@
           { name: "Character Counter Value", type: "Text", default: "-0000" },
           { name: "Show Caret", type: "Boolean", default: "true" }
         ] },
-        { note: "Props e padrões lidos do set Date Input da lib estável (o contador ligado com \"-0000\" vem do Figma, C57). No código: os atributos do Text Input (sem `lead-icon`), `kind`, `min`, `max`, `today`, `value` (dd/mm/aaaa) e `calendar-label` (\"Abrir calendário\"); propriedade `.date` (AAAA-MM-DD). Eventos `cds-change` e `cds-toggle`." }
+        { note: "Props e padrões lidos do set Date Input da lib estável (o contador ligado com \"-0000\" vem do Figma, C57). No código: os atributos do Text Input (sem `lead-icon`), `kind`, `min`, `max`, `today`, `value` (dd/mm/aaaa) e `calendar-label` (\"Abrir calendário\"), além da propriedade `.date` (AAAA-MM-DD). Eventos `cds-change` e `cds-toggle`." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -64,9 +64,9 @@
       { id: "acessibilidade", title: "Acessibilidade", blocks: [
         { h2: "Teclado e leitor de tela" },
         { ul: [
-          "O campo tem o Label como nome e aceita digitar a data; a máscara põe as barras.",
+          "O campo tem o Label como nome e aceita digitar a data. A máscara põe as barras.",
           "O botão de calendário é um Icon Button com nome (`calendar-label`, \"Abrir calendário\") e `aria-expanded`.",
-          "O calendário no Popover segue o teclado do Date Picker; `Esc` fecha e devolve o foco ao campo.",
+          "O calendário no Popover segue o teclado do Date Picker. `Esc` fecha e devolve o foco ao campo.",
           "Erros aparecem em texto (Error Message), além da cor."
         ] },
         { note: "Contrastes iguais aos da família Text Fields (C141): placeholder e contorno do campo abaixo do mínimo." }
@@ -74,7 +74,7 @@
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
-        { ul: ["Mostre o formato esperado (dd/mm/aaaa) no placeholder ou na mensagem de apoio.", "Valide a data ao sair do campo e explique o erro (\"Data inválida\", \"Escolha uma data a partir de hoje\").", "Para datas distantes (nascimento), deixe a pessoa digitar; o calendário é apoio."] },
+        { ul: ["Mostre o formato esperado (dd/mm/aaaa) no placeholder ou na mensagem de apoio.", "Valide a data ao sair do campo e explique o erro (\"Data inválida\", \"Escolha uma data a partir de hoje\").", "Para datas distantes (nascimento), deixe a pessoa digitar. O calendário é apoio."] },
         { h2: "Formato das datas" },
         { ul: ["Formato compacto: `01/12/2025` ou `12/25`"] },
         { note: "Regra literal de Conteúdo › Formatação de dados › Datas e horários." }

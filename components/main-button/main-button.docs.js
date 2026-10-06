@@ -20,11 +20,11 @@
         { h3: "Princípios" },
         { cards: [
           ["Identificável", "Os botões devem indicar que podem desencadear uma ação."],
-          ["Encontrável", "Os botões devem ser fáceis de encontrar entre outros elementos, incluindo outros botões."],
+          ["Encontrável", "Os botões devem se destacar entre outros elementos, incluindo outros botões."],
           ["Claro", "A ação e o estado de um botão devem ser claros."]
         ] },
         { h2: "Quando usar" },
-        { p: "Use o Main Button para representar ações diretas e claras que o usuário pode realizar. Ele deve ser facilmente identificado e utilizar verbos no infinitivo ou imperativo (ex: Salvar, Enviar, Confirmar)." },
+        { p: "Use o Main Button para representar ações diretas e claras que o usuário pode realizar. Ele deve ser identificado de imediato e utilizar verbos no infinitivo ou imperativo (ex: Salvar, Enviar, Confirmar)." },
         { h3: "Utilize para:" },
         { ul: ["Iniciar um processo (ex: \"Enviar formulário\").", "Navegar para uma próxima etapa (ex: \"Próximo\").", "Confirmar ou cancelar ações.", "Destacar a ação principal em uma tela ou modal."] },
         { h3: "Não utilize para:" },
@@ -37,10 +37,10 @@
           { title: "Link: navegação", attrs: { _tag: "cds-link", label: "Leia os termos e condições de uso.", href: "#", appearance: "accent" } }
         ] },
         { h3: "Main button vs Icon button" },
-        { p: "Use o Main Button quando for necessário exibir uma ação com um rótulo textual claro, garantindo acessibilidade e entendimento imediato — especialmente em ações críticas ou menos óbvias. O Icon Button é indicado para ações rápidas, recorrentes ou com espaço limitado, desde que o ícone utilizado comunique de forma autossuficiente sua função (ex: fechar, editar, favoritar)." },
+        { p: "Use o Main Button quando for necessário exibir uma ação com um rótulo textual claro, garantindo acessibilidade e entendimento imediato — especialmente em ações críticas ou menos óbvias. O Icon Button é indicado para ações pontuais, recorrentes ou com espaço limitado, desde que o ícone utilizado comunique de forma autossuficiente sua função (ex: fechar, editar, favoritar)." },
         { compare: [
           { title: "Main Button: rótulo textual", attrs: { label: "Editar", "show-lead-icon": true, "lead-icon": "edit-line" } },
-          { title: "Icon Button: ação rápida", attrs: { _tag: "cds-icon-button", icon: "edit-line", label: "Editar", kind: "ghost", appearance: "neutral" } }
+          { title: "Icon Button: ação pontual", attrs: { _tag: "cds-icon-button", icon: "edit-line", label: "Editar", kind: "ghost", appearance: "neutral" } }
         ] },
         { note: "Suporte: fale com o time no canal #castanha-suporte no Slack." }
       ] },
@@ -58,7 +58,7 @@
           legend: ["Container", "Lead Icon (Icon)", "Label", "Trailing Icon (Icon)"]
         } },
         { h2: "Composição do componente" },
-        { p: "O componente Main Button é composto por quatro elementos principais: o Container (1), que define o tamanho, preenchimento, bordas e fundo do botão; o Lead Icon (2), posicionado à esquerda do texto para reforçar o significado da ação; o Label (3), que representa o texto central do botão e comunica claramente a ação ao usuário; e o Trailing Icon (4), opcional e posicionado à direita do texto, geralmente utilizado para indicar menus suspensos, avanços de etapas ou outras ações complementares. Todos os elementos são configuráveis e opcionais, com exceção do label, que é obrigatório." },
+        { p: "O componente Main Button é composto por quatro elementos principais. O Container (1) define o tamanho, preenchimento, bordas e fundo do botão. O Lead Icon (2) fica à esquerda do texto para reforçar o significado da ação. O Label (3) representa o texto central do botão e comunica claramente a ação ao usuário. O Trailing Icon (4), opcional, fica à direita do texto e geralmente indica menus suspensos, avanços de etapas ou outras ações complementares. Todos os elementos são configuráveis e opcionais, com exceção do label, que é obrigatório." },
         { h2: "Propriedades" },
         { props: [
           { name: "Kind", type: "Variant", default: "Default", values: ["Default", "Ghost"] },
@@ -96,12 +96,12 @@
         { h2: "Leitor de tela" },
         { ul: [
           "É um `<button>` nativo: anunciado como botão, com o texto do Label como nome.",
-          "Os ícones são decorativos; o nome vem só do Label.",
+          "Os ícones são decorativos. O nome vem exclusivamente do Label.",
           "Disabled usa `disabled` nativo: sai da tabulação e é anunciado como indisponível.",
-          "Dentro de formulário, use `type=\"submit\"` só no botão que envia."
+          "Dentro de formulário, use `type=\"submit\"` exclusivamente no botão que envia."
         ] },
         { h2: "Teclado e foco" },
-        { ul: ["Tab foca o botão; Enter e Espaço acionam.", "Foco visível segue o padrão global do Castanha; não é variant do componente.", "Área de toque: 48 (Medium) e 40 (Small) de altura."] },
+        { ul: ["Tab foca o botão. Enter e Espaço acionam.", "Foco visível segue o padrão global do Castanha e não é variant do componente.", "Área de toque: 48 (Medium) e 40 (Small) de altura."] },
         { h2: "Contraste (WCAG)" },
         { ul: [
           "Default · Accent: texto `Text/inversed` sobre `Accent/Solid/medium` — 4,54:1, AA.",
@@ -120,20 +120,20 @@
         { h2: "Web" },
         { guides: [
           { attrs: { label: "Salvar alterações" }, title: "Labels", text: "Os labels dos botões devem ser claros, objetivos e descritivos, indicando exatamente qual ação será realizada ao clicar. Evite termos genéricos como “OK” ou “Clique aqui” e prefira comandos que explicitem o resultado da ação, como “Enviar formulário”, “Salvar alterações” ou “Remover item”." },
-          { attrs: { label: "Baixar", "show-lead-icon": true, "lead-icon": "download-line" }, title: "Uso de ícones no Main button", text: "Ícones podem complementar o texto de um botão e reforçar visualmente o significado da ação, mas devem ser usados com intenção clara. Inclua ícones apenas quando eles agregarem valor sem comprometer a legibilidade ou a hierarquia visual do botão." }
+          { attrs: { label: "Baixar", "show-lead-icon": true, "lead-icon": "download-line" }, title: "Uso de ícones no Main button", text: "Ícones podem complementar o texto de um botão e reforçar visualmente o significado da ação, mas devem ser usados com intenção clara. Inclua ícones quando eles agregarem valor sem comprometer a legibilidade ou a hierarquia visual do botão." }
         ] },
         { h2: "Mobile" },
         { guides: [
           { attrs: { _tag: "cds-fixed-bar", kind: "pilled", "primary-label": "Continuar", "secondary-label": "Voltar", "show-lead-icon": false, style: "width:100%" }, title: "Main button em mobile", text: "Em mobile, recomenda-se o empilhamento vertical de botões, não utilizando a disposição lado a lado, que pode gerar toques acidentais e dificultar a interação. Sempre que possível, o botão deve ocupar 100% da largura disponível na tela." },
-          { attrs: { _tag: "cds-fixed-bar", kind: "pilled", "primary-label": "Continuar", "show-secondary-action": false, "show-lead-icon": false, style: "width:100%" }, title: "Priorize a ação principal no topo ou rodapé fixo", text: "Em fluxos mobile, o Main Button deve estar visível e facilmente acessível, preferencialmente fixado no rodapé da tela ou logo após o conteúdo principal." }
+          { attrs: { _tag: "cds-fixed-bar", kind: "pilled", "primary-label": "Continuar", "show-secondary-action": false, "show-lead-icon": false, style: "width:100%" }, title: "Priorize a ação principal no topo ou rodapé fixo", text: "Em fluxos mobile, o Main Button deve estar visível e acessível, preferencialmente fixado no rodapé da tela ou logo após o conteúdo principal." }
         ] },
         { h2: "Ação destrutiva" },
         { p: "Mesmo sem um estilo visual específico para ações destrutivas, o uso do Main Button na versão default/accent é o mais indicado nesses casos. É essencial que a label do botão seja clara e direta, deixando evidente a consequência da ação — por exemplo: “Excluir item”, “Remover usuário” ou “Encerrar sessão”. Evite termos genéricos como “Confirmar” ou “OK”." },
         { h2: "Do's and Don'ts" },
         { dodont: [
-          { kind: "do", attrs: [{ label: "Salvar" }, { label: "Cancelar", appearance: "neutral" }], text: "Use apenas um Main Button primário (accent) por tela ou seção." },
+          { kind: "do", attrs: [{ label: "Salvar" }, { label: "Cancelar", appearance: "neutral" }], text: "Use um único Main Button primário (accent) por tela ou seção." },
           { kind: "dont", attrs: [{ label: "Salvar" }, { label: "Cancelar" }], text: "Não use múltiplos Main Buttons primários em uma mesma hierarquia visual." },
-          { kind: "do", attrs: { label: "Baixar", "show-lead-icon": true, "lead-icon": "download-line" }, text: "Inclua ícones apenas quando agregarem valor e sem prejudicar a legibilidade." },
+          { kind: "do", attrs: { label: "Baixar", "show-lead-icon": true, "lead-icon": "download-line" }, text: "Inclua ícones quando agregarem valor e sem prejudicar a legibilidade." },
           { kind: "dont", attrs: { label: "Baixar", "show-lead-icon": true, "lead-icon": "settings-line" }, text: "Não insira ícones que não comuniquem claramente a ação." },
           { kind: "do", attrs: { label: "Enviar" }, text: "Use o Main Button para ações (ex: enviar, excluir, confirmar)." },
           { kind: "dont", attrs: { label: "Ir para Relatórios", kind: "ghost" }, text: "Não use o Main Button como elemento de navegação entre páginas — use o componente Link nesses casos." }
@@ -159,7 +159,7 @@
         { ul: [
           "Use infinitivo em botões e áreas clicáveis. Não use pronomes possessivos.",
           "Se precisar usar pronome, use na terceira pessoa (seu/sua).",
-          "Use imperativo apenas em botões de peças de marketing.",
+          "Reserve o imperativo para botões de peças de marketing.",
           "O texto deve seguir os mesmos termos usados no título e na descrição da tela. A pessoa deve conseguir ler o header e o botão e relacionar as duas informações.",
           "Use no máximo 3 palavras. Nunca quebre o texto em mais de uma linha.",
           "Nunca use ponto final ou ponto de exclamação.",
@@ -206,7 +206,7 @@
           ["[Apenas Sponsor] Voltar para [Nome da área]", "Telas de finalização (sucesso ou erro). Leva de volta a uma área principal após concluir ou falhar um fluxo. Nome da área sempre com letra maiúscula."],
           ["[Apenas Employee] Fechar", "Telas de finalização (sucesso ou erro). Leva de volta a uma área principal após concluir ou falhar um fluxo."]
         ] } },
-        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Botões. Regras de escrita do time de Content; os exemplos usam componentes do DS com os mesmos textos." }
+        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Botões. Regras de escrita do time de Content. Os exemplos usam componentes do DS com os mesmos textos." }
       ] }
     ]
   };

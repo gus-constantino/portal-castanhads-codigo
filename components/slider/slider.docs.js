@@ -25,7 +25,7 @@
         { ul: ["Valores exatos ou longos (CPF, valor de transferência) — use o Text Input.", "Poucas unidades por vez — use o Quantity Input.", "Opções sem ordem — use Radio Button ou Select Input."] },
         { h2: "Casos de uso" },
         { h3: "Slider vs Quantity Input" },
-        { p: "O Slider mostra a posição dentro do intervalo e serve para ajustes rápidos e aproximados. O Quantity Input serve para ajustar poucas unidades com precisão, vendo o número exato." },
+        { p: "O Slider mostra a posição dentro do intervalo e serve para ajustes ágeis e aproximados. O Quantity Input serve para ajustar poucas unidades com precisão, vendo o número exato." },
         { compare: [
           { title: "Slider: posição no intervalo", attrs: {} },
           { title: "Quantity Input: unidade a unidade", attrs: { _tag: "cds-quantity-input", label: "Quantidade de cartões", value: "2", "show-required": false, "show-supporting-content": false } }
@@ -45,7 +45,7 @@
           { name: "Show Stops", type: "Boolean", default: "true" },
           { name: "Show Value Indicator", type: "Boolean", default: "true" }
         ] },
-        { note: "Props e padrões lidos do set Slider da lib estável. Value é só para prototipação; no código o valor é numérico: `kind`, `min` (0), `max` (100), `step` (10), `value` (Single), `start`/`end` (Range), `show-stops`, `show-value-indicator`, `disabled`, `label`, `min-label`, `max-label` e `value-text` (modelo do texto lido, com {v}). Eventos `input` (arrastando) e `cds-change`." }
+        { note: "Props e padrões lidos do set Slider da lib estável. Value serve exclusivamente para prototipação. No código o valor é numérico: `kind`, `min` (0), `max` (100), `step` (10), `value` (Single), `start`/`end` (Range), `show-stops`, `show-value-indicator`, `disabled`, `label`, `min-label`, `max-label` e `value-text` (modelo do texto lido, com {v}). Eventos `input` (arrastando) e `cds-change`." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -63,15 +63,15 @@
         { h2: "Teclado e leitor de tela" },
         { p: "Acessibilidade: cada thumb é role=slider com aria-valuemin/max/now (aria-valuetext quando o valor exibido não for o número cru); no Range, dois nomes acessíveis (Mínimo/Máximo) e thumbs que não se cruzam. Alvo de toque do thumb 24×24 (WCAG 2.5.8)." },
         { table: { head: ["Tecla", "Ação"], rows: [["`←` `↓` / `→` `↑`", "Diminui / aumenta um step"], ["`PageDown` / `PageUp`", "Diminui / aumenta 10 steps"], ["`Home` / `End`", "Vai para o mínimo / máximo"]] } },
-        { ul: ["Use `value-text` quando o número precisa de unidade para fazer sentido (ex.: \"R$ {v}\").", "Mostre o valor em texto perto do Slider quando ele for importante: a bolha só aparece sobre o thumb."] },
+        { ul: ["Use `value-text` quando o número precisa de unidade para fazer sentido (ex.: \"R$ {v}\").", "Mostre o valor em texto perto do Slider quando ele for importante: a bolha aparece exclusivamente sobre o thumb."] },
         { h2: "Contraste (WCAG)" },
-        { ul: ["Thumb e trilha ativa (Surface/accent) 4,54:1 sobre Surface/default — acima de 3:1 (1.4.11).", "Valor na bolha (Text/inversed sobre Neutral/Solid/semi-intense) 8,24:1 — AA e AAA.", "Trilha inativa (Surface/01) 1,11:1 — abaixo de 3:1: o intervalo inteiro fica pouco visível; a posição é dada pelo thumb e pela trilha ativa (CONFERIR C146)."] },
+        { ul: ["Thumb e trilha ativa (Surface/accent) 4,54:1 sobre Surface/default — acima de 3:1 (1.4.11).", "Valor na bolha (Text/inversed sobre Neutral/Solid/semi-intense) 8,24:1 — AA e AAA.", "Trilha inativa (Surface/01) 1,11:1 — abaixo de 3:1: o intervalo inteiro fica pouco visível. A posição é dada pelo thumb e pela trilha ativa (CONFERIR C146)."] },
         { note: "Contrastes medidos no tema light do playground." }
       ] },
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
-        { ul: ["Diga em texto o que o Slider controla (o Label) e mostre os extremos do intervalo quando não forem óbvios.", "Use Stops quando o step for grande e os pontos ajudarem a escolher; esconda quando o intervalo for contínuo.", "No Range, os thumbs não se cruzam: o mínimo nunca passa do máximo.", "Não use o Slider como único caminho para valores exatos: ofereça um campo para digitar quando precisar."] },
+        { ul: ["Diga em texto o que o Slider controla (o Label) e mostre os extremos do intervalo quando não forem óbvios.", "Use Stops quando o step for grande e os pontos ajudarem a escolher, e esconda quando o intervalo for contínuo.", "No Range, os thumbs não se cruzam: o mínimo nunca passa do máximo.", "Não use o Slider como único caminho para valores exatos: ofereça um campo para digitar quando precisar."] },
         { h2: "Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: { value: "40", label: "Limite diário", "value-text": "R$ {v}" }, text: "Use para escolher um valor aproximado num intervalo, vendo a posição." },
@@ -88,7 +88,7 @@
           { title: "Thumb: Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
           { title: "→ Disabled", rows: [["Gatilho", "Ao desabilitar"], ["Motion Style", "`Disabled/01`"]] }
         ] },
-        { alert: { appearance: "warning", label: "Especificação pendente", text: "Não há especificação de Motion para o Slider; o mapeamento acima segue o padrão de estados de interação, e o Dragged acompanha o ponteiro sem animação. No código, short/03 + systemic/accelerate (CONFERIR C146)." } }
+        { alert: { appearance: "warning", label: "Especificação pendente", text: "Não há especificação de Motion para o Slider. O mapeamento acima segue o padrão de estados de interação, e o Dragged acompanha o ponteiro sem animação. No código, short/03 + systemic/accelerate (CONFERIR C146)." } }
       ] }
     ]
   };

@@ -14,9 +14,9 @@
       { id: "uso", title: "Uso", blocks: [
         { alert: { appearance: "warning", label: "Rascunho", text: "Building block sem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
         { h2: "Sobre" },
-        { p: "O .Footer é o rodapé do Modal e do Bottom Sheet: o Divider e as ações — Main Button Accent (primária) e Neutral (secundária). Kind=Horizontal põe os botões lado a lado, na largura do conteúdo; Kind=Pilled empilha, na largura total." },
+        { p: "O .Footer é o rodapé do Modal e do Bottom Sheet: o Divider e as ações — Main Button Accent (primária) e Neutral (secundária). Kind=Horizontal põe os botões lado a lado, na largura do conteúdo. Kind=Pilled empilha, na largura total." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do Modal e do Bottom Sheet, que monta e controla os itens.", "Fora dele, use o componente completo (Modal e do Bottom Sheet)."] },
+        { ul: ["Peça interna do Modal e do Bottom Sheet, que monta e controla os itens.", "Fora dele, use o componente completo (Modal e do Bottom Sheet)."] },
         { compare: [{ title: "Dentro do Modal e do Bottom Sheet", attrs: { _tag: "div", class: "pg-cnt-phone pg-cnt-phone--sheet", _children: [{ _tag: "cds-bottom-sheet", inline: true, "text-title": "Pedido de cartões", "primary-label": "Confirmar", "secondary-label": "Cancelar", _children: [{ _tag: "p", class: "pg-cnt-phone__text", _text: "Revise os dados antes de confirmar." }] }] } }] }
       ] },
 
@@ -37,7 +37,7 @@
         { specimens: { min: "calc(2 * var(--common-sizes-160))", items: [
           { label: "Pilled", attrs: { _tag: "div", class: "pg-doc-list-stack", _children: [{ _tag: "cds-footer", "show-lead-icon": false, "primary-label": "Confirmar", "secondary-label": "Cancelar" }] } },
           { label: "Horizontal", attrs: { _tag: "div", class: "pg-doc-list-stack", _children: [{ _tag: "cds-footer", "show-lead-icon": false, kind: "horizontal", "primary-label": "Confirmar", "secondary-label": "Cancelar" }] } },
-          { label: "Só a ação primária", attrs: { _tag: "div", class: "pg-doc-list-stack", _children: [{ _tag: "cds-footer", "show-lead-icon": false, "primary-label": "Entendi", "show-secondary-action-button": false }] } }
+          { label: "Ação primária sozinha", attrs: { _tag: "div", class: "pg-doc-list-stack", _children: [{ _tag: "cds-footer", "show-lead-icon": false, "primary-label": "Entendi", "show-secondary-action-button": false }] } }
         ] } }
       ] },
 
@@ -51,12 +51,12 @@
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
-        { ul: ["Pilled no mobile (Bottom Sheet); Horizontal no desktop (Modal).", "Uma ação primária por rodapé."] }
+        { ul: ["Pilled no mobile (Bottom Sheet) e Horizontal no desktop (Modal).", "Uma ação primária por rodapé."] }
       ] },
 
       { id: "motion", title: "Motion", blocks: [
         { h2: "Motion" },
-        { p: "O .Footer é estático; os botões seguem o Motion do Main Button." }
+        { p: "O .Footer é estático. Os botões seguem o Motion do Main Button." }
       ] }
     ]
   };

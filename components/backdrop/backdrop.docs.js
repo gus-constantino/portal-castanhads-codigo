@@ -29,7 +29,7 @@ CDS.docs = CDS.docs || {};
         { h3: "Utilize para:" },
         { ul: ["Criar barreira visual entre fundo e conteúdo ativo", "Reduzir ruído visual da interface", "Reforçar foco em modais, drawers e similares", "Indicar bloqueio de interação no fundo"] },
         { h3: "Não utilize para:" },
-        { ul: ["Apenas escurecer a interface sem mudança de estado", "Criar efeito visual decorativo", "Substituir hierarquia de layout", "Destacar elementos que não bloqueiam interação"] },
+        { ul: ["Escurecer a interface sem mudança de estado", "Criar efeito visual decorativo", "Substituir hierarquia de layout", "Destacar elementos que não bloqueiam interação"] },
         { alert: { appearance: "informative", label: "Nome na documentação", text: "O nome correto da camada é Backdrop. Overlay e scrim aparecem como nomes alternativos, mas não use \"Overlay\" na documentação nem nas interfaces." } },
         { note: "Suporte: canal #castanha-suporte no Slack." }
       ] },
@@ -54,7 +54,7 @@ CDS.docs = CDS.docs || {};
         { ul: [
           "O Backdrop é visual: o bloqueio de verdade vem do diálogo modal, que deixa o resto da página inerte.",
           "Por isso, use o Backdrop junto com Modal, Drawer ou Bottom Sheet — sozinho, ele não impede o foco de chegar ao fundo.",
-          "Quando o componente permite, o clique no Backdrop fecha a camada; mantenha também o fechamento por botão e por Esc."
+          "Quando o componente permite, o clique no Backdrop fecha a camada. Mantenha também o fechamento por botão e por Esc."
         ] },
         { h2: "Contraste" },
         { p: "O conteúdo por baixo do Backdrop não precisa atender contraste: ele está temporariamente fora de interação." }

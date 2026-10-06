@@ -14,9 +14,9 @@
       { id: "uso", title: "Uso", blocks: [
         { alert: { appearance: "warning", label: "Rascunho", text: "Building block sem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
         { h2: "Sobre" },
-        { p: "O .Toolbar é a barra acima das colunas da Table: 64 de altura, fundo Surface/default e borda inferior. O conteúdo é um slot; a amostra do Figma tem três Icon Buttons Ghost Neutral Small." },
+        { p: "O .Toolbar é a barra acima das colunas da Table: 64 de altura, fundo Surface/default e borda inferior. O conteúdo é um slot. A amostra do Figma tem três Icon Buttons Ghost Neutral Small." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do Table, que monta e controla os itens.", "Fora dele, use o componente completo (Table)."] },
+        { ul: ["Peça interna do Table, que monta e controla os itens.", "Fora dele, use o componente completo (Table)."] },
         { compare: [{ title: "Dentro do Table", attrs: { _tag: "cds-table", "per-page": "3", "show-pagination": false } }] }
       ] },
 
@@ -27,7 +27,7 @@
         { props: [
           { name: "Slot", type: "Slot", default: "—" }
         ] },
-        { note: "Prop lida do componente .Toolbar da lib estável. No código, `<cds-table-toolbar>`: os filhos são o slot; na Table, os filhos da `cds-table` vão para o .Toolbar." }
+        { note: "Prop lida do componente .Toolbar da lib estável. No código, `<cds-table-toolbar>`: os filhos são o slot. Na Table, os filhos da `cds-table` vão para o .Toolbar." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -52,7 +52,7 @@
 
       { id: "motion", title: "Motion", blocks: [
         { h2: "Motion" },
-        { p: "O .Toolbar é estático; as ações seguem o Motion do Icon Button." }
+        { p: "O .Toolbar é estático. As ações seguem o Motion do Icon Button." }
       ] }
     ]
   };

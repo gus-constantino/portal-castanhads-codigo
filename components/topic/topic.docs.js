@@ -37,7 +37,7 @@ CDS.docs["topic"] = {
         { name: "Text Title", type: "Text", default: "Title" },
         { name: "Text Description", type: "Text", default: "Lorem Ipsum is simply dummy…" }
       ] },
-      { note: "Props e padrões lidos do set Topic da lib estável. O tipo do .Lead item (Shaped Icon ou Image) é escolhido no building block; no código, `lead-kind`, `lead-icon`, `lead-src` e `lead-alt`." }
+      { note: "Props e padrões lidos do set Topic da lib estável. O tipo do .Lead item (Shaped Icon ou Image) é escolhido no building block. No código, `lead-kind`, `lead-icon`, `lead-src` e `lead-alt`." }
     ] },
 
     { id: "estilos", title: "Estilos", blocks: [
@@ -53,7 +53,7 @@ CDS.docs["topic"] = {
     { id: "acessibilidade", title: "Acessibilidade", blocks: [
       { h2: "Leitor de tela" },
       { ul: [
-        "O Shaped Icon é decorativo. Com imagem, informe `lead-alt` quando ela trouxer informação; se for só ilustrativa, deixe vazio.",
+        "O Shaped Icon é decorativo. Com imagem, informe `lead-alt` quando ela trouxer informação. Se for puramente ilustrativa, deixe vazio.",
         "Em grupo, coloque os Topics numa lista (`<ul>`) para o leitor anunciar a quantidade de itens."
       ] },
       { h2: "Contraste (WCAG)" },

@@ -12,13 +12,13 @@
     tag: "cds-image",
     base: { src: PHOTO, alt: "Pessoa sorrindo", class: "pg-doc-img" },
     source: "https://castanha.caju.com.br/858426090/v/latest/p/933f87-image", sourceLabel: "Abrir o Image no zeroheight",
-    cover: { description: "O componente Image é utilizado para exibir imagens estáticas em diferentes contextos do produto, garantindo consistência visual e preservação correta das proporções. Ele oferece controle simples e direto permitindo que a imagem se adapte a diferentes layouts sem distorção.", examples: [
+    cover: { description: "O componente Image é utilizado para exibir imagens estáticas em diferentes contextos do produto, garantindo consistência visual e preservação correta das proporções. Ele oferece controle direto, permitindo que a imagem se adapte a diferentes layouts sem distorção.", examples: [
       row([img("1:1", { class: "pg-doc-img pg-doc-img--sm" }), img("3:2", { class: "pg-doc-img" })])
     ] },
     tabs: [
       { id: "uso", title: "Uso", blocks: [
         { h2: "Sobre" },
-        { p: "O componente Image é utilizado para exibir imagens estáticas em diferentes contextos do produto, garantindo consistência visual e preservação correta das proporções. Ele oferece controle simples e direto permitindo que a imagem se adapte a diferentes layouts sem distorção." },
+        { p: "O componente Image é utilizado para exibir imagens estáticas em diferentes contextos do produto, garantindo consistência visual e preservação correta das proporções. Ele oferece controle direto, permitindo que a imagem se adapte a diferentes layouts sem distorção." },
         { h3: "Nomes alternativos comuns" },
         { p: "Imagem, Media / Media Object, Picture" },
         { h3: "Princípios" },
@@ -32,7 +32,7 @@
         { h3: "Utilize para:" },
         { ul: ["Reforçar contexto visual em cards, tabelas, resumos e destaques.", "Mostrar prévias ou thumbnails com proporção consistente.", "Exibir imagens responsivas que devem se adaptar ao container mantendo o ratio."] },
         { h3: "Não utilize para:" },
-        { ul: ["Exibir mídias interativas, animadas ou em movimento, como GIFs, WebP animado ou vídeos — o componente Image suporta apenas imagens estáticas.", "Ilustrações decorativas que não exigem controle de proporção — nesses casos, utilize diretamente o asset ou outro componente apropriado."] },
+        { ul: ["Exibir mídias interativas, animadas ou em movimento, como GIFs, WebP animado ou vídeos — o componente Image suporta exclusivamente imagens estáticas.", "Ilustrações decorativas que não exigem controle de proporção — nesses casos, utilize diretamente o asset ou outro componente apropriado."] },
         { note: "Suporte: canal #castanha-suporte no Slack." }
       ] },
 
@@ -43,7 +43,7 @@
         { props: [
           { name: "Aspect Ratio", type: "Variant", default: "None", values: ["None", "1:1", "3:2"] }
         ] },
-        { note: "Props e padrões lidos do set Image da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código: `src` é a imagem, `alt` o texto alternativo e `aspect-ratio` a proporção. A largura vem do container; sem `src`, aparece a superfície de placeholder (Surface/01)." }
+        { note: "Props e padrões lidos do set Image da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código: `src` é a imagem, `alt` o texto alternativo e `aspect-ratio` a proporção. A largura vem do container. Sem `src`, aparece a superfície de placeholder (Surface/01)." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -63,7 +63,7 @@
           "O Image usa `<img>`: o `alt` é o que o leitor de tela anuncia.",
           "Quando a imagem informa algo, descreva o conteúdo no `alt` (ex.: \"Cartão Caju sobre a mesa\").",
           "Quando é decorativa ou repete o texto ao lado, deixe o `alt` vazio — o leitor de tela pula a imagem.",
-          "Não coloque texto importante só dentro da imagem: ele não é lido nem se adapta ao zoom."
+          "Não coloque texto importante exclusivamente dentro da imagem: ele não é lido nem se adapta ao zoom."
         ] },
         { note: "O zeroheight ainda não tem seção de Acessibilidade para o Image. Contraste não se aplica ao componente: depende da imagem usada." }
       ] },
@@ -72,7 +72,7 @@
         { h2: "Diretrizes de uso" },
         { guides: [
           { attrs: img("1:1", { class: "pg-doc-img pg-doc-img--sm" }), title: "Inserção da imagem no Figma", text: "O componente Image é estruturado por um frame que recebe a imagem diretamente pelo Fill do Figma, onde a pessoa usuária deve inserir exclusivamente arquivos estáticos (JPG, PNG, WebP estático ou SVG estático). A imagem não deve ser adicionada como layer separado, garantindo que o componente mantenha suas proporções e variantes de Aspect Ratio funcionando corretamente." },
-          { attrs: img("3:2"), title: "Imagens", text: "Utilize apenas imagens estáticas (JPG, PNG, WebP estático ou SVG estático) para garantir consistência e performance no produto." }
+          { attrs: img("3:2"), title: "Imagens", text: "Utilize exclusivamente imagens estáticas (JPG, PNG, WebP estático ou SVG estático) para garantir consistência e performance no produto." }
         ] },
         { h2: "Do's and Don'ts" },
         { h3: "Conteúdo" },

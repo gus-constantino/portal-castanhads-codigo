@@ -16,7 +16,7 @@
         { h2: "Sobre" },
         { p: "O .Currency Content mostra um valor em moeda: o símbolo (Currency Symbol, \"R$\"), o valor e, embaixo, uma descrição curta. Show Negative Symbol põe o \"-\" antes do símbolo." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do Content List Item, que monta e controla os itens.", "Fora dele, use o componente completo (Content List Item)."] },
+        { ul: ["Peça interna do Content List Item, que monta e controla os itens.", "Fora dele, use o componente completo (Content List Item)."] },
         { compare: [{ title: "Dentro do Content List Item", attrs: { _tag: "cds-content-list-item", label: "Vale-refeição", description: "Saldo", intent: "transaction", value: "1.250,00", "show-negative-symbol": false, "value-description": "Disponível" } }] }
       ] },
 
@@ -46,8 +46,8 @@
       { id: "acessibilidade", title: "Acessibilidade", blocks: [
         { h2: "Teclado e leitor de tela" },
         { ul: [
-          "Símbolo, valor e descrição são texto simples, lidos nessa ordem.",
-          "O \"-\" é o único sinal de valor negativo; quando o sinal importa, diga também em texto (ex.: na descrição)."
+          "Símbolo, valor e descrição são texto puro, lidos nessa ordem.",
+          "O \"-\" é o único sinal de valor negativo. Quando o sinal importa, diga também em texto (ex.: na descrição)."
         ] }
       ] },
 

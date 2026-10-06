@@ -14,9 +14,9 @@
       { id: "uso", title: "Uso", blocks: [
         { alert: { appearance: "warning", label: "Rascunho", text: "Building block sem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
         { h2: "Sobre" },
-        { p: "O .Lead item é o elemento à esquerda do Topic. Kind=Shaped Icon usa o Shaped Icon Accent Small (40); Kind=Image usa uma Image 1:1 de 40×40." },
+        { p: "O .Lead item é o elemento à esquerda do Topic. Kind=Shaped Icon usa o Shaped Icon Accent Small (40), e Kind=Image usa uma Image 1:1 de 40×40." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do Topic, que monta e controla os itens.", "Fora dele, use o componente completo (Topic)."] },
+        { ul: ["Peça interna do Topic, que monta e controla os itens.", "Fora dele, use o componente completo (Topic)."] },
         { compare: [{ title: "Dentro do Topic", attrs: { _tag: "cds-topic" } }] }
       ] },
 
@@ -42,13 +42,13 @@
         { h2: "Teclado e leitor de tela" },
         { ul: [
           "O Shaped Icon é decorativo.",
-          "A Image usa `alt`: vazio quando a imagem só decora, descritivo quando traz informação."
+          "A Image usa `alt`: vazio quando a imagem é decorativa, descritivo quando traz informação."
         ] }
       ] },
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
-        { ul: ["Use o mesmo Kind em todos os itens de uma lista.", "Prefira Shaped Icon para categorias; Image para pessoas, marcas ou produtos."] }
+        { ul: ["Use o mesmo Kind em todos os itens de uma lista.", "Prefira Shaped Icon para categorias e Image para pessoas, marcas ou produtos."] }
       ] },
 
       { id: "motion", title: "Motion", blocks: [

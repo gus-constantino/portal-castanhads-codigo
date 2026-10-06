@@ -14,9 +14,9 @@
       { id: "uso", title: "Uso", blocks: [
         { alert: { appearance: "warning", label: "Rascunho", text: "Building block sem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
         { h2: "Sobre" },
-        { p: "O .Item é cada nível do Breadcrumb: um separador (navigation-right-line) e o conteúdo. Kind=Default mostra o Label; Kind=Truncate mostra o \"…\" que abre o Popover com os níveis escondidos. Is Active marca a página atual." },
+        { p: "O .Item é cada nível do Breadcrumb: um separador (navigation-right-line) e o conteúdo. Kind=Default mostra o Label. Kind=Truncate mostra o \"…\" que abre o Popover com os níveis escondidos. Is Active marca a página atual." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do Breadcrumb, que monta e controla os itens.", "Fora dele, use o componente completo (Breadcrumb)."] },
+        { ul: ["Peça interna do Breadcrumb, que monta e controla os itens.", "Fora dele, use o componente completo (Breadcrumb)."] },
         { compare: [{ title: "Dentro do Breadcrumb", attrs: { _tag: "cds-breadcrumb", collapse: "0", _children: [{ _tag: "a", href: "#", _text: "Despesas" }, { _tag: "a", href: "#", _text: "Adiantamentos" }] } }] }
       ] },
 
@@ -31,7 +31,7 @@
           { name: "Text Label", type: "Text", default: "Label" },
           { name: "Has Separator", type: "Boolean", default: "true" }
         ] },
-        { note: "Props e padrões lidos do set .Item da lib estável (o State padrão aparece como \"Enable\" na lib). No código: `kind`, `label`, `has-separator`, `is-active`, `href`, `current`, `disabled`; `state=\"hovered|pressed\"` só para exemplos. Com `href` vira `<a>`, com `current` vira texto com `aria-current`, senão `<button>`." }
+        { note: "Props e padrões lidos do set .Item da lib estável (o State padrão aparece como \"Enable\" na lib). No código: `kind`, `label`, `has-separator`, `is-active`, `href`, `current` e `disabled`. O `state=\"hovered|pressed\"` serve exclusivamente para exemplos. Com `href` vira `<a>`, com `current` vira texto com `aria-current`, senão `<button>`." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -49,7 +49,7 @@
       { id: "acessibilidade", title: "Acessibilidade", blocks: [
         { h2: "Teclado e leitor de tela" },
         { ul: [
-          "Com `href` é um link; com `current`, texto com `aria-current=\"page\"`; o Truncate é um `<button>` que abre o Popover.",
+          "Com `href` é um link, com `current` é texto com `aria-current=\"page\"`. O Truncate é um `<button>` que abre o Popover.",
           "O separador é decorativo.",
           "O nome do Truncate vem de `truncate-label`."
         ] }
@@ -57,7 +57,7 @@
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
-        { ul: ["O primeiro nível vem sem separador (Has Separator desligado).", "Só o último nível é a página atual (Is Active)."] }
+        { ul: ["O primeiro nível vem sem separador (Has Separator desligado).", "O último nível, e nenhum outro, é a página atual (Is Active)."] }
       ] },
 
       { id: "motion", title: "Motion", blocks: [

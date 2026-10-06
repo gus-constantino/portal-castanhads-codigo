@@ -19,7 +19,7 @@
     cover: { description: "São caixas flutuantes que proporcionam informações sobre algum aspecto da interface que mereça maior atenção.", examples: [ {} ] },
     tabs: [
       { id: "uso", title: "Uso", blocks: [
-        { alert: { appearance: "warning", label: "Rascunho", text: "Este componente ainda não tem página no zeroheight. Só a primeira frase é do time (description do Figma); o resto foi escrito a partir do Figma e do playground e precisa de revisão." } },
+        { alert: { appearance: "warning", label: "Rascunho", text: "Este componente ainda não tem página no zeroheight. A primeira frase é do time (description do Figma). O resto foi escrito a partir do Figma e do playground e precisa de revisão." } },
         { h2: "Sobre" },
         { p: "São caixas flutuantes que proporcionam informações sobre algum aspecto da interface que mereça maior atenção." },
         { p: "O Tooltip aparece quando a pessoa passa o mouse ou leva o foco do teclado para o elemento que o dispara, e some ao sair ou com Esc. Tem um Label opcional e um texto curto." },
@@ -30,7 +30,7 @@
         { ul: ["Informação essencial para concluir a tarefa — coloque no texto da tela.", "Conteúdo com links, botões ou formulários — use o Popover.", "Mensagens de erro ou de sistema — use a mensagem do campo, o Alert ou o Toast.", "Telas de toque como único caminho: não há hover no celular."] },
         { h2: "Casos de uso" },
         { h3: "Tooltip vs Popover" },
-        { p: "O Tooltip só mostra texto e aparece no hover ou no foco. O Popover abre com um clique, fica aberto e pode ter ações." },
+        { p: "O Tooltip mostra exclusivamente texto e aparece no hover ou no foco. O Popover abre com um clique, fica aberto e pode ter ações." },
         { compare: [
           { title: "Tooltip: texto curto, sem ações", attrs: {} },
           { title: "Popover: abre no clique, pode ter ações", attrs: { _tag: "cds-popover", inline: true, label: "Ações da tarifa", _children: [{ _tag: "cds-selection-list-item", label: "Ver detalhes da tarifa", "trailing-item": "none", "show-lead-item": false, "show-description": false, option: true }, { _tag: "cds-selection-list-item", label: "Baixar extrato", "trailing-item": "none", "show-lead-item": false, "show-description": false, option: true }] } }
@@ -47,7 +47,7 @@
           { name: "Show Label", type: "Boolean", default: "true" },
           { name: "Text Content", type: "Text", default: "Find out how this Caju product can benefit your business today." }
         ] },
-        { note: "Props e padrões lidos do componente Tooltip da lib estável (o texto padrão está em inglês, C144). No código: `label`, `text`, `show-label`, `for` (id do gatilho; sem ele, fica sempre visível) e `placement` (top | bottom, padrão top)." }
+        { note: "Props e padrões lidos do componente Tooltip da lib estável (o texto padrão está em inglês, C144). No código: `label`, `text`, `show-label`, `for` (id do gatilho. Sem ele, fica sempre visível) e `placement` (top | bottom, padrão top)." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -64,7 +64,7 @@
         { h2: "Teclado e leitor de tela" },
         { ul: [
           "O Tooltip tem `role=\"tooltip\"` e o gatilho recebe `aria-describedby`: o leitor de tela lê o texto como descrição do gatilho.",
-          "Aparece no hover e no foco do teclado; `Esc` fecha sem tirar o foco do lugar (1.4.13).",
+          "Aparece no hover e no foco do teclado. `Esc` fecha sem tirar o foco do lugar (1.4.13).",
           "Em gatilhos compostos (ex.: Icon Button), a descrição vai para o elemento focável de dentro.",
           "O Tooltip não recebe foco nem tem conteúdo interativo.",
           "O gatilho precisa ter nome próprio: o Tooltip descreve, não nomeia."
@@ -76,7 +76,7 @@
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
-        { ul: ["Texto curto: uma ou duas frases, no máximo a largura de 240.", "O Label é opcional; use quando o texto precisa de um título.", "Não repita no Tooltip o que já está escrito na tela.", "Prefira o topo do gatilho (top); use bottom quando não houver espaço acima."] },
+        { ul: ["Texto curto: uma ou duas frases, no máximo a largura de 240.", "O Label é opcional. Use quando o texto precisa de um título.", "Não repita no Tooltip o que já está escrito na tela.", "Prefira o topo do gatilho (top) e use bottom quando não houver espaço acima."] },
         { h2: "Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: { label: "Tarifa", text: "1,99% sobre o valor depositado pela empresa." }, text: "Use para complementar um termo ou ícone com uma informação curta." },

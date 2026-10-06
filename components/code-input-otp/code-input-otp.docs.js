@@ -24,9 +24,9 @@ CDS.docs["code-input-otp"] = {
       { p: "OTP input, PIN input, código de verificação, verification code, one-time code, código de confirmação." },
       { h3: "Princípios" },
       { cards: [
-        ["Um caractere por célula", "Cada dígito tem sua célula; o foco avança sozinho ao digitar e volta ao apagar, tornando o preenchimento rápido e previsível."],
+        ["Um caractere por célula", "Cada dígito tem sua célula. O foco avança sozinho ao digitar e volta ao apagar, tornando o preenchimento ágil e previsível."],
         ["Entrada curta e temporária", "É para códigos de uso único (3–6 caracteres), não para senhas longas nem texto livre."],
-        ["Pronto para o autofill", "Integra com o preenchimento automático de código (SMS); colar distribui o código entre as células."]
+        ["Pronto para o autofill", "Integra com o preenchimento automático de código (SMS). Colar distribui o código entre as células."]
       ] },
       { h2: "Quando usar" },
       { p: "Utilize o Code Input OTP para inserir um código de verificação curto e de uso único, quando ele chega por um canal externo (SMS, e-mail, app autenticador) e precisa ser digitado de volta." },
@@ -91,21 +91,21 @@ CDS.docs["code-input-otp"] = {
       { h2: "Teclado e preenchimento" },
       { ul: [
         "Um único ponto de tabulação entra e sai do conjunto: o Tab cai na primeira célula vazia (ou na última, com o código completo).",
-        "Digitar avança o foco para a próxima célula; Backspace apaga e volta.",
+        "Digitar avança o foco para a próxima célula. Backspace apaga e volta.",
         "Setas, Home e End navegam entre as células.",
         "Colar distribui o código entre as células.",
         "A primeira célula tem `autocomplete=\"one-time-code\"`, para o autofill de SMS.",
         "No tipo numérico, `inputmode=\"numeric\"` abre o teclado de números.",
-        "Foco visível segue o padrão global do Castanha; não é variant do componente."
+        "Foco visível segue o padrão global do Castanha. Não é variant do componente."
       ] },
       { h2: "Contraste (WCAG)" },
       { ul: [
         "Dígito (`Text/intense`) sobre `Surface/default`: 16,96:1 — AA e AAA.",
         "Label e mensagem de apoio (`Text/medium`): 8,24:1 — AA e AAA.",
         "Warning (`Feedback/Warning/semi-intense`): 6,41:1 — AA.",
-        "Borda ativa (`Border/intense`): 16,96:1; pressionada (`Border/semi-intense`): 8,24:1 — atendem 1.4.11.",
+        "Borda ativa (`Border/intense`): 16,96:1 e pressionada (`Border/semi-intense`): 8,24:1 — atendem 1.4.11.",
         "Borda em repouso (`Border/semi-soft`, 1,25:1) e no hover (`Border/medium`, 2,78:1) ficam abaixo de 3:1: a célula se distingue pela fileira e pelo dígito.",
-        "Erro comunicado por borda e texto, nunca só por cor (1.4.1).",
+        "Erro comunicado por borda e texto, nunca exclusivamente por cor (1.4.1).",
         "Estado desabilitado: isento do critério 1.4.3."
       ] },
       { note: "Fonte: annotations de Accessibility do set Code Input OTP (24060:7228, branch) e o comportamento implementado no playground. A seção Acessibilidade do frame de documentação no Figma ainda está oculta e com texto de exemplo." }
@@ -114,10 +114,10 @@ CDS.docs["code-input-otp"] = {
     { id: "diretrizes", title: "Diretrizes", blocks: [
       { h2: "Diretrizes" },
       { guides: [
-        { attrs: { label: "Código de autenticação", "show-required": false, value: "483920", separators: "3" }, title: "Use só para códigos de verificação",
-          text: "O Code Input é para códigos curtos de uso único. Para senhas, use o Password Input; para texto ou números longos, o Text Input." },
+        { attrs: { label: "Código de autenticação", "show-required": false, value: "483920", separators: "3" }, title: "Reserve para códigos de verificação",
+          text: "O Code Input é para códigos curtos de uso único. Para senhas, use o Password Input e, para texto ou números longos, o Text Input." },
         { attrs: { label: "Código de autenticação", value: "482910", separators: "3", appearance: "warning" }, title: "Comunique o erro além da cor",
-          text: "No código inválido, a borda Warning vem acompanhada da mensagem de erro; a cor sozinha não comunica a falha." },
+          text: "No código inválido, a borda Warning vem acompanhada da mensagem de erro. A cor sozinha não comunica a falha." },
         { attrs: { label: "Código de verificação", "show-required": false, value: "261548" }, title: "Defina a quantidade conforme o código",
           text: "Use o número de células igual ao tamanho do código (de 3 a 6). Células a mais ou a menos confundem quem digita." }
       ] },

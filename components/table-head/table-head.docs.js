@@ -14,9 +14,9 @@
       { id: "uso", title: "Uso", blocks: [
         { alert: { appearance: "warning", label: "Rascunho", text: "Building block sem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
         { h2: "Sobre" },
-        { p: "O .Head é o título de cada coluna da Table: 56 de altura, fundo Surface/01, Caption/Medium. Sort mostra a ordenação (up-line ou down-line); Kind=Multi Selection é o Checkbox que seleciona todas as linhas." },
+        { p: "O .Head é o título de cada coluna da Table: 56 de altura, fundo Surface/01, Caption/Medium. Sort mostra a ordenação (up-line ou down-line). Kind=Multi Selection é o Checkbox que seleciona todas as linhas." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do Table, que monta e controla os itens.", "Fora dele, use o componente completo (Table)."] },
+        { ul: ["Peça interna do Table, que monta e controla os itens.", "Fora dele, use o componente completo (Table)."] },
         { compare: [{ title: "Dentro do Table", attrs: { _tag: "cds-table", "per-page": "3", "show-pagination": false, "show-toolbar": false } }] }
       ] },
 
@@ -31,7 +31,7 @@
           { name: "Text Head", type: "Text", default: "Head" },
           { name: "Show Heading Text", type: "Boolean", default: "true" }
         ] },
-        { note: "Props e padrões lidos do set .Head da lib estável. No código, `<cds-table-head>`: `kind` (default|multi-selection), `sort` (default|up|down), `text-head`, `show-heading-text`; `state` só para exemplos." }
+        { note: "Props e padrões lidos do set .Head da lib estável. No código, `<cds-table-head>`: `kind` (default|multi-selection), `sort` (default|up|down), `text-head` e `show-heading-text`. O `state` serve exclusivamente para exemplos." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -49,14 +49,14 @@
       { id: "acessibilidade", title: "Acessibilidade", blocks: [
         { h2: "Teclado e leitor de tela" },
         { ul: [
-          "Na Table, é um `<th scope=\\\"col\\\">` com `aria-sort`; o título ordenável é um botão.",
+          "Na Table, é um `<th scope=\\\"col\\\">` com `aria-sort`, e o título ordenável é um botão.",
           "Multi Selection é um Checkbox nativo que marca ou desmarca as linhas da página."
         ] }
       ] },
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
-        { ul: ["Títulos claros e curtos, sem abreviações confusas.", "Ordenação só onde for útil (não em colunas de ações)."] }
+        { ul: ["Títulos claros e curtos, sem abreviações confusas.", "Ordenação nas colunas em que for útil (não em colunas de ações)."] }
       ] },
 
       { id: "motion", title: "Motion", blocks: [

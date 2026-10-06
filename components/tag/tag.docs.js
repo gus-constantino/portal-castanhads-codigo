@@ -18,7 +18,7 @@ CDS.docs["tag"] = {
       { p: "Chips, Badge, Tag Status, Bullet." },
       { h3: "Princípios" },
       { cards: [
-        ["Clareza", "A Tag deve comunicar informações de forma imediata e fácil de entender."],
+        ["Clareza", "A Tag deve comunicar informações de forma imediata e clara."],
         ["Objetividade", "Use textos curtos e diretos, limitados a uma única ideia ou categoria."],
         ["Consistência", "Mantenha o uso de cores e estilos conforme as variantes definidas no design system."]
       ] },
@@ -72,7 +72,7 @@ CDS.docs["tag"] = {
 
     { id: "acessibilidade", title: "Acessibilidade", blocks: [
       { h2: "Leitor de tela" },
-      { ul: ["A Tag é texto: o leitor de tela lê o Label.", "O ícone é decorativo; a cor também — o significado precisa estar no texto (ex.: \"Aprovado\", não só verde).", "A Tag não é interativa; para filtrar ou remover, use os Chips."] },
+      { ul: ["A Tag é texto: o leitor de tela lê o Label.", "O ícone é decorativo, e a cor também — o significado precisa estar no texto (ex.: \"Aprovado\", e não a cor verde sozinha).", "A Tag não é interativa. Para filtrar ou remover, use os Chips."] },
       { h2: "Contraste (WCAG)" },
       { ul: ["Neutral 15,27:1 · Inversed 16,96:1 · Negative 10,33:1 · Informative 9,60:1 · Warning 9,54:1 · Positive 8,02:1 · Accent 7,62:1 — todos AA e AAA para texto."] },
       { note: "Contrastes do texto sobre o fundo da própria Tag, medidos no tema light do playground. O zeroheight ainda não tem seção de Acessibilidade para a Tag." }

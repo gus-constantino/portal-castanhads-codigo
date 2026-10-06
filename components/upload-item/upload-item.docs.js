@@ -22,7 +22,7 @@
         { p: "File item, Upload row, Attachment item, Item de upload." },
         { h3: "Princípios" },
         { cards: [
-          ["Um arquivo, um item", "Cada item representa um único arquivo e carrega só o que diz respeito a ele: identificação, estado e ações."],
+          ["Um arquivo, um item", "Cada item representa um único arquivo e carrega exclusivamente o que diz respeito a ele: identificação, estado e ações."],
           ["Estado sempre visível", "O item declara em que ponto do envio o arquivo está, sem depender de mensagem fora do componente."],
           ["Extensão preservada", "O nome do arquivo pode truncar, a extensão não. É ela que identifica o tipo do arquivo quando o nome é longo."]
         ] },
@@ -33,7 +33,7 @@
         { h3: "Não utilize para:" },
         { ul: ["Adicionar arquivos (utilize o Dropzone)", "Listar documentos que não vieram de um upload", "Representar mais de um arquivo em um único item"] },
         { h2: "Upload Item e Upload List" },
-        { p: "O Upload Item representa um arquivo. Quando o fluxo aceita mais de um, os itens são agrupados no Upload List, que é um Auto Layout vertical com espaçamento fixo e um slot que só aceita Upload Item. O List existe para garantir ordem e espaçamento consistentes entre os arquivos, sem acrescentar conteúdo próprio: nome, estado e ações continuam sendo do item. Com um arquivo só, o Upload Item pode ser usado direto, sem a lista." },
+        { p: "O Upload Item representa um arquivo. Quando o fluxo aceita mais de um, os itens são agrupados no Upload List, que é um Auto Layout vertical com espaçamento fixo e um slot que aceita exclusivamente Upload Item. O List existe para garantir ordem e espaçamento consistentes entre os arquivos, sem acrescentar conteúdo próprio: nome, estado e ações continuam sendo do item. Com um único arquivo, o Upload Item pode ser usado direto, sem a lista." },
         { compare: [
           { title: "Upload Item sozinho", attrs: ui("uploaded") },
           { title: "Upload List", attrs: { _tag: "cds-upload-list", label: "Arquivos", _children: [ui("uploaded"), ui("success", { "text-title": "rg-frente", "file-extension": ".jpg", src: "assets/brand/sample-photo.svg" })] } }
@@ -72,11 +72,11 @@
       { id: "acessibilidade", title: "Acessibilidade", blocks: [
         { h2: "Teclado e leitor de tela" },
         { ul: [
-          "O item é um grupo com o nome completo do arquivo (`aria-label` = nome + extensão), mesmo quando o nome trunca na tela; dentro do Upload List vira item de lista.",
+          "O item é um grupo com o nome completo do arquivo (`aria-label` = nome + extensão), mesmo quando o nome trunca na tela. Dentro do Upload List vira item de lista.",
           "A mensagem de estado (Enviando, Enviado com sucesso, Falha ao enviar) fica numa região viva (`aria-live=\"polite\"`): a mudança é anunciada sem tirar o foco de onde a pessoa está.",
           "A Progress Line informa o percentual (`role=\"progressbar\"`, nome \"Enviando\" + arquivo).",
           "As ações são Icon Buttons com nome que inclui o arquivo: \"Remover comprovante-residencia.pdf\", \"Baixar …\" ou \"Tentar de novo: …\".",
-          "O .Lead item View file é um botão para ver o arquivo; o Static é decorativo."
+          "O .Lead item View file é um botão para ver o arquivo. O Static é decorativo."
         ] },
         { h2: "Contraste (WCAG)" },
         { ul: ["Nome, extensão e mensagens neutras (Text/medium) 8,24:1 sobre Surface/default — AA e AAA.", "Mensagem de sucesso (Feedback/Positive/semi-intense) 5,36:1 · de falha (Feedback/Warning/semi-intense) 6,41:1 — AA."] },
@@ -89,7 +89,7 @@
           { attrs: stack([{ _tag: "cds-dropzone", viewport: "desktop", "text-title": "Adicionar comprovante" }, ui("uploading", { percent: "60" })]), title: "Use o Upload Item junto do Dropzone", text: "O item não adiciona arquivos: ele mostra o que já foi adicionado. Aparece logo abaixo do Dropzone que o originou e, quando há mais de um arquivo, agrupado no Upload List." },
           { attrs: ui("uploaded", { "text-title": "comprovante-de-residencia-atualizado-2025" }), title: "Preserve a extensão do arquivo", text: "O nome trunca no fim, em uma linha. A extensão fica fora do truncamento, porque é ela que identifica o tipo do arquivo quando o nome é longo." },
           { attrs: stack([ui("error"), ui("uploaded"), ui("uploading", { percent: "60" })]), title: "Ofereça a ação que o status pede", text: "Falha pede tentar novamente e remover. Arquivo enviado pede baixar e remover. Envio em curso não oferece ação." },
-          { attrs: ui("uploaded"), title: "Passe o nome do arquivo já tratado", text: "O componente só exibe o texto que recebe. Extrair nome e extensão do arquivo é responsabilidade da implementação." }
+          { attrs: ui("uploaded"), title: "Passe o nome do arquivo já tratado", text: "O componente exibe exatamente o texto que recebe. Extrair nome e extensão do arquivo é responsabilidade da implementação." }
         ] },
         { h2: "Do's and Don'ts" },
         { h3: "Conteúdo" },

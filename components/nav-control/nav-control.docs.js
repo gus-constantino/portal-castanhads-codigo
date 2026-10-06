@@ -34,18 +34,18 @@
         { ul: ["Navegação direta entre telas", "Substituição de tabs ou stepper", "Ações clicáveis ou controles interativos."] },
         { h2: "Casos de uso" },
         { h3: "Nav Control vs Pagination" },
-        { p: "O Nav Control é um componente puramente indicativo, utilizado para mostrar a posição atual em uma sequência de conteúdos, como carrosséis, sem permitir interação direta. Já o Pagination é um componente interativo, voltado à navegação ativa entre páginas de tabelas ou listas extensas, permitindo que a pessoa usuária controle explicitamente qual conjunto de dados deseja visualizar." },
+        { p: "O Nav Control é um componente puramente indicativo, utilizado para mostrar a posição atual em uma sequência de conteúdos, como carrosséis, sem permitir interação direta. Já o Pagination é um componente interativo, voltado à navegação ativa entre páginas de tabelas ou listas extensas, permitindo que a pessoa usuária controle explicitamente qual conjunto de dados deseja consultar." },
         { note: "Suporte: canal #castanha-suporte no Slack." }
       ] },
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: {}, markers: [{ n: 1, target: "cds-nav-control-item[is-active]", side: "top" }, { n: 2, target: "cds-nav-control-item:last-child", side: "bottom" }, { n: 3, target: ".cds-nc__btns", side: "right" }], legend: ["Focus indicator (item ativo, 16×6)", "Navigation dots (6×6)", "Botão de navegação (apenas desktop)"] } },
+        { anatomy: { attrs: {}, markers: [{ n: 1, target: "cds-nav-control-item[is-active]", side: "top" }, { n: 2, target: "cds-nav-control-item:last-child", side: "bottom" }, { n: 3, target: ".cds-nc__btns", side: "right" }], legend: ["Focus indicator (item ativo, 16×6)", "Navigation dots (6×6)", "Botão de navegação (exclusivo do desktop)"] } },
         { h2: "Propriedades" },
         { props: [
           { name: "Appearance", type: "Variant", default: "Accent", values: ["Accent", "Inversed"] }
         ] },
-        { note: "Props e padrões lidos do set Nav Control da lib estável. O zeroheight lista Items (2–5), Style e \"Is selectedLead Icon\", que não existem no set (CONFERIR C138). Mobile e desktop vêm da coleção Viewport (no mobile, só os indicadores). No código: `appearance`, `current` (1-based), `total` (até 10), `prev-label`, `next-label` e `viewport`." }
+        { note: "Props e padrões lidos do set Nav Control da lib estável. O zeroheight lista Items (2–5), Style e \"Is selectedLead Icon\", que não existem no set (CONFERIR C138). Mobile e desktop vêm da coleção Viewport (no mobile, os indicadores sem as setas). No código: `appearance`, `current` (1-based), `total` (até 10), `prev-label`, `next-label` e `viewport`." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -58,7 +58,7 @@
         { h2: "Viewport" },
         { specimens: { min: "var(--common-sizes-200)", items: [
           { label: "Desktop: indicadores + setas", attrs: {} },
-          { label: "Mobile: só os indicadores", attrs: { viewport: "mobile" } }
+          { label: "Mobile: indicadores sem setas", attrs: { viewport: "mobile" } }
         ] } }
       ] },
 
@@ -71,21 +71,21 @@
           "Sobre imagem, use scrim para garantir contraste (description da lib)."
         ] },
         { h2: "Contraste (WCAG)" },
-        { ul: ["Accent sobre Surface/default: ativo 4,54:1 · inativo 8,24:1.", "Inversed sobre Surface/accent: ativo 4,54:1 · inativo 3,22:1; sobre Surface/inversed: ativo 16,96:1 · inativo 11,17:1.", "Todos acima de 3:1 para elementos gráficos (1.4.11)."] },
+        { ul: ["Accent sobre Surface/default: ativo 4,54:1 · inativo 8,24:1.", "Inversed sobre Surface/accent: ativo 4,54:1 · inativo 3,22:1. Sobre Surface/inversed: ativo 16,96:1 · inativo 11,17:1.", "Todos acima de 3:1 para elementos gráficos (1.4.11)."] },
         { note: "Contrastes medidos no tema light do playground." }
       ] },
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
         { guides: [
-          { attrs: nc(), title: "Uso ilustrativo apenas", text: "O Nav Control não deve ser clicável ou interativo. Ele deve apenas refletir o estado atual controlado por outro componente, como um carrossel. Em experiências web, associe o uso de setas interativas." },
+          { attrs: nc(), title: "Uso exclusivamente ilustrativo", text: "O Nav Control não deve ser clicável ou interativo. Ele reflete o estado atual controlado por outro componente, como um carrossel. Em experiências web, associe o uso de setas interativas." },
           { attrs: nc({ viewport: "mobile" }), title: "Nav Control como indicador obrigatório em carrosséis", text: "Sempre que um carrossel de imagens for utilizado, associe o Nav Control como indicador visual de navegação. Ele ajuda a pessoa usuária a entender quantos itens existem no carrossel e em qual posição ela está no momento, aumentando a previsibilidade e a compreensão do conteúdo, especialmente quando há rolagem automática ou por gesto." }
         ] },
-        { p: "Superfícies de uso: Accent sobre Surface/default; Inversed sobre Surface/accent ou Surface/inversed. Uso sobre imagem exige scrim para garantir contraste." },
+        { p: "Superfícies de uso: Accent sobre Surface/default e Inversed sobre Surface/accent ou Surface/inversed. Uso sobre imagem exige scrim para garantir contraste." },
         { h2: "Do's and Don'ts" },
         { h3: "Conteúdo" },
         { dodont: [
-          { kind: "do", attrs: nc({ viewport: "mobile" }), text: "Utilize o Nav Control como indicador visual sincronizado com o carrossel ou fluxo, mantendo apenas um item selecionado por vez." },
+          { kind: "do", attrs: nc({ viewport: "mobile" }), text: "Utilize o Nav Control como indicador visual sincronizado com o carrossel ou fluxo, mantendo um único item selecionado por vez." },
           { kind: "dont", attrs: { _tag: "div", class: "pg-doc-row", _children: [nc({ viewport: "mobile" }), { _tag: "cds-main-button", label: "Ir para o item 3", kind: "ghost", size: "small" }] }, text: "Não utilize o Nav Control como elemento de navegação clicável nem como substituto de componentes interativos de navegação." }
         ] }
       ] },

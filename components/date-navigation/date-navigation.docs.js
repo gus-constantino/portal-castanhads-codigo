@@ -16,7 +16,7 @@
         { h2: "Sobre" },
         { p: "O .Navigation Control fica no topo do Date Picker: o botão de mês anterior, o mês (e o mês seguinte, no Double Calendar), o ano e o botão de próximo mês. Clicar no mês ou no ano abre o seletor de mês ou de ano." },
         { h2: "Quando usar" },
-        { ul: ["Só dentro do Date Picker, que monta e controla os itens.", "Fora dele, use o componente completo (Date Picker)."] },
+        { ul: ["Peça interna do Date Picker, que monta e controla os itens.", "Fora dele, use o componente completo (Date Picker)."] },
         { compare: [{ title: "Dentro do Date Picker", attrs: { _tag: "cds-date-picker", today: "2026-01-20", month: "2026-01" } }] }
       ] },
 
@@ -45,14 +45,14 @@
       { id: "acessibilidade", title: "Acessibilidade", blocks: [
         { h2: "Teclado e leitor de tela" },
         { ul: [
-          "Anterior e próximo são Icon Buttons com nome; mês e ano são Main Buttons que abrem os seletores.",
+          "Anterior e próximo são Icon Buttons com nome, e mês e ano são Main Buttons que abrem os seletores.",
           "No teclado do Date Picker, PageUp/PageDown também trocam de mês."
         ] }
       ] },
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
-        { ul: ["Mostre o mês seguinte só no Double Calendar.", "Use o nome do mês por extenso."] }
+        { ul: ["Mostre o mês seguinte exclusivamente no Double Calendar.", "Use o nome do mês por extenso."] }
       ] },
 
       { id: "motion", title: "Motion", blocks: [

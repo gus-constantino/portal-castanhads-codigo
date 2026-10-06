@@ -7,7 +7,7 @@
   CDS.docs["radio-select-input"] = {
     tag: "cds-radio-select-input",
     base: { label: "Benefício", placeholder: "Selecione", supporting: "Escolha a categoria do saldo", "show-required": false, "show-lead-icon": false, "show-character-counter": false, _children: OPTS },
-    cover: { description: "Escolha única sem busca: o campo só abre a lista de opções, com Radio Button. Faz parte da família Select Input.", examples: [ {} ] },
+    cover: { description: "Escolha única sem busca: o campo abre a lista de opções, com Radio Button. Faz parte da família Select Input.", examples: [ {} ] },
     get source(){ return fam().source; }, sourceLabel: "Abrir o Select input no zeroheight",
     get tabs(){ return fam().tabs; }
   };

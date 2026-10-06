@@ -15,9 +15,9 @@
  "counts": {
   "components": 79,
   "buildingBlocks": 26,
-  "resources": 9,
+  "resources": 10,
   "compositions": 5,
-  "withDocs": 114,
+  "withDocs": 115,
   "withReact": 70,
   "liveMaps": 70,
   "reactOnly": 12,
@@ -15822,6 +15822,22 @@
    "figmaNode": null,
    "zeroheight": null,
    "description": "Miniatura viva: o playground real de um componente reduzido para caber numa caixa. Usada no preview do hover e no menu em grade."
+  },
+  {
+   "id": "agentes",
+   "name": "Agentes",
+   "kind": "resource",
+   "category": null,
+   "figma": null,
+   "figmaNode": null,
+   "zeroheight": null,
+   "tabs": [
+    {
+     "id": "agentes",
+     "title": "Agentes",
+     "text": "## Agentes\n\nOs agentes de IA do Castanha ajudam a escrever, tirar dúvidas e construir interfaces no padrão da Caju. Eles não substituem o seu julgamento: conhecer as diretrizes é o que deixa a revisão das respostas mais afiada.\n\n- **Borô** — O agente do Castanha no Slack: conteúdo no Tom e Voz, dúvidas sobre o DS e perfil dos clientes.\n- **Patterns para IA** — As decisões de experiência da Caju em .md, para a IA ler em qualquer ferramenta.\n\n## Borô\n\nO Borô é o agente do Castanha no Slack. Lançado em 25 de agosto de 2026, ele ajuda pessoas de diferentes áreas da Caju.\n\n### O que ele faz\n\n- Cria e revisa conteúdos para colaboradores (B2C) no Tom e Voz da Caju. Conteúdo para empresas (B2B) está em construção.\n- Responde dúvidas sobre Motion, Ilustração e Castanha DS.\n- Traz o perfil dos clientes: Personas B2B, B2C, Operador e ICPs.\n\n### Ajustes que ele faz\n\n| No texto | O Borô ajusta para |\n|---|---|\n| Apelido não oficial de produto (ex.: “Cajuzinho”) | O nome oficial do produto |\n| Label de botão vaga (ex.: “Entendi”, “Ok, obrigado”) | Uma ação clara e específica |\n\n### Como usar\n\n1. **Abra uma conversa** — Busque por Borô no Slack e mande o que precisa.\n2. **Cole o conteúdo** — Para textos de colaboradores, cole o conteúdo na conversa. Ele reescreve ou revisa no padrão da Caju e explica o que ajustar e por quê.\n3. **Avalie a resposta** — Toda resposta vem com 👍 e 👎. Reagir leva 2 segundos e mostra ao time o que funciona, guiando as próximas melhorias.\n\n> As diretrizes que o Borô segue estão em Conteúdo: tom e voz, princípios de escrita e regras de texto.\n\n## Patterns para IA\n\nOs Patterns são as decisões de experiência que a Caju já tomou, escritas em .md para a IA ler em qualquer ferramenta. Com eles, a IA monta interfaces no padrão da Caju em vez de gerar telas sem contexto.\n\n- **Fundamentos** — Design Colors e Design Spacing.\n- **Web** — Formulários, Dashboard, Fluxos com etapas, Filtros, Feedback e empty states.\n- **Mobile** — Formulários, Dashboard, Fluxos com etapas, Feedback e empty states.\n\nPróximos: Landing pages, Kanban view e Checkout. A demo mostra os Patterns aplicados na prática, e as definições são construídas em conjunto, às quintas, às 14h.\n\n> Fonte: anúncios do #castanha-novidades, setembro de 2026. Os Patterns para IA são diferentes da página Patterns do playground, que monta Feedback Pages e Tela de loading com componentes do DS."
+    }
+   ]
   },
   {
    "id": "caju-theme",

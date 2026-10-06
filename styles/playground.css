@@ -279,4 +279,4 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
   font:var(--text-style-body-regular); color:var(--common-colors-text-intense); box-shadow:inset 0 calc(-1 * var(--common-border-width-hairline)) 0 var(--pg-line); }
 .pg-shortcuts__row:last-child{ box-shadow:none; }
 .pg-keys{ justify-content:flex-end; } /* <cmp-shortcut> (compositions/shortcut) alinhado à direita da linha */
-
+.pg-ext-confirm__text{ margin:0; max-width:calc(var(--common-sizes-200) + var(--common-sizes-160)); font:var(--text-style-body-regular); color:var(--common-colors-text-medium); } /* texto do modal de saída do site */

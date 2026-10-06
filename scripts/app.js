@@ -197,11 +197,30 @@
     return kit.el("li", { "class": "pg-nav-grid-group" }, [kit.el("p", { "class": "pg-nav-title pg-nav-grid-title", text: label }), ul]);
   }
 
+  // Confirmação antes de sair do site (Modal do DS, padrão Dialog: Cancelar · ação). Um modal só, reaproveitado.
+  var extModal = null, extLink = null;
+  function confirmExternal(l){
+    if (!extModal){
+      extModal = kit.el("cds-modal", { id: "ext-confirm", "show-close-button": "false", "show-lead-icon": "false", "secondary-label": "Cancelar" }, [kit.el("p", { "class": "pg-ext-confirm__text" })]);
+      document.body.appendChild(extModal);
+      extModal.addEventListener("cds-action", function(e){
+        e.stopPropagation();
+        if (e.detail && e.detail.action === "primary" && extLink) window.open(extLink.href, "_blank", "noopener");
+        extModal.close();
+      });
+    }
+    extLink = l;
+    extModal.setAttribute("text-title", l.confirm.title); extModal.setAttribute("label", l.confirm.title);
+    extModal.setAttribute("primary-label", l.confirm.action || "Abrir");
+    extModal.querySelector(".pg-ext-confirm__text").textContent = l.confirm.text;
+    extModal.show();
+  }
   // Seções dos recursos no menu (ordem dentro da seção = ordem dos ids). Recurso fora da lista cai em "Mais recursos".
   var RES_SECTIONS = [
     { id: "padroes", title: "Padrões", ids: ["caju-theme", "ilustracao", "motion", "camadas", "conteudo", "patterns"], tip: "A base e as soluções recorrentes: tema (cores, tipografia, motion…), as camadas do DS, diretrizes de conteúdo e patterns de tela." },
     { id: "aprenda", title: "Aprenda", ids: ["treinamento", "capacitacoes"], tip: "Como o DS funciona e como usar no dia a dia, no Figma e no código.",
-      links: [{ name: "Curso na Awtra", href: "https://lms.awtra.com.br/company/caju/app/course/f5e0c07c-7778-489c-81af-91216c8ccdd0" }] }, // links externos: sem página, abrem em nova guia
+      links: [{ name: "Curso na Awtra", href: "https://lms.awtra.com.br/company/caju/app/course/f5e0c07c-7778-489c-81af-91216c8ccdd0",
+        confirm: { title: "Abrir o curso na Awtra?", text: "O curso fica na plataforma Awtra, fora deste site, e abre numa nova guia. Entre com a sua conta da Caju para acessar.", action: "Abrir curso" } }] }, // links externos: sem página, abrem em nova guia (com confirm: Modal do DS antes)
     { id: "ferramentas", title: "Ferramentas", ids: ["personas", "agentes", "mcp"], tip: "Apoio ao projeto: as personas para quem projetamos, assistentes de IA e integrações com o Castanha DS." },
     { id: "ajuda", title: "Ajuda", ids: ["faq", "changelog"], tip: "Perguntas frequentes e o que mudou no DS." }
   ];
@@ -253,7 +272,10 @@
       var ul = box.appendChild(kit.el("ul", { "class": "pg-nav", "aria-labelledby": tid }));
       sec.items.forEach(function(c){ ul.appendChild(kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name, c.soon ? kit.el("cds-tag", { appearance: "neutral", label: "Em breve", "show-lead-item": "false" }) : kit.el("small", { text: c.status || "" })])])); });
       sec.links.filter(function(l){ return !q || l.name.toLowerCase().indexOf(q) !== -1; }).forEach(function(l){
-        ul.appendChild(kit.el("li", null, [kit.el("a", { href: l.href, target: "_blank", rel: "noopener", "class": "pg-nav-ext", "aria-label": l.name + " (abre em nova guia)" }, [l.name, kit.el("cds-icon", { icon: "link-line", size: "small", appearance: "neutral", "aria-hidden": "true" })])]));
+        var ext = kit.el("a", { href: l.href, target: "_blank", rel: "noopener", "class": "pg-nav-ext", "aria-label": l.name + " (abre em nova guia)" }, [l.name, kit.el("cds-icon", { icon: "link-line", size: "small", appearance: "neutral", "aria-hidden": "true" })]);
+        // clique simples pede confirmação (Modal do DS); ⌘/Ctrl/Shift-clique e clique do meio seguem o link direto
+        if (l.confirm) ext.addEventListener("click", function(e){ if (e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; e.preventDefault(); confirmExternal(l); });
+        ul.appendChild(kit.el("li", null, [ext]));
       });
     });
     navFound.hidden = !navFound.children.length; navRes.hidden = !navRes.children.length;

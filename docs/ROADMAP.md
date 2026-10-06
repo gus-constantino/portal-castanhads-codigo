@@ -399,6 +399,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D227 | **Menu sem a pilha antes das seções** (Gustavo, 06/10: "não tem nada disso no arquivo"): sai o marcador de área de Padrões, Aprenda, Ferramentas e Ajuda (app e CSS). A pilha fica só nas capas (Início e recursos), na página não encontrada, nos estados vazios e no preview do link | 06/10 |
 | D228 | **Relatório · Débitos e melhorias** (Gustavo, 06/10): progresso geral dos itens do Conferir (Progress Line, % resolvido) e uma barra por tipo dividida em como o código tratou cada item (segue o Figma · exceção aprovada · débito), nas cores da rosca de Adaptações, com legenda, tooltip com a divisão e link para a seção. Os resolvidos não registram o tipo, por isso o "aberto × resolvido por tipo" fica no total. | 06/10 |
 | D229 | **Relatório sem "Numeração D/C"** (Gustavo, 06/10): sai o sinal vital, a linha do Resumo e a seção da tab Saúde técnica (e o comando da lista Como rodar). A checagem continua no CI e no `node scripts/dev/numerar.js --check` |
+| D+modal-awtra | **Confirmação antes de abrir o curso na Awtra** (Gustavo, 06/10): clique no link externo do menu abre o Modal do DS (padrão Dialog, sem fechar no X: Cancelar · Abrir curso) avisando que o curso fica fora do site, abre numa nova guia e pede a conta da Caju; ⌘/Ctrl/Shift-clique e clique do meio seguem o link direto. Links externos de `RES_SECTIONS` aceitam `confirm: { title, text, action }`. | 06/10 |
 
 ## 5. Dúvidas abertas
 

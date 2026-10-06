@@ -198,10 +198,9 @@
 
   // Seções dos recursos no menu (ordem dentro da seção = ordem dos ids). Recurso fora da lista cai em "Mais recursos".
   var RES_SECTIONS = [
-    { id: "fundamentos", title: "Fundamentos", top: true, ids: ["caju-theme", "conteudo"], tip: "A base de todos os componentes: tema (cores, tipografia, motion…) e diretrizes de conteúdo." },
-    { id: "padroes", title: "Padrões", ids: ["patterns", "personas"], tip: "Soluções para problemas recorrentes de tela e as pessoas para quem projetamos." },
+    { id: "padroes", title: "Padrões", ids: ["caju-theme", "conteudo", "patterns"], tip: "A base e as soluções recorrentes: tema (cores, tipografia, motion…), diretrizes de conteúdo e patterns de tela." },
     { id: "aprenda", title: "Aprenda", ids: ["arquitetura", "treinamento", "capacitacoes"], tip: "Como o DS funciona e como usar no dia a dia, no Figma e no código." },
-    { id: "ferramentas", title: "Ferramentas", ids: ["agentes", "mcp"], tip: "Assistentes de IA e integrações que trabalham com o Castanha DS." },
+    { id: "ferramentas", title: "Ferramentas", ids: ["personas", "agentes", "mcp"], tip: "Apoio ao projeto: as personas para quem projetamos, assistentes de IA e integrações com o Castanha DS." },
     { id: "ajuda", title: "Ajuda", ids: ["faq", "changelog"], tip: "Perguntas frequentes e o que mudou no DS." }
   ];
   function resSections(res){
@@ -224,8 +223,8 @@
     // Início (home: Castanha Hub) fica no topo do menu, fora de Componentes e de Recursos
     var home = list.filter(function(c){ return c.home; });
     if (navHome){ navHome.innerHTML = ""; navHome.hidden = !home.length; home.forEach(function(c){ navHome.appendChild(kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name])])); }); }
-    // Recursos em seções, como Carbon, M3, Polaris e Atlassian: Fundamentos antes de Componentes; Padrões, Aprenda,
-    // Ferramentas e Ajuda depois. soon (em breve): Tag neutra do DS no lugar do contador (ex.: MCP, ainda não ofertado ao time)
+    // Recursos em seções, como Carbon, M3, Polaris e Atlassian: depois de Componentes vêm Padrões (tema, conteúdo e patterns), Aprenda,
+    // Ferramentas e Ajuda. soon (em breve): Tag neutra do DS no lugar do contador (ex.: MCP, ainda não ofertado ao time)
     var res = shown.filter(function(c){ return c.resource && !c.home; });
     [navFound, navRes].forEach(function(box){ box.innerHTML = ""; });
     resSections(res).forEach(function(sec){
@@ -550,7 +549,7 @@
   }
 
   // ---------- Anterior / próximo (fim da página) ----------
-  // Como Carbon e M3: dois cards no fim da página, na ordem do menu (Início › Fundamentos › componentes por categoria › building blocks › composições › demais seções).
+  // Como Carbon e M3: dois cards no fim da página, na ordem do menu (Início › componentes por categoria › building blocks › composições › demais seções).
   // Content List Item do DS (Kind Card · Intent Navigation, href). Atalho do Storybook: ⌥← / ⌥→ (Alt no Windows/Linux).
   var pager = (function(){
     var mac = /Mac|iP(hone|ad)/.test(navigator.platform || navigator.userAgent), key = mac ? "⌥" : "Alt+";

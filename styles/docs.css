@@ -8,7 +8,7 @@
 
 /* ---------- Tabs ---------- */
 /* Tabs = Scrollable Tab do DS (Fase 3): aqui só o espaço em volta */
-.pg-tabs{ margin:var(--common-sizes-16) var(--common-sizes-32) 0; --cds-tab-width:100%; }
+.pg-tabs{ margin:var(--common-sizes-16) var(--common-sizes-32) 0; --cds-tab-width:100%; scroll-margin-top:var(--pg-header-h); } /* troca de aba sobe até a barra, logo abaixo do cabeçalho fixo */
 
 /* Modo doc: some o stage, o painel de controles e o seletor de viewport */
 .pg-shell.is-doc{ grid-template-columns:var(--pg-sidebar-w) minmax(0,1fr); }

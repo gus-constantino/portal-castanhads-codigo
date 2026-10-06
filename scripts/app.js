@@ -669,6 +669,7 @@
     if (CDS.docsIndex && CDS.docsIndex[want] && !docTried[want] && !(CDS.docs && CDS.docs[want])){ loadDoc(want).then(onRoute); return; }
     showRoute();
   }
+  var lastTab = null; // aba da última rota mostrada (troca de aba x troca de página)
   function showRoute(){
     // #/relatorio[/tab]: o relatório troca o shell inteiro; o botão volta para o último componente
     var r = route(), isReport = r[0] === "relatorio" && !!CDS.report;
@@ -680,10 +681,18 @@
     lastHash = location.hash || "#/";
     if (mountedId) document.title = currentDef().name + " — Castanha DS";
     var id = currentId(), q = qs(query());
+    // Página nova (menu, link, anterior/próximo) começa no topo; troca de aba abaixo da barra de abas sobe até ela.
+    // A seção pedida pela busca no conteúdo (pendingSection) continua levando até o trecho (revealSection).
+    var pageChanged = id !== mountedId, tabChanged = !pageChanged && currentTab() !== lastTab, toSection = !!pendingSection;
     // remonta ao trocar de componente ou quando a query chega de fora (link colado); a que o próprio app escreve não remonta
     if (id !== mountedId || (q && q !== writtenQs)){ mount(); mountedId = id; }
     setCrumbs(crumbs(currentDef())); // também ao voltar do relatório
     applyTab();
+    lastTab = currentTab();
+    if (!toSection){
+      if (pageChanged) window.scrollTo(0, 0);
+      else if (tabChanged && !tabsEl.hidden && tabsEl.getBoundingClientRect().top < 0) tabsEl.scrollIntoView({ block: "start" });
+    }
     // De volta à tab Playground (a troca de tab escreve o hash sem a query): o estado continua no painel, então volta à URL
     if (currentTab() === "playground" && writtenQs && !q) history.replaceState(null, "", "#/" + id + "?" + writtenQs);
   }

@@ -748,6 +748,22 @@
     var frame = el("div", "pg-cover__frame" + (cv.tall ? " is-tall" : "") + (cv.wide ? " is-wide" : "")); // wide: componente mais largo que a moldura (ex.: Drawer, 640)
     (cv.examples || [cv.attrs]).forEach(function(a){ frame.appendChild(example(doc, a, true)); }); // exemplos vivos
     root.appendChild(frame);
+    // Componente mais largo que a capa (ex.: Table, Date Picker no celular): reduz o exemplo até caber, em vez de cortar
+    function fit(){
+      var pad = parseFloat(getComputedStyle(frame).paddingLeft) || 0;
+      var avail = (frame.classList.contains("is-tall") || frame.classList.contains("is-wide") ? frame.clientWidth : root.clientWidth - 24) - 2 * pad;
+      [].forEach.call(frame.children, function(ch){
+        ch.style.zoom = "";
+        // componente com rolagem própria (Table, Scrollable Tab): o excesso do conteúdo ele mesmo rola; só a caixa conta
+        var scrolls = [ch].concat([].slice.call(ch.querySelectorAll("*"))).some(function(e){ return /(auto|scroll)/.test(getComputedStyle(e).overflowX); });
+        var w = scrolls ? ch.getBoundingClientRect().width : Math.max(ch.scrollWidth, ch.getBoundingClientRect().width);
+        if (avail > 0 && w > avail + 1) ch.style.zoom = (avail / w).toFixed(3);
+      });
+    }
+    requestAnimationFrame(function(){ requestAnimationFrame(fit); });
+    setTimeout(fit, 300); // componentes que terminam de montar depois (ex.: calendários)
+    if (window.ResizeObserver && !root._fitRO){ root._fitRO = new ResizeObserver(function(){ if (root._fit) root._fit(); }); root._fitRO.observe(root); }
+    root._fit = fit;
   };
 
   /** Renderiza uma tab da doc em `root`. */

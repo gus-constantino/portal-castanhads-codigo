@@ -11,6 +11,7 @@ cds-sponsor-subcategory [hidden]{ display:none !important; }
 }
 .cds-sps__row:hover, cds-sponsor-subcategory[state="hovered"] .cds-sps__row{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); --_fg:var(--common-colors-text-intense); }
 .cds-sps__row:active, cds-sponsor-subcategory[state="pressed"] .cds-sps__row{ --_bg:var(--common-colors-surface-default); transition-duration:var(--motion-pressed-01-timing); transition-timing-function:var(--motion-pressed-01-easing); }
+.cds-sps__row:hover .cds-sps__label, .cds-sps__row:active .cds-sps__label, cds-sponsor-subcategory[state] .cds-sps__label{ font:var(--text-style-label-bold); } /* Hovered e Pressed: Label/Bold */
 cds-sponsor-subcategory[selected] .cds-sps__row{ --_fg:var(--common-colors-text-intense); }
 .cds-sps__row:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:-2px; }
 cds-sponsor-subcategory[disabled] .cds-sps__row{ opacity:0.4; cursor:default; --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-text-medium); }

@@ -1010,7 +1010,7 @@ cds-sponsor-category [hidden]{ display:none !important; }
   text-decoration:none; cursor:pointer; -webkit-tap-highlight-color:transparent;
   transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing);
 }
-cds-sponsor-category[kind="reduced"] .cds-spc__row{ padding:var(--common-sizes-4); border-radius:var(--common-border-radius-extra-small); position:relative; }
+cds-sponsor-category[kind="reduced"] .cds-spc__row{ padding:var(--common-sizes-4); border-radius:var(--common-border-radius-extra-small); }
 .cds-spc__row:hover, cds-sponsor-category[state="hovered"] .cds-spc__row{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); }
 .cds-spc__row:active, cds-sponsor-category[state="pressed"] .cds-spc__row{ --_bg:var(--common-colors-surface-default); transition-duration:var(--motion-pressed-01-timing); transition-timing-function:var(--motion-pressed-01-easing); }
 .cds-spc__row:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:-2px; }
@@ -1024,7 +1024,10 @@ cds-sponsor-category[selected] .cds-spc__lead{ background:var(--common-colors-su
 .cds-spc__label{ flex:1 1 auto; min-width:0; font:var(--text-style-label-medium); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 cds-sponsor-category[kind="reduced"] .cds-spc__label{ display:none; }
 .cds-spc__badge, .cds-spc__chev{ flex:0 0 auto; }
-cds-sponsor-category[kind="reduced"] .cds-spc__badge{ position:absolute; top:0; right:0; }
+cds-sponsor-category[kind="reduced"]{ position:relative; }
+cds-sponsor-category[kind="reduced"] .cds-spc__badge{ position:absolute; top:0; right:0; } /* Badge de 16 sem texto, no canto do item */
+/* Accordion aberto: rótulo em Label/Bold (Figma: Is Collapsed=True) */
+cds-sponsor-category[expanded] .cds-spc__label{ font:var(--text-style-label-bold); }
 .cds-spc__slot{ display:flex; flex-direction:column; gap:var(--common-sizes-8); padding:var(--common-sizes-8) 0 0 var(--common-sizes-12); }
 
 /* ==== components/sponsor-subcategory/sponsor-subcategory.css ==== */
@@ -1041,6 +1044,7 @@ cds-sponsor-subcategory [hidden]{ display:none !important; }
 }
 .cds-sps__row:hover, cds-sponsor-subcategory[state="hovered"] .cds-sps__row{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); --_fg:var(--common-colors-text-intense); }
 .cds-sps__row:active, cds-sponsor-subcategory[state="pressed"] .cds-sps__row{ --_bg:var(--common-colors-surface-default); transition-duration:var(--motion-pressed-01-timing); transition-timing-function:var(--motion-pressed-01-easing); }
+.cds-sps__row:hover .cds-sps__label, .cds-sps__row:active .cds-sps__label, cds-sponsor-subcategory[state] .cds-sps__label{ font:var(--text-style-label-bold); } /* Hovered e Pressed: Label/Bold */
 cds-sponsor-subcategory[selected] .cds-sps__row{ --_fg:var(--common-colors-text-intense); }
 .cds-sps__row:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:-2px; }
 cds-sponsor-subcategory[disabled] .cds-sps__row{ opacity:0.4; cursor:default; --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-text-medium); }
@@ -1050,15 +1054,16 @@ cds-sponsor-subcategory[disabled] .cds-sps__row{ opacity:0.4; cursor:default; --
 /* ==== components/sponsor-user-profile/sponsor-user-profile.css ==== */
 /* .User Profile · [CastanhaDS] Sponsor Templates — Default 288×92 · Reduced 40×92 */
 cds-sponsor-user-profile{
-  box-sizing:border-box; display:flex; align-items:center; gap:var(--common-sizes-16); width:var(--cds-sponsor-user-profile-width, 288px); max-width:100%;
-  padding:var(--common-sizes-24) 0; background:var(--common-colors-surface-01);
+  box-sizing:border-box; display:flex; align-items:flex-end; gap:var(--common-sizes-16); width:var(--cds-sponsor-user-profile-width, 288px); max-width:100%;
+  min-height:var(--common-sizes-92); padding:var(--common-sizes-24) 0; background:var(--common-colors-surface-01);
 }
 cds-sponsor-user-profile[kind="reduced"]{ width:var(--common-sizes-40); }
 cds-sponsor-user-profile [hidden]{ display:none !important; }
 .cds-spu__avatar, .cds-spu__action{ flex:0 0 auto; }
 .cds-spu__text{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:var(--common-sizes-4); }
-.cds-spu__name{ font:var(--text-style-label-bold); color:var(--common-colors-text-intense); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.cds-spu__cnpj{ font:var(--text-style-caption-medium); color:var(--common-colors-text-medium); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cds-spu__name{ font:var(--text-style-label-bold); color:var(--common-colors-text-intense); overflow-wrap:anywhere; }
+.cds-spu__cnpj{ font:var(--text-style-caption-medium); color:var(--common-colors-text-medium); overflow-wrap:anywhere; }
+/* Figma: itens alinhados pela base (cross=MAX), altura mínima 92, texto sem corte (auto height) */
 
 /* ==== components/status-dot/status-dot.css ==== */
 /* =====================================================================
@@ -1253,7 +1258,7 @@ cds-sponsor-header [hidden]{ display:none !important; }
 
 /* ==== components/sponsor-side-menu/sponsor-side-menu.css ==== */
 /* =====================================================================
-   Side Menu · [CastanhaDS] Sponsor Templates (5576:445) — colapsado 80 · expandido 360 · altura da página (1024 no Figma)
+   Side Menu · [CastanhaDS] Sponsor Templates (5576:445) — colapsado 80 · expandido 360 · altura da página (1024 no Figma, mínimo 788)
    Colapsado abre por hover/foco em overlay: o host reserva 80 e o painel cresce por cima do conteúdo.
    Motion: largura com Selected In/01
    ===================================================================== */
@@ -1261,17 +1266,19 @@ cds-sponsor-side-menu{ display:block; position:relative; box-sizing:border-box; 
 cds-sponsor-side-menu[collapsed="false"]{ width:calc(var(--common-sizes-200) + var(--common-sizes-160)); }
 cds-sponsor-side-menu [hidden]{ display:none !important; }
 .cds-ssm{
-  position:absolute; inset:0 auto 0 0; box-sizing:border-box; width:100%; height:100%; overflow:hidden auto;
+  position:absolute; inset:0 auto 0 0; box-sizing:border-box; width:100%; height:100%; min-height:788px; overflow:hidden auto; scrollbar-width:thin;
   display:flex; flex-direction:column; justify-content:space-between;
   padding:var(--common-sizes-32) var(--common-sizes-20) 0; background:var(--common-colors-surface-01); box-shadow:var(--common-elevation-level-2);
+  border-radius:0 var(--common-border-radius-large) var(--common-border-radius-large) 0;
   transition:width var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing);
 }
 cds-sponsor-side-menu[peek] .cds-ssm{ width:calc(var(--common-sizes-200) + var(--common-sizes-160)); }
 .cds-ssm__container{ display:flex; flex-direction:column; gap:var(--common-sizes-20); --cds-sponsor-category-width:100%; --cds-sponsor-user-profile-width:100%; }
-.cds-ssm__heading{ display:flex; align-items:center; min-height:var(--common-sizes-44); }
-cds-sponsor-side-menu[collapsed="false"] .cds-ssm__heading, cds-sponsor-side-menu[peek] .cds-ssm__heading{ padding-left:var(--common-sizes-16); }
-.cds-ssm__heading cds-caju-brand{ height:var(--common-sizes-32); }
-.cds-ssm__slot{ padding:var(--common-sizes-16); }
+.cds-ssm__heading{ display:flex; align-items:center; justify-content:center; gap:var(--common-sizes-8); height:var(--common-sizes-44); }
+.cds-ssm__brand{ flex:1 1 auto; min-width:0; height:var(--common-sizes-40); display:flex; align-items:center; justify-content:center; }
+cds-sponsor-side-menu[collapsed="false"] .cds-ssm__heading, cds-sponsor-side-menu[peek] .cds-ssm__heading{ justify-content:flex-start; padding-left:var(--common-sizes-16); }
+cds-sponsor-side-menu[collapsed="false"] .cds-ssm__brand, cds-sponsor-side-menu[peek] .cds-ssm__brand{ justify-content:flex-start; }
+.cds-ssm__slot{ display:flex; max-height:var(--common-sizes-160); overflow:hidden; padding:var(--common-sizes-16); border-radius:var(--common-border-radius-small); }
 .cds-ssm__shortcuts{ display:flex; flex-direction:column; gap:var(--common-sizes-8); padding-top:var(--common-sizes-8); }
 .cds-ssm__categories{ display:flex; flex-direction:column; gap:var(--common-sizes-20); padding:var(--common-sizes-16) 0; }
 .cds-ssm__user{ display:flex; flex-direction:column; padding:var(--common-sizes-20) 0; --cds-sponsor-category-width:100%; --cds-sponsor-user-profile-width:100%; }

@@ -13089,7 +13089,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Propriedades\n\n- **Kind** (Variant): Default, Reduced\n- **Intent** (Variant): Default, Accordion\n- **Appearance** (Variant): Neutral, Accent\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Is Selected** (Variant): False, True\n- **Is Collapsed** (Variant): False, True\n- **Text Label** (Text)\n- **Show Badge** (Boolean)\n- **Lead Icon** (Instance swap)\n- **Slot** (Slot)\n\nFundo `Surface/01`, raio `Border/Radius/small`, padding 4 8 4 4 e gap 4. Lead Icon de 32 (selecionado: fundo `Surface/accent` e ícone `Icons/inversed`), Label em `Label/Medium` e Badge Warning. Hovered `Neutral/Opacity/Intense/semi-transparent`, Pressed `Surface/default` e Disabled com opacidade 0.4.\n\n> No Figma, Is Collapsed=True é a variante que mostra o Slot aberto (C176). No código o accordion aberto é `expanded`, e o colapso do menu vira Kind=Reduced."
+     "text": "## Propriedades\n\n- **Kind** (Variant): Default, Reduced\n- **Intent** (Variant): Default, Accordion\n- **Appearance** (Variant): Neutral, Accent\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Is Selected** (Variant): False, True\n- **Is Collapsed** (Variant): False, True\n- **Text Label** (Text)\n- **Show Badge** (Boolean)\n- **Lead Icon** (Instance swap)\n- **Slot** (Slot)\n\nFundo `Surface/01`, raio `Border/Radius/small`, padding 4 8 4 4 e gap 4. Lead Icon de 32 (selecionado: fundo `Surface/accent` e ícone `Icons/inversed`), Label em `Label/Medium` e Badge Warning. Hovered `Neutral/Opacity/Intense/semi-transparent`, Pressed `Surface/default` e Disabled com opacidade 0.4. Com o accordion aberto, o rótulo vai para `Label/Bold` e o Slot tem padding-left 12 e gap 8. Kind=Reduced: 40×40, Badge de 16 sem texto no canto.\n\n> No Figma, Is Collapsed=True é a variante que mostra o Slot aberto (C176). No código o accordion aberto é `expanded`, e o colapso do menu vira Kind=Reduced."
     }
    ]
   },
@@ -13144,7 +13144,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Composição do componente\n\nFundo `Surface/01` com `Elevation/level 2`, padding 32 20 0 20 e uma coluna com espaço entre o topo e o rodapé. No topo, o Container (gap 20) com a marca (Caju Brand), o Slot, os Shortcuts (gap 8) e as Categories (gap 20, padding 16 0). No rodapé, a User Area (padding 20 0) com a Ajuda (`.Category` Accordion) e o `.User Profile`. Colapsado, os `.Category` e o `.User Profile` ficam em Kind=Reduced.\n\n## Propriedades\n\n- **Is Collapsed** (Variant): True, False\n- **Show Slot** (Boolean)\n- **Show Shortcuts** (Boolean)\n- **Slot** (Slot)\n\n> No código: `collapsed=\"false\"` fixa o menu expandido. Filhos: `<cds-sponsor-category>` vão para Categories, com `slot=\"shortcuts\"` para os atalhos, `slot=\"help\"` para a Ajuda e `slot=\"slot\"` para o Slot livre. O `<cds-sponsor-user-profile>` vai para o rodapé. Evento `cds-select` ao selecionar um item."
+     "text": "## Composição do componente\n\nFundo `Surface/01` com `Elevation/level 2`, cantos da direita em `Border/Radius/large`, padding 32 20 0 20, altura mínima 788 e uma coluna com espaço entre o topo e o rodapé. No topo, o Container (gap 20) com o Heading de 44 (marca centralizada na altura: expandida à esquerda com padding 16 e tipografia, colapsada centralizada e só com o símbolo), o Slot (padding 16, raio small, altura máxima 160), os Shortcuts (padding-top 8, gap 8) e as Categories (gap 20, padding 16 0). No rodapé, a User Area (padding 20 0) com a Ajuda (`.Category` Accordion) e o `.User Profile`. Colapsado, os `.Category` e o `.User Profile` ficam em Kind=Reduced.\n\n## Propriedades\n\n- **Is Collapsed** (Variant): True, False\n- **Show Slot** (Boolean)\n- **Show Shortcuts** (Boolean)\n- **Slot** (Slot)\n\n> No código: `collapsed=\"false\"` fixa o menu expandido. Filhos: `<cds-sponsor-category>` vão para Categories, com `slot=\"shortcuts\"` para os atalhos, `slot=\"help\"` para a Ajuda e `slot=\"slot\"` para o Slot livre. O `<cds-sponsor-user-profile>` vai para o rodapé. Evento `cds-select` ao selecionar um item."
     },
     {
      "id": "acessibilidade",
@@ -13171,7 +13171,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Propriedades\n\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Text Label** (Text)\n- **Show Lead Icon** (Boolean)\n- **Lead Icon** (Instance swap)\n- **Show Trailing Icon** (Boolean)\n- **Trailing Icon** (Instance swap)\n- **Show Badge** (Boolean)\n\n188×32, fundo `Surface/01`, raio `Border/Radius/small`, padding 0 8 e gap 8. Label em `Label/Regular` e `Text/medium` (no Hovered, `Text/intense`)."
+     "text": "## Propriedades\n\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Text Label** (Text)\n- **Show Lead Icon** (Boolean)\n- **Lead Icon** (Instance swap)\n- **Show Trailing Icon** (Boolean)\n- **Trailing Icon** (Instance swap)\n- **Show Badge** (Boolean)\n\n188×32, fundo `Surface/01`, raio `Border/Radius/small`, padding 0 8 e gap 8. Label em `Label/Regular` e `Text/medium`. No Hovered e no Pressed, `Label/Bold` (no Hovered, também `Text/intense`). Largura de preenchimento e altura mínima 32."
     }
    ]
   },
@@ -13188,12 +13188,12 @@
     {
      "id": "uso",
      "title": "Uso",
-     "text": "## Sobre\n\nRodapé de identificação do Side Menu: avatar, nome e CNPJ, com ação opcional (Show Icon Button). Kind deriva do colapso do menu: Default (expandido) mostra os dados, Reduced (colapsado) mostra o avatar.\n\n> Texto da description do .User Profile. O ícone da ação não está definido no set: o playground usa more-line (C175)."
+     "text": "## Sobre\n\nRodapé de identificação do Side Menu: avatar, nome e CNPJ, com ação opcional (Show Icon Button). Kind deriva do colapso do menu: Default (expandido) mostra os dados, Reduced (colapsado) mostra o avatar.\n\n> Texto da description do .User Profile. O Icon Button usa `menu-line`, como no Figma. A ação dele ainda não está descrita no set (C175)."
     },
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Propriedades\n\n- **Kind** (Variant): Default, Reduced\n- **User Name** (Text)\n- **CNPJ** (Text)\n- **Show Icon Button** (Boolean)\n\nDefault 288×92 e Reduced 40×92, fundo `Surface/01`, padding 24 0 e gap 16. Avatar Image Small (40), nome em `Label/Bold` e CNPJ em `Caption/Medium` com `Text/medium`, e Icon Button Small Default Neutral."
+     "text": "## Propriedades\n\n- **Kind** (Variant): Default, Reduced\n- **User Name** (Text)\n- **CNPJ** (Text)\n- **Show Icon Button** (Boolean)\n\nDefault 288×92 e Reduced 40×92 (altura mínima 92), fundo `Surface/01`, padding 24 0, gap 16 e itens alinhados pela base. Avatar Image Small (40), nome em `Label/Bold` e CNPJ em `Caption/Medium` com `Text/medium` (gap 4, sem corte), e Icon Button Small Default Neutral com `menu-line`."
     }
    ]
   },
@@ -27161,7 +27161,7 @@
     "id": "C175",
     "group": "Ajuste de UI",
     "resolved": false,
-    "text": "Side Menu · `.User Profile` · O Icon Button do rodapé (Show Icon Button) não tem ícone nem ação definidos no set · Definir o ícone e a ação (ex.: menu da conta, sair) · `more-line`, nome acessível \"Opções da conta\", evento `cds-action` · Próxima revisão do Sponsor Templates"
+    "text": "Side Menu · `.User Profile` · O Icon Button do rodapé (Show Icon Button) usa `menu-line`, mas a ação não está descrita no set · Descrever a ação (ex.: menu da conta, trocar de empresa, sair) · `menu-line`, nome acessível \"Opções da conta\", evento `cds-action` · Próxima revisão do Sponsor Templates"
    },
    {
     "id": "C01",

@@ -39,7 +39,7 @@ CDS.docs["sponsor-category"] = {
         { name: "Lead Icon", type: "Instance swap", default: "placeholder-line" },
         { name: "Slot", type: "Slot", default: "—" }
       ] },
-      { p: "Fundo `Surface/01`, raio `Border/Radius/small`, padding 4 8 4 4 e gap 4. Lead Icon de 32 (selecionado: fundo `Surface/accent` e ícone `Icons/inversed`), Label em `Label/Medium` e Badge Warning. Hovered `Neutral/Opacity/Intense/semi-transparent`, Pressed `Surface/default` e Disabled com opacidade 0.4." },
+      { p: "Fundo `Surface/01`, raio `Border/Radius/small`, padding 4 8 4 4 e gap 4. Lead Icon de 32 (selecionado: fundo `Surface/accent` e ícone `Icons/inversed`), Label em `Label/Medium` e Badge Warning. Hovered `Neutral/Opacity/Intense/semi-transparent`, Pressed `Surface/default` e Disabled com opacidade 0.4. Com o accordion aberto, o rótulo vai para `Label/Bold` e o Slot tem padding-left 12 e gap 8. Kind=Reduced: 40×40, Badge de 16 sem texto no canto." },
       { note: "No Figma, Is Collapsed=True é a variante que mostra o Slot aberto (C176). No código o accordion aberto é `expanded`, e o colapso do menu vira Kind=Reduced." }
     ] }
   ]

@@ -27,7 +27,7 @@ CDS.docs["sponsor-side-menu"] = {
     ] },
     { id: "anatomia", title: "Anatomia", blocks: [
       { h2: "Composição do componente" },
-      { p: "Fundo `Surface/01` com `Elevation/level 2`, padding 32 20 0 20 e uma coluna com espaço entre o topo e o rodapé. No topo, o Container (gap 20) com a marca (Caju Brand), o Slot, os Shortcuts (gap 8) e as Categories (gap 20, padding 16 0). No rodapé, a User Area (padding 20 0) com a Ajuda (`.Category` Accordion) e o `.User Profile`. Colapsado, os `.Category` e o `.User Profile` ficam em Kind=Reduced." },
+      { p: "Fundo `Surface/01` com `Elevation/level 2`, cantos da direita em `Border/Radius/large`, padding 32 20 0 20, altura mínima 788 e uma coluna com espaço entre o topo e o rodapé. No topo, o Container (gap 20) com o Heading de 44 (marca centralizada na altura: expandida à esquerda com padding 16 e tipografia, colapsada centralizada e só com o símbolo), o Slot (padding 16, raio small, altura máxima 160), os Shortcuts (padding-top 8, gap 8) e as Categories (gap 20, padding 16 0). No rodapé, a User Area (padding 20 0) com a Ajuda (`.Category` Accordion) e o `.User Profile`. Colapsado, os `.Category` e o `.User Profile` ficam em Kind=Reduced." },
       { h2: "Propriedades" },
       { props: [
         { name: "Is Collapsed", type: "Variant", default: "True", values: ["True", "False"] },

@@ -58,7 +58,7 @@
       CDS.attr(this.iconEl, "appearance", sel ? "inversed" : accent ? "accent" : "neutral");
       this.badgeEl.hidden = this.getAttribute("show-badge") === "false";
       CDS.attr(this.badgeEl, "label", reduced ? "" : (this.getAttribute("badge-label") || "Novo"));
-      CDS.attr(this.badgeEl, "viewport", reduced ? "mobile" : null); // Reduced: Badge de 16 sem texto (ponto)
+      CDS.attr(this.badgeEl, "viewport", "desktop"); // Figma: Badge de 16 (Reduced: sem texto), também no frame mobile
       this.chevEl.hidden = !acc || reduced;
       CDS.attr(this.chevEl, "icon", this.expanded ? "dropdown-close-line" : "dropdown-open-line");
       this.slotEl.hidden = !acc || reduced || !this.expanded;

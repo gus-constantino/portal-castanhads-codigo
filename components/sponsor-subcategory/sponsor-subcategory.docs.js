@@ -25,7 +25,7 @@ CDS.docs["sponsor-subcategory"] = {
         { name: "Trailing Icon", type: "Instance swap", default: "navigation-right-line" },
         { name: "Show Badge", type: "Boolean", default: "false" }
       ] },
-      { p: "188×32, fundo `Surface/01`, raio `Border/Radius/small`, padding 0 8 e gap 8. Label em `Label/Regular` e `Text/medium` (no Hovered, `Text/intense`)." }
+      { p: "188×32, fundo `Surface/01`, raio `Border/Radius/small`, padding 0 8 e gap 8. Label em `Label/Regular` e `Text/medium`. No Hovered e no Pressed, `Label/Bold` (no Hovered, também `Text/intense`). Largura de preenchimento e altura mínima 32." }
     ] }
   ]
 };

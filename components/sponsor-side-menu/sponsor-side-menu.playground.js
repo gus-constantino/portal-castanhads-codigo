@@ -8,7 +8,7 @@ CDS.register({
     var CATS = [["Início", "home-line"], ["Colaboradores", "team-line", ["Ativos", "Desligados", "Convites"]], ["Benefícios", "general-benefit-line"],
                 ["Pedidos", "receipt-line"], ["Relatórios", "chart-bar-line", ["Saldos", "Uso por categoria"]], ["Configurações", "settings-line"]];
     var SHORT = [["Novo pedido", "receipt-line"], ["Adicionar pessoa", "user-add-line"]];
-    var stage = kit.el("div", { "class": "pg-ssm-stage", style: "position:relative; display:flex; width:100%; height:calc(var(--common-sizes-200) * 3.6); background:var(--common-colors-surface-default);" });
+    var stage = kit.el("div", { "class": "pg-ssm-stage", style: "position:relative; display:flex; width:100%; height:calc(var(--common-sizes-200) * 4); background:var(--common-colors-surface-default);" });
     var m = kit.el("cds-sponsor-side-menu", null);
     SHORT.forEach(function(s){ m.appendChild(kit.el("cds-sponsor-category", { slot: "shortcuts", appearance: "accent", label: s[0], icon: s[1], "show-badge": "false" })); });
     CATS.forEach(function(c, i){

@@ -107,7 +107,7 @@ window.CDS_EXPECTED = {
   "sponsor-category":  { w: 224, h: 40, src: "5576:27 · .Category Kind=Default, Intent=Default" },
   "sponsor-side-menu": { w: 80, src: "5576:445 · Is Collapsed=True (80 de largura; altura da página, 1024 no Figma)" },
   "sponsor-subcategory": { w: 188, h: 32, src: "5576:27 · .Subcategory State=Enabled" },
-  "sponsor-user-profile": { w: 288, h: 89, src: "5576:436 · Kind=Default (Figma 288×92: o bloco de texto lá tem 44 de altura)" },
+  "sponsor-user-profile": { w: 288, h: 92, src: "5576:436 · Kind=Default (altura mínima 92)" },
   "sponsor-header":    { minW: 312, src: "4002:3849 · [CastanhaDS] Sponsor Templates · 1366×180 no Figma, ocupa a largura da página (altura acompanha a quebra de linha)" },
   "slider":            { w: 320, h: 44, src: "20056:11908 · Single" },
   "nps-score":         { w: 320, h: 72, src: "10100:848" },

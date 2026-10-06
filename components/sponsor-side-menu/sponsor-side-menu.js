@@ -4,8 +4,10 @@
  * Description do Figma: navegação lateral do app Sponsor. Colapsado (80px, só ícones) e expandido (360px). No desktop expande por
  * hover, em overlay sobre o conteúdo. Um item selecionado por vez, derivado da rota. Um accordion aberto por vez.
  *
- * Anatomia: Surface/01 · Elevation/level 2 · pad 32 20 0 20 · coluna com espaço entre o topo e o rodapé
- *   Container (gap 20): Heading (Caju Brand, pad-left 16 expandido) · Slot (Show Slot) · Shortcuts (Show Shortcuts, gap 8, .Category Accent)
+ * Anatomia (lida no Figma): Surface/01 · Elevation/level 2 · raio Border/Radius/large à direita · pad 32 20 0 20 · altura mínima 788
+ *   coluna com espaço entre o topo (Container) e o rodapé (User Area)
+ *   Container (gap 20): Heading 44 (Brand 40, logo vertical ao centro: expandido à esquerda com pad 16 e tipografia, colapsado centralizado, só o símbolo)
+ *     · Slot (Show Slot, pad 16, raio small, altura máxima 160) · Shortcuts (Show Shortcuts, pad-top 8, gap 8, .Category Accent)
  *     · Categories (gap 20, pad 16 0, .Category Neutral) · User Area (pad 20 0): Help (.Category) + .User Profile
  *   Colapsado: .Category e .User Profile em Kind=Reduced (só ícone e avatar)
  *
@@ -29,7 +31,7 @@
         var p = this.panel = this.appendChild(c("nav", { "aria-label": "Menu" }, "cds-ssm"));
         var box = p.appendChild(c("div", null, "cds-ssm__container"));
         var head = box.appendChild(c("div", null, "cds-ssm__heading"));
-        head.appendChild(c("cds-caju-brand", { "show-typography": "false", label: "Caju" }));
+        this.brandEl = head.appendChild(c("div", null, "cds-ssm__brand")).appendChild(c("cds-caju-brand", { label: "Caju" }));
         this.slotEl = box.appendChild(c("div", null, "cds-ssm__slot"));
         this.shortEl = box.appendChild(c("div", { role: "list", "aria-label": "Atalhos" }, "cds-ssm__shortcuts"));
         this.catEl = box.appendChild(c("div", { role: "list", "aria-label": "Categorias" }, "cds-ssm__categories"));
@@ -77,6 +79,7 @@
       var reduced = this.collapsed && !this._peek;
       CDS.attr(this, "peek", this.collapsed && this._peek ? "" : null);
       this.items().forEach(function(x){ CDS.attr(x, "kind", reduced ? "reduced" : null); });
+      CDS.attr(this.brandEl, "show-typography", reduced ? "false" : null); // Figma: expandido com a tipografia, colapsado só o símbolo
       [].forEach.call(this.querySelectorAll("cds-sponsor-user-profile"), function(x){ CDS.attr(x, "kind", reduced ? "reduced" : null); });
     }
   }

@@ -10,7 +10,7 @@ CDS.docs["sponsor-user-profile"] = {
     { id: "uso", title: "Uso", blocks: [
       { h2: "Sobre" },
       { p: "Rodapé de identificação do Side Menu: avatar, nome e CNPJ, com ação opcional (Show Icon Button). Kind deriva do colapso do menu: Default (expandido) mostra os dados, Reduced (colapsado) mostra o avatar." },
-      { note: "Texto da description do .User Profile. O ícone da ação não está definido no set: o playground usa more-line (C175)." }
+      { note: "Texto da description do .User Profile. O Icon Button usa `menu-line`, como no Figma. A ação dele ainda não está descrita no set (C175)." }
     ] },
     { id: "anatomia", title: "Anatomia", blocks: [
       { h2: "Propriedades" },
@@ -20,7 +20,7 @@ CDS.docs["sponsor-user-profile"] = {
         { name: "CNPJ", type: "Text", default: "00.000.000/0001-00" },
         { name: "Show Icon Button", type: "Boolean", default: "true" }
       ] },
-      { p: "Default 288×92 e Reduced 40×92, fundo `Surface/01`, padding 24 0 e gap 16. Avatar Image Small (40), nome em `Label/Bold` e CNPJ em `Caption/Medium` com `Text/medium`, e Icon Button Small Default Neutral." }
+      { p: "Default 288×92 e Reduced 40×92 (altura mínima 92), fundo `Surface/01`, padding 24 0, gap 16 e itens alinhados pela base. Avatar Image Small (40), nome em `Label/Bold` e CNPJ em `Caption/Medium` com `Text/medium` (gap 4, sem corte), e Icon Button Small Default Neutral com `menu-line`." }
     ] }
   ]
 };

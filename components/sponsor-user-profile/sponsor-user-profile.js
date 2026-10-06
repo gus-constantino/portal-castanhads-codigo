@@ -7,7 +7,7 @@
  * Anatomia: Default 288×92 · Reduced 40×92 · fundo Surface/01 · pad 24 0 · gap 16
  *   Avatar (Image · Small 40) · User Name (Label/Bold, Text/intense) · CNPJ (Caption/Medium, Text/medium) · Icon Button (Small · Default · Neutral)
  *
- * Atributos: kind (default|reduced) · user-name ("User Name") · cnpj ("00.000.000/0001-00") · src (foto) · show-icon-button · icon (more-line)
+ * Atributos: kind (default|reduced) · user-name ("User Name") · cnpj ("00.000.000/0001-00") · src (foto) · show-icon-button · icon (menu-line, como no Figma)
  * Referência: iconBtn (Icon Button da ação). Evento: cds-action ao clicar no Icon Button.
  */
 (function(){
@@ -31,7 +31,7 @@
       this.cnpjEl.textContent = this.getAttribute("cnpj") || "00.000.000/0001-00";
       CDS.attr(this.avatarEl, "src", this.getAttribute("src") || "assets/brand/sample-photo.svg");
       CDS.attr(this.avatarEl, "name", name);
-      CDS.attr(this.iconBtn, "icon", this.getAttribute("icon") || "more-line");
+      CDS.attr(this.iconBtn, "icon", this.getAttribute("icon") || "menu-line");
       this.textEl.hidden = reduced;
       this.iconBtn.hidden = reduced || this.getAttribute("show-icon-button") === "false";
     }

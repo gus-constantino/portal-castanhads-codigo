@@ -1,0 +1,46 @@
+/* Treinamento › Protótipos no Figma: visuais das seções (os slides recriados com componentes do DS, ver V em treinamento.js).
+   Só tokens. Os destaques de camada, largura e viewport são a explicação visual do slide, não estilo de componente */
+.pg-pf{ display:flex; flex-direction:column; gap:var(--common-sizes-12); }
+.pg-pf--pair{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:var(--common-sizes-16); }
+@media (max-width:600px){ .pg-pf--pair{ grid-template-columns:minmax(0, 1fr); } }
+.pg-pf__col{ display:flex; flex-direction:column; gap:var(--common-sizes-8); min-width:0; }
+.pg-pf__row{ display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-12); flex-wrap:wrap; }
+.pg-pf__cap{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+.pg-pf__stage{ display:flex; align-items:center; justify-content:center; gap:var(--common-sizes-16); padding:var(--common-sizes-16); border-radius:var(--common-border-radius-medium); background:var(--common-colors-surface-01); min-height:var(--common-sizes-104); box-sizing:border-box; } /* palco = canvas (Surface/01) dentro da caixa de exibição */
+
+/* Slide 26: o mesmo botão, com content e padding marcados */
+.pg-pf__inspect .cds-btn{ outline:var(--common-border-width-thin) dashed var(--common-colors-feedback-positive-intense); outline-offset:0; }
+.pg-pf__inspect .cds-btn > span{ outline:var(--common-border-width-thin) dashed var(--common-colors-feedback-informative-intense); }
+
+/* Slide 25: box model. data-layer destaca uma camada */
+.pg-pf__box{ flex-direction:column; align-items:stretch; gap:var(--common-sizes-16); }
+.pg-pf__box cds-card{ transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), box-shadow var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
+.pg-pf__box .cds-card__slot{ border-radius:var(--common-border-radius-small); transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
+.pg-pf__box[data-layer="content"] .cds-card__slot{ background:var(--common-colors-feedback-informative-soft); }
+.pg-pf__box[data-layer="padding"] cds-card{ background:var(--common-colors-feedback-positive-soft); }
+.pg-pf__box[data-layer="padding"] .cds-card__slot{ background:var(--common-colors-surface-default); }
+.pg-pf__box[data-layer="border"] cds-card{ box-shadow:inset 0 0 0 var(--common-border-width-thick) var(--common-colors-feedback-negative-intense); }
+.pg-pf__box[data-layer="margin"]{ background:var(--common-colors-feedback-warning-soft); }
+
+/* Slide 24: sizing do autolayout. data-sizing troca a largura do Main Button */
+.pg-pf__sizing{ justify-content:flex-start; box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-medium); }
+.pg-pf__sizing cds-main-button, .pg-pf__sizing .cds-btn{ transition:width var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
+.pg-pf__sizing[data-sizing="fill"] cds-main-button, .pg-pf__sizing[data-sizing="fill"] .cds-btn{ width:100%; }
+.pg-pf__sizing[data-sizing="fixed"] cds-main-button, .pg-pf__sizing[data-sizing="fixed"] .cds-btn{ width:calc(var(--common-sizes-200) + var(--common-sizes-40)); }
+
+/* Slide 23: árvore de camadas */
+.pg-pf__tree{ margin:0; padding-left:var(--common-sizes-16); font:var(--text-style-body-regular); color:var(--common-colors-text-intense); }
+.pg-pf__tree .pg-pf__tree{ border-left:var(--common-border-width-hairline) solid var(--common-colors-border-medium); margin-left:var(--common-sizes-4); }
+.pg-pf__tree{ list-style:none; }
+
+/* Slide 22: viewports. data-vp limita a largura e a grade reorganiza os Cards */
+.pg-pf__vp{ display:grid; grid-template-columns:repeat(auto-fit, minmax(calc(var(--common-sizes-120) + var(--common-sizes-40)), 1fr)); align-items:stretch; margin-inline:auto; width:100%; transition:max-width var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
+.pg-pf__vp[data-vp="mobile"]{ max-width:calc(var(--common-sizes-200) + var(--common-sizes-160)); grid-template-columns:minmax(0, 1fr); }
+.pg-pf__vp[data-vp="tablet"]{ max-width:calc(var(--common-sizes-200) * 3); grid-template-columns:repeat(2, minmax(0, 1fr)); }
+.pg-pf__vp[data-vp="desktop"]{ max-width:100%; grid-template-columns:repeat(3, minmax(0, 1fr)); }
+@media (max-width:600px){ .pg-pf__vp[data-vp]{ grid-template-columns:minmax(0, 1fr); } }
+
+/* Slide 07: checklist */
+.pg-pf__checks{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+
+@media (prefers-reduced-motion:reduce){ .pg-pf__box cds-card, .pg-pf__box .cds-card__slot, .pg-pf__sizing cds-main-button, .pg-pf__sizing .cds-btn, .pg-pf__vp{ transition:none; } }

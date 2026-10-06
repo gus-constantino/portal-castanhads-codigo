@@ -16,7 +16,7 @@
   "components": 84,
   "buildingBlocks": 26,
   "resources": 14,
-  "compositions": 5,
+  "compositions": 6,
   "withDocs": 124,
   "withReact": 70,
   "liveMaps": 70,
@@ -15935,6 +15935,16 @@
    "description": "Exemplo e legenda de uso certo ou errado (Use, Não use, Use com cautela), como nas páginas do Hub. Usado nas tabs de diretrizes das docs."
   },
   {
+   "id": "quiz",
+   "name": "Quiz",
+   "kind": "composition",
+   "category": "Composições",
+   "figma": null,
+   "figmaNode": null,
+   "zeroheight": null,
+   "description": "Quiz pergunta por pergunta, montado com Card, Nav Control, Selection List (Radio Button), Alert e Main Button. Usado em Capacitações."
+  },
+  {
    "id": "shortcut",
    "name": "Shortcut",
    "kind": "composition",
@@ -16365,6 +16375,11 @@
      "id": "duvidas",
      "title": "Dúvidas",
      "text": "> **Gravado em janeiro de 2026:** Os resumos seguem as anotações automáticas da reunião, organizadas pelo tema de cada vídeo. Números e links citados nos vídeos são daquela data: a situação de hoje está em cada tab.\n\n## Dúvidas\n\nVídeo: Vídeo do treinamento: Dúvidas (https://drive.google.com/file/d/1tuP6BnQKIbKoQJdh2quAUTKGMqfQa67D/view) — Corte da gravação do lançamento da documentação (30/01/2026). Toca com login Caju.\n\nPerguntas do público no fim do lançamento.\n\n### Todos os componentes já estão na nova estrutura?\n\nNa época, não: a migração era feita passo a passo, começando com 20 componentes na nova estrutura, de 62 em React e 64 em Flutter.\n\n### Os pacotes antigo e novo vão conviver?\n\nSim. Dois pacotes evitam breaking changes: o antigo segue com suporte e atualizações, e as novidades entram no novo. A migração é gradual, feita pelas squads com ajuda das ferramentas de migração.\n\n### Onde tirar dúvidas e acompanhar novidades?\n\nNo canal Castanha Suporte, para dúvidas, e no Castanha Novidades, para as atualizações.\n\n> Hoje: o playground espelha 105 componentes do Figma, e 70 deles já têm par no castanha-react (staging). Consulte a seção \"No React\" de cada componente."
+    },
+    {
+     "id": "prototipos",
+     "title": "Protótipos no Figma",
+     "text": "**Prepare protótipos no Figma** — Box model, organização de camadas, viewports e anotações para entregar interfaces que o dev traduz sem adivinhar. (https://www.figma.com/design/RF5sagPdKQD6IoP2MYa2ki/Getting-Started--Castanha-Design-System?node-id=2316-1161)\n\nEsse treinamento é sobre entregar protótipo que o dev consegue traduzir sem adivinhar. O caminho: box model, autolayout, camadas, viewports e o checklist de entrega. No fim, um quiz para testar o que ficou.\n\n## O dev não vê seus retângulos\n\nToda tela que você entrega é traduzida em código. O dev não vê um retângulo, vê uma caixa com regras.\n\n## Box model: tudo é uma caixa\n\n> **A frase que resolve a maior parte dos ruídos:** Padding é interno e pertence ao componente. Margin é externo e pertence ao contexto.\n\n## Autolayout é você escrevendo CSS\n\n| No Figma | No código |\n|---|---|\n| Frame | `div` ou container |\n| Autolayout | `display: flex` |\n| Direção (vertical ou horizontal) | `flex-direction` |\n| Gap entre itens | `gap` |\n| Padding do frame | `padding` |\n| Hug contents | `width: fit-content` |\n| Fill container | `flex: 1` ou `width: 100%` |\n| Fixed | largura fixa em px |\n\n## Camadas são a árvore do DOM\n\nA árvore de camadas vira a estrutura do código. Se está bagunçada para você, está para quem implementa.\n\n## Comportamento entre tamanhos, não telas\n\nVocê não entrega uma tela: entrega o comportamento dela entre larguras. A mesma interface e o mesmo conteúdo, respondendo às mudanças de tamanho. Troque o viewport para ver os Cards se reorganizarem.\n\n- **Viewport** — A área visível da tela. Muda com o dispositivo, a janela e o zoom.\n- **Fill × Fixed** — Quem estica e quem fica fixo: é a decisão de responsividade.\n- **Min e max width** — Até onde o que estica pode ir.\n\n## Checklist de entrega\n\nOrganizar camadas e usar autolayout é reduzir as decisões que o dev toma no seu lugar. E cada uma dessas decisões é um lugar onde a tela pode virar outra coisa.\n\n## Teste o que você aprendeu\n\nSete perguntas sobre o treinamento. Escolha uma opção para ver se acertou e o porquê."
     }
    ]
   }

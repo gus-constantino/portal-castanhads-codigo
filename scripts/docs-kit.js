@@ -36,6 +36,9 @@
  *   glossary: { label, placeholder, letters: { A: [[termo, definição, "não use"], …] } }   glossário com busca
  *   simulate: { illustration, matrices: { id: "feColorMatrix" }, items: [{ label, matrix | filter, double }] }   condições visuais sobre uma ilustração
  *   specs: [{ title, rows: [[rótulo, valor], …] }]   cards de ficha técnica (ex.: Motion Style por interação)
+ *   quiz: { label, questions: [{ q, options, answer, why }], results: [{ min, illustration, title, text }] }   quiz em cards (composição <cmp-quiz>)
+ *   visual: fn | { render: fn, text, list, side }   visual interativo montado pelo recurso (ex.: slides recriados com componentes do DS)
+ *                                       na caixa de exibição das docs; com text/list, legenda ao lado (side: true, como as Diretrizes) ou abaixo
  *
  * Em display, compare, guides e dodont, `attrs` pode ser uma lista (vários exemplos na mesma caixa).
  * attrs especiais: `_tag` (outro componente), `_text` (texto), `_children: [attrs…]` (filhos montados antes de conectar).
@@ -352,6 +355,22 @@
         g.appendChild(card);
       });
       return g;
+    },
+    visual: function(d, v){
+      if (typeof v === "function") v = { render: v };
+      var box = el("div", "pg-doc-visual"); box.appendChild(v.render());
+      if (!v.text && !v.list) return box;
+      var row = el("div", "pg-doc-lesson" + (v.side ? " is-side" : "")), t = el("div", "pg-doc-lesson__text");
+      if (v.text) t.appendChild(rich(el("p", "pg-doc-p"), v.text));
+      if (v.list) t.appendChild(list("ul", v.list));
+      row.appendChild(box); row.appendChild(t);
+      return row;
+    },
+    // Quiz em cards = composição <cmp-quiz> (compositions/quiz: o DS não tem quiz). Dados entram antes de conectar
+    quiz: function(d, v){
+      var q = el("cmp-quiz"); q.setAttribute("label", v.label || "Quiz");
+      q.questions = v.questions; q.results = v.results;
+      return q;
     },
     // Atalhos (capa do Castanha Hub): Card do DS com ilustração da biblioteca + título + texto + Link do DS
     // Vídeo embutido (ex.: treinamentos gravados no Google Drive). O DS não tem componente de vídeo (C160):

@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 119 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 121 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.css ==== */
 /* Backdrop · 13784:3271 — Surface/inversed · Opacity/medium (0.4). O mesmo visual vale para o ::backdrop dos overlays */
 cds-backdrop{ position:absolute; inset:0; display:block; background:var(--common-colors-surface-inversed); opacity:var(--common-opacity-medium); }
@@ -2062,6 +2062,24 @@ cmp-do-dont .cmp-dd__verdict{ font:var(--text-style-body-bold); }
 cmp-do-dont .cmp-dd__heading{ font:var(--text-style-body-bold); color:var(--common-colors-text-intense); }
 cmp-do-dont .cmp-dd__heading[hidden]{ display:none; }
 
+/* ==== compositions/quiz/quiz.css ==== */
+/* Quiz em cards · composição do playground (ver quiz.js) — só componentes e tokens do DS */
+cmp-quiz{ display:block; max-width:calc(var(--common-sizes-200) * 4); }
+cmp-quiz > cds-card{ display:block; }
+cmp-quiz .cmp-quiz{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
+cmp-quiz .cmp-quiz__head{ display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-16); }
+cmp-quiz .cmp-quiz__count{ font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); }
+cmp-quiz .cmp-quiz__q, cmp-quiz .cmp-quiz__title{ margin:0; font:var(--text-style-title-small); color:var(--common-colors-text-intense); }
+cmp-quiz .cmp-quiz__q:focus, cmp-quiz .cmp-quiz__title:focus{ outline:none; }
+cmp-quiz .cmp-quiz__fb:empty, cmp-quiz .cmp-quiz__actions:empty{ display:none; }
+cmp-quiz .cmp-quiz__actions{ display:flex; justify-content:flex-end; }
+cmp-quiz .cmp-quiz__result{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-8); text-align:center; padding:var(--common-sizes-16) 0; }
+cmp-quiz .cmp-quiz__ill{ width:var(--common-sizes-120); height:var(--common-sizes-120); }
+cmp-quiz .cmp-quiz__score{ margin:0; font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); }
+cmp-quiz .cmp-quiz__text{ margin:0 0 var(--common-sizes-8); font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+cmp-quiz cds-selection-list{ width:100%; } /* Fill no Card (no Figma a lista tem 320 fixo) */
+cmp-quiz .cmp-quiz__vis{ padding:var(--common-sizes-16); border-radius:var(--common-border-radius-medium); background:var(--common-colors-surface-01); }
+
 /* ==== compositions/shortcut/shortcut.css ==== */
 /* Tecla de atalho · composição do playground (ver shortcut.js) — Tag Neutral do DS por tecla, só tokens */
 cmp-shortcut{ display:inline-flex; align-items:center; flex-wrap:wrap; gap:var(--common-sizes-8); }
@@ -2234,3 +2252,51 @@ loc-vazio[size="small"] .loc-vazio__pilha{ height:var(--common-sizes-40); margin
 .pg-fb--loading{ min-height:calc(var(--common-sizes-200) + var(--common-sizes-64)); justify-content:center; align-items:center; }
 .pg-fb__loading{ display:flex; flex-direction:column; gap:var(--common-sizes-24); width:calc(var(--common-sizes-200) + var(--common-sizes-120)); max-width:calc(100% - var(--common-sizes-32)); }
 .pg-fb__loading-label{ margin:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+
+/* ==== resources/treinamento/treinamento.css ==== */
+/* Treinamento › Protótipos no Figma: visuais das seções (os slides recriados com componentes do DS, ver V em treinamento.js).
+   Só tokens. Os destaques de camada, largura e viewport são a explicação visual do slide, não estilo de componente */
+.pg-pf{ display:flex; flex-direction:column; gap:var(--common-sizes-12); }
+.pg-pf--pair{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:var(--common-sizes-16); }
+@media (max-width:600px){ .pg-pf--pair{ grid-template-columns:minmax(0, 1fr); } }
+.pg-pf__col{ display:flex; flex-direction:column; gap:var(--common-sizes-8); min-width:0; }
+.pg-pf__row{ display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-12); flex-wrap:wrap; }
+.pg-pf__cap{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+.pg-pf__stage{ display:flex; align-items:center; justify-content:center; gap:var(--common-sizes-16); padding:var(--common-sizes-16); border-radius:var(--common-border-radius-medium); background:var(--common-colors-surface-01); min-height:var(--common-sizes-104); box-sizing:border-box; } /* palco = canvas (Surface/01) dentro da caixa de exibição */
+
+/* Slide 26: o mesmo botão, com content e padding marcados */
+.pg-pf__inspect .cds-btn{ outline:var(--common-border-width-thin) dashed var(--common-colors-feedback-positive-intense); outline-offset:0; }
+.pg-pf__inspect .cds-btn > span{ outline:var(--common-border-width-thin) dashed var(--common-colors-feedback-informative-intense); }
+
+/* Slide 25: box model. data-layer destaca uma camada */
+.pg-pf__box{ flex-direction:column; align-items:stretch; gap:var(--common-sizes-16); }
+.pg-pf__box cds-card{ transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), box-shadow var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
+.pg-pf__box .cds-card__slot{ border-radius:var(--common-border-radius-small); transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
+.pg-pf__box[data-layer="content"] .cds-card__slot{ background:var(--common-colors-feedback-informative-soft); }
+.pg-pf__box[data-layer="padding"] cds-card{ background:var(--common-colors-feedback-positive-soft); }
+.pg-pf__box[data-layer="padding"] .cds-card__slot{ background:var(--common-colors-surface-default); }
+.pg-pf__box[data-layer="border"] cds-card{ box-shadow:inset 0 0 0 var(--common-border-width-thick) var(--common-colors-feedback-negative-intense); }
+.pg-pf__box[data-layer="margin"]{ background:var(--common-colors-feedback-warning-soft); }
+
+/* Slide 24: sizing do autolayout. data-sizing troca a largura do Main Button */
+.pg-pf__sizing{ justify-content:flex-start; box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-medium); }
+.pg-pf__sizing cds-main-button, .pg-pf__sizing .cds-btn{ transition:width var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
+.pg-pf__sizing[data-sizing="fill"] cds-main-button, .pg-pf__sizing[data-sizing="fill"] .cds-btn{ width:100%; }
+.pg-pf__sizing[data-sizing="fixed"] cds-main-button, .pg-pf__sizing[data-sizing="fixed"] .cds-btn{ width:calc(var(--common-sizes-200) + var(--common-sizes-40)); }
+
+/* Slide 23: árvore de camadas */
+.pg-pf__tree{ margin:0; padding-left:var(--common-sizes-16); font:var(--text-style-body-regular); color:var(--common-colors-text-intense); }
+.pg-pf__tree .pg-pf__tree{ border-left:var(--common-border-width-hairline) solid var(--common-colors-border-medium); margin-left:var(--common-sizes-4); }
+.pg-pf__tree{ list-style:none; }
+
+/* Slide 22: viewports. data-vp limita a largura e a grade reorganiza os Cards */
+.pg-pf__vp{ display:grid; grid-template-columns:repeat(auto-fit, minmax(calc(var(--common-sizes-120) + var(--common-sizes-40)), 1fr)); align-items:stretch; margin-inline:auto; width:100%; transition:max-width var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
+.pg-pf__vp[data-vp="mobile"]{ max-width:calc(var(--common-sizes-200) + var(--common-sizes-160)); grid-template-columns:minmax(0, 1fr); }
+.pg-pf__vp[data-vp="tablet"]{ max-width:calc(var(--common-sizes-200) * 3); grid-template-columns:repeat(2, minmax(0, 1fr)); }
+.pg-pf__vp[data-vp="desktop"]{ max-width:100%; grid-template-columns:repeat(3, minmax(0, 1fr)); }
+@media (max-width:600px){ .pg-pf__vp[data-vp]{ grid-template-columns:minmax(0, 1fr); } }
+
+/* Slide 07: checklist */
+.pg-pf__checks{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+
+@media (prefers-reduced-motion:reduce){ .pg-pf__box cds-card, .pg-pf__box .cds-card__slot, .pg-pf__sizing cds-main-button, .pg-pf__sizing .cds-btn, .pg-pf__vp{ transition:none; } }

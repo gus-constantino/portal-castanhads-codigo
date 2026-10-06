@@ -147,6 +147,15 @@
 @media (max-width:900px){ .pg-doc-dodont{ grid-template-columns:minmax(0, 1fr); } }
 .pg-doc-dd__ex{ display:contents; } /* o exemplo entra direto na caixa flex da composição */
 
+/* Visual interativo de recurso (bloco visual): caixa Surface/01, como a dos exemplos */
+.pg-doc-visual{ min-width:0; padding:var(--common-sizes-32) var(--common-sizes-24); border-radius:var(--common-border-radius-big); background:var(--common-colors-surface-default); box-shadow:var(--common-elevation-level-2); }
+@media (max-width:760px){ .pg-doc-visual{ border-radius:var(--common-border-radius-large); padding:var(--common-sizes-24) var(--common-sizes-16); } }
+/* Visual + legenda: abaixo por padrão; side = lado a lado, como as Diretrizes do modelo do Figma */
+.pg-doc-lesson{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
+.pg-doc-lesson.is-side{ display:grid; grid-template-columns:minmax(0, 3fr) minmax(0, 2fr); align-items:start; gap:var(--common-sizes-32); }
+@media (max-width:900px){ .pg-doc-lesson.is-side{ grid-template-columns:minmax(0, 1fr); gap:var(--common-sizes-16); } }
+.pg-doc-lesson__text{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+
 /* Tabela (Motion) */
 .pg-doc-table-wrap{ overflow-x:auto; }
 .pg-doc-table{ width:100%; border-collapse:collapse; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }

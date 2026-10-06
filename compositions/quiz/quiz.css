@@ -1,0 +1,16 @@
+/* Quiz em cards · composição do playground (ver quiz.js) — só componentes e tokens do DS */
+cmp-quiz{ display:block; max-width:calc(var(--common-sizes-200) * 4); }
+cmp-quiz > cds-card{ display:block; }
+cmp-quiz .cmp-quiz{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
+cmp-quiz .cmp-quiz__head{ display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-16); }
+cmp-quiz .cmp-quiz__count{ font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); }
+cmp-quiz .cmp-quiz__q, cmp-quiz .cmp-quiz__title{ margin:0; font:var(--text-style-title-small); color:var(--common-colors-text-intense); }
+cmp-quiz .cmp-quiz__q:focus, cmp-quiz .cmp-quiz__title:focus{ outline:none; }
+cmp-quiz .cmp-quiz__fb:empty, cmp-quiz .cmp-quiz__actions:empty{ display:none; }
+cmp-quiz .cmp-quiz__actions{ display:flex; justify-content:flex-end; }
+cmp-quiz .cmp-quiz__result{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-8); text-align:center; padding:var(--common-sizes-16) 0; }
+cmp-quiz .cmp-quiz__ill{ width:var(--common-sizes-120); height:var(--common-sizes-120); }
+cmp-quiz .cmp-quiz__score{ margin:0; font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); }
+cmp-quiz .cmp-quiz__text{ margin:0 0 var(--common-sizes-8); font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+cmp-quiz cds-selection-list{ width:100%; } /* Fill no Card (no Figma a lista tem 320 fixo) */
+cmp-quiz .cmp-quiz__vis{ padding:var(--common-sizes-16); border-radius:var(--common-border-radius-medium); background:var(--common-colors-surface-01); }

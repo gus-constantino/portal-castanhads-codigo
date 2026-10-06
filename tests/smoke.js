@@ -15,7 +15,8 @@
  *     texto desabilitado fica de fora (o WCAG não exige);
  *   · componente mais largo que o frame mobile (360px), exceto quando ele mostra a Viewport Restriction (bloqueado pelo Figma).
  *
- * Resultado na tabela e em window.CDS_SMOKE = { pass, fail, warnings, rows } (para automação).
+ * Aviso já registrado no CONFERIR leva o número do item (KNOWN); `fresh` conta os componentes com aviso novo.
+ * Resultado na tabela e em window.CDS_SMOKE = { pass, fail, warnings, fresh, rows } (para automação).
  */
 (function(){
   "use strict";
@@ -150,6 +151,25 @@
   });
   stage.innerHTML = "";
 
+  // Avisos já conferidos no Figma e registrados no CONFERIR (questões do DS, decididas com o time): ganham o número do item,
+  // para que um aviso novo não se perca no meio deles. [id, tipo do aviso, item]
+  var KNOWN = [
+    [/^(banner|content-banner|backdrop)$/, /^contraste \(escuro\)/, "C126"],
+    [/^(dropzone|filter-button)$/, /^contraste \(escuro\)/, "C127"],
+    [/^(text-input|text-area|date-input)$/, /^contraste/, "C128"],
+    [/^(pagination|table)$/, /^mobile:/, "C129"]
+  ];
+  var fresh = 0;
+  rows.forEach(function(r){
+    var novo = false;
+    r.warnings = r.warnings.map(function(w){
+      var k = KNOWN.filter(function(x){ return x[0].test(r.id) && x[1].test(w); })[0];
+      if (!k) novo = true;
+      return k ? w + " (" + k[2] + ")" : w;
+    });
+    if (novo) fresh++;
+  });
+
   rows.forEach(function(r){
     r.ok = r.errors.length === 0;
     if (r.ok) pass++; else fail++;
@@ -167,10 +187,10 @@
     }).join("") +
     "</tbody></table>";
   document.title = (fail ? "❌ " : "✅ ") + pass + "/" + rows.length + (warnings ? " · ⚠️ " + warnings : "") + " — smoke";
-  window.CDS_SMOKE = { pass: pass, fail: fail, warnings: warnings, rows: rows };
+  window.CDS_SMOKE = { pass: pass, fail: fail, warnings: warnings, fresh: fresh, rows: rows };
   // Para o smoke sem navegador (scripts/dev/smoke.js): o resultado também vai no DOM, como JSON
   var json = document.createElement("script"); json.type = "application/json"; json.id = "smoke-result";
-  json.textContent = JSON.stringify({ pass: pass, fail: fail, warnings: warnings, total: rows.length,
+  json.textContent = JSON.stringify({ pass: pass, fail: fail, warnings: warnings, fresh: fresh, total: rows.length,
     failures: rows.filter(function(r){ return !r.ok; }).map(function(r){ return { id: r.id, errors: r.errors }; }),
     warned: rows.filter(function(r){ return r.warnings.length; }).map(function(r){ return { id: r.id, warnings: r.warnings }; }) }).replace(/</g, "\\u003c");
   document.body.appendChild(json);

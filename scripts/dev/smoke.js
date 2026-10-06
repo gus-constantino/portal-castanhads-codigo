@@ -80,7 +80,7 @@ server.listen(0, "127.0.0.1", async () => {
       if (txt) r = JSON.parse(txt);
     }
     const secs = ((Date.now() - t0) / 1000).toFixed(1);
-    console.log(`${r.fail ? "❌" : "✅"} Smoke: ${r.pass}/${r.total} ok · ${r.fail} com problema · ${r.warnings} com aviso · ${secs} s (Chrome headless)`);
+    console.log(`${r.fail ? "❌" : "✅"} Smoke: ${r.pass}/${r.total} ok · ${r.fail} com problema · ${r.warnings} com aviso${r.warnings ? (r.fresh ? ` (${r.fresh} novo${r.fresh > 1 ? "s" : ""})` : " (todos no CONFERIR)") : ""} · ${secs} s (Chrome headless)`);
     r.failures.forEach((f) => console.log(`   ❌ ${f.id}: ${f.errors.join(" · ")}`));
     if (avisos) r.warned.forEach((w) => console.log(`   ⚠️  ${w.id}: ${w.warnings.join(" · ")}`));
 

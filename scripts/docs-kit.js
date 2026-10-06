@@ -613,8 +613,9 @@
       filter();
       return wrap;
     },
-    // FAQ (Atlassian, Polaris, Carbon): topo com ilustração da biblioteca e busca, cards de tema com Shaped Icon
-    // do DS (filtram), ranking "Mais perguntadas" (pergunta e tema, na ordem da frequência), perguntas em Accordion Item com divisória e
+    // FAQ (Atlassian, Polaris, Carbon): topo com ilustração da biblioteca e busca, temas em Content List Item do DS
+    // (Kind Card, Checkbox no .Trailing Item: filtram, mais de um ao mesmo tempo), "Mais perguntadas" em Content List Item
+    // (Kind Card, Intent Navigation: abre a pergunta, na ordem da frequência), perguntas em Accordion Item com divisória e
     // Card "Não achou?". Ordem por relevância (items = [pergunta, resposta, peso]; grupos pela soma dos pesos).
     // Movimento só com Motion Styles/tokens (entrada, hover, resultados ao filtrar); prefers-reduced-motion desliga.
     faq: function(d, v){
@@ -624,7 +625,6 @@
       var groups = v.groups.map(function(g){ var items = g.items.slice().sort(function(a, b){ return w(b) - w(a); }); return { title: g.title, icon: g.icon || "information-line", app: g.appearance || "neutral", items: items, score: items.reduce(function(s, q){ return s + w(q); }, 0) }; })
         .sort(function(a, b){ return b.score - a.score; });
       var byTitle = {}; groups.forEach(function(g){ byTitle[g.title] = g; });
-      var shaped = function(icon, app, size){ var s = document.createElement("cds-shaped-icon"); s.setAttribute("icon", icon); s.setAttribute("appearance", app); s.setAttribute("size", size || "small"); return s; };
       var ghost = function(label, icon){ var b = document.createElement("cds-main-button"); [["label", label], ["kind", "ghost"], ["appearance", "neutral"], ["size", "small"], ["show-trailing-icon", "false"]].concat(icon ? [["lead-icon", icon]] : [["show-lead-icon", "false"]]).forEach(function(a){ b.setAttribute(a[0], a[1]); }); return b; };
       var img = function(name, cls){ var i = el("img", cls); i.alt = ""; i.src = ills[name] || ""; i.loading = "lazy"; return i; };
       // 1. Topo: título, busca e atalho, ilustração
@@ -636,20 +636,18 @@
       search.className = "pg-faq__search";
       [["label", "Buscar pergunta"], ["show-label", "false"], ["placeholder", "Buscar: tema escuro, token, ícone, componente novo…"], ["show-required", "false"], ["show-supporting-content", "false"]].forEach(function(a){ search.setAttribute(a[0], a[1]); });
       if (v.illustration) hero.appendChild(img(v.illustration, "pg-faq__hero-ill"));
-      // 2. Temas: cards com Shaped Icon (cor do tema) que filtram a lista; clicar de novo limpa
-      var cat = null, topics = {};
+      // 2. Temas: Content List Item do DS (Kind Card, Intent Default, Checkbox no .Trailing Item) que filtram a lista
+      var cats = {}, topics = {};
       var tgrid = wrap.appendChild(el("div", "pg-faq__topics"));
       tgrid.setAttribute("role", "group"); tgrid.setAttribute("aria-label", "Filtrar por tema");
-      groups.forEach(function(g, i){
-        var c = document.createElement("cmp-clickable-card");
-        c.className = "pg-faq__topic"; c.setAttribute("media", "auto"); c.setAttribute("label", g.items.length + (g.items.length === 1 ? " pergunta" : " perguntas")); c.setAttribute("current", "false");
-        c.style.setProperty("--_i", String(i));
-        c.appendChild(shaped(g.icon, g.app));
-        c.appendChild(el("span", "pg-faq__topic-name", g.title));
-        c.addEventListener("click", function(){ setCat(cat === g.title ? null : g.title); });
+      groups.forEach(function(g){
+        var c = document.createElement("cds-content-list-item");
+        [["kind", "card"], ["label", g.title], ["description", g.items.length + (g.items.length === 1 ? " pergunta" : " perguntas")], ["lead-kind", "icon"], ["lead-icon", g.icon],
+         ["trailing-item", "checkbox"], ["status", "unselected"], ["show-divider", "false"]].forEach(function(a){ c.setAttribute(a[0], a[1]); });
+        c.addEventListener("cds-change", function(e){ e.stopPropagation(); if (e.detail.status === "selected") cats[g.title] = 1; else delete cats[g.title]; filter(); });
         topics[g.title] = tgrid.appendChild(c);
       });
-      // 3. Mais perguntadas: as mais frequentes, na ordem (sem número em círculo nem barra feitos à mão: não são do DS; Gustavo, 06/10)
+      // 3. Mais perguntadas: as mais frequentes, na ordem, em Content List Item (Kind Card, Intent Navigation); sem número nem barra (Gustavo, 06/10)
       var all = []; groups.forEach(function(g){ g.items.forEach(function(q){ all.push({ q: q, g: g }); }); });
       var top = all.slice().sort(function(a, b){ return w(b.q) - w(a.q); }).slice(0, v.top || 5);
       var topSec = wrap.appendChild(el("section", "pg-faq__top"));
@@ -659,10 +657,9 @@
       var rank = topSec.appendChild(el("ol", "pg-faq__rank"));
       top.forEach(function(x, i){
         var li = rank.appendChild(el("li"));
-        var c = document.createElement("cmp-clickable-card");
-        c.className = "pg-faq__rank-item pg-faq--" + x.g.app; c.setAttribute("media", "auto"); c.setAttribute("label", x.g.title);
-        c.style.setProperty("--_i", String(i));
-        c.appendChild(el("span", "pg-faq__rank-q", x.q[0]));
+        var c = document.createElement("cds-content-list-item");
+        [["kind", "card"], ["intent", "navigation"], ["label", x.q[0]], ["description", x.g.title], ["lead-kind", "icon"], ["lead-icon", x.g.icon],
+         ["show-tag", "false"], ["show-divider", "false"]].forEach(function(a){ c.setAttribute(a[0], a[1]); });
         c.addEventListener("click", function(){ open(x.q); });
         li.appendChild(c);
       });
@@ -706,7 +703,7 @@
         [["label", v.cta.label], ["appearance", "accent"], ["show-lead-icon", "false"], ["trailing-icon", "link-line"]].forEach(function(a){ ctaBtn.setAttribute(a[0], a[1]); });
         ctaBtn.addEventListener("click", function(){ window.open(v.cta.href, "_blank", "noopener"); });
       }
-      function setCat(x){ cat = x; Object.keys(topics).forEach(function(t){ topics[t].setAttribute("current", String(t === cat)); }); filter(); }
+      function setCat(){ cats = {}; Object.keys(topics).forEach(function(t){ CDS.attr(topics[t], "status", "unselected"); }); filter(); } // limpa os temas
       function open(q){
         var r = rows.filter(function(x){ return x.q === q; })[0]; if (!r) return;
         search.value = ""; setCat(null);
@@ -715,17 +712,17 @@
         var btn = r.row.querySelector("button"); if (btn) btn.focus({ preventScroll: true });
       }
       function filter(){
-        var q = fold(search.value).trim(), n = 0, k = 0;
+        var q = fold(search.value).trim(), n = 0, k = 0, picked = Object.keys(cats), any = picked.length > 0;
         rows.forEach(function(x){
-          var ok = (!cat || x.g === cat) && (!q || x.text.indexOf(q) >= 0), was = !x.row.hidden;
+          var ok = (!any || cats[x.g]) && (!q || x.text.indexOf(q) >= 0), was = !x.row.hidden;
           x.row.hidden = !ok; if (ok) n++;
-          if (ok && (q || cat)){ x.row.style.setProperty("--_i", String(Math.min(k++, 8))); x.row.classList.remove("is-in"); void x.row.offsetWidth; x.row.classList.add("is-in"); }
+          if (ok && (q || any)){ x.row.style.setProperty("--_i", String(Math.min(k++, 8))); x.row.classList.remove("is-in"); void x.row.offsetWidth; x.row.classList.add("is-in"); }
           else if (!was) x.row.classList.remove("is-in");
         });
         secs.forEach(function(s){ var c = rows.filter(function(x){ return x.g === s.title && !x.row.hidden; }).length; s.sec.hidden = !c; s.tag.setAttribute("label", String(c)); });
-        var filtered = !!q || !!cat;
+        var filtered = !!q || any;
         topSec.hidden = filtered; clear.hidden = !filtered;
-        count.textContent = filtered ? n + " de " + rows.length + " perguntas" + (cat ? " em " + cat : "") : rows.length + " perguntas, das mais frequentes para as menos";
+        count.textContent = filtered ? n + " de " + rows.length + " perguntas" + (any ? " em " + picked.join(", ") : "") : rows.length + " perguntas, das mais frequentes para as menos";
         empty.hidden = n > 0;
       }
       search.addEventListener("cds-change", function(e){ e.stopPropagation(); filter(); });

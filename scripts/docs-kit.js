@@ -208,6 +208,10 @@
     var t = toastEl; toastTimer = setTimeout(function(){ if (t.parentNode) t.remove(); if (toastEl === t) toastEl = null; }, 3000);
   }
 
+  // Logos das stacks no [Caju] Icons (pasta brands)
+  var STACK_ICON = { React: "react-line", Flutter: "flutter-fill", Figma: "figma-line" };
+  CDS.stackIcon = STACK_ICON;
+
   var BLOCKS = {
     h2: function(d, v){ return el("h2", "pg-doc-h2", v); },
     h3: function(d, v){ return el("h3", "pg-doc-h3", v); },
@@ -335,12 +339,14 @@
     },
     // Release do changelog: Card do DS com data, Tag da área e da versão, título, itens e Link (opcional)
     release: function(d, v){
+      // Tag de área com o logo da stack ([Caju] Icons › brands); demais áreas sem ícone
       var c = el("cds-card", "pg-doc-release"); c.setAttribute("has-border", "true");
       var head = c.appendChild(el("div", "pg-doc-release__head"));
       head.appendChild(el("span", "pg-doc-release__date", v.date));
-      [[v.area, "neutral"], [v.version, "informative"]].forEach(function(t){
+      [[v.area, "neutral", STACK_ICON[v.area]], [v.version, "informative"]].forEach(function(t){
         if (!t[0]) return;
-        var tag = el("cds-tag"); tag.setAttribute("label", t[0]); tag.setAttribute("appearance", t[1]); tag.setAttribute("show-lead-item", "false");
+        var tag = el("cds-tag"); tag.setAttribute("label", t[0]); tag.setAttribute("appearance", t[1]);
+        if (t[2]) tag.setAttribute("icon", t[2]); else tag.setAttribute("show-lead-item", "false");
         head.appendChild(tag);
       });
       c.appendChild(el("h3", "pg-doc-h4", v.title));
@@ -359,7 +365,8 @@
       chips.setAttribute("role", "group"); chips.setAttribute("aria-label", "Filtrar por área");
       var picked = {};
       v.areas.forEach(function(a){
-        var c = el("cds-filter-chip"); c.setAttribute("label", a); c.setAttribute("show-lead-icon", "false");
+        var c = el("cds-filter-chip"); c.setAttribute("label", a);
+        if (STACK_ICON[a]) c.setAttribute("icon", STACK_ICON[a]); else c.setAttribute("show-lead-icon", "false");
         c.addEventListener("cds-change", function(e){ if (e.detail.selected) picked[a] = 1; else delete picked[a]; run(); });
         chips.appendChild(c);
       });

@@ -574,8 +574,8 @@
     var rx = CDS.react && CDS.react.items[def.id], rdir = rx && rx.dir && CDS.react.dirs[rx.dir];
     // Abrir chamado: formulário "Solicitação de suporte" do #castanha-suporte (Slack List do time do DS). O link do workflow
     // não aceita campos preenchidos, então o clique copia um resumo da página para colar no formulário. Sem token nem webhook.
-    var ticket = !def.resource && !def.home ? [SUPORTE, "Abrir chamado no #castanha-suporte", function(){ copyText(ticketSummary(def, pub)).then(function(ok){ if (CDS.docToast) CDS.docToast(ok ? "Resumo copiado: cole no formulário do chamado" : "Formulário aberto: descreva o componente e o que precisa"); }); }, "support-line"] : null;
-    head.links([ticket, [def.issue, "GitHub · issue de melhoria"], [def.task && JIRA + def.task, "Jira · " + def.task], [def.zeroheight || (rdir && rdir.zeroheight), "Zeroheight"], [rdir && !rdir.staging && rdir.storybook, "Storybook (castanha-react)"]].filter(function(l){ return l && l[0]; }));
+    var ticket = !def.resource && !def.home ? [SUPORTE, "Abrir chamado no #castanha-suporte", function(){ copyText(ticketSummary(def, pub)).then(function(ok){ if (CDS.docToast) CDS.docToast(ok ? "Resumo copiado: cole no formulário do chamado" : "Formulário aberto: descreva o componente e o que precisa"); }); }, "slack-line"] : null;
+    head.links([ticket, [def.issue, "GitHub · issue de melhoria", null, "github-line"], [def.task && JIRA + def.task, "Jira · " + def.task], [def.zeroheight || (rdir && rdir.zeroheight), "Zeroheight"], [rdir && !rdir.staging && rdir.storybook, "Storybook (castanha-react)", null, "react-line"]].filter(function(l){ return l && l[0]; }));
     readout("", false);
     kit.state.begin(panel);
     if (def.mount) def.mount({ preview: preview, panel: panel, kit: kit, readout: readout });

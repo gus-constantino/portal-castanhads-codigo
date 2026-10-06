@@ -208,7 +208,7 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
 .pg-react{ --cds-accordion-width:100%; } /* Accordion Item na largura da seção (padrão do componente: 320) */
 .pg-react__head{ display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between; gap:var(--common-sizes-8) var(--common-sizes-16); }
 .pg-react__ttl{ min-width:0; }
-.pg-react__title{ margin:0; font:var(--text-style-title-small); color:var(--common-colors-text-intense); }
+.pg-react__title{ margin:0; display:flex; align-items:center; gap:var(--common-sizes-8); font:var(--text-style-title-small); color:var(--common-colors-text-intense); }
 .pg-react__sub, .pg-react__p{ margin:var(--common-sizes-4) 0 0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
 .pg-react__p{ margin:0; font:var(--text-style-body-regular); }
 .pg-react__links{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--common-sizes-4) var(--common-sizes-12); }

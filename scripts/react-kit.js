@@ -223,7 +223,10 @@
     // Ordem do ComponentPage do Storybook (R5): título + Tags · descrição · Import · código · Props · Links úteis
     var head = root.appendChild(el("div", "pg-react__head"));
     var ttl = head.appendChild(el("div", "pg-react__ttl"));
-    ttl.appendChild(el("h2", "pg-react__title", "No React")).id = "react-title";
+    var h2 = ttl.appendChild(el("h2", "pg-react__title"));
+    h2.id = "react-title";
+    h2.appendChild(attrs(document.createElement("cds-icon"), { icon: "react-line", size: "large", appearance: "neutral", "aria-hidden": "true" })); // logo da stack ([Caju] Icons › brands)
+    h2.appendChild(document.createTextNode("No React"));
     var sub = ttl.appendChild(el("p", "pg-react__sub"));
     if (it.component){ sub.appendChild(code("<" + it.component + ">")); sub.appendChild(document.createTextNode(" · castanha-react")); }
     else sub.textContent = "castanha-react";
@@ -341,15 +344,15 @@
     lb.appendChild(el("h3", "pg-react__h3", "Links úteis"));
     var ul = lb.appendChild(el("ul", "pg-react__list"));
     // o Storybook publicado (castanha-web, exige VPN) mostra a main: componente só na staging ainda não tem story lá
-    [[dir && !dir.staging && dir.storybook, "Storybook", "doc e stories do componente no castanha-react (precisa da VPN da Caju)"],
+    [[dir && !dir.staging && dir.storybook, "Storybook", "doc e stories do componente no castanha-react (precisa da VPN da Caju)", false, "react-line"],
      [dir && dir.zeroheight, "Zeroheight", "especificações de UX"],
-     [def.figma, "Figma", "componente no [CastanhaDS] Components"],
+     [def.figma, "Figma", "componente no [CastanhaDS] Components", false, "figma-line"],
      ["#/relatorio/stack", "Saúde da stack", "check Figma × castanha-react × playground", true],
      ["https://www.w3.org/WAI/ARIA/apg/patterns/", "Padrões de teclado (WAI-ARIA)", "como navegar em componentes interativos"],
      ["https://www.w3.org/WAI/ARIA/apg/practices/names-and-descriptions/", "Nomes acessíveis", "aria-label, aria-labelledby ou texto visível"]].forEach(function(l){
       if (!l[0]) return;
       var li = ul.appendChild(el("li"));
-      li.appendChild(attrs(document.createElement("cds-link"), { label: l[1], href: l[0], target: l[3] ? null : "_blank", appearance: "neutral", icon: l[3] ? null : "link-line", "show-trailing-item": l[3] ? "false" : null }));
+      li.appendChild(attrs(document.createElement("cds-link"), { label: l[1], href: l[0], target: l[3] ? null : "_blank", appearance: "neutral", icon: l[3] ? null : l[4] || "link-line", "show-trailing-item": l[3] ? "false" : null }));
       li.appendChild(document.createTextNode(" — " + l[2]));
     });
 

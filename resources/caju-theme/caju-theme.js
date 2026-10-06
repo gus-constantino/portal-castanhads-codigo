@@ -162,11 +162,13 @@
         { h2: "Painel semântico" },
         { p: "Incorporar a brasilidade nas ilustrações contribui para a valorização da identidade cultural, refletindo a riqueza e a pluralidade do Brasil. A construção do novo estilo foi influenciada por artistas modernistas e contemporâneos:" },
         { cards: [
-          ["Artistas Modernistas", "Anita Malfatti, Di Cavalcante, Cândido Portinari e Tarsila do Amaral"],
-          ["Artistas Contemporâneos", "Wilson Tibério, Zé Palito, Bianca Foratori e Victor Fidelis"]
+          ["Artistas modernistas", "[Anita Malfatti](https://pt.wikipedia.org/wiki/Anita_Malfatti), [Di Cavalcanti](https://pt.wikipedia.org/wiki/Di_Cavalcanti), [Cândido Portinari](https://pt.wikipedia.org/wiki/C%C3%A2ndido_Portinari) e [Tarsila do Amaral](https://pt.wikipedia.org/wiki/Tarsila_do_Amaral)"],
+          ["Artistas contemporâneos", "[Wilson Tibério](https://pt.wikipedia.org/wiki/Wilson_Tib%C3%A9rio), Zé Palito, Bianca Foratori e Victor Fidelis"]
         ] },
+        { figures: [{ src: "assets/docs/ilustracao/painel-artistas.jpg", alt: "Mosaico de obras dos artistas de referência: cenas do cotidiano brasileiro, retratos e paisagens.", caption: "Painel semântico · referências. Obras dos artistas citados (direitos dos autores e herdeiros), usadas como referência de estilo, como no Hub." }] },
         { h3: "Elementos culturais e materiais" },
         { p: "Diversos elementos presentes no dia a dia dos brasileiros serviram de inspiração para o clima que as novas ilustrações querem passar." },
+        { figures: [{ src: "assets/docs/ilustracao/painel-elementos.jpg", alt: "Painel com elementos do dia a dia brasileiro: casas, azulejos, plantas, caixote de feira, um cachorro caramelo e cartazes de folclore.", caption: "Painel semântico · elementos culturais e materiais." }] },
 
         { h2: "Cores" },
         { h3: "Tons Base" },
@@ -201,6 +203,7 @@
         { h3: "Personagens" },
         { p: "As roupas dos personagens sempre deverão ser em tons quentes ou terrosos, como laranja, vermelho, marrom e vinho. O uso do verde é permitido em acessórios e calçados." },
         { p: "Os tons mais frios, como verde, azul e roxo podem e devem ser utilizados em detalhes de cenário, para trazer equilíbrio e harmonia junto aos tons quentes mais predominantes." },
+        { figures: [{ src: "assets/docs/ilustracao/cores-cenarios.png", alt: "Ilustrações com tons frios aplicados em detalhes do cenário.", caption: "Tons frios nos detalhes de cenário, em equilíbrio com os tons quentes." }] },
         { display: { attrs: [sizeImg("personagens/nadia", "lg"), sizeImg("personagens/karina-1", "lg"), sizeImg("personagens/robson", "lg")] } },
         { note: "Paletas lidas do Figma (frame Guidelines · Cores). São cores exclusivas das ilustrações, fora dos tokens `Common/*`: clique numa amostra para copiar o hex." },
 
@@ -208,8 +211,14 @@
         { p: "Nossas ilustrações são compostas majoritariamente por linhas curvas, conferindo um aspecto orgânico e fluido a elas." },
         { p: "Dessa forma, conseguimos transmitir suavidade, naturalidade e acessibilidade para uma comunicação amigável e convidativa." },
         { display: { attrs: [sizeImg("objetos/foguete", "lg"), sizeImg("objetos/presente-aberto", "lg"), sizeImg("objetos/trofeu", "lg")] } },
+        { figures: [
+          { src: "assets/docs/ilustracao/formas-2.png", alt: "Ilustração composta por linhas curvas.", caption: "Linhas curvas: suavidade." },
+          { src: "assets/docs/ilustracao/formas-3.png", alt: "Ilustração composta por linhas curvas.", caption: "Formas orgânicas: naturalidade." },
+          { src: "assets/docs/ilustracao/formas-4.png", alt: "Ilustração composta por linhas curvas.", caption: "Composição fluida: comunicação amigável." }
+        ] },
         { h2: "Linhas" },
         { p: "As linhas de contorno cumprem a função de separar planos e reforçar contraste." },
+        { figures: [{ src: "assets/docs/ilustracao/linhas-contraste.png", alt: "Ilustração de um caixote de feira com o detalhe ampliado das linhas de contorno.", caption: "Linhas de contorno separando planos (detalhe ampliado à direita)." }] },
         { p: "As cores utilizadas nas linhas de contorno sempre deverão favorecer seu contraste em relação às formas sobrepostas. Além disso, a sobreposição deve respeitar a relação entre cores quentes e cores frias." },
         { dodont: [
           { kind: "do", text: "Aplique linhas em tons quentes sobre formas em tons quentes." },
@@ -240,6 +249,7 @@
           { title: "O Juca", text: "O Juca pode aparecer em momentos pontuais, criando uma conexão direta com as pessoas usuárias através de uma comunicação mais lúdica e divertida." },
           { title: "Hero", text: "São utilizadas quando queremos gerar momentos WOW, estabelecendo o tom emocional através de composições visuais impactantes.", illustration: "hero-employee/login" }
         ] },
+        { figures: [{ src: "assets/docs/ilustracao/juca.png", alt: "Quatro poses do Juca, o caju mascote: piscando, preocupado, comemorando e meditando.", caption: "O Juca. Ainda não está na biblioteca de ilustrações do playground." }] },
 
         { h2: "Acessibilidade" },
         { p: "Todas as nossas ilustrações passam por testes de acessibilidade, visando assegurar que pessoas usuárias com algum tipo de condição visual, como daltonismo, visão embaçada e sensibilidade a luz também possam usufruir delas." },
@@ -307,28 +317,37 @@
         ] } },
         { p: "As ilustrações de Feedback (alertas, telas de sucesso/erro e empty states/empty pages) possuem menos detalhes. Por isso, em telas onde há pouca informação de texto e componentes, suas aplicações em Sponsor deverão seguir o padrão de 200x200 (Lg)." },
         { p: "Assim como ocorre em Employee, as ilustrações do tipo Hero possuem especificações próprias. No caso de Sponsor elas são aplicadas no padrão de 673x768." },
+        { figures: [
+          { src: "assets/docs/ilustracao/sponsor-modal.png", alt: "Modal do Sponsor com ilustração 200x200.", caption: "Modal: 200x200 (Lg)." },
+          { src: "assets/docs/ilustracao/sponsor-feedback-lg.png", alt: "Tela de feedback do Sponsor com pouca informação e ilustração 200x200.", caption: "Feedback com pouca informação: 200x200 (Lg)." },
+          { src: "assets/docs/ilustracao/sponsor-feedback-md.png", alt: "Tela de feedback do Sponsor com muita informação e ilustração 144x144.", caption: "Feedback com alto volume de informação: 144x144 (Md)." },
+          { src: "assets/docs/ilustracao/sponsor-hero.png", alt: "Tela do Sponsor com ilustração Hero.", caption: "Hero: 673x768." }
+        ] },
 
         { h2: "Do's and Don'ts" },
         { p: "No Hub, estas diretrizes se chamam Bom pra Caju (faça) e Sem Sabor (não faça)." },
         { dodont: [
           { kind: "do", title: "Sempre adicione a Biblioteca de Ilustrações ao seu arquivo Figma.", text: "Dessa forma, seu arquivo se mantém atualizado toda vez que houver alguma mudança nas ilustrações. Para isso, siga os passos a seguir:",
-            steps: ["No seu arquivo, clique em Review Library Updates;", "Busque por 4. [Castanha DS] Illustration e clique em Add to file."] },
-          { kind: "do", title: "Respeite os breakpoints e suas respectivas aplicações.", text: "As ilustrações seguem alguns padrões de tamanhos para atender diferentes contextos, que exigem diferentes níveis de detalhamento e composição. Uma ilustração usada em uma Splash Screen não segue o mesmo padrão de tamanho de um Alerta, por exemplo. Para mais informações sobre aplicações, consulte Aplicações, acima." },
-          { kind: "dont", title: "Não dê Detach nas Instâncias dos Componentes de ilustração.", text: "Para que possamos garantir que as ilustrações estejam sempre atualizadas nos arquivos linkados, é necessário mantê-las integralmente como Instâncias. Dar Detach pode causar inconsistências ao longo das jornadas e dificultar a manutenção das ilustrações nesses arquivos." },
+            steps: ["No seu arquivo, clique em Review Library Updates;", "Busque por 4. [Castanha DS] Illustration e clique em Add to file."],
+            attrs: [{ _tag: "img", src: "assets/docs/ilustracao/dos-biblioteca-1.png", alt: "Painel do Figma com o botão Review Library Updates." }, { _tag: "img", src: "assets/docs/ilustracao/dos-biblioteca-2.png", alt: "Busca pela biblioteca 4. [Castanha DS] Illustration com o botão Add to file." }] },
+          { kind: "do", title: "Respeite os breakpoints e suas respectivas aplicações.", text: "As ilustrações seguem alguns padrões de tamanhos para atender diferentes contextos, que exigem diferentes níveis de detalhamento e composição. Uma ilustração usada em uma Splash Screen não segue o mesmo padrão de tamanho de um Alerta, por exemplo. Para mais informações sobre aplicações, consulte Aplicações, acima.", attrs: { _tag: "img", src: "assets/docs/ilustracao/dos-breakpoints.png", alt: "Comparação de tamanhos de ilustração entre uma Splash e um Alerta." } },
+          { kind: "dont", title: "Não dê Detach nas Instâncias dos Componentes de ilustração.", text: "Para que possamos garantir que as ilustrações estejam sempre atualizadas nos arquivos linkados, é necessário mantê-las integralmente como Instâncias. Dar Detach pode causar inconsistências ao longo das jornadas e dificultar a manutenção das ilustrações nesses arquivos.", attrs: { _tag: "img", src: "assets/docs/ilustracao/donts-detach.png", alt: "Ilustração com Detach no painel de camadas do Figma." } },
           { kind: "dont", title: "Não redimensione as ilustrações para além dos padrões de Size", text: "Para assegurar a consistência no uso e aplicação das ilustrações, sempre respeite os tamanhos estabelecidos na propriedade Size das variants:",
-            steps: ["Small (80x80)", "Medium (144x144)", "Large (200x200)", "Extra Large (320x320)"] },
-          { kind: "dont", title: "Não mude as cores das ilustrações", text: "As cores utilizadas na composição de cada uma das ilustrações levam em consideração critérios como acessibilidade e a própria harmonização entre elas. Evite alterar as cores das ilustrações para que o padrão das paletas seja mantido, assim como o equilíbrio e consistência nas interfaces." }
+            steps: ["Small (80x80)", "Medium (144x144)", "Large (200x200)", "Extra Large (320x320)"], attrs: { _tag: "img", src: "assets/docs/ilustracao/donts-redimensionar.png", alt: "Ilustração redimensionada fora dos tamanhos de Size." } },
+          { kind: "dont", title: "Não mude as cores das ilustrações", text: "As cores utilizadas na composição de cada uma das ilustrações levam em consideração critérios como acessibilidade e a própria harmonização entre elas. Evite alterar as cores das ilustrações para que o padrão das paletas seja mantido, assim como o equilíbrio e consistência nas interfaces.", attrs: { _tag: "img", src: "assets/docs/ilustracao/donts-cores.png", alt: "Ilustração com as cores alteradas." } }
         ] },
         { note: "Fonte: Figma [CastanhaDS] Component use documentation · páginas IL-Painel Semântico, IL-Guidelines, IL-Aplicações e IL-Dos&Donts, e zeroheight · Princípios de ilustração (943842). No Figma, IL-Intro, IL-Princípios e IL-Como solicitar estão vazias; o texto dessas partes vem do Hub (Ilustração, Princípios e Como solicitar ilustrações, revisados em 05/10, C164). As telas de exemplo foram refeitas com componentes do DS e ilustrações da biblioteca (C110)." },
         { h2: "Como solicitar ilustrações" },
         { p: "Peça ao time de Ilustração do Castanha pelo canal #castanha-suporte no Slack:" },
         { cards: [
           ["Novas ilustrações", "Para contextos de uso que a biblioteca ainda não cobre."],
-          ["Adaptação de tamanho", "Quando uma ilustração existente precisa de um tamanho que ainda não está disponível."]
+          ["Adaptação de breakpoints", "Quando uma ilustração existente precisa de um tamanho que ainda não está disponível."]
         ] },
         { h2: "Biblioteca" },
         { p: "[Caju] Illustrations, na ordem e nas categorias do Figma: " + nIlls + " ilustrações em " + nCats + " categorias (Caju UI 200×200 e Hero). Troque o fundo para testar o contraste; clique numa ilustração para ver o detalhe e copiar." },
         { tokens: "illustrations" },
+        { p: "A maior parte das ilustrações tem propriedades de Variants, como Type e Size, para se adequar a diferentes contextos de uso. A biblioteca componentizada fica no Figma: [abrir a biblioteca de ilustrações](https://www.figma.com/design/ndW0akp113d6seA4iY36r6/4.--Castanha-DS--Illustration)." },
+        { figures: [{ src: "assets/docs/ilustracao/variants.gif", alt: "No Figma, a ilustração cartao selecionada mostra as propriedades Type (brilhos) e Size (LG).", caption: "Variants de uma ilustração no Figma: Type e Size." }] },
         { h3: "Como usar" },
         { ul: [
           "Quem usa a ilustração é o componente: Banner (`<cds-banner illustration=\"notificacoes/sino\">`) e Table (Kind=Empty, `notificacoes/empty-state`).",

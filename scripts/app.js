@@ -198,8 +198,8 @@
 
   // Seções dos recursos no menu (ordem dentro da seção = ordem dos ids). Recurso fora da lista cai em "Mais recursos".
   var RES_SECTIONS = [
-    { id: "padroes", title: "Padrões", ids: ["caju-theme", "conteudo", "patterns"], tip: "A base e as soluções recorrentes: tema (cores, tipografia, motion…), diretrizes de conteúdo e patterns de tela." },
-    { id: "aprenda", title: "Aprenda", ids: ["arquitetura", "treinamento", "capacitacoes"], tip: "Como o DS funciona e como usar no dia a dia, no Figma e no código.",
+    { id: "padroes", title: "Padrões", ids: ["caju-theme", "camadas", "conteudo", "patterns"], tip: "A base e as soluções recorrentes: tema (cores, tipografia, motion…), as camadas do DS, diretrizes de conteúdo e patterns de tela." },
+    { id: "aprenda", title: "Aprenda", ids: ["treinamento", "capacitacoes"], tip: "Como o DS funciona e como usar no dia a dia, no Figma e no código.",
       links: [{ name: "Curso na Awtra", href: "https://lms.awtra.com.br/company/caju/app/course/f5e0c07c-7778-489c-81af-91216c8ccdd0" }] }, // links externos: sem página, abrem em nova guia
     { id: "ferramentas", title: "Ferramentas", ids: ["personas", "agentes", "mcp"], tip: "Apoio ao projeto: as personas para quem projetamos, assistentes de IA e integrações com o Castanha DS." },
     { id: "ajuda", title: "Ajuda", ids: ["faq", "changelog"], tip: "Perguntas frequentes e o que mudou no DS." }

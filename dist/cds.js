@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 234 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 235 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.js ==== */
 try {
 /**
@@ -8764,6 +8764,255 @@ try {
 })();
 } catch (e) { console.error("[cds] resources/caju-theme/caju-theme.js", e); }
 
+/* ==== resources/camadas/camadas.js ==== */
+try {
+/* Recurso: Camadas — as camadas do Castanha DS, do primitivo à composição na tela do produto.
+   Fontes: skills castanha-themes (architecture, creating-a-theme, dev-side), castanhads-juntos e criar-tarefa,
+   docs do time (Arquitetura de Tokens, InnerSource), chamados de suporte e tarefas do board do DS.
+   Site público: sem nomes de pessoas, canais, chaves de tarefa, links internos nem decisões ainda em aberto. */
+(function(){
+  window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
+  CDS.register({ id: "camadas", name: "Camadas", resource: true, order: 1.5 }); // menu: Padrões, entre Caju - Tema e Conteúdo (RES_SECTIONS no app.js)
+
+  var FUND = ["Fundação", "informative"], EST = ["Estilo", "accent"], DS = ["Design System", "positive"], PROD = ["Produto", "warning"];
+
+  // ---- Blocos visuais (no estilo da tab Motion do Caju - Tema: palco + painel com a cascata) ----
+  // Fora do navegador (catálogo do MCP, sem DOM) só os dados interessam.
+  if (CDS.docBlocks && typeof document !== "undefined"){
+    var el = function(tag, cls, text){ var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
+    var rich = function(n, s){ return CDS.docRich ? CDS.docRich(n, s) : (n.textContent = s, n); };
+    var tag = function(parent, label, app){ var t = parent.appendChild(document.createElement("cds-tag")); t.setAttribute("label", label); t.setAttribute("appearance", app || "neutral"); t.setAttribute("show-lead-item", "false"); return t; };
+    var arrow = function(parent, icon){ var i = parent.appendChild(document.createElement("cds-icon")); i.setAttribute("icon", icon || "navigation-right-line"); i.setAttribute("size", "small"); i.setAttribute("appearance", "neutral"); i.setAttribute("aria-hidden", "true"); return i; };
+    var GROUP_CLS = { "Fundação": "is-fund", "Estilo": "is-est", "Design System": "is-ds", "Produto": "is-prod" };
+
+    // Pilha de camadas: placas isométricas (Primitives embaixo, Composição em cima); clicar numa placa abre o painel
+    CDS.docBlocks.arqStack = function(d, v){
+      var n = v.items.length, wrap = el("div", "pg-mo-live pg-arq");
+      var stage = wrap.appendChild(el("div", "pg-tok-stage pg-arq-stage"));
+      var stack = stage.appendChild(el("ol", "pg-arq-stack")); stack.setAttribute("aria-label", v.label || "Camadas");
+      var panel = wrap.appendChild(el("div", "pg-mo-panel pg-arq-panel")); panel.setAttribute("aria-live", "polite");
+      var btns = [];
+      // de cima para baixo na tela: a última camada (Composição) no topo, Primitives na base
+      v.items.slice().reverse().forEach(function(it, r){
+        var i = n - 1 - r, li = stack.appendChild(el("li", "pg-arq-layer " + (GROUP_CLS[it.group[0]] || "")));
+        li.style.setProperty("--_z", String(n - r));
+        if (r > 0 && v.items[i + 1].group[0] !== it.group[0]) li.classList.add("is-gap"); // respiro entre grupos
+        var b = li.appendChild(el("button", "pg-arq-plate")); b.type = "button";
+        b.setAttribute("aria-label", (i + 1) + ". " + it.name + " (" + it.group[0] + ")");
+        b.appendChild(el("span", "pg-arq-plate__slab")).setAttribute("aria-hidden", "true");
+        var lb = b.appendChild(el("span", "pg-arq-plate__label"));
+        lb.appendChild(el("span", "pg-arq-plate__n", String(i + 1)));
+        lb.appendChild(el("span", "pg-arq-plate__name", it.name));
+        b.addEventListener("click", function(){ go(i); });
+        b.addEventListener("mouseenter", function(){ li.classList.add("is-hover"); });
+        b.addEventListener("mouseleave", function(){ li.classList.remove("is-hover"); });
+        btns[i] = { li: li, b: b };
+      });
+      // legenda dos grupos
+      var leg = stage.appendChild(el("div", "pg-arq-legend"));
+      [FUND, EST, DS, PROD].forEach(function(g){ tag(leg, g[0], g[1]); });
+      function go(i){
+        var it = v.items[i];
+        btns.forEach(function(x, k){ x.li.classList.toggle("is-current", k === i); x.b.setAttribute("aria-pressed", String(k === i)); });
+        panel.innerHTML = "";
+        var head = panel.appendChild(el("div", "pg-arq-panel__head"));
+        var t = head.appendChild(el("div", "pg-mo-panel__head"));
+        t.appendChild(el("span", "pg-mo-panel__title", it.name));
+        t.appendChild(el("span", "pg-mo-panel__when", "Camada " + (i + 1) + " de " + n));
+        tag(head, it.group[0], it.group[1]);
+        panel.appendChild(rich(el("p", "pg-doc-p"), it.text));
+        if (it.examples){
+          panel.appendChild(el("span", "pg-tok-chain__k", "Exemplos"));
+          var ex = panel.appendChild(el("div", "pg-arq-tags")); it.examples.forEach(function(e){ tag(ex, e); });
+        }
+        if (it.where) panel.appendChild(rich(el("p", "pg-arq-where"), it.where));
+        // vizinhas na pilha: a de baixo (de onde vem) e a de cima (quem usa), com Main Button Ghost do DS
+        var nav = panel.appendChild(el("div", "pg-arq-nav"));
+        var link = function(k, icon, lead){ var b = nav.appendChild(document.createElement("cds-main-button"));
+          [["label", v.items[k].name], ["kind", "ghost"], ["appearance", "neutral"], ["size", "small"], [lead ? "lead-icon" : "trailing-icon", icon], ["show-lead-icon", String(!!lead)], ["show-trailing-icon", String(!lead)]].forEach(function(a){ b.setAttribute(a[0], a[1]); });
+          b.addEventListener("click", function(){ go(k); }); };
+        if (i > 0) link(i - 1, "down-line", true); else nav.appendChild(el("span"));
+        if (i < n - 1) link(i + 1, "up-line", false);
+      }
+      go(v.start != null ? v.start : 3);
+      return wrap;
+    };
+
+    // Do token à tela: uma tela pequena com componentes do DS; clicar num elemento desce a cascata até o valor do primitivo.
+    // Mode (Light/Dark) troca os tokens só dentro da tela; Viewport muda a largura dela.
+    CDS.docBlocks.arqCascade = function(d, v){
+      var wrap = el("div", "pg-arq-cascade");
+      var ctl = wrap.appendChild(el("div", "pg-arq-ctl"));
+      var live = wrap.appendChild(el("div", "pg-mo-live"));
+      var stage = live.appendChild(el("div", "pg-tok-stage pg-arq-screen"));
+      var frame = stage.appendChild(el("div", "pg-arq-frame"));
+      var panel = live.appendChild(el("div", "pg-mo-panel")); panel.setAttribute("aria-live", "polite");
+      // a tela de exemplo (só componentes e tokens do DS)
+      var card = frame.appendChild(document.createElement("cds-card")); card.setAttribute("has-border", "true"); card.className = "pg-arq-card";
+      var top = card.appendChild(el("div", "pg-arq-card__top"));
+      var title = top.appendChild(el("h4", "pg-arq-card__title", "Resumo do pedido"));
+      var status = tag(top, "Aprovado", "positive");
+      var body = card.appendChild(el("p", "pg-arq-card__text", "2 itens · entrega amanhã"));
+      var pay = card.appendChild(document.createElement("cds-main-button"));
+      [["label", "Pagar"], ["appearance", "accent"], ["show-lead-icon", "false"], ["show-trailing-icon", "false"]].forEach(function(a){ pay.setAttribute(a[0], a[1]); });
+      var NODES = { button: pay, card: card, title: title, tag: status, text: body };
+      var st = { mode: document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light", vp: "mobile", cur: v.start || "button" };
+      // tokens do tema escuro e do claro lidos das próprias regras do tokens.css (sem duplicar valores aqui)
+      function props(sel){
+        var out = {};
+        [].forEach.call(document.styleSheets, function(sh){ var rules; try { rules = sh.cssRules; } catch (e){ return; }
+          [].forEach.call(rules || [], function(r){ if (r.selectorText === sel) for (var k = 0; k < r.style.length; k++){ var p = r.style[k]; if (p.indexOf("--") === 0) out[p] = r.style.getPropertyValue(p).trim(); } }); });
+        return out;
+      }
+      var DARK = props('html[data-theme="dark"]'), LIGHT = props(":root"), VP = { mobile: "Mobile", tablet: "Tablet", desktop: "Desktop" };
+      function applyMode(){ var src = st.mode === "dark" ? DARK : LIGHT; Object.keys(DARK).forEach(function(p){ if (src[p] != null) frame.style.setProperty(p, src[p]); }); frame.dataset.mode = st.mode; }
+      function applyVp(){ frame.dataset.vp = st.vp; }
+      var ctlItem = function(label, value, opts, fn){ var w = ctl.appendChild(el("div", "pg-arq-ctl__item")); w.appendChild(el("span", "pg-tok-chain__k", label)); if (CDS.docChoice) w.appendChild(CDS.docChoice(label, value, opts, fn)); };
+      ctlItem("Mode", st.mode, [["light", "Light"], ["dark", "Dark"]], function(m){ st.mode = m; applyMode(); go(st.cur); });
+      ctlItem("Viewport", st.vp, [["mobile", "Mobile"], ["tablet", "Tablet"], ["desktop", "Desktop"]], function(x){ st.vp = x; applyVp(); go(st.cur); });
+      Object.keys(NODES).forEach(function(k){
+        var n = NODES[k]; n.classList.add("pg-arq-target"); n.dataset.k = k;
+        if (k !== "button"){ n.tabIndex = 0; n.setAttribute("role", "button"); }
+        n.setAttribute("aria-label", "Ver a cascata de " + v.targets.filter(function(t){ return t.key === k; })[0].name);
+        n.addEventListener("click", function(e){ e.stopPropagation(); go(k); });
+        n.addEventListener("keydown", function(e){ if (k !== "button" && (e.key === "Enter" || e.key === " ")){ e.preventDefault(); go(k); } });
+      });
+      function row(layer, n, fill){
+        var line = panel.appendChild(el("div", "pg-arq-row"));
+        line.appendChild(el("span", "pg-arq-row__n", String(n)));
+        line.appendChild(el("span", "pg-arq-row__k", layer));
+        var val = line.appendChild(el("div", "pg-arq-row__v")); fill(val);
+        return line;
+      }
+      function go(k){
+        st.cur = k;
+        if (!frame.isConnected) return void requestAnimationFrame(function(){ go(k); }); // valor resolvido só com a tela na página
+        var t = v.targets.filter(function(x){ return x.key === k; })[0], node = NODES[k];
+        Object.keys(NODES).forEach(function(x){ NODES[x].classList.toggle("is-current", x === k); });
+        var cssVar = "--" + t.brand.toLowerCase().replace(/\//g, "-").replace(/\s+/g, "-");
+        var hex = getComputedStyle(frame).getPropertyValue(cssVar).trim();
+        panel.innerHTML = "";
+        var head = panel.appendChild(el("div", "pg-mo-panel__head"));
+        head.appendChild(el("span", "pg-mo-panel__title", t.name));
+        head.appendChild(el("span", "pg-mo-panel__when", t.what + " · da tela até o valor"));
+        row("Composição", 9, function(c){ c.appendChild(el("span", "pg-arq-row__t", v.screen)); });
+        row("Local assets", 8, function(c){ c.appendChild(el("span", "pg-arq-row__t is-none", "Nenhum: a tela usa só o DS")); });
+        row("Templates", 7, function(c){ c.appendChild(el("span", "pg-arq-row__t is-none", "Nenhum: card solto na tela")); });
+        row("Componentes", 6, function(c){ tag(c, t.component); });
+        row("Styles", 5, function(c){ t.styles.forEach(function(s){ tag(c, s); }); tag(c, "Viewport " + VP[st.vp]); });
+        row("Brand Style", 4, function(c){ tag(c, t.brand, "accent"); });
+        row("Modes", 3, function(c){ tag(c, st.mode === "dark" ? "Dark" : "Light", "informative"); });
+        row("Themes", 2, function(c){ tag(c, t.brand.replace(/^Common\/Colors\//, "")); });
+        row("Primitives", 1, function(c){
+          var sw = c.appendChild(el("span", "pg-arq-swatch")); sw.style.background = hex; sw.setAttribute("aria-hidden", "true");
+          c.appendChild(el("code", "pg-arq-row__code", hex || "—"));
+          c.appendChild(el("span", "pg-arq-row__t is-none", "tom da escala escolhido pelo tema"));
+        });
+        panel.appendChild(rich(el("p", "pg-arq-where"), "No código: `var(" + cssVar.replace(/^--common-/, "--castanha-") + ")`. " + (t.note || "")));
+      }
+      applyMode(); applyVp(); go(st.cur);
+      return wrap;
+    };
+  }
+
+  CDS.docs["camadas"] = {
+    tabs: [
+      { id: "camadas", title: "Camadas", blocks: [
+        { h2: "Como o Castanha DS se organiza" },
+        { p: "O Castanha DS funciona em camadas. Cada camada aponta para a de cima e nunca pula uma camada. Por isso uma marca nova ou o tema escuro mudam o tema e o Brand Style, sem tocar nos componentes nem nas telas." },
+        { p: "As camadas de Fundação e Estilo são tokens e estilos. As de Design System são o que o time do DS publica e mantém. As de Produto são o que cada squad monta com o DS. Clique numa placa para abrir a camada." },
+        { arqStack: { label: "Camadas do Castanha DS, da base para a tela", start: 3, items: [
+          { id: "primitives", name: "Primitives", group: FUND,
+            text: "Valores crus, nomeados pelo próprio valor e sem intenção de uso: escalas de cor de 50 a 900, raios, tamanhos, durações e curvas de motion. É o dicionário de onde o tema escolhe.",
+            examples: ["Colors/Grape/500", "Motion/Duration/150", "Radius/8"],
+            where: "Figma: biblioteca `[CastanhaDS] Primitives Tokens`. Componente nunca usa primitivo direto." },
+          { id: "theme", name: "Themes", group: FUND,
+            text: "Dá função aos primitivos: cada token do tema aponta para um primitivo e diz para que serve (accent, neutral, support, feedback). O tema escolhe da escala os pares que cumprem o contraste do WCAG 2.2 AA.",
+            examples: ["Accent/Solid/medium", "Surface/Neutral/primary", "Text/Semantic/negative"],
+            where: "Figma: biblioteca `[Caju] Theme`, coleção `Caju Beneficios`. O tema não guarda valor, ele aponta." },
+          { id: "modes", name: "Modes", group: FUND,
+            text: "Não são uma camada à parte: são variações dentro de cada coleção. O tema tem Light e Dark, o Brand Style tem um mode por marca, os Motion Styles têm Normal e Reduced e o Viewport tem Mobile, Tablet e Desktop.",
+            examples: ["Light", "Dark", "Reduced", "Mobile · Tablet · Desktop"],
+            where: "O que não depende do tema, como motion, tem o mesmo valor em Light e Dark." },
+          { id: "brand-style", name: "Brand Style", group: EST,
+            text: "O ponto de encontro: espelha o tema com o prefixo `Common/` e acrescenta os tokens de função (texto, ícone, superfície, borda, feedback). Uma marca nova entra como um mode novo aqui. É a camada que chega ao código.",
+            examples: ["Common/Colors/Text/intense", "Common/Sizes/16", "Common/Border/Radius/pill"],
+            where: "Figma: coleção `Brand Style` em `[CastanhaDS] Components`. Código: `--castanha-colors-text-intense` (pacote castanha-tokens)." },
+          { id: "styles", name: "Styles", group: EST,
+            text: "Combinações prontas que apontam para o Brand Style: estilos de texto (fonte, tamanho, peso, altura de linha), Motion Styles por interação (duração e curva), elevações (sombra) e o Viewport (grids e medidas por faixa de tela).",
+            examples: ["Body/Bold Body", "Hover In/01", "Elevation/level 2", "Viewport: Mobile < 744"],
+            where: "Figma: `.Text Styles`, `.Motion Styles`, effect styles e a coleção Viewport. No React, texto e motion vêm do componente `Text` e de mixins, fora do pacote de tokens." },
+          { id: "componentes", name: "Componentes", group: DS,
+            text: "Os componentes do DS consomem o Brand Style e os Styles. Peças internas reutilizáveis são Building Blocks, nomeadas como \"Sub-componente Componente\". Figma e código batem 1:1 em props, nomes e estados.",
+            examples: ["Main Button", "Text Field", "Accordion Item"],
+            where: "Figma: `[CastanhaDS] Components`. Código: castanha-react e a lib Flutter, com o Storybook como referência do que está em produção." },
+          { id: "templates", name: "Templates", group: DS,
+            text: "Telas e trechos padronizados que se repetem em vários produtos, montados com instâncias dos componentes, sem componente duplicado. Entram no DS quando servem a mais de um produto.",
+            examples: ["Feedback Page", "App Shell", "Header do Sponsor"],
+            where: "Figma: bibliotecas de templates mobile e desktop. Neste site: Patterns e o cabeçalho do Sponsor." },
+          { id: "local-assets", name: "Local assets", group: PROD,
+            text: "O que é de um time: componentes, módulos, ilustrações e motion específicos de um produto. Usam tokens e componentes do Castanha, ficam na biblioteca do time e são mantidos pela squad. Se outros times precisarem, viram candidatos ao DS.",
+            examples: ["Card de despesas da squad", "Ilustração de campanha"],
+            where: "Figma: biblioteca do time. Não passa pela revisão do DS." },
+          { id: "composicao", name: "Composição", group: PROD,
+            text: "O arranjo de componentes, templates e assets para resolver uma tela ou um fluxo. Não é componente e não tem intenção de reuso, por isso não precisa de documentação nem de dono.",
+            examples: ["Tela de confirmação de pedido", "Fluxo de cadastro"],
+            where: "Figma: arquivo do produto. Neste site, as composições `cmp-*` cumprem esse papel enquanto o DS não tem o componente." }
+        ] } },
+        { h2: "Do token à tela" },
+        { p: "Clique num elemento da tela para descer a cascata: da composição até o valor do primitivo. Troque o Mode para ver o mesmo token apontar para outro valor no Dark, sem mudar o componente." },
+        { arqCascade: { screen: "Resumo do pedido (tela do produto)", start: "button", targets: [
+          { key: "button", name: "Main Button · Accent", what: "Fundo do botão", component: "Main Button", styles: ["Label/Bold Label", "Hover In/01"], brand: "Common/Colors/Accent/Solid/medium", note: "No hover, o Motion Style Hover In/01 troca para `Accent/Solid/semi-intense`." },
+          { key: "card", name: "Card · Has Border", what: "Fundo do card", component: "Card", styles: ["Elevation: nenhuma"], brand: "Common/Colors/Surface/default" },
+          { key: "title", name: "Título do card", what: "Cor do texto", component: "Text (no React)", styles: ["Title/Small"], brand: "Common/Colors/Text/intense" },
+          { key: "text", name: "Texto de apoio", what: "Cor do texto", component: "Text (no React)", styles: ["Body/Regular Body"], brand: "Common/Colors/Text/medium" },
+          { key: "tag", name: "Tag · Positive", what: "Fundo da tag", component: "Tag", styles: ["Caption/Medium Caption"], brand: "Common/Colors/Feedback/Positive/soft", note: "Feedback não varia por marca: a mesma cor de sucesso em todas." }
+        ] } },
+        { note: "Na dúvida sobre onde algo mora, faça a pergunta do InnerSource: outro time precisaria disso sem saber que você criou? Se sim, é candidato ao DS. Se não, é Local asset ou Composição." }
+      ] },
+      { id: "regras", title: "Regras", blocks: [
+        { h2: "Regras de ouro" },
+        { dodont: [
+          { kind: "do", title: "Siga a cascata", text: "Cada camada aponta para a de cima: Componente → Brand Style → Theme → Primitives." },
+          { kind: "dont", title: "Pular camada", text: "Componente ou tela apontando direto para um primitivo ou para um valor fixo." },
+          { kind: "do", title: "Marca e tema escuro no tema", text: "Trocar de marca, ligar o Dark ou criar um tema de produto muda o tema e o Brand Style. Componentes e primitivos ficam como estão." },
+          { kind: "dont", title: "Cor nova no componente", text: "Mudar a cor dentro do componente para atender uma marca ou um modo." },
+          { kind: "do", title: "Espelhe em Common/", text: "Todo token que o código usa tem espelho no Brand Style. Sem esse espelho, ele não chega ao pacote de tokens." },
+          { kind: "dont", title: "Intenção no primitivo", text: "Primitivo com nome de uso, como `Duration/short`. O primitivo se chama pelo valor (`150`) e quem diz que ele é curto é o tema." },
+          { kind: "do", title: "Publique em cascata", text: "Primitives, depois Theme, depois Brand Style, depois código. Nomes decididos antes de publicar." },
+          { kind: "dont", title: "Token fora do scope", text: "Usar token de texto em borda ou de superfície em texto. Os scopes das variáveis no Figma evitam isso." }
+        ] },
+        { h2: "Quem cria e quem mantém" },
+        { table: { wrap: true, head: ["Tipo", "Quem cria", "Quem mantém", "Onde mora", "Documentação"], rows: [
+          ["Componente do DS", "Time do DS", "Time do DS", "Biblioteca do Castanha", "Obrigatória e pública"],
+          ["Evolutiva (variante ou prop nova)", "Designer do produto propõe", "Time do DS aprova e mantém", "Biblioteca do Castanha", "Obrigatória"],
+          ["Local asset (team component)", "Designer do produto", "Squad", "Biblioteca do time", "Recomendada"],
+          ["Composição", "Designer do produto", "Ninguém: é uma tela", "Arquivo do produto", "Não precisa"]
+        ] } },
+        { p: "Composição não vira team component: isso aumenta a biblioteca do time e o custo de manutenção sem ganho de reuso." }
+      ] },
+      { id: "figma-codigo", title: "Do Figma ao código", blocks: [
+        { h2: "Como um token chega ao código" },
+        { steps: [
+          { title: "Figma", text: "As variáveis vivem nas bibliotecas de Primitives, Theme e Components (Brand Style). Mudar um token é sempre um par: variáveis no Figma e depois a sincronia no código." },
+          { title: "Plugin castanha-castoken", text: "Leva as variáveis do Figma para o repositório de tokens." },
+          { title: "Pacote castanha-tokens", text: "Gera as variáveis CSS `--castanha-<grupo>-<caminho>`: o nome do Figma sem `Common` e `Specific`, com `/` e espaço trocados por `-`, tudo em minúsculas.", list: ["`Common/Colors/Text/intense` → `--castanha-colors-text-intense`", "`Common/Sizes/16` → `--castanha-sizes-16`"] },
+          { title: "castanha-react e Flutter", text: "Os componentes leem as variáveis do pacote. Estilos de texto, motion e sombras ainda vêm do componente `Text` e de mixins, fora do pacote." }
+        ] },
+        { h2: "Tema novo ou marca nova" },
+        { steps: [
+          { title: "Inspecionar", text: "Conferir o que existe e confirmar o escopo antes de criar qualquer variável." },
+          { title: "Tema", text: "Criar a coleção e os modes (Light e Dark) e os tokens semânticos com alias para primitivos que já existem." },
+          { title: "Brand Style", text: "Espelhar os tokens em `Common/`. Uma marca nova é um mode novo nesta coleção. Os tokens de feedback não variam por marca." },
+          { title: "Conferir e publicar", text: "Visualizar as variáveis, conferir contraste e publicar em cascata: Primitives, Theme, Brand Style e código." }
+        ] },
+        { note: "Primitivo novo é exceção: entra quando nenhuma combinação dos primitivos existentes resolve, e quem decide é o time do DS." }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] resources/camadas/camadas.js", e); }
+
 /* ==== resources/capacitacoes/capacitacoes.js ==== */
 try {
 /* Capacitações: os outros treinamentos do Hub (Capacitações → Treinamentos), um por tab.
@@ -12423,4 +12672,4 @@ try {
 
 /* ==== docs sob demanda (gerado) ==== */
 window.CDS = window.CDS || {}; CDS.docsIndex = {"backdrop":{"src":"components/backdrop/backdrop.docs.js?v=6b702f80","desc":"Backdrop é um componente de superfície utilizado para criar uma camada de bloqueio visual entre o conteúdo base da interface e elementos em primeiro plano, como modais e drawers."},"badge":{"src":"components/badge/badge.docs.js?v=13a9d0a4","desc":"O Badge é um elemento visual usado exclusivamente para indicar notificações ou atualizações. Ele serve como um alerta discreto que informa a pessoa usuária sobre algo novo ou pendente em um determinado contexto da interface."},"caju-brand":{"src":"components/caju-brand/caju-brand.docs.js?v=182c6287","desc":"O Caju Brand é um elemento visual fundamental que representa a identidade da Caju dentro dos fluxos do produto. Ele garante consistência no uso da marca, evitando distorções, cores inadequadas ou aplicações incorretas."},"calendar-day":{"src":"components/calendar-day/calendar-day.docs.js?v=eb0c1fc6","desc":"Cada dia do Date Picker: número, estado de seleção e o ponto do dia atual."},"calendar-week":{"src":"components/calendar-week/calendar-week.docs.js?v=3e7503ac","desc":"Uma linha de 7 dias do Date Picker."},"card":{"src":"components/card/card.docs.js?v=385dde05","desc":"O componente Card é um contêiner visual usado para agrupar informações relacionadas de forma clara e compacta."},"credit-card-flags":{"src":"components/card-flag/card-flag.docs.js?v=1c719fe4","desc":"Simula visualmente qualquer cartão e pode simbolizar uma bandeira específica."},"currency":{"src":"components/currency/currency.docs.js?v=4019f33b","desc":"O Currency é um componente de exibição utilizado para apresentar valores monetários de forma padronizada, legível e consistente nas interfaces da Caju."},"currency-content":{"src":"components/currency-content/currency-content.docs.js?v=b78c8af8","desc":"Valor em moeda com o símbolo, o sinal de negativo opcional e uma descrição embaixo."},"currency-symbol":{"src":"components/currency-symbol/currency-symbol.docs.js?v=be193ca9","desc":"Símbolo da moeda usado nas células de valor da Table."},"divider":{"src":"components/divider/divider.docs.js?v=a8ce9166","desc":"O componente Divider é uma linha fina que separa visualmente agrupamentos de conteúdo em uma interface. Ele atua como uma âncora visual, ajudando a pessoa usuária a escanear e compreender a hierarquia e o relacionamento entre os elementos da página."},"icon":{"src":"components/icon/icon.docs.js?v=dcd985e5","desc":"Icon (ícone) é uma representação visual simples que auxilia na comunicação de ações, estados, tipos de conteúdo ou categorias."},"avatar":{"src":"components/avatar/avatar.docs.js?v=e8f0f357","desc":"O Avatar é um componente utilizado para representar visualmente uma pessoa usuária, seja por meio de imagem, iniciais ou ícone padrão. Ele ajuda na identificação rápida de perfis em áreas onde o contexto pessoal é relevante."},"breadcrumb-item":{"src":"components/breadcrumb-item/breadcrumb-item.docs.js?v=f2f90636","desc":"Cada nível do Breadcrumb: separador e conteúdo (link, página atual ou o \"…\" do Truncate)."},"caju-card":{"src":"components/caju-card/caju-card.docs.js?v=e16af7d8","desc":"O Caju Card simula visualmente os diferentes tipos de cartões da Caju nos cenários físicos e virtuais seguindo as diretrizes das lojinhas de app."},"close-toast":{"src":"components/close-toast/close-toast.docs.js?v=08eb88fc","desc":"Botão de fechar do Toast: 40×40, com o ícone close-line."},"close-alert":{"src":"components/close-alert/close-alert.docs.js?v=66f9acea","desc":"Botão de fechar do Alert: 40×40, com o ícone close-line."},"content-banner":{"src":"components/content-banner/content-banner.docs.js?v=5601185f","desc":"Building block interno do Banner. Agrupa título, descrição e indicação de CTA."},"csat-item":{"src":"components/csat-item/csat-item.docs.js?v=b255734f","desc":"Cada nível do CSAT Score: estrela e rótulo."},"csat-score":{"src":"components/csat-score/csat-score.docs.js?v=f8c9ddaf","desc":"O CSAT Score é um componente de avaliação utilizado para medir o nível de satisfação da pessoa usuária em relação a uma experiência, funcionalidade ou interação específica, por meio de uma escala ordinal visual representada por ícones e rótulos textuais."},"filter-chips":{"src":"components/filter-chip/filter-chip.docs.js?v=7cf64b2d","desc":"Chip que liga e desliga um filtro: selecionado, troca o ícone pelo check e inverte as cores."},"icon-button":{"src":"components/icon-button/icon-button.docs.js?v=7876d432","desc":"O Icon Button é um botão compacto que exibe apenas um ícone, sem rótulo de texto. Ele é utilizado para ações rápidas, geralmente secundárias, em interfaces que exigem economia de espaço e onde o significado do ícone é amplamente reconhecido."},"header":{"src":"components/header/header.docs.js?v=1f84dc27","desc":"Cabeçalho do Modal e do Bottom Sheet: título, botão de fechar e divisor."},"icons-block":{"src":"components/icons-block/icons-block.docs.js?v=7073a124","desc":"Ícone do Filter Button: filtro (Default) ou calendário (Date)."},"filter-button":{"src":"components/filter-button/filter-button.docs.js?v=03b317e8","desc":"O Filter Button é um botão que serve como gatilho para filtros e, quando acionado, abre opções para refinar ou ajustar a visualização de conteúdos, listas ou tabelas."},"image":{"src":"components/image/image.docs.js?v=06de894a","desc":"O componente Image é utilizado para exibir imagens estáticas em diferentes contextos do produto, garantindo consistência visual e preservação correta das proporções. Ele oferece controle simples e direto permitindo que a imagem se adapte a diferentes layouts sem distorção."},"banner":{"src":"components/banner/banner.docs.js?v=e8a4ac11","desc":"O Banner destaca conteúdo promocional ou informação relevante em uma área própria da tela. Reúne título, descrição e indicação de ação em um bloco clicável por inteiro, com fundo de cor livre ou imagem de fundo. Serve para atrair a pessoa usuária sem interromper o que ela está fazendo."},"input-chips":{"src":"components/input-chip/input-chip.docs.js?v=93623dcd","desc":"Chip que mostra um valor escolhido e pode ser removido com um clique."},"chips-group":{"src":"components/chips-group/chips-group.docs.js?v=e44b9509","desc":"Container que organiza Filter Chips ou Input Chips em uma linha com rolagem ou em várias linhas."},"link":{"src":"components/link/link.docs.js?v=fe71f910","desc":"O Link é um elemento interativo que direciona o usuário para outro destino, como páginas internas, externas, seções específicas ou downloads."},"list-lead-item":{"src":"components/list-lead-item/list-lead-item.docs.js?v=182b62f9","desc":"Item à esquerda das listas: Avatar, Icon ou Image."},"main-button":{"src":"components/main-button/main-button.docs.js?v=529983fd","desc":"Main Button é um componente interativo usado para executar a ações mais importantes em uma tela, formulário ou fluxo."},"date-navigation":{"src":"components/date-navigation/date-navigation.docs.js?v=cde6d20f","desc":"Navegação do Date Picker: mês anterior, mês, ano e próximo mês."},"date-picker":{"src":"components/date-picker/date-picker.docs.js?v=2f096325","desc":"Calendário para escolher uma data ou um intervalo de datas, com navegação por mês e ano."},"drop-button":{"src":"components/drop-button/drop-button.docs.js?v=2505ce9b","desc":"O Drop Button é um botão interativo que, ao ser acionado, abre um menu suspenso com opções de ação diretamente relacionadas ao contexto do botão. Ele combina a função de acionador visual com o acesso rápido a um conjunto de comandos organizados."},"footer":{"src":"components/footer/footer.docs.js?v=3521cfdc","desc":"Rodapé do Modal e do Bottom Sheet: divisor e as ações (primária e secundária)."},"fixed-bar":{"src":"components/fixed-bar/fixed-bar.docs.js?v=d8835dfd","desc":"A Fixed bar é uma área fixa posicionada na base da interface que agrupa duas ações relacionadas — uma primária e outra secundária. Ela é utilizada para decisões importantes no final de fluxos ou seções, permanecendo sempre acessível para a pessoa usuária."},"nav-control-item":{"src":"components/nav-control-item/nav-control-item.docs.js?v=68edeeff","desc":"Cada indicador do Nav Control: ponto 6×6, que cresce para 16×6 quando ativo."},"nav-control":{"src":"components/nav-control/nav-control.docs.js?v=f85a1d1f","desc":"O Nav Control é um componente visual utilizado como indicador de navegação, normalmente associado a carrosséis ou fluxos paginados. Ele representa, de forma ilustrativa, a quantidade total de itens e qual deles está em foco no momento."},"nps-value-item":{"src":"components/nps-value-item/nps-value-item.docs.js?v=6f52865f","desc":"Cada valor do NPS Score: pílula 24 com o número."},"nps-score":{"src":"components/nps-score/nps-score.docs.js?v=1839cab6","desc":"O NPS Score é um componente de seleção única utilizado para capturar a percepção da pessoa usuária em relação a uma experiência, produto ou serviço, geralmente em uma escala numérica de 0 a 10."},"popover":{"src":"components/popover/popover.docs.js?v=2419b81c","desc":"Popover é um pequeno overlay contextual que aparece quando o usuário interage com um elemento da interface. Ele permite exibir conteúdos adicionais, ações ou informações complementares de forma leve, sem interromper o fluxo principal da experiência."},"breadcrumb":{"src":"components/breadcrumb/breadcrumb.docs.js?v=58313c95","desc":"O Breadcrumb é um componente de navegação que mostra a localização atual do usuário dentro de uma hierarquia ou estrutura de conteúdo. Ele oferece links para os níveis superiores, facilitando a navegação."},"progress-line":{"src":"components/progress-line/progress-line.docs.js?v=1ac0918d","desc":"O Progress Line é um indicador visual não interativo que representa o progresso de uma operação ao longo do tempo, ajudando a pessoa usuária a entender em que estágio o processo se encontra."},"progress-tracker-item":{"src":"components/progress-tracker-item/progress-tracker-item.docs.js?v=9df6e167","desc":"Etapa individual do Progress Tracker."},"progress-tracker":{"src":"components/progress-tracker/progress-tracker.docs.js?v=dc917455","desc":"Indica o avanço de uma pessoa em um fluxo de múltiplas etapas, mostrando o que já foi concluído, onde ela está e o que ainda falta."},"checkbox":{"src":"components/checkbox/checkbox.docs.js?v=f9f2f82b","desc":"O checkbox é Componente interativo usado para selecionar ou desmarcar opções. Pode ser preenchido com um checkmark (✔) caso seja selecionado, ou por um traço (—) quando indeterminado. Utilizado em formulários e filtros, permitindo múltiplas seleções."},"radio-button":{"src":"components/radio-button/radio-button.docs.js?v=7b075ef9","desc":"Radio Button é um componente interativo usado para permitir ao usuário selecionar uma única opção de um conjunto. Essencial em formulários para escolhas únicas."},"shaped-icon":{"src":"components/shaped-icon/shaped-icon.docs.js?v=2e72045f","desc":"O Shaped Icon é um ícone envolto por um fundo colorido e com formato definido, que confere maior ênfase visual e peso hierárquico. Ele é utilizado para evidenciar categorias, ações contextuais ou estados visuais sem depender de interação."},"alert":{"src":"components/alert/alert.docs.js?v=73d9d825","desc":"Mensagem fixa e persistente sobre o sistema, que fica visível até a pessoa usuária ler ou fechar."},"confirmation-message":{"src":"components/confirmation-message/confirmation-message.docs.js?v=ebc40fe7","desc":"Mostre o resultado de uma ação com ícone, título e descrição centralizados."},"dropzone":{"src":"components/dropzone/dropzone.docs.js?v=199cfe2e","desc":"O Dropzone é a área delimitada onde a pessoa usuária adiciona arquivos, pelo botão de seleção ou arrastando o arquivo para dentro dela. A área informa os formatos e limites aceitos antes do envio. O acompanhamento de cada arquivo enviado fica no Upload Item."},"file-lead-item":{"src":"components/file-lead-item/file-lead-item.docs.js?v=5427c97f","desc":"Miniatura do arquivo no Upload Item: imagem ou ícone de anexo, com a ação de ver o arquivo."},"lead-item":{"src":"components/lead-item/lead-item.docs.js?v=39cab1a3","desc":"Elemento à esquerda do Topic: Shaped Icon ou imagem 40×40."},"slider":{"src":"components/slider/slider.docs.js?v=d0f3079e","desc":"Slider de seleção de valor num intervalo."},"spinner":{"src":"components/spinner/spinner.docs.js?v=f2007190","desc":"O Spinner é um indicador visual de atividade não interativa que informa à pessoa usuária que o sistema está processando uma ação em segundo plano."},"status-dot":{"src":"components/status-dot/status-dot.docs.js?v=51c8f006","desc":"Indicador compacto de estado, formado por um ponto colorido e um rótulo em texto."},"switch":{"src":"components/switch/switch.docs.js?v=ccb6a3c7","desc":"O Switch é um componente que funciona como um interruptor digital, alterando imediatamente o estado de uma configuração entre opções binárias, como sim ou não, e ligado ou desligado, sem necessidade de confirmação."},"checkbox-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf","desc":"Coluna de Checkboxes com um nome para o conjunto: zero, uma ou várias opções."},"radio-button-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf","desc":"Coluna de Radio Buttons com um nome para o conjunto: exatamente uma opção."},"switch-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf","desc":"Coluna de Switches com um nome para o conjunto: cada um liga ou desliga uma configuração na hora."},"system-banner":{"src":"components/system-banner/system-banner.docs.js?v=7db1a62e","desc":"Aviso do sistema que ocupa a largura toda da página, com a mesma anatomia do Alert."},"tab-item":{"src":"components/tab-item/tab-item.docs.js?v=14aec353","desc":"Cada aba da Fixed Tab e da Scrollable Tab: Lead Item opcional, Label e o sublinhado."},"fixed-tab":{"src":"components/fixed-tab/fixed-tab.docs.js?v=d81545c7","desc":"O Tabs organiza conteúdos relacionados em seções paralelas dentro da mesma página, permitindo que a pessoa usuária alterne rapidamente entre contextos sem navegação externa."},"scrollable-tab":{"src":"components/scrollable-tab/scrollable-tab.docs.js?v=3607a757","needs":["fixed-tab"],"desc":"Abas no tamanho do conteúdo, com rolagem horizontal. Mesma documentação de Tabs da Fixed Tab."},"tab-view":{"src":"components/tab-view/tab-view.docs.js?v=98543998","desc":"Alterna a visualização de uma lista entre lista e grade."},"table-head":{"src":"components/table-head/table-head.docs.js?v=48151c1b","desc":"Título de coluna da Table, com ordenação."},"table-toolbar":{"src":"components/table-toolbar/table-toolbar.docs.js?v=dea5e195","desc":"Barra de ações acima da Table."},"tag":{"src":"components/tag/tag.docs.js?v=0990f2f5","desc":"Tag são rótulos compactos e visualmente distintos usados para rapidamente categorizar, identificar e organizar itens."},"balance-card":{"src":"components/balance-card/balance-card.docs.js?v=9465f0ce","desc":"Exibe o saldo de uma categoria com rótulo, valor e status complementares."},"table-cell":{"src":"components/table-cell/table-cell.docs.js?v=72c77164","desc":"Célula de dados da Table: texto, valor, percentual, Tag, Checkbox, Link ou ações."},"text-content":{"src":"components/text-content/text-content.docs.js?v=3e523e4b","desc":"Par de textos (Label e Description) com o destaque no Label ou na Description."},"accordion-item":{"src":"components/accordion-item/accordion-item.docs.js?v=1ae17b66","desc":"Item de um accordion: um header com título que revela conteúdo adicional (no Slot) ao ser expandido."},"accordion":{"src":"components/accordion/accordion.docs.js?v=da2d36e9","desc":"O Accordion agrupa vários Accordion Items em uma lista de seções expansíveis, que a pessoa abre sob demanda."},"code-input-otp":{"src":"components/code-input-otp/code-input-otp.docs.js?v=f6b13cc5","desc":"Campo de código de verificação (OTP/PIN): uma fileira de células de um caractere, preenchidas uma a uma, para inserir um código curto recebido por SMS, e-mail ou app autenticador."},"credit-card-input":{"src":"components/credit-card-input/credit-card-input.docs.js?v=38ef2397","desc":"Campo para inserir o número de um cartão de crédito."},"date-input":{"src":"components/date-input/date-input.docs.js?v=b20aab02","desc":"Campo de data da família Text Fields: digitar com máscara dd/mm/aaaa ou escolher no calendário."},"password-input":{"src":"components/password-input/password-input.docs.js?v=0b2aabde","desc":"O Password Input é um campo de entrada específico para senhas."},"quantity-input":{"src":"components/quantity-input/quantity-input.docs.js?v=2f150dde","desc":"O Quantity Input é um campo numérico com controles de incremento e decremento."},"search-input":{"src":"components/search-input/search-input.docs.js?v=fe6fd9c3","desc":"Campo de busca da família Text Fields: lupa fixa e botão de limpar quando há texto."},"text-area":{"src":"components/text-area/text-area.docs.js?v=beb8d21c","desc":"O Text Area é um campo de entrada multilinha que permite à pessoa usuária digitar textos mais longos, como descrições, observações ou comentários."},"text-input":{"src":"components/text-input/text-input.docs.js?v=a88dd721","desc":"O Text Input é um campo de entrada para coleta de informações textuais curtas fornecidas pela pessoa usuária."},"toast":{"src":"components/toast/toast.docs.js?v=21536c26","desc":"O Toast é um componente de notificação temporária que informa a pessoa usuária sobre o resultado de uma ação ou estado do sistema. Ele aparece de forma discreta na interface e desaparece automaticamente após alguns segundos, sem interromper o fluxo de navegação."},"tooltip":{"src":"components/tooltip/tooltip.docs.js?v=66ed468f","desc":"São caixas flutuantes que proporcionam informações sobre algum aspecto da interface que mereça maior atenção."},"topic":{"src":"components/topic/topic.docs.js?v=4f5c7ee5","desc":"Apresente um tópico com ícone ou imagem, título e descrição."},"trailing-item":{"src":"components/trailing-item/trailing-item.docs.js?v=e767226e","desc":"Item à direita das listas: Checkbox, Radio Button, Switch, Icon ou Tag."},"content-list-item":{"src":"components/content-list-item/content-list-item.docs.js?v=08279d28","desc":"O Content list item é um bloco de conteúdo que organiza informações de forma clara e escaneável dentro de listas. Ele combina elementos como título, descrição, ícone, avatar ou status, ajudando o usuário a identificar rapidamente itens, conteúdos ou ações relacionadas."},"content-list":{"src":"components/content-list/content-list.docs.js?v=663fda73","desc":"O Content List é um componente que agrupa e organiza múltiplos Content List Items em uma estrutura única e consistente. Ele funciona como um container, permitindo que diferentes tipos de conteúdo sejam exibidos de forma clara e hierárquica. Pode conter itens informativos, de navegação ou de transações financeiras, adaptando-se a diferentes contextos de uso."},"selection-list-item":{"src":"components/selection-list-item/selection-list-item.docs.js?v=a6ae3580","desc":"O Selection List Item é um componente de seleção que combina título, descrição e ícone para enriquecer a apresentação das opções. Ele amplia a clareza das escolhas, indo além de seletores simples como checkbox, radio ou switch."},"async-creatable-select-input":{"src":"components/async-creatable-select-input/async-creatable-select-input.docs.js?v=b89d5e8e","needs":["async-select-input"],"desc":"Como o Async e, quando o texto digitado não existe nas opções, oferece \"Adicionar “…”\" para criar a opção. Faz parte da família Select Input."},"async-select-input":{"src":"components/async-select-input/async-select-input.docs.js?v=0e4b20ab","desc":"O Select input permite que a pessoa usuária escolha uma ou mais opções a partir de uma lista pré-definida."},"checkbox-select-input":{"src":"components/checkbox-select-input/checkbox-select-input.docs.js?v=b47659af","needs":["async-select-input"],"desc":"Vários valores sem busca: a lista fica aberta enquanto marca, e o campo mostra quantos foram selecionados. Faz parte da família Select Input."},"multi-select-input":{"src":"components/multi-select-input/multi-select-input.docs.js?v=aff1ad3a","needs":["async-select-input"],"desc":"Vários valores com busca: cada escolha vira um Input Chip dentro do campo. Faz parte da família Select Input."},"radio-select-input":{"src":"components/radio-select-input/radio-select-input.docs.js?v=502ad8c9","needs":["async-select-input"],"desc":"Escolha única sem busca: o campo só abre a lista de opções, com Radio Button. Faz parte da família Select Input."},"select-number":{"src":"components/select-number/select-number.docs.js?v=847bd368","desc":"Seletor de número do Pagination (itens por página e página atual), com lista em Popover."},"pagination":{"src":"components/pagination/pagination.docs.js?v=e13b1eb0","desc":"O Pagination (paginação) permite navegar entre conjuntos de dados distribuídos em várias páginas, otimizando a performance da visualização e facilitando o consumo de grandes volumes de dados."},"selection-list":{"src":"components/selection-list/selection-list.docs.js?v=62a9303c","desc":"O Selection List é um agrupamento de opções organizadas em lista, permitindo que o usuário faça uma ou múltiplas seleções de forma clara e consistente. Ele é formado por instâncias do componente Selection List Item empilhados e separados por divisores visuais, facilitando a leitura e a comparação entre alternativas."},"table":{"src":"components/table/table.docs.js?v=2903c5c5","desc":"O componente de Tabela organiza dados estruturados em colunas e linhas, facilitando a leitura, comparação e análise. É ideal para exibir informações com formato uniforme, como listas, transações ou relatórios."},"upload-item":{"src":"components/upload-item/upload-item.docs.js?v=b6203890","desc":"O Upload Item representa um arquivo dentro do fluxo de upload, do envio em curso até o arquivo já armazenado. Ele mostra o nome, a extensão, o estado do envio e as ações disponíveis para aquele arquivo."},"upload-list":{"src":"components/upload-list/upload-list.docs.js?v=b6a8754f","desc":"Agrupa os Upload Items de um fluxo, com ordem e espaçamento consistentes."},"viewport-restriction":{"src":"components/viewport-restriction/viewport-restriction.docs.js?v=221daf2e","desc":"Aviso de que o componente não está disponível no viewport atual."},"bottom-sheet":{"src":"components/bottom-sheet/bottom-sheet.docs.js?v=6cb8b495","desc":"Camada que surge da base da tela para apresentar conteúdo ou ações complementares sem tirar a pessoa do contexto. A tela de fundo continua visível."},"drawer":{"src":"components/drawer/drawer.docs.js?v=ba404bd6","desc":"O Drawer é um painel lateral deslizante utilizado para expor conteúdos complementares ou etapas adicionais dentro de um fluxo principal, sem interromper a tela atual. Ele aparece sobreposto à interface e permite que a pessoa usuária mantenha o contexto enquanto realiza uma interação específica."},"modal":{"src":"components/modal/modal.docs.js?v=40da0398","desc":"O Modal é um componente de sobreposição que bloqueia a interface base para exibir conteúdos focados, como formulários, informações detalhadas ou confirmações. Ele exige atenção da pessoa usuária antes de retornar ao fluxo principal."},"modal-date-picker":{"src":"components/modal-date-picker/modal-date-picker.docs.js?v=8d2f58cb","desc":"Calendário num Modal, com Cancelar e Confirmar: a data só vale depois de confirmada."}};
-CDS.searchIndex = "dist/search.json?v=3f3ba2a2"; /* 1386 seções */
+CDS.searchIndex = "dist/search.json?v=7b3c4b7c"; /* 1392 seções */

@@ -80,6 +80,9 @@ const BLOCK = {
   video: (v) => "Vídeo: " + v.title + (v.href ? " (" + v.href + ")" : "") + (v.caption ? " — " + v.caption : ""),
   glossary: (v) => Object.keys(v.letters || {}).map((k) => v.letters[k].map((t) => "- **" + t[0] + "** — " + S(t[1]) + (t[2] ? " (evitar: " + t[2] + ")" : "")).join("\n")).join("\n"),
   simulate: () => "(Simulação de daltonismo na página.)",
+  arqStack: (v) => v.items.map((l, i) => (i + 1) + ". **" + l.name + "**" + (l.group ? " (" + l.group[0] + ")" : "") + " — " + S(l.text) +
+    (l.examples ? " Exemplos: " + l.examples.join(", ") + "." : "") + (l.where ? " " + S(l.where) : "")).join("\n"),
+  arqCascade: (v) => "Do token à tela (exemplo interativo): " + v.targets.map((t) => t.name + ": " + t.brand + " → " + t.brand.replace(/^Common\/Colors\//, "") + " no tema → valor do primitivo").join("; ") + ".",
   faq: (v) => v.groups.map((g) => "### " + g.title + "\n" + g.items.map((q) => "**" + q[0] + "**\n" + [].concat(q[1]).map((t) => Array.isArray(t) ? t.map((x) => "- " + x).join("\n") : S(t)).join("\n")).join("\n\n")).join("\n\n")
 };
 function blockText(b){

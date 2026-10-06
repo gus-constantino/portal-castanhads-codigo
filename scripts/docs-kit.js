@@ -348,6 +348,48 @@
       if (v.href){ var l = el("cds-link", "pg-doc-release__link"); l.setAttribute("label", v.cta || "Abrir"); l.setAttribute("href", v.href); l.setAttribute("target", "_blank"); l.setAttribute("icon", "link-line"); l.setAttribute("appearance", "neutral"); c.appendChild(l); }
       return c;
     },
+    // Lista de releases com busca (Search Input) e Filter Chips por área; agrupa por mês. v = { items, areas, months }
+    releases: function(d, v){
+      var wrap = el("div", "pg-doc-releases");
+      var bar = wrap.appendChild(el("div", "pg-doc-releases__bar"));
+      var q = el("cds-search-input", "pg-doc-releases__search");
+      [["label", "Buscar no changelog"], ["show-label", "false"], ["placeholder", "Buscar componente, asset ou versão"], ["show-required", "false"], ["show-supporting-content", "false"]].forEach(function(a){ q.setAttribute(a[0], a[1]); });
+      bar.appendChild(q);
+      var chips = bar.appendChild(el("div", "pg-doc-releases__chips"));
+      chips.setAttribute("role", "group"); chips.setAttribute("aria-label", "Filtrar por área");
+      var picked = {};
+      v.areas.forEach(function(a){
+        var c = el("cds-filter-chip"); c.setAttribute("label", a); c.setAttribute("show-lead-icon", "false");
+        c.addEventListener("cds-change", function(e){ if (e.detail.selected) picked[a] = 1; else delete picked[a]; run(); });
+        chips.appendChild(c);
+      });
+      var count = wrap.appendChild(el("p", "pg-doc-note")); count.setAttribute("aria-live", "polite");
+      var empty = wrap.appendChild(el("p", "pg-doc-p", "Nenhuma release encontrada. Tente outro termo ou limpe os filtros."));
+      var groups = [], cur = null;
+      v.items.forEach(function(r){
+        var key = v.months(r);
+        if (!cur || cur.key !== key){ cur = { key: key, sec: wrap.appendChild(el("section", "pg-doc-releases__month")), cards: [] }; cur.sec.appendChild(el("h3", "pg-doc-h3", key)); groups.push(cur); }
+        var card = BLOCKS.release(d, r);
+        card._txt = [r.title, r.area, r.version || "", r.date].concat(r.items || []).join(" ").toLowerCase();
+        card._area = r.area;
+        cur.sec.appendChild(card); cur.cards.push(card);
+      });
+      var term = "";
+      function run(){
+        var n = 0, any = Object.keys(picked).length;
+        groups.forEach(function(g){
+          var vis = 0;
+          g.cards.forEach(function(c){ var ok = (!any || picked[c._area]) && (!term || c._txt.indexOf(term) !== -1); c.hidden = !ok; if (ok) vis++; });
+          g.sec.hidden = !vis; n += vis;
+        });
+        count.textContent = n === v.items.length ? n + " releases" : n + " de " + v.items.length + " releases";
+        empty.hidden = n > 0;
+      }
+      q.addEventListener("cds-change", function(e){ term = String(e.detail.value || "").trim().toLowerCase(); run(); });
+      q.addEventListener("cds-clear", function(){ term = ""; run(); });
+      run();
+      return wrap;
+    },
     // Grade de vídeos: cada item é um bloco video com heading (ex.: treinamentos em várias partes)
     videos: function(d, v){
       var g = el("div", "pg-doc-videos");

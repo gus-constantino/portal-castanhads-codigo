@@ -177,6 +177,140 @@
         { note: "Fonte: Figma · 📁 [NEW] Content → Escrevendo para produto." }
       ] }
       ,
+      // Estruturando conteúdo (Castanha Hub · Playbooks → Estruturando Conteúdo, 7630007). Texto do Hub com os erros
+      // corrigidos; o exemplo interno do Hub foi trocado por um exemplo genérico (repositório público).
+      { id: "estruturando", title: "Estruturando conteúdo", blocks: [
+        { h2: "Content-first" },
+        { p: "A abordagem content-first pensa o conteúdo antes do layout. Ela garante clareza e foco no que realmente importa para a pessoa usuária e ajuda a definir hierarquia, linguagem e estrutura antes de desenhar as telas." },
+        { p: "Este playbook passa por três pilares da estruturação de conteúdo em produtos digitais:" },
+        { ol: [
+          "Estratégia de conteúdo: como definir qual conteúdo deve aparecer no fluxo e como dividir as informações dentro dele.",
+          "Organização de tela: com o conteúdo mapeado e classificado, como estruturar as informações na tela. Quais componentes usar para dar destaque? Qual informação aparece primeiro?",
+          "Linguagem: o detalhe do microcopy, ou seja, como estruturar uma frase para que a informação seja lida e entendida com facilidade (veja Princípios de escrita e Escrevendo para produto)."
+        ] },
+
+        { h2: "Estratégia de conteúdo" },
+        { p: "Como definir qual conteúdo entra no fluxo que estamos construindo. São cinco etapas:" },
+        { steps: [
+          { title: "Mapeamento inicial (briefing)", text: [
+              "Entenda o conteúdo do fluxo. É uma etapa que já existe no processo de produto: faça um briefing com a pessoa de produto (PM) e colete o máximo de informações que ajudem a entender quais conteúdos podem existir no fluxo.",
+              "O mapeamento ajuda a construir a narrativa do fluxo e deixa a proposta de valor mais clara. Os roteiros de perguntas estão logo abaixo."] },
+          { title: "Levantamento de dúvidas", text: [
+              "Coloque-se no lugar da pessoa usuária e pense em todas as dúvidas e pontos de atrito que podem surgir ao percorrer a lista de tarefas (caso ainda não exista o fluxograma completo)."],
+            list: [
+              "Chame outros times para passar pelo fluxo e deixar as próprias dúvidas: cada perspectiva traz perguntas que você talvez não pensasse sozinho.",
+              "Marque desde já as dúvidas que exigem uma explicação maior e podem pedir uma saída de ajuda no fluxo."] },
+          { title: "Classificação de conteúdo", text: [
+              "Classifique as dúvidas levantadas por relevância para o fluxo e documente a resposta de cada uma."],
+            list: [
+              "A documentação serve de base para outros times desdobrarem em outros materiais.",
+              "Deixe muito claro quais informações são sensíveis e não devem ser repassadas para a pessoa usuária."],
+            table: { wrap: true, head: ["Dúvida", "Resposta", "Prioridade"], rows: [["A dúvida, nas palavras da pessoa", "A resposta completa, com regras e exceções", "Alta, média ou baixa"]] } },
+          { title: "Card sorting", text: [
+              "Distribua as dúvidas de prioridade alta no fluxograma. Assim você já sabe qual será o conteúdo de cada tela antes de desenhá-la."],
+            list: [
+              "Para esta etapa, é preciso um fluxograma bem elaborado, não apenas a lista de tarefas.",
+              "Dúvidas de prioridade média ou baixa podem virar artigos de ajuda (FAQ) ou comunicações por e-mail."] },
+          { title: "Validação com stakeholders", text: [
+              "Além da sua squad, chame outras áreas que ajudam a validar se todas as informações essenciais para a pessoa usuária e para a empresa foram mapeadas (jurídico, compliance etc.).",
+              "É aqui que se evitam mudanças inesperadas vindas de times regulatórios quando a tela já estiver desenhada e estruturada."] }
+        ] },
+
+        { h3: "Roteiro de briefing: fluxo novo" },
+        { ul: [
+          "Qual é a proposta de valor?",
+          "Qual é o objetivo para a pessoa usuária?",
+          "Qual é o objetivo para a empresa?",
+          "Quais são as premissas de sucesso?",
+          "Quais são as regras de negócio?",
+          "Existem limitações jurídicas ou regulatórias?",
+          "O que já existe de pesquisa sobre o assunto?"
+        ] },
+        { h3: "Roteiro de briefing: melhoria em fluxo existente" },
+        { ul: [
+          "Qual é o contexto do fluxo?",
+          "Ele está passando por uma mudança ou alteração? Por quê?",
+          "Qual problema da pessoa usuária ou da empresa essa melhoria resolve?",
+          "Quais métricas e evidências já existem sobre o fluxo?",
+          "O que já existe de pesquisa sobre o assunto?",
+          "Qual é o posicionamento de marketing sobre o tema?",
+          "Qual é a lista de tarefas da pessoa usuária nesse fluxo?",
+          "Quais são os pontos de contato fora da experiência?"
+        ] },
+
+        { h3: "Exemplo ilustrativo: Contestar uma compra" },
+        { p: "Um exemplo genérico, só para mostrar o caminho das etapas. Imagine uma tela do app em que a pessoa contesta uma compra que não reconhece." },
+        { table: { wrap: true, head: ["Dúvida da pessoa", "Prioridade", "Onde entra"], rows: [
+          ["Essa compra é mesmo minha?", "Alta", "Topo da tela: dados da compra (estabelecimento, data e valor)"],
+          ["O que acontece com o meu dinheiro?", "Alta", "Logo abaixo, em linguagem simples, antes da ação principal"],
+          ["Quanto tempo leva para eu ter uma resposta?", "Alta", "Perto do botão, para a pessoa decidir se segue agora"],
+          ["Quais motivos posso escolher?", "Média", "Etapa seguinte do fluxo, numa lista de opções"],
+          ["Como funciona a análise por dentro?", "Baixa", "Artigo de ajuda, com link na tela"]
+        ] } },
+        { p: "Com isso, a tela ganha uma ordem (compra → o que acontece → prazo → ação) e nomes de seção que respondem às dúvidas, como `Sobre a compra`, `O que acontece agora` e `Prazo de resposta`." },
+
+        { h2: "Organização de tela" },
+        { p: "Como priorizar o conteúdo dentro da tela? Com o conteúdo mapeado na estratégia, aplicamos hierarquia visual, priorização e taxonomia para lidar com o comportamento de escaneamento que muitas pessoas usuárias têm." },
+        { alert: { appearance: "informative", text: "Hierarquia, priorização e taxonomia criam a narrativa da tela." } },
+
+        { h3: "Hierarquia visual" },
+        { p: "A hierarquia visual controla a entrega de informações e é o principal recurso para o escaneamento da tela. Uma boa hierarquia guia o olhar para os elementos mais importantes." },
+        { cards: [
+          ["Cor e contraste", "Não é só a cor do elemento que cria hierarquia, mas o contraste e a saturação entre todos os elementos do contexto. A formatação da fonte (negrito, sublinhado, itálico) também é contraste. Cores se destacam naturalmente: use para itens importantes. Muitas cores parecidas ou com a mesma saturação aumentam a carga cognitiva. Não dependa só de cor, porque há pessoas que não enxergam todas as cores."],
+          ["Escala e tamanho", "Elementos maiores chamam mais atenção. Enfatize o mais importante com fontes maiores e use fontes menores para o que é secundário."],
+          ["Ilustração", "As ilustrações têm tamanhos diferentes conforme o contexto, definidos principalmente pela quantidade de informação na interface (textos e componentes)."],
+          ["Motion", "O motion direciona a atenção e organiza as informações na tela: ajuda a pessoa a entender o que é mais importante, para onde olhar primeiro e qual caminho seguir, sem precisar pensar demais."]
+        ] },
+        { p: "Para aplicar cor de forma semântica, veja as documentações de Shaped Icon, Icon Button, Alert, Toast e Tag. Para formatação de texto, veja Formatação de dados." },
+        { table: { wrap: true, head: ["Estilo do tema", "Tamanhos (px)"], rows: [
+          ["Heading", "24 (Small) · 32 · 40 · 48 · 64 · 80"], ["Title", "20 · 24 · 32"], ["Subtitle", "18 · 20 · 24"], ["Body", "16"], ["Label", "16"], ["Caption", "14"], ["Disclaimer", "12"]
+        ] } },
+        { p: "Os tamanhos vêm dos estilos de texto do tema (veja Caju - Tema → Tipografia). Para texto de leitura, o Hub recomenda no mínimo 14px; o Disclaimer, de 12px, fica para textos curtos de apoio." },
+
+        { h3: "Priorização" },
+        { p: "O que vem primeiro é mais importante." },
+        { ul: [
+          "A ação esperada e a localização da pessoa no fluxo costumam ser as prioridades de uma tela.",
+          "A prioridade pode partir da pessoa usuária ou de um objetivo de negócio. Como saber qual deve vencer? Testando."
+        ] },
+
+        { h3: "Taxonomia" },
+        { p: "Agrupar, classificar e rotular itens de acordo com as semelhanças entre eles." },
+        { ul: [
+          "Elementos da mesma taxonomia agrupados ajudam a identificar a estrutura da página e a direcionar a atenção.",
+          "Alguns agrupamentos são ignorados de propósito, como a coluna direita de sites usada para anúncios (banner blindness).",
+          "O espaço negativo guia o olhar, garante que os elementos de destaque sejam vistos e melhora o escaneamento.",
+          "Nos termos, identifique o vocabulário para criar consistência (veja Vocabulário e Nomenclatura)."
+        ] },
+        { alert: { appearance: "informative", label: "Teste de blur (squint test)", text: "Aplique um desfoque na tela (ou aperte os olhos) e veja qual seção se destaca mais. Se não for a mais importante, revise a hierarquia." } },
+
+        { h2: "Checklist de organização de tela" },
+        { p: "Como o conteúdo da tela já está definido (as dúvidas mapeadas na estratégia), falta só priorizar no nível da tela:" },
+        { ul: [
+          "Pense no contexto da tela: de onde a pessoa veio e para onde vai? Mostre em que área ou etapa ela está.",
+          "Qual é o objetivo final da tela? A ação esperada deve ser o conteúdo mais importante.",
+          "Que destaque cada conteúdo mapeado na estratégia deve ter? Classifique do menos para o mais importante.",
+          "Os elementos da mesma taxonomia estão agrupados?",
+          "Algum termo vai se repetir em toda a jornada?"
+        ] },
+        { p: "Fluxo de organização de tela:" },
+        { ol: [
+          "Escolha uma etapa do fluxograma criado na estratégia de conteúdo.",
+          "Responda ao checklist e classifique as dúvidas da mais para a menos relevante.",
+          "Aplique a hierarquia visual seguindo o Castanha DS."
+        ] },
+
+        { h2: "Content-first no Double Diamond" },
+        { p: "A abordagem content-first também passa pelo seu próprio diamante:" },
+        { table: { wrap: true, head: ["Fase", "Etapa de conteúdo", "Foco"], rows: [
+          ["Descobrir", "Estratégia de conteúdo", "Entender e mapear onde cada pedaço de conteúdo aparece no fluxo."],
+          ["Definir", "Organização de tela", "Estruturar o conteúdo nas telas: hierarquia, componentes e design system."],
+          ["Desenvolver", "Linguagem", "Aplicar e testar a linguagem: tom, clareza e compreensão."],
+          ["Entregar", "Ajustes de linguagem e organização", "Refinar e alinhar linguagem e estrutura antes da entrega."]
+        ] } },
+        { note: "Fonte: Castanha Hub · Playbooks → Estruturando Conteúdo. O exemplo do Hub usa um caso interno; aqui ele foi trocado por um exemplo genérico." }
+      ] }
+      ,
       { id: "vocabulario", title: "Vocabulário e Nomenclatura", blocks: [
         { h2: "Glossário Caju" },
         { p: "Definições dos principais termos usados nos produtos da Caju — tanto no texto da interface quanto em comunicações com pessoas usuárias." },

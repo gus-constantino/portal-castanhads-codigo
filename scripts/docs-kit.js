@@ -618,7 +618,6 @@
       var rows = [];
       var secs = groups.map(function(g){
         var sec = wrap.appendChild(el("section", "pg-faq__group pg-faq--" + g.app)), h = sec.appendChild(el("div", "pg-faq__group-head"));
-        h.appendChild(shaped(g.icon, g.app, "smallest"));
         h.appendChild(el("h2", "pg-doc-h2", g.title));
         var n = h.appendChild(document.createElement("cds-tag")); n.setAttribute("appearance", "neutral"); n.setAttribute("show-lead-item", "false");
         var box = sec.appendChild(el("div", "pg-faq__list"));

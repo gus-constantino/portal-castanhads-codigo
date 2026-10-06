@@ -13,8 +13,8 @@
         { shortcuts: { bento: 4, items: [
           { size: "hero", title: "Componentes", text: "Os componentes do Castanha DS, com Playground ao vivo, documentação de uso e o código React de cada um.", href: "#/main-button", cta: "Ver componentes", illustration: "interfaces/customizacao" },
           { size: "wide", title: "Conteúdo", text: "Tom e voz, princípios de escrita e regras de texto: como a Caju fala nos produtos.", href: "#/conteudo", cta: "Ver conteúdo", illustration: "comunicacao/perguntas-frequentes" },
-          { title: "Ilustração", text: "Princípios, guidelines e a biblioteca de ilustrações da Caju.", href: "#/caju-theme/ilustracoes", cta: "Ver ilustração", illustration: "personagens/nadia" },
-          { title: "Motion", text: "Princípios de motion, curvas, durações e Motion Styles.", href: "#/caju-theme/motion", cta: "Ver motion", illustration: "objetos/foguete" }
+          { title: "Ilustração", text: "Princípios, guidelines e a biblioteca de ilustrações da Caju.", href: "#/ilustracao", cta: "Ver ilustração", illustration: "personagens/nadia" },
+          { title: "Motion", text: "Princípios de motion, curvas, durações e Motion Styles.", href: "#/motion", cta: "Ver motion", illustration: "objetos/foguete" }
         ] } },
         { h2: "Comece por aqui" },
         { shortcuts: { bento: 3, items: [
@@ -26,7 +26,7 @@
         { h2: "Mais recursos" },
         { shortcuts: { bento: 3, items: [
           { size: "wide", title: "Personas", text: "Quem usa os produtos da Caju: colaboradores, pessoas de RH e gestão das empresas e os times que operam o Admin. Objetivos, dores e necessidades de cada uma.", href: "#/personas", cta: "Ver personas", illustration: "personagens/joana" },
-          { layout: "row", title: "Caju - Tema", text: "Cores, tipografia, tamanhos, bordas, elevação e ícones.", href: "#/caju-theme", cta: "Ver tema", illustration: "interfaces/home" },
+          { layout: "row", title: "Tema Caju", text: "Cores, tipografia, tamanhos, bordas, elevação e ícones.", href: "#/caju-theme", cta: "Ver tema", illustration: "interfaces/home" },
           { size: "wide", title: "Agentes e Skills", text: "O Borô no Slack, os Patterns escritos para a IA e a skill /castanhads-juntos: IA que ajuda a escrever e construir no padrão da Caju.", href: "#/agentes", cta: "Ver agentes e skills", src: "resources/agentes/boro.svg" },
           { layout: "row", title: "Patterns", text: "Feedback Pages e Tela de loading, montadas com componentes do DS.", href: "#/patterns", cta: "Ver patterns", illustration: "notificacoes/success" },
           { layout: "row", title: "Capacitações", text: "Os treinamentos do Hub em vídeo: Sponsor, Employee, Motion, Ilustração e Content.", href: "#/capacitacoes", cta: "Ver capacitações", illustration: "objetos/medalha-1" },
@@ -44,7 +44,7 @@
           ["Eficiente", "Uniformizar jornadas, habilitar atalhos, garantir a visibilidade da localização e dos estados atualizados para a pessoa usuária e aproveitar melhor o espaço da tela. Isso torna tudo mais claro e mais rápido, e dá orientação de contexto e de tarefa."],
           ["Consistente", "Projetar para diferentes tipos de produto com fluidez e capacidade de se adaptar a qualquer movimento do negócio, sem deixar de garantir consistência e coerência na Visão Cliente e no ecossistema Caju."]
         ] },
-        { note: "Fonte: página Princípios de Design do Castanha Hub (Sobre). Motion, Ilustração e Conteúdo têm princípios próprios: veja Caju - Tema e Conteúdo." }
+        { note: "Fonte: página Princípios de Design do Castanha Hub (Sobre). Motion, Ilustração e Conteúdo têm princípios próprios: veja Ilustração, Motion e Conteúdo, em Padrões." }
       ] }
     ]
   };

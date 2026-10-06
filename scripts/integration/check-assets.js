@@ -88,7 +88,7 @@ function run(ctx){
   if (svgDiff.length) add("info", "ilustracao-svg-difere", svgDiff.length + " ilustrações têm o desenho diferente do pacote além do arredondamento (posição no quadro ou forma; conferir qual é a atual): " + svgDiff.map((n) => "`" + ill[n].k + "`").join(", ") + ".");
 
   // ---- motion (Lottie): o playground ainda não tem a tab Animações ----
-  if (ctx.motion.length) add("info", "motion-so-no-pacote", ctx.motion.length + " animações Lottie no castanha-motion, ainda sem tab no playground (Animações volta ao Caju - Tema quando a lib existir).");
+  if (ctx.motion.length) add("info", "motion-so-no-pacote", ctx.motion.length + " animações Lottie no castanha-motion, ainda sem tab no playground (Animações volta ao Tema Caju quando a lib existir).");
 
   const data = {
     icons: { pkg: "@caju-beneficios/castanha-icons", map: iconMap, onlyPkg: iconOnlyPkg },

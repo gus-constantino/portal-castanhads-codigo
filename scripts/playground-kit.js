@@ -310,7 +310,7 @@
     var A = window.CDS.assets || {}, buckets = A.illustrationBuckets || [], opts = [];
     buckets.forEach(function(b){ b.items.forEach(function(k){ opts.push([k, k.split("/").pop() + " · " + b.name]); }); });
     return select(panel, { label: o.label || "Illustration (instance swap)", value: o.value, options: opts, searchable: true, placeholder: "Buscar ilustração",
-      hint: opts.length + " ilustrações do [Caju] Illustrations em " + buckets.length + " categorias · <a href=\"#/caju-theme/ilustracoes\">ver biblioteca</a>", onChange: o.onChange });
+      hint: opts.length + " ilustrações do [Caju] Illustrations em " + buckets.length + " categorias · <a href=\"#/ilustracao\">ver biblioteca</a>", onChange: o.onChange });
   }
 
   /**

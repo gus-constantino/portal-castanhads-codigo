@@ -4,11 +4,11 @@
    Site público: sem nomes de pessoas, canais, chaves de tarefa, links internos nem decisões ainda em aberto. */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
-  CDS.register({ id: "camadas", name: "Camadas", resource: true, order: 1.5 }); // menu: Padrões, entre Caju - Tema e Conteúdo (RES_SECTIONS no app.js)
+  CDS.register({ id: "camadas", name: "Camadas", resource: true, order: 1.5 }); // menu: Padrões, entre Tema Caju e Conteúdo (RES_SECTIONS no app.js)
 
   var FUND = ["Fundação", "informative"], EST = ["Estilo", "accent"], DS = ["Design System", "positive"], PROD = ["Produto", "warning"];
 
-  // ---- Blocos visuais (no estilo da tab Motion do Caju - Tema: palco + painel com a cascata) ----
+  // ---- Blocos visuais (no estilo da tab Motion do Tema Caju: palco + painel com a cascata) ----
   // Fora do navegador (catálogo do MCP, sem DOM) só os dados interessam.
   if (CDS.docBlocks && typeof document !== "undefined"){
     var el = function(tag, cls, text){ var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };

@@ -5,13 +5,17 @@
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   var FIGMA = "https://www.figma.com/design/Zx9KwwRFqZrOfeuXpYZiTx/-Caju--Theme?node-id=4309-2";
-  CDS.register({ id: "caju-theme", name: "Caju - Tema", resource: true, order: 1, status: "250", figma: FIGMA });
-  // Rotas antigas de Ícones e Ilustrações → tabs do Caju Theme (links salvos continuam funcionando)
-  var MOVED = { "caju-icons": "icones", "caju-illustrations": "ilustracoes", "animations": "motion" }; // Animações: volta para cá quando a lib existir
+  CDS.register({ id: "caju-theme", name: "Tema Caju", resource: true, order: 1, status: "250", figma: FIGMA });
+  // Ilustração e Motion saíram do tema e viraram páginas próprias em Padrões (pedido do Gustavo, 05/10); o conteúdo continua definido aqui
+  CDS.register({ id: "ilustracao", name: "Ilustração", resource: true, order: 1.1, figma: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=3416-2" });
+  CDS.register({ id: "motion", name: "Motion", resource: true, order: 1.2, figma: FIGMA });
+  // Rotas antigas → endereço atual (links salvos continuam funcionando)
+  var MOVED = { "caju-icons": "#/caju-theme/icones", "caju-illustrations": "#/ilustracao", "animations": "#/motion" }; // Animações: volta para cá quando a lib existir
   function moved(){
     var h = location.hash || "", m = h.match(/^#\/(caju-icons|caju-illustrations|animations)(?:\/([\w-]+))?/);
-    if (m) location.replace("#/caju-theme/" + MOVED[m[1]]);
-    else if (/^#\/caju-theme\/ilustracao$/.test(h)) location.replace("#/caju-theme/ilustracoes"); // Guia de ilustração entrou na tab Ilustrações (antes da biblioteca)
+    if (m) location.replace(MOVED[m[1]]);
+    else if (/^#\/caju-theme\/(ilustracoes|ilustracao)(?=$|[\/?])/.test(h)) location.replace("#/ilustracao"); // Ilustrações era tab do tema
+    else if (/^#\/caju-theme\/motion(?=$|[/?])/.test(h)) location.replace("#/motion"); // Motion era tab do tema
   }
   moved(); window.addEventListener("hashchange", moved);
   var A = window.CDS.assets || {};
@@ -359,8 +363,8 @@
         { note: "Nomes repetidos no Figma (ex.: três `moeda-verde-pilha-2` em Finanças) ganharam sufixo `-1`, `-2` no repo. Estão no CONFERIR para corrigir na origem." }
       ] },
       { id: "visao-geral", title: "Visão geral", blocks: [
-        { h2: "Caju - Tema" },
-        { p: "Fonte de tudo que os componentes usam por baixo: tokens (cores, tipografia, bordas, tamanhos, elevações, opacidade e motion, em light e dark), ícones e ilustrações." },
+        { h2: "Tema Caju" },
+        { p: "Fonte de tudo que os componentes usam por baixo: tokens (cores, tipografia, bordas, tamanhos, elevações, opacidade e motion, em light e dark) e ícones. Ilustração e Motion têm páginas próprias em Padrões." },
         { h3: "O que tem" },
         { ul: ["250 tokens `Common/*` (89 com valor dark)", "12 tokens da coleção Viewport (`Common/Grids/*` e `Specific/*`, por Mobile, Tablet e Desktop)", "34 text styles, incluindo Decorative em Work Sans", "3 elevações (`Elevation/level 1–3`)", "15 variáveis de Motion Styles (`.Motion Styles`, modo Normal)"] },
         { h3: "No repo" },
@@ -386,4 +390,12 @@
       ] }
     ]
   };
+  // Ilustração e Motion: páginas próprias em Padrões (uma tab cada, sem barra de tabs)
+  (function(){
+    var t = CDS.docs["caju-theme"].tabs;
+    function take(id){ var i = t.map(function(x){ return x.id; }).indexOf(id); return i < 0 ? null : t.splice(i, 1)[0]; }
+    var ilu = take("ilustracoes"), mo = take("motion");
+    if (ilu) CDS.docs["ilustracao"] = { source: IL_FIGMA, sourceLabel: "Abrir o guia de ilustração no Figma", tabs: [ilu] };
+    if (mo) CDS.docs["motion"] = { source: FIGMA, sourceLabel: "Abrir o [Caju] Theme no Figma", tabs: [mo] };
+  })();
 })();

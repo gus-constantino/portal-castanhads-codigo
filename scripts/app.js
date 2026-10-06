@@ -48,7 +48,9 @@
   var TEMPLATE_GROUPS = ["App", "Sponsor"];
   function templateGroups(items){
     var names = TEMPLATE_GROUPS.concat(items.map(function(c){ return c.template; }).filter(function(x, i, a){ return TEMPLATE_GROUPS.indexOf(x) === -1 && a.indexOf(x) === i; }));
-    return names.map(function(n){ return { name: n, items: items.filter(function(c){ return c.template === n; }) }; }).filter(function(g){ return g.items.length; });
+    // dentro do grupo: templates primeiro, as peças internas (nome com ponto, ex.: .Category) no fim
+    var part = function(c){ return c.name.charAt(0) === "." ? 1 : 0; };
+    return names.map(function(n){ return { name: n, items: items.filter(function(c){ return c.template === n; }).sort(function(a, b){ return part(a) - part(b); }) }; }).filter(function(g){ return g.items.length; });
   }
   // Tooltip só quando há algo a explicar: task do Jira, [Beta], componente em branch do Figma
   function notesOf(c){

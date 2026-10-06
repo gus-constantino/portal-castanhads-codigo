@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 115 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 119 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.css ==== */
 /* Backdrop · 13784:3271 — Surface/inversed · Opacity/medium (0.4). O mesmo visual vale para o ::backdrop dos overlays */
 cds-backdrop{ position:absolute; inset:0; display:block; background:var(--common-colors-surface-inversed); opacity:var(--common-opacity-medium); }
@@ -994,6 +994,72 @@ cds-spinner .cds-spin__arc{ stroke:var(--_arc); }
 }
 @media (prefers-reduced-motion:reduce){ cds-spinner > svg{ animation-duration:2400ms; } }
 
+/* ==== components/sponsor-category/sponsor-category.css ==== */
+/* =====================================================================
+   .Category · [CastanhaDS] Sponsor Templates (5576:27) — 224×40 · Reduced 40×40
+   Motion: Hover In/01 no hover e Pressed/01 no press (padrão /01 das docs)
+   ===================================================================== */
+cds-sponsor-category{ display:block; box-sizing:border-box; width:var(--cds-sponsor-category-width, 224px); max-width:100%; }
+cds-sponsor-category[kind="reduced"]{ width:var(--common-sizes-40); }
+cds-sponsor-category [hidden]{ display:none !important; }
+.cds-spc__row{
+  --_bg:var(--common-colors-surface-01);
+  box-sizing:border-box; display:flex; align-items:center; gap:var(--common-sizes-4); min-height:var(--common-sizes-40);
+  padding:var(--common-sizes-4) var(--common-sizes-8) var(--common-sizes-4) var(--common-sizes-4);
+  border-radius:var(--common-border-radius-small); background:var(--_bg); color:var(--common-colors-text-intense);
+  text-decoration:none; cursor:pointer; -webkit-tap-highlight-color:transparent;
+  transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing);
+}
+cds-sponsor-category[kind="reduced"] .cds-spc__row{ padding:var(--common-sizes-4); border-radius:var(--common-border-radius-extra-small); position:relative; }
+.cds-spc__row:hover, cds-sponsor-category[state="hovered"] .cds-spc__row{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); }
+.cds-spc__row:active, cds-sponsor-category[state="pressed"] .cds-spc__row{ --_bg:var(--common-colors-surface-default); transition-duration:var(--motion-pressed-01-timing); transition-timing-function:var(--motion-pressed-01-easing); }
+.cds-spc__row:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:-2px; }
+cds-sponsor-category[disabled] .cds-spc__row{ opacity:0.4; color:var(--common-colors-text-medium); cursor:default; --_bg:var(--common-colors-surface-01); }
+.cds-spc__lead{
+  flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; width:var(--common-sizes-32); height:var(--common-sizes-32);
+  border-radius:var(--common-border-radius-extra-small);
+  transition:background-color var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing);
+}
+cds-sponsor-category[selected] .cds-spc__lead{ background:var(--common-colors-surface-accent); }
+.cds-spc__label{ flex:1 1 auto; min-width:0; font:var(--text-style-label-medium); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+cds-sponsor-category[kind="reduced"] .cds-spc__label{ display:none; }
+.cds-spc__badge, .cds-spc__chev{ flex:0 0 auto; }
+cds-sponsor-category[kind="reduced"] .cds-spc__badge{ position:absolute; top:0; right:0; }
+.cds-spc__slot{ display:flex; flex-direction:column; gap:var(--common-sizes-8); padding:var(--common-sizes-8) 0 0 var(--common-sizes-12); }
+
+/* ==== components/sponsor-subcategory/sponsor-subcategory.css ==== */
+/* .Subcategory · [CastanhaDS] Sponsor Templates — 188×32 · Motion Hover In/01 e Pressed/01 */
+cds-sponsor-subcategory{ display:block; box-sizing:border-box; width:var(--cds-sponsor-subcategory-width, 188px); max-width:100%; }
+cds-sponsor-category cds-sponsor-subcategory{ width:auto; }
+cds-sponsor-subcategory [hidden]{ display:none !important; }
+.cds-sps__row{
+  --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-text-medium);
+  box-sizing:border-box; display:flex; align-items:center; gap:var(--common-sizes-8); min-height:var(--common-sizes-32);
+  padding:0 var(--common-sizes-8); border-radius:var(--common-border-radius-small); background:var(--_bg); color:var(--_fg);
+  text-decoration:none; cursor:pointer; -webkit-tap-highlight-color:transparent;
+  transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing);
+}
+.cds-sps__row:hover, cds-sponsor-subcategory[state="hovered"] .cds-sps__row{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); --_fg:var(--common-colors-text-intense); }
+.cds-sps__row:active, cds-sponsor-subcategory[state="pressed"] .cds-sps__row{ --_bg:var(--common-colors-surface-default); transition-duration:var(--motion-pressed-01-timing); transition-timing-function:var(--motion-pressed-01-easing); }
+cds-sponsor-subcategory[selected] .cds-sps__row{ --_fg:var(--common-colors-text-intense); }
+.cds-sps__row:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:-2px; }
+cds-sponsor-subcategory[disabled] .cds-sps__row{ opacity:0.4; cursor:default; --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-text-medium); }
+.cds-sps__label{ flex:1 1 auto; min-width:0; font:var(--text-style-label-regular); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cds-sps__lead, .cds-sps__badge, .cds-sps__trail{ flex:0 0 auto; }
+
+/* ==== components/sponsor-user-profile/sponsor-user-profile.css ==== */
+/* .User Profile · [CastanhaDS] Sponsor Templates — Default 288×92 · Reduced 40×92 */
+cds-sponsor-user-profile{
+  box-sizing:border-box; display:flex; align-items:center; gap:var(--common-sizes-16); width:var(--cds-sponsor-user-profile-width, 288px); max-width:100%;
+  padding:var(--common-sizes-24) 0; background:var(--common-colors-surface-01);
+}
+cds-sponsor-user-profile[kind="reduced"]{ width:var(--common-sizes-40); }
+cds-sponsor-user-profile [hidden]{ display:none !important; }
+.cds-spu__avatar, .cds-spu__action{ flex:0 0 auto; }
+.cds-spu__text{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:var(--common-sizes-4); }
+.cds-spu__name{ font:var(--text-style-label-bold); color:var(--common-colors-text-intense); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cds-spu__cnpj{ font:var(--text-style-caption-medium); color:var(--common-colors-text-medium); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
 /* ==== components/status-dot/status-dot.css ==== */
 /* =====================================================================
    Status Dot · Status · set 21745:69
@@ -1184,6 +1250,33 @@ cds-sponsor-header [hidden]{ display:none !important; }
 .cds-sh__title-row{ display:flex; flex-wrap:wrap; align-items:flex-start; gap:var(--common-sizes-8); }
 .cds-sh__title-lead{ flex:1 0 0; min-width:calc(var(--common-sizes-200) + var(--common-sizes-120)); display:flex; align-items:center; gap:var(--common-sizes-8); }
 .cds-sh__title{ margin:0; font:var(--text-style-title-large); color:var(--common-colors-text-intense); overflow-wrap:anywhere; }
+
+/* ==== components/sponsor-side-menu/sponsor-side-menu.css ==== */
+/* =====================================================================
+   Side Menu · [CastanhaDS] Sponsor Templates (5576:445) — colapsado 80 · expandido 360 · altura da página (1024 no Figma)
+   Colapsado abre por hover/foco em overlay: o host reserva 80 e o painel cresce por cima do conteúdo.
+   Motion: largura com Selected In/01
+   ===================================================================== */
+cds-sponsor-side-menu{ display:block; position:relative; box-sizing:border-box; width:var(--common-sizes-80); height:var(--cds-sponsor-side-menu-height, 100%); flex:0 0 auto; z-index:3; }
+cds-sponsor-side-menu[collapsed="false"]{ width:calc(var(--common-sizes-200) + var(--common-sizes-160)); }
+cds-sponsor-side-menu [hidden]{ display:none !important; }
+.cds-ssm{
+  position:absolute; inset:0 auto 0 0; box-sizing:border-box; width:100%; height:100%; overflow:hidden auto;
+  display:flex; flex-direction:column; justify-content:space-between;
+  padding:var(--common-sizes-32) var(--common-sizes-20) 0; background:var(--common-colors-surface-01); box-shadow:var(--common-elevation-level-2);
+  transition:width var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing);
+}
+cds-sponsor-side-menu[peek] .cds-ssm{ width:calc(var(--common-sizes-200) + var(--common-sizes-160)); }
+.cds-ssm__container{ display:flex; flex-direction:column; gap:var(--common-sizes-20); --cds-sponsor-category-width:100%; --cds-sponsor-user-profile-width:100%; }
+.cds-ssm__heading{ display:flex; align-items:center; min-height:var(--common-sizes-44); }
+cds-sponsor-side-menu[collapsed="false"] .cds-ssm__heading, cds-sponsor-side-menu[peek] .cds-ssm__heading{ padding-left:var(--common-sizes-16); }
+.cds-ssm__heading cds-caju-brand{ height:var(--common-sizes-32); }
+.cds-ssm__slot{ padding:var(--common-sizes-16); }
+.cds-ssm__shortcuts{ display:flex; flex-direction:column; gap:var(--common-sizes-8); padding-top:var(--common-sizes-8); }
+.cds-ssm__categories{ display:flex; flex-direction:column; gap:var(--common-sizes-20); padding:var(--common-sizes-16) 0; }
+.cds-ssm__user{ display:flex; flex-direction:column; padding:var(--common-sizes-20) 0; --cds-sponsor-category-width:100%; --cds-sponsor-user-profile-width:100%; }
+.cds-ssm__help{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
+@media (prefers-reduced-motion:reduce){ .cds-ssm{ transition:none; } }
 
 /* ==== components/table-cell/table-cell.css ==== */
 /* .Data Cell · set 13404:1015 — 64 · Surface/default · borda inferior Border/semi-soft · gap 4

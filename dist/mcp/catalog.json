@@ -13,18 +13,18 @@
   "date": "2026-09-25"
  },
  "counts": {
-  "components": 80,
+  "components": 84,
   "buildingBlocks": 26,
   "resources": 14,
   "compositions": 5,
-  "withDocs": 120,
+  "withDocs": 124,
   "withReact": 70,
   "liveMaps": 70,
   "reactOnly": 12,
   "tokens": 308,
   "icons": 273,
   "illustrations": 260,
-  "conferirOpen": 112,
+  "conferirOpen": 115,
   "stackFindings": 57
  },
  "components": [
@@ -13067,6 +13067,33 @@
    }
   },
   {
+   "id": "sponsor-category",
+   "name": ".Category",
+   "kind": "component",
+   "category": null,
+   "figma": "https://www.figma.com/design/9Tkkk4lusVKNEButGjvsNW/-CastanhaDS--Sponsor-Templates?node-id=5576-27",
+   "figmaNode": "5576-27",
+   "zeroheight": null,
+   "description": "Item de navegação do Side Menu. Intent=Default navega direto, e Intent=Accordion abre subitens no Slot.",
+   "tabs": [
+    {
+     "id": "uso",
+     "title": "Uso",
+     "text": "## Sobre\n\nItem de navegação do Side Menu. Intent=Default navega direto. Intent=Accordion abre subitens (`.Subcategory`) no Slot. Appearance=Accent nos atalhos, Neutral nas categorias.\n\n## Boas práticas\n\n- Marque a página atual com Is Selected, um item por vez.\n- Is Collapsed espelha o menu: não configure item a item.\n- Use Show Badge para sinalizações pontuais (ex.: Novo).\n\n> Texto da description do .Category no [CastanhaDS] Sponsor Templates."
+    },
+    {
+     "id": "estilos",
+     "title": "Estilos",
+     "text": "## Appearance e Is Selected\n\n**Exemplos:** Neutral, Neutral · Is Selected, Accent, Accent · Is Selected\n\n## Kind e Intent\n\n**Exemplos:** Kind=Reduced, Intent=Accordion, Show Badge, Disabled"
+    },
+    {
+     "id": "anatomia",
+     "title": "Anatomia",
+     "text": "## Propriedades\n\n- **Kind** (Variant): Default, Reduced\n- **Intent** (Variant): Default, Accordion\n- **Appearance** (Variant): Neutral, Accent\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Is Selected** (Variant): False, True\n- **Is Collapsed** (Variant): False, True\n- **Text Label** (Text)\n- **Show Badge** (Boolean)\n- **Lead Icon** (Instance swap)\n- **Slot** (Slot)\n\nFundo `Surface/01`, raio `Border/Radius/small`, padding 4 8 4 4 e gap 4. Lead Icon de 32 (selecionado: fundo `Surface/accent` e ícone `Icons/inversed`), Label em `Label/Medium` e Badge Warning. Hovered `Neutral/Opacity/Intense/semi-transparent`, Pressed `Surface/default` e Disabled com opacidade 0.4.\n\n> No Figma, Is Collapsed=True é a variante que mostra o Slot aberto (C176). No código o accordion aberto é `expanded`, e o colapso do menu vira Kind=Reduced."
+    }
+   ]
+  },
+  {
    "id": "sponsor-header",
    "name": "Header",
    "kind": "component",
@@ -13096,6 +13123,77 @@
      "id": "acessibilidade",
      "title": "Acessibilidade",
      "text": "## Acessibilidade\n\n- O Title é um `h1`: um por página.\n- Os Icon Buttons sem texto têm nome acessível (Voltar, Buscar, Notificações, Fechar, Informação).\n- O Breadcrumb marca a página atual com `aria-current=\"page\"`.\n- A ordem do foco segue a leitura: Voltar, Breadcrumb, ações da barra, Information Button, Drop Button e Main Button."
+    }
+   ]
+  },
+  {
+   "id": "sponsor-side-menu",
+   "name": "Side Menu",
+   "kind": "component",
+   "category": null,
+   "figma": "https://www.figma.com/design/9Tkkk4lusVKNEButGjvsNW/-CastanhaDS--Sponsor-Templates?node-id=5576-445",
+   "figmaNode": "5576-445",
+   "zeroheight": null,
+   "description": "Navegação lateral do app Sponsor: colapsado (80px, só ícones) e expandido (360px), que no desktop abre por hover em overlay sobre o conteúdo.",
+   "tabs": [
+    {
+     "id": "uso",
+     "title": "Uso",
+     "text": "## Sobre\n\nNavegação lateral do app Sponsor. Colapsado (80px, só ícones) e expandido (360px). No desktop expande por hover, em overlay sobre o conteúdo. É componente de template do Sponsor, não do Core.\n\nEscopo: Mobile e Desktop.\n\n## Composição\n\n- `.Category` (obrigatório): itens de navegação. Intent=Accordion abre subitens.\n- `.Subcategory`: subitens dentro do Slot do `.Category` Accordion.\n- `.User Profile`: rodapé com avatar, nome e CNPJ.\n- Slot (opcional): conteúdo livre abaixo da marca (Show Slot).\n- Shortcuts (opcional): atalhos rápidos (Show Shortcuts), com `.Category` Appearance=Accent.\n\n## Boas práticas\n\n- **Um item selecionado** — Um item selecionado por vez, derivado da rota.\n- **Um accordion aberto** — Abrir um accordion fecha os outros.\n\n> Texto da description do Side Menu no [CastanhaDS] Sponsor Templates."
+    },
+    {
+     "id": "anatomia",
+     "title": "Anatomia",
+     "text": "## Composição do componente\n\nFundo `Surface/01` com `Elevation/level 2`, padding 32 20 0 20 e uma coluna com espaço entre o topo e o rodapé. No topo, o Container (gap 20) com a marca (Caju Brand), o Slot, os Shortcuts (gap 8) e as Categories (gap 20, padding 16 0). No rodapé, a User Area (padding 20 0) com a Ajuda (`.Category` Accordion) e o `.User Profile`. Colapsado, os `.Category` e o `.User Profile` ficam em Kind=Reduced.\n\n## Propriedades\n\n- **Is Collapsed** (Variant): True, False\n- **Show Slot** (Boolean)\n- **Show Shortcuts** (Boolean)\n- **Slot** (Slot)\n\n> No código: `collapsed=\"false\"` fixa o menu expandido. Filhos: `<cds-sponsor-category>` vão para Categories, com `slot=\"shortcuts\"` para os atalhos, `slot=\"help\"` para a Ajuda e `slot=\"slot\"` para o Slot livre. O `<cds-sponsor-user-profile>` vai para o rodapé. Evento `cds-select` ao selecionar um item."
+    },
+    {
+     "id": "acessibilidade",
+     "title": "Acessibilidade",
+     "text": "## Acessibilidade\n\n- O menu é um `nav` com nome acessível \"Menu\".\n- Colapsado, cada item mostra só o ícone e leva o nome no `aria-label`.\n- O menu também abre pelo foco do teclado, não só pelo hover.\n- O item da página atual tem `aria-current=\"page\"`. Os accordions usam `aria-expanded`."
+    }
+   ]
+  },
+  {
+   "id": "sponsor-subcategory",
+   "name": ".Subcategory",
+   "kind": "component",
+   "category": null,
+   "figma": "https://www.figma.com/design/9Tkkk4lusVKNEButGjvsNW/-CastanhaDS--Sponsor-Templates?node-id=5576-27",
+   "figmaNode": "5576-27",
+   "zeroheight": null,
+   "description": "Item de segundo nível do Side Menu, dentro do Slot de um .Category com Intent=Accordion.",
+   "tabs": [
+    {
+     "id": "uso",
+     "title": "Uso",
+     "text": "## Sobre\n\nItem de segundo nível, exibido dentro do Slot de um `.Category` com Intent=Accordion. O rótulo vem da property Text Label.\n\n## Boas práticas\n\n- O Trailing Icon padrão é a seta de navegação.\n- Em recurso pago, troque a seta pela coroa no Trailing Icon, nunca as duas juntas.\n\n> Texto da description do .Subcategory. A coroa ainda não está no [Caju] Icons (C174)."
+    },
+    {
+     "id": "anatomia",
+     "title": "Anatomia",
+     "text": "## Propriedades\n\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Text Label** (Text)\n- **Show Lead Icon** (Boolean)\n- **Lead Icon** (Instance swap)\n- **Show Trailing Icon** (Boolean)\n- **Trailing Icon** (Instance swap)\n- **Show Badge** (Boolean)\n\n188×32, fundo `Surface/01`, raio `Border/Radius/small`, padding 0 8 e gap 8. Label em `Label/Regular` e `Text/medium` (no Hovered, `Text/intense`)."
+    }
+   ]
+  },
+  {
+   "id": "sponsor-user-profile",
+   "name": ".User Profile",
+   "kind": "component",
+   "category": null,
+   "figma": "https://www.figma.com/design/9Tkkk4lusVKNEButGjvsNW/-CastanhaDS--Sponsor-Templates?node-id=5576-436",
+   "figmaNode": "5576-436",
+   "zeroheight": null,
+   "description": "Rodapé de identificação do Side Menu: avatar, nome e CNPJ, com ação opcional.",
+   "tabs": [
+    {
+     "id": "uso",
+     "title": "Uso",
+     "text": "## Sobre\n\nRodapé de identificação do Side Menu: avatar, nome e CNPJ, com ação opcional (Show Icon Button). Kind deriva do colapso do menu: Default (expandido) mostra os dados, Reduced (colapsado) mostra o avatar.\n\n> Texto da description do .User Profile. O ícone da ação não está definido no set: o playground usa more-line (C175)."
+    },
+    {
+     "id": "anatomia",
+     "title": "Anatomia",
+     "text": "## Propriedades\n\n- **Kind** (Variant): Default, Reduced\n- **User Name** (Text)\n- **CNPJ** (Text)\n- **Show Icon Button** (Boolean)\n\nDefault 288×92 e Reduced 40×92, fundo `Surface/01`, padding 24 0 e gap 16. Avatar Image Small (40), nome em `Label/Bold` e CNPJ em `Caption/Medium` com `Text/medium`, e Icon Button Small Default Neutral."
     }
    ]
   },
@@ -27054,6 +27152,18 @@
     "text": "Castanha Assets (capa, .Thumbnail Castanha e .Thumbnail por jornada) · cores · Fills crus fora das variáveis: pilha vermelha `#450206` `#8a0013` `#c10524` `#fe7b7b`, jornadas laranja `#ff7300`, roxo `#a33dc2`, verde `#3fc03f` e azul `#339cff` em 5 tons cada. O fundo da capa usa `Surface/accent` e o título `Decorative/Display` · Ligar às variáveis do tema: `Accent/Solid/*` para a pilha da marca e as escalas `Charts/*` para as jornadas · O playground usa o conceito com as escalas mais próximas: `accent-solid` (marca) e Charts 01–04 e 07 por área, misturadas com `color-mix` entre `intense` e `medium` (componente local Pilha, D221) · Quando o arquivo de assets for revisado"
    },
    {
+    "id": "C174",
+    "group": "Ajuste de UI",
+    "resolved": false,
+    "text": "Side Menu · `.Subcategory` · A description pede a coroa no Trailing Icon para recurso pago, mas o [Caju] Icons não tem ícone de coroa · Ícone de coroa no [Caju] Icons · Trailing Icon por instance swap, sem a coroa · Quando o ícone entrar na lib"
+   },
+   {
+    "id": "C175",
+    "group": "Ajuste de UI",
+    "resolved": false,
+    "text": "Side Menu · `.User Profile` · O Icon Button do rodapé (Show Icon Button) não tem ícone nem ação definidos no set · Definir o ícone e a ação (ex.: menu da conta, sair) · `more-line`, nome acessível \"Opções da conta\", evento `cds-action` · Próxima revisão do Sponsor Templates"
+   },
+   {
     "id": "C01",
     "group": "Motion",
     "resolved": false,
@@ -27388,6 +27498,12 @@
     "group": "Naming",
     "resolved": false,
     "text": "[Caju] Illustrations · prefixos e categorias · 43 das 237 têm prefixo no nome e os outros não: `financas/` (13), `objetos/` (9), `interface/` (7), `grafico/` (3) × `graficos/` (3), `autenticacao/`, `documentos/`, `dispositivos/`, `transporte/` e `feirinha_hub-benef/`. O frame `Autenticacao` está sem acento · Um padrão só: sem prefixo (a categoria já é o frame) ou prefixo em todas; `Autenticação` · Usa só o último trecho do nome (`grafico/pizza` → `graficos-e-dashboards/pizza`); o nome original fica no `catalog.json` e no tooltip da galeria · Ajustar no Figma; o import já ignora o prefixo"
+   },
+   {
+    "id": "C176",
+    "group": "Naming",
+    "resolved": false,
+    "text": "Side Menu · `.Category` (Sponsor Templates 5576:27) · `Is Collapsed=True` é a variante do Accordion que mostra o Slot aberto, e a description diz que Is Collapsed \"espelha o menu\" · Nome que diga o que faz: `Is Expanded` no accordion (ou o colapso do menu em Kind=Reduced, que já existe) · Accordion aberto = `expanded`, menu colapsado = Kind=Reduced · Próxima revisão do Sponsor Templates"
    },
    {
     "id": "C15",

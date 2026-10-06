@@ -9,10 +9,10 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | Tipo | Itens |
 |---|---|
 | [Ajuste de texto](#ajuste-de-texto) | 6 |
-| [Ajuste de UI](#ajuste-de-ui) | 26 |
+| [Ajuste de UI](#ajuste-de-ui) | 28 |
 | [Motion](#motion) | 7 |
 | [Refactor](#refactor) | 39 |
-| [Naming](#naming) | 10 |
+| [Naming](#naming) | 11 |
 | [Acessibilidade](#acessibilidade) | 7 |
 | [Documentação](#documentação) | 8 |
 | [Integração React](#integração-react) | 9 |
@@ -62,6 +62,8 @@ Cor, fill, borda, tamanho ou layout de uma variante.
 | C84 | Icon Button · estado selecionado | Não há variante Selected/Is Active (só Enabled, Hovered, Pressed, Disabled) | Variante de toggle para botões que ligam/desligam algo (no playground: relatório aberto, tema) | Usa `pressed` (aria-pressed) sem mudança visual; o estado aparece pelo ícone (tema) e pelo texto do Tooltip (relatório) | Avaliar uma variante selecionada no Figma |
 | C129 | Table e Pagination · **mobile (360px)** | Conferido no Figma (05/10): **sem versão estreita**. Table só tem Kind=Default/Empty (1053px); Pagination é um componente único de 780px. No frame mobile os dois transbordam. (Modal Date Picker saiu da lista: o Figma o bloqueia no mobile com Viewport Restriction, e o smoke agora reconhece isso) | **Proposta para decidir no DS:** Table com rolagem horizontal dentro do container no mobile; Pagination compacta (só ‹ › e "1 de 10") ou bloqueada com Viewport Restriction | Segue o Figma (transborda); aviso no smoke | Conforme a decisão |
 | C173 | Castanha Assets (capa, .Thumbnail Castanha e .Thumbnail por jornada) · cores | Fills crus fora das variáveis: pilha vermelha `#450206` `#8a0013` `#c10524` `#fe7b7b`, jornadas laranja `#ff7300`, roxo `#a33dc2`, verde `#3fc03f` e azul `#339cff` em 5 tons cada. O fundo da capa usa `Surface/accent` e o título `Decorative/Display` | Ligar às variáveis do tema: `Accent/Solid/*` para a pilha da marca e as escalas `Charts/*` para as jornadas | O playground usa o conceito com as escalas mais próximas: `accent-solid` (marca) e Charts 01–04 e 07 por área, misturadas com `color-mix` entre `intense` e `medium` (componente local Pilha, D221) | Quando o arquivo de assets for revisado |
+| C174 | Side Menu · `.Subcategory` | A description pede a coroa no Trailing Icon para recurso pago, mas o [Caju] Icons não tem ícone de coroa | Ícone de coroa no [Caju] Icons | Trailing Icon por instance swap, sem a coroa | Quando o ícone entrar na lib |
+| C175 | Side Menu · `.User Profile` | O Icon Button do rodapé (Show Icon Button) não tem ícone nem ação definidos no set | Definir o ícone e a ação (ex.: menu da conta, sair) | `more-line`, nome acessível "Opções da conta", evento `cds-action` | Próxima revisão do Sponsor Templates |
 
 ## Motion
 
@@ -139,6 +141,7 @@ Nome de prop, variante, camada ou variável fora do padrão.
 | C67 | Naming (Tables e File Upload) | `.Table Column` Kind `Default`/`Percentual`/`Icon Buttons` × `.Data Cell` Kind `Text`/`Percentage`/`Action Controls`; slot `Upload itens`; terceiro `.Lead item` (File) | Um nome por conceito | `kind` aceita os dois nomes (default = text, percentual = percentage, icon-buttons = actions) | Renomear junto com C25 |
 | C76 | [Caju] Illustrations · nomes repetidos | Finanças tem três `moeda-verde-pilha-2` (`4146:2019`, `4178:602`, `4178:607`): a 2ª é a pilha **vermelha** e a 3ª a **amarela**. Também repetem `sonia` (Personagens, ×2), `celular-cartao` (Dispositivos e Mãos) e `cracha` (Documentos e Mãos) | Nome único por ilustração (`moeda-vermelha-pilha-2`, `moeda-amarela-pilha-2`, `sonia-2`…) | Segue o export do Figma: arquivos com sufixo `-1`/`-2` (`financas/moeda-verde-pilha-2-1` = vermelha, `-2-2` = amarela, `personagens/sonia-1`); o nome completo é `<categoria>/<nome>`, então os repetidos entre categorias não colidem | Renomear no Figma e reimportar (`scripts/dev/import-illustrations.py`, tirar o mapa `DUP`) |
 | C77 | [Caju] Illustrations · prefixos e categorias | 43 das 237 têm prefixo no nome e os outros não: `financas/` (13), `objetos/` (9), `interface/` (7), `grafico/` (3) × `graficos/` (3), `autenticacao/`, `documentos/`, `dispositivos/`, `transporte/` e `feirinha_hub-benef/`. O frame `Autenticacao` está sem acento | Um padrão só: sem prefixo (a categoria já é o frame) ou prefixo em todas; `Autenticação` | Usa só o último trecho do nome (`grafico/pizza` → `graficos-e-dashboards/pizza`); o nome original fica no `catalog.json` e no tooltip da galeria | Ajustar no Figma; o import já ignora o prefixo |
+| C176 | Side Menu · `.Category` (Sponsor Templates 5576:27) | `Is Collapsed=True` é a variante do Accordion que mostra o Slot aberto, e a description diz que Is Collapsed "espelha o menu" | Nome que diga o que faz: `Is Expanded` no accordion (ou o colapso do menu em Kind=Reduced, que já existe) | Accordion aberto = `expanded`, menu colapsado = Kind=Reduced | Próxima revisão do Sponsor Templates |
 
 ## Acessibilidade
 

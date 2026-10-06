@@ -41,6 +41,9 @@ jobs:
       - name: Numeração D/C (sem repetido, sem apelido sobrando)
         run: node scripts/dev/numerar.js --check
 
+      - name: Changelog dentro das regras (repositório público)
+        run: node scripts/dev/changelog.js check
+
       - name: Painel de saúde em dia (aviso)
         run: |
           if ! git diff --quiet -- docs/SAUDE-TECNICA.md tests/ultimo-smoke.json; then

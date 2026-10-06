@@ -15937,7 +15937,7 @@
     {
      "id": "releases",
      "title": "Releases",
-     "text": "## Changelog\n\nO que saiu em cada release do Castanha, da mais recente para a mais antiga: componentes React e Flutter, biblioteca do Figma, ilustrações, ícones, tokens e documentação. Busque por um componente, asset ou versão, ou filtre por área.\n\n> Fonte: anúncios do canal #castanha-novidades no Slack, de setembro de 2025 a setembro de 2026. Ilustrações têm duas numerações: a Biblioteca do Figma e o pacote castanha-illustrations. Links do Storybook e do Widgetbook ficam de fora (exigem VPN)."
+     "text": "## Changelog\n\nO que saiu em cada release do Castanha, da mais recente para a mais antiga: componentes React e Flutter, biblioteca do Figma, ilustrações, ícones, tokens e documentação. Busque por um componente, asset ou versão, ou filtre por área.\n\n> Fonte: anúncios do canal #castanha-novidades no Slack, lidos até 05/10/2026 (atualização automática nos dias úteis). Ilustrações têm duas numerações: a Biblioteca do Figma e o pacote castanha-illustrations. Links do Storybook e do Widgetbook ficam de fora (exigem VPN)."
     }
    ]
   },

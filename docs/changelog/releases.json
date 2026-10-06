@@ -1,0 +1,3487 @@
+{
+ "fonte": "Slack #castanha-novidades (C09F7GD1A6M)",
+ "lido_ate": "2026-10-05",
+ "atualizado_em": "2026-10-05",
+ "nota": "lido_ate = último dia em que o canal foi lido por completo. A rotina lê a partir desse dia (inclusive); releases repetidas (mesma data, área e título) são ignoradas.",
+ "releases": [
+  {
+   "data": "2026-09-23",
+   "area": "React",
+   "titulo": "Novas variações de componentes React",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "IconButton: nova variação `notification`"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "SelectInput: nova variação `multi`"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-09-23",
+   "area": "Ilustrações",
+   "titulo": "castanha-illustrations: novos assets nos pacotes React e Flutter",
+   "versao": "v1.8.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`comunicacao-baloes-conversa`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`comunicacao-duvida`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`dispositivos-celular-check`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`documentos-cracha-digital`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`notificacoes-alert-low-detail`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`notificacoes-error-low-detail`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`notificacoes-success-low-detail`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos-ampulheta`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos-compras-celebracao`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos-foguete`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos-kit-medico`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos-kit-onboarding`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos-malas-viagem`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos-mochila`"
+    }
+   ],
+   "link": "https://castanha.caju.com.br"
+  },
+  {
+   "data": "2026-09-23",
+   "area": "Ilustrações",
+   "titulo": "Release sazonal da Biblioteca de Ilustrações (Figma)",
+   "versao": "v1.5.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`comunicacao/baloes-conversa`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`dispositivos/celular-check`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`documentos/cracha-digital`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`notificacoes/alert-low-detail`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`notificacoes/error-low-detail`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`notificacoes/success-low-detail`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos/ampulheta`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos/compras-celebracao`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos/foguete`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos/kit-medico`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos/kit-onboarding`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos/malas-viagem`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos/mochila`"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/56b925-ilustracao"
+  },
+  {
+   "data": "2026-09-23",
+   "area": "Flutter",
+   "titulo": "Release sazonal de componentes Flutter",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "correcao",
+     "texto": "`CastanhaText`: adição de fontFamily"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Componentes de input: correção de tokens de borda"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`CastanhaBottomSheet`: correção no estilo de texto, espaçamentos e comportamento de arrastar"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/111e49-castanha"
+  },
+  {
+   "data": "2026-09-18",
+   "area": "Documentação",
+   "titulo": "Documentação de Tom e Voz no zeroheight",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Pilares de Tom e Voz (B2B e B2C)"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Premissas de Tom e Voz (B2B e B2C)"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Premissas na prática, com exemplos reais das jornadas (B2C; B2B em breve)"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/"
+  },
+  {
+   "data": "2026-09-15",
+   "area": "Documentação",
+   "titulo": "Patterns de experiência em .md para uso com IA",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Fundamentos: Design Colors e Design Spacing"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Web: Formulários, Dashboard, Fluxos com etapas, Filtros, Feedback e empty states"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Mobile: Formulários, Dashboard, Fluxos com etapas, Feedback e empty states"
+    },
+    {
+     "tipo": "outro",
+     "texto": "Próximos: Landing pages, Kanban view e Checkout"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-09-15",
+   "area": "Outro",
+   "titulo": "Release 24 — Motion em componentes React e Flutter",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "Flutter: motion nos componentes estabilizados BottomSheet, Checkbox, Chips, Radio Button, Text Input, Text Area e Nav Control"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "React: motion em Balance Card e Nav Control (estabilizados) e em Slider e System Banner (novos)"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "React: motion no componente TabView"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/373420-balance-card"
+  },
+  {
+   "data": "2026-09-15",
+   "area": "Flutter",
+   "titulo": "Release 24 de componentes Flutter",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "BottomSheet: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Checkbox: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Chips: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Radio Button: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Text Input: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Text Area: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Nav Control: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Tabs: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Dropzone`: adição do estado de drag"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Tokens: escala de cinza e gráficos"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`CastdsBottomSheet`: repasse de `routeSettings`"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/111e49-castanha"
+  },
+  {
+   "data": "2026-09-15",
+   "area": "React",
+   "titulo": "Release 24 de componentes React",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "Balance Card: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Nav Control: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Date Input: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Date Picker: componente estabilizado"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Slider"
+    },
+    {
+     "tipo": "novo",
+     "texto": "System Banner"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "TabView: motion"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Table: comportamento de header stick"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Tag: ajuste no tamanho da fonte"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/111e49-castanha"
+  },
+  {
+   "data": "2026-09-15",
+   "area": "Figma",
+   "titulo": "Release 24 da biblioteca de componentes no Figma",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "Balance Card: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Bottom Sheet (só mobile): componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Date Picker e Modal Date Picker: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Date Input: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Nav Control: componente estabilizado"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Slider"
+    },
+    {
+     "tipo": "novo",
+     "texto": "System Banner"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Atualizações recebidas das bibliotecas de suporte (Theme, Icons etc.)"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Melhorias no contrato de cores"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Melhorias de performance da biblioteca"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/111e49-castanha"
+  },
+  {
+   "data": "2026-08-28",
+   "area": "React",
+   "titulo": "Novo pacote Castanha Web Templates",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Pacote `@caju-beneficios/castanha-web-templates`, dividido por Product Area (`/sponsor`, `/common`...); requer só `castanha-react` e `castanha-tokens`, sem setup adicional"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Template Sponsor Header"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Template Sponsor SideMenu"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-08-26",
+   "area": "Flutter",
+   "titulo": "Release sazonal de componentes Flutter",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "Dropzone: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Upload Item: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Upload List: componente estabilizado"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/111e49-castanha"
+  },
+  {
+   "data": "2026-08-19",
+   "area": "Figma",
+   "titulo": "Release 23 da biblioteca de componentes no Figma",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "Caju Card: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Drawer: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Modal: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Shortcut: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Select Input: componente estabilizado"
+    },
+    {
+     "tipo": "novo",
+     "texto": "File Upload (primeiro InnerSource com o time de HCM)"
+    },
+    {
+     "tipo": "novo",
+     "texto": "DropZone (primeiro InnerSource com o time de HCM)"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Atualizações recebidas das bibliotecas de suporte (Theme, Icons etc.)"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Melhorias no contrato de cores"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Melhorias de performance da biblioteca"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Variables de gráfico: Teal"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/111e49-castanha"
+  },
+  {
+   "data": "2026-08-19",
+   "area": "Outro",
+   "titulo": "Release 23 — Motion em componentes e novos assets da Lib de Motion",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "Flutter: motion em Progress Line, Currency, Link e Switch"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Flutter: motion em Balance Card e Shortcut"
+    },
+    {
+     "tipo": "novo",
+     "texto": "React: motion em Shortcut, Search Input, Dropzone e Upload List"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Lib de Motion (React e Flutter): `Reconhecimento-facial`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Lib de Motion (React e Flutter): `Verificar-selfie`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Lib de Motion (React e Flutter): `Dispositivo-multiplos-cartoes-corporativo-virtual`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Lib de Motion (React e Flutter): `Maquininha-verde-cartao`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Lib de Motion (React e Flutter): `Maquininha-laranja-cartao`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Lib de Motion (React e Flutter): `Reconhecimento-default`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Lib de Motion (React e Flutter): `Reconhecimento-biometrico`"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-08-19",
+   "area": "React",
+   "titulo": "Release 23 de componentes React",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "Caju Card: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Search Input: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Drawer: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Modal: componente estabilizado"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Shortcut"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Dropzone (primeiro InnerSource com o time de HCM)"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Upload List (primeiro InnerSource com o time de HCM)"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Tabview: motion"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/111e49-castanha"
+  },
+  {
+   "data": "2026-08-19",
+   "area": "Flutter",
+   "titulo": "Release 23 de componentes Flutter",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "Badge: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Progress Line: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Currency: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Link: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Balance Card: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Shortcut: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Switch: componente estabilizado"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "CajuBrand: nomenclatura corrigida no Widgetbook"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "CastanhaCard e CastanhaText: testes unitários corrigidos"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "CastdsInputPassword (legado `castanha-as-is`): ícone de mostrar/ocultar conteúdo"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/111e49-castanha"
+  },
+  {
+   "data": "2026-08-07",
+   "area": "Outro",
+   "titulo": "Hotfix das bibliotecas de assets (ícones, ilustrações e motion)",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "correcao",
+     "texto": "`castanha-icons` v1.7.0, `castanha-illustrations` v1.6.0 e `castanha-motion` v1.5.0: artefatos exportados com cleanup step, assets ajustados para web e mobile"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`castanha_flutter` v1.1.1: novo catálogo de assets e ajustes de apresentação"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Ícone `ship-line` (castanha-icons v1.7.0)"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Motion `reconhecimento-biometrico` (castanha-motion v1.5.0)"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Motion `reconhecimento-default` (castanha-motion v1.5.0)"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Motion `reconhecimento-facial` (castanha-motion v1.5.0)"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Motion `verificar-selfie` (castanha-motion v1.5.0)"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Motion `maquininha-laranja-cartao` (castanha-motion v1.5.0)"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Motion `maquininha-verde-cartao` (castanha-motion v1.5.0)"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Motion `dispositivo-multiplos-cartoes-corporativo-virtual` (castanha-motion v1.5.0)"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-07-31",
+   "area": "React",
+   "titulo": "Hotfix castanha-react",
+   "versao": "v1.7.0",
+   "itens": [
+    {
+     "tipo": "correcao",
+     "texto": "Arquivo gerado na etapa de `asset-registry` corrigido, com estrutura mais compatível com os projetos"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-07-31",
+   "area": "Flutter",
+   "titulo": "Hotfix castanha-flutter",
+   "versao": "v1.1.0",
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "`Theme`: consumo simplificado com `CastanhaTheme.light()` / `CastanhaTheme.dark()` no `MaterialApp`, sem precisar do `provider`"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`CastanhaIllustrations`, `CastanhaIcons` e `CastanhaMotionAssets` acessíveis instalando só o pacote principal"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-07-28",
+   "area": "Figma",
+   "titulo": "Novos componentes na biblioteca do Figma",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Backdrop"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Drop Button"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Progress Tracker"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Tab View"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Topic"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Atualizações recebidas das bibliotecas de suporte (Theme, Icons etc.)"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Melhorias no contrato de cores de texto e escalas \"Neutral\""
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Melhorias de performance da biblioteca"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-07-27",
+   "area": "Flutter",
+   "titulo": "Lançamento da estabilização do Castanha para Flutter",
+   "versao": "castanha_flutter-v1.0.0",
+   "itens": [
+    {
+     "tipo": "outro",
+     "texto": "Nova arquitetura mobile: acessibilidade (Semantics), documentação centralizada no Widgetbook, Dartdocs e catálogos atualizados automaticamente; tokens e assets compartilhados com web"
+    },
+    {
+     "tipo": "descontinuado",
+     "texto": "Breaking change: novo pacote `castanha_flutter`; o legado `mobile_castanha_ds` passa a vir de `packages/castanha-as-is` (tag `castds_as_is-v0.1.0`); a camada `core` (`package:castds_core/core.dart`) deixa de existir"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Utilitário Column"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Utilitário Field"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Utilitário Icon"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Utilitário Illustration"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Utilitário Motion"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Utilitário Row"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Utilitário Text"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Avatar: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "CajuBrand: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Card: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Divider: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "IconButton: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "MainButton: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "ShapedIcon: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Spinner: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Tag: componente estabilizado"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-07-27",
+   "area": "React",
+   "titulo": "Sprint Release 22 de componentes React",
+   "versao": "v1.6.0",
+   "itens": [
+    {
+     "tipo": "correcao",
+     "texto": "Removido o override nas estilizações de heading (h1, h2...)"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Backdrop"
+    },
+    {
+     "tipo": "novo",
+     "texto": "DropButton"
+    },
+    {
+     "tipo": "novo",
+     "texto": "ProgressTracker"
+    },
+    {
+     "tipo": "novo",
+     "texto": "TabView"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Topic"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-07-17",
+   "area": "React",
+   "titulo": "Release sazonal de correções (React e Figma)",
+   "versao": "v1.5.0",
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "Contraste melhorado nos tokens `surface-*` e na camada de text neutrals (React e Figma)"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`SelectionListItem` passa a aplicar os tokens de cor; `ContentListItem` recebe o mesmo comportamento"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Castanha Optimizer: geração de assets virtuais em CI e importação dinâmica das bibliotecas de assets; não é mais preciso instalar icons, illustrations e motion à parte"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`PasswordInput` e `TextInput`: `min-width: 0`"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-07-17",
+   "area": "Outro",
+   "titulo": "Bibliotecas de assets exportando arquivos estáticos para Dart",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "`castanha-icons` v1.6.0, `castanha-illustrations` v1.5.0 e `castanha-motion` v1.4.0: arquivos estáticos pré-organizados no `pubspec`, com acesso namespaced (ex.: `CastanhaIcons.benefitsCard`, `CastanhaIcons.byName`)"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-07-07",
+   "area": "Ilustrações",
+   "titulo": "Release da Biblioteca de Ilustrações (Figma)",
+   "versao": "v1.4.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`caju-card/virtual-credito`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`caju-card/virtual-credito-corporativo`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`caju-card/voucher`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hub-de-beneficios/familia`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hub-de-beneficios/seguro-vida-previdencia`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`interface/assinatura`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`interface/carrossel`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`interface/customizacao`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`interface/home`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`interface/lista`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`interface/nota-fiscal`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`interface/planilha`"
+    }
+   ],
+   "link": "https://www.figma.com/design/9l54k2iyKGMaiIbsGGmEiM/-Caju--Illustrations"
+  },
+  {
+   "data": "2026-07-07",
+   "area": "Figma",
+   "titulo": "Release 21 da biblioteca de componentes no Figma",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "`Filter Button`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Chips`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Table`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Input Chips`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Filter Chips`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Chips Group`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Tag: cores semânticas atualizadas"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-07-07",
+   "area": "React",
+   "titulo": "Release 21 de componentes React",
+   "versao": "v1.4.0",
+   "itens": [
+    {
+     "tipo": "descontinuado",
+     "texto": "Breaking change em `Tabs`: prop `scroll` renomeada para `scrollable` (mesmo comportamento); classe `.castanha-tabs--scroll` vira `.castanha-tabs--scrollable`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`Tabs`: sem `scrollable`, `Tabs.List` com mais de 5 `Tabs.Item` emite `console.warn` em desenvolvimento"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Chips"
+    },
+    {
+     "tipo": "novo",
+     "texto": "FilterButton"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Pagination"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Table"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Text`: suporte a `color`; estilos de heading ajustados ao design"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`Breadcrumbs`: cor da arrow aplicada corretamente"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Currency`: formatação via `code` + `value`"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Tag`: novo range de cores"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-07-07",
+   "area": "Flutter",
+   "titulo": "Release 21 — ajustes no mobile_castanha_ds",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "correcao",
+     "texto": "`Tag`: contraste"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Componentes de lista: cores de `label` e `description`"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-07-07",
+   "area": "Ícones",
+   "titulo": "castanha-icons",
+   "versao": "v1.5.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`bank-line`"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-07-07",
+   "area": "Ilustrações",
+   "titulo": "castanha-illustrations: categoria interface e novos caju-card e hub",
+   "versao": "v1.4.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`caju-card-virtual-credito`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`caju-card-virtual-credito-corporativo`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`caju-card-voucher`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hub-familia`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hub-seguro-vida-previdencia`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`interface-assinatura`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`interface-carrossel`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`interface-customizacao`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`interface-home`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`interface-lista`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`interface-nota-fiscal`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`interface-planilha`"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-07-07",
+   "area": "Tokens",
+   "titulo": "castanha-tokens: match com a base de design",
+   "versao": "v1.3.0",
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "Tokens de `border` atualizados"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-06-25",
+   "area": "Ícones",
+   "titulo": "castanha-icons para Flutter",
+   "versao": "v1.4.0",
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "Ícones convertidos para font, seguindo as recomendações do Material para Flutter"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Ícones disponibilizados corretamente via `pubspec.yaml`"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-06-25",
+   "area": "Ilustrações",
+   "titulo": "castanha-illustrations para Flutter",
+   "versao": "v1.3.0",
+   "itens": [
+    {
+     "tipo": "correcao",
+     "texto": "Ilustrações disponibilizadas corretamente via `pubspec.yaml`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`autenticacao-ocr-cartao-1`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`autenticacao-ocr-cartao-2`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`cartoes-fisico`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`cartoes-fisico-corporativo`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`cartoes-virtual-credito`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`cartoes-virtual-credito-corporativo`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`cartoes-voucher`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`dispositivos-celular-cartao-virtual-1`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`dispositivos-celular-cartao-virtual-2`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`dispositivos-celular-cartao-virtual-wallet-1`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`dispositivos-celular-cartao-virtual-wallet-2`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas-cartao-corporativo-carteira`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas-cartao-envelope-aberto`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas-cartao-virtual-wallet-1`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas-cartao-virtual-wallet-2`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas-cartao-virtual-wallet-3`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero-hub-de-beneficios-alimentacao`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero-hub-de-beneficios-cajuzinho`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero-hub-de-beneficios-cultura`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero-hub-de-beneficios-descontos`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero-hub-de-beneficios-educacao`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero-hub-de-beneficios-familia`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero-hub-de-beneficios-familia-2`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero-hub-de-beneficios-fitness`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero-hub-de-beneficios-home-office`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero-hub-de-beneficios-lazer`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero-hub-de-beneficios-mobilidade`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero-hub-de-beneficios-outros`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero-hub-de-beneficios-plano-odonto`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero-hub-de-beneficios-plano-saude`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero-hub-de-beneficios-seguro-previdencia`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero-sponsor-splash-screen`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`low-detail-cartao-bilhete-unico`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`low-detail-cartao-customizacao`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`low-detail-ctps`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`low-detail-rg-cnh-frente`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`low-detail-rg-cnh-verso`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`low-detail-rg-papeis`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`low-detail-socio`"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-06-25",
+   "area": "Outro",
+   "titulo": "castanha-motions para Flutter",
+   "versao": "v1.3.0",
+   "itens": [
+    {
+     "tipo": "correcao",
+     "texto": "Configuração de `pubspec.yaml` exposta"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`personagens-joana`: deixou de ser wrapper vazio e mostra a ilustração"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`dispositivos-cartao-virtual-criado`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`documentos-planilha-engrenagem`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`documentos-rg-cnh-verso`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos-cadeira-praia`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos-medalha-2`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`personagens-antonia`"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-06-25",
+   "area": "Tokens",
+   "titulo": "castanha-tokens para Flutter",
+   "versao": "v1.2.1",
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "Output da folha de tokens para Flutter melhorado"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Configuração de `pubspec.yaml` exposta"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-06-25",
+   "area": "Ilustrações",
+   "titulo": "Release da Biblioteca de Ilustrações (Figma)",
+   "versao": "v1.3.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`autenticacao/ocr-cartao-1`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`autenticacao/ocr-cartao-2`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`dispositivos/celular-cartao-virtual-wallet-1`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`dispositivos/celular-cartao-virtual-wallet-2`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`dispositivos/celular-cartao-virtual-1`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`dispositivos/celular-cartao-virtual-2`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas/cartao-corporativo-carteira`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas/cartao-envelope-aberto`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas/cartao-virtual-wallet-1`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas/cartao-virtual-wallet-2`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas/cartao-virtual-wallet-3`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`low-detail/ctps`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`low-detail/rg-cnh-frente`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`low-detail/rg-cnh-verso`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`low-detail/rg-papeis`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`low-detail/socio`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`low-detail/cartao-customizacao`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`low-detail/cartao-bilhete-unico`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/hub-de-beneficios/plano-saude`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/hub-de-beneficios/plano-odonto`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/hub-de-beneficios/fitness`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/hub-de-beneficios/alimentacao`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/hub-de-beneficios/mobilidade`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/hub-de-beneficios/cultura`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/hub-de-beneficios/educacao`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/hub-de-beneficios/cajuzinho`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/hub-de-beneficios/outros`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/hub-de-beneficios/seguro-previdencia`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/hub-de-beneficios/descontos`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/hub-de-beneficios/home-office`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/hub-de-beneficios/familia`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/hub-de-beneficios/familia-2`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/hub-de-beneficios/lazer`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/sponsor/splash-screen`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`cartoes/fisico`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`cartoes/fisico-corporativo`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`cartoes/virtual-credito`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`cartoes/virtual-credito-corporativo`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`cartoes/voucher`"
+    }
+   ],
+   "link": "https://www.figma.com/design/ndW0akp113d6seA4iY36r6/4.--Castanha-DS--Illustration"
+  },
+  {
+   "data": "2026-06-25",
+   "area": "Documentação",
+   "titulo": "Avaliação nativa nas páginas do zeroheight",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Opção de avaliar a documentação no canto inferior direito de todas as páginas"
+    }
+   ],
+   "link": "https://castanha.caju.com.br"
+  },
+  {
+   "data": "2026-06-22",
+   "area": "React",
+   "titulo": "Release sazonal de componentes React",
+   "versao": "v1.3.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`Badge`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`Card`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`Link`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`Spinner`"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-06-22",
+   "area": "Ícones",
+   "titulo": "castanha-icons: sync entre design e código",
+   "versao": "v1.2.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`ai-caju-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`android-fill`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`apple-fill`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`code`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`database`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`facebook-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`favorite-filled`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`figma-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`file-blank-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`flash-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`flutter-fill`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`github-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`google-drive-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`instagram-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`linkedin-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`microphone-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`mouse`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`pin-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`pix-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`react-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`rename-chat-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`slack-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`start-chat`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`stop-filled`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`whatsapp-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`youtube-line`"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-06-15",
+   "area": "Documentação",
+   "titulo": "Novo Widgetbook do Castanha Flutter",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Widgetbook reformulado: documentação de web e mobile no mesmo padrão visual e de conteúdo"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-06-15",
+   "area": "Figma",
+   "titulo": "Release 20 da biblioteca de componentes no Figma",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "`Alert`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Breadcrumbs`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Caju Brand`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Currency`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Filter button`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Popover`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Progress Line`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Select Input`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Toast`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Tooltip`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`ContentList`: Tag em `kind='navigation'`"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`ContentList` e `SelectionList`: sem `max-height`, ocupam o tamanho do conteúdo"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Toast`: `min-width` e `max-width`"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "[Caju] Icons: melhorias de performance e correção de valores e variables"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-06-15",
+   "area": "Tokens",
+   "titulo": "castanha-tokens: correções para mobile",
+   "versao": "v1.0.1",
+   "itens": [
+    {
+     "tipo": "correcao",
+     "texto": "Conversão de dimension (valores saíam com `px`)"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`pubspec` gerado corretamente para instalação"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-06-15",
+   "area": "Ilustrações",
+   "titulo": "castanha-illustrations (Release 20)",
+   "versao": "v1.2.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`documentos/planilha-recebida`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas/cartao-corporativo-minimalista`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas/cartao-fisico-minimalista`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas/cartao-virtual-minimalista`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas/cartao-voucher-minimalista`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas/cartao-fisico-desbloqueado`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas/cartoes-fisico-virtual`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/employee/login`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/employee/splash-screen`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/sponsor/cartao-corporativo`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/sponsor/cartao-despesas`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/sponsor/cartao-fisico`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/sponsor/empacotamento-beneficios`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/sponsor/login`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/sponsor/recuperacao-senha`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/sponsor/splash-screen`"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-06-15",
+   "area": "Outro",
+   "titulo": "castanha-motion: novos assets (Release 20)",
+   "versao": "v1.2.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`autentificacao-ocr-cartao-fisico`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`documentos-cracha`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`documentos-desarquivar-item`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`documentos-diretorio-colaboradores`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`documentos-relatorio-concluido`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`documentos-relatorios-1`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`documentos-rg-cnh-frente`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`documentos-rg-papeis`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`documentos-socio`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas-cartao-envelope-desbloqueado`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos-trofeu`"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-06-15",
+   "area": "React",
+   "titulo": "Release 20 de componentes React",
+   "versao": "v1.2.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Responsividade em `Box`, `VStack` e `HStack` (ex.: `flexDirection={{ base: 'row', medium: 'column' }}`)"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Autocomplete de tokens em `Box`, `VStack`, `HStack` e componentes derivados (ex.: `px='sizes-4'`)"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Hooks `useBreakpoint`, `useClickOutside` e `useFloatingPosition`"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Alert`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Breadcrumbs`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`CajuBrand`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Currency`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Popover`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`ProgressLine`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`SelectInput`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Tooltip`: componente estabilizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`ContentList`: `Tag` em `kind='navigation'`"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`ContentList` e `SelectionList`: sem `max-height`"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Toast`: `min-width` e `max-width` padronizados com o Figma"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-06-15",
+   "area": "Flutter",
+   "titulo": "Release 20 — correções no mobile_castanha_ds",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "correcao",
+     "texto": "`CastdsHeaderNavigation`: texto cortado"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`Shortcut`: repasse de cor para o ícone"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`Shortcut`: variante `disabled`"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`Alert`: espaçamento e *message* ajustados"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-06-11",
+   "area": "Ilustrações",
+   "titulo": "Release da Biblioteca de Ilustrações (Figma)",
+   "versao": "v1.2.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`documentos/planilha-recebida`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas/cartao-corporativo-minimalista`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas/cartao-fisico-minimalista`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas/cartao-virtual-minimalista`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas/cartao-voucher-minimalista`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas/cartao-fisico-desbloqueado`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas/cartoes-fisico-virtual`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/employee/login`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/employee/splash-screen`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/sponsor/cartao-corporativo`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/sponsor/cartao-despesas`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/sponsor/cartao-fisico`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/sponsor/empacotamento-beneficios`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/sponsor/login`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/sponsor/recuperacao-senha`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero/sponsor/splash-screen`"
+    }
+   ],
+   "link": "https://www.figma.com/design/9l54k2iyKGMaiIbsGGmEiM/-Caju--Illustrations"
+  },
+  {
+   "data": "2026-05-14",
+   "area": "Ícones",
+   "titulo": "Assets Release — castanha-icons: re-sync completo (29 ícones)",
+   "versao": "v1.2.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`archive-collab-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`archive-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`balance-canceled-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`bandage-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`bright-lamp-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`bright-star-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`bus-sideview-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`calendar-add-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`calendar-check-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`calendar-error-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`calendar-notification-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`calendar-update-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`customize-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`double-virtual-card-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`dumbell-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`emoji-baby-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`fuel-pump-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hub-beneficios`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`lamp-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`medal-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`pill-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`stopwatch-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`stopwatch-negative-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`timesheet-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`train-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`turn-on-category-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`unarchive-collab-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`unarchive-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`walking-line`"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-05-14",
+   "area": "Ilustrações",
+   "titulo": "Assets Release — castanha-illustrations (+20 assets)",
+   "versao": "v1.1.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`dispositivos-celular-extrato`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`documentos-extrato`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas-cartao-corporativo-2`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`financas-cartao-envelope`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`grafico-barra`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`grafico-pizza`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`grafico-setores`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`graficos-objetivo-1`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`graficos-objetivo-2`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`graficos-objetivo-3`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos-caixa-beneficios`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos-caixa-moedas`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos-presente-aberto`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos-presente-fechado`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos-presente-sacola`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos-trofeu`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`premiacoes-gema-esmeralda`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`premiacoes-gema-ouro`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`premiacoes-gema-rubi`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`transporte-carro`"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-05-14",
+   "area": "Outro",
+   "titulo": "Assets Release — castanha-motion (+6 assets)",
+   "versao": "v1.1.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`documentos-arquivar-item`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`notificacoes-success`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`notificacoes-success-2`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`personagens-karina-3`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`seguranca-cadeado-aberto`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`seguranca-cadeado-fechado`"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-05-11",
+   "area": "Figma",
+   "titulo": "Publicação nas bibliotecas do Figma (Release 11.05.2026)",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "[CastanhaDS] Components (Estável): equalização visual de todos os componentes da categoria Text Field"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "[CastanhaDS] Components (Estável): controle \"Show Required Asterisk\" renomeado para \"Show Required\", conteúdo de \"*\" para \"(Obrigatório)\" nos Text Field"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Core components (Legado): Text Area equalizado entre legado, estável e código"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Core components (Legado): variante Caju Card / Corporativo"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Core components (Legado): atualizações recebidas da biblioteca [Caju] Icons"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-05-11",
+   "area": "React",
+   "titulo": "Hotfix castanha-react: equalização de inputs",
+   "versao": "v1.1.1",
+   "itens": [
+    {
+     "tipo": "correcao",
+     "texto": "`Textarea`, `TextInput` e `PasswordInput`: tokens de `error` e `label` atualizados"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`Textarea`: ícone / motion de `error`"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Todos os inputs: texto de obrigatório de `*` para `(Obrigatório)`"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-05-11",
+   "area": "React",
+   "titulo": "Hotfix react-components (legado): equalização de inputs",
+   "versao": "v0.19.0",
+   "itens": [
+    {
+     "tipo": "correcao",
+     "texto": "Opacidades corrigidas em `RadioButton`, `InputPassword`, `TextInput` e `TextArea`"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`TextArea`: comportamento de resize e estilos de spacing e size refinados"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`InputPassword`: estilos customizados removidos e estado `disabled` repassado"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`TextInput`: uso de tokens e espaçamentos padronizados; cores do estado de erro atualizadas"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-04-27",
+   "area": "React",
+   "titulo": "Sprint Release castanha-react",
+   "versao": "v1.1.0",
+   "itens": [
+    {
+     "tipo": "descontinuado",
+     "texto": "Breaking change: `@adobe-spectrum` removido em favor de `@react-aria` (bundle de ~16kb por componente); API do `Tabs` alterada"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Castanha Optimizer: plugin de bundler com CSS Injection e Virtual Registry de assets (uso off-plugin mantido)"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Ícone `branch-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Componente Portal"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`useMask` utilizável fora de fields"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Padronizações de breakpoint e grid (CSS/SCSS)"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Hook `useRovingFocus`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Componentes antes \"Em breve\": Button, CsatScore, Illustration (dev-only), Motion (dev-only), NpsScore, PasswordInput e Textarea"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`IconButton`: variação `inverted`"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Tag`: tokens remapeados"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Toast`: passa a usar API do próprio Castanha"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Notações para compatibilidade com SSR"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`ShapedIcon`: estilos no tamanho `largest`"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-04-27",
+   "area": "React",
+   "titulo": "Sprint Release react-components (legado)",
+   "versao": "v0.18.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Ícone `bus-sideview-line`"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`Modal`: `Overlay` bloqueava cliques após fechar e não cobria a tela inteira"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`Table`: responsividade, alinhamento de texto e bordas"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`SelectInput`: filtro"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`Inputdate` e `TextInput`: problemas gerais"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-04-27",
+   "area": "Flutter",
+   "titulo": "Sprint Release web_castanha_ds",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`SelectionList`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`ContentList`"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Itens de lista: \"texto rasurado\""
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Espaçamento entre o `Header` e o conteúdo das páginas"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`HeaderNavigation`: inconsistência no step"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-04-27",
+   "area": "Outro",
+   "titulo": "Castanha no Tech Debt: Motion",
+   "versao": "castanha-motion@1.0.1",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Interações em 9 componentes: Button, Checkbox, ContentList, IconButton, PasswordInput, SelectionList, Switch, Textarea e TextInput"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Biblioteca de Motion (Lottiefiles) com 14 assets, fonte unificada para os projetos"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-04-27",
+   "area": "Ilustrações",
+   "titulo": "Castanha no Tech Debt: publicação da biblioteca de ilustrações",
+   "versao": "castanha-illustration@1.0.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Biblioteca de ilustrações publicada com 164+ assets; componente Illustration e LRU Caching em React"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-04-27",
+   "area": "Documentação",
+   "titulo": "Castanha no Tech Debt: documentação",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "JSDocs pendentes cobertos e tipagens exportadas de `@caju-beneficios/castanha-react` limpas"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Components Gallery e bibliotecas de Motion e Illustration no mesmo padrão de design do zeroheight"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/"
+  },
+  {
+   "data": "2026-04-13",
+   "area": "Documentação",
+   "titulo": "Novas documentações no zeroheight",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Documentação de SMS"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Documentação de Breadcrumbs"
+    },
+    {
+     "tipo": "outro",
+     "texto": "Releases passam a ser registradas no changelog do zeroheight"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/327118-changelog/t/e416edf921"
+  },
+  {
+   "data": "2026-03-31",
+   "area": "React",
+   "titulo": "Lançamento da versão estabilizada do Castanha DS (castanha-react)",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`@caju-beneficios/castanha-react` com ~20 componentes, 100% dos casos AA e +1300 suítes de teste"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Formulários: componente `Field`, aderente a bibliotecas como RHF"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Hooks públicos, incluindo `useMask` com CNPJ alfanumérico"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Cacheamento de assets"
+    },
+    {
+     "tipo": "outro",
+     "texto": "`react-components` segue com suporte, mas novos componentes e estabilizações vão só para os novos pacotes"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-03-31",
+   "area": "Tokens",
+   "titulo": "Ecossistema de tokens unificado",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`@caju-beneficios/castanha-castoken`: plugin que atualiza os tokens em código a partir das variables do Figma (pareamento 1:1)"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`@caju-beneficios/castanha-tokens`: tokens em `scss`, `css`, `js/ts` e `dart`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`@caju-beneficios/castanha-intellisense`: extensão do VSCode com autocomplete (SCSS), conversão de cores (Dart), syntax highlight e descrições"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-03-31",
+   "area": "Ícones",
+   "titulo": "castanha-icons no ecossistema de assets",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`@caju-beneficios/castanha-icons` com todos os ícones novos, sem duplicidades e nomes 100% padronizados entre design e código"
+    },
+    {
+     "tipo": "outro",
+     "texto": "`castanha-illustrations` e `castanha-motion` anunciados como em desenvolvimento"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-03-31",
+   "area": "Figma",
+   "titulo": "Nova biblioteca [CastanhaDS] Components (Estável)",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Biblioteca [CastanhaDS] Components convivendo com a Legado durante a transição; componentes estabilizados migram para ela"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Tokens e Styles passam a vir da própria biblioteca de componentes, sem lib de tokens separada"
+    },
+    {
+     "tipo": "outro",
+     "texto": "Arquivos em andamento podem precisar atualizar instâncias e trocar variables de cor e text styles"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-03-26",
+   "area": "Ícones",
+   "titulo": "Nova biblioteca [Caju] Icons no Figma",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "[Caju] Icons organizada por categorias, sem remover ícones; Core Components já usam a nova lib"
+    },
+    {
+     "tipo": "descontinuado",
+     "texto": "3. [Castanha DS] Icons: fazer swap para [Caju] Icons (sem impacto em desenvolvimento)"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-03-16",
+   "area": "Ilustrações",
+   "titulo": "Release da Biblioteca de Ilustrações (Figma)",
+   "versao": "0.26.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Ações em processamento [Objetos > Documentos]"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Maquininhas de cartão, tíquetes e cupons [Objetos > Finanças]"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Transferência Pix [Personagens > Mãos]"
+    },
+    {
+     "tipo": "novo",
+     "texto": "\"Estalar de dedos\" [Personagens > Mãos]"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Relógio [Objetos > Relógio]"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Café com coador [Objetos > Alimentos]"
+    },
+    {
+     "tipo": "outro",
+     "texto": "Ilustrações também disponíveis em .png no repositório de ilustrações"
+    }
+   ],
+   "link": "https://www.figma.com/design/ndW0akp113d6seA4iY36r6/4.--Castanha-DS--Illustration"
+  },
+  {
+   "data": "2026-03-13",
+   "area": "Flutter",
+   "titulo": "Entregas e correções — Flutter",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "CSAT / NPS (aguardando publicação)"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Header: ajuste"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-03-13",
+   "area": "React",
+   "titulo": "Entregas e correções — React",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Tabela com header e paginação"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "TextField e TextArea: tamanho do placeholder"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Checkbox: efeito de hover"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Header de Sponsor: tamanho de título e subtítulo; problema ao fazer scroll"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Inputs: opacidade"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Tabela: overflow no header"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Tooltip: posição da seta"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Drawer: efeito de transição"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Feedback: limite de caracteres exibidos"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "DatePicker: ajustes gerais"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Tokens de cor atualizados"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Novos ícones na biblioteca"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "SelectList: documentação melhorada; posição e tamanho do ícone corrigidos"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-03-13",
+   "area": "Figma",
+   "titulo": "Entregas e correções — biblioteca do Figma",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "correcao",
+     "texto": "Card Input, Text Input e Text Area: corte nos descendentes dos textos de description"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Inputs: contraste quando desabilitados"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Melhorias de performance acumuladas em componentes e na biblioteca (tokens, construção de componentes e camadas, organização interna)"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Card Balance: taxonomia equalizada com o código"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-03-13",
+   "area": "Documentação",
+   "titulo": "Novas documentações no zeroheight",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Fixed bar"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Avatar"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Spinner"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Password input"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Currency"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Tooltip"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Progress line"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Breadcrumbs"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Text area"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Input code"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Select input"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Tabs"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Input text"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Diretrizes para Central de Notificações (Content)"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Tabs (Content)"
+    },
+    {
+     "tipo": "outro",
+     "texto": "Shortcut em progresso"
+    }
+   ],
+   "link": "https://castanha.caju.com.br"
+  },
+  {
+   "data": "2026-02-26",
+   "area": "Ilustrações",
+   "titulo": "Release da Biblioteca de Ilustrações (Figma)",
+   "versao": "0.25.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Quickguide: versão compacta da documentação de ilustração (tamanhos, categorias, aplicações, do's & don'ts e como solicitar)"
+    }
+   ],
+   "link": "https://www.figma.com/design/ndW0akp113d6seA4iY36r6/4.--Castanha-DS--Illustration"
+  },
+  {
+   "data": "2026-02-24",
+   "area": "Documentação",
+   "titulo": "Correção de cache do Storybook",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "correcao",
+     "texto": "Storybook: estrutura de chunks invalidada a cada atualização (o `iframe.html` ficava em cache por 1 ano); usar \"Empty Cache and Hard Reload\" uma vez"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-02-13",
+   "area": "Ilustrações",
+   "titulo": "Release da Biblioteca de Ilustrações (Figma)",
+   "versao": "0.23.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Proposta de consignado em processamento [Objetos > Calendário]"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Ilustrações do Borô [Borô]"
+    },
+    {
+     "tipo": "novo",
+     "texto": "HCM [Objetos > Calendários e Férias] e [Personagens > Mãos]"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Interfaces/UIs [UI/Interfaces]"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Segurança [Objetos > Segurança]"
+    }
+   ],
+   "link": "https://www.figma.com/design/ndW0akp113d6seA4iY36r6/4.--Castanha-DS--Illustration"
+  },
+  {
+   "data": "2026-01-16",
+   "area": "Documentação",
+   "titulo": "Documentação do novo template de e-mails transacionais",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "E-mails transacionais: boas práticas, anatomia, uso da ferramenta e aplicações"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-01-15",
+   "area": "Ilustrações",
+   "titulo": "Release da Biblioteca de Ilustrações (Figma)",
+   "versao": "0.22.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Família do Hub de Benefícios [Hero > Hub de Benefícios]"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Voucher [Personagens > Mãos] e [Objetos > Calendários]"
+    },
+    {
+     "tipo": "novo",
+     "texto": "14 personagens das Personas B2B e B2C [Personagens > Personas] e [Hero > Personas]"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Vale-transporte e Rotas Otimizadas [Objetos > Transporte]"
+    }
+   ],
+   "link": "https://www.figma.com/design/ndW0akp113d6seA4iY36r6/4.--Castanha-DS--Illustration"
+  },
+  {
+   "data": "2026-01-06",
+   "area": "Documentação",
+   "titulo": "Treinamentos no zeroheight",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Treinamentos: Sponsor App, Employee App, Motion, Ilustração e Content"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/v/latest/p/49a46b-construindo-novas-experiencias-sponsor-app"
+  },
+  {
+   "data": "2026-01-06",
+   "area": "Documentação",
+   "titulo": "Documentação de Motion no zeroheight",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Princípios de Motion e Velocidade, com regras de aplicação e tokens de duração e curvas (easing)"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/v/latest/p/734995-principios-de-motion"
+  },
+  {
+   "data": "2025-12-17",
+   "area": "Documentação",
+   "titulo": "Nova documentação de componentes React no Storybook",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Aba \"Docs\" por componente: contexto, como importar, aba avançada, vínculo com o zeroheight e links úteis"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Props com descrição e valores default, e exemplos de `Compound Components`"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "53+ correções de TypeScript, 124+ de ESLint e de uso de React Hooks nas stories"
+    },
+    {
+     "tipo": "outro",
+     "texto": "Sem mudança de contrato nos componentes"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2025-12-03",
+   "area": "Documentação",
+   "titulo": "Storybook: propriedades dos componentes categorizadas",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "Props em 6 categorias (Modificadores, Atributos, Comportamento, Eventos, Acessibilidade, Avançado) em 64/64 arquivos"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "400+ descrições de props em pt-BR"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`metadata` (aba controls) atualizado"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Sidebar reorganizada no mesmo padrão do Figma"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2025-11-25",
+   "area": "Flutter",
+   "titulo": "Release mobile-castanha-ds",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Balance Item"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Wallet Button"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2025-11-25",
+   "area": "Figma",
+   "titulo": "Release 25.11.2025 das bibliotecas do Figma",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "2. [Castanha DS] Core components: Balance Item"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Core components e Templates: atualizações recebidas das bibliotecas de suporte (Icons / Illustration)"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Core components: melhorias e ajustes acumulados"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "[Castanha DS] Templates: atualizações recebidas de Core components"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2025-10-30",
+   "area": "Ilustrações",
+   "titulo": "Release da Biblioteca de Ilustrações (Figma)",
+   "versao": "0.21.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Cartão Caju + Cartão Virtual [Objetos > Finanças]"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Cartão Virtual [Objetos > Finanças]"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Categorias do Hub de Benefícios [Hero > Hub de Benefícios]"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Holerites [Objetos > Documentos]"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Personagem meio corpo [Personagens > Busto e Meio Corpo]"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Novas cores para o Feedback de Erro [Feedbacks]"
+    }
+   ],
+   "link": "https://www.figma.com/design/ndW0akp113d6seA4iY36r6/4.--Castanha-DS--Illustration"
+  },
+  {
+   "data": "2025-10-30",
+   "area": "Documentação",
+   "titulo": "Documentação de conteúdo no zeroheight",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Material do treinamento de Organização de tela (guidelines de Estruturando conteúdo)"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Diretrizes de conteúdo do Main Button, com labels padronizadas"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/0983f6-main-button/t/e5c0021f17"
+  },
+  {
+   "data": "2025-10-17",
+   "area": "Flutter",
+   "titulo": "Últimas entregas — mobile-castanha-ds",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "correcao",
+     "texto": "Selection list"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2025-10-17",
+   "area": "React",
+   "titulo": "Últimas entregas — castanha-react",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "correcao",
+     "texto": "Alert: divergência corrigida"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2025-10-17",
+   "area": "Documentação",
+   "titulo": "Últimas entregas — documentação no zeroheight e Figma",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Página \"Comece aqui\" para designers"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Página de recursos e ferramentas com materiais de treinamento"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Template de Figma para construção de fluxos"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Content revisado, com imagens atualizadas"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2025-10-17",
+   "area": "Figma",
+   "titulo": "Últimas entregas — componentes no Figma",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "Refino da estrutura de tokens"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Tabs"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Breadcrumbs"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2025-10-08",
+   "area": "Documentação",
+   "titulo": "Documentação de design dos componentes no zeroheight",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Main Button"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Icon Button"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Filter Button"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Drop Button"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Link"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Card"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Pagination"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Checkbox"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Radio Button"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Switch"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Tag"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Table"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Table Columns"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Shaped Icon"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Icon"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Caju Brand"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Selection List"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Content List"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/111e49-castanha"
+  },
+  {
+   "data": "2025-10-03",
+   "area": "Documentação",
+   "titulo": "Lista de palavras no zeroheight",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Vocabulário controlado por unidade de negócio"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Glossário da Caju"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2025-09-26",
+   "area": "Ilustrações",
+   "titulo": "Ilustrações da biblioteca disponíveis em PNG",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Mais de 100 ilustrações em .PNG para apresentações, comunicados e redes sociais, nas categorias Personagens, Objetos, Feedbacks, Autenticação e Hero"
+    }
+   ],
+   "link": "https://www.figma.com/design/ndW0akp113d6seA4iY36r6/4.--Castanha-DS--Illustration"
+  },
+  {
+   "data": "2025-09-24",
+   "area": "Ilustrações",
+   "titulo": "Release da Biblioteca de Ilustrações (Figma)",
+   "versao": "0.20.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Avião com Cartão [Objetos > Transporte]"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Feirinha e Hub de Benefícios [Objetos > Feirinha & Hub de Benefícios]"
+    }
+   ],
+   "link": "https://www.figma.com/design/ndW0akp113d6seA4iY36r6/4.--Castanha-DS--Illustration"
+  },
+  {
+   "data": "2025-09-18",
+   "area": "Ilustrações",
+   "titulo": "Release da Biblioteca de Ilustrações (Figma)",
+   "versao": "0.19.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Personagens para Autoatendimento MED [Personagens > Busto e Meio Corpo]"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Calendário + Pix [Objetos > Calendário]"
+    }
+   ],
+   "link": "https://www.figma.com/design/ndW0akp113d6seA4iY36r6/4.--Castanha-DS--Illustration"
+  },
+  {
+   "data": "2025-09-17",
+   "area": "React",
+   "titulo": "Últimas entregas — castanha-react",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Novos ícones integrados ao pacote React"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Template de `Feedback`: ajustes visuais e estruturais"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Tokens de tipografia ajustados entre design e código"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`ListNavigation`"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`InputSelect`"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`Breadcrumb`"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2025-09-17",
+   "area": "Flutter",
+   "titulo": "Últimas entregas — mobile-castanha-ds",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Nova versão do `InputText`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Nova versão do `DatePicker`"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`Content List`: correção geral e ação ao clicar no ícone"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`Card` com ícone errado"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`Header`: espaçamento"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`Input Select`: botão sem label"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2025-09-17",
+   "area": "Ícones",
+   "titulo": "Últimas entregas — castanha-icons",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`card-detach-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`general-benefit-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`custom-cat-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`quotation-marks-line`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`calendar-non-recurrent`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`sparks-ai-fill`"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Ajustes não visíveis em alguns ícones no Figma"
+    }
+   ],
+   "link": null
+  }
+ ]
+}

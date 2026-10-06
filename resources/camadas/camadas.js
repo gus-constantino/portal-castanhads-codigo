@@ -197,6 +197,63 @@
       });
       return list;
     };
+    // Fluxo em cards ligados por setas (Shaped Icon do DS, título, texto e o que sai de cada etapa); vira coluna no celular
+    CDS.docBlocks.arqPipeline = function(d, v){
+      var flow = el("ol", "pg-arq-flow"); flow.setAttribute("aria-label", v.label || "Fluxo");
+      v.items.forEach(function(it, i){
+        if (i){ var a = flow.appendChild(el("li", "pg-arq-flow__arrow")); a.setAttribute("aria-hidden", "true"); arrow(a); }
+        var li = flow.appendChild(el("li", "pg-arq-flow__step"));
+        var card = li.appendChild(el("cds-card", "pg-arq-flow__card")); card.setAttribute("has-border", "true");
+        var h = card.appendChild(el("div", "pg-arq-flow__head"));
+        var sh = h.appendChild(document.createElement("cds-shaped-icon")); sh.setAttribute("icon", it.icon); sh.setAttribute("appearance", it.app || "neutral"); sh.setAttribute("size", "small");
+        if (v.numbered) h.appendChild(el("span", "pg-arq-flow__n", "Passo " + (i + 1)));
+        card.appendChild(el("h3", "pg-arq-rule__title", it.title));
+        card.appendChild(rich(el("p", "pg-doc-p"), it.text));
+        if (it.out){ var o = card.appendChild(el("div", "pg-arq-flow__out")); o.appendChild(el("span", "pg-tok-chain__k", v.outLabel || "Sai daqui")); o.appendChild(rich(el("span", "pg-arq-flow__outv"), it.out)); }
+      });
+      return flow;
+    };
+    // Conversor de nome: digite o nome da variável no Figma e veja cada passo até a variável CSS do castanha-tokens,
+    // com o valor real lido do tokens.css (e amostra quando é cor)
+    CDS.docBlocks.arqNamer = function(d, v){
+      var wrap = el("div", "pg-mo-live pg-arq-namer");
+      var left = wrap.appendChild(el("div", "pg-tok-stage pg-arq-namer__in"));
+      var input = left.appendChild(document.createElement("cds-text-input"));
+      [["label", "Nome da variável no Figma"], ["value", v.start], ["placeholder", "Ex.: Common/Colors/Text/intense"], ["show-required", "false"], ["show-supporting-content", "false"], ["show-lead-icon", "false"]].forEach(function(a){ input.setAttribute(a[0], a[1]); });
+      var chips = CDS.docChoice ? left.appendChild(CDS.docChoice("Exemplos", v.start, v.examples.map(function(x){ return [x, x.replace(/^Common\//, "")]; }), function(x){ input.value = x; input.setAttribute("value", x); go(x); })) : null;
+      var mark = function(x){ if (chips && chips.setValue) chips.setValue(v.examples.indexOf(x) >= 0 ? x : null); }; // digitou outro nome: nenhum exemplo marcado
+      var panel = wrap.appendChild(el("div", "pg-mo-panel")); panel.setAttribute("aria-live", "polite");
+      function go(name){
+        name = String(name || "").trim();
+        var a = name.replace(/^(Common|Specific)\//i, ""), b = a.replace(/[\/\s]+/g, "-"), c = b.toLowerCase(), cssVar = "--castanha-" + c, local = "--common-" + c;
+        panel.innerHTML = "";
+        var head = panel.appendChild(el("div", "pg-mo-panel__head"));
+        head.appendChild(el("span", "pg-mo-panel__title", name || "Digite um nome"));
+        head.appendChild(el("span", "pg-mo-panel__when", "do Figma ao CSS, passo a passo"));
+        if (!name) return;
+        [["Tira o prefixo", "Common/ e Specific/ saem do nome", a], ["Troca separadores", "/ e espaço viram -", b], ["Minúsculas", "tudo em minúsculas", c]].forEach(function(r, i){
+          var row = panel.appendChild(el("div", "pg-arq-row"));
+          row.appendChild(el("span", "pg-arq-row__n", String(i + 1)));
+          row.appendChild(el("span", "pg-arq-row__k", r[0]));
+          var val = row.appendChild(el("div", "pg-arq-row__v")); val.appendChild(el("code", "pg-arq-row__code", r[2])); val.appendChild(el("span", "pg-arq-row__t is-none", r[1]));
+        });
+        var res = panel.appendChild(el("div", "pg-arq-namer__res"));
+        res.appendChild(el("code", "pg-arq-namer__var", "var(" + cssVar + ")"));
+        var value = getComputedStyle(document.documentElement).getPropertyValue(local).trim();
+        if (value){
+          if (/^(#|rgb|hsl)/i.test(value)){ var sw = res.appendChild(el("span", "pg-arq-dia__sw")); sw.style.background = value; sw.setAttribute("aria-hidden", "true"); }
+          tag(res, value, "positive");
+          panel.appendChild(rich(el("p", "pg-arq-where"), "Existe no Brand Style: o valor vem do tema atual (" + (document.documentElement.getAttribute("data-theme") === "dark" ? "Dark" : "Light") + ")."));
+        } else {
+          tag(res, "Não encontrado", "warning");
+          panel.appendChild(rich(el("p", "pg-arq-where"), "Esse nome não existe no Brand Style deste site. Confira o nome no Figma: token sem espelho em `Common/` não chega ao código."));
+        }
+      }
+      input.addEventListener("cds-change", function(e){ e.stopPropagation(); go(e.detail && e.detail.value != null ? e.detail.value : input.value); });
+      input.addEventListener("input", function(){ go(input.value); mark(String(input.value).trim()); });
+      requestAnimationFrame(function(){ go(v.start); });
+      return wrap;
+    };
     // Quem cria e quem mantém: um card por tipo, com Shaped Icon do DS e lista de definição (composição cmp-definition-list)
     CDS.docBlocks.arqOwners = function(d, v){
       var grid = el("div", "pg-arq-owners");
@@ -303,19 +360,23 @@
       ] },
       { id: "figma-codigo", title: "Do Figma ao código", blocks: [
         { h2: "Como um token chega ao código" },
-        { steps: [
-          { title: "Figma", text: "As variáveis vivem nas bibliotecas de Primitives, Theme e Components (Brand Style). Mudar um token é sempre um par: variáveis no Figma e depois a sincronia no código." },
-          { title: "Plugin castanha-castoken", text: "Leva as variáveis do Figma para o repositório de tokens." },
-          { title: "Pacote castanha-tokens", text: "Gera as variáveis CSS `--castanha-<grupo>-<caminho>`: o nome do Figma sem `Common` e `Specific`, com `/` e espaço trocados por `-`, tudo em minúsculas.", list: ["`Common/Colors/Text/intense` → `--castanha-colors-text-intense`", "`Common/Sizes/16` → `--castanha-sizes-16`"] },
-          { title: "castanha-react e Flutter", text: "Os componentes leem as variáveis do pacote. Estilos de texto, motion e sombras ainda vêm do componente `Text` e de mixins, fora do pacote." }
-        ] },
+        { p: "Mudar um token é sempre um par: a variável no Figma e depois a sincronia no código. Quem consome não muda nada." },
+        { arqPipeline: { label: "Do Figma ao código", outLabel: "Sai daqui", items: [
+          { icon: "figma-line", app: "accent", title: "Figma", text: "As variáveis vivem nas bibliotecas de Primitives, Theme e Components (Brand Style).", out: "`Common/Colors/Text/intense`" },
+          { icon: "refresh-line", app: "informative", title: "Plugin castanha-castoken", text: "Leva as variáveis do Figma para o repositório de tokens.", out: "JSON de tokens" },
+          { icon: "package-line", app: "warning", title: "Pacote castanha-tokens", text: "Gera as variáveis CSS com o nome do Figma convertido.", out: "`--castanha-colors-text-intense`" },
+          { icon: "react-line", app: "positive", title: "castanha-react e Flutter", text: "Os componentes leem as variáveis do pacote. Texto, motion e sombras ainda vêm do componente `Text` e de mixins.", out: "`<Button>` com o token" }
+        ] } },
+        { h2: "Do nome no Figma à variável CSS" },
+        { p: "Digite o nome de uma variável do Brand Style ou escolha um exemplo. O painel mostra cada passo da conversão e o valor que o token tem agora neste site." },
+        { arqNamer: { start: "Common/Colors/Text/intense", examples: ["Common/Colors/Text/intense", "Common/Colors/Accent/Solid/medium", "Common/Sizes/16", "Common/Border/Radius/pill"] } },
         { h2: "Tema novo ou marca nova" },
-        { steps: [
-          { title: "Inspecionar", text: "Conferir o que existe e confirmar o escopo antes de criar qualquer variável." },
-          { title: "Tema", text: "Criar a coleção e os modes (Light e Dark) e os tokens semânticos com alias para primitivos que já existem." },
-          { title: "Brand Style", text: "Espelhar os tokens em `Common/`. Uma marca nova é um mode novo nesta coleção. Os tokens de feedback não variam por marca." },
-          { title: "Conferir e publicar", text: "Visualizar as variáveis, conferir contraste e publicar em cascata: Primitives, Theme, Brand Style e código." }
-        ] },
+        { arqPipeline: { label: "Tema novo ou marca nova", numbered: true, outLabel: "Pronto quando", items: [
+          { icon: "search-line", app: "neutral", title: "Inspecionar", text: "Conferir o que existe e confirmar o escopo antes de criar qualquer variável.", out: "Escopo combinado com o time" },
+          { icon: "customize-line", app: "informative", title: "Tema", text: "Criar a coleção, os modes Light e Dark e os tokens semânticos com alias para primitivos que já existem.", out: "Theme com Light e Dark" },
+          { icon: "copy-line", app: "accent", title: "Brand Style", text: "Espelhar os tokens em `Common/`. Marca nova é um mode novo. Tokens de feedback não variam por marca.", out: "Mode da marca no Brand Style" },
+          { icon: "upload-line", app: "positive", title: "Conferir e publicar", text: "Visualizar as variáveis, conferir contraste e publicar em cascata: Primitives, Theme, Brand Style e código.", out: "Contraste AA e publicação em ordem" }
+        ] } },
         { note: "Primitivo novo é exceção: entra quando nenhuma combinação dos primitivos existentes resolve, e quem decide é o time do DS." }
       ] }
     ]

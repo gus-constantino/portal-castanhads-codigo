@@ -86,6 +86,8 @@ const BLOCK = {
   arqCascade: (v) => "Do token à tela (exemplo interativo): " + v.targets.map((t) => t.name + ": " + t.brand + " → " + t.brand.replace(/^Common\/Colors\//, "") + " no tema → valor do primitivo").join("; ") + ".",
   arqRules: (v) => v.items.map((r, i) => (i + 1) + ". **" + r.title + "** — " + S(r.text || "") + (r.do ? " Faça: " + S(r.do.text) : "") + (r.dont ? " Evite: " + S(r.dont.text) : "")).join("\n"),
   arqOwners: (v) => v.items.map((o) => "- **" + o.title + "** — " + S(o.text || "") + " " + o.rows.map((r) => r[0] + ": " + r[1]).join(" · ")).join("\n"),
+  arqPipeline: (v) => v.items.map((x, i) => (i + 1) + ". **" + x.title + "** — " + S(x.text) + (x.out ? " (" + (v.outLabel || "sai") + ": " + S(x.out) + ")" : "")).join("\n"),
+  arqNamer: (v) => "Conversão do nome do Figma para CSS: tira Common/ e Specific/, troca / e espaço por -, tudo em minúsculas e prefixa --castanha-. Ex.: " + v.examples.map((x) => x + " → --castanha-" + x.replace(/^(Common|Specific)\//, "").replace(/[\/\s]+/g, "-").toLowerCase()).join("; ") + ".",
   faq: (v) => v.groups.map((g) => "### " + g.title + "\n" + g.items.map((q) => "**" + q[0] + "**\n" + [].concat(q[1]).map((t) => Array.isArray(t) ? t.map((x) => "- " + x).join("\n") : S(t)).join("\n")).join("\n\n")).join("\n\n")
 };
 function blockText(b){

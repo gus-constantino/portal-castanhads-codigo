@@ -1,10 +1,10 @@
 /**
+ * @deps icon-button breadcrumb tag drop-button main-button
  * <cds-sponsor-header> — Header · [CastanhaDS] Sponsor Templates · componente 4002:3849 (CDS-985)
  * https://www.figma.com/design/9Tkkk4lusVKNEButGjvsNW/-CastanhaDS--Sponsor-Templates?node-id=4002-3849
  *
- * TEMPLATE PROVISÓRIO (Gustavo, 05/10/2026): usado como cabeçalho das páginas do playground antes de o Header
- * ser trazido e documentado de verdade. Fica fora do menu, do smoke e de qualquer menção na interface.
- * Quando vier, vira components/<id>/ normal (e este arquivo sai).
+ * Template do Sponsor (menu Templates › Sponsor, Gustavo 06/10). Também é o cabeçalho das páginas do playground:
+ * a linha .Heading é a barra do topo e a .Title Content fica no topo de cada página.
  *
  * Anatomia (só componentes do DS):
  *   .Heading        Back Button (Icon Button default · neutral · small, back-line) · gap 24 · Breadcrumb

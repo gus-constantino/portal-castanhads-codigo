@@ -23,7 +23,7 @@
   var TICKET_PAGES = { inicio: 1, changelog: 1 }; // recursos que também mostram o botão Abrir chamado
   // Resumo do chamado: o que o time do DS precisa para achar o componente (a URL leva as props escolhidas)
   function ticketSummary(def, pub){
-    var cat = def.composition ? "Composições" : def.block ? "Building blocks" : (def.category || "Outros");
+    var cat = def.template ? "Templates › " + def.template : def.composition ? "Composições" : def.block ? "Building blocks" : (def.category || "Outros");
     var lines = ["Chamado aberto pelo playground do Castanha DS", def.resource ? "Página do playground: " + def.name : "Componente: " + def.name + " (" + cat + ")", "Link: " + location.href];
     if (def.figma) lines.push("Figma: " + def.figma);
     if (pub) lines.push("Status no Figma: " + pub[1]);
@@ -43,7 +43,13 @@
   var blocksOpen = false, cmpsOpen = false;
   // Composição (compositions/<id>): peça do playground feita só com tokens do DS onde o DS não tem o componente.
   // Fica numa seção própria depois dos building blocks, recolhida, como eles.
-  function isPart(c){ return c.block || c.composition; }
+  function isPart(c){ return c.block || c.composition || c.template; }
+  // Templates (D250): seção própria no menu, um grupo por produto. Ordem dos grupos; os que vierem depois entram no fim
+  var TEMPLATE_GROUPS = ["App", "Sponsor"];
+  function templateGroups(items){
+    var names = TEMPLATE_GROUPS.concat(items.map(function(c){ return c.template; }).filter(function(x, i, a){ return TEMPLATE_GROUPS.indexOf(x) === -1 && a.indexOf(x) === i; }));
+    return names.map(function(n){ return { name: n, items: items.filter(function(c){ return c.template === n; }) }; }).filter(function(g){ return g.items.length; });
+  }
   // Tooltip só quando há algo a explicar: task do Jira, [Beta], componente em branch do Figma
   function notesOf(c){
     var notes = [];
@@ -82,7 +88,7 @@
       cur = a;
       stage.unmount(); stage.setAttribute("component", c.id); stage.mount();
       nameEl.textContent = c.name;
-      metaEl.textContent = (c.composition ? "Composição do playground" : c.block ? "Building block" : (c.category || "Outros")) + (c.task ? " · " + c.task : "");
+      metaEl.textContent = (c.template ? "Template · " + c.template : c.composition ? "Composição do playground" : c.block ? "Building block" : (c.category || "Outros")) + (c.task ? " · " + c.task : "");
       notesEl.textContent = notes.join(" "); notesEl.hidden = !notes.length;
       card.show(); stage.fit(); place(a);
     }
@@ -278,6 +284,20 @@
         ul.appendChild(kit.el("li", null, [ext]));
       });
     });
+    // Templates: depois de Componentes e antes dos recursos. Título da seção + um Accordion Item por produto (App, Sponsor…)
+    var tpls = shown.filter(function(c){ return c.template && !c.resource; });
+    if (tpls.length){
+      var tbox = document.createDocumentFragment(), tt = kit.el("p", { "class": "pg-nav-title", id: "nav-sec-templates", text: "Templates" });
+      kit.tip(tt, "Telas e partes de tela prontas de cada produto, montadas com componentes do DS.", { text: true });
+      var tul = kit.el("ul", { "class": "pg-nav", "aria-labelledby": "nav-sec-templates" });
+      templateGroups(tpls).forEach(function(g){
+        var acc = navGroup(g.name, g.items, q || narrow.matches || openCats["tpl:" + g.name] || g.items.some(function(c){ return c.id === currentId(); }), function(open){ openCats["tpl:" + g.name] = open; saveOpen(); });
+        acc.setAttribute("description", g.items.length + (g.items.length === 1 ? " template" : " templates"));
+        tul.appendChild(kit.el("li", null, [acc]));
+      });
+      tbox.appendChild(tt); tbox.appendChild(tul);
+      navRes.insertBefore(tbox, navRes.firstChild);
+    }
     navFound.hidden = !navFound.children.length; navRes.hidden = !navRes.children.length;
     var cats = PAGES.concat(comps.map(function(c){ return c.category || "Outros"; }).filter(function(x, i, a){ return PAGES.indexOf(x) === -1 && a.indexOf(x) === i; }));
     // Categorias em accordion: abre a da página atual, as que a pessoa abriu (lembrado no navegador) e todas durante a busca
@@ -526,7 +546,7 @@
     pager.render(isDoc ? docsEl : stage);
   }
 
-  // ---------- Cabeçalho (Header do Sponsor Templates, template provisório) ----------
+  // ---------- Cabeçalho (Header do Sponsor Templates, components/sponsor-header) ----------
   // Um cabeçalho só: a linha .Heading é a barra do topo (#top-header: ← · Breadcrumb Castanha DS › Categoria › Nome · 🔍 · Relatório · Tema)
   // e a linha .Title Content fica no topo da página (#page-header: título · (i) · Tag · Links · Abrir no Figma)
   var top = $("top-header");
@@ -595,6 +615,8 @@
     if (def.notFound) return [ds, { label: def.name, href: location.hash || "#/" }];
     if (def.hidden) return [ds, { label: "Relatório", href: "#/relatorio" }, { label: def.name, href: "#/" + def.id }];
     if (def.resource){ var sec = resSection(def); return [ds, { label: sec.title, href: "#/" + sec.items[0].id }, { label: def.name, href: "#/" + def.id }]; }
+    if (def.template){ var tfirst = list.filter(function(c){ return c.template && !c.resource; })[0] || def, gfirst = list.filter(function(c){ return c.template === def.template; })[0] || def;
+      return [ds, { label: "Templates", href: "#/" + tfirst.id }, { label: def.template, href: "#/" + gfirst.id }, { label: def.name, href: "#/" + def.id }]; }
     var cat = def.composition ? "Composições" : def.block ? "Building blocks" : (def.category || "Outros");
     var first = list.filter(function(c){ return !c.resource && (def.composition ? c.composition : def.block ? c.block : !isPart(c) && (c.category || "Outros") === cat); })[0] || def;
     return [ds, { label: cat, href: "#/" + first.id }, { label: def.name, href: "#/" + def.id }];
@@ -612,6 +634,7 @@
       var seq = list.filter(function(c){ return c.home; }).concat(part(true));
       cats.forEach(function(cat){ seq = seq.concat(comps.filter(function(c){ return (c.category || "Outros") === cat; })); });
       seq = seq.concat(list.filter(function(c){ return c.block && !c.resource; }), list.filter(function(c){ return c.composition && !c.resource; }));
+      templateGroups(list.filter(function(c){ return c.template && !c.resource && !c.hidden; })).forEach(function(g){ seq = seq.concat(g.items); });
       return seq.concat(part(false));
     }
     function near(){ if (currentDef().hidden) return {}; var seq = order(), i = seq.map(function(c){ return c.id; }).indexOf(currentId()); return { prev: seq[i - 1], next: seq[i + 1] }; }
@@ -701,7 +724,7 @@
     buildTabs(def.id);
     preview.innerHTML = ""; panel.innerHTML = "";
     kit.surface(preview, null); // cada componente começa na superfície padrão
-    // Cabeçalho = Header do Sponsor Templates (template provisório): Title = nome · (i) = descrição curta da capa
+    // Cabeçalho = Header do Sponsor Templates (components/sponsor-header): Title = nome · (i) = descrição curta da capa
     var cdoc = CDS.docs && CDS.docs[def.id], cover = cdoc && cdoc.cover;
     header.setAttribute("title", def.name);
     var about = (cover && cover.description) || def.description || ""; // composição sem doc: descrição do registro

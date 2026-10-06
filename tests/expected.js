@@ -104,6 +104,7 @@ window.CDS_EXPECTED = {
   "upload-item":       { w: 320, h: 80, src: "15029:1115 · Uploading" },
   "dropzone":          { w: 320, h: 165, src: "15386:7230 · Enabled · Desktop" },
   "upload-list":       { w: 320, h: 344, src: "15465:1365 · 4 × 80 + 3 × 8" },
+  "sponsor-header":    { minW: 312, src: "4002:3849 · [CastanhaDS] Sponsor Templates · 1366×180 no Figma, ocupa a largura da página (altura acompanha a quebra de linha)" },
   "slider":            { w: 320, h: 44, src: "20056:11908 · Single" },
   "nps-score":         { w: 320, h: 72, src: "10100:848" },
   "nps-value-item":    { w: 24, h: 24, src: "10100:1137" },

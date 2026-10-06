@@ -13,11 +13,11 @@
   "date": "2026-09-25"
  },
  "counts": {
-  "components": 79,
+  "components": 80,
   "buildingBlocks": 26,
   "resources": 14,
   "compositions": 5,
-  "withDocs": 119,
+  "withDocs": 120,
   "withReact": 70,
   "liveMaps": 70,
   "reactOnly": 12,
@@ -13065,6 +13065,39 @@
     ],
     "notes": []
    }
+  },
+  {
+   "id": "sponsor-header",
+   "name": "Header",
+   "kind": "component",
+   "category": null,
+   "figma": "https://www.figma.com/design/9Tkkk4lusVKNEButGjvsNW/-CastanhaDS--Sponsor-Templates?node-id=4002-3849",
+   "figmaNode": "4002-3849",
+   "zeroheight": null,
+   "jira": "CDS-985",
+   "description": "Cabeçalho de página dos templates web do Sponsor: navegação (voltar, breadcrumb e ações utilitárias) e área de título com as ações da página.",
+   "tabs": [
+    {
+     "id": "uso",
+     "title": "Uso",
+     "text": "## Sobre\n\nComponente de cabeçalho de página dos templates web. Combina a camada de navegação (botão de voltar, breadcrumb e ações utilitárias, como notificações com badge e fechar) com a área de título, que reúne o título da página, o botão de informação, a tag de contexto e as ações principais (Drop Button e Main Button).\n\n## Quando usar\n\nNo topo de páginas internas dos produtos web, para dar contexto de navegação e concentrar as ações da página.\n\n### Não utilize para:\n\n- Mensagens de sistema no topo da página: use Alert ou Banner.\n\n## Boas práticas\n\n- **Título conciso** — Mantenha o título curto e descritivo, em uma linha.\n- **Uma ação principal** — Um Main Button por página. Ações secundárias vão no Drop Button.\n- **Show Title** — Oculte a área de título quando a página tiver cabeçalho próprio no conteúdo.\n\n> Texto da description do componente Header no [CastanhaDS] Sponsor Templates. Este playground usa o mesmo Header como cabeçalho das próprias páginas: a linha .Heading é a barra do topo e a .Title Content fica no topo de cada página."
+    },
+    {
+     "id": "anatomia",
+     "title": "Anatomia",
+     "text": "## Anatomia\n\nAnatomia:\n1. Back Button (Icon Button)\n2. Trailling Items: buscar, notificações com Badge e fechar (Icon Buttons)\n3. Title\n4. Information Button (Icon Button ghost)\n5. Tag de contexto\n6. Drop Button (ações secundárias)\n7. Main Button (ação principal)\n\n## Composição do componente\n\nDuas linhas. A `.Heading` tem o Back Button, o Breadcrumb e os Trailling Items (Icon Buttons small default neutral). A `.Title Content` tem o Title (Title/Large), o Information Button (Icon Button ghost accent), a Tag e as ações: Drop Button (default neutral) e Main Button (default accent). Container em `Surface/default`, padding 32 0 28, gap 24 e altura mínima 312 no Figma.\n\n## Propriedades\n\n- **Show Heading** (Boolean)\n- **Show Title** (Boolean)\n\n> As duas props são as do componente Header no Figma. No código, cada instância do template também liga e desliga: `show-back`, `show-breadcrumb`, `show-search`, `show-notification`, `show-close`, `show-info`, `show-tag`, `show-drop-button` e `show-main-button`. Textos: `title`, `tag-label`, `drop-label`, `main-label` e `notification`. O Breadcrumb entra por `setBreadcrumb([{ label, href }], collapse)`."
+    },
+    {
+     "id": "estilos",
+     "title": "Estilos",
+     "text": "## Show Heading e Show Title\n\n**Exemplos:** Completo, Show Title = false, Show Heading = false"
+    },
+    {
+     "id": "acessibilidade",
+     "title": "Acessibilidade",
+     "text": "## Acessibilidade\n\n- O Title é um `h1`: um por página.\n- Os Icon Buttons sem texto têm nome acessível (Voltar, Buscar, Notificações, Fechar, Informação).\n- O Breadcrumb marca a página atual com `aria-current=\"page\"`.\n- A ordem do foco segue a leitura: Voltar, Breadcrumb, ações da barra, Information Button, Drop Button e Main Button."
+    }
+   ]
   },
   {
    "id": "status-dot",

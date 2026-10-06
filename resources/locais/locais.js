@@ -85,7 +85,13 @@
         ] },
         { p: "Com movimento reduzido no sistema, o leque troca de posição sem animar." },
         { h3: "Onde aparece" },
-        { ul: ["Início: capa do Castanha Hub.", "Próximos passos: capas dos recursos, cards de seção, estados vazios e a imagem de preview do link."] },
+        { ul: [
+          "Início: capa vermelha do Castanha Hub e uma pilha pequena no canto de cada card, na cor da área de destino.",
+          "Recursos: a capa de cada página (Tema Caju, Motion, Personas, FAQ…) traz a seção, a frase da página e a pilha da área, com um toque da cor no fundo.",
+          "Menu: uma pilha pequena antes do título de cada seção (Padrões, Aprenda, Ferramentas e Ajuda).",
+          "Próximos passos: faixa de legado, estados vazios e a imagem de preview do link."
+        ] },
+        { p: "A frase da capa de cada recurso fica no `lede` do `CDS.register`. A área sai da seção do menu (`CDS.areaOf`), então uma página nova na seção já ganha a cor certa." },
         { h3: "Uso" },
         { dodont: [
           { kind: "do", title: "Decoração", text: "A pilha é decorativa: fica com aria-hidden e o nome do lugar continua no título ao lado." },

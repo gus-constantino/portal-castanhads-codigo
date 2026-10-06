@@ -1966,9 +1966,10 @@ cmp-thumbnail.is-cut-x.is-cut-y{ -webkit-mask-image:linear-gradient(to bottom, v
 /* <loc-pilha> · componente local do playground (ver pilha.js) — só tokens.
    Cartões quadrados; o da frente tem a altura da pilha e encosta à direita. Cada cartão de trás começa 9cqh mais à esquerda
    e encolhe 14cqh, então aparece como uma faixa à esquerda do seguinte.
-   Cor: mistura do tom de trás (--_back) para o da frente (--_front), um passo por cartão. */
+   Cor: mistura do tom de trás (--_back) para o da frente (--_front), um passo por cartão. A área vem do atributo area
+   ou de um ancestral com data-loc-area (ex.: a capa do recurso), que também pode usar --loc-back/--loc-front no fundo. */
 loc-pilha{
-  --_back:var(--common-colors-accent-solid-intense); --_front:var(--common-colors-accent-solid-medium);
+  --_back:var(--loc-back, var(--common-colors-accent-solid-intense)); --_front:var(--loc-front, var(--common-colors-accent-solid-medium));
   --_n:4; --_step:33.33%; --_fan:0;
   display:block; position:relative; aspect-ratio:127 / 100; container-type:size; pointer-events:none;
 }
@@ -1988,11 +1989,12 @@ loc-pilha[align="end"] > span{ top:auto; bottom:0; transform:translateX(calc(var
 }
 
 /* Escalas por área (CDS.local.areas). Charts 04–07 não têm semi-intense: a mistura cobre o meio. */
-loc-pilha[area="padroes"]{ --_back:var(--common-colors-charts-03-intense); --_front:var(--common-colors-charts-03-medium); }
-loc-pilha[area="aprenda"]{ --_back:var(--common-colors-charts-04-intense); --_front:var(--common-colors-charts-04-medium); }
-loc-pilha[area="ferramentas"]{ --_back:var(--common-colors-charts-02-intense); --_front:var(--common-colors-charts-02-medium); }
-loc-pilha[area="ajuda"]{ --_back:var(--common-colors-charts-01-intense); --_front:var(--common-colors-charts-01-medium); }
-loc-pilha[area="legado"]{ --_back:var(--common-colors-charts-07-intense); --_front:var(--common-colors-charts-07-medium); }
+[data-loc-area], loc-pilha[area]{ --loc-back:var(--common-colors-accent-solid-intense); --loc-front:var(--common-colors-accent-solid-medium); }
+[data-loc-area="padroes"], loc-pilha[area="padroes"]{ --loc-back:var(--common-colors-charts-03-intense); --loc-front:var(--common-colors-charts-03-medium); }
+[data-loc-area="aprenda"], loc-pilha[area="aprenda"]{ --loc-back:var(--common-colors-charts-04-intense); --loc-front:var(--common-colors-charts-04-medium); }
+[data-loc-area="ferramentas"], loc-pilha[area="ferramentas"]{ --loc-back:var(--common-colors-charts-02-intense); --loc-front:var(--common-colors-charts-02-medium); }
+[data-loc-area="ajuda"], loc-pilha[area="ajuda"]{ --loc-back:var(--common-colors-charts-01-intense); --loc-front:var(--common-colors-charts-01-medium); }
+[data-loc-area="legado"], loc-pilha[area="legado"]{ --loc-back:var(--common-colors-charts-07-intense); --loc-front:var(--common-colors-charts-07-medium); }
 /* Sobre Surface/accent (hero vermelho): do mais escuro ao rosado, como a capa do Assets. O fundo não muda no Dark,
    mas a escala accent-solid inverte: no Dark os mesmos tons vêm dos stops opostos. */
 loc-pilha[on="accent"]{ --_back:var(--common-colors-accent-solid-intense); --_front:var(--common-colors-accent-solid-semi-soft); }

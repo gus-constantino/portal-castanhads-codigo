@@ -7,7 +7,7 @@
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   var ZH = "https://castanha.caju.com.br/858426090/v/latest/p/272f28-feedback-page-sponsor";
-  CDS.register({ id: "patterns", name: "Patterns", resource: true, order: 4, zeroheight: ZH });
+  CDS.register({ id: "patterns", name: "Patterns", resource: true, lede: "Feedback Pages e Tela de loading, montadas com componentes do DS.", order: 4, zeroheight: ZH });
   var ills = {}; ((window.CDS.assets || {}).illustrations || []).forEach(function(i){ ills[i.name] = i.src; });
 
   // Kind → ilustração, texto sugerido (Figma) e ações de exemplo (primária, secundária)

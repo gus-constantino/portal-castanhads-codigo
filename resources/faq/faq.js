@@ -4,7 +4,7 @@
    Site público: sem nomes de pessoas, canais, chaves de tarefa, versões, links internos nem decisões ainda em aberto. */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
-  CDS.register({ id: "faq", name: "FAQ", resource: true, order: 0.6 });
+  CDS.register({ id: "faq", name: "FAQ", resource: true, lede: "As perguntas mais frequentes nos chamados, organizadas por tema.", order: 0.6 });
 
   CDS.docs["faq"] = {
     tabs: [

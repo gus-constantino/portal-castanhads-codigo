@@ -6,7 +6,7 @@
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   var HUB = "https://castanha.caju.com.br/858426090/v/latest/p/";
-  CDS.register({ id: "capacitacoes", name: "Capacitações", resource: true, order: 5, zeroheight: HUB + "49a46b-construindo-experiencias-para-o-sponsor-app" });
+  CDS.register({ id: "capacitacoes", name: "Capacitações", resource: true, lede: "Os treinamentos do Hub em vídeo: Sponsor, Employee, Motion, Ilustração e Content.", order: 5, zeroheight: HUB + "49a46b-construindo-experiencias-para-o-sponsor-app" });
 
   // [título, id do Drive]
   function grade(treino, itens){

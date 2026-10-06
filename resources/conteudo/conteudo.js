@@ -4,7 +4,7 @@
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   var FIGMA = "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=6400-33150";
-  CDS.register({ id: "conteudo", name: "Conteúdo", resource: true, order: 2, figma: FIGMA });
+  CDS.register({ id: "conteudo", name: "Conteúdo", resource: true, lede: "Tom e voz, princípios de escrita e regras de texto: como a Caju fala nos produtos.", order: 2, figma: FIGMA });
   var ills = {}; ((window.CDS.assets || {}).illustrations || []).forEach(function(i){ ills[i.name] = i.src; });
   // Tela de exemplo: ilustração + título + texto + Fixed Bar (Pilled) com a ação principal
   function screen(ill, title, text, action, secondary){

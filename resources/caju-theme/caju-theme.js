@@ -5,10 +5,10 @@
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   var FIGMA = "https://www.figma.com/design/Zx9KwwRFqZrOfeuXpYZiTx/-Caju--Theme?node-id=4309-2";
-  CDS.register({ id: "caju-theme", name: "Tema Caju", resource: true, order: 1, status: "250", figma: FIGMA });
+  CDS.register({ id: "caju-theme", name: "Tema Caju", resource: true, lede: "Cores, tipografia, tamanhos, bordas, elevação e ícones do tema.", order: 1, status: "250", figma: FIGMA });
   // Ilustração e Motion saíram do tema e viraram páginas próprias em Padrões (pedido do Gustavo, 05/10); o conteúdo continua definido aqui
-  CDS.register({ id: "ilustracao", name: "Ilustração", resource: true, order: 1.1, figma: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=3416-2" });
-  CDS.register({ id: "motion", name: "Motion", resource: true, order: 1.2, figma: FIGMA });
+  CDS.register({ id: "ilustracao", name: "Ilustração", resource: true, lede: "Princípios, guidelines e a biblioteca de ilustrações da Caju.", order: 1.1, figma: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=3416-2" });
+  CDS.register({ id: "motion", name: "Motion", resource: true, lede: "Princípios de motion, curvas, durações e Motion Styles.", order: 1.2, figma: FIGMA });
   // Rotas antigas → endereço atual (links salvos continuam funcionando)
   var MOVED = { "caju-icons": "#/caju-theme/icones", "caju-illustrations": "#/ilustracao", "animations": "#/motion" }; // Animações: volta para cá quando a lib existir
   function moved(){

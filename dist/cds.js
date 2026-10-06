@@ -3837,6 +3837,9 @@ try {
         this._built = true;
         this.setAttribute("role", "tablist"); // antes dos itens: eles leem o role para o foco itinerante
         if (!this.items.length) for (var i = 0; i < this.sampleCount; i++) this.appendChild(CDS.create("cds-tab-item"));
+        // Abas escritas no HTML são registradas antes da lista e montam sem saber que estão nela (Badge ligado, D145):
+        // agora que a lista existe, cada aba refaz a montagem
+        this.items.forEach(function(it){ if (it.isConnected && it.render) it.render(); });
         this.addEventListener("click", function(e){ var it = e.target.closest("cds-tab-item"); if (it && it.parentElement === self && !it.hasAttribute("disabled")) self.select(self.items.indexOf(it) + 1, true); });
         this.addEventListener("keydown", function(e){ self.onKey(e); });
       }

@@ -445,6 +445,7 @@ Ajustes que o Gustavo vai fazer no Figma; quando entrarem, o código acompanha (
 ## 7. Aprendizados
 
 | Data | Aprendizado |
+| D236 | **Roteiro do Playground (página escondida)**: `docs/roteiro/index.html`, "20 coisas para abrir, clicar e mexer" para quem chega pela primeira vez (Gustavo, 06/10) — trio "Se tiver 5 minutos" e cinco blocos (Menu e navegação, Playground, Motion, Marca e visual, Documentação) com link direto para cada parada, Tag do tipo de ação e Checkbox "Vi" (vistas e Progress Line salvas só no navegador de quem lê, `cds-roteiro:vistas`). Só tokens, componentes do DS (Main Button, Icon Button de tema, Card, Link, Tag, Checkbox, Progress Line), a composição `<cmp-shortcut>` e ilustrações da [Caju] Illustrations. Fora do menu e da busca: o link fica no Relatório › Arquitetura, embaixo da Proposta. |
 |---|---|
 | 30/09 | `curl` para `figma.com` é bloqueado nesta sessão; os ícones saem por `exportAsync({format:'SVG_STRING'})` via `use_figma` |
 | 30/09 | GitHub Pages leva ~1 min por build e faz cache; conferir com `?v=N` (resolvido em 02/10 pelo `?v=hash` automático, D47) |

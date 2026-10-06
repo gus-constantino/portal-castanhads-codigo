@@ -6,6 +6,28 @@
   "use strict";
   var CDS = window.CDS, kit = CDS.kit;
   var JIRA = "https://caju746.atlassian.net/browse/";
+  var SUPORTE = "https://slack.com/shortcuts/Ft09A037R8PL/cfb7e62e998a8c26bac975710a2268ea"; // formulário "Solicitação de suporte" do #castanha-suporte
+  // Copia texto: Clipboard API e, sem permissão (navegador embutido, iframe), o evento copy. Promise<boolean>.
+  function copyText(text){
+    function legacy(){
+      var ok = false;
+      function onCopy(e){ e.clipboardData.setData("text/plain", text); e.preventDefault(); ok = true; }
+      document.addEventListener("copy", onCopy);
+      try { document.execCommand("copy"); } catch (e) {}
+      document.removeEventListener("copy", onCopy);
+      return ok;
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text).then(function(){ return true; }, legacy);
+    return Promise.resolve(legacy());
+  }
+  // Resumo do chamado: o que o time do DS precisa para achar o componente (a URL leva as props escolhidas)
+  function ticketSummary(def, pub){
+    var cat = def.composition ? "Composições" : def.block ? "Building blocks" : (def.category || "Outros");
+    var lines = ["Chamado aberto pelo playground do Castanha DS", "Componente: " + def.name + " (" + cat + ")", "Página: " + location.href];
+    if (def.figma) lines.push("Figma: " + def.figma);
+    if (pub) lines.push("Status no Figma: " + pub[1]);
+    return lines.concat(["", "O que você precisa:"]).join("\n");
+  }
   var $ = function(id){ return document.getElementById(id); };
   var nav = $("nav"), navHome = $("nav-home"), navRes = $("nav-res"), navResTitle = $("nav-res-title"), search = $("search"), header = $("page-header"), canvas = document.querySelector(".pg-canvas");
   var preview = $("preview"), panel = $("panel"), frame = $("frame");
@@ -389,19 +411,8 @@
     header.dropBtn.parentNode.insertBefore(copyBtn, header.dropBtn);
     var copyTip = kit.tip(copyBtn, "Copiar link (com as props escolhidas)", { container: bar }), copyT = 0;
     copyBtn.addEventListener("click", function(){
-      var url = location.href;
       function done(ok){ copyTip.setAttribute("text", ok ? "Link copiado" : "Não deu para copiar: use a barra de endereço"); copyTip.show && copyTip.show(); clearTimeout(copyT); copyT = setTimeout(function(){ copyTip.setAttribute("text", "Copiar link (com as props escolhidas)"); }, 2000); }
-      // Plano B sem permissão de clipboard (navegador embutido, iframe): o evento copy recebe o texto
-      function legacy(){
-        var ok = false;
-        function onCopy(e){ e.clipboardData.setData("text/plain", url); e.preventDefault(); ok = true; }
-        document.addEventListener("copy", onCopy);
-        try { document.execCommand("copy"); } catch (e) {}
-        document.removeEventListener("copy", onCopy);
-        done(ok);
-      }
-      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(function(){ done(true); }, legacy);
-      else legacy();
+      copyText(location.href).then(done);
     });
     header.setAttribute("drop-label", "Links"); header.setAttribute("main-label", "Abrir no Figma");
     CDS.attr(header.dropBtn, "lead-icon", "link-line"); CDS.attr(header.mainBtn, "lead-icon", "figma-line");
@@ -418,7 +429,11 @@
         if (header.dropBtn.hasAttribute("active")) header.dropBtn.removeAttribute("active");
         if (!items.length){ pop = null; return; }
         pop = kit.el("cds-popover", { "for": "page-links-btn", placement: "bottom-end", label: "Links do componente", "class": "pg-links-pop" },
-          items.map(function(l){ return kit.el("cds-link", { label: l[1], href: l[0], target: "_blank", appearance: "neutral", icon: "link-line" }); }));
+          items.map(function(l){
+            var a = kit.el("cds-link", { label: l[1], href: l[0], target: "_blank", appearance: "neutral", icon: l[3] || "link-line" });
+            if (l[2]) a.addEventListener("click", l[2]); // ação extra antes de abrir (ex.: copiar o resumo do chamado)
+            return a;
+          }));
         bar.appendChild(pop);
       }
     };
@@ -557,7 +572,10 @@
     head.mainTip.setAttribute("text", "Abre o componente no Figma, em outra aba." + branch);
     // R5: + Storybook do castanha-react e o zeroheight do .mdx oficial quando o playground não tem (integration/react-data.js)
     var rx = CDS.react && CDS.react.items[def.id], rdir = rx && rx.dir && CDS.react.dirs[rx.dir];
-    head.links([[def.issue, "GitHub · issue de melhoria"], [def.task && JIRA + def.task, "Jira · " + def.task], [def.zeroheight || (rdir && rdir.zeroheight), "Zeroheight"], [rdir && !rdir.staging && rdir.storybook, "Storybook (castanha-react)"]].filter(function(l){ return l[0]; }));
+    // Abrir chamado: formulário "Solicitação de suporte" do #castanha-suporte (Slack List do time do DS). O link do workflow
+    // não aceita campos preenchidos, então o clique copia um resumo da página para colar no formulário. Sem token nem webhook.
+    var ticket = !def.resource && !def.home ? [SUPORTE, "Abrir chamado no #castanha-suporte", function(){ copyText(ticketSummary(def, pub)).then(function(ok){ if (CDS.docToast) CDS.docToast(ok ? "Resumo copiado: cole no formulário do chamado" : "Formulário aberto: descreva o componente e o que precisa"); }); }, "support-line"] : null;
+    head.links([ticket, [def.issue, "GitHub · issue de melhoria"], [def.task && JIRA + def.task, "Jira · " + def.task], [def.zeroheight || (rdir && rdir.zeroheight), "Zeroheight"], [rdir && !rdir.staging && rdir.storybook, "Storybook (castanha-react)"]].filter(function(l){ return l && l[0]; }));
     readout("", false);
     kit.state.begin(panel);
     if (def.mount) def.mount({ preview: preview, panel: panel, kit: kit, readout: readout });

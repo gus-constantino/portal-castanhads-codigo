@@ -30,7 +30,7 @@
     return lines.concat(["", "O que você precisa:"]).join("\n");
   }
   var $ = function(id){ return document.getElementById(id); };
-  var nav = $("nav"), navHome = $("nav-home"), navRes = $("nav-res"), navResTitle = $("nav-res-title"), search = $("search"), header = $("page-header"), canvas = document.querySelector(".pg-canvas");
+  var nav = $("nav"), navHome = $("nav-home"), navRes = $("nav-res"), navFound = $("nav-found"), search = $("search"), header = $("page-header"), canvas = document.querySelector(".pg-canvas");
   var preview = $("preview"), panel = $("panel"), frame = $("frame");
   var rval = $("rval"), rdone = $("rdone"), vpOut = $("vp-readout");
   var tabsEl = $("tabs"), coverEl = $("cover"), docsEl = $("docs"), stage = $("stage"), shell = document.querySelector(".pg-shell");
@@ -196,20 +196,46 @@
     return kit.el("li", { "class": "pg-nav-grid-group" }, [kit.el("p", { "class": "pg-nav-title pg-nav-grid-title", text: label }), ul]);
   }
 
+  // Seções dos recursos no menu (ordem dentro da seção = ordem dos ids). Recurso fora da lista cai em "Mais recursos".
+  var RES_SECTIONS = [
+    { id: "fundamentos", title: "Fundamentos", top: true, ids: ["caju-theme", "conteudo"], tip: "A base de todos os componentes: tema (cores, tipografia, motion…) e diretrizes de conteúdo." },
+    { id: "padroes", title: "Padrões", ids: ["patterns", "personas"], tip: "Soluções para problemas recorrentes de tela e as pessoas para quem projetamos." },
+    { id: "aprenda", title: "Aprenda", ids: ["arquitetura", "treinamento", "capacitacoes"], tip: "Como o DS funciona e como usar no dia a dia, no Figma e no código." },
+    { id: "ferramentas", title: "Ferramentas", ids: ["agentes", "mcp"], tip: "Assistentes de IA e integrações que trabalham com o Castanha DS." },
+    { id: "ajuda", title: "Ajuda", ids: ["faq", "changelog"], tip: "Perguntas frequentes e o que mudou no DS." }
+  ];
+  function resSections(res){
+    var known = {}, out = RES_SECTIONS.map(function(sec){
+      var items = sec.ids.map(function(id){ known[id] = true; return res.filter(function(c){ return c.id === id; })[0]; }).filter(Boolean);
+      return { id: sec.id, title: sec.title, top: sec.top, tip: sec.tip, items: items };
+    });
+    var rest = res.filter(function(c){ return !known[c.id]; }).sort(function(a, b){ return (a.order || 99) - (b.order || 99); });
+    if (rest.length) out.push({ id: "mais", title: "Mais recursos", items: rest });
+    return out.filter(function(sec){ return sec.items.length; });
+  }
+  function resSection(def){ return resSections([def])[0]; }
   function buildNav(filter){
     var q = (filter || "").trim().toLowerCase();
     nav.innerHTML = "";
     var shown = list.filter(function(c){ return !q || (c.name + " " + (c.task || "") + " " + (c.category || "")).toLowerCase().indexOf(q) !== -1; });
     var comps = shown.filter(function(c){ return !isPart(c) && !c.resource; }), blocks = shown.filter(function(c){ return c.block && !c.resource; });
     var cmps = shown.filter(function(c){ return c.composition && !c.resource; });
-    // Recursos de suporte (libs de apoio: ícones, ilustrações…) ficam num espaço próprio, fora dos componentes
+    // Recursos ficam em seções próprias (RES_SECTIONS), fora dos componentes
     // Início (home: Castanha Hub) fica no topo do menu, fora de Componentes e de Recursos
     var home = list.filter(function(c){ return c.home; });
     if (navHome){ navHome.innerHTML = ""; navHome.hidden = !home.length; home.forEach(function(c){ navHome.appendChild(kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name])])); }); }
-    var res = shown.filter(function(c){ return c.resource && !c.home; }).sort(function(a, b){ return (a.order || 99) - (b.order || 99); });
-    navRes.innerHTML = ""; navResTitle.hidden = navRes.hidden = !res.length;
-    // soon (em breve): Tag neutra do DS no lugar do contador (ex.: MCP, ainda não ofertado ao time)
-    res.forEach(function(c){ navRes.appendChild(kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name, c.soon ? kit.el("cds-tag", { appearance: "neutral", label: "Em breve", "show-lead-item": "false" }) : kit.el("small", { text: c.status || "" })])])); });
+    // Recursos em seções, como Carbon, M3, Polaris e Atlassian: Fundamentos antes de Componentes; Padrões, Aprenda,
+    // Ferramentas e Ajuda depois. soon (em breve): Tag neutra do DS no lugar do contador (ex.: MCP, ainda não ofertado ao time)
+    var res = shown.filter(function(c){ return c.resource && !c.home; });
+    [navFound, navRes].forEach(function(box){ box.innerHTML = ""; });
+    resSections(res).forEach(function(sec){
+      var box = sec.top ? navFound : navRes, tid = "nav-sec-" + sec.id;
+      var title = box.appendChild(kit.el("p", { "class": "pg-nav-title", id: tid, text: sec.title }));
+      if (sec.tip) kit.tip(title, sec.tip, { text: true });
+      var ul = box.appendChild(kit.el("ul", { "class": "pg-nav", "aria-labelledby": tid }));
+      sec.items.forEach(function(c){ ul.appendChild(kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name, c.soon ? kit.el("cds-tag", { appearance: "neutral", label: "Em breve", "show-lead-item": "false" }) : kit.el("small", { text: c.status || "" })])])); });
+    });
+    navFound.hidden = !navFound.children.length; navRes.hidden = !navRes.children.length;
     var cats = PAGES.concat(comps.map(function(c){ return c.category || "Outros"; }).filter(function(x, i, a){ return PAGES.indexOf(x) === -1 && a.indexOf(x) === i; }));
     // Categorias em accordion: abre a da página atual, as que a pessoa abriu (lembrado no navegador) e todas durante a busca
     var cur = currentId();
@@ -254,7 +280,7 @@
   // Na faixa horizontal (≤ 1100px) não rola. Segunda tentativa depois da animação do accordion que abriu.
   function revealCurrent(force){
     function go(){
-      var side = document.querySelector(".pg-sidebar"), a = side.querySelector("#nav a[aria-current='page'], #nav-res a[aria-current='page']");
+      var side = document.querySelector(".pg-sidebar"), a = side.querySelector("#nav a[aria-current='page'], #nav-res a[aria-current='page'], #nav-found a[aria-current='page']");
       if (!a || narrow.matches) return;
       var sr = side.getBoundingClientRect(), r = a.getBoundingClientRect();
       if (!r.height || (!force && r.top >= sr.top && r.bottom <= sr.bottom)) return;
@@ -264,7 +290,7 @@
   }
   function markCurrent(){
     var cur = currentId();
-    [].slice.call(nav.querySelectorAll("a")).concat([].slice.call(navRes.querySelectorAll("a")), navHome ? [].slice.call(navHome.querySelectorAll("a")) : []).forEach(function(a){
+    [].slice.call(nav.querySelectorAll("a")).concat([].slice.call(navRes.querySelectorAll("a")), [].slice.call(navFound.querySelectorAll("a")), navHome ? [].slice.call(navHome.querySelectorAll("a")) : []).forEach(function(a){
       if (a.getAttribute("href") === "#/" + cur){ a.setAttribute("aria-current", "page"); var d = a.closest("cds-accordion-item"); if (d && d.collapsed) d.collapsed = false; }
       else a.removeAttribute("aria-current");
     });
@@ -309,7 +335,7 @@
     function input(){ return search.control || search.querySelector("input"); }
     function results(){
       // links visíveis do menu, na ordem da tela (Início, componentes das categorias abertas, recursos); buscando, só os resultados
-      var sel = searchText() ? "#nav a[href^='#/'], #nav-res a[href^='#/']" : ".pg-sidebar a[href^='#/']";
+      var sel = searchText() ? "#nav a[href^='#/'], #nav-res a[href^='#/'], #nav-found a[href^='#/']" : ".pg-sidebar a[href^='#/']";
       return [].slice.call(document.querySelectorAll(sel)).filter(function(a){ return a.getClientRects().length > 0; });
     }
     function focusSearch(){ var i = input(); if (i){ i.focus(); i.select(); } }
@@ -460,24 +486,25 @@
   function crumbs(def){
     var ds = { label: "Castanha DS", href: "#/" };
     if (def.home) return [ds, { label: def.name, href: "#/" + def.id }];
-    if (def.resource) return [ds, { label: "Recursos de suporte", href: "#/" }, { label: def.name, href: "#/" + def.id }];
+    if (def.resource){ var sec = resSection(def); return [ds, { label: sec.title, href: "#/" + sec.items[0].id }, { label: def.name, href: "#/" + def.id }]; }
     var cat = def.composition ? "Composições" : def.block ? "Building blocks" : (def.category || "Outros");
     var first = list.filter(function(c){ return !c.resource && (def.composition ? c.composition : def.block ? c.block : !isPart(c) && (c.category || "Outros") === cat); })[0] || def;
     return [ds, { label: cat, href: "#/" + first.id }, { label: def.name, href: "#/" + def.id }];
   }
 
   // ---------- Anterior / próximo (fim da página) ----------
-  // Como Carbon e M3: dois cards no fim da página, na ordem do menu (Início › componentes por categoria › building blocks › recursos).
+  // Como Carbon e M3: dois cards no fim da página, na ordem do menu (Início › Fundamentos › componentes por categoria › building blocks › composições › demais seções).
   // Content List Item do DS (Kind Card · Intent Navigation, href). Atalho do Storybook: ⌥← / ⌥→ (Alt no Windows/Linux).
   var pager = (function(){
     var mac = /Mac|iP(hone|ad)/.test(navigator.platform || navigator.userAgent), key = mac ? "⌥" : "Alt+";
     var el = kit.el("nav", { "class": "pg-pager", "aria-label": "Anterior e próximo" });
     function order(){
       var comps = list.filter(function(c){ return !isPart(c) && !c.resource; }), cats = PAGES.concat(comps.map(function(c){ return c.category || "Outros"; }).filter(function(x, i, a){ return PAGES.indexOf(x) === -1 && a.indexOf(x) === i; }));
-      var seq = list.filter(function(c){ return c.home; });
+      var secs = resSections(list.filter(function(c){ return c.resource && !c.home; })), part = function(top){ return secs.filter(function(x){ return !!x.top === top; }).reduce(function(a, x){ return a.concat(x.items); }, []); };
+      var seq = list.filter(function(c){ return c.home; }).concat(part(true));
       cats.forEach(function(cat){ seq = seq.concat(comps.filter(function(c){ return (c.category || "Outros") === cat; })); });
       seq = seq.concat(list.filter(function(c){ return c.block && !c.resource; }), list.filter(function(c){ return c.composition && !c.resource; }));
-      return seq.concat(list.filter(function(c){ return c.resource && !c.home; }).sort(function(a, b){ return (a.order || 99) - (b.order || 99); }));
+      return seq.concat(part(false));
     }
     function near(){ var seq = order(), i = seq.map(function(c){ return c.id; }).indexOf(currentId()); return { prev: seq[i - 1], next: seq[i + 1] }; }
     function card(def, dir){
@@ -662,7 +689,6 @@
     paintTheme();
   });
 
-  kit.tip(navResTitle, "Bibliotecas de apoio do DS: ícones, ilustrações e tema. Não são componentes.", { text: true });
   kit.tip($("vp-frame-lbl"), "Largura atual do frame. \"Fluido\" acompanha o espaço disponível, até 600 px.", { text: true });
   kit.tip($("rval-lbl"), "O que o componente acabou de emitir: valor, seleção ou abertura. Atualiza a cada interação.", { text: true });
   paintTheme(); buildNav(); setViewport("fluid"); onRoute();

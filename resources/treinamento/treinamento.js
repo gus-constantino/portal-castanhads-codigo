@@ -60,7 +60,7 @@
         { ul: ["Princípios de escrita.", "Regras gramaticais, como formato de data e pontuação.", "Playbooks para situações específicas, como o tour guiado.", "Vocabulário: a lista de palavras padronizadas da experiência.", "Guias de notificação."] },
         { h3: "Borô: IA para escalar os padrões" },
         { p: "O Borô é uma base de conhecimento ativa com IA, pensada como assistente do dia a dia de quem desenha. O primeiro teste usou a documentação de conteúdo, e o primeiro mês teve boa avaliação de resolução, relevância e recomendação. O plano é estender o Borô às documentações do Castanha e a insights de pesquisa." },
-        { note: "Hoje: o guia está no playground em Recursos de suporte → Conteúdo, e o Borô tem página própria no Hub (Agentes e Skills)." }
+        { note: "Hoje: o guia está no playground em Fundamentos → Conteúdo, e o Borô tem página própria no Hub (Agentes e Skills)." }
       ] },
       { id: "ilustracao", title: "Ilustração", blocks: [
         DATA,

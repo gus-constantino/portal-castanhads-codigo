@@ -219,12 +219,34 @@
     // Divergências por tipo
     var open = conf.sections.filter(function(s){ return TYPES.indexOf(s.title) !== -1; });
     var total = open.reduce(function(a, s){ return a + items(s.lines).length; }, 0);
-    var p2 = panel(grid, "Débitos e melhorias mapeados", total + " em aberto, por tipo de ajuste", "rp-panel--wide");
-    bars(p2, open.map(function(s){
+    // Débitos e melhorias: progresso geral (resolvidos) + uma barra por tipo, dividida em como o código tratou cada item
+    // (segue o Figma · exceção aprovada · débito), nas cores da rosca de Adaptações. Comprimento = quantidade no tipo.
+    var solvedN = items(sec(conf, function(s){ return s.title === "Resolvidos"; }).lines).length;
+    var p2 = panel(grid, "Débitos e melhorias mapeados", total + " em aberto e " + solvedN + " resolvidos · por tipo de ajuste e como o código tratou", "rp-panel--wide");
+    var prog = p2.appendChild(el("div", "rp-prog"));
+    var pl = prog.appendChild(el("cds-progress-line", "rp-prog__pl")); pl.setAttribute("percent", "0"); pl.dataset.pct = String(Math.round(solvedN / ((total + solvedN) || 1) * 1000) / 10); pl.setAttribute("aria-hidden", "true");
+    prog.appendChild(el("p", "rp-prog__t", "<strong>" + Math.round(solvedN / ((total + solvedN) || 1) * 100) + "% resolvido</strong> · " + solvedN + " de " + (total + solvedN) + " itens já registrados no Conferir"));
+    var KIND = function(r){ var code = r[4] || "", act = r[5] || ""; return /débito|erro no figma/i.test(act) ? "deb" : /exceção/i.test(code) ? "exc" : "seg"; };
+    var types = open.map(function(s){
+      var rs = rows(s.lines).filter(function(r){ return /^(~~)?C\d+/.test(r[0]); }), k = { seg: 0, exc: 0, deb: 0 };
+      rs.forEach(function(r){ k[KIND(r)]++; });
       var desc = (s.lines.filter(function(l){ return l.trim() && !/^\|/.test(l); })[0] || "").replace(/\*\*|`/g, "").trim();
-      return { label: s.title, value: items(s.lines).length, href: "#/relatorio/conferir/" + slug(s.title), desc: desc };
-    })
-      .sort(function(a, b){ return b.value - a.value; }));
+      return { label: s.title, n: items(s.lines).length, k: k, href: "#/relatorio/conferir/" + slug(s.title), desc: desc };
+    }).sort(function(a, b){ return b.n - a.n; });
+    var maxT = Math.max.apply(null, types.map(function(t){ return t.n; }).concat([1]));
+    var tl = p2.appendChild(el("ul", "rp-bars rp-types"));
+    types.forEach(function(t, i){
+      var li = tl.appendChild(el("li")), row = li.appendChild(el("a", "rp-bar rp-type")); row.href = t.href;
+      row.appendChild(el("span", "rp-bar__label", esc(t.label)));
+      var track = row.appendChild(el("span", "rp-type__track")); track.setAttribute("aria-hidden", "true");
+      var fill = track.appendChild(el("span", "rp-type__fill")); fill.style.setProperty("--_w", String(t.n / maxT)); fill.style.setProperty("--_i", String(i)); fill.setAttribute("data-grow", "");
+      ["seg", "exc", "deb"].forEach(function(k){ if (!t.k[k]) return; var sg = fill.appendChild(el("span", "rp-type__seg is-" + k)); sg.style.flexGrow = String(t.k[k]); });
+      row.appendChild(el("span", "rp-bar__value", String(t.n)));
+      var parts = [["seg", "seguem o Figma"], ["exc", "exceção aprovada"], ["deb", "débito ou erro no Figma"]].filter(function(x){ return t.k[x[0]]; }).map(function(x){ return t.k[x[0]] + " " + x[1]; }).join(" · ");
+      if (CDS.kit) CDS.kit.lazyTip(row, t.n + " em aberto: " + parts + "." + (t.desc ? " " + t.desc : "") + " Clique para ver os itens.", { label: t.label });
+    });
+    var lg = p2.appendChild(el("ul", "rp-legend rp-legend--inline"));
+    [["seg", "Segue o Figma"], ["exc", "Exceção aprovada"], ["deb", "Débito ou erro no Figma"]].forEach(function(x){ var li = lg.appendChild(el("li")); li.appendChild(el("span", "rp-legend__sw is-" + x[0])); li.appendChild(el("span", null, x[1])); });
 
     // Como o código tratou
     var all = [].concat.apply([], open.map(function(s){ return rows(s.lines).filter(function(r){ return /^(~~)?C\d+/.test(r[0]); }); }));

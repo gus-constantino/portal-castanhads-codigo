@@ -4,7 +4,7 @@
    dos personagens da [Caju] Illustrations no lugar das fotos. Bloco persona do docs-kit. */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
-  CDS.register({ id: "personas", name: "Personas", resource: true, order: 7, zeroheight: "https://castanha.caju.com.br/858426090/v/latest/p/40e414" });
+  CDS.register({ id: "personas", name: "Personas", resource: true, lede: "Quem usa os produtos da Caju e o que cada pessoa precisa.", order: 7, zeroheight: "https://castanha.caju.com.br/858426090/v/latest/p/40e414" });
   CDS.docs["personas"] = { tabs: [
  {
   "id": "sobre",

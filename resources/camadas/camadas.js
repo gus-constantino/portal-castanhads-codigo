@@ -4,7 +4,7 @@
    Site público: sem nomes de pessoas, canais, chaves de tarefa, links internos nem decisões ainda em aberto. */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
-  CDS.register({ id: "camadas", name: "Camadas", resource: true, order: 1.5 }); // menu: Padrões, entre Tema Caju e Conteúdo (RES_SECTIONS no app.js)
+  CDS.register({ id: "camadas", name: "Camadas", resource: true, lede: "Do token à tela: como as camadas do Castanha DS se conectam.", order: 1.5 }); // menu: Padrões, entre Tema Caju e Conteúdo (RES_SECTIONS no app.js)
 
   var FUND = ["Fundação", "informative"], EST = ["Estilo", "accent"], DS = ["Design System", "positive"], PROD = ["Produto", "warning"];
 

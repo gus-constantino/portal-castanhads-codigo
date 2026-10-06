@@ -214,6 +214,22 @@
     return out.filter(function(sec){ return sec.items.length; });
   }
   function resSection(def){ return resSections([def])[0]; }
+  // Cor por área (D223): a seção do menu escolhe a escala da pilha (local/pilha · CDS.local.areas)
+  var AREAS = { padroes: 1, aprenda: 1, ferramentas: 1, ajuda: 1 };
+  function areaOf(id){
+    var def = list.filter(function(c){ return c.id === id; })[0];
+    if (!def || def.hidden) return null;
+    if (def.home) return "marca";
+    if (!def.resource) return "componentes";
+    var sec = resSection(def); return sec && AREAS[sec.id] ? sec.id : null;
+  }
+  CDS.areaOf = areaOf;
+  // Capa do recurso: hero claro com a frase da página (lede no CDS.register), a seção como sobretítulo e a pilha da área
+  function heroOf(def){
+    if (!def || !def.resource || def.home || def.hidden || !def.lede) return null;
+    var area = areaOf(def.id); if (!area) return null;
+    return { eyebrow: resSection(def).title, title: def.lede, area: area, level: "p", cards: 3 };
+  }
   function buildNav(filter){
     var q = (filter || "").trim().toLowerCase();
     nav.innerHTML = "";
@@ -231,7 +247,9 @@
     [navFound, navRes].forEach(function(box){ box.innerHTML = ""; });
     resSections(res).forEach(function(sec){
       var box = sec.top ? navFound : navRes, tid = "nav-sec-" + sec.id;
-      var title = box.appendChild(kit.el("p", { "class": "pg-nav-title", id: tid, text: sec.title }));
+      // Marcador da área: pilha pequena na cor da seção (D223)
+      var mark = AREAS[sec.id] ? [kit.el("loc-pilha", { "class": "pg-nav-pilha", area: sec.id, cards: "3" })] : [];
+      var title = box.appendChild(kit.el("p", { "class": "pg-nav-title" + (mark.length ? " has-pilha" : ""), id: tid }, mark.concat([sec.title])));
       if (sec.tip) kit.tip(title, sec.tip, { text: true });
       var ul = box.appendChild(kit.el("ul", { "class": "pg-nav", "aria-labelledby": tid }));
       sec.items.forEach(function(c){ ul.appendChild(kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name, c.soon ? kit.el("cds-tag", { appearance: "neutral", label: "Em breve", "show-lead-item": "false" }) : kit.el("small", { text: c.status || "" })])])); });
@@ -452,7 +470,7 @@
   // ---------- Tabs (só quando o componente tem *.docs.js) ----------
   function buildTabs(id){
     var doc = CDS.docs && CDS.docs[id];
-    if (CDS.renderCover) CDS.renderCover(doc, coverEl); // capa (frame [Header]) acima das tabs, quando a doc tem
+    if (CDS.renderCover) CDS.renderCover(doc, coverEl, heroOf(currentDef())); // capa acima das tabs: frame [Header] do componente ou hero do recurso
     tabsEl.innerHTML = "";
     tabsEl.hidden = !doc || !CDS.renderDoc || (currentDef().resource && doc.tabs.length === 1); // página de uma tab só (ex.: Início) não mostra a barra
     if (tabsEl.hidden) return;

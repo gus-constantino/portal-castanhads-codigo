@@ -7,7 +7,7 @@
    IDs do Notion, nomes do time nem procedimentos internos. */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
-  CDS.register({ id: "agentes", name: "Agentes e Skills", resource: true, order: 8, zeroheight: "https://castanha.caju.com.br/858426090/v/latest/p/44eff3" });
+  CDS.register({ id: "agentes", name: "Agentes e Skills", resource: true, lede: "IA que ajuda a escrever e construir no padrão da Caju.", order: 8, zeroheight: "https://castanha.caju.com.br/858426090/v/latest/p/44eff3" });
   var BORO_IMG = "resources/agentes/boro.svg";
   var BORO = "https://caju.slack.com/app_redirect?channel=U097X4BKLNP"; // conversa com o Borô no Slack da Caju
   var DEMO = "https://plataforma-web-lab.netlify.app/";

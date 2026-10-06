@@ -25,8 +25,9 @@
  *   table: { head: [...], rows: [[...]], wrap }   wrap: células quebram linha
  *   video: { src, title, caption, href, cta }   player embutido 16:9 (iframe do serviço; o DS não tem componente de vídeo)
  *   shortcuts: [{ title, text, href, cta, illustration | src, external }]   atalhos em Cards (capa do Castanha Hub); sem href, card só informativo
- *   hero: { title, text, area, cards }   capa da marca (conceito do Castanha Assets): sem area = Surface/accent com a pilha rosada;
- *                                       com area = fundo default e a pilha na escala da área (componente local <loc-pilha>)
+ *   hero: { eyebrow, title, text, area, cards }   capa da marca (conceito do Castanha Assets): sem area = Surface/accent com a pilha
+ *                                       rosada; com area = fundo com um toque da cor da área e a pilha encostada embaixo (<loc-pilha>)
+ *   shortcuts: { pilha: true, … }      cada card ganha uma pilha pequena no canto, na cor da área do destino (CDS.areaOf) ou de it.area
  *   palette: { label, names: [...], steps: [...], hex: [[hex por passo] por cor], notes: { passo: "nota" } }   paleta fora dos tokens (ilustração)
  *   steps: [{ title, text, list, table, after }]   passos numerados
  *   code: "texto"                      bloco monoespaçado com botão Copiar
@@ -470,6 +471,9 @@
       var g = el("div", "pg-doc-shortcuts" + (v.bento ? " is-bento is-cols-" + v.bento : "")), ills = {}; ((window.CDS.assets || {}).illustrations || []).forEach(function(i){ ills[i.name] = i.src; });
       items.forEach(function(it){
         var c = el("cds-card", "pg-doc-shortcut" + (it.size ? " is-" + it.size : "") + (it.layout ? " is-" + it.layout : "")); c.setAttribute("has-border", "true");
+        // Pilha no canto (D223): cor da área do destino; o leque abre no hover do card
+        var area = v.pilha && (it.area || (CDS.areaOf && /^#\//.test(it.href || "") && CDS.areaOf(it.href.slice(2).split(/[/?]/)[0])));
+        if (area){ c.classList.add("loc-pilha-trigger", "has-pilha"); var pl = el("loc-pilha", "pg-doc-shortcut__pilha"); pl.setAttribute("area", area); pl.setAttribute("align", "end"); pl.setAttribute("cards", "3"); c.appendChild(pl); }
         var ssrc = it.src || (it.illustration && ills[it.illustration]); // src: imagem fora do [Caju] Illustrations
         if (ssrc){ var im = el("img", "pg-doc-shortcut__img"); im.alt = ""; im.loading = "lazy"; im.src = ssrc; c.appendChild(im); }
         var b = c.appendChild(el("div", "pg-doc-shortcut__body"));
@@ -489,11 +493,13 @@
     // componente local) à direita; a pilha abre em leque no hover da capa. Sem area: Surface/accent (Início).
     hero: function(d, v){
       var s = el("section", "pg-doc-hero loc-pilha-trigger" + (v.area ? " is-light" : ""));
+      if (v.area) s.dataset.locArea = v.area; // fundo e pilha leem a escala da área (local/pilha/pilha.css)
       var t = s.appendChild(el("div", "pg-doc-hero__text"));
-      t.appendChild(el("h2", "pg-doc-hero__title", v.title));
+      if (v.eyebrow) t.appendChild(el("p", "pg-doc-hero__eyebrow", v.eyebrow));
+      t.appendChild(el(v.level || "h2", "pg-doc-hero__title", v.title));
       if (v.text) t.appendChild(rich(el("p", "pg-doc-hero__p"), v.text));
       var p = s.appendChild(el("loc-pilha", "pg-doc-hero__pilha"));
-      if (v.area) p.setAttribute("area", v.area); else p.setAttribute("on", "accent");
+      if (v.area) p.setAttribute("align", "end"); else p.setAttribute("on", "accent");
       if (v.cards) p.setAttribute("cards", String(v.cards));
       return s;
     },
@@ -746,8 +752,11 @@
 
   /** Capa do componente (frame [Header] do Figma): o componente real (vivo) numa moldura, acima das tabs.
    *  Sem `doc.cover`, esvazia e esconde `root`. Fundo provisório = Accent/Solid/soft (o Surface/03 do Figma é legado, sem token: C91). */
-  CDS.renderCover = function(doc, root){
+  CDS.renderCover = function(doc, root, hero){
     root.innerHTML = "";
+    // Recurso: a capa é o hero claro na cor da área (D223), igual em todas as tabs
+    root.classList.toggle("is-hero", !!hero);
+    if (hero){ root.hidden = false; root.classList.remove("is-image"); root.appendChild(BLOCKS.hero(doc || {}, hero)); return; }
     root.hidden = !(doc && doc.cover);
     if (root.hidden) return;
     var cv = doc.cover;

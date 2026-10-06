@@ -5,7 +5,7 @@
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   var ZH = "https://castanha.caju.com.br/858426090/v/latest/p/508bfb-treinamento-como-usar-as-documentacoes";
-  CDS.register({ id: "treinamento", name: "Treinamento", resource: true, order: 3, zeroheight: ZH });
+  CDS.register({ id: "treinamento", name: "Treinamento", resource: true, lede: "Como usar as documentações do Castanha, em vídeo e resumo.", order: 3, zeroheight: ZH });
   // Player do Drive na página (pedido do Gustavo, como no Hub); só toca com login Caju
   function video(id, tema){
     return { video: { src: "https://drive.google.com/file/d/" + id + "/preview", title: "Vídeo do treinamento: " + tema,

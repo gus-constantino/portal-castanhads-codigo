@@ -20,10 +20,11 @@
     if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text).then(function(){ return true; }, legacy);
     return Promise.resolve(legacy());
   }
+  var TICKET_PAGES = { inicio: 1, changelog: 1 }; // recursos que também mostram o botão Abrir chamado
   // Resumo do chamado: o que o time do DS precisa para achar o componente (a URL leva as props escolhidas)
   function ticketSummary(def, pub){
     var cat = def.composition ? "Composições" : def.block ? "Building blocks" : (def.category || "Outros");
-    var lines = ["Chamado aberto pelo playground do Castanha DS", "Componente: " + def.name + " (" + cat + ")", "Página: " + location.href];
+    var lines = ["Chamado aberto pelo playground do Castanha DS", def.resource ? "Página do playground: " + def.name : "Componente: " + def.name + " (" + cat + ")", "Link: " + location.href];
     if (def.figma) lines.push("Figma: " + def.figma);
     if (pub) lines.push("Status no Figma: " + pub[1]);
     return lines.concat(["", "O que você precisa:"]).join("\n");
@@ -414,6 +415,16 @@
       function done(ok){ copyTip.setAttribute("text", ok ? "Link copiado" : "Não deu para copiar: use a barra de endereço"); copyTip.show && copyTip.show(); clearTimeout(copyT); copyT = setTimeout(function(){ copyTip.setAttribute("text", "Copiar link (com as props escolhidas)"); }, 2000); }
       copyText(location.href).then(done);
     });
+    // Abrir chamado: Main Button Default · Neutral com o logo do Slack, entre Links e Abrir no Figma (componente, composição, building block, Início e Changelog).
+    // O formulário "Solicitação de suporte" do #castanha-suporte não aceita campos preenchidos: o clique copia um resumo da página e abre o formulário.
+    var ticketBtn = kit.el("cds-main-button", { id: "page-ticket-btn", kind: "default", appearance: "neutral", size: "medium", label: "Abrir chamado", "lead-icon": "slack-line", "show-trailing-icon": "false" });
+    header.mainBtn.parentNode.insertBefore(ticketBtn, header.mainBtn);
+    kit.tip(ticketBtn, "Abre o formulário de suporte do #castanha-suporte no Slack e copia um resumo desta página para colar nele", { container: bar });
+    ticketBtn.addEventListener("click", function(){
+      if (!head.ticket) return;
+      copyText(ticketSummary(head.ticket.def, head.ticket.pub)).then(function(ok){ if (CDS.docToast) CDS.docToast(ok ? "Resumo copiado: cole no formulário do chamado" : "Formulário aberto: descreva o componente e o que precisa"); });
+      window.open(SUPORTE, "_blank", "noopener");
+    });
     header.setAttribute("drop-label", "Links"); header.setAttribute("main-label", "Abrir no Figma");
     CDS.attr(header.dropBtn, "lead-icon", "link-line"); CDS.attr(header.mainBtn, "lead-icon", "figma-line");
     CDS.attr(header.tag, "show-lead-item", "false");
@@ -572,10 +583,9 @@
     head.mainTip.setAttribute("text", "Abre o componente no Figma, em outra aba." + branch);
     // R5: + Storybook do castanha-react e o zeroheight do .mdx oficial quando o playground não tem (integration/react-data.js)
     var rx = CDS.react && CDS.react.items[def.id], rdir = rx && rx.dir && CDS.react.dirs[rx.dir];
-    // Abrir chamado: formulário "Solicitação de suporte" do #castanha-suporte (Slack List do time do DS). O link do workflow
-    // não aceita campos preenchidos, então o clique copia um resumo da página para colar no formulário. Sem token nem webhook.
-    var ticket = !def.resource && !def.home ? [SUPORTE, "Abrir chamado no #castanha-suporte", function(){ copyText(ticketSummary(def, pub)).then(function(ok){ if (CDS.docToast) CDS.docToast(ok ? "Resumo copiado: cole no formulário do chamado" : "Formulário aberto: descreva o componente e o que precisa"); }); }, "slack-line"] : null;
-    head.links([ticket, [def.issue, "GitHub · issue de melhoria", null, "github-line"], [def.task && JIRA + def.task, "Jira · " + def.task], [def.zeroheight || (rdir && rdir.zeroheight), "Zeroheight"], [rdir && !rdir.staging && rdir.storybook, "Storybook (castanha-react)", null, "react-line"]].filter(function(l){ return l && l[0]; }));
+    head.ticket = (!def.resource && !def.home) || TICKET_PAGES[def.id] ? { def: def, pub: pub } : null; // componentes + Início e Changelog
+    $("page-ticket-btn").hidden = !head.ticket;
+    head.links([[def.issue, "GitHub · issue de melhoria", null, "github-line"], [def.task && JIRA + def.task, "Jira · " + def.task], [def.zeroheight || (rdir && rdir.zeroheight), "Zeroheight"], [rdir && !rdir.staging && rdir.storybook, "Storybook (castanha-react)", null, "react-line"]].filter(function(l){ return l && l[0]; }));
     readout("", false);
     kit.state.begin(panel);
     if (def.mount) def.mount({ preview: preview, panel: panel, kit: kit, readout: readout });

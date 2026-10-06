@@ -8,7 +8,7 @@
 |---|---|
 | Smoke dos componentes (claro, escuro, mobile 360) | ✅ 115/115 ok · ⚠️ 10 com aviso |
 | Smoke das docs (desktop e 375px) | ✅ 126 docs · 709 tabs · 0 com problema |
-| Peso da primeira visita | ✅ 472 KB gzip de 600 KB · docs sob demanda: 108 arquivos |
+| Peso da primeira visita | ✅ 473 KB gzip de 600 KB · docs sob demanda: 108 arquivos |
 ## Componentes
 
 Nenhuma falha.
@@ -38,9 +38,9 @@ Nenhum aviso.
 
 | Parte | Bruto | gzip |
 |---|---|---|
-| Primeira visita (tudo o que o index.html carrega) | 2040 KB | 472 KB |
+| Primeira visita (tudo o que o index.html carrega) | 2041 KB | 473 KB |
 | dist/cds.js · componentes (115 arquivos) | 325 KB | 81 KB |
-| dist/cds.js · playgrounds (108 arquivos) | 160 KB | 27 KB |
+| dist/cds.js · playgrounds (108 arquivos) | 161 KB | 28 KB |
 | dist/cds.js · recursos (28 arquivos) | 448 KB | 131 KB |
 | Docs sob demanda (108 arquivos, uma por componente aberto) | — | 283 KB no total |
 

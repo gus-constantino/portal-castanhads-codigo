@@ -5,7 +5,7 @@
  * (.Subcategory) no Slot. Appearance=Accent nos atalhos, Neutral nas categorias. Um item selecionado por vez.
  *
  * Anatomia (set 5576:27, 224×40): fundo Surface/01, raio Border/Radius/small · Navigation Content pad 4 8 4 4, gap 4
- *   Lead Icon 32×32 (raio extra-small; selecionado: fundo Surface/accent e ícone Icons/inversed) · Label (Label/Medium, Text/intense)
+ *   Lead Icon 32×32 (raio extra-small; selecionado ou accordion aberto: fundo Surface/accent e ícone Icons/inversed) · Label (Label/Medium, Text/intense; aberto, Label/Bold)
  *   Badge (Warning) · Expand Icon (Intent=Accordion: dropdown-open-line / dropdown-close-line)
  *   Kind=Reduced: 40×40, só o Lead Icon (menu colapsado)
  *   States: Hovered Neutral/Opacity/Intense/semi-transparent · Pressed Surface/default · Disabled opacidade 0.4 e Text/medium
@@ -55,7 +55,8 @@
           dis = this.hasAttribute("disabled"), accent = this.getAttribute("appearance") === "accent", label = this.getAttribute("label") || "Category", href = this.getAttribute("href");
       this.labelEl.textContent = label;
       CDS.attr(this.iconEl, "icon", this.getAttribute("icon") || "placeholder-line");
-      CDS.attr(this.iconEl, "appearance", sel ? "inversed" : accent ? "accent" : "neutral");
+      var open = acc && this.expanded; // Figma: o accordion aberto só existe com Is Selected=True (ícone no Surface/accent)
+      CDS.attr(this.iconEl, "appearance", sel || open ? "inversed" : accent ? "accent" : "neutral");
       this.badgeEl.hidden = this.getAttribute("show-badge") === "false";
       CDS.attr(this.badgeEl, "label", reduced ? "" : (this.getAttribute("badge-label") || "Novo"));
       CDS.attr(this.badgeEl, "viewport", "desktop"); // Figma: Badge de 16 (Reduced: sem texto), também no frame mobile

@@ -23,7 +23,7 @@ cds-sponsor-category[disabled] .cds-spc__row{ opacity:0.4; color:var(--common-co
   border-radius:var(--common-border-radius-extra-small);
   transition:background-color var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing);
 }
-cds-sponsor-category[selected] .cds-spc__lead{ background:var(--common-colors-surface-accent); }
+cds-sponsor-category[selected] .cds-spc__lead, cds-sponsor-category[intent="accordion"][expanded] .cds-spc__lead{ background:var(--common-colors-surface-accent); } /* aberto = Is Selected=True no Figma */
 .cds-spc__label{ flex:1 1 auto; min-width:0; font:var(--text-style-label-medium); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 cds-sponsor-category[kind="reduced"] .cds-spc__label{ display:none; }
 .cds-spc__badge, .cds-spc__chev{ flex:0 0 auto; }

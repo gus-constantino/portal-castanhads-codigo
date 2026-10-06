@@ -24,7 +24,7 @@
   "tokens": 308,
   "icons": 273,
   "illustrations": 260,
-  "conferirOpen": 116,
+  "conferirOpen": 117,
   "stackFindings": 57
  },
  "components": [
@@ -13139,7 +13139,7 @@
     {
      "id": "uso",
      "title": "Uso",
-     "text": "## Sobre\n\nNavegação lateral do app Sponsor. Colapsado (80px, só ícones) e expandido (360px). No desktop expande por hover, em overlay sobre o conteúdo. É componente de template do Sponsor, não do Core.\n\nEscopo: Mobile e Desktop.\n\n## Composição\n\n- `.Category` (obrigatório): itens de navegação. Intent=Accordion abre subitens.\n- `.Subcategory`: subitens dentro do Slot do `.Category` Accordion.\n- `.User Profile`: rodapé com avatar, nome e CNPJ.\n- Slot (opcional): conteúdo livre abaixo da marca (Show Slot).\n- Shortcuts (opcional): atalhos rápidos (Show Shortcuts), com `.Category` Appearance=Accent.\n\n## Conteúdo do componente no Figma\n\n| Área | Itens | No Figma |\n|---|---|---|\n| Categories | Painel Incial, Gestão de pessoas, Pedidos, Benefícios e Premiações, Cartão do colaborador, Reembolso e despesas, Financeiro, Relatórios e Personalizações. Seis são Accordion: Gestão de pessoas, Benefícios e Premiações, Reembolso e despesas, Financeiro, Relatórios e Personalizações | Visíveis, nenhum selecionado e sem Badge |\n| Categories (reserva) | 4 `.Category` com o rótulo Category e Badge, para menus maiores | Camadas ocultas |\n| Shortcuts | Painel Inicial, Soluções Caju, Novo Pedido, Adicionar Colaborador e Cartões (Appearance=Accent) | Ocultos até ligar Show Shortcuts |\n| Heading | Icon Button `close-line` para fechar o menu em gaveta | Camada oculta (no código, `show-close`) |\n| User Area | Ajuda (Accordion, `support-line`) e `.User Profile` (User Name, CNPJ e `menu-line`) | Visíveis |\n\n## Boas práticas\n\n- **Um item selecionado** — Um item selecionado por vez, derivado da rota.\n- **Um accordion aberto** — Abrir um accordion fecha os outros.\n\n> Texto da description do Side Menu no [CastanhaDS] Sponsor Templates."
+     "text": "## Sobre\n\nNavegação lateral do app Sponsor. Colapsado (80px, só ícones) e expandido (360px). No desktop expande por hover, em overlay sobre o conteúdo. É componente de template do Sponsor, não do Core.\n\nEscopo: Mobile e Desktop.\n\n## Composição\n\n- `.Category` (obrigatório): itens de navegação. Intent=Accordion abre subitens.\n- `.Subcategory`: subitens dentro do Slot do `.Category` Accordion.\n- `.User Profile`: rodapé com avatar, nome e CNPJ.\n- Slot (opcional): conteúdo livre abaixo da marca (Show Slot).\n- Shortcuts (opcional): atalhos rápidos (Show Shortcuts), com `.Category` Appearance=Accent.\n\n## Conteúdo do componente no Figma\n\n| Área | Itens | No Figma |\n|---|---|---|\n| Categories | Painel Incial, Gestão de pessoas, Pedidos, Benefícios e Premiações, Cartão do colaborador, Reembolso e despesas, Financeiro, Relatórios e Personalizações. Seis são Accordion: Gestão de pessoas, Benefícios e Premiações, Reembolso e despesas, Financeiro, Relatórios e Personalizações | Visíveis, nenhum selecionado e sem Badge |\n| Subitens (instância 5582:1812, accordions abertos) | Gestão de pessoas: Painel, Colaboradores, Organograma, Admissão, Férias, Ausências, Fechamentos, Assinatura digital, Documentos, Recisão e Folha de Pagamento. Benefícios e Premiações: Pedido, Hub de Benefícios, Saúde e Bem Estar e Feirinha RH. Reembolso e despesas: Adiantamento, Reembolsos e Configurações. Financeiro: Créditos Caju, Conta Caju do colaborador e Assinaturas Caju. Relatórios: Gestão de Pessoas, Benefícios e Premiações, Saúde e Bem Estar, Cartão do colaborador, Despesas, Conta Caju e Financeiro. Personalizações: Benefícios e Premiações, Gestão de pessoas e Empresa | `.Subcategory` sem Lead Icon, com a seta; o accordion aberto tem o ícone em `Surface/accent` (Is Selected=True) |\n| Categories (reserva) | 4 `.Category` com o rótulo Category e Badge, para menus maiores | Camadas ocultas |\n| Shortcuts | Painel Inicial, Soluções Caju, Novo Pedido, Adicionar Colaborador e Cartões (Appearance=Accent) | Ocultos até ligar Show Shortcuts |\n| Heading | Icon Button `close-line` para fechar o menu em gaveta | Camada oculta (no código, `show-close`) |\n| User Area | Ajuda (Accordion, `support-line`) e `.User Profile` (User Name, CNPJ e `menu-line`) | Visíveis |\n\n## Boas práticas\n\n- **Um item selecionado** — Um item selecionado por vez, derivado da rota.\n- **Um accordion aberto** — Abrir um accordion fecha os outros.\n\n> Texto da description do Side Menu no [CastanhaDS] Sponsor Templates."
     },
     {
      "id": "anatomia",
@@ -27000,6 +27000,12 @@
     "group": "Ajuste de texto",
     "resolved": false,
     "text": "Side Menu (Sponsor Templates 5576:445) · `.Category` das Categories · Text Label \"Painel Incial\" · \"Painel Inicial\" (como no atalho dos Shortcuts) · Igual ao Figma, \"Painel Incial\" (nome exato, decisão de 05/10) · Próxima revisão do Sponsor Templates"
+   },
+   {
+    "id": "C178",
+    "group": "Ajuste de texto",
+    "resolved": false,
+    "text": "Side Menu · instância com os accordions abertos (5582:1812) · `.Subcategory` de Gestão de pessoas · Text Label \"Recisão\" · \"Rescisão\" · Igual ao Figma, \"Recisão\" (nome exato) · Próxima revisão do Sponsor Templates"
    },
    {
     "id": "C03",

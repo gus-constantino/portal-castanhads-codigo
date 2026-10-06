@@ -116,7 +116,11 @@
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Hierarquia" },
         { p: "Os estilos do Main Button seguem três níveis de ênfase, cada um associado a um contexto de importância da ação e à hierarquia visual dentro da interface:" },
-        { display: { attrs: [{ label: "Ação principal" }, { label: "Ação secundária", appearance: "neutral" }, { label: "Ação terciária", kind: "ghost", appearance: "neutral" }] } },
+        { levels: [
+          { title: "Ênfase alta", uso: "Ação principal e prioritária em uma tela ou fluxo.", button: "Default/Accent", attrs: { label: "Salvar" } },
+          { title: "Ênfase média", uso: "Ações secundárias que complementam a ação principal.", button: "Default/Accent e Ghost/Accent", attrs: [{ label: "Editar", appearance: "neutral" }, { label: "Baixar", kind: "ghost", "show-lead-icon": true, "lead-icon": "download-line" }] },
+          { title: "Ênfase baixa", uso: "Ações neutras, como “Cancelar” ou opções menos frequentes.", button: "Ghost/Neutral", attrs: { label: "Cancelar", kind: "ghost", appearance: "neutral" } }
+        ] },
         { h2: "Web" },
         { guides: [
           { attrs: { label: "Salvar alterações" }, title: "Labels", text: "Os labels dos botões devem ser claros, objetivos e descritivos, indicando exatamente qual ação será realizada ao clicar. Evite termos genéricos como “OK” ou “Clique aqui” e prefira comandos que explicitem o resultado da ação, como “Enviar formulário”, “Salvar alterações” ou “Remover item”." },

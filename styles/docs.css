@@ -139,6 +139,21 @@
 .pg-doc-guide{ display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); align-items:center; gap:var(--common-sizes-24); }
 .pg-doc-guide__text{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
 .pg-doc-guide__text .pg-doc-h3{ margin:0; font:var(--text-style-body-bold); }
+/* Níveis de ênfase (Figma: Hierarquia do Main Button): seta Accent → clara, texto 340 e coluna de exemplos */
+.pg-doc-levels{ display:flex; justify-content:center; gap:var(--common-sizes-40); }
+.pg-doc-levels__arrow{ position:relative; flex:0 0 var(--common-border-width-thin); align-self:stretch;
+  background:linear-gradient(var(--common-colors-accent-solid-medium), var(--common-colors-accent-solid-soft)); }
+.pg-doc-levels__arrow::before{ content:""; position:absolute; top:0; left:50%; width:var(--common-sizes-8); height:var(--common-sizes-8);
+  border-top:var(--common-border-width-thin) solid var(--common-colors-accent-solid-medium); border-left:var(--common-border-width-thin) solid var(--common-colors-accent-solid-medium);
+  transform:translate(-50%, var(--common-sizes-1)) rotate(45deg); transform-origin:center; }
+.pg-doc-levels__rows{ display:flex; flex-direction:column; gap:var(--common-sizes-32); }
+.pg-doc-level{ display:grid; grid-template-columns:minmax(0, calc(var(--common-sizes-200) + var(--common-sizes-120) + var(--common-sizes-20))) calc(var(--common-sizes-120) + var(--common-sizes-16)); align-items:center; gap:var(--common-sizes-80); }
+.pg-doc-level__text{ display:flex; flex-direction:column; gap:var(--common-sizes-4); }
+.pg-doc-level__title{ margin:0; font:var(--text-style-label-bold); color:var(--common-colors-text-medium); }
+.pg-doc-level__desc{ margin:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+.pg-doc-level__desc b{ font-weight:700; }
+.pg-doc-level__ex{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-24); }
+@media (max-width:760px){ .pg-doc-levels__arrow{ display:none; } .pg-doc-level{ grid-template-columns:minmax(0, 1fr); gap:var(--common-sizes-16); } }
 @media (max-width:900px){ .pg-doc-guide{ grid-template-columns:minmax(0, 1fr); } }
 
 /* Do's and Don'ts: cards = composição <cmp-do-dont> (compositions/do-dont); aqui só a grade */

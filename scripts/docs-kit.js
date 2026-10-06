@@ -315,6 +315,24 @@
       });
       return g;
     },
+    // Níveis de ênfase (ex.: Hierarquia do Main Button no Figma): seta do mais alto ao mais baixo, título, Uso e Button, e os exemplos do DS
+    levels: function(d, v){
+      var box = display(null, "pg-doc-levels");
+      box.appendChild(el("span", "pg-doc-levels__arrow")).setAttribute("aria-hidden", "true");
+      var rows = box.appendChild(el("div", "pg-doc-levels__rows"));
+      v.forEach(function(it){
+        var row = rows.appendChild(el("div", "pg-doc-level"));
+        var t = row.appendChild(el("div", "pg-doc-level__text"));
+        t.appendChild(el("h3", "pg-doc-level__title", it.title));
+        var p = t.appendChild(el("p", "pg-doc-level__desc"));
+        [["Uso:", it.uso], ["Button:", it.button]].forEach(function(r, i){
+          if (i) p.appendChild(document.createElement("br"));
+          p.appendChild(el("b", null, r[0])); p.appendChild(document.createTextNode(" ")); rich(p, r[1]);
+        });
+        row.appendChild(el("div", "pg-doc-level__ex")).appendChild(examples(d, it.attrs));
+      });
+      return box;
+    },
     // Do/Don't = composição <cmp-do-dont> (compositions/do-dont: o DS não tem esse bloco, C87)
     dodont: function(d, v){
       var g = el("div", "pg-doc-dodont");

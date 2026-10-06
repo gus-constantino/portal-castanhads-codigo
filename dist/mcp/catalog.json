@@ -24,7 +24,7 @@
   "tokens": 308,
   "icons": 273,
   "illustrations": 260,
-  "conferirOpen": 117,
+  "conferirOpen": 118,
   "stackFindings": 57
  },
  "components": [
@@ -7986,7 +7986,7 @@
     {
      "id": "diretrizes",
      "title": "Diretrizes",
-     "text": "## Hierarquia\n\nOs estilos do Main Button seguem três níveis de ênfase, cada um associado a um contexto de importância da ação e à hierarquia visual dentro da interface:\n\nExemplo: Ação principal · Ação secundária · Ação terciária\n\n## Web\n\n- **Labels** — Os labels dos botões devem ser claros, objetivos e descritivos, indicando exatamente qual ação será realizada ao clicar. Evite termos genéricos como “OK” ou “Clique aqui” e prefira comandos que explicitem o resultado da ação, como “Enviar formulário”, “Salvar alterações” ou “Remover item”.\n- **Uso de ícones no Main button** — Ícones podem complementar o texto de um botão e reforçar visualmente o significado da ação, mas devem ser usados com intenção clara. Inclua ícones quando eles agregarem valor sem comprometer a legibilidade ou a hierarquia visual do botão.\n\n## Mobile\n\n- **Main button em mobile** — Em mobile, recomenda-se o empilhamento vertical de botões, não utilizando a disposição lado a lado, que pode gerar toques acidentais e dificultar a interação. Sempre que possível, o botão deve ocupar 100% da largura disponível na tela.\n- **Priorize a ação principal no topo ou rodapé fixo** — Em fluxos mobile, o Main Button deve estar visível e acessível, preferencialmente fixado no rodapé da tela ou logo após o conteúdo principal.\n\n## Ação destrutiva\n\nMesmo sem um estilo visual específico para ações destrutivas, o uso do Main Button na versão default/accent é o mais indicado nesses casos. É essencial que a label do botão seja clara e direta, deixando evidente a consequência da ação — por exemplo: “Excluir item”, “Remover usuário” ou “Encerrar sessão”. Evite termos genéricos como “Confirmar” ou “OK”.\n\n## Do's and Don'ts\n\n- ✅ Faça: Use um único Main Button primário (accent) por tela ou seção. (exemplo: Salvar · Cancelar)\n- ❌ Evite: Não use múltiplos Main Buttons primários em uma mesma hierarquia visual. (exemplo: Salvar · Cancelar)\n- ✅ Faça: Inclua ícones quando agregarem valor e sem prejudicar a legibilidade. (exemplo: Baixar)\n- ❌ Evite: Não insira ícones que não comuniquem claramente a ação. (exemplo: Baixar)\n- ✅ Faça: Use o Main Button para ações (ex: enviar, excluir, confirmar). (exemplo: Enviar)\n- ❌ Evite: Não use o Main Button como elemento de navegação entre páginas — use o componente Link nesses casos. (exemplo: Ir para Relatórios)"
+     "text": "## Hierarquia\n\nOs estilos do Main Button seguem três níveis de ênfase, cada um associado a um contexto de importância da ação e à hierarquia visual dentro da interface:\n\n## Web\n\n- **Labels** — Os labels dos botões devem ser claros, objetivos e descritivos, indicando exatamente qual ação será realizada ao clicar. Evite termos genéricos como “OK” ou “Clique aqui” e prefira comandos que explicitem o resultado da ação, como “Enviar formulário”, “Salvar alterações” ou “Remover item”.\n- **Uso de ícones no Main button** — Ícones podem complementar o texto de um botão e reforçar visualmente o significado da ação, mas devem ser usados com intenção clara. Inclua ícones quando eles agregarem valor sem comprometer a legibilidade ou a hierarquia visual do botão.\n\n## Mobile\n\n- **Main button em mobile** — Em mobile, recomenda-se o empilhamento vertical de botões, não utilizando a disposição lado a lado, que pode gerar toques acidentais e dificultar a interação. Sempre que possível, o botão deve ocupar 100% da largura disponível na tela.\n- **Priorize a ação principal no topo ou rodapé fixo** — Em fluxos mobile, o Main Button deve estar visível e acessível, preferencialmente fixado no rodapé da tela ou logo após o conteúdo principal.\n\n## Ação destrutiva\n\nMesmo sem um estilo visual específico para ações destrutivas, o uso do Main Button na versão default/accent é o mais indicado nesses casos. É essencial que a label do botão seja clara e direta, deixando evidente a consequência da ação — por exemplo: “Excluir item”, “Remover usuário” ou “Encerrar sessão”. Evite termos genéricos como “Confirmar” ou “OK”.\n\n## Do's and Don'ts\n\n- ✅ Faça: Use um único Main Button primário (accent) por tela ou seção. (exemplo: Salvar · Cancelar)\n- ❌ Evite: Não use múltiplos Main Buttons primários em uma mesma hierarquia visual. (exemplo: Salvar · Cancelar)\n- ✅ Faça: Inclua ícones quando agregarem valor e sem prejudicar a legibilidade. (exemplo: Baixar)\n- ❌ Evite: Não insira ícones que não comuniquem claramente a ação. (exemplo: Baixar)\n- ✅ Faça: Use o Main Button para ações (ex: enviar, excluir, confirmar). (exemplo: Enviar)\n- ❌ Evite: Não use o Main Button como elemento de navegação entre páginas — use o componente Link nesses casos. (exemplo: Ir para Relatórios)"
     },
     {
      "id": "motion",
@@ -27067,6 +27067,12 @@
     "group": "Ajuste de texto",
     "resolved": false,
     "text": "Side Menu · instância com os accordions abertos (5582:1812) · `.Subcategory` de Gestão de pessoas · Text Label \"Recisão\" · \"Rescisão\" · Igual ao Figma, \"Recisão\" (nome exato) · Próxima revisão do Sponsor Templates"
+   },
+   {
+    "id": "C179",
+    "group": "Ajuste de texto",
+    "resolved": false,
+    "text": "Main Button · Diretrizes › Hierarquia (Component use documentation 2054:1999) · Ênfase média diz \"Button: Default/Accent e Ghost/Accent\", mas o exemplo \"Editar\" é Default/Neutral · Texto e exemplo iguais: provavelmente \"Default/Neutral e Ghost/Accent\" · Texto e exemplos iguais ao Figma · Ajustar o texto ou o exemplo no Figma"
    },
    {
     "id": "C03",

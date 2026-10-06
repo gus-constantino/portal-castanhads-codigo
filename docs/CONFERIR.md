@@ -8,7 +8,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 
 | Tipo | Itens |
 |---|---|
-| [Ajuste de texto](#ajuste-de-texto) | 8 |
+| [Ajuste de texto](#ajuste-de-texto) | 9 |
 | [Ajuste de UI](#ajuste-de-ui) | 28 |
 | [Motion](#motion) | 7 |
 | [Refactor](#refactor) | 39 |
@@ -31,6 +31,7 @@ Copy, exemplos e descriptions no Figma. Não muda layout nem comportamento.
 | C57 | Date Input · Character Counter e máscara | `Show Character Counter` ligado com o texto `-0000`; Mask=Date com placeholder `dd/mm/aaaa`, enquanto o Text Input usa `00/00/0000` para a mesma máscara | Desligar o contador (não há limite) e um placeholder só para Date | Segue o Figma: contador "-0000" e `dd/mm/aaaa` no Date Input | **Débito** (Gustavo, 02/10): remover o Character Counter do Date Input no Figma; aí desligar o padrão em `date-input.js` (`updateCounter`). A máscara `dd/mm/aaaa` × `00/00/0000` segue para alinhar |
 | C177 | Side Menu (Sponsor Templates 5576:445) · `.Category` das Categories | Text Label "Painel Incial" | "Painel Inicial" (como no atalho dos Shortcuts) | Igual ao Figma, "Painel Incial" (nome exato, decisão de 05/10) | Próxima revisão do Sponsor Templates |
 | C178 | Side Menu · instância com os accordions abertos (5582:1812) · `.Subcategory` de Gestão de pessoas | Text Label "Recisão" | "Rescisão" | Igual ao Figma, "Recisão" (nome exato) | Próxima revisão do Sponsor Templates |
+| C179 | Main Button · Diretrizes › Hierarquia (Component use documentation 2054:1999) | Ênfase média diz "Button: Default/Accent e Ghost/Accent", mas o exemplo "Editar" é Default/Neutral | Texto e exemplo iguais: provavelmente "Default/Neutral e Ghost/Accent" | Texto e exemplos iguais ao Figma | Ajustar o texto ou o exemplo no Figma |
 
 ## Ajuste de UI
 

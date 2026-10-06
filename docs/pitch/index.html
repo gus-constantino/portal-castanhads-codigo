@@ -37,7 +37,7 @@
   /* ---------- Tipografia: só os Text Styles do tema, sem trocar altura de linha, espaçamento, caixa ou opacidade ---------- */
   .pt-eyebrow{ margin:0; font:var(--text-style-label-bold); color:var(--common-colors-text-accent); }
   .is-accent .pt-eyebrow, .is-inversed .pt-eyebrow{ color:inherit; }
-  .pt-display{ margin:0; font:var(--text-style-decorative-display); text-wrap:balance; hyphens:auto; overflow-wrap:break-word; }
+  .pt-display{ margin:0; font:var(--text-style-decorative-display); text-wrap:balance; overflow-wrap:break-word; }
   .pt-h2{ margin:0; font:var(--text-style-decorative-big); text-wrap:balance; }
   .pt-h3{ margin:0; font:var(--text-style-decorative-large); text-wrap:balance; }
   .pt-h4{ margin:0; font:var(--text-style-title-medium); }
@@ -61,7 +61,7 @@
 
   /* ---------- Capa ---------- */
   .pt-hero{ min-height:calc(100svh - var(--pt-top-h)); display:flex; align-items:center; overflow:hidden; padding-block:var(--common-sizes-80); box-sizing:border-box; }
-  .pt-hero .pt-wrap, .pt-end .pt-wrap, .pt-virada{ display:grid; grid-template-columns:minmax(0, 1.5fr) minmax(0, 1fr); gap:var(--common-sizes-56); align-items:center; }
+  .pt-hero .pt-wrap, .pt-end .pt-wrap{ display:grid; grid-template-columns:minmax(0, 1.5fr) minmax(0, 1fr); gap:var(--common-sizes-56); align-items:center; }
   .pt-hero__text, .pt-end__text, .pt-virada__text{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-32); }
   .pt-hero__brand{ height:var(--common-sizes-56); width:auto; }
   .pt-hero__meta{ margin:0; font:var(--text-style-label-medium); }
@@ -134,7 +134,7 @@
     :root{ --pt-gutter:var(--common-sizes-20); }
     .pt-chapter{ padding-block:var(--common-sizes-80); }
     .pt-sub{ margin-top:var(--common-sizes-80); }
-    .pt-hero .pt-wrap, .pt-end .pt-wrap, .pt-virada, .pt-grid--2, .pt-grid--3{ grid-template-columns:minmax(0, 1fr); }
+    .pt-hero .pt-wrap, .pt-end .pt-wrap, .pt-grid--2, .pt-grid--3{ grid-template-columns:minmax(0, 1fr); }
     .pt-pilha{ justify-self:start; width:auto; height:var(--common-sizes-160); }
     .pt-chapter .pt-display{ font:var(--text-style-decorative-extra-large); }
     .pt-h2{ font:var(--text-style-decorative-large); }
@@ -227,11 +227,10 @@
   </div>
 </section>
 
-<!-- Virada (cor Black da Thumbnail Castanha) -->
-<section class="pt-chapter is-inversed loc-pilha-trigger" aria-labelledby="t-virada" style="padding-block:var(--common-sizes-200);">
+<!-- Virada (cor Black da Thumbnail Castanha): só o texto, sem a pilha, para a pergunta caber inteira (Gustavo, 06/10) -->
+<section class="pt-chapter is-inversed" aria-labelledby="t-virada" data-chapter-of="por-que" style="padding-block:var(--common-sizes-200);">
   <div class="pt-wrap pt-virada">
     <div class="pt-virada__text pt-zoom"><p class="pt-eyebrow">A virada</p><h2 class="pt-display" id="t-virada">E se a documentação nascesse no mesmo lugar que o código?</h2></div>
-    <loc-pilha class="pt-pilha pt-fan-view" on="inversed"></loc-pilha>
   </div>
 </section>
 
@@ -410,9 +409,10 @@
   var tabs = $("pt-tabs"), tabItems = [].slice.call(tabs.querySelectorAll("cds-tab-item")), chapters = [].slice.call(document.querySelectorAll("[data-chapter]"));
   tabs.addEventListener("cds-change", function(e){ var t = tabItems[e.detail.index - 1]; if (t) $(t.dataset.target).scrollIntoView(); });
   var chIO = new IntersectionObserver(function(es){
-    es.forEach(function(e){ if (!e.isIntersecting) return; var i = tabItems.findIndex(function(t){ return t.dataset.target === e.target.id; }); if (i >= 0) CDS.attr(tabs, "active-item", String(i + 1)); });
+    es.forEach(function(e){ if (!e.isIntersecting) return; var id = e.target.dataset.chapterOf || e.target.id, i = tabItems.findIndex(function(t){ return t.dataset.target === id; }); if (i >= 0) CDS.attr(tabs, "active-item", String(i + 1)); });
   }, { rootMargin: "-45% 0px -50% 0px" });
-  chapters.forEach(function(c){ chIO.observe(c); });
+  // a virada não tem aba própria: continua o capítulo "Por que"
+  [].forEach.call(document.querySelectorAll("[data-chapter], [data-chapter-of]"), function(c){ chIO.observe(c); });
   function jump(dir){
     var y = scrollY + innerHeight * 0.2;
     if (dir < 0){ var prev = chapters.filter(function(c){ return c.offsetTop < y - innerHeight * 0.3; }).pop(); (prev || chapters[0]).scrollIntoView(); }

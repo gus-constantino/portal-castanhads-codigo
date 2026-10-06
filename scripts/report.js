@@ -451,6 +451,8 @@
       });
     });
     toc.appendChild(dsLink("rp-src", "Ver no GitHub", REPO + tab.file, true));
+    // Único acesso à página escondida dos componentes locais (#/locais, hidden: fora do menu e da busca; Gustavo, 06/10)
+    if (id === "arquitetura") toc.appendChild(dsLink("rp-src", "Componentes locais", "#/locais"));
     filter();
   }
 

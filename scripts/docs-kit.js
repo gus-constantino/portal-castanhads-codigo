@@ -25,6 +25,8 @@
  *   table: { head: [...], rows: [[...]], wrap }   wrap: células quebram linha
  *   video: { src, title, caption, href, cta }   player embutido 16:9 (iframe do serviço; o DS não tem componente de vídeo)
  *   shortcuts: [{ title, text, href, cta, illustration | src, external }]   atalhos em Cards (capa do Castanha Hub); sem href, card só informativo
+ *   hero: { title, text, area, cards }   capa da marca (conceito do Castanha Assets): sem area = Surface/accent com a pilha rosada;
+ *                                       com area = fundo default e a pilha na escala da área (componente local <loc-pilha>)
  *   palette: { label, names: [...], steps: [...], hex: [[hex por passo] por cor], notes: { passo: "nota" } }   paleta fora dos tokens (ilustração)
  *   steps: [{ title, text, list, table, after }]   passos numerados
  *   code: "texto"                      bloco monoespaçado com botão Copiar
@@ -481,6 +483,19 @@
         g.appendChild(c);
       });
       return g;
+    },
+
+    // Capa da marca, do conceito do Castanha Assets (D221): título em Decorative, texto e a pilha (<loc-pilha>,
+    // componente local) à direita; a pilha abre em leque no hover da capa. Sem area: Surface/accent (Início).
+    hero: function(d, v){
+      var s = el("section", "pg-doc-hero loc-pilha-trigger" + (v.area ? " is-light" : ""));
+      var t = s.appendChild(el("div", "pg-doc-hero__text"));
+      t.appendChild(el("h2", "pg-doc-hero__title", v.title));
+      if (v.text) t.appendChild(rich(el("p", "pg-doc-hero__p"), v.text));
+      var p = s.appendChild(el("loc-pilha", "pg-doc-hero__pilha"));
+      if (v.area) p.setAttribute("area", v.area); else p.setAttribute("on", "accent");
+      if (v.cards) p.setAttribute("cards", String(v.cards));
+      return s;
     },
 
     // Paleta fora dos tokens Common/* (ex.: cores exclusivas das ilustrações): linhas = passos, colunas = cores.

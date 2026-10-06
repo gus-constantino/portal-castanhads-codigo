@@ -17,6 +17,8 @@
  * são páginas de doc das libs de apoio ([Caju] Icons, Illustrations…), sem dependências.
  * Composições (compositions/<id>/<id>.js + .css e .playground.js opcionais) entram entre os dois: peças do
  * playground montadas só com tokens/componentes do DS onde o DS ainda não tem o componente (ex.: Card clicável).
+ * Componentes locais (local/<id>/<id>.js + .css opcional) vêm logo depois das composições: peças feitas com tokens do DS
+ * usadas só no playground, sem a intenção de virar componente (ex.: <loc-pilha>; doc escondida em #/locais).
  *
  * Pacotes (desempenho): em vez de ~250 <script>/<link> separados, o HTML carrega dist/cds.css e dist/cds.js,
  * a concatenação dos mesmos arquivos na mesma ordem (sem transpilar nada: o fonte continua sendo o arquivo da pasta).
@@ -34,6 +36,8 @@ const ROOT = path.join(__dirname, "..");
 const DIR = path.join(ROOT, "components");
 const RES = path.join(ROOT, "resources");
 const CMP = path.join(ROOT, "compositions");
+const LOC = path.join(ROOT, "local");
+const locals = fs.existsSync(LOC) ? fs.readdirSync(LOC).filter((d) => fs.existsSync(path.join(LOC, d, d + ".js"))).sort() : [];
 const compositions = fs.existsSync(CMP) ? fs.readdirSync(CMP).filter((d) => fs.existsSync(path.join(CMP, d, d + ".js"))).sort() : [];
 const resources = fs.existsSync(RES) ? fs.readdirSync(RES).filter((d) => fs.existsSync(path.join(RES, d, d + ".js"))).sort() : [];
 
@@ -63,11 +67,13 @@ if (order.length !== comps.length) throw new Error("ciclo de dependências entre
 function files(){
   const css = order.filter((id) => fs.existsSync(path.join(DIR, id, id + ".css"))).map((id) => `components/${id}/${id}.css`)
     .concat(compositions.filter((id) => fs.existsSync(path.join(CMP, id, id + ".css"))).map((id) => `compositions/${id}/${id}.css`))
+    .concat(locals.filter((id) => fs.existsSync(path.join(LOC, id, id + ".css"))).map((id) => `local/${id}/${id}.css`))
     .concat(resources.filter((id) => fs.existsSync(path.join(RES, id, id + ".css"))).map((id) => `resources/${id}/${id}.css`));
   const js = [];
   // Docs dos componentes ficam fora do pacote: o shell carrega cada uma ao abrir o componente (docsIndex, D124)
   order.forEach((id) => ["", ".playground"].forEach((k) => { const f = `components/${id}/${id}${k}.js`; if (fs.existsSync(path.join(ROOT, f))) js.push(f); }));
   compositions.forEach((id) => ["", ".playground"].forEach((k) => { const f = `compositions/${id}/${id}${k}.js`; if (fs.existsSync(path.join(ROOT, f))) js.push(f); }));
+  locals.forEach((id) => js.push(`local/${id}/${id}.js`));
   resources.forEach((id) => js.push(`resources/${id}/${id}.js`));
   return { css, js };
 }
@@ -186,7 +192,7 @@ const loaded = [...indexHtml.matchAll(/(?:href|src)="([\w./-]+\.(?:js|css))(?:\?
 let raw = 0, zip = 0;
 loaded.forEach((r) => { const b = fs.readFileSync(path.join(ROOT, r)); raw += b.length; zip += gz(b); });
 const parts = { "componentes": [], "playgrounds": [], "docs": [], "recursos": [] };
-bundled.js.forEach((r) => parts[r.startsWith("resources/") || r.startsWith("compositions/") ? "recursos" : r.endsWith(".playground.js") ? "playgrounds" : "componentes"].push(r));
+bundled.js.forEach((r) => parts[r.startsWith("resources/") || r.startsWith("compositions/") || r.startsWith("local/") ? "recursos" : r.endsWith(".playground.js") ? "playgrounds" : "componentes"].push(r));
 delete parts.docs;
 console.log(`\nPeso da primeira visita (index.html): ${kb(raw).trim()} · gzip ${kb(zip).trim()} · limite ${BUDGET_KB} KB gzip`);
 Object.keys(parts).forEach((k) => {

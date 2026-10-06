@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 110 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 111 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.css ==== */
 /* Backdrop · 13784:3271 — Surface/inversed · Opacity/medium (0.4). O mesmo visual vale para o ::backdrop dos overlays */
 cds-backdrop{ position:absolute; inset:0; display:block; background:var(--common-colors-surface-inversed); opacity:var(--common-opacity-medium); }
@@ -1961,6 +1961,44 @@ cmp-thumbnail{ display:block; position:relative; overflow:hidden; }
 cmp-thumbnail.is-cut-y{ -webkit-mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent); mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent); }
 cmp-thumbnail.is-cut-x{ -webkit-mask-image:linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); mask-image:linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); }
 cmp-thumbnail.is-cut-x.is-cut-y{ -webkit-mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent), linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent), linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); -webkit-mask-composite:source-in; mask-composite:intersect; }
+
+/* ==== local/pilha/pilha.css ==== */
+/* <loc-pilha> · componente local do playground (ver pilha.js) — só tokens.
+   Cartões quadrados; o da frente tem a altura da pilha e encosta à direita. Cada cartão de trás começa 9cqh mais à esquerda
+   e encolhe 14cqh, então aparece como uma faixa à esquerda do seguinte.
+   Cor: mistura do tom de trás (--_back) para o da frente (--_front), um passo por cartão. */
+loc-pilha{
+  --_back:var(--common-colors-accent-solid-intense); --_front:var(--common-colors-accent-solid-medium);
+  --_n:4; --_step:33.33%; --_fan:0;
+  display:block; position:relative; aspect-ratio:127 / 100; container-type:size; pointer-events:none;
+}
+loc-pilha[cards="3"]{ --_n:3; --_step:50%; aspect-ratio:118 / 100; }
+loc-pilha > span{
+  position:absolute; top:50%; left:calc((var(--_n) - 1 - var(--_k)) * 9cqh); height:calc(100cqh - var(--_k) * 14cqh); aspect-ratio:1;
+  border-radius:var(--common-border-radius-large);
+  background:color-mix(in srgb, var(--_front) calc(100% - var(--_k) * var(--_step)), var(--_back));
+  transform:translate(calc(var(--_k) * var(--_fan) * -6cqh), -50%);
+  transition:transform var(--motion-hover-out-01-timing) var(--motion-hover-out-01-easing) var(--motion-hover-out-01-delay);
+}
+loc-pilha[align="end"] > span{ top:auto; bottom:0; transform:translateX(calc(var(--_k) * var(--_fan) * -6cqh)); border-end-start-radius:0; border-end-end-radius:0; }
+/* Leque: hover/foco de quem usa (.loc-pilha-trigger) ou parado na doc ([fan]) */
+.loc-pilha-trigger:hover loc-pilha, .loc-pilha-trigger:focus-within loc-pilha, loc-pilha[fan]{ --_fan:1; }
+.loc-pilha-trigger:hover loc-pilha > span, .loc-pilha-trigger:focus-within loc-pilha > span{
+  transition:transform var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing);
+}
+
+/* Escalas por área (CDS.local.areas). Charts 04–07 não têm semi-intense: a mistura cobre o meio. */
+loc-pilha[area="padroes"]{ --_back:var(--common-colors-charts-03-intense); --_front:var(--common-colors-charts-03-medium); }
+loc-pilha[area="aprenda"]{ --_back:var(--common-colors-charts-04-intense); --_front:var(--common-colors-charts-04-medium); }
+loc-pilha[area="ferramentas"]{ --_back:var(--common-colors-charts-02-intense); --_front:var(--common-colors-charts-02-medium); }
+loc-pilha[area="ajuda"]{ --_back:var(--common-colors-charts-01-intense); --_front:var(--common-colors-charts-01-medium); }
+loc-pilha[area="legado"]{ --_back:var(--common-colors-charts-07-intense); --_front:var(--common-colors-charts-07-medium); }
+/* Sobre Surface/accent (hero vermelho): do mais escuro ao rosado, como a capa do Assets. O fundo não muda no Dark,
+   mas a escala accent-solid inverte: no Dark os mesmos tons vêm dos stops opostos. */
+loc-pilha[on="accent"]{ --_back:var(--common-colors-accent-solid-intense); --_front:var(--common-colors-accent-solid-semi-soft); }
+html[data-theme="dark"] loc-pilha[on="accent"]{ --_back:var(--common-colors-accent-solid-soft); --_front:var(--common-colors-accent-solid-intense); }
+
+@media (prefers-reduced-motion: reduce){ loc-pilha > span{ transition:none; } }
 
 /* ==== resources/patterns/patterns.css ==== */
 /* Patterns: Feedback Page (Sponsor/Employee) e Tela de loading montadas com componentes do DS.

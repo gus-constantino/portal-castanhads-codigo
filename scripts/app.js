@@ -217,7 +217,8 @@
   function buildNav(filter){
     var q = (filter || "").trim().toLowerCase();
     nav.innerHTML = "";
-    var shown = list.filter(function(c){ return !q || (c.name + " " + (c.task || "") + " " + (c.category || "")).toLowerCase().indexOf(q) !== -1; });
+    // hidden: página fora do menu, da busca e do anterior/próximo; só abre pelo link (ex.: #/locais, a partir do Relatório)
+    var shown = list.filter(function(c){ return !c.hidden && (!q || (c.name + " " + (c.task || "") + " " + (c.category || "")).toLowerCase().indexOf(q) !== -1); });
     var comps = shown.filter(function(c){ return !isPart(c) && !c.resource; }), blocks = shown.filter(function(c){ return c.block && !c.resource; });
     var cmps = shown.filter(function(c){ return c.composition && !c.resource; });
     // Recursos ficam em seções próprias (RES_SECTIONS), fora dos componentes
@@ -546,6 +547,7 @@
   function crumbs(def){
     var ds = { label: "Castanha DS", href: "#/" };
     if (def.home) return [ds, { label: def.name, href: "#/" + def.id }];
+    if (def.hidden) return [ds, { label: "Relatório", href: "#/relatorio" }, { label: def.name, href: "#/" + def.id }];
     if (def.resource){ var sec = resSection(def); return [ds, { label: sec.title, href: "#/" + sec.items[0].id }, { label: def.name, href: "#/" + def.id }]; }
     var cat = def.composition ? "Composições" : def.block ? "Building blocks" : (def.category || "Outros");
     var first = list.filter(function(c){ return !c.resource && (def.composition ? c.composition : def.block ? c.block : !isPart(c) && (c.category || "Outros") === cat); })[0] || def;
@@ -560,13 +562,13 @@
     var el = kit.el("nav", { "class": "pg-pager", "aria-label": "Anterior e próximo" });
     function order(){
       var comps = list.filter(function(c){ return !isPart(c) && !c.resource; }), cats = PAGES.concat(comps.map(function(c){ return c.category || "Outros"; }).filter(function(x, i, a){ return PAGES.indexOf(x) === -1 && a.indexOf(x) === i; }));
-      var secs = resSections(list.filter(function(c){ return c.resource && !c.home; })), part = function(top){ return secs.filter(function(x){ return !!x.top === top; }).reduce(function(a, x){ return a.concat(x.items); }, []); };
+      var secs = resSections(list.filter(function(c){ return c.resource && !c.home && !c.hidden; })), part = function(top){ return secs.filter(function(x){ return !!x.top === top; }).reduce(function(a, x){ return a.concat(x.items); }, []); };
       var seq = list.filter(function(c){ return c.home; }).concat(part(true));
       cats.forEach(function(cat){ seq = seq.concat(comps.filter(function(c){ return (c.category || "Outros") === cat; })); });
       seq = seq.concat(list.filter(function(c){ return c.block && !c.resource; }), list.filter(function(c){ return c.composition && !c.resource; }));
       return seq.concat(part(false));
     }
-    function near(){ var seq = order(), i = seq.map(function(c){ return c.id; }).indexOf(currentId()); return { prev: seq[i - 1], next: seq[i + 1] }; }
+    function near(){ if (currentDef().hidden) return {}; var seq = order(), i = seq.map(function(c){ return c.id; }).indexOf(currentId()); return { prev: seq[i - 1], next: seq[i + 1] }; }
     function card(def, dir){
       if (!def) return kit.el("span", { "class": "pg-pager__gap", "aria-hidden": "true" });
       var prev = dir === "prev";

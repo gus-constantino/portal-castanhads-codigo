@@ -8,8 +8,9 @@
     source: ZH, sourceLabel: "Castanha Hub no zeroheight",
     tabs: [
       { id: "hub", title: "Castanha Hub", blocks: [
-        { h2: "Castanha Hub" },
-        { p: "O Castanha é um Hub de soluções para criação de Experiências da Caju, desenvolvido para conectar ideias, pessoas e tecnologia. Ele une Ideação, Design e Código para garantir que os Produtos da Caju mantenham consistência com propósito." },
+        // Capa da marca no conceito do Castanha Assets (D221): Surface/accent e a pilha
+        { hero: { title: "Castanha Hub", text: "O Castanha é um Hub de soluções para criação de Experiências da Caju, desenvolvido para conectar ideias, pessoas e tecnologia." } },
+        { p: "Ele une Ideação, Design e Código para garantir que os Produtos da Caju mantenham consistência com propósito." },
         { shortcuts: { bento: 4, items: [
           { size: "hero", title: "Componentes", text: "Os componentes do Castanha DS, com Playground ao vivo, documentação de uso e o código React de cada um.", href: "#/main-button", cta: "Ver componentes", illustration: "interfaces/customizacao" },
           { size: "wide", title: "Conteúdo", text: "Tom e voz, princípios de escrita e regras de texto: como a Caju fala nos produtos.", href: "#/conteudo", cta: "Ver conteúdo", illustration: "comunicacao/perguntas-frequentes" },

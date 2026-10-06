@@ -96,6 +96,7 @@ components/<id>/
   <id>.playground.js           CDS.register({ id, name, category, mount… }) + controles
   <id>.docs.js                 opcional: CDS.docs[id] = { tabs: [{ id, title, blocks }] } (só dados, sob demanda)
 compositions/<id>/             peças cmp-* (o DS ainda não tem o componente)
+local/<id>/                    componentes locais loc-* (feitos com tokens do DS para um lugar do playground)
 resources/<id>/<id>.js         recursos (páginas de doc, sem mount)
 templates/                     trechos de templates do Figma
 tokens/figma-snapshot.json     tokens lidos do Figma via MCP
@@ -233,6 +234,8 @@ Blocos disponíveis: `h2` `h3` `p` `note` `alert` `ul` `ol` `cards` `display` `c
 - **Recurso:** `CDS.register({ id, name, resource: true, order })` + `CDS.docs[id]`. A seção do menu é definida em `RES_SECTIONS` (`scripts/app.js`). Link externo entra em `links` da seção e abre em nova guia.
 - **Composição:** elemento `cmp-*` montado com tokens e componentes do DS. O cabeçalho explica por que existe e quando apagar. Tem uma linha no CONFERIR.
 - **Template:** trecho de um arquivo de templates do Figma, montado com componentes do DS.
+- **Componente local:** elemento `loc-*` em `local/<id>/`, feito com tokens do DS para um lugar do playground, sem a intenção de virar componente (ex.: `<loc-pilha>`, a pilha de cartões do conceito do Castanha Assets). A explicação de cada tipo (componente, building block, template, team component, componente local e composição) fica na página escondida `#/locais`, aberta pelo link no Relatório › Arquitetura.
+- **Página escondida:** `hidden: true` no `CDS.register` tira a página do menu, da busca, do anterior/próximo e do catálogo do MCP. Ela abre pelo link direto.
 
 ---
 

@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 235 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 237 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.js ==== */
 try {
 /**
@@ -8152,6 +8152,54 @@ CDS.register({
 });
 } catch (e) { console.error("[cds] compositions/thumbnail/thumbnail.playground.js", e); }
 
+/* ==== local/pilha/pilha.js ==== */
+try {
+/**
+ * <loc-pilha> — Pilha de cartões · COMPONENTE LOCAL do playground (não é componente do Castanha DS)
+ *
+ * Assinatura visual das páginas do playground, vinda do conceito do Castanha Assets (Figma ivkZfOligMDrdIur2kdqtT,
+ * capa "Assets" e .Thumbnail Castanha): cartões empilhados do tom mais escuro (atrás) ao mais claro ou saturado (frente).
+ * Só tokens do DS: escala accent-solid para a marca e as escalas Charts por área. Uso só no playground (Início,
+ * capas e cards de seção); doc em #/locais (página escondida, link no Relatório › Arquitetura).
+ *
+ * Atributos:
+ *   area   marca (padrão) · componentes · padroes · aprenda · ferramentas · ajuda · legado   escala de cor (CDS.local.areas)
+ *   on     "accent": a pilha está sobre Surface/accent (hero vermelho); troca os tons para contrastar com o fundo
+ *   cards  3 · 4 (padrão)
+ *   align  center (padrão: cartões centrados na altura) · end (encostados embaixo, sangrando, como na .Thumbnail por jornada)
+ *   fan    sem valor: abre em leque parada (doc). Sem ele, abre no hover/foco de um ancestral .loc-pilha-trigger
+ * Tamanho: quem usa define a altura (ou a largura); a proporção vem do número de cartões.
+ * A11y: decorativa — aria-hidden, sem foco. Motion: Hover In/01 e Hover Out/01; prefers-reduced-motion desliga.
+ */
+(function(){
+  "use strict";
+  var CDS = window.CDS = window.CDS || {};
+  CDS.local = CDS.local || {};
+  // Cor por área: a seção do menu leva a escala (D221). Escalas Charts do tema; a marca usa accent-solid.
+  CDS.local.areas = {
+    marca: { name: "Marca", ramp: "accent-solid", note: "Início e páginas da marca" },
+    componentes: { name: "Componentes", ramp: "accent-solid", note: "Componentes, building blocks e composições" },
+    padroes: { name: "Padrões", ramp: "charts-03", note: "Tema Caju, Ilustração, Motion, Camadas, Conteúdo e Patterns" },
+    aprenda: { name: "Aprenda", ramp: "charts-04", note: "Treinamento e Capacitações" },
+    ferramentas: { name: "Ferramentas", ramp: "charts-02", note: "Personas, Agentes e Skills e MCP" },
+    ajuda: { name: "Ajuda", ramp: "charts-01", note: "FAQ e Changelog" },
+    legado: { name: "Legado", ramp: "charts-07", note: "Componente ou página fora de uso" }
+  };
+  class LocPilha extends CDS.Element {
+    static get observedAttributes(){ return ["cards"]; }
+    render(){
+      this.setAttribute("aria-hidden", "true");
+      var n = this.getAttribute("cards") === "3" ? 3 : 4;
+      if (this.children.length === n) return;
+      this.textContent = "";
+      // atrás → frente; --_k = distância até o cartão da frente (0)
+      for (var i = 0; i < n; i++){ var s = document.createElement("span"); s.style.setProperty("--_k", String(n - 1 - i)); this.appendChild(s); }
+    }
+  }
+  if (!customElements.get("loc-pilha")) customElements.define("loc-pilha", LocPilha);
+})();
+} catch (e) { console.error("[cds] local/pilha/pilha.js", e); }
+
 /* ==== resources/agentes/agentes.js ==== */
 try {
 /* Recurso: Agentes e Skills — agentes de IA do Castanha (Borô no Slack), os Patterns escritos em .md para a IA ler e a skill /castanhads-juntos.
@@ -10434,8 +10482,9 @@ try {
     source: ZH, sourceLabel: "Castanha Hub no zeroheight",
     tabs: [
       { id: "hub", title: "Castanha Hub", blocks: [
-        { h2: "Castanha Hub" },
-        { p: "O Castanha é um Hub de soluções para criação de Experiências da Caju, desenvolvido para conectar ideias, pessoas e tecnologia. Ele une Ideação, Design e Código para garantir que os Produtos da Caju mantenham consistência com propósito." },
+        // Capa da marca no conceito do Castanha Assets (D221): Surface/accent e a pilha
+        { hero: { title: "Castanha Hub", text: "O Castanha é um Hub de soluções para criação de Experiências da Caju, desenvolvido para conectar ideias, pessoas e tecnologia." } },
+        { p: "Ele une Ideação, Design e Código para garantir que os Produtos da Caju mantenham consistência com propósito." },
         { shortcuts: { bento: 4, items: [
           { size: "hero", title: "Componentes", text: "Os componentes do Castanha DS, com Playground ao vivo, documentação de uso e o código React de cada um.", href: "#/main-button", cta: "Ver componentes", illustration: "interfaces/customizacao" },
           { size: "wide", title: "Conteúdo", text: "Tom e voz, princípios de escrita e regras de texto: como a Caju fala nos produtos.", href: "#/conteudo", cta: "Ver conteúdo", illustration: "comunicacao/perguntas-frequentes" },
@@ -10476,6 +10525,131 @@ try {
   };
 })();
 } catch (e) { console.error("[cds] resources/inicio/inicio.js", e); }
+
+/* ==== resources/locais/locais.js ==== */
+try {
+/* Componentes locais — página ESCONDIDA (hidden: true): fora do menu, da busca, do anterior/próximo e do MCP.
+   Único acesso: link no Relatório › Arquitetura (Gustavo, 06/10/2026: "acessível apenas de um link em relatórios,
+   bem escondido por enquanto"). Explica onde mora cada tipo de peça feita com o Castanha DS (componente, building
+   block, template, team component, componente local e composição) e documenta o primeiro componente local, a Pilha
+   (local/pilha), que leva o conceito do Castanha Assets às telas do playground (D221). */
+(function(){
+  window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
+  var ASSETS = "https://www.figma.com/design/ivkZfOligMDrdIur2kdqtT/Castanha-Assets";
+  CDS.register({ id: "locais", name: "Componentes locais", resource: true, hidden: true, order: 99 });
+  var H = "height:var(--common-sizes-120)";
+  CDS.docs["locais"] = {
+    tag: "loc-pilha",
+    source: ASSETS, sourceLabel: "Castanha Assets no Figma",
+    tabs: [
+      { id: "visao", title: "Visão geral", blocks: [
+        { hero: { title: "Componentes locais", text: "Peças feitas com o Castanha DS para um lugar específico: o que são, onde moram e quando cada uma vale a pena.", area: "componentes" } },
+        { h2: "Onde cada peça mora" },
+        { p: "Tudo o que vai para uma tela da Caju parte dos tokens e dos componentes do Castanha DS. O que muda de um tipo para outro é o alcance: quem pode usar a peça e onde ela fica guardada." },
+        { table: { wrap: true, head: ["Tipo", "O que é", "Onde mora", "Quem usa", "Exemplo"], rows: [
+          ["Componente do DS", "Peça publicada na biblioteca, com variantes, props e documentação.", "[CastanhaDS] Components", "Todos os produtos", "Main Button"],
+          ["Building block", "Parte com ponto no nome, fora da publicação de propósito, que monta outros componentes.", "[CastanhaDS] Components", "Os próprios componentes do DS", "Os itens do menu Building blocks"],
+          ["Template", "Trecho de tela pronto, montado com componentes do DS, que se repete entre produtos.", "Arquivos de templates do Figma", "Os produtos do template", "Header do Sponsor Templates"],
+          ["Team component", "Peça de uma squad, feita com componentes e tokens do DS e reaproveitada nas telas dela.", "Biblioteca local da squad", "As telas da squad", "Nenhum no playground por enquanto"],
+          ["Componente local", "Peça feita com tokens do DS para um lugar ou uma página, sem a intenção de virar componente.", "Junto da página que usa", "Aquele lugar", "Pilha, aqui no playground"],
+          ["Composição", "Peça montada com tokens e componentes do DS onde o DS ainda não tem o componente. Candidata a entrar no DS.", "Junto do projeto, com pedido ao DS", "Quem precisa até o DS ter a peça", "Do/Don't e Card clicável"]
+        ] } },
+        { note: "Nas Camadas do DS a ordem é a mesma: componentes, templates, local assets da squad e a composição da tela. Aqui no playground, `cmp-` é o prefixo das peças que esperam o DS, e a tela inteira continua sendo a composição final." },
+        { h2: "Como decidir" },
+        { steps: [
+          { title: "O DS já tem?", text: "Use o componente do DS, com as props que ele oferece. Nada de copiar e ajustar." },
+          { title: "Existe template?", text: "Se o trecho de tela já está num arquivo de templates, use o template." },
+          { title: "Vai se repetir nas telas da squad?", text: "Vira team component na biblioteca local da squad, montado com componentes do DS." },
+          { title: "Falta no DS e serviria a outros produtos?", text: "Vira composição, com uma linha no CONFERIR e o pedido ao time do DS. Quando o DS tiver a peça, a composição sai." },
+          { title: "É a identidade de um único lugar?", text: "Vira componente local, guardado junto da página que usa." }
+        ] },
+        { h2: "Regras para todos" },
+        { dodont: [
+          { kind: "do", title: "Monte com o DS", text: "Use tokens de cor, tamanho, raio, texto e Motion Styles, e componentes do DS dentro da peça." },
+          { kind: "do", title: "Explique o motivo", text: "O cabeçalho do arquivo diz por que a peça existe, onde ela é usada e quando pode sair." },
+          { kind: "dont", title: "Valor cru", text: "Hex, px, ms ou easing escritos à mão quebram o tema e o modo escuro." },
+          { kind: "dont", title: "Levar para outro lugar", text: "Componente local não sai do lugar dele. Se outra página ou produto precisar, ele sobe para team component ou composição." }
+        ] },
+        { h2: "No código do playground" },
+        { table: { head: ["Tipo", "Pasta", "Prefixo"], rows: [
+          ["Componente do DS e building block", "`components/<id>/`", "`cds-`"],
+          ["Template", "`templates/<id>/`", "`cds-`"],
+          ["Composição", "`compositions/<id>/`", "`cmp-`"],
+          ["Componente local", "`local/<id>/`", "`loc-`"]
+        ] } },
+        { p: "O build junta `local/` ao pacote logo depois das composições. Cada componente local tem um `.js` com o cabeçalho explicando o motivo e um `.css` feito com tokens." }
+      ] },
+      { id: "pilha", title: "Pilha", blocks: [
+        { h2: "Pilha" },
+        { p: "Cartões empilhados do tom mais escuro, atrás, ao mais claro ou mais saturado, na frente. É a assinatura visual das páginas do playground e vem do conceito do [Castanha Assets](" + ASSETS + "): a capa do arquivo, a Thumbnail Castanha e as thumbnails por jornada." },
+        { h3: "Na capa da marca" },
+        { hero: { title: "Castanha Hub", text: "Sobre Surface/accent, a pilha vai do vermelho mais escuro ao rosado. Passe o mouse na capa para abrir o leque." } },
+        { h3: "Fora da capa vermelha" },
+        { hero: { title: "Tema Caju", text: "Com area, a capa usa o fundo default e a pilha ganha a escala da área.", area: "padroes", cards: 3 } },
+        { h3: "Variações" },
+        { specimens: { min: "var(--common-sizes-160)", items: [
+          { label: "4 cartões (padrão)", attrs: { style: H } },
+          { label: "3 cartões", attrs: { cards: "3", style: H } },
+          { label: "Em leque (fan)", attrs: { fan: true, style: H } },
+          { label: "Encostada embaixo (align end)", attrs: { align: "end", style: H } }
+        ] } },
+        { h3: "Anatomia" },
+        { ul: [
+          "Cartão da frente: quadrado com a altura da pilha e raio Large.",
+          "Cartões de trás: cada um recua 9% e encolhe 14% da altura, e aparece como uma faixa à esquerda.",
+          "Cor: mistura do tom de trás para o da frente, um passo por cartão. O meio sai da mistura, sem tom novo.",
+          "Proporção: vem do número de cartões. Quem usa define a altura."
+        ] },
+        { h3: "Propriedades" },
+        { table: { head: ["Atributo", "Valores", "Para que serve"], rows: [
+          ["`area`", "marca (padrão), componentes, padroes, aprenda, ferramentas, ajuda, legado", "Escala de cor da área (aba Cor por área)"],
+          ["`on`", "accent", "A pilha está sobre Surface/accent e troca os tons para contrastar"],
+          ["`cards`", "3, 4 (padrão)", "Quantidade de cartões"],
+          ["`align`", "center (padrão), end", "end encosta os cartões embaixo, sangrando, como nas thumbnails por jornada"],
+          ["`fan`", "sem valor", "Deixa o leque aberto parado. Sem ele, abre no hover ou no foco de quem tem a classe `loc-pilha-trigger`"]
+        ] } },
+        { h3: "Motion" },
+        { specs: [
+          { title: "Abrir o leque", rows: [["Gatilho", "Hover ou foco em `.loc-pilha-trigger`"], ["Motion Style", "Hover In/01"]] },
+          { title: "Fechar o leque", rows: [["Gatilho", "Sair do hover ou do foco"], ["Motion Style", "Hover Out/01, com o delay do estilo"]] }
+        ] },
+        { p: "Com movimento reduzido no sistema, o leque troca de posição sem animar." },
+        { h3: "Onde aparece" },
+        { ul: ["Início: capa do Castanha Hub.", "Próximos passos: capas dos recursos, cards de seção, estados vazios e a imagem de preview do link."] },
+        { h3: "Uso" },
+        { dodont: [
+          { kind: "do", title: "Decoração", text: "A pilha é decorativa: fica com aria-hidden e o nome do lugar continua no título ao lado." },
+          { kind: "do", title: "Uma por bloco", text: "Uma pilha por capa ou card, sempre no canto ou à direita do texto." },
+          { kind: "dont", title: "Cor fora da escala", text: "Nada de pintar os cartões à mão. A cor vem da área." },
+          { kind: "dont", title: "Conteúdo dentro", text: "Os cartões não levam texto, ícone nem imagem." }
+        ] },
+        { code: "<section class=\"loc-pilha-trigger\">\n  <h2>Tema Caju</h2>\n  <loc-pilha area=\"padroes\" cards=\"3\" style=\"height:var(--common-sizes-200)\"></loc-pilha>\n</section>" }
+      ] },
+      { id: "cores", title: "Cor por área", blocks: [
+        { h2: "Cor por área" },
+        { p: "Cada seção do menu leva uma escala do tema, como as jornadas nas thumbnails do Castanha Assets. A marca e os componentes ficam no vermelho. As outras áreas usam as escalas Charts, que já mudam no modo escuro." },
+        { specimens: { min: "var(--common-sizes-160)", items: [
+          { label: "Marca e Componentes · Accent", attrs: { area: "componentes", style: H } },
+          { label: "Padrões · Charts 03", attrs: { area: "padroes", style: H } },
+          { label: "Aprenda · Charts 04", attrs: { area: "aprenda", style: H } },
+          { label: "Ferramentas · Charts 02", attrs: { area: "ferramentas", style: H } },
+          { label: "Ajuda · Charts 01", attrs: { area: "ajuda", style: H } },
+          { label: "Legado · Charts 07", attrs: { area: "legado", style: H } }
+        ] } },
+        { table: { wrap: true, head: ["Área", "Escala", "Atrás → frente", "Seções"], rows: [
+          ["Marca e Componentes", "Accent/Solid", "`accent-solid-intense` → `accent-solid-medium`", "Início, componentes, building blocks e composições"],
+          ["Padrões", "Charts 03", "`charts-03-intense` → `charts-03-medium`", "Tema Caju, Ilustração, Motion, Camadas, Conteúdo e Patterns"],
+          ["Aprenda", "Charts 04", "`charts-04-intense` → `charts-04-medium`", "Treinamento e Capacitações"],
+          ["Ferramentas", "Charts 02", "`charts-02-intense` → `charts-02-medium`", "Personas, Agentes e Skills e MCP"],
+          ["Ajuda", "Charts 01", "`charts-01-intense` → `charts-01-medium`", "FAQ e Changelog"],
+          ["Legado", "Charts 07", "`charts-07-intense` → `charts-07-medium`", "Componente ou página fora de uso"]
+        ] } },
+        { note: "As cores do Castanha Assets estão cruas no Figma e não batem com os tokens. O playground usa as escalas do tema mais próximas (C173 no CONFERIR)." }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] resources/locais/locais.js", e); }
 
 /* ==== resources/mcp/mcp.js ==== */
 try {
@@ -12684,4 +12858,4 @@ try {
 
 /* ==== docs sob demanda (gerado) ==== */
 window.CDS = window.CDS || {}; CDS.docsIndex = {"backdrop":{"src":"components/backdrop/backdrop.docs.js?v=6b702f80","desc":"Backdrop é um componente de superfície utilizado para criar uma camada de bloqueio visual entre o conteúdo base da interface e elementos em primeiro plano, como modais e drawers."},"badge":{"src":"components/badge/badge.docs.js?v=13a9d0a4","desc":"O Badge é um elemento visual usado exclusivamente para indicar notificações ou atualizações. Ele serve como um alerta discreto que informa a pessoa usuária sobre algo novo ou pendente em um determinado contexto da interface."},"caju-brand":{"src":"components/caju-brand/caju-brand.docs.js?v=182c6287","desc":"O Caju Brand é um elemento visual fundamental que representa a identidade da Caju dentro dos fluxos do produto. Ele garante consistência no uso da marca, evitando distorções, cores inadequadas ou aplicações incorretas."},"calendar-day":{"src":"components/calendar-day/calendar-day.docs.js?v=eb0c1fc6","desc":"Cada dia do Date Picker: número, estado de seleção e o ponto do dia atual."},"calendar-week":{"src":"components/calendar-week/calendar-week.docs.js?v=3e7503ac","desc":"Uma linha de 7 dias do Date Picker."},"card":{"src":"components/card/card.docs.js?v=385dde05","desc":"O componente Card é um contêiner visual usado para agrupar informações relacionadas de forma clara e compacta."},"credit-card-flags":{"src":"components/card-flag/card-flag.docs.js?v=1c719fe4","desc":"Simula visualmente qualquer cartão e pode simbolizar uma bandeira específica."},"currency":{"src":"components/currency/currency.docs.js?v=4019f33b","desc":"O Currency é um componente de exibição utilizado para apresentar valores monetários de forma padronizada, legível e consistente nas interfaces da Caju."},"currency-content":{"src":"components/currency-content/currency-content.docs.js?v=b78c8af8","desc":"Valor em moeda com o símbolo, o sinal de negativo opcional e uma descrição embaixo."},"currency-symbol":{"src":"components/currency-symbol/currency-symbol.docs.js?v=be193ca9","desc":"Símbolo da moeda usado nas células de valor da Table."},"divider":{"src":"components/divider/divider.docs.js?v=a8ce9166","desc":"O componente Divider é uma linha fina que separa visualmente agrupamentos de conteúdo em uma interface. Ele atua como uma âncora visual, ajudando a pessoa usuária a escanear e compreender a hierarquia e o relacionamento entre os elementos da página."},"icon":{"src":"components/icon/icon.docs.js?v=dcd985e5","desc":"Icon (ícone) é uma representação visual simples que auxilia na comunicação de ações, estados, tipos de conteúdo ou categorias."},"avatar":{"src":"components/avatar/avatar.docs.js?v=e8f0f357","desc":"O Avatar é um componente utilizado para representar visualmente uma pessoa usuária, seja por meio de imagem, iniciais ou ícone padrão. Ele ajuda na identificação rápida de perfis em áreas onde o contexto pessoal é relevante."},"breadcrumb-item":{"src":"components/breadcrumb-item/breadcrumb-item.docs.js?v=f2f90636","desc":"Cada nível do Breadcrumb: separador e conteúdo (link, página atual ou o \"…\" do Truncate)."},"caju-card":{"src":"components/caju-card/caju-card.docs.js?v=e16af7d8","desc":"O Caju Card simula visualmente os diferentes tipos de cartões da Caju nos cenários físicos e virtuais seguindo as diretrizes das lojinhas de app."},"close-toast":{"src":"components/close-toast/close-toast.docs.js?v=08eb88fc","desc":"Botão de fechar do Toast: 40×40, com o ícone close-line."},"close-alert":{"src":"components/close-alert/close-alert.docs.js?v=66f9acea","desc":"Botão de fechar do Alert: 40×40, com o ícone close-line."},"content-banner":{"src":"components/content-banner/content-banner.docs.js?v=5601185f","desc":"Building block interno do Banner. Agrupa título, descrição e indicação de CTA."},"csat-item":{"src":"components/csat-item/csat-item.docs.js?v=b255734f","desc":"Cada nível do CSAT Score: estrela e rótulo."},"csat-score":{"src":"components/csat-score/csat-score.docs.js?v=f8c9ddaf","desc":"O CSAT Score é um componente de avaliação utilizado para medir o nível de satisfação da pessoa usuária em relação a uma experiência, funcionalidade ou interação específica, por meio de uma escala ordinal visual representada por ícones e rótulos textuais."},"filter-chips":{"src":"components/filter-chip/filter-chip.docs.js?v=7cf64b2d","desc":"Chip que liga e desliga um filtro: selecionado, troca o ícone pelo check e inverte as cores."},"icon-button":{"src":"components/icon-button/icon-button.docs.js?v=7876d432","desc":"O Icon Button é um botão compacto que exibe apenas um ícone, sem rótulo de texto. Ele é utilizado para ações rápidas, geralmente secundárias, em interfaces que exigem economia de espaço e onde o significado do ícone é amplamente reconhecido."},"header":{"src":"components/header/header.docs.js?v=1f84dc27","desc":"Cabeçalho do Modal e do Bottom Sheet: título, botão de fechar e divisor."},"icons-block":{"src":"components/icons-block/icons-block.docs.js?v=7073a124","desc":"Ícone do Filter Button: filtro (Default) ou calendário (Date)."},"filter-button":{"src":"components/filter-button/filter-button.docs.js?v=03b317e8","desc":"O Filter Button é um botão que serve como gatilho para filtros e, quando acionado, abre opções para refinar ou ajustar a visualização de conteúdos, listas ou tabelas."},"image":{"src":"components/image/image.docs.js?v=06de894a","desc":"O componente Image é utilizado para exibir imagens estáticas em diferentes contextos do produto, garantindo consistência visual e preservação correta das proporções. Ele oferece controle simples e direto permitindo que a imagem se adapte a diferentes layouts sem distorção."},"banner":{"src":"components/banner/banner.docs.js?v=e8a4ac11","desc":"O Banner destaca conteúdo promocional ou informação relevante em uma área própria da tela. Reúne título, descrição e indicação de ação em um bloco clicável por inteiro, com fundo de cor livre ou imagem de fundo. Serve para atrair a pessoa usuária sem interromper o que ela está fazendo."},"input-chips":{"src":"components/input-chip/input-chip.docs.js?v=93623dcd","desc":"Chip que mostra um valor escolhido e pode ser removido com um clique."},"chips-group":{"src":"components/chips-group/chips-group.docs.js?v=e44b9509","desc":"Container que organiza Filter Chips ou Input Chips em uma linha com rolagem ou em várias linhas."},"link":{"src":"components/link/link.docs.js?v=fe71f910","desc":"O Link é um elemento interativo que direciona o usuário para outro destino, como páginas internas, externas, seções específicas ou downloads."},"list-lead-item":{"src":"components/list-lead-item/list-lead-item.docs.js?v=182b62f9","desc":"Item à esquerda das listas: Avatar, Icon ou Image."},"main-button":{"src":"components/main-button/main-button.docs.js?v=529983fd","desc":"Main Button é um componente interativo usado para executar a ações mais importantes em uma tela, formulário ou fluxo."},"date-navigation":{"src":"components/date-navigation/date-navigation.docs.js?v=cde6d20f","desc":"Navegação do Date Picker: mês anterior, mês, ano e próximo mês."},"date-picker":{"src":"components/date-picker/date-picker.docs.js?v=2f096325","desc":"Calendário para escolher uma data ou um intervalo de datas, com navegação por mês e ano."},"drop-button":{"src":"components/drop-button/drop-button.docs.js?v=2505ce9b","desc":"O Drop Button é um botão interativo que, ao ser acionado, abre um menu suspenso com opções de ação diretamente relacionadas ao contexto do botão. Ele combina a função de acionador visual com o acesso rápido a um conjunto de comandos organizados."},"footer":{"src":"components/footer/footer.docs.js?v=3521cfdc","desc":"Rodapé do Modal e do Bottom Sheet: divisor e as ações (primária e secundária)."},"fixed-bar":{"src":"components/fixed-bar/fixed-bar.docs.js?v=d8835dfd","desc":"A Fixed bar é uma área fixa posicionada na base da interface que agrupa duas ações relacionadas — uma primária e outra secundária. Ela é utilizada para decisões importantes no final de fluxos ou seções, permanecendo sempre acessível para a pessoa usuária."},"nav-control-item":{"src":"components/nav-control-item/nav-control-item.docs.js?v=68edeeff","desc":"Cada indicador do Nav Control: ponto 6×6, que cresce para 16×6 quando ativo."},"nav-control":{"src":"components/nav-control/nav-control.docs.js?v=f85a1d1f","desc":"O Nav Control é um componente visual utilizado como indicador de navegação, normalmente associado a carrosséis ou fluxos paginados. Ele representa, de forma ilustrativa, a quantidade total de itens e qual deles está em foco no momento."},"nps-value-item":{"src":"components/nps-value-item/nps-value-item.docs.js?v=6f52865f","desc":"Cada valor do NPS Score: pílula 24 com o número."},"nps-score":{"src":"components/nps-score/nps-score.docs.js?v=1839cab6","desc":"O NPS Score é um componente de seleção única utilizado para capturar a percepção da pessoa usuária em relação a uma experiência, produto ou serviço, geralmente em uma escala numérica de 0 a 10."},"popover":{"src":"components/popover/popover.docs.js?v=2419b81c","desc":"Popover é um pequeno overlay contextual que aparece quando o usuário interage com um elemento da interface. Ele permite exibir conteúdos adicionais, ações ou informações complementares de forma leve, sem interromper o fluxo principal da experiência."},"breadcrumb":{"src":"components/breadcrumb/breadcrumb.docs.js?v=58313c95","desc":"O Breadcrumb é um componente de navegação que mostra a localização atual do usuário dentro de uma hierarquia ou estrutura de conteúdo. Ele oferece links para os níveis superiores, facilitando a navegação."},"progress-line":{"src":"components/progress-line/progress-line.docs.js?v=1ac0918d","desc":"O Progress Line é um indicador visual não interativo que representa o progresso de uma operação ao longo do tempo, ajudando a pessoa usuária a entender em que estágio o processo se encontra."},"progress-tracker-item":{"src":"components/progress-tracker-item/progress-tracker-item.docs.js?v=9df6e167","desc":"Etapa individual do Progress Tracker."},"progress-tracker":{"src":"components/progress-tracker/progress-tracker.docs.js?v=dc917455","desc":"Indica o avanço de uma pessoa em um fluxo de múltiplas etapas, mostrando o que já foi concluído, onde ela está e o que ainda falta."},"checkbox":{"src":"components/checkbox/checkbox.docs.js?v=f9f2f82b","desc":"O checkbox é Componente interativo usado para selecionar ou desmarcar opções. Pode ser preenchido com um checkmark (✔) caso seja selecionado, ou por um traço (—) quando indeterminado. Utilizado em formulários e filtros, permitindo múltiplas seleções."},"radio-button":{"src":"components/radio-button/radio-button.docs.js?v=7b075ef9","desc":"Radio Button é um componente interativo usado para permitir ao usuário selecionar uma única opção de um conjunto. Essencial em formulários para escolhas únicas."},"shaped-icon":{"src":"components/shaped-icon/shaped-icon.docs.js?v=2e72045f","desc":"O Shaped Icon é um ícone envolto por um fundo colorido e com formato definido, que confere maior ênfase visual e peso hierárquico. Ele é utilizado para evidenciar categorias, ações contextuais ou estados visuais sem depender de interação."},"alert":{"src":"components/alert/alert.docs.js?v=73d9d825","desc":"Mensagem fixa e persistente sobre o sistema, que fica visível até a pessoa usuária ler ou fechar."},"confirmation-message":{"src":"components/confirmation-message/confirmation-message.docs.js?v=ebc40fe7","desc":"Mostre o resultado de uma ação com ícone, título e descrição centralizados."},"dropzone":{"src":"components/dropzone/dropzone.docs.js?v=199cfe2e","desc":"O Dropzone é a área delimitada onde a pessoa usuária adiciona arquivos, pelo botão de seleção ou arrastando o arquivo para dentro dela. A área informa os formatos e limites aceitos antes do envio. O acompanhamento de cada arquivo enviado fica no Upload Item."},"file-lead-item":{"src":"components/file-lead-item/file-lead-item.docs.js?v=5427c97f","desc":"Miniatura do arquivo no Upload Item: imagem ou ícone de anexo, com a ação de ver o arquivo."},"lead-item":{"src":"components/lead-item/lead-item.docs.js?v=39cab1a3","desc":"Elemento à esquerda do Topic: Shaped Icon ou imagem 40×40."},"slider":{"src":"components/slider/slider.docs.js?v=d0f3079e","desc":"Slider de seleção de valor num intervalo."},"spinner":{"src":"components/spinner/spinner.docs.js?v=f2007190","desc":"O Spinner é um indicador visual de atividade não interativa que informa à pessoa usuária que o sistema está processando uma ação em segundo plano."},"status-dot":{"src":"components/status-dot/status-dot.docs.js?v=51c8f006","desc":"Indicador compacto de estado, formado por um ponto colorido e um rótulo em texto."},"switch":{"src":"components/switch/switch.docs.js?v=ccb6a3c7","desc":"O Switch é um componente que funciona como um interruptor digital, alterando imediatamente o estado de uma configuração entre opções binárias, como sim ou não, e ligado ou desligado, sem necessidade de confirmação."},"checkbox-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf","desc":"Coluna de Checkboxes com um nome para o conjunto: zero, uma ou várias opções."},"radio-button-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf","desc":"Coluna de Radio Buttons com um nome para o conjunto: exatamente uma opção."},"switch-group":{"src":"components/selection-group/selection-group.docs.js?v=3cfbefbf","desc":"Coluna de Switches com um nome para o conjunto: cada um liga ou desliga uma configuração na hora."},"system-banner":{"src":"components/system-banner/system-banner.docs.js?v=7db1a62e","desc":"Aviso do sistema que ocupa a largura toda da página, com a mesma anatomia do Alert."},"tab-item":{"src":"components/tab-item/tab-item.docs.js?v=14aec353","desc":"Cada aba da Fixed Tab e da Scrollable Tab: Lead Item opcional, Label e o sublinhado."},"fixed-tab":{"src":"components/fixed-tab/fixed-tab.docs.js?v=d81545c7","desc":"O Tabs organiza conteúdos relacionados em seções paralelas dentro da mesma página, permitindo que a pessoa usuária alterne rapidamente entre contextos sem navegação externa."},"scrollable-tab":{"src":"components/scrollable-tab/scrollable-tab.docs.js?v=3607a757","needs":["fixed-tab"],"desc":"Abas no tamanho do conteúdo, com rolagem horizontal. Mesma documentação de Tabs da Fixed Tab."},"tab-view":{"src":"components/tab-view/tab-view.docs.js?v=98543998","desc":"Alterna a visualização de uma lista entre lista e grade."},"table-head":{"src":"components/table-head/table-head.docs.js?v=48151c1b","desc":"Título de coluna da Table, com ordenação."},"table-toolbar":{"src":"components/table-toolbar/table-toolbar.docs.js?v=dea5e195","desc":"Barra de ações acima da Table."},"tag":{"src":"components/tag/tag.docs.js?v=0990f2f5","desc":"Tag são rótulos compactos e visualmente distintos usados para rapidamente categorizar, identificar e organizar itens."},"balance-card":{"src":"components/balance-card/balance-card.docs.js?v=9465f0ce","desc":"Exibe o saldo de uma categoria com rótulo, valor e status complementares."},"table-cell":{"src":"components/table-cell/table-cell.docs.js?v=72c77164","desc":"Célula de dados da Table: texto, valor, percentual, Tag, Checkbox, Link ou ações."},"text-content":{"src":"components/text-content/text-content.docs.js?v=3e523e4b","desc":"Par de textos (Label e Description) com o destaque no Label ou na Description."},"accordion-item":{"src":"components/accordion-item/accordion-item.docs.js?v=1ae17b66","desc":"Item de um accordion: um header com título que revela conteúdo adicional (no Slot) ao ser expandido."},"accordion":{"src":"components/accordion/accordion.docs.js?v=da2d36e9","desc":"O Accordion agrupa vários Accordion Items em uma lista de seções expansíveis, que a pessoa abre sob demanda."},"code-input-otp":{"src":"components/code-input-otp/code-input-otp.docs.js?v=f6b13cc5","desc":"Campo de código de verificação (OTP/PIN): uma fileira de células de um caractere, preenchidas uma a uma, para inserir um código curto recebido por SMS, e-mail ou app autenticador."},"credit-card-input":{"src":"components/credit-card-input/credit-card-input.docs.js?v=38ef2397","desc":"Campo para inserir o número de um cartão de crédito."},"date-input":{"src":"components/date-input/date-input.docs.js?v=b20aab02","desc":"Campo de data da família Text Fields: digitar com máscara dd/mm/aaaa ou escolher no calendário."},"password-input":{"src":"components/password-input/password-input.docs.js?v=0b2aabde","desc":"O Password Input é um campo de entrada específico para senhas."},"quantity-input":{"src":"components/quantity-input/quantity-input.docs.js?v=2f150dde","desc":"O Quantity Input é um campo numérico com controles de incremento e decremento."},"search-input":{"src":"components/search-input/search-input.docs.js?v=fe6fd9c3","desc":"Campo de busca da família Text Fields: lupa fixa e botão de limpar quando há texto."},"text-area":{"src":"components/text-area/text-area.docs.js?v=beb8d21c","desc":"O Text Area é um campo de entrada multilinha que permite à pessoa usuária digitar textos mais longos, como descrições, observações ou comentários."},"text-input":{"src":"components/text-input/text-input.docs.js?v=a88dd721","desc":"O Text Input é um campo de entrada para coleta de informações textuais curtas fornecidas pela pessoa usuária."},"toast":{"src":"components/toast/toast.docs.js?v=21536c26","desc":"O Toast é um componente de notificação temporária que informa a pessoa usuária sobre o resultado de uma ação ou estado do sistema. Ele aparece de forma discreta na interface e desaparece automaticamente após alguns segundos, sem interromper o fluxo de navegação."},"tooltip":{"src":"components/tooltip/tooltip.docs.js?v=66ed468f","desc":"São caixas flutuantes que proporcionam informações sobre algum aspecto da interface que mereça maior atenção."},"topic":{"src":"components/topic/topic.docs.js?v=4f5c7ee5","desc":"Apresente um tópico com ícone ou imagem, título e descrição."},"trailing-item":{"src":"components/trailing-item/trailing-item.docs.js?v=e767226e","desc":"Item à direita das listas: Checkbox, Radio Button, Switch, Icon ou Tag."},"content-list-item":{"src":"components/content-list-item/content-list-item.docs.js?v=08279d28","desc":"O Content list item é um bloco de conteúdo que organiza informações de forma clara e escaneável dentro de listas. Ele combina elementos como título, descrição, ícone, avatar ou status, ajudando o usuário a identificar rapidamente itens, conteúdos ou ações relacionadas."},"content-list":{"src":"components/content-list/content-list.docs.js?v=663fda73","desc":"O Content List é um componente que agrupa e organiza múltiplos Content List Items em uma estrutura única e consistente. Ele funciona como um container, permitindo que diferentes tipos de conteúdo sejam exibidos de forma clara e hierárquica. Pode conter itens informativos, de navegação ou de transações financeiras, adaptando-se a diferentes contextos de uso."},"selection-list-item":{"src":"components/selection-list-item/selection-list-item.docs.js?v=a6ae3580","desc":"O Selection List Item é um componente de seleção que combina título, descrição e ícone para enriquecer a apresentação das opções. Ele amplia a clareza das escolhas, indo além de seletores simples como checkbox, radio ou switch."},"async-creatable-select-input":{"src":"components/async-creatable-select-input/async-creatable-select-input.docs.js?v=b89d5e8e","needs":["async-select-input"],"desc":"Como o Async e, quando o texto digitado não existe nas opções, oferece \"Adicionar “…”\" para criar a opção. Faz parte da família Select Input."},"async-select-input":{"src":"components/async-select-input/async-select-input.docs.js?v=0e4b20ab","desc":"O Select input permite que a pessoa usuária escolha uma ou mais opções a partir de uma lista pré-definida."},"checkbox-select-input":{"src":"components/checkbox-select-input/checkbox-select-input.docs.js?v=b47659af","needs":["async-select-input"],"desc":"Vários valores sem busca: a lista fica aberta enquanto marca, e o campo mostra quantos foram selecionados. Faz parte da família Select Input."},"multi-select-input":{"src":"components/multi-select-input/multi-select-input.docs.js?v=aff1ad3a","needs":["async-select-input"],"desc":"Vários valores com busca: cada escolha vira um Input Chip dentro do campo. Faz parte da família Select Input."},"radio-select-input":{"src":"components/radio-select-input/radio-select-input.docs.js?v=502ad8c9","needs":["async-select-input"],"desc":"Escolha única sem busca: o campo só abre a lista de opções, com Radio Button. Faz parte da família Select Input."},"select-number":{"src":"components/select-number/select-number.docs.js?v=847bd368","desc":"Seletor de número do Pagination (itens por página e página atual), com lista em Popover."},"pagination":{"src":"components/pagination/pagination.docs.js?v=e13b1eb0","desc":"O Pagination (paginação) permite navegar entre conjuntos de dados distribuídos em várias páginas, otimizando a performance da visualização e facilitando o consumo de grandes volumes de dados."},"selection-list":{"src":"components/selection-list/selection-list.docs.js?v=62a9303c","desc":"O Selection List é um agrupamento de opções organizadas em lista, permitindo que o usuário faça uma ou múltiplas seleções de forma clara e consistente. Ele é formado por instâncias do componente Selection List Item empilhados e separados por divisores visuais, facilitando a leitura e a comparação entre alternativas."},"table":{"src":"components/table/table.docs.js?v=2903c5c5","desc":"O componente de Tabela organiza dados estruturados em colunas e linhas, facilitando a leitura, comparação e análise. É ideal para exibir informações com formato uniforme, como listas, transações ou relatórios."},"upload-item":{"src":"components/upload-item/upload-item.docs.js?v=b6203890","desc":"O Upload Item representa um arquivo dentro do fluxo de upload, do envio em curso até o arquivo já armazenado. Ele mostra o nome, a extensão, o estado do envio e as ações disponíveis para aquele arquivo."},"upload-list":{"src":"components/upload-list/upload-list.docs.js?v=b6a8754f","desc":"Agrupa os Upload Items de um fluxo, com ordem e espaçamento consistentes."},"viewport-restriction":{"src":"components/viewport-restriction/viewport-restriction.docs.js?v=221daf2e","desc":"Aviso de que o componente não está disponível no viewport atual."},"bottom-sheet":{"src":"components/bottom-sheet/bottom-sheet.docs.js?v=6cb8b495","desc":"Camada que surge da base da tela para apresentar conteúdo ou ações complementares sem tirar a pessoa do contexto. A tela de fundo continua visível."},"drawer":{"src":"components/drawer/drawer.docs.js?v=ba404bd6","desc":"O Drawer é um painel lateral deslizante utilizado para expor conteúdos complementares ou etapas adicionais dentro de um fluxo principal, sem interromper a tela atual. Ele aparece sobreposto à interface e permite que a pessoa usuária mantenha o contexto enquanto realiza uma interação específica."},"modal":{"src":"components/modal/modal.docs.js?v=40da0398","desc":"O Modal é um componente de sobreposição que bloqueia a interface base para exibir conteúdos focados, como formulários, informações detalhadas ou confirmações. Ele exige atenção da pessoa usuária antes de retornar ao fluxo principal."},"modal-date-picker":{"src":"components/modal-date-picker/modal-date-picker.docs.js?v=8d2f58cb","desc":"Calendário num Modal, com Cancelar e Confirmar: a data só vale depois de confirmada."}};
-CDS.searchIndex = "dist/search.json?v=bd6decaa"; /* 1392 seções */
+CDS.searchIndex = "dist/search.json?v=bd4d90b7"; /* 1392 seções */

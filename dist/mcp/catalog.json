@@ -24,7 +24,7 @@
   "tokens": 308,
   "icons": 273,
   "illustrations": 260,
-  "conferirOpen": 111,
+  "conferirOpen": 112,
   "stackFindings": 57
  },
  "components": [
@@ -16094,7 +16094,7 @@
     {
      "id": "hub",
      "title": "Castanha Hub",
-     "text": "## Castanha Hub\n\nO Castanha é um Hub de soluções para criação de Experiências da Caju, desenvolvido para conectar ideias, pessoas e tecnologia. Ele une Ideação, Design e Código para garantir que os Produtos da Caju mantenham consistência com propósito.\n\n## Comece por aqui\n\n## Mais recursos"
+     "text": "**Castanha Hub** — O Castanha é um Hub de soluções para criação de Experiências da Caju, desenvolvido para conectar ideias, pessoas e tecnologia.\n\nEle une Ideação, Design e Código para garantir que os Produtos da Caju mantenham consistência com propósito.\n\n## Comece por aqui\n\n## Mais recursos"
     },
     {
      "id": "principios",
@@ -27013,6 +27013,12 @@
     "group": "Ajuste de UI",
     "resolved": false,
     "text": "Table e Pagination · **mobile (360px)** · Conferido no Figma (05/10): **sem versão estreita**. Table só tem Kind=Default/Empty (1053px); Pagination é um componente único de 780px. No frame mobile os dois transbordam. (Modal Date Picker saiu da lista: o Figma o bloqueia no mobile com Viewport Restriction, e o smoke agora reconhece isso) · **Proposta para decidir no DS:** Table com rolagem horizontal dentro do container no mobile; Pagination compacta (só ‹ › e \"1 de 10\") ou bloqueada com Viewport Restriction · Segue o Figma (transborda); aviso no smoke · Conforme a decisão"
+   },
+   {
+    "id": "C173",
+    "group": "Ajuste de UI",
+    "resolved": false,
+    "text": "Castanha Assets (capa, .Thumbnail Castanha e .Thumbnail por jornada) · cores · Fills crus fora das variáveis: pilha vermelha `#450206` `#8a0013` `#c10524` `#fe7b7b`, jornadas laranja `#ff7300`, roxo `#a33dc2`, verde `#3fc03f` e azul `#339cff` em 5 tons cada. O fundo da capa usa `Surface/accent` e o título `Decorative/Display` · Ligar às variáveis do tema: `Accent/Solid/*` para a pilha da marca e as escalas `Charts/*` para as jornadas · O playground usa o conceito com as escalas mais próximas: `accent-solid` (marca) e Charts 01–04 e 07 por área, misturadas com `color-mix` entre `intense` e `medium` (componente local Pilha, D221) · Quando o arquivo de assets for revisado"
    },
    {
     "id": "C01",

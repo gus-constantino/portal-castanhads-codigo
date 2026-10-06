@@ -9,7 +9,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | Tipo | Itens |
 |---|---|
 | [Ajuste de texto](#ajuste-de-texto) | 6 |
-| [Ajuste de UI](#ajuste-de-ui) | 25 |
+| [Ajuste de UI](#ajuste-de-ui) | 26 |
 | [Motion](#motion) | 7 |
 | [Refactor](#refactor) | 39 |
 | [Naming](#naming) | 10 |
@@ -61,6 +61,7 @@ Cor, fill, borda, tamanho ou layout de uma variante.
 | C82 | Variáveis · `Common/Grids/*` (coleção Viewport) | margin: Desktop 104 · Tablet 16 · Mobile 20 · gutter: Desktop 20 · Tablet 8 · Mobile 16 | **De propósito** (Gustavo, 02/10), mas com proposta de melhoria no Tablet e no Mobile. Sugestão para discutir: escala crescente com tokens que já existem: margin 16 → 32 → 104 e gutter 12 → 16 → 20 (Mobile → Tablet → Desktop) | Segue o Figma: `--common-grids-margin` e `--common-grids-gutter` gerados por `build-tokens.js` (Desktop no `:root`, Tablet ≤1023, Mobile ≤599 e por `[data-viewport]`) | **Proposta de melhoria** (Gustavo). Se aprovada: valores no Figma e `tokens/figma-snapshot.json` |
 | C84 | Icon Button · estado selecionado | Não há variante Selected/Is Active (só Enabled, Hovered, Pressed, Disabled) | Variante de toggle para botões que ligam/desligam algo (no playground: relatório aberto, tema) | Usa `pressed` (aria-pressed) sem mudança visual; o estado aparece pelo ícone (tema) e pelo texto do Tooltip (relatório) | Avaliar uma variante selecionada no Figma |
 | C129 | Table e Pagination · **mobile (360px)** | Conferido no Figma (05/10): **sem versão estreita**. Table só tem Kind=Default/Empty (1053px); Pagination é um componente único de 780px. No frame mobile os dois transbordam. (Modal Date Picker saiu da lista: o Figma o bloqueia no mobile com Viewport Restriction, e o smoke agora reconhece isso) | **Proposta para decidir no DS:** Table com rolagem horizontal dentro do container no mobile; Pagination compacta (só ‹ › e "1 de 10") ou bloqueada com Viewport Restriction | Segue o Figma (transborda); aviso no smoke | Conforme a decisão |
+| C173 | Castanha Assets (capa, .Thumbnail Castanha e .Thumbnail por jornada) · cores | Fills crus fora das variáveis: pilha vermelha `#450206` `#8a0013` `#c10524` `#fe7b7b`, jornadas laranja `#ff7300`, roxo `#a33dc2`, verde `#3fc03f` e azul `#339cff` em 5 tons cada. O fundo da capa usa `Surface/accent` e o título `Decorative/Display` | Ligar às variáveis do tema: `Accent/Solid/*` para a pilha da marca e as escalas `Charts/*` para as jornadas | O playground usa o conceito com as escalas mais próximas: `accent-solid` (marca) e Charts 01–04 e 07 por área, misturadas com `color-mix` entre `intense` e `medium` (componente local Pilha, D221) | Quando o arquivo de assets for revisado |
 
 ## Motion
 

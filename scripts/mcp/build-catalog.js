@@ -74,6 +74,7 @@ const BLOCK = {
   code: (v) => "```\n" + S(v) + "\n```",
   tokens: (v) => "(Tokens: " + v + " — ver a ferramenta de tokens.)",
   palette: (v) => "**" + v.label + ":** " + v.names.map((n, i) => n + " (" + (v.hex[i] || []).map((h) => "#" + h).join(", ") + ")").join("; "),
+  hero: (v) => "**" + v.title + "**" + (v.text ? " — " + S(v.text) : ""),
   shortcuts: (v) => v.map((s) => "- **" + s.title + "** — " + S(s.text)).join("\n"),
   steps: (v) => v.map((s, i) => (i + 1) + ". **" + s.title + "** — " + S(s.text)).join("\n"),
   videos: (v) => v.map((x) => "- Vídeo: " + (x.title || x.heading) + (x.href ? " (" + x.href + ")" : "")).join("\n"),
@@ -153,7 +154,8 @@ function build(){
   const FS = (CDS.figmaStatus && CDS.figmaStatus.items) || {}, R = CDS.react || { items: {}, dirs: {} }, RA = CDS.reactAssets || {}, A = CDS.assets || {};
   const FP = figmaProps();
   const seen = {};
-  const components = reg.filter((d) => d.id && !seen[d.id] && (seen[d.id] = 1)).map((d) => {
+  // hidden: página escondida do playground (ex.: #/locais), fora do catálogo como fica fora do menu e da busca
+  const components = reg.filter((d) => d.id && !d.hidden && !seen[d.id] && (seen[d.id] = 1)).map((d) => {
     const doc = CDS.docs[d.id], node = ((d.figma || "").match(/node-id=([\d-]+)/) || [])[1] || null;
     const kind = d.home ? "home" : d.resource ? "resource" : d.composition ? "composition" : d.block ? "building-block" : "component";
     const c = { id: d.id, name: d.name, kind, category: d.category || null, figma: d.figma || null, figmaNode: node, zeroheight: d.zeroheight || null };

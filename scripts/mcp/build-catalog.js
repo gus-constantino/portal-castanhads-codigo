@@ -79,7 +79,8 @@ const BLOCK = {
   videos: (v) => v.map((x) => "- Vídeo: " + (x.title || x.heading) + (x.href ? " (" + x.href + ")" : "")).join("\n"),
   video: (v) => "Vídeo: " + v.title + (v.href ? " (" + v.href + ")" : "") + (v.caption ? " — " + v.caption : ""),
   glossary: (v) => Object.keys(v.letters || {}).map((k) => v.letters[k].map((t) => "- **" + t[0] + "** — " + S(t[1]) + (t[2] ? " (evitar: " + t[2] + ")" : "")).join("\n")).join("\n"),
-  simulate: () => "(Simulação de daltonismo na página.)"
+  simulate: () => "(Simulação de daltonismo na página.)",
+  faq: (v) => v.groups.map((g) => "### " + g.title + "\n" + g.items.map((q) => "**" + q[0] + "**\n" + [].concat(q[1]).map((t) => Array.isArray(t) ? t.map((x) => "- " + x).join("\n") : S(t)).join("\n")).join("\n\n")).join("\n\n")
 };
 function blockText(b){
   const k = Object.keys(b)[0], f = BLOCK[k];

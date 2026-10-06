@@ -191,6 +191,19 @@
   }
 
   /** Main Button do DS (Default · Neutral · Small, sem ícones) para ações da doc. */
+  /** Escolha única em Filter Chips do DS (Chips Group), para filtros de página. Retorna o grupo com setValue(v). */
+  function choice(label, value, options, onChange){
+    var g = document.createElement("cds-chips-group");
+    [["kind", "filter"], ["role-kind", "multiple"], ["label", label]].forEach(function(a){ g.setAttribute(a[0], a[1]); });
+    function mark(v){ [].forEach.call(g.querySelectorAll("cds-filter-chip"), function(c){ CDS.attr(c, "selected", c.dataset.v === String(v)); }); }
+    options.forEach(function(o){
+      var c = g.appendChild(document.createElement("cds-filter-chip"));
+      c.setAttribute("label", o[1]); c.setAttribute("show-lead-icon", "false"); c.dataset.v = o[0];
+      c.addEventListener("cds-change", function(e){ e.stopPropagation(); mark(o[0]); if (e.detail && e.detail.selected) onChange(o[0]); });
+    });
+    mark(value); g.setValue = mark;
+    return g;
+  }
   function mainButton(label){
     var b = document.createElement("cds-main-button");
     [["kind","default"],["appearance","neutral"],["size","small"],["label",label],["show-lead-icon","false"],["show-trailing-icon","false"]].forEach(function(a){ b.setAttribute(a[0], a[1]); });
@@ -535,6 +548,75 @@
       filter();
       return wrap;
     },
+    // FAQ (Polaris, Carbon, M3): busca grande, Filter Chips por tema, "Mais perguntadas" em Content List Item Kind Card e
+    // perguntas em Accordion Item com divisória, ordenadas por relevância (v.groups[].items = [pergunta, resposta, peso]);
+    // os grupos seguem a soma dos pesos. Fecha com um Card "Não achou?" e Main Button para abrir chamado.
+    faq: function(d, v){
+      var wrap = el("div", "pg-faq"), fold = function(s){ return String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, ""); };
+      var w = function(q){ return q[2] || 1; };
+      var groups = v.groups.map(function(g){ var items = g.items.slice().sort(function(a, b){ return w(b) - w(a); }); return { title: g.title, items: items, score: items.reduce(function(s, q){ return s + w(q); }, 0) }; })
+        .sort(function(a, b){ return b.score - a.score; });
+      var search = wrap.appendChild(document.createElement("cds-search-input"));
+      search.className = "pg-faq__search";
+      [["label", "Buscar pergunta"], ["placeholder", "Ex.: tema escuro, token, ícone, componente novo"], ["show-required", "false"], ["show-supporting-content", "false"]].forEach(function(a){ search.setAttribute(a[0], a[1]); });
+      var chips = wrap.appendChild(el("div", "pg-faq__chips")), cat = "*";
+      var chipGroup = chips.appendChild(choice("Tema", "*", [["*", "Todas"]].concat(groups.map(function(g){ return [g.title, g.title]; })), function(x){ cat = x; filter(); }));
+      // Mais perguntadas: as de maior peso, de qualquer grupo
+      var all = [], rows = [];
+      groups.forEach(function(g){ g.items.forEach(function(q){ all.push({ q: q, g: g.title }); }); });
+      var topSec = wrap.appendChild(el("section", "pg-faq__top"));
+      topSec.appendChild(el("h2", "pg-doc-h2", "Mais perguntadas"));
+      var topGrid = topSec.appendChild(el("div", "pg-faq__top-grid"));
+      all.slice().sort(function(a, b){ return w(b.q) - w(a.q); }).slice(0, v.top || 4).forEach(function(x){
+        var it = topGrid.appendChild(document.createElement("cds-content-list-item"));
+        [["kind", "card"], ["intent", "navigation"], ["label", x.q[0]], ["description", x.g], ["show-tag", "false"], ["show-divider", "false"], ["show-lead-item", "false"], ["show-navigation-indicator", "true"]].forEach(function(a){ it.setAttribute(a[0], a[1]); });
+        it.addEventListener("click", function(){ open(x.q); });
+      });
+      var count = wrap.appendChild(el("p", "pg-faq__count")); count.setAttribute("aria-live", "polite");
+      var secs = groups.map(function(g){
+        var sec = wrap.appendChild(el("section", "pg-faq__group")), h = sec.appendChild(el("div", "pg-faq__group-head"));
+        h.appendChild(el("h2", "pg-doc-h2", g.title));
+        var n = h.appendChild(document.createElement("cds-tag")); n.setAttribute("appearance", "neutral"); n.setAttribute("show-lead-item", "false");
+        var box = sec.appendChild(el("div", "pg-faq__list"));
+        g.items.forEach(function(q){
+          var acc = box.appendChild(document.createElement("cds-accordion-item"));
+          [["label", q[0]], ["show-lead-item", "false"], ["show-description", "false"], ["heading-level", "3"]].forEach(function(a){ acc.setAttribute(a[0], a[1]); });
+          acc.collapsed = true;
+          var body = acc.appendChild(el("div", "pg-faq__a"));
+          (Array.isArray(q[1]) ? q[1] : [q[1]]).forEach(function(t){ body.appendChild(Array.isArray(t) ? list("ul", t) : rich(el("p", "pg-doc-p"), t)); });
+          rows.push({ q: q, row: acc, g: g.title, text: fold(q[0] + " " + JSON.stringify(q[1]) + " " + g.title) });
+        });
+        return { sec: sec, tag: n, title: g.title };
+      });
+      var empty = wrap.appendChild(el("p", "pg-faq__count", v.empty || "Nenhuma pergunta encontrada."));
+      if (v.cta){
+        var cta = wrap.appendChild(el("cds-card", "pg-faq__cta")); cta.setAttribute("has-border", "true");
+        var tx = cta.appendChild(el("div", "pg-faq__cta-text"));
+        tx.appendChild(el("h2", "pg-faq__cta-title", v.cta.title));
+        tx.appendChild(rich(el("p", "pg-doc-p"), v.cta.text));
+        var b = cta.appendChild(document.createElement("cds-main-button"));
+        [["label", v.cta.label], ["appearance", "accent"], ["show-lead-icon", "false"], ["trailing-icon", "link-line"]].forEach(function(a){ b.setAttribute(a[0], a[1]); });
+        b.addEventListener("click", function(){ window.open(v.cta.href, "_blank", "noopener"); });
+      }
+      function open(q){
+        var r = rows.filter(function(x){ return x.q === q; })[0]; if (!r) return;
+        search.value = ""; cat = "*"; chipGroup.setValue("*"); filter();
+        r.row.collapsed = false; r.row.scrollIntoView({ block: "center", behavior: "smooth" });
+        var btn = r.row.querySelector("button"); if (btn) btn.focus({ preventScroll: true });
+      }
+      function filter(){
+        var q = fold(search.value).trim(), n = 0;
+        rows.forEach(function(x){ var ok = (cat === "*" || x.g === cat) && (!q || x.text.indexOf(q) >= 0); x.row.hidden = !ok; if (ok) n++; });
+        secs.forEach(function(s){ var c = rows.filter(function(x){ return x.g === s.title && !x.row.hidden; }).length; s.sec.hidden = !c; s.tag.setAttribute("label", String(c)); });
+        topSec.hidden = !!q || cat !== "*";
+        count.textContent = q || cat !== "*" ? n + " de " + rows.length + " perguntas" : rows.length + " perguntas, das mais frequentes para as menos";
+        empty.hidden = n > 0;
+      }
+      search.addEventListener("cds-change", function(e){ e.stopPropagation(); filter(); });
+      search.addEventListener("cds-clear", function(e){ e.stopPropagation(); filter(); });
+      filter();
+      return wrap;
+    },
     // Passos numerados com título, texto, lista e tabela opcionais (ex.: processo de naming)
     steps: function(d, v){
       var ol = el("ol", "pg-doc-steps");
@@ -570,6 +652,7 @@
 
   CDS.docBlocks = BLOCKS; // extensões (ex.: scripts/tokens-kit.js acrescenta o bloco `tokens`)
   CDS.docToast = toast; CDS.docMainButton = mainButton; // Toast e Main Button do DS para as extensões
+  CDS.docChoice = choice; CDS.docRich = rich; // texto com `código` para os blocos dos recursos (ex.: resources/arquitetura)
 
   /** Capa do componente (frame [Header] do Figma): o componente real (vivo) numa moldura, acima das tabs.
    *  Sem `doc.cover`, esvazia e esconde `root`. Fundo provisório = Accent/Solid/soft (o Surface/03 do Figma é legado, sem token: C91). */

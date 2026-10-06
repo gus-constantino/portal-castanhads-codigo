@@ -630,3 +630,24 @@ cds-banner.pg-doc-banner{ width:calc(var(--common-sizes-200) + var(--common-size
 .pg-doc-persona__cols{ display:grid; grid-template-columns:repeat(auto-fit, minmax(min(calc(var(--common-sizes-200) + var(--common-sizes-40)), 100%), 1fr)); gap:var(--common-sizes-24); }
 .pg-doc-persona__col{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
 @media (max-width:640px){ .pg-doc-persona__top{ flex-direction:column; } }
+
+/* FAQ (Polaris, Carbon, M3): busca grande, chips por tema, mais perguntadas, lista com divisória e card de chamado */
+.pg-faq{ display:flex; flex-direction:column; gap:var(--common-sizes-24); max-width:calc(3 * var(--common-sizes-200) + var(--common-sizes-160)); }
+.pg-faq__search{ display:block; width:100%; }
+.pg-faq [hidden]{ display:none !important; }
+.pg-faq__chips cds-chips-group{ width:100%; }
+.pg-faq__top{ display:flex; flex-direction:column; gap:var(--common-sizes-12); padding:var(--common-sizes-24); border-radius:var(--common-border-radius-big); background:var(--common-colors-surface-01); }
+.pg-faq__top .pg-doc-h2{ margin:0; }
+.pg-faq__top-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(calc(var(--common-sizes-200) + var(--common-sizes-80)), 1fr)); gap:var(--common-sizes-8); }
+.pg-faq__top-grid cds-content-list-item{ cursor:pointer; }
+.pg-faq__count{ margin:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+.pg-faq__group{ display:flex; flex-direction:column; gap:var(--common-sizes-4); }
+.pg-faq__group-head{ display:flex; align-items:center; gap:var(--common-sizes-8); padding-bottom:var(--common-sizes-4); }
+.pg-faq__group-head .pg-doc-h2{ margin:0; }
+.pg-faq__list{ display:flex; flex-direction:column; --cds-accordion-width:100%; }
+.pg-faq__a{ display:flex; flex-direction:column; gap:var(--common-sizes-8); max-width:calc(3 * var(--common-sizes-200)); }
+.pg-faq__a .pg-doc-p, .pg-faq__a .pg-doc-list{ margin:0; }
+.pg-faq__cta{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--common-sizes-16); }
+.pg-faq__cta-text{ display:flex; flex-direction:column; gap:var(--common-sizes-4); min-width:0; flex:1 1 calc(var(--common-sizes-200) + var(--common-sizes-80)); }
+.pg-faq__cta-title{ margin:0; font:var(--text-style-title-small); color:var(--common-colors-text-intense); }
+.pg-faq__cta .pg-doc-p{ margin:0; }

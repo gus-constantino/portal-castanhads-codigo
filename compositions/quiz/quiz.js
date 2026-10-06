@@ -26,7 +26,7 @@
 (function(){
   "use strict";
   var uid = 0;
-  var RIGHT = ["Na mosca!", "Isso!", "Mandou bem!"], WRONG = ["Quase!", "Não foi dessa vez.", "Ops!"];
+  var RIGHT = ["Na mosca", "Isso mesmo", "Mandou bem"], WRONG = ["Quase", "Não foi dessa vez", "Não é bem assim"]; // títulos sem ! e sem "Ops" (Conteúdo › Formatação e Tom e voz)
   var VERDICT = { "do": "Use", dont: "Não use" };
   function load(k){ try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e){ return null; } }
   function save(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch (e){} }

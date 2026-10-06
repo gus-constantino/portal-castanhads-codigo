@@ -252,7 +252,7 @@
 
         { h2: "Teste o que você aprendeu" },
         { p: "Sete perguntas sobre o treinamento. Escolha uma opção para ver se acertou e o porquê." },
-        { quiz: { label: "Quiz · Prepare protótipos no Figma", storageKey: "prototipos", right: ["Na mosca!", "Isso!", "O dev agradece!"], wrong: ["Quase!", "Ops, essa vira suposição.", "Não foi dessa vez."], questions: [
+        { quiz: { label: "Quiz · Prepare protótipos no Figma", storageKey: "prototipos", right: ["Na mosca", "Isso mesmo", "O dev agradece"], wrong: ["Quase", "Essa vira suposição", "Não foi dessa vez"], questions: [
           { q: "Para você é um retângulo. E para o dev?", options: ["Um print para copiar pixel a pixel", "Uma caixa com regras: content, padding, border e margin", "Um detalhe que ele pode ignorar"], answer: 1,
             why: "Toda tela que você entrega é traduzida em código. Sem regras explícitas, a tradução vira suposição e a UI quebra." },
           { q: "O respiro entre a borda do card e o texto dentro dele é…", options: ["Margin", "Border", "Padding"], answer: 2,
@@ -268,8 +268,8 @@
           { q: "Qual destes NÃO está no checklist de entrega?", options: ["Espaçamentos com tokens do DS", "Elementos posicionados à mão para ficarem no lugar", "Estados extremos testados: texto longo e lista vazia"], answer: 1,
             why: "É o contrário: todo frame com autolayout, nada posicionado à mão." }
         ], results: [
-          { min: 7, illustration: "objetos/trofeu", title: "Gabaritou!", text: "O dev não vai precisar adivinhar nada na sua próxima entrega." },
-          { min: 5, illustration: "objetos/medalha-1", title: "Mandou bem!", text: "Revise as seções das perguntas que escaparam e a entrega fica redonda." },
+          { min: 7, illustration: "objetos/trofeu", title: "Gabaritou", text: "O dev não vai precisar adivinhar nada na sua próxima entrega." },
+          { min: 5, illustration: "objetos/medalha-1", title: "Mandou bem", text: "Revise as seções das perguntas que escaparam e a entrega fica redonda." },
           { min: 0, illustration: "notificacoes/success-low-detail", title: "Bora mais uma?", text: "Passe pelas seções de novo e refaça o quiz. Na segunda vai." }
         ] } }
       ] }

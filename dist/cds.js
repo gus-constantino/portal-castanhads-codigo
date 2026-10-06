@@ -8547,7 +8547,7 @@ try {
 (function(){
   "use strict";
   var uid = 0;
-  var RIGHT = ["Na mosca!", "Isso!", "Mandou bem!"], WRONG = ["Quase!", "Não foi dessa vez.", "Ops!"];
+  var RIGHT = ["Na mosca", "Isso mesmo", "Mandou bem"], WRONG = ["Quase", "Não foi dessa vez", "Não é bem assim"]; // títulos sem ! e sem "Ops" (Conteúdo › Formatação e Tom e voz)
   var VERDICT = { "do": "Use", dont: "Não use" };
   function load(k){ try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e){ return null; } }
   function save(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch (e){} }
@@ -8649,7 +8649,7 @@ CDS.register({
       { q: "O respiro entre a borda do card e o texto dentro dele é…", options: ["Margin", "Border", "Padding"], answer: 2, why: "Padding é interno e pertence ao componente." },
       { q: "Fill container no Figma vira o quê no código?", options: ["width: fit-content", "flex: 1 ou width: 100%", "Uma largura fixa em px"], answer: 1, why: "Hug vira fit-content, Fill vira flex: 1 e Fixed vira largura fixa." }
     ];
-    q.results = [{ min: 2, illustration: "objetos/trofeu", title: "Gabaritou!", text: "Tudo certo." }, { min: 0, illustration: "notificacoes/success-low-detail", title: "Bora mais uma?", text: "Refaça o quiz." }];
+    q.results = [{ min: 2, illustration: "objetos/trofeu", title: "Gabaritou", text: "Tudo certo." }, { min: 0, illustration: "notificacoes/success-low-detail", title: "Bora mais uma?", text: "Refaça o quiz." }];
     ctx.preview.appendChild(q);
     kit.hint(ctx.panel, "Composição do playground (prefixo cmp-): as perguntas entram pela propriedade questions antes de conectar. Usada no bloco quiz das docs (Capacitações › Protótipos no Figma).");
   }
@@ -10138,7 +10138,8 @@ try {
    Formato por tema, uns 5 minutos: treinamento rápido (blocos curtos com visual ao vivo) · jogo · quiz de 5 perguntas.
    Todo conteúdo vem do próprio portal (docs dos componentes e Tema Caju), sem regra nova. Jogos e quiz = composição
    <cmp-quiz> (kind "verdict" = Certo ou errado); o melhor resultado fica no localStorage de quem joga (storage-key).
-   Etapa 1: Componentes e Tema Caju. Etapa 2: Motion, Conteúdo, Ilustração e Camadas do DS. */
+   Etapa 1: Componentes e Tema Caju. Etapa 2: Motion, Conteúdo, Ilustração e Camadas do DS.
+   Feedback do jogo e do quiz segue o guia de Conteúdo: títulos sem exclamação e sem "Ops". */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   CDS.register({ id: "castanha-quiz", name: "Castanha Quiz", resource: true, lede: "Treinamentos rápidos sobre o Castanha DS, com jogo e quiz.", order: 6 });
@@ -10197,12 +10198,22 @@ try {
       elev: function(){ var k = c("cds-card", { "has-border": "false", class: "pg-cq__elev" }); k.appendChild(c("cds-text-content", { label: "Saldo disponível", description: "Vale-refeição" })); return stage([k]); }
     }
   };
+  // Etapa 2: cenas de texto (Conteúdo), ilustração (Ilustração) e código (Motion, Camadas)
+  function said(title, desc){ var k = c("cds-card", { "has-border": "true", class: "pg-cq__say" }); k.appendChild(c("cds-text-content", { label: title, description: desc || "", "show-description": desc ? null : "false" })); return stage([k]); }
+  function btnScene(label){ return stage([c("cds-main-button", { label: label, "show-lead-icon": "false", "show-trailing-icon": "false" })]); }
+  function alertScene(label, text){ var a = c("cds-alert", { appearance: "warning", label: label, "show-close-button": "false" }); a.appendChild(txt("span", null, text)); return stage([a]); }
+  function codeScene(rows){ return stage([code(rows)]); }
+  var ILL = {}; ((window.CDS.assets || {}).illustrations || []).forEach(function(i){ ILL[i.name] = i.src; });
+  function illScene(name){ var im = c("img", { alt: "", width: "120", height: "120", class: "pg-cq__ill" }); im.src = ILL[name] || ""; return stage([im]); }
+  var bind = function(f){ var a = [].slice.call(arguments, 1); return function(){ return f.apply(null, a); }; };
+
   // Inert: o visual é para olhar, não para clicar (o clique é na resposta)
   function look(fn){ return function(){ var e = fn(); e.inert = true; return e; }; }
 
+  var GAME6 = function(){ return RES(true).map(function(r){ return r.min === 5 ? Object.assign({}, r, { min: 6 }) : r.min === 3 ? Object.assign({}, r, { min: 4 }) : r; }); };
   var RES = function(game){ return [
-    { min: 5, illustration: "objetos/trofeu", title: "Gabaritou!", text: game ? "Olho de quem conhece o DS de cor." : "Você está pronta ou pronto para usar no dia a dia." },
-    { min: 3, illustration: "objetos/medalha-1", title: "Mandou bem!", text: "Revise o que escapou no treinamento acima e tente de novo." },
+    { min: 5, illustration: "objetos/trofeu", title: "Gabaritou", text: game ? "Olho de quem conhece o DS de cor." : "Você está pronta ou pronto para usar no dia a dia." },
+    { min: 3, illustration: "objetos/medalha-1", title: "Mandou bem", text: "Revise o que escapou no treinamento acima e tente de novo." },
     { min: 0, illustration: "notificacoes/success-low-detail", title: "Bora mais uma?", text: "Passe pelo treinamento de novo. Na segunda vai." }
   ]; };
 
@@ -10212,11 +10223,14 @@ try {
         { banner: { area: "aprenda", eyebrow: "Castanha Quiz", heading: "Aprenda jogando", text: "Treinamentos de uns 5 minutos sobre temas do portal. Cada um termina com um jogo e um quiz para testar o que ficou." } },
         { h2: "Escolha um tema" },
         { p: "Cada tema tem um treinamento rápido, um jogo e um quiz de 5 perguntas. O seu melhor resultado fica guardado neste navegador." },
-        { shortcuts: [
+        { shortcuts: { bento: 3, items: [
           { title: "Componentes", text: "Qual componente usar em cada situação: ação ou navegação, seleção e mensagens. Jogo: Qual é o componente?", illustration: "interfaces/lista", href: "#/castanha-quiz/componentes", cta: "Começar" },
-          { title: "Tema Caju", text: "Tokens, escala de 4px, área de toque e elevação. Jogo: Certo ou errado?", illustration: "interfaces/customizacao", href: "#/castanha-quiz/tema-caju", cta: "Começar" }
-        ] },
-        { note: "Novos temas a caminho: Motion, Conteúdo, Ilustração e Camadas do DS." }
+          { title: "Tema Caju", text: "Tokens, escala de 4px, área de toque e elevação. Jogo: Certo ou errado?", illustration: "interfaces/customizacao", href: "#/castanha-quiz/tema-caju", cta: "Começar" },
+          { title: "Motion", text: "Princípios, Motion Styles, durações e curvas. Jogo: Certo ou errado?", illustration: "objetos/foguete", href: "#/castanha-quiz/motion", cta: "Começar" },
+          { title: "Conteúdo", text: "Pilares do tom de voz, verbos que incluem e pontuação. Jogo: Certo ou errado?", illustration: "comunicacao/perguntas-frequentes", href: "#/castanha-quiz/conteudo", cta: "Começar" },
+          { title: "Ilustração", text: "Estilo, categorias, cores e acessibilidade. Jogo: Qual é a categoria?", illustration: "personagens/nadia", href: "#/castanha-quiz/ilustracao", cta: "Começar" },
+          { title: "Camadas do DS", text: "Do token à tela: a cascata, o tema e quem cria o quê. Jogo: Certo ou errado?", illustration: "graficos-e-dashboards/setores", href: "#/castanha-quiz/camadas", cta: "Começar" }
+        ] } }
       ] },
 
       { id: "componentes", title: "Componentes", blocks: [
@@ -10238,7 +10252,7 @@ try {
 
         { h2: "Jogo: Qual é o componente?" },
         { p: "Seis componentes ao vivo. Diga o nome de cada um." },
-        { quiz: { label: "Jogo · Qual é o componente?", storageKey: "componentes-jogo", results: RES(true).map(function(r){ return r.min === 5 ? Object.assign({}, r, { min: 6 }) : r.min === 3 ? Object.assign({}, r, { min: 4 }) : r; }), questions: [
+        { quiz: { label: "Jogo · Qual é o componente?", storageKey: "componentes-jogo", results: GAME6(), questions: [
           { visual: look(V.q.sw), q: "Que componente é este?", options: ["Checkbox", "Switch", "Radio Button"], answer: 1, why: "O Switch liga ou desliga uma configuração, com efeito automático." },
           { visual: look(V.q.rb), q: "E este?", options: ["Radio Button", "Checkbox", "Switch"], answer: 0, why: "O Radio Button é para seleção única, em conjuntos de menos de cinco opções." },
           { visual: look(V.q.link), q: "E este?", options: ["Main Button Ghost", "Tag", "Link"], answer: 2, why: "O Link leva para outra página. Para ações, o Main Button." },
@@ -10277,7 +10291,7 @@ try {
 
         { h2: "Jogo: Certo ou errado?" },
         { p: "Seis cenas. Para cada uma, diga se é uso certo do tema ou não." },
-        { quiz: { kind: "verdict", label: "Jogo · Certo ou errado?", storageKey: "tema-caju-jogo", right: ["Certo!", "Isso!", "Olho bom!"], wrong: ["Não é bem assim.", "Quase!", "Ops!"], results: RES(true).map(function(r){ return r.min === 5 ? Object.assign({}, r, { min: 6 }) : r.min === 3 ? Object.assign({}, r, { min: 4 }) : r; }), questions: [
+        { quiz: { kind: "verdict", label: "Jogo · Certo ou errado?", storageKey: "tema-caju-jogo", right: ["Certo", "Isso mesmo", "Olho bom"], wrong: ["Não é bem assim", "Quase", "Não foi dessa vez"], results: GAME6(), questions: [
           { visual: look(V.v.ib), q: "Ícone de ação dentro de um Icon Button.", answer: "do", why: "O Icon Button Medium tem 48px e garante a área de toque." },
           { visual: look(V.v.icon), q: "Ícone solto na tela, usado como ação.", answer: "dont", why: "Um ícone sozinho não garante área de toque acessível. Coloque-o num Icon Button." },
           { visual: look(V.v.gap), q: "Espaço de 15px entre dois Cards.", answer: "dont", why: "A escala parte de 4px. Use um token `Common/Sizes`, como o 16, nunca o valor solto." },
@@ -10294,6 +10308,182 @@ try {
           { q: "Quantos tamanhos padrão atendem cerca de 90% dos layouts?", options: ["Seis", "Doze", "Todos os 26"], answer: 0, why: "Toda a escala está disponível, mas seis tamanhos padrão resolvem a maior parte das telas." },
           { q: "Como aplicar um text style no código?", options: ["font-size e line-height soltos", "font: var(--text-style-…)", "Uma classe por tamanho"], answer: 1, why: "O text style entra com o shorthand font e a variável do estilo." },
           { q: "Quantos níveis de elevação o tema tem?", options: ["Dois", "Três", "Cinco"], answer: 1, why: "São três: Common/Elevation level 1, 2 e 3." }
+        ] } }
+      ] },
+
+      { id: "motion", title: "Motion", blocks: [
+        { banner: { area: "aprenda", eyebrow: "5 min · jogo e quiz", heading: "Motion sem mistério", text: "Os princípios, os Motion Styles dos componentes, as durações e as curvas." } },
+        { h2: "Três princípios" },
+        { cards: [
+          ["Simples", "As transições são suaves e intuitivas, facilitando o aprendizado em sistemas complexos."],
+          ["Eficiente", "O movimento fornece respostas claras e destaca o que realmente importa."],
+          ["Consistente", "Movimentos suaves e previsíveis garantem uniformidade em todas as plataformas."]
+        ] },
+        { h2: "Motion Styles" },
+        { p: "Os componentes não escolhem duração nem curva na mão: usam os Motion Styles (`/01`), um por interação. Passe o mouse e pressione o botão para ver dois deles." },
+        { display: { attrs: { _tag: "cds-main-button", label: "Pagar", "show-lead-icon": false, "show-trailing-icon": false }, live: true } },
+        { specs: [
+          { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
+          { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] }
+        ] },
+        { h2: "Duração pelo tamanho do movimento" },
+        { p: "A duração depende do tamanho do movimento e da distância que ele percorre na tela: quanto maior a distância, mais longa a animação." },
+        { table: { wrap: true, head: ["Família", "Valores", "Quando usar"], rows: [
+          ["Short", "50 a 200ms", "Interações rápidas, como hover, cliques e elementos pequenos."],
+          ["Medium", "250 a 400ms", "Cliques de botões, entrada de caixas, transformações e animações de saída."],
+          ["Long", "450 a 600ms", "Entradas de toast, expansões e animações de entrada na tela."],
+          ["Extra-long", "700 a 1000ms", "Momentos especiais, como efeitos uau ou celebrações."]
+        ] } },
+        { h2: "Curvas" },
+        { p: "As curvas dão vida ao movimento: os elementos aceleram no início e desaceleram quando param. A Decelerate é empregada na remoção de elementos, para uma saída rápida e contínua. Passe o mouse para ver cada curva." },
+        { tokens: "easing" },
+
+        { h2: "Jogo: Certo ou errado?" },
+        { p: "Seis cenas de motion. Diga se cada uma segue o Castanha DS." },
+        { quiz: { kind: "verdict", label: "Jogo · Certo ou errado? · Motion", storageKey: "motion-jogo", right: ["Certo", "Isso mesmo", "Olho bom"], wrong: ["Não é bem assim", "Quase", "Não foi dessa vez"], results: GAME6(), questions: [
+          { visual: look(bind(codeScene, [["Hover", "Hover In/01"]])), q: "Hover do botão com o Motion Style Hover In/01.", answer: "do", why: "Os componentes usam os Motion Styles, um por interação." },
+          { visual: look(bind(codeScene, [["transition", "300ms ease"]])), q: "Transição com duração e curva escritas à mão.", answer: "dont", why: "Duração e curva vêm dos Motion Styles e dos tokens, nunca de valor solto." },
+          { visual: look(bind(codeScene, [["Hover", "Extra-long/01 · 700ms"]])), q: "Hover de um botão com uma duração Extra-long.", answer: "dont", why: "Hover pede Short: feedback imediato. Extra-long é para momentos especiais." },
+          { visual: look(bind(codeScene, [["Entrada do Toast", "Long"]])), q: "Toast entrando com uma duração Long.", answer: "do", why: "As durações Long são para entradas de toast, expansões e entradas na tela." },
+          { visual: look(bind(codeScene, [["Todas as interações", "300ms"]])), q: "A mesma duração em todas as interações da tela.", answer: "dont", why: "Adapte a duração ao tipo de ação e à hierarquia visual." },
+          { visual: look(bind(codeScene, [["Saída do Toast", "Decelerate"]])), q: "Toast saindo de cena com a curva Decelerate.", answer: "do", why: "A Decelerate é empregada na remoção de elementos, como feedbacks temporários e notificações." }
+        ] } },
+
+        { h2: "Quiz" },
+        { p: "Cinco perguntas sobre o treinamento." },
+        { quiz: { label: "Quiz · Motion", storageKey: "motion-quiz", results: RES(false), questions: [
+          { q: "Quais são os três princípios de motion do Castanha?", options: ["Rápido, bonito e leve", "Simples, Eficiente e Consistente", "Fluido, expressivo e divertido"], answer: 1, why: "Simples, Eficiente e Consistente." },
+          { q: "Os componentes definem duração e curva…", options: ["Pelos Motion Styles, um por interação", "Com valores escritos em cada componente", "Com a mesma duração para tudo"], answer: 0, why: "Os Motion Styles (/01) descem a cascata até os primitivos Common/Motion." },
+          { q: "Para hover e cliques, qual família de duração?", options: ["Long", "Extra-long", "Short"], answer: 2, why: "Short é para interações rápidas, como hover, cliques e elementos pequenos." },
+          { q: "As durações Extra-long são reservadas para…", options: ["Momentos especiais, como celebrações", "Qualquer entrada na tela", "Hover de botões grandes"], answer: 0, why: "Extra-long é para efeitos uau ou celebrações." },
+          { q: "Qual curva é empregada na remoção de elementos?", options: ["Accelerate", "Decelerate", "Linear"], answer: 1, why: "A Decelerate favorece uma saída rápida e contínua." }
+        ] } }
+      ] },
+
+      { id: "conteudo", title: "Conteúdo", blocks: [
+        { banner: { area: "aprenda", eyebrow: "5 min · jogo e quiz", heading: "Escrever como a Caju", text: "Os pilares do tom de voz, as palavras que incluem e a pontuação de cada parte da tela." } },
+        { h2: "Três pilares" },
+        { cards: [
+          ["Hospitalidade", "Reduzir esforço, orientar, acolher, acompanhar e celebrar nos momentos importantes."],
+          ["Simplicidade", "Escrever o suficiente para que as pessoas entendam o que está acontecendo e o que precisam fazer."],
+          ["Brasilidade", "Uma linguagem natural, próxima e descomplicada, sem gírias, regionalismos ou expressões caricatas."]
+        ] },
+        { h2: "Cuidado, não informalidade" },
+        { p: "Escreva como alguém atento a quem está do outro lado: pergunte, dê contexto e explique os próximos passos. Expressões como \"Ei\", \"Ops!\", \"Hmm…\" ou \"Beleza?\" podem soar impacientes ou irônicas depois de um erro. Evite em qualquer momento. Para fazer companhia, prefira \"vamos\" e \"a gente\"." },
+        { h2: "Palavras que incluem" },
+        { p: "Prefira verbos de entendimento e acesso, que acolhem também quem usa leitor de tela." },
+        { table: { wrap: true, head: ["Em vez de", "Use"], rows: [["Ver como funciona", "Entender como funciona"], ["Ver saldo", "Consultar saldo"], ["Ver mais", "Nome da área ou Acessar {área}"]] } },
+        { h2: "Pontuação" },
+        { table: { wrap: true, head: ["Parte da tela", "Regra"], rows: [
+          ["Título e CTA", "Sem ponto final."],
+          ["Descrição", "Com ponto final."],
+          ["Exclamação", "Só na descrição, uma por tela."],
+          ["Dois pontos", "Para introduzir uma lista. Nunca em títulos."]
+        ] } },
+
+        { h2: "Jogo: Certo ou errado?" },
+        { p: "Seis textos de tela. Diga se cada um segue o guia de Conteúdo." },
+        { quiz: { kind: "verdict", label: "Jogo · Certo ou errado? · Conteúdo", storageKey: "conteudo-jogo", right: ["Certo", "Isso mesmo", "Olho bom"], wrong: ["Não é bem assim", "Quase", "Não foi dessa vez"], results: GAME6(), questions: [
+          { visual: look(bind(said, "Seu Pix foi enviado", "O valor vai chegar de forma imediata.")), q: "Título sem ponto e descrição com ponto final.", answer: "do", why: "Título não leva ponto final. Descrição leva." },
+          { visual: look(bind(said, "Pagamento confirmado!")), q: "Título com ponto de exclamação.", answer: "dont", why: "A exclamação vai só na descrição, uma por tela: \"Seu dinheiro já está a caminho!\"." },
+          { visual: look(bind(btnScene, "Consultar saldo")), q: "Botão \"Consultar saldo\".", answer: "do", why: "\"Consultar\" acolhe também quem usa leitor de tela, no lugar de \"Ver saldo\"." },
+          { visual: look(bind(alertScene, "Ops!", "Algo deu errado. Tente de novo.")), q: "Aviso de erro que começa com \"Ops!\".", answer: "dont", why: "Depois de um erro, \"Ops!\" pode soar impaciente. Explique o que aconteceu e mostre um caminho." },
+          { visual: look(bind(btnScene, "Confirmar pagamento.")), q: "CTA com ponto final.", answer: "dont", why: "CTA não leva ponto final: \"Confirmar pagamento\"." },
+          { visual: look(bind(said, "Deseja cancelar o pagamento?")), q: "Pergunta direta, sem viés negativo.", answer: "do", why: "Prefira \"Deseja cancelar o pagamento?\" a \"Tem certeza que quer cancelar?\"." }
+        ] } },
+
+        { h2: "Quiz" },
+        { p: "Cinco perguntas sobre o treinamento." },
+        { quiz: { label: "Quiz · Conteúdo", storageKey: "conteudo-quiz", results: RES(false), questions: [
+          { q: "Quais são os três pilares do tom de voz da Caju?", options: ["Hospitalidade, Simplicidade e Brasilidade", "Clareza, Rapidez e Humor", "Formalidade, Precisão e Síntese"], answer: 0, why: "Hospitalidade, Simplicidade e Brasilidade orientam toda a experiência." },
+          { q: "Qual texto usar no lugar de \"Ver saldo\"?", options: ["Olhar saldo", "Consultar saldo", "Saldo aqui"], answer: 1, why: "Verbos de acesso, como consultar, incluem quem usa leitor de tela." },
+          { q: "Onde vai o ponto de exclamação?", options: ["No título", "No botão", "Na descrição, uma vez por tela"], answer: 2, why: "Uma exclamação por tela, somente em descrição." },
+          { q: "O título leva ponto final?", options: ["Não", "Sim", "Só quando é longo"], answer: 0, why: "Título e CTA não levam ponto final." },
+          { q: "Expressões como \"Ops!\" e \"Hmm…\"…", options: ["Deixam o texto mais leve depois de um erro", "Devem ser evitadas em qualquer momento", "Só valem em títulos"], answer: 1, why: "Elas simulam conversa, mas podem soar impacientes, irônicas ou infantilizadas." }
+        ] } }
+      ] },
+
+      { id: "ilustracao", title: "Ilustração", blocks: [
+        { banner: { area: "aprenda", eyebrow: "5 min · jogo e quiz", heading: "Ilustração da Caju", text: "O estilo, as categorias, as cores dos personagens e a acessibilidade." } },
+        { h2: "Estilo" },
+        { p: "O estilo de ilustração da Caju é orgânico e fluido, com linhas majoritariamente curvas, para uma comunicação amigável e convidativa. A brasilidade vem de artistas modernistas e contemporâneos e de elementos do dia a dia." },
+        { h2: "Categorias" },
+        { shortcuts: [
+          { title: "Personagens", text: "Para uma narrativa mais acolhedora e empática.", illustration: "personagens/nadia" },
+          { title: "Objetos", text: "O tipo mais comum: apresenta funcionalidades, ações ou informações de forma simbólica.", illustration: "objetos/foguete" },
+          { title: "Feedback", text: "Reforça mensagens de ações e estados do sistema e sugere os próximos passos.", illustration: "notificacoes/success" },
+          { title: "Hero", text: "Para gerar momentos WOW, com composições de impacto.", illustration: "hero-employee/login" }
+        ] },
+        { h2: "Cores dos personagens" },
+        { p: "As roupas dos personagens são sempre em tons quentes ou terrosos, como laranja, vermelho, marrom e vinho. O verde aparece em acessórios e calçados. Tons frios, como verde, azul e roxo, entram nos detalhes de cenário, para equilibrar." },
+        { h2: "Acessibilidade" },
+        { p: "Quando a ilustração só decora e o texto ao lado já diz tudo, ela fica sem texto alternativo (`alt=\"\"`), para o leitor de tela não repetir a mensagem." },
+
+        { h2: "Jogo: Qual é a categoria?" },
+        { p: "Seis ilustrações da biblioteca. Diga a categoria de cada uma." },
+        { quiz: { label: "Jogo · Qual é a categoria?", storageKey: "ilustracao-jogo", results: GAME6(), questions: [
+          { visual: look(bind(illScene, "personagens/nadia")), q: "Qual é a categoria desta ilustração?", options: ["Objetos", "Personagens", "Hero"], answer: 1, why: "Personagens trazem uma narrativa mais acolhedora e empática." },
+          { visual: look(bind(illScene, "objetos/foguete")), q: "E desta?", options: ["Objetos", "Feedback", "Personagens"], answer: 0, why: "Objetos apresentam funcionalidades e informações de forma simbólica." },
+          { visual: look(bind(illScene, "notificacoes/success")), q: "E desta?", options: ["Hero", "Objetos", "Feedback"], answer: 2, why: "Feedback reforça mensagens de ações e estados do sistema, como sucesso." },
+          { visual: look(bind(illScene, "hero-employee/login")), q: "E desta?", options: ["Hero", "Personagens", "Feedback"], answer: 0, why: "Hero gera momentos WOW, como no login e na splash screen." },
+          { visual: look(bind(illScene, "notificacoes/error")), q: "E desta?", options: ["Objetos", "Feedback", "Hero"], answer: 1, why: "Ilustrações de erro são Feedback: comunicam falhas de forma leve." },
+          { visual: look(bind(illScene, "personagens/thiago")), q: "E desta?", options: ["Personagens", "Objetos", "Feedback"], answer: 0, why: "Mais um personagem: narrativa acolhedora." }
+        ] } },
+
+        { h2: "Quiz" },
+        { p: "Cinco perguntas sobre o treinamento." },
+        { quiz: { label: "Quiz · Ilustração", storageKey: "ilustracao-quiz", results: RES(false), questions: [
+          { q: "Como é o estilo de ilustração da Caju?", options: ["Geométrico e rígido", "Orgânico e fluido", "Realista e detalhado"], answer: 1, why: "Linhas majoritariamente curvas, com aspecto orgânico e fluido." },
+          { q: "As roupas dos personagens são em…", options: ["Tons frios, como azul e roxo", "Tons quentes ou terrosos", "Qualquer cor da marca"], answer: 1, why: "Laranja, vermelho, marrom e vinho. O verde fica para acessórios e calçados." },
+          { q: "Onde entram os tons frios?", options: ["Nos detalhes de cenário", "Na pele dos personagens", "Nas roupas"], answer: 0, why: "Os tons frios equilibram o cenário junto aos tons quentes." },
+          { q: "Para que serve a categoria Hero?", options: ["Ícones de ação", "Mensagens de erro", "Momentos WOW"], answer: 2, why: "Hero estabelece o tom emocional com composições de impacto." },
+          { q: "Ilustração decorativa com o texto ao lado dizendo tudo. Qual texto alternativo?", options: ["Vazio: alt=\"\"", "O nome do arquivo", "Uma descrição longa da cena"], answer: 0, why: "Assim o leitor de tela não repete a mensagem." }
+        ] } }
+      ] },
+
+      { id: "camadas", title: "Camadas do DS", blocks: [
+        { banner: { area: "aprenda", eyebrow: "5 min · jogo e quiz", heading: "Do token à tela", text: "Como as camadas do Castanha DS se conectam e quem cria e mantém cada coisa." } },
+        { h2: "A cascata" },
+        { p: "O Castanha DS funciona em camadas. Cada camada aponta para a de cima e nunca pula uma camada. Por isso uma marca nova ou o tema escuro mudam o tema e o Brand Style, sem tocar nos componentes nem nas telas." },
+        { table: { wrap: true, head: ["Camada", "O que é"], rows: [
+          ["Primitives", "Os valores, chamados pelo valor."],
+          ["Themes", "A intenção: Light e Dark apontam para primitivos diferentes."],
+          ["Brand Style", "O espelho `Common/` que chega ao código."],
+          ["Styles", "Texto, Motion Styles, elevação e Viewport prontos."],
+          ["Componentes", "O que o time do DS publica e mantém."],
+          ["Composição", "O arranjo de componentes numa tela."]
+        ] } },
+        { h2: "Regras de ouro" },
+        { table: { wrap: true, head: ["Regra", "Na prática"], rows: [
+          ["Siga a cascata", "O componente usa o Brand Style, que aponta para o tema, que aponta para o primitivo."],
+          ["Marca e tema escuro mudam no tema", "O mesmo token aponta para outro valor em cada mode. O componente continua igual."],
+          ["Espelhe em Common/", "Só o Brand Style chega ao código."],
+          ["Primitivo se chama pelo valor", "A intenção mora no tema, não no primitivo."],
+          ["Publique em cascata", "Primeiro o tema, depois o Brand Style."],
+          ["Cada token no seu lugar", "Token de texto em texto, de borda em borda, de superfície em fundo."]
+        ] } },
+        { h2: "Quem cria e quem mantém" },
+        { p: "Antes de criar algo, a pergunta do InnerSource: outro time precisaria disso sem saber que você criou? Componente do DS é do time do DS. Local asset é de um único time. Composição é uma tela: não vira team component." },
+
+        { h2: "Jogo: Certo ou errado?" },
+        { p: "Seis decisões de token e de biblioteca. Diga se cada uma segue as camadas." },
+        { quiz: { kind: "verdict", label: "Jogo · Certo ou errado? · Camadas", storageKey: "camadas-jogo", right: ["Certo", "Isso mesmo", "Olho bom"], wrong: ["Não é bem assim", "Quase", "Não foi dessa vez"], results: GAME6(), questions: [
+          { visual: look(bind(codeScene, [["color", "var(--common-colors-text-intense)"]])), q: "Título do card com o token Text/intense do Brand Style.", answer: "do", why: "O componente usa o Brand Style, e o tema escuro chega sozinho." },
+          { visual: look(bind(codeScene, [["color", "#1a1a1a"]])), q: "Título do card com uma cor fixa.", answer: "dont", why: "Com cor fixa, no Dark o texto some e as outras marcas deixam de funcionar." },
+          { visual: look(bind(codeScene, [["Primitive", "Duration/short"]])), q: "Primitivo com nome de uso, como Duration/short.", answer: "dont", why: "Primitivo se chama pelo valor. Quando o valor mudar, o nome de uso mente." },
+          { visual: look(bind(codeScene, [["texto", "Border/soft"]])), q: "Token de borda aplicado num texto.", answer: "dont", why: "Cada token no seu lugar: texto em texto, borda em borda." },
+          { visual: look(bind(codeScene, [["1º", "Theme"], ["2º", "Brand Style"]])), q: "Publicar o tema antes do Brand Style.", answer: "do", why: "Publique em cascata: o Brand Style aponta para aliases do tema, que precisam existir antes." },
+          { visual: look(bind(codeScene, [["Composição", "vira team component"]])), q: "Transformar a composição de uma tela em team component.", answer: "dont", why: "Isso aumenta a biblioteca do time e o custo de manutenção sem ganho de reuso." }
+        ] } },
+
+        { h2: "Quiz" },
+        { p: "Cinco perguntas sobre o treinamento." },
+        { quiz: { label: "Quiz · Camadas do DS", storageKey: "camadas-quiz", results: RES(false), questions: [
+          { q: "Como as camadas se conectam?", options: ["Cada uma aponta para a de cima, sem pular nenhuma", "O componente aponta direto para o primitivo", "Cada tela escolhe a camada que quiser"], answer: 0, why: "Siga a cascata: nunca pule uma camada." },
+          { q: "O que chega ao código?", options: ["Os primitivos", "O tema", "O Brand Style, com prefixo Common/"], answer: 2, why: "Só o Brand Style chega ao código, como variável CSS." },
+          { q: "Um primitivo se chama pelo…", options: ["Uso", "Valor", "Componente"], answer: 1, why: "A intenção mora no tema, não no primitivo." },
+          { q: "Para o tema escuro funcionar, o que muda?", options: ["O tema: o mesmo token aponta para outro valor", "Cada componente ganha uma versão dark", "As telas trocam as cores"], answer: 0, why: "O componente continua igual. O token aponta para outro valor em cada mode." },
+          { q: "Uma composição de tela deve virar team component?", options: ["Sim, sempre", "Não", "Só se tiver mais de três componentes"], answer: 1, why: "Composição é uma tela: virar team component só aumenta o custo de manutenção." }
         ] } }
       ] }
     ]
@@ -14166,7 +14356,7 @@ try {
 
         { h2: "Teste o que você aprendeu" },
         { p: "Sete perguntas sobre o treinamento. Escolha uma opção para ver se acertou e o porquê." },
-        { quiz: { label: "Quiz · Prepare protótipos no Figma", storageKey: "prototipos", right: ["Na mosca!", "Isso!", "O dev agradece!"], wrong: ["Quase!", "Ops, essa vira suposição.", "Não foi dessa vez."], questions: [
+        { quiz: { label: "Quiz · Prepare protótipos no Figma", storageKey: "prototipos", right: ["Na mosca", "Isso mesmo", "O dev agradece"], wrong: ["Quase", "Essa vira suposição", "Não foi dessa vez"], questions: [
           { q: "Para você é um retângulo. E para o dev?", options: ["Um print para copiar pixel a pixel", "Uma caixa com regras: content, padding, border e margin", "Um detalhe que ele pode ignorar"], answer: 1,
             why: "Toda tela que você entrega é traduzida em código. Sem regras explícitas, a tradução vira suposição e a UI quebra." },
           { q: "O respiro entre a borda do card e o texto dentro dele é…", options: ["Margin", "Border", "Padding"], answer: 2,
@@ -14182,8 +14372,8 @@ try {
           { q: "Qual destes NÃO está no checklist de entrega?", options: ["Espaçamentos com tokens do DS", "Elementos posicionados à mão para ficarem no lugar", "Estados extremos testados: texto longo e lista vazia"], answer: 1,
             why: "É o contrário: todo frame com autolayout, nada posicionado à mão." }
         ], results: [
-          { min: 7, illustration: "objetos/trofeu", title: "Gabaritou!", text: "O dev não vai precisar adivinhar nada na sua próxima entrega." },
-          { min: 5, illustration: "objetos/medalha-1", title: "Mandou bem!", text: "Revise as seções das perguntas que escaparam e a entrega fica redonda." },
+          { min: 7, illustration: "objetos/trofeu", title: "Gabaritou", text: "O dev não vai precisar adivinhar nada na sua próxima entrega." },
+          { min: 5, illustration: "objetos/medalha-1", title: "Mandou bem", text: "Revise as seções das perguntas que escaparam e a entrega fica redonda." },
           { min: 0, illustration: "notificacoes/success-low-detail", title: "Bora mais uma?", text: "Passe pelas seções de novo e refaça o quiz. Na segunda vai." }
         ] } }
       ] }
@@ -14194,4 +14384,4 @@ try {
 
 /* ==== docs sob demanda (gerado) ==== */
 window.CDS = window.CDS || {}; CDS.docsIndex = {"backdrop":{"src":"components/backdrop/backdrop.docs.js?v=65945f2f","desc":"Backdrop é um componente de superfície utilizado para criar uma camada de bloqueio visual entre o conteúdo base da interface e elementos em primeiro plano, como modais e drawers."},"badge":{"src":"components/badge/badge.docs.js?v=3e0548a5","desc":"O Badge é um elemento visual usado exclusivamente para indicar notificações ou atualizações. Ele serve como um alerta discreto que informa a pessoa usuária sobre algo novo ou pendente em um determinado contexto da interface."},"caju-brand":{"src":"components/caju-brand/caju-brand.docs.js?v=a44569e9","desc":"O Caju Brand é um elemento visual fundamental que representa a identidade da Caju dentro dos fluxos do produto. Ele garante consistência no uso da marca, evitando distorções, cores inadequadas ou aplicações incorretas."},"calendar-day":{"src":"components/calendar-day/calendar-day.docs.js?v=abc00938","desc":"Cada dia do Date Picker: número, estado de seleção e o ponto do dia atual."},"calendar-week":{"src":"components/calendar-week/calendar-week.docs.js?v=68d3811f","desc":"Uma linha de 7 dias do Date Picker."},"card":{"src":"components/card/card.docs.js?v=f96742ea","desc":"O componente Card é um contêiner visual usado para agrupar informações relacionadas de forma clara e compacta."},"credit-card-flags":{"src":"components/card-flag/card-flag.docs.js?v=9cf412ba","desc":"Simula visualmente qualquer cartão e pode simbolizar uma bandeira específica."},"currency":{"src":"components/currency/currency.docs.js?v=82d20ffb","desc":"O Currency é um componente de exibição utilizado para apresentar valores monetários de forma padronizada, legível e consistente nas interfaces da Caju."},"currency-content":{"src":"components/currency-content/currency-content.docs.js?v=1c192490","desc":"Valor em moeda com o símbolo, o sinal de negativo opcional e uma descrição embaixo."},"currency-symbol":{"src":"components/currency-symbol/currency-symbol.docs.js?v=18f12baa","desc":"Símbolo da moeda usado nas células de valor da Table."},"divider":{"src":"components/divider/divider.docs.js?v=658da706","desc":"O componente Divider é uma linha fina que separa visualmente agrupamentos de conteúdo em uma interface. Ele atua como uma âncora visual, ajudando a pessoa usuária a escanear e compreender a hierarquia e o relacionamento entre os elementos da página."},"icon":{"src":"components/icon/icon.docs.js?v=6c4b763a","desc":"Icon (ícone) é uma representação visual direta que auxilia na comunicação de ações, estados, tipos de conteúdo ou categorias."},"avatar":{"src":"components/avatar/avatar.docs.js?v=115ebd44","desc":"O Avatar é um componente utilizado para representar visualmente uma pessoa usuária, seja por meio de imagem, iniciais ou ícone padrão. Ele agiliza a identificação de perfis em áreas onde o contexto pessoal é relevante."},"breadcrumb-item":{"src":"components/breadcrumb-item/breadcrumb-item.docs.js?v=d989392b","desc":"Cada nível do Breadcrumb: separador e conteúdo (link, página atual ou o \"…\" do Truncate)."},"caju-card":{"src":"components/caju-card/caju-card.docs.js?v=893becf1","desc":"O Caju Card simula visualmente os diferentes tipos de cartões da Caju nos cenários físicos e virtuais seguindo as diretrizes das lojinhas de app."},"close-toast":{"src":"components/close-toast/close-toast.docs.js?v=6733b6dc","desc":"Botão de fechar do Toast: 40×40, com o ícone close-line."},"close-alert":{"src":"components/close-alert/close-alert.docs.js?v=7209e59c","desc":"Botão de fechar do Alert: 40×40, com o ícone close-line."},"content-banner":{"src":"components/content-banner/content-banner.docs.js?v=68e995dd","desc":"Building block interno do Banner. Agrupa título, descrição e indicação de CTA."},"csat-item":{"src":"components/csat-item/csat-item.docs.js?v=bb328e74","desc":"Cada nível do CSAT Score: estrela e rótulo."},"csat-score":{"src":"components/csat-score/csat-score.docs.js?v=98367a50","desc":"O CSAT Score é um componente de avaliação utilizado para medir o nível de satisfação da pessoa usuária em relação a uma experiência, funcionalidade ou interação específica, por meio de uma escala ordinal visual representada por ícones e rótulos textuais."},"filter-chips":{"src":"components/filter-chip/filter-chip.docs.js?v=4d19bef0","desc":"Chip que liga e desliga um filtro: selecionado, troca o ícone pelo check e inverte as cores."},"icon-button":{"src":"components/icon-button/icon-button.docs.js?v=ac46ea69","desc":"O Icon Button é um botão compacto que exibe um ícone, sem rótulo de texto. Ele é utilizado para ações pontuais, geralmente secundárias, em interfaces que exigem economia de espaço e onde o significado do ícone é amplamente reconhecido."},"header":{"src":"components/header/header.docs.js?v=0b0ddcc8","desc":"Cabeçalho do Modal e do Bottom Sheet: título, botão de fechar e divisor."},"icons-block":{"src":"components/icons-block/icons-block.docs.js?v=f1f31450","desc":"Ícone do Filter Button: filtro (Default) ou calendário (Date)."},"filter-button":{"src":"components/filter-button/filter-button.docs.js?v=ce828b95","desc":"O Filter Button é um botão que serve como gatilho para filtros e, quando acionado, abre opções para refinar ou ajustar a exibição de conteúdos, listas ou tabelas."},"image":{"src":"components/image/image.docs.js?v=401442e2","desc":"O componente Image é utilizado para exibir imagens estáticas em diferentes contextos do produto, garantindo consistência visual e preservação correta das proporções. Ele oferece controle direto, permitindo que a imagem se adapte a diferentes layouts sem distorção."},"banner":{"src":"components/banner/banner.docs.js?v=68e35d7b","desc":"O Banner destaca conteúdo promocional ou informação relevante em uma área própria da tela. Reúne título, descrição e indicação de ação em um bloco clicável por inteiro, com fundo de cor livre ou imagem de fundo. Serve para atrair a pessoa usuária sem interromper o que ela está fazendo."},"input-chips":{"src":"components/input-chip/input-chip.docs.js?v=30038524","desc":"Chip que mostra um valor escolhido e pode ser removido com um clique."},"chips-group":{"src":"components/chips-group/chips-group.docs.js?v=10be02b2","desc":"Container que organiza Filter Chips ou Input Chips em uma linha com rolagem ou em várias linhas."},"link":{"src":"components/link/link.docs.js?v=e0439fbd","desc":"O Link é um elemento interativo que direciona o usuário para outro destino, como páginas internas, externas, seções específicas ou downloads."},"list-lead-item":{"src":"components/list-lead-item/list-lead-item.docs.js?v=23969ecf","desc":"Item à esquerda das listas: Avatar, Icon ou Image."},"main-button":{"src":"components/main-button/main-button.docs.js?v=ae1cdc82","desc":"Main Button é um componente interativo usado para executar a ações mais importantes em uma tela, formulário ou fluxo."},"date-navigation":{"src":"components/date-navigation/date-navigation.docs.js?v=715e0489","desc":"Navegação do Date Picker: mês anterior, mês, ano e próximo mês."},"date-picker":{"src":"components/date-picker/date-picker.docs.js?v=f141eaf3","desc":"Calendário para escolher uma data ou um intervalo de datas, com navegação por mês e ano."},"drop-button":{"src":"components/drop-button/drop-button.docs.js?v=04fa3964","desc":"O Drop Button é um botão interativo que, ao ser acionado, abre um menu suspenso com opções de ação diretamente relacionadas ao contexto do botão. Ele combina a função de acionador visual com o acesso direto a um conjunto de comandos organizados."},"footer":{"src":"components/footer/footer.docs.js?v=4fd316e9","desc":"Rodapé do Modal e do Bottom Sheet: divisor e as ações (primária e secundária)."},"fixed-bar":{"src":"components/fixed-bar/fixed-bar.docs.js?v=dc85cbb8","desc":"A Fixed bar é uma área fixa posicionada na base da interface que agrupa duas ações relacionadas — uma primária e outra secundária. Ela é utilizada para decisões importantes no final de fluxos ou seções, permanecendo sempre acessível para a pessoa usuária."},"nav-control-item":{"src":"components/nav-control-item/nav-control-item.docs.js?v=1cf64b82","desc":"Cada indicador do Nav Control: ponto 6×6, que cresce para 16×6 quando ativo."},"nav-control":{"src":"components/nav-control/nav-control.docs.js?v=27e527d5","desc":"O Nav Control é um componente visual utilizado como indicador de navegação, normalmente associado a carrosséis ou fluxos paginados. Ele representa, de forma ilustrativa, a quantidade total de itens e qual deles está em foco no momento."},"nps-value-item":{"src":"components/nps-value-item/nps-value-item.docs.js?v=f5a685e1","desc":"Cada valor do NPS Score: pílula 24 com o número."},"nps-score":{"src":"components/nps-score/nps-score.docs.js?v=6e2990ea","desc":"O NPS Score é um componente de seleção única utilizado para capturar a percepção da pessoa usuária em relação a uma experiência, produto ou serviço, geralmente em uma escala numérica de 0 a 10."},"popover":{"src":"components/popover/popover.docs.js?v=c94fbb76","desc":"Popover é um pequeno overlay contextual que aparece quando o usuário interage com um elemento da interface. Ele permite exibir conteúdos adicionais, ações ou informações complementares de forma leve, sem interromper o fluxo principal da experiência."},"breadcrumb":{"src":"components/breadcrumb/breadcrumb.docs.js?v=1bd9075e","desc":"O Breadcrumb é um componente de navegação que mostra a localização atual do usuário dentro de uma hierarquia ou estrutura de conteúdo. Ele oferece links para os níveis superiores, facilitando a navegação."},"progress-line":{"src":"components/progress-line/progress-line.docs.js?v=a7528d42","desc":"O Progress Line é um indicador visual não interativo que representa o progresso de uma operação ao longo do tempo, ajudando a pessoa usuária a entender em que estágio o processo se encontra."},"progress-tracker-item":{"src":"components/progress-tracker-item/progress-tracker-item.docs.js?v=c9030f96","desc":"Etapa individual do Progress Tracker."},"progress-tracker":{"src":"components/progress-tracker/progress-tracker.docs.js?v=a89ff0c7","desc":"Indica o avanço de uma pessoa em um fluxo de múltiplas etapas, mostrando o que já foi concluído, onde ela está e o que ainda falta."},"checkbox":{"src":"components/checkbox/checkbox.docs.js?v=4fbb35d8","desc":"O checkbox é Componente interativo usado para selecionar ou desmarcar opções. Pode ser preenchido com um checkmark (✔) caso seja selecionado, ou por um traço (—) quando indeterminado. Utilizado em formulários e filtros, permitindo múltiplas seleções."},"radio-button":{"src":"components/radio-button/radio-button.docs.js?v=9f6fe1d4","desc":"Radio Button é um componente interativo usado para permitir ao usuário selecionar uma única opção de um conjunto. Essencial em formulários para escolhas únicas."},"shaped-icon":{"src":"components/shaped-icon/shaped-icon.docs.js?v=68f13907","desc":"O Shaped Icon é um ícone envolto por um fundo colorido e com formato definido, que confere maior ênfase visual e peso hierárquico. Ele é utilizado para evidenciar categorias, ações contextuais ou estados visuais sem depender de interação."},"alert":{"src":"components/alert/alert.docs.js?v=885a20f3","desc":"Mensagem fixa e persistente sobre o sistema, que fica visível até a pessoa usuária ler ou fechar."},"confirmation-message":{"src":"components/confirmation-message/confirmation-message.docs.js?v=5087ae73","desc":"Mostre o resultado de uma ação com ícone, título e descrição centralizados."},"dropzone":{"src":"components/dropzone/dropzone.docs.js?v=62b11669","desc":"O Dropzone é a área delimitada onde a pessoa usuária adiciona arquivos, pelo botão de seleção ou arrastando o arquivo para dentro dela. A área informa os formatos e limites aceitos antes do envio. O acompanhamento de cada arquivo enviado fica no Upload Item."},"file-lead-item":{"src":"components/file-lead-item/file-lead-item.docs.js?v=7d49330c","desc":"Miniatura do arquivo no Upload Item: imagem ou ícone de anexo, com a ação de ver o arquivo."},"lead-item":{"src":"components/lead-item/lead-item.docs.js?v=f404504e","desc":"Elemento à esquerda do Topic: Shaped Icon ou imagem 40×40."},"slider":{"src":"components/slider/slider.docs.js?v=b4725007","desc":"Slider de seleção de valor num intervalo."},"spinner":{"src":"components/spinner/spinner.docs.js?v=1d25a27b","desc":"O Spinner é um indicador visual de atividade não interativa que informa à pessoa usuária que o sistema está processando uma ação em segundo plano."},"sponsor-category":{"src":"components/sponsor-category/sponsor-category.docs.js?v=c7d3f5f5","desc":"Item de navegação do Side Menu. Intent=Default navega direto, e Intent=Accordion abre subitens no Slot."},"sponsor-subcategory":{"src":"components/sponsor-subcategory/sponsor-subcategory.docs.js?v=99829327","desc":"Item de segundo nível do Side Menu, dentro do Slot de um .Category com Intent=Accordion."},"sponsor-user-profile":{"src":"components/sponsor-user-profile/sponsor-user-profile.docs.js?v=040bc349","desc":"Rodapé de identificação do Side Menu: avatar, nome e CNPJ, com ação opcional."},"status-dot":{"src":"components/status-dot/status-dot.docs.js?v=50b743c4","desc":"Indicador compacto de estado, formado por um ponto colorido e um rótulo em texto."},"switch":{"src":"components/switch/switch.docs.js?v=1c8eee92","desc":"O Switch é um componente que funciona como um interruptor digital, alterando imediatamente o estado de uma configuração entre opções binárias, como sim ou não, e ligado ou desligado, sem necessidade de confirmação."},"checkbox-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Checkboxes com um nome para o conjunto: zero, uma ou várias opções."},"radio-button-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Radio Buttons com um nome para o conjunto: exatamente uma opção."},"switch-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Switches com um nome para o conjunto: cada um liga ou desliga uma configuração na hora."},"system-banner":{"src":"components/system-banner/system-banner.docs.js?v=b00a0529","desc":"Aviso do sistema que ocupa a largura toda da página, com a mesma anatomia do Alert."},"tab-item":{"src":"components/tab-item/tab-item.docs.js?v=737b8a53","desc":"Cada aba da Fixed Tab e da Scrollable Tab: Lead Item opcional, Label e o sublinhado."},"fixed-tab":{"src":"components/fixed-tab/fixed-tab.docs.js?v=adf9d425","desc":"O Tabs organiza conteúdos relacionados em seções paralelas dentro da mesma página, permitindo que a pessoa usuária alterne rapidamente entre contextos sem navegação externa."},"scrollable-tab":{"src":"components/scrollable-tab/scrollable-tab.docs.js?v=3607a757","needs":["fixed-tab"],"desc":"Abas no tamanho do conteúdo, com rolagem horizontal. Mesma documentação de Tabs da Fixed Tab."},"tab-view":{"src":"components/tab-view/tab-view.docs.js?v=8e22521c","desc":"Alterna a visualização de uma lista entre lista e grade."},"table-head":{"src":"components/table-head/table-head.docs.js?v=7903b75b","desc":"Título de coluna da Table, com ordenação."},"table-toolbar":{"src":"components/table-toolbar/table-toolbar.docs.js?v=0df2607c","desc":"Barra de ações acima da Table."},"tag":{"src":"components/tag/tag.docs.js?v=5a9e9225","desc":"Tag são rótulos compactos e visualmente distintos usados para rapidamente categorizar, identificar e organizar itens."},"balance-card":{"src":"components/balance-card/balance-card.docs.js?v=c5840ec2","desc":"Exibe o saldo de uma categoria com rótulo, valor e status complementares."},"sponsor-header":{"src":"components/sponsor-header/sponsor-header.docs.js?v=c081c6ce","desc":"Cabeçalho de página dos templates web do Sponsor: navegação (voltar, breadcrumb e ações utilitárias) e área de título com as ações da página."},"sponsor-side-menu":{"src":"components/sponsor-side-menu/sponsor-side-menu.docs.js?v=33f26fb0","desc":"Navegação lateral do app Sponsor: colapsado (80px, só ícones) e expandido (360px), que no desktop abre por hover em overlay sobre o conteúdo."},"table-cell":{"src":"components/table-cell/table-cell.docs.js?v=14a427a8","desc":"Célula de dados da Table: texto, valor, percentual, Tag, Checkbox, Link ou ações."},"text-content":{"src":"components/text-content/text-content.docs.js?v=fd862195","desc":"Par de textos (Label e Description) com o destaque no Label ou na Description."},"accordion-item":{"src":"components/accordion-item/accordion-item.docs.js?v=824db8ab","desc":"Item de um accordion: um header com título que revela conteúdo adicional (no Slot) ao ser expandido."},"accordion":{"src":"components/accordion/accordion.docs.js?v=44db65bf","desc":"O Accordion agrupa vários Accordion Items em uma lista de seções expansíveis, que a pessoa abre sob demanda."},"code-input-otp":{"src":"components/code-input-otp/code-input-otp.docs.js?v=ee42108f","desc":"Campo de código de verificação (OTP/PIN): uma fileira de células de um caractere, preenchidas uma a uma, para inserir um código curto recebido por SMS, e-mail ou app autenticador."},"credit-card-input":{"src":"components/credit-card-input/credit-card-input.docs.js?v=f10e590f","desc":"Campo para inserir o número de um cartão de crédito."},"date-input":{"src":"components/date-input/date-input.docs.js?v=5085dd0b","desc":"Campo de data da família Text Fields: digitar com máscara dd/mm/aaaa ou escolher no calendário."},"password-input":{"src":"components/password-input/password-input.docs.js?v=afaea942","desc":"O Password Input é um campo de entrada específico para senhas."},"quantity-input":{"src":"components/quantity-input/quantity-input.docs.js?v=d00bba47","desc":"O Quantity Input é um campo numérico com controles de incremento e decremento."},"search-input":{"src":"components/search-input/search-input.docs.js?v=5e1d2ba6","desc":"Campo de busca da família Text Fields: lupa fixa e botão de limpar quando há texto."},"text-area":{"src":"components/text-area/text-area.docs.js?v=beb8d21c","desc":"O Text Area é um campo de entrada multilinha que permite à pessoa usuária digitar textos mais longos, como descrições, observações ou comentários."},"text-input":{"src":"components/text-input/text-input.docs.js?v=9841ec39","desc":"O Text Input é um campo de entrada para coleta de informações textuais curtas fornecidas pela pessoa usuária."},"toast":{"src":"components/toast/toast.docs.js?v=82f85974","desc":"O Toast é um componente de notificação temporária que informa a pessoa usuária sobre o resultado de uma ação ou estado do sistema. Ele aparece de forma discreta na interface e desaparece automaticamente após alguns segundos, sem interromper o fluxo de navegação."},"tooltip":{"src":"components/tooltip/tooltip.docs.js?v=145db2e0","desc":"São caixas flutuantes que proporcionam informações sobre algum aspecto da interface que mereça maior atenção."},"topic":{"src":"components/topic/topic.docs.js?v=34a407f2","desc":"Apresente um tópico com ícone ou imagem, título e descrição."},"trailing-item":{"src":"components/trailing-item/trailing-item.docs.js?v=f3876cc2","desc":"Item à direita das listas: Checkbox, Radio Button, Switch, Icon ou Tag."},"content-list-item":{"src":"components/content-list-item/content-list-item.docs.js?v=a9780daa","desc":"O Content list item é um bloco de conteúdo que organiza informações de forma clara e escaneável dentro de listas. Ele combina elementos como título, descrição, ícone, avatar ou status, ajudando o usuário a identificar de relance itens, conteúdos ou ações relacionadas."},"content-list":{"src":"components/content-list/content-list.docs.js?v=6ad148d0","desc":"O Content List é um componente que agrupa e organiza múltiplos Content List Items em uma estrutura única e consistente. Ele funciona como um container, permitindo que diferentes tipos de conteúdo sejam exibidos de forma clara e hierárquica. Pode conter itens informativos, de navegação ou de transações financeiras, adaptando-se a diferentes contextos de uso."},"selection-list-item":{"src":"components/selection-list-item/selection-list-item.docs.js?v=285ee023","desc":"O Selection List Item é um componente de seleção que combina título, descrição e ícone para enriquecer a apresentação das opções. Ele amplia a clareza das escolhas, indo além de seletores básicos como checkbox, radio ou switch."},"async-creatable-select-input":{"src":"components/async-creatable-select-input/async-creatable-select-input.docs.js?v=b89d5e8e","needs":["async-select-input"],"desc":"Como o Async e, quando o texto digitado não existe nas opções, oferece \"Adicionar “…”\" para criar a opção. Faz parte da família Select Input."},"async-select-input":{"src":"components/async-select-input/async-select-input.docs.js?v=5ef84b74","desc":"O Select input permite que a pessoa usuária escolha uma ou mais opções a partir de uma lista pré-definida."},"checkbox-select-input":{"src":"components/checkbox-select-input/checkbox-select-input.docs.js?v=b47659af","needs":["async-select-input"],"desc":"Vários valores sem busca: a lista fica aberta enquanto marca, e o campo mostra quantos foram selecionados. Faz parte da família Select Input."},"multi-select-input":{"src":"components/multi-select-input/multi-select-input.docs.js?v=aff1ad3a","needs":["async-select-input"],"desc":"Vários valores com busca: cada escolha vira um Input Chip dentro do campo. Faz parte da família Select Input."},"radio-select-input":{"src":"components/radio-select-input/radio-select-input.docs.js?v=60d32c71","needs":["async-select-input"],"desc":"Escolha única sem busca: o campo abre a lista de opções, com Radio Button. Faz parte da família Select Input."},"select-number":{"src":"components/select-number/select-number.docs.js?v=2910fc7a","desc":"Seletor de número do Pagination (itens por página e página atual), com lista em Popover."},"pagination":{"src":"components/pagination/pagination.docs.js?v=1acb2983","desc":"O Pagination (paginação) permite navegar entre conjuntos de dados distribuídos em várias páginas, otimizando a performance da visualização e facilitando o consumo de grandes volumes de dados."},"selection-list":{"src":"components/selection-list/selection-list.docs.js?v=3a43fe13","desc":"O Selection List é um agrupamento de opções organizadas em lista, permitindo que o usuário faça uma ou múltiplas seleções de forma clara e consistente. Ele é formado por instâncias do componente Selection List Item empilhados e separados por divisores visuais, facilitando a leitura e a comparação entre alternativas."},"table":{"src":"components/table/table.docs.js?v=48e10ae5","desc":"O componente de Tabela organiza dados estruturados em colunas e linhas, facilitando a leitura, comparação e análise. É ideal para exibir informações com formato uniforme, como listas, transações ou relatórios."},"upload-item":{"src":"components/upload-item/upload-item.docs.js?v=e328a912","desc":"O Upload Item representa um arquivo dentro do fluxo de upload, do envio em curso até o arquivo já armazenado. Ele mostra o nome, a extensão, o estado do envio e as ações disponíveis para aquele arquivo."},"upload-list":{"src":"components/upload-list/upload-list.docs.js?v=fa3ec45d","desc":"Agrupa os Upload Items de um fluxo, com ordem e espaçamento consistentes."},"viewport-restriction":{"src":"components/viewport-restriction/viewport-restriction.docs.js?v=03b58a4b","desc":"Aviso de que o componente não está disponível no viewport atual."},"bottom-sheet":{"src":"components/bottom-sheet/bottom-sheet.docs.js?v=4e403958","desc":"Camada que surge da base da tela para apresentar conteúdo ou ações complementares sem tirar a pessoa do contexto. A tela de fundo continua visível."},"drawer":{"src":"components/drawer/drawer.docs.js?v=69db3d04","desc":"O Drawer é um painel lateral deslizante utilizado para expor conteúdos complementares ou etapas adicionais dentro de um fluxo principal, sem interromper a tela atual. Ele aparece sobreposto à interface e permite que a pessoa usuária mantenha o contexto enquanto realiza uma interação específica."},"modal":{"src":"components/modal/modal.docs.js?v=fc145684","desc":"O Modal é um componente de sobreposição que bloqueia a interface base para exibir conteúdos focados, como formulários, informações detalhadas ou confirmações. Ele exige atenção da pessoa usuária antes de retornar ao fluxo principal."},"modal-date-picker":{"src":"components/modal-date-picker/modal-date-picker.docs.js?v=d1e58383","desc":"Calendário num Modal, com Cancelar e Confirmar: a data vale depois de confirmada."}};
-CDS.searchIndex = "dist/search.json?v=ae22451e"; /* 1442 seções */
+CDS.searchIndex = "dist/search.json?v=0d9d249f"; /* 1469 seções */

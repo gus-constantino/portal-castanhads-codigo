@@ -12,3 +12,6 @@
 .pg-cq__swatch{ display:flex; flex-direction:column; gap:var(--common-sizes-8); min-width:0; }
 .pg-cq__chip{ display:block; height:var(--common-sizes-56); border-radius:var(--common-border-radius-medium); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-semi-soft); }
 .pg-cq__elev{ box-shadow:var(--common-elevation-level-2); }
+/* Etapa 2: cena de texto (Conteúdo) e ilustração (jogo de categorias) */
+.pg-cq__say{ width:100%; max-width:calc(var(--common-sizes-200) + var(--common-sizes-120)); }
+.pg-cq__ill{ width:var(--common-sizes-120); height:var(--common-sizes-120); }

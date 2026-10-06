@@ -6,7 +6,7 @@
   "use strict";
   var CDS = window.CDS, kit = CDS.kit;
   var JIRA = "https://caju746.atlassian.net/browse/";
-  var SUPORTE = "https://slack.com/shortcuts/Ft09A037R8PL/cfb7e62e998a8c26bac975710a2268ea"; // formulário "Solicitação de suporte" do #castanha-suporte
+  var SUPORTE = "https://caju.slack.com/archives/C07NM4UQ2S3"; // canal #castanha-suporte (pedido do Gustavo, 05/10: o link do canal no lugar do formulário)
   // Copia texto: Clipboard API e, sem permissão (navegador embutido, iframe), o evento copy. Promise<boolean>.
   function copyText(text){
     function legacy(){
@@ -416,13 +416,13 @@
       copyText(location.href).then(done);
     });
     // Abrir chamado: Main Button Default · Neutral com o logo do Slack, entre Links e Abrir no Figma (componente, composição, building block, Início e Changelog).
-    // O formulário "Solicitação de suporte" do #castanha-suporte não aceita campos preenchidos: o clique copia um resumo da página e abre o formulário.
+    // O clique copia um resumo da página e abre o canal #castanha-suporte, onde a pessoa abre o chamado e cola o resumo.
     var ticketBtn = kit.el("cds-main-button", { id: "page-ticket-btn", kind: "default", appearance: "neutral", size: "medium", label: "Abrir chamado", "lead-icon": "slack-line", "show-trailing-icon": "false" });
     header.mainBtn.parentNode.insertBefore(ticketBtn, header.mainBtn);
-    kit.tip(ticketBtn, "Abre o formulário de suporte do #castanha-suporte no Slack e copia um resumo desta página para colar nele", { container: bar });
+    kit.tip(ticketBtn, "Abre o canal #castanha-suporte no Slack e copia um resumo desta página para colar no chamado", { container: bar });
     ticketBtn.addEventListener("click", function(){
       if (!head.ticket) return;
-      copyText(ticketSummary(head.ticket.def, head.ticket.pub)).then(function(ok){ if (CDS.docToast) CDS.docToast(ok ? "Resumo copiado: cole no formulário do chamado" : "Formulário aberto: descreva o componente e o que precisa"); });
+      copyText(ticketSummary(head.ticket.def, head.ticket.pub)).then(function(ok){ if (CDS.docToast) CDS.docToast(ok ? "Resumo copiado: cole no chamado" : "Canal aberto: descreva o componente e o que precisa"); });
       window.open(SUPORTE, "_blank", "noopener");
     });
     header.setAttribute("drop-label", "Links"); header.setAttribute("main-label", "Abrir no Figma");

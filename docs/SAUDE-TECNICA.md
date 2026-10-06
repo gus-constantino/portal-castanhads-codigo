@@ -9,7 +9,7 @@
 | Smoke dos componentes (claro, escuro, mobile 360) | ✅ 110/110 ok · ⚠️ 10 com aviso |
 | Smoke das docs (desktop e 375px) | ✅ 115 docs · 684 tabs · 0 com problema |
 | Peso da primeira visita | ✅ 415 KB gzip de 600 KB · docs sob demanda: 103 arquivos |
-| Numeração D/C | ✅ D 200 · C 171 |
+| Numeração D/C | ❌ D 200 · C 171 · há apelido sem número (rodar numerar.js) |
 
 ## Componentes
 

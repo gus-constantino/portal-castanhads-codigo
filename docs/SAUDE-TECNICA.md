@@ -9,7 +9,7 @@
 | Smoke dos componentes (claro, escuro, mobile 360) | ✅ 110/110 ok · ⚠️ 10 com aviso |
 | Smoke das docs (desktop e 375px) | ✅ 116 docs · 686 tabs · 0 com problema |
 | Peso da primeira visita | ✅ 426 KB gzip de 600 KB · docs sob demanda: 103 arquivos |
-| Numeração D/C | ✅ D 206 · C 171 |
+| Numeração D/C | ❌ D 206 · C 171 · há apelido sem número (rodar numerar.js) |
 
 ## Componentes
 
@@ -19,16 +19,16 @@ Nenhuma falha.
 
 | Componente | Aviso |
 |---|---|
-| backdrop | contraste (escuro): “Conteúdo da tela” 1.67:1 |
-| banner | contraste (escuro): “Label” 1.67:1 · contraste (escuro): “Description” 1.67:1 |
-| content-banner | contraste (escuro): “Label” 1.67:1 · contraste (escuro): “Description” 1.67:1 |
-| date-input | contraste (claro): “-0000” 2.50:1 · contraste (escuro): “-0000” 2.14:1 |
-| dropzone | contraste (escuro): “Selecionar arquivos” 3.74:1 |
-| filter-button | contraste (escuro): “Filtros” 3.74:1 |
-| pagination | mobile: 780px > 360px do frame |
-| table | mobile: 1053px > 360px do frame |
-| text-area | contraste (claro): “0/300” 2.50:1 · contraste (escuro): “0/300” 2.14:1 |
-| text-input | contraste (claro): “0/100” 2.50:1 · contraste (escuro): “0/100” 2.14:1 |
+| backdrop | contraste (escuro): “Conteúdo da tela” 1.67:1 (C126) |
+| banner | contraste (escuro): “Label” 1.67:1 (C126) · contraste (escuro): “Description” 1.67:1 (C126) |
+| content-banner | contraste (escuro): “Label” 1.67:1 (C126) · contraste (escuro): “Description” 1.67:1 (C126) |
+| date-input | contraste (claro): “-0000” 2.50:1 (C128) · contraste (escuro): “-0000” 2.14:1 (C128) |
+| dropzone | contraste (escuro): “Selecionar arquivos” 3.74:1 (C127) |
+| filter-button | contraste (escuro): “Filtros” 3.74:1 (C127) |
+| pagination | mobile: 780px > 360px do frame (C129) |
+| table | mobile: 1053px > 360px do frame (C129) |
+| text-area | contraste (claro): “0/300” 2.50:1 (C128) · contraste (escuro): “0/300” 2.14:1 (C128) |
+| text-input | contraste (claro): “0/100” 2.50:1 (C128) · contraste (escuro): “0/100” 2.14:1 (C128) |
 
 ## Docs
 

@@ -8154,15 +8154,17 @@ CDS.register({
 
 /* ==== resources/agentes/agentes.js ==== */
 try {
-/* Recurso: Agentes — agentes de IA do Castanha (Borô no Slack) e os Patterns escritos em .md para a IA ler.
-   Fonte: anúncios do #castanha-novidades de setembro de 2026 (Agentes & Skills | Borô, Documentação | Tom e Voz e Patterns).
+/* Recurso: Agentes e Skills — agentes de IA do Castanha (Borô no Slack), os Patterns escritos em .md para a IA ler e a skill /castanhads-juntos.
+   Fontes: página Borô do zeroheight (Agentes e Skills › Borô · 8985351) e anúncios do #castanha-novidades de setembro de 2026.
+   Foto do Borô: componente boro (Type=rosto) da lib 4. [Castanha DS] Illustration, exportado em SVG (resources/agentes/boro.svg).
    Sem nomes de pessoas. O plugin castanha-ai fica de fora: é interno e ainda não foi anunciado (decisão do Gustavo, 05/10).
    Tab /castanhads-juntos (pedido do Gustavo, 05/10): resumo da skill a partir do SKILL.md atual e do Getting Started do Figma
    (RF5sagPdKQD6IoP2MYa2ki · 2248:282, conferido contra a v4.2). O arquivo da skill continua fora do repo: só o resumo, sem
    IDs do Notion, nomes do time nem procedimentos internos. */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
-  CDS.register({ id: "agentes", name: "Agentes", resource: true, order: 8 });
+  CDS.register({ id: "agentes", name: "Agentes e Skills", resource: true, order: 8, zeroheight: "https://castanha.caju.com.br/858426090/v/latest/p/44eff3" });
+  var BORO_IMG = "resources/agentes/boro.svg";
   var BORO = "https://caju.slack.com/app_redirect?channel=U097X4BKLNP"; // conversa com o Borô no Slack da Caju
   var DEMO = "https://plataforma-web-lab.netlify.app/";
   var GETTING_STARTED = "https://www.figma.com/design/RF5sagPdKQD6IoP2MYa2ki/Getting-Started--Castanha-Design-System?node-id=2248-282";
@@ -8170,34 +8172,64 @@ try {
   CDS.docs["agentes"] = {
     tabs: [
       { id: "agentes", title: "Agentes", blocks: [
-        { h2: "Agentes" },
-        { p: "Os agentes de IA do Castanha ajudam a escrever, tirar dúvidas e construir interfaces no padrão da Caju. Eles não substituem o seu julgamento: conhecer as diretrizes é o que deixa a revisão das respostas mais afiada." },
+        { h2: "Agentes e Skills" },
+        { p: "Os agentes e as skills de IA do Castanha ajudam a escrever, tirar dúvidas e construir interfaces no padrão da Caju. Eles não substituem o seu julgamento: conhecer as diretrizes é o que deixa a revisão das respostas mais afiada." },
         { shortcuts: [
-          { title: "Borô", text: "O agente do Castanha no Slack: conteúdo no Tom e Voz, dúvidas sobre o DS e perfil dos clientes.", href: BORO, cta: "Conversar no Slack", external: true, illustration: "comunicacao/perguntas-frequentes" },
+          { title: "Borô", text: "O assistente do Castanha no Slack: Design System, Content Design, Motion e Ilustração.", href: BORO, cta: "Conversar no Slack", external: true, src: BORO_IMG },
           { title: "Patterns para IA", text: "As decisões de experiência da Caju em .md, para a IA ler em qualquer ferramenta.", href: DEMO, cta: "Abrir a demo", external: true, illustration: "interfaces/customizacao" },
           { title: "/castanhads-juntos", text: "A skill do Claude que confere, lembra e documenta o trabalho com componentes do Castanha DS.", href: "#/agentes/juntos", cta: "Ver a skill", illustration: "dispositivos/notebook-relatorios" }
         ] },
 
         { h2: "Borô" },
-        { p: "O Borô é o agente do Castanha no Slack. Lançado em 25 de agosto de 2026, ele ajuda pessoas de diferentes áreas da Caju." },
-        { h3: "O que ele faz" },
-        { ul: [
-          "Cria e revisa conteúdos para colaboradores (B2C) no Tom e Voz da Caju. Conteúdo para empresas (B2B) está em construção.",
-          "Responde dúvidas sobre Motion, Ilustração e Castanha DS.",
-          "Traz o perfil dos clientes: Personas B2B, B2C, Operador e ICPs."
+        { persona: { id: "boro", name: "Borô", nick: "Assistente do Castanha", src: BORO_IMG,
+          quote: "Tire suas dúvidas consultando a documentação em tempo real.",
+          data: [["Onde", "Slack, em conversa direta"], ["Temas", "Design System, Content Design, Motion e Ilustração"], ["No ar desde", "25 de agosto de 2026"]],
+          story: "O Borô é o assistente do Castanha, o design system da Caju, e o parceiro na aplicação do Tom e Voz. Ele tem jeito próprio: fala de forma amigável e fácil de entender, mesmo para quem tem pouca familiaridade com tecnologia, e explica o porquê de cada regra.",
+          cols: [
+            { title: "Utilize para", items: [
+              "Confirmar como usar um componente: anatomia, estados e tokens aplicados.",
+              "Revisar ou criar copy dentro das regras de Content Design: tom, limite de caracteres e neutralidade.",
+              "Checar parâmetros de motion, como duração e easing de uma transição.",
+              "Descobrir qual estilo de ilustração usar em cada contexto (ex.: tela de erro).",
+              "Encontrar a página certa da documentação sem garimpar o zeroheight inteiro."
+            ] },
+            { title: "Não utilize para", items: [
+              "Tomar decisões de produto ou de negócio.",
+              "Tirar dúvidas sobre Figma, Storybook ou código.",
+              "Aprovar exceções ou destravar impasses estratégicos.",
+              "Tratar dados sensíveis ou informações internas fora do Castanha.",
+              "Avaliar a arquitetura de componentes."
+            ] }
+          ] } },
+
+        { h3: "Princípios" },
+        { cards: [
+          ["Verdade vem da fonte", "O Borô responde com base na documentação oficial do Castanha, nunca de memória. Se a doc não cobre o assunto, ele avisa em vez de inventar."],
+          ["A favor de quem usa", "Fala de um jeito amigável e fácil de entender, mesmo para quem tem pouca familiaridade com tecnologia."],
+          ["Parceiro do time", "Explica o motivo documentado por trás de cada regra, então você aprende no processo."]
+        ] },
+
+        { h3: "Na prática" },
+        { cards: [
+          ["Mandou um print? 📷", "Ele lê o texto de um print e sugere ajustes, o que ajuda na revisão de copy de uma tela. Ainda não interpreta o componente visualmente: cor, espaçamento e layout ficam fora. Para isso, descreva o cenário ou consulte a doc do componente."],
+          ["Fonte para se aprofundar 🔎", "Responde de forma objetiva e cita a página consultada como link clicável (ex.: Estados do Main Button)."],
+          ["Revisão de copy ✍️", "Mostra a análise, explica o motivo documentado e entrega de duas a três opções neutras, dentro do limite de caracteres e no Tom e Voz da Caju para colaboradores."],
+          ["Contexto antes da resposta 📖", "Quando o cenário não está claro, ele pergunta o produto, o fluxo e o que a pessoa usuária precisa fazer."]
         ] },
         { h3: "Ajustes que ele faz" },
         { table: { head: ["No texto", "O Borô ajusta para"], wrap: true, rows: [
           ["Apelido não oficial de produto (ex.: “Cajuzinho”)", "O nome oficial do produto"],
           ["Label de botão vaga (ex.: “Entendi”, “Ok, obrigado”)", "Uma ação clara e específica"]
         ] } },
+
         { h3: "Como usar" },
         { steps: [
-          { title: "Abra uma conversa", text: "Busque por Borô no Slack e mande o que precisa." },
-          { title: "Cole o conteúdo", text: "Para textos de colaboradores, cole o conteúdo na conversa. Ele reescreve ou revisa no padrão da Caju e explica o que ajustar e por quê." },
+          { title: "Abra uma conversa", text: "No Slack, procure por Borô e inicie uma conversa direta, no meio do trabalho, quando bater a dúvida." },
+          { title: "Mande a dúvida ou o texto", text: "Para revisar copy, cole o conteúdo ou mande um print. Ele reescreve ou revisa no padrão da Caju e explica o que ajustar e por quê." },
           { title: "Avalie a resposta", text: "Toda resposta vem com 👍 e 👎. Reagir leva 2 segundos e mostra ao time o que funciona, guiando as próximas melhorias." }
         ] },
-        { note: "As diretrizes que o Borô segue estão em Conteúdo: tom e voz, princípios de escrita e regras de texto." },
+        { alert: { appearance: "informative", label: "Quando falar com o time", text: "O time entra quando o assunto pede decisão, exceção ou algo que ainda não virou doc: canais #castanha-suporte e #suporte-content, ou a agenda de suporte do Castanha, às terças, das 16h às 17h30. Quando o Borô esbarra num impasse desses, ele mesmo direciona para o time certo." } },
+        { note: "Fonte: página Borô do zeroheight (Agentes e Skills) e anúncios do #castanha-novidades. As diretrizes que o Borô segue estão em Conteúdo: tom e voz, princípios de escrita e regras de texto." },
 
         { h2: "Patterns para IA" },
         { p: "Os Patterns são as decisões de experiência que a Caju já tomou, escritas em .md para a IA ler em qualquer ferramenta. Com eles, a IA monta interfaces no padrão da Caju em vez de gerar telas sem contexto." },
@@ -8215,6 +8247,14 @@ try {
         { shortcuts: [
           { title: "Getting Started no Figma", text: "A apresentação da skill e das entregas para dev, com o diagrama das etapas.", href: GETTING_STARTED, cta: "Abrir no Figma", external: true }
         ] },
+
+        { h3: "Onde ela funciona" },
+        { cards: [
+          ["Claude (web e app desktop)", "Instalada como skill na sua conta. Ela entra sozinha quando a conversa toca um componente do Castanha DS. Cada conversa usa a cópia instalada: o que se edita na skill durante uma conversa não volta para a fonte."],
+          ["Claude Code (terminal, app desktop e IDE)", "A mesma skill, para quem trabalha com código e arquivos. É assim que este playground é mantido: cada componente segue o protocolo Juntos."],
+          ["Conectores", "Figma MCP remoto para ler a lib com o arquivo fechado, MCP do zeroheight para a doc publicada, e Jira e Notion para registrar as entregas, sempre com a sua aprovação."]
+        ] },
+        { p: "Para começar a usar, peça a skill ao time do Castanha DS no #castanha-suporte." },
 
         { h3: "Para que serve" },
         { p: "O desafio é padrão consistente em escala. O que dói é garantir que o que foi desenhado é o que chega implementado, com contratos, padrões e regras aplicados, qualquer que seja a pessoa ou o componente. Por isso a métrica não é tempo economizado: é qualidade e consistência." },
@@ -10134,7 +10174,7 @@ try {
         { shortcuts: { bento: 3, items: [
           { size: "wide", title: "Personas", text: "Quem usa os produtos da Caju: colaboradores, pessoas de RH e gestão das empresas e os times que operam o Admin. Objetivos, dores e necessidades de cada uma.", href: "#/personas", cta: "Ver personas", illustration: "personagens/joana" },
           { layout: "row", title: "Caju - Tema", text: "Cores, tipografia, tamanhos, bordas, elevação e ícones.", href: "#/caju-theme", cta: "Ver tema", illustration: "interfaces/home" },
-          { size: "wide", title: "Agentes", text: "O Borô no Slack e os Patterns escritos para a IA: agentes que ajudam a escrever e construir no padrão da Caju.", href: "#/agentes", cta: "Ver agentes", illustration: "objetos/foguete" },
+          { size: "wide", title: "Agentes e Skills", text: "O Borô no Slack, os Patterns escritos para a IA e a skill /castanhads-juntos: IA que ajuda a escrever e construir no padrão da Caju.", href: "#/agentes", cta: "Ver agentes e skills", src: "resources/agentes/boro.svg" },
           { layout: "row", title: "Patterns", text: "Feedback Pages e Tela de loading, montadas com componentes do DS.", href: "#/patterns", cta: "Ver patterns", illustration: "notificacoes/success" },
           { layout: "row", title: "Capacitações", text: "Os treinamentos do Hub em vídeo: Sponsor, Employee, Motion, Ilustração e Content.", href: "#/capacitacoes", cta: "Ver capacitações", illustration: "objetos/medalha-1" },
           { size: "wide", title: "Changelog", text: "O que saiu em cada release do Castanha: React, Flutter, Figma, ilustrações, ícones e documentação.", href: "#/changelog", cta: "Ver changelog", illustration: "notificacoes/sino" }

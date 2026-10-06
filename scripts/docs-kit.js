@@ -24,7 +24,7 @@
  *   dodont: [{ kind: "do"|"dont", attrs, title, text, steps, style }]   sem attrs: só texto · steps: lista numerada
  *   table: { head: [...], rows: [[...]], wrap }   wrap: células quebram linha
  *   video: { src, title, caption, href, cta }   player embutido 16:9 (iframe do serviço; o DS não tem componente de vídeo)
- *   shortcuts: [{ title, text, href, cta, illustration, external }]   atalhos em Cards (capa do Castanha Hub); sem href, card só informativo
+ *   shortcuts: [{ title, text, href, cta, illustration | src, external }]   atalhos em Cards (capa do Castanha Hub); sem href, card só informativo
  *   palette: { label, names: [...], steps: [...], hex: [[hex por passo] por cor], notes: { passo: "nota" } }   paleta fora dos tokens (ilustração)
  *   steps: [{ title, text, list, table, after }]   passos numerados
  *   code: "texto"                      bloco monoespaçado com botão Copiar
@@ -372,7 +372,8 @@
       var ills = {}; ((window.CDS.assets || {}).illustrations || []).forEach(function(i){ ills[i.name] = i.src; });
       var c = el("cds-card", "pg-doc-persona"); c.setAttribute("has-border", "true"); c.id = "persona-" + v.id;
       var top = c.appendChild(el("div", "pg-doc-persona__top"));
-      if (v.illustration && ills[v.illustration]){ var im = el("img", "pg-doc-persona__img"); im.alt = ""; im.loading = "lazy"; im.src = ills[v.illustration]; top.appendChild(im); }
+      var psrc = v.src || (v.illustration && ills[v.illustration]); // src: imagem fora do [Caju] Illustrations (ex.: Borô)
+      if (psrc){ var im = el("img", "pg-doc-persona__img"); im.alt = ""; im.loading = "lazy"; im.src = psrc; top.appendChild(im); }
       else if (v.icon){ var si = el("cds-shaped-icon", "pg-doc-persona__icon"); si.setAttribute("icon", v.icon); si.setAttribute("size", "large"); si.setAttribute("appearance", "neutral"); top.appendChild(si); } // persona sem personagem (Operador): Shaped Icon da área
       var id = top.appendChild(el("div", "pg-doc-persona__id"));
       id.appendChild(el("h3", "pg-doc-h3", v.name));
@@ -448,7 +449,8 @@
       var g = el("div", "pg-doc-shortcuts" + (v.bento ? " is-bento is-cols-" + v.bento : "")), ills = {}; ((window.CDS.assets || {}).illustrations || []).forEach(function(i){ ills[i.name] = i.src; });
       items.forEach(function(it){
         var c = el("cds-card", "pg-doc-shortcut" + (it.size ? " is-" + it.size : "") + (it.layout ? " is-" + it.layout : "")); c.setAttribute("has-border", "true");
-        if (it.illustration && ills[it.illustration]){ var im = el("img", "pg-doc-shortcut__img"); im.alt = ""; im.loading = "lazy"; im.src = ills[it.illustration]; c.appendChild(im); }
+        var ssrc = it.src || (it.illustration && ills[it.illustration]); // src: imagem fora do [Caju] Illustrations
+        if (ssrc){ var im = el("img", "pg-doc-shortcut__img"); im.alt = ""; im.loading = "lazy"; im.src = ssrc; c.appendChild(im); }
         var b = c.appendChild(el("div", "pg-doc-shortcut__body"));
         b.appendChild(el("h3", "pg-doc-h4", it.title));
         if (it.text) b.appendChild(rich(el("p", "pg-doc-p"), it.text));

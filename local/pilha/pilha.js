@@ -24,7 +24,7 @@
     marca: { name: "Marca", ramp: "accent-solid", note: "Início e páginas da marca" },
     componentes: { name: "Componentes", ramp: "accent-solid", note: "Componentes, building blocks e composições" },
     padroes: { name: "Padrões", ramp: "charts-03", note: "Tema Caju, Ilustração, Motion, Camadas, Conteúdo e Patterns" },
-    aprenda: { name: "Aprenda", ramp: "charts-04", note: "Treinamento e Capacitações" },
+    aprenda: { name: "Aprenda", ramp: "charts-03", note: "Treinamento e Capacitações" }, // azul no lugar do roxo (Gustavo, 06/10)
     ferramentas: { name: "Ferramentas", ramp: "charts-02", note: "Personas, Agentes e Skills e MCP" },
     ajuda: { name: "Ajuda", ramp: "charts-01", note: "FAQ e Changelog" },
     legado: { name: "Legado", ramp: "charts-07", note: "Componente ou página fora de uso" }

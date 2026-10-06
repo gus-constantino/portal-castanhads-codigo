@@ -45,9 +45,9 @@ loc-pilha[align="end"] > span{ top:auto; bottom:0; transform:translateX(calc(var
   --loc-f3:var(--common-colors-charts-01-intense); --loc-f2:var(--common-colors-charts-01-semi-intense); --loc-f1:var(--common-colors-charts-01-medium); --loc-f:var(--common-colors-charts-01-mild);
   --loc-back:var(--common-colors-charts-01-intense); --loc-tint:var(--common-colors-charts-01-pale);
 }
-[data-loc-area="aprenda"], loc-pilha[area="aprenda"]{
-  --loc-f3:var(--common-colors-charts-04-intense); --loc-f2:var(--common-colors-charts-04-intense); --loc-f1:var(--common-colors-charts-04-medium); --loc-f:var(--common-colors-charts-04-semi-soft);
-  --loc-back:var(--common-colors-charts-04-intense); --loc-tint:var(--common-colors-charts-04-soft);
+[data-loc-area="aprenda"], loc-pilha[area="aprenda"]{ /* azul no lugar do roxo do Charts/04 (Gustavo, 06/10): Charts/03, o azul dos Charts, como em Padrões */
+  --loc-f3:var(--common-colors-charts-03-intense); --loc-f2:var(--common-colors-charts-03-semi-intense); --loc-f1:var(--common-colors-charts-03-medium); --loc-f:var(--common-colors-charts-03-mild);
+  --loc-back:var(--common-colors-charts-03-intense); --loc-tint:var(--common-colors-charts-03-pale);
 }
 [data-loc-area="legado"], loc-pilha[area="legado"]{
   --loc-f3:var(--common-colors-charts-07-intense); --loc-f2:var(--common-colors-charts-07-intense); --loc-f1:var(--common-colors-charts-07-medium); --loc-f:var(--common-colors-charts-07-semi-soft);

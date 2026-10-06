@@ -101,6 +101,7 @@
           ["Queremos que as pessoas sintam que…", "A experiência com a Caju é simples e fácil de usar. Somos parceiros e estamos juntos. Elas estão acompanhadas nas tarefas do app. As informações de que precisam estão aqui."],
           ["Por isso repetimos expressões como…", "Agora que você já sabe… · Vamos juntos. · Tudo certo até aqui? · Falta só mais um passo. · Que bom ter você por aqui. · Agora é com a gente. · É simples. · Você encontra tudo por aqui."]
         ] },
+        { shortcuts: [{ title: "Conheça as personas", text: "Os colaboradores para quem escrevemos: faixas de idade, rotina, objetivos, dores e necessidades.", href: "#/personas/colaborador", cta: "Ver personas de colaborador", illustration: "personagens/felipe-gabriel" }] },
         { note: "Fonte: Castanha Hub · Conteúdo → Tom e Voz (Pilares, Premissas, Premissas na Prática e Comece pelas Pessoas, v1.1.5). As telas \"Atual × Com Tom e Voz\" são capturas do app e ficam no Hub. Onde uma premissa diverge de uma regra antiga, vale a premissa (decisões de 05/10)." }
       ] },
       { id: "principios-de-escrita", title: "Princípios de escrita", blocks: [

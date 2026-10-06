@@ -228,6 +228,7 @@
   "id": "colaborador",
   "title": "Colaborador (B2C)",
   "blocks": [
+   { "shortcuts": [ { "title": "Escreva para estas pessoas", "text": "O Tom e voz do Conteúdo parte delas: pilares, premissas e as expressões que repetimos.", "href": "#/conteudo", "cta": "Ver Tom e voz", "illustration": "comunicacao/perguntas-frequentes" } ] },
    {
     "p": "Pessoas que usam o cartão e o app de benefícios no dia a dia."
    },

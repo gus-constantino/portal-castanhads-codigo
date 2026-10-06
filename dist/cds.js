@@ -8787,6 +8787,7 @@ try {
           ["Queremos que as pessoas sintam que…", "A experiência com a Caju é simples e fácil de usar. Somos parceiros e estamos juntos. Elas estão acompanhadas nas tarefas do app. As informações de que precisam estão aqui."],
           ["Por isso repetimos expressões como…", "Agora que você já sabe… · Vamos juntos. · Tudo certo até aqui? · Falta só mais um passo. · Que bom ter você por aqui. · Agora é com a gente. · É simples. · Você encontra tudo por aqui."]
         ] },
+        { shortcuts: [{ title: "Conheça as personas", text: "Os colaboradores para quem escrevemos: faixas de idade, rotina, objetivos, dores e necessidades.", href: "#/personas/colaborador", cta: "Ver personas de colaborador", illustration: "personagens/felipe-gabriel" }] },
         { note: "Fonte: Castanha Hub · Conteúdo → Tom e Voz (Pilares, Premissas, Premissas na Prática e Comece pelas Pessoas, v1.1.5). As telas \"Atual × Com Tom e Voz\" são capturas do app e ficam no Hub. Onde uma premissa diverge de uma regra antiga, vale a premissa (decisões de 05/10)." }
       ] },
       { id: "principios-de-escrita", title: "Princípios de escrita", blocks: [
@@ -9880,7 +9881,8 @@ try {
           { layout: "row", title: "Dev. React", text: "Onboarding para desenvolvedores web.", href: "https://castanha-staging.caju.com.br/?path=/docs/actions-button--docs", cta: "Castanha React", external: true, illustration: "dispositivos/notebook-relatorios" }
         ] } },
         { h2: "Mais recursos" },
-        { shortcuts: { bento: 2, items: [
+        { shortcuts: { bento: 3, items: [
+          { size: "wide", title: "Personas", text: "Quem usa os produtos da Caju: colaboradores, pessoas de RH e gestão das empresas e os times que operam o Admin. Objetivos, dores e necessidades de cada uma.", href: "#/personas", cta: "Ver personas", illustration: "personagens/joana" },
           { layout: "row", title: "Caju - Tema", text: "Cores, tipografia, tamanhos, bordas, elevação e ícones.", href: "#/caju-theme", cta: "Ver tema", illustration: "interfaces/home" },
           { layout: "row", title: "Patterns", text: "Feedback Pages e Tela de loading, montadas com componentes do DS.", href: "#/patterns", cta: "Ver patterns", illustration: "notificacoes/success" },
           { layout: "row", title: "Capacitações", text: "Os treinamentos do Hub em vídeo: Sponsor, Employee, Motion, Ilustração e Content.", href: "#/capacitacoes", cta: "Ver capacitações", illustration: "objetos/medalha-1" },
@@ -10427,6 +10429,7 @@ try {
   "id": "colaborador",
   "title": "Colaborador (B2C)",
   "blocks": [
+   { "shortcuts": [ { "title": "Escreva para estas pessoas", "text": "O Tom e voz do Conteúdo parte delas: pilares, premissas e as expressões que repetimos.", "href": "#/conteudo", "cta": "Ver Tom e voz", "illustration": "comunicacao/perguntas-frequentes" } ] },
    {
     "p": "Pessoas que usam o cartão e o app de benefícios no dia a dia."
    },

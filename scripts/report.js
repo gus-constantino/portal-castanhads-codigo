@@ -151,6 +151,18 @@
     parent.appendChild(c);
     return p;
   }
+  // Bloco de sinal vital: Shaped Icon + nome + resultado + Tag de status; o bloco todo é um Link do DS para a tab
+  function vital(parent, name, icon, text, st, href, tip){
+    var v = parent.appendChild(el("div", "rp-vital"));
+    var h = v.appendChild(el("div", "rp-vital__head"));
+    var ic = h.appendChild(el("cds-shaped-icon")); ic.setAttribute("icon", icon); ic.setAttribute("appearance", st[0]); ic.setAttribute("size", "small");
+    var tg = h.appendChild(el("cds-tag", "rp-vital__st")); tg.setAttribute("label", st[1]); tg.setAttribute("appearance", st[0]); tg.setAttribute("show-lead-item", "false");
+    v.appendChild(el("p", "rp-vital__name", esc(name)));
+    v.appendChild(el("p", "rp-vital__text", esc(text)));
+    v.appendChild(dsLink("rp-vital__more", "Abrir", href));
+    if (tip && CDS.kit) CDS.kit.lazyTip(v.querySelector(".rp-vital__name"), plain(tip), { focus: false });
+    return v;
+  }
   // Contador = Tag do DS (Neutral, sem ícone)
   function countTag(n){
     var t = el("cds-tag", "rp-count"); t.setAttribute("label", String(n)); t.setAttribute("appearance", "neutral"); t.setAttribute("show-lead-item", "false");
@@ -311,8 +323,44 @@
       tx.appendChild(el("span", null, esc(plain(r[1]).replace(/^(.{180}).+$/, "$1…"))));
       if (r[2]) li.appendChild(el("p", "rp-list__note", esc(plain(r[2]))));
     });
-    // Ordem (Gustavo, 02/10): Componentes · Adaptações para código · Publicação no Figma · Débitos e melhorias · Decisões
-    [p4, p3, p5, p2, p6].forEach(function(p, i){ var c = p.closest("cds-card"); c.style.setProperty("--_i", String(i)); grid.appendChild(c); });
+    // Sinais vitais: o resumo da Saúde técnica (smoke, docs, peso, numeração) e o check da stack React, em blocos com status
+    var p0 = panel(grid, "Sinais vitais", "Último build e check da stack · detalhes nas tabs Saúde técnica e Stack React", "rp-panel--wide");
+    var vit = p0.appendChild(el("div", "rp-vitals"));
+    var NAMES = [[/smoke dos componentes/i, "Componentes", "view-module-line"], [/smoke das docs/i, "Docs", "document-line"], [/peso/i, "Peso da 1ª visita", "download-line"], [/numera/i, "Numeração D/C", "tests-line"]];
+    rows(sec(docs.saude, function(s){ return s.title === "Resumo"; }).lines).forEach(function(r){
+      var nm = NAMES.filter(function(x){ return x[0].test(r[0]); })[0], res = plain(r[1] || "");
+      var st = /❌/.test(res) ? ["negative", "Falhou"] : /⚠️/.test(res) ? ["warning", "Com avisos"] : ["positive", "Em dia"];
+      vital(vit, nm ? nm[1] : plain(r[0]), nm ? nm[2] : "information-line", res.replace(/[✅⚠️❌]\uFE0F?\s*/g, "").trim(), st, "#/relatorio/saude", r[0]);
+    });
+    var lv = {}; rows(sec(docs.stack, function(s){ return s.title === "Resumo"; }).lines).forEach(function(r){ lv[plain(r[0])] = parseInt(r[r.length - 1], 10) || 0; });
+    var t = vital(vit, "Stack React", "react-line", "", lv["Alta"] ? ["negative", "Atenção"] : lv["Média"] ? ["warning", "Com avisos"] : ["positive", "Em dia"], "#/relatorio/stack", "Check Figma × castanha-react × playground");
+    var tags = t.querySelector(".rp-vital__text"); tags.textContent = "";
+    [["negative", "Alta"], ["warning", "Média"], ["neutral", "Informativo"]].forEach(function(x){ if (lv[x[1]] == null) return; var tg = tags.appendChild(el("cds-tag")); tg.setAttribute("label", lv[x[1]] + " " + x[1].toLowerCase()); tg.setAttribute("appearance", x[0]); tg.setAttribute("show-lead-item", "false"); });
+
+    // Ritmo do projeto: decisões por dia (data da linha no Roadmap §4), dias seguidos do primeiro ao último registro
+    var byDay = {}, yr = new Date().getFullYear();
+    dec.forEach(function(r){ var m = (r[r.length - 1] || "").match(/(\d{2})\/(\d{2})(?!.*\d{2}\/\d{2})/); if (m){ var k = m[2] + "-" + m[1]; byDay[k] = (byDay[k] || 0) + 1; } });
+    var keys = Object.keys(byDay).sort();
+    if (keys.length){
+      var d0 = new Date(yr, +keys[0].slice(0, 2) - 1, +keys[0].slice(3)), d1 = new Date(yr, +keys[keys.length - 1].slice(0, 2) - 1, +keys[keys.length - 1].slice(3)), days = [];
+      for (var d = new Date(d0); d <= d1; d.setDate(d.getDate() + 1)) days.push(new Date(d));
+      var dated = keys.reduce(function(a, k){ return a + byDay[k]; }, 0), peak = Math.max.apply(null, keys.map(function(k){ return byDay[k]; }));
+      var p7 = panel(grid, "Ritmo do projeto", dated + " decisões com data em " + days.length + " dias · média de " + Math.round(dated / days.length) + " por dia", "rp-panel--wide");
+      var chart = p7.appendChild(el("div", "rp-cols")); chart.setAttribute("role", "img");
+      chart.setAttribute("aria-label", days.map(function(dd){ var k = ("0" + (dd.getMonth() + 1)).slice(-2) + "-" + ("0" + dd.getDate()).slice(-2); return dd.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" }) + ": " + (byDay[k] || 0); }).join("; "));
+      days.forEach(function(dd, i){
+        var k = ("0" + (dd.getMonth() + 1)).slice(-2) + "-" + ("0" + dd.getDate()).slice(-2), n = byDay[k] || 0, lbl = dd.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
+        var col = chart.appendChild(el("div", "rp-col" + (n === peak ? " is-peak" : "") + (n ? "" : " is-zero")));
+        col.style.setProperty("--_h", String(n / peak)); col.style.setProperty("--_i", String(i));
+        var bar = col.appendChild(el("span", "rp-col__bar")); bar.setAttribute("data-grow", "");
+        col.appendChild(el("span", "rp-col__n", String(n)));
+        col.appendChild(el("span", "rp-col__d", lbl.replace(/\/\d{4}$/, "")));
+        if (CDS.kit) CDS.kit.lazyTip(col, n ? n + (n === 1 ? " decisão registrada." : " decisões registradas.") : "Sem decisões neste dia.", { label: dd.toLocaleDateString("pt-BR", { weekday: "long", day: "2-digit", month: "2-digit" }), focus: false });
+      });
+    }
+
+    // Ordem (Gustavo, 02/10; 05/10 + Sinais vitais e Ritmo): Sinais vitais · Componentes · Adaptações · Publicação · Ritmo · Débitos · Decisões
+    [p0, p4, p3, p5].concat(typeof p7 !== "undefined" ? [p7] : []).concat([p2, p6]).forEach(function(p, i){ var c = p.closest("cds-card"); c.style.setProperty("--_i", String(i)); grid.appendChild(c); });
     grow(grid);
     // Tooltips da legenda (precisam do item já no documento)
     if (CDS.kit) [].forEach.call(leg.children, function(li){ if (li._tip) CDS.kit.tip(li, li._tip[3], { label: li._tip[1].replace(/ \(.*$/, ""), container: leg.parentNode }); });

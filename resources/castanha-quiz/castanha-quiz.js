@@ -76,8 +76,9 @@
 
   // Ligue os pares (Motion): duração lida ao vivo dos tokens de cada Motion Style (Hover In, Pressed, Released, Selected In)
   var MS_PAIRS = [["Hover In/01", "hover-in-01"], ["Pressed/01", "pressed-01"], ["Released/01", "released-01"], ["Selected In/01", "selected-in-01"]].map(function(m){
-    var cs = getComputedStyle(document.documentElement), v = cs.getPropertyValue("--motion-" + m[1] + "-timing").trim(), ref = v.match(/var\((--[\w-]+)\)/);
-    if (ref) v = cs.getPropertyValue(ref[1]).trim();
+    // Fora do navegador (catálogo do MCP, smoke em Node) não há getComputedStyle: a duração fica "—" e o texto da página segue no catálogo
+    var v = "";
+    try { var cs = getComputedStyle(document.documentElement), ref; v = cs.getPropertyValue("--motion-" + m[1] + "-timing").trim(); ref = v.match(/var\((--[\w-]+)\)/); if (ref) v = cs.getPropertyValue(ref[1]).trim(); } catch (e){}
     return [m[0], v || "—"];
   });
   var PUZ = function(n){ return [

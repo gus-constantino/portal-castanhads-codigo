@@ -30,7 +30,8 @@
 }
 /* Altura fixa (320): com a coluna de doc mais larga, a proporção do Figma (1632×668) deixava a capa com quase 500px e empurrava as tabs para baixo da dobra */
 .pg-cover:not(.is-image){ aspect-ratio:auto; min-height:calc(var(--common-sizes-200) + var(--common-sizes-120)); padding-block:var(--common-sizes-48); box-sizing:border-box; }
-.pg-cover:not(.is-image) .pg-cover__frame:not(.is-tall){ height:auto; min-height:calc(var(--common-sizes-200) + var(--common-sizes-24)); }
+.pg-cover:not(.is-image) .pg-cover__frame:not(.is-tall){ height:auto; min-height:calc(var(--common-sizes-200) + var(--common-sizes-24));
+  width:auto; min-width:min(max(37.25%, calc(var(--common-sizes-200) + var(--common-sizes-56))), 100%); max-width:calc(100% - var(--common-sizes-24)); } /* cresce com o componente (ex.: Date Picker no celular) em vez de cortar */
 .pg-cover:not(.is-image):has(.pg-cover__frame.is-tall){ padding-block:var(--common-sizes-20) 0; }
 .pg-cover:not(.is-image) .pg-cover__frame.is-tall{ height:calc(var(--common-sizes-200) + var(--common-sizes-80) + var(--common-sizes-20)); }
 .pg-cover[hidden]{ display:none; }
@@ -44,7 +45,7 @@
 }
 /* Figma: moldura 608×584 a partir do topo (y 42) e cortada embaixo, ex.: Accordion */
 .pg-cover__frame.is-tall{ align-self:end; justify-content:flex-start; height:93.7%; overflow:hidden; border-bottom-left-radius:0; border-bottom-right-radius:0; }
-@media (max-width:760px){ .pg-cover{ margin:var(--common-sizes-16) var(--common-sizes-16) 0; border-radius:var(--common-border-radius-large); } }
+@media (max-width:760px){ .pg-cover{ margin:var(--common-sizes-16) var(--common-sizes-16) 0; border-radius:var(--common-border-radius-large); } .pg-cover__frame{ padding:var(--common-sizes-16); } }
 
 
 /* ---------- Página de doc ---------- */

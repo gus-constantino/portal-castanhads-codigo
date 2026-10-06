@@ -477,11 +477,11 @@
   .pg-doc-hero.is-light .pg-doc-hero__title{ font:var(--text-style-decorative-medium); line-height:1.25; }
   .pg-doc-hero.is-light .pg-doc-hero__pilha{ height:var(--common-sizes-88); margin-bottom:0; }
 }
+/* Legado (legacy no CDS.register): a capa fica em cinza, com a faixa <loc-faixa> por cima (D225) */
+.pg-cover.is-legacy{ position:relative; }
+.pg-cover.is-legacy > :not(loc-faixa){ filter:grayscale(1); }
 /* Capa do recurso = o hero claro no lugar da moldura do [Header] (renderCover com hero) */
 .pg-cover.is-hero:not([hidden]){ display:block; place-items:normal; aspect-ratio:auto; min-height:0; padding:0; background:none; border-radius:0; overflow:visible; }
-/* Pilha no canto dos cards de atalho (shortcuts com pilha: true): na cor da área do destino, abre em leque no hover do card */
-.pg-doc-shortcut.has-pilha{ position:relative; overflow:hidden; }
-.pg-doc-shortcut__pilha{ position:absolute; right:var(--common-sizes-20); bottom:0; height:var(--common-sizes-40); }
 
 /* Atalhos (capa do Castanha Hub · bloco shortcuts): Cards do DS com ilustração */
 .pg-doc-shortcuts{ display:grid; grid-template-columns:repeat(auto-fit, minmax(min(var(--common-sizes-160), 100%), 1fr)); gap:var(--common-sizes-16); }
@@ -570,7 +570,7 @@ cmp-do-dont .pg-doc-list{ margin:0; }
 
 /* Glossário com busca */
 .pg-doc-gloss{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
-.pg-doc-gloss__count, .pg-doc-gloss__empty{ margin:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+.pg-doc-gloss__count{ margin:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
 .pg-doc-gloss__group{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
 .pg-doc-gloss__letter{ margin:0; padding-bottom:var(--common-sizes-4); border-bottom:var(--common-border-width-thin) solid var(--common-colors-border-soft); font:var(--text-style-title-small); color:var(--common-colors-text-intense); }
 .pg-doc-gloss__list{ margin:0; display:flex; flex-direction:column; gap:var(--common-sizes-16); }

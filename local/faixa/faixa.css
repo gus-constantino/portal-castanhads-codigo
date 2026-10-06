@@ -1,0 +1,7 @@
+/* <loc-faixa> · componente local do playground (ver faixa.js) — só tokens.
+   Tarja Surface/inversed no meio do pai, como nas thumbnails arquivadas do Castanha Assets. */
+loc-faixa{
+  position:absolute; inset-inline:0; top:50%; transform:translateY(-50%); z-index:1;
+  padding:var(--common-sizes-16); text-align:center;
+  font:var(--text-style-title-small); color:var(--common-colors-text-inversed); background:var(--common-colors-surface-inversed);
+}

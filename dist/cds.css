@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 111 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 113 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.css ==== */
 /* Backdrop · 13784:3271 — Surface/inversed · Opacity/medium (0.4). O mesmo visual vale para o ::backdrop dos overlays */
 cds-backdrop{ position:absolute; inset:0; display:block; background:var(--common-colors-surface-inversed); opacity:var(--common-opacity-medium); }
@@ -1962,6 +1962,15 @@ cmp-thumbnail.is-cut-y{ -webkit-mask-image:linear-gradient(to bottom, var(--comm
 cmp-thumbnail.is-cut-x{ -webkit-mask-image:linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); mask-image:linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); }
 cmp-thumbnail.is-cut-x.is-cut-y{ -webkit-mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent), linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); mask-image:linear-gradient(to bottom, var(--common-colors-surface-default) 70%, transparent), linear-gradient(to right, var(--common-colors-surface-default) 70%, transparent); -webkit-mask-composite:source-in; mask-composite:intersect; }
 
+/* ==== local/faixa/faixa.css ==== */
+/* <loc-faixa> · componente local do playground (ver faixa.js) — só tokens.
+   Tarja Surface/inversed no meio do pai, como nas thumbnails arquivadas do Castanha Assets. */
+loc-faixa{
+  position:absolute; inset-inline:0; top:50%; transform:translateY(-50%); z-index:1;
+  padding:var(--common-sizes-16); text-align:center;
+  font:var(--text-style-title-small); color:var(--common-colors-text-inversed); background:var(--common-colors-surface-inversed);
+}
+
 /* ==== local/pilha/pilha.css ==== */
 /* <loc-pilha> · componente local do playground (ver pilha.js) — só tokens.
    Cartões quadrados; o da frente tem a altura da pilha e encosta à direita. Cada cartão de trás começa 9cqh mais à esquerda
@@ -2001,6 +2010,18 @@ loc-pilha[on="accent"]{ --_back:var(--common-colors-accent-solid-intense); --_fr
 html[data-theme="dark"] loc-pilha[on="accent"]{ --_back:var(--common-colors-accent-solid-soft); --_front:var(--common-colors-accent-solid-intense); }
 
 @media (prefers-reduced-motion: reduce){ loc-pilha > span{ transition:none; } }
+
+/* ==== local/vazio/vazio.css ==== */
+/* <loc-vazio> · componente local do playground (ver vazio.js) — só tokens */
+loc-vazio{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-8); padding:var(--common-sizes-40) var(--common-sizes-16); text-align:center; }
+loc-vazio[hidden]{ display:none; }
+loc-vazio .loc-vazio__pilha{ height:var(--common-sizes-64); margin-bottom:var(--common-sizes-8); }
+loc-vazio .loc-vazio__title{ margin:0; font:var(--text-style-title-small); color:var(--common-colors-text-intense); text-wrap:balance; }
+loc-vazio .loc-vazio__text{ margin:0; max-width:calc(3 * var(--common-sizes-160)); font:var(--text-style-body-regular); color:var(--common-colors-text-medium); text-wrap:pretty; }
+loc-vazio .loc-vazio__actions{ display:flex; flex-wrap:wrap; justify-content:center; gap:var(--common-sizes-16); margin-top:var(--common-sizes-8); }
+loc-vazio [hidden]{ display:none; }
+loc-vazio[size="small"]{ padding-block:var(--common-sizes-24); }
+loc-vazio[size="small"] .loc-vazio__pilha{ height:var(--common-sizes-40); margin-bottom:0; }
 
 /* ==== resources/patterns/patterns.css ==== */
 /* Patterns: Feedback Page (Sponsor/Employee) e Tela de loading montadas com componentes do DS.

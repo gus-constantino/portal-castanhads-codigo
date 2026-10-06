@@ -25,9 +25,9 @@
  *   table: { head: [...], rows: [[...]], wrap }   wrap: células quebram linha
  *   video: { src, title, caption, href, cta }   player embutido 16:9 (iframe do serviço; o DS não tem componente de vídeo)
  *   shortcuts: [{ title, text, href, cta, illustration | src, external }]   atalhos em Cards (capa do Castanha Hub); sem href, card só informativo
+ *   vazio: { heading, text, link: { label, href } }   estado vazio (componente local <loc-vazio>), ex.: página não encontrada
  *   hero: { eyebrow, title, text, area, cards }   capa da marca (conceito do Castanha Assets): sem area = Surface/accent com a pilha
  *                                       rosada; com area = fundo com um toque da cor da área e a pilha encostada embaixo (<loc-pilha>)
- *   shortcuts: { pilha: true, … }      cada card ganha uma pilha pequena no canto, na cor da área do destino (CDS.areaOf) ou de it.area
  *   palette: { label, names: [...], steps: [...], hex: [[hex por passo] por cor], notes: { passo: "nota" } }   paleta fora dos tokens (ilustração)
  *   steps: [{ title, text, list, table, after }]   passos numerados
  *   code: "texto"                      bloco monoespaçado com botão Copiar
@@ -237,6 +237,12 @@
   var STACK_ICON = { React: "react-line", Flutter: "flutter-fill", Figma: "figma-line" };
   CDS.stackIcon = STACK_ICON;
 
+  // Estado vazio do playground (local/vazio): pilha cinza, título e texto. small = dentro de listas e filtros
+  function vazio(heading, text, small){
+    var e = el("loc-vazio", "pg-doc-vazio"); e.setAttribute("heading", heading || ""); if (text) e.setAttribute("text", text);
+    if (small) e.setAttribute("size", "small");
+    return e;
+  }
   var BLOCKS = {
     h2: function(d, v){ return el("h2", "pg-doc-h2", v); },
     h3: function(d, v){ return el("h3", "pg-doc-h3", v); },
@@ -422,7 +428,7 @@
         chips.appendChild(c);
       });
       var count = wrap.appendChild(el("p", "pg-doc-note")); count.setAttribute("aria-live", "polite");
-      var empty = wrap.appendChild(el("p", "pg-doc-p", "Nenhuma release encontrada. Tente outro termo ou limpe os filtros."));
+      var empty = wrap.appendChild(vazio("Nenhuma release encontrada", "Tente outro termo ou limpe os filtros.", true));
       var groups = [], cur = null;
       v.items.forEach(function(r){
         var key = v.months(r);
@@ -471,9 +477,6 @@
       var g = el("div", "pg-doc-shortcuts" + (v.bento ? " is-bento is-cols-" + v.bento : "")), ills = {}; ((window.CDS.assets || {}).illustrations || []).forEach(function(i){ ills[i.name] = i.src; });
       items.forEach(function(it){
         var c = el("cds-card", "pg-doc-shortcut" + (it.size ? " is-" + it.size : "") + (it.layout ? " is-" + it.layout : "")); c.setAttribute("has-border", "true");
-        // Pilha no canto (D223): cor da área do destino; o leque abre no hover do card
-        var area = v.pilha && (it.area || (CDS.areaOf && /^#\//.test(it.href || "") && CDS.areaOf(it.href.slice(2).split(/[/?]/)[0])));
-        if (area){ c.classList.add("loc-pilha-trigger", "has-pilha"); var pl = el("loc-pilha", "pg-doc-shortcut__pilha"); pl.setAttribute("area", area); pl.setAttribute("align", "end"); pl.setAttribute("cards", "3"); c.appendChild(pl); }
         var ssrc = it.src || (it.illustration && ills[it.illustration]); // src: imagem fora do [Caju] Illustrations
         if (ssrc){ var im = el("img", "pg-doc-shortcut__img"); im.alt = ""; im.loading = "lazy"; im.src = ssrc; c.appendChild(im); }
         var b = c.appendChild(el("div", "pg-doc-shortcut__body"));
@@ -489,6 +492,12 @@
       return g;
     },
 
+    // Estado vazio (componente local <loc-vazio>): página não encontrada e afins. { heading, text, link: { label, href } }
+    vazio: function(d, v){
+      var e = vazio(v.heading, v.text, false);
+      if (v.link){ var l = el("cds-link"); l.setAttribute("label", v.link.label); l.setAttribute("href", v.link.href); l.setAttribute("appearance", "accent"); e.appendChild(l); }
+      return e;
+    },
     // Capa da marca, do conceito do Castanha Assets (D221): título em Decorative, texto e a pilha (<loc-pilha>,
     // componente local) à direita; a pilha abre em leque no hover da capa. Sem area: Surface/accent (Início).
     hero: function(d, v){
@@ -574,7 +583,7 @@
         });
         groups.push({ sec: sec, items: items });
       });
-      var empty = wrap.appendChild(el("p", "pg-doc-gloss__empty", "Nenhum termo encontrado. Não encontrou um termo ou quer sugerir uma correção? Fale com o time de Content no canal #content-suporte."));
+      var empty = wrap.appendChild(vazio("Nenhum termo encontrado", "Não encontrou um termo ou quer sugerir uma correção? Fale com o time de Content no canal #content-suporte.", true));
       function filter(){
         var q = fold(search.value).trim(), n = 0;
         groups.forEach(function(g){

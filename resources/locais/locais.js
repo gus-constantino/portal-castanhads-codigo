@@ -21,7 +21,7 @@
           ["Building block", "Parte com ponto no nome, fora da publicação de propósito, que monta outros componentes.", "[CastanhaDS] Components", "Os próprios componentes do DS", "Os itens do menu Building blocks"],
           ["Template", "Trecho de tela pronto, montado com componentes do DS, que se repete entre produtos.", "Arquivos de templates do Figma", "Os produtos do template", "Header do Sponsor Templates"],
           ["Team component", "Peça de uma squad, feita com componentes e tokens do DS e reaproveitada nas telas dela.", "Biblioteca local da squad", "As telas da squad", "Nenhum no playground por enquanto"],
-          ["Componente local", "Peça feita com tokens do DS para um lugar ou uma página, sem a intenção de virar componente.", "Junto da página que usa", "Aquele lugar", "Pilha, aqui no playground"],
+          ["Componente local", "Peça feita com tokens do DS para um lugar ou uma página, sem a intenção de virar componente.", "Junto da página que usa", "Aquele lugar", "Pilha, Vazio e Faixa, aqui no playground"],
           ["Composição", "Peça montada com tokens e componentes do DS onde o DS ainda não tem o componente. Candidata a entrar no DS.", "Junto do projeto, com pedido ao DS", "Quem precisa até o DS ter a peça", "Do/Don't e Card clicável"]
         ] } },
         { note: "Nas Camadas do DS a ordem é a mesma: componentes, templates, local assets da squad e a composição da tela. Aqui no playground, `cmp-` é o prefixo das peças que esperam o DS, e a tela inteira continua sendo a composição final." },
@@ -86,20 +86,40 @@
         { p: "Com movimento reduzido no sistema, o leque troca de posição sem animar." },
         { h3: "Onde aparece" },
         { ul: [
-          "Início: capa vermelha do Castanha Hub e uma pilha pequena no canto de cada card, na cor da área de destino.",
+          "Início: capa vermelha do Castanha Hub.",
           "Recursos: a capa de cada página (Tema Caju, Motion, Personas, FAQ…) traz a seção, a frase da página e a pilha da área, com um toque da cor no fundo.",
           "Menu: uma pilha pequena antes do título de cada seção (Padrões, Aprenda, Ferramentas e Ajuda).",
-          "Próximos passos: faixa de legado, estados vazios e a imagem de preview do link."
+          "Estados vazios e página não encontrada: a pilha cinza do componente local Vazio.",
+          "Preview do link: a imagem que aparece ao colar o endereço no Slack (`assets/brand/og-image.png`)."
         ] },
         { p: "A frase da capa de cada recurso fica no `lede` do `CDS.register`. A área sai da seção do menu (`CDS.areaOf`), então uma página nova na seção já ganha a cor certa." },
         { h3: "Uso" },
         { dodont: [
           { kind: "do", title: "Decoração", text: "A pilha é decorativa: fica com aria-hidden e o nome do lugar continua no título ao lado." },
-          { kind: "do", title: "Uma por bloco", text: "Uma pilha por capa ou card, sempre no canto ou à direita do texto." },
+          { kind: "do", title: "Na capa", text: "Uma pilha por capa, à direita do texto." },
           { kind: "dont", title: "Cor fora da escala", text: "Nada de pintar os cartões à mão. A cor vem da área." },
-          { kind: "dont", title: "Conteúdo dentro", text: "Os cartões não levam texto, ícone nem imagem." }
+          { kind: "dont", title: "Conteúdo dentro", text: "Os cartões não levam texto, ícone nem imagem." },
+          { kind: "dont", title: "Enfeite de card", text: "A pilha não vai no canto de cards nem de itens de lista (Gustavo, 06/10)." }
         ] },
         { code: "<section class=\"loc-pilha-trigger\">\n  <h2>Tema Caju</h2>\n  <loc-pilha area=\"padroes\" cards=\"3\" style=\"height:var(--common-sizes-200)\"></loc-pilha>\n</section>" }
+      ] },
+      { id: "vazio-faixa", title: "Vazio e faixa", blocks: [
+        { h2: "Vazio" },
+        { p: "O DS não tem componente de estado vazio. Busca sem resultado e página não encontrada usam o `<loc-vazio>`: a pilha na escala Legado, em leque parado, um título curto com o que aconteceu e um texto com o que a pessoa pode fazer." },
+        { display: { attrs: { _tag: "loc-vazio", heading: "Nenhuma release encontrada", text: "Tente outro termo ou limpe os filtros." } } },
+        { table: { head: ["Atributo", "Valores", "Para que serve"], rows: [
+          ["`heading`", "texto", "O que aconteceu, numa frase curta"],
+          ["`text`", "texto", "O que a pessoa pode fazer agora"],
+          ["`size`", "small", "Pilha menor e menos respiro, dentro de listas e filtros"]
+        ] } },
+        { p: "Um Link do DS passado como filho vira a ação, embaixo do texto. Na página não encontrada, ele leva de volta ao Início." },
+        { ul: ["Changelog: busca e filtros sem release.", "Conteúdo › Vocabulário: glossário sem termo.", "Qualquer endereço que não existe: página não encontrada, com o link para o Início."] },
+        { note: "O FAQ continua com a ilustração de busca sem resultado da biblioteca de ilustrações, que já é da Caju." },
+        { h2: "Faixa" },
+        { p: "A tarja \"Legado | Arquivado\" das thumbnails arquivadas do Castanha Assets. Um componente ou página com `legacy: \"motivo\"` no `CDS.register` ganha a faixa na capa, a capa em cinza, a Tag Legado no cabeçalho com o motivo no Tooltip e a palavra Legado no menu." },
+        { display: { attrs: { _tag: "div", style: "position:relative; width:100%; min-height:var(--common-sizes-120)", _children: [{ _tag: "loc-faixa" }] } } },
+        { note: "Nenhum componente do playground é legado hoje: as docs de sets legados do Figma ficam de fora. A faixa fica pronta para quando um sair de uso." },
+        { code: "CDS.register({ id: \"meu-componente\", name: \"Meu componente\", legacy: \"Substituído pelo Main Button.\", … });" }
       ] },
       { id: "cores", title: "Cor por área", blocks: [
         { h2: "Cor por área" },

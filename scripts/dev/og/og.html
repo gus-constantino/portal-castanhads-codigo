@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- Fonte da imagem de preview do link (og:image, 1360×680), no conceito da capa do Castanha Assets:
+     Surface/accent, logo da Caju, título em Decorative/Display e a pilha (componente local <loc-pilha>).
+     Gerada por: node scripts/dev/og-image.js → assets/brand/og-image.png (D225).
+     Tamanho fixo da imagem em px (é um arquivo de 1360×680, não uma tela); cor, texto e raio vêm dos tokens. -->
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Work+Sans:wght@700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../../styles/tokens.css" />
+<link rel="stylesheet" href="../../../styles/shared.css" />
+<link rel="stylesheet" href="../../../components/caju-brand/caju-brand.css" />
+<link rel="stylesheet" href="../../../local/pilha/pilha.css" />
+<style>
+  html, body{ margin:0; background:var(--common-colors-surface-accent); }
+  .og{ width:1360px; height:680px; box-sizing:border-box; padding:var(--common-sizes-104); display:flex; align-items:center; justify-content:space-between;
+    gap:var(--common-sizes-64); background:var(--common-colors-surface-accent); color:var(--common-colors-support-lighter); overflow:hidden; }
+  .og__text{ display:flex; flex-direction:column; gap:var(--common-sizes-24); }
+  .og__brand{ height:var(--common-sizes-56); width:auto; }
+  .og__title{ margin:0; font:var(--text-style-decorative-display); line-height:1.05; }
+  .og__p{ margin:0; max-width:calc(3 * var(--common-sizes-160)); font:var(--text-style-subtitle-large); }
+  .og loc-pilha{ height:calc(var(--common-sizes-200) + var(--common-sizes-160)); flex:0 0 auto; }
+</style>
+</head>
+<body>
+  <div class="og">
+    <div class="og__text">
+      <cds-caju-brand class="og__brand" kind="full-white"></cds-caju-brand>
+      <h1 class="og__title">Castanha DS</h1>
+      <p class="og__p">Playground do Design System da Caju: componentes, tema, padrões e código.</p>
+    </div>
+    <loc-pilha on="accent" fan></loc-pilha>
+  </div>
+  <script src="../../../scripts/cds-element.js"></script>
+  <script src="../../../components/caju-brand/caju-brand.js"></script>
+  <script src="../../../local/pilha/pilha.js"></script>
+</body>
+</html>

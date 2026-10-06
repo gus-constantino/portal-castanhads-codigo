@@ -74,6 +74,7 @@ const BLOCK = {
   code: (v) => "```\n" + S(v) + "\n```",
   tokens: (v) => "(Tokens: " + v + " — ver a ferramenta de tokens.)",
   palette: (v) => "**" + v.label + ":** " + v.names.map((n, i) => n + " (" + (v.hex[i] || []).map((h) => "#" + h).join(", ") + ")").join("; "),
+  vazio: (v) => "**" + v.heading + "**" + (v.text ? " — " + S(v.text) : ""),
   hero: (v) => "**" + v.title + "**" + (v.text ? " — " + S(v.text) : ""),
   shortcuts: (v) => v.map((s) => "- **" + s.title + "** — " + S(s.text)).join("\n"),
   steps: (v) => v.map((s, i) => (i + 1) + ". **" + s.title + "** — " + S(s.text)).join("\n"),

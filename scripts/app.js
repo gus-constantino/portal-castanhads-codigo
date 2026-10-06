@@ -47,13 +47,14 @@
   // Tooltip só quando há algo a explicar: task do Jira, [Beta], componente em branch do Figma
   function notesOf(c){
     var notes = [];
+    if (c.legacy) notes.push("Legado: " + c.legacy);
     if (c.task) notes.push("Task no Jira: " + c.task + ".");
     if (/\[Beta\]/.test(c.name)) notes.push("Em beta no Figma: props e visual ainda podem mudar.");
     if (/\/branch\//.test(c.figma || "")) notes.push("O link do Figma abre uma branch, não a main.");
     return notes;
   }
   function link(c){
-    var a = kit.el("a", { href: "#/" + c.id }, [c.name, kit.el("small", { text: c.task || "" })]);
+    var a = kit.el("a", { href: "#/" + c.id }, [c.name, kit.el("small", { text: c.legacy ? "Legado" : c.task || "" })]);
     var notes = notesOf(c);
     // As notas vão no card de preview do hover (peek); leitor de tela recebe por aria-description
     if (notes.length) a.setAttribute("aria-description", notes.join(" "));
@@ -456,6 +457,8 @@
   function currentId(){
     var id = route()[0];
     if (list.some(function(c){ return c.id === id; })) return id;
+    // Rota desconhecida (link quebrado, página que saiu): página não encontrada em vez de cair no Início sem avisar (D225)
+    if (id && list.some(function(c){ return c.notFound; })) return list.filter(function(c){ return c.notFound; })[0].id;
     var home = list.filter(function(c){ return c.home; })[0]; // sem rota: abre o Início (Castanha Hub)
     return (home || list.filter(function(c){ return !isPart(c) && !c.resource; })[0] || list[0]).id;
   }
@@ -471,6 +474,10 @@
   function buildTabs(id){
     var doc = CDS.docs && CDS.docs[id];
     if (CDS.renderCover) CDS.renderCover(doc, coverEl, heroOf(currentDef())); // capa acima das tabs: frame [Header] do componente ou hero do recurso
+    // Legado (legacy: "motivo" no CDS.register): capa em cinza com a faixa "Legado | Arquivado" (componente local <loc-faixa>)
+    var leg = currentDef().legacy;
+    coverEl.classList.toggle("is-legacy", !!leg && !coverEl.hidden);
+    if (leg && !coverEl.hidden) coverEl.appendChild(kit.el("loc-faixa", { role: "note", "aria-label": "Legado: " + leg }));
     tabsEl.innerHTML = "";
     tabsEl.hidden = !doc || !CDS.renderDoc || (currentDef().resource && doc.tabs.length === 1); // página de uma tab só (ex.: Início) não mostra a barra
     if (tabsEl.hidden) return;
@@ -565,6 +572,7 @@
   function crumbs(def){
     var ds = { label: "Castanha DS", href: "#/" };
     if (def.home) return [ds, { label: def.name, href: "#/" + def.id }];
+    if (def.notFound) return [ds, { label: def.name, href: location.hash || "#/" }];
     if (def.hidden) return [ds, { label: "Relatório", href: "#/relatorio" }, { label: def.name, href: "#/" + def.id }];
     if (def.resource){ var sec = resSection(def); return [ds, { label: sec.title, href: "#/" + sec.items[0].id }, { label: def.name, href: "#/" + def.id }]; }
     var cat = def.composition ? "Composições" : def.block ? "Building blocks" : (def.category || "Outros");
@@ -678,10 +686,11 @@
                   ? ["neutral", "Não publicado · building block", "Building block (nome com ponto): fica fora da publicação de propósito e é usado dentro de outros componentes."]
                   : ["negative", "Não publicado no Figma", "Ainda não publicado na lib [CastanhaDS] Components."],
                 branch: ["warning", "Não publicado · em branch", "Existe só numa branch do Figma; ainda não está na main nem publicado na lib."] };
-    var pub = def.soon ? ["neutral", "Em breve", def.soon] // recurso ainda não ofertado (texto do Tooltip em def.soon)
+    var pub = def.legacy ? ["neutral", "Legado", def.legacy] // fora de uso: motivo no Tooltip (D225)
+      : def.soon ? ["neutral", "Em breve", def.soon] // recurso ainda não ofertado (texto do Tooltip em def.soon)
       : def.composition ? ["neutral", "Composição do playground", "Não existe na lib do Figma: montada aqui só com tokens do DS até o DS ter o componente."] : st && PUB[st];
     header.setAttribute("show-tag", String(!!pub)); // Tag = status de publicação (ou Em breve)
-    if (pub){ header.setAttribute("tag-appearance", pub[0]); header.setAttribute("tag-label", pub[1]); head.tagTip.setAttribute("text", pub[2] + (def.composition || def.soon ? "" : " Conferido em " + FS.checked + ".")); }
+    if (pub){ header.setAttribute("tag-appearance", pub[0]); header.setAttribute("tag-label", pub[1]); head.tagTip.setAttribute("text", pub[2] + (def.composition || def.soon || def.legacy ? "" : " Conferido em " + FS.checked + ".")); }
     document.title = def.name + " — Castanha DS";
     // Main Button = abrir no Figma; Drop Button "Links" = Jira e zeroheight num Popover do DS
     var branch = /\/branch\//.test(def.figma || "") ? " O link abre uma branch, não a main." : "";

@@ -476,7 +476,11 @@
     });
     toc.appendChild(dsLink("rp-src", "Ver no GitHub", REPO + tab.file, true));
     // Único acesso à página escondida dos componentes locais (#/locais, hidden: fora do menu e da busca; Gustavo, 06/10)
-    if (id === "arquitetura") toc.appendChild(dsLink("rp-src", "Componentes locais", "#/locais"));
+    if (id === "arquitetura"){
+      toc.appendChild(dsLink("rp-src", "Componentes locais", "#/locais"));
+      // Embaixo: a proposta zeroheight → portal (docs/pitch, página própria em tela cheia; Gustavo, 06/10)
+      toc.appendChild(dsLink("rp-src", "Proposta: zeroheight → portal", "docs/pitch/"));
+    }
     filter();
   }
 

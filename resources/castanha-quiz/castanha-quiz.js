@@ -74,6 +74,17 @@
   // Inert: o visual é para olhar, não para clicar (o clique é na resposta)
   function look(fn){ return function(){ var e = fn(); e.inert = true; return e; }; }
 
+  // Ligue os pares (Motion): duração lida ao vivo dos tokens de cada Motion Style (Hover In, Pressed, Released, Selected In)
+  var MS_PAIRS = [["Hover In/01", "hover-in-01"], ["Pressed/01", "pressed-01"], ["Released/01", "released-01"], ["Selected In/01", "selected-in-01"]].map(function(m){
+    var cs = getComputedStyle(document.documentElement), v = cs.getPropertyValue("--motion-" + m[1] + "-timing").trim(), ref = v.match(/var\((--[\w-]+)\)/);
+    if (ref) v = cs.getPropertyValue(ref[1]).trim();
+    return [m[0], v || "—"];
+  });
+  var PUZ = function(n){ return [
+    { min: n, illustration: "objetos/trofeu", title: "Montou de primeira", text: "Nenhuma tentativa errada." },
+    { min: Math.ceil(n / 2), illustration: "objetos/medalha-1", title: "Mandou bem", text: "Montou com poucas tentativas. Jogue de novo para fazer de primeira." },
+    { min: 0, illustration: "notificacoes/success-low-detail", title: "Montou", text: "Revise o treinamento acima e tente de primeira." }
+  ]; };
   var GAME6 = function(){ return RES(true).map(function(r){ return r.min === 5 ? Object.assign({}, r, { min: 6 }) : r.min === 3 ? Object.assign({}, r, { min: 4 }) : r; }); };
   var RES = function(game){ return [
     { min: 5, illustration: "objetos/trofeu", title: "Gabaritou", text: game ? "Olho de quem conhece o DS de cor." : "Você está pronta ou pronto para usar no dia a dia." },
@@ -90,10 +101,10 @@
         { shortcuts: { bento: 3, items: [
           { title: "Componentes", text: "Qual componente usar em cada situação: ação ou navegação, seleção e mensagens. Jogo: Qual é o componente?", illustration: "interfaces/lista", href: "#/castanha-quiz/componentes", cta: "Começar" },
           { title: "Tema Caju", text: "Tokens, escala de 4px, área de toque e elevação. Jogo: Certo ou errado?", illustration: "interfaces/customizacao", href: "#/castanha-quiz/tema-caju", cta: "Começar" },
-          { title: "Motion", text: "Princípios, Motion Styles, durações e curvas. Jogo: Certo ou errado?", illustration: "objetos/foguete", href: "#/castanha-quiz/motion", cta: "Começar" },
-          { title: "Conteúdo", text: "Pilares do tom de voz, verbos que incluem e pontuação. Jogo: Certo ou errado?", illustration: "comunicacao/perguntas-frequentes", href: "#/castanha-quiz/conteudo", cta: "Começar" },
+          { title: "Motion", text: "Princípios, Motion Styles, durações e curvas. Jogos: Certo ou errado? e Ligue os pares.", illustration: "objetos/foguete", href: "#/castanha-quiz/motion", cta: "Começar" },
+          { title: "Conteúdo", text: "Pilares do tom de voz, verbos que incluem e pontuação. Jogos: Certo ou errado? e Monte o onboarding.", illustration: "comunicacao/perguntas-frequentes", href: "#/castanha-quiz/conteudo", cta: "Começar" },
           { title: "Ilustração", text: "Estilo, categorias, cores e acessibilidade. Jogo: Qual é a categoria?", illustration: "personagens/nadia", href: "#/castanha-quiz/ilustracao", cta: "Começar" },
-          { title: "Camadas do DS", text: "Do token à tela: a cascata, o tema e quem cria o quê. Jogo: Certo ou errado?", illustration: "graficos-e-dashboards/setores", href: "#/castanha-quiz/camadas", cta: "Começar" }
+          { title: "Camadas do DS", text: "Do token à tela: a cascata, o tema e quem cria o quê. Jogos: Certo ou errado? e Monte a cascata.", illustration: "graficos-e-dashboards/setores", href: "#/castanha-quiz/camadas", cta: "Começar" }
         ] } }
       ] },
 
@@ -213,6 +224,12 @@
           { visual: look(bind(codeScene, [["Saída do Toast", "Decelerate"]])), q: "Toast saindo de cena com a curva Decelerate.", answer: "do", why: "A Decelerate é empregada na remoção de elementos, como feedbacks temporários e notificações." }
         ] } },
 
+        { h2: "Quebra-cabeça: ligue os pares" },
+        { p: "Cada Motion Style tem uma duração. Escolha um item de cada coluna para formar o par." },
+        { quiz: { kind: "pairs", label: "Quebra-cabeça · Ligue os pares", storageKey: "motion-puzzle", results: PUZ(4),
+          prompt: "Motion Style e duração:", pairs: MS_PAIRS,
+          why: "Interações rápidas ficam na família Short. O Selected In, que muda o estado, usa uma Medium." } },
+
         { h2: "Quiz" },
         { p: "Cinco perguntas sobre o treinamento." },
         { quiz: { label: "Quiz · Motion", storageKey: "motion-quiz", results: RES(false), questions: [
@@ -255,6 +272,12 @@
           { visual: look(bind(btnScene, "Confirmar pagamento.")), q: "CTA com ponto final.", answer: "dont", why: "CTA não leva ponto final: \"Confirmar pagamento\"." },
           { visual: look(bind(said, "Deseja cancelar o pagamento?")), q: "Pergunta direta, sem viés negativo.", answer: "do", why: "Prefira \"Deseja cancelar o pagamento?\" a \"Tem certeza que quer cancelar?\"." }
         ] } },
+
+        { h2: "Quebra-cabeça: monte o onboarding" },
+        { p: "Todo onboarding é uma conversa com começo, meio e fim. Coloque as etapas em ordem e confira." },
+        { quiz: { kind: "order", label: "Quebra-cabeça · Monte o onboarding", storageKey: "conteudo-puzzle", results: PUZ(4),
+          prompt: "A conversa de um onboarding:", pieces: ["Receber: a novidade chega de forma acolhedora", "Contextualizar: por que isso existe e o que muda", "Explicar: como funciona, no momento certo", "Encerrar: o próximo passo fica claro"],
+          why: "Receber, contextualizar, explicar e encerrar: no fim, a pessoa se sente segura para seguir sozinha." } },
 
         { h2: "Quiz" },
         { p: "Cinco perguntas sobre o treinamento." },
@@ -339,6 +362,12 @@
           { visual: look(bind(codeScene, [["1º", "Theme"], ["2º", "Brand Style"]])), q: "Publicar o tema antes do Brand Style.", answer: "do", why: "Publique em cascata: o Brand Style aponta para aliases do tema, que precisam existir antes." },
           { visual: look(bind(codeScene, [["Composição", "vira team component"]])), q: "Transformar a composição de uma tela em team component.", answer: "dont", why: "Isso aumenta a biblioteca do time e o custo de manutenção sem ganho de reuso." }
         ] } },
+
+        { h2: "Quebra-cabeça: monte a cascata" },
+        { p: "As camadas estão embaralhadas. Use as setas para colocar em ordem, do valor até a tela, e confira." },
+        { quiz: { kind: "order", label: "Quebra-cabeça · Monte a cascata", storageKey: "camadas-puzzle", results: PUZ(6),
+          prompt: "Da base (o valor) até a tela:", pieces: ["Primitives", "Themes", "Brand Style", "Styles", "Componentes", "Composição"],
+          why: "Cada camada aponta para a de cima, sem pular nenhuma." } },
 
         { h2: "Quiz" },
         { p: "Cinco perguntas sobre o treinamento." },

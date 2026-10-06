@@ -2083,6 +2083,13 @@ cmp-quiz .cmp-quiz__verdict{ display:flex; gap:var(--common-sizes-16); }
 cmp-quiz .cmp-quiz__verdict cds-main-button{ flex:1 1 0; }
 cmp-quiz .cmp-quiz__verdict cds-main-button .cds-btn{ width:100%; }
 cmp-quiz .cmp-quiz__verdict[hidden]{ display:none; }
+/* Quebra-cabeças: ordenar (peças em Card com Icon Buttons) e ligar pares (duas Selection Lists) */
+cmp-quiz .cmp-quiz__pieces{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+cmp-quiz .cmp-quiz__piece{ display:flex; align-items:center; gap:var(--common-sizes-8); }
+cmp-quiz .cmp-quiz__piece > cds-card{ flex:1 1 auto; min-width:0; padding:var(--common-sizes-8) var(--common-sizes-16); }
+cmp-quiz .cmp-quiz__piece > cds-tag[hidden]{ display:none; }
+cmp-quiz .cmp-quiz__move{ display:flex; gap:var(--common-sizes-4); }
+cmp-quiz .cmp-quiz__pairs{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:var(--common-sizes-16); }
 
 /* ==== compositions/shortcut/shortcut.css ==== */
 /* Tecla de atalho · composição do playground (ver shortcut.js) — Tag Neutral do DS por tecla, só tokens */

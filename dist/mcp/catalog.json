@@ -17,7 +17,7 @@
   "buildingBlocks": 26,
   "resources": 15,
   "compositions": 6,
-  "withDocs": 125,
+  "withDocs": 124,
   "withReact": 70,
   "liveMaps": 70,
   "reactOnly": 12,
@@ -16142,44 +16142,7 @@
    "category": null,
    "figma": null,
    "figmaNode": null,
-   "zeroheight": null,
-   "tabs": [
-    {
-     "id": "inicio",
-     "title": "Início",
-     "text": "**Aprenda jogando** — Treinamentos de uns 5 minutos sobre temas do portal. Cada um termina com um jogo e um quiz para testar o que ficou.\n\n## Escolha um tema\n\nCada tema tem um treinamento rápido, um jogo e um quiz de 5 perguntas. O seu melhor resultado fica guardado neste navegador."
-    },
-    {
-     "id": "componentes",
-     "title": "Componentes",
-     "text": "**Qual componente usar?** — Três escolhas que aparecem em toda tela: ação ou navegação, como selecionar e como avisar.\n\n## Ação ou navegação\n\nO Main Button faz uma ação: enviar, excluir, confirmar. Para levar a outra página, use o Link. Use um único Main Button primário (accent) por tela ou seção.\n\n- Main Button: ação (exemplo: Enviar comprovante)\n- Link: navegação (exemplo: Ver relatórios)\n\n## Como selecionar\n\n## Como avisar\n\nO Toast é temporário, aparece sobre o conteúdo e some sozinho: serve para mensagens breves, como uma confirmação. O Alert é fixo e persistente, no fluxo da tela. O Modal exige uma ação, como confirmar ou preencher, antes de a pessoa seguir.\n\n- Toast: temporário, sobre o conteúdo (exemplo: Comprovante enviado)\n- Alert: fixo, no fluxo da tela (exemplo: Depósito agendado · O saldo cai na conta das pessoas colaboradoras no dia 5.)\n\n## Jogo: Qual é o componente?\n\nSeis componentes ao vivo. Diga o nome de cada um.\n\n## Quiz\n\nCinco perguntas sobre o treinamento."
-    },
-    {
-     "id": "tema-caju",
-     "title": "Tema Caju",
-     "text": "**O básico do Tema Caju** — Tokens no lugar de valores soltos, a escala de 4px, a área de toque e a elevação.\n\n## Token no lugar do valor\n\n## A escala de 4px\n\nA escala parte de uma unidade base de 4px: quase todos os valores, de 4 a 200px, são múltiplos dela. Na prática, seis tamanhos atendem cerca de 90% dos layouts.\n\n(Tokens: sizes-default — ver a ferramenta de tokens.)\n\n## Área de toque\n\nA referência de área de toque é 48px (`Common/Sizes/48`). No mobile, use o Main Button Medium nas ações de toque, e todo ícone clicável fica dentro de um Icon Button.\n\n- Main Button Medium: 48px (exemplo: Ação primária)\n- Main Button Small: 40px, abaixo da referência (exemplo: Ação primária)\n\n## Elevação\n\nAs sombras são três níveis, `Common/Elevation/level 1` a `level 3`. Escolha o nível para ver o card subir.\n\n(Tokens: elevation — ver a ferramenta de tokens.)\n\n## Jogo: Certo ou errado?\n\nSeis cenas. Para cada uma, diga se é uso certo do tema ou não.\n\n## Quiz\n\nCinco perguntas sobre o treinamento."
-    },
-    {
-     "id": "motion",
-     "title": "Motion",
-     "text": "**Motion sem mistério** — Os princípios, os Motion Styles dos componentes, as durações e as curvas.\n\n## Três princípios\n\n- **Simples** — As transições são suaves e intuitivas, facilitando o aprendizado em sistemas complexos.\n- **Eficiente** — O movimento fornece respostas claras e destaca o que realmente importa.\n- **Consistente** — Movimentos suaves e previsíveis garantem uniformidade em todas as plataformas.\n\n## Motion Styles\n\nOs componentes não escolhem duração nem curva na mão: usam os Motion Styles (`/01`), um por interação. Passe o mouse e pressione o botão para ver dois deles.\n\nExemplo: Pagar\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n## Duração pelo tamanho do movimento\n\nA duração depende do tamanho do movimento e da distância que ele percorre na tela: quanto maior a distância, mais longa a animação.\n\n| Família | Valores | Quando usar |\n|---|---|---|\n| Short | 50 a 200ms | Interações rápidas, como hover, cliques e elementos pequenos. |\n| Medium | 250 a 400ms | Cliques de botões, entrada de caixas, transformações e animações de saída. |\n| Long | 450 a 600ms | Entradas de toast, expansões e animações de entrada na tela. |\n| Extra-long | 700 a 1000ms | Momentos especiais, como efeitos uau ou celebrações. |\n\n## Curvas\n\nAs curvas dão vida ao movimento: os elementos aceleram no início e desaceleram quando param. A Decelerate é empregada na remoção de elementos, para uma saída rápida e contínua. Passe o mouse para ver cada curva.\n\n(Tokens: easing — ver a ferramenta de tokens.)\n\n## Jogo: Certo ou errado?\n\nSeis cenas de motion. Diga se cada uma segue o Castanha DS.\n\n## Quiz\n\nCinco perguntas sobre o treinamento."
-    },
-    {
-     "id": "conteudo",
-     "title": "Conteúdo",
-     "text": "**Escrever como a Caju** — Os pilares do tom de voz, as palavras que incluem e a pontuação de cada parte da tela.\n\n## Três pilares\n\n- **Hospitalidade** — Reduzir esforço, orientar, acolher, acompanhar e celebrar nos momentos importantes.\n- **Simplicidade** — Escrever o suficiente para que as pessoas entendam o que está acontecendo e o que precisam fazer.\n- **Brasilidade** — Uma linguagem natural, próxima e descomplicada, sem gírias, regionalismos ou expressões caricatas.\n\n## Cuidado, não informalidade\n\nEscreva como alguém atento a quem está do outro lado: pergunte, dê contexto e explique os próximos passos. Expressões como \"Ei\", \"Ops!\", \"Hmm…\" ou \"Beleza?\" podem soar impacientes ou irônicas depois de um erro. Evite em qualquer momento. Para fazer companhia, prefira \"vamos\" e \"a gente\".\n\n## Palavras que incluem\n\nPrefira verbos de entendimento e acesso, que acolhem também quem usa leitor de tela.\n\n| Em vez de | Use |\n|---|---|\n| Ver como funciona | Entender como funciona |\n| Ver saldo | Consultar saldo |\n| Ver mais | Nome da área ou Acessar {área} |\n\n## Pontuação\n\n| Parte da tela | Regra |\n|---|---|\n| Título e CTA | Sem ponto final. |\n| Descrição | Com ponto final. |\n| Exclamação | Só na descrição, uma por tela. |\n| Dois pontos | Para introduzir uma lista. Nunca em títulos. |\n\n## Jogo: Certo ou errado?\n\nSeis textos de tela. Diga se cada um segue o guia de Conteúdo.\n\n## Quiz\n\nCinco perguntas sobre o treinamento."
-    },
-    {
-     "id": "ilustracao",
-     "title": "Ilustração",
-     "text": "**Ilustração da Caju** — O estilo, as categorias, as cores dos personagens e a acessibilidade.\n\n## Estilo\n\nO estilo de ilustração da Caju é orgânico e fluido, com linhas majoritariamente curvas, para uma comunicação amigável e convidativa. A brasilidade vem de artistas modernistas e contemporâneos e de elementos do dia a dia.\n\n## Categorias\n\n- **Personagens** — Para uma narrativa mais acolhedora e empática.\n- **Objetos** — O tipo mais comum: apresenta funcionalidades, ações ou informações de forma simbólica.\n- **Feedback** — Reforça mensagens de ações e estados do sistema e sugere os próximos passos.\n- **Hero** — Para gerar momentos WOW, com composições de impacto.\n\n## Cores dos personagens\n\nAs roupas dos personagens são sempre em tons quentes ou terrosos, como laranja, vermelho, marrom e vinho. O verde aparece em acessórios e calçados. Tons frios, como verde, azul e roxo, entram nos detalhes de cenário, para equilibrar.\n\n## Acessibilidade\n\nQuando a ilustração só decora e o texto ao lado já diz tudo, ela fica sem texto alternativo (`alt=\"\"`), para o leitor de tela não repetir a mensagem.\n\n## Jogo: Qual é a categoria?\n\nSeis ilustrações da biblioteca. Diga a categoria de cada uma.\n\n## Quiz\n\nCinco perguntas sobre o treinamento."
-    },
-    {
-     "id": "camadas",
-     "title": "Camadas do DS",
-     "text": "**Do token à tela** — Como as camadas do Castanha DS se conectam e quem cria e mantém cada coisa.\n\n## A cascata\n\nO Castanha DS funciona em camadas. Cada camada aponta para a de cima e nunca pula uma camada. Por isso uma marca nova ou o tema escuro mudam o tema e o Brand Style, sem tocar nos componentes nem nas telas.\n\n| Camada | O que é |\n|---|---|\n| Primitives | Os valores, chamados pelo valor. |\n| Themes | A intenção: Light e Dark apontam para primitivos diferentes. |\n| Brand Style | O espelho `Common/` que chega ao código. |\n| Styles | Texto, Motion Styles, elevação e Viewport prontos. |\n| Componentes | O que o time do DS publica e mantém. |\n| Composição | O arranjo de componentes numa tela. |\n\n## Regras de ouro\n\n| Regra | Na prática |\n|---|---|\n| Siga a cascata | O componente usa o Brand Style, que aponta para o tema, que aponta para o primitivo. |\n| Marca e tema escuro mudam no tema | O mesmo token aponta para outro valor em cada mode. O componente continua igual. |\n| Espelhe em Common/ | Só o Brand Style chega ao código. |\n| Primitivo se chama pelo valor | A intenção mora no tema, não no primitivo. |\n| Publique em cascata | Primeiro o tema, depois o Brand Style. |\n| Cada token no seu lugar | Token de texto em texto, de borda em borda, de superfície em fundo. |\n\n## Quem cria e quem mantém\n\nAntes de criar algo, a pergunta do InnerSource: outro time precisaria disso sem saber que você criou? Componente do DS é do time do DS. Local asset é de um único time. Composição é uma tela: não vira team component.\n\n## Jogo: Certo ou errado?\n\nSeis decisões de token e de biblioteca. Diga se cada uma segue as camadas.\n\n## Quiz\n\nCinco perguntas sobre o treinamento."
-    }
-   ]
+   "zeroheight": null
   },
   {
    "id": "changelog",

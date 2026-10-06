@@ -1,0 +1,17 @@
+/* =====================================================================
+   Toolbar · [CastanhaDS] Sponsor Templates (5585:2) — 1158×120 no Figma; aqui ocupa a largura do container
+   Medidas lidas do Figma: coluna gap 24 · Filter Controls gap 58 (valor sem token no Figma, C179)
+   Search Fields gap 20 · Action Controls gap 12
+   ===================================================================== */
+cds-sponsor-toolbar{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-24); box-sizing:border-box; width:100%; min-width:0; container-type:inline-size; }
+cds-sponsor-toolbar [hidden]{ display:none !important; }
+.cds-sptb__tabs{ --cds-tab-width:320px; flex:0 0 auto; }
+.cds-sptb__filters{ display:flex; align-items:center; gap:58px; width:100%; min-width:0; }
+.cds-sptb__search{ flex:1 1 0; min-width:0; display:flex; align-items:center; gap:var(--common-sizes-20); }
+.cds-sptb__search > .cds-tf{ flex:1 1 0; width:auto; min-width:0; }
+.cds-sptb__actions{ flex:0 0 auto; display:flex; align-items:center; gap:var(--common-sizes-12); }
+/* Figma: os Main Buttons da Toolbar estão no tamanho do conteúdo (107), abaixo do mínimo de 136 do componente (C180) */
+.cds-sptb__actions > cds-main-button > .cds-btn{ --_min-w:0px; }
+/* Container estreito (o Figma só tem o desktop): as ações descem para a linha de baixo e, abaixo de 560, os campos empilham */
+@container (max-width:900px){ .cds-sptb__filters{ flex-wrap:wrap; row-gap:var(--common-sizes-20); } .cds-sptb__search{ flex-basis:100%; } }
+@container (max-width:560px){ .cds-sptb__search{ flex-wrap:wrap; } .cds-sptb__search > .cds-tf{ flex-basis:100%; } .cds-sptb__actions{ flex-wrap:wrap; } }

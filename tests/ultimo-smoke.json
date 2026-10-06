@@ -1,7 +1,7 @@
 {
  "componentes": {
-  "total": 115,
-  "ok": 115,
+  "total": 116,
+  "ok": 116,
   "falhas": [],
   "avisos": [
    {
@@ -50,6 +50,12 @@
     ]
    },
    {
+    "id": "sponsor-toolbar",
+    "warnings": [
+     "contraste (escuro): “Filtros” 3.74:1 (C127)"
+    ]
+   },
+   {
     "id": "table",
     "warnings": [
      "mobile: 1053px > 360px do frame (C129)"
@@ -72,8 +78,8 @@
   ]
  },
  "docs": {
-  "docs": 126,
-  "tabs": 709,
+  "docs": 127,
+  "tabs": 711,
   "falhas": [],
   "avisos": []
  }

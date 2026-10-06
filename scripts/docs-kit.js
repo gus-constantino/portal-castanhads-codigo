@@ -67,7 +67,16 @@
         part.slice(1, -1).split(/(?<=[^\/-][\/-])/).forEach(function(seg, i){ if (i) c.appendChild(document.createElement("wbr")); c.appendChild(document.createTextNode(seg)); });
         n.appendChild(c);
       }
-      else if (part) n.appendChild(document.createTextNode(part));
+      else if (part){
+        // [texto](url) vira Link do DS (externo abre em outra aba, com o ícone de link); #/… navega no playground
+        part.split(/(\[[^\]]+\]\((?:https?:\/\/|#\/)[^)\s]+\))/).forEach(function(seg){
+          var m = seg.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
+          if (!m){ if (seg) n.appendChild(document.createTextNode(seg)); return; }
+          var l = el("cds-link", "pg-doc-inline-link"); l.setAttribute("label", m[1]); l.setAttribute("href", m[2]); l.setAttribute("appearance", "accent");
+          if (/^https?:/.test(m[2])){ l.setAttribute("target", "_blank"); l.setAttribute("icon", "link-line"); } else l.setAttribute("show-trailing-item", "false");
+          n.appendChild(l);
+        });
+      }
     });
     return n;
   }
@@ -435,6 +444,16 @@
       q.addEventListener("cds-clear", function(){ term = ""; run(); });
       run();
       return wrap;
+    },
+    // Imagens com legenda (prints e painéis do Figma/Hub), em grade; { items: [{ src, alt, caption }] } ou uma lista
+    figures: function(d, v){
+      var items = Array.isArray(v) ? v : v.items, g = el("div", "pg-doc-figures" + (items.length === 1 ? " is-single" : ""));
+      items.forEach(function(it){
+        var f = g.appendChild(el("figure", "pg-doc-fig")), im = el("img", "pg-doc-fig__img");
+        im.src = it.src; im.alt = it.alt || ""; im.loading = "lazy"; im.decoding = "async"; f.appendChild(im);
+        if (it.caption) f.appendChild(rich(el("figcaption", "pg-doc-fig__cap"), it.caption));
+      });
+      return g;
     },
     // Grade de vídeos: cada item é um bloco video com heading (ex.: treinamentos em várias partes)
     videos: function(d, v){

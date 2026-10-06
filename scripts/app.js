@@ -287,7 +287,8 @@
     // Templates: depois de Componentes e antes dos recursos. Título da seção + um Accordion Item por produto (App, Sponsor…)
     var tpls = shown.filter(function(c){ return c.template && !c.resource; });
     if (tpls.length){
-      var tbox = document.createDocumentFragment(), tt = kit.el("p", { "class": "pg-nav-title", id: "nav-sec-templates", text: "Templates" });
+      // o título entra no menu antes do Tooltip: o kit.tip põe o Tooltip ao lado do alvo (sem pai, iria para o fim da página)
+      var tbox = document.createDocumentFragment(), tt = tbox.appendChild(kit.el("p", { "class": "pg-nav-title", id: "nav-sec-templates", text: "Templates" }));
       kit.tip(tt, "Telas e partes de tela prontas de cada produto, montadas com componentes do DS.", { text: true });
       var tul = kit.el("ul", { "class": "pg-nav", "aria-labelledby": "nav-sec-templates" });
       templateGroups(tpls).forEach(function(g){
@@ -295,7 +296,7 @@
         acc.setAttribute("description", g.items.length + (g.items.length === 1 ? " template" : " templates"));
         tul.appendChild(kit.el("li", null, [acc]));
       });
-      tbox.appendChild(tt); tbox.appendChild(tul);
+      tbox.appendChild(tul);
       navRes.insertBefore(tbox, navRes.firstChild);
     }
     navFound.hidden = !navFound.children.length; navRes.hidden = !navRes.children.length;

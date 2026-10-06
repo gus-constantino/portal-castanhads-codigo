@@ -14,8 +14,8 @@
     { id: "conferir", title: "Conferir", file: "docs/CONFERIR.md", groups: [
       ["Em aberto, por tipo", ["Ajuste de texto", "Ajuste de UI", "Motion", "Refactor", "Naming", "Acessibilidade", "Documentação", "Integração React"]],
       ["Fechados", ["Resolvidos"]], ["Referência", ["Como usar esta lista"]] ] },
-    { id: "saude", title: "Saúde técnica", file: "docs/SAUDE-TECNICA.md", groups: [ // gerado pelo build-index (smoke, peso, numeração)
-      ["Resumo", ["Resumo"]], ["Smoke", ["Componentes", "Docs"]], ["Peso e numeração", ["Peso", "Numeração D/C"]], ["Referência", ["Como rodar"]] ] },
+    { id: "saude", title: "Saúde técnica", file: "docs/SAUDE-TECNICA.md", groups: [ // gerado pelo build-index (smoke e peso)
+      ["Resumo", ["Resumo"]], ["Smoke", ["Componentes", "Docs"]], ["Peso", ["Peso"]], ["Referência", ["Como rodar"]] ] },
     { id: "stack", title: "Stack React", file: "integration/SAUDE-STACK.md", groups: [ // R2: check Figma × castanha-react × playground
       ["Resumo", ["Resumo"]], ["Por nível", ["Alta", "Média", "Informativo"]], ["Tokens e assets", ["Tokens", "Assets"]], ["Histórico", ["Histórico"]], ["Referência", ["Como rodar"]] ] },
     { id: "arquitetura", title: "Arquitetura", file: "docs/ARCHITECTURE.md", groups: [
@@ -345,10 +345,10 @@
       tx.appendChild(el("span", null, esc(plain(r[1]).replace(/^(.{180}).+$/, "$1…"))));
       if (r[2]) li.appendChild(el("p", "rp-list__note", esc(plain(r[2]))));
     });
-    // Sinais vitais: o resumo da Saúde técnica (smoke, docs, peso, numeração) e o check da stack React, em blocos com status
+    // Sinais vitais: o resumo da Saúde técnica (smoke, docs, peso) e o check da stack React, em blocos com status
     var p0 = panel(grid, "Sinais vitais", "Último build e check da stack · detalhes nas tabs Saúde técnica e Stack React", "rp-panel--wide");
     var vit = p0.appendChild(el("div", "rp-vitals"));
-    var NAMES = [[/smoke dos componentes/i, "Componentes", "view-module-line"], [/smoke das docs/i, "Docs", "document-line"], [/peso/i, "Peso da 1ª visita", "download-line"], [/numera/i, "Numeração D/C", "tests-line"]];
+    var NAMES = [[/smoke dos componentes/i, "Componentes", "view-module-line"], [/smoke das docs/i, "Docs", "document-line"], [/peso/i, "Peso da 1ª visita", "download-line"]];
     rows(sec(docs.saude, function(s){ return s.title === "Resumo"; }).lines).forEach(function(r){
       var nm = NAMES.filter(function(x){ return x[0].test(r[0]); })[0], res = plain(r[1] || "");
       var st = /❌/.test(res) ? ["negative", "Falhou"] : /⚠️/.test(res) ? ["warning", "Com avisos"] : ["positive", "Em dia"];

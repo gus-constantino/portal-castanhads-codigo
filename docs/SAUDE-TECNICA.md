@@ -9,8 +9,6 @@
 | Smoke dos componentes (claro, escuro, mobile 360) | ✅ 110/110 ok · ⚠️ 10 com aviso |
 | Smoke das docs (desktop e 375px) | ✅ 121 docs · 694 tabs · 0 com problema |
 | Peso da primeira visita | ✅ 459 KB gzip de 600 KB · docs sob demanda: 103 arquivos |
-| Numeração D/C | ✅ D 227 · C 173 |
-
 ## Componentes
 
 Nenhuma falha.
@@ -40,7 +38,7 @@ Nenhum aviso.
 
 | Parte | Bruto | gzip |
 |---|---|---|
-| Primeira visita (tudo o que o index.html carrega) | 1975 KB | 459 KB |
+| Primeira visita (tudo o que o index.html carrega) | 1979 KB | 459 KB |
 | dist/cds.js · componentes (110 arquivos) | 300 KB | 75 KB |
 | dist/cds.js · playgrounds (103 arquivos) | 149 KB | 25 KB |
 | dist/cds.js · recursos (27 arquivos) | 442 KB | 130 KB |
@@ -48,18 +46,11 @@ Nenhum aviso.
 
 Limite: 600 KB gzip na primeira visita (aviso no build; `BUDGET_STRICT=1` faz falhar).
 
-## Numeração D/C
-
-Última decisão: **D227** (docs/ROADMAP.md) · último item a conferir: **C173** (docs/CONFERIR.md).
-
-Linha nova usa apelido (`D+nome` / `C+nome`); `node scripts/dev/numerar.js` numera depois do merge. O CI roda `numerar.js --check`.
-
 ## Como rodar
 
 ```
 node scripts/build-index.js --smoke     # build + smoke (componentes e docs) + este painel
 node scripts/dev/smoke.js --avisos      # só o smoke, listando os avisos
-node scripts/dev/numerar.js --check     # numeração D/C
 ```
 
 O GitHub roda o mesmo em todo push na `teste` e na `main` (aba Actions).

@@ -216,17 +216,13 @@ if (process.argv.includes("--smoke")){
 }
 
 // ---------- Painel de saúde (docs/SAUDE-TECNICA.md → tab "Saúde técnica" do relatório) ----------
-// Junta o último smoke (tests/ultimo-smoke.json, gravado pelo scripts/dev/smoke.js), o peso da primeira visita e a
-// numeração D/C. Sem horário nem duração: o arquivo só muda quando algum resultado muda.
+// Junta o último smoke (tests/ultimo-smoke.json, gravado pelo scripts/dev/smoke.js) e o peso da primeira visita.
+// A numeração D/C fica fora do site (pedido do Gustavo, 06/10): segue no CI e no numerar.js --check. Sem horário nem duração: o arquivo só muda quando algum resultado muda.
 (function saude(){
   const rel = (f) => path.join(ROOT, f);
   const sm = fs.existsSync(rel("tests/ultimo-smoke.json")) ? JSON.parse(fs.readFileSync(rel("tests/ultimo-smoke.json"), "utf8")) : null;
   const ok = (b) => (b ? "✅" : "❌"), warn = (n) => (n ? " · ⚠️ " + n + " com aviso" : "");
   const esc = (t) => String(t).replace(/\|/g, "\\|");
-  const nums = (f, k) => { const m = fs.readFileSync(rel(f), "utf8").match(new RegExp("^\\| " + k + "(\\d+) \\|", "gm")) || []; const n = m.map((x) => +x.replace(/\D/g, "")); return { max: Math.max(0, ...n), dup: n.filter((x, i) => n.indexOf(x) !== i) }; };
-  const D = nums("docs/ROADMAP.md", "D"), C = nums("docs/CONFERIR.md", "C");
-  const alias = /\| [DC]\+[a-z0-9]/.test(fs.readFileSync(rel("docs/ROADMAP.md"), "utf8") + fs.readFileSync(rel("docs/CONFERIR.md"), "utf8"));
-  const numOk = !D.dup.length && !C.dup.length && !alias;
   const zipKb = Math.round(zip / 1024), L = [];
   L.push("# Saúde técnica", "", "> Gerado por `node scripts/build-index.js` (o smoke entra com `--smoke`). Não editar à mão: regere o build.", "");
   L.push("## Resumo", "", "| Verificação | Resultado |", "|---|---|");
@@ -236,7 +232,6 @@ if (process.argv.includes("--smoke")){
     L.push(d ? `| Smoke das docs (desktop e 375px) | ${ok(!d.falhas.length)} ${d.docs} docs · ${d.tabs} tabs · ${d.falhas.length} com problema${warn(d.avisos.length)} |` : "| Smoke das docs | — (rodado com `--sem-docs`) |");
   } else L.push("| Smoke | — ainda não rodado (`node scripts/build-index.js --smoke`) |");
   L.push(`| Peso da primeira visita | ${ok(zipKb <= BUDGET_KB)} ${zipKb} KB gzip de ${BUDGET_KB} KB · docs sob demanda: ${lazy.length} arquivos |`);
-  L.push(`| Numeração D/C | ${ok(numOk)} D ${D.max} · C ${C.max}${D.dup.length || C.dup.length ? " · repetidos: " + D.dup.map((x) => "D" + x).concat(C.dup.map((x) => "C" + x)).join(", ") : ""}${alias ? " · há apelido sem número (rodar numerar.js)" : ""} |`, "");
   if (sm){
     const list = (title, falhas, avisos, label) => {
       L.push("## " + title, "");
@@ -251,8 +246,7 @@ if (process.argv.includes("--smoke")){
   L.push("## Peso", "", "| Parte | Bruto | gzip |", "|---|---|---|", `| Primeira visita (tudo o que o index.html carrega) | ${kb(raw).trim()} | ${kb(zip).trim()} |`);
   Object.keys(parts).forEach((k) => { const b = Buffer.concat(parts[k].map((r) => fs.readFileSync(rel(r)))); L.push(`| dist/cds.js · ${k} (${parts[k].length} arquivos) | ${kb(b.length).trim()} | ${kb(gz(b)).trim()} |`); });
   L.push(`| Docs sob demanda (${lazy.length} arquivos, uma por componente aberto) | — | ${kb(lazyZip).trim()} no total |`, "", `Limite: ${BUDGET_KB} KB gzip na primeira visita (aviso no build; \`BUDGET_STRICT=1\` faz falhar).`, "");
-  L.push("## Numeração D/C", "", `Última decisão: **D${D.max}** (docs/ROADMAP.md) · último item a conferir: **C${C.max}** (docs/CONFERIR.md).`, "", "Linha nova usa apelido (`D+nome` / `C+nome`); `node scripts/dev/numerar.js` numera depois do merge. O CI roda `numerar.js --check`.", "");
-  L.push("## Como rodar", "", "```", "node scripts/build-index.js --smoke     # build + smoke (componentes e docs) + este painel", "node scripts/dev/smoke.js --avisos      # só o smoke, listando os avisos", "node scripts/dev/numerar.js --check     # numeração D/C", "```", "", "O GitHub roda o mesmo em todo push na `teste` e na `main` (aba Actions).", "");
+  L.push("## Como rodar", "", "```", "node scripts/build-index.js --smoke     # build + smoke (componentes e docs) + este painel", "node scripts/dev/smoke.js --avisos      # só o smoke, listando os avisos", "```", "", "O GitHub roda o mesmo em todo push na `teste` e na `main` (aba Actions).", "");
   const out = L.join("\n"), file = rel("docs/SAUDE-TECNICA.md");
   if (!fs.existsSync(file) || fs.readFileSync(file, "utf8") !== out){ fs.writeFileSync(file, out); console.log("Painel de saúde atualizado: docs/SAUDE-TECNICA.md"); }
 })();

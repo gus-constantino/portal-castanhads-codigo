@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 253 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 254 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.js ==== */
 try {
 /**
@@ -8532,17 +8532,30 @@ try {
  *   (Title/Small · Text/intense) · Selection List (inert depois de responder) · Alert (depois de responder) · .Actions (Main Button)
  *   Resultado: ilustração 120 · título (Title/Small) · texto (Body/Regular · Text/medium) · Main Button Secondary
  *
- * Dados: propriedade `questions` antes de conectar: [{ q, options: [texto…], answer: índice, why, visual: função que devolve o elemento }]
- *   e `results` (opcional): [{ min, illustration, title, text }] — o primeiro cujo min ≤ acertos.
- * Atributos: label (nome do quiz, aria-label do grupo)
- * Evento: cmp-quiz-done { score, total }
+ * Modo Certo ou errado (kind="verdict"): no lugar da lista, a cena (visual + afirmação) e dois Main Buttons Neutral,
+ *   "Use" (positive-line) e "Não use" (close-line). Respondeu, os botões saem e entra o Alert.
+ *
+ * Dados (propriedades, antes de conectar):
+ *   questions  escolha: [{ q, options: [texto…], answer: índice, why, visual }] · verdict: [{ q, answer: "do"|"dont", why, visual }]
+ *              visual = função que devolve o elemento (montado por quem usa, com componentes do DS)
+ *   results    (opcional) [{ min, illustration, title, text }] — o primeiro cujo min ≤ acertos
+ *   right / wrong  (opcional) frases do rótulo do Alert, uma por pergunta em rodízio
+ * Atributos: label (nome, aria-label do grupo) · kind ("choice" padrão | "verdict") · storage-key (guarda o melhor resultado
+ *   no localStorage de quem joga, só como conveniência: nada sai do navegador) · unit ("Pergunta" padrão; "Cena" no verdict)
+ * Evento: cmp-quiz-done { score, total, best }
  */
 (function(){
   "use strict";
   var uid = 0;
-  var RIGHT = ["Na mosca!", "Isso!", "O dev agradece!"], WRONG = ["Quase!", "Ops, essa vira suposição.", "Não foi dessa vez."];
+  var RIGHT = ["Na mosca!", "Isso!", "Mandou bem!"], WRONG = ["Quase!", "Não foi dessa vez.", "Ops!"];
+  var VERDICT = { "do": "Use", dont: "Não use" };
+  function load(k){ try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e){ return null; } }
+  function save(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch (e){} }
   class CmpQuiz extends CDS.Element {
     static get observedAttributes(){ return ["label"]; }
+    get verdict(){ return this.getAttribute("kind") === "verdict"; }
+    get unit(){ return this.getAttribute("unit") || (this.verdict ? "Cena" : "Pergunta"); }
+    get best(){ var k = this.getAttribute("storage-key"); return k ? load("cds-quiz:" + k) : null; }
     render(){
       if (!this._built){
         this._built = true; this._name = "cmp-quiz-" + (++uid);
@@ -8560,35 +8573,46 @@ try {
       b.innerHTML = "";
       if (!q) return this.result();
       var head = b.appendChild(c("div", null, "cmp-quiz__head"));
-      head.appendChild(c("cds-nav-control", { viewport: "mobile", total: String(n), current: String(this.i + 1), label: "Pergunta {n} de {total}" }));
-      head.appendChild(c("span", { "aria-hidden": "true" }, "cmp-quiz__count")).textContent = "Pergunta " + (this.i + 1) + " de " + n;
+      head.appendChild(c("cds-nav-control", { viewport: "mobile", total: String(n), current: String(this.i + 1), label: this.unit + " {n} de {total}" }));
+      head.appendChild(c("span", { "aria-hidden": "true" }, "cmp-quiz__count")).textContent = this.unit + " " + (this.i + 1) + " de " + n;
       if (q.visual){ // visual da pergunta (montado por quem usa, com componentes do DS), acima da pergunta
         var vis = c("div", null, "cmp-quiz__vis"); vis.appendChild(q.visual()); b.appendChild(vis);
       }
       var qid = this._name + "-q" + this.i;
       b.appendChild(c("p", { id: qid }, "cmp-quiz__q")).textContent = q.q;
+      var fb, act, pick = function(a){ return a[self.i % a.length]; };
+      // Respondeu: Alert com o porquê (mensagem entra antes de o Alert conectar) e o Main Button de avançar
+      function answered(ok, right){
+        if (ok) self.score++;
+        var al = c("cds-alert", { appearance: ok ? "positive" : "warning", label: ok ? pick(self.right || RIGHT) : pick(self.wrong || WRONG), "show-close-button": "false" });
+        al.appendChild(c("span")).textContent = (ok ? "" : "A resposta é: " + right + ". ") + q.why;
+        fb.appendChild(al);
+        var last = self.i === n - 1;
+        var btn = act.appendChild(c("cds-main-button", { label: last ? "Ver resultado" : "Próxima " + self.unit.toLowerCase(), "show-lead-icon": "false", "show-trailing-icon": last ? "false" : "true", "trailing-icon": "navigation-right-line" }));
+        btn.addEventListener("click", function(){ self.i++; self.show(); var h = self.body.querySelector(".cmp-quiz__q, .cmp-quiz__title"); if (h){ h.tabIndex = -1; h.focus({ preventScroll: true }); } });
+      }
+      if (this.verdict){
+        var row = c("div", { role: "group", "aria-label": "Sua resposta" }, "cmp-quiz__verdict");
+        ["do", "dont"].forEach(function(k){
+          var vb = row.appendChild(c("cds-main-button", { label: VERDICT[k], appearance: "neutral", "show-lead-icon": "true", "lead-icon": k === "do" ? "positive-line" : "close-line", "show-trailing-icon": "false" }));
+          vb.addEventListener("click", function(){ if (row.inert) return; row.inert = true; row.hidden = true; answered(k === q.answer, VERDICT[q.answer]); });
+        });
+        b.appendChild(row);
+        fb = b.appendChild(c("div", null, "cmp-quiz__fb")); act = b.appendChild(c("div", null, "cmp-quiz__actions"));
+        return;
+      }
       // Itens entram antes de a lista conectar (sem filhos, a Selection List monta a amostra de 12)
       var sl = c("cds-selection-list", { kind: "card", label: q.q });
       q.options.forEach(function(o, k){
         sl.appendChild(c("cds-selection-list-item", { "trailing-item": "radio-button", name: qid, value: String(k), label: o, "show-lead-item": "false", "show-description": "false" }));
       });
       b.appendChild(sl);
-      var fb = b.appendChild(c("div", null, "cmp-quiz__fb"));
-      var act = b.appendChild(c("div", null, "cmp-quiz__actions"));
+      fb = b.appendChild(c("div", null, "cmp-quiz__fb")); act = b.appendChild(c("div", null, "cmp-quiz__actions"));
       sl.addEventListener("cds-change", function(e){
-        if (self._answered) return;
+        if (sl.inert) return;
         var v = (e.detail.values || [])[0]; if (v == null) return;
-        self._answered = true;
-        var ok = Number(v) === q.answer; if (ok) self.score++;
         sl.inert = true; // trava a resposta sem o visual de Disabled: a opção escolhida segue marcada
-        var pick = function(a){ return a[self.i % a.length]; };
-        // Mensagem entra antes de o Alert conectar (filhos viram o Text Content)
-        var al = c("cds-alert", { appearance: ok ? "positive" : "warning", label: ok ? pick(RIGHT) : pick(WRONG), "show-close-button": "false" });
-        al.appendChild(c("span")).textContent = (ok ? "" : "A resposta é: " + q.options[q.answer] + ". ") + q.why;
-        fb.appendChild(al);
-        var last = self.i === n - 1;
-        var btn = act.appendChild(c("cds-main-button", { label: last ? "Ver resultado" : "Próxima pergunta", "show-lead-icon": "false", "show-trailing-icon": last ? "false" : "true", "trailing-icon": "navigation-right-line" }));
-        btn.addEventListener("click", function(){ self._answered = false; self.i++; self.show(); var h = self.body.querySelector(".cmp-quiz__q, .cmp-quiz__title"); if (h){ h.tabIndex = -1; h.focus({ preventScroll: true }); } });
+        answered(Number(v) === q.answer, q.options[q.answer]);
       });
     }
     result(){
@@ -8598,11 +8622,14 @@ try {
       var box = b.appendChild(c("div", { "aria-live": "polite" }, "cmp-quiz__result"));
       if (r.illustration && ills[r.illustration]){ var im = box.appendChild(c("img", { alt: "", width: "120", height: "120" }, "cmp-quiz__ill")); im.src = ills[r.illustration]; }
       box.appendChild(c("p", null, "cmp-quiz__score")).textContent = s + " de " + n + " acertos";
+      var key = this.getAttribute("storage-key"), best = this.best;
+      if (key && (!best || s > best.score)){ best = { score: s, total: n }; save("cds-quiz:" + key, best); }
       box.appendChild(c("p", null, "cmp-quiz__title")).textContent = r.title;
       if (r.text) box.appendChild(c("p", null, "cmp-quiz__text")).textContent = r.text;
-      var again = box.appendChild(c("cds-main-button", { label: "Refazer o quiz", appearance: "neutral", "show-lead-icon": "true", "lead-icon": "refresh-line", "show-trailing-icon": "false" }));
+      if (best) box.appendChild(c("cds-tag", { label: "Seu melhor: " + best.score + " de " + best.total, appearance: best.score === best.total ? "positive" : "neutral", "show-lead-item": "false" }));
+      var again = box.appendChild(c("cds-main-button", { label: this.verdict ? "Jogar de novo" : "Refazer o quiz", appearance: "neutral", "show-lead-icon": "true", "lead-icon": "refresh-line", "show-trailing-icon": "false" }));
       again.addEventListener("click", function(){ self.restart(); });
-      this.dispatchEvent(new CustomEvent("cmp-quiz-done", { detail: { score: s, total: n }, bubbles: true }));
+      this.dispatchEvent(new CustomEvent("cmp-quiz-done", { detail: { score: s, total: n, best: best }, bubbles: true }));
     }
   }
   CmpQuiz.define("cmp-quiz");
@@ -10104,6 +10131,175 @@ try {
   });
 })();
 } catch (e) { console.error("[cds] resources/capacitacoes/capacitacoes.js", e); }
+
+/* ==== resources/castanha-quiz/castanha-quiz.js ==== */
+try {
+/* Castanha Quiz (Aprenda): treinamentos rápidos sobre temas do portal, cada um com jogo e quiz (pedido do Gustavo, 06/10).
+   Formato por tema, uns 5 minutos: treinamento rápido (blocos curtos com visual ao vivo) · jogo · quiz de 5 perguntas.
+   Todo conteúdo vem do próprio portal (docs dos componentes e Tema Caju), sem regra nova. Jogos e quiz = composição
+   <cmp-quiz> (kind "verdict" = Certo ou errado); o melhor resultado fica no localStorage de quem joga (storage-key).
+   Etapa 1: Componentes e Tema Caju. Etapa 2: Motion, Conteúdo, Ilustração e Camadas do DS. */
+(function(){
+  window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
+  CDS.register({ id: "castanha-quiz", name: "Castanha Quiz", resource: true, lede: "Treinamentos rápidos sobre o Castanha DS, com jogo e quiz.", order: 6 });
+
+  var c = function(t, a, k){ return CDS.create(t, a, k); };
+  function txt(tag, cls, t){ var e = c(tag, null, cls); e.textContent = t; return e; }
+  // Visual de pergunta ou cena: componentes do DS montados antes de conectar, num palco centralizado
+  function stage(kids){ var s = c("div", null, "pg-cq__stage"); kids.forEach(function(k){ s.appendChild(k); }); return s; }
+  function code(rows){ // linhas de código ou de token: composição Definition List (como nas fichas de Motion)
+    var dl = c("cmp-definition-list", { layout: "inline" });
+    rows.forEach(function(r){ dl.listEl.appendChild(txt("dt", null, r[0])); dl.listEl.appendChild(txt("dd", null, r[1])); });
+    return dl;
+  }
+  function radios(name, labels, sel){
+    var g = c("div", { role: "radiogroup", "aria-label": "Forma de pagamento" }, "pg-doc-sc-group");
+    labels.forEach(function(l, i){ g.appendChild(c("cds-radio-button", { label: l, name: name, status: i === sel ? "selected" : "unselected" })); });
+    return g;
+  }
+
+  var V = {
+    // Treinamento · Componentes: escolher o controle de seleção
+    selecao: function(){
+      var col = function(t, d, kids){ var k = c("div", null, "pg-cq__col"); k.appendChild(txt("p", "pg-cq__cap", t)); k.appendChild(txt("p", "pg-cq__desc", d)); var g = c("div", null, "pg-doc-sc-group"); kids.forEach(function(x){ g.appendChild(x); }); k.appendChild(g); return k; };
+      var g = c("div", null, "pg-cq__cols");
+      g.appendChild(col("Checkbox", "Várias opções ao mesmo tempo.", [c("cds-checkbox", { label: "Vale-refeição", status: "selected" }), c("cds-checkbox", { label: "Vale-alimentação", status: "selected" }), c("cds-checkbox", { label: "Mobilidade" })]));
+      g.appendChild(col("Radio Button", "Uma opção entre poucas, com confirmação depois.", [radios("cq-sel-rb", ["Pix", "Boleto", "Cartão de crédito"], 0)]));
+      g.appendChild(col("Switch", "Liga ou desliga, com efeito na hora.", [c("cds-switch", { label: "Notificações", status: "selected" }), c("cds-switch", { label: "Compras online" })]));
+      return g;
+    },
+    // Treinamento · Tema Caju: amostras de token (a cor vem da variável; o nome é o do Figma)
+    tokens: function(){
+      var row = c("div", null, "pg-cq__swatches");
+      [["accent-solid-medium", "Accent/Solid/medium"], ["surface-default", "Surface/default"], ["text-intense", "Text/intense"], ["feedback-positive-medium", "Feedback/Positive/medium"], ["border-semi-soft", "Border/semi-soft"]].forEach(function(t){
+        var s = row.appendChild(c("div", null, "pg-cq__swatch"));
+        s.appendChild(c("span", { "aria-hidden": "true", style: "background:var(--common-colors-" + t[0] + ")" }, "pg-cq__chip"));
+        s.appendChild(txt("span", "pg-cq__desc", t[1]));
+      });
+      return row;
+    },
+    // Jogo · Qual é o componente?
+    q: {
+      sw: function(){ return stage([c("cds-switch", { label: "Notificações", status: "selected" })]); },
+      tag: function(){ return stage([c("cds-tag", { label: "Ativo", appearance: "positive", "show-lead-item": "false" })]); },
+      rb: function(){ return stage([radios("cq-game-rb", ["Pix", "Boleto"], 0)]); },
+      link: function(){ return stage([c("cds-link", { label: "Ver relatórios", href: "#/castanha-quiz", appearance: "accent", "show-trailing-item": "false" })]); },
+      ib: function(){ return stage([c("cds-icon-button", { icon: "search-line", label: "Buscar", kind: "default", appearance: "accent" })]); },
+      alert: function(){ var a = c("cds-alert", { appearance: "informative", label: "Depósito agendado", "show-close-button": "false" }); a.appendChild(txt("span", null, "O saldo cai na conta das pessoas colaboradoras no dia 5.")); return stage([a]); }
+    },
+    // Jogo · Certo ou errado? (Tema Caju)
+    v: {
+      ib: function(){ return stage([c("cds-icon-button", { icon: "search-line", label: "Buscar", kind: "default", appearance: "accent" })]); },
+      icon: function(){ return stage([c("cds-icon", { icon: "search-line", size: "medium", appearance: "accent" })]); },
+      small: function(){ return stage([c("cds-main-button", { label: "Continuar", size: "small", "show-lead-icon": "false", "show-trailing-icon": "false" })]); },
+      gap: function(){ return stage([code([["gap", "15px"]])]); },
+      font: function(){ return stage([code([["font", "var(--text-style-body-regular)"]])]); },
+      elev: function(){ var k = c("cds-card", { "has-border": "false", class: "pg-cq__elev" }); k.appendChild(c("cds-text-content", { label: "Saldo disponível", description: "Vale-refeição" })); return stage([k]); }
+    }
+  };
+  // Inert: o visual é para olhar, não para clicar (o clique é na resposta)
+  function look(fn){ return function(){ var e = fn(); e.inert = true; return e; }; }
+
+  var RES = function(game){ return [
+    { min: 5, illustration: "objetos/trofeu", title: "Gabaritou!", text: game ? "Olho de quem conhece o DS de cor." : "Você está pronta ou pronto para usar no dia a dia." },
+    { min: 3, illustration: "objetos/medalha-1", title: "Mandou bem!", text: "Revise o que escapou no treinamento acima e tente de novo." },
+    { min: 0, illustration: "notificacoes/success-low-detail", title: "Bora mais uma?", text: "Passe pelo treinamento de novo. Na segunda vai." }
+  ]; };
+
+  CDS.docs["castanha-quiz"] = {
+    tabs: [
+      { id: "inicio", title: "Início", blocks: [
+        { banner: { area: "aprenda", eyebrow: "Castanha Quiz", heading: "Aprenda jogando", text: "Treinamentos de uns 5 minutos sobre temas do portal. Cada um termina com um jogo e um quiz para testar o que ficou." } },
+        { h2: "Escolha um tema" },
+        { p: "Cada tema tem um treinamento rápido, um jogo e um quiz de 5 perguntas. O seu melhor resultado fica guardado neste navegador." },
+        { shortcuts: [
+          { title: "Componentes", text: "Qual componente usar em cada situação: ação ou navegação, seleção e mensagens. Jogo: Qual é o componente?", illustration: "interfaces/lista", href: "#/castanha-quiz/componentes", cta: "Começar" },
+          { title: "Tema Caju", text: "Tokens, escala de 4px, área de toque e elevação. Jogo: Certo ou errado?", illustration: "interfaces/customizacao", href: "#/castanha-quiz/tema-caju", cta: "Começar" }
+        ] },
+        { note: "Novos temas a caminho: Motion, Conteúdo, Ilustração e Camadas do DS." }
+      ] },
+
+      { id: "componentes", title: "Componentes", blocks: [
+        { banner: { area: "aprenda", eyebrow: "5 min · jogo e quiz", heading: "Qual componente usar?", text: "Três escolhas que aparecem em toda tela: ação ou navegação, como selecionar e como avisar." } },
+        { h2: "Ação ou navegação" },
+        { p: "O Main Button faz uma ação: enviar, excluir, confirmar. Para levar a outra página, use o Link. Use um único Main Button primário (accent) por tela ou seção." },
+        { compare: [
+          { title: "Main Button: ação", attrs: { _tag: "cds-main-button", label: "Enviar comprovante", "show-lead-icon": false, "show-trailing-icon": false } },
+          { title: "Link: navegação", attrs: { _tag: "cds-link", label: "Ver relatórios", href: "#/castanha-quiz/componentes", appearance: "accent", "show-trailing-item": false } }
+        ] },
+        { h2: "Como selecionar" },
+        { visual: { render: V.selecao, text: "Checkbox para seleção múltipla. Radio Button para uma opção entre menos de cinco, em fluxos com confirmação posterior. Switch para ligar ou desligar uma configuração com efeito automático." } },
+        { h2: "Como avisar" },
+        { p: "O Toast é temporário, aparece sobre o conteúdo e some sozinho: serve para mensagens breves, como uma confirmação. O Alert é fixo e persistente, no fluxo da tela. O Modal exige uma ação, como confirmar ou preencher, antes de a pessoa seguir." },
+        { compare: [
+          { title: "Toast: temporário, sobre o conteúdo", attrs: { _tag: "cds-toast", text: "Comprovante enviado", appearance: "positive", viewport: "desktop" } },
+          { title: "Alert: fixo, no fluxo da tela", attrs: { _tag: "cds-alert", appearance: "informative", label: "Depósito agendado", text: "O saldo cai na conta das pessoas colaboradoras no dia 5." } }
+        ] },
+
+        { h2: "Jogo: Qual é o componente?" },
+        { p: "Seis componentes ao vivo. Diga o nome de cada um." },
+        { quiz: { label: "Jogo · Qual é o componente?", storageKey: "componentes-jogo", results: RES(true).map(function(r){ return r.min === 5 ? Object.assign({}, r, { min: 6 }) : r.min === 3 ? Object.assign({}, r, { min: 4 }) : r; }), questions: [
+          { visual: look(V.q.sw), q: "Que componente é este?", options: ["Checkbox", "Switch", "Radio Button"], answer: 1, why: "O Switch liga ou desliga uma configuração, com efeito automático." },
+          { visual: look(V.q.rb), q: "E este?", options: ["Radio Button", "Checkbox", "Switch"], answer: 0, why: "O Radio Button é para seleção única, em conjuntos de menos de cinco opções." },
+          { visual: look(V.q.link), q: "E este?", options: ["Main Button Ghost", "Tag", "Link"], answer: 2, why: "O Link leva para outra página. Para ações, o Main Button." },
+          { visual: look(V.q.tag), q: "E este?", options: ["Tag", "Badge", "Main Button"], answer: 0, why: "A Tag é da família Status: identifica um estado, como Ativo." },
+          { visual: look(V.q.ib), q: "E este?", options: ["Icon", "Icon Button", "Avatar"], answer: 1, why: "Ícone com ação fica dentro do Icon Button: o Medium tem 48px e garante a área de toque." },
+          { visual: look(V.q.alert), q: "E este?", options: ["Toast", "Modal", "Alert"], answer: 2, why: "O Alert é fixo e persistente, no fluxo da tela, para mensagens que precisam ficar visíveis." }
+        ] } },
+
+        { h2: "Quiz" },
+        { p: "Cinco perguntas sobre o treinamento." },
+        { quiz: { label: "Quiz · Componentes", storageKey: "componentes-quiz", results: RES(false), questions: [
+          { q: "Para levar a pessoa a outra página, use…", options: ["Main Button", "Link", "Icon Button"], answer: 1, why: "Main Button é para ações. Navegação entre páginas é com o Link." },
+          { q: "A pessoa pode escolher várias opções ao mesmo tempo. Qual componente?", options: ["Checkbox", "Radio Button", "Switch"], answer: 0, why: "O Checkbox é para seleção múltipla." },
+          { q: "Uma configuração que liga e desliga, com efeito na hora:", options: ["Radio Button", "Checkbox", "Switch"], answer: 2, why: "O Switch habilita ou desabilita configurações com efeito automático." },
+          { q: "Uma confirmação breve, que some sozinha sem interromper o fluxo:", options: ["Toast", "Alert", "Modal"], answer: 0, why: "O Toast é temporário e não bloqueia. O Alert fica fixo e o Modal exige uma ação." },
+          { q: "Quantos Main Buttons primários (accent) por tela ou seção?", options: ["Quantos a tela precisar", "Dois, um para cada lado", "Um"], answer: 2, why: "Use um único Main Button primário por tela ou seção, para a hierarquia ficar clara." }
+        ] } }
+      ] },
+
+      { id: "tema-caju", title: "Tema Caju", blocks: [
+        { banner: { area: "aprenda", eyebrow: "5 min · jogo e quiz", heading: "O básico do Tema Caju", text: "Tokens no lugar de valores soltos, a escala de 4px, a área de toque e a elevação." } },
+        { h2: "Token no lugar do valor" },
+        { visual: { render: V.tokens, text: "Cor, tamanho, borda, sombra e texto vêm dos tokens `Common/*` do Tema Caju. Use sempre o token, nunca o valor solto: assim o tema escuro e as mudanças da marca chegam sozinhos." } },
+        { h2: "A escala de 4px" },
+        { p: "A escala parte de uma unidade base de 4px: quase todos os valores, de 4 a 200px, são múltiplos dela. Na prática, seis tamanhos atendem cerca de 90% dos layouts." },
+        { tokens: "sizes-default" },
+        { h2: "Área de toque" },
+        { p: "A referência de área de toque é 48px (`Common/Sizes/48`). No mobile, use o Main Button Medium nas ações de toque, e todo ícone clicável fica dentro de um Icon Button." },
+        { compare: [
+          { title: "Main Button Medium: 48px", attrs: { _tag: "cds-main-button", label: "Ação primária", size: "medium", "show-lead-icon": false, "show-trailing-icon": false } },
+          { title: "Main Button Small: 40px, abaixo da referência", attrs: { _tag: "cds-main-button", label: "Ação primária", size: "small", "show-lead-icon": false, "show-trailing-icon": false } }
+        ] },
+        { h2: "Elevação" },
+        { p: "As sombras são três níveis, `Common/Elevation/level 1` a `level 3`. Escolha o nível para ver o card subir." },
+        { tokens: "elevation" },
+
+        { h2: "Jogo: Certo ou errado?" },
+        { p: "Seis cenas. Para cada uma, diga se é uso certo do tema ou não." },
+        { quiz: { kind: "verdict", label: "Jogo · Certo ou errado?", storageKey: "tema-caju-jogo", right: ["Certo!", "Isso!", "Olho bom!"], wrong: ["Não é bem assim.", "Quase!", "Ops!"], results: RES(true).map(function(r){ return r.min === 5 ? Object.assign({}, r, { min: 6 }) : r.min === 3 ? Object.assign({}, r, { min: 4 }) : r; }), questions: [
+          { visual: look(V.v.ib), q: "Ícone de ação dentro de um Icon Button.", answer: "do", why: "O Icon Button Medium tem 48px e garante a área de toque." },
+          { visual: look(V.v.icon), q: "Ícone solto na tela, usado como ação.", answer: "dont", why: "Um ícone sozinho não garante área de toque acessível. Coloque-o num Icon Button." },
+          { visual: look(V.v.gap), q: "Espaço de 15px entre dois Cards.", answer: "dont", why: "A escala parte de 4px. Use um token `Common/Sizes`, como o 16, nunca o valor solto." },
+          { visual: look(V.v.font), q: "Texto com o text style Body/Regular.", answer: "do", why: "Os text styles combinam os primitivos e entram com o shorthand font: var(--text-style-…)." },
+          { visual: look(V.v.small), q: "Main Button Small na ação principal de um app mobile.", answer: "dont", why: "O Small tem 40px, abaixo da referência de 48px. No toque, use o Medium." },
+          { visual: look(V.v.elev), q: "Card que sobe com a sombra Elevation level 2.", answer: "do", why: "As sombras vêm dos tokens Common/Elevation, do level 1 ao 3." }
+        ] } },
+
+        { h2: "Quiz" },
+        { p: "Cinco perguntas sobre o treinamento." },
+        { quiz: { label: "Quiz · Tema Caju", storageKey: "tema-caju-quiz", results: RES(false), questions: [
+          { q: "A escala de tamanhos parte de qual unidade base?", options: ["4px", "8px", "10px"], answer: 0, why: "A base é 4px: quase todos os valores, de 4 a 200px, são múltiplos dela." },
+          { q: "Qual é a área de toque de referência no mobile?", options: ["32px", "40px", "48px"], answer: 2, why: "A referência é 48px, o token Common/Sizes/48." },
+          { q: "Quantos tamanhos padrão atendem cerca de 90% dos layouts?", options: ["Seis", "Doze", "Todos os 26"], answer: 0, why: "Toda a escala está disponível, mas seis tamanhos padrão resolvem a maior parte das telas." },
+          { q: "Como aplicar um text style no código?", options: ["font-size e line-height soltos", "font: var(--text-style-…)", "Uma classe por tamanho"], answer: 1, why: "O text style entra com o shorthand font e a variável do estilo." },
+          { q: "Quantos níveis de elevação o tema tem?", options: ["Dois", "Três", "Cinco"], answer: 1, why: "São três: Common/Elevation level 1, 2 e 3." }
+        ] } }
+      ] }
+    ]
+  };
+})();
+} catch (e) { console.error("[cds] resources/castanha-quiz/castanha-quiz.js", e); }
 
 /* ==== resources/changelog/changelog.js ==== */
 try {
@@ -13970,7 +14166,7 @@ try {
 
         { h2: "Teste o que você aprendeu" },
         { p: "Sete perguntas sobre o treinamento. Escolha uma opção para ver se acertou e o porquê." },
-        { quiz: { label: "Quiz · Prepare protótipos no Figma", questions: [
+        { quiz: { label: "Quiz · Prepare protótipos no Figma", storageKey: "prototipos", right: ["Na mosca!", "Isso!", "O dev agradece!"], wrong: ["Quase!", "Ops, essa vira suposição.", "Não foi dessa vez."], questions: [
           { q: "Para você é um retângulo. E para o dev?", options: ["Um print para copiar pixel a pixel", "Uma caixa com regras: content, padding, border e margin", "Um detalhe que ele pode ignorar"], answer: 1,
             why: "Toda tela que você entrega é traduzida em código. Sem regras explícitas, a tradução vira suposição e a UI quebra." },
           { q: "O respiro entre a borda do card e o texto dentro dele é…", options: ["Margin", "Border", "Padding"], answer: 2,
@@ -13998,4 +14194,4 @@ try {
 
 /* ==== docs sob demanda (gerado) ==== */
 window.CDS = window.CDS || {}; CDS.docsIndex = {"backdrop":{"src":"components/backdrop/backdrop.docs.js?v=65945f2f","desc":"Backdrop é um componente de superfície utilizado para criar uma camada de bloqueio visual entre o conteúdo base da interface e elementos em primeiro plano, como modais e drawers."},"badge":{"src":"components/badge/badge.docs.js?v=3e0548a5","desc":"O Badge é um elemento visual usado exclusivamente para indicar notificações ou atualizações. Ele serve como um alerta discreto que informa a pessoa usuária sobre algo novo ou pendente em um determinado contexto da interface."},"caju-brand":{"src":"components/caju-brand/caju-brand.docs.js?v=a44569e9","desc":"O Caju Brand é um elemento visual fundamental que representa a identidade da Caju dentro dos fluxos do produto. Ele garante consistência no uso da marca, evitando distorções, cores inadequadas ou aplicações incorretas."},"calendar-day":{"src":"components/calendar-day/calendar-day.docs.js?v=abc00938","desc":"Cada dia do Date Picker: número, estado de seleção e o ponto do dia atual."},"calendar-week":{"src":"components/calendar-week/calendar-week.docs.js?v=68d3811f","desc":"Uma linha de 7 dias do Date Picker."},"card":{"src":"components/card/card.docs.js?v=f96742ea","desc":"O componente Card é um contêiner visual usado para agrupar informações relacionadas de forma clara e compacta."},"credit-card-flags":{"src":"components/card-flag/card-flag.docs.js?v=9cf412ba","desc":"Simula visualmente qualquer cartão e pode simbolizar uma bandeira específica."},"currency":{"src":"components/currency/currency.docs.js?v=82d20ffb","desc":"O Currency é um componente de exibição utilizado para apresentar valores monetários de forma padronizada, legível e consistente nas interfaces da Caju."},"currency-content":{"src":"components/currency-content/currency-content.docs.js?v=1c192490","desc":"Valor em moeda com o símbolo, o sinal de negativo opcional e uma descrição embaixo."},"currency-symbol":{"src":"components/currency-symbol/currency-symbol.docs.js?v=18f12baa","desc":"Símbolo da moeda usado nas células de valor da Table."},"divider":{"src":"components/divider/divider.docs.js?v=658da706","desc":"O componente Divider é uma linha fina que separa visualmente agrupamentos de conteúdo em uma interface. Ele atua como uma âncora visual, ajudando a pessoa usuária a escanear e compreender a hierarquia e o relacionamento entre os elementos da página."},"icon":{"src":"components/icon/icon.docs.js?v=6c4b763a","desc":"Icon (ícone) é uma representação visual direta que auxilia na comunicação de ações, estados, tipos de conteúdo ou categorias."},"avatar":{"src":"components/avatar/avatar.docs.js?v=115ebd44","desc":"O Avatar é um componente utilizado para representar visualmente uma pessoa usuária, seja por meio de imagem, iniciais ou ícone padrão. Ele agiliza a identificação de perfis em áreas onde o contexto pessoal é relevante."},"breadcrumb-item":{"src":"components/breadcrumb-item/breadcrumb-item.docs.js?v=d989392b","desc":"Cada nível do Breadcrumb: separador e conteúdo (link, página atual ou o \"…\" do Truncate)."},"caju-card":{"src":"components/caju-card/caju-card.docs.js?v=893becf1","desc":"O Caju Card simula visualmente os diferentes tipos de cartões da Caju nos cenários físicos e virtuais seguindo as diretrizes das lojinhas de app."},"close-toast":{"src":"components/close-toast/close-toast.docs.js?v=6733b6dc","desc":"Botão de fechar do Toast: 40×40, com o ícone close-line."},"close-alert":{"src":"components/close-alert/close-alert.docs.js?v=7209e59c","desc":"Botão de fechar do Alert: 40×40, com o ícone close-line."},"content-banner":{"src":"components/content-banner/content-banner.docs.js?v=68e995dd","desc":"Building block interno do Banner. Agrupa título, descrição e indicação de CTA."},"csat-item":{"src":"components/csat-item/csat-item.docs.js?v=bb328e74","desc":"Cada nível do CSAT Score: estrela e rótulo."},"csat-score":{"src":"components/csat-score/csat-score.docs.js?v=98367a50","desc":"O CSAT Score é um componente de avaliação utilizado para medir o nível de satisfação da pessoa usuária em relação a uma experiência, funcionalidade ou interação específica, por meio de uma escala ordinal visual representada por ícones e rótulos textuais."},"filter-chips":{"src":"components/filter-chip/filter-chip.docs.js?v=4d19bef0","desc":"Chip que liga e desliga um filtro: selecionado, troca o ícone pelo check e inverte as cores."},"icon-button":{"src":"components/icon-button/icon-button.docs.js?v=ac46ea69","desc":"O Icon Button é um botão compacto que exibe um ícone, sem rótulo de texto. Ele é utilizado para ações pontuais, geralmente secundárias, em interfaces que exigem economia de espaço e onde o significado do ícone é amplamente reconhecido."},"header":{"src":"components/header/header.docs.js?v=0b0ddcc8","desc":"Cabeçalho do Modal e do Bottom Sheet: título, botão de fechar e divisor."},"icons-block":{"src":"components/icons-block/icons-block.docs.js?v=f1f31450","desc":"Ícone do Filter Button: filtro (Default) ou calendário (Date)."},"filter-button":{"src":"components/filter-button/filter-button.docs.js?v=ce828b95","desc":"O Filter Button é um botão que serve como gatilho para filtros e, quando acionado, abre opções para refinar ou ajustar a exibição de conteúdos, listas ou tabelas."},"image":{"src":"components/image/image.docs.js?v=401442e2","desc":"O componente Image é utilizado para exibir imagens estáticas em diferentes contextos do produto, garantindo consistência visual e preservação correta das proporções. Ele oferece controle direto, permitindo que a imagem se adapte a diferentes layouts sem distorção."},"banner":{"src":"components/banner/banner.docs.js?v=68e35d7b","desc":"O Banner destaca conteúdo promocional ou informação relevante em uma área própria da tela. Reúne título, descrição e indicação de ação em um bloco clicável por inteiro, com fundo de cor livre ou imagem de fundo. Serve para atrair a pessoa usuária sem interromper o que ela está fazendo."},"input-chips":{"src":"components/input-chip/input-chip.docs.js?v=30038524","desc":"Chip que mostra um valor escolhido e pode ser removido com um clique."},"chips-group":{"src":"components/chips-group/chips-group.docs.js?v=10be02b2","desc":"Container que organiza Filter Chips ou Input Chips em uma linha com rolagem ou em várias linhas."},"link":{"src":"components/link/link.docs.js?v=e0439fbd","desc":"O Link é um elemento interativo que direciona o usuário para outro destino, como páginas internas, externas, seções específicas ou downloads."},"list-lead-item":{"src":"components/list-lead-item/list-lead-item.docs.js?v=23969ecf","desc":"Item à esquerda das listas: Avatar, Icon ou Image."},"main-button":{"src":"components/main-button/main-button.docs.js?v=ae1cdc82","desc":"Main Button é um componente interativo usado para executar a ações mais importantes em uma tela, formulário ou fluxo."},"date-navigation":{"src":"components/date-navigation/date-navigation.docs.js?v=715e0489","desc":"Navegação do Date Picker: mês anterior, mês, ano e próximo mês."},"date-picker":{"src":"components/date-picker/date-picker.docs.js?v=f141eaf3","desc":"Calendário para escolher uma data ou um intervalo de datas, com navegação por mês e ano."},"drop-button":{"src":"components/drop-button/drop-button.docs.js?v=04fa3964","desc":"O Drop Button é um botão interativo que, ao ser acionado, abre um menu suspenso com opções de ação diretamente relacionadas ao contexto do botão. Ele combina a função de acionador visual com o acesso direto a um conjunto de comandos organizados."},"footer":{"src":"components/footer/footer.docs.js?v=4fd316e9","desc":"Rodapé do Modal e do Bottom Sheet: divisor e as ações (primária e secundária)."},"fixed-bar":{"src":"components/fixed-bar/fixed-bar.docs.js?v=dc85cbb8","desc":"A Fixed bar é uma área fixa posicionada na base da interface que agrupa duas ações relacionadas — uma primária e outra secundária. Ela é utilizada para decisões importantes no final de fluxos ou seções, permanecendo sempre acessível para a pessoa usuária."},"nav-control-item":{"src":"components/nav-control-item/nav-control-item.docs.js?v=1cf64b82","desc":"Cada indicador do Nav Control: ponto 6×6, que cresce para 16×6 quando ativo."},"nav-control":{"src":"components/nav-control/nav-control.docs.js?v=27e527d5","desc":"O Nav Control é um componente visual utilizado como indicador de navegação, normalmente associado a carrosséis ou fluxos paginados. Ele representa, de forma ilustrativa, a quantidade total de itens e qual deles está em foco no momento."},"nps-value-item":{"src":"components/nps-value-item/nps-value-item.docs.js?v=f5a685e1","desc":"Cada valor do NPS Score: pílula 24 com o número."},"nps-score":{"src":"components/nps-score/nps-score.docs.js?v=6e2990ea","desc":"O NPS Score é um componente de seleção única utilizado para capturar a percepção da pessoa usuária em relação a uma experiência, produto ou serviço, geralmente em uma escala numérica de 0 a 10."},"popover":{"src":"components/popover/popover.docs.js?v=c94fbb76","desc":"Popover é um pequeno overlay contextual que aparece quando o usuário interage com um elemento da interface. Ele permite exibir conteúdos adicionais, ações ou informações complementares de forma leve, sem interromper o fluxo principal da experiência."},"breadcrumb":{"src":"components/breadcrumb/breadcrumb.docs.js?v=1bd9075e","desc":"O Breadcrumb é um componente de navegação que mostra a localização atual do usuário dentro de uma hierarquia ou estrutura de conteúdo. Ele oferece links para os níveis superiores, facilitando a navegação."},"progress-line":{"src":"components/progress-line/progress-line.docs.js?v=a7528d42","desc":"O Progress Line é um indicador visual não interativo que representa o progresso de uma operação ao longo do tempo, ajudando a pessoa usuária a entender em que estágio o processo se encontra."},"progress-tracker-item":{"src":"components/progress-tracker-item/progress-tracker-item.docs.js?v=c9030f96","desc":"Etapa individual do Progress Tracker."},"progress-tracker":{"src":"components/progress-tracker/progress-tracker.docs.js?v=a89ff0c7","desc":"Indica o avanço de uma pessoa em um fluxo de múltiplas etapas, mostrando o que já foi concluído, onde ela está e o que ainda falta."},"checkbox":{"src":"components/checkbox/checkbox.docs.js?v=4fbb35d8","desc":"O checkbox é Componente interativo usado para selecionar ou desmarcar opções. Pode ser preenchido com um checkmark (✔) caso seja selecionado, ou por um traço (—) quando indeterminado. Utilizado em formulários e filtros, permitindo múltiplas seleções."},"radio-button":{"src":"components/radio-button/radio-button.docs.js?v=9f6fe1d4","desc":"Radio Button é um componente interativo usado para permitir ao usuário selecionar uma única opção de um conjunto. Essencial em formulários para escolhas únicas."},"shaped-icon":{"src":"components/shaped-icon/shaped-icon.docs.js?v=68f13907","desc":"O Shaped Icon é um ícone envolto por um fundo colorido e com formato definido, que confere maior ênfase visual e peso hierárquico. Ele é utilizado para evidenciar categorias, ações contextuais ou estados visuais sem depender de interação."},"alert":{"src":"components/alert/alert.docs.js?v=885a20f3","desc":"Mensagem fixa e persistente sobre o sistema, que fica visível até a pessoa usuária ler ou fechar."},"confirmation-message":{"src":"components/confirmation-message/confirmation-message.docs.js?v=5087ae73","desc":"Mostre o resultado de uma ação com ícone, título e descrição centralizados."},"dropzone":{"src":"components/dropzone/dropzone.docs.js?v=62b11669","desc":"O Dropzone é a área delimitada onde a pessoa usuária adiciona arquivos, pelo botão de seleção ou arrastando o arquivo para dentro dela. A área informa os formatos e limites aceitos antes do envio. O acompanhamento de cada arquivo enviado fica no Upload Item."},"file-lead-item":{"src":"components/file-lead-item/file-lead-item.docs.js?v=7d49330c","desc":"Miniatura do arquivo no Upload Item: imagem ou ícone de anexo, com a ação de ver o arquivo."},"lead-item":{"src":"components/lead-item/lead-item.docs.js?v=f404504e","desc":"Elemento à esquerda do Topic: Shaped Icon ou imagem 40×40."},"slider":{"src":"components/slider/slider.docs.js?v=b4725007","desc":"Slider de seleção de valor num intervalo."},"spinner":{"src":"components/spinner/spinner.docs.js?v=1d25a27b","desc":"O Spinner é um indicador visual de atividade não interativa que informa à pessoa usuária que o sistema está processando uma ação em segundo plano."},"sponsor-category":{"src":"components/sponsor-category/sponsor-category.docs.js?v=c7d3f5f5","desc":"Item de navegação do Side Menu. Intent=Default navega direto, e Intent=Accordion abre subitens no Slot."},"sponsor-subcategory":{"src":"components/sponsor-subcategory/sponsor-subcategory.docs.js?v=99829327","desc":"Item de segundo nível do Side Menu, dentro do Slot de um .Category com Intent=Accordion."},"sponsor-user-profile":{"src":"components/sponsor-user-profile/sponsor-user-profile.docs.js?v=040bc349","desc":"Rodapé de identificação do Side Menu: avatar, nome e CNPJ, com ação opcional."},"status-dot":{"src":"components/status-dot/status-dot.docs.js?v=50b743c4","desc":"Indicador compacto de estado, formado por um ponto colorido e um rótulo em texto."},"switch":{"src":"components/switch/switch.docs.js?v=1c8eee92","desc":"O Switch é um componente que funciona como um interruptor digital, alterando imediatamente o estado de uma configuração entre opções binárias, como sim ou não, e ligado ou desligado, sem necessidade de confirmação."},"checkbox-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Checkboxes com um nome para o conjunto: zero, uma ou várias opções."},"radio-button-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Radio Buttons com um nome para o conjunto: exatamente uma opção."},"switch-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Switches com um nome para o conjunto: cada um liga ou desliga uma configuração na hora."},"system-banner":{"src":"components/system-banner/system-banner.docs.js?v=b00a0529","desc":"Aviso do sistema que ocupa a largura toda da página, com a mesma anatomia do Alert."},"tab-item":{"src":"components/tab-item/tab-item.docs.js?v=737b8a53","desc":"Cada aba da Fixed Tab e da Scrollable Tab: Lead Item opcional, Label e o sublinhado."},"fixed-tab":{"src":"components/fixed-tab/fixed-tab.docs.js?v=adf9d425","desc":"O Tabs organiza conteúdos relacionados em seções paralelas dentro da mesma página, permitindo que a pessoa usuária alterne rapidamente entre contextos sem navegação externa."},"scrollable-tab":{"src":"components/scrollable-tab/scrollable-tab.docs.js?v=3607a757","needs":["fixed-tab"],"desc":"Abas no tamanho do conteúdo, com rolagem horizontal. Mesma documentação de Tabs da Fixed Tab."},"tab-view":{"src":"components/tab-view/tab-view.docs.js?v=8e22521c","desc":"Alterna a visualização de uma lista entre lista e grade."},"table-head":{"src":"components/table-head/table-head.docs.js?v=7903b75b","desc":"Título de coluna da Table, com ordenação."},"table-toolbar":{"src":"components/table-toolbar/table-toolbar.docs.js?v=0df2607c","desc":"Barra de ações acima da Table."},"tag":{"src":"components/tag/tag.docs.js?v=5a9e9225","desc":"Tag são rótulos compactos e visualmente distintos usados para rapidamente categorizar, identificar e organizar itens."},"balance-card":{"src":"components/balance-card/balance-card.docs.js?v=c5840ec2","desc":"Exibe o saldo de uma categoria com rótulo, valor e status complementares."},"sponsor-header":{"src":"components/sponsor-header/sponsor-header.docs.js?v=c081c6ce","desc":"Cabeçalho de página dos templates web do Sponsor: navegação (voltar, breadcrumb e ações utilitárias) e área de título com as ações da página."},"sponsor-side-menu":{"src":"components/sponsor-side-menu/sponsor-side-menu.docs.js?v=33f26fb0","desc":"Navegação lateral do app Sponsor: colapsado (80px, só ícones) e expandido (360px), que no desktop abre por hover em overlay sobre o conteúdo."},"table-cell":{"src":"components/table-cell/table-cell.docs.js?v=14a427a8","desc":"Célula de dados da Table: texto, valor, percentual, Tag, Checkbox, Link ou ações."},"text-content":{"src":"components/text-content/text-content.docs.js?v=fd862195","desc":"Par de textos (Label e Description) com o destaque no Label ou na Description."},"accordion-item":{"src":"components/accordion-item/accordion-item.docs.js?v=824db8ab","desc":"Item de um accordion: um header com título que revela conteúdo adicional (no Slot) ao ser expandido."},"accordion":{"src":"components/accordion/accordion.docs.js?v=44db65bf","desc":"O Accordion agrupa vários Accordion Items em uma lista de seções expansíveis, que a pessoa abre sob demanda."},"code-input-otp":{"src":"components/code-input-otp/code-input-otp.docs.js?v=ee42108f","desc":"Campo de código de verificação (OTP/PIN): uma fileira de células de um caractere, preenchidas uma a uma, para inserir um código curto recebido por SMS, e-mail ou app autenticador."},"credit-card-input":{"src":"components/credit-card-input/credit-card-input.docs.js?v=f10e590f","desc":"Campo para inserir o número de um cartão de crédito."},"date-input":{"src":"components/date-input/date-input.docs.js?v=5085dd0b","desc":"Campo de data da família Text Fields: digitar com máscara dd/mm/aaaa ou escolher no calendário."},"password-input":{"src":"components/password-input/password-input.docs.js?v=afaea942","desc":"O Password Input é um campo de entrada específico para senhas."},"quantity-input":{"src":"components/quantity-input/quantity-input.docs.js?v=d00bba47","desc":"O Quantity Input é um campo numérico com controles de incremento e decremento."},"search-input":{"src":"components/search-input/search-input.docs.js?v=5e1d2ba6","desc":"Campo de busca da família Text Fields: lupa fixa e botão de limpar quando há texto."},"text-area":{"src":"components/text-area/text-area.docs.js?v=beb8d21c","desc":"O Text Area é um campo de entrada multilinha que permite à pessoa usuária digitar textos mais longos, como descrições, observações ou comentários."},"text-input":{"src":"components/text-input/text-input.docs.js?v=9841ec39","desc":"O Text Input é um campo de entrada para coleta de informações textuais curtas fornecidas pela pessoa usuária."},"toast":{"src":"components/toast/toast.docs.js?v=82f85974","desc":"O Toast é um componente de notificação temporária que informa a pessoa usuária sobre o resultado de uma ação ou estado do sistema. Ele aparece de forma discreta na interface e desaparece automaticamente após alguns segundos, sem interromper o fluxo de navegação."},"tooltip":{"src":"components/tooltip/tooltip.docs.js?v=145db2e0","desc":"São caixas flutuantes que proporcionam informações sobre algum aspecto da interface que mereça maior atenção."},"topic":{"src":"components/topic/topic.docs.js?v=34a407f2","desc":"Apresente um tópico com ícone ou imagem, título e descrição."},"trailing-item":{"src":"components/trailing-item/trailing-item.docs.js?v=f3876cc2","desc":"Item à direita das listas: Checkbox, Radio Button, Switch, Icon ou Tag."},"content-list-item":{"src":"components/content-list-item/content-list-item.docs.js?v=a9780daa","desc":"O Content list item é um bloco de conteúdo que organiza informações de forma clara e escaneável dentro de listas. Ele combina elementos como título, descrição, ícone, avatar ou status, ajudando o usuário a identificar de relance itens, conteúdos ou ações relacionadas."},"content-list":{"src":"components/content-list/content-list.docs.js?v=6ad148d0","desc":"O Content List é um componente que agrupa e organiza múltiplos Content List Items em uma estrutura única e consistente. Ele funciona como um container, permitindo que diferentes tipos de conteúdo sejam exibidos de forma clara e hierárquica. Pode conter itens informativos, de navegação ou de transações financeiras, adaptando-se a diferentes contextos de uso."},"selection-list-item":{"src":"components/selection-list-item/selection-list-item.docs.js?v=285ee023","desc":"O Selection List Item é um componente de seleção que combina título, descrição e ícone para enriquecer a apresentação das opções. Ele amplia a clareza das escolhas, indo além de seletores básicos como checkbox, radio ou switch."},"async-creatable-select-input":{"src":"components/async-creatable-select-input/async-creatable-select-input.docs.js?v=b89d5e8e","needs":["async-select-input"],"desc":"Como o Async e, quando o texto digitado não existe nas opções, oferece \"Adicionar “…”\" para criar a opção. Faz parte da família Select Input."},"async-select-input":{"src":"components/async-select-input/async-select-input.docs.js?v=5ef84b74","desc":"O Select input permite que a pessoa usuária escolha uma ou mais opções a partir de uma lista pré-definida."},"checkbox-select-input":{"src":"components/checkbox-select-input/checkbox-select-input.docs.js?v=b47659af","needs":["async-select-input"],"desc":"Vários valores sem busca: a lista fica aberta enquanto marca, e o campo mostra quantos foram selecionados. Faz parte da família Select Input."},"multi-select-input":{"src":"components/multi-select-input/multi-select-input.docs.js?v=aff1ad3a","needs":["async-select-input"],"desc":"Vários valores com busca: cada escolha vira um Input Chip dentro do campo. Faz parte da família Select Input."},"radio-select-input":{"src":"components/radio-select-input/radio-select-input.docs.js?v=60d32c71","needs":["async-select-input"],"desc":"Escolha única sem busca: o campo abre a lista de opções, com Radio Button. Faz parte da família Select Input."},"select-number":{"src":"components/select-number/select-number.docs.js?v=2910fc7a","desc":"Seletor de número do Pagination (itens por página e página atual), com lista em Popover."},"pagination":{"src":"components/pagination/pagination.docs.js?v=1acb2983","desc":"O Pagination (paginação) permite navegar entre conjuntos de dados distribuídos em várias páginas, otimizando a performance da visualização e facilitando o consumo de grandes volumes de dados."},"selection-list":{"src":"components/selection-list/selection-list.docs.js?v=3a43fe13","desc":"O Selection List é um agrupamento de opções organizadas em lista, permitindo que o usuário faça uma ou múltiplas seleções de forma clara e consistente. Ele é formado por instâncias do componente Selection List Item empilhados e separados por divisores visuais, facilitando a leitura e a comparação entre alternativas."},"table":{"src":"components/table/table.docs.js?v=48e10ae5","desc":"O componente de Tabela organiza dados estruturados em colunas e linhas, facilitando a leitura, comparação e análise. É ideal para exibir informações com formato uniforme, como listas, transações ou relatórios."},"upload-item":{"src":"components/upload-item/upload-item.docs.js?v=e328a912","desc":"O Upload Item representa um arquivo dentro do fluxo de upload, do envio em curso até o arquivo já armazenado. Ele mostra o nome, a extensão, o estado do envio e as ações disponíveis para aquele arquivo."},"upload-list":{"src":"components/upload-list/upload-list.docs.js?v=fa3ec45d","desc":"Agrupa os Upload Items de um fluxo, com ordem e espaçamento consistentes."},"viewport-restriction":{"src":"components/viewport-restriction/viewport-restriction.docs.js?v=03b58a4b","desc":"Aviso de que o componente não está disponível no viewport atual."},"bottom-sheet":{"src":"components/bottom-sheet/bottom-sheet.docs.js?v=4e403958","desc":"Camada que surge da base da tela para apresentar conteúdo ou ações complementares sem tirar a pessoa do contexto. A tela de fundo continua visível."},"drawer":{"src":"components/drawer/drawer.docs.js?v=69db3d04","desc":"O Drawer é um painel lateral deslizante utilizado para expor conteúdos complementares ou etapas adicionais dentro de um fluxo principal, sem interromper a tela atual. Ele aparece sobreposto à interface e permite que a pessoa usuária mantenha o contexto enquanto realiza uma interação específica."},"modal":{"src":"components/modal/modal.docs.js?v=fc145684","desc":"O Modal é um componente de sobreposição que bloqueia a interface base para exibir conteúdos focados, como formulários, informações detalhadas ou confirmações. Ele exige atenção da pessoa usuária antes de retornar ao fluxo principal."},"modal-date-picker":{"src":"components/modal-date-picker/modal-date-picker.docs.js?v=d1e58383","desc":"Calendário num Modal, com Cancelar e Confirmar: a data vale depois de confirmada."}};
-CDS.searchIndex = "dist/search.json?v=e38b59c8"; /* 1427 seções */
+CDS.searchIndex = "dist/search.json?v=ae22451e"; /* 1442 seções */

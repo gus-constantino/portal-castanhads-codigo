@@ -15,9 +15,9 @@
  "counts": {
   "components": 84,
   "buildingBlocks": 26,
-  "resources": 14,
+  "resources": 15,
   "compositions": 6,
-  "withDocs": 124,
+  "withDocs": 125,
   "withReact": 70,
   "liveMaps": 70,
   "reactOnly": 12,
@@ -16132,6 +16132,32 @@
      "id": "linguagem",
      "title": "Linguagem",
      "text": "**Linguagem** — Faz parte da trilha de Content, em três partes: Estratégia de conteúdo, Organização de tela e Linguagem. Juntas, ensinam a criar conteúdos que conectam estratégia, layout e comunicação clara em apps e na web. Esta é a parte 3. O texto dos princípios de escrita está em Conteúdo. (https://castanha.caju.com.br/858426090/v/latest/p/3328af-linguagem)\n\n> Os vídeos tocam com login Caju. Cada um também abre no Drive, em outra aba.\n\n## Introdução\n\n- Vídeo: Linguagem: Introdução (https://drive.google.com/file/d/1h9nir6C_nRIaWYsUn6_afflvfvLz7qUr/view)\n\n## Princípios de escrita\n\n- Vídeo: Linguagem: Princípios de escrita (https://drive.google.com/file/d/1ooIp8LYwL26u3Eii1P7IJDQO2m6hY_Wq/view)\n\n## Linguagem\n\n- Vídeo: Linguagem: Linguagem (https://drive.google.com/file/d/1aAJ2_6tdO7i3bnvnW22XJd69Aqnkz-DO/view)\n\n## Slides\n\n- **Treinamento 3 · Linguagem** — Apresentação usada no treinamento, no Figma.\n\n## Dúvidas\n\n- Vídeo: Linguagem: Dúvidas (https://drive.google.com/file/d/1Oz3_ddl5MCsnsxpnWC6eW23fLj_MJDPz/view)"
+    }
+   ]
+  },
+  {
+   "id": "castanha-quiz",
+   "name": "Castanha Quiz",
+   "kind": "resource",
+   "category": null,
+   "figma": null,
+   "figmaNode": null,
+   "zeroheight": null,
+   "tabs": [
+    {
+     "id": "inicio",
+     "title": "Início",
+     "text": "**Aprenda jogando** — Treinamentos de uns 5 minutos sobre temas do portal. Cada um termina com um jogo e um quiz para testar o que ficou.\n\n## Escolha um tema\n\nCada tema tem um treinamento rápido, um jogo e um quiz de 5 perguntas. O seu melhor resultado fica guardado neste navegador.\n\n- **Componentes** — Qual componente usar em cada situação: ação ou navegação, seleção e mensagens. Jogo: Qual é o componente?\n- **Tema Caju** — Tokens, escala de 4px, área de toque e elevação. Jogo: Certo ou errado?\n\n> Novos temas a caminho: Motion, Conteúdo, Ilustração e Camadas do DS."
+    },
+    {
+     "id": "componentes",
+     "title": "Componentes",
+     "text": "**Qual componente usar?** — Três escolhas que aparecem em toda tela: ação ou navegação, como selecionar e como avisar.\n\n## Ação ou navegação\n\nO Main Button faz uma ação: enviar, excluir, confirmar. Para levar a outra página, use o Link. Use um único Main Button primário (accent) por tela ou seção.\n\n- Main Button: ação (exemplo: Enviar comprovante)\n- Link: navegação (exemplo: Ver relatórios)\n\n## Como selecionar\n\n## Como avisar\n\nO Toast é temporário, aparece sobre o conteúdo e some sozinho: serve para mensagens breves, como uma confirmação. O Alert é fixo e persistente, no fluxo da tela. O Modal exige uma ação, como confirmar ou preencher, antes de a pessoa seguir.\n\n- Toast: temporário, sobre o conteúdo (exemplo: Comprovante enviado)\n- Alert: fixo, no fluxo da tela (exemplo: Depósito agendado · O saldo cai na conta das pessoas colaboradoras no dia 5.)\n\n## Jogo: Qual é o componente?\n\nSeis componentes ao vivo. Diga o nome de cada um.\n\n## Quiz\n\nCinco perguntas sobre o treinamento."
+    },
+    {
+     "id": "tema-caju",
+     "title": "Tema Caju",
+     "text": "**O básico do Tema Caju** — Tokens no lugar de valores soltos, a escala de 4px, a área de toque e a elevação.\n\n## Token no lugar do valor\n\n## A escala de 4px\n\nA escala parte de uma unidade base de 4px: quase todos os valores, de 4 a 200px, são múltiplos dela. Na prática, seis tamanhos atendem cerca de 90% dos layouts.\n\n(Tokens: sizes-default — ver a ferramenta de tokens.)\n\n## Área de toque\n\nA referência de área de toque é 48px (`Common/Sizes/48`). No mobile, use o Main Button Medium nas ações de toque, e todo ícone clicável fica dentro de um Icon Button.\n\n- Main Button Medium: 48px (exemplo: Ação primária)\n- Main Button Small: 40px, abaixo da referência (exemplo: Ação primária)\n\n## Elevação\n\nAs sombras são três níveis, `Common/Elevation/level 1` a `level 3`. Escolha o nível para ver o card subir.\n\n(Tokens: elevation — ver a ferramenta de tokens.)\n\n## Jogo: Certo ou errado?\n\nSeis cenas. Para cada uma, diga se é uso certo do tema ou não.\n\n## Quiz\n\nCinco perguntas sobre o treinamento."
     }
    ]
   },

@@ -14,3 +14,7 @@ cmp-quiz .cmp-quiz__score{ margin:0; font:var(--text-style-disclaimer-regular); 
 cmp-quiz .cmp-quiz__text{ margin:0 0 var(--common-sizes-8); font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
 cmp-quiz cds-selection-list{ width:100%; } /* Fill no Card (no Figma a lista tem 320 fixo) */
 cmp-quiz .cmp-quiz__vis{ padding:var(--common-sizes-16); border-radius:var(--common-border-radius-medium); background:var(--common-colors-surface-01); }
+cmp-quiz .cmp-quiz__verdict{ display:flex; gap:var(--common-sizes-16); }
+cmp-quiz .cmp-quiz__verdict cds-main-button{ flex:1 1 0; }
+cmp-quiz .cmp-quiz__verdict cds-main-button .cds-btn{ width:100%; }
+cmp-quiz .cmp-quiz__verdict[hidden]{ display:none; }

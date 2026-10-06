@@ -252,7 +252,7 @@
 
         { h2: "Teste o que você aprendeu" },
         { p: "Sete perguntas sobre o treinamento. Escolha uma opção para ver se acertou e o porquê." },
-        { quiz: { label: "Quiz · Prepare protótipos no Figma", questions: [
+        { quiz: { label: "Quiz · Prepare protótipos no Figma", storageKey: "prototipos", right: ["Na mosca!", "Isso!", "O dev agradece!"], wrong: ["Quase!", "Ops, essa vira suposição.", "Não foi dessa vez."], questions: [
           { q: "Para você é um retângulo. E para o dev?", options: ["Um print para copiar pixel a pixel", "Uma caixa com regras: content, padding, border e margin", "Um detalhe que ele pode ignorar"], answer: 1,
             why: "Toda tela que você entrega é traduzida em código. Sem regras explícitas, a tradução vira suposição e a UI quebra." },
           { q: "O respiro entre a borda do card e o texto dentro dele é…", options: ["Margin", "Border", "Padding"], answer: 2,

@@ -36,7 +36,7 @@
  *   glossary: { label, placeholder, letters: { A: [[termo, definição, "não use"], …] } }   glossário com busca
  *   simulate: { illustration, matrices: { id: "feColorMatrix" }, items: [{ label, matrix | filter, double }] }   condições visuais sobre uma ilustração
  *   specs: [{ title, rows: [[rótulo, valor], …] }]   cards de ficha técnica (ex.: Motion Style por interação)
- *   quiz: { label, questions: [{ q, options, answer, why }], results: [{ min, illustration, title, text }] }   quiz em cards (composição <cmp-quiz>)
+ *   quiz: { label, kind, storageKey, questions, results, right, wrong }   quiz em cards (composição <cmp-quiz>; kind "verdict" = Certo ou errado)
  *   visual: fn | { render: fn, text, list, side }   visual interativo montado pelo recurso (ex.: slides recriados com componentes do DS)
  *                                       na caixa de exibição das docs; com text/list, legenda ao lado (side: true, como as Diretrizes) ou abaixo
  *
@@ -369,7 +369,9 @@
     // Quiz em cards = composição <cmp-quiz> (compositions/quiz: o DS não tem quiz). Dados entram antes de conectar
     quiz: function(d, v){
       var q = el("cmp-quiz"); q.setAttribute("label", v.label || "Quiz");
-      q.questions = v.questions; q.results = v.results;
+      if (v.kind) q.setAttribute("kind", v.kind);
+      if (v.storageKey) q.setAttribute("storage-key", v.storageKey);
+      q.questions = v.questions; q.results = v.results; q.right = v.right; q.wrong = v.wrong;
       return q;
     },
     // Atalhos (capa do Castanha Hub): Card do DS com ilustração da biblioteca + título + texto + Link do DS

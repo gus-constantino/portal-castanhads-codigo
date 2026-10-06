@@ -267,8 +267,8 @@ Blocos disponíveis: `h2` `h3` `p` `note` `alert` `ul` `ol` `cards` `display` `c
 <details>
 <summary><strong>Registrar uma decisão ou divergência</strong></summary>
 
-1. ROADMAP §4: `| D+meu-apelido | **Título**: o que foi decidido e por quê | 05/10 |`.
-2. CONFERIR: `| C+meu-apelido | … |`, na seção do tipo de ajuste.
+1. ROADMAP §4: `| D+<apelido> | **Título**: o que foi decidido e por quê | 05/10 |`.
+2. CONFERIR: `| C+<apelido> | … |`, na seção do tipo de ajuste.
 3. Depois de trazer a `teste`, rode `node scripts/dev/numerar.js` e `--check`.
 </details>
 

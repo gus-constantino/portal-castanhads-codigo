@@ -338,10 +338,12 @@
     [["negative", "Alta"], ["warning", "Média"], ["neutral", "Informativo"]].forEach(function(x){ if (lv[x[1]] == null) return; var tg = tags.appendChild(el("cds-tag")); tg.setAttribute("label", lv[x[1]] + " " + x[1].toLowerCase()); tg.setAttribute("appearance", x[0]); tg.setAttribute("show-lead-item", "false"); });
 
     // Ritmo do projeto: decisões por dia (data da linha no Roadmap §4), dias seguidos do primeiro ao último registro
+    // Escondido (Gustavo, 05/10): o código fica para voltar trocando SHOW_RITMO para true
+    var SHOW_RITMO = false;
     var byDay = {}, yr = new Date().getFullYear();
     dec.forEach(function(r){ var m = (r[r.length - 1] || "").match(/(\d{2})\/(\d{2})(?!.*\d{2}\/\d{2})/); if (m){ var k = m[2] + "-" + m[1]; byDay[k] = (byDay[k] || 0) + 1; } });
     var keys = Object.keys(byDay).sort();
-    if (keys.length){
+    if (SHOW_RITMO && keys.length){
       var d0 = new Date(yr, +keys[0].slice(0, 2) - 1, +keys[0].slice(3)), d1 = new Date(yr, +keys[keys.length - 1].slice(0, 2) - 1, +keys[keys.length - 1].slice(3)), days = [];
       for (var d = new Date(d0); d <= d1; d.setDate(d.getDate() + 1)) days.push(new Date(d));
       var dated = keys.reduce(function(a, k){ return a + byDay[k]; }, 0), peak = Math.max.apply(null, keys.map(function(k){ return byDay[k]; }));

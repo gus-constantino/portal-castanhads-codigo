@@ -4,7 +4,7 @@
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   var REPO = "https://github.com/gus-constantino/castanhads-component-teste/blob/main/";
-  // soon: Tag "Em breve" no menu e no cabeçalho — o MCP só vai ser ofertado ao time depois (pedido do Gustavo, 05/10)
+  // soon: Tag neutra "Em breve" no menu e no cabeçalho — o MCP só vai ser ofertado ao time depois (pedido do Gustavo, 05/10)
   CDS.register({ id: "mcp", name: "MCP", resource: true, order: 6, soon: "Ainda não ofertado ao time: o MCP está em teste e será liberado depois." });
 
   var CLAUDE_CODE = "claude mcp add castanha-ds -- node /caminho/para/castanha-mcp.js";
@@ -17,7 +17,7 @@
         { h2: "MCP do Castanha DS" },
         { p: "Conecte o seu assistente de IA (Claude, Cursor, VS Code e outros) ao Castanha DS. Em vez de adivinhar, ele consulta os componentes, as docs, as props do Figma e do castanha-react, os tokens, os ícones, as ilustrações e as diretrizes de conteúdo, e gera e revisa código React com o DS." },
         { p: "MCP (Model Context Protocol) é o padrão aberto que os assistentes usam para se conectar a fontes de informação e ferramentas." },
-        { alert: { appearance: "warning", label: "Em breve", text: "O MCP ainda não foi ofertado ao time: está em teste e será liberado depois. As instruções abaixo valem para quem está testando. Ele só consulta: lê o conteúdo deste site e não altera nada." } },
+        { alert: { appearance: "informative", label: "Em breve", text: "O MCP ainda não foi ofertado ao time: está em teste e será liberado depois. As instruções abaixo valem para quem está testando. Ele só consulta: lê o conteúdo deste site e não altera nada." } },
         { shortcuts: [
           { title: "Arquivo do MCP", text: "Um arquivo só, sem instalar nada. Precisa do Node 18 ou mais novo.", href: "dist/mcp/castanha-mcp.js", cta: "Abrir castanha-mcp.js", external: true },
           { title: "Código e README", text: "Servidor, gerador de JSX, teste e detalhes técnicos no repositório.", href: REPO + "mcp/README.md", cta: "Abrir no GitHub", external: true }

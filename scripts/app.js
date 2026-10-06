@@ -185,8 +185,8 @@
     if (navHome){ navHome.innerHTML = ""; navHome.hidden = !home.length; home.forEach(function(c){ navHome.appendChild(kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name])])); }); }
     var res = shown.filter(function(c){ return c.resource && !c.home; }).sort(function(a, b){ return (a.order || 99) - (b.order || 99); });
     navRes.innerHTML = ""; navResTitle.hidden = navRes.hidden = !res.length;
-    // soon (em breve): Tag Warning do DS no lugar do contador (ex.: MCP, ainda não ofertado ao time)
-    res.forEach(function(c){ navRes.appendChild(kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name, c.soon ? kit.el("cds-tag", { appearance: "warning", label: "Em breve", "show-lead-item": "false" }) : kit.el("small", { text: c.status || "" })])])); });
+    // soon (em breve): Tag neutra do DS no lugar do contador (ex.: MCP, ainda não ofertado ao time)
+    res.forEach(function(c){ navRes.appendChild(kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name, c.soon ? kit.el("cds-tag", { appearance: "neutral", label: "Em breve", "show-lead-item": "false" }) : kit.el("small", { text: c.status || "" })])])); });
     var cats = PAGES.concat(comps.map(function(c){ return c.category || "Outros"; }).filter(function(x, i, a){ return PAGES.indexOf(x) === -1 && a.indexOf(x) === i; }));
     // Categorias em accordion: abre a da página atual, as que a pessoa abriu (lembrado no navegador) e todas durante a busca
     var cur = currentId();
@@ -545,7 +545,7 @@
                   ? ["neutral", "Não publicado · building block", "Building block (nome com ponto): fica fora da publicação de propósito e é usado dentro de outros componentes."]
                   : ["negative", "Não publicado no Figma", "Ainda não publicado na lib [CastanhaDS] Components."],
                 branch: ["warning", "Não publicado · em branch", "Existe só numa branch do Figma; ainda não está na main nem publicado na lib."] };
-    var pub = def.soon ? ["warning", "Em breve", def.soon] // recurso ainda não ofertado (texto do Tooltip em def.soon)
+    var pub = def.soon ? ["neutral", "Em breve", def.soon] // recurso ainda não ofertado (texto do Tooltip em def.soon)
       : def.composition ? ["neutral", "Composição do playground", "Não existe na lib do Figma: montada aqui só com tokens do DS até o DS ter o componente."] : st && PUB[st];
     header.setAttribute("show-tag", String(!!pub)); // Tag = status de publicação (ou Em breve)
     if (pub){ header.setAttribute("tag-appearance", pub[0]); header.setAttribute("tag-label", pub[1]); head.tagTip.setAttribute("text", pub[2] + (def.composition || def.soon ? "" : " Conferido em " + FS.checked + ".")); }

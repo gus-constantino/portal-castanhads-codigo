@@ -370,7 +370,7 @@ Só perguntas de escopo ou de fonte. Divergências entre o Figma e o esperado fi
 |---|---|---|
 | Q7 | **TypeScript**: introduzir um build (ex.: esbuild) em algum momento? | Adiar até a lib passar de ~20 componentes |
 | Q9 | ~~Caju Card: de onde vêm as artes?~~ Dos vetores do próprio componente (exportados por variante, D65) | ✅ 02/10 |
-| Q31 | **Animações:** qual é a lib (link do Figma)? A página está reservada como "a definir" | **Deixar para o final** (Gustavo, 02/10): entra depois do Lote 9 |
+| Q31 | **Animações:** qual é a lib (link do Figma)? A página está reservada como "a definir" | **Deixar para o final** (Gustavo, 02/10): entra depois do Lote 9. **Esperar a lib do Figma** (Gustavo, 05/10): o set atual não tem lib de animações (só a legada "5. [Castanha DS] Motion", 1 componente, jan/2025) e as 44 Lottie do castanha-motion são internas (UNLICENSED), então não vêm para o repo público |
 
 ## 5.1 Débito de export (Gustavo)
 
@@ -466,4 +466,4 @@ Ajustes que o Gustavo vai fazer no Figma; quando entrarem, o código acompanha (
 | 9d | ✅ 02/10 — Caju Card (5 Kinds × Vertical/Horizontal × Frente/Verso × Is Blocked; 12 artes do Figma, dados como texto) |
 | — | ✅ 02/10 — Accordion + Accordion Item (página Lists, **branch** do Figma, D68): botão com `aria-expanded` + região, altura animada, Kind Default/Card, `exclusive` opcional |
 | — | ✅ 02/10 — **UI do playground no DS** (D69, 7 fases + ajustes): casca só com componentes do DS e tokens; auditoria `scripts/dev/audit-ui.js`; gaps C83–C88 |
-| — | ⏳ Recurso Animações (Q31) — no final |
+| — | ⏳ Recurso Animações (Q31) — espera a lib de animações no set atual do Figma |

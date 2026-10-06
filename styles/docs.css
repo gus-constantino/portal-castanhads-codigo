@@ -653,7 +653,7 @@ cds-banner.pg-doc-banner{ width:calc(var(--common-sizes-200) + var(--common-size
 @keyframes pg-faq-flash{ from{ background:var(--common-colors-accent-solid-soft); } }
 /* topo */
 .pg-faq__hero{ display:grid; grid-template-columns:minmax(0, 1fr) auto; align-items:center; gap:var(--common-sizes-24); padding:var(--common-sizes-32);
-  border-radius:var(--common-border-radius-big); background:var(--common-colors-accent-solid-soft); overflow:hidden; }
+  border-radius:var(--common-border-radius-big); background:var(--common-colors-feedback-positive-soft); overflow:hidden; }
 .pg-faq__hero-text{ display:flex; flex-direction:column; gap:var(--common-sizes-12); min-width:0; animation:pg-faq-in var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing) both; }
 .pg-faq__hero-title{ margin:0; font:var(--text-style-title-large); color:var(--common-colors-text-intense); }
 .pg-faq__hero .pg-doc-p{ margin:0; color:var(--common-colors-text-medium); }

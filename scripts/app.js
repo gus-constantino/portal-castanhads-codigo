@@ -199,14 +199,15 @@
   // Seções dos recursos no menu (ordem dentro da seção = ordem dos ids). Recurso fora da lista cai em "Mais recursos".
   var RES_SECTIONS = [
     { id: "padroes", title: "Padrões", ids: ["caju-theme", "conteudo", "patterns"], tip: "A base e as soluções recorrentes: tema (cores, tipografia, motion…), diretrizes de conteúdo e patterns de tela." },
-    { id: "aprenda", title: "Aprenda", ids: ["arquitetura", "treinamento", "capacitacoes"], tip: "Como o DS funciona e como usar no dia a dia, no Figma e no código." },
+    { id: "aprenda", title: "Aprenda", ids: ["arquitetura", "treinamento", "capacitacoes"], tip: "Como o DS funciona e como usar no dia a dia, no Figma e no código.",
+      links: [{ name: "Curso na Awtra", href: "https://lms.awtra.com.br/company/caju/app/course/f5e0c07c-7778-489c-81af-91216c8ccdd0" }] }, // links externos: sem página, abrem em nova guia
     { id: "ferramentas", title: "Ferramentas", ids: ["personas", "agentes", "mcp"], tip: "Apoio ao projeto: as personas para quem projetamos, assistentes de IA e integrações com o Castanha DS." },
     { id: "ajuda", title: "Ajuda", ids: ["faq", "changelog"], tip: "Perguntas frequentes e o que mudou no DS." }
   ];
   function resSections(res){
     var known = {}, out = RES_SECTIONS.map(function(sec){
       var items = sec.ids.map(function(id){ known[id] = true; return res.filter(function(c){ return c.id === id; })[0]; }).filter(Boolean);
-      return { id: sec.id, title: sec.title, top: sec.top, tip: sec.tip, items: items };
+      return { id: sec.id, title: sec.title, top: sec.top, tip: sec.tip, items: items, links: sec.links || [] };
     });
     var rest = res.filter(function(c){ return !known[c.id]; }).sort(function(a, b){ return (a.order || 99) - (b.order || 99); });
     if (rest.length) out.push({ id: "mais", title: "Mais recursos", items: rest });
@@ -233,6 +234,9 @@
       if (sec.tip) kit.tip(title, sec.tip, { text: true });
       var ul = box.appendChild(kit.el("ul", { "class": "pg-nav", "aria-labelledby": tid }));
       sec.items.forEach(function(c){ ul.appendChild(kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name, c.soon ? kit.el("cds-tag", { appearance: "neutral", label: "Em breve", "show-lead-item": "false" }) : kit.el("small", { text: c.status || "" })])])); });
+      sec.links.filter(function(l){ return !q || l.name.toLowerCase().indexOf(q) !== -1; }).forEach(function(l){
+        ul.appendChild(kit.el("li", null, [kit.el("a", { href: l.href, target: "_blank", rel: "noopener", "class": "pg-nav-ext", "aria-label": l.name + " (abre em nova guia)" }, [l.name, kit.el("cds-icon", { icon: "link-line", size: "small", appearance: "neutral", "aria-hidden": "true" })])]));
+      });
     });
     navFound.hidden = !navFound.children.length; navRes.hidden = !navRes.children.length;
     var cats = PAGES.concat(comps.map(function(c){ return c.category || "Outros"; }).filter(function(x, i, a){ return PAGES.indexOf(x) === -1 && a.indexOf(x) === i; }));

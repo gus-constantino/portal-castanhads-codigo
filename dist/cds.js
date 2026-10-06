@@ -5475,6 +5475,8 @@ try {
  * Show Content=False mascara o valor; a Visibility Action (Icon Button · Ghost · Neutral · Small) alterna.
  * Ícone reflete o estado: hide-line com o conteúdo visível, hide-off-line mascarado (mesmo padrão do OTP).
  * Sem valor, a Visibility Action fica indisponível (Figma: State=Disabled no campo vazio).
+ * Sem o ícone de aviso (warning-line) no Warning: no Figma o Trailing do Password Input tem só a Visibility Action, nas
+ * 64 variantes, e o PasswordInput do castanha-react também não tem. Os outros campos da família têm (D250).
  *
  * Atributos: os da família · show-content ("true" mostra; padrão mascarado — Q35) · autocomplete (padrão current-password)
  * Eventos: cds-change { value } · cds-visibility-change { visible }
@@ -5510,6 +5512,7 @@ try {
     update(){
       this.control.autocomplete = this.getAttribute("autocomplete") || "current-password";
       super.update();
+      if (this.warnEl) this.warnEl.hidden = true; // o Warning do Password Input não tem o warning-line (Figma e React)
     }
   }
   CdsPasswordInput.define("cds-password-input");

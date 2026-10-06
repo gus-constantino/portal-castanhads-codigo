@@ -24,6 +24,13 @@
           { layout: "row", title: "Dev. Flutter", text: "Onboarding para desenvolvedores mobile.", href: "https://castanha-staging-flutter.caju.com.br/", cta: "Castanha Flutter", external: true, illustration: "dispositivos/celular-logo" },
           { layout: "row", title: "Dev. React", text: "Onboarding para desenvolvedores web.", href: "https://castanha-staging.caju.com.br/?path=/docs/actions-button--docs", cta: "Castanha React", external: true, illustration: "dispositivos/notebook-relatorios" }
         ] } },
+        // Divulgação dos cursos e capacitações (D230): banners das Notion thumbnails do Castanha Assets (<loc-banner>)
+        { h2: "Aprenda o Castanha DS" },
+        { banners: [
+          { area: "aprenda", eyebrow: "Curso", heading: "Castanha DS na Awtra", text: "O curso do Design System da Caju na plataforma Awtra, para fazer no seu ritmo.", href: "https://lms.awtra.com.br/company/caju/app/course/f5e0c07c-7778-489c-81af-91216c8ccdd0", cta: "Fazer o curso", external: true },
+          { area: "aprenda", eyebrow: "67 vídeos · 7 treinamentos", heading: "Capacitações", text: "Sponsor App, Employee App, Motion, Ilustração e a trilha de Content.", href: "#/capacitacoes", cta: "Ver capacitações" },
+          { area: "aprenda", eyebrow: "7 vídeos", heading: "Como usar as documentações", text: "O treinamento do Castanha DS em vídeo, tema por tema.", href: "#/treinamento", cta: "Ver treinamento" }
+        ] },
         { h2: "Mais recursos" },
         { shortcuts: { bento: 3, items: [
           { size: "wide", title: "Personas", text: "Quem usa os produtos da Caju: colaboradores, pessoas de RH e gestão das empresas e os times que operam o Admin. Objetivos, dores e necessidades de cada uma.", href: "#/personas", cta: "Ver personas", illustration: "personagens/joana" },

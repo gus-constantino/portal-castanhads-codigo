@@ -74,6 +74,8 @@ const BLOCK = {
   code: (v) => "```\n" + S(v) + "\n```",
   tokens: (v) => "(Tokens: " + v + " — ver a ferramenta de tokens.)",
   palette: (v) => "**" + v.label + ":** " + v.names.map((n, i) => n + " (" + (v.hex[i] || []).map((h) => "#" + h).join(", ") + ")").join("; "),
+  banner: (v) => "**" + v.heading + "**" + (v.text ? " — " + S(v.text) : "") + (v.href ? " (" + v.href + ")" : ""),
+  banners: (v) => v.map((b) => "- **" + b.heading + "**" + (b.text ? " — " + S(b.text) : "") + (b.href ? " (" + b.href + ")" : "")).join("\n"),
   vazio: (v) => "**" + v.heading + "**" + (v.text ? " — " + S(v.text) : ""),
   hero: (v) => "**" + v.title + "**" + (v.text ? " — " + S(v.text) : ""),
   shortcuts: (v) => v.map((s) => "- **" + s.title + "** — " + S(s.text)).join("\n"),

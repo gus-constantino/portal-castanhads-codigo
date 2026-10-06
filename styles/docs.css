@@ -480,6 +480,10 @@
 /* Legado (legacy no CDS.register): a capa fica em cinza, com a faixa <loc-faixa> por cima (D225) */
 .pg-cover.is-legacy{ position:relative; }
 .pg-cover.is-legacy > :not(loc-faixa){ filter:grayscale(1); }
+/* Banners de divulgação (bloco banners): o primeiro ocupa a linha, os outros dividem; uma coluna no celular */
+.pg-doc-banners{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:var(--common-sizes-16); }
+.pg-doc-banners > :first-child{ grid-column:1 / -1; }
+@media (max-width:760px){ .pg-doc-banners{ grid-template-columns:minmax(0, 1fr); } }
 /* Capa do recurso = o hero claro no lugar da moldura do [Header] (renderCover com hero) */
 .pg-cover.is-hero:not([hidden]){ display:block; place-items:normal; aspect-ratio:auto; min-height:0; padding:0; background:none; border-radius:0; overflow:visible; }
 

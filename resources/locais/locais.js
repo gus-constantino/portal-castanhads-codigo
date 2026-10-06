@@ -21,7 +21,7 @@
           ["Building block", "Parte com ponto no nome, fora da publicação de propósito, que monta outros componentes.", "[CastanhaDS] Components", "Os próprios componentes do DS", "Os itens do menu Building blocks"],
           ["Template", "Trecho de tela pronto, montado com componentes do DS, que se repete entre produtos.", "Arquivos de templates do Figma", "Os produtos do template", "Header do Sponsor Templates"],
           ["Team component", "Peça de uma squad, feita com componentes e tokens do DS e reaproveitada nas telas dela.", "Biblioteca local da squad", "As telas da squad", "Nenhum no playground por enquanto"],
-          ["Componente local", "Peça feita com tokens do DS para um lugar ou uma página, sem a intenção de virar componente.", "Junto da página que usa", "Aquele lugar", "Pilha, Vazio e Faixa, aqui no playground"],
+          ["Componente local", "Peça feita com tokens do DS para um lugar ou uma página, sem a intenção de virar componente.", "Junto da página que usa", "Aquele lugar", "Pilha, Banner, Vazio e Faixa, aqui no playground"],
           ["Composição", "Peça montada com tokens e componentes do DS onde o DS ainda não tem o componente. Candidata a entrar no DS.", "Junto do projeto, com pedido ao DS", "Quem precisa até o DS ter a peça", "Do/Don't e Card clicável"]
         ] } },
         { note: "Nas Camadas do DS a ordem é a mesma: componentes, templates, local assets da squad e a composição da tela. Aqui no playground, `cmp-` é o prefixo das peças que esperam o DS, e a tela inteira continua sendo a composição final." },
@@ -73,7 +73,7 @@
         { h3: "Propriedades" },
         { table: { head: ["Atributo", "Valores", "Para que serve"], rows: [
           ["`area`", "marca (padrão), componentes, padroes, aprenda, ferramentas, ajuda, legado", "Escala de cor da área (aba Cor por área)"],
-          ["`on`", "accent", "A pilha está sobre Surface/accent e troca os tons para contrastar"],
+          ["`on`", "accent, inversed", "A pilha está sobre Surface/accent (vermelho) ou Surface/inversed (topo do Relatório) e troca os tons para contrastar"],
           ["`cards`", "3, 4 (padrão)", "Quantidade de cartões"],
           ["`align`", "center (padrão), end", "end encosta os cartões embaixo, sangrando, como nas thumbnails por jornada"],
           ["`fan`", "sem valor", "Deixa o leque aberto parado. Sem ele, abre no hover ou no foco de quem tem a classe `loc-pilha-trigger`"]
@@ -101,6 +101,29 @@
           { kind: "dont", title: "Enfeite", text: "A pilha não vai no canto de cards, em itens de lista nem como marcador no menu: nada disso existe no Castanha Assets (Gustavo, 06/10)." }
         ] },
         { code: "<section class=\"loc-pilha-trigger\">\n  <h2>Tema Caju</h2>\n  <loc-pilha area=\"padroes\" cards=\"3\" style=\"height:var(--common-sizes-200)\"></loc-pilha>\n</section>" }
+      ] },
+      { id: "banner", title: "Banner", blocks: [
+        { h2: "Banner" },
+        { p: "O banner das Notion thumbnails do Castanha Assets: fundo no tom mais escuro da área, as faixas da pilha à esquerda e o conteúdo dentro do cartão da frente. Serve para divulgar os cursos e as capacitações do Castanha DS." },
+        { banner: { area: "aprenda", eyebrow: "Curso", heading: "Castanha DS na Awtra", text: "O curso do Design System da Caju na plataforma Awtra, para fazer no seu ritmo.", href: "#/locais/banner", cta: "Exemplo de link" } },
+        { table: { head: ["Atributo", "Valores", "Para que serve"], rows: [
+          ["`area`", "aprenda (padrão) ou outra área", "Escala de cor (aba Cor por área)"],
+          ["`eyebrow`", "texto", "Sobretítulo curto, como o tipo ou o número de vídeos"],
+          ["`heading`", "texto", "Título, em Decorative"],
+          ["`text`", "texto", "Uma frase sobre o curso ou a trilha"],
+          ["`href`, `cta`, `external`", "link, texto, true", "O Link do DS dentro do cartão. external abre em outra aba"]
+        ] } },
+        { ul: [
+          "Início: seção Aprenda o Castanha DS, com o curso na Awtra, as Capacitações e o treinamento Como usar as documentações.",
+          "Capacitações: o topo de cada trilha, com o número de vídeos e o link para a página no Hub."
+        ] },
+        { p: "Nas docs, o bloco `banner` monta um banner e o bloco `banners` monta a grade: o primeiro ocupa a linha inteira e os outros dividem a linha." },
+        { dodont: [
+          { kind: "do", title: "Divulgar", text: "Curso, trilha ou treinamento que a pessoa pode fazer agora, com o link direto." },
+          { kind: "dont", title: "Enfeite", text: "O banner não substitui card de atalho nem vira cabeçalho de seção comum." }
+        ] },
+        { h2: "Capa Black do Relatório" },
+        { p: "O topo do Relatório usa a cor Black da Thumbnail Castanha: Surface/inversed, título em Decorative e a pilha com `on=\"inversed\"` (faixas claras atrás e o cartão da frente escuro). No tema escuro o fundo inverte e a capa vira a variação White do mesmo arquivo." }
       ] },
       { id: "vazio-faixa", title: "Vazio e faixa", blocks: [
         { h2: "Vazio" },

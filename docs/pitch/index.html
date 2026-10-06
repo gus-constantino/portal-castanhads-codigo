@@ -1,350 +1,435 @@
 <!doctype html>
-<!-- Pitch para a gerente: trocar o zeroheight pelo portal Castanha DS (D233).
-     Página ESCONDIDA: fora do menu e da busca; o único link fica no Relatório › Arquitetura, embaixo de Componentes locais.
-     O repositório é público: os campos em amarelo (.pt-fill: licença, renovação, horas) são editáveis aqui na página e ficam
-     salvos SÓ no navegador de quem apresenta (localStorage). No arquivo, ficam sempre como "—". Não escrever valores aqui.
-     Mesmo conceito visual do portal: tokens do tema, a pilha, o banner e as capas do Castanha Assets.
-     Teclas: ← → (ou espaço) troca de slide · F tela cheia · N notas de quem apresenta · Home/End início e fim. -->
+<!-- Portal Castanha DS: a história do portal e a proposta de trocar o zeroheight (D233, versão em rolagem D235).
+     Página ESCONDIDA: fora do menu e da busca. O link fica no Relatório › Arquitetura, embaixo de Componentes locais.
+     Formato: página que se lê rolando (responsiva), com efeitos ligados à rolagem e o portal de verdade ao lado,
+     trocando de tela conforme cada capacidade aparece. Tudo com tokens, componentes do DS e os componentes locais
+     (<loc-pilha>, <loc-banner>) do conceito do Castanha Assets.
+     Efeitos de rolagem: CSS scroll-driven animations com @supports e prefers-reduced-motion (sem polyfill: sem suporte,
+     a página aparece completa e parada). A troca de telas do portal usa IntersectionObserver (funciona em todos).
+     O repositório é público: os campos em amarelo ([data-fill]: licença, renovação, horas) são editáveis na página e
+     ficam salvos SÓ no navegador de quem apresenta (localStorage). No arquivo, ficam sempre como "—".
+     Teclas: ← → (ou PageUp/PageDown) pulam de capítulo · F tela cheia. -->
 <html lang="pt-BR" data-theme="light">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Castanha DS · proposta</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Portal Castanha DS · a história</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Work+Sans:wght@500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="../../styles/tokens.css" />
 <link rel="stylesheet" href="../../styles/shared.css" />
 <link rel="stylesheet" href="../../styles/icons.css" />
 <link rel="stylesheet" href="../../dist/cds.css" />
 <style>
-  /* Palco fixo de 1920×1080, escalado para caber na janela (o tamanho do slide, não da tela) */
-  html, body{ margin:0; height:100%; background:var(--common-colors-neutral-solid-intense); overflow:hidden; }
-  .pt-viewport{ position:fixed; inset:0; overflow:hidden; }
-  .pt-stage{ position:absolute; left:50%; top:50%; width:1920px; height:1080px; transform:translate(-50%, -50%) scale(var(--pt-s, 1)); transform-origin:center; }
-  .pt-slide{
-    position:absolute; inset:0; box-sizing:border-box; overflow:hidden; display:flex; flex-direction:column;
-    padding:var(--common-sizes-104) calc(var(--common-sizes-120) + var(--common-sizes-8));
-    background:var(--common-colors-surface-default); color:var(--common-colors-text-intense);
-    opacity:0; visibility:hidden; transform:translateY(var(--common-sizes-16));
-    transition:opacity var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), transform var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), visibility 0s linear var(--motion-hover-in-01-timing);
-  }
-  .pt-slide.is-on{ opacity:1; visibility:visible; transform:none; transition-delay:0s; }
-  .pt-slide.is-accent{ background:var(--common-colors-surface-accent); color:var(--common-colors-support-lighter); }
-  .pt-slide.is-inversed{ background:var(--common-colors-surface-inversed); color:var(--common-colors-text-inversed); }
-  @media (prefers-reduced-motion: reduce){ .pt-slide{ transition:none; transform:none; } }
+  /* ---------- Base ---------- */
+  html{ scroll-behavior:smooth; scroll-padding-top:var(--pt-head-h); }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+  :root{ --pt-head-h:calc(var(--common-sizes-64) + var(--common-sizes-4)); --pt-gutter:var(--common-sizes-56); --pt-max:calc(6 * var(--common-sizes-200) + var(--common-sizes-80)); }
+  .pt-sr-only{ position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+  body{ margin:0; background:var(--common-colors-surface-default); color:var(--common-colors-text-intense); font:var(--text-style-body-regular); }
+  .pt-wrap{ width:100%; max-width:var(--pt-max); margin:0 auto; padding-inline:var(--pt-gutter); box-sizing:border-box; }
+  .pt-chapter{ position:relative; padding-block:var(--common-sizes-120); }
+  .pt-chapter.is-accent{ background:var(--common-colors-surface-accent); color:var(--common-colors-support-lighter); }
+  .pt-chapter.is-inversed{ background:var(--common-colors-surface-inversed); color:var(--common-colors-text-inversed); }
+  .pt-chapter.is-tint{ background:color-mix(in srgb, var(--loc-front) 8%, var(--common-colors-surface-default)); }
 
-  /* Tipografia (estilos de texto do tema) */
+  /* ---------- Tipografia (estilos de texto do tema) ---------- */
   .pt-eyebrow{ margin:0; font:var(--text-style-label-bold); letter-spacing:.06em; text-transform:uppercase; color:var(--common-colors-text-accent); }
   .is-accent .pt-eyebrow, .is-inversed .pt-eyebrow{ color:inherit; opacity:.8; }
-  .pt-display{ margin:0; font:var(--text-style-decorative-display); line-height:1.05; text-wrap:balance; }
-  .pt-h1{ margin:0; font:var(--text-style-decorative-big); line-height:1.1; text-wrap:balance; }
-  .pt-h2{ margin:0; font:var(--text-style-decorative-large); line-height:1.2; }
-  .pt-lede{ margin:0; font:var(--text-style-subtitle-large); line-height:1.45; color:var(--common-colors-text-medium); text-wrap:pretty; max-width:calc(6 * var(--common-sizes-200)); }
-  .is-accent .pt-lede, .is-inversed .pt-lede{ color:inherit; opacity:.88; }
-  .pt-body{ margin:0; font:var(--text-style-body-regular); font-size:var(--common-sizes-24); line-height:1.5; color:var(--common-colors-text-medium); }
-  .pt-small{ margin:0; font:var(--text-style-caption-regular); font-size:var(--common-sizes-20); color:var(--common-colors-text-medium); }
-  .pt-head{ display:flex; flex-direction:column; gap:var(--common-sizes-16); margin-bottom:var(--common-sizes-56); }
-  .pt-fill[contenteditable]{ cursor:text; outline:none; }
-  .pt-fill[contenteditable]:focus-visible{ box-shadow:inset 0 0 0 var(--common-border-width-thick) var(--common-colors-feedback-warning-intense); }
-  .pt-fill{ background:var(--common-colors-feedback-warning-soft); color:var(--common-colors-text-intense); border-radius:var(--common-border-radius-small); padding:0 var(--common-sizes-8); box-shadow:inset 0 0 0 var(--common-border-width-thin) var(--common-colors-feedback-warning-medium); }
+  .pt-display{ margin:0; font:var(--text-style-decorative-display); line-height:1.05; text-wrap:balance; hyphens:auto; overflow-wrap:break-word; }
+  .pt-h2{ margin:0; font:var(--text-style-decorative-big); line-height:1.1; text-wrap:balance; }
+  .pt-h3{ margin:0; font:var(--text-style-decorative-large); line-height:1.2; text-wrap:balance; }
+  .pt-lede{ margin:0; font:var(--text-style-subtitle-large); line-height:1.45; color:var(--common-colors-text-medium); text-wrap:pretty; max-width:min(100%, calc(4 * var(--common-sizes-200))); }
+  .is-accent .pt-lede, .is-inversed .pt-lede{ color:inherit; opacity:.9; }
+  .pt-p{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); text-wrap:pretty; }
+  .pt-head{ display:flex; flex-direction:column; gap:var(--common-sizes-16); margin-bottom:var(--common-sizes-56); max-width:calc(5 * var(--common-sizes-200)); }
+  .pt-fill{ background:var(--common-colors-feedback-warning-soft); color:var(--common-colors-text-intense); border-radius:var(--common-border-radius-small); padding:0 var(--common-sizes-8);
+    box-shadow:inset 0 0 0 var(--common-border-width-thin) var(--common-colors-feedback-warning-medium); cursor:text; outline:none; }
+  .pt-fill:focus-visible{ box-shadow:inset 0 0 0 var(--common-border-width-thick) var(--common-colors-feedback-warning-intense); }
 
-  /* Pilha das capas (componente local <loc-pilha>) */
-  .pt-pilha{ position:absolute; right:var(--common-sizes-120); top:50%; transform:translateY(-50%); height:calc(2 * var(--common-sizes-200) + var(--common-sizes-40)); }
-  .pt-pilha--end{ top:auto; bottom:0; transform:none; height:calc(var(--common-sizes-200) + var(--common-sizes-120)); }
+  /* ---------- Topo fixo: marca, capítulos, tela cheia e barra de progresso ---------- */
+  .pt-top{ position:sticky; top:0; z-index:10; height:var(--pt-head-h); box-sizing:border-box; display:flex; align-items:center; gap:var(--common-sizes-24);
+    padding-inline:var(--common-sizes-24); background:color-mix(in srgb, var(--common-colors-surface-default) 92%, transparent); backdrop-filter:blur(var(--common-sizes-12));
+    box-shadow:inset 0 calc(-1 * var(--common-border-width-hairline)) 0 var(--common-colors-border-semi-soft); }
+  .pt-top__brand{ display:flex; align-items:center; gap:var(--common-sizes-12); font:var(--text-style-label-bold); white-space:nowrap; color:var(--common-colors-text-intense); text-decoration:none; }
+  .pt-top__brand cds-caju-brand{ height:var(--common-sizes-24); width:auto; }
+  .pt-top__nav{ display:flex; gap:var(--common-sizes-4); overflow-x:auto; scrollbar-width:none; margin-inline:auto; }
+  .pt-top__nav a{ font:var(--text-style-label-medium); color:var(--common-colors-text-medium); text-decoration:none; white-space:nowrap; padding:var(--common-sizes-6) var(--common-sizes-12); border-radius:var(--common-border-radius-pill);
+    transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
+  .pt-top__nav a:hover{ background:var(--common-colors-neutral-opacity-intense-semi-transparent); }
+  .pt-top__nav a[aria-current="true"]{ background:var(--common-colors-accent-solid-soft); color:var(--common-colors-text-accent); }
+  .pt-top__nav a:focus-visible{ outline:var(--common-border-width-thick) solid var(--common-colors-border-accent, var(--common-colors-accent-solid-medium)); outline-offset:var(--common-sizes-2); }
+  #pt-full{ margin-left:auto; }
+  .pt-top__nav + #pt-full{ margin-left:0; }
+  .pt-progress{ position:absolute; left:0; right:0; bottom:0; height:var(--common-sizes-4); background:var(--common-colors-accent-solid-medium); transform-origin:0 50%; transform:scaleX(0); }
 
-  /* Grades e cartões */
-  .pt-grid{ display:grid; gap:var(--common-sizes-24); }
-  .pt-card{ display:flex; flex-direction:column; gap:var(--common-sizes-12); padding:var(--common-sizes-32); border-radius:var(--common-border-radius-large);
-    background:var(--common-colors-neutral-solid-soft); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-semi-soft); }
+  /* ---------- Capa ---------- */
+  .pt-hero{ min-height:calc(100svh - var(--pt-head-h)); display:flex; align-items:center; overflow:hidden; padding-block:var(--common-sizes-80); box-sizing:border-box; }
+  .pt-hero .pt-wrap{ display:grid; grid-template-columns:minmax(0, 1.5fr) minmax(0, 1fr); gap:var(--common-sizes-56); align-items:center; }
+  @media (max-width:1600px){ .pt-chapter .pt-display{ font:var(--text-style-decorative-big); line-height:1.08; } }
+  .pt-hero__text{ display:flex; flex-direction:column; gap:var(--common-sizes-32); }
+  .pt-hero__brand{ height:var(--common-sizes-56); width:auto; }
+  .pt-hero__pilha, .pt-end__pilha, .pt-virada__pilha{ justify-self:end; width:100%; height:auto; max-width:calc(55svh * 1.27); }
+  .pt-hero__meta{ margin:0; font:var(--text-style-label-medium); opacity:.85; }
+  .pt-cue{ display:inline-flex; align-items:center; gap:var(--common-sizes-8); font:var(--text-style-label-medium); color:inherit; text-decoration:none; opacity:.9; }
+
+
+  /* ---------- Cartões e grades ---------- */
+  .pt-grid{ display:grid; gap:var(--common-sizes-20); }
+  .pt-grid--2{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+  .pt-grid--3{ grid-template-columns:repeat(3, minmax(0, 1fr)); }
+  .pt-grid--4{ grid-template-columns:repeat(4, minmax(0, 1fr)); }
+  .pt-card{ display:flex; flex-direction:column; gap:var(--common-sizes-12); padding:var(--common-sizes-32); border-radius:var(--common-border-radius-large); box-sizing:border-box;
+    background:var(--common-colors-surface-default); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-semi-soft); }
   .pt-card h3{ margin:0; font:var(--text-style-title-medium); }
-  .pt-card p{ margin:0; font:var(--text-style-body-regular); font-size:var(--common-sizes-20); line-height:1.5; color:var(--common-colors-text-medium); }
-  .pt-num{ font:var(--text-style-decorative-big); line-height:1; color:var(--common-colors-text-intense); }
+  .pt-card .pt-p{ font:var(--text-style-body-regular); }
+  .pt-card h3.pt-card__pain{ font:var(--text-style-decorative-medium); color:var(--common-colors-text-accent); }
+  .pt-num{ font:var(--text-style-decorative-big); line-height:1; font-variant-numeric:tabular-nums; }
   .pt-step{ font:var(--text-style-label-bold); color:var(--common-colors-text-accent); }
-  .pt-card h3.pt-pain{ font:var(--text-style-decorative-medium); color:var(--common-colors-text-accent); }
 
-  /* Fluxo em etapas (Como é hoje / Como se mantém) */
-  .pt-flow{ display:grid; grid-auto-flow:column; grid-auto-columns:minmax(0, 1fr); gap:var(--common-sizes-16); align-items:stretch; }
+  /* Linha do tempo (o caminho de hoje) */
+  .pt-split{ display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1.4fr); gap:var(--common-sizes-80); align-items:start; }
+  .pt-split__sticky{ position:sticky; top:calc(var(--pt-head-h) + var(--common-sizes-56)); display:flex; flex-direction:column; gap:var(--common-sizes-16); }
+  .pt-timeline{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:var(--common-sizes-20); counter-reset:pt; }
+  .pt-timeline li{ position:relative; padding-left:var(--common-sizes-80); }
+  .pt-timeline li::before{ counter-increment:pt; content:counter(pt); position:absolute; left:0; top:var(--common-sizes-24); width:var(--common-sizes-48); height:var(--common-sizes-48);
+    display:grid; place-items:center; border-radius:var(--common-border-radius-pill); font:var(--text-style-title-small); color:var(--common-colors-support-lighter); background:var(--common-colors-accent-solid-medium); }
+  .pt-timeline li:not(:last-child)::after{ content:""; position:absolute; left:calc(var(--common-sizes-24) - var(--common-border-width-thin)); top:calc(var(--common-sizes-24) + var(--common-sizes-48));
+    bottom:calc(-1 * var(--common-sizes-20) - var(--common-sizes-24)); width:var(--common-border-width-thick); background:var(--common-colors-accent-solid-semi-soft); }
+
+  /* ---------- Capacidades: texto rolando e o portal ao vivo fixo ao lado ---------- */
+  .pt-caps{ display:grid; grid-template-columns:minmax(0, 0.8fr) minmax(0, 1.2fr); gap:var(--common-sizes-56); align-items:start; }
+  .pt-caps__list{ display:flex; flex-direction:column; }
+  .pt-cap{ min-height:70svh; display:flex; flex-direction:column; justify-content:center; gap:var(--common-sizes-12); opacity:.35;
+    transition:opacity var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing); }
+  .pt-cap.is-active{ opacity:1; }
+  .pt-cap__n{ display:inline-flex; align-items:center; gap:var(--common-sizes-8); font:var(--text-style-label-bold); color:var(--common-colors-text-accent); }
+  .pt-cap h3{ margin:0; font:var(--text-style-decorative-large); line-height:1.2; }
+  .pt-cap .pt-p{ font:var(--text-style-subtitle-small); line-height:1.5; }
+  .pt-cap ul{ margin:0; padding-left:var(--common-sizes-20); color:var(--common-colors-text-medium); }
+  .pt-cap li + li{ margin-top:var(--common-sizes-4); }
+  .pt-demo{ position:sticky; top:calc(var(--pt-head-h) + var(--common-sizes-24)); height:calc(100svh - var(--pt-head-h) - var(--common-sizes-48)); display:flex; flex-direction:column; gap:var(--common-sizes-12); }
+  .pt-demo__bar{ display:flex; align-items:center; gap:var(--common-sizes-8); font:var(--text-style-caption-medium); color:var(--common-colors-text-medium); }
+  .pt-demo__dot{ width:var(--common-sizes-8); height:var(--common-sizes-8); border-radius:var(--common-border-radius-pill); background:var(--common-colors-feedback-positive-medium); }
+  .pt-demo__frame{ position:relative; flex:1 1 auto; overflow:hidden; border-radius:var(--common-border-radius-large); background:var(--common-colors-neutral-solid-soft);
+    box-shadow:var(--common-elevation-level-3), inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-semi-soft);
+    transition:max-width var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing); max-width:100%; width:100%; margin-inline:auto; }
+  .pt-demo__frame.is-phone{ max-width:calc(var(--common-sizes-200) * 2); border-radius:var(--common-border-radius-extra-large); }
+  .pt-demo__frame iframe{ position:absolute; left:0; top:0; border:0; transform-origin:0 0; background:var(--common-colors-surface-default); }
+
+  /* ---------- Feito com IA / como se mantém ---------- */
+  .pt-flow{ display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:var(--common-sizes-16); }
   .pt-flow .pt-card{ position:relative; }
   .pt-flow .pt-card:not(:last-child)::after{ content:""; position:absolute; right:calc(-1 * var(--common-sizes-14)); top:50%; width:var(--common-sizes-12); height:var(--common-sizes-12);
     border-top:var(--common-border-width-thick) solid var(--common-colors-border-intense); border-right:var(--common-border-width-thick) solid var(--common-colors-border-intense); transform:translateY(-50%) rotate(45deg); }
 
-  /* Tabela lado a lado */
-  .pt-table{ width:100%; border-collapse:collapse; font:var(--text-style-body-regular); font-size:var(--common-sizes-20); }
+  /* ---------- Lado a lado ---------- */
+  .pt-table{ width:100%; border-collapse:collapse; font:var(--text-style-body-regular); }
   .pt-table th, .pt-table td{ text-align:left; padding:var(--common-sizes-16) var(--common-sizes-20); border-bottom:var(--common-border-width-hairline) solid var(--common-colors-border-semi-soft); vertical-align:top; }
   .pt-table thead th{ font:var(--text-style-title-small); border-bottom:var(--common-border-width-thick) solid var(--common-colors-border-intense); }
-  .pt-table td:first-child{ font-weight:700; color:var(--common-colors-text-intense); width:18%; }
-  .pt-table td:nth-child(2){ color:var(--common-colors-text-medium); width:36%; }
-  .pt-table td:nth-child(3){ color:var(--common-colors-text-intense); }
+  .pt-table td:first-child{ font-weight:700; }
+  .pt-table td:nth-child(2){ color:var(--common-colors-text-medium); }
+  @media (min-width:861px){ .pt-table td:first-child{ width:18%; } .pt-table td:nth-child(2){ width:38%; } }
   .pt-table thead th:nth-child(3){ color:var(--common-colors-text-accent); }
 
-  /* Demo ao vivo do portal dentro do slide */
-  .pt-live{ position:relative; flex:1 1 auto; border-radius:var(--common-border-radius-large); overflow:hidden; box-shadow:var(--common-elevation-level-3); background:var(--common-colors-surface-default); }
-  .pt-live iframe{ position:absolute; inset:0; width:133.34%; height:133.34%; border:0; transform:scale(.75); transform-origin:0 0; }
-
-  /* Linha do tempo das fases */
-  .pt-phases{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:var(--common-sizes-24); }
-  .pt-phase{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
-  .pt-phase__bar{ height:var(--common-sizes-12); border-radius:var(--common-border-radius-pill); background:var(--loc-front); }
-  .pt-phase ul, .pt-asks ol{ margin:0; padding-left:var(--common-sizes-28); font:var(--text-style-body-regular); font-size:var(--common-sizes-24); line-height:1.5; color:var(--common-colors-text-medium); }
+  /* ---------- Plano e decisões ---------- */
+  .pt-phase{ display:flex; flex-direction:column; gap:var(--common-sizes-12); }
+  .pt-phase__bar{ height:var(--common-sizes-12); border-radius:var(--common-border-radius-pill); background:var(--loc-front); transform-origin:0 50%; }
+  .pt-phase ul{ margin:0; padding-left:var(--common-sizes-24); color:var(--common-colors-text-medium); }
   .pt-phase li + li{ margin-top:var(--common-sizes-8); }
-
-  /* O pedido */
-  .pt-asks{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:var(--common-sizes-24); }
   .pt-ask{ display:grid; grid-template-columns:auto minmax(0, 1fr); gap:var(--common-sizes-8) var(--common-sizes-24); align-items:start; padding:var(--common-sizes-32);
     border-radius:var(--common-border-radius-large); background:color-mix(in srgb, var(--common-colors-accent-solid-medium) 8%, var(--common-colors-surface-default)); }
   .pt-ask__n{ grid-row:span 2; font:var(--text-style-decorative-big); line-height:1; color:var(--common-colors-text-accent); }
   .pt-ask h3{ margin:0; font:var(--text-style-title-medium); }
-  .pt-ask p{ margin:0; font:var(--text-style-body-regular); font-size:var(--common-sizes-20); line-height:1.5; color:var(--common-colors-text-medium); }
 
-  /* Rodapé do palco: número do slide e navegação (Icon Buttons do DS) */
-  .pt-foot{ position:absolute; left:calc(var(--common-sizes-120) + var(--common-sizes-8)); right:var(--common-sizes-48); bottom:var(--common-sizes-32); z-index:2;
-    display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-16); pointer-events:none; }
-  .pt-foot > *{ pointer-events:auto; }
-  .pt-count{ font:var(--text-style-label-medium); color:var(--common-colors-text-medium); }
-  .pt-foot.on-color .pt-count{ color:var(--common-colors-support-lighter); }
-  .pt-foot.on-inversed .pt-count{ color:var(--common-colors-text-inversed); }
-  .pt-nav{ display:flex; gap:var(--common-sizes-8); }
+  /* ---------- Fim ---------- */
+  .pt-end .pt-wrap{ display:grid; grid-template-columns:minmax(0, 1.2fr) minmax(0, 1fr); gap:var(--common-sizes-56); align-items:center; }
+  .pt-end ol{ margin:0; padding-left:var(--common-sizes-32); font:var(--text-style-subtitle-large); line-height:1.6; }
+  .pt-end__links{ display:flex; flex-wrap:wrap; gap:var(--common-sizes-24); zoom:1.3; }
 
-  /* Notas de quem apresenta (tecla N) */
-  .pt-notes{ position:fixed; right:var(--common-sizes-16); bottom:var(--common-sizes-16); z-index:3; width:min(calc(2 * var(--common-sizes-200)), calc(100vw - 2 * var(--common-sizes-16)));
-    max-height:45vh; overflow:auto; box-sizing:border-box; padding:var(--common-sizes-16) var(--common-sizes-20); border-radius:var(--common-border-radius-medium);
-    background:var(--common-colors-surface-default); color:var(--common-colors-text-intense); box-shadow:var(--common-elevation-level-4); font:var(--text-style-body-regular); }
-  .pt-notes[hidden]{ display:none; }
-  .pt-notes h2{ margin:0 0 var(--common-sizes-8); font:var(--text-style-label-bold); color:var(--common-colors-text-medium); }
-  .pt-notes ul{ margin:0; padding-left:var(--common-sizes-20); }
-  .pt-notes li + li{ margin-top:var(--common-sizes-6); }
-  .pt-slide aside{ display:none; }
-  .pt-mid{ margin-block:auto; }                 /* conteúdo centrado na altura que sobra */
-  .pt-big{ zoom:1.5; }                          /* componentes do DS no tamanho de leitura do palco */
+
+  /* ---------- Efeitos ligados à rolagem (progressive enhancement: sem suporte, tudo aparece parado) ---------- */
+  @property --_fan{ syntax:"<number>"; inherits:true; initial-value:0; }
+  @media (prefers-reduced-motion: no-preference){
+    @supports (animation-timeline: scroll()){
+      @keyframes pt-grow{ to{ transform:scaleX(1); } }
+      .pt-progress{ animation:pt-grow auto linear both; animation-timeline:scroll(root); }
+      /* pilha da capa abre em leque e afasta enquanto a capa sai da tela */
+      @keyframes pt-fan{ to{ --_fan:1.6; scale:1.06; } }
+      .pt-hero__pilha{ animation:pt-fan auto linear both; animation-timeline:scroll(root); animation-range:0 80svh; }
+    }
+    @supports ((animation-timeline: view()) and (animation-range: entry)){
+      @keyframes pt-in{ from{ opacity:0; translate:0 var(--common-sizes-40); } }
+      @keyframes pt-bar{ from{ transform:scaleX(0); } }
+      @keyframes pt-zoom{ from{ scale:.85; opacity:.4; } }
+      @keyframes pt-fan-view{ from{ --_fan:0; } to{ --_fan:1.6; } }
+      .pt-reveal{ animation:pt-in auto var(--common-motion-easing-systemic-decelerate) backwards; animation-timeline:view(); animation-range:entry 0% entry 60%; }
+      .pt-grid > .pt-reveal:nth-child(2), .pt-flow > .pt-reveal:nth-child(2){ animation-range:entry 10% entry 70%; }
+      .pt-grid > .pt-reveal:nth-child(3), .pt-flow > .pt-reveal:nth-child(3){ animation-range:entry 20% entry 80%; }
+      .pt-grid > .pt-reveal:nth-child(4), .pt-flow > .pt-reveal:nth-child(4){ animation-range:entry 30% entry 90%; }
+      .pt-phase__bar{ animation:pt-bar auto linear backwards; animation-timeline:view(); animation-range:entry 20% cover 45%; }
+      .pt-zoom{ animation:pt-zoom auto var(--common-motion-easing-systemic-decelerate) backwards; animation-timeline:view(); animation-range:entry 0% cover 40%; }
+      .pt-fan-view{ animation:pt-fan-view auto linear both; animation-timeline:view(); animation-range:cover 10% cover 60%; }
+    }
+  }
+
+  /* ---------- Responsivo ---------- */
+  @media (max-width:1100px){
+    :root{ --pt-gutter:var(--common-sizes-32); }
+    .pt-top__nav{ display:none; }
+    .pt-top__nav + #pt-full{ margin-left:auto; }
+    .pt-grid--4, .pt-flow{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .pt-flow .pt-card::after{ display:none; }
+    .pt-chapter .pt-display{ font:var(--text-style-decorative-big); line-height:1.08; }
+    .pt-h2{ font:var(--text-style-decorative-extra-large); line-height:1.15; }
+  }
+  @media (max-width:860px){
+    :root{ --pt-gutter:var(--common-sizes-20); }
+    .pt-chapter{ padding-block:var(--common-sizes-80); }
+    .pt-hero .pt-wrap, .pt-end .pt-wrap, .pt-virada, .pt-split, .pt-grid--2, .pt-grid--3{ grid-template-columns:minmax(0, 1fr) !important; }
+
+    .pt-hero__pilha, .pt-end__pilha, .pt-virada__pilha{ justify-self:start; width:auto; height:var(--common-sizes-160); }
+    .pt-split__sticky{ position:static; }
+    .pt-chapter .pt-display{ font:var(--text-style-decorative-extra-large); line-height:1.1; }
+    .pt-h2{ font:var(--text-style-decorative-large); line-height:1.2; }
+    .pt-h3, .pt-cap h3{ font:var(--text-style-decorative-medium); line-height:1.25; }
+    .pt-lede, .pt-end ol{ font:var(--text-style-subtitle-medium); }
+    /* capacidades: o portal fica fixo em cima e o texto rola embaixo */
+    .pt-caps{ grid-template-columns:minmax(0, 1fr); gap:0; }
+    .pt-demo{ order:-1; top:var(--pt-head-h); height:42svh; z-index:2; padding-block:var(--common-sizes-8); background:var(--common-colors-surface-default); }
+    .pt-cap{ min-height:60svh; }
+    .pt-timeline li{ padding-left:var(--common-sizes-64); }
+    .pt-table thead{ display:none; }
+    .pt-table, .pt-table tbody, .pt-table tr, .pt-table td{ display:block; width:auto; }
+    .pt-table tr{ padding-block:var(--common-sizes-12); border-bottom:var(--common-border-width-hairline) solid var(--common-colors-border-semi-soft); }
+    .pt-table td{ border:0; padding:var(--common-sizes-4) 0; }
+    .pt-table td:nth-child(2)::before{ content:"zeroheight: "; font-weight:700; }
+    .pt-table td:nth-child(3)::before{ content:"Portal: "; font-weight:700; color:var(--common-colors-text-accent); }
+  }
+  @media (max-width:560px){
+    .pt-grid--4, .pt-flow{ grid-template-columns:minmax(0, 1fr); }
+    .pt-card{ padding:var(--common-sizes-24); }
+    .pt-top__brand span{ display:none; }
+  }
 </style>
 </head>
 <body>
-<div class="pt-viewport">
-<main class="pt-stage" id="stage" aria-roledescription="apresentação" aria-label="Castanha DS: proposta para trocar o zeroheight">
+<header class="pt-top">
+  <a class="pt-top__brand" href="#inicio"><cds-caju-brand kind="default"></cds-caju-brand><span>Portal Castanha DS</span></a>
+  <nav class="pt-top__nav" aria-label="Capítulos">
+    <a href="#por-que">Por que</a><a href="#o-portal">O que faz</a><a href="#feito">Como foi feito</a><a href="#mantem">Como se mantém</a><a href="#lado-a-lado">Lado a lado</a><a href="#plano">Plano</a><a href="#decidir">Decidir</a>
+  </nav>
+  <cds-icon-button id="pt-full" icon="fullscreen-line" kind="ghost" appearance="neutral" size="small" label="Tela cheia (F)"></cds-icon-button>
+  <div class="pt-progress" aria-hidden="true"></div>
+</header>
 
-<!-- 1 · Capa -->
-<section class="pt-slide is-accent loc-pilha-trigger" aria-label="Capa">
-  <div style="margin-top:auto; margin-bottom:auto; display:flex; flex-direction:column; gap:var(--common-sizes-32); max-width:calc(5 * var(--common-sizes-200));">
-    <cds-caju-brand kind="full-white" style="height:var(--common-sizes-56); width:auto;"></cds-caju-brand>
-    <p class="pt-eyebrow">Castanha DS · proposta</p>
-    <h1 class="pt-display">A documentação que se mantém sozinha</h1>
-    <p class="pt-lede">Trocar o zeroheight pelo portal Castanha DS: mais barato, mais fácil de acessar e atualizado a cada mudança.</p>
-    <p class="pt-small" style="color:inherit; opacity:.8;">Gustavo Constantino · Design System · <span id="pt-today"></span></p>
+<main>
+<!-- Capa -->
+<section class="pt-chapter pt-hero is-accent loc-pilha-trigger" id="inicio" aria-labelledby="t-inicio" data-chapter>
+  <div class="pt-wrap">
+    <div class="pt-hero__text">
+      <cds-caju-brand class="pt-hero__brand" kind="full-white"></cds-caju-brand>
+      <p class="pt-eyebrow">Castanha DS · portal</p>
+      <h1 class="pt-display" id="t-inicio">A documentação que se mantém sozinha</h1>
+      <p class="pt-lede">Componentes, tema, regras de conteúdo e capacitações num portal que lê o Figma, testa cada mudança e se publica sozinho. Feito por uma pessoa com IA, desde 29/09.</p>
+      <p class="pt-hero__meta">Gustavo Constantino · Design System</p>
+      <a class="pt-cue" href="#por-que"><span class="cds-icon cds-icon--down-line" aria-hidden="true"></span>Role para ver a história</a>
+    </div>
+    <loc-pilha class="pt-hero__pilha" on="accent"></loc-pilha>
   </div>
-  <loc-pilha class="pt-pilha" on="accent"></loc-pilha>
-  <aside><ul>
-    <li>Abrir com a frase: a proposta é trocar uma ferramenta paga por algo que <b>já funciona</b>.</li>
-    <li>Esta apresentação é feita com o próprio portal: tokens, componentes e a pilha do Castanha Assets.</li>
-  </ul></aside>
 </section>
 
-<!-- 2 · O problema -->
-<section class="pt-slide" aria-label="O problema">
-  <div class="pt-head"><p class="pt-eyebrow">O problema</p></div>
-  <h2 class="pt-h1" style="max-width:calc(7 * var(--common-sizes-200));">Documentar um componente hoje passa por 3 ferramentas e várias etapas manuais. E o resultado envelhece rápido.</h2>
-  <div class="pt-grid" style="grid-template-columns:repeat(4, minmax(0, 1fr)); margin-top:auto;">
-    <div class="pt-card"><h3 class="pt-pain">Complexo</h3><p>Template de 4 frames e 13 seções por componente, com convenção de nome em cada imagem.</p></div>
-    <div class="pt-card"><h3 class="pt-pain">Difícil de acessar</h3><p>A documentação fica numa ferramenta à parte, longe de onde o time trabalha.</p></div>
-    <div class="pt-card"><h3 class="pt-pain">Caro</h3><p>Licença anual paga por um conteúdo que o time escreve e mantém à mão.</p></div>
-    <div class="pt-card"><h3 class="pt-pain">Manutenção manual</h3><p>Nada se atualiza sozinho: cada mudança no Figma vira retrabalho na doc.</p></div>
-  </div>
-  <aside><ul>
-    <li>Falar das 4 dores na ordem em que a gerente mais sente: <b>custo</b> e <b>retrabalho</b>.</li>
-    <li>Transição: "vou mostrar o caminho que um componente faz hoje".</li>
-  </ul></aside>
-</section>
+<!-- 1 · Por que -->
+<section class="pt-chapter" id="por-que" aria-labelledby="t-por-que" data-chapter>
+  <div class="pt-wrap">
+    <div class="pt-head pt-reveal"><p class="pt-eyebrow">1 · Por que</p><h2 class="pt-h2" id="t-por-que">Documentar um componente hoje passa por 3 ferramentas e várias etapas manuais</h2></div>
+    <div class="pt-grid pt-grid--4">
+      <div class="pt-card pt-reveal"><h3 class="pt-card__pain">Complexo</h3><p class="pt-p">Template de 4 frames e 13 seções por componente, com convenção de nome em cada imagem.</p></div>
+      <div class="pt-card pt-reveal"><h3 class="pt-card__pain">Difícil de acessar</h3><p class="pt-p">A documentação fica numa ferramenta à parte, longe de onde o time trabalha.</p></div>
+      <div class="pt-card pt-reveal"><h3 class="pt-card__pain">Caro</h3><p class="pt-p">Licença anual de <span class="pt-fill" data-fill="licenca" aria-label="Valor da licença do zeroheight por ano">R$ —</span>, renovação em <span class="pt-fill" data-fill="renova" aria-label="Data de renovação do zeroheight">—</span>.</p></div>
+      <div class="pt-card pt-reveal"><h3 class="pt-card__pain">Manutenção manual</h3><p class="pt-p">Nada se atualiza sozinho. Cada mudança no Figma vira retrabalho, cerca de <span class="pt-fill" data-fill="horas-componente" aria-label="Horas para documentar um componente">— h</span> por componente.</p></div>
+    </div>
 
-<!-- 3 · Como é hoje -->
-<section class="pt-slide" aria-label="Como é hoje">
-  <div class="pt-head"><p class="pt-eyebrow">Como é hoje</p><h2 class="pt-h1">O caminho de um componente até o zeroheight</h2></div>
-  <div class="pt-flow">
-    <div class="pt-card"><span class="pt-step">1 · Figma</span><h3>Template de doc</h3><p>4 frames, 13 seções e um nome padronizado para cada imagem, para o zeroheight achar.</p></div>
-    <div class="pt-card"><span class="pt-step">2 · Branch</span><h3>Doc dentro do branch</h3><p>Componente novo não é importável fora do branch. A doc migra de arquivo depois do publish.</p></div>
-    <div class="pt-card"><span class="pt-step">3 · Handoff dev</span><h3>Documento de props e tokens</h3><p>Um .md com props, tokens por estado, medidas e comportamento.</p></div>
-    <div class="pt-card"><span class="pt-step">4 · Handoff zeroheight</span><h3>Outro documento</h3><p>Um segundo .md, no formato do zeroheight, com 4 tabs e blocos de design.</p></div>
-    <div class="pt-card"><span class="pt-step">5 · zeroheight</span><h3>A IA monta a página</h3><p>Depois, revisão manual. Cada ajuste no Figma recomeça parte do caminho.</p></div>
-  </div>
-  <cds-alert appearance="warning" show-close-button="false" label="Sem automação" style="margin-top:auto;"><span>A integração do zeroheight é de leitura: nada no zeroheight se atualiza a partir do Figma ou do código.</span></cds-alert>
-  <aside><ul>
-    <li>Fonte: as skills <b>castanha-doc-figma</b> e <b>castanhads-juntos</b>, que descrevem esse processo passo a passo.</li>
-    <li>Enfatizar: são <b>dois documentos</b> diferentes para o mesmo componente.</li>
-  </ul></aside>
-</section>
+    <div class="pt-split" style="margin-top:var(--common-sizes-120);">
+      <div class="pt-split__sticky pt-reveal">
+        <p class="pt-eyebrow">O caminho de hoje</p>
+        <h3 class="pt-h3">Do Figma até o zeroheight</h3>
+        <p class="pt-p">Dois documentos diferentes para o mesmo componente, e nada se atualiza a partir do Figma ou do código.</p>
+      </div>
+      <ol class="pt-timeline">
+        <li class="pt-card pt-reveal"><span class="pt-step">Figma</span><h3>Template de doc</h3><p class="pt-p">4 frames, 13 seções e um nome padronizado em cada imagem, para o zeroheight achar.</p></li>
+        <li class="pt-card pt-reveal"><span class="pt-step">Branch</span><h3>Doc dentro do branch</h3><p class="pt-p">Componente novo não é importável fora do branch. A doc muda de arquivo depois do publish.</p></li>
+        <li class="pt-card pt-reveal"><span class="pt-step">Handoff dev</span><h3>Documento de props e tokens</h3><p class="pt-p">Um .md com props, tokens por estado, medidas e comportamento.</p></li>
+        <li class="pt-card pt-reveal"><span class="pt-step">Handoff zeroheight</span><h3>Outro documento</h3><p class="pt-p">Um segundo .md, no formato do zeroheight, com 4 tabs e blocos de design.</p></li>
+        <li class="pt-card pt-reveal"><span class="pt-step">zeroheight</span><h3>A IA monta a página</h3><p class="pt-p">Depois, revisão manual. A integração é de leitura: cada ajuste recomeça parte do caminho.</p></li>
+      </ol>
+    </div>
 
-<!-- 4 · Quanto custa -->
-<section class="pt-slide" aria-label="Quanto custa">
-  <div class="pt-head"><p class="pt-eyebrow">Quanto isso custa</p><h2 class="pt-h1">Licença, horas e conteúdo desatualizado</h2></div>
-  <div class="pt-grid" style="grid-template-columns:repeat(3, minmax(0, 1fr));">
-    <div class="pt-card"><span class="pt-step">Licença do zeroheight</span><span class="pt-num"><span class="pt-fill" data-fill="licenca" aria-label="Valor da licença do zeroheight por ano">R$ —</span></span><p>por ano · renova em <span class="pt-fill" data-fill="renova" aria-label="Data de renovação do zeroheight">—</span></p></div>
-    <div class="pt-card"><span class="pt-step">Horas por componente</span><span class="pt-num"><span class="pt-fill" data-fill="horas-componente" aria-label="Horas para documentar um componente">— h</span></span><p>do template no Figma até a página publicada</p></div>
-    <div class="pt-card"><span class="pt-step">Revisão do Hub, 05/10</span><span class="pt-num">9 grupos</span><p>revisados de ponta a ponta, com correções em todos</p></div>
-  </div>
-  <h3 class="pt-h2" style="margin-top:var(--common-sizes-56); margin-bottom:var(--common-sizes-20);">O que a revisão encontrou</h3>
-  <div class="pt-grid" style="grid-template-columns:repeat(2, minmax(0, 1fr));">
-    <p class="pt-body">• Links apontando para o domínio antigo do Hub</p>
-    <p class="pt-body">• Páginas vazias e a seção de Motion ainda no modelo vazio</p>
-    <p class="pt-body">• Curvas de motion com valores diferentes dos tokens do Figma</p>
-    <p class="pt-body">• Imagens em URL S3 assinada, que expõem um identificador de credencial AWS</p>
-  </div>
-  <aside><ul>
-    <li><b>Preencher antes:</b> clique nos campos amarelos (licença, renovação e horas). O valor fica salvo neste navegador e não vai para o repositório.</li>
-    <li>A revisão de 05/10 está registrada no repositório (docs/zeroheight e CONFERIR C162 a C168).</li>
-    <li>O item da credencial AWS é um risco de segurança: vale citar com calma, sem alarde.</li>
-  </ul></aside>
-</section>
-
-<!-- 5 · A virada (cor Black da Thumbnail Castanha) -->
-<section class="pt-slide is-inversed loc-pilha-trigger" aria-label="A virada">
-  <div style="margin-top:auto; margin-bottom:auto; max-width:calc(5 * var(--common-sizes-200)); display:flex; flex-direction:column; gap:var(--common-sizes-32);">
-    <p class="pt-eyebrow">A virada</p>
-    <h2 class="pt-display">E se a documentação nascesse no mesmo lugar que o código?</h2>
-  </div>
-  <loc-pilha class="pt-pilha" on="inversed"></loc-pilha>
-  <aside><ul><li>Pausa. Deixar a pergunta no ar antes de mostrar o portal.</li></ul></aside>
-</section>
-
-<!-- 6 · A solução, ao vivo -->
-<section class="pt-slide" aria-label="A solução" style="padding-bottom:var(--common-sizes-104);">
-  <div class="pt-head" style="flex-direction:row; align-items:flex-end; justify-content:space-between; gap:var(--common-sizes-48); margin-bottom:var(--common-sizes-32);">
-    <div style="display:flex; flex-direction:column; gap:var(--common-sizes-16);"><p class="pt-eyebrow">A solução</p><h2 class="pt-h1">O portal Castanha DS, funcionando</h2></div>
-    <p class="pt-body" style="max-width:calc(3 * var(--common-sizes-200));">Componente ao vivo, documentação de uso e o código React no mesmo lugar. Pode clicar: é o portal de verdade.</p>
-  </div>
-  <div class="pt-live"><iframe title="Portal Castanha DS ao vivo" loading="lazy" data-src="../../index.html#/main-button"></iframe></div>
-  <aside><ul>
-    <li>Clicar ao vivo: trocar uma prop no Playground, abrir a tab Uso, mostrar o painel No React.</li>
-    <li>Se a internet falhar, o portal roda local: nada depende de serviço externo.</li>
-  </ul></aside>
-</section>
-
-<!-- 7 · O que já funciona (números lidos do repositório) -->
-<section class="pt-slide" aria-label="O que já funciona">
-  <div class="pt-head"><p class="pt-eyebrow">O que já funciona</p><h2 class="pt-h1">Feito e testado, desde <span id="pt-start">29/09</span></h2></div>
-  <div class="pt-grid" style="grid-template-columns:repeat(4, minmax(0, 1fr));">
-    <div class="pt-card"><span class="pt-num" data-kpi="comps">—</span><p>componentes do Figma, mais <b data-kpi="blocks">—</b> building blocks</p></div>
-    <div class="pt-card"><span class="pt-num" data-kpi="variants">—</span><p>variantes da lib cobertas no playground</p></div>
-    <div class="pt-card"><span class="pt-num" data-kpi="docs">—</span><p>páginas de doc com <b data-kpi="tabs">—</b> tabs</p></div>
-    <div class="pt-card"><span class="pt-num" data-kpi="smoke">—</span><p>componentes testados a cada mudança, em claro, escuro e celular</p></div>
-    <div class="pt-card"><span class="pt-num">67</span><p>vídeos de capacitação tocando na página</p></div>
-    <div class="pt-card"><span class="pt-num" data-kpi="decisions">—</span><p>decisões registradas, com o porquê</p></div>
-    <div class="pt-card"><span class="pt-num" data-kpi="maps">70/70</span><p>componentes com o mapa para o código React</p></div>
-    <div class="pt-card"><span class="pt-num">2</span><p>rotinas diárias: status do Figma e changelog do Slack</p></div>
-  </div>
-  <div class="pt-big" style="display:flex; flex-wrap:wrap; gap:var(--common-sizes-12); margin-top:auto;">
-    <cds-tag appearance="positive" label="Busca no conteúdo das docs" show-lead-item="false"></cds-tag>
-    <cds-tag appearance="positive" label="Modo escuro" show-lead-item="false"></cds-tag>
-    <cds-tag appearance="positive" label="Celular" show-lead-item="false"></cds-tag>
-    <cds-tag appearance="positive" label="IA via MCP" show-lead-item="false"></cds-tag>
-    <cds-tag appearance="positive" label="Changelog automático" show-lead-item="false"></cds-tag>
-    <cds-tag appearance="positive" label="Personas, FAQ e Conteúdo" show-lead-item="false"></cds-tag>
-  </div>
-  <aside><ul>
-    <li>Os números vêm dos arquivos do repositório na hora da apresentação: não envelhecem.</li>
-    <li>Ponto forte: tudo isso foi construído desde 29/09, por uma pessoa com IA.</li>
-  </ul></aside>
-</section>
-
-<!-- 8 · Como se mantém -->
-<section class="pt-slide" aria-label="Como se mantém">
-  <div class="pt-head"><p class="pt-eyebrow">Como se mantém</p><h2 class="pt-h1">Atualizar uma doc é um commit</h2></div>
-  <div class="pt-flow">
-    <div class="pt-card"><span class="pt-step">1 · Figma</span><h3>A fonte continua lá</h3><p>Tokens e componentes são lidos do Figma. Quem desenha não muda de ferramenta.</p></div>
-    <div class="pt-card"><span class="pt-step">2 · Repositório</span><h3>Doc como dado</h3><p>Componente, doc e regra de conteúdo vivem juntos, versionados.</p></div>
-    <div class="pt-card"><span class="pt-step">3 · Testes</span><h3>Smoke automático</h3><p>Cada mudança testa todos os componentes e todas as docs, em desktop e celular.</p></div>
-    <div class="pt-card"><span class="pt-step">4 · Publicação</span><h3>No ar sozinho</h3><p>Passou nos testes, publica. Sem colar nada em lugar nenhum.</p></div>
-  </div>
-  <div class="pt-grid" style="grid-template-columns:repeat(2, minmax(0, 1fr)); margin-top:auto;">
-    <loc-banner area="aprenda" eyebrow="Todo dia, 9h" heading="Status do Figma e do React" text="Confere o que foi publicado na lib e a integração com o castanha-react."></loc-banner>
-    <loc-banner area="padroes" eyebrow="Todo dia, 10h" heading="Changelog do Slack" text="Lê o #castanha-novidades e publica as releases no portal."></loc-banner>
-  </div>
-  <aside><ul><li>Comparar com o slide 3: cinco etapas manuais viram um commit testado.</li></ul></aside>
-</section>
-
-<!-- 9 · Lado a lado -->
-<section class="pt-slide" aria-label="Lado a lado">
-  <div class="pt-head"><p class="pt-eyebrow">Lado a lado</p><h2 class="pt-h1">zeroheight × portal Castanha DS</h2></div>
-  <table class="pt-table">
-    <thead><tr><th></th><th>zeroheight</th><th>Portal Castanha DS</th></tr></thead>
-    <tbody>
-      <tr><td>Custo</td><td>Licença anual (<span class="pt-fill" data-fill="licenca" aria-label="Valor da licença do zeroheight por ano">R$ —</span>)</td><td>Hospedagem interna da Caju</td></tr>
-      <tr><td>Acesso</td><td>Ferramenta à parte, difícil de acessar</td><td>Um link no navegador, também no celular</td></tr>
-      <tr><td>Manutenção</td><td>Template no Figma e dois handoffs por componente</td><td>Um commit, testado e publicado sozinho</td></tr>
-      <tr><td>Componente</td><td>Imagens exportadas do Figma</td><td>Playground ao vivo, com as props do Figma</td></tr>
-      <tr><td>Código</td><td>Link para o Storybook</td><td>Código React ao lado de cada componente</td></tr>
-      <tr><td>IA</td><td>Integração de leitura</td><td>MCP com componentes, tokens, ícones e regras de conteúdo</td></tr>
-      <tr><td>Qualidade</td><td>Revisão manual</td><td>Testes a cada mudança, em claro, escuro e celular</td></tr>
-      <tr><td>Busca</td><td>Por página</td><td>No conteúdo de todas as docs</td></tr>
-    </tbody>
-  </table>
-  <aside><ul><li>Não ler a tabela inteira: escolher Custo, Manutenção e IA.</li></ul></aside>
-</section>
-
-<!-- 10 · Riscos -->
-<section class="pt-slide" aria-label="Riscos e como tratar">
-  <div class="pt-head"><p class="pt-eyebrow">Riscos e como tratar</p><h2 class="pt-h1">O que precisa de cuidado</h2></div>
-  <div class="pt-grid pt-mid" style="grid-template-columns:repeat(2, minmax(0, 1fr));">
-    <div class="pt-card"><h3>Repositório público</h3><p>Hoje está num GitHub pessoal. Proposta: repositório privado na organização da Caju, com login.</p></div>
-    <div class="pt-card"><h3>Depende de uma pessoa</h3><p>Proposta: processo documentado no README e nas skills, mudanças por PR com revisão e testes automáticos.</p></div>
-    <div class="pt-card"><h3>Conteúdo que vive no Hub</h3><p>9 grupos do Hub já foram revisados e trazidos. O que falta entra na transição.</p></div>
-    <div class="pt-card"><h3>Quem edita os textos</h3><p>Quem desenha continua no Figma. Texto de doc muda por PR, com a IA ajudando a escrever.</p></div>
-  </div>
-  <aside><ul><li>Mostrar os riscos antes da pergunta: passa confiança.</li></ul></aside>
-</section>
-
-<!-- 11 · Plano -->
-<section class="pt-slide" aria-label="Plano em 3 fases">
-  <div class="pt-head"><p class="pt-eyebrow">Plano</p><h2 class="pt-h1">Três fases, sem ruptura</h2></div>
-  <div class="pt-phases pt-mid">
-    <div class="pt-phase" data-loc-area="padroes"><div class="pt-phase__bar"></div><h3 class="pt-h2">1 · Piloto</h3><p class="pt-step" style="color:inherit;">30 dias</p>
-      <ul><li>O time de design usa o portal em paralelo ao zeroheight</li><li>Medir tempo para documentar e acessos</li></ul></div>
-    <div class="pt-phase" data-loc-area="aprenda"><div class="pt-phase__bar"></div><h3 class="pt-h2">2 · Transição</h3><p class="pt-step" style="color:inherit;">depois do piloto</p>
-      <ul><li>Repositório privado e hospedagem interna</li><li>Migrar o que falta do Hub</li><li>Treinar o time</li></ul></div>
-    <div class="pt-phase" data-loc-area="componentes"><div class="pt-phase__bar"></div><h3 class="pt-h2">3 · Desligar</h3><p class="pt-step" style="color:inherit;">na renovação · <span class="pt-fill" data-fill="renova" aria-label="Data de renovação do zeroheight">—</span></p>
-      <ul><li>Não renovar o zeroheight</li><li>Portal como fonte única de documentação</li></ul></div>
-  </div>
-  <aside><ul><li>Reforçar: durante o piloto nada é desligado. O risco é zero.</li></ul></aside>
-</section>
-
-<!-- 12 · O pedido -->
-<section class="pt-slide" aria-label="O pedido">
-  <div class="pt-head"><p class="pt-eyebrow">O pedido</p><h2 class="pt-h1">Quatro decisões</h2></div>
-  <div class="pt-asks pt-mid">
-    <div class="pt-ask"><span class="pt-ask__n">1</span><h3>Aprovar o piloto de 30 dias</h3><p>O time usa o portal em paralelo e a gente mede.</p></div>
-    <div class="pt-ask"><span class="pt-ask__n">2</span><h3>Hospedagem interna</h3><p>Repositório privado na organização da Caju, com login.</p></div>
-    <div class="pt-ask"><span class="pt-ask__n">3</span><h3>Tempo dedicado</h3><p><span class="pt-fill" data-fill="horas-semana" aria-label="Horas por semana de dedicação">— h</span> por semana para manter e evoluir o portal.</p></div>
-    <div class="pt-ask"><span class="pt-ask__n">4</span><h3>Não renovar o zeroheight</h3><p>Decisão depois do piloto, antes da renovação.</p></div>
-  </div>
-  <aside><ul><li>Pedir as decisões nessa ordem: a 1 destrava as outras.</li></ul></aside>
-</section>
-
-<!-- 13 · Demo e encerramento -->
-<section class="pt-slide is-accent loc-pilha-trigger" aria-label="Demo e encerramento">
-  <div style="margin-top:auto; margin-bottom:auto; display:flex; flex-direction:column; gap:var(--common-sizes-32); max-width:calc(5 * var(--common-sizes-200));">
-    <p class="pt-eyebrow">Teste agora</p>
-    <h2 class="pt-display">Três coisas para ver ao vivo</h2>
-    <ol class="pt-lede" style="padding-left:var(--common-sizes-32); margin:0;">
-      <li>Abrir um componente e mexer no Playground</li>
-      <li>Buscar uma regra de conteúdo, como "Pix"</li>
-      <li>Abrir o Relatório e ver a saúde da stack</li>
-    </ol>
-    <div class="pt-big" style="display:flex; gap:var(--common-sizes-24);">
-      <cds-link appearance="inversed" label="Abrir o portal" href="../../index.html#/main-button"></cds-link>
-      <cds-link appearance="inversed" label="Abrir o Relatório" href="../../index.html#/relatorio"></cds-link>
+    <div class="pt-head pt-reveal" style="margin-top:var(--common-sizes-120); margin-bottom:var(--common-sizes-32);"><p class="pt-eyebrow">Revisão do Hub, 05/10</p><h3 class="pt-h3">9 grupos revisados, correções em todos</h3></div>
+    <div class="pt-grid pt-grid--2">
+      <p class="pt-card pt-p pt-reveal">Links apontando para o domínio antigo do Hub</p>
+      <p class="pt-card pt-p pt-reveal">Páginas vazias e a seção de Motion ainda no modelo vazio</p>
+      <p class="pt-card pt-p pt-reveal">Curvas de motion com valores diferentes dos tokens do Figma</p>
+      <p class="pt-card pt-p pt-reveal">Imagens em URL S3 assinada, que expõem um identificador de credencial AWS</p>
     </div>
   </div>
-  <loc-pilha class="pt-pilha" on="accent"></loc-pilha>
-  <aside><ul><li>Fechar perguntando qual das quatro decisões dá para tomar hoje.</li></ul></aside>
 </section>
 
-<div class="pt-foot" id="foot">
-  <span class="pt-count" id="count" aria-live="polite"></span>
-  <div class="pt-nav">
-    <cds-icon-button id="prev" icon="navigation-left-line" kind="ghost" appearance="neutral" size="small" label="Slide anterior"></cds-icon-button>
-    <cds-icon-button id="next" icon="navigation-right-line" kind="ghost" appearance="neutral" size="small" label="Próximo slide"></cds-icon-button>
-    <cds-icon-button id="full" icon="fullscreen-line" kind="ghost" appearance="neutral" size="small" label="Tela cheia (F)"></cds-icon-button>
+<!-- Virada (cor Black da Thumbnail Castanha) -->
+<section class="pt-chapter is-inversed loc-pilha-trigger" aria-labelledby="t-virada" style="padding-block:var(--common-sizes-200);">
+  <div class="pt-wrap pt-virada" style="display:grid; grid-template-columns:minmax(0, 1.5fr) minmax(0, 1fr); gap:var(--common-sizes-120); align-items:center;">
+    <div class="pt-zoom" style="display:flex; flex-direction:column; gap:var(--common-sizes-24);"><p class="pt-eyebrow">A virada</p><h2 class="pt-display" id="t-virada">E se a documentação nascesse no mesmo lugar que o código?</h2></div>
+    <loc-pilha class="pt-fan-view pt-virada__pilha" on="inversed"></loc-pilha>
   </div>
-</div>
+</section>
+
+<!-- 2 · O que o portal faz (portal ao vivo ao lado) -->
+<section class="pt-chapter" id="o-portal" aria-labelledby="t-portal" data-chapter>
+  <div class="pt-wrap">
+    <div class="pt-head pt-reveal"><p class="pt-eyebrow">2 · O que o portal faz</p><h2 class="pt-h2" id="t-portal">Role e veja o portal de verdade, ao lado</h2>
+      <p class="pt-lede">Cada capacidade abre a tela correspondente. Dá para clicar e mexer.</p></div>
+    <div class="pt-caps">
+      <div class="pt-caps__list">
+        <article class="pt-cap" data-route="#/main-button"><span class="pt-cap__n">01 · Playground</span><h3>Componente ao vivo, com as props do Figma</h3>
+          <p class="pt-p">Os mesmos controles do Figma: variante, estado, ícone e texto. O link guarda o estado para mandar no Slack.</p></article>
+        <article class="pt-cap" data-route="#/main-button/uso"><span class="pt-cap__n">02 · Documentação</span><h3>Uso, anatomia, estilos, acessibilidade e diretrizes</h3>
+          <p class="pt-p">A doc completa de cada componente, com exemplos vivos no lugar de imagens exportadas.</p></article>
+        <article class="pt-cap" data-route="#/date-picker"><span class="pt-cap__n">03 · Código</span><h3>Do Figma ao React, lado a lado</h3>
+          <p class="pt-p">Cada componente mostra o equivalente no castanha-react, com o mapa de props. 70 de 70 mapeados.</p></article>
+        <article class="pt-cap" data-route="#/caju-theme"><span class="pt-cap__n">04 · Tema</span><h3>Tokens lidos do Figma, no claro e no escuro</h3>
+          <p class="pt-p">Cores, tipografia, tamanhos, bordas e Motion Styles. Um clique copia a variável.</p></article>
+        <article class="pt-cap" data-route="#/conteudo"><span class="pt-cap__n">05 · Conteúdo</span><h3>Tom de voz e regras de escrita</h3>
+          <p class="pt-p">Princípios, vocabulário com busca, formatação de dados e Feedback Pages. Tudo o que estava no Hub, revisado.</p></article>
+        <article class="pt-cap" data-route="#/faq"><span class="pt-cap__n">06 · Ajuda</span><h3>FAQ e busca no conteúdo de todas as docs</h3>
+          <p class="pt-p">As perguntas mais frequentes nos chamados e uma busca que acha a regra dentro da página, além do título.</p></article>
+        <article class="pt-cap" data-route="#/capacitacoes"><span class="pt-cap__n">07 · Capacitações</span><h3>67 vídeos de treinamento tocando na página</h3>
+          <p class="pt-p">Sponsor, Employee, Motion, Ilustração e a trilha de Content, com o banner de cada trilha.</p></article>
+        <article class="pt-cap" data-route="#/main-button" data-theme="dark" data-device="phone"><span class="pt-cap__n"><span class="cds-icon cds-icon--smartphone-line" aria-hidden="true"></span>08 · Escuro e celular</span><h3>Tudo funciona no tema escuro e no celular</h3>
+          <p class="pt-p">Cada mudança é testada em claro, escuro e 375px antes de publicar.</p></article>
+        <article class="pt-cap" data-route="#/relatorio"><span class="pt-cap__n">09 · Relatório</span><h3>A saúde da stack, atualizada sozinha</h3>
+          <p class="pt-p">Componentes, variantes cobertas, débitos mapeados e decisões, lidos direto do repositório.</p></article>
+        <article class="pt-cap" data-route="#/mcp"><span class="pt-cap__n"><span class="cds-icon cds-icon--sparkles-ai-fill" aria-hidden="true"></span>10 · IA</span><h3>O Castanha DS dentro do assistente de código</h3>
+          <p class="pt-p">Um servidor MCP que entrega componentes, props, tokens, ícones e regras de conteúdo para a IA de quem desenvolve.</p></article>
+        <article class="pt-cap" data-route="#/changelog"><span class="pt-cap__n">11 · Changelog</span><h3>As novidades do Slack, publicadas sozinhas</h3>
+          <p class="pt-p">Uma rotina diária lê o #castanha-novidades e publica as releases com busca e filtro.</p></article>
+      </div>
+      <div class="pt-demo" aria-label="Portal Castanha DS ao vivo">
+        <div class="pt-demo__bar"><span class="pt-demo__dot" aria-hidden="true"></span><span>Ao vivo · <span id="pt-route">#/main-button</span></span></div>
+        <div class="pt-demo__frame" id="pt-frame"><iframe id="pt-iframe" title="Portal Castanha DS ao vivo" loading="lazy" data-src="../../index.html#/main-button"></iframe></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · Como foi feito (números lidos do repositório) -->
+<section class="pt-chapter is-tint" id="feito" data-loc-area="aprenda" aria-labelledby="t-feito" data-chapter>
+  <div class="pt-wrap">
+    <div class="pt-head pt-reveal"><p class="pt-eyebrow">3 · Como foi feito</p><h2 class="pt-h2" id="t-feito">Uma pessoa, com IA, desde 29/09</h2>
+      <p class="pt-lede">Os números abaixo são lidos do repositório agora. Não envelhecem.</p></div>
+    <div class="pt-grid pt-grid--4">
+      <div class="pt-card pt-reveal"><span class="pt-num" data-kpi="comps">—</span><p class="pt-p">componentes do Figma, mais <b data-kpi="blocks">—</b> building blocks</p></div>
+      <div class="pt-card pt-reveal"><span class="pt-num" data-kpi="variants">—</span><p class="pt-p">variantes da lib cobertas no playground</p></div>
+      <div class="pt-card pt-reveal"><span class="pt-num" data-kpi="docs">—</span><p class="pt-p">páginas de doc com <b data-kpi="tabs">—</b> tabs</p></div>
+      <div class="pt-card pt-reveal"><span class="pt-num" data-kpi="smoke">—</span><p class="pt-p">componentes testados a cada mudança</p></div>
+      <div class="pt-card pt-reveal"><span class="pt-num" data-count="67">67</span><p class="pt-p">vídeos de capacitação</p></div>
+      <div class="pt-card pt-reveal"><span class="pt-num" data-kpi="decisions">—</span><p class="pt-p">decisões registradas, com o porquê</p></div>
+      <div class="pt-card pt-reveal"><span class="pt-num">70/70</span><p class="pt-p">componentes com o mapa para o React</p></div>
+      <div class="pt-card pt-reveal"><span class="pt-num" data-count="2">2</span><p class="pt-p">rotinas diárias: Figma e changelog</p></div>
+    </div>
+    <div class="pt-grid pt-grid--3" style="margin-top:var(--common-sizes-56);">
+      <div class="pt-card pt-reveal"><span class="pt-step">O par</span><h3>Claude Code no dia a dia</h3><p class="pt-p">A IA escreve o código e as docs. Eu decido, reviso e valido cada entrega.</p></div>
+      <div class="pt-card pt-reveal"><span class="pt-step">A fonte</span><h3>Figma lido direto</h3><p class="pt-p">Tokens, props e variantes vêm do Figma pelo MCP. Divergências vão para uma lista de conferência.</p></div>
+      <div class="pt-card pt-reveal"><span class="pt-step">O método</span><h3>As skills do time</h3><p class="pt-p">castanhads-juntos e castanha-doc-figma guiam auditoria, handoff e documentação.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · Como se mantém -->
+<section class="pt-chapter" id="mantem" aria-labelledby="t-mantem" data-chapter>
+  <div class="pt-wrap">
+    <div class="pt-head pt-reveal"><p class="pt-eyebrow">4 · Como se mantém</p><h2 class="pt-h2" id="t-mantem">Atualizar uma doc é um commit</h2></div>
+    <div class="pt-flow">
+      <div class="pt-card pt-reveal"><span class="pt-step">Figma</span><h3>A fonte continua lá</h3><p class="pt-p">Quem desenha não muda de ferramenta.</p></div>
+      <div class="pt-card pt-reveal"><span class="pt-step">Repositório</span><h3>Doc como dado</h3><p class="pt-p">Componente, doc e regra de conteúdo vivem juntos, versionados.</p></div>
+      <div class="pt-card pt-reveal"><span class="pt-step">Testes</span><h3>Smoke automático</h3><p class="pt-p">Todos os componentes e docs, em desktop e celular.</p></div>
+      <div class="pt-card pt-reveal"><span class="pt-step">Publicação</span><h3>No ar sozinho</h3><p class="pt-p">Passou nos testes, publica. Sem colar nada em lugar nenhum.</p></div>
+    </div>
+    <div class="pt-grid pt-grid--2" style="margin-top:var(--common-sizes-56);">
+      <loc-banner class="pt-reveal" area="aprenda" eyebrow="Todo dia, 9h" heading="Status do Figma e do React" text="Confere o que foi publicado na lib e a integração com o castanha-react."></loc-banner>
+      <loc-banner class="pt-reveal" area="padroes" eyebrow="Todo dia, 10h" heading="Changelog do Slack" text="Lê o #castanha-novidades e publica as releases no portal."></loc-banner>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · Lado a lado -->
+<section class="pt-chapter is-tint" id="lado-a-lado" data-loc-area="componentes" aria-labelledby="t-lado" data-chapter>
+  <div class="pt-wrap">
+    <div class="pt-head pt-reveal"><p class="pt-eyebrow">5 · Lado a lado</p><h2 class="pt-h2" id="t-lado">zeroheight × portal Castanha DS</h2></div>
+    <table class="pt-table pt-reveal">
+      <thead><tr><th scope="col"><span class="pt-sr-only">Critério</span></th><th scope="col">zeroheight</th><th scope="col">Portal Castanha DS</th></tr></thead>
+      <tbody>
+        <tr><td>Custo</td><td>Licença anual (<span class="pt-fill" data-fill="licenca" aria-label="Valor da licença do zeroheight por ano">R$ —</span>)</td><td>Hospedagem interna da Caju</td></tr>
+        <tr><td>Acesso</td><td>Ferramenta à parte, difícil de acessar</td><td>Um link no navegador, também no celular</td></tr>
+        <tr><td>Manutenção</td><td>Template no Figma e dois handoffs por componente</td><td>Um commit, testado e publicado sozinho</td></tr>
+        <tr><td>Componente</td><td>Imagens exportadas do Figma</td><td>Playground ao vivo, com as props do Figma</td></tr>
+        <tr><td>Código</td><td>Link para o Storybook</td><td>Código React ao lado de cada componente</td></tr>
+        <tr><td>IA</td><td>Integração de leitura</td><td>MCP com componentes, tokens, ícones e regras de conteúdo</td></tr>
+        <tr><td>Qualidade</td><td>Revisão manual</td><td>Testes a cada mudança, em claro, escuro e celular</td></tr>
+        <tr><td>Busca</td><td>Por página</td><td>No conteúdo de todas as docs</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 6 · Riscos e plano -->
+<section class="pt-chapter" id="plano" aria-labelledby="t-plano" data-chapter>
+  <div class="pt-wrap">
+    <div class="pt-head pt-reveal"><p class="pt-eyebrow">6 · Riscos e plano</p><h2 class="pt-h2" id="t-plano">O que precisa de cuidado, e como chegar lá</h2></div>
+    <div class="pt-grid pt-grid--4">
+      <div class="pt-card pt-reveal"><h3>Repositório público</h3><p class="pt-p">Hoje num GitHub pessoal. Proposta: privado na organização da Caju, com login.</p></div>
+      <div class="pt-card pt-reveal"><h3>Depende de uma pessoa</h3><p class="pt-p">Processo documentado no README e nas skills, mudanças por PR e testes automáticos.</p></div>
+      <div class="pt-card pt-reveal"><h3>Conteúdo do Hub</h3><p class="pt-p">9 grupos já revisados e trazidos. O que falta entra na transição.</p></div>
+      <div class="pt-card pt-reveal"><h3>Quem edita os textos</h3><p class="pt-p">Quem desenha segue no Figma. Texto de doc muda por PR, com a IA ajudando a escrever.</p></div>
+    </div>
+    <div class="pt-grid pt-grid--3" style="margin-top:var(--common-sizes-80);">
+      <div class="pt-phase pt-reveal" data-loc-area="padroes"><div class="pt-phase__bar"></div><h3 class="pt-h3">1 · Piloto</h3><span class="pt-step" style="color:inherit;">30 dias</span>
+        <ul><li>O time usa o portal em paralelo ao zeroheight</li><li>Medir tempo para documentar e acessos</li></ul></div>
+      <div class="pt-phase pt-reveal" data-loc-area="aprenda"><div class="pt-phase__bar"></div><h3 class="pt-h3">2 · Transição</h3><span class="pt-step" style="color:inherit;">depois do piloto</span>
+        <ul><li>Repositório privado e hospedagem interna</li><li>Migrar o que falta do Hub</li><li>Treinar o time</li></ul></div>
+      <div class="pt-phase pt-reveal" data-loc-area="componentes"><div class="pt-phase__bar"></div><h3 class="pt-h3">3 · Desligar</h3><span class="pt-step" style="color:inherit;">na renovação · <span class="pt-fill" data-fill="renova" aria-label="Data de renovação do zeroheight">—</span></span>
+        <ul><li>Não renovar o zeroheight</li><li>Portal como fonte única de documentação</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · O que precisamos decidir -->
+<section class="pt-chapter" id="decidir" aria-labelledby="t-decidir" data-chapter>
+  <div class="pt-wrap">
+    <div class="pt-head pt-reveal"><p class="pt-eyebrow">7 · Próximos passos</p><h2 class="pt-h2" id="t-decidir">Quatro decisões</h2></div>
+    <div class="pt-grid pt-grid--2">
+      <div class="pt-ask pt-reveal"><span class="pt-ask__n">1</span><h3>Aprovar o piloto de 30 dias</h3><p class="pt-p">O time usa o portal em paralelo e a gente mede.</p></div>
+      <div class="pt-ask pt-reveal"><span class="pt-ask__n">2</span><h3>Hospedagem interna</h3><p class="pt-p">Repositório privado na organização da Caju, com login.</p></div>
+      <div class="pt-ask pt-reveal"><span class="pt-ask__n">3</span><h3>Tempo dedicado</h3><p class="pt-p"><span class="pt-fill" data-fill="horas-semana" aria-label="Horas por semana de dedicação">— h</span> por semana para manter e evoluir o portal.</p></div>
+      <div class="pt-ask pt-reveal"><span class="pt-ask__n">4</span><h3>Não renovar o zeroheight</h3><p class="pt-p">Decisão depois do piloto, antes da renovação.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Fim -->
+<section class="pt-chapter pt-end is-accent loc-pilha-trigger" aria-labelledby="t-fim">
+  <div class="pt-wrap">
+    <div style="display:flex; flex-direction:column; gap:var(--common-sizes-32);">
+      <p class="pt-eyebrow">Teste agora</p>
+      <h2 class="pt-display" id="t-fim">Três coisas para ver ao vivo</h2>
+      <ol><li>Abrir um componente e mexer no Playground</li><li>Buscar uma regra de conteúdo, como "Pix"</li><li>Abrir o Relatório e ver a saúde da stack</li></ol>
+      <div class="pt-end__links">
+        <cds-link appearance="inversed" label="Abrir o portal" href="../../index.html#/main-button"></cds-link>
+        <cds-link appearance="inversed" label="Abrir o Relatório" href="../../index.html#/relatorio"></cds-link>
+      </div>
+    </div>
+    <loc-pilha class="pt-end__pilha pt-fan-view" on="accent"></loc-pilha>
+  </div>
+</section>
 </main>
-</div>
-<section class="pt-notes" id="notes" hidden aria-label="Notas de quem apresenta"><h2>Notas (N fecha)</h2><div id="notes-body"></div></section>
 
 <script src="../../scripts/cds-element.js"></script>
 <script src="../../scripts/playground-kit.js"></script>
@@ -353,42 +438,67 @@
 <script>
 (function(){
   "use strict";
-  var stage = document.getElementById("stage"), slides = [].slice.call(stage.querySelectorAll(".pt-slide"));
-  var count = document.getElementById("count"), foot = document.getElementById("foot"), notes = document.getElementById("notes"), notesBody = document.getElementById("notes-body");
-  var cur = 0;
-  // Escala o palco 1920×1080 para caber na janela
-  function fit(){ stage.style.setProperty("--pt-s", Math.min(innerWidth / 1920, innerHeight / 1080)); }
-  addEventListener("resize", fit); fit();
-  function show(i){
-    cur = Math.max(0, Math.min(slides.length - 1, i));
-    slides.forEach(function(s, k){ s.classList.toggle("is-on", k === cur); s.setAttribute("aria-hidden", String(k !== cur)); s.inert = k !== cur; });
-    var s = slides[cur];
-    count.textContent = (cur + 1) + " / " + slides.length + " · " + s.getAttribute("aria-label");
-    foot.classList.toggle("on-color", s.classList.contains("is-accent"));
-    foot.classList.toggle("on-inversed", s.classList.contains("is-inversed"));
-    ["prev", "next", "full"].forEach(function(id){ document.getElementById(id).setAttribute("appearance", s.classList.contains("is-accent") || s.classList.contains("is-inversed") ? "inversed" : "neutral"); });
-    var f = s.querySelector("iframe[data-src]"); if (f && !f.src) f.src = f.dataset.src; // demo ao vivo carrega quando o slide abre
-    var a = s.querySelector("aside"); notesBody.innerHTML = a ? a.innerHTML : "<p>Sem notas.</p>";
-    history.replaceState(null, "", "#" + (cur + 1));
+  var ROOT = "../../", reduce = matchMedia("(prefers-reduced-motion: reduce)");
+
+  // ---------- Barra de progresso sem scroll-driven animations (Firefox) ----------
+  if (!CSS.supports("animation-timeline", "scroll()") && !reduce.matches){
+    var bar = document.querySelector(".pt-progress");
+    addEventListener("scroll", function(){ var max = document.documentElement.scrollHeight - innerHeight; bar.style.transform = "scaleX(" + (max > 0 ? scrollY / max : 0) + ")"; }, { passive: true });
   }
-  document.getElementById("prev").addEventListener("click", function(){ show(cur - 1); });
-  document.getElementById("next").addEventListener("click", function(){ show(cur + 1); });
+
+  // ---------- Capítulo atual no topo + teclas ----------
+  var chapters = [].slice.call(document.querySelectorAll("[data-chapter]")), links = [].slice.call(document.querySelectorAll(".pt-top__nav a"));
+  var chIO = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if (!e.isIntersecting) return; links.forEach(function(a){ a.setAttribute("aria-current", String(a.getAttribute("href") === "#" + e.target.id)); }); });
+  }, { rootMargin: "-45% 0px -50% 0px" });
+  chapters.forEach(function(c){ chIO.observe(c); });
+  function jump(dir){
+    var y = scrollY + innerHeight * 0.2, i = chapters.findIndex(function(c){ return c.offsetTop > y; });
+    if (dir < 0){ var prev = chapters.filter(function(c){ return c.offsetTop < y - innerHeight * 0.3; }).pop(); (prev || chapters[0]).scrollIntoView(); }
+    else (chapters[i] || chapters[chapters.length - 1]).scrollIntoView();
+  }
   function full(){ if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen(); }
-  document.getElementById("full").addEventListener("click", full);
+  document.getElementById("pt-full").addEventListener("click", full);
   addEventListener("keydown", function(e){
-    if (e.target.closest && e.target.closest("input, textarea, iframe, [contenteditable]")) return;
-    if (["ArrowRight", "PageDown", " "].indexOf(e.key) !== -1){ e.preventDefault(); show(cur + 1); }
-    else if (["ArrowLeft", "PageUp"].indexOf(e.key) !== -1){ e.preventDefault(); show(cur - 1); }
-    else if (e.key === "Home") show(0);
-    else if (e.key === "End") show(slides.length - 1);
+    if (e.target.closest && e.target.closest("input, textarea, [contenteditable]")) return;
+    if (e.key === "ArrowRight" || e.key === "PageDown"){ e.preventDefault(); jump(1); }
+    else if (e.key === "ArrowLeft" || e.key === "PageUp"){ e.preventDefault(); jump(-1); }
     else if (e.key === "f" || e.key === "F") full();
-    else if (e.key === "n" || e.key === "N") notes.hidden = !notes.hidden;
   });
-  // Campos a preencher: editáveis, salvos só neste navegador (o repositório é público: valores do contrato não vão para o git)
+
+  // ---------- Portal ao vivo: cada capacidade troca a tela do iframe ----------
+  var frame = document.getElementById("pt-frame"), iframe = document.getElementById("pt-iframe"), routeEl = document.getElementById("pt-route"), caps = [].slice.call(document.querySelectorAll(".pt-cap"));
+  var W = 1440, PHONE = 390, active = null;
+  function fitFrame(){
+    var phone = frame.classList.contains("is-phone"), w = phone ? PHONE : W, s = frame.clientWidth / w;
+    iframe.style.width = w + "px"; iframe.style.height = (frame.clientHeight / s) + "px"; iframe.style.transform = "scale(" + s + ")";
+  }
+  if (window.ResizeObserver) new ResizeObserver(fitFrame).observe(frame); else addEventListener("resize", fitFrame);
+  function apply(cap){
+    if (active === cap) return; active = cap;
+    caps.forEach(function(c){ c.classList.toggle("is-active", c === cap); });
+    var route = cap.dataset.route, phone = cap.dataset.device === "phone";
+    routeEl.textContent = route + (cap.dataset.theme === "dark" ? " · escuro" : "") + (phone ? " · 390px" : "");
+    frame.classList.toggle("is-phone", phone); fitFrame();
+    if (!iframe.src) iframe.src = iframe.dataset.src;
+    try {
+      var w = iframe.contentWindow;
+      if (w.location.hash !== route) w.location.hash = route;
+      w.document.documentElement.dataset.theme = cap.dataset.theme || "light";
+      w.scrollTo(0, 0);
+    } catch (e) { iframe.src = ROOT + "index.html" + route; }
+  }
+  iframe.addEventListener("load", function(){ if (active){ var a = active; active = null; apply(a); } });
+  var capIO = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) apply(e.target); }); }, { rootMargin: "-45% 0px -45% 0px" });
+  caps.forEach(function(c){ capIO.observe(c); });
+  // o iframe carrega quando a seção chega perto da tela
+  new IntersectionObserver(function(es, o){ if (es[0].isIntersecting){ if (!iframe.src) iframe.src = iframe.dataset.src; o.disconnect(); } }, { rootMargin: "100% 0px" }).observe(document.getElementById("o-portal"));
+  apply(caps[0]);
+
+  // ---------- Campos a preencher: editáveis, salvos só neste navegador ----------
   function store(k, v){ try { if (v == null) return localStorage.getItem("cds-pitch:" + k); localStorage.setItem("cds-pitch:" + k, v); } catch (e) { return null; } }
   [].forEach.call(document.querySelectorAll("[data-fill]"), function(f){
     var k = f.dataset.fill, saved = store(k);
-    f.dataset.empty = f.textContent;
     if (saved) f.textContent = saved;
     f.setAttribute("contenteditable", "plaintext-only"); f.setAttribute("role", "textbox"); f.setAttribute("spellcheck", "false");
     f.addEventListener("input", function(){
@@ -397,14 +507,21 @@
     });
     f.addEventListener("keydown", function(e){ if (e.key === "Enter"){ e.preventDefault(); f.blur(); } });
   });
-  document.getElementById("pt-today").textContent = new Date().toLocaleDateString("pt-BR", { day: "2-digit", month: "long", year: "numeric" });
 
-  // Números ao vivo: lidos do registro dos componentes e dos arquivos do repositório (os mesmos do Relatório)
-  function set(k, v){ [].forEach.call(document.querySelectorAll('[data-kpi="' + k + '"]'), function(e){ e.textContent = typeof v === "number" ? v.toLocaleString("pt-BR") : v; }); }
+  // ---------- Números ao vivo (os mesmos arquivos do Relatório), contando quando aparecem ----------
+  var dur = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--common-motion-duration-extra-long-04")) || 1000;
+  function countUp(el, to){
+    if (reduce.matches){ el.textContent = to.toLocaleString("pt-BR"); return; }
+    var t0 = null;
+    (function step(t){ t0 = t0 || t; var p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(to * e).toLocaleString("pt-BR"); if (p < 1) requestAnimationFrame(step); })(performance.now());
+  }
+  var pending = {};
+  var numIO = new IntersectionObserver(function(es){ es.forEach(function(e){ if (!e.isIntersecting) return; numIO.unobserve(e.target); e.target._seen = true; if (e.target._to != null) countUp(e.target, e.target._to); }); }, { threshold: 0.6 });
+  function set(k, v){ [].forEach.call(document.querySelectorAll('[data-kpi="' + k + '"]'), function(e){ e._to = v; if (e._seen) countUp(e, v); else e.textContent = v.toLocaleString("pt-BR"); }); }
+  [].forEach.call(document.querySelectorAll("[data-kpi], [data-count]"), function(e){ if (e.dataset.count) e._to = Number(e.dataset.count); numIO.observe(e); });
   var pg = (window.CDS && CDS.playgrounds || []).filter(function(c){ return !c.resource; });
   set("comps", pg.filter(function(c){ return !c.block && !c.composition; }).length);
   set("blocks", pg.filter(function(c){ return c.block; }).length);
-  var ROOT = "../../";
   fetch(ROOT + "docs/ROADMAP.md").then(function(r){ return r.text(); }).then(function(t){
     var parts = t.split(/\n(?=## )/), sec = function(n){ return parts.filter(function(p){ return new RegExp("^## " + n + "\\.").test(p); })[0] || ""; };
     var variants = 0;
@@ -420,9 +537,6 @@
     var m = t.match(/(\d+)\/(\d+) ok/); if (m) set("smoke", Number(m[2]));
     var d = t.match(/(\d+) docs · (\d+) tabs/); if (d){ set("docs", Number(d[1])); set("tabs", Number(d[2])); }
   }).catch(function(){});
-
-  var start = parseInt((location.hash || "").slice(1), 10);
-  show(isNaN(start) ? 0 : start - 1);
 })();
 </script>
 </body>

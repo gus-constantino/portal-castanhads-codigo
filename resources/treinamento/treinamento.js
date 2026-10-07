@@ -6,7 +6,8 @@
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   var ZH = "https://castanha.caju.com.br/858426090/v/latest/p/508bfb-treinamento-como-usar-as-documentacoes";
   var GS = "https://www.figma.com/design/RF5sagPdKQD6IoP2MYa2ki/Getting-Started--Castanha-Design-System?node-id=2316-1161";
-  CDS.register({ id: "treinamento", name: "Treinamento", resource: true, lede: "Como usar as documentações e como preparar protótipos no Figma.", order: 3, zeroheight: ZH });
+  var GS0 = "https://www.figma.com/design/RF5sagPdKQD6IoP2MYa2ki/Getting-Started--Castanha-Design-System?node-id=143-111";
+  CDS.register({ id: "treinamento", name: "Treinamento", resource: true, lede: "Como usar as documentações, organizar o Figma e preparar protótipos.", order: 3, zeroheight: ZH });
   // Player do Drive na página (pedido do Gustavo, como no Hub); só toca com login Caju
   function video(id, tema){
     return { video: { src: "https://drive.google.com/file/d/" + id + "/preview", title: "Vídeo do treinamento: " + tema,
@@ -110,6 +111,74 @@
     };
   })();
 
+
+  // Visuais da tab Organizar o Figma (Getting Started, slides 01 a 21): hierarquia em Cards aninhados, árvore da Caju e
+  // simulador de permissões, só com componentes do DS. Fatos de permissão e branch conferidos na Central de Ajuda do Figma.
+  var V2 = (function(){
+    var c = function(t, a, k){ return CDS.create(t, a, k); };
+    function txt(tag, cls, t){ var e = c(tag, null, cls); e.textContent = t; return e; }
+    return {
+      // Slide 03: o que dá para compartilhar, do nível mais amplo ao mais detalhado (Cards aninhados do DS)
+      hierarquia: function(){
+        var levels = [["Organization", "building-line"], ["Workspace", "view-module-line"], ["Team", "team-line"], ["Project (Folder)", "folder-line"], ["File", "file-line"], ["Prototype", "play-fill"]];
+        var root = null, cur = null;
+        levels.forEach(function(l){
+          var card = c("cds-card", { "has-border": "true", class: "pg-gs__lvl" });
+          var head = c("div", null, "pg-gs__lvl-head");
+          head.appendChild(c("cds-icon", { icon: l[1], size: "small", appearance: "neutral" }));
+          head.appendChild(txt("span", "pg-gs__lvl-name", l[0]));
+          card.appendChild(head);
+          if (cur) cur.appendChild(card); else root = card;
+          cur = card;
+        });
+        // Em tela estreita os seis Cards aninhados não cabem: a mesma hierarquia vira árvore (container query no CSS)
+        function tree(i){ var ul = c("ul", null, "pg-pf__tree"); var li = ul.appendChild(txt("li", null, levels[i][0])); if (i + 1 < levels.length) li.appendChild(tree(i + 1)); return ul; }
+        var wrap = c("div", { class: "pg-gs__nest", role: "img", "aria-label": "Organization contém Workspace, que contém Team, que contém Project, que contém File, que contém Prototype." });
+        var cards = wrap.appendChild(c("div", null, "pg-gs__cards")); cards.appendChild(root);
+        var list = wrap.appendChild(c("div", null, "pg-gs__list")); list.appendChild(tree(0));
+        return wrap;
+      },
+      // Slide 04: como a Caju organiza (árvore no estilo das camadas)
+      caju: function(){
+        function tree(items){ var ul = c("ul", null, "pg-pf__tree"); items.forEach(function(it){ var li = ul.appendChild(txt("li", null, it[0])); if (it[1]) li.appendChild(tree(it[1])); }); return ul; }
+        var box = c("div", null, "pg-pf__stage pg-gs__tree");
+        box.appendChild(tree([["Caju Workspace", [["Equipes: um time por produto", [["Projetos: Jornadas, Docs e Local Assets", [["Jornada 01", [["Protótipo da Jornada 01"]]]]]]]]]]));
+        return box;
+      },
+      // Slides 05 e 06: simulador de permissões herdadas e explícitas (Radio Button + Tag do DS)
+      permissoes: function(){
+        var st = { proj: "view", file: "none" };
+        var wrap = c("div", null, "pg-pf");
+        function group(label, name, opts, key){
+          var g = c("div", { role: "radiogroup", "aria-label": label }, "pg-doc-sc-group");
+          opts.forEach(function(o){
+            var rb = c("cds-radio-button", { label: o[1], name: name, value: o[0], status: st[key] === o[0] ? "selected" : "unselected" });
+            rb.addEventListener("cds-change", function(e){ if (e.detail.status === "selected"){ st[key] = o[0]; draw(); } });
+            g.appendChild(rb);
+          });
+          var col = c("div", null, "pg-pf__col"); col.appendChild(txt("p", "pg-pf__cap", label)); col.appendChild(g); return col;
+        }
+        var controls = c("div", null, "pg-pf pg-pf--pair");
+        controls.appendChild(group("Acesso no projeto Jornadas", "gs-proj", [["view", "can view"], ["edit", "can edit"]], "proj"));
+        controls.appendChild(group("Convite no arquivo Jornada 01", "gs-file", [["none", "Sem convite"], ["edit", "can edit"]], "file"));
+        var out = c("div", null, "pg-pf__stage pg-gs__result"), cap = c("p", null, "pg-pf__cap");
+        function row(name){ var k = c("cds-card", { "has-border": "true", class: "pg-gs__file" }); var h = c("div", null, "pg-gs__lvl-head"); h.appendChild(c("cds-icon", { icon: "file-line", size: "small", appearance: "neutral" })); h.appendChild(txt("span", "pg-gs__lvl-name", name)); var tag = c("cds-tag", { "show-lead-item": "false" }); h.appendChild(tag); k.appendChild(h); out.appendChild(k); return tag; }
+        var t1 = row("Jornada 01"), t2 = row("Jornada 02");
+        function set(tag, edit){ tag.setAttribute("label", edit ? "Pode editar" : "Pode visualizar"); tag.setAttribute("appearance", edit ? "positive" : "informative"); }
+        function draw(){
+          var e1 = st.proj === "edit" || st.file === "edit", e2 = st.proj === "edit";
+          set(t1, e1); set(t2, e2);
+          cap.textContent = st.proj === "edit" ? "can edit no projeto passa para todos os arquivos dentro dele." :
+            st.file === "edit" ? "O convite explícito dá mais acesso a Jornada 01. Os outros arquivos seguem com o acesso herdado do projeto (can view)." :
+            "can view no projeto passa para todos os arquivos dentro dele.";
+        }
+        draw();
+        wrap.appendChild(controls); wrap.appendChild(out); wrap.appendChild(cap);
+        return wrap;
+      }
+    };
+  })();
+
   CDS.docs["treinamento"] = {
     tabs: [
       { id: "introducao", title: "Introdução", blocks: [
@@ -202,6 +271,95 @@
         { h3: "Onde tirar dúvidas e acompanhar novidades?" },
         { p: "No canal Castanha Suporte, para dúvidas, e no Castanha Novidades, para as atualizações." },
         { note: "Hoje: o playground espelha 105 componentes do Figma, e 70 deles já têm par no castanha-react (staging). Consulte a seção \"No React\" de cada componente." }
+      ] },
+
+      // Getting Started (Figma RF5sagPdKQD6IoP2MYa2ki, slides 01 a 21): estrutura, permissões, branches e colaboração.
+      // Complementado com a Central de Ajuda e o Fórum do Figma (07/10, pedido do Gustavo); cada fato do Figma tem link.
+      // O Figma hoje chama de Folder o que os slides chamam de Project
+      { id: "organizar", title: "Organizar o Figma", blocks: [
+        { banner: { area: "aprenda", eyebrow: "Treinamento e quiz", heading: "Cuidar e organizar times no Figma", text: "Onde cada arquivo mora, quem pode fazer o quê e como trabalhar em paralelo com branches, sem atrito no arquivo principal.", href: GS0, cta: "Abrir os slides no Figma", external: true } },
+        { p: "Esse treinamento mostra como a Caju guarda os arquivos no Figma, como as permissões passam de um nível para o outro e como usar branches para várias pessoas trabalharem no mesmo arquivo. No fim, um quebra-cabeça e um quiz." },
+
+        { h2: "O que dá para compartilhar" },
+        { visual: { render: V2.hierarquia, side: true, text: "No Figma, cada nível guarda o de dentro. Dá para compartilhar desde a equipe até um protótipo, do mais amplo ao mais detalhado.", list: [
+          "Organization: o nível mais alto da empresa.",
+          "Workspace: um conjunto de equipes, pessoas e recursos (plano Enterprise).",
+          "Team: a equipe e os seus projetos.",
+          "Project: a pasta de arquivos. Hoje o Figma chama de Folder.",
+          "File: o arquivo, com as páginas e os frames.",
+          "Prototype: o protótipo, que pode ser compartilhado sozinho."
+        ] } },
+
+        { h2: "Como a Caju organiza" },
+        { visual: { render: V2.caju, side: true, text: "No Caju Workspace, cada produto tem a sua equipe. Dentro dela, os projetos separam jornadas, documentação e local assets, e cada jornada guarda o seu protótipo." } },
+
+        { h2: "Permissões" },
+        { p: "As permissões controlam o que cada pessoa pode fazer: com `can view`, ações de leitura, como inspecionar, seguir e comentar. Com `can edit`, mudanças em arquivos e projetos. Elas valem no arquivo, no projeto e na equipe." },
+        { h3: "Herdadas e explícitas" },
+        { p: "Quem recebe acesso num nível de cima herda o mesmo acesso em tudo que está dentro. Num nível de baixo, um convite explícito pode dar mais acesso do que o herdado, nunca menos. Teste no simulador:" },
+        { visual: V2.permissoes },
+        { note: "Exemplo dos slides: James tem `can view` no projeto. Convidado com `can edit` para um arquivo, ele edita esse arquivo e continua visualizando os outros. Fonte: [Central de Ajuda do Figma](https://help.figma.com/hc/en-us/articles/35361119554711)." },
+
+        { h2: "Quando usar branches" },
+        { p: "A branch é uma cópia do arquivo principal (main) para mexer em designs, protótipos e bibliotecas sem editar o original." },
+        { cards: [
+          ["Colaboração em equipe", "Várias pessoas ou equipes trabalhando ao mesmo tempo no mesmo arquivo, sem atrito no arquivo principal."],
+          ["Bibliotecas compartilhadas", "Mudanças que afetam muita gente ficam isoladas, revisadas e testadas antes do merge."],
+          ["Experimentos", "Testar ideias e isolar testes de usabilidade sem mexer no design em produção."],
+          ["Handoff e revisão", "Finalizar o design para a entrega ou pedir revisão num ambiente separado."]
+        ] },
+
+        { h2: "O fluxo da branch" },
+        { steps: [
+          { title: "Criar a branch", text: "No menu ao lado do nome do arquivo, Create branch. Na Caju, o nome leva a task: `[JIRA-000] Nome da task`." },
+          { title: "Trabalhar e atualizar com o main", text: "Quando o main muda, o Figma avisa. Update from main traz todas as mudanças de uma vez. Num conflito, escolha a versão do main ou a da branch." },
+          { title: "Pedir revisão", text: "Em Review and merge changes, envie para quem revisa. Os status são In review, Changes suggested e Approved." },
+          { title: "Mergear junto com o código", text: "Na Caju, o merge da branch acontece quando o time de desenvolvimento faz o merge do pull request no código. Depois do merge, a branch é arquivada." }
+        ] },
+        { note: "Branching existe nos planos Organization e Enterprise. Quem tem `can edit` no main pode mergear. Fontes: [Guia de branching](https://help.figma.com/hc/en-us/articles/360063144053), [Update from main](https://help.figma.com/hc/en-us/articles/5665728006423), [Revisão](https://help.figma.com/hc/en-us/articles/5691414603543) e [Merge](https://help.figma.com/hc/en-us/articles/5691189138839)." },
+
+        { h2: "Antes do merge, saiba" },
+        { ul: [
+          "O merge leva a branch inteira: não dá para escolher partes. Para cada conflito, Resolve conflicts pede main ou branch.",
+          "Os comentários feitos na branch não vão para o main no merge.",
+          "A biblioteca publica a partir do main: mudança feita numa branch precisa do merge antes de publicar.",
+          "O histórico de versões registra Branch created, Updated from main e Branch merged. Um merge pode ser desfeito restaurando uma versão anterior.",
+          "Arquive à mão as branches abandonadas, para a lista não confundir o time."
+        ] },
+        { note: "Fontes: [Guia de branching](https://help.figma.com/hc/en-us/articles/360063144053), [Merge](https://help.figma.com/hc/en-us/articles/5691189138839), [Boas práticas de branching](https://www.figma.com/best-practices/branching-in-figma/) e [Fórum do Figma](https://forum.figma.com/ask-the-community-7/resolving-branch-and-main-file-conflict-22097)." },
+
+        { h2: "Colaboração no arquivo" },
+        { cards: [
+          ["Comentários", "Tecla C para comentar e @ para mencionar alguém. Use para chamar quem edita durante o trabalho."],
+          ["Spotlight e seguir", "Spotlight me mostra a sua tela para todos. Clique no avatar de alguém para seguir a pessoa."],
+          ["Histórico de versões", "Quem tem `can view` vê o histórico. Criar, nomear e restaurar versões pede edição."],
+          ["Ready for dev", "Marca o que está pronto para o desenvolvimento, e quem abre o arquivo em Dev Mode é avisado."]
+        ] },
+        { note: "Fontes: [Comentários](https://help.figma.com/hc/en-us/articles/360041068574), [Spotlight](https://help.figma.com/hc/en-us/articles/360040322673), [Histórico de versões](https://help.figma.com/hc/en-us/articles/360038006754) e [Ready for dev](https://help.figma.com/hc/en-us/articles/26781702258583)." },
+
+        { h2: "Quebra-cabeça: monte o fluxo da branch" },
+        { p: "As etapas estão embaralhadas. Coloque em ordem, do início ao arquivo atualizado, e confira." },
+        { quiz: { kind: "order", label: "Quebra-cabeça · Monte o fluxo da branch", storageKey: "organizar-puzzle", results: [
+            { min: 5, illustration: "objetos/trofeu", title: "Montou de primeira", text: "O fluxo está na ponta da língua." },
+            { min: 3, illustration: "objetos/medalha-1", title: "Mandou bem", text: "Montou com poucas tentativas. Jogue de novo para fazer de primeira." },
+            { min: 0, illustration: "notificacoes/success-low-detail", title: "Montou", text: "Revise O fluxo da branch acima e tente de primeira." }
+          ],
+          prompt: "Do início ao arquivo atualizado:", pieces: ["Criar a branch com o nome da task", "Trabalhar na branch", "Atualizar com o main (Update from main)", "Pedir revisão", "Mergear quando o PR for mergeado no código"],
+          why: "Criar, trabalhar, atualizar com o main, revisar e mergear junto com o código." } },
+
+        { h2: "Teste o que você aprendeu" },
+        { p: "Cinco perguntas sobre o treinamento." },
+        { quiz: { label: "Quiz · Organizar o Figma", storageKey: "organizar-quiz", questions: [
+          { q: "Qual é a ordem, do nível mais amplo para o mais detalhado?", options: ["File, Project, Team, Workspace", "Organization, Workspace, Team, Project, File", "Team, Organization, File, Project"], answer: 1, why: "Organization guarda Workspace, que guarda Team, que guarda Project (Folder), que guarda File." },
+          { q: "James tem can view no projeto e recebe can edit em um arquivo dele. O que acontece?", options: ["Edita esse arquivo e visualiza os outros", "Edita todos os arquivos do projeto", "Continua sem editar nada"], answer: 0, why: "O convite explícito dá mais acesso a um arquivo. O resto segue o acesso herdado do projeto." },
+          { q: "Quando o Figma traz as mudanças do main para a branch?", options: ["Sozinho, sem avisar", "No Update from main, com todas as mudanças de uma vez", "Uma mudança por vez, escolhida a dedo"], answer: 1, why: "Update from main mostra uma prévia e traz tudo. Num conflito, escolha main ou branch." },
+          { q: "Na Caju, quando a branch vai para o main?", options: ["Assim que o design fica pronto", "Quando o time de dev faz o merge do pull request no código", "No fim de cada sprint"], answer: 1, why: "Design e código entram juntos: o merge da branch acompanha o merge do PR." },
+          { q: "Uma mudança na biblioteca está numa branch. Como publicar?", options: ["Publicar direto da branch", "Duplicar o arquivo e publicar a cópia", "Fazer o merge no main e publicar a partir dele"], answer: 2, why: "A biblioteca publica a partir do main." }
+        ], results: [
+          { min: 5, illustration: "objetos/trofeu", title: "Gabaritou", text: "O arquivo da sua equipe está em boas mãos." },
+          { min: 3, illustration: "objetos/medalha-1", title: "Mandou bem", text: "Revise as seções das perguntas que escaparam e tente de novo." },
+          { min: 0, illustration: "notificacoes/success-low-detail", title: "Bora mais uma?", text: "Passe pelas seções de novo e refaça o quiz. Na segunda vai." }
+        ] } }
       ] },
 
       // Prepare protótipos no Figma (Getting Started RF5sagPdKQD6IoP2MYa2ki, slides 27 a 07, roteiro do Gustavo no Slack):

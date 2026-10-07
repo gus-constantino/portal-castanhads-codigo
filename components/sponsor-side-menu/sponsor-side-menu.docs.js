@@ -24,9 +24,11 @@ CDS.docs["sponsor-side-menu"] = {
         ["Subitens (instância 5582:1812, accordions abertos)", "Gestão de pessoas: Painel, Colaboradores, Organograma, Admissão, Férias, Ausências, Fechamentos, Assinatura digital, Documentos, Recisão e Folha de Pagamento. Benefícios e Premiações: Pedido, Hub de Benefícios, Saúde e Bem Estar e Feirinha RH. Reembolso e despesas: Adiantamento, Reembolsos e Configurações. Financeiro: Créditos Caju, Conta Caju do colaborador e Assinaturas Caju. Relatórios: Gestão de Pessoas, Benefícios e Premiações, Saúde e Bem Estar, Cartão do colaborador, Despesas, Conta Caju e Financeiro. Personalizações: Benefícios e Premiações, Gestão de pessoas e Empresa", "`.Subcategory` sem Lead Icon, com a seta; o accordion aberto tem o ícone em `Surface/accent` (Is Selected=True)"],
         ["Categories (reserva)", "4 `.Category` com o rótulo Category e Badge, para menus maiores", "Camadas ocultas"],
         ["Shortcuts", "Painel Inicial, Soluções Caju, Novo Pedido, Adicionar Colaborador e Cartões (Appearance=Accent)", "Ocultos até ligar Show Shortcuts"],
-        ["Heading", "Icon Button `close-line` para fechar o menu em gaveta", "Camada oculta (no código, `show-close`)"],
+        ["Heading", "Icon Button `close-line` para fechar o menu no celular", "Não existe no Figma hoje (C182). No código, aparece sempre que o menu está aberto no celular"],
         ["User Area", "Ajuda (Accordion, `support-line`) e `.User Profile` (User Name, CNPJ e `menu-line`)", "Visíveis"]
       ] } },
+      { h2: "No celular" },
+      { p: "Como no protótipo do Figma (frame 360): o Side Menu sai da página e o Menu Button do Header (`hamburguer-line`) abre o menu em tela cheia, a partir do topo à esquerda, expandido e sem fundo escurecido, com Dissolve de 300ms (`Duration/Medium/02`). Fecha pelo Icon Button de fechar, por Esc ou ao escolher um item. No tablet e no desktop, o menu fica colapsado na lateral e expande por hover." },
       { h2: "Boas práticas" },
       { cards: [
         ["Um item selecionado", "Um item selecionado por vez, derivado da rota."],
@@ -44,7 +46,7 @@ CDS.docs["sponsor-side-menu"] = {
         { name: "Show Shortcuts", type: "Boolean", default: "false" },
         { name: "Slot", type: "Slot", default: "—" }
       ] },
-      { note: "No código: `collapsed=\"false\"` fixa o menu expandido e `show-close=\"true\"` mostra o botão de fechar (evento `cds-close`). Filhos: `<cds-sponsor-category>` vão para Categories, com `slot=\"shortcuts\"` para os atalhos, `slot=\"help\"` para a Ajuda e `slot=\"slot\"` para o Slot livre. O `<cds-sponsor-user-profile>` vai para o rodapé. Evento `cds-select` ao selecionar um item." }
+      { note: "No código: `collapsed=\"false\"` fixa o menu expandido e `show-close=\"true\"` mostra o botão de fechar também no desktop (evento `cds-close`). No celular: `open()` e `close()`, e o Header avisa pelo evento `cds-menu`. Filhos: `<cds-sponsor-category>` vão para Categories, com `slot=\"shortcuts\"` para os atalhos, `slot=\"help\"` para a Ajuda e `slot=\"slot\"` para o Slot livre. O `<cds-sponsor-user-profile>` vai para o rodapé. Evento `cds-select` ao selecionar um item." }
     ] },
     { id: "acessibilidade", title: "Acessibilidade", blocks: [
       { h2: "Acessibilidade" },

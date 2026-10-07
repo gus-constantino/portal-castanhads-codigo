@@ -1285,6 +1285,8 @@ cds-sponsor-header{
 cds-sponsor-header [hidden]{ display:none !important; }
 .cds-sh__heading{ display:flex; align-items:center; min-height:var(--common-sizes-48); }
 .cds-sh__lead{ flex:1 0 0; min-width:0; display:flex; align-items:center; gap:var(--common-sizes-24); }
+.cds-sh__nav{ display:flex; align-items:center; gap:var(--common-sizes-8); flex:0 0 auto; } /* Navigation Controls: Menu (só celular) · Back */
+.cds-sh__nav:not(:has(> :not([hidden]))){ display:none; }
 .cds-sh__crumb{ min-width:0; }
 .cds-sh__trail{ display:flex; align-items:center; gap:var(--common-sizes-8); flex:0 0 auto; }
 .cds-sh__title-row{ display:flex; flex-wrap:wrap; align-items:flex-start; gap:var(--common-sizes-8); }
@@ -1320,6 +1322,20 @@ cds-sponsor-side-menu[collapsed="false"] .cds-ssm__brand, cds-sponsor-side-menu[
 .cds-ssm__user{ display:flex; flex-direction:column; padding:var(--common-sizes-20) 0; --cds-sponsor-category-width:100%; --cds-sponsor-user-profile-width:100%; }
 .cds-ssm__help{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
 @media (prefers-reduced-motion:reduce){ .cds-ssm{ transition:none; } }
+
+/* Celular (protótipo 5318:19215): fora da página; aberto, tela cheia no topo à esquerda, expandido, sem fundo escurecido.
+   Dissolve de 300ms (Duration/Medium/02). No quadro do playground ([data-viewport]) cobre o quadro, não a janela */
+cds-sponsor-side-menu[data-mode="mobile"]{ display:none; width:auto; }
+cds-sponsor-side-menu[data-mode="mobile"][open]{
+  display:block; position:fixed; inset:0; width:100%; height:100%; z-index:1000;
+  animation:cds-ssm-dissolve var(--common-motion-duration-medium-02) var(--common-motion-easing-systemic-default) both;
+}
+[data-viewport] cds-sponsor-side-menu[data-mode="mobile"][open]{ position:absolute; }
+cds-sponsor-side-menu[data-mode="mobile"] .cds-ssm{ min-height:0; }
+cds-sponsor-side-menu[data-mode="mobile"] .cds-ssm__heading{ justify-content:flex-start; padding-left:var(--common-sizes-16); }
+cds-sponsor-side-menu[data-mode="mobile"] .cds-ssm__brand{ justify-content:flex-start; }
+@keyframes cds-ssm-dissolve{ from{ opacity:0; } to{ opacity:1; } }
+@media (prefers-reduced-motion:reduce){ cds-sponsor-side-menu[data-mode="mobile"][open]{ animation:none; } }
 
 /* ==== components/table-cell/table-cell.css ==== */
 /* .Data Cell · set 13404:1015 — 64 · Surface/default · borda inferior Border/semi-soft · gap 4

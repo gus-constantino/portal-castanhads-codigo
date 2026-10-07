@@ -6,6 +6,8 @@ cds-sponsor-header{
 cds-sponsor-header [hidden]{ display:none !important; }
 .cds-sh__heading{ display:flex; align-items:center; min-height:var(--common-sizes-48); }
 .cds-sh__lead{ flex:1 0 0; min-width:0; display:flex; align-items:center; gap:var(--common-sizes-24); }
+.cds-sh__nav{ display:flex; align-items:center; gap:var(--common-sizes-8); flex:0 0 auto; } /* Navigation Controls: Menu (só celular) · Back */
+.cds-sh__nav:not(:has(> :not([hidden]))){ display:none; }
 .cds-sh__crumb{ min-width:0; }
 .cds-sh__trail{ display:flex; align-items:center; gap:var(--common-sizes-8); flex:0 0 auto; }
 .cds-sh__title-row{ display:flex; flex-wrap:wrap; align-items:flex-start; gap:var(--common-sizes-8); }

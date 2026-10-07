@@ -12,17 +12,28 @@
  *   Colapsado: .Category e .User Profile em Kind=Reduced (só ícone e avatar)
  *
  * Atributos: collapsed (Is Collapsed · padrão do Figma: true; "false" fixa expandido) · show-slot · show-shortcuts
- *   show-close (camada oculta no Figma: Icon Button close-line no Heading, para o menu em gaveta; evento cds-close)
+ *   show-close (Icon Button close-line no Heading; no celular aparece sempre que o menu está aberto; evento cds-close)
+ *   viewport (desktop | tablet | mobile): sem o atributo, vale o [data-viewport] do quadro ou a largura da tela (Mobile < 744)
+ *   open (só no celular: menu aberto)
+ * Celular (protótipo 5318:19215): o menu sai da página e o Menu Button do Header (evento cds-menu) chama open(). Abre em tela cheia,
+ *   no topo à esquerda, expandido, sem fundo escurecido, com Dissolve de 300ms (Duration/Medium/02). Fecha pelo Icon Button de
+ *   fechar (decisão do Gustavo, 07/10: o Figma não tem a camada hoje, C182), por Esc ou ao escolher um item.
+ *   Tablet segue o desktop (o protótipo só tem 360, 1366 e 1440).
  * Filhos: <cds-sponsor-category> vão para Categories; com slot="shortcuts" para Shortcuts; slot="help" para Help;
  *   <cds-sponsor-user-profile> (ou slot="profile") para o rodapé; slot="slot" para o Slot livre.
+ * Métodos: open(trigger) · close() — o foco vai para o menu ao abrir e volta para quem abriu ao fechar.
  * Comportamento: colapsado, abre por hover ou foco em overlay (a largura de 80 continua reservada); clicar num item seleciona
  *   ele e tira a seleção dos outros; abrir um accordion fecha os outros. Evento: cds-select { item }.
  */
 (function(){
   "use strict";
   class CdsSponsorSideMenu extends CDS.Element {
-    static get observedAttributes(){ return ["collapsed","show-slot","show-shortcuts","show-close"]; }
-    get collapsed(){ return this.getAttribute("collapsed") !== "false"; }
+    static get observedAttributes(){ return ["collapsed","show-slot","show-shortcuts","show-close","viewport","open"]; }
+    get mobile(){
+      var f = this.closest("[data-viewport]"), v = this.getAttribute("viewport") || (f && f.dataset.viewport) || (this._mq && this._mq.matches ? "mobile" : "desktop");
+      return v === "mobile";
+    }
+    get collapsed(){ return !this.mobile && this.getAttribute("collapsed") !== "false"; } // no celular o menu aberto é sempre o expandido
     render(){
       var c = CDS.create, self = this;
       if (!this._built){
@@ -35,7 +46,13 @@
         this.brandEl = head.appendChild(c("div", null, "cds-ssm__brand")).appendChild(c("cds-caju-brand", { label: "Caju" }));
         // camada oculta no Figma (Heading › Icon Button close-line): fechar o menu em gaveta, no celular
         this.closeBtn = head.appendChild(c("cds-icon-button", { icon: "close-line", kind: "default", appearance: "neutral", size: "small", label: "Fechar menu" }, "cds-ssm__close"));
-        this.closeBtn.addEventListener("click", function(){ self.dispatchEvent(new CustomEvent("cds-close", { bubbles: true })); });
+        this.closeBtn.addEventListener("click", function(){ self.dispatchEvent(new CustomEvent("cds-close", { bubbles: true })); if (self.mobile) self.close(); });
+        this._mq = window.matchMedia ? matchMedia("(max-width: 743px)") : null;
+        if (this._mq && this._mq.addEventListener) this._mq.addEventListener("change", function(){ if (!self.mobile) self.removeAttribute("open"); self.render(); });
+        this.addEventListener("keydown", function(e){ if (e.key === "Escape" && self.mobile && self.hasAttribute("open")){ e.stopPropagation(); self.close(); } });
+        // o quadro do playground troca o data-viewport sem recriar o componente: observar para trocar o modo
+        var fr = this.closest("[data-viewport]");
+        if (fr && window.MutationObserver) new MutationObserver(function(){ if (!self.isConnected) return; if (self.getAttribute("open") != null && fr.dataset.viewport !== "mobile") self.removeAttribute("open"); self.render(); }).observe(fr, { attributes: true, attributeFilter: ["data-viewport"] });
         this.slotEl = box.appendChild(c("div", null, "cds-ssm__slot"));
         this.shortEl = box.appendChild(c("div", { role: "list", "aria-label": "Atalhos" }, "cds-ssm__shortcuts"));
         this.catEl = box.appendChild(c("div", { role: "list", "aria-label": "Categorias" }, "cds-ssm__categories"));
@@ -62,16 +79,33 @@
           if (!it || !self.contains(it) || it.hasAttribute("disabled")) return;
           if (it.tagName === "CDS-SPONSOR-CATEGORY" && it.getAttribute("intent") === "accordion") return;
           self.select(it);
+          if (self.mobile && self.hasAttribute("open")) self.close(); // no celular, escolher um item fecha o menu
         });
         this.addEventListener("cds-toggle", function(e){
           if (!e.detail.expanded) return;
           self.items().forEach(function(x){ if (x !== e.target && x.getAttribute("intent") === "accordion") x.expanded = false; });
         });
       }
+      var mob = this.mobile, isOpen = mob && this.hasAttribute("open");
+      CDS.attr(this, "data-mode", mob ? "mobile" : "desktop");
+      // aberto no celular: diálogo de navegação em tela cheia
+      CDS.attr(this.panel, "role", isOpen ? "dialog" : null); CDS.attr(this.panel, "aria-modal", isOpen ? "true" : null);
       this.slotEl.hidden = this.getAttribute("show-slot") !== "true";
-      this.closeBtn.hidden = this.getAttribute("show-close") !== "true";
+      this.closeBtn.hidden = !(isOpen || this.getAttribute("show-close") === "true");
       this.shortEl.hidden = this.getAttribute("show-shortcuts") !== "true";
       this.sync();
+    }
+    open(trigger){
+      if (!this.mobile) return;
+      this._trigger = trigger || document.activeElement;
+      this.setAttribute("open", "");
+      var self = this; requestAnimationFrame(function(){ var b = self.closeBtn.querySelector("button"); if (b) b.focus(); });
+    }
+    close(){
+      if (!this.hasAttribute("open")) return;
+      this.removeAttribute("open");
+      var t = this._trigger; this._trigger = null;
+      if (t && t.focus) t.focus();
     }
     items(){ return [].slice.call(this.querySelectorAll("cds-sponsor-category")); }
     select(it){

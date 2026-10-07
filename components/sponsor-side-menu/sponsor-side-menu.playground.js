@@ -32,11 +32,18 @@ CDS.register({
     m.appendChild(kit.el("cds-tag", { slot: "slot", appearance: "neutral", label: "Slot", "show-lead-item": "false" })); // Slot livre (Show Slot): conteúdo de exemplo
     m.appendChild(kit.el("cds-sponsor-user-profile", null));
     stage.appendChild(m);
-    stage.appendChild(kit.el("div", { style: "flex:1; padding:var(--common-sizes-32); font:var(--text-style-body-regular); color:var(--common-colors-text-medium);", text: "Conteúdo da página. Com o menu colapsado, passe o mouse sobre ele: o menu abre por cima do conteúdo." }));
+    // Página como nos frames 360/1366 do Figma: Header (só o .Heading) + conteúdo. No celular o Menu Button do Header abre o menu
+    var col = kit.el("div", { style: "flex:1; min-width:0; display:flex; flex-direction:column;" });
+    var hdr = kit.el("cds-sponsor-header", { "show-title": "false", "show-close": "false", style: "padding-inline:var(--common-sizes-20)" });
+    col.appendChild(hdr);
+    col.appendChild(kit.el("div", { style: "padding:var(--common-sizes-20); font:var(--text-style-body-regular); color:var(--common-colors-text-medium);", text: "Conteúdo da página. No desktop, passe o mouse no menu para expandir. No celular (Viewport 375), use o Menu Button do Header." }));
+    stage.appendChild(col);
+    hdr.addEventListener("cds-menu", function(){ m.open(hdr.menuBtn); });
     ctx.preview.appendChild(stage);
     m.addEventListener("click", function(e){ var a = e.target.closest("a"); if (a) e.preventDefault(); });
     m.addEventListener("cds-select", function(e){ ctx.readout("cds-select · " + e.detail.item.getAttribute("label"), false); });
     m.addEventListener("cds-close", function(){ ctx.readout("cds-close", false); });
+    requestAnimationFrame(function(){ hdr.setBreadcrumb([{ label: "Início" }, { label: "Pedidos" }]); });
     kit.hint(panel, "Colapsado abre por hover ou foco, em overlay. Clicar num item seleciona ele, e abrir um accordion fecha os outros.");
     kit.section(panel, "Variants");
     kit.toggle(panel, { label: "Is Collapsed", checked: true, onChange: function(on){ kit.attr(m, "collapsed", on ? null : "false"); } });
@@ -47,7 +54,8 @@ CDS.register({
       [].forEach.call(m.querySelectorAll(".cds-ssm__categories cds-sponsor-category[intent=accordion]"), function(c){ c.expanded = on; }); // direto, sem a regra de um aberto por vez
       stage.style.height = ""; if (on) requestAnimationFrame(function(){ stage.style.height = m.panel.scrollHeight + "px"; }); // a prévia cresce para mostrar o menu inteiro
     } });
-    kit.section(panel, "Camadas ocultas no Figma");
-    kit.toggle(panel, { label: "Icon Button de fechar (gaveta)", checked: false, onChange: function(on){ kit.attr(m, "show-close", on ? "true" : null); } });
+    kit.section(panel, "Icon Button de fechar");
+    kit.hint(panel, "No celular ele aparece sempre que o menu está aberto (o Figma ainda não tem a camada).");
+    kit.toggle(panel, { label: "Mostrar também no desktop", checked: false, onChange: function(on){ kit.attr(m, "show-close", on ? "true" : null); } });
   }
 });

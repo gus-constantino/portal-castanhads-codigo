@@ -41,13 +41,13 @@ CDS.docs["sponsor-header"] = {
         legend: ["Back Button (Icon Button)", "Trailling Items: buscar, notificações com Badge e fechar (Icon Buttons)", "Title", "Information Button (Icon Button ghost)", "Tag de contexto", "Drop Button (ações secundárias)", "Main Button (ação principal)"]
       } },
       { h2: "Composição do componente" },
-      { p: "Duas linhas. A `.Heading` tem o Back Button, o Breadcrumb e os Trailling Items (Icon Buttons small default neutral). A `.Title Content` tem o Title (Title/Large), o Information Button (Icon Button ghost accent), a Tag e as ações: Drop Button (default neutral) e Main Button (default accent). Container em `Surface/default`, padding 32 0 28, gap 24 e altura mínima 312 no Figma." },
+      { p: "Duas linhas. A `.Heading` tem o Back Button, o Breadcrumb e os Trailling Items. No celular (Mobile Lead Items, `Common/Is Mobile`), o Menu Button (`hamburguer-line`) entra antes do Back Button e abre o Side Menu em tela cheia. Os Trailling Items são Icon Buttons small default neutral. A `.Title Content` tem o Title (Title/Large), o Information Button (Icon Button ghost accent), a Tag e as ações: Drop Button (default neutral) e Main Button (default accent). Container em `Surface/default`, padding 32 0 28, gap 24 e altura mínima 312 no Figma." },
       { h2: "Propriedades" },
       { props: [
         { name: "Show Heading", type: "Boolean", default: "true" },
         { name: "Show Title", type: "Boolean", default: "true" }
       ] },
-      { note: "As duas props são as do componente Header no Figma. No código, cada instância do template também liga e desliga: `show-back`, `show-breadcrumb`, `show-search`, `show-notification`, `show-close`, `show-info`, `show-tag`, `show-drop-button` e `show-main-button`. Textos: `title`, `tag-label`, `drop-label`, `main-label` e `notification`. O Breadcrumb entra por `setBreadcrumb([{ label, href }], collapse)`." }
+      { note: "As duas props são as do componente Header no Figma. No código, cada instância do template também liga e desliga: `show-menu-button` (só no celular; evento `cds-menu`), `show-back`, `show-breadcrumb`, `show-search`, `show-notification`, `show-close`, `show-info`, `show-tag`, `show-drop-button` e `show-main-button`. Textos: `title`, `tag-label`, `drop-label`, `main-label` e `notification`. O Breadcrumb entra por `setBreadcrumb([{ label, href }], collapse)`." }
     ] },
 
     { id: "estilos", title: "Estilos", blocks: [

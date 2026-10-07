@@ -13,7 +13,7 @@ CDS.register({
       kit.toggle(panel, { label: b[1], checked: true, onChange: function(on){ kit.attr(h, b[0], on ? null : "false"); } });
     });
     kit.section(panel, "Instâncias do template");
-    [["show-back", "Voltar"], ["show-breadcrumb", "Breadcrumb"], ["show-search", "Buscar"], ["show-notification", "Notificações"], ["show-close", "Fechar"],
+    [["show-menu-button", "Menu Button (só no celular)"], ["show-back", "Voltar"], ["show-breadcrumb", "Breadcrumb"], ["show-search", "Buscar"], ["show-notification", "Notificações"], ["show-close", "Fechar"],
      ["show-info", "Information Button"], ["show-tag", "Tag"], ["show-drop-button", "Drop Button"], ["show-main-button", "Main Button"]].forEach(function(b){
       kit.toggle(panel, { label: b[1], checked: true, onChange: function(on){ kit.attr(h, b[0], on ? null : "false"); } });
     });

@@ -1,9 +1,99 @@
 {
  "fonte": "Slack #castanha-novidades (C09F7GD1A6M)",
- "lido_ate": "2026-10-05",
- "atualizado_em": "2026-10-05",
+ "lido_ate": "2026-10-07",
+ "atualizado_em": "2026-10-07",
  "nota": "lido_ate = último dia em que o canal foi lido por completo. A rotina lê a partir desse dia (inclusive); releases repetidas (mesma data, área e título) são ignoradas.",
  "releases": [
+  {
+   "data": "2026-10-07",
+   "area": "Figma",
+   "titulo": "Release 25 da biblioteca do Figma",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "Skeleton: componente estabilizado"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Banner: novo componente"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Divider: nova variante tracejada"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Tab: opção de mostrar ou ocultar o Badge"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Progress Tracker: nova variante vertical"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Content List e Selection List: tamanho mínimo de 44 (AAA, WCAG 2.2)"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Drawer: controle para exibir ou ocultar o Secondary Action Button"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Tabs: o Scrollable Tab exibe o Item 1 como nested instance no painel lateral"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Atualizações das bibliotecas de suporte (Theme, Icons e outras), contrato de cores e performance da biblioteca"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/111e49-castanha"
+  },
+  {
+   "data": "2026-10-07",
+   "area": "React",
+   "titulo": "Release 25 do castanha-react",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "Status Dot, Carousel e Skeleton: componentes estabilizados"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Banner: novo componente"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Progress Tracker: nova variante horizontal"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Tabs: nova variante com Badge"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Divider: nova variante tracejada"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Dropzone, Currency e Breadcrumb: motion nos componentes"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Listas: ajustes de padding e espaçamentos"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "ShapedIcon: atributos ARIA"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Input: contraste"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/111e49-castanha"
+  },
   {
    "data": "2026-09-23",
    "area": "React",

@@ -15,7 +15,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | [Naming](#naming) | 11 |
 | [Acessibilidade](#acessibilidade) | 7 |
 | [Documentação](#documentação) | 8 |
-| [Integração React](#integração-react) | 9 |
+| [Integração React](#integração-react) | 11 |
 
 ## Ajuste de texto
 
@@ -190,6 +190,8 @@ Divergências entre o Figma e o castanha-react (staging + Code Connect), encontr
 | C123 | Ícones · castanha-icons | O [Caju] Icons não tem `balance-canceled`, `calendar-non-recurrent` nem `file-line-1` (tem `balance-canceled-line` e `file-line`) | O pacote exporta os três; os 11 deprecated do Figma já saíram do pacote, menos `dark-mode-line` | Segue o Figma; o detalhe de cada ícone mostra o nome e o import do pacote | Decidir se os três entram no Figma ou saem do pacote (parecem duplicatas); achado pelo check de assets do R4 |
 | C124 | Ilustrações · nomes no castanha-illustrations | Nome = categoria/nome do [Caju] Illustrations (`hub-de-beneficios/pet`) | 40 ilustrações têm outro nome no pacote (`hub-pet`, `interface-*`, `premiacoes-gema-*`…); `alimentos/drink` e `notificacoes/analysis-low-detail` não estão no pacote; `hero-sponsor-splash-screen` só existe no pacote. O exemplo do JSDoc da `Illustration` (`calendar-cartao`, `CalendarCartaoIllustration`) usa nomes que o pacote não exporta | Segue o Figma; o detalhe mostra o nome do pacote e marca "Nome diferente no pacote" | Alinhar os nomes (o `<Illustration name>` usa o nome do pacote, não o do Figma) |
 | C125 | Ilustrações · desenho | 12 ilustrações (moeda verde 1–4, `autenticacao/ocr-cartao-2` e 7 heroes do Hub de Benefícios) | O SVG do pacote difere além do arredondamento: posição no quadro ou forma (ex.: moedas ~10 px deslocadas) | Usa o SVG do Figma; o detalhe marca "Desenho difere do pacote" | Conferir qual versão é a atual e reexportar o lado desatualizado |
+| C180 | Skeleton (20967:742, Release 25) | Set publicado na lib | A story (`Skeleton.stories.tsx`) aponta para `node-id=2269-65`, que é a **página** Utilities, não o set | O manifesto casa o par por um alias de node (`NODE_ALIAS` em `scripts/integration/build-manifest.js`) | Trocar o node-id da story para `20967-742`; depois, tirar o alias |
+| C181 | Skeleton (20967:742) | Estático: gradiente sem animação, sem motion definido | Anima um brilho (shimmer): 700ms de deslocamento + 500ms de pausa, curva Systemic/decelerate; o próprio SCSS marca 700ms como fora da escala | **Segue o React** (Gustavo, 07/10: "faça animado como react"), com os tokens da escala: 700ms = `Duration/Extra Long/01` e 500ms = `Duration/Long/02` | Levar o motion do shimmer para o Figma (description ou protótipo), para as três pontas baterem |
 
 ## Como usar esta lista
 

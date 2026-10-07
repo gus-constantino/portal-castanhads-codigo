@@ -1,0 +1,20 @@
+/* Skeleton · set 20967:742 — Shape com gradiente horizontal Neutral/Solid/semi-soft → Surface/default → semi-soft
+   Round: elipse, 80 × 80 de amostra · Square: raio Border/Radius/medium, largura do pai × Sizes/160 de amostra
+   Brilho (shimmer) como no Skeleton do castanha-react (decisão do Gustavo, C181: o Figma é estático): o gradiente em 200% de
+   largura anda de 150% a -50% em 700ms (Duration/Extra Long/01) com Easing/Systemic/decelerate e pausa 500ms (Duration/Long/02),
+   ciclo de 1200ms em loop. Com prefers-reduced-motion: sem animação, brilho parado no centro (como o React). */
+@keyframes cds-skeleton-shimmer{
+  0%{ background-position:150% 0; animation-timing-function:var(--common-motion-easing-systemic-decelerate); } /* curva só no deslocamento */
+  58.333%, 100%{ background-position:-50% 0; } /* 700 de 1200ms; o resto é a pausa */
+}
+cds-skeleton{
+  display:block; flex:none; box-sizing:border-box;
+  width:var(--_w, var(--common-sizes-80)); height:var(--_h, var(--common-sizes-80));
+  border-radius:50%;
+  background-color:var(--common-colors-neutral-solid-semi-soft);
+  background-image:linear-gradient(to right, var(--common-colors-neutral-solid-semi-soft), var(--common-colors-surface-default) 50%, var(--common-colors-neutral-solid-semi-soft));
+  background-repeat:no-repeat; background-size:200% 100%;
+  animation:cds-skeleton-shimmer calc(var(--common-motion-duration-extra-long-01) + var(--common-motion-duration-long-02)) linear infinite both;
+}
+cds-skeleton[data-kind="square"]{ width:var(--_w, 100%); height:var(--_h, var(--common-sizes-160)); border-radius:var(--common-border-radius-medium); }
+@media (prefers-reduced-motion: reduce){ cds-skeleton{ animation:none; background-position:50% 0; } }

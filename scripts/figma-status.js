@@ -5,20 +5,22 @@
    Para atualizar: pedir uma nova leitura e trocar `checked`. */
 window.CDS = window.CDS || {};
 CDS.figmaStatus = {
-  checked: "05/10/2026",
+  checked: "07/10/2026",
   items: (function(){
     var s = {}, add = function(status, ids){ ids.split(" ").forEach(function(id){ s[id] = status; }); };
-    add("current", "drawer nav-control");
-    add("unpublished", "banner breadcrumb-item calendar-day calendar-week credit-card-flags close-alert close-toast content-banner csat-item currency-content currency-symbol " +
+    // Release 25 do Figma (07/10): leitura da lib inteira, página por página; os sets publicados com alterações foram publicados
+    add("changed", "icon-button");
+    add("unpublished", "breadcrumb-item calendar-day calendar-week close-alert close-toast content-banner csat-item currency-content currency-symbol card-flag " +
       "date-navigation file-lead-item footer header icons-block lead-item list-lead-item nav-control-item nps-value-item select-number tab-item " +
-      "progress-tracker table-cell table-head table-toolbar text-content trailing-item");
+      "table-cell table-head table-toolbar text-content trailing-item");
     add("branch", "accordion accordion-item code-input-otp credit-card-input");
-    add("changed", "alert async-creatable-select-input async-select-input avatar backdrop badge balance-card bottom-sheet breadcrumb caju-brand caju-card card " +
-      "checkbox-select-input checkbox chips-group confirmation-message content-list-item content-list csat-score currency date-input date-picker divider " +
-      "drop-button dropzone filter-button filter-chips fixed-bar fixed-tab icon-button icon image input-chips link main-button modal-date-picker modal multi-select-input " +
-      "nps-score pagination password-input popover progress-line progress-tracker-item quantity-input radio-button " +
-      "radio-select-input scrollable-tab search-input selection-list-item selection-list shaped-icon slider spinner status-dot switch system-banner tab-view table tag " +
-      "text-area text-input toast tooltip topic upload-item upload-list viewport-restriction checkbox-group radio-button-group switch-group");
+    add("current", "alert async-creatable-select-input async-select-input avatar backdrop badge balance-card banner bottom-sheet breadcrumb caju-brand caju-card card carousel " +
+      "checkbox-select-input checkbox chips-group confirmation-message content-list-item content-list csat-score currency date-input date-picker divider drawer " +
+      "drop-button dropzone filter-button filter-chip fixed-bar fixed-tab icon image input-chip link main-button modal-date-picker modal multi-select-input nav-control " +
+      "nps-score pagination password-input popover progress-line progress-tracker progress-tracker-item quantity-input radio-button " +
+      "radio-select-input scrollable-tab search-input selection-list-item selection-list shaped-icon skeleton slider spinner status-dot switch system-banner tab-view table tag " +
+      "text-area text-input toast tooltip topic upload-item upload-list viewport-restriction selection-group");
+    // Sponsor Header e Side Menu (e os building blocks) são da lib Sponsor Templates, fora desta leitura
     return s;
   })()
 };

@@ -202,14 +202,17 @@ Object.values(react).forEach((r) => {
   r.storyNodeIds.forEach((n) => (byNode[n] = byNode[n] || []).push({ dir: r.name, via: "story", target: r.name }));
 });
 // Componente que virou set na lib: o playground aponta para o set novo, o Code Connect ainda para o node antigo (agora uma variante)
-const NODE_ALIAS = { "21470-2390": { node: "14524-1024", why: "Progress Tracker virou set com Orientation; o node antigo é a variante Vertical" } };
+const NODE_ALIAS = {
+  "21470-2390": { node: "14524-1024", why: "Progress Tracker virou set com Orientation; o node antigo é a variante Vertical" },
+  "20967-742": { node: "2269-65", why: "a story do Skeleton aponta para a página Utilities, não para o set (C180)" }
+};
 const components = pg.sort((a, b) => a.id.localeCompare(b.id)).map((p) => {
   const alias = NODE_ALIAS[p.node];
   const hits = byNode[p.node] || (alias && byNode[alias.node]) || [];
   const cc = hits.find((h) => h.via === "code-connect"), st = hits.find((h) => h.via === "story");
   const hit = cc || st, r = hit ? react[hit.dir] : null;
   const notes = [];
-  if (alias && !byNode[p.node] && hits.length) notes.push("o Code Connect aponta para " + alias.node + " (" + alias.why + ")");
+  if (alias && !byNode[p.node] && hits.length) notes.push((hits[0].via === "story" ? "a story" : "o Code Connect") + " aponta para " + alias.node + " (" + alias.why + ")");
   if (cc && st && cc.dir !== st.dir) notes.push("story de " + st.dir + " e Code Connect de " + cc.dir + " apontam para o mesmo node");
   if (r && cc && r.storyNodeIds.length){
     // a story documenta o componente inteiro (com subcomponentes): só diverge se não bater com nenhum node do Code Connect da pasta

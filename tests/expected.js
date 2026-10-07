@@ -87,6 +87,8 @@ window.CDS_EXPECTED = {
   "tab-view":          { w: 120, h: 64, src: "15713:2488" },
   "nav-control-item":  { w: 14, h: 14, src: "19188:379" },
   "nav-control":       { w: 280, h: 40, src: "19560:3280 · Desktop" },
+  "carousel":          { h: 226, src: "21215:242 · amostra com Banner (170) + gap 16 + Nav Control (40); no Figma o slot vazio de amostra tem 196" },
+  "skeleton":          { w: 80, h: 80, src: "20967:742 · Kind=Round (amostra do Figma)" },
   "select-number":     { w: 52, h: 29, src: "13408:1596" },
   "pagination":        { w: 780, h: 56, src: "13408:1416" },
   "content-list":      { w: 320, h: 684, src: "5488:1482 · Default · 12 × 57" },

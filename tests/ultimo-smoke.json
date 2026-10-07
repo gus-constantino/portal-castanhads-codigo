@@ -1,7 +1,7 @@
 {
  "componentes": {
-  "total": 116,
-  "ok": 116,
+  "total": 118,
+  "ok": 118,
   "falhas": [],
   "avisos": [
    {
@@ -12,6 +12,13 @@
    },
    {
     "id": "banner",
+    "warnings": [
+     "contraste (escuro): “Label” 1.67:1 (C126)",
+     "contraste (escuro): “Description” 1.67:1 (C126)"
+    ]
+   },
+   {
+    "id": "carousel",
     "warnings": [
      "contraste (escuro): “Label” 1.67:1 (C126)",
      "contraste (escuro): “Description” 1.67:1 (C126)"
@@ -72,8 +79,8 @@
   ]
  },
  "docs": {
-  "docs": 127,
-  "tabs": 717,
+  "docs": 129,
+  "tabs": 726,
   "falhas": [],
   "avisos": []
  }

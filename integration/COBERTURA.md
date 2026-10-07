@@ -1,15 +1,15 @@
 # Cobertura Figma ↔ playground ↔ castanha-react
 
-Gerado por `node scripts/integration/build-manifest.js` em 2026-10-05 a partir de `origin/staging` (`1e0a5335`, 2026-09-25) e do Code Connect `origin/feat/figma-code-connect` (69 arquivos).
+Gerado por `node scripts/integration/build-manifest.js` em 2026-10-07 a partir de `origin/staging` (`ca2b41ae`, 2026-10-07) e do Code Connect `origin/feat/figma-code-connect` (69 arquivos).
 
 | | Componentes |
 |---|---:|
-| No playground | 105 |
-| Com par no React | 70 (68 via Code Connect, 2 via story) |
+| No playground | 112 |
+| Com par no React | 72 (68 via Code Connect, 4 via story) |
 | Building blocks sem par (internos no React) | 26 |
-| Só no Figma/playground | 9 |
-| Só no React | 12 |
-| Com divergência anotada | 23 |
+| Só no Figma/playground | 14 |
+| Só no React | 10 |
+| Com divergência anotada | 24 |
 
 ## Com par no React
 
@@ -27,6 +27,7 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-05 a partir d
 | `caju-brand` | Caju Brand | `CajuBrand` | code-connect |  |
 | `caju-card` | Caju Card | `CajuCard` | code-connect |  |
 | `card` | Card | `Card` | code-connect |  |
+| `carousel` | Carousel | `Carousel` | story |  |
 | `checkbox` | Checkbox | `Checkbox` | code-connect | node-id da story (4429-10393) não bate com o Code Connect (4123-2560, 4132-1511) |
 | `checkbox-group` | Checkbox Group | `Checkbox.Group` | code-connect | node-id da story (4429-10393) não bate com o Code Connect (4123-2560, 4132-1511) |
 | `checkbox-select-input` | Checkbox Select Input | `SelectInput` | code-connect | node-id da story (11112-4304) não bate com o Code Connect (11143-3056, 11030-7644, 11143-4833, 11018-5694, 13795-4984) |
@@ -70,6 +71,7 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-05 a partir d
 | `selection-list` | Selection List | `SelectionList` | code-connect | node-id da story (5516-8529) não bate com o Code Connect (5488-1552, 5488-812) |
 | `selection-list-item` | Selection List Item | `SelectionList.Item` | code-connect | node-id da story (5516-8529) não bate com o Code Connect (5488-1552, 5488-812) |
 | `shaped-icon` | Shaped Icon | `ShapedIcon` | code-connect |  |
+| `skeleton` | Skeleton | `Skeleton` | story | a story aponta para 2269-65 (a story do Skeleton aponta para a página Utilities, não para o set (C180)) |
 | `slider` | Slider | `Slider` | code-connect |  |
 | `spinner` | Spinner | `Spinner` | code-connect |  |
 | `status-dot` | Status Dot | `StatusDot` | story |  |
@@ -117,6 +119,11 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-05 a partir d
 | `nps-value-item` | .Value Item | — | building-block |  |
 | `quantity-input` | [Beta] Quantity Input | — | so-figma |  |
 | `select-number` | .Select Number | — | building-block |  |
+| `sponsor-category` | .Category | — | so-figma |  |
+| `sponsor-header` | Header | — | so-figma |  |
+| `sponsor-side-menu` | Side Menu | — | so-figma |  |
+| `sponsor-subcategory` | .Subcategory | — | so-figma |  |
+| `sponsor-user-profile` | .User Profile | — | so-figma |  |
 | `switch-group` | Switch Group | — | so-figma |  |
 | `tab-item` | .Item (Tabs) | — | building-block |  |
 | `table-cell` | .Data Cell | — | building-block |  |
@@ -131,14 +138,12 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-05 a partir d
 | Componente | Exportado | Na main | Tags | Node-id da story |
 |---|---|---|---|---|
 | `Box` | sim | sim | no-figma | — |
-| `Carousel` | sim | só staging | new | 21215-242 |
 | `Field` | sim | sim | no-figma | — |
 | `Grid` | sim | sim | no-figma | — |
 | `Illustration` | sim | sim | no-figma | — |
 | `Motion` | sim | sim | no-figma | — |
 | `Portal` | sim | sim | no-figma | — |
 | `Shortcut` | sim | sim | new | — |
-| `Skeleton` | sim | só staging | new | 2269-65 |
 | `Stack` | sim | sim | no-figma | — |
 | `Text` | sim | sim | no-figma | — |
 | `VisuallyHidden` | sim | sim | no-figma | — |

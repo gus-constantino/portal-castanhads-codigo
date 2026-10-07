@@ -1,11 +1,11 @@
 {
   "_about": "Manifesto de integração Figma ↔ playground ↔ castanha-react (R0). Gerado por scripts/integration/build-manifest.js — não editar à mão.",
-  "generated": "2026-10-05T23:41:31.270Z",
+  "generated": "2026-10-07T13:52:43.811Z",
   "source": {
     "repo": "caju-beneficios/castanha",
     "ref": "origin/staging",
-    "commit": "1e0a5335f5c013d0c544e7c5e00a8c6c2f95597b",
-    "date": "2026-09-25 17:11:11 -0300"
+    "commit": "ca2b41ae68e79eac2e73fa871e3b3e801a1e8600",
+    "date": "2026-10-07 13:01:13 +0000"
   },
   "codeConnect": {
     "ref": "origin/feat/figma-code-connect",
@@ -14,14 +14,14 @@
     "files": 69
   },
   "summary": {
-    "playground": 105,
-    "comReact": 70,
+    "playground": 112,
+    "comReact": 72,
     "viaCodeConnect": 68,
-    "viaStory": 2,
+    "viaStory": 4,
     "buildingBlocks": 26,
-    "soFigma": 9,
-    "soReact": 12,
-    "comNotas": 23
+    "soFigma": 14,
+    "soReact": 10,
+    "comNotas": 24
   },
   "components": [
     {
@@ -638,6 +638,30 @@
             }
           }
         ]
+      },
+      "status": "react",
+      "notes": []
+    },
+    {
+      "id": "carousel",
+      "name": "Carousel",
+      "block": false,
+      "figma": {
+        "fileKey": "LKZBwmlb7fIbDKdGrMncuA",
+        "node": "21215-242"
+      },
+      "react": {
+        "component": "Carousel",
+        "dir": "Carousel",
+        "via": "story",
+        "exported": true,
+        "import": "import { Carousel } from '@caju-beneficios/castanha-react';",
+        "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-carousel--docs",
+        "zeroheight": null,
+        "tags": [
+          "new"
+        ],
+        "figmaProps": []
       },
       "status": "react",
       "notes": []
@@ -2924,6 +2948,32 @@
       "notes": []
     },
     {
+      "id": "skeleton",
+      "name": "Skeleton",
+      "block": false,
+      "figma": {
+        "fileKey": "LKZBwmlb7fIbDKdGrMncuA",
+        "node": "20967-742"
+      },
+      "react": {
+        "component": "Skeleton",
+        "dir": "Skeleton",
+        "via": "story",
+        "exported": true,
+        "import": "import { Skeleton } from '@caju-beneficios/castanha-react';",
+        "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-skeleton--docs",
+        "zeroheight": null,
+        "tags": [
+          "new"
+        ],
+        "figmaProps": []
+      },
+      "status": "react",
+      "notes": [
+        "a story aponta para 2269-65 (a story do Skeleton aponta para a página Utilities, não para o set (C180))"
+      ]
+    },
+    {
       "id": "slider",
       "name": "Slider",
       "block": false,
@@ -3022,6 +3072,66 @@
         ]
       },
       "status": "react",
+      "notes": []
+    },
+    {
+      "id": "sponsor-category",
+      "name": ".Category",
+      "block": false,
+      "figma": {
+        "fileKey": "LKZBwmlb7fIbDKdGrMncuA",
+        "node": "5576-27"
+      },
+      "react": null,
+      "status": "so-figma",
+      "notes": []
+    },
+    {
+      "id": "sponsor-header",
+      "name": "Header",
+      "block": false,
+      "figma": {
+        "fileKey": "LKZBwmlb7fIbDKdGrMncuA",
+        "node": "4002-3849"
+      },
+      "react": null,
+      "status": "so-figma",
+      "notes": []
+    },
+    {
+      "id": "sponsor-side-menu",
+      "name": "Side Menu",
+      "block": false,
+      "figma": {
+        "fileKey": "LKZBwmlb7fIbDKdGrMncuA",
+        "node": "5576-445"
+      },
+      "react": null,
+      "status": "so-figma",
+      "notes": []
+    },
+    {
+      "id": "sponsor-subcategory",
+      "name": ".Subcategory",
+      "block": false,
+      "figma": {
+        "fileKey": "LKZBwmlb7fIbDKdGrMncuA",
+        "node": "5576-27"
+      },
+      "react": null,
+      "status": "so-figma",
+      "notes": []
+    },
+    {
+      "id": "sponsor-user-profile",
+      "name": ".User Profile",
+      "block": false,
+      "figma": {
+        "fileKey": "LKZBwmlb7fIbDKdGrMncuA",
+        "node": "5576-436"
+      },
+      "react": null,
+      "status": "so-figma",
       "notes": []
     },
     {
@@ -3725,19 +3835,6 @@
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-box--docs"
     },
     {
-      "name": "Carousel",
-      "exported": true,
-      "noFigma": false,
-      "tags": [
-        "new"
-      ],
-      "storyNodeIds": [
-        "21215-242"
-      ],
-      "inMain": false,
-      "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-carousel--docs"
-    },
-    {
       "name": "Field",
       "exported": true,
       "noFigma": true,
@@ -3802,19 +3899,6 @@
       "storyNodeIds": [],
       "inMain": true,
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-shortcut--docs"
-    },
-    {
-      "name": "Skeleton",
-      "exported": true,
-      "noFigma": false,
-      "tags": [
-        "new"
-      ],
-      "storyNodeIds": [
-        "2269-65"
-      ],
-      "inMain": false,
-      "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-skeleton--docs"
     },
     {
       "name": "Stack",
@@ -4280,7 +4364,7 @@
     {
       "name": "Banner",
       "exported": true,
-      "inMain": false,
+      "inMain": true,
       "exports": [],
       "subcomponents": [],
       "description": "Destaque de conteúdo promocional ou informação relevante, com título, descrição e indicação de ação em um único destino.",
@@ -5277,7 +5361,7 @@
     {
       "name": "Carousel",
       "exported": true,
-      "inMain": false,
+      "inMain": true,
       "exports": [],
       "subcomponents": [],
       "description": "Organiza de 3 a 10 itens em sequência horizontal, um por vez, com pré-visualização parcial do próximo. Sempre acompanhado do Nav Control.",
@@ -6851,6 +6935,17 @@
             "description": "Define a intensidade visual do divisor."
           },
           {
+            "name": "kind",
+            "required": false,
+            "type": "'solid' | 'dashed'",
+            "values": [
+              "solid",
+              "dashed"
+            ],
+            "default": "solid",
+            "description": "Define o estilo da linha divisória."
+          },
+          {
             "name": "orientation",
             "required": false,
             "type": "Orientation",
@@ -7136,6 +7231,13 @@
             "type": "ReactNode",
             "values": null,
             "description": "Ação exibida abaixo dos textos, ausente durante o dragover."
+          },
+          {
+            "name": "className",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "description": "Classe no bloco de textos fora do dragover."
           },
           {
             "name": "gap",
@@ -9981,7 +10083,7 @@
     {
       "name": "Skeleton",
       "exported": true,
-      "inMain": false,
+      "inMain": true,
       "exports": [],
       "subcomponents": [],
       "description": "Placeholder de carregamento que ocupa o espaço de um conteúdo previsível — avatar, imagem, card ou bloco de texto.",
@@ -10347,7 +10449,7 @@
     {
       "name": "StatusDot",
       "exported": true,
-      "inMain": false,
+      "inMain": true,
       "exports": [],
       "subcomponents": [],
       "description": "Indicador compacto de estado, formado por um ponto colorido e um rótulo em texto. Aparece dentro de linhas de conteúdo, sem o peso visual de um container preenchido.",

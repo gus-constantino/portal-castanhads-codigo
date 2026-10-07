@@ -1,38 +1,32 @@
 {
  "source": {
   "ref": "origin/staging",
-  "commit": "1e0a5335",
-  "date": "2026-09-25"
+  "commit": "ca2b41ae",
+  "date": "2026-10-07"
  },
  "codeConnect": {
   "ref": "origin/feat/figma-code-connect",
   "commit": "f02b6f2b"
  },
- "castanhaAi": {
-  "ref": "origin/feat/castanha-plugin",
-  "commit": "8f8381a",
-  "sets": 67
- },
+ "castanhaAi": null,
  "coverage": {
-  "playground": 105,
-  "comReact": 70,
+  "playground": 112,
+  "comReact": 72,
   "viaCodeConnect": 68,
-  "viaStory": 2,
+  "viaStory": 4,
   "buildingBlocks": 26,
-  "soFigma": 9,
-  "soReact": 12,
-  "comNotas": 23
+  "soFigma": 14,
+  "soReact": 10,
+  "comNotas": 24
  },
  "reactOnly": [
   "Box",
-  "Carousel",
   "Field",
   "Grid",
   "Illustration",
   "Motion",
   "Portal",
   "Shortcut",
-  "Skeleton",
   "Stack",
   "Text",
   "VisuallyHidden"
@@ -58,7 +52,7 @@
    "onlyPkg": 1,
    "svgDiff": 12
   },
-  "motion": 44
+  "motion": 49
  },
  "findings": [
   {
@@ -108,6 +102,12 @@
    "kind": "nao-chega-ao-react",
    "msg": "Não chega ao React pelo Code Connect: `showItem03`, `showItem04`, `showItem05`, `showItem06`, `Kind`.",
    "gap": "MISSING-VARIANT"
+  },
+  {
+   "id": "carousel",
+   "level": "info",
+   "kind": "sem-figma",
+   "msg": "Sem retrato das props do Figma (rode a leitura via MCP)."
   },
   {
    "id": "checkbox-select-input",
@@ -222,6 +222,12 @@
    "gap": "MISSING-VARIANT"
   },
   {
+   "id": "skeleton",
+   "level": "info",
+   "kind": "sem-figma",
+   "msg": "Sem retrato das props do Figma (rode a leitura via MCP)."
+  },
+  {
    "id": "slider",
    "level": "info",
    "kind": "nao-chega-ao-react",
@@ -296,92 +302,6 @@
    "msg": "O Code Connect gera `supportingMessage` em `<Topic>`, que não existe nas props do React (o código gerado não compila em TypeScript)."
   },
   {
-   "id": "banner",
-   "level": "info",
-   "kind": "so-na-staging",
-   "msg": "`Banner` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado).",
-   "gap": "UNRELEASED"
-  },
-  {
-   "id": "status-dot",
-   "level": "info",
-   "kind": "so-na-staging",
-   "msg": "`StatusDot` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado).",
-   "gap": "UNRELEASED"
-  },
-  {
-   "id": "main-button",
-   "level": "info",
-   "kind": "bridge-nome-figma",
-   "msg": "O bridge do castanha-ai usa `Show Trailling Icon`, que não existe na lib (props: Text Label, Show Lead Icon, Show Trailing Icon, Lead Icon, Kind, Appearance, State, Size)."
-  },
-  {
-   "id": "toast",
-   "level": "media",
-   "kind": "bridge-componente",
-   "msg": "O castanha-ai liga o set a `Toast`; o playground (Code Connect), a `useToast`."
-  },
-  {
-   "id": "toast",
-   "level": "info",
-   "kind": "bridge-nome-figma",
-   "msg": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Text Description, Show Trailing Item, Appearance)."
-  },
-  {
-   "id": "selection-list-item",
-   "level": "info",
-   "kind": "bridge-nome-figma",
-   "msg": "O bridge do castanha-ai usa `Trailling Item`, que não existe na lib (props: Show Lead Item, Show Divider, Kind, State, Is Active, Trailing Item)."
-  },
-  {
-   "id": "link",
-   "level": "info",
-   "kind": "bridge-nome-figma",
-   "msg": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Link Content, Show Trailing Item, Change Icon, Appearance, State)."
-  },
-  {
-   "id": "castanha-ai",
-   "level": "info",
-   "kind": "bridge-cobertura",
-   "msg": "Set `Side Menu` está no bridge do castanha-ai e não tem componente no playground."
-  },
-  {
-   "id": "castanha-ai",
-   "level": "info",
-   "kind": "bridge-cobertura",
-   "msg": "Set `Sponsor Side Menu` está no bridge do castanha-ai e não tem componente no playground."
-  },
-  {
-   "id": "castanha-ai",
-   "level": "info",
-   "kind": "bridge-cobertura",
-   "msg": "Set `Header` está no bridge do castanha-ai e não tem componente no playground."
-  },
-  {
-   "id": "castanha-ai",
-   "level": "info",
-   "kind": "bridge-cobertura",
-   "msg": "Set `Device marker` está no bridge do castanha-ai e não tem componente no playground."
-  },
-  {
-   "id": "castanha-ai",
-   "level": "info",
-   "kind": "bridge-cobertura",
-   "msg": "Set `Shortcut` está no bridge do castanha-ai e não tem componente no playground."
-  },
-  {
-   "id": "castanha-ai",
-   "level": "info",
-   "kind": "bridge-cobertura",
-   "msg": "Set `Shortcut Carousel` está no bridge do castanha-ai e não tem componente no playground."
-  },
-  {
-   "id": "castanha-ai",
-   "level": "info",
-   "kind": "bridge-cobertura",
-   "msg": "Com mapa no playground e sem set no bridge do castanha-ai: `balance-card`, `banner`, `date-input`, `date-picker`, `modal-date-picker`, `multi-select-input`, `nav-control`, `slider`, `status-dot`, `system-banner`."
-  },
-  {
    "id": "tokens",
    "level": "info",
    "kind": "token-so-no-playground",
@@ -441,7 +361,7 @@
    "id": "assets",
    "level": "info",
    "kind": "motion-so-no-pacote",
-   "msg": "44 animações Lottie no castanha-motion, ainda sem tab no playground (Animações volta ao Caju - Tema quando a lib existir).",
+   "msg": "49 animações Lottie no castanha-motion, ainda sem tab no playground (Animações volta ao Tema Caju quando a lib existir).",
    "gap": "MISSING-COMPONENT"
   }
  ]

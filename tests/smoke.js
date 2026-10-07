@@ -154,7 +154,7 @@
   // Avisos já conferidos no Figma e registrados no CONFERIR (questões do DS, decididas com o time): ganham o número do item,
   // para que um aviso novo não se perca no meio deles. [id, tipo do aviso, item]
   var KNOWN = [
-    [/^(banner|content-banner|backdrop)$/, /^contraste \(escuro\)/, "C126"],
+    [/^(banner|content-banner|backdrop|carousel)$/, /^contraste \(escuro\)/, "C126"], // carousel: a amostra usa Banners
     [/^(dropzone|filter-button)$/, /^contraste \(escuro\)/, "C127"],
     [/^(text-input|text-area|date-input)$/, /^contraste/, "C128"],
     [/^(pagination|table)$/, /^mobile:/, "C129"]

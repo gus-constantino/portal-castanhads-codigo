@@ -1,0 +1,11 @@
+/* Carousel · 21215:242 — vertical · gap Sizes/16 · .Content Slot horizontal com gap Specific/Carousel/gap (8 mobile · 16 tablet/desktop)
+   e Nav Control em Fill. O item mantém a própria largura; a faixa mostra parte do próximo e encaixa (scroll-snap) no início de cada item */
+cds-carousel{ display:flex; flex-direction:column; gap:var(--common-sizes-16); min-width:0; max-width:100%; }
+.cds-carousel__slot{
+  display:flex; gap:var(--specific-carousel-gap); overflow-x:auto; overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory; scrollbar-width:none; -webkit-overflow-scrolling:touch;
+}
+.cds-carousel__slot::-webkit-scrollbar{ display:none; }
+.cds-carousel__item{ flex:none; scroll-snap-align:start; display:flex; }
+cds-carousel > cds-nav-control{ width:100%; } /* Nav Control em Fill dentro do carrossel */
+@media (prefers-reduced-motion: reduce){ .cds-carousel__slot{ scroll-behavior:auto; } }

@@ -1,16 +1,16 @@
 # Saúde da stack — Figma × castanha-react × playground × castanha-ai
 
-Gerado por `node scripts/integration/build-manifest.js` em 2026-10-05 (R2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). React: `origin/staging` (`1e0a5335`) e Code Connect `origin/feat/figma-code-connect`. Playground: mapas de `integration/prop-map/`. castanha-ai (4º vértice, repo interno, só leitura): `origin/feat/castanha-plugin` (`8f8381a`), 67 sets no bridge. A coluna Gap usa as categorias do Gap Report do castanha-ai.
+Gerado por `node scripts/integration/build-manifest.js` em 2026-10-07 (R2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). React: `origin/staging` (`ca2b41ae`) e Code Connect `origin/feat/figma-code-connect`. Playground: mapas de `integration/prop-map/`. castanha-ai (4º vértice, repo interno, só leitura): não lido (sem o clone `../castanha-ai`). A coluna Gap usa as categorias do Gap Report do castanha-ai.
 
 ## Resumo
 
 | Nível | O que significa | Itens |
 |---|---|---:|
 | Alta | quebra a tradução: o Code Connect lê prop ou gera valor que não existe | 2 |
-| Média | muda o resultado sem quebrar: padrão diferente, opção sem tradução, mapa curado errado | 7 |
-| Informativo | prop do Figma que não chega ao React pelo Code Connect | 39 |
+| Média | muda o resultado sem quebrar: padrão diferente, opção sem tradução, mapa curado errado | 6 |
+| Informativo | prop do Figma que não chega ao React pelo Code Connect | 28 |
 
-Componentes com algum item: 35 de 70 com par no React.
+Componentes com algum item: 34 de 72 com par no React.
 
 ## Assets
 
@@ -20,7 +20,7 @@ Nomes que o código usa (`<Icon name>`, `<Illustration name>`, `<Motion name>`) 
 |---|---:|---:|---:|---:|---:|---:|
 | castanha-icons | 265 | 273 | 262 | — | 11 | 3 |
 | castanha-illustrations | 259 | 260 | 218 | 40 | 2 | 1 |
-| castanha-motion | 44 | 0 | — | — | — | 44 |
+| castanha-motion | 49 | 0 | — | — | — | 49 |
 
 | Nível | Tipo | O quê |
 |---|---|---|
@@ -31,7 +31,7 @@ Nomes que o código usa (`<Icon name>`, `<Illustration name>`, `<Motion name>`) 
 | Média | ilustracao-so-no-pacote | O castanha-illustrations exporta ilustrações sem par no [Caju] Illustrations: `hero-sponsor-splash-screen`. |
 | Média | ilustracao-renomeada | 40 ilustrações têm outro nome no pacote (o nome do Figma não serve no `<Illustration name>`): `hub-de-beneficios/pet` → `hub-pet`, `hub-de-beneficios/departamento` → `hub-departamento`, `hub-de-beneficios/plano-saude` → `hub-plano-saude`, `hub-de-beneficios/servicos` → `hub-servicos`, `hub-de-beneficios/entretenimento` → `hub-entretenimento`, `hub-de-beneficios/plano-odonto` → `hub-plano-odonto`, `hub-de-beneficios/educacao` → `hub-educacao`, `hub-de-beneficios/cajuzinho` → `hub-cajuzinho`, `hub-de-beneficios/alimentacao` → `hub-alimentacao`, `hub-de-beneficios/outros` → `hub-outros`, `hub-de-beneficios/saude` → `hub-saude`, `hub-de-beneficios/ofertas` → `hub-ofertas`, `hub-de-beneficios/mobilidade` → `hub-mobilidade`, `hub-de-beneficios/esportes` → `hub-esportes`, `hub-de-beneficios/familia` → `hub-familia`, `hub-de-beneficios/seguro-vida-previdencia` → `hub-previdencia`, `documentos/socio-low-detail` → `low-detail-socio`, `documentos/rg-cnh-frente-low-detail` → `low-detail-rg-cnh-frente`, `documentos/rg-cnh-verso-low-detail` → `low-detail-rg-cnh-verso`, `documentos/rg-papeis-low-detail` → `low-detail-rg-papeis`, `documentos/ctps-low-detail` → `low-detail-ctps`, `financas/cartao-bilhete-unico-low-detail` → `low-detail-cartao-bilhete-unico`, `financas/cartao-customizacao-low-detail` → `low-detail-cartao-customizacao`, `objetos/gema-rubi` → `premiacoes-gema-rubi`, `objetos/gema-esmeralda` → `premiacoes-gema-esmeralda`, `objetos/gema-ouro` → `premiacoes-gema-ouro`, `graficos-e-dashboards/pizza` → `grafico-pizza`, `graficos-e-dashboards/setores` → `grafico-setores`, `graficos-e-dashboards/barra` → `grafico-barra`, `graficos-e-dashboards/objetivo-1` → `graficos-objetivo-1`, `graficos-e-dashboards/objetivo-2` → `graficos-objetivo-2`, `graficos-e-dashboards/objetivo-3` → `graficos-objetivo-3`, `interfaces/lista` → `interface-lista`, `interfaces/assinatura` → `interface-assinatura`, `interfaces/nota-fiscal` → `interface-nota-fiscal`, `interfaces/carrossel` → `interface-carrossel`, `interfaces/customizacao` → `interface-customizacao`, `interfaces/planilha` → `interface-planilha`, `interfaces/home` → `interface-home`, `hero-hub-de-beneficios/seguros-previdencia` → `hero-hub-de-beneficios-seguro-previdencia`. |
 | Informativo | ilustracao-svg-difere | 12 ilustrações têm o desenho diferente do pacote além do arredondamento (posição no quadro ou forma; conferir qual é a atual): `autenticacao-ocr-cartao-2`, `financas-moeda-verde-1`, `financas-moeda-verde-2`, `financas-moeda-verde-3`, `financas-moeda-verde-4`, `hero-hub-de-beneficios-plano-saude`, `hero-hub-de-beneficios-alimentacao`, `hero-hub-de-beneficios-educacao`, `hero-hub-de-beneficios-plano-odonto`, `hero-hub-de-beneficios-mobilidade`, `hero-hub-de-beneficios-cajuzinho`, `hero-hub-de-beneficios-outros`. |
-| Informativo | motion-so-no-pacote | 44 animações Lottie no castanha-motion, ainda sem tab no playground (Animações volta ao Caju - Tema quando a lib existir). |
+| Informativo | motion-so-no-pacote | 49 animações Lottie no castanha-motion, ainda sem tab no playground (Animações volta ao Tema Caju quando a lib existir). |
 
 ## Tokens
 
@@ -58,7 +58,6 @@ Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`
 | Spinner (`spinner`) | padrao-diferente | APPROXIMATION | Padrão diferente em `Appearance`: uma instância nova no Figma vem Neutral (`neutral`); no React, sem a prop, vem `accent`. |
 | Spinner (`spinner`) | padrao-diferente | APPROXIMATION | Padrão diferente em `Size`: uma instância nova no Figma vem Small (`small`); no React, sem a prop, vem `medium`. |
 | Tag (`tag`) | padrao-diferente | APPROXIMATION | Padrão diferente em `Appearance`: uma instância nova no Figma vem Neutral (`neutral`); no React, sem a prop, vem `accent`. |
-| Toast (`toast`) | bridge-componente | — | O castanha-ai liga o set a `Toast`; o playground (Code Connect), a `useToast`. |
 
 ## Informativo
 
@@ -68,6 +67,7 @@ Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`
 | Async Select Input (`async-select-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Lead Icon`, `Error Message`, `Lead Icon`. |
 | Banner (`banner`) | sem-code-connect | — | Sem Code Connect: o par com o React vem só do node da story. |
 | Breadcrumb (`breadcrumb`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `showItem03`, `showItem04`, `showItem05`, `showItem06`, `Kind`. |
+| Carousel (`carousel`) | sem-figma | — | Sem retrato das props do Figma (rode a leitura via MCP). |
 | Checkbox Select Input (`checkbox-select-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
 | Chips Group (`chips-group`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Kind`. |
 | Content List Item (`content-list-item`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Navigation Indicator`, `Show Tag`. |
@@ -84,25 +84,13 @@ Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`
 | Radio Select Input (`radio-select-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
 | Search Input (`search-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
 | Selection List Item (`selection-list-item`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Trailing Item`. |
+| Skeleton (`skeleton`) | sem-figma | — | Sem retrato das props do Figma (rode a leitura via MCP). |
 | Slider (`slider`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Value`. |
 | Status Dot (`status-dot`) | sem-code-connect | — | Sem Code Connect: o par com o React vem só do node da story. |
 | Table (`table`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Kind`. |
 | Text Area Input (`text-area`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Text Content`, `Show Required`, `Error Message`. |
 | Text Input (`text-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
 | Toast (`toast`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`. |
-| Banner (`banner`) | so-na-staging | UNRELEASED | `Banner` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado). |
-| Status Dot (`status-dot`) | so-na-staging | UNRELEASED | `StatusDot` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado). |
-| Main Button (`main-button`) | bridge-nome-figma | — | O bridge do castanha-ai usa `Show Trailling Icon`, que não existe na lib (props: Text Label, Show Lead Icon, Show Trailing Icon, Lead Icon, Kind, Appearance, State, Size). |
-| Toast (`toast`) | bridge-nome-figma | — | O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Text Description, Show Trailing Item, Appearance). |
-| Selection List Item (`selection-list-item`) | bridge-nome-figma | — | O bridge do castanha-ai usa `Trailling Item`, que não existe na lib (props: Show Lead Item, Show Divider, Kind, State, Is Active, Trailing Item). |
-| Link (`link`) | bridge-nome-figma | — | O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Link Content, Show Trailing Item, Change Icon, Appearance, State). |
-| castanha-ai (`castanha-ai`) | bridge-cobertura | — | Set `Side Menu` está no bridge do castanha-ai e não tem componente no playground. |
-| castanha-ai (`castanha-ai`) | bridge-cobertura | — | Set `Sponsor Side Menu` está no bridge do castanha-ai e não tem componente no playground. |
-| castanha-ai (`castanha-ai`) | bridge-cobertura | — | Set `Header` está no bridge do castanha-ai e não tem componente no playground. |
-| castanha-ai (`castanha-ai`) | bridge-cobertura | — | Set `Device marker` está no bridge do castanha-ai e não tem componente no playground. |
-| castanha-ai (`castanha-ai`) | bridge-cobertura | — | Set `Shortcut` está no bridge do castanha-ai e não tem componente no playground. |
-| castanha-ai (`castanha-ai`) | bridge-cobertura | — | Set `Shortcut Carousel` está no bridge do castanha-ai e não tem componente no playground. |
-| castanha-ai (`castanha-ai`) | bridge-cobertura | — | Com mapa no playground e sem set no bridge do castanha-ai: `balance-card`, `banner`, `date-input`, `date-picker`, `modal-date-picker`, `multi-select-input`, `nav-control`, `slider`, `status-dot`, `system-banner`. |
 
 ## Como rodar
 

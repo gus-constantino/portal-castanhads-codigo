@@ -9,23 +9,23 @@
  },
  "reactSource": {
   "ref": "origin/staging",
-  "commit": "1e0a5335",
-  "date": "2026-09-25"
+  "commit": "ca2b41ae",
+  "date": "2026-10-07"
  },
  "counts": {
-  "components": 84,
+  "components": 86,
   "buildingBlocks": 26,
   "resources": 15,
   "compositions": 6,
-  "withDocs": 125,
-  "withReact": 70,
+  "withDocs": 127,
+  "withReact": 72,
   "liveMaps": 70,
-  "reactOnly": 12,
+  "reactOnly": 10,
   "tokens": 308,
   "icons": 273,
   "illustrations": 260,
-  "conferirOpen": 118,
-  "stackFindings": 57
+  "conferirOpen": 120,
+  "stackFindings": 45
  },
  "components": [
   {
@@ -124,7 +124,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=11864-12559",
    "figmaNode": "11864-12559",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Mensagem fixa e persistente sobre o sistema, que fica visível até a pessoa usuária ler ou fechar.",
    "tabs": [
     {
@@ -274,7 +274,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=11018-5694",
    "figmaNode": "11018-5694",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Como o Async e, quando o texto digitado não existe nas opções, oferece \"Adicionar “…”\" para criar a opção. Faz parte da família Select Input.",
    "tabs": [
     {
@@ -702,7 +702,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=11030-7644",
    "figmaNode": "11030-7644",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Select input permite que a pessoa usuária escolha uma ou mais opções a partir de uma lista pré-definida.",
    "tabs": [
     {
@@ -1124,7 +1124,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=2278-92",
    "figmaNode": "2278-92",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Avatar é um componente utilizado para representar visualmente uma pessoa usuária, seja por meio de imagem, iniciais ou ícone padrão. Ele agiliza a identificação de perfis em áreas onde o contexto pessoal é relevante.",
    "tabs": [
     {
@@ -1307,7 +1307,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=13784-3271",
    "figmaNode": "13784-3271",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Backdrop é um componente de superfície utilizado para criar uma camada de bloqueio visual entre o conteúdo base da interface e elementos em primeiro plano, como modais e drawers.",
    "tabs": [
     {
@@ -1404,7 +1404,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4835-1472",
    "figmaNode": "4835-1472",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Badge é um elemento visual usado exclusivamente para indicar notificações ou atualizações. Ele serve como um alerta discreto que informa a pessoa usuária sobre algo novo ou pendente em um determinado contexto da interface.",
    "tabs": [
     {
@@ -1523,7 +1523,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=17881-1707",
    "figmaNode": "17881-1707",
    "zeroheight": "https://castanha.caju.com.br/858426090/v/latest/p/373420",
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Exibe o saldo de uma categoria com rótulo, valor e status complementares.",
    "tabs": [
     {
@@ -1708,7 +1708,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=20051-15726",
    "figmaNode": "20051-15726",
    "zeroheight": null,
-   "figmaStatus": "unpublished",
+   "figmaStatus": "current",
    "description": "O Banner destaca conteúdo promocional ou informação relevante em uma área própria da tela. Reúne título, descrição e indicação de ação em um bloco clicável por inteiro, com fundo de cor livre ou imagem de fundo. Serve para atrair a pessoa usuária sem interromper o que ela está fazendo.",
    "tabs": [
     {
@@ -1778,7 +1778,7 @@
     "tags": [
      "new"
     ],
-    "onlyStaging": true,
+    "onlyStaging": false,
     "props": {
      "BannerShared": [
       {
@@ -1919,11 +1919,6 @@
       "level": "info",
       "kind": "sem-code-connect",
       "text": "Sem Code Connect: o par com o React vem só do node da story."
-     },
-     {
-      "level": "info",
-      "kind": "so-na-staging",
-      "text": "`Banner` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado)."
      }
     ],
     "notes": []
@@ -1937,7 +1932,7 @@
    "figma": null,
    "figmaNode": null,
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Camada que surge da base da tela para apresentar conteúdo ou ações complementares sem tirar a pessoa do contexto. A tela de fundo continua visível.",
    "tabs": [
     {
@@ -1986,7 +1981,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=6792-24",
    "figmaNode": "6792-24",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Breadcrumb é um componente de navegação que mostra a localização atual do usuário dentro de uma hierarquia ou estrutura de conteúdo. Ele oferece links para os níveis superiores, facilitando a navegação.",
    "tabs": [
     {
@@ -2210,7 +2205,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=11271-154",
    "figmaNode": "11271-154",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Caju Brand é um elemento visual fundamental que representa a identidade da Caju dentro dos fluxos do produto. Ele garante consistência no uso da marca, evitando distorções, cores inadequadas ou aplicações incorretas.",
    "tabs": [
     {
@@ -2320,7 +2315,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=17053-1181",
    "figmaNode": "17053-1181",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Caju Card simula visualmente os diferentes tipos de cartões da Caju nos cenários físicos e virtuais seguindo as diretrizes das lojinhas de app.",
    "tabs": [
     {
@@ -2619,7 +2614,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=5256-540",
    "figmaNode": "5256-540",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O componente Card é um contêiner visual usado para agrupar informações relacionadas de forma clara e compacta.",
    "tabs": [
     {
@@ -2713,7 +2708,6 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4934-771",
    "figmaNode": "4934-771",
    "zeroheight": null,
-   "figmaStatus": "unpublished",
    "description": "Simula visualmente qualquer cartão e pode simbolizar uma bandeira específica.",
    "tabs": [
     {
@@ -2751,6 +2745,98 @@
    "react": null
   },
   {
+   "id": "carousel",
+   "name": "Carousel",
+   "kind": "component",
+   "category": "Navigation",
+   "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=21215-242",
+   "figmaNode": "21215-242",
+   "zeroheight": null,
+   "figmaStatus": "current",
+   "description": "Organiza de 3 a 10 itens em sequência horizontal, um por vez, com pré-visualização parcial do próximo.",
+   "tabs": [
+    {
+     "id": "uso",
+     "title": "Uso",
+     "text": "## Sobre\n\nOrganiza de 3 a 10 itens em sequência horizontal, exibindo um por vez com pré-visualização parcial do próximo. Sempre acompanhado do Nav Control.\n\n## Navegação\n\n- Swipe no mobile e as setas do Nav Control no desktop, com avanço circular do último ao primeiro.\n- O swipe não aciona o item sob o dedo: componentes com estado próprio, como o Banner, só disparam sua ação em toque sem deslocamento.\n\n## Conteúdo\n\n- O slot recebe Banner e Card como valores preferidos e aceita outros componentes.\n- O item mantém a própria largura: o carrossel não o estica.\n- Abaixo de 3 itens, não se usa carrossel.\n\n> Texto da description do componente na lib e do Carousel do castanha-react. O zeroheight ainda não tem página do Carousel. Suporte: canal #castanha-suporte no Slack."
+    },
+    {
+     "id": "anatomia",
+     "title": "Anatomia",
+     "text": "## Anatomia\n\nColuna com gap `Sizes/16`: o slot de conteúdo, horizontal, e o Nav Control, os dois em Fill. O espaçamento entre itens é `Specific/Carousel/gap`, que varia por mode de viewport: 8 no mobile, 16 no tablet e no desktop.\n\nA instância de Nav Control é exposta: o Appearance é definido no próprio carrossel.\n\n## Propriedades\n\n- **Content Slot** (Slot)\n- **Appearance (Nav Control)** (Variant): Accent, Inversed\n\n> No código: `appearance`, `current` (1-based, como o Nav Control; no castanha-react, `activeIndex` começa em 0), `prev-label` e `next-label`. Evento `cds-change` a cada troca de item."
+    },
+    {
+     "id": "acessibilidade",
+     "title": "Acessibilidade",
+     "text": "## Leitor de tela\n\n- O carrossel é uma região com `aria-roledescription=\"carrossel\"` e os itens são uma lista, cada um com a posição (\"2 de 4\").\n- As setas do Nav Control têm rótulo (\"Item anterior\" e \"Próximo item\", como no castanha-react) e o Nav Control anuncia o item atual.\n- Com `prefers-reduced-motion`, a troca de item é imediata, sem rolagem animada."
+    },
+    {
+     "id": "motion",
+     "title": "Motion",
+     "text": "## Motion\n\nA troca de item é a rolagem da faixa até o início do item, com encaixe (scroll-snap). O Figma não define duração nem curva para essa transição."
+    }
+   ],
+   "react": {
+    "component": "Carousel",
+    "import": "import { Carousel } from '@caju-beneficios/castanha-react';",
+    "description": "Organiza de 3 a 10 itens em sequência horizontal, um por vez, com pré-visualização parcial do próximo. Sempre acompanhado do Nav Control.",
+    "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-carousel--docs",
+    "zeroheight": null,
+    "tags": [
+     "new"
+    ],
+    "onlyStaging": false,
+    "props": {
+     "Carousel": [
+      {
+       "name": "activeIndex",
+       "type": "number",
+       "description": "Índice do item em exibição, base 0, no modo controlado."
+      },
+      {
+       "name": "defaultActiveIndex",
+       "type": "number",
+       "default": "0",
+       "description": "Índice inicial, base 0, no modo não controlado."
+      },
+      {
+       "name": "onChange",
+       "type": "(index: number) => void",
+       "description": "Chamado ao trocar de item. Recebe o próximo índice, com avanço circular."
+      },
+      {
+       "name": "appearance",
+       "type": "'accent' | 'inverted'",
+       "default": "accent",
+       "description": "Estilo visual do Nav Control."
+      },
+      {
+       "name": "previousLabel",
+       "type": "string",
+       "default": "Item anterior",
+       "description": "Rótulo acessível da seta de item anterior."
+      },
+      {
+       "name": "nextLabel",
+       "type": "string",
+       "default": "Próximo item",
+       "description": "Rótulo acessível da seta de próximo item."
+      }
+     ]
+    },
+    "liveMap": false,
+    "figmaToReact": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "sem-figma",
+      "text": "Sem retrato das props do Figma (rode a leitura via MCP)."
+     }
+    ],
+    "notes": []
+   }
+  },
+  {
    "id": "checkbox",
    "name": "Checkbox",
    "kind": "component",
@@ -2758,7 +2844,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4123-2560",
    "figmaNode": "4123-2560",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O checkbox é Componente interativo usado para selecionar ou desmarcar opções. Pode ser preenchido com um checkmark (✔) caso seja selecionado, ou por um traço (—) quando indeterminado. Utilizado em formulários e filtros, permitindo múltiplas seleções.",
    "tabs": [
     {
@@ -2933,7 +3019,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=11143-4833",
    "figmaNode": "11143-4833",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Vários valores sem busca: a lista fica aberta enquanto marca, e o campo mostra quantos foram selecionados. Faz parte da família Select Input.",
    "tabs": [
     {
@@ -3355,7 +3441,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=12457-3664",
    "figmaNode": "12457-3664",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Container que organiza Filter Chips ou Input Chips em uma linha com rolagem ou em várias linhas.",
    "tabs": [
     {
@@ -3665,7 +3751,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=16359-1803",
    "figmaNode": "16359-1803",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Mostre o resultado de uma ação com ícone, título e descrição centralizados.",
    "tabs": [
     {
@@ -3829,7 +3915,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=5488-1482",
    "figmaNode": "5488-1482",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Content List é um componente que agrupa e organiza múltiplos Content List Items em uma estrutura única e consistente. Ele funciona como um container, permitindo que diferentes tipos de conteúdo sejam exibidos de forma clara e hierárquica. Pode conter itens informativos, de navegação ou de transações financeiras, adaptando-se a diferentes contextos de uso.",
    "tabs": [
     {
@@ -4050,7 +4136,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=5488-675",
    "figmaNode": "5488-675",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Content list item é um bloco de conteúdo que organiza informações de forma clara e escaneável dentro de listas. Ele combina elementos como título, descrição, ícone, avatar ou status, ajudando o usuário a identificar de relance itens, conteúdos ou ações relacionadas.",
    "tabs": [
     {
@@ -4439,7 +4525,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=10100-1192",
    "figmaNode": "10100-1192",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O CSAT Score é um componente de avaliação utilizado para medir o nível de satisfação da pessoa usuária em relação a uma experiência, funcionalidade ou interação específica, por meio de uma escala ordinal visual representada por ícones e rótulos textuais.",
    "tabs": [
     {
@@ -4592,7 +4678,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=5301-2173",
    "figmaNode": "5301-2173",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Currency é um componente de exibição utilizado para apresentar valores monetários de forma padronizada, legível e consistente nas interfaces da Caju.",
    "tabs": [
     {
@@ -4838,7 +4924,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=17962-70687",
    "figmaNode": "17962-70687",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Campo de data da família Text Fields: digitar com máscara dd/mm/aaaa ou escolher no calendário.",
    "tabs": [
     {
@@ -5229,7 +5315,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=17629-24427",
    "figmaNode": "17629-24427",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Calendário para escolher uma data ou um intervalo de datas, com navegação por mês e ano.",
    "tabs": [
     {
@@ -5628,7 +5714,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4931-207",
    "figmaNode": "4931-207",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O componente Divider é uma linha fina que separa visualmente agrupamentos de conteúdo em uma interface. Ele atua como uma âncora visual, ajudando a pessoa usuária a escanear e compreender a hierarquia e o relacionamento entre os elementos da página.",
    "tabs": [
     {
@@ -5707,6 +5793,12 @@
        "type": "'soft' | 'medium' | 'intense'",
        "default": "soft",
        "description": "Define a intensidade visual do divisor."
+      },
+      {
+       "name": "kind",
+       "type": "'solid' | 'dashed'",
+       "default": "solid",
+       "description": "Define o estilo da linha divisória."
       },
       {
        "name": "orientation",
@@ -5929,7 +6021,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=6955-6985",
    "figmaNode": "6955-6985",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Drop Button é um botão interativo que, ao ser acionado, abre um menu suspenso com opções de ação diretamente relacionadas ao contexto do botão. Ele combina a função de acionador visual com o acesso direto a um conjunto de comandos organizados.",
    "tabs": [
     {
@@ -6120,7 +6212,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=15386-7230",
    "figmaNode": "15386-7230",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Dropzone é a área delimitada onde a pessoa usuária adiciona arquivos, pelo botão de seleção ou arrastando o arquivo para dentro dela. A área informa os formatos e limites aceitos antes do envio. O acompanhamento de cada arquivo enviado fica no Upload Item.",
    "tabs": [
     {
@@ -6254,6 +6346,11 @@
        "description": "Ação exibida abaixo dos textos, ausente durante o dragover."
       },
       {
+       "name": "className",
+       "type": "string",
+       "description": "Classe no bloco de textos fora do dragover."
+      },
+      {
        "name": "gap",
        "type": "'sizes-4' | 'sizes-8'",
        "required": true,
@@ -6369,7 +6466,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=5099-5389",
    "figmaNode": "5099-5389",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Filter Button é um botão que serve como gatilho para filtros e, quando acionado, abre opções para refinar ou ajustar a exibição de conteúdos, listas ou tabelas.",
    "tabs": [
     {
@@ -6495,7 +6592,6 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=12365-2744",
    "figmaNode": "12365-2744",
    "zeroheight": null,
-   "figmaStatus": "changed",
    "description": "Chip que liga e desliga um filtro: selecionado, troca o ícone pelo check e inverte as cores.",
    "tabs": [
     {
@@ -6694,7 +6790,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=24037-2929",
    "figmaNode": "24037-2929",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "A Fixed bar é uma área fixa posicionada na base da interface que agrupa duas ações relacionadas — uma primária e outra secundária. Ela é utilizada para decisões importantes no final de fluxos ou seções, permanecendo sempre acessível para a pessoa usuária.",
    "tabs": [
     {
@@ -6738,7 +6834,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=6500-6958",
    "figmaNode": "6500-6958",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Tabs organiza conteúdos relacionados em seções paralelas dentro da mesma página, permitindo que a pessoa usuária alterne rapidamente entre contextos sem navegação externa.",
    "tabs": [
     {
@@ -7007,7 +7103,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=2261-1126",
    "figmaNode": "2261-1126",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Icon (ícone) é uma representação visual direta que auxilia na comunicação de ações, estados, tipos de conteúdo ou categorias.",
    "tabs": [
     {
@@ -7382,7 +7478,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=2273-320",
    "figmaNode": "2273-320",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O componente Image é utilizado para exibir imagens estáticas em diferentes contextos do produto, garantindo consistência visual e preservação correta das proporções. Ele oferece controle direto, permitindo que a imagem se adapte a diferentes layouts sem distorção.",
    "tabs": [
     {
@@ -7518,7 +7614,6 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=12365-2728",
    "figmaNode": "12365-2728",
    "zeroheight": null,
-   "figmaStatus": "changed",
    "description": "Chip que mostra um valor escolhido e pode ser removido com um clique.",
    "tabs": [
     {
@@ -7753,7 +7848,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4926-213",
    "figmaNode": "4926-213",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Link é um elemento interativo que direciona o usuário para outro destino, como páginas internas, externas, seções específicas ou downloads.",
    "tabs": [
     {
@@ -7897,13 +7992,7 @@
       "note": "Destino do link."
      }
     ],
-    "checks": [
-     {
-      "level": "info",
-      "kind": "bridge-nome-figma",
-      "text": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Link Content, Show Trailing Item, Change Icon, Appearance, State)."
-     }
-    ],
+    "checks": [],
     "notes": []
    }
   },
@@ -7960,7 +8049,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4464-427",
    "figmaNode": "4464-427",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Main Button é um componente interativo usado para executar a ações mais importantes em uma tela, formulário ou fluxo.",
    "tabs": [
     {
@@ -8176,13 +8265,7 @@
       "note": "O texto vai como filho."
      }
     ],
-    "checks": [
-     {
-      "level": "info",
-      "kind": "bridge-nome-figma",
-      "text": "O bridge do castanha-ai usa `Show Trailling Icon`, que não existe na lib (props: Text Label, Show Lead Icon, Show Trailing Icon, Lead Icon, Kind, Appearance, State, Size)."
-     }
-    ],
+    "checks": [],
     "notes": []
    }
   },
@@ -8194,7 +8277,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=16362-3267",
    "figmaNode": "16362-3267",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Modal é um componente de sobreposição que bloqueia a interface base para exibir conteúdos focados, como formulários, informações detalhadas ou confirmações. Ele exige atenção da pessoa usuária antes de retornar ao fluxo principal.",
    "tabs": [
     {
@@ -8395,7 +8478,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=17560-51555",
    "figmaNode": "17560-51555",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Calendário num Modal, com Cancelar e Confirmar: a data vale depois de confirmada.",
    "tabs": [
     {
@@ -8602,7 +8685,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=13795-4984",
    "figmaNode": "13795-4984",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Vários valores com busca: cada escolha vira um Input Chip dentro do campo. Faz parte da família Select Input.",
    "tabs": [
     {
@@ -9211,7 +9294,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=10100-848",
    "figmaNode": "10100-848",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O NPS Score é um componente de seleção única utilizado para capturar a percepção da pessoa usuária em relação a uma experiência, produto ou serviço, geralmente em uma escala numérica de 0 a 10.",
    "tabs": [
     {
@@ -9406,7 +9489,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=13408-1416",
    "figmaNode": "13408-1416",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Pagination (paginação) permite navegar entre conjuntos de dados distribuídos em várias páginas, otimizando a performance da visualização e facilitando o consumo de grandes volumes de dados.",
    "tabs": [
     {
@@ -9605,7 +9688,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=5798-2677",
    "figmaNode": "5798-2677",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Password Input é um campo de entrada específico para senhas.",
    "tabs": [
     {
@@ -9902,7 +9985,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=2270-102",
    "figmaNode": "2270-102",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Popover é um pequeno overlay contextual que aparece quando o usuário interage com um elemento da interface. Ele permite exibir conteúdos adicionais, ações ou informações complementares de forma leve, sem interromper o fluxo principal da experiência.",
    "tabs": [
     {
@@ -10034,7 +10117,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=2322-4006",
    "figmaNode": "2322-4006",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Progress Line é um indicador visual não interativo que representa o progresso de uma operação ao longo do tempo, ajudando a pessoa usuária a entender em que estágio o processo se encontra.",
    "tabs": [
     {
@@ -10145,7 +10228,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=21470-2390",
    "figmaNode": "21470-2390",
    "zeroheight": null,
-   "figmaStatus": "unpublished",
+   "figmaStatus": "current",
    "description": "Indica o avanço de uma pessoa em um fluxo de múltiplas etapas, mostrando o que já foi concluído, onde ela está e o que ainda falta.",
    "tabs": [
     {
@@ -10317,7 +10400,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=14415-3778",
    "figmaNode": "14415-3778",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Etapa individual do Progress Tracker.",
    "tabs": [
     {
@@ -10577,7 +10660,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=22756-7351",
    "figmaNode": "22756-7351",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Quantity Input é um campo numérico com controles de incremento e decremento.",
    "tabs": [
     {
@@ -10621,7 +10704,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4429-10437",
    "figmaNode": "4429-10437",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Radio Button é um componente interativo usado para permitir ao usuário selecionar uma única opção de um conjunto. Essencial em formulários para escolhas únicas.",
    "tabs": [
     {
@@ -10795,7 +10878,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=11143-3056",
    "figmaNode": "11143-3056",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Escolha única sem busca: o campo abre a lista de opções, com Radio Button. Faz parte da família Select Input.",
    "tabs": [
     {
@@ -11217,7 +11300,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=6646-181",
    "figmaNode": "6646-181",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Abas no tamanho do conteúdo, com rolagem horizontal. Mesma documentação de Tabs da Fixed Tab.",
    "tabs": [
     {
@@ -11399,7 +11482,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=14880-3404",
    "figmaNode": "14880-3404",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Campo de busca da família Text Fields: lupa fixa e botão de limpar quando há texto.",
    "tabs": [
     {
@@ -11703,7 +11786,6 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4132-1511",
    "figmaNode": "4132-1511",
    "zeroheight": null,
-   "figmaStatus": "changed",
    "description": "Coluna de Checkboxes com um nome para o conjunto: zero, uma ou várias opções.",
    "tabs": [
     {
@@ -11848,7 +11930,6 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4429-11192",
    "figmaNode": "4429-11192",
    "zeroheight": null,
-   "figmaStatus": "changed",
    "description": "Coluna de Radio Buttons com um nome para o conjunto: exatamente uma opção.",
    "tabs": [
     {
@@ -11993,7 +12074,6 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4895-1233",
    "figmaNode": "4895-1233",
    "zeroheight": null,
-   "figmaStatus": "changed",
    "description": "Coluna de Switches com um nome para o conjunto: cada um liga ou desliga uma configuração na hora.",
    "tabs": [
     {
@@ -12038,7 +12118,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=5488-1552",
    "figmaNode": "5488-1552",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Selection List é um agrupamento de opções organizadas em lista, permitindo que o usuário faça uma ou múltiplas seleções de forma clara e consistente. Ele é formado por instâncias do componente Selection List Item empilhados e separados por divisores visuais, facilitando a leitura e a comparação entre alternativas.",
    "tabs": [
     {
@@ -12246,7 +12326,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=5488-812",
    "figmaNode": "5488-812",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Selection List Item é um componente de seleção que combina título, descrição e ícone para enriquecer a apresentação das opções. Ele amplia a clareza das escolhas, indo além de seletores básicos como checkbox, radio ou switch.",
    "tabs": [
     {
@@ -12512,11 +12592,6 @@
       "level": "info",
       "kind": "nao-chega-ao-react",
       "text": "Não chega ao React pelo Code Connect: `Trailing Item`."
-     },
-     {
-      "level": "info",
-      "kind": "bridge-nome-figma",
-      "text": "O bridge do castanha-ai usa `Trailling Item`, que não existe na lib (props: Show Lead Item, Show Divider, Kind, State, Is Active, Trailing Item)."
      }
     ],
     "notes": [
@@ -12532,7 +12607,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=2272-146",
    "figmaNode": "2272-146",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Shaped Icon é um ícone envolto por um fundo colorido e com formato definido, que confere maior ênfase visual e peso hierárquico. Ele é utilizado para evidenciar categorias, ações contextuais ou estados visuais sem depender de interação.",
    "tabs": [
     {
@@ -12654,6 +12729,87 @@
    }
   },
   {
+   "id": "skeleton",
+   "name": "Skeleton",
+   "kind": "component",
+   "category": "Utilities",
+   "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=20967-742",
+   "figmaNode": "20967-742",
+   "zeroheight": null,
+   "figmaStatus": "current",
+   "description": "Placeholder de carregamento que ocupa o espaço de um conteúdo enquanto ele não chegou.",
+   "tabs": [
+    {
+     "id": "uso",
+     "title": "Uso",
+     "text": "## Sobre\n\nPlaceholder de carregamento que ocupa o espaço de um conteúdo enquanto ele não chegou. Repita instâncias para reproduzir o layout final.\n\n## Quando usar\n\n### Utilize para:\n\n- Conteúdo de forma previsível: avatar, imagem, card ou bloco de texto.\n\n### Não utilize para:\n\n- Carregamento de ação, como um botão no envio de formulário.\n\n## Kind\n\n- Round: formas circulares, como avatar, ícone e badge\n- Square: formas retangulares, como imagem, card e bloco de texto\n\n> Texto da description do set na lib e do Skeleton do castanha-react. O zeroheight ainda não tem página do Skeleton. Suporte: canal #castanha-suporte no Slack."
+    },
+    {
+     "id": "anatomia",
+     "title": "Anatomia",
+     "text": "## Anatomia\n\nUma forma só (Shape), com gradiente horizontal `Neutral/Solid/semi-soft` → `Surface/default` → `Neutral/Solid/semi-soft`. O Round é uma elipse e o Square tem raio `Border/Radius/medium`.\n\n## Dimensões\n\nAs dimensões são definidas por quem consome: os tamanhos do Figma são amostra. No código, `width` e `height` aceitam um número da escala (`48` vira `Common/Sizes/48`), px ou um valor CSS, como no castanha-react.\n\n## Propriedades\n\n- **Kind** (Variant): Round, Square"
+    },
+    {
+     "id": "estilos",
+     "title": "Estilos",
+     "text": "## Kind\n\n**Exemplos:** Round, Square\n\n## Montando um layout\n\nRepita instâncias para reproduzir o layout final, como a linha de uma lista com avatar e duas linhas de texto."
+    },
+    {
+     "id": "acessibilidade",
+     "title": "Acessibilidade",
+     "text": "## Leitor de tela\n\n- O Skeleton é decorativo (`aria-hidden`): não tem o que ler.\n- Quem carrega marca o container com `aria-busy=\"true\"` e anuncia quando o conteúdo chega."
+    },
+    {
+     "id": "motion",
+     "title": "Motion",
+     "text": "## Motion\n\nUm brilho atravessa a forma e faz uma pausa, em loop, como no Skeleton do castanha-react: 700ms de deslocamento (`Duration/Extra Long/01`, curva `Systemic/decelerate`) e 500ms de pausa (`Duration/Long/02`).\n\n- Com `prefers-reduced-motion`, a animação para e o brilho fica no centro.\n- No Figma o Skeleton é estático. O playground segue o React por decisão registrada no CONFERIR (C181)."
+    }
+   ],
+   "react": {
+    "component": "Skeleton",
+    "import": "import { Skeleton } from '@caju-beneficios/castanha-react';",
+    "description": "Placeholder de carregamento que ocupa o espaço de um conteúdo previsível — avatar, imagem, card ou bloco de texto.",
+    "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-skeleton--docs",
+    "zeroheight": null,
+    "tags": [
+     "new"
+    ],
+    "onlyStaging": false,
+    "props": {
+     "Skeleton": [
+      {
+       "name": "height",
+       "type": "BoxProps['height']",
+       "description": "Altura do placeholder em token de tamanho, número em px ou valor CSS."
+      },
+      {
+       "name": "width",
+       "type": "BoxProps['width']",
+       "description": "Largura do placeholder em token de tamanho, número em px ou valor CSS."
+      },
+      {
+       "name": "kind",
+       "type": "'round' | 'square'",
+       "default": "round",
+       "description": "Forma do placeholder: round para avatar, ícone e badge; square para imagem, card e bloco de texto."
+      }
+     ]
+    },
+    "liveMap": false,
+    "figmaToReact": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "sem-figma",
+      "text": "Sem retrato das props do Figma (rode a leitura via MCP)."
+     }
+    ],
+    "notes": [
+     "a story aponta para 2269-65 (a story do Skeleton aponta para a página Utilities, não para o set (C180))"
+    ]
+   }
+  },
+  {
    "id": "slider",
    "name": "Slider",
    "kind": "component",
@@ -12661,7 +12817,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=20056-11908",
    "figmaNode": "20056-11908",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Slider de seleção de valor num intervalo.",
    "tabs": [
     {
@@ -12933,7 +13089,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4333-3181",
    "figmaNode": "4333-3181",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Spinner é um indicador visual de atividade não interativa que informa à pessoa usuária que o sistema está processando uma ação em segundo plano.",
    "tabs": [
     {
@@ -13091,7 +13247,8 @@
      "title": "Anatomia",
      "text": "## Propriedades\n\n- **Kind** (Variant): Default, Reduced\n- **Intent** (Variant): Default, Accordion\n- **Appearance** (Variant): Neutral, Accent\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Is Selected** (Variant): False, True\n- **Is Collapsed** (Variant): False, True\n- **Text Label** (Text)\n- **Show Badge** (Boolean)\n- **Lead Icon** (Instance swap)\n- **Slot** (Slot)\n\nFundo `Surface/01`, raio `Border/Radius/small`, padding 4 8 4 4 e gap 4. Lead Icon de 32 (selecionado: fundo `Surface/accent` e ícone `Icons/inversed`), Label em `Label/Medium` e Badge Warning. Hovered `Neutral/Opacity/Intense/semi-transparent`, Pressed `Surface/default` e Disabled com opacidade 0.4. Com o accordion aberto, o rótulo vai para `Label/Bold` e o Slot tem padding-left 12 e gap 8. Kind=Reduced: 40×40, Badge de 16 sem texto no canto.\n\n> No Figma, Is Collapsed=True é a variante que mostra o Slot aberto (C176). No código o accordion aberto é `expanded`, e o colapso do menu vira Kind=Reduced."
     }
-   ]
+   ],
+   "react": null
   },
   {
    "id": "sponsor-header",
@@ -13124,7 +13281,8 @@
      "title": "Acessibilidade",
      "text": "## Acessibilidade\n\n- O Title é um `h1`: um por página.\n- Os Icon Buttons sem texto têm nome acessível (Voltar, Buscar, Notificações, Fechar, Informação).\n- O Breadcrumb marca a página atual com `aria-current=\"page\"`.\n- A ordem do foco segue a leitura: Voltar, Breadcrumb, ações da barra, Information Button, Drop Button e Main Button."
     }
-   ]
+   ],
+   "react": null
   },
   {
    "id": "sponsor-side-menu",
@@ -13151,7 +13309,8 @@
      "title": "Acessibilidade",
      "text": "## Acessibilidade\n\n- O menu é um `nav` com nome acessível \"Menu\".\n- Colapsado, cada item mostra só o ícone e leva o nome no `aria-label`.\n- O menu também abre pelo foco do teclado, não só pelo hover.\n- O item da página atual tem `aria-current=\"page\"`. Os accordions usam `aria-expanded`."
     }
-   ]
+   ],
+   "react": null
   },
   {
    "id": "sponsor-subcategory",
@@ -13173,7 +13332,8 @@
      "title": "Anatomia",
      "text": "## Propriedades\n\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Text Label** (Text)\n- **Show Lead Icon** (Boolean)\n- **Lead Icon** (Instance swap)\n- **Show Trailing Icon** (Boolean)\n- **Trailing Icon** (Instance swap)\n- **Show Badge** (Boolean)\n\n188×32, fundo `Surface/01`, raio `Border/Radius/small`, padding 0 8 e gap 8. Label em `Label/Regular` e `Text/medium`. No Hovered e no Pressed, `Label/Bold` (no Hovered, também `Text/intense`). Largura de preenchimento e altura mínima 32."
     }
-   ]
+   ],
+   "react": null
   },
   {
    "id": "sponsor-user-profile",
@@ -13195,7 +13355,8 @@
      "title": "Anatomia",
      "text": "## Propriedades\n\n- **Kind** (Variant): Default, Reduced\n- **User Name** (Text)\n- **CNPJ** (Text)\n- **Show Icon Button** (Boolean)\n\nDefault 288×92 e Reduced 40×92 (altura mínima 92), fundo `Surface/01`, padding 24 0, gap 16 e itens alinhados pela base. Avatar Image Small (40), nome em `Label/Bold` e CNPJ em `Caption/Medium` com `Text/medium` (gap 4, sem corte), e Icon Button Small Default Neutral com `menu-line`."
     }
-   ]
+   ],
+   "react": null
   },
   {
    "id": "status-dot",
@@ -13205,7 +13366,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=21745-69",
    "figmaNode": "21745-69",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Indicador compacto de estado, formado por um ponto colorido e um rótulo em texto.",
    "tabs": [
     {
@@ -13276,7 +13437,7 @@
     "tags": [
      "new"
     ],
-    "onlyStaging": true,
+    "onlyStaging": false,
     "props": {
      "StatusDot": [
       {
@@ -13325,11 +13486,6 @@
       "level": "info",
       "kind": "sem-code-connect",
       "text": "Sem Code Connect: o par com o React vem só do node da story."
-     },
-     {
-      "level": "info",
-      "kind": "so-na-staging",
-      "text": "`StatusDot` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado)."
      }
     ],
     "notes": []
@@ -13343,7 +13499,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4895-809",
    "figmaNode": "4895-809",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Switch é um componente que funciona como um interruptor digital, alterando imediatamente o estado de uma configuração entre opções binárias, como sim ou não, e ligado ou desligado, sem necessidade de confirmação.",
    "tabs": [
     {
@@ -13493,7 +13649,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=18432-2090",
    "figmaNode": "18432-2090",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Aviso do sistema que ocupa a largura toda da página, com a mesma anatomia do Alert.",
    "tabs": [
     {
@@ -13695,7 +13851,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=15713-2488",
    "figmaNode": "15713-2488",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Alterna a visualização de uma lista entre lista e grade.",
    "tabs": [
     {
@@ -13844,7 +14000,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=13472-5725",
    "figmaNode": "13472-5725",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O componente de Tabela organiza dados estruturados em colunas e linhas, facilitando a leitura, comparação e análise. É ideal para exibir informações com formato uniforme, como listas, transações ou relatórios.",
    "tabs": [
     {
@@ -14223,7 +14379,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4475-114",
    "figmaNode": "4475-114",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Tag são rótulos compactos e visualmente distintos usados para rapidamente categorizar, identificar e organizar itens.",
    "tabs": [
     {
@@ -14350,7 +14506,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=10110-3028",
    "figmaNode": "10110-3028",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Text Area é um campo de entrada multilinha que permite à pessoa usuária digitar textos mais longos, como descrições, observações ou comentários.",
    "tabs": [
     {
@@ -14650,7 +14806,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=5743-325",
    "figmaNode": "5743-325",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Text Input é um campo de entrada para coleta de informações textuais curtas fornecidas pela pessoa usuária.",
    "tabs": [
     {
@@ -14929,7 +15085,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=5234-516",
    "figmaNode": "5234-516",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Toast é um componente de notificação temporária que informa a pessoa usuária sobre o resultado de uma ação ou estado do sistema. Ele aparece de forma discreta na interface e desaparece automaticamente após alguns segundos, sem interromper o fluxo de navegação.",
    "tabs": [
     {
@@ -15092,16 +15248,6 @@
       "level": "info",
       "kind": "nao-chega-ao-react",
       "text": "Não chega ao React pelo Code Connect: `Show Trailing Item`."
-     },
-     {
-      "level": "media",
-      "kind": "bridge-componente",
-      "text": "O castanha-ai liga o set a `Toast`; o playground (Code Connect), a `useToast`."
-     },
-     {
-      "level": "info",
-      "kind": "bridge-nome-figma",
-      "text": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Text Description, Show Trailing Item, Appearance)."
      }
     ],
     "notes": []
@@ -15115,7 +15261,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=11211-416",
    "figmaNode": "11211-416",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "São caixas flutuantes que proporcionam informações sobre algum aspecto da interface que mereça maior atenção.",
    "tabs": [
     {
@@ -15239,7 +15385,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=15621-1175",
    "figmaNode": "15621-1175",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Apresente um tópico com ícone ou imagem, título e descrição.",
    "tabs": [
     {
@@ -15438,7 +15584,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=15029-1115",
    "figmaNode": "15029-1115",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "O Upload Item representa um arquivo dentro do fluxo de upload, do envio em curso até o arquivo já armazenado. Ele mostra o nome, a extensão, o estado do envio e as ações disponíveis para aquele arquivo.",
    "tabs": [
     {
@@ -15687,7 +15833,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=15465-1365",
    "figmaNode": "15465-1365",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Agrupa os Upload Items de um fluxo, com ordem e espaçamento consistentes.",
    "tabs": [
     {
@@ -15867,7 +16013,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=5357-3899",
    "figmaNode": "5357-3899",
    "zeroheight": null,
-   "figmaStatus": "changed",
+   "figmaStatus": "current",
    "description": "Aviso de que o componente não está disponível no viewport atual.",
    "tabs": [
     {
@@ -16441,15 +16587,6 @@
    ]
   },
   {
-   "name": "Carousel",
-   "import": "import { Carousel } from '@caju-beneficios/castanha-react';",
-   "description": "Organiza de 3 a 10 itens em sequência horizontal, um por vez, com pré-visualização parcial do próximo. Sempre acompanhado do Nav Control.",
-   "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-carousel--docs",
-   "tags": [
-    "new"
-   ]
-  },
-  {
    "name": "Field",
    "import": "import { Field } from '@caju-beneficios/castanha-react';",
    "description": "Primitivo de campo de formulário que conecta label, input e mensagens de suporte via contexto, provendo acessibilidade automática.",
@@ -16499,15 +16636,6 @@
    "import": "import { Shortcut } from '@caju-beneficios/castanha-react';",
    "description": "Atalho para ações ou navegações frequentes, combinando ícone, rótulo e, opcionalmente, valor monetário e badge.",
    "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-shortcut--docs",
-   "tags": [
-    "new"
-   ]
-  },
-  {
-   "name": "Skeleton",
-   "import": "import { Skeleton } from '@caju-beneficios/castanha-react';",
-   "description": "Placeholder de carregamento que ocupa o espaço de um conteúdo previsível — avatar, imagem, card ou bloco de texto.",
-   "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-skeleton--docs",
    "tags": [
     "new"
    ]
@@ -27729,6 +27857,18 @@
     "text": "Ilustrações · desenho · 12 ilustrações (moeda verde 1–4, `autenticacao/ocr-cartao-2` e 7 heroes do Hub de Benefícios) · O SVG do pacote difere além do arredondamento: posição no quadro ou forma (ex.: moedas ~10 px deslocadas) · Usa o SVG do Figma; o detalhe marca \"Desenho difere do pacote\" · Conferir qual versão é a atual e reexportar o lado desatualizado"
    },
    {
+    "id": "C180",
+    "group": "Integração React",
+    "resolved": false,
+    "text": "Skeleton (20967:742, Release 25) · Set publicado na lib · A story (`Skeleton.stories.tsx`) aponta para `node-id=2269-65`, que é a **página** Utilities, não o set · O manifesto casa o par por um alias de node (`NODE_ALIAS` em `scripts/integration/build-manifest.js`) · Trocar o node-id da story para `20967-742`; depois, tirar o alias"
+   },
+   {
+    "id": "C181",
+    "group": "Integração React",
+    "resolved": false,
+    "text": "Skeleton (20967:742) · Estático: gradiente sem animação, sem motion definido · Anima um brilho (shimmer): 700ms de deslocamento + 500ms de pausa, curva Systemic/decelerate; o próprio SCSS marca 700ms como fora da escala · **Segue o React** (Gustavo, 07/10: \"faça animado como react\"), com os tokens da escala: 700ms = `Duration/Extra Long/01` e 500ms = `Duration/Long/02` · Levar o motion do shimmer para o Figma (description ou protótipo), para as três pontas baterem"
+   },
+   {
     "id": "C26",
     "group": "Resolvidos",
     "resolved": true,
@@ -28145,6 +28285,12 @@
     "gap": "MISSING-VARIANT"
    },
    {
+    "id": "carousel",
+    "level": "info",
+    "kind": "sem-figma",
+    "msg": "Sem retrato das props do Figma (rode a leitura via MCP)."
+   },
+   {
     "id": "checkbox-select-input",
     "level": "info",
     "kind": "nao-chega-ao-react",
@@ -28257,6 +28403,12 @@
     "gap": "MISSING-VARIANT"
    },
    {
+    "id": "skeleton",
+    "level": "info",
+    "kind": "sem-figma",
+    "msg": "Sem retrato das props do Figma (rode a leitura via MCP)."
+   },
+   {
     "id": "slider",
     "level": "info",
     "kind": "nao-chega-ao-react",
@@ -28331,92 +28483,6 @@
     "msg": "O Code Connect gera `supportingMessage` em `<Topic>`, que não existe nas props do React (o código gerado não compila em TypeScript)."
    },
    {
-    "id": "banner",
-    "level": "info",
-    "kind": "so-na-staging",
-    "msg": "`Banner` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado).",
-    "gap": "UNRELEASED"
-   },
-   {
-    "id": "status-dot",
-    "level": "info",
-    "kind": "so-na-staging",
-    "msg": "`StatusDot` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado).",
-    "gap": "UNRELEASED"
-   },
-   {
-    "id": "main-button",
-    "level": "info",
-    "kind": "bridge-nome-figma",
-    "msg": "O bridge do castanha-ai usa `Show Trailling Icon`, que não existe na lib (props: Text Label, Show Lead Icon, Show Trailing Icon, Lead Icon, Kind, Appearance, State, Size)."
-   },
-   {
-    "id": "toast",
-    "level": "media",
-    "kind": "bridge-componente",
-    "msg": "O castanha-ai liga o set a `Toast`; o playground (Code Connect), a `useToast`."
-   },
-   {
-    "id": "toast",
-    "level": "info",
-    "kind": "bridge-nome-figma",
-    "msg": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Text Description, Show Trailing Item, Appearance)."
-   },
-   {
-    "id": "selection-list-item",
-    "level": "info",
-    "kind": "bridge-nome-figma",
-    "msg": "O bridge do castanha-ai usa `Trailling Item`, que não existe na lib (props: Show Lead Item, Show Divider, Kind, State, Is Active, Trailing Item)."
-   },
-   {
-    "id": "link",
-    "level": "info",
-    "kind": "bridge-nome-figma",
-    "msg": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Link Content, Show Trailing Item, Change Icon, Appearance, State)."
-   },
-   {
-    "id": "castanha-ai",
-    "level": "info",
-    "kind": "bridge-cobertura",
-    "msg": "Set `Side Menu` está no bridge do castanha-ai e não tem componente no playground."
-   },
-   {
-    "id": "castanha-ai",
-    "level": "info",
-    "kind": "bridge-cobertura",
-    "msg": "Set `Sponsor Side Menu` está no bridge do castanha-ai e não tem componente no playground."
-   },
-   {
-    "id": "castanha-ai",
-    "level": "info",
-    "kind": "bridge-cobertura",
-    "msg": "Set `Header` está no bridge do castanha-ai e não tem componente no playground."
-   },
-   {
-    "id": "castanha-ai",
-    "level": "info",
-    "kind": "bridge-cobertura",
-    "msg": "Set `Device marker` está no bridge do castanha-ai e não tem componente no playground."
-   },
-   {
-    "id": "castanha-ai",
-    "level": "info",
-    "kind": "bridge-cobertura",
-    "msg": "Set `Shortcut` está no bridge do castanha-ai e não tem componente no playground."
-   },
-   {
-    "id": "castanha-ai",
-    "level": "info",
-    "kind": "bridge-cobertura",
-    "msg": "Set `Shortcut Carousel` está no bridge do castanha-ai e não tem componente no playground."
-   },
-   {
-    "id": "castanha-ai",
-    "level": "info",
-    "kind": "bridge-cobertura",
-    "msg": "Com mapa no playground e sem set no bridge do castanha-ai: `balance-card`, `banner`, `date-input`, `date-picker`, `modal-date-picker`, `multi-select-input`, `nav-control`, `slider`, `status-dot`, `system-banner`."
-   },
-   {
     "id": "tokens",
     "level": "info",
     "kind": "token-so-no-playground",
@@ -28476,7 +28542,7 @@
     "id": "assets",
     "level": "info",
     "kind": "motion-so-no-pacote",
-    "msg": "44 animações Lottie no castanha-motion, ainda sem tab no playground (Animações volta ao Caju - Tema quando a lib existir).",
+    "msg": "49 animações Lottie no castanha-motion, ainda sem tab no playground (Animações volta ao Tema Caju quando a lib existir).",
     "gap": "MISSING-COMPONENT"
    }
   ]
@@ -29720,6 +29786,11 @@
       ]
      ]
     }
+   },
+   "carousel": {
+    "component": "Carousel",
+    "import": "import { Carousel } from '@caju-beneficios/castanha-react';",
+    "map": null
    },
    "checkbox": {
     "component": "Checkbox",
@@ -34150,6 +34221,11 @@
      ]
     }
    },
+   "skeleton": {
+    "component": "Skeleton",
+    "import": "import { Skeleton } from '@caju-beneficios/castanha-react';",
+    "map": null
+   },
    "slider": {
     "component": "Slider",
     "import": "import { Slider } from '@caju-beneficios/castanha-react';",
@@ -35959,7 +36035,7 @@
     "tags": [
      "new"
     ],
-    "staging": true,
+    "staging": false,
     "props": {
      "BannerShared": [
       {
@@ -36648,7 +36724,7 @@
     "tags": [
      "new"
     ],
-    "staging": true,
+    "staging": false,
     "props": {
      "Carousel": [
       {
@@ -37705,6 +37781,12 @@
        "s": "Define a intensidade visual do divisor."
       },
       {
+       "n": "kind",
+       "t": "'solid' | 'dashed'",
+       "d": "solid",
+       "s": "Define o estilo da linha divisória."
+      },
+      {
        "n": "orientation",
        "t": "Orientation",
        "d": "horizontal",
@@ -37899,6 +37981,11 @@
        "n": "children",
        "t": "ReactNode",
        "s": "Ação exibida abaixo dos textos, ausente durante o dragover."
+      },
+      {
+       "n": "className",
+       "t": "string",
+       "s": "Classe no bloco de textos fora do dragover."
       },
       {
        "n": "gap",
@@ -39849,7 +39936,7 @@
     "tags": [
      "new"
     ],
-    "staging": true,
+    "staging": false,
     "props": {
      "Skeleton": [
       {
@@ -40101,7 +40188,7 @@
     "tags": [
      "new"
     ],
-    "staging": true,
+    "staging": false,
     "props": {
      "StatusDot": [
       {

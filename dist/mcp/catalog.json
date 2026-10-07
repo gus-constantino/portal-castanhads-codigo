@@ -9,8 +9,8 @@
  },
  "reactSource": {
   "ref": "origin/staging",
-  "commit": "1e0a5335",
-  "date": "2026-09-25"
+  "commit": "ca2b41ae",
+  "date": "2026-10-07"
  },
  "counts": {
   "components": 84,
@@ -25,7 +25,7 @@
   "icons": 273,
   "illustrations": 260,
   "conferirOpen": 118,
-  "stackFindings": 57
+  "stackFindings": 53
  },
  "components": [
   {
@@ -1778,7 +1778,7 @@
     "tags": [
      "new"
     ],
-    "onlyStaging": true,
+    "onlyStaging": false,
     "props": {
      "BannerShared": [
       {
@@ -1919,11 +1919,6 @@
       "level": "info",
       "kind": "sem-code-connect",
       "text": "Sem Code Connect: o par com o React vem só do node da story."
-     },
-     {
-      "level": "info",
-      "kind": "so-na-staging",
-      "text": "`Banner` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado)."
      }
     ],
     "notes": []
@@ -5709,6 +5704,12 @@
        "description": "Define a intensidade visual do divisor."
       },
       {
+       "name": "kind",
+       "type": "'solid' | 'dashed'",
+       "default": "solid",
+       "description": "Define o estilo da linha divisória."
+      },
+      {
        "name": "orientation",
        "type": "Orientation",
        "default": "horizontal",
@@ -6252,6 +6253,11 @@
        "name": "children",
        "type": "ReactNode",
        "description": "Ação exibida abaixo dos textos, ausente durante o dragover."
+      },
+      {
+       "name": "className",
+       "type": "string",
+       "description": "Classe no bloco de textos fora do dragover."
       },
       {
        "name": "gap",
@@ -13091,7 +13097,8 @@
      "title": "Anatomia",
      "text": "## Propriedades\n\n- **Kind** (Variant): Default, Reduced\n- **Intent** (Variant): Default, Accordion\n- **Appearance** (Variant): Neutral, Accent\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Is Selected** (Variant): False, True\n- **Is Collapsed** (Variant): False, True\n- **Text Label** (Text)\n- **Show Badge** (Boolean)\n- **Lead Icon** (Instance swap)\n- **Slot** (Slot)\n\nFundo `Surface/01`, raio `Border/Radius/small`, padding 4 8 4 4 e gap 4. Lead Icon de 32 (selecionado: fundo `Surface/accent` e ícone `Icons/inversed`), Label em `Label/Medium` e Badge Warning. Hovered `Neutral/Opacity/Intense/semi-transparent`, Pressed `Surface/default` e Disabled com opacidade 0.4. Com o accordion aberto, o rótulo vai para `Label/Bold` e o Slot tem padding-left 12 e gap 8. Kind=Reduced: 40×40, Badge de 16 sem texto no canto.\n\n> No Figma, Is Collapsed=True é a variante que mostra o Slot aberto (C176). No código o accordion aberto é `expanded`, e o colapso do menu vira Kind=Reduced."
     }
-   ]
+   ],
+   "react": null
   },
   {
    "id": "sponsor-header",
@@ -13124,7 +13131,8 @@
      "title": "Acessibilidade",
      "text": "## Acessibilidade\n\n- O Title é um `h1`: um por página.\n- Os Icon Buttons sem texto têm nome acessível (Voltar, Buscar, Notificações, Fechar, Informação).\n- O Breadcrumb marca a página atual com `aria-current=\"page\"`.\n- A ordem do foco segue a leitura: Voltar, Breadcrumb, ações da barra, Information Button, Drop Button e Main Button."
     }
-   ]
+   ],
+   "react": null
   },
   {
    "id": "sponsor-side-menu",
@@ -13151,7 +13159,8 @@
      "title": "Acessibilidade",
      "text": "## Acessibilidade\n\n- O menu é um `nav` com nome acessível \"Menu\".\n- Colapsado, cada item mostra só o ícone e leva o nome no `aria-label`.\n- O menu também abre pelo foco do teclado, não só pelo hover.\n- O item da página atual tem `aria-current=\"page\"`. Os accordions usam `aria-expanded`."
     }
-   ]
+   ],
+   "react": null
   },
   {
    "id": "sponsor-subcategory",
@@ -13173,7 +13182,8 @@
      "title": "Anatomia",
      "text": "## Propriedades\n\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Text Label** (Text)\n- **Show Lead Icon** (Boolean)\n- **Lead Icon** (Instance swap)\n- **Show Trailing Icon** (Boolean)\n- **Trailing Icon** (Instance swap)\n- **Show Badge** (Boolean)\n\n188×32, fundo `Surface/01`, raio `Border/Radius/small`, padding 0 8 e gap 8. Label em `Label/Regular` e `Text/medium`. No Hovered e no Pressed, `Label/Bold` (no Hovered, também `Text/intense`). Largura de preenchimento e altura mínima 32."
     }
-   ]
+   ],
+   "react": null
   },
   {
    "id": "sponsor-user-profile",
@@ -13195,7 +13205,8 @@
      "title": "Anatomia",
      "text": "## Propriedades\n\n- **Kind** (Variant): Default, Reduced\n- **User Name** (Text)\n- **CNPJ** (Text)\n- **Show Icon Button** (Boolean)\n\nDefault 288×92 e Reduced 40×92 (altura mínima 92), fundo `Surface/01`, padding 24 0, gap 16 e itens alinhados pela base. Avatar Image Small (40), nome em `Label/Bold` e CNPJ em `Caption/Medium` com `Text/medium` (gap 4, sem corte), e Icon Button Small Default Neutral com `menu-line`."
     }
-   ]
+   ],
+   "react": null
   },
   {
    "id": "status-dot",
@@ -13276,7 +13287,7 @@
     "tags": [
      "new"
     ],
-    "onlyStaging": true,
+    "onlyStaging": false,
     "props": {
      "StatusDot": [
       {
@@ -13325,11 +13336,6 @@
       "level": "info",
       "kind": "sem-code-connect",
       "text": "Sem Code Connect: o par com o React vem só do node da story."
-     },
-     {
-      "level": "info",
-      "kind": "so-na-staging",
-      "text": "`StatusDot` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado)."
      }
     ],
     "notes": []
@@ -28331,20 +28337,6 @@
     "msg": "O Code Connect gera `supportingMessage` em `<Topic>`, que não existe nas props do React (o código gerado não compila em TypeScript)."
    },
    {
-    "id": "banner",
-    "level": "info",
-    "kind": "so-na-staging",
-    "msg": "`Banner` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado).",
-    "gap": "UNRELEASED"
-   },
-   {
-    "id": "status-dot",
-    "level": "info",
-    "kind": "so-na-staging",
-    "msg": "`StatusDot` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado).",
-    "gap": "UNRELEASED"
-   },
-   {
     "id": "main-button",
     "level": "info",
     "kind": "bridge-nome-figma",
@@ -28378,19 +28370,7 @@
     "id": "castanha-ai",
     "level": "info",
     "kind": "bridge-cobertura",
-    "msg": "Set `Side Menu` está no bridge do castanha-ai e não tem componente no playground."
-   },
-   {
-    "id": "castanha-ai",
-    "level": "info",
-    "kind": "bridge-cobertura",
     "msg": "Set `Sponsor Side Menu` está no bridge do castanha-ai e não tem componente no playground."
-   },
-   {
-    "id": "castanha-ai",
-    "level": "info",
-    "kind": "bridge-cobertura",
-    "msg": "Set `Header` está no bridge do castanha-ai e não tem componente no playground."
    },
    {
     "id": "castanha-ai",
@@ -28476,7 +28456,7 @@
     "id": "assets",
     "level": "info",
     "kind": "motion-so-no-pacote",
-    "msg": "44 animações Lottie no castanha-motion, ainda sem tab no playground (Animações volta ao Caju - Tema quando a lib existir).",
+    "msg": "49 animações Lottie no castanha-motion, ainda sem tab no playground (Animações volta ao Tema Caju quando a lib existir).",
     "gap": "MISSING-COMPONENT"
    }
   ]
@@ -35959,7 +35939,7 @@
     "tags": [
      "new"
     ],
-    "staging": true,
+    "staging": false,
     "props": {
      "BannerShared": [
       {
@@ -36648,7 +36628,7 @@
     "tags": [
      "new"
     ],
-    "staging": true,
+    "staging": false,
     "props": {
      "Carousel": [
       {
@@ -37705,6 +37685,12 @@
        "s": "Define a intensidade visual do divisor."
       },
       {
+       "n": "kind",
+       "t": "'solid' | 'dashed'",
+       "d": "solid",
+       "s": "Define o estilo da linha divisória."
+      },
+      {
        "n": "orientation",
        "t": "Orientation",
        "d": "horizontal",
@@ -37899,6 +37885,11 @@
        "n": "children",
        "t": "ReactNode",
        "s": "Ação exibida abaixo dos textos, ausente durante o dragover."
+      },
+      {
+       "n": "className",
+       "t": "string",
+       "s": "Classe no bloco de textos fora do dragover."
       },
       {
        "n": "gap",
@@ -39849,7 +39840,7 @@
     "tags": [
      "new"
     ],
-    "staging": true,
+    "staging": false,
     "props": {
      "Skeleton": [
       {
@@ -40101,7 +40092,7 @@
     "tags": [
      "new"
     ],
-    "staging": true,
+    "staging": false,
     "props": {
      "StatusDot": [
       {

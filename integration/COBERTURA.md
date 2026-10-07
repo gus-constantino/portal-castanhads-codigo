@@ -1,13 +1,13 @@
 # Cobertura Figma ↔ playground ↔ castanha-react
 
-Gerado por `node scripts/integration/build-manifest.js` em 2026-10-05 a partir de `origin/staging` (`1e0a5335`, 2026-09-25) e do Code Connect `origin/feat/figma-code-connect` (69 arquivos).
+Gerado por `node scripts/integration/build-manifest.js` em 2026-10-07 a partir de `origin/staging` (`ca2b41ae`, 2026-10-07) e do Code Connect `origin/feat/figma-code-connect` (69 arquivos).
 
 | | Componentes |
 |---|---:|
-| No playground | 105 |
+| No playground | 110 |
 | Com par no React | 70 (68 via Code Connect, 2 via story) |
 | Building blocks sem par (internos no React) | 26 |
-| Só no Figma/playground | 9 |
+| Só no Figma/playground | 14 |
 | Só no React | 12 |
 | Com divergência anotada | 23 |
 
@@ -117,6 +117,11 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-05 a partir d
 | `nps-value-item` | .Value Item | — | building-block |  |
 | `quantity-input` | [Beta] Quantity Input | — | so-figma |  |
 | `select-number` | .Select Number | — | building-block |  |
+| `sponsor-category` | .Category | — | so-figma |  |
+| `sponsor-header` | Header | — | so-figma |  |
+| `sponsor-side-menu` | Side Menu | — | so-figma |  |
+| `sponsor-subcategory` | .Subcategory | — | so-figma |  |
+| `sponsor-user-profile` | .User Profile | — | so-figma |  |
 | `switch-group` | Switch Group | — | so-figma |  |
 | `tab-item` | .Item (Tabs) | — | building-block |  |
 | `table-cell` | .Data Cell | — | building-block |  |
@@ -131,14 +136,14 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-05 a partir d
 | Componente | Exportado | Na main | Tags | Node-id da story |
 |---|---|---|---|---|
 | `Box` | sim | sim | no-figma | — |
-| `Carousel` | sim | só staging | new | 21215-242 |
+| `Carousel` | sim | sim | new | 21215-242 |
 | `Field` | sim | sim | no-figma | — |
 | `Grid` | sim | sim | no-figma | — |
 | `Illustration` | sim | sim | no-figma | — |
 | `Motion` | sim | sim | no-figma | — |
 | `Portal` | sim | sim | no-figma | — |
 | `Shortcut` | sim | sim | new | — |
-| `Skeleton` | sim | só staging | new | 2269-65 |
+| `Skeleton` | sim | sim | new | 2269-65 |
 | `Stack` | sim | sim | no-figma | — |
 | `Text` | sim | sim | no-figma | — |
 | `VisuallyHidden` | sim | sim | no-figma | — |

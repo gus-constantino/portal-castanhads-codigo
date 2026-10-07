@@ -1,8 +1,8 @@
 {
  "source": {
   "ref": "origin/staging",
-  "commit": "1e0a5335",
-  "date": "2026-09-25"
+  "commit": "ca2b41ae",
+  "date": "2026-10-07"
  },
  "codeConnect": {
   "ref": "origin/feat/figma-code-connect",
@@ -14,12 +14,12 @@
   "sets": 67
  },
  "coverage": {
-  "playground": 105,
+  "playground": 110,
   "comReact": 70,
   "viaCodeConnect": 68,
   "viaStory": 2,
   "buildingBlocks": 26,
-  "soFigma": 9,
+  "soFigma": 14,
   "soReact": 12,
   "comNotas": 23
  },
@@ -58,7 +58,7 @@
    "onlyPkg": 1,
    "svgDiff": 12
   },
-  "motion": 44
+  "motion": 49
  },
  "findings": [
   {
@@ -296,20 +296,6 @@
    "msg": "O Code Connect gera `supportingMessage` em `<Topic>`, que não existe nas props do React (o código gerado não compila em TypeScript)."
   },
   {
-   "id": "banner",
-   "level": "info",
-   "kind": "so-na-staging",
-   "msg": "`Banner` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado).",
-   "gap": "UNRELEASED"
-  },
-  {
-   "id": "status-dot",
-   "level": "info",
-   "kind": "so-na-staging",
-   "msg": "`StatusDot` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado).",
-   "gap": "UNRELEASED"
-  },
-  {
    "id": "main-button",
    "level": "info",
    "kind": "bridge-nome-figma",
@@ -343,19 +329,7 @@
    "id": "castanha-ai",
    "level": "info",
    "kind": "bridge-cobertura",
-   "msg": "Set `Side Menu` está no bridge do castanha-ai e não tem componente no playground."
-  },
-  {
-   "id": "castanha-ai",
-   "level": "info",
-   "kind": "bridge-cobertura",
    "msg": "Set `Sponsor Side Menu` está no bridge do castanha-ai e não tem componente no playground."
-  },
-  {
-   "id": "castanha-ai",
-   "level": "info",
-   "kind": "bridge-cobertura",
-   "msg": "Set `Header` está no bridge do castanha-ai e não tem componente no playground."
   },
   {
    "id": "castanha-ai",
@@ -441,7 +415,7 @@
    "id": "assets",
    "level": "info",
    "kind": "motion-so-no-pacote",
-   "msg": "44 animações Lottie no castanha-motion, ainda sem tab no playground (Animações volta ao Caju - Tema quando a lib existir).",
+   "msg": "49 animações Lottie no castanha-motion, ainda sem tab no playground (Animações volta ao Tema Caju quando a lib existir).",
    "gap": "MISSING-COMPONENT"
   }
  ]

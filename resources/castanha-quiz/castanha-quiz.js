@@ -434,11 +434,28 @@
       var ids = chosen(), isAll = ids.length === ORDER.length;
       var l = c("cmp-lesson", { label: "Jogo · " + (isAll ? "Todos os temas" : ids.map(function(id){ return NAMES[id]; }).join(" + ")),
         heading: isAll ? "Todos os temas" : ids.map(function(id){ return NAMES[id]; }).join(" + "), illustration: "objetos/foguete",
-        "storage-key": "jogo-" + (isAll ? "todos" : ids.slice().sort().join("+")) });
+        "storage-key": "jogo-" + (isAll ? "todos" : ids.slice().sort().join("+")),
+        "score-multiplier": isAll ? "1.5" : null, "ranking-key": "castanha-quiz",
+        "ranking-label": isAll ? "Todos" : ids.map(function(id){ return NAMES[id]; }).join(" + ") });
       l.exercises = sample(ids, 10);
       l.resample = function(){ return sample(ids, 10); }; // cada partida sorteia de novo
       l.addEventListener("cmp-lesson-done", function(e){ addXp(e.detail.xp); drawXp(); });
+      l.addEventListener("cmp-lesson-rank", drawRank);
       host.innerHTML = ""; host.appendChild(l);
+    }
+    // Ranking: Top 10 deste navegador, com as iniciais de 3 letras gravadas no fim da partida
+    var rank = wrap.appendChild(c("div", null, "pg-cq__rank"));
+    function drawRank(){
+      var L = window.customElements && customElements.get("cmp-lesson"), list = L && L.ranking ? L.ranking("castanha-quiz") : [];
+      rank.innerHTML = "";
+      rank.appendChild(c("p", null, "pg-cq__cap")).textContent = "Ranking";
+      if (!list.length){ rank.appendChild(c("p", null, "pg-cq__rank-empty")).textContent = "Ninguém no ranking ainda. Termine uma partida e grave suas iniciais."; return; }
+      var t = c("cds-table", { label: "Os 10 melhores neste navegador", selectable: "false", "show-toolbar": "false", "show-pagination": "false" });
+      t.columns = [{ key: "pos", label: "#", kind: "text", sortable: false, width: 64 }, { key: "name", label: "Iniciais", kind: "text", sortable: false },
+        { key: "score", label: "Pontos", kind: "text", sortable: false }, { key: "label", label: "Temas", kind: "tag", sortable: false }];
+      function tx(v){ return { text: v, icon: false, description: "" }; } // célula Text sem o Lead Icon
+      t.rows = list.map(function(e, i){ return { id: String(i + 1), pos: tx((i + 1) + "º"), name: tx(e.name), score: tx(e.score.toLocaleString("pt-BR")), label: { label: e.label, showLeadItem: false } }; });
+      rank.appendChild(t);
     }
     // Todos marca tudo; escolher um tema desmarca Todos; sem nenhum tema, volta para Todos
     all.addEventListener("cds-change", function(e){ if (e.detail.selected) themeChips.forEach(function(ch){ ch.removeAttribute("selected"); }); else all.setAttribute("selected", ""); build(); });
@@ -447,18 +464,25 @@
       if (any) all.removeAttribute("selected"); else all.setAttribute("selected", "");
       build();
     }); });
-    build();
+    build(); drawRank();
     return wrap;
   }
   var inicio = DOC.tabs[0];
-  DOC.tabs.splice(1, 0, { id: "jogar", title: "Jogar", blocks: [
+  // Jogar fica na última aba (pedido do Gustavo, 08/10): quem quiser passa pelos treinamentos antes; o Início tem o atalho
+  DOC.tabs.push({ id: "jogar", title: "Jogar", blocks: [
     { banner: { area: "aprenda", eyebrow: "Castanha Quiz", heading: "Hora de jogar", text: "Escolha um tema, vários ou todos. A lição sorteia 10 exercícios, com 3 vidas, e a questão errada volta no fim." } },
     { visual: { render: jogar, bare: true } },
-    { note: "O XP e o melhor resultado de cada combinação ficam guardados neste navegador. Nada sai daqui." }
+    { h2: "Como pontuar" },
+    { table: { wrap: true, head: ["Jogada", "Pontos"], rows: [
+      ["Acerto de primeira", "100"], ["Acerto na revisão", "50"], ["3 acertos seguidos", "Combo x2 a partir do 3º"], ["5 acertos seguidos", "Combo x3 a partir do 5º"],
+      ["Cada vida que sobrou no fim", "200"], ["Lição sem erros", "500"], ["Jogar com todos os temas", "Total x1,5"]
+    ] } },
+    { p: "Errou, o combo zera. Se as vidas acabarem, os pontos dos acertos ainda valem para o ranking." },
+    { note: "O XP, os pontos e o ranking ficam guardados neste navegador. O ranking pede só 3 iniciais, como nos fliperamas: nenhum dado pessoal sai daqui." }
   ] });
   // Início: estudo nas abas de tema, prática na aba Jogar
   inicio.blocks.forEach(function(b){
-    if (b.banner) b.banner.text = "Estude cada tema em uns 5 minutos e pratique na aba Jogar, com os temas que quiser.";
+    if (b.banner){ b.banner.text = "Estude cada tema em uns 5 minutos e jogue com os temas que quiser. Acertos seguidos valem combo, e o recorde vai para o ranking."; b.banner.href = "#/castanha-quiz/jogar"; b.banner.cta = "Jogar agora"; }
     if (b.p && /Cada tema tem/.test(b.p)) b.p = "Cada tema tem um treinamento rápido. Depois, pratique na aba Jogar, com um tema só ou vários juntos.";
     if (b.shortcuts){ (b.shortcuts.items || b.shortcuts).forEach(function(it){ it.text = it.text.replace(/ Jogos?: .*$/, ""); it.cta = "Estudar"; }); }
   });

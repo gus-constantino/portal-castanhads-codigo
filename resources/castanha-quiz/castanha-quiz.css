@@ -20,3 +20,6 @@
 .pg-cq__play{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
 .pg-cq__play-head{ display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-12); flex-wrap:wrap; }
 .pg-cq__play-lesson > cmp-lesson{ max-width:100%; }
+/* Ranking (Table) abaixo da lição */
+.pg-cq__rank{ display:flex; flex-direction:column; gap:var(--common-sizes-8); max-width:calc(var(--common-sizes-200) * 3); }
+.pg-cq__rank-empty{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }

@@ -8745,10 +8745,14 @@ try {
  *   Card (Has Border) · Icon Button Ghost (sair) · Nav Control Mobile (progresso, só leitura) · Icon favorite-filled/line (vidas)
  *   · Selection List Kind Card com Radio Button (escolha e certo ou errado) · Filter Chips (completar a frase) · Card + Icon
  *   Buttons Ghost (ordenar) · Selection Lists (ligar pares) · Alert (feedback) · Fixed Bar Pilled (Verificar / Continuar)
- *   · Tag (XP, acertos, revisão) · Main Button · ilustrações do [Caju] Illustrations nas telas de início, vidas e fim.
+ *   · Tag (XP, pontos, combo, acertos, revisão) · Main Button · Code Input OTP (iniciais do ranking, 3 caracteres)
+ *   · Table (ranking, montado por quem usa) · ilustrações do [Caju] Illustrations nas telas de início, vidas e fim.
  *
  * Regras (decisões do Gustavo, 08/10): 3 vidas; errar tira uma vida e a questão volta no fim da lição (uma vez); ao perder as 3,
  *   ganha 2 vidas extras uma vez por lição; perdeu as extras, a lição termina e oferece recomeçar. XP: 10 por lição + 5 sem erros.
+ * Pontos (08/10): 100 por acerto de primeira, 50 na revisão · combo x2 a partir de 3 acertos seguidos e x3 a partir de 5
+ *   · no fim, +200 por vida que sobrou e +500 sem erros · score-multiplier multiplica o total (ex.: 1.5 no jogo com todos os temas).
+ *   Com ranking-key, quem entra no Top 10 deste navegador grava 3 iniciais, como nos fliperamas (só iniciais: nada de dado pessoal).
  *
  * Dados (propriedades, antes de conectar): exercises = [{ type, … }]
  *   choice  { q, options: [texto], answer: índice, why, visual? }
@@ -8760,7 +8764,9 @@ try {
  *   resample (opcional) = função que devolve uma lista nova de exercícios a cada partida (ex.: sorteio por tema)
  * Atributos: label (nome da lição) · storage-key (guarda XP e conclusão no localStorage de quem joga) · illustration (início)
  *   · heading (título da tela de início) · tips-label (texto do link de dicas) · tips-href (âncora das dicas)
- * Evento: cmp-lesson-done { xp, correct, total, perfect }
+ *   · score-multiplier (padrão 1) · ranking-key (Top 10 no localStorage, em cds-rank:<chave>) · ranking-label (o que foi jogado)
+ * Eventos: cmp-lesson-done { xp, correct, total, perfect, score } · cmp-lesson-rank { entry, position }
+ * Ranking: CmpLesson.ranking(chave) devolve a lista [{ name, score, label, date }], do maior para o menor.
  */
 (function(){
   "use strict";
@@ -8770,6 +8776,9 @@ try {
   function load(k){ try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e){ return null; } }
   function save(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch (e){} }
   function shuffle(a){ var b = a.slice(), same = function(){ return a.length > 1 && b.every(function(x, k){ return x === a[k]; }); }; do { for (var i = b.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)), t = b[i]; b[i] = b[j]; b[j] = t; } } while (same()); return b; }
+  var TOP = 10;
+  function fmt(n){ return Math.round(n).toLocaleString("pt-BR"); }
+  function rankList(k){ var l = load("cds-rank:" + k); return Array.isArray(l) ? l : []; }
   function ills(){ var m = {}; ((window.CDS.assets || {}).illustrations || []).forEach(function(i){ m[i.name] = i.src; }); return m; }
 
   class CmpLesson extends CDS.Element {
@@ -8785,6 +8794,9 @@ try {
     }
     get key(){ var k = this.getAttribute("storage-key"); return k ? "cds-lesson:" + k : null; }
     get list(){ return this.exercises || []; }
+    get mult(){ var m = parseFloat(this.getAttribute("score-multiplier")); return m > 0 ? m : 1; }
+    get rankKey(){ return this.getAttribute("ranking-key"); }
+    comboOf(streak){ return streak >= 5 ? 3 : streak >= 3 ? 2 : 1; }
     clear(){ this.body.innerHTML = ""; return this.body; }
     focusFirst(sel){ var h = this.body.querySelector(sel || ".cmp-ls__q, .cmp-ls__title"); if (h){ h.tabIndex = -1; h.focus({ preventScroll: true }); } }
 
@@ -8805,7 +8817,7 @@ try {
     intro(){
       var self = this, done = this.key ? load(this.key) : null, n = this.list.length;
       this.screen({ ill: this.getAttribute("illustration"), eyebrow: done ? "Concluída · " + done.xp + " XP" : "Lição", title: this.getAttribute("heading") || this.getAttribute("label") || "Lição",
-        text: n + " exercícios · 3 vidas. Errou, a questão volta no fim.", tags: done && done.perfect ? [["Sem erros", "positive", "positive-line"]] : null,
+        text: n + " exercícios · 3 vidas. Errou, a questão volta no fim.", tags: [done && done.perfect ? ["Sem erros", "positive", "positive-line"] : null, this.mult !== 1 ? ["Pontos x" + String(this.mult).replace(".", ","), "accent", "bright-star-line"] : null].filter(Boolean),
         actions: [{ label: done ? "Fazer de novo" : "Começar lição", icon: done ? "refresh-line" : null, run: function(){ self.start(); } }],
         link: this.getAttribute("tips-href") ? { label: this.getAttribute("tips-label") || "Rever as dicas", href: this.getAttribute("tips-href") } : null });
     }
@@ -8813,7 +8825,7 @@ try {
     start(){
       if (typeof this.resample === "function") this.exercises = this.resample(); // novo sorteio a cada partida, quando quem usa oferece
       this.queue = this.list.map(function(x, i){ return { ex: x, base: i, review: false }; });
-      this.pos = 0; this.lives = 3; this.extra = false; this.mistakes = 0; this.correct = 0; this.doneBase = {};
+      this.pos = 0; this.lives = 3; this.extra = false; this.mistakes = 0; this.correct = 0; this.doneBase = {}; this.score = 0; this.streak = 0; this._ranked = false; this._pos = 0;
       this.next();
     }
     next(){
@@ -8835,6 +8847,10 @@ try {
       var kind = b.appendChild(c("div", null, "cmp-ls__kind"));
       kind.appendChild(c("span", null, "cmp-ls__kind-text")).textContent = KIND[ex.type] || "";
       if (it.review) kind.appendChild(c("cds-tag", { label: "Revisão", appearance: "warning", "show-lead-item": "false" }));
+      var nx = this.comboOf(this.streak + 1);
+      var pts = kind.appendChild(c("div", null, "cmp-ls__score"));
+      if (nx > 1) pts.appendChild(c("cds-tag", { label: "Combo x" + nx, appearance: "positive", "show-lead-item": "true", icon: "flash-line" }));
+      this.scoreEl = pts.appendChild(c("cds-tag", { label: fmt(this.score) + " pontos", appearance: "accent", "show-lead-item": "false" }));
       if (ex.visual){ var vis = c("div", null, "cmp-ls__vis"); vis.appendChild(ex.visual()); b.appendChild(vis); }
       var area = b.appendChild(c("div", null, "cmp-ls__area"));
       this.fb = b.appendChild(c("div", { "aria-live": "polite" }, "cmp-ls__fb"));
@@ -8945,18 +8961,20 @@ try {
       if (ex.type === "pairs") return !this.pairsMiss;
       return false;
     }
-    loseLife(){ this.lives = Math.max(0, this.lives - 1); this.mistakes++; this.drawHearts(); }
+    loseLife(){ this.lives = Math.max(0, this.lives - 1); this.mistakes++; this.streak = 0; this.drawHearts(); }
     verify(){
       var c = CDS.create, it = this.item, ex = it.ex, ok = this.isRight(ex), pick = function(a, i){ return a[i % a.length]; };
       this.answered = true;
       if (this.choiceEl) this.choiceEl.inert = true;
-      if (ok){ this.correct++; this.doneBase[it.base] = true; }
+      var gain = 0, combo = 1;
+      if (ok){ this.correct++; this.doneBase[it.base] = true; this.streak++; combo = this.comboOf(this.streak); gain = (it.review ? 50 : 100) * combo; this.score += gain; }
       else if (ex.type !== "pairs"){ this.loseLife(); }
       if (!ok && !it.review){ this.queue.push({ ex: ex, base: it.base, review: true }); } // a questão errada volta no fim, uma vez
       else if (!ok){ this.doneBase[it.base] = true; }
       var al = c("cds-alert", { appearance: ok ? "positive" : "warning", label: ok ? pick(RIGHT, this.pos) : pick(WRONG, this.pos), "show-close-button": "false" });
       var rt = this.rightText(ex);
-      al.appendChild(c("span")).textContent = (ok || !rt ? "" : "A resposta é: " + rt + ". ") + (ex.why || "");
+      al.appendChild(c("span")).textContent = (ok ? "+" + gain + " pontos" + (combo > 1 ? " com combo x" + combo : "") + ". " : "") + (ok || !rt ? "" : "A resposta é: " + rt + ". ") + (ex.why || "");
+      if (this.scoreEl) CDS.attr(this.scoreEl, "label", fmt(this.score) + " pontos");
       this.fb.innerHTML = ""; this.fb.appendChild(al);
       this.bar.hidden = false; this.setPrimary("Continuar"); this.setReady(true);
       var p = this.primaryBtn(); if (p){ var b = p.querySelector("button"); if (b) b.focus({ preventScroll: true }); }
@@ -8973,20 +8991,60 @@ try {
         return this.screen({ ill: "objetos/presente-aberto", eyebrow: "As 3 vidas acabaram", title: "Ganhou mais 2 vidas", text: "Para você chegar ao fim da lição. Vale uma vez por lição.",
           actions: [{ label: "Continuar com 2 vidas", run: function(){ if (self.item && self.item.ex.type === "pairs" && !self.answered){ self.play(); } else { self.pos++; self.next(); } } }] });
       }
+      var total = Math.round(this.score * this.mult);
+      if (this.qualifies(total) && !this._ranked){ this._ranked = true; return this.initials(total, "Fim de jogo", "Os acertos valem. Grave suas iniciais no ranking.", function(){ self.outOfLives(); }); }
       this.screen({ ill: "notificacoes/error-low-detail", eyebrow: "As vidas acabaram", title: "Quase lá", text: "Reveja as dicas e comece de novo. Na próxima vai.",
         actions: [{ label: "Recomeçar lição", icon: "refresh-line", run: function(){ self.start(); } }, { label: "Sair", appearance: "neutral", run: function(){ self.intro(); } }],
         link: this.getAttribute("tips-href") ? { label: this.getAttribute("tips-label") || "Rever as dicas", href: this.getAttribute("tips-href") } : null });
     }
     finish(){
       var self = this, n = this.list.length, perfect = this.mistakes === 0, xp = 10 + (perfect ? 5 : 0);
-      if (this.key){ var prev = load(this.key) || {}; save(this.key, { xp: Math.max(prev.xp || 0, xp), perfect: !!(prev.perfect || perfect), last: new Date().toISOString().slice(0, 10) }); }
-      this.dispatchEvent(new CustomEvent("cmp-lesson-done", { detail: { xp: xp, correct: n - Math.min(n, this.mistakes), total: n, perfect: perfect }, bubbles: true }));
-      this.screen({ ill: perfect ? "objetos/trofeu" : "objetos/medalha-1", eyebrow: "Lição concluída", title: perfect ? "Sem nenhum erro" : "Mandou bem",
-        text: perfect ? "Você fechou a lição sem perder vida." : "Você terminou a lição. Faça de novo para fechar sem erros.",
-        tags: [["+" + xp + " XP", "accent", "bright-star-line"], [this.mistakes + (this.mistakes === 1 ? " erro" : " erros"), perfect ? "positive" : "neutral"]],
-        actions: [{ label: "Fazer de novo", appearance: "neutral", icon: "refresh-line", run: function(){ self.start(); } }] });
+      var lifeB = 200 * this.lives, perfB = perfect ? 500 : 0, total = Math.round((this.score + lifeB + perfB) * this.mult);
+      if (this.key){ var prev = load(this.key) || {}; save(this.key, { xp: Math.max(prev.xp || 0, xp), perfect: !!(prev.perfect || perfect), best: Math.max(prev.best || 0, total), last: new Date().toISOString().slice(0, 10) }); }
+      this.dispatchEvent(new CustomEvent("cmp-lesson-done", { detail: { xp: xp, correct: n - Math.min(n, this.mistakes), total: n, perfect: perfect, score: total }, bubbles: true }));
+      var parts = [fmt(this.score) + " dos acertos"];
+      if (lifeB) parts.push(fmt(lifeB) + " das vidas");
+      if (perfB) parts.push("500 sem erros");
+      var how = parts.join(" + ") + (this.mult !== 1 ? ", x" + String(this.mult).replace(".", ",") + " por jogar todos os temas" : "") + ".";
+      var result = function(){
+        var tags = [["+" + xp + " XP", "accent", "bright-star-line"], [self.mistakes + (self.mistakes === 1 ? " erro" : " erros"), perfect ? "positive" : "neutral"]];
+        if (self._pos) tags.push([self._pos + "º no ranking", "positive", "medal-line"]);
+        self.screen({ ill: perfect ? "objetos/trofeu" : "objetos/medalha-1", eyebrow: "Lição concluída", title: fmt(total) + " pontos",
+          text: how, tags: tags,
+          actions: [{ label: "Fazer de novo", appearance: "neutral", icon: "refresh-line", run: function(){ self.start(); } }] });
+      };
+      if (this.qualifies(total)){ this._ranked = true; return this.initials(total, perfect ? "Novo recorde sem erros" : "Novo recorde", how, result); }
+      result();
+    }
+
+    // Ranking (Top 10 deste navegador): entra quem faz mais pontos que o 10º
+    qualifies(total){ var k = this.rankKey; if (!k || total <= 0) return false; var l = rankList(k); return l.length < TOP || total > l[TOP - 1].score; }
+    // Tela de iniciais, como nos fliperamas: Code Input OTP com 3 caracteres; as últimas iniciais já vêm preenchidas
+    initials(total, eyebrow, text, after){
+      var self = this, c = CDS.create, k = this.rankKey, l = rankList(k);
+      var pos = l.filter(function(e){ return e.score >= total; }).length + 1;
+      this.screen({ ill: "objetos/trofeu", eyebrow: eyebrow + " · " + pos + "º lugar", title: fmt(total) + " pontos", text: text,
+        actions: [{ label: "Gravar no ranking", run: function(){ go(true); } }, { label: "Agora não", appearance: "neutral", run: function(){ go(false); } }] });
+      var box = this.body.querySelector(".cmp-ls__screen-actions");
+      var code = c("cds-code-input", { length: "3", label: "Suas iniciais", "show-required": "false", "show-trailing-item": "false", separators: "none", supporting: "Três letras ou números, como nos fliperamas", value: load("cds-rank:_last") || "" });
+      box.insertBefore(code, box.firstChild);
+      setTimeout(function(){ var inp = code.querySelector("input"); if (inp && !code.getAttribute("value")) inp.focus({ preventScroll: true }); });
+      code.addEventListener("cds-complete", function(){ var b = box.querySelector("cds-main-button button"); if (b) b.focus({ preventScroll: true }); });
+      function go(keep){
+        if (keep){
+          var name = (code.value || "").toUpperCase();
+          if (!/^[A-Z0-9]{3}$/.test(name)){ CDS.attr(code, "error", "Use três letras ou números"); return; }
+          var entry = { name: name, score: total, label: self.getAttribute("ranking-label") || self.getAttribute("heading") || "", date: new Date().toISOString().slice(0, 10) };
+          var list = rankList(k); list.push(entry); list.sort(function(a, b){ return b.score - a.score; }); list = list.slice(0, TOP);
+          save("cds-rank:" + k, list); save("cds-rank:_last", name);
+          self._pos = list.indexOf(entry) + 1;
+          self.dispatchEvent(new CustomEvent("cmp-lesson-rank", { detail: { entry: entry, position: self._pos }, bubbles: true }));
+        }
+        after();
+      }
     }
   }
+  CmpLesson.ranking = rankList;
   CmpLesson.define("cmp-lesson");
 })();
 } catch (e) { console.error("[cds] compositions/lesson/lesson.js", e); }
@@ -11161,11 +11219,28 @@ try {
       var ids = chosen(), isAll = ids.length === ORDER.length;
       var l = c("cmp-lesson", { label: "Jogo · " + (isAll ? "Todos os temas" : ids.map(function(id){ return NAMES[id]; }).join(" + ")),
         heading: isAll ? "Todos os temas" : ids.map(function(id){ return NAMES[id]; }).join(" + "), illustration: "objetos/foguete",
-        "storage-key": "jogo-" + (isAll ? "todos" : ids.slice().sort().join("+")) });
+        "storage-key": "jogo-" + (isAll ? "todos" : ids.slice().sort().join("+")),
+        "score-multiplier": isAll ? "1.5" : null, "ranking-key": "castanha-quiz",
+        "ranking-label": isAll ? "Todos" : ids.map(function(id){ return NAMES[id]; }).join(" + ") });
       l.exercises = sample(ids, 10);
       l.resample = function(){ return sample(ids, 10); }; // cada partida sorteia de novo
       l.addEventListener("cmp-lesson-done", function(e){ addXp(e.detail.xp); drawXp(); });
+      l.addEventListener("cmp-lesson-rank", drawRank);
       host.innerHTML = ""; host.appendChild(l);
+    }
+    // Ranking: Top 10 deste navegador, com as iniciais de 3 letras gravadas no fim da partida
+    var rank = wrap.appendChild(c("div", null, "pg-cq__rank"));
+    function drawRank(){
+      var L = window.customElements && customElements.get("cmp-lesson"), list = L && L.ranking ? L.ranking("castanha-quiz") : [];
+      rank.innerHTML = "";
+      rank.appendChild(c("p", null, "pg-cq__cap")).textContent = "Ranking";
+      if (!list.length){ rank.appendChild(c("p", null, "pg-cq__rank-empty")).textContent = "Ninguém no ranking ainda. Termine uma partida e grave suas iniciais."; return; }
+      var t = c("cds-table", { label: "Os 10 melhores neste navegador", selectable: "false", "show-toolbar": "false", "show-pagination": "false" });
+      t.columns = [{ key: "pos", label: "#", kind: "text", sortable: false, width: 64 }, { key: "name", label: "Iniciais", kind: "text", sortable: false },
+        { key: "score", label: "Pontos", kind: "text", sortable: false }, { key: "label", label: "Temas", kind: "tag", sortable: false }];
+      function tx(v){ return { text: v, icon: false, description: "" }; } // célula Text sem o Lead Icon
+      t.rows = list.map(function(e, i){ return { id: String(i + 1), pos: tx((i + 1) + "º"), name: tx(e.name), score: tx(e.score.toLocaleString("pt-BR")), label: { label: e.label, showLeadItem: false } }; });
+      rank.appendChild(t);
     }
     // Todos marca tudo; escolher um tema desmarca Todos; sem nenhum tema, volta para Todos
     all.addEventListener("cds-change", function(e){ if (e.detail.selected) themeChips.forEach(function(ch){ ch.removeAttribute("selected"); }); else all.setAttribute("selected", ""); build(); });
@@ -11174,18 +11249,25 @@ try {
       if (any) all.removeAttribute("selected"); else all.setAttribute("selected", "");
       build();
     }); });
-    build();
+    build(); drawRank();
     return wrap;
   }
   var inicio = DOC.tabs[0];
-  DOC.tabs.splice(1, 0, { id: "jogar", title: "Jogar", blocks: [
+  // Jogar fica na última aba (pedido do Gustavo, 08/10): quem quiser passa pelos treinamentos antes; o Início tem o atalho
+  DOC.tabs.push({ id: "jogar", title: "Jogar", blocks: [
     { banner: { area: "aprenda", eyebrow: "Castanha Quiz", heading: "Hora de jogar", text: "Escolha um tema, vários ou todos. A lição sorteia 10 exercícios, com 3 vidas, e a questão errada volta no fim." } },
     { visual: { render: jogar, bare: true } },
-    { note: "O XP e o melhor resultado de cada combinação ficam guardados neste navegador. Nada sai daqui." }
+    { h2: "Como pontuar" },
+    { table: { wrap: true, head: ["Jogada", "Pontos"], rows: [
+      ["Acerto de primeira", "100"], ["Acerto na revisão", "50"], ["3 acertos seguidos", "Combo x2 a partir do 3º"], ["5 acertos seguidos", "Combo x3 a partir do 5º"],
+      ["Cada vida que sobrou no fim", "200"], ["Lição sem erros", "500"], ["Jogar com todos os temas", "Total x1,5"]
+    ] } },
+    { p: "Errou, o combo zera. Se as vidas acabarem, os pontos dos acertos ainda valem para o ranking." },
+    { note: "O XP, os pontos e o ranking ficam guardados neste navegador. O ranking pede só 3 iniciais, como nos fliperamas: nenhum dado pessoal sai daqui." }
   ] });
   // Início: estudo nas abas de tema, prática na aba Jogar
   inicio.blocks.forEach(function(b){
-    if (b.banner) b.banner.text = "Estude cada tema em uns 5 minutos e pratique na aba Jogar, com os temas que quiser.";
+    if (b.banner){ b.banner.text = "Estude cada tema em uns 5 minutos e jogue com os temas que quiser. Acertos seguidos valem combo, e o recorde vai para o ranking."; b.banner.href = "#/castanha-quiz/jogar"; b.banner.cta = "Jogar agora"; }
     if (b.p && /Cada tema tem/.test(b.p)) b.p = "Cada tema tem um treinamento rápido. Depois, pratique na aba Jogar, com um tema só ou vários juntos.";
     if (b.shortcuts){ (b.shortcuts.items || b.shortcuts).forEach(function(it){ it.text = it.text.replace(/ Jogos?: .*$/, ""); it.cta = "Estudar"; }); }
   });
@@ -15340,4 +15422,4 @@ try {
 
 /* ==== docs sob demanda (gerado) ==== */
 window.CDS = window.CDS || {}; CDS.docsIndex = {"backdrop":{"src":"components/backdrop/backdrop.docs.js?v=65945f2f","desc":"Backdrop é um componente de superfície utilizado para criar uma camada de bloqueio visual entre o conteúdo base da interface e elementos em primeiro plano, como modais e drawers."},"badge":{"src":"components/badge/badge.docs.js?v=3e0548a5","desc":"O Badge é um elemento visual usado exclusivamente para indicar notificações ou atualizações. Ele serve como um alerta discreto que informa a pessoa usuária sobre algo novo ou pendente em um determinado contexto da interface."},"caju-brand":{"src":"components/caju-brand/caju-brand.docs.js?v=a44569e9","desc":"O Caju Brand é um elemento visual fundamental que representa a identidade da Caju dentro dos fluxos do produto. Ele garante consistência no uso da marca, evitando distorções, cores inadequadas ou aplicações incorretas."},"calendar-day":{"src":"components/calendar-day/calendar-day.docs.js?v=abc00938","desc":"Cada dia do Date Picker: número, estado de seleção e o ponto do dia atual."},"calendar-week":{"src":"components/calendar-week/calendar-week.docs.js?v=68d3811f","desc":"Uma linha de 7 dias do Date Picker."},"card":{"src":"components/card/card.docs.js?v=f96742ea","desc":"O componente Card é um contêiner visual usado para agrupar informações relacionadas de forma clara e compacta."},"credit-card-flags":{"src":"components/card-flag/card-flag.docs.js?v=9cf412ba","desc":"Simula visualmente qualquer cartão e pode simbolizar uma bandeira específica."},"currency":{"src":"components/currency/currency.docs.js?v=82d20ffb","desc":"O Currency é um componente de exibição utilizado para apresentar valores monetários de forma padronizada, legível e consistente nas interfaces da Caju."},"currency-content":{"src":"components/currency-content/currency-content.docs.js?v=1c192490","desc":"Valor em moeda com o símbolo, o sinal de negativo opcional e uma descrição embaixo."},"currency-symbol":{"src":"components/currency-symbol/currency-symbol.docs.js?v=18f12baa","desc":"Símbolo da moeda usado nas células de valor da Table."},"divider":{"src":"components/divider/divider.docs.js?v=658da706","desc":"O componente Divider é uma linha fina que separa visualmente agrupamentos de conteúdo em uma interface. Ele atua como uma âncora visual, ajudando a pessoa usuária a escanear e compreender a hierarquia e o relacionamento entre os elementos da página."},"icon":{"src":"components/icon/icon.docs.js?v=6c4b763a","desc":"Icon (ícone) é uma representação visual direta que auxilia na comunicação de ações, estados, tipos de conteúdo ou categorias."},"avatar":{"src":"components/avatar/avatar.docs.js?v=115ebd44","desc":"O Avatar é um componente utilizado para representar visualmente uma pessoa usuária, seja por meio de imagem, iniciais ou ícone padrão. Ele agiliza a identificação de perfis em áreas onde o contexto pessoal é relevante."},"breadcrumb-item":{"src":"components/breadcrumb-item/breadcrumb-item.docs.js?v=d989392b","desc":"Cada nível do Breadcrumb: separador e conteúdo (link, página atual ou o \"…\" do Truncate)."},"caju-card":{"src":"components/caju-card/caju-card.docs.js?v=893becf1","desc":"O Caju Card simula visualmente os diferentes tipos de cartões da Caju nos cenários físicos e virtuais seguindo as diretrizes das lojinhas de app."},"close-toast":{"src":"components/close-toast/close-toast.docs.js?v=6733b6dc","desc":"Botão de fechar do Toast: 40×40, com o ícone close-line."},"close-alert":{"src":"components/close-alert/close-alert.docs.js?v=7209e59c","desc":"Botão de fechar do Alert: 40×40, com o ícone close-line."},"content-banner":{"src":"components/content-banner/content-banner.docs.js?v=68e995dd","desc":"Building block interno do Banner. Agrupa título, descrição e indicação de CTA."},"csat-item":{"src":"components/csat-item/csat-item.docs.js?v=bb328e74","desc":"Cada nível do CSAT Score: estrela e rótulo."},"csat-score":{"src":"components/csat-score/csat-score.docs.js?v=98367a50","desc":"O CSAT Score é um componente de avaliação utilizado para medir o nível de satisfação da pessoa usuária em relação a uma experiência, funcionalidade ou interação específica, por meio de uma escala ordinal visual representada por ícones e rótulos textuais."},"filter-chips":{"src":"components/filter-chip/filter-chip.docs.js?v=4d19bef0","desc":"Chip que liga e desliga um filtro: selecionado, troca o ícone pelo check e inverte as cores."},"icon-button":{"src":"components/icon-button/icon-button.docs.js?v=ac46ea69","desc":"O Icon Button é um botão compacto que exibe um ícone, sem rótulo de texto. Ele é utilizado para ações pontuais, geralmente secundárias, em interfaces que exigem economia de espaço e onde o significado do ícone é amplamente reconhecido."},"header":{"src":"components/header/header.docs.js?v=0b0ddcc8","desc":"Cabeçalho do Modal e do Bottom Sheet: título, botão de fechar e divisor."},"icons-block":{"src":"components/icons-block/icons-block.docs.js?v=f1f31450","desc":"Ícone do Filter Button: filtro (Default) ou calendário (Date)."},"filter-button":{"src":"components/filter-button/filter-button.docs.js?v=ce828b95","desc":"O Filter Button é um botão que serve como gatilho para filtros e, quando acionado, abre opções para refinar ou ajustar a exibição de conteúdos, listas ou tabelas."},"image":{"src":"components/image/image.docs.js?v=401442e2","desc":"O componente Image é utilizado para exibir imagens estáticas em diferentes contextos do produto, garantindo consistência visual e preservação correta das proporções. Ele oferece controle direto, permitindo que a imagem se adapte a diferentes layouts sem distorção."},"banner":{"src":"components/banner/banner.docs.js?v=68e35d7b","desc":"O Banner destaca conteúdo promocional ou informação relevante em uma área própria da tela. Reúne título, descrição e indicação de ação em um bloco clicável por inteiro, com fundo de cor livre ou imagem de fundo. Serve para atrair a pessoa usuária sem interromper o que ela está fazendo."},"input-chips":{"src":"components/input-chip/input-chip.docs.js?v=30038524","desc":"Chip que mostra um valor escolhido e pode ser removido com um clique."},"chips-group":{"src":"components/chips-group/chips-group.docs.js?v=10be02b2","desc":"Container que organiza Filter Chips ou Input Chips em uma linha com rolagem ou em várias linhas."},"link":{"src":"components/link/link.docs.js?v=e0439fbd","desc":"O Link é um elemento interativo que direciona o usuário para outro destino, como páginas internas, externas, seções específicas ou downloads."},"list-lead-item":{"src":"components/list-lead-item/list-lead-item.docs.js?v=23969ecf","desc":"Item à esquerda das listas: Avatar, Icon ou Image."},"main-button":{"src":"components/main-button/main-button.docs.js?v=29b06b5c","desc":"Main Button é um componente interativo usado para executar a ações mais importantes em uma tela, formulário ou fluxo."},"date-navigation":{"src":"components/date-navigation/date-navigation.docs.js?v=715e0489","desc":"Navegação do Date Picker: mês anterior, mês, ano e próximo mês."},"date-picker":{"src":"components/date-picker/date-picker.docs.js?v=f141eaf3","desc":"Calendário para escolher uma data ou um intervalo de datas, com navegação por mês e ano."},"drop-button":{"src":"components/drop-button/drop-button.docs.js?v=04fa3964","desc":"O Drop Button é um botão interativo que, ao ser acionado, abre um menu suspenso com opções de ação diretamente relacionadas ao contexto do botão. Ele combina a função de acionador visual com o acesso direto a um conjunto de comandos organizados."},"footer":{"src":"components/footer/footer.docs.js?v=4fd316e9","desc":"Rodapé do Modal e do Bottom Sheet: divisor e as ações (primária e secundária)."},"fixed-bar":{"src":"components/fixed-bar/fixed-bar.docs.js?v=dc85cbb8","desc":"A Fixed bar é uma área fixa posicionada na base da interface que agrupa duas ações relacionadas — uma primária e outra secundária. Ela é utilizada para decisões importantes no final de fluxos ou seções, permanecendo sempre acessível para a pessoa usuária."},"nav-control-item":{"src":"components/nav-control-item/nav-control-item.docs.js?v=1cf64b82","desc":"Cada indicador do Nav Control: ponto 6×6, que cresce para 16×6 quando ativo."},"nav-control":{"src":"components/nav-control/nav-control.docs.js?v=27e527d5","desc":"O Nav Control é um componente visual utilizado como indicador de navegação, normalmente associado a carrosséis ou fluxos paginados. Ele representa, de forma ilustrativa, a quantidade total de itens e qual deles está em foco no momento."},"carousel":{"src":"components/carousel/carousel.docs.js?v=49ed1a06","desc":"Organiza de 3 a 10 itens em sequência horizontal, um por vez, com pré-visualização parcial do próximo."},"nps-value-item":{"src":"components/nps-value-item/nps-value-item.docs.js?v=f5a685e1","desc":"Cada valor do NPS Score: pílula 24 com o número."},"nps-score":{"src":"components/nps-score/nps-score.docs.js?v=6e2990ea","desc":"O NPS Score é um componente de seleção única utilizado para capturar a percepção da pessoa usuária em relação a uma experiência, produto ou serviço, geralmente em uma escala numérica de 0 a 10."},"popover":{"src":"components/popover/popover.docs.js?v=c94fbb76","desc":"Popover é um pequeno overlay contextual que aparece quando o usuário interage com um elemento da interface. Ele permite exibir conteúdos adicionais, ações ou informações complementares de forma leve, sem interromper o fluxo principal da experiência."},"breadcrumb":{"src":"components/breadcrumb/breadcrumb.docs.js?v=1bd9075e","desc":"O Breadcrumb é um componente de navegação que mostra a localização atual do usuário dentro de uma hierarquia ou estrutura de conteúdo. Ele oferece links para os níveis superiores, facilitando a navegação."},"progress-line":{"src":"components/progress-line/progress-line.docs.js?v=a7528d42","desc":"O Progress Line é um indicador visual não interativo que representa o progresso de uma operação ao longo do tempo, ajudando a pessoa usuária a entender em que estágio o processo se encontra."},"progress-tracker-item":{"src":"components/progress-tracker-item/progress-tracker-item.docs.js?v=c9030f96","desc":"Etapa individual do Progress Tracker."},"progress-tracker":{"src":"components/progress-tracker/progress-tracker.docs.js?v=a89ff0c7","desc":"Indica o avanço de uma pessoa em um fluxo de múltiplas etapas, mostrando o que já foi concluído, onde ela está e o que ainda falta."},"checkbox":{"src":"components/checkbox/checkbox.docs.js?v=4fbb35d8","desc":"O checkbox é Componente interativo usado para selecionar ou desmarcar opções. Pode ser preenchido com um checkmark (✔) caso seja selecionado, ou por um traço (—) quando indeterminado. Utilizado em formulários e filtros, permitindo múltiplas seleções."},"radio-button":{"src":"components/radio-button/radio-button.docs.js?v=9f6fe1d4","desc":"Radio Button é um componente interativo usado para permitir ao usuário selecionar uma única opção de um conjunto. Essencial em formulários para escolhas únicas."},"shaped-icon":{"src":"components/shaped-icon/shaped-icon.docs.js?v=68f13907","desc":"O Shaped Icon é um ícone envolto por um fundo colorido e com formato definido, que confere maior ênfase visual e peso hierárquico. Ele é utilizado para evidenciar categorias, ações contextuais ou estados visuais sem depender de interação."},"alert":{"src":"components/alert/alert.docs.js?v=885a20f3","desc":"Mensagem fixa e persistente sobre o sistema, que fica visível até a pessoa usuária ler ou fechar."},"confirmation-message":{"src":"components/confirmation-message/confirmation-message.docs.js?v=5087ae73","desc":"Mostre o resultado de uma ação com ícone, título e descrição centralizados."},"dropzone":{"src":"components/dropzone/dropzone.docs.js?v=62b11669","desc":"O Dropzone é a área delimitada onde a pessoa usuária adiciona arquivos, pelo botão de seleção ou arrastando o arquivo para dentro dela. A área informa os formatos e limites aceitos antes do envio. O acompanhamento de cada arquivo enviado fica no Upload Item."},"file-lead-item":{"src":"components/file-lead-item/file-lead-item.docs.js?v=7d49330c","desc":"Miniatura do arquivo no Upload Item: imagem ou ícone de anexo, com a ação de ver o arquivo."},"lead-item":{"src":"components/lead-item/lead-item.docs.js?v=f404504e","desc":"Elemento à esquerda do Topic: Shaped Icon ou imagem 40×40."},"skeleton":{"src":"components/skeleton/skeleton.docs.js?v=3c935598","desc":"Placeholder de carregamento que ocupa o espaço de um conteúdo enquanto ele não chegou."},"slider":{"src":"components/slider/slider.docs.js?v=b4725007","desc":"Slider de seleção de valor num intervalo."},"spinner":{"src":"components/spinner/spinner.docs.js?v=1d25a27b","desc":"O Spinner é um indicador visual de atividade não interativa que informa à pessoa usuária que o sistema está processando uma ação em segundo plano."},"sponsor-category":{"src":"components/sponsor-category/sponsor-category.docs.js?v=c7d3f5f5","desc":"Item de navegação do Side Menu. Intent=Default navega direto, e Intent=Accordion abre subitens no Slot."},"sponsor-subcategory":{"src":"components/sponsor-subcategory/sponsor-subcategory.docs.js?v=99829327","desc":"Item de segundo nível do Side Menu, dentro do Slot de um .Category com Intent=Accordion."},"sponsor-user-profile":{"src":"components/sponsor-user-profile/sponsor-user-profile.docs.js?v=040bc349","desc":"Rodapé de identificação do Side Menu: avatar, nome e CNPJ, com ação opcional."},"status-dot":{"src":"components/status-dot/status-dot.docs.js?v=50b743c4","desc":"Indicador compacto de estado, formado por um ponto colorido e um rótulo em texto."},"switch":{"src":"components/switch/switch.docs.js?v=1c8eee92","desc":"O Switch é um componente que funciona como um interruptor digital, alterando imediatamente o estado de uma configuração entre opções binárias, como sim ou não, e ligado ou desligado, sem necessidade de confirmação."},"checkbox-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Checkboxes com um nome para o conjunto: zero, uma ou várias opções."},"radio-button-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Radio Buttons com um nome para o conjunto: exatamente uma opção."},"switch-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Switches com um nome para o conjunto: cada um liga ou desliga uma configuração na hora."},"system-banner":{"src":"components/system-banner/system-banner.docs.js?v=b00a0529","desc":"Aviso do sistema que ocupa a largura toda da página, com a mesma anatomia do Alert."},"tab-item":{"src":"components/tab-item/tab-item.docs.js?v=737b8a53","desc":"Cada aba da Fixed Tab e da Scrollable Tab: Lead Item opcional, Label e o sublinhado."},"fixed-tab":{"src":"components/fixed-tab/fixed-tab.docs.js?v=adf9d425","desc":"O Tabs organiza conteúdos relacionados em seções paralelas dentro da mesma página, permitindo que a pessoa usuária alterne rapidamente entre contextos sem navegação externa."},"scrollable-tab":{"src":"components/scrollable-tab/scrollable-tab.docs.js?v=3607a757","needs":["fixed-tab"],"desc":"Abas no tamanho do conteúdo, com rolagem horizontal. Mesma documentação de Tabs da Fixed Tab."},"tab-view":{"src":"components/tab-view/tab-view.docs.js?v=8e22521c","desc":"Alterna a visualização de uma lista entre lista e grade."},"table-head":{"src":"components/table-head/table-head.docs.js?v=7903b75b","desc":"Título de coluna da Table, com ordenação."},"table-toolbar":{"src":"components/table-toolbar/table-toolbar.docs.js?v=0df2607c","desc":"Barra de ações acima da Table."},"tag":{"src":"components/tag/tag.docs.js?v=5a9e9225","desc":"Tag são rótulos compactos e visualmente distintos usados para rapidamente categorizar, identificar e organizar itens."},"balance-card":{"src":"components/balance-card/balance-card.docs.js?v=c5840ec2","desc":"Exibe o saldo de uma categoria com rótulo, valor e status complementares."},"sponsor-header":{"src":"components/sponsor-header/sponsor-header.docs.js?v=3fcf1aaa","desc":"Cabeçalho de página dos templates web do Sponsor: navegação (voltar, breadcrumb e ações utilitárias) e área de título com as ações da página."},"sponsor-side-menu":{"src":"components/sponsor-side-menu/sponsor-side-menu.docs.js?v=d3d1e6ab","desc":"Navegação lateral do app Sponsor: colapsado (80px, só ícones) e expandido (360px), que no desktop abre por hover em overlay sobre o conteúdo."},"table-cell":{"src":"components/table-cell/table-cell.docs.js?v=14a427a8","desc":"Célula de dados da Table: texto, valor, percentual, Tag, Checkbox, Link ou ações."},"text-content":{"src":"components/text-content/text-content.docs.js?v=fd862195","desc":"Par de textos (Label e Description) com o destaque no Label ou na Description."},"accordion-item":{"src":"components/accordion-item/accordion-item.docs.js?v=824db8ab","desc":"Item de um accordion: um header com título que revela conteúdo adicional (no Slot) ao ser expandido."},"accordion":{"src":"components/accordion/accordion.docs.js?v=44db65bf","desc":"O Accordion agrupa vários Accordion Items em uma lista de seções expansíveis, que a pessoa abre sob demanda."},"code-input-otp":{"src":"components/code-input-otp/code-input-otp.docs.js?v=ee42108f","desc":"Campo de código de verificação (OTP/PIN): uma fileira de células de um caractere, preenchidas uma a uma, para inserir um código curto recebido por SMS, e-mail ou app autenticador."},"credit-card-input":{"src":"components/credit-card-input/credit-card-input.docs.js?v=f10e590f","desc":"Campo para inserir o número de um cartão de crédito."},"date-input":{"src":"components/date-input/date-input.docs.js?v=5085dd0b","desc":"Campo de data da família Text Fields: digitar com máscara dd/mm/aaaa ou escolher no calendário."},"password-input":{"src":"components/password-input/password-input.docs.js?v=afaea942","desc":"O Password Input é um campo de entrada específico para senhas."},"quantity-input":{"src":"components/quantity-input/quantity-input.docs.js?v=d00bba47","desc":"O Quantity Input é um campo numérico com controles de incremento e decremento."},"search-input":{"src":"components/search-input/search-input.docs.js?v=5e1d2ba6","desc":"Campo de busca da família Text Fields: lupa fixa e botão de limpar quando há texto."},"text-area":{"src":"components/text-area/text-area.docs.js?v=beb8d21c","desc":"O Text Area é um campo de entrada multilinha que permite à pessoa usuária digitar textos mais longos, como descrições, observações ou comentários."},"text-input":{"src":"components/text-input/text-input.docs.js?v=9841ec39","desc":"O Text Input é um campo de entrada para coleta de informações textuais curtas fornecidas pela pessoa usuária."},"toast":{"src":"components/toast/toast.docs.js?v=82f85974","desc":"O Toast é um componente de notificação temporária que informa a pessoa usuária sobre o resultado de uma ação ou estado do sistema. Ele aparece de forma discreta na interface e desaparece automaticamente após alguns segundos, sem interromper o fluxo de navegação."},"tooltip":{"src":"components/tooltip/tooltip.docs.js?v=145db2e0","desc":"São caixas flutuantes que proporcionam informações sobre algum aspecto da interface que mereça maior atenção."},"topic":{"src":"components/topic/topic.docs.js?v=34a407f2","desc":"Apresente um tópico com ícone ou imagem, título e descrição."},"trailing-item":{"src":"components/trailing-item/trailing-item.docs.js?v=f3876cc2","desc":"Item à direita das listas: Checkbox, Radio Button, Switch, Icon ou Tag."},"content-list-item":{"src":"components/content-list-item/content-list-item.docs.js?v=a9780daa","desc":"O Content list item é um bloco de conteúdo que organiza informações de forma clara e escaneável dentro de listas. Ele combina elementos como título, descrição, ícone, avatar ou status, ajudando o usuário a identificar de relance itens, conteúdos ou ações relacionadas."},"content-list":{"src":"components/content-list/content-list.docs.js?v=6ad148d0","desc":"O Content List é um componente que agrupa e organiza múltiplos Content List Items em uma estrutura única e consistente. Ele funciona como um container, permitindo que diferentes tipos de conteúdo sejam exibidos de forma clara e hierárquica. Pode conter itens informativos, de navegação ou de transações financeiras, adaptando-se a diferentes contextos de uso."},"selection-list-item":{"src":"components/selection-list-item/selection-list-item.docs.js?v=285ee023","desc":"O Selection List Item é um componente de seleção que combina título, descrição e ícone para enriquecer a apresentação das opções. Ele amplia a clareza das escolhas, indo além de seletores básicos como checkbox, radio ou switch."},"async-creatable-select-input":{"src":"components/async-creatable-select-input/async-creatable-select-input.docs.js?v=b89d5e8e","needs":["async-select-input"],"desc":"Como o Async e, quando o texto digitado não existe nas opções, oferece \"Adicionar “…”\" para criar a opção. Faz parte da família Select Input."},"async-select-input":{"src":"components/async-select-input/async-select-input.docs.js?v=5ef84b74","desc":"O Select input permite que a pessoa usuária escolha uma ou mais opções a partir de uma lista pré-definida."},"checkbox-select-input":{"src":"components/checkbox-select-input/checkbox-select-input.docs.js?v=b47659af","needs":["async-select-input"],"desc":"Vários valores sem busca: a lista fica aberta enquanto marca, e o campo mostra quantos foram selecionados. Faz parte da família Select Input."},"multi-select-input":{"src":"components/multi-select-input/multi-select-input.docs.js?v=aff1ad3a","needs":["async-select-input"],"desc":"Vários valores com busca: cada escolha vira um Input Chip dentro do campo. Faz parte da família Select Input."},"radio-select-input":{"src":"components/radio-select-input/radio-select-input.docs.js?v=60d32c71","needs":["async-select-input"],"desc":"Escolha única sem busca: o campo abre a lista de opções, com Radio Button. Faz parte da família Select Input."},"select-number":{"src":"components/select-number/select-number.docs.js?v=2910fc7a","desc":"Seletor de número do Pagination (itens por página e página atual), com lista em Popover."},"pagination":{"src":"components/pagination/pagination.docs.js?v=1acb2983","desc":"O Pagination (paginação) permite navegar entre conjuntos de dados distribuídos em várias páginas, otimizando a performance da visualização e facilitando o consumo de grandes volumes de dados."},"selection-list":{"src":"components/selection-list/selection-list.docs.js?v=3a43fe13","desc":"O Selection List é um agrupamento de opções organizadas em lista, permitindo que o usuário faça uma ou múltiplas seleções de forma clara e consistente. Ele é formado por instâncias do componente Selection List Item empilhados e separados por divisores visuais, facilitando a leitura e a comparação entre alternativas."},"table":{"src":"components/table/table.docs.js?v=48e10ae5","desc":"O componente de Tabela organiza dados estruturados em colunas e linhas, facilitando a leitura, comparação e análise. É ideal para exibir informações com formato uniforme, como listas, transações ou relatórios."},"upload-item":{"src":"components/upload-item/upload-item.docs.js?v=e328a912","desc":"O Upload Item representa um arquivo dentro do fluxo de upload, do envio em curso até o arquivo já armazenado. Ele mostra o nome, a extensão, o estado do envio e as ações disponíveis para aquele arquivo."},"upload-list":{"src":"components/upload-list/upload-list.docs.js?v=fa3ec45d","desc":"Agrupa os Upload Items de um fluxo, com ordem e espaçamento consistentes."},"viewport-restriction":{"src":"components/viewport-restriction/viewport-restriction.docs.js?v=03b58a4b","desc":"Aviso de que o componente não está disponível no viewport atual."},"bottom-sheet":{"src":"components/bottom-sheet/bottom-sheet.docs.js?v=4e403958","desc":"Camada que surge da base da tela para apresentar conteúdo ou ações complementares sem tirar a pessoa do contexto. A tela de fundo continua visível."},"drawer":{"src":"components/drawer/drawer.docs.js?v=69db3d04","desc":"O Drawer é um painel lateral deslizante utilizado para expor conteúdos complementares ou etapas adicionais dentro de um fluxo principal, sem interromper a tela atual. Ele aparece sobreposto à interface e permite que a pessoa usuária mantenha o contexto enquanto realiza uma interação específica."},"modal":{"src":"components/modal/modal.docs.js?v=fc145684","desc":"O Modal é um componente de sobreposição que bloqueia a interface base para exibir conteúdos focados, como formulários, informações detalhadas ou confirmações. Ele exige atenção da pessoa usuária antes de retornar ao fluxo principal."},"modal-date-picker":{"src":"components/modal-date-picker/modal-date-picker.docs.js?v=d1e58383","desc":"Calendário num Modal, com Cancelar e Confirmar: a data vale depois de confirmada."}};
-CDS.searchIndex = "dist/search.json?v=d3cc26f8"; /* 1496 seções */
+CDS.searchIndex = "dist/search.json?v=bae36cb5"; /* 1497 seções */

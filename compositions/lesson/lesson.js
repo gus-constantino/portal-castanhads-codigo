@@ -5,10 +5,14 @@
  *   Card (Has Border) · Icon Button Ghost (sair) · Nav Control Mobile (progresso, só leitura) · Icon favorite-filled/line (vidas)
  *   · Selection List Kind Card com Radio Button (escolha e certo ou errado) · Filter Chips (completar a frase) · Card + Icon
  *   Buttons Ghost (ordenar) · Selection Lists (ligar pares) · Alert (feedback) · Fixed Bar Pilled (Verificar / Continuar)
- *   · Tag (XP, acertos, revisão) · Main Button · ilustrações do [Caju] Illustrations nas telas de início, vidas e fim.
+ *   · Tag (XP, pontos, combo, acertos, revisão) · Main Button · Code Input OTP (iniciais do ranking, 3 caracteres)
+ *   · Table (ranking, montado por quem usa) · ilustrações do [Caju] Illustrations nas telas de início, vidas e fim.
  *
  * Regras (decisões do Gustavo, 08/10): 3 vidas; errar tira uma vida e a questão volta no fim da lição (uma vez); ao perder as 3,
  *   ganha 2 vidas extras uma vez por lição; perdeu as extras, a lição termina e oferece recomeçar. XP: 10 por lição + 5 sem erros.
+ * Pontos (08/10): 100 por acerto de primeira, 50 na revisão · combo x2 a partir de 3 acertos seguidos e x3 a partir de 5
+ *   · no fim, +200 por vida que sobrou e +500 sem erros · score-multiplier multiplica o total (ex.: 1.5 no jogo com todos os temas).
+ *   Com ranking-key, quem entra no Top 10 deste navegador grava 3 iniciais, como nos fliperamas (só iniciais: nada de dado pessoal).
  *
  * Dados (propriedades, antes de conectar): exercises = [{ type, … }]
  *   choice  { q, options: [texto], answer: índice, why, visual? }
@@ -20,7 +24,9 @@
  *   resample (opcional) = função que devolve uma lista nova de exercícios a cada partida (ex.: sorteio por tema)
  * Atributos: label (nome da lição) · storage-key (guarda XP e conclusão no localStorage de quem joga) · illustration (início)
  *   · heading (título da tela de início) · tips-label (texto do link de dicas) · tips-href (âncora das dicas)
- * Evento: cmp-lesson-done { xp, correct, total, perfect }
+ *   · score-multiplier (padrão 1) · ranking-key (Top 10 no localStorage, em cds-rank:<chave>) · ranking-label (o que foi jogado)
+ * Eventos: cmp-lesson-done { xp, correct, total, perfect, score } · cmp-lesson-rank { entry, position }
+ * Ranking: CmpLesson.ranking(chave) devolve a lista [{ name, score, label, date }], do maior para o menor.
  */
 (function(){
   "use strict";
@@ -30,6 +36,9 @@
   function load(k){ try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e){ return null; } }
   function save(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch (e){} }
   function shuffle(a){ var b = a.slice(), same = function(){ return a.length > 1 && b.every(function(x, k){ return x === a[k]; }); }; do { for (var i = b.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)), t = b[i]; b[i] = b[j]; b[j] = t; } } while (same()); return b; }
+  var TOP = 10;
+  function fmt(n){ return Math.round(n).toLocaleString("pt-BR"); }
+  function rankList(k){ var l = load("cds-rank:" + k); return Array.isArray(l) ? l : []; }
   function ills(){ var m = {}; ((window.CDS.assets || {}).illustrations || []).forEach(function(i){ m[i.name] = i.src; }); return m; }
 
   class CmpLesson extends CDS.Element {
@@ -45,6 +54,9 @@
     }
     get key(){ var k = this.getAttribute("storage-key"); return k ? "cds-lesson:" + k : null; }
     get list(){ return this.exercises || []; }
+    get mult(){ var m = parseFloat(this.getAttribute("score-multiplier")); return m > 0 ? m : 1; }
+    get rankKey(){ return this.getAttribute("ranking-key"); }
+    comboOf(streak){ return streak >= 5 ? 3 : streak >= 3 ? 2 : 1; }
     clear(){ this.body.innerHTML = ""; return this.body; }
     focusFirst(sel){ var h = this.body.querySelector(sel || ".cmp-ls__q, .cmp-ls__title"); if (h){ h.tabIndex = -1; h.focus({ preventScroll: true }); } }
 
@@ -65,7 +77,7 @@
     intro(){
       var self = this, done = this.key ? load(this.key) : null, n = this.list.length;
       this.screen({ ill: this.getAttribute("illustration"), eyebrow: done ? "Concluída · " + done.xp + " XP" : "Lição", title: this.getAttribute("heading") || this.getAttribute("label") || "Lição",
-        text: n + " exercícios · 3 vidas. Errou, a questão volta no fim.", tags: done && done.perfect ? [["Sem erros", "positive", "positive-line"]] : null,
+        text: n + " exercícios · 3 vidas. Errou, a questão volta no fim.", tags: [done && done.perfect ? ["Sem erros", "positive", "positive-line"] : null, this.mult !== 1 ? ["Pontos x" + String(this.mult).replace(".", ","), "accent", "bright-star-line"] : null].filter(Boolean),
         actions: [{ label: done ? "Fazer de novo" : "Começar lição", icon: done ? "refresh-line" : null, run: function(){ self.start(); } }],
         link: this.getAttribute("tips-href") ? { label: this.getAttribute("tips-label") || "Rever as dicas", href: this.getAttribute("tips-href") } : null });
     }
@@ -73,7 +85,7 @@
     start(){
       if (typeof this.resample === "function") this.exercises = this.resample(); // novo sorteio a cada partida, quando quem usa oferece
       this.queue = this.list.map(function(x, i){ return { ex: x, base: i, review: false }; });
-      this.pos = 0; this.lives = 3; this.extra = false; this.mistakes = 0; this.correct = 0; this.doneBase = {};
+      this.pos = 0; this.lives = 3; this.extra = false; this.mistakes = 0; this.correct = 0; this.doneBase = {}; this.score = 0; this.streak = 0; this._ranked = false; this._pos = 0;
       this.next();
     }
     next(){
@@ -95,6 +107,10 @@
       var kind = b.appendChild(c("div", null, "cmp-ls__kind"));
       kind.appendChild(c("span", null, "cmp-ls__kind-text")).textContent = KIND[ex.type] || "";
       if (it.review) kind.appendChild(c("cds-tag", { label: "Revisão", appearance: "warning", "show-lead-item": "false" }));
+      var nx = this.comboOf(this.streak + 1);
+      var pts = kind.appendChild(c("div", null, "cmp-ls__score"));
+      if (nx > 1) pts.appendChild(c("cds-tag", { label: "Combo x" + nx, appearance: "positive", "show-lead-item": "true", icon: "flash-line" }));
+      this.scoreEl = pts.appendChild(c("cds-tag", { label: fmt(this.score) + " pontos", appearance: "accent", "show-lead-item": "false" }));
       if (ex.visual){ var vis = c("div", null, "cmp-ls__vis"); vis.appendChild(ex.visual()); b.appendChild(vis); }
       var area = b.appendChild(c("div", null, "cmp-ls__area"));
       this.fb = b.appendChild(c("div", { "aria-live": "polite" }, "cmp-ls__fb"));
@@ -205,18 +221,20 @@
       if (ex.type === "pairs") return !this.pairsMiss;
       return false;
     }
-    loseLife(){ this.lives = Math.max(0, this.lives - 1); this.mistakes++; this.drawHearts(); }
+    loseLife(){ this.lives = Math.max(0, this.lives - 1); this.mistakes++; this.streak = 0; this.drawHearts(); }
     verify(){
       var c = CDS.create, it = this.item, ex = it.ex, ok = this.isRight(ex), pick = function(a, i){ return a[i % a.length]; };
       this.answered = true;
       if (this.choiceEl) this.choiceEl.inert = true;
-      if (ok){ this.correct++; this.doneBase[it.base] = true; }
+      var gain = 0, combo = 1;
+      if (ok){ this.correct++; this.doneBase[it.base] = true; this.streak++; combo = this.comboOf(this.streak); gain = (it.review ? 50 : 100) * combo; this.score += gain; }
       else if (ex.type !== "pairs"){ this.loseLife(); }
       if (!ok && !it.review){ this.queue.push({ ex: ex, base: it.base, review: true }); } // a questão errada volta no fim, uma vez
       else if (!ok){ this.doneBase[it.base] = true; }
       var al = c("cds-alert", { appearance: ok ? "positive" : "warning", label: ok ? pick(RIGHT, this.pos) : pick(WRONG, this.pos), "show-close-button": "false" });
       var rt = this.rightText(ex);
-      al.appendChild(c("span")).textContent = (ok || !rt ? "" : "A resposta é: " + rt + ". ") + (ex.why || "");
+      al.appendChild(c("span")).textContent = (ok ? "+" + gain + " pontos" + (combo > 1 ? " com combo x" + combo : "") + ". " : "") + (ok || !rt ? "" : "A resposta é: " + rt + ". ") + (ex.why || "");
+      if (this.scoreEl) CDS.attr(this.scoreEl, "label", fmt(this.score) + " pontos");
       this.fb.innerHTML = ""; this.fb.appendChild(al);
       this.bar.hidden = false; this.setPrimary("Continuar"); this.setReady(true);
       var p = this.primaryBtn(); if (p){ var b = p.querySelector("button"); if (b) b.focus({ preventScroll: true }); }
@@ -233,19 +251,59 @@
         return this.screen({ ill: "objetos/presente-aberto", eyebrow: "As 3 vidas acabaram", title: "Ganhou mais 2 vidas", text: "Para você chegar ao fim da lição. Vale uma vez por lição.",
           actions: [{ label: "Continuar com 2 vidas", run: function(){ if (self.item && self.item.ex.type === "pairs" && !self.answered){ self.play(); } else { self.pos++; self.next(); } } }] });
       }
+      var total = Math.round(this.score * this.mult);
+      if (this.qualifies(total) && !this._ranked){ this._ranked = true; return this.initials(total, "Fim de jogo", "Os acertos valem. Grave suas iniciais no ranking.", function(){ self.outOfLives(); }); }
       this.screen({ ill: "notificacoes/error-low-detail", eyebrow: "As vidas acabaram", title: "Quase lá", text: "Reveja as dicas e comece de novo. Na próxima vai.",
         actions: [{ label: "Recomeçar lição", icon: "refresh-line", run: function(){ self.start(); } }, { label: "Sair", appearance: "neutral", run: function(){ self.intro(); } }],
         link: this.getAttribute("tips-href") ? { label: this.getAttribute("tips-label") || "Rever as dicas", href: this.getAttribute("tips-href") } : null });
     }
     finish(){
       var self = this, n = this.list.length, perfect = this.mistakes === 0, xp = 10 + (perfect ? 5 : 0);
-      if (this.key){ var prev = load(this.key) || {}; save(this.key, { xp: Math.max(prev.xp || 0, xp), perfect: !!(prev.perfect || perfect), last: new Date().toISOString().slice(0, 10) }); }
-      this.dispatchEvent(new CustomEvent("cmp-lesson-done", { detail: { xp: xp, correct: n - Math.min(n, this.mistakes), total: n, perfect: perfect }, bubbles: true }));
-      this.screen({ ill: perfect ? "objetos/trofeu" : "objetos/medalha-1", eyebrow: "Lição concluída", title: perfect ? "Sem nenhum erro" : "Mandou bem",
-        text: perfect ? "Você fechou a lição sem perder vida." : "Você terminou a lição. Faça de novo para fechar sem erros.",
-        tags: [["+" + xp + " XP", "accent", "bright-star-line"], [this.mistakes + (this.mistakes === 1 ? " erro" : " erros"), perfect ? "positive" : "neutral"]],
-        actions: [{ label: "Fazer de novo", appearance: "neutral", icon: "refresh-line", run: function(){ self.start(); } }] });
+      var lifeB = 200 * this.lives, perfB = perfect ? 500 : 0, total = Math.round((this.score + lifeB + perfB) * this.mult);
+      if (this.key){ var prev = load(this.key) || {}; save(this.key, { xp: Math.max(prev.xp || 0, xp), perfect: !!(prev.perfect || perfect), best: Math.max(prev.best || 0, total), last: new Date().toISOString().slice(0, 10) }); }
+      this.dispatchEvent(new CustomEvent("cmp-lesson-done", { detail: { xp: xp, correct: n - Math.min(n, this.mistakes), total: n, perfect: perfect, score: total }, bubbles: true }));
+      var parts = [fmt(this.score) + " dos acertos"];
+      if (lifeB) parts.push(fmt(lifeB) + " das vidas");
+      if (perfB) parts.push("500 sem erros");
+      var how = parts.join(" + ") + (this.mult !== 1 ? ", x" + String(this.mult).replace(".", ",") + " por jogar todos os temas" : "") + ".";
+      var result = function(){
+        var tags = [["+" + xp + " XP", "accent", "bright-star-line"], [self.mistakes + (self.mistakes === 1 ? " erro" : " erros"), perfect ? "positive" : "neutral"]];
+        if (self._pos) tags.push([self._pos + "º no ranking", "positive", "medal-line"]);
+        self.screen({ ill: perfect ? "objetos/trofeu" : "objetos/medalha-1", eyebrow: "Lição concluída", title: fmt(total) + " pontos",
+          text: how, tags: tags,
+          actions: [{ label: "Fazer de novo", appearance: "neutral", icon: "refresh-line", run: function(){ self.start(); } }] });
+      };
+      if (this.qualifies(total)){ this._ranked = true; return this.initials(total, perfect ? "Novo recorde sem erros" : "Novo recorde", how, result); }
+      result();
+    }
+
+    // Ranking (Top 10 deste navegador): entra quem faz mais pontos que o 10º
+    qualifies(total){ var k = this.rankKey; if (!k || total <= 0) return false; var l = rankList(k); return l.length < TOP || total > l[TOP - 1].score; }
+    // Tela de iniciais, como nos fliperamas: Code Input OTP com 3 caracteres; as últimas iniciais já vêm preenchidas
+    initials(total, eyebrow, text, after){
+      var self = this, c = CDS.create, k = this.rankKey, l = rankList(k);
+      var pos = l.filter(function(e){ return e.score >= total; }).length + 1;
+      this.screen({ ill: "objetos/trofeu", eyebrow: eyebrow + " · " + pos + "º lugar", title: fmt(total) + " pontos", text: text,
+        actions: [{ label: "Gravar no ranking", run: function(){ go(true); } }, { label: "Agora não", appearance: "neutral", run: function(){ go(false); } }] });
+      var box = this.body.querySelector(".cmp-ls__screen-actions");
+      var code = c("cds-code-input", { length: "3", label: "Suas iniciais", "show-required": "false", "show-trailing-item": "false", separators: "none", supporting: "Três letras ou números, como nos fliperamas", value: load("cds-rank:_last") || "" });
+      box.insertBefore(code, box.firstChild);
+      setTimeout(function(){ var inp = code.querySelector("input"); if (inp && !code.getAttribute("value")) inp.focus({ preventScroll: true }); });
+      code.addEventListener("cds-complete", function(){ var b = box.querySelector("cds-main-button button"); if (b) b.focus({ preventScroll: true }); });
+      function go(keep){
+        if (keep){
+          var name = (code.value || "").toUpperCase();
+          if (!/^[A-Z0-9]{3}$/.test(name)){ CDS.attr(code, "error", "Use três letras ou números"); return; }
+          var entry = { name: name, score: total, label: self.getAttribute("ranking-label") || self.getAttribute("heading") || "", date: new Date().toISOString().slice(0, 10) };
+          var list = rankList(k); list.push(entry); list.sort(function(a, b){ return b.score - a.score; }); list = list.slice(0, TOP);
+          save("cds-rank:" + k, list); save("cds-rank:_last", name);
+          self._pos = list.indexOf(entry) + 1;
+          self.dispatchEvent(new CustomEvent("cmp-lesson-rank", { detail: { entry: entry, position: self._pos }, bubbles: true }));
+        }
+        after();
+      }
     }
   }
+  CmpLesson.ranking = rankList;
   CmpLesson.define("cmp-lesson");
 })();

@@ -26,3 +26,6 @@ cmp-lesson .cmp-ls__eyebrow{ margin:0; font:var(--text-style-label-medium); colo
 cmp-lesson .cmp-ls__text{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
 cmp-lesson .cmp-ls__tags{ display:flex; flex-wrap:wrap; justify-content:center; gap:var(--common-sizes-8); }
 cmp-lesson .cmp-ls__screen-actions{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-12); margin-top:var(--common-sizes-8); }
+/* Pontos e combo no canto da linha do tipo de exercício */
+cmp-lesson .cmp-ls__kind{ flex-wrap:wrap; }
+cmp-lesson .cmp-ls__score{ display:flex; align-items:center; gap:var(--common-sizes-8); margin-left:auto; }

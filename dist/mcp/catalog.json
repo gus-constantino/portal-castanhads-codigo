@@ -16303,12 +16303,7 @@
     {
      "id": "inicio",
      "title": "Início",
-     "text": "**Aprenda jogando** — Estude cada tema em uns 5 minutos e pratique na aba Jogar, com os temas que quiser.\n\n## Escolha um tema\n\nCada tema tem um treinamento rápido. Depois, pratique na aba Jogar, com um tema só ou vários juntos."
-    },
-    {
-     "id": "jogar",
-     "title": "Jogar",
-     "text": "**Hora de jogar** — Escolha um tema, vários ou todos. A lição sorteia 10 exercícios, com 3 vidas, e a questão errada volta no fim.\n\n> O XP e o melhor resultado de cada combinação ficam guardados neste navegador. Nada sai daqui."
+     "text": "**Aprenda jogando** — Estude cada tema em uns 5 minutos e jogue com os temas que quiser. Acertos seguidos valem combo, e o recorde vai para o ranking. (#/castanha-quiz/jogar)\n\n## Escolha um tema\n\nCada tema tem um treinamento rápido. Depois, pratique na aba Jogar, com um tema só ou vários juntos."
     },
     {
      "id": "componentes",
@@ -16339,6 +16334,11 @@
      "id": "camadas",
      "title": "Camadas do DS",
      "text": "**Do token à tela** — Como as camadas do Castanha DS se conectam e quem cria e mantém cada coisa.\n\n## A cascata\n\nO Castanha DS funciona em camadas. Cada camada aponta para a de cima e nunca pula uma camada. Por isso uma marca nova ou o tema escuro mudam o tema e o Brand Style, sem tocar nos componentes nem nas telas.\n\n| Camada | O que é |\n|---|---|\n| Primitives | Os valores, chamados pelo valor. |\n| Themes | A intenção: Light e Dark apontam para primitivos diferentes. |\n| Brand Style | O espelho `Common/` que chega ao código. |\n| Styles | Texto, Motion Styles, elevação e Viewport prontos. |\n| Componentes | O que o time do DS publica e mantém. |\n| Composição | O arranjo de componentes numa tela. |\n\n## Regras de ouro\n\n| Regra | Na prática |\n|---|---|\n| Siga a cascata | O componente usa o Brand Style, que aponta para o tema, que aponta para o primitivo. |\n| Marca e tema escuro mudam no tema | O mesmo token aponta para outro valor em cada mode. O componente continua igual. |\n| Espelhe em Common/ | Só o Brand Style chega ao código. |\n| Primitivo se chama pelo valor | A intenção mora no tema, não no primitivo. |\n| Publique em cascata | Primeiro o tema, depois o Brand Style. |\n| Cada token no seu lugar | Token de texto em texto, de borda em borda, de superfície em fundo. |\n\n## Quem cria e quem mantém\n\nAntes de criar algo, a pergunta do InnerSource: outro time precisaria disso sem saber que você criou? Componente do DS é do time do DS. Local asset é de um único time. Composição é uma tela: não vira team component.\n\n## Pratique\n\nEstudou? Teste o que ficou na aba Jogar: escolha Camadas do DS sozinho ou junto com outros temas.\n\n- **Jogar Camadas do DS** — 12 exercícios no banco deste tema. A lição sorteia 10, com 3 vidas."
+    },
+    {
+     "id": "jogar",
+     "title": "Jogar",
+     "text": "**Hora de jogar** — Escolha um tema, vários ou todos. A lição sorteia 10 exercícios, com 3 vidas, e a questão errada volta no fim.\n\n## Como pontuar\n\n| Jogada | Pontos |\n|---|---|\n| Acerto de primeira | 100 |\n| Acerto na revisão | 50 |\n| 3 acertos seguidos | Combo x2 a partir do 3º |\n| 5 acertos seguidos | Combo x3 a partir do 5º |\n| Cada vida que sobrou no fim | 200 |\n| Lição sem erros | 500 |\n| Jogar com todos os temas | Total x1,5 |\n\nErrou, o combo zera. Se as vidas acabarem, os pontos dos acertos ainda valem para o ranking.\n\n> O XP, os pontos e o ranking ficam guardados neste navegador. O ranking pede só 3 iniciais, como nos fliperamas: nenhum dado pessoal sai daqui."
     }
    ]
   },

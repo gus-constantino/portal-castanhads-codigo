@@ -27,6 +27,8 @@
  *   · score-multiplier (padrão 1) · ranking-key (Top 10 no localStorage, em cds-rank:<chave>) · ranking-label (o que foi jogado)
  * Eventos: cmp-lesson-done { xp, correct, total, perfect, score } · cmp-lesson-rank { entry, position }
  * Ranking: CmpLesson.ranking(chave) devolve a lista [{ name, score, label, date }], do maior para o menor.
+ *   Ranking compartilhado (opcional): propriedade remote = { top: [lista atual], add(entry) → Promise<{ position, top }> }.
+ *   Com remote, o Top 10 que vale é o dele; a lista local continua sendo gravada como reserva.
  */
 (function(){
   "use strict";
@@ -278,10 +280,11 @@
     }
 
     // Ranking (Top 10 deste navegador): entra quem faz mais pontos que o 10º
-    qualifies(total){ var k = this.rankKey; if (!k || total <= 0) return false; var l = rankList(k); return l.length < TOP || total > l[TOP - 1].score; }
+    board(){ return this.remote && Array.isArray(this.remote.top) ? this.remote.top : rankList(this.rankKey); }
+    qualifies(total){ if (!this.rankKey || total <= 0) return false; var l = this.board(); return l.length < TOP || total > l[TOP - 1].score; }
     // Tela de iniciais, como nos fliperamas: Code Input OTP com 3 caracteres; as últimas iniciais já vêm preenchidas
     initials(total, eyebrow, text, after){
-      var self = this, c = CDS.create, k = this.rankKey, l = rankList(k);
+      var self = this, c = CDS.create, k = this.rankKey, l = this.board();
       var pos = l.filter(function(e){ return e.score >= total; }).length + 1;
       this.screen({ ill: "objetos/trofeu", eyebrow: eyebrow + " · " + pos + "º lugar", title: fmt(total) + " pontos", text: text,
         actions: [{ label: "Gravar no ranking", run: function(){ go(true); } }, { label: "Agora não", appearance: "neutral", run: function(){ go(false); } }] });
@@ -298,6 +301,11 @@
           var list = rankList(k); list.push(entry); list.sort(function(a, b){ return b.score - a.score; }); list = list.slice(0, TOP);
           save("cds-rank:" + k, list); save("cds-rank:_last", name);
           self._pos = list.indexOf(entry) + 1;
+          if (self.remote && typeof self.remote.add === "function"){
+            var btn = box.querySelector("cds-main-button"); if (btn){ btn.setAttribute("disabled", ""); btn.setAttribute("label", "Gravando no ranking do time"); }
+            var done = function(r){ if (r && r.position) self._pos = r.position; self.dispatchEvent(new CustomEvent("cmp-lesson-rank", { detail: { entry: entry, position: self._pos, remote: !!r }, bubbles: true })); after(); };
+            return Promise.resolve(self.remote.add(entry)).then(done, function(){ done(null); });
+          }
           self.dispatchEvent(new CustomEvent("cmp-lesson-rank", { detail: { entry: entry, position: self._pos }, bubbles: true }));
         }
         after();

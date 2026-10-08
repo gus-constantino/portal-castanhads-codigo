@@ -417,6 +417,23 @@
   function getTotal(){ try { return JSON.parse(localStorage.getItem(TOTAL) || "null") || { xp: 0 }; } catch (e){ return { xp: 0 }; } }
   function addXp(n){ var t = getTotal(); t.xp = (t.xp || 0) + n; try { localStorage.setItem(TOTAL, JSON.stringify(t)); } catch (e){} return t; }
 
+  // Ranking do time: app da Web do Google Apps Script numa planilha da Caju (scripts/ranking/Code.gs, docs/RANKING-TIME.md).
+  // Restrito a contas @caju.com.br; sem o endereço ou fora da conta Caju, vale o ranking deste navegador.
+  var RANKING_URL = "";
+  var team = { top: null, state: RANKING_URL ? "loading" : "off" };
+  function jsonp(params){
+    return new Promise(function(ok, fail){
+      var cb = "cdsRank" + Date.now() + Math.floor(Math.random() * 1e4), s = document.createElement("script"), q = [];
+      var end = function(){ delete window[cb]; s.remove(); clearTimeout(t); };
+      var t = setTimeout(function(){ end(); fail(new Error("timeout")); }, 8000);
+      window[cb] = function(r){ end(); if (r && r.ok) ok(r); else fail(new Error(r && r.error || "erro")); };
+      Object.keys(params).forEach(function(k){ q.push(k + "=" + encodeURIComponent(params[k])); });
+      s.src = RANKING_URL + "?" + q.concat("callback=" + cb).join("&");
+      s.onerror = function(){ end(); fail(new Error("rede")); };
+      document.head.appendChild(s);
+    });
+  }
+
   function jogar(){
     var c = function(t, a, k){ return CDS.create(t, a, k); };
     var wrap = c("div", null, "pg-cq__play");
@@ -441,16 +458,23 @@
       l.resample = function(){ return sample(ids, 10); }; // cada partida sorteia de novo
       l.addEventListener("cmp-lesson-done", function(e){ addXp(e.detail.xp); drawXp(); });
       l.addEventListener("cmp-lesson-rank", drawRank);
+      lesson = l; attach();
       host.innerHTML = ""; host.appendChild(l);
     }
-    // Ranking: Top 10 deste navegador, com as iniciais de 3 letras gravadas no fim da partida
-    var rank = wrap.appendChild(c("div", null, "pg-cq__rank"));
+    // Ranking: Top 10 do time (planilha da Caju) ou deste navegador, com as iniciais de 3 letras gravadas no fim da partida
+    var rank = wrap.appendChild(c("div", null, "pg-cq__rank")), lesson = null;
+    // a lição em andamento passa a gravar no ranking do time assim que ele responde (sem recomeçar a partida)
+    function attach(){ if (team.state === "on" && lesson) lesson.remote = { top: team.top, add: function(e){ return jsonp({ action: "add", name: e.name, score: e.score, label: e.label }).then(function(r){ team.top = r.top; if (lesson) lesson.remote.top = r.top; return r; }); } }; }
+    if (team.state === "loading") jsonp({ action: "top" }).then(function(r){ team.top = r.top; team.state = "on"; attach(); drawRank(); }, function(){ team.state = "fail"; drawRank(); });
     function drawRank(){
-      var L = window.customElements && customElements.get("cmp-lesson"), list = L && L.ranking ? L.ranking("castanha-quiz") : [];
+      var L = window.customElements && customElements.get("cmp-lesson"), on = team.state === "on";
+      var list = on ? team.top : L && L.ranking ? L.ranking("castanha-quiz") : [];
       rank.innerHTML = "";
-      rank.appendChild(c("p", null, "pg-cq__cap")).textContent = "Ranking";
+      rank.appendChild(c("p", null, "pg-cq__cap")).textContent = on ? "Ranking do time" : "Ranking deste navegador";
+      if (team.state === "loading"){ rank.appendChild(c("cds-skeleton", { kind: "square" })); return; }
+      if (team.state === "fail"){ rank.appendChild(c("cds-alert", { appearance: "informative", label: "Ranking do time indisponível", "show-close-button": "false", text: "Entre com sua conta da Caju no Google para ver e entrar no ranking do time. Enquanto isso, o ranking fica neste navegador." })); }
       if (!list.length){ rank.appendChild(c("p", null, "pg-cq__rank-empty")).textContent = "Ninguém no ranking ainda. Termine uma partida e grave suas iniciais."; return; }
-      var t = c("cds-table", { label: "Os 10 melhores neste navegador", selectable: "false", "show-toolbar": "false", "show-pagination": "false" });
+      var t = c("cds-table", { label: on ? "Os 10 melhores do time" : "Os 10 melhores neste navegador", selectable: "false", "show-toolbar": "false", "show-pagination": "false" });
       t.columns = [{ key: "pos", label: "#", kind: "text", sortable: false, width: 64 }, { key: "name", label: "Iniciais", kind: "text", sortable: false },
         { key: "score", label: "Pontos", kind: "text", sortable: false }, { key: "label", label: "Temas", kind: "tag", sortable: false }];
       function tx(v){ return { text: v, icon: false, description: "" }; } // célula Text sem o Lead Icon

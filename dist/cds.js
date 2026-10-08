@@ -11259,6 +11259,23 @@ try {
     });
   }
 
+  // Na rede da Caju, o Chrome trata a chamada ao Google como acesso à rede local (Local Network Access) e pede permissão.
+  // Quem bloqueou ou ainda não respondeu precisa do caminho do "Permitir"; o resto, da conta da Caju logada.
+  function lnaState(){
+    var p = navigator.permissions; if (!p || !p.query) return Promise.resolve(null);
+    return p.query({ name: "local-network-access" }).catch(function(){ return p.query({ name: "local-network" }); })
+      .then(function(r){ return r.state; }, function(){ return null; });
+  }
+  function failAlert(lna){
+    var c = CDS.create, tail = " Enquanto isso, o ranking fica neste navegador.";
+    if (lna === "denied") return c("cds-alert", { appearance: "warning", label: "O Chrome bloqueou o ranking do time", "show-close-button": "false",
+      text: "Na rede da Caju, o ranking passa pelo acesso à rede local. Clique no ícone à esquerda do endereço do site, abra Configurações do site, mude Acesso à rede local para Permitir e recarregue a página. Confira também se a conta da Caju está logada no Google." + tail });
+    if (lna === "prompt") return c("cds-alert", { appearance: "informative", label: "Permita o acesso à rede local", "show-close-button": "false",
+      text: "Quando o Chrome perguntar se este site pode acessar a rede local, clique em Permitir e recarregue a página. Na rede da Caju, o ranking do time depende disso." + tail });
+    return c("cds-alert", { appearance: "informative", label: "Ranking do time indisponível", "show-close-button": "false",
+      text: "Entre com sua conta da Caju no Google para ver e entrar no ranking do time." + tail });
+  }
+
   function jogar(){
     var c = function(t, a, k){ return CDS.create(t, a, k); };
     var wrap = c("div", null, "pg-cq__play");
@@ -11290,14 +11307,14 @@ try {
     var rank = wrap.appendChild(c("div", null, "pg-cq__rank")), lesson = null;
     // a lição em andamento passa a gravar no ranking do time assim que ele responde (sem recomeçar a partida)
     function attach(){ if (team.state === "on" && lesson) lesson.remote = { top: team.top, add: function(e){ return jsonp({ action: "add", name: e.name, score: e.score, label: e.label }).then(function(r){ team.top = r.top; if (lesson) lesson.remote.top = r.top; return r; }); } }; }
-    if (team.state === "loading") jsonp({ action: "top" }).then(function(r){ team.top = r.top; team.state = "on"; attach(); drawRank(); }, function(){ team.state = "fail"; drawRank(); });
+    if (team.state === "loading") jsonp({ action: "top" }).then(function(r){ team.top = r.top; team.state = "on"; attach(); drawRank(); }, function(){ team.state = "fail"; lnaState().then(function(st){ team.lna = st; drawRank(); }); });
     function drawRank(){
       var L = window.customElements && customElements.get("cmp-lesson"), on = team.state === "on";
       var list = on ? team.top : L && L.ranking ? L.ranking("castanha-quiz") : [];
       rank.innerHTML = "";
       rank.appendChild(c("p", null, "pg-cq__cap")).textContent = on ? "Ranking do time" : "Ranking deste navegador";
       if (team.state === "loading"){ rank.appendChild(c("cds-skeleton", { kind: "square" })); return; }
-      if (team.state === "fail"){ rank.appendChild(c("cds-alert", { appearance: "informative", label: "Ranking do time indisponível", "show-close-button": "false", text: "Entre com sua conta da Caju no Google para ver e entrar no ranking do time. Enquanto isso, o ranking fica neste navegador." })); }
+      if (team.state === "fail") rank.appendChild(failAlert(team.lna));
       if (!list.length){ rank.appendChild(c("p", null, "pg-cq__rank-empty")).textContent = "Ninguém no ranking ainda. Termine uma partida e grave suas iniciais."; return; }
       var t = c("cds-table", { label: on ? "Os 10 melhores do time" : "Os 10 melhores neste navegador", selectable: "false", "show-toolbar": "false", "show-pagination": "false" });
       t.columns = [{ key: "pos", label: "#", kind: "text", sortable: false, width: 64 }, { key: "name", label: "Iniciais", kind: "text", sortable: false },

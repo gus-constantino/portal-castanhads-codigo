@@ -16338,7 +16338,7 @@
     {
      "id": "jogar",
      "title": "Jogar",
-     "text": "**Hora de jogar** — Escolha um tema, vários ou todos. A lição sorteia 10 exercícios, com 3 vidas, e a questão errada volta no fim.\n\n## Como pontuar\n\n| Jogada | Pontos |\n|---|---|\n| Acerto de primeira | 100 |\n| Acerto na revisão | 50 |\n| 3 acertos seguidos | Combo x2 a partir do 3º |\n| 5 acertos seguidos | Combo x3 a partir do 5º |\n| Cada vida que sobrou no fim | 200 |\n| Lição sem erros | 500 |\n| Jogar com todos os temas | Total x1,5 |\n\nErrou, o combo zera. Se as vidas acabarem, os pontos dos acertos ainda valem para o ranking.\n\n> O XP, os pontos e o ranking ficam guardados neste navegador. O ranking pede só 3 iniciais, como nos fliperamas: nenhum dado pessoal sai daqui."
+     "text": "**Hora de jogar** — Escolha um tema, vários ou todos. A lição sorteia 10 exercícios, com 3 vidas, e a questão errada volta no fim.\n\n## Como pontuar\n\n| Jogada | Pontos |\n|---|---|\n| Acerto de primeira | 100 |\n| Acerto na revisão | 50 |\n| 3 acertos seguidos | Combo x2 a partir do 3º |\n| 5 acertos seguidos | Combo x3 a partir do 5º |\n| Cada vida que sobrou no fim | 200 |\n| Lição sem erros | 500 |\n| Jogar com todos os temas | Total x1,5 |\n\nErrou, o combo zera. Se as vidas acabarem, os pontos dos acertos ainda valem para o ranking.\n\n> Com a conta da Caju logada no Google, o ranking é do time inteiro e guarda só as 3 iniciais, os pontos, os temas e a data. Sem ela, o ranking fica neste navegador. O XP fica sempre neste navegador."
     }
    ]
   },

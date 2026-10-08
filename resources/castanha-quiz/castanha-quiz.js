@@ -419,7 +419,7 @@
 
   // Ranking do time: app da Web do Google Apps Script numa planilha da Caju (scripts/ranking/Code.gs, docs/RANKING-TIME.md).
   // Restrito a contas @caju.com.br; sem o endereço ou fora da conta Caju, vale o ranking deste navegador.
-  var RANKING_URL = "";
+  var RANKING_URL = "https://script.google.com/a/macros/caju.com.br/s/AKfycbxWFEr522Mq-s3IB-wnM_tZQWnGg0PKsgxA_Nc-fco885cHT3YzvNEtuX3KpDJFhiwM/exec";
   var team = { top: null, state: RANKING_URL ? "loading" : "off" };
   function jsonp(params){
     return new Promise(function(ok, fail){
@@ -502,7 +502,7 @@
       ["Cada vida que sobrou no fim", "200"], ["Lição sem erros", "500"], ["Jogar com todos os temas", "Total x1,5"]
     ] } },
     { p: "Errou, o combo zera. Se as vidas acabarem, os pontos dos acertos ainda valem para o ranking." },
-    { note: "O XP, os pontos e o ranking ficam guardados neste navegador. O ranking pede só 3 iniciais, como nos fliperamas: nenhum dado pessoal sai daqui." }
+    { note: "Com a conta da Caju logada no Google, o ranking é do time inteiro e guarda só as 3 iniciais, os pontos, os temas e a data. Sem ela, o ranking fica neste navegador. O XP fica sempre neste navegador." }
   ] });
   // Início: estudo nas abas de tema, prática na aba Jogar
   inicio.blocks.forEach(function(b){

@@ -756,6 +756,103 @@
         { note: "Fonte: Figma · 📁 [NEW] Content → Formatação de dados (Regras universais, Valores monetários e moedas, Códigos e dados pessoais, Datas e horários, Quantidades e unidades, Mascaramento e omissão de dados, Porcentagens e tarifas). Exemplos em `código`, como no Figma (C113)." }
       ] }
       ,
+      // Limites de caracteres por componente (zeroheight 8985350, Conteúdo › Formatação de Dados, publicada em 08/10 pelo time de
+      // Conteúdo). Tabelas com o texto do Hub; os Do's and Don'ts do Hub são imagens e aqui são refeitos com os componentes do DS
+      { id: "limites", title: "Limites de caracteres", blocks: [
+        { h2: "Limites de caracteres por componente" },
+        { p: "Esta página reúne, em um só lugar, os limites de texto registrados nas documentações do Castanha. Use como consulta rápida ao escrever ou revisar uma tela. As regras completas de cada componente ou canal continuam valendo na página de origem, indicada em cada tabela." },
+        { p: "Quando uma página específica tiver uma regra diferente de uma regra geral, a página específica prevalece." },
+        { h2: "Componentes de interface" },
+        { table: { wrap: true, head: ["Componente", "Elemento", "Limite"], rows: [
+          ["Botão", "Label", "Até 3 palavras, sem quebrar linha"],
+          ["Link", "Texto do link", "De 5 a 8 palavras (~55 caracteres)"],
+          ["Progress Tracker", "Nome da etapa", "Até 3 palavras"],
+          ["Tabs", "Label", "1 linha, sem quebra"],
+          ["Tabs", "Quantidade", "De 2 a 5 tabs"],
+          ["Breadcrumb", "Quantidade de itens", "Trunca os links intermediários acima de 5 itens"],
+          ["Toast", "Mensagem", "1 ou 2 linhas"],
+          ["Badge", "Counter", "Até 2 dígitos, acima disso, use +99"],
+          ["Upload item", "Nome do arquivo", "1 linha, truncado no fim. A extensão nunca é truncada"],
+          ["Balance Card", "Label", "Só o nome da categoria, sem complementos"],
+          ["Code Input", "Campos", "De 1 a 6 campos, conforme o tamanho do código"],
+          ["Nav control", "Itens", "De 2 a 5 itens"],
+          ["Fixed bar", "Ações", "Até 2 ações: uma primária e uma secundária"],
+          ["Table", "Colunas", "Até 8 colunas. Com 9 ou mais, use Table Columns"],
+          ["Pagination", "Volume mínimo", "Não use com 10 itens ou menos"],
+          ["Onboarding", "Títulos", "Evite títulos que quebram em mais de uma linha"]
+        ] } },
+        { h2: "Do's and don'ts" },
+        { h3: "Botão: label" },
+        { dodont: [
+          { kind: "do", attrs: { _tag: "cds-main-button", label: "Confirmar pagamento", "show-lead-icon": false, "show-trailing-icon": false }, text: "Até 3 palavras. O botão mantém o tamanho padrão." },
+          { kind: "dont", attrs: { _tag: "cds-main-button", label: "Confirmar o pagamento do boleto agora", "show-lead-icon": false, "show-trailing-icon": false }, text: "Mais de 3 palavras. O botão cresce ou o label quebra linha." }
+        ] },
+        { h3: "Tab: label" },
+        { dodont: [
+          { kind: "do", attrs: { _tag: "cds-fixed-tab", label: "Exemplo de tabs", style: "width:100%", _children: [{ _tag: "cds-tab-item", label: "Extrato" }, { _tag: "cds-tab-item", label: "Cartões" }, { _tag: "cds-tab-item", label: "Pix" }] }, text: "1 palavra, sem quebra. Tab bar equilibrada." },
+          { kind: "dont", attrs: { _tag: "cds-fixed-tab", label: "Exemplo de tabs", style: "width:100%", _children: [{ _tag: "cds-tab-item", label: "Extrato da conta" }, { _tag: "cds-tab-item", label: "Cartões físicos e virtuais" }, { _tag: "cds-tab-item", label: "Pix" }] }, text: "Muitas palavras. Quebra em 2 linhas e desalinha a tab bar." }
+        ] },
+        { note: "No componente do DS, o Tab Item não quebra linha: o rótulo longo é cortado, como no exemplo acima. A imagem do Hub mostra a quebra em 2 linhas." },
+        { h3: "Badge: counter" },
+        { dodont: [
+          { kind: "do", attrs: { _tag: "cds-badge", label: "99+" }, text: "Máximo 2 dígitos. Acima de 99, exiba \"99+\"." },
+          { kind: "dont", attrs: { _tag: "cds-badge", label: "1250" }, text: "Número real acima de 2 dígitos. Longo demais para o espaço do badge." }
+        ] },
+        { h3: "Link: label" },
+        { dodont: [
+          { kind: "do", attrs: { _tag: "cds-link", label: "Consultar o extrato de setembro", href: "#/conteudo/limites", appearance: "accent" }, text: "Descritivo. Diz exatamente para onde o link leva." },
+          { kind: "dont", attrs: { _tag: "cds-link", label: "Clique aqui", href: "#/conteudo/limites", appearance: "accent" }, text: "Genérico. Não diz nada sobre o destino, o que prejudica acessibilidade." }
+        ] },
+        { h2: "Canais" },
+        { h3: "Push notification" },
+        { table: { wrap: true, head: ["Elemento", "Limite", "Exemplo"], rows: [
+          ["Título", "30 caracteres", "\"Pix recebido\""],
+          ["Título + Descrição", "200 caracteres", "\"Pix recebido\" + \"Você recebeu um Pix de R$ 35,00 de Cajuína Castanha •••.123.456-••.\""],
+          ["Emoji", "Conta como 2 caracteres. Se puder, evite", "\"Pix recebido 🎉\""]
+        ] } },
+        { note: "Fonte: Push Notification." },
+        { h3: "Notificação in-app" },
+        { table: { wrap: true, head: ["Elemento", "Limite", "Exemplo"], rows: [
+          ["Título", "30 caracteres", "\"Pagamento confirmado\""],
+          ["Título + Descrição", "110 caracteres", "\"O pagamento do seu boleto no valor de R$ 239,53 foi confirmado.\""],
+          ["CTA", "1 linha, sem quebra", "\"Detalhes\""]
+        ] } },
+        { note: "Fonte: Notificações In-App." },
+        { h3: "E-mail transacional" },
+        { table: { wrap: true, head: ["Elemento", "Limite", "Exemplo"], rows: [
+          ["Assunto", "Ideal para mobile: até 33 caracteres. Recomendado: de 35 a 50 caracteres", "\"Confirme seu e-mail\""],
+          ["Preview text", "Recomendado: até 37 caracteres. Aceitável: de 40 a 80. Máximo: de 40 a 100", "\"Falta só um passo para acessar\""],
+          ["Parágrafo do corpo", "Até 3 linhas", "\"Para concluir seu cadastro e acessar o app da Caju, confirme seu e-mail pelo botão abaixo.\""],
+          ["CTA", "1 por e-mail, até 3 palavras", "\"Confirmar e-mail\""]
+        ] } },
+        { note: "Fonte: E-mails Transacionais." },
+        { h3: "Regras gerais de texto" },
+        { p: "Valem para todos os canais e componentes, exceto quando a página específica disser outra coisa." },
+        { table: { wrap: true, head: ["Elemento", "Limite"], rows: [
+          ["Ponto de exclamação", "No máximo 1 por tela, só em descrições"],
+          ["Vírgulas", "No máximo 3 por frase"],
+          ["Listas", "No máximo 1 por tela"],
+          ["Emojis", "Nunca mais de um seguido"],
+          ["Fonte", "Mínimo de 14 px"]
+        ] } },
+        { h3: "Dados com tamanho fixo" },
+        { table: { wrap: true, head: ["Elemento", "Limite", "Exemplo"], rows: [
+          ["Número do cartão virtual", "16 dígitos, em blocos de 4 separados por espaço", "1234 5678 9012 3456"],
+          ["Código de autenticação", "6 dígitos seguidos, sem espaço", "123456"],
+          ["Senha do cartão", "4 números seguidos, sem espaço", "1234"],
+          ["Valor monetário", "Sempre 2 casas decimais. Ponto no milhar a partir de 4 dígitos", "R$ 1.458,50"],
+          ["CPF mascarado", "Mostre os 6 números do meio", "•••.123.456-••"],
+          ["CNPJ mascarado", "Mostre os 4 primeiros dígitos", "12.34•.•••/••••-••"],
+          ["Cartão mascarado", "Mostre os 4 últimos números", "•••• 3456"],
+          ["Celular mascarado", "Mostre os 4 últimos dígitos", "(••) •••••-5678"],
+          ["Valor mascarado", "1 bullet por número", "R$ •.•••,••"]
+        ] } },
+        { h3: "Componentes sem limite numérico" },
+        { p: "Os demais componentes não listados pedem texto curto, sem número específico até o momento. Siga a orientação da página de cada um: Tag, Shortcut, Text area, Text input, Password input, Select input, Quantity input, Modal, Drawer, Popover, Card, Big number, Bottom sheet, Feedback Pages, Content List, Content List Item, Selection List Item, Filter button, Dropzone e Avatar." },
+        { p: "No Text area, use o contador de caracteres sempre que o campo tiver limite máximo." },
+        { note: "Fonte: [Castanha Hub · Limites de caracteres por componente](https://castanha.caju.com.br/858426090/v/latest/p/12a3e3-limites-de-caracteres-por-componente) (Conteúdo › Formatação de Dados). Texto literal do Hub. Os exemplos de Do's and don'ts são as imagens do Hub refeitas com os componentes do DS. Dúvidas: canal #castanha-suporte no Slack." }
+      ] },
+
       { id: "feedback-pages", title: "Feedback Pages", blocks: [
         { h2: "Feedback Pages" },
         { p: "Feedback Pages comunicam estados relevantes após uma ação ou evento do sistema. O objetivo é orientar, confirmar, alertar ou redirecionar a pessoa usuária de forma clara e acionável." },

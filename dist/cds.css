@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 124 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 125 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.css ==== */
 /* Backdrop · 13784:3271 — Surface/inversed · Opacity/medium (0.4). O mesmo visual vale para o ::backdrop dos overlays */
 cds-backdrop{ position:absolute; inset:0; display:block; background:var(--common-colors-surface-inversed); opacity:var(--common-opacity-medium); }
@@ -2113,6 +2113,36 @@ cmp-do-dont .cmp-dd__verdict{ font:var(--text-style-body-bold); }
 cmp-do-dont .cmp-dd__heading{ font:var(--text-style-body-bold); color:var(--common-colors-text-intense); }
 cmp-do-dont .cmp-dd__heading[hidden]{ display:none; }
 
+/* ==== compositions/lesson/lesson.css ==== */
+/* Lição no estilo Duolingo · composição do playground (ver lesson.js) — só componentes e tokens do DS */
+cmp-lesson{ display:block; max-width:calc(var(--common-sizes-200) * 3); }
+cmp-lesson > cds-card{ display:block; }
+cmp-lesson .cmp-ls{ display:flex; flex-direction:column; gap:var(--common-sizes-16); min-height:calc(var(--common-sizes-200) * 2); }
+cmp-lesson .cmp-ls__top{ display:flex; align-items:center; gap:var(--common-sizes-12); }
+cmp-lesson .cmp-ls__top > cds-nav-control{ flex:1 1 auto; justify-content:center; }
+cmp-lesson .cmp-ls__hearts{ display:flex; align-items:center; gap:var(--common-sizes-4); }
+cmp-lesson .cmp-ls__kind{ display:flex; align-items:center; gap:var(--common-sizes-8); }
+cmp-lesson .cmp-ls__kind-text{ font:var(--text-style-label-medium); color:var(--common-colors-text-medium); }
+cmp-lesson .cmp-ls__vis{ padding:var(--common-sizes-16); border-radius:var(--common-border-radius-medium); background:var(--common-colors-surface-01); }
+cmp-lesson .cmp-ls__area{ display:flex; flex-direction:column; gap:var(--common-sizes-16); flex:1 1 auto; }
+cmp-lesson .cmp-ls__q, cmp-lesson .cmp-ls__title{ margin:0; font:var(--text-style-title-small); color:var(--common-colors-text-intense); }
+cmp-lesson .cmp-ls__q:focus, cmp-lesson .cmp-ls__title:focus{ outline:none; }
+cmp-lesson .cmp-ls__blank{ display:inline-block; min-width:var(--common-sizes-80); padding:0 var(--common-sizes-4); border-bottom:var(--common-border-width-thin) solid var(--common-colors-accent-solid-medium); color:var(--common-colors-accent-solid-medium); }
+cmp-lesson cds-selection-list{ width:100%; }
+cmp-lesson .cmp-ls__pieces{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+cmp-lesson .cmp-ls__piece{ display:flex; align-items:center; gap:var(--common-sizes-8); }
+cmp-lesson .cmp-ls__piece > cds-card{ flex:1 1 auto; min-width:0; padding:var(--common-sizes-8) var(--common-sizes-16); }
+cmp-lesson .cmp-ls__move{ display:flex; gap:var(--common-sizes-4); }
+cmp-lesson .cmp-ls__pairs{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:var(--common-sizes-16); }
+cmp-lesson .cmp-ls__fb:empty{ display:none; }
+cmp-lesson .cmp-ls > cds-fixed-bar[hidden]{ display:none; }
+cmp-lesson .cmp-ls__screen{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--common-sizes-8); text-align:center; flex:1 1 auto; padding:var(--common-sizes-24) 0; }
+cmp-lesson .cmp-ls__ill{ width:var(--common-sizes-120); height:var(--common-sizes-120); }
+cmp-lesson .cmp-ls__eyebrow{ margin:0; font:var(--text-style-label-medium); color:var(--common-colors-text-medium); }
+cmp-lesson .cmp-ls__text{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+cmp-lesson .cmp-ls__tags{ display:flex; flex-wrap:wrap; justify-content:center; gap:var(--common-sizes-8); }
+cmp-lesson .cmp-ls__screen-actions{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-12); margin-top:var(--common-sizes-8); }
+
 /* ==== compositions/quiz/quiz.css ==== */
 /* Quiz em cards · composição do playground (ver quiz.js) — só componentes e tokens do DS */
 cmp-quiz{ display:block; max-width:calc(var(--common-sizes-200) * 4); }
@@ -2305,6 +2335,11 @@ loc-vazio[size="small"] .loc-vazio__pilha{ height:var(--common-sizes-40); margin
 /* Etapa 2: cena de texto (Conteúdo) e ilustração (jogo de categorias) */
 .pg-cq__say{ width:100%; max-width:calc(var(--common-sizes-200) + var(--common-sizes-120)); }
 .pg-cq__ill{ width:var(--common-sizes-120); height:var(--common-sizes-120); }
+
+/* Aba Jogar: escolha de temas (Filter Chips) + lição (cmp-lesson) */
+.pg-cq__play{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
+.pg-cq__play-head{ display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-12); flex-wrap:wrap; }
+.pg-cq__play-lesson > cmp-lesson{ max-width:100%; }
 
 /* ==== resources/patterns/patterns.css ==== */
 /* Patterns: Feedback Page (Sponsor/Employee) e Tela de loading montadas com componentes do DS.

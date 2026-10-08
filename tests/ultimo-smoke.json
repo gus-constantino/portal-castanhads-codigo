@@ -1,7 +1,7 @@
 {
  "componentes": {
-  "total": 118,
-  "ok": 118,
+  "total": 119,
+  "ok": 119,
   "falhas": [],
   "avisos": [
    {
@@ -80,7 +80,7 @@
  },
  "docs": {
   "docs": 129,
-  "tabs": 728,
+  "tabs": 729,
   "falhas": [],
   "avisos": []
  }

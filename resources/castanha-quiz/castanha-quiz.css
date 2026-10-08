@@ -15,3 +15,8 @@
 /* Etapa 2: cena de texto (Conteúdo) e ilustração (jogo de categorias) */
 .pg-cq__say{ width:100%; max-width:calc(var(--common-sizes-200) + var(--common-sizes-120)); }
 .pg-cq__ill{ width:var(--common-sizes-120); height:var(--common-sizes-120); }
+
+/* Aba Jogar: escolha de temas (Filter Chips) + lição (cmp-lesson) */
+.pg-cq__play{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
+.pg-cq__play-head{ display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-12); flex-wrap:wrap; }
+.pg-cq__play-lesson > cmp-lesson{ max-width:100%; }

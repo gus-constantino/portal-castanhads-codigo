@@ -60,6 +60,7 @@ window.CDS_EXPECTED = {
   "do-dont":           { w: 320, src: "composição do playground (sem Figma) · largura do specimen Sizes/200 + Sizes/120; altura = exemplo + legenda" },
   "shortcut":          { h: 24, src: "composição do playground (sem Figma) · altura da Tag (4475:114); largura depende das teclas" },
   "definition-list":   { w: 240, src: "composição do playground (sem Figma) · largura do specimen Sizes/200 + Sizes/40; altura depende das linhas" },
+  "lesson":            { w: 600, src: "composição do playground (sem Figma) · largura do specimen 3 × Sizes/200; altura depende da tela" },
   "quiz":              { w: 600, src: "composição do playground (sem Figma) · largura do specimen 3 × Sizes/200; altura depende da pergunta" },
   "clickable-card":    { w: 160, src: "composição do playground (sem Figma) · largura do specimen Sizes/120 + Sizes/40; altura = mídia quadrada + label" },
   "backdrop":          { w: 300, h: 300, src: "13784:3271" },

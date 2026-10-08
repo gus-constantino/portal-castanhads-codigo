@@ -37,7 +37,8 @@
  *   simulate: { illustration, matrices: { id: "feColorMatrix" }, items: [{ label, matrix | filter, double }] }   condições visuais sobre uma ilustração
  *   specs: [{ title, rows: [[rótulo, valor], …] }]   cards de ficha técnica (ex.: Motion Style por interação)
  *   quiz: { label, kind, storageKey, questions, results, right, wrong, pieces, pairs, prompt, why }   quiz em cards (composição <cmp-quiz>: kind verdict = Certo ou errado · order e pairs = quebra-cabeças)
- *   visual: fn | { render: fn, text, list, side }   visual interativo montado pelo recurso (ex.: slides recriados com componentes do DS)
+ *   lesson: { label, heading, illustration, storageKey, tips: { href, label }, exercises }   lição no estilo Duolingo (composição <cmp-lesson>)
+ *   visual: fn | { render: fn, text, list, side, bare }   visual interativo montado pelo recurso (ex.: slides recriados com componentes do DS)
  *                                       na caixa de exibição das docs; com text/list, legenda ao lado (side: true, como as Diretrizes) ou abaixo
  *
  * Em display, compare, guides e dodont, `attrs` pode ser uma lista (vários exemplos na mesma caixa).
@@ -376,6 +377,7 @@
     },
     visual: function(d, v){
       if (typeof v === "function") v = { render: v };
+      if (v.bare) return v.render(); // bare: o recurso monta o próprio container (ex.: a aba Jogar do Castanha Quiz)
       var box = el("div", "pg-doc-visual"); box.appendChild(v.render());
       if (!v.text && !v.list) return box;
       var row = el("div", "pg-doc-lesson" + (v.side ? " is-side" : "")), t = el("div", "pg-doc-lesson__text");
@@ -383,6 +385,14 @@
       if (v.list) t.appendChild(list("ul", v.list));
       row.appendChild(box); row.appendChild(t);
       return row;
+    },
+    // Lição no estilo Duolingo = composição <cmp-lesson> (compositions/lesson). Dados entram antes de conectar
+    lesson: function(d, v){
+      var l = el("cmp-lesson"); ["label", "heading", "illustration"].forEach(function(k){ if (v[k]) l.setAttribute(k, v[k]); });
+      if (v.storageKey) l.setAttribute("storage-key", v.storageKey);
+      if (v.tips){ l.setAttribute("tips-href", v.tips.href); l.setAttribute("tips-label", v.tips.label || "Rever as dicas"); }
+      l.exercises = v.exercises;
+      return l;
     },
     // Quiz em cards = composição <cmp-quiz> (compositions/quiz: o DS não tem quiz). Dados entram antes de conectar
     quiz: function(d, v){

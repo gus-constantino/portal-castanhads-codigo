@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 258 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 260 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.js ==== */
 try {
 /**
@@ -8736,6 +8736,281 @@ CDS.register({
 });
 } catch (e) { console.error("[cds] compositions/do-dont/do-dont.playground.js", e); }
 
+/* ==== compositions/lesson/lesson.js ==== */
+try {
+/**
+ * <cmp-lesson> — Lição no estilo Duolingo · COMPOSIÇÃO do playground (não é componente do Castanha DS)
+ *
+ * Por que existe: o DS não tem lição gamificada. Esta composição monta uma, uma tela por vez, só com componentes do DS:
+ *   Card (Has Border) · Icon Button Ghost (sair) · Nav Control Mobile (progresso, só leitura) · Icon favorite-filled/line (vidas)
+ *   · Selection List Kind Card com Radio Button (escolha e certo ou errado) · Filter Chips (completar a frase) · Card + Icon
+ *   Buttons Ghost (ordenar) · Selection Lists (ligar pares) · Alert (feedback) · Fixed Bar Pilled (Verificar / Continuar)
+ *   · Tag (XP, acertos, revisão) · Main Button · ilustrações do [Caju] Illustrations nas telas de início, vidas e fim.
+ *
+ * Regras (decisões do Gustavo, 08/10): 3 vidas; errar tira uma vida e a questão volta no fim da lição (uma vez); ao perder as 3,
+ *   ganha 2 vidas extras uma vez por lição; perdeu as extras, a lição termina e oferece recomeçar. XP: 10 por lição + 5 sem erros.
+ *
+ * Dados (propriedades, antes de conectar): exercises = [{ type, … }]
+ *   choice  { q, options: [texto], answer: índice, why, visual? }
+ *   verdict { q, answer: "do" | "dont", why, visual? }         opções "Use" e "Não use"
+ *   fill    { text: "frase com ___", options: [texto], answer: índice, why }
+ *   order   { q, pieces: [texto na ordem certa], why }
+ *   pairs   { q, pairs: [[esquerda, direita]], why }            par errado também tira uma vida
+ *   visual = função que devolve um elemento (montado por quem usa, com componentes do DS)
+ *   resample (opcional) = função que devolve uma lista nova de exercícios a cada partida (ex.: sorteio por tema)
+ * Atributos: label (nome da lição) · storage-key (guarda XP e conclusão no localStorage de quem joga) · illustration (início)
+ *   · heading (título da tela de início) · tips-label (texto do link de dicas) · tips-href (âncora das dicas)
+ * Evento: cmp-lesson-done { xp, correct, total, perfect }
+ */
+(function(){
+  "use strict";
+  var uid = 0;
+  var RIGHT = ["Na mosca", "Isso mesmo", "Mandou bem"], WRONG = ["Quase", "Não foi dessa vez", "Não é bem assim"];
+  var KIND = { choice: "Escolha a opção certa", verdict: "Certo ou errado?", fill: "Complete a frase", order: "Coloque em ordem", pairs: "Ligue os pares" };
+  function load(k){ try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e){ return null; } }
+  function save(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch (e){} }
+  function shuffle(a){ var b = a.slice(), same = function(){ return a.length > 1 && b.every(function(x, k){ return x === a[k]; }); }; do { for (var i = b.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)), t = b[i]; b[i] = b[j]; b[j] = t; } } while (same()); return b; }
+  function ills(){ var m = {}; ((window.CDS.assets || {}).illustrations || []).forEach(function(i){ m[i.name] = i.src; }); return m; }
+
+  class CmpLesson extends CDS.Element {
+    static get observedAttributes(){ return ["label"]; }
+    render(){
+      if (!this._built){
+        this._built = true; this._name = "cmp-ls-" + (++uid);
+        this.card = this.appendChild(CDS.create("cds-card", { "has-border": "true" }));
+        this.body = this.card.appendChild(CDS.create("div", { role: "group" }, "cmp-ls"));
+        this.intro();
+      }
+      CDS.attr(this.body, "aria-label", this.getAttribute("label") || "Lição");
+    }
+    get key(){ var k = this.getAttribute("storage-key"); return k ? "cds-lesson:" + k : null; }
+    get list(){ return this.exercises || []; }
+    clear(){ this.body.innerHTML = ""; return this.body; }
+    focusFirst(sel){ var h = this.body.querySelector(sel || ".cmp-ls__q, .cmp-ls__title"); if (h){ h.tabIndex = -1; h.focus({ preventScroll: true }); } }
+
+    // Tela de abertura (ou de resultado anterior): ilustração, título, quantos exercícios e o Main Button de começar
+    screen(o){
+      var c = CDS.create, b = this.clear(), m = ills();
+      var box = b.appendChild(c("div", { "aria-live": "polite" }, "cmp-ls__screen"));
+      if (o.ill && m[o.ill]){ var im = box.appendChild(c("img", { alt: "", width: "120", height: "120" }, "cmp-ls__ill")); im.src = m[o.ill]; }
+      if (o.eyebrow) box.appendChild(c("p", null, "cmp-ls__eyebrow")).textContent = o.eyebrow;
+      box.appendChild(c("p", null, "cmp-ls__title")).textContent = o.title;
+      if (o.text) box.appendChild(c("p", null, "cmp-ls__text")).textContent = o.text;
+      if (o.tags && o.tags.length){ var tg = box.appendChild(c("div", null, "cmp-ls__tags")); o.tags.forEach(function(t){ tg.appendChild(c("cds-tag", { label: t[0], appearance: t[1] || "neutral", "show-lead-item": t[2] ? "true" : "false", icon: t[2] || null })); }); }
+      var acts = box.appendChild(c("div", null, "cmp-ls__screen-actions"));
+      (o.actions || []).forEach(function(a){ var btn = acts.appendChild(c("cds-main-button", { label: a.label, appearance: a.appearance || null, "show-lead-icon": a.icon ? "true" : "false", "lead-icon": a.icon || null, "show-trailing-icon": "false" })); btn.addEventListener("click", a.run); });
+      if (o.link){ acts.appendChild(c("cds-link", { label: o.link.label, href: o.link.href, appearance: "accent", "show-trailing-item": "false" })); }
+      this.focusFirst(".cmp-ls__title");
+    }
+    intro(){
+      var self = this, done = this.key ? load(this.key) : null, n = this.list.length;
+      this.screen({ ill: this.getAttribute("illustration"), eyebrow: done ? "Concluída · " + done.xp + " XP" : "Lição", title: this.getAttribute("heading") || this.getAttribute("label") || "Lição",
+        text: n + " exercícios · 3 vidas. Errou, a questão volta no fim.", tags: done && done.perfect ? [["Sem erros", "positive", "positive-line"]] : null,
+        actions: [{ label: done ? "Fazer de novo" : "Começar lição", icon: done ? "refresh-line" : null, run: function(){ self.start(); } }],
+        link: this.getAttribute("tips-href") ? { label: this.getAttribute("tips-label") || "Rever as dicas", href: this.getAttribute("tips-href") } : null });
+    }
+
+    start(){
+      if (typeof this.resample === "function") this.exercises = this.resample(); // novo sorteio a cada partida, quando quem usa oferece
+      this.queue = this.list.map(function(x, i){ return { ex: x, base: i, review: false }; });
+      this.pos = 0; this.lives = 3; this.extra = false; this.mistakes = 0; this.correct = 0; this.doneBase = {};
+      this.next();
+    }
+    next(){
+      if (this.pos >= this.queue.length) return this.finish();
+      this.item = this.queue[this.pos]; this.answered = false; this.choice = null;
+      this.play();
+    }
+
+    // Tela de exercício: topo (sair · progresso · vidas), tipo, visual, pergunta, resposta, feedback e Fixed Bar
+    play(){
+      var self = this, c = CDS.create, b = this.clear(), it = this.item, ex = it.ex, n = this.list.length;
+      var top = b.appendChild(c("div", null, "cmp-ls__top"));
+      var quit = top.appendChild(c("cds-icon-button", { icon: "close-line", kind: "ghost", appearance: "neutral", size: "small", label: "Sair da lição" }));
+      quit.addEventListener("click", function(){ self.intro(); });
+      var doneCount = Object.keys(this.doneBase).length;
+      top.appendChild(c("cds-nav-control", { viewport: "mobile", total: String(Math.min(n, 10)), current: String(Math.min(doneCount + 1, Math.min(n, 10))), label: "Exercício {n} de {total}" }));
+      this.heartsEl = top.appendChild(c("div", { role: "img" }, "cmp-ls__hearts"));
+      this.drawHearts();
+      var kind = b.appendChild(c("div", null, "cmp-ls__kind"));
+      kind.appendChild(c("span", null, "cmp-ls__kind-text")).textContent = KIND[ex.type] || "";
+      if (it.review) kind.appendChild(c("cds-tag", { label: "Revisão", appearance: "warning", "show-lead-item": "false" }));
+      if (ex.visual){ var vis = c("div", null, "cmp-ls__vis"); vis.appendChild(ex.visual()); b.appendChild(vis); }
+      var area = b.appendChild(c("div", null, "cmp-ls__area"));
+      this.fb = b.appendChild(c("div", { "aria-live": "polite" }, "cmp-ls__fb"));
+      this.bar = b.appendChild(c("cds-fixed-bar", { kind: "pilled", "show-secondary-action": "false", "show-divider": "false", "primary-label": "Verificar", "show-lead-icon": "false" }));
+      this.bar.addEventListener("cds-action", function(e){ if (e.detail.action !== "primary") return; if (self.answered) self.advance(); else self.verify(); });
+      ({ choice: this.uiChoice, verdict: this.uiChoice, fill: this.uiFill, order: this.uiOrder, pairs: this.uiPairs })[ex.type].call(this, area, ex);
+      this.setReady(ex.type === "order");
+      this.focusFirst();
+    }
+    drawHearts(){
+      var c = CDS.create, h = this.heartsEl; h.innerHTML = "";
+      var total = this.extra ? 2 : 3;
+      for (var i = 0; i < total; i++) h.appendChild(c("cds-icon", { icon: i < this.lives ? "favorite-filled" : "favorite-line", size: "medium", appearance: i < this.lives ? "accent" : "neutral", "aria-hidden": "true" }));
+      CDS.attr(h, "aria-label", this.lives + (this.lives === 1 ? " vida" : " vidas"));
+    }
+    primaryBtn(){ return this.bar && this.bar.priEl; } // o Fixed Bar é o .Footer: priEl é o Main Button primário
+    setReady(on){ var p = this.primaryBtn(); if (p) CDS.attr(p, "disabled", on ? null : ""); }
+    setPrimary(label){ CDS.attr(this.bar, "primary-label", label); }
+
+    uiChoice(area, ex){
+      var self = this, c = CDS.create, opts = ex.type === "verdict" ? ["Use", "Não use"] : ex.options, qid = this._name + "-" + this.pos;
+      area.appendChild(c("p", { id: qid }, "cmp-ls__q")).textContent = ex.q;
+      var sl = c("cds-selection-list", { kind: "card", label: ex.q });
+      opts.forEach(function(o, k){ sl.appendChild(c("cds-selection-list-item", { "trailing-item": "radio-button", name: qid, value: String(k), label: o, "show-lead-item": "false", "show-description": "false" })); });
+      area.appendChild(sl); this.choiceEl = sl;
+      sl.addEventListener("cds-change", function(e){ var v = (e.detail.values || [])[0]; if (v == null || self.answered) return; self.choice = Number(v); self.setReady(true); });
+    }
+    uiFill(area, ex){
+      var self = this, c = CDS.create, parts = ex.text.split("___");
+      var p = area.appendChild(c("p", null, "cmp-ls__q"));
+      p.appendChild(document.createTextNode(parts[0]));
+      this.blank = p.appendChild(c("span", null, "cmp-ls__blank")); this.blank.textContent = "______";
+      p.appendChild(document.createTextNode(parts[1] || ""));
+      var g = area.appendChild(c("cds-chips-group", { "role-kind": "multiple", label: "Opções para completar" }));
+      ex.options.forEach(function(o, k){
+        var ch = g.appendChild(c("cds-filter-chip", { label: o, "show-lead-icon": "false" }));
+        ch.addEventListener("cds-change", function(e){
+          if (self.answered) return;
+          [].forEach.call(g.querySelectorAll("cds-filter-chip"), function(x){ if (x !== ch) x.removeAttribute("selected"); });
+          self.choice = e.detail.selected ? k : null; self.blank.textContent = e.detail.selected ? o : "______"; self.setReady(self.choice != null);
+        });
+      });
+      this.choiceEl = g;
+    }
+    uiOrder(area, ex){
+      var self = this, c = CDS.create, cur = shuffle(ex.pieces);
+      area.appendChild(c("p", null, "cmp-ls__q")).textContent = ex.q;
+      var list = area.appendChild(c("ol", { "aria-label": "Peças para ordenar" }, "cmp-ls__pieces"));
+      this.orderCur = cur; this.choiceEl = list;
+      function draw(focus){
+        list.innerHTML = "";
+        cur.forEach(function(t, i){
+          var li = list.appendChild(c("li", null, "cmp-ls__piece"));
+          var card = c("cds-card", { "has-border": "true" }); card.appendChild(c("cds-text-content", { label: (i + 1) + ". " + t, "show-description": "false" })); li.appendChild(card);
+          var mv = li.appendChild(c("div", null, "cmp-ls__move"));
+          [[-1, "up-line", "Subir"], [1, "down-line", "Descer"]].forEach(function(m){
+            var ib = mv.appendChild(c("cds-icon-button", { icon: m[1], label: m[2] + " " + t, kind: "ghost", size: "small", appearance: "neutral" }));
+            if ((m[0] < 0 && i === 0) || (m[0] > 0 && i === cur.length - 1)) ib.setAttribute("disabled", "");
+            ib.addEventListener("click", function(){ if (ib.hasAttribute("disabled") || self.answered) return; var j = i + m[0], t2 = cur[j]; cur[j] = cur[i]; cur[i] = t2; draw(j); });
+          });
+        });
+        if (focus != null){ var tgt = list.children[focus] && list.children[focus].querySelector("cds-icon-button:not([disabled]) button"); if (tgt) tgt.focus(); }
+      }
+      draw();
+    }
+    uiPairs(area, ex){
+      var self = this, c = CDS.create, name = this._name + "-p" + this.pos, left = null, right = null, matched = 0;
+      area.appendChild(c("p", null, "cmp-ls__q")).textContent = ex.q;
+      var cols = area.appendChild(c("div", null, "cmp-ls__pairs"));
+      function col(items, side){ var sl = c("cds-selection-list", { kind: "card", label: side === "l" ? "Coluna da esquerda" : "Coluna da direita" }); items.forEach(function(t){ sl.appendChild(c("cds-selection-list-item", { "trailing-item": "radio-button", name: name + side, value: t, label: t, "show-lead-item": "false", "show-description": "false" })); }); cols.appendChild(sl); return sl; }
+      var L = col(ex.pairs.map(function(p){ return p[0]; }), "l"), R = col(shuffle(ex.pairs.map(function(p){ return p[1]; })), "r");
+      this.choiceEl = cols;
+      function isMatched(sl, v){ return sl.items.some(function(it){ return it.getAttribute("value") === v && it.hasAttribute("data-matched"); }); }
+      function clear(sl){ sl.items.forEach(function(it){ if (it.hasAttribute("data-matched")) return; it.active = false; var inp = it.controlInput; if (inp) inp.checked = false; var rb = it.querySelector("cds-radio-button"); if (rb) rb.setAttribute("status", "unselected"); }); }
+      function test(){
+        if (left == null || right == null) return;
+        var ok = ex.pairs.some(function(p){ return p[0] === left && p[1] === right; });
+        if (ok){
+          [[L, left, right], [R, right, left]].forEach(function(x){ x[0].items.forEach(function(it){ if (it.getAttribute("value") === x[1]){ it.setAttribute("data-matched", ""); it.setAttribute("name", name + "-ok-" + matched); it.setAttribute("tag-label", x[2]); it.setAttribute("trailing-item", "tag"); it.active = true; it.inert = true; var tr = it.trailEl; if (tr){ tr.setAttribute("tag-appearance", "positive"); if (tr.control) tr.control.setAttribute("show-lead-item", "false"); } } }); });
+          matched++; self.fb.innerHTML = "";
+          if (matched === ex.pairs.length){ self.choice = "ok"; self.verify(); }
+        } else {
+          self.loseLife(); self.pairsMiss = true;
+          var al = c("cds-alert", { appearance: "warning", label: "Esse par não combina", "show-close-button": "false" });
+          al.appendChild(c("span")).textContent = left + " não é " + right + ".";
+          self.fb.innerHTML = ""; self.fb.appendChild(al);
+          clear(L); clear(R);
+          if (self.lives <= 0) return self.outOfLives();
+        }
+        left = right = null;
+      }
+      L.addEventListener("cds-change", function(e){ var v = (e.detail.values || []).filter(function(x){ return !isMatched(L, x); })[0]; if (v != null){ left = v; test(); } });
+      R.addEventListener("cds-change", function(e){ var v = (e.detail.values || []).filter(function(x){ return !isMatched(R, x); })[0]; if (v != null){ right = v; test(); } });
+      this.pairsMiss = false;
+      this.bar.hidden = true; // ligar pares confere sozinho a cada par
+    }
+
+    rightText(ex){
+      if (ex.type === "verdict") return ex.answer === "do" ? "Use" : "Não use";
+      if (ex.type === "choice" || ex.type === "fill") return ex.options[ex.answer];
+      if (ex.type === "order") return ex.pieces.join(" → ");
+      return "";
+    }
+    isRight(ex){
+      if (ex.type === "verdict") return (this.choice === 0 ? "do" : "dont") === ex.answer;
+      if (ex.type === "choice" || ex.type === "fill") return this.choice === ex.answer;
+      if (ex.type === "order") return this.orderCur.every(function(t, i){ return t === ex.pieces[i]; });
+      if (ex.type === "pairs") return !this.pairsMiss;
+      return false;
+    }
+    loseLife(){ this.lives = Math.max(0, this.lives - 1); this.mistakes++; this.drawHearts(); }
+    verify(){
+      var c = CDS.create, it = this.item, ex = it.ex, ok = this.isRight(ex), pick = function(a, i){ return a[i % a.length]; };
+      this.answered = true;
+      if (this.choiceEl) this.choiceEl.inert = true;
+      if (ok){ this.correct++; this.doneBase[it.base] = true; }
+      else if (ex.type !== "pairs"){ this.loseLife(); }
+      if (!ok && !it.review){ this.queue.push({ ex: ex, base: it.base, review: true }); } // a questão errada volta no fim, uma vez
+      else if (!ok){ this.doneBase[it.base] = true; }
+      var al = c("cds-alert", { appearance: ok ? "positive" : "warning", label: ok ? pick(RIGHT, this.pos) : pick(WRONG, this.pos), "show-close-button": "false" });
+      var rt = this.rightText(ex);
+      al.appendChild(c("span")).textContent = (ok || !rt ? "" : "A resposta é: " + rt + ". ") + (ex.why || "");
+      this.fb.innerHTML = ""; this.fb.appendChild(al);
+      this.bar.hidden = false; this.setPrimary("Continuar"); this.setReady(true);
+      var p = this.primaryBtn(); if (p){ var b = p.querySelector("button"); if (b) b.focus({ preventScroll: true }); }
+      if (this.lives <= 0) this._outAfter = true;
+    }
+    advance(){
+      if (this._outAfter){ this._outAfter = false; return this.outOfLives(); }
+      this.pos++; this.next();
+    }
+    outOfLives(){
+      var self = this;
+      if (!this.extra){
+        this.extra = true; this.lives = 2;
+        return this.screen({ ill: "objetos/presente-aberto", eyebrow: "As 3 vidas acabaram", title: "Ganhou mais 2 vidas", text: "Para você chegar ao fim da lição. Vale uma vez por lição.",
+          actions: [{ label: "Continuar com 2 vidas", run: function(){ if (self.item && self.item.ex.type === "pairs" && !self.answered){ self.play(); } else { self.pos++; self.next(); } } }] });
+      }
+      this.screen({ ill: "notificacoes/error-low-detail", eyebrow: "As vidas acabaram", title: "Quase lá", text: "Reveja as dicas e comece de novo. Na próxima vai.",
+        actions: [{ label: "Recomeçar lição", icon: "refresh-line", run: function(){ self.start(); } }, { label: "Sair", appearance: "neutral", run: function(){ self.intro(); } }],
+        link: this.getAttribute("tips-href") ? { label: this.getAttribute("tips-label") || "Rever as dicas", href: this.getAttribute("tips-href") } : null });
+    }
+    finish(){
+      var self = this, n = this.list.length, perfect = this.mistakes === 0, xp = 10 + (perfect ? 5 : 0);
+      if (this.key){ var prev = load(this.key) || {}; save(this.key, { xp: Math.max(prev.xp || 0, xp), perfect: !!(prev.perfect || perfect), last: new Date().toISOString().slice(0, 10) }); }
+      this.dispatchEvent(new CustomEvent("cmp-lesson-done", { detail: { xp: xp, correct: n - Math.min(n, this.mistakes), total: n, perfect: perfect }, bubbles: true }));
+      this.screen({ ill: perfect ? "objetos/trofeu" : "objetos/medalha-1", eyebrow: "Lição concluída", title: perfect ? "Sem nenhum erro" : "Mandou bem",
+        text: perfect ? "Você fechou a lição sem perder vida." : "Você terminou a lição. Faça de novo para fechar sem erros.",
+        tags: [["+" + xp + " XP", "accent", "bright-star-line"], [this.mistakes + (this.mistakes === 1 ? " erro" : " erros"), perfect ? "positive" : "neutral"]],
+        actions: [{ label: "Fazer de novo", appearance: "neutral", icon: "refresh-line", run: function(){ self.start(); } }] });
+    }
+  }
+  CmpLesson.define("cmp-lesson");
+})();
+} catch (e) { console.error("[cds] compositions/lesson/lesson.js", e); }
+
+/* ==== compositions/lesson/lesson.playground.js ==== */
+try {
+/* Playground — Lição (composição do playground, não é do DS: ver lesson.js) */
+CDS.register({
+  id: "lesson", name: "Lição", composition: true, category: "Composições",
+  description: "Lição no estilo Duolingo: uma tela por vez, vidas, feedback com Continuar, questão errada volta no fim e tela de XP. Usada no Castanha Quiz.",
+  mount: function(ctx){
+    var kit = ctx.kit;
+    var l = kit.el("cmp-lesson", { label: "Lição de exemplo", heading: "Lição de exemplo", illustration: "interfaces/lista", style: "width:calc(var(--common-sizes-200) * 3); max-width:100%" });
+    l.exercises = [
+      { type: "choice", q: "Para seleção múltipla, qual componente?", options: ["Checkbox", "Radio Button", "Switch"], answer: 0, why: "O Checkbox é para seleção múltipla." },
+      { type: "fill", text: "Use um único Main Button ___ por tela ou seção.", options: ["primário (accent)", "ghost", "neutral"], answer: 0, why: "Um primário por tela deixa a hierarquia clara." },
+      { type: "verdict", q: "Main Button para levar a outra página.", answer: "dont", why: "Navegação entre páginas é com o Link." }
+    ];
+    ctx.preview.appendChild(l);
+    kit.hint(ctx.panel, "Composição do playground (prefixo cmp-): os exercícios entram pela propriedade exercises antes de conectar. Tipos: choice, verdict, fill, order e pairs.");
+  }
+});
+} catch (e) { console.error("[cds] compositions/lesson/lesson.playground.js", e); }
+
 /* ==== compositions/quiz/quiz.js ==== */
 try {
 /**
@@ -10578,25 +10853,19 @@ try {
           { title: "Alert: fixo, no fluxo da tela", attrs: { _tag: "cds-alert", appearance: "informative", label: "Depósito agendado", text: "O saldo cai na conta das pessoas colaboradoras no dia 5." } }
         ] },
 
-        { h2: "Jogo: Qual é o componente?" },
-        { p: "Seis componentes ao vivo. Diga o nome de cada um." },
-        { quiz: { label: "Jogo · Qual é o componente?", storageKey: "componentes-jogo", results: GAME6(), questions: [
-          { visual: look(V.q.sw), q: "Que componente é este?", options: ["Checkbox", "Switch", "Radio Button"], answer: 1, why: "O Switch liga ou desliga uma configuração, com efeito automático." },
-          { visual: look(V.q.rb), q: "E este?", options: ["Radio Button", "Checkbox", "Switch"], answer: 0, why: "O Radio Button é para seleção única, em conjuntos de menos de cinco opções." },
-          { visual: look(V.q.link), q: "E este?", options: ["Main Button Ghost", "Tag", "Link"], answer: 2, why: "O Link leva para outra página. Para ações, o Main Button." },
-          { visual: look(V.q.tag), q: "E este?", options: ["Tag", "Badge", "Main Button"], answer: 0, why: "A Tag é da família Status: identifica um estado, como Ativo." },
-          { visual: look(V.q.ib), q: "E este?", options: ["Icon", "Icon Button", "Avatar"], answer: 1, why: "Ícone com ação fica dentro do Icon Button: o Medium tem 48px e garante a área de toque." },
-          { visual: look(V.q.alert), q: "E este?", options: ["Toast", "Modal", "Alert"], answer: 2, why: "O Alert é fixo e persistente, no fluxo da tela, para mensagens que precisam ficar visíveis." }
-        ] } },
-
-        { h2: "Quiz" },
-        { p: "Cinco perguntas sobre o treinamento." },
-        { quiz: { label: "Quiz · Componentes", storageKey: "componentes-quiz", results: RES(false), questions: [
-          { q: "Para levar a pessoa a outra página, use…", options: ["Main Button", "Link", "Icon Button"], answer: 1, why: "Main Button é para ações. Navegação entre páginas é com o Link." },
-          { q: "A pessoa pode escolher várias opções ao mesmo tempo. Qual componente?", options: ["Checkbox", "Radio Button", "Switch"], answer: 0, why: "O Checkbox é para seleção múltipla." },
-          { q: "Uma configuração que liga e desliga, com efeito na hora:", options: ["Radio Button", "Checkbox", "Switch"], answer: 2, why: "O Switch habilita ou desabilita configurações com efeito automático." },
-          { q: "Uma confirmação breve, que some sozinha sem interromper o fluxo:", options: ["Toast", "Alert", "Modal"], answer: 0, why: "O Toast é temporário e não bloqueia. O Alert fica fixo e o Modal exige uma ação." },
-          { q: "Quantos Main Buttons primários (accent) por tela ou seção?", options: ["Quantos a tela precisar", "Dois, um para cada lado", "Um"], answer: 2, why: "Use um único Main Button primário por tela ou seção, para a hierarquia ficar clara." }
+        { h2: "Lição" },
+        { p: "Dez exercícios, uma tela por vez. Você tem 3 vidas, e a questão errada volta no fim da lição." },
+        { lesson: { label: "Lição · Componentes", heading: "Qual componente usar?", illustration: "interfaces/lista", storageKey: "componentes", tips: { href: "#/castanha-quiz/componentes", label: "Rever as dicas" }, exercises: [
+          { type: "choice", visual: look(V.q.sw), q: "Que componente é este?", options: ["Checkbox", "Switch", "Radio Button"], answer: 1, why: "O Switch liga ou desliga uma configuração, com efeito automático." },
+          { type: "fill", text: "Para seleção múltipla, use o ___.", options: ["Checkbox", "Radio Button", "Switch"], answer: 0, why: "O Checkbox é para seleção múltipla." },
+          { type: "verdict", visual: look(V.q.link), q: "Main Button para levar a pessoa a outra página.", answer: "dont", why: "Navegação entre páginas é com o Link. O Main Button é para ações." },
+          { type: "choice", visual: look(V.q.rb), q: "E este?", options: ["Radio Button", "Checkbox", "Switch"], answer: 0, why: "O Radio Button é para seleção única, em conjuntos de menos de cinco opções." },
+          { type: "pairs", q: "Ligue cada componente ao uso.", pairs: [["Checkbox", "Várias opções ao mesmo tempo"], ["Radio Button", "Uma opção entre poucas"], ["Switch", "Liga ou desliga na hora"], ["Toast", "Mensagem breve que some sozinha"]], why: "Cada controle tem o seu caso: múltipla, única, liga e desliga, e a mensagem breve." },
+          { type: "choice", q: "Uma confirmação breve, que some sozinha sem interromper o fluxo:", options: ["Toast", "Alert", "Modal"], answer: 0, why: "O Toast é temporário e não bloqueia. O Alert fica fixo e o Modal exige uma ação." },
+          { type: "fill", text: "Use um único Main Button ___ por tela ou seção.", options: ["primário (accent)", "ghost", "neutral"], answer: 0, why: "Um primário por tela ou seção deixa a hierarquia clara." },
+          { type: "choice", visual: look(V.q.ib), q: "E este?", options: ["Icon", "Icon Button", "Avatar"], answer: 1, why: "Ícone com ação fica dentro do Icon Button: o Medium tem 48px e garante a área de toque." },
+          { type: "order", q: "Do aviso que menos interrompe ao que mais interrompe:", pieces: ["Toast: some sozinho", "Alert: fica fixo na tela", "Modal: exige uma ação"], why: "O Toast não interrompe, o Alert fica no fluxo e o Modal pede uma ação antes de seguir." },
+          { type: "choice", visual: look(V.q.alert), q: "E este?", options: ["Toast", "Modal", "Alert"], answer: 2, why: "O Alert é fixo e persistente, no fluxo da tela." }
         ] } }
       ] },
 
@@ -10834,6 +11103,92 @@ try {
       ] }
     ]
   };
+
+  // ---- Aba Jogar (pedido do Gustavo, 08/10): as abas de tema ficam só com o estudo; os jogos, quizzes e quebra-cabeças viram
+  // um banco de exercícios por tema, e a aba Jogar monta uma lição (composição <cmp-lesson>) com os temas escolhidos
+  var DOC = CDS.docs["castanha-quiz"], BANK = {}, NAMES = {}, ORDER = [];
+  DOC.tabs.forEach(function(t){
+    if (t.id === "inicio") return;
+    var i = -1; t.blocks.some(function(b, k){ if (b.h2 && /^(Jogo|Quiz|Quebra-cabeça|Lição)/.test(b.h2)){ i = k; return true; } return false; });
+    if (i < 0) return;
+    var ex = [], seen = {};
+    function add(x){ var k = x.type + "|" + (x.q || x.text); if (seen[k]) return; seen[k] = 1; ex.push(x); }
+    t.blocks.slice(i).forEach(function(b){
+      if (b.lesson) b.lesson.exercises.forEach(add);
+      if (b.quiz){ var q = b.quiz;
+        if (q.kind === "order") add({ type: "order", q: q.prompt, pieces: q.pieces, why: q.why });
+        else if (q.kind === "pairs") add({ type: "pairs", q: q.prompt, pairs: q.pairs, why: q.why });
+        else q.questions.forEach(function(x){ add(Object.assign({}, x, { type: q.kind === "verdict" ? "verdict" : "choice" })); });
+      }
+    });
+    BANK[t.id] = ex; NAMES[t.id] = t.title; ORDER.push(t.id);
+    t.blocks = t.blocks.slice(0, i).concat([
+      { h2: "Pratique" },
+      { p: "Estudou? Teste o que ficou na aba Jogar: escolha " + t.title + " sozinho ou junto com outros temas." },
+      { shortcuts: [{ title: "Jogar " + t.title, text: ex.length + " exercícios no banco deste tema. A lição sorteia 10, com 3 vidas.", illustration: "objetos/foguete", href: "#/castanha-quiz/jogar", cta: "Ir para Jogar" }] }
+    ]);
+    t.blocks.forEach(function(b){ if (b.banner && /jogo e quiz/.test(b.banner.eyebrow || "")) b.banner.eyebrow = "5 min de estudo"; });
+  });
+
+  // Sorteio: até 10 exercícios, alternando os temas escolhidos; no máximo 2 de ordenar ou ligar pares
+  function sample(ids, n){
+    var pools = ids.map(function(id){ return BANK[id].slice().sort(function(){ return Math.random() - 0.5; }); }), out = [], heavy = 0, k = 0, guard = 0;
+    while (out.length < n && pools.some(function(p){ return p.length; }) && guard++ < 500){
+      var p = pools[k++ % pools.length]; if (!p.length) continue;
+      var x = p.shift(); if (x.type === "order" || x.type === "pairs"){ if (heavy >= 2) continue; heavy++; }
+      out.push(x);
+    }
+    return out;
+  }
+  var TOTAL = "cds-lesson:_total";
+  function getTotal(){ try { return JSON.parse(localStorage.getItem(TOTAL) || "null") || { xp: 0 }; } catch (e){ return { xp: 0 }; } }
+  function addXp(n){ var t = getTotal(); t.xp = (t.xp || 0) + n; try { localStorage.setItem(TOTAL, JSON.stringify(t)); } catch (e){} return t; }
+
+  function jogar(){
+    var c = function(t, a, k){ return CDS.create(t, a, k); };
+    var wrap = c("div", null, "pg-cq__play");
+    var head = wrap.appendChild(c("div", null, "pg-cq__play-head"));
+    head.appendChild(c("p", null, "pg-cq__cap")).textContent = "Escolha os temas";
+    var xpTag = head.appendChild(c("cds-tag", { appearance: "accent", icon: "bright-star-line" }));
+    function drawXp(){ xpTag.setAttribute("label", getTotal().xp + " XP no total"); }
+    drawXp();
+    var chips = wrap.appendChild(c("cds-chips-group", { "role-kind": "multiple", label: "Temas do jogo" }));
+    var all = chips.appendChild(c("cds-filter-chip", { label: "Todos", "show-lead-icon": "false", selected: "" }));
+    var themeChips = ORDER.map(function(id){ var ch = chips.appendChild(c("cds-filter-chip", { label: NAMES[id], "show-lead-icon": "false" })); ch._id = id; return ch; });
+    var host = wrap.appendChild(c("div", null, "pg-cq__play-lesson"));
+    function chosen(){ var ids = themeChips.filter(function(ch){ return ch.hasAttribute("selected"); }).map(function(ch){ return ch._id; }); return ids.length ? ids : ORDER.slice(); }
+    function build(){
+      var ids = chosen(), isAll = ids.length === ORDER.length;
+      var l = c("cmp-lesson", { label: "Jogo · " + (isAll ? "Todos os temas" : ids.map(function(id){ return NAMES[id]; }).join(" + ")),
+        heading: isAll ? "Todos os temas" : ids.map(function(id){ return NAMES[id]; }).join(" + "), illustration: "objetos/foguete",
+        "storage-key": "jogo-" + (isAll ? "todos" : ids.slice().sort().join("+")) });
+      l.exercises = sample(ids, 10);
+      l.resample = function(){ return sample(ids, 10); }; // cada partida sorteia de novo
+      l.addEventListener("cmp-lesson-done", function(e){ addXp(e.detail.xp); drawXp(); });
+      host.innerHTML = ""; host.appendChild(l);
+    }
+    // Todos marca tudo; escolher um tema desmarca Todos; sem nenhum tema, volta para Todos
+    all.addEventListener("cds-change", function(e){ if (e.detail.selected) themeChips.forEach(function(ch){ ch.removeAttribute("selected"); }); else all.setAttribute("selected", ""); build(); });
+    themeChips.forEach(function(ch){ ch.addEventListener("cds-change", function(){
+      var any = themeChips.some(function(x){ return x.hasAttribute("selected"); });
+      if (any) all.removeAttribute("selected"); else all.setAttribute("selected", "");
+      build();
+    }); });
+    build();
+    return wrap;
+  }
+  var inicio = DOC.tabs[0];
+  DOC.tabs.splice(1, 0, { id: "jogar", title: "Jogar", blocks: [
+    { banner: { area: "aprenda", eyebrow: "Castanha Quiz", heading: "Hora de jogar", text: "Escolha um tema, vários ou todos. A lição sorteia 10 exercícios, com 3 vidas, e a questão errada volta no fim." } },
+    { visual: { render: jogar, bare: true } },
+    { note: "O XP e o melhor resultado de cada combinação ficam guardados neste navegador. Nada sai daqui." }
+  ] });
+  // Início: estudo nas abas de tema, prática na aba Jogar
+  inicio.blocks.forEach(function(b){
+    if (b.banner) b.banner.text = "Estude cada tema em uns 5 minutos e pratique na aba Jogar, com os temas que quiser.";
+    if (b.p && /Cada tema tem/.test(b.p)) b.p = "Cada tema tem um treinamento rápido. Depois, pratique na aba Jogar, com um tema só ou vários juntos.";
+    if (b.shortcuts){ (b.shortcuts.items || b.shortcuts).forEach(function(it){ it.text = it.text.replace(/ Jogos?: .*$/, ""); it.cta = "Estudar"; }); }
+  });
 })();
 } catch (e) { console.error("[cds] resources/castanha-quiz/castanha-quiz.js", e); }
 
@@ -14985,4 +15340,4 @@ try {
 
 /* ==== docs sob demanda (gerado) ==== */
 window.CDS = window.CDS || {}; CDS.docsIndex = {"backdrop":{"src":"components/backdrop/backdrop.docs.js?v=65945f2f","desc":"Backdrop é um componente de superfície utilizado para criar uma camada de bloqueio visual entre o conteúdo base da interface e elementos em primeiro plano, como modais e drawers."},"badge":{"src":"components/badge/badge.docs.js?v=3e0548a5","desc":"O Badge é um elemento visual usado exclusivamente para indicar notificações ou atualizações. Ele serve como um alerta discreto que informa a pessoa usuária sobre algo novo ou pendente em um determinado contexto da interface."},"caju-brand":{"src":"components/caju-brand/caju-brand.docs.js?v=a44569e9","desc":"O Caju Brand é um elemento visual fundamental que representa a identidade da Caju dentro dos fluxos do produto. Ele garante consistência no uso da marca, evitando distorções, cores inadequadas ou aplicações incorretas."},"calendar-day":{"src":"components/calendar-day/calendar-day.docs.js?v=abc00938","desc":"Cada dia do Date Picker: número, estado de seleção e o ponto do dia atual."},"calendar-week":{"src":"components/calendar-week/calendar-week.docs.js?v=68d3811f","desc":"Uma linha de 7 dias do Date Picker."},"card":{"src":"components/card/card.docs.js?v=f96742ea","desc":"O componente Card é um contêiner visual usado para agrupar informações relacionadas de forma clara e compacta."},"credit-card-flags":{"src":"components/card-flag/card-flag.docs.js?v=9cf412ba","desc":"Simula visualmente qualquer cartão e pode simbolizar uma bandeira específica."},"currency":{"src":"components/currency/currency.docs.js?v=82d20ffb","desc":"O Currency é um componente de exibição utilizado para apresentar valores monetários de forma padronizada, legível e consistente nas interfaces da Caju."},"currency-content":{"src":"components/currency-content/currency-content.docs.js?v=1c192490","desc":"Valor em moeda com o símbolo, o sinal de negativo opcional e uma descrição embaixo."},"currency-symbol":{"src":"components/currency-symbol/currency-symbol.docs.js?v=18f12baa","desc":"Símbolo da moeda usado nas células de valor da Table."},"divider":{"src":"components/divider/divider.docs.js?v=658da706","desc":"O componente Divider é uma linha fina que separa visualmente agrupamentos de conteúdo em uma interface. Ele atua como uma âncora visual, ajudando a pessoa usuária a escanear e compreender a hierarquia e o relacionamento entre os elementos da página."},"icon":{"src":"components/icon/icon.docs.js?v=6c4b763a","desc":"Icon (ícone) é uma representação visual direta que auxilia na comunicação de ações, estados, tipos de conteúdo ou categorias."},"avatar":{"src":"components/avatar/avatar.docs.js?v=115ebd44","desc":"O Avatar é um componente utilizado para representar visualmente uma pessoa usuária, seja por meio de imagem, iniciais ou ícone padrão. Ele agiliza a identificação de perfis em áreas onde o contexto pessoal é relevante."},"breadcrumb-item":{"src":"components/breadcrumb-item/breadcrumb-item.docs.js?v=d989392b","desc":"Cada nível do Breadcrumb: separador e conteúdo (link, página atual ou o \"…\" do Truncate)."},"caju-card":{"src":"components/caju-card/caju-card.docs.js?v=893becf1","desc":"O Caju Card simula visualmente os diferentes tipos de cartões da Caju nos cenários físicos e virtuais seguindo as diretrizes das lojinhas de app."},"close-toast":{"src":"components/close-toast/close-toast.docs.js?v=6733b6dc","desc":"Botão de fechar do Toast: 40×40, com o ícone close-line."},"close-alert":{"src":"components/close-alert/close-alert.docs.js?v=7209e59c","desc":"Botão de fechar do Alert: 40×40, com o ícone close-line."},"content-banner":{"src":"components/content-banner/content-banner.docs.js?v=68e995dd","desc":"Building block interno do Banner. Agrupa título, descrição e indicação de CTA."},"csat-item":{"src":"components/csat-item/csat-item.docs.js?v=bb328e74","desc":"Cada nível do CSAT Score: estrela e rótulo."},"csat-score":{"src":"components/csat-score/csat-score.docs.js?v=98367a50","desc":"O CSAT Score é um componente de avaliação utilizado para medir o nível de satisfação da pessoa usuária em relação a uma experiência, funcionalidade ou interação específica, por meio de uma escala ordinal visual representada por ícones e rótulos textuais."},"filter-chips":{"src":"components/filter-chip/filter-chip.docs.js?v=4d19bef0","desc":"Chip que liga e desliga um filtro: selecionado, troca o ícone pelo check e inverte as cores."},"icon-button":{"src":"components/icon-button/icon-button.docs.js?v=ac46ea69","desc":"O Icon Button é um botão compacto que exibe um ícone, sem rótulo de texto. Ele é utilizado para ações pontuais, geralmente secundárias, em interfaces que exigem economia de espaço e onde o significado do ícone é amplamente reconhecido."},"header":{"src":"components/header/header.docs.js?v=0b0ddcc8","desc":"Cabeçalho do Modal e do Bottom Sheet: título, botão de fechar e divisor."},"icons-block":{"src":"components/icons-block/icons-block.docs.js?v=f1f31450","desc":"Ícone do Filter Button: filtro (Default) ou calendário (Date)."},"filter-button":{"src":"components/filter-button/filter-button.docs.js?v=ce828b95","desc":"O Filter Button é um botão que serve como gatilho para filtros e, quando acionado, abre opções para refinar ou ajustar a exibição de conteúdos, listas ou tabelas."},"image":{"src":"components/image/image.docs.js?v=401442e2","desc":"O componente Image é utilizado para exibir imagens estáticas em diferentes contextos do produto, garantindo consistência visual e preservação correta das proporções. Ele oferece controle direto, permitindo que a imagem se adapte a diferentes layouts sem distorção."},"banner":{"src":"components/banner/banner.docs.js?v=68e35d7b","desc":"O Banner destaca conteúdo promocional ou informação relevante em uma área própria da tela. Reúne título, descrição e indicação de ação em um bloco clicável por inteiro, com fundo de cor livre ou imagem de fundo. Serve para atrair a pessoa usuária sem interromper o que ela está fazendo."},"input-chips":{"src":"components/input-chip/input-chip.docs.js?v=30038524","desc":"Chip que mostra um valor escolhido e pode ser removido com um clique."},"chips-group":{"src":"components/chips-group/chips-group.docs.js?v=10be02b2","desc":"Container que organiza Filter Chips ou Input Chips em uma linha com rolagem ou em várias linhas."},"link":{"src":"components/link/link.docs.js?v=e0439fbd","desc":"O Link é um elemento interativo que direciona o usuário para outro destino, como páginas internas, externas, seções específicas ou downloads."},"list-lead-item":{"src":"components/list-lead-item/list-lead-item.docs.js?v=23969ecf","desc":"Item à esquerda das listas: Avatar, Icon ou Image."},"main-button":{"src":"components/main-button/main-button.docs.js?v=29b06b5c","desc":"Main Button é um componente interativo usado para executar a ações mais importantes em uma tela, formulário ou fluxo."},"date-navigation":{"src":"components/date-navigation/date-navigation.docs.js?v=715e0489","desc":"Navegação do Date Picker: mês anterior, mês, ano e próximo mês."},"date-picker":{"src":"components/date-picker/date-picker.docs.js?v=f141eaf3","desc":"Calendário para escolher uma data ou um intervalo de datas, com navegação por mês e ano."},"drop-button":{"src":"components/drop-button/drop-button.docs.js?v=04fa3964","desc":"O Drop Button é um botão interativo que, ao ser acionado, abre um menu suspenso com opções de ação diretamente relacionadas ao contexto do botão. Ele combina a função de acionador visual com o acesso direto a um conjunto de comandos organizados."},"footer":{"src":"components/footer/footer.docs.js?v=4fd316e9","desc":"Rodapé do Modal e do Bottom Sheet: divisor e as ações (primária e secundária)."},"fixed-bar":{"src":"components/fixed-bar/fixed-bar.docs.js?v=dc85cbb8","desc":"A Fixed bar é uma área fixa posicionada na base da interface que agrupa duas ações relacionadas — uma primária e outra secundária. Ela é utilizada para decisões importantes no final de fluxos ou seções, permanecendo sempre acessível para a pessoa usuária."},"nav-control-item":{"src":"components/nav-control-item/nav-control-item.docs.js?v=1cf64b82","desc":"Cada indicador do Nav Control: ponto 6×6, que cresce para 16×6 quando ativo."},"nav-control":{"src":"components/nav-control/nav-control.docs.js?v=27e527d5","desc":"O Nav Control é um componente visual utilizado como indicador de navegação, normalmente associado a carrosséis ou fluxos paginados. Ele representa, de forma ilustrativa, a quantidade total de itens e qual deles está em foco no momento."},"carousel":{"src":"components/carousel/carousel.docs.js?v=49ed1a06","desc":"Organiza de 3 a 10 itens em sequência horizontal, um por vez, com pré-visualização parcial do próximo."},"nps-value-item":{"src":"components/nps-value-item/nps-value-item.docs.js?v=f5a685e1","desc":"Cada valor do NPS Score: pílula 24 com o número."},"nps-score":{"src":"components/nps-score/nps-score.docs.js?v=6e2990ea","desc":"O NPS Score é um componente de seleção única utilizado para capturar a percepção da pessoa usuária em relação a uma experiência, produto ou serviço, geralmente em uma escala numérica de 0 a 10."},"popover":{"src":"components/popover/popover.docs.js?v=c94fbb76","desc":"Popover é um pequeno overlay contextual que aparece quando o usuário interage com um elemento da interface. Ele permite exibir conteúdos adicionais, ações ou informações complementares de forma leve, sem interromper o fluxo principal da experiência."},"breadcrumb":{"src":"components/breadcrumb/breadcrumb.docs.js?v=1bd9075e","desc":"O Breadcrumb é um componente de navegação que mostra a localização atual do usuário dentro de uma hierarquia ou estrutura de conteúdo. Ele oferece links para os níveis superiores, facilitando a navegação."},"progress-line":{"src":"components/progress-line/progress-line.docs.js?v=a7528d42","desc":"O Progress Line é um indicador visual não interativo que representa o progresso de uma operação ao longo do tempo, ajudando a pessoa usuária a entender em que estágio o processo se encontra."},"progress-tracker-item":{"src":"components/progress-tracker-item/progress-tracker-item.docs.js?v=c9030f96","desc":"Etapa individual do Progress Tracker."},"progress-tracker":{"src":"components/progress-tracker/progress-tracker.docs.js?v=a89ff0c7","desc":"Indica o avanço de uma pessoa em um fluxo de múltiplas etapas, mostrando o que já foi concluído, onde ela está e o que ainda falta."},"checkbox":{"src":"components/checkbox/checkbox.docs.js?v=4fbb35d8","desc":"O checkbox é Componente interativo usado para selecionar ou desmarcar opções. Pode ser preenchido com um checkmark (✔) caso seja selecionado, ou por um traço (—) quando indeterminado. Utilizado em formulários e filtros, permitindo múltiplas seleções."},"radio-button":{"src":"components/radio-button/radio-button.docs.js?v=9f6fe1d4","desc":"Radio Button é um componente interativo usado para permitir ao usuário selecionar uma única opção de um conjunto. Essencial em formulários para escolhas únicas."},"shaped-icon":{"src":"components/shaped-icon/shaped-icon.docs.js?v=68f13907","desc":"O Shaped Icon é um ícone envolto por um fundo colorido e com formato definido, que confere maior ênfase visual e peso hierárquico. Ele é utilizado para evidenciar categorias, ações contextuais ou estados visuais sem depender de interação."},"alert":{"src":"components/alert/alert.docs.js?v=885a20f3","desc":"Mensagem fixa e persistente sobre o sistema, que fica visível até a pessoa usuária ler ou fechar."},"confirmation-message":{"src":"components/confirmation-message/confirmation-message.docs.js?v=5087ae73","desc":"Mostre o resultado de uma ação com ícone, título e descrição centralizados."},"dropzone":{"src":"components/dropzone/dropzone.docs.js?v=62b11669","desc":"O Dropzone é a área delimitada onde a pessoa usuária adiciona arquivos, pelo botão de seleção ou arrastando o arquivo para dentro dela. A área informa os formatos e limites aceitos antes do envio. O acompanhamento de cada arquivo enviado fica no Upload Item."},"file-lead-item":{"src":"components/file-lead-item/file-lead-item.docs.js?v=7d49330c","desc":"Miniatura do arquivo no Upload Item: imagem ou ícone de anexo, com a ação de ver o arquivo."},"lead-item":{"src":"components/lead-item/lead-item.docs.js?v=f404504e","desc":"Elemento à esquerda do Topic: Shaped Icon ou imagem 40×40."},"skeleton":{"src":"components/skeleton/skeleton.docs.js?v=3c935598","desc":"Placeholder de carregamento que ocupa o espaço de um conteúdo enquanto ele não chegou."},"slider":{"src":"components/slider/slider.docs.js?v=b4725007","desc":"Slider de seleção de valor num intervalo."},"spinner":{"src":"components/spinner/spinner.docs.js?v=1d25a27b","desc":"O Spinner é um indicador visual de atividade não interativa que informa à pessoa usuária que o sistema está processando uma ação em segundo plano."},"sponsor-category":{"src":"components/sponsor-category/sponsor-category.docs.js?v=c7d3f5f5","desc":"Item de navegação do Side Menu. Intent=Default navega direto, e Intent=Accordion abre subitens no Slot."},"sponsor-subcategory":{"src":"components/sponsor-subcategory/sponsor-subcategory.docs.js?v=99829327","desc":"Item de segundo nível do Side Menu, dentro do Slot de um .Category com Intent=Accordion."},"sponsor-user-profile":{"src":"components/sponsor-user-profile/sponsor-user-profile.docs.js?v=040bc349","desc":"Rodapé de identificação do Side Menu: avatar, nome e CNPJ, com ação opcional."},"status-dot":{"src":"components/status-dot/status-dot.docs.js?v=50b743c4","desc":"Indicador compacto de estado, formado por um ponto colorido e um rótulo em texto."},"switch":{"src":"components/switch/switch.docs.js?v=1c8eee92","desc":"O Switch é um componente que funciona como um interruptor digital, alterando imediatamente o estado de uma configuração entre opções binárias, como sim ou não, e ligado ou desligado, sem necessidade de confirmação."},"checkbox-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Checkboxes com um nome para o conjunto: zero, uma ou várias opções."},"radio-button-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Radio Buttons com um nome para o conjunto: exatamente uma opção."},"switch-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Switches com um nome para o conjunto: cada um liga ou desliga uma configuração na hora."},"system-banner":{"src":"components/system-banner/system-banner.docs.js?v=b00a0529","desc":"Aviso do sistema que ocupa a largura toda da página, com a mesma anatomia do Alert."},"tab-item":{"src":"components/tab-item/tab-item.docs.js?v=737b8a53","desc":"Cada aba da Fixed Tab e da Scrollable Tab: Lead Item opcional, Label e o sublinhado."},"fixed-tab":{"src":"components/fixed-tab/fixed-tab.docs.js?v=adf9d425","desc":"O Tabs organiza conteúdos relacionados em seções paralelas dentro da mesma página, permitindo que a pessoa usuária alterne rapidamente entre contextos sem navegação externa."},"scrollable-tab":{"src":"components/scrollable-tab/scrollable-tab.docs.js?v=3607a757","needs":["fixed-tab"],"desc":"Abas no tamanho do conteúdo, com rolagem horizontal. Mesma documentação de Tabs da Fixed Tab."},"tab-view":{"src":"components/tab-view/tab-view.docs.js?v=8e22521c","desc":"Alterna a visualização de uma lista entre lista e grade."},"table-head":{"src":"components/table-head/table-head.docs.js?v=7903b75b","desc":"Título de coluna da Table, com ordenação."},"table-toolbar":{"src":"components/table-toolbar/table-toolbar.docs.js?v=0df2607c","desc":"Barra de ações acima da Table."},"tag":{"src":"components/tag/tag.docs.js?v=5a9e9225","desc":"Tag são rótulos compactos e visualmente distintos usados para rapidamente categorizar, identificar e organizar itens."},"balance-card":{"src":"components/balance-card/balance-card.docs.js?v=c5840ec2","desc":"Exibe o saldo de uma categoria com rótulo, valor e status complementares."},"sponsor-header":{"src":"components/sponsor-header/sponsor-header.docs.js?v=3fcf1aaa","desc":"Cabeçalho de página dos templates web do Sponsor: navegação (voltar, breadcrumb e ações utilitárias) e área de título com as ações da página."},"sponsor-side-menu":{"src":"components/sponsor-side-menu/sponsor-side-menu.docs.js?v=d3d1e6ab","desc":"Navegação lateral do app Sponsor: colapsado (80px, só ícones) e expandido (360px), que no desktop abre por hover em overlay sobre o conteúdo."},"table-cell":{"src":"components/table-cell/table-cell.docs.js?v=14a427a8","desc":"Célula de dados da Table: texto, valor, percentual, Tag, Checkbox, Link ou ações."},"text-content":{"src":"components/text-content/text-content.docs.js?v=fd862195","desc":"Par de textos (Label e Description) com o destaque no Label ou na Description."},"accordion-item":{"src":"components/accordion-item/accordion-item.docs.js?v=824db8ab","desc":"Item de um accordion: um header com título que revela conteúdo adicional (no Slot) ao ser expandido."},"accordion":{"src":"components/accordion/accordion.docs.js?v=44db65bf","desc":"O Accordion agrupa vários Accordion Items em uma lista de seções expansíveis, que a pessoa abre sob demanda."},"code-input-otp":{"src":"components/code-input-otp/code-input-otp.docs.js?v=ee42108f","desc":"Campo de código de verificação (OTP/PIN): uma fileira de células de um caractere, preenchidas uma a uma, para inserir um código curto recebido por SMS, e-mail ou app autenticador."},"credit-card-input":{"src":"components/credit-card-input/credit-card-input.docs.js?v=f10e590f","desc":"Campo para inserir o número de um cartão de crédito."},"date-input":{"src":"components/date-input/date-input.docs.js?v=5085dd0b","desc":"Campo de data da família Text Fields: digitar com máscara dd/mm/aaaa ou escolher no calendário."},"password-input":{"src":"components/password-input/password-input.docs.js?v=afaea942","desc":"O Password Input é um campo de entrada específico para senhas."},"quantity-input":{"src":"components/quantity-input/quantity-input.docs.js?v=d00bba47","desc":"O Quantity Input é um campo numérico com controles de incremento e decremento."},"search-input":{"src":"components/search-input/search-input.docs.js?v=5e1d2ba6","desc":"Campo de busca da família Text Fields: lupa fixa e botão de limpar quando há texto."},"text-area":{"src":"components/text-area/text-area.docs.js?v=beb8d21c","desc":"O Text Area é um campo de entrada multilinha que permite à pessoa usuária digitar textos mais longos, como descrições, observações ou comentários."},"text-input":{"src":"components/text-input/text-input.docs.js?v=9841ec39","desc":"O Text Input é um campo de entrada para coleta de informações textuais curtas fornecidas pela pessoa usuária."},"toast":{"src":"components/toast/toast.docs.js?v=82f85974","desc":"O Toast é um componente de notificação temporária que informa a pessoa usuária sobre o resultado de uma ação ou estado do sistema. Ele aparece de forma discreta na interface e desaparece automaticamente após alguns segundos, sem interromper o fluxo de navegação."},"tooltip":{"src":"components/tooltip/tooltip.docs.js?v=145db2e0","desc":"São caixas flutuantes que proporcionam informações sobre algum aspecto da interface que mereça maior atenção."},"topic":{"src":"components/topic/topic.docs.js?v=34a407f2","desc":"Apresente um tópico com ícone ou imagem, título e descrição."},"trailing-item":{"src":"components/trailing-item/trailing-item.docs.js?v=f3876cc2","desc":"Item à direita das listas: Checkbox, Radio Button, Switch, Icon ou Tag."},"content-list-item":{"src":"components/content-list-item/content-list-item.docs.js?v=a9780daa","desc":"O Content list item é um bloco de conteúdo que organiza informações de forma clara e escaneável dentro de listas. Ele combina elementos como título, descrição, ícone, avatar ou status, ajudando o usuário a identificar de relance itens, conteúdos ou ações relacionadas."},"content-list":{"src":"components/content-list/content-list.docs.js?v=6ad148d0","desc":"O Content List é um componente que agrupa e organiza múltiplos Content List Items em uma estrutura única e consistente. Ele funciona como um container, permitindo que diferentes tipos de conteúdo sejam exibidos de forma clara e hierárquica. Pode conter itens informativos, de navegação ou de transações financeiras, adaptando-se a diferentes contextos de uso."},"selection-list-item":{"src":"components/selection-list-item/selection-list-item.docs.js?v=285ee023","desc":"O Selection List Item é um componente de seleção que combina título, descrição e ícone para enriquecer a apresentação das opções. Ele amplia a clareza das escolhas, indo além de seletores básicos como checkbox, radio ou switch."},"async-creatable-select-input":{"src":"components/async-creatable-select-input/async-creatable-select-input.docs.js?v=b89d5e8e","needs":["async-select-input"],"desc":"Como o Async e, quando o texto digitado não existe nas opções, oferece \"Adicionar “…”\" para criar a opção. Faz parte da família Select Input."},"async-select-input":{"src":"components/async-select-input/async-select-input.docs.js?v=5ef84b74","desc":"O Select input permite que a pessoa usuária escolha uma ou mais opções a partir de uma lista pré-definida."},"checkbox-select-input":{"src":"components/checkbox-select-input/checkbox-select-input.docs.js?v=b47659af","needs":["async-select-input"],"desc":"Vários valores sem busca: a lista fica aberta enquanto marca, e o campo mostra quantos foram selecionados. Faz parte da família Select Input."},"multi-select-input":{"src":"components/multi-select-input/multi-select-input.docs.js?v=aff1ad3a","needs":["async-select-input"],"desc":"Vários valores com busca: cada escolha vira um Input Chip dentro do campo. Faz parte da família Select Input."},"radio-select-input":{"src":"components/radio-select-input/radio-select-input.docs.js?v=60d32c71","needs":["async-select-input"],"desc":"Escolha única sem busca: o campo abre a lista de opções, com Radio Button. Faz parte da família Select Input."},"select-number":{"src":"components/select-number/select-number.docs.js?v=2910fc7a","desc":"Seletor de número do Pagination (itens por página e página atual), com lista em Popover."},"pagination":{"src":"components/pagination/pagination.docs.js?v=1acb2983","desc":"O Pagination (paginação) permite navegar entre conjuntos de dados distribuídos em várias páginas, otimizando a performance da visualização e facilitando o consumo de grandes volumes de dados."},"selection-list":{"src":"components/selection-list/selection-list.docs.js?v=3a43fe13","desc":"O Selection List é um agrupamento de opções organizadas em lista, permitindo que o usuário faça uma ou múltiplas seleções de forma clara e consistente. Ele é formado por instâncias do componente Selection List Item empilhados e separados por divisores visuais, facilitando a leitura e a comparação entre alternativas."},"table":{"src":"components/table/table.docs.js?v=48e10ae5","desc":"O componente de Tabela organiza dados estruturados em colunas e linhas, facilitando a leitura, comparação e análise. É ideal para exibir informações com formato uniforme, como listas, transações ou relatórios."},"upload-item":{"src":"components/upload-item/upload-item.docs.js?v=e328a912","desc":"O Upload Item representa um arquivo dentro do fluxo de upload, do envio em curso até o arquivo já armazenado. Ele mostra o nome, a extensão, o estado do envio e as ações disponíveis para aquele arquivo."},"upload-list":{"src":"components/upload-list/upload-list.docs.js?v=fa3ec45d","desc":"Agrupa os Upload Items de um fluxo, com ordem e espaçamento consistentes."},"viewport-restriction":{"src":"components/viewport-restriction/viewport-restriction.docs.js?v=03b58a4b","desc":"Aviso de que o componente não está disponível no viewport atual."},"bottom-sheet":{"src":"components/bottom-sheet/bottom-sheet.docs.js?v=4e403958","desc":"Camada que surge da base da tela para apresentar conteúdo ou ações complementares sem tirar a pessoa do contexto. A tela de fundo continua visível."},"drawer":{"src":"components/drawer/drawer.docs.js?v=69db3d04","desc":"O Drawer é um painel lateral deslizante utilizado para expor conteúdos complementares ou etapas adicionais dentro de um fluxo principal, sem interromper a tela atual. Ele aparece sobreposto à interface e permite que a pessoa usuária mantenha o contexto enquanto realiza uma interação específica."},"modal":{"src":"components/modal/modal.docs.js?v=fc145684","desc":"O Modal é um componente de sobreposição que bloqueia a interface base para exibir conteúdos focados, como formulários, informações detalhadas ou confirmações. Ele exige atenção da pessoa usuária antes de retornar ao fluxo principal."},"modal-date-picker":{"src":"components/modal-date-picker/modal-date-picker.docs.js?v=d1e58383","desc":"Calendário num Modal, com Cancelar e Confirmar: a data vale depois de confirmada."}};
-CDS.searchIndex = "dist/search.json?v=e77825a6"; /* 1504 seções */
+CDS.searchIndex = "dist/search.json?v=d3cc26f8"; /* 1496 seções */

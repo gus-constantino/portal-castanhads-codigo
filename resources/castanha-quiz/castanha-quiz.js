@@ -126,25 +126,19 @@
           { title: "Alert: fixo, no fluxo da tela", attrs: { _tag: "cds-alert", appearance: "informative", label: "Depósito agendado", text: "O saldo cai na conta das pessoas colaboradoras no dia 5." } }
         ] },
 
-        { h2: "Jogo: Qual é o componente?" },
-        { p: "Seis componentes ao vivo. Diga o nome de cada um." },
-        { quiz: { label: "Jogo · Qual é o componente?", storageKey: "componentes-jogo", results: GAME6(), questions: [
-          { visual: look(V.q.sw), q: "Que componente é este?", options: ["Checkbox", "Switch", "Radio Button"], answer: 1, why: "O Switch liga ou desliga uma configuração, com efeito automático." },
-          { visual: look(V.q.rb), q: "E este?", options: ["Radio Button", "Checkbox", "Switch"], answer: 0, why: "O Radio Button é para seleção única, em conjuntos de menos de cinco opções." },
-          { visual: look(V.q.link), q: "E este?", options: ["Main Button Ghost", "Tag", "Link"], answer: 2, why: "O Link leva para outra página. Para ações, o Main Button." },
-          { visual: look(V.q.tag), q: "E este?", options: ["Tag", "Badge", "Main Button"], answer: 0, why: "A Tag é da família Status: identifica um estado, como Ativo." },
-          { visual: look(V.q.ib), q: "E este?", options: ["Icon", "Icon Button", "Avatar"], answer: 1, why: "Ícone com ação fica dentro do Icon Button: o Medium tem 48px e garante a área de toque." },
-          { visual: look(V.q.alert), q: "E este?", options: ["Toast", "Modal", "Alert"], answer: 2, why: "O Alert é fixo e persistente, no fluxo da tela, para mensagens que precisam ficar visíveis." }
-        ] } },
-
-        { h2: "Quiz" },
-        { p: "Cinco perguntas sobre o treinamento." },
-        { quiz: { label: "Quiz · Componentes", storageKey: "componentes-quiz", results: RES(false), questions: [
-          { q: "Para levar a pessoa a outra página, use…", options: ["Main Button", "Link", "Icon Button"], answer: 1, why: "Main Button é para ações. Navegação entre páginas é com o Link." },
-          { q: "A pessoa pode escolher várias opções ao mesmo tempo. Qual componente?", options: ["Checkbox", "Radio Button", "Switch"], answer: 0, why: "O Checkbox é para seleção múltipla." },
-          { q: "Uma configuração que liga e desliga, com efeito na hora:", options: ["Radio Button", "Checkbox", "Switch"], answer: 2, why: "O Switch habilita ou desabilita configurações com efeito automático." },
-          { q: "Uma confirmação breve, que some sozinha sem interromper o fluxo:", options: ["Toast", "Alert", "Modal"], answer: 0, why: "O Toast é temporário e não bloqueia. O Alert fica fixo e o Modal exige uma ação." },
-          { q: "Quantos Main Buttons primários (accent) por tela ou seção?", options: ["Quantos a tela precisar", "Dois, um para cada lado", "Um"], answer: 2, why: "Use um único Main Button primário por tela ou seção, para a hierarquia ficar clara." }
+        { h2: "Lição" },
+        { p: "Dez exercícios, uma tela por vez. Você tem 3 vidas, e a questão errada volta no fim da lição." },
+        { lesson: { label: "Lição · Componentes", heading: "Qual componente usar?", illustration: "interfaces/lista", storageKey: "componentes", tips: { href: "#/castanha-quiz/componentes", label: "Rever as dicas" }, exercises: [
+          { type: "choice", visual: look(V.q.sw), q: "Que componente é este?", options: ["Checkbox", "Switch", "Radio Button"], answer: 1, why: "O Switch liga ou desliga uma configuração, com efeito automático." },
+          { type: "fill", text: "Para seleção múltipla, use o ___.", options: ["Checkbox", "Radio Button", "Switch"], answer: 0, why: "O Checkbox é para seleção múltipla." },
+          { type: "verdict", visual: look(V.q.link), q: "Main Button para levar a pessoa a outra página.", answer: "dont", why: "Navegação entre páginas é com o Link. O Main Button é para ações." },
+          { type: "choice", visual: look(V.q.rb), q: "E este?", options: ["Radio Button", "Checkbox", "Switch"], answer: 0, why: "O Radio Button é para seleção única, em conjuntos de menos de cinco opções." },
+          { type: "pairs", q: "Ligue cada componente ao uso.", pairs: [["Checkbox", "Várias opções ao mesmo tempo"], ["Radio Button", "Uma opção entre poucas"], ["Switch", "Liga ou desliga na hora"], ["Toast", "Mensagem breve que some sozinha"]], why: "Cada controle tem o seu caso: múltipla, única, liga e desliga, e a mensagem breve." },
+          { type: "choice", q: "Uma confirmação breve, que some sozinha sem interromper o fluxo:", options: ["Toast", "Alert", "Modal"], answer: 0, why: "O Toast é temporário e não bloqueia. O Alert fica fixo e o Modal exige uma ação." },
+          { type: "fill", text: "Use um único Main Button ___ por tela ou seção.", options: ["primário (accent)", "ghost", "neutral"], answer: 0, why: "Um primário por tela ou seção deixa a hierarquia clara." },
+          { type: "choice", visual: look(V.q.ib), q: "E este?", options: ["Icon", "Icon Button", "Avatar"], answer: 1, why: "Ícone com ação fica dentro do Icon Button: o Medium tem 48px e garante a área de toque." },
+          { type: "order", q: "Do aviso que menos interrompe ao que mais interrompe:", pieces: ["Toast: some sozinho", "Alert: fica fixo na tela", "Modal: exige uma ação"], why: "O Toast não interrompe, o Alert fica no fluxo e o Modal pede uma ação antes de seguir." },
+          { type: "choice", visual: look(V.q.alert), q: "E este?", options: ["Toast", "Modal", "Alert"], answer: 2, why: "O Alert é fixo e persistente, no fluxo da tela." }
         ] } }
       ] },
 
@@ -382,4 +376,90 @@
       ] }
     ]
   };
+
+  // ---- Aba Jogar (pedido do Gustavo, 08/10): as abas de tema ficam só com o estudo; os jogos, quizzes e quebra-cabeças viram
+  // um banco de exercícios por tema, e a aba Jogar monta uma lição (composição <cmp-lesson>) com os temas escolhidos
+  var DOC = CDS.docs["castanha-quiz"], BANK = {}, NAMES = {}, ORDER = [];
+  DOC.tabs.forEach(function(t){
+    if (t.id === "inicio") return;
+    var i = -1; t.blocks.some(function(b, k){ if (b.h2 && /^(Jogo|Quiz|Quebra-cabeça|Lição)/.test(b.h2)){ i = k; return true; } return false; });
+    if (i < 0) return;
+    var ex = [], seen = {};
+    function add(x){ var k = x.type + "|" + (x.q || x.text); if (seen[k]) return; seen[k] = 1; ex.push(x); }
+    t.blocks.slice(i).forEach(function(b){
+      if (b.lesson) b.lesson.exercises.forEach(add);
+      if (b.quiz){ var q = b.quiz;
+        if (q.kind === "order") add({ type: "order", q: q.prompt, pieces: q.pieces, why: q.why });
+        else if (q.kind === "pairs") add({ type: "pairs", q: q.prompt, pairs: q.pairs, why: q.why });
+        else q.questions.forEach(function(x){ add(Object.assign({}, x, { type: q.kind === "verdict" ? "verdict" : "choice" })); });
+      }
+    });
+    BANK[t.id] = ex; NAMES[t.id] = t.title; ORDER.push(t.id);
+    t.blocks = t.blocks.slice(0, i).concat([
+      { h2: "Pratique" },
+      { p: "Estudou? Teste o que ficou na aba Jogar: escolha " + t.title + " sozinho ou junto com outros temas." },
+      { shortcuts: [{ title: "Jogar " + t.title, text: ex.length + " exercícios no banco deste tema. A lição sorteia 10, com 3 vidas.", illustration: "objetos/foguete", href: "#/castanha-quiz/jogar", cta: "Ir para Jogar" }] }
+    ]);
+    t.blocks.forEach(function(b){ if (b.banner && /jogo e quiz/.test(b.banner.eyebrow || "")) b.banner.eyebrow = "5 min de estudo"; });
+  });
+
+  // Sorteio: até 10 exercícios, alternando os temas escolhidos; no máximo 2 de ordenar ou ligar pares
+  function sample(ids, n){
+    var pools = ids.map(function(id){ return BANK[id].slice().sort(function(){ return Math.random() - 0.5; }); }), out = [], heavy = 0, k = 0, guard = 0;
+    while (out.length < n && pools.some(function(p){ return p.length; }) && guard++ < 500){
+      var p = pools[k++ % pools.length]; if (!p.length) continue;
+      var x = p.shift(); if (x.type === "order" || x.type === "pairs"){ if (heavy >= 2) continue; heavy++; }
+      out.push(x);
+    }
+    return out;
+  }
+  var TOTAL = "cds-lesson:_total";
+  function getTotal(){ try { return JSON.parse(localStorage.getItem(TOTAL) || "null") || { xp: 0 }; } catch (e){ return { xp: 0 }; } }
+  function addXp(n){ var t = getTotal(); t.xp = (t.xp || 0) + n; try { localStorage.setItem(TOTAL, JSON.stringify(t)); } catch (e){} return t; }
+
+  function jogar(){
+    var c = function(t, a, k){ return CDS.create(t, a, k); };
+    var wrap = c("div", null, "pg-cq__play");
+    var head = wrap.appendChild(c("div", null, "pg-cq__play-head"));
+    head.appendChild(c("p", null, "pg-cq__cap")).textContent = "Escolha os temas";
+    var xpTag = head.appendChild(c("cds-tag", { appearance: "accent", icon: "bright-star-line" }));
+    function drawXp(){ xpTag.setAttribute("label", getTotal().xp + " XP no total"); }
+    drawXp();
+    var chips = wrap.appendChild(c("cds-chips-group", { "role-kind": "multiple", label: "Temas do jogo" }));
+    var all = chips.appendChild(c("cds-filter-chip", { label: "Todos", "show-lead-icon": "false", selected: "" }));
+    var themeChips = ORDER.map(function(id){ var ch = chips.appendChild(c("cds-filter-chip", { label: NAMES[id], "show-lead-icon": "false" })); ch._id = id; return ch; });
+    var host = wrap.appendChild(c("div", null, "pg-cq__play-lesson"));
+    function chosen(){ var ids = themeChips.filter(function(ch){ return ch.hasAttribute("selected"); }).map(function(ch){ return ch._id; }); return ids.length ? ids : ORDER.slice(); }
+    function build(){
+      var ids = chosen(), isAll = ids.length === ORDER.length;
+      var l = c("cmp-lesson", { label: "Jogo · " + (isAll ? "Todos os temas" : ids.map(function(id){ return NAMES[id]; }).join(" + ")),
+        heading: isAll ? "Todos os temas" : ids.map(function(id){ return NAMES[id]; }).join(" + "), illustration: "objetos/foguete",
+        "storage-key": "jogo-" + (isAll ? "todos" : ids.slice().sort().join("+")) });
+      l.exercises = sample(ids, 10);
+      l.resample = function(){ return sample(ids, 10); }; // cada partida sorteia de novo
+      l.addEventListener("cmp-lesson-done", function(e){ addXp(e.detail.xp); drawXp(); });
+      host.innerHTML = ""; host.appendChild(l);
+    }
+    // Todos marca tudo; escolher um tema desmarca Todos; sem nenhum tema, volta para Todos
+    all.addEventListener("cds-change", function(e){ if (e.detail.selected) themeChips.forEach(function(ch){ ch.removeAttribute("selected"); }); else all.setAttribute("selected", ""); build(); });
+    themeChips.forEach(function(ch){ ch.addEventListener("cds-change", function(){
+      var any = themeChips.some(function(x){ return x.hasAttribute("selected"); });
+      if (any) all.removeAttribute("selected"); else all.setAttribute("selected", "");
+      build();
+    }); });
+    build();
+    return wrap;
+  }
+  var inicio = DOC.tabs[0];
+  DOC.tabs.splice(1, 0, { id: "jogar", title: "Jogar", blocks: [
+    { banner: { area: "aprenda", eyebrow: "Castanha Quiz", heading: "Hora de jogar", text: "Escolha um tema, vários ou todos. A lição sorteia 10 exercícios, com 3 vidas, e a questão errada volta no fim." } },
+    { visual: { render: jogar, bare: true } },
+    { note: "O XP e o melhor resultado de cada combinação ficam guardados neste navegador. Nada sai daqui." }
+  ] });
+  // Início: estudo nas abas de tema, prática na aba Jogar
+  inicio.blocks.forEach(function(b){
+    if (b.banner) b.banner.text = "Estude cada tema em uns 5 minutos e pratique na aba Jogar, com os temas que quiser.";
+    if (b.p && /Cada tema tem/.test(b.p)) b.p = "Cada tema tem um treinamento rápido. Depois, pratique na aba Jogar, com um tema só ou vários juntos.";
+    if (b.shortcuts){ (b.shortcuts.items || b.shortcuts).forEach(function(it){ it.text = it.text.replace(/ Jogos?: .*$/, ""); it.cta = "Estudar"; }); }
+  });
 })();

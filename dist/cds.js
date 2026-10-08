@@ -9010,7 +9010,7 @@ try {
       var how = parts.join(" + ") + (this.mult !== 1 ? ", x" + String(this.mult).replace(".", ",") + " por jogar todos os temas" : "") + ".";
       var result = function(){
         var tags = [["+" + xp + " XP", "accent", "bright-star-line"], [self.mistakes + (self.mistakes === 1 ? " erro" : " erros"), perfect ? "positive" : "neutral"]];
-        if (self._pos) tags.push([self._pos + "º no ranking", "positive", "medal-line"]);
+        if (self._pos) tags.push([self._pos + "º no ranking", "positive", self._pos === 1 ? "admin-line" : "medal-line"]); // coroa (admin-line) para o 1º
         self.screen({ ill: perfect ? "objetos/trofeu" : "objetos/medalha-1", eyebrow: "Lição concluída", title: fmt(total) + " pontos",
           text: how, tags: tags,
           actions: [{ label: "Fazer de novo", appearance: "neutral", icon: "refresh-line", run: function(){ self.start(); } }] });
@@ -11270,8 +11270,8 @@ try {
       var t = c("cds-table", { label: on ? "Os 10 melhores do time" : "Os 10 melhores neste navegador", selectable: "false", "show-toolbar": "false", "show-pagination": "false" });
       t.columns = [{ key: "pos", label: "#", kind: "text", sortable: false, width: 64 }, { key: "name", label: "Iniciais", kind: "text", sortable: false },
         { key: "score", label: "Pontos", kind: "text", sortable: false }, { key: "label", label: "Temas", kind: "tag", sortable: false }];
-      function tx(v){ return { text: v, icon: false, description: "" }; } // célula Text sem o Lead Icon
-      t.rows = list.map(function(e, i){ return { id: String(i + 1), pos: tx((i + 1) + "º"), name: tx(e.name), score: tx(e.score.toLocaleString("pt-BR")), label: { label: e.label, showLeadItem: false } }; });
+      function tx(v, icon){ return { text: v, icon: icon || false, description: "" }; } // célula Text sem o Lead Icon, menos a coroa do 1º
+      t.rows = list.map(function(e, i){ return { id: String(i + 1), pos: tx((i + 1) + "º", i === 0 ? "admin-line" : null), name: tx(e.name), score: tx(e.score.toLocaleString("pt-BR")), label: { label: e.label, showLeadItem: false } }; });
       rank.appendChild(t);
     }
     // Todos marca tudo; escolher um tema desmarca Todos; sem nenhum tema, volta para Todos

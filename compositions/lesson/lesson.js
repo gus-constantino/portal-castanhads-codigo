@@ -270,7 +270,7 @@
       var how = parts.join(" + ") + (this.mult !== 1 ? ", x" + String(this.mult).replace(".", ",") + " por jogar todos os temas" : "") + ".";
       var result = function(){
         var tags = [["+" + xp + " XP", "accent", "bright-star-line"], [self.mistakes + (self.mistakes === 1 ? " erro" : " erros"), perfect ? "positive" : "neutral"]];
-        if (self._pos) tags.push([self._pos + "º no ranking", "positive", "medal-line"]);
+        if (self._pos) tags.push([self._pos + "º no ranking", "positive", self._pos === 1 ? "admin-line" : "medal-line"]); // coroa (admin-line) para o 1º
         self.screen({ ill: perfect ? "objetos/trofeu" : "objetos/medalha-1", eyebrow: "Lição concluída", title: fmt(total) + " pontos",
           text: how, tags: tags,
           actions: [{ label: "Fazer de novo", appearance: "neutral", icon: "refresh-line", run: function(){ self.start(); } }] });

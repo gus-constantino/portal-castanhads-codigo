@@ -477,8 +477,8 @@
       var t = c("cds-table", { label: on ? "Os 10 melhores do time" : "Os 10 melhores neste navegador", selectable: "false", "show-toolbar": "false", "show-pagination": "false" });
       t.columns = [{ key: "pos", label: "#", kind: "text", sortable: false, width: 64 }, { key: "name", label: "Iniciais", kind: "text", sortable: false },
         { key: "score", label: "Pontos", kind: "text", sortable: false }, { key: "label", label: "Temas", kind: "tag", sortable: false }];
-      function tx(v){ return { text: v, icon: false, description: "" }; } // célula Text sem o Lead Icon
-      t.rows = list.map(function(e, i){ return { id: String(i + 1), pos: tx((i + 1) + "º"), name: tx(e.name), score: tx(e.score.toLocaleString("pt-BR")), label: { label: e.label, showLeadItem: false } }; });
+      function tx(v, icon){ return { text: v, icon: icon || false, description: "" }; } // célula Text sem o Lead Icon, menos a coroa do 1º
+      t.rows = list.map(function(e, i){ return { id: String(i + 1), pos: tx((i + 1) + "º", i === 0 ? "admin-line" : null), name: tx(e.name), score: tx(e.score.toLocaleString("pt-BR")), label: { label: e.label, showLeadItem: false } }; });
       rank.appendChild(t);
     }
     // Todos marca tudo; escolher um tema desmarca Todos; sem nenhum tema, volta para Todos

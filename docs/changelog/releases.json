@@ -1,7 +1,7 @@
 {
  "fonte": "Slack #castanha-novidades (C09F7GD1A6M)",
- "lido_ate": "2026-10-07",
- "atualizado_em": "2026-10-07",
+ "lido_ate": "2026-10-08",
+ "atualizado_em": "2026-10-08",
  "nota": "lido_ate = último dia em que o canal foi lido por completo. A rotina lê a partir desse dia (inclusive); releases repetidas (mesma data, área e título) são ignoradas.",
  "releases": [
   {
@@ -93,6 +93,81 @@
     }
    ],
    "link": "https://castanha.caju.com.br/858426090/p/111e49-castanha"
+  },
+  {
+   "data": "2026-10-07",
+   "area": "Flutter",
+   "titulo": "Release 25 do castanha-flutter",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "Popover, Alert, Banner, Topic, System Banner, Image, Skeleton e Slider: componentes estabilizados"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Selection List, Selection List Item, Content List e Content List Item: componentes estabilizados"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Tab: nova variante com Badge"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Divider: nova variante tracejada"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Icon Button: tokens de cor"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/111e49-castanha"
+  },
+  {
+   "data": "2026-10-07",
+   "area": "Outro",
+   "titulo": "Motion na Release 25: componentes em React e Flutter e novos assets",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Flutter: Skeleton e Banner com motion"
+    },
+    {
+     "tipo": "novo",
+     "texto": "React: Banner, Skeleton e Carousel com motion"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Lib de Motion (React e Flutter): `compras-celebracao`, `transferencia-pix`, `objetos/caixa-beneficios`, `objetos/presente-fechado` e `objetos/caixa-moedas`"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/111e49-castanha"
+  },
+  {
+   "data": "2026-10-07",
+   "area": "Outro",
+   "titulo": "Patterns para IA: decisões de experiência em .md",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Fundamentos: Design Colors e Design Spacing"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Web: Formulários, Dashboard, Fluxos com etapas, Filtros, Feedback e empty states, Kanban view e Landing pages"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Mobile: Formulários, Dashboard, Fluxos com etapas e Feedback e empty states"
+    },
+    {
+     "tipo": "outro",
+     "texto": "Próximos: Checkout, Espaços de vendas e Modais"
+    }
+   ],
+   "link": null
   },
   {
    "data": "2026-09-23",

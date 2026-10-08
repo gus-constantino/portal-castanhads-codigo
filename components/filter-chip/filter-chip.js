@@ -4,12 +4,13 @@
  * Toggle: o clique alterna Is Selected (aria-pressed). Selecionado troca o Lead Icon pelo check-line.
  *
  * Atributos (padrões do Figma): label ("Label") · icon (Lead Icon, "placeholder-line") · show-lead-icon · selected · disabled
+ *   size (medium | small · padrão medium) — Size da branch CDS-1599: Small = 32 de altura, o resto igual ao Medium
  * Evento: cds-change { selected }
  */
 (function(){
   "use strict";
   class CdsFilterChip extends CDS.Element {
-    static get observedAttributes(){ return ["label", "icon", "show-lead-icon", "selected", "disabled"]; }
+    static get observedAttributes(){ return ["label", "icon", "show-lead-icon", "selected", "disabled", "size"]; }
     get button(){ return this._btn; }
     get selected(){ return this.hasAttribute("selected"); }
     render(){

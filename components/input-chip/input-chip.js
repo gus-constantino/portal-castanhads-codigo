@@ -4,13 +4,14 @@
  * Entidade removível: clicar no chip inteiro remove (o alvo é o chip de 40px, não o ícone de 16px — WCAG 2.5.8).
  *
  * Atributos (padrões do Figma): label ("Label") · icon (Lead Icon, "placeholder-line") · show-lead-icon · disabled
+ *   size (medium | small · padrão medium) — Size da branch CDS-1599: Small = 32 de altura, o resto igual ao Medium
  * Evento: cds-remove (cancelável) { label, keyboard } — sem preventDefault() o chip se remove do DOM. O chip sozinho não move o foco
  *   (como o Chips.Input do castanha-react); o Multi Select Input segue a regra do SelectInput do React (D145).
  */
 (function(){
   "use strict";
   class CdsInputChip extends CDS.Element {
-    static get observedAttributes(){ return ["label", "icon", "show-lead-icon", "disabled"]; }
+    static get observedAttributes(){ return ["label", "icon", "show-lead-icon", "disabled", "size"]; }
     get button(){ return this._btn; }
     render(){
       var self = this, label = this.text("label", "Label");

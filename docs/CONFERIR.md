@@ -8,7 +8,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 
 | Tipo | Itens |
 |---|---|
-| [Ajuste de texto](#ajuste-de-texto) | 12 |
+| [Ajuste de texto](#ajuste-de-texto) | 13 |
 | [Ajuste de UI](#ajuste-de-ui) | 28 |
 | [Motion](#motion) | 7 |
 | [Refactor](#refactor) | 39 |
@@ -34,6 +34,7 @@ Copy, exemplos e descriptions no Figma. Não muda layout nem comportamento.
 | C182 | Side Menu (Sponsor Templates 5293:13409) · Heading | Não há camada para fechar o menu (a camada oculta `close-line` que existia saiu); no protótipo do celular (5318:19215), o menu abre em tela cheia sobre o Header e não tem como fechar sem navegar | Uma forma de fechar no celular | Icon Button `close-line` no Heading, visível com o menu aberto no celular, mais Esc e escolher um item (decisão do Gustavo, 07/10) | Próxima revisão do Sponsor Templates: devolver a camada de fechar |
 | C183 | Side Menu e Header · tablet | O protótipo só tem 360, 1366 e 1440; o `.Heading` mostra Mobile Lead Items com `Is Mobile` e Desktop Lead Items com `Is Desktop`, e no tablet as duas são falsas (nada aparece, como no Nav Control, C46) | Definir o tablet | Tablet segue o desktop: Back e Breadcrumb no Header, menu colapsado na lateral | Próxima revisão do Sponsor Templates |
 | C184 | Header · `.Heading` (4002:3830) · Desktop Lead Items | O Back Button do desktop está ligado a `Show Navitagion Controls`, não a `Show Back Button` (e o nome da prop tem o erro "Navitagion"); o Forward Button (`go-line`) não entrou no código | Back ligado a Show Back Button; corrigir o nome | `show-back` controla o Back nas duas versões; sem Forward | Próxima revisão do Sponsor Templates |
+| C185 | Input Chips e Filter Chips · Size Small (branch epatuUj3qrA77Ecbbhy2vw, CDS-1599) | Size Medium (40) e Small (32). Os tokens `Specific/Selection Controls/{Input,Filter} Chips/height` foram renomeados para `…/Medium/height`, e o `…/Small/height` é novo. O Chips Group Single Rows continua com 48 de altura (`Common/Sizes/48`), pensado para o chip de 40 | Depois da publicação: atualizar o snapshot de tokens e decidir a altura do Chips Group com o Small (card próprio, fora do CDS-1599) | `size="small"` usa `Common/Sizes/32` direto até a branch ser publicada. O Chips Group não muda | Publicação do Release 26 |
 | C179 | Main Button · Diretrizes › Hierarquia (Component use documentation 2054:1999) | Ênfase média diz "Button: Default/Accent e Ghost/Accent", mas o exemplo "Editar" é Default/Neutral | Texto e exemplo iguais: provavelmente "Default/Neutral e Ghost/Accent" | Texto e exemplos iguais ao Figma | Ajustar o texto ou o exemplo no Figma |
 
 ## Ajuste de UI

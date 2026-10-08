@@ -18,5 +18,8 @@
              color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
 }
 [disabled] > .cds-chip{ --_bg:var(--common-colors-surface-default); --_bd:var(--common-colors-border-semi-soft); }
+/* Size (branch epatuUj3qrA77Ecbbhy2vw, CDS-1599): Small muda apenas a altura, 40 → 32.
+   Tokens na branch: Specific/Selection Controls/{Input|Filter} Chips/{Medium|Small}/height → Common/Sizes/40 e /32 (C185) */
+cds-input-chip[size="small"] > .cds-chip, cds-filter-chip[size="small"] > .cds-chip{ height:var(--common-sizes-32); }
 cds-input-chip[disabled], cds-filter-chip[disabled]{ opacity:var(--common-opacity-medium); pointer-events:none; }
 @media (prefers-reduced-motion:reduce){ .cds-chip{ transition:none; } }

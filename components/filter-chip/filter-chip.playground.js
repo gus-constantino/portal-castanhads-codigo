@@ -9,6 +9,7 @@ CDS.register({
     var selSw;
     p.addEventListener("cds-change", function(e){ selSw.checked = e.detail.selected; ctx.readout(e.detail.selected ? "selecionado" : "", false); });
     kit.section(panel, "Variants");
+    kit.seg(panel, { label: "Size", value: "medium", options: [["medium","Medium"],["small","Small"]], onChange: function(v){ kit.attr(p, "size", v === "small" ? "small" : null); } });
     selSw = kit.toggle(panel, { label: "Is Selected", onChange: function(on){ kit.attr(p, "selected", on); } });
     kit.toggle(panel, { label: "State: Disabled", onChange: function(on){ kit.attr(p, "disabled", on); } });
     kit.hint(panel, "O clique alterna Is Selected (aria-pressed); selecionado troca o ícone pelo check-line.");

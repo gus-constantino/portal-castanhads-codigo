@@ -29,6 +29,8 @@
  * Ranking: CmpLesson.ranking(chave) devolve a lista [{ name, score, label, date }], do maior para o menor.
  *   Ranking compartilhado (opcional): propriedade remote = { top: [lista atual], add(entry) → Promise<{ position, top }> }.
  *   Com remote, o Top 10 que vale é o dele; a lista local continua sendo gravada como reserva.
+ *   Feedback da gravação (regra de uso do DS): gravou → Toast Positive (confirma o sucesso de uma ação, some sozinho);
+ *   não gravou → Alert Warning na tela de resultado, fixo, com o motivo e o Main Button "Tentar gravar de novo".
  */
 (function(){
   "use strict";
@@ -87,7 +89,7 @@
     start(){
       if (typeof this.resample === "function") this.exercises = this.resample(); // novo sorteio a cada partida, quando quem usa oferece
       this.queue = this.list.map(function(x, i){ return { ex: x, base: i, review: false }; });
-      this.pos = 0; this.lives = 3; this.extra = false; this.mistakes = 0; this.correct = 0; this.doneBase = {}; this.score = 0; this.streak = 0; this._ranked = false; this._pos = 0;
+      this.pos = 0; this.lives = 3; this.extra = false; this.mistakes = 0; this.correct = 0; this.doneBase = {}; this.score = 0; this.streak = 0; this._ranked = false; this._pos = 0; this._rankFail = null;
       this.next();
     }
     next(){
@@ -258,6 +260,7 @@
       this.screen({ ill: "notificacoes/error-low-detail", eyebrow: "As vidas acabaram", title: "Quase lá", text: "Reveja as dicas e comece de novo. Na próxima vai.",
         actions: [{ label: "Recomeçar lição", icon: "refresh-line", run: function(){ self.start(); } }, { label: "Sair", appearance: "neutral", run: function(){ self.intro(); } }],
         link: this.getAttribute("tips-href") ? { label: this.getAttribute("tips-label") || "Rever as dicas", href: this.getAttribute("tips-href") } : null });
+      this.rankFailAlert();
     }
     finish(){
       var self = this, n = this.list.length, perfect = this.mistakes === 0, xp = 10 + (perfect ? 5 : 0);
@@ -270,13 +273,43 @@
       var how = parts.join(" + ") + (this.mult !== 1 ? ", x" + String(this.mult).replace(".", ",") + " por jogar todos os temas" : "") + ".";
       var result = function(){
         var tags = [["+" + xp + " XP", "accent", "bright-star-line"], [self.mistakes + (self.mistakes === 1 ? " erro" : " erros"), perfect ? "positive" : "neutral"]];
-        if (self._pos) tags.push([self._pos + "º no ranking", "positive", self._pos === 1 ? "admin-line" : "medal-line"]); // coroa (admin-line) para o 1º
+        if (self._pos) tags.push([self._pos + (self._rankFail ? "º neste navegador" : "º no ranking"), self._rankFail ? "neutral" : "positive", self._pos === 1 ? "admin-line" : "medal-line"]); // coroa (admin-line) para o 1º
         self.screen({ ill: perfect ? "objetos/trofeu" : "objetos/medalha-1", eyebrow: "Lição concluída", title: fmt(total) + " pontos",
           text: how, tags: tags,
           actions: [{ label: "Fazer de novo", appearance: "neutral", icon: "refresh-line", run: function(){ self.start(); } }] });
+        self.rankFailAlert();
       };
       if (this.qualifies(total)){ this._ranked = true; return this.initials(total, perfect ? "Novo recorde sem erros" : "Novo recorde", how, result); }
       result();
+    }
+
+    // Grava no ranking compartilhado; o resultado vira Toast (gravou) ou Alert com nova tentativa (não gravou)
+    sendRemote(entry, after){
+      var self = this;
+      var done = function(r, err){
+        self._rankFail = r ? null : { entry: entry, after: after, why: err && err.message };
+        if (r && r.position) self._pos = r.position;
+        if (r) self.toast("Partida gravada no ranking do time");
+        self.dispatchEvent(new CustomEvent("cmp-lesson-rank", { detail: { entry: entry, position: self._pos, remote: !!r, error: err ? String(err.message || err) : null }, bubbles: true }));
+        after();
+      };
+      return Promise.resolve(this.remote.add(entry)).then(function(r){ done(r); }, function(e){ done(null, e); });
+    }
+    toast(text){
+      if (this._toast) this._toast.remove();
+      var t = this._toast = document.body.appendChild(CDS.create("cds-toast", { appearance: "positive", text: text, "show-trailing-item": "false" }, "cmp-lesson__toast"));
+      setTimeout(function(){ if (t.parentNode && t.close) t.close(); else if (t.parentNode) t.remove(); }, 4000);
+    }
+    // Alert do "não gravou", na tela de resultado: o motivo e a nova tentativa
+    rankFailAlert(){
+      var f = this._rankFail; if (!f) return;
+      var self = this, c = CDS.create, box = this.body.querySelector(".cmp-ls__screen-actions"); if (!box) return;
+      var why = /timeout|rede/.test(f.why || "") || !f.why ? "O ranking do time não respondeu. Confira se você está com a conta da Caju logada no Google e tente de novo." : f.why + ".";
+      var al = c("cds-alert", { appearance: "warning", label: "Não deu para gravar no ranking do time", "show-close-button": "false", text: why + " A partida ficou salva neste navegador." }, "cmp-ls__rank-alert");
+      box.parentNode.insertBefore(al, box);
+      var retry = c("cds-main-button", { label: "Tentar gravar de novo", "show-lead-icon": "true", "lead-icon": "refresh-line", "show-trailing-icon": "false" });
+      retry.addEventListener("click", function(){ retry.setAttribute("disabled", ""); retry.setAttribute("label", "Gravando no ranking do time"); self.sendRemote(f.entry, f.after); });
+      box.insertBefore(retry, box.firstChild);
     }
 
     // Ranking (Top 10 deste navegador): entra quem faz mais pontos que o 10º
@@ -303,8 +336,7 @@
           self._pos = list.indexOf(entry) + 1;
           if (self.remote && typeof self.remote.add === "function"){
             var btn = box.querySelector("cds-main-button"); if (btn){ btn.setAttribute("disabled", ""); btn.setAttribute("label", "Gravando no ranking do time"); }
-            var done = function(r){ if (r && r.position) self._pos = r.position; self.dispatchEvent(new CustomEvent("cmp-lesson-rank", { detail: { entry: entry, position: self._pos, remote: !!r }, bubbles: true })); after(); };
-            return Promise.resolve(self.remote.add(entry)).then(done, function(){ done(null); });
+            return self.sendRemote(entry, after);
           }
           self.dispatchEvent(new CustomEvent("cmp-lesson-rank", { detail: { entry: entry, position: self._pos }, bubbles: true }));
         }

@@ -480,6 +480,7 @@
       function tx(v, icon){ return { text: v, icon: icon || false, description: "" }; } // célula Text sem o Lead Icon, menos a coroa do 1º
       t.rows = list.map(function(e, i){ return { id: String(i + 1), pos: tx((i + 1) + "º", i === 0 ? "admin-line" : null), name: tx(e.name), score: tx(e.score.toLocaleString("pt-BR")), label: { label: e.label, showLeadItem: false } }; });
       rank.appendChild(t);
+      var crown = t.querySelector("tbody tr:first-child cds-icon"); if (crown) crown.setAttribute("appearance", "accent"); // coroa do 1º em Accent (pedido do Gustavo)
     }
     // Todos marca tudo; escolher um tema desmarca Todos; sem nenhum tema, volta para Todos
     all.addEventListener("cds-change", function(e){ if (e.detail.selected) themeChips.forEach(function(ch){ ch.removeAttribute("selected"); }); else all.setAttribute("selected", ""); build(); });

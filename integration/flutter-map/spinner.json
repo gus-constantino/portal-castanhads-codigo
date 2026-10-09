@@ -22,7 +22,10 @@
       },
       {
         "param": "semanticsLabel",
-        "attr": "label"
+        "attr": "label",
+        "if": {
+          "label": "!Carregando"
+        }
       }
     ]
   },

@@ -22,7 +22,7 @@
       },
       {
         "param": "kind",
-        "code": "CastanhaBannerKind.illustration(CastanhaIllustrations.{c:illustration})",
+        "code": "CastanhaBannerKind.illustration(CastanhaIllustrations.{ill:illustration})",
         "if": {
           "kind": "illustration",
           "content": "!inversed"
@@ -30,7 +30,7 @@
       },
       {
         "param": "kind",
-        "code": "CastanhaBannerKind.illustration(CastanhaIllustrations.{c:illustration}, appearance: CastanhaBannerAppearance.inverted)",
+        "code": "CastanhaBannerKind.illustration(CastanhaIllustrations.{ill:illustration}, appearance: CastanhaBannerAppearance.inverted)",
         "if": {
           "kind": "illustration",
           "content": "inversed"

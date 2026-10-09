@@ -1,0 +1,423 @@
+{
+ "source": {
+  "repo": "caju-beneficios/castanha-mobile",
+  "ref": "origin/staging",
+  "commit": "38504ab7",
+  "date": "2026-10-07",
+  "package": "castanha_flutter",
+  "codeConnect": {
+   "ref": "origin/feat/figma-code-connect",
+   "commit": "d2b22122",
+   "nodes": 10
+  }
+ },
+ "summary": {
+  "playground": 107,
+  "blocks": 26,
+  "flutter": 49,
+  "matched": 45,
+  "flutterOnly": 4,
+  "missing": 36,
+  "missingBlocks": 26
+ },
+ "levels": {
+  "alta": 2,
+  "media": 10,
+  "info": 38
+ },
+ "items": [
+  {
+   "id": "alert",
+   "l": "media",
+   "t": "padrao-diferente",
+   "m": "`Appearance`: o padrão do Figma é Positive; o do Flutter, `informative`. Declare `appearance`."
+  },
+  {
+   "id": "avatar",
+   "l": "media",
+   "t": "padrao-diferente",
+   "m": "`Size`: o padrão do Figma é Small; o do Flutter, `medium`. Declare `size`."
+  },
+  {
+   "id": "backdrop",
+   "l": "info",
+   "t": "so-no-flutter",
+   "m": "Parâmetros do Flutter sem prop no Figma: `invisible`."
+  },
+  {
+   "id": "bottom-sheet",
+   "l": "info",
+   "t": "sem-props-do-figma",
+   "m": "Sem leitura das props do Figma (`figma-props.tsv`) para este componente."
+  },
+  {
+   "id": "chips-group",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Kind` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "content-list-item",
+   "l": "info",
+   "t": "so-no-flutter",
+   "m": "Parâmetros do Flutter sem prop no Figma: `highlight`, `trailingValue`."
+  },
+  {
+   "id": "dropzone",
+   "l": "info",
+   "t": "figma-sem-parametro",
+   "m": "`Show Main button` (Figma) não tem parâmetro no Flutter. O Flutter não tem o botão: a área inteira chama `onPressed`."
+  },
+  {
+   "id": "dropzone",
+   "l": "info",
+   "t": "so-no-flutter",
+   "m": "Parâmetros do Flutter sem prop no Figma: `dragover`."
+  },
+  {
+   "id": "icon",
+   "l": "media",
+   "t": "padrao-diferente",
+   "m": "`Size`: o padrão do Figma é Small; o do Flutter, `medium`. Declare `size`."
+  },
+  {
+   "id": "icon-button",
+   "l": "info",
+   "t": "so-no-flutter",
+   "m": "Parâmetros do Flutter sem prop no Figma: `notificationAppearance`."
+  },
+  {
+   "id": "main-button",
+   "l": "info",
+   "t": "so-no-flutter",
+   "m": "Parâmetros do Flutter sem prop no Figma: `expanded`."
+  },
+  {
+   "id": "selection-list-item",
+   "l": "info",
+   "t": "so-no-flutter",
+   "m": "Parâmetros do Flutter sem prop no Figma: `highlight`."
+  },
+  {
+   "id": "shaped-icon",
+   "l": "media",
+   "t": "padrao-diferente",
+   "m": "`Appearance`: o padrão do Figma é Neutral; o do Flutter, `accent`. Declare `appearance`."
+  },
+  {
+   "id": "shaped-icon",
+   "l": "media",
+   "t": "padrao-diferente",
+   "m": "`Size`: o padrão do Figma é Smallest; o do Flutter, `medium`. Declare `size`."
+  },
+  {
+   "id": "skeleton",
+   "l": "info",
+   "t": "sem-props-do-figma",
+   "m": "Sem leitura das props do Figma (`figma-props.tsv`) para este componente."
+  },
+  {
+   "id": "spinner",
+   "l": "media",
+   "t": "padrao-diferente",
+   "m": "`Appearance`: o padrão do Figma é Neutral; o do Flutter, `accent`. Declare `appearance`."
+  },
+  {
+   "id": "spinner",
+   "l": "media",
+   "t": "padrao-diferente",
+   "m": "`Size`: o padrão do Figma é Small; o do Flutter, `medium`. Declare `size`."
+  },
+  {
+   "id": "spinner",
+   "l": "info",
+   "t": "figma-sem-parametro",
+   "m": "`Spinner Position` (Figma) não tem parâmetro no Flutter. É o quadro da animação; no código o giro é contínuo."
+  },
+  {
+   "id": "switch-group",
+   "l": "info",
+   "t": "sem-props-do-figma",
+   "m": "Sem leitura das props do Figma (`figma-props.tsv`) para este componente."
+  },
+  {
+   "id": "text-area",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Show Trailing Item` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "text-area",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Show Caret` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "text-area",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Placeholder Content` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "text-area",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Text Content` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "text-area",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Character Counter Value` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "text-area",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Text Label` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "text-area",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Supporting Message` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "text-area",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Error Message` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "text-area",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Required Text` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "text-area",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Is Filled` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "text-area",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Is Active` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "text-input",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Show Trailing Item` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "text-input",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Show Caret` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "text-input",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Character Counter Value` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "text-input",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Text Label` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "text-input",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Supporting Message` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "text-input",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Error Message` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "text-input",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Lead Icon` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "text-input",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Required Text` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "text-input",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Is Filled` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "text-input",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Is Active` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "upload-item",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Success message` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "upload-item",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Show primary action` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "upload-item",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Show secondary action` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "upload-item",
+   "l": "media",
+   "t": "padrao-diferente",
+   "m": "`Status`: o padrão do Figma é Uploading; o do Flutter, `uploaded`. Declare `status`."
+  },
+  {
+   "id": "upload-item",
+   "l": "info",
+   "t": "so-no-flutter",
+   "m": "Parâmetros do Flutter sem prop no Figma: `preview`."
+  }
+ ],
+ "assets": {
+  "rows": [
+   {
+    "pkg": "castanha_icons",
+    "version": "1.7.0",
+    "inPkg": 265,
+    "inPg": 264,
+    "same": 262,
+    "renamed": 0,
+    "onlyPg": [
+     "checkbox-check",
+     "checkbox-indeterminate"
+    ],
+    "onlyPkg": [
+     "balanceCanceled",
+     "calendarNonRecurrent",
+     "fileLine1"
+    ]
+   },
+   {
+    "pkg": "castanha_illustrations",
+    "version": "1.8.0",
+    "inPkg": 259,
+    "inPg": 260,
+    "same": 218,
+    "renamed": 40,
+    "onlyPg": [
+     "alimentos/drink",
+     "notificacoes/analysis-low-detail"
+    ],
+    "onlyPkg": [
+     "heroSponsorSplashScreen"
+    ]
+   },
+   {
+    "pkg": "castanha_motion",
+    "version": "1.6.0",
+    "inPkg": 49,
+    "inPg": 0,
+    "same": 0,
+    "renamed": 0,
+    "onlyPg": [],
+    "onlyPkg": [
+     "alimentosBoloCafeAniversario",
+     "autentificacaoOcrCartaoFisico",
+     "comprasCelebracao",
+     "dispositivoMultiplosCartoesCorporativoVirtual",
+     "dispositivosCartaoVirtualCriado",
+     "documentosAdmissao",
+     "documentosArquivarItem",
+     "documentosCracha",
+     "documentosDesarquivarItem",
+     "documentosDiretorioColaboradores",
+     "documentosPlanilhaEngrenagem",
+     "documentosRelatorioConcluido",
+     "documentosRelatorios1",
+     "documentosRgCnhFrente",
+     "documentosRgCnhVerso",
+     "documentosRgPapeis",
+     "documentosSocio",
+     "feedbackSplash",
+     "feedbackSuccess",
+     "feedbackWarning",
+     "financasCartaoCodigoHorizontal12",
+     "financasCartaoCodigoVertical12",
+     "financasCartaoEnvelopeDesbloqueado",
+     "financasMoedaVerdePilha2",
+     "maosCracha",
+     "maosTransferenciaPix",
+     "maquininhaLaranjaCartao",
+     "maquininhaVerdeCartao",
+     "notificacoesGalo",
+     "notificacoesSino",
+     "notificacoesSuccess",
+     "notificacoesSuccess2",
+     "objetosCadeiraPraia",
+     "objetosCaixaBeneficios",
+     "objetosCaixaMoedas",
+     "objetosMedalha1",
+     "objetosMedalha2",
+     "objetosPresenteFechado",
+     "objetosTrofeu",
+     "personagensAntonia",
+     "personagensKarina1",
+     "personagensKarina3",
+     "personagensSonia",
+     "reconhecimentoBiometrico",
+     "reconhecimentoDefault",
+     "reconhecimentoFacial",
+     "segurancaCadeadoAberto",
+     "segurancaCadeadoFechado",
+     "verificarSelfie"
+    ]
+   }
+  ],
+  "items": [
+   {
+    "l": "alta",
+    "t": "icone-fora-do-dart",
+    "m": "2 ícones do [Caju] Icons sem constante em `CastanhaIcons` (1.7.0): `checkbox-check`, `checkbox-indeterminate`."
+   },
+   {
+    "l": "media",
+    "t": "icone-so-no-dart",
+    "m": "Constantes de `CastanhaIcons` sem ícone no [Caju] Icons: `balanceCanceled`, `calendarNonRecurrent`, `fileLine1`."
+   },
+   {
+    "l": "alta",
+    "t": "ilustracao-fora-do-dart",
+    "m": "Ilustrações do [Caju] Illustrations sem constante em `CastanhaIllustrations` (1.8.0): `alimentos/drink`, `notificacoes/analysis-low-detail`."
+   },
+   {
+    "l": "media",
+    "t": "ilustracao-renomeada",
+    "m": "40 ilustrações têm outro nome no pacote (o painel já usa o nome do Dart), ex.: `hub-de-beneficios/pet` → `hubPet`, `hub-de-beneficios/departamento` → `hubDepartamento`, `hub-de-beneficios/plano-saude` → `hubPlanoSaude`, `hub-de-beneficios/servicos` → `hubServicos`."
+   },
+   {
+    "l": "info",
+    "t": "motion-so-no-dart",
+    "m": "49 animações em `CastanhaMotions` (1.6.0), ainda sem tab no playground."
+   }
+  ]
+ }
+}

@@ -38,6 +38,7 @@ Playground público do **Castanha DS**, o design system da Caju. Cada componente
 | **Playground** | Os componentes e building blocks da lib, cada um com controles iguais às props do Figma, viewport (mobile, tablet, desktop) e tema claro ou escuro. O total atualizado fica no Relatório | `components/<id>/` · rota `#/<id>` |
 | **Documentação** | Tabs de uso, anatomia, estilos, acessibilidade, diretrizes, motion e conteúdo, carregadas sob demanda | `components/<id>/<id>.docs.js` |
 | **No React** | Código do `castanha-react` gerado a partir das props como estão no Figma | `scripts/react-kit.js` · `integration/` |
+| **No Flutter** | Código Dart do `castanha_flutter` gerado a partir das props como estão no Figma | `scripts/flutter-kit.js` · `integration/flutter/` |
 | **Recursos** | Caju - Tema (tokens), Camadas, Conteúdo, Patterns, Treinamento, Capacitações, Personas, Agentes e Skills, MCP, FAQ e Changelog | `resources/<id>/` |
 | **Composições** | Peças montadas com tokens e componentes do DS onde o DS ainda não tem o componente (prefixo `cmp-`) | `compositions/<id>/` |
 | **Templates** | Trechos de tela do Figma de templates (ex.: cabeçalho do Sponsor), com `template: "<produto>"` no `CDS.register` | `components/<id>/` · seção Templates do menu |
@@ -149,6 +150,9 @@ Abra http://127.0.0.1:8765. Pré-requisitos: Node 18 ou mais novo para os script
 | `node scripts/build-tokens.js` | `tokens/figma-snapshot.json` → `styles/tokens.css` |
 | `node scripts/build-assets.js` | `assets/` → `styles/icons.css` + `scripts/assets-manifest.js` |
 | `node scripts/integration/daily.js` | Leitura diária da integração com o `castanha-react` (rotina) |
+| `node scripts/integration/build-flutter-manifest.js` | Manifesto do `castanha_flutter`, painel "No Flutter" e relatório Stack Flutter |
+| `node scripts/integration/check-dart.js` | Compila o Dart do painel "No Flutter" com o `dart analyze` (precisa do Flutter SDK) |
+| `node scripts/integration/daily-flutter.js` | Leitura diária da integração com o `castanha_flutter` (rotina) |
 
 ---
 
@@ -325,6 +329,19 @@ O repositório é público: nenhum código-fonte do `castanha-react` é copiado.
 
 ---
 
+## Integração com o castanha_flutter
+
+O mesmo caminho do React, para o app: o `castanha-mobile` (pacote `castanha_flutter`, clone só leitura em `../castanha-mobile`).
+
+- **Manifesto** (`scripts/integration/build-flutter-manifest.js`): lê a `staging` do clone (widgets, parâmetros do construtor, enums, stories do Widgetbook e Code Connect) e casa cada widget com o componente do playground pela classe (`CastanhaMainButton` → `main-button`), pelo Code Connect ou pelo nome da story. Gera `integration/flutter-data.js` e `integration/flutter/COBERTURA.md`.
+- **Mapas** (`integration/flutter-map/<id>.json`, formato no topo de `scripts/flutter-kit.js`): traduzem prop do Figma para parâmetro do Flutter. Estão no painel **No Flutter** de cada componente, com o Dart ao vivo.
+- **Check da stack:** Figma × castanha_flutter × playground (`check-flutter-stack.js`), com os assets do Dart (`CastanhaIcons`, `CastanhaIllustrations` e `CastanhaMotions` na versão que o pubspec fixa) e o Dart validado pelo `dart analyze` (`check-dart.js`). O resultado vai para a aba **Stack Flutter** do relatório.
+- **Leitura diária:** `scripts/integration/daily-flutter.js`, rodado pela rotina, com histórico em `integration/flutter/HISTORICO.md`.
+
+O `check-dart.js` precisa do Flutter SDK (3.41.6 ou mais novo). As dependências do `castanha_flutter` (`castanha_icons`, `castanha_tokens`…) vêm por git do repositório do Castanha e usam as credenciais do git da máquina.
+
+---
+
 ## MCP do Castanha DS
 
 > **Em breve.** Está em teste e ainda não foi oferecido ao time.
@@ -356,7 +373,7 @@ Este repositório é público. Não entram:
 
 - nomes de pessoas, e-mails ou menções
 - links internos (Slack, Storybook e Widgetbook atrás de VPN), chaves de tarefa ou dados de clientes
-- código-fonte de repositórios privados, como o `castanha-react` ou plugins internos
+- código-fonte de repositórios privados, como o `castanha-react`, o `castanha-mobile` ou plugins internos
 - tokens, segredos ou credenciais
 - pastas locais de trabalho (`docs/local/`, exceto o plano do MCP, `.claude/` e `skills/`).
 

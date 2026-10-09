@@ -19,6 +19,7 @@
  *             bool, número, IconData → CastanhaIcons.nome (icon: true); code entra como está
  *             scale multiplica (0.01: 0–100 → 0–1) · br lê número no formato brasileiro ("30.000,00")
  *             em code e tpl: {@attr} = valor cru · {q:attr} = texto entre aspas · {c:attr} = camelCase (CastanhaIcons.{c:icon})
+ *             · {ill:attr} = constante de CastanhaIllustrations (com os nomes que mudaram no pacote)
  *             o argumento some quando o valor é o padrão do construtor (obrigatório nunca some)
  *   pre       linhas antes do widget (ex.: estado) · {@atributo} vira o valor atual
  *   figma     linhas da tabela: [prop do Figma, atributo do playground, parâmetro do Flutter, nota]
@@ -77,6 +78,7 @@
     return String(t).replace(/\{v\}/g, v == null ? "" : v).replace(/\{i\}/g, get.i)
       .replace(/\{q:([a-z-]+)\}/g, function(m, k){ var x = get(k); return dartStr(x == null ? "" : x); })
       .replace(/\{c:([a-z-]+)\}/g, function(m, k){ var x = get(k); return camel(String(x == null ? "" : x).replace(/\//g, "-")); })
+      .replace(/\{ill:([a-z-]+)\}/g, function(m, k){ var x = String(get(k) || ""), ill = (CDS.flutter && CDS.flutter.ill) || {}; return ill[x] || camel(x.replace(/\//g, "-")); }) // nome do Dart (algumas ilustrações mudaram de nome no pacote)
       .replace(/\{@([a-z-]+)\}/g, function(m, k){ var x = get(k); return x == null ? "" : x; });
   }
   function test(get, ifs){
@@ -246,6 +248,13 @@
     tag(it.via === "code-connect" ? "informative" : "neutral", it.via === "code-connect" ? "Casado pelo Code Connect" : "Casado pelo nome",
       it.via === "code-connect" ? "O node do Figma deste componente está no Code Connect do castanha-mobile." : "Casado pelo nome da classe ou da story do Widgetbook (sem Code Connect).");
 
+    // F2: saúde Figma × Flutter (scripts/integration/check-flutter-stack.js) — etiqueta com o pior nível
+    var CK = { alta: ["negative", "Alta"], media: ["warning", "Média"], info: ["neutral", "Informativo"] }, checks = it.checks || [];
+    var worst = ["alta", "media"].filter(function(l){ return checks.some(function(c){ return c.l === l; }); })[0];
+    var nAlert = checks.filter(function(c){ return c.l !== "info"; }).length;
+    if (worst) tag(CK[worst][0], nAlert + (nAlert === 1 ? " divergência" : " divergências") + " Figma × Flutter", "Check em três vértices (Figma × castanha_flutter × playground). Detalhes no bloco \"Saúde Figma × Flutter\", abaixo.");
+    else tag("positive", "Check Figma × Flutter ok", "Nenhuma divergência que mude o resultado entre as props do Figma e os parâmetros do Flutter.");
+
     if (it.doc){ var dp = root.appendChild(el("p", "pg-react__p")); rich(dp, it.doc + " "); dp.appendChild(el("span", "pg-react__src", "(dartdoc)")); }
 
     function block(title, label){
@@ -297,6 +306,13 @@
         return { cells: [r[0], codes(r[1]), codes(r[2]), now], note: r[3] };
       });
       root.appendChild(acc("Figma → Flutter", "Como cada prop do Figma vira parâmetro no Flutter. \"Agora\" segue os controles", table(["Figma", "Playground", "Flutter", "Agora"], rows)));
+    }
+
+    if (checks.length){
+      root.appendChild(acc("Saúde Figma × Flutter", checks.length + (checks.length === 1 ? " item" : " itens") + " do check em três vértices (relatório: Stack Flutter)",
+        table(["Nível", "Tipo", "O quê"], checks.map(function(c){
+          return [attrs(document.createElement("cds-tag"), { appearance: CK[c.l][0], label: CK[c.l][1], "show-lead-item": "false" }), "`" + c.t + "`", c.m];
+        }), "is-checks")));
     }
 
     var lb = root.appendChild(el("div", "pg-react__useful"));

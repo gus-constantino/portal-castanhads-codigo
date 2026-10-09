@@ -26,6 +26,7 @@ const opt = (k, d) => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] :
 const MOBILE = path.resolve(ROOT, opt("--mobile", process.env.MOBILE || "../castanha-mobile"));
 const REF = opt("--ref", process.env.REF_FLUTTER || "origin/staging");
 const CC_REF = opt("--cc", "origin/feat/figma-code-connect");
+const CASTANHA = path.resolve(ROOT, opt("--castanha", process.env.CASTANHA || "../castanha")); // tags dos pacotes de assets (só leitura)
 const PKG = "packages/castanha-flutter";
 const OUT = path.join(ROOT, "integration", "flutter");
 const WIDGETBOOK = "https://castanha-mobile.caju.com.br/#/?path=";
@@ -308,6 +309,57 @@ cited.forEach((n) => {
 // Mapas Figma → Flutter (integration/flutter-map/<id>.json)
 const MAPS = path.join(ROOT, "integration", "flutter-map"), maps = {};
 if (fs.existsSync(MAPS)) fs.readdirSync(MAPS).filter((f) => /\.json$/.test(f)).sort().forEach((f) => { maps[f.replace(/\.json$/, "")] = JSON.parse(fs.readFileSync(path.join(MAPS, f), "utf8")); });
+// F2: check Figma × Flutter × playground e assets do Dart
+data.byClass = Object.fromEntries(comps.map((c) => [c.class, true]));
+const stack = require("./check-flutter-stack").check({ root: ROOT, manifest, data, maps, regs, castanhaDir: CASTANHA, pubspec: show(REF, PKG + "/pubspec.yaml") || "" });
+delete data.byClass;
+data.ill = stack.ill;
+stack.items.forEach((it) => { const d = data.items[it.id]; if (d) (d.checks = d.checks || []).push({ l: it.l, t: it.t, m: it.m }); });
+const LV = { alta: "Alta", media: "Média", info: "Informativo" };
+const count = (l) => stack.items.filter((i) => i.l === l).length + stack.assets.items.filter((i) => i.l === l).length;
+const dartCheck = (() => { try { return JSON.parse(fs.readFileSync(path.join(OUT, "dart-check.json"), "utf8")); } catch (e) { return null; } })();
+const histFile = path.join(OUT, "HISTORICO.md");
+// as 5 leituras mais recentes do HISTORICO.md (### data → linha em negrito, itens como estão)
+const hist = fs.existsSync(histFile) ? fs.readFileSync(histFile, "utf8").replace(/^#[^\n]*\n+(Escrito[^\n]*\n+)?/, "").split(/\n(?=### )/).filter((x) => x.trim()).slice(0, 5)
+  .map((e) => e.trim().replace(/^### (.*)$/m, "**$1**")) : [];
+const smd = [
+  "# Saúde da stack — Figma × castanha_flutter × playground",
+  "",
+  "Gerado por `node scripts/integration/build-flutter-manifest.js` em " + manifest.generated + " (F2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). Flutter: `" + REF + "` (`" + commit + "`) do castanha-mobile.",
+  "",
+  "## Resumo", "",
+  "| Nível | O que significa | Itens |", "|---|---|---:|",
+  "| Alta | quebra a tradução: parâmetro ou valor que não existe no Flutter, ícone ou ilustração fora do pacote do Dart | " + count("alta") + " |",
+  "| Média | muda o resultado sem quebrar: padrão diferente entre Figma e Flutter | " + count("media") + " |",
+  "| Informativo | prop do Figma sem parâmetro no Flutter, ou parâmetro só do código | " + count("info") + " |",
+  "",
+  "Cobertura: " + manifest.summary.matched + " componentes do playground com widget no castanha_flutter, " + manifest.summary.missing + " sem par e " + manifest.summary.flutterOnly + " só no Flutter. Dart do painel: " +
+    (dartCheck ? dartCheck.snippets + " trechos, " + dartCheck.errors + (dartCheck.errors === 1 ? " erro" : " erros") + " no `dart analyze` (`node scripts/integration/check-dart.js`)." : "ainda sem leitura (`node scripts/integration/check-dart.js`)."),
+  "",
+  ...["alta", "media", "info"].map((l) => [
+    "## " + LV[l], "",
+    "| Componente | Tipo | O quê |", "|---|---|---|",
+    ...stack.items.filter((i) => i.l === l).map((i) => "| `" + i.id + "` | " + i.t + " | " + i.m.replace(/\|/g, "\\|") + " |"),
+    ""
+  ].join("\n")),
+  "## Assets", "",
+  "Constantes do Dart (`CastanhaIcons`, `CastanhaIllustrations`, `CastanhaMotions`) na versão que o castanha_flutter fixa no pubspec × [Caju] Icons e [Caju] Illustrations do playground.", "",
+  "| Pacote | Versão | No pacote | No playground | Mesmo nome | Renomeado | Só aqui | Só no pacote |", "|---|---|---:|---:|---:|---:|---:|---:|",
+  ...stack.assets.rows.map((r) => "| " + r.pkg + " | " + r.version + " | " + r.inPkg + " | " + (r.inPg || "—") + " | " + (r.inPg ? r.same : "—") + " | " + (r.renamed || "—") + " | " + (r.inPg ? r.onlyPg.length : "—") + " | " + r.onlyPkg.length + " |"),
+  "",
+  "| Nível | Tipo | O quê |", "|---|---|---|",
+  ...stack.assets.items.map((i) => "| " + LV[i.l] + " | " + i.t + " | " + i.m.replace(/\|/g, "\\|") + " |"),
+  "",
+  "## Histórico", "",
+  ...(hist.length ? hist : ["Ainda sem leitura diária (`node scripts/integration/daily.js` grava aqui as mudanças do castanha-mobile)."]),
+  "",
+  "## Como rodar", "",
+  "```", "node scripts/integration/build-flutter-manifest.js   # manifesto, painel, este relatório (fora do sandbox: lê os clones)", "node scripts/integration/check-dart.js              # Dart do painel × dart analyze (precisa do Flutter SDK e do Chrome)", "```", ""
+].join("\n");
+fs.writeFileSync(path.join(OUT, "SAUDE-STACK.md"), smd);
+fs.writeFileSync(path.join(OUT, "stack-check.json"), JSON.stringify({ source: manifest.source, summary: manifest.summary, levels: { alta: count("alta"), media: count("media"), info: count("info") },
+  items: stack.items, assets: stack.assets }, null, 1) + "\n");
+
 fs.writeFileSync(path.join(ROOT, "integration", "flutter-data.js"),
   "/* GERADO por scripts/integration/build-flutter-manifest.js a partir de " + REF + " (" + commit + ") do castanha-mobile · não editar à mão */\n" +
   "window.CDS = window.CDS || {}; CDS.flutter = " + JSON.stringify(data) + ";\nCDS.flutterMaps = " + JSON.stringify(maps) + ";\n");
@@ -339,4 +391,5 @@ const md = [
 ].join("\n");
 fs.writeFileSync(path.join(OUT, "COBERTURA.md"), md);
 
+console.log("Check: " + count("alta") + " alta · " + count("media") + " média · " + count("info") + " informativos");
 console.log("Flutter: " + REF + " (" + commit + ") · " + s.matched + " casados · " + s.flutterOnly + " só no Flutter · " + s.missing + " sem par (+" + s.missingBlocks + " blocks)");

@@ -18,6 +18,8 @@
       ["Resumo", ["Resumo"]], ["Smoke", ["Componentes", "Docs"]], ["Peso", ["Peso"]], ["Referência", ["Como rodar"]] ] },
     { id: "stack", title: "Stack React", file: "integration/SAUDE-STACK.md", groups: [ // R2: check Figma × castanha-react × playground
       ["Resumo", ["Resumo"]], ["Por nível", ["Alta", "Média", "Informativo"]], ["Tokens e assets", ["Tokens", "Assets"]], ["Histórico", ["Histórico"]], ["Referência", ["Como rodar"]] ] },
+    { id: "stack-flutter", title: "Stack Flutter", file: "integration/flutter/SAUDE-STACK.md", groups: [ // F2: check Figma × castanha_flutter × playground
+      ["Resumo", ["Resumo"]], ["Por nível", ["Alta", "Média", "Informativo"]], ["Assets", ["Assets"]], ["Histórico", ["Histórico"]], ["Referência", ["Como rodar"]] ] },
     { id: "arquitetura", title: "Arquitetura", file: "docs/ARCHITECTURE.md", groups: [
       ["Visão", ["1", "2"]], ["Evolução", ["7", "6", "5"]], ["Referência técnica", ["3", "4", "8"]] ] },
     { id: "roadmap", title: "Roadmap", file: "docs/ROADMAP.md", groups: [
@@ -348,7 +350,7 @@
       if (r[2]) li.appendChild(el("p", "rp-list__note", esc(plain(r[2]))));
     });
     // Sinais vitais: o resumo da Saúde técnica (smoke, docs, peso) e o check da stack React, em blocos com status
-    var p0 = panel(grid, "Sinais vitais", "Último build e check da stack · detalhes nas tabs Saúde técnica e Stack React", "rp-panel--wide");
+    var p0 = panel(grid, "Sinais vitais", "Último build e check das stacks · detalhes nas tabs Saúde técnica, Stack React e Stack Flutter", "rp-panel--wide");
     var vit = p0.appendChild(el("div", "rp-vitals"));
     var NAMES = [[/smoke dos componentes/i, "Componentes", "view-module-line"], [/smoke das docs/i, "Docs", "document-line"], [/peso/i, "Peso da 1ª visita", "download-line"]];
     rows(sec(docs.saude, function(s){ return s.title === "Resumo"; }).lines).forEach(function(r){
@@ -360,6 +362,11 @@
     var t = vital(vit, "Stack React", "react-line", "", lv["Alta"] ? ["negative", "Atenção"] : lv["Média"] ? ["warning", "Com avisos"] : ["positive", "Em dia"], "#/relatorio/stack", "Check Figma × castanha-react × playground");
     var tags = t.querySelector(".rp-vital__text"); tags.textContent = "";
     [["negative", "Alta"], ["warning", "Média"], ["neutral", "Informativo"]].forEach(function(x){ if (lv[x[1]] == null) return; var tg = tags.appendChild(el("cds-tag")); tg.setAttribute("label", lv[x[1]] + " " + x[1].toLowerCase()); tg.setAttribute("appearance", x[0]); tg.setAttribute("show-lead-item", "false"); });
+    // F2: o mesmo bloco para o castanha_flutter (integration/flutter/SAUDE-STACK.md)
+    var lf = {}; rows(sec(docs["stack-flutter"], function(s){ return s.title === "Resumo"; }).lines).forEach(function(r){ lf[plain(r[0])] = parseInt(r[r.length - 1], 10) || 0; });
+    var tf = vital(vit, "Stack Flutter", "flutter-fill", "", lf["Alta"] ? ["negative", "Atenção"] : lf["Média"] ? ["warning", "Com avisos"] : ["positive", "Em dia"], "#/relatorio/stack-flutter", "Check Figma × castanha_flutter × playground");
+    var tagsF = tf.querySelector(".rp-vital__text"); tagsF.textContent = "";
+    [["negative", "Alta"], ["warning", "Média"], ["neutral", "Informativo"]].forEach(function(x){ if (lf[x[1]] == null) return; var tg = tagsF.appendChild(el("cds-tag")); tg.setAttribute("label", lf[x[1]] + " " + x[1].toLowerCase()); tg.setAttribute("appearance", x[0]); tg.setAttribute("show-lead-item", "false"); });
 
     // Ritmo do projeto: decisões por dia (data da linha no Roadmap §4), dias seguidos do primeiro ao último registro
     // Escondido (Gustavo, 05/10): o código fica para voltar trocando SHOW_RITMO para true

@@ -1001,16 +1001,16 @@
         ] },
         { h3: "Tom" },
         { p: "Combine dois atributos de tom e voz. Juntos, eles guiam sem pressionar e informam sem sobrecarregar: o tranquilizador reduz a ansiedade com mudanças e novidades, e o encorajador reforça as vantagens." },
-        { table: { wrap: true, head: ["Tranquilizador", "Encorajador"], rows: [
-          ["`O caminho para fazer pedidos mudou de lugar, mas continua fácil de usar.`", "`Você só precisa configurar uma vez. Vamos lá?`"],
-          ["`A funcionalidade que você usava antes agora fica em outra área.`", "`Evite pagar contas manualmente todo mês e ative o Pix Automático.`"],
-          ["`Você decide quando alterar.`", "`Reorganizamos para facilitar sua rotina. Confira o que mudou.`"],
-          ["`Configure agora ou deixe para mais tarde.`", "`Ler a nota fiscal de uma despesa nunca foi tão fácil. Ative o leitor automático e economize tempo.`"]
+        { p: "No onboarding, o encorajador puxa a frente: reforce as vantagens e convide a pessoa para explorar. Os exemplos do tom tranquilizador estão no tour guiado, logo abaixo." },
+        { table: { wrap: true, head: ["Faça", "Não faça", "Por quê"], rows: [
+          ["Evite pagar contas manualmente todo mês e ative o Pix Automático.", "Desenvolvemos uma nova funcionalidade de automação de pagamentos recorrentes.", "Descreve o funcionamento técnico do ponto de vista do time, não o valor percebido pela pessoa."],
+          ["Ler a nota fiscal de uma despesa nunca foi tão fácil. Ative o leitor automático e economize tempo.", "Agora você pode usar nosso novo OCR para leitura automática de notas fiscais 📄", "Usa jargão técnico (OCR) e emoji, que não entra nesse contexto."],
+          ["Você só precisa configurar uma vez. Vamos lá?", "Configure agora, é rápido e você não vai se arrepender.", "Promessa vaga em vez de mostrar o valor real."]
         ] } },
         { h3: "Boas práticas" },
         { ul: [
           "Inclua microinterações para reforçar o conteúdo. Se a mensagem fala sobre pagamentos mensais, a ilustração pode mostrar onde encontrar a próxima data de cobrança.",
-          "Deixe o onboarding acessível para ser visto em outro momento. Use os botões padrão para isso.",
+          "Deixe o onboarding acessível para ser visto em outro momento, com o botão \"Me lembrar mais tarde\".",
           "Defina um período para a comunicação ficar no ar e lembre de removê-la quando o prazo encerrar.",
           "Antes de subir uma nova comunicação, verifique quantas interrupções já existem no produto. Se possível, remova uma antes de adicionar outra.",
           "Acompanhe métricas como taxa de abandono e tempo gasto para avaliar a comunicação. Se ela não engaja, vale repensar a estratégia para comunicar o valor da funcionalidade."
@@ -1061,10 +1061,14 @@
         ] },
         { h3: "Tom" },
         { p: "Use um tom tranquilizador para reduzir a ansiedade com mudanças, e encorajador para reforçar o valor da ação. Os dois trabalham juntos nesse contexto. Exemplos:" },
-        { ul: [
-          "`O caminho para fazer pedidos mudou de lugar, mas continua fácil de usar.`", "`A funcionalidade que você usava antes agora fica em outra área.`", "`Você decide quando alterar.`",
-          "`Você só precisa configurar uma vez. Vamos lá?`", "`Reorganizamos para facilitar sua rotina. Confira o que mudou.`", "`Configure agora ou deixe para mais tarde.`"
-        ] },
+        { table: { wrap: true, head: ["Faça", "Não faça", "Por quê"], rows: [
+          ["O caminho para fazer pedidos mudou de lugar, mas continua fácil de usar.", "O caminho para fazer pedidos mudou. Aprenda o novo fluxo agora mesmo!", "Soa como cobrança, sem reduzir a ansiedade da mudança."],
+          ["A funcionalidade que você usava antes agora fica em outra área.", "Sentimos muito, mas você vai precisar reaprender onde fica essa funcionalidade.", "Pedido de desculpas desnecessário, que faz a mudança parecer um problema."],
+          ["Você decide quando alterar.", "Altere agora para não perder o acesso à função.", "Cria falsa urgência num contexto que não é de bloqueio."],
+          ["Você só precisa configurar uma vez. Vamos lá?", "Configure agora, é rápido e você não vai se arrepender.", "Promessa vaga em vez de mostrar o valor real."],
+          ["Reorganizamos para facilitar sua rotina. Confira o que mudou.", "Mudamos tudo! Vem ver as novidades 🎉", "Usa emoji e tom de anúncio de marketing, fora do tom tranquilizador."],
+          ["Configure agora ou deixe para mais tarde.", "Configure agora, senão você vai perder essa oportunidade.", "O Faça oferece uma escolha real, sem pressão. O Não faça transforma o mesmo \"agora\" em ameaça de perda."]
+        ] } },
         { h3: "Botões padronizados" },
         { table: { wrap: true, head: ["Label", "Quando usar", "Não use"], rows: [
           ["Começar", "Inicia o tour guiado — exclusivo para a primeira tela.", "“iniciar” ou “explorar”"],

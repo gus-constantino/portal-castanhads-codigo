@@ -127,9 +127,10 @@
     var dec = items(sec(road, function(s){ return s.num === "4"; }).lines).length;
     var qs = items(sec(road, function(s){ return s.num === "5"; }).lines).filter(function(l){ return !/✅/.test(l); }).length;
     var pg = (CDS.playgrounds || []).filter(function(c){ return !c.resource; });
-    var comps = pg.filter(function(c){ return !c.block && !c.composition; }).length;
+    var comps = pg.filter(function(c){ return !c.block && !c.composition && !c.template; }).length;
+    var tpls = pg.filter(function(c){ return c.template; }).length;
     return [
-      { label: "Componentes no playground", value: comps, sub: "+ " + pg.filter(function(c){ return c.block; }).length + " building blocks", icon: "view-module-line", app: "accent", tip: "Componentes do Figma implementados no playground, sem contar building blocks e recursos de apoio." },
+      { label: "Componentes no playground", value: comps, sub: "+ " + pg.filter(function(c){ return c.block; }).length + " building blocks" + (tpls ? " e " + tpls + " templates" : ""), icon: "view-module-line", app: "accent", tip: "Componentes do Figma implementados no playground, sem contar building blocks, templates, composições e recursos de apoio." },
       { label: "Variantes do Figma cobertas", value: variants, sub: "em " + sets + " sets da lib · todas no playground", icon: "check-line", app: "positive", pct: 100, tip: "Soma das variantes dos sets do inventário da lib (Roadmap §2). Todas estão implementadas no playground." },
       { label: "Débitos e melhorias mapeados", value: openC, sub: solved + " já resolvidos (" + Math.round(solved / ((openC + solved) || 1) * 100) + "%)", icon: "warning-line", app: "warning", pct: Math.round(solved / ((openC + solved) || 1) * 1000) / 10, href: "#/relatorio/conferir", tip: "Itens em aberto no Conferir: divergências entre Figma e código, gaps e propostas de melhoria. A barra mostra a parte já resolvida." },
       { label: "Decisões registradas", value: dec, sub: qs ? qs + " dúvida(s) em aberto" : "Sem dúvidas em aberto", icon: "bookmark-line", app: "informative", href: "#/relatorio/roadmap", tip: "Decisões tomadas e registradas no Roadmap (D1, D2…). Embaixo, as dúvidas que ainda aguardam resposta." }

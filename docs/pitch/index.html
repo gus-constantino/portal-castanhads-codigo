@@ -507,7 +507,7 @@
   function set(k, v){ [].forEach.call(document.querySelectorAll('[data-kpi="' + k + '"]'), function(e){ e._to = v; if (e._seen) countUp(e, v); else e.textContent = v.toLocaleString("pt-BR"); }); }
   [].forEach.call(document.querySelectorAll("[data-kpi], [data-count]"), function(e){ if (e.dataset.count) e._to = Number(e.dataset.count); numIO.observe(e); });
   var pg = (window.CDS && CDS.playgrounds || []).filter(function(c){ return !c.resource; });
-  set("comps", pg.filter(function(c){ return !c.block && !c.composition; }).length);
+  set("comps", pg.filter(function(c){ return !c.block && !c.composition && !c.template; }).length);
   set("blocks", pg.filter(function(c){ return c.block; }).length);
   fetch(ROOT + "docs/ROADMAP.md").then(function(r){ return r.text(); }).then(function(tx){
     var parts = tx.split(/\n(?=## )/), sec = function(n){ return parts.filter(function(p){ return new RegExp("^## " + n + "\\.").test(p); })[0] || ""; };

@@ -101,7 +101,7 @@
         { h2: "Regras de texto" },
         { p: "O bottom sheet aparece para oferecer ações ou informações adicionais sem tirar a pessoa do fluxo. Por ser um espaço reduzido, o conteúdo precisa ser direto e focado." },
         { h3: "Como escrever" },
-        { ul: ["No título, prefira perguntas curtas sempre que possível. Comunique uma coisa de cada vez.", "Use pontuação na descrição.", "Quando houver consequências, sempre informe o impacto da ação na descrição.", "Deixe sempre claro como encerrar o bottom sheet."] },
+        { ul: ["No título, prefira perguntas curtas sempre que possível. Comunique uma coisa de cada vez. Exemplo de título em pergunta: \"Sair sem enviar os documentos?\"", "Use pontuação na descrição.", "Quando houver consequências, sempre informe o impacto da ação na descrição.", "Deixe sempre claro como encerrar o bottom sheet."] },
         { h3: "Boas práticas" },
         { ul: [
           "Reserve o bottom sheet para informações ”extras”. Nunca esconda informações essenciais para concluir a tarefa do fluxo dentro de um bottom sheet.",
@@ -116,14 +116,16 @@
         ] },
         { h3: "Do's and Don'ts" },
         { dodont: [
-          { kind: "do", attrs: sheetActions("Sair sem salvar os documentos?", "Você pode enviar quando quiser, mas o benefício só fica disponível após a aprovação dos documentos enviados.", "Continuar editando", "Sair sem salvar"),
+          { kind: "do", attrs: sheetActions("Sair sem enviar os documentos?", "Você pode enviar quando quiser, mas o benefício só fica disponível após a aprovação dos documentos enviados.", "Sair", "Continuar editando"),
             text: "Use perguntas no título de bottom sheets, sempre que possível." },
-          { kind: "dont", attrs: sheetActions("Atenção", "Você pode enviar quando quiser, mas o benefício só fica disponível após a aprovação dos documentos enviados.", "Cancelar", "Sair"),
-            text: "O título não é específico e os botões são confusos para o contexto." },
-          { kind: "do", text: "Use Voltar quando o bottom sheet interrompe um fluxo e, ao encerrá-lo, a pessoa retorna para uma área do app (Pix, Cartão, etc.) ou para uma tela que não é de edição." },
-          { kind: "dont", text: "Não use Continuar editando se ao fechar o bottom sheet, o usuário retorna para uma área do app (ex: Pix, Cartão) ou a tela não é de input/edição." }
+          { kind: "dont", attrs: sheetActions("Você vai sair sem enviar os documentos", "Você pode enviar quando quiser, mas o benefício só fica disponível após a aprovação dos documentos enviados.", "Sair", "Continuar editando"),
+            text: "Evite usar afirmações no título de bottom sheets." },
+          { kind: "do", attrs: sheetActions("Contestação identificada", "Não é possível abrir mais de uma contestação para uma mesma transação. Para tirar dúvidas, entre em contato com a gente pelos canais de atendimento.", "Falar com a Caju", "Voltar"),
+            text: "Use Voltar quando, ao fechar o bottom sheet, a pessoa retorna para uma área do app (Pix, Cartão etc.) ou a tela não é de input ou edição. Neste caso, é um comprovante." },
+          { kind: "dont", attrs: sheetActions("Contestação identificada", "Não é possível abrir mais de uma contestação para uma mesma transação. Para tirar dúvidas, entre em contato com a gente pelos canais de atendimento.", "Falar com a Caju", "Continuar editando"),
+            text: "Não use Continuar editando quando, ao fechar o bottom sheet, a pessoa retorna para uma área do app (Pix, Cartão etc.) ou a tela não é de input ou edição." }
         ] },
-        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Bottom sheet. Regras de escrita do time de Content. Os exemplos usam componentes do DS com os mesmos textos." }
+        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Bottom sheet e o Castanha Hub (Experiências e Jornadas › Componentes › Bottom sheet, conferido em 09/10/2026). Regras de escrita do time de Content. Os exemplos usam componentes do DS com os mesmos textos." }
       ] }
     ]
   };

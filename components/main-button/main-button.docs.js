@@ -269,7 +269,7 @@
           ["Falar com a Caju", "Abre WhatsApp ou e-mail do time de CX."],
           ["Fechar", "Encerra algo sem impacto ou decisão (onboardings, modais informativos). Também usado quando o modal não tem \"X\" no canto superior."],
           ["Já recebi e quero ativar", "Texto fixo — não modifique. Caso seja alterado, deve ser atualizada a carta berço do cartão físico."],
-          ["Limpar", "Remove os filtros aplicados."],
+          ["Limpar", "Remove todos os filtros aplicados."],
           ["Me lembrar mais tarde", "Fecha pop-ups ou bottom sheets que voltam a aparecer até a ação ser concluída."],
           ["Não encontrei o código", "Telas de código de desbloqueio, abre modal explicativo sobre onde encontrar o código."],
           ["Não mostrar novamente", "Encerra pop-ups ou bottom sheets que não voltam a aparecer."],
@@ -280,7 +280,7 @@
           ["Sair sem salvar", "Abandona o fluxo com perda de dados. Deixa claro que as informações não serão salvas."],
           ["Saiba mais", "Exclusivo para peças de marketing (banners, campanhas, formulários externos)."],
           ["Salvar alterações", "Confirma uma edição em formulário."],
-          ["Sim, cancelar", "Confirma o cancelamento de uma ação já iniciada. Remove ambiguidade do termo \"Cancelar\"."],
+          ["Sim, cancelar", "Confirma o cancelamento de uma ação que se chama \"Cancelar algo\". Remove a ambiguidade do termo \"Cancelar\"."],
           ["Voltar", "Retorna a uma etapa anterior sem sair do fluxo. Exceção: use \"Voltar\" em vez de \"Continuar editando\" quando o contexto não for coerente com edição."],
           ["[Apenas Sponsor] Voltar para [Nome da área]", "Telas de finalização (sucesso ou erro). Leva de volta a uma área principal após concluir ou falhar um fluxo. Nome da área sempre com letra maiúscula."],
           ["[Apenas Employee] Fechar", "Telas de finalização (sucesso ou erro). Leva de volta a uma área principal após concluir ou falhar um fluxo."]

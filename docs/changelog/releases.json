@@ -1,7 +1,7 @@
 {
  "fonte": "Slack #castanha-novidades (C09F7GD1A6M)",
  "lido_ate": "2026-10-08",
- "atualizado_em": "2026-10-08",
+ "atualizado_em": "2026-10-09",
  "nota": "lido_ate = último dia em que o canal foi lido por completo. A rotina lê a partir desse dia (inclusive); releases repetidas (mesma data, área e título) são ignoradas.",
  "releases": [
   {
@@ -2727,6 +2727,19 @@
     }
    ],
    "link": "https://castanha.caju.com.br/"
+  },
+  {
+   "data": "2026-04-24",
+   "area": "Documentação",
+   "titulo": "Templates de Feedback Pages no zeroheight",
+   "versao": "v1.1.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Feedback Pages: Erros, Alertas, Sucesso e Empty state"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/v/latest/p/88ee4a-changelog"
   },
   {
    "data": "2026-04-13",

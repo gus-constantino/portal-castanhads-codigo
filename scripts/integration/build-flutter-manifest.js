@@ -314,6 +314,16 @@ data.byClass = Object.fromEntries(comps.map((c) => [c.class, true]));
 const stack = require("./check-flutter-stack").check({ root: ROOT, manifest, data, maps, regs, castanhaDir: CASTANHA, pubspec: show(REF, PKG + "/pubspec.yaml") || "" });
 delete data.byClass;
 data.ill = stack.ill;
+data.dart = stack.dart; // CastanhaIcons, CastanhaIllustrations e CastanhaMotions: nomes das constantes
+// todas as classes públicas do pacote (widgets, itens, valores, sealed): o revisar_dart não acusa como inexistentes
+const allClasses = new Set(Object.keys(classes));
+ls(REF, PKG + "/lib/src").filter((f) => /\.dart$/.test(f)).forEach((f) => { for (const m of (show(REF, f) || "").matchAll(/\b(?:class|mixin|typedef|extension type)\s+(Castanha\w+)/g)) allClasses.add(m[1]); });
+data.classes = [...allClasses].sort();
+// widgets só do Flutter (sem par no playground): o revisar_dart do MCP também conhece os parâmetros deles
+data.only = {};
+flutterOnly.forEach((c) => { data.only[c.class] = { class: c.class, story: c.story, widgetbook: c.widgetbook, constructors: c.constructors.length ? c.constructors : undefined,
+  params: c.params.map((p) => Object.assign({ n: p.n, t: p.t }, p.req ? { req: 1 } : {}, p.def ? { def: p.def } : {}, p.a11y ? { a11y: 1 } : {})) };
+  c.params.forEach((p) => { const t = p.t && p.t.replace(/\?$/, ""); if (manifest.enums[t]) data.enums[t] = manifest.enums[t].values.map((v) => v.n); }); });
 stack.items.forEach((it) => { const d = data.items[it.id]; if (d) (d.checks = d.checks || []).push({ l: it.l, t: it.t, m: it.m }); });
 const LV = { alta: "Alta", media: "Média", info: "Informativo" };
 const count = (l) => stack.items.filter((i) => i.l === l).length + stack.assets.items.filter((i) => i.l === l).length;

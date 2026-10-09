@@ -54,7 +54,8 @@
           ["`divergencias`", "O que está diferente entre Figma, castanha-react e playground (CONFERIR e check da stack)."],
           ["`gerar_jsx`", "Código do castanha-react a partir das props como estão no Figma. É o mesmo código do painel \"No React\" de cada componente."],
           ["`gerar_dart`", "Código Dart do castanha_flutter (app) a partir das props como estão no Figma. É o mesmo código do painel \"No Flutter\" de cada componente."],
-          ["`revisar_codigo`", "Revisa um trecho JSX: componente ou prop inexistente, valor fora das opções, prop obrigatória faltando, ícone ou ilustração com nome errado, cor ou tamanho cru que tem token e padrão do React diferente do Figma."]
+          ["`revisar_codigo`", "Revisa um trecho JSX: componente ou prop inexistente, valor fora das opções, prop obrigatória faltando, ícone ou ilustração com nome errado, cor ou tamanho cru que tem token e padrão do React diferente do Figma."],
+          ["`revisar_dart`", "Revisa um trecho Dart do app: widget ou parâmetro inexistente, valor fora do enum, parâmetro obrigatório faltando, ícone ou ilustração que não existe no pacote do Dart e cor, espaçamento ou raio crus que têm token."]
         ] } },
         { h3: "Prompts prontos" },
         { ul: ["`implementar-tela`: implementa uma tela inteira com componentes e tokens do DS, gerando e revisando o código.",
@@ -77,6 +78,12 @@
           "`lable`: você quis dizer `label`?",
           "`error` é boolean: a mensagem vai em `supportingMessage`.",
           "`#1a1a1a` em color: use `var(--castanha-colors-text-intense)`. `16px` em padding: use `var(--castanha-sizes-16)`."] },
+        { p: "No app, `revisar_dart` faz o mesmo com o Dart:" },
+        { code: "CastanhaMainButton(\n  label: 'Salvar',\n  onPressed: () {},\n  appearance: CastanhaMainButtonAppearance.primary,\n  variant: 'ghost',\n)\nCastanhaTextField(label: 'CPF')\nContainer(color: Color(0xFF1A1A1A), padding: EdgeInsets.all(16))" },
+        { ul: ["`CastanhaMainButtonAppearance.primary` não existe: os valores são accent, neutral e inverted.",
+          "`variant` não é parâmetro de `CastanhaMainButton`: use `appearance` ou `kind`.",
+          "`CastanhaTextField` não existe: você quis dizer `CastanhaTextArea` ou `CastanhaTextInput`?",
+          "`Color(0xFF1A1A1A)` e `EdgeInsets.all(16)` são valores crus: use os tokens do tema."] },
         { h2: "Perguntas que funcionam bem" },
         { ul: ["\"Qual componente uso para filtrar uma lista?\"",
           "\"Quais tokens de cor de texto existem e qual é o valor no tema escuro?\"",

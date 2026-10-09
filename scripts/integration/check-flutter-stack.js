@@ -109,10 +109,12 @@ function check({ root, manifest, data, maps, regs, castanhaDir, pubspec }){
   let react = {}; try { const w = {}; new Function("window", "CDS", fs.readFileSync(path.join(root, "integration", "assets-react.js"), "utf8"))(w, w.CDS = {}); react = w.CDS.reactAssets || {}; } catch (e) {}
   const lower = (s) => s.charAt(0).toLowerCase() + s.slice(1);
   const ill = {}; // nome do playground → constante do Dart
+  const dart = {}; // constantes de cada pacote (para o revisar_dart do MCP)
   [["castanha-icons", "castanha_icons", /static const IconData (\w+)/g, "icons"], ["castanha-illustrations", "castanha_illustrations", /static const String (\w+)\s*=/g, "illustrations"], ["castanha-motion", "castanha_motion", /static const String (\w+)\s*=/g, "motion"]].forEach(([pkg, dartPkg, re, kind]) => {
     const tag = pin(pkg); if (!tag) return;
     const src = showTag(tag, "packages/" + pkg + "/dist/dart/lib/" + dartPkg + ".dart") || "";
     const names = new Set(Array.from(src.matchAll(re)).map((m) => m[1]));
+    dart[kind] = [...names].sort();
     const row = { pkg: dartPkg, version: tag.split("@").pop(), inPkg: names.size, inPg: 0, same: 0, renamed: 0, onlyPg: [], onlyPkg: [] };
     if (kind === "icons"){
       const list = (pg.icons || []).map((i) => i.name);
@@ -139,7 +141,7 @@ function check({ root, manifest, data, maps, regs, castanhaDir, pubspec }){
     if (kind === "illustrations" && row.renamed) assets.items.push({ l: "media", t: "ilustracao-renomeada", m: row.renamed + " ilustrações têm outro nome no pacote (o painel já usa o nome do Dart), ex.: " + Object.keys(ill).filter((k) => ill[k] !== camel(k.replace("/", "-"))).slice(0, 4).map((k) => "`" + k + "` → `" + ill[k] + "`").join(", ") + "." });
     if (kind === "motion" && row.onlyPkg.length) assets.items.push({ l: "info", t: "motion-so-no-dart", m: row.onlyPkg.length + " animações em `CastanhaMotions` (" + row.version + "), ainda sem tab no playground." });
   });
-  return { items, assets, ill };
+  return { items, assets, ill, dart };
 }
 
 module.exports = { check };

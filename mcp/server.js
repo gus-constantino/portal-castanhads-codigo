@@ -12,7 +12,7 @@
  *   node mcp/server.js --http 8787   →  http://127.0.0.1:8787/mcp   (handleRequest: handler `fetch` para Workers/Deno/Edge)
  *
  * Ferramentas: listar_componentes · componente · docs · buscar · tokens · icone · ilustracao · diretrizes · divergencias
- *              gerar_jsx · revisar_codigo (M2, mcp/react.js) · gerar_dart (castanha_flutter, mcp/flutter.js)
+ *              gerar_jsx · revisar_codigo (M2, mcp/react.js) · gerar_dart · revisar_dart (castanha_flutter, mcp/flutter.js)
  * Resources:   castanha://componente/{id} · castanha://docs/{id}/{tab}
  * Prompts:     implementar-tela · revisar-handoff · escrever-texto
  */
@@ -20,7 +20,7 @@
 const fs = require("fs"), path = require("path");
 const VERSION = "0.3.0";
 const REACT = require("./react"); // M2: gerar_jsx e revisar_codigo
-const FLUTTER = require("./flutter"); // gerar_dart (castanha_flutter)
+const FLUTTER = require("./flutter"); // gerar_dart e revisar_dart (castanha_flutter)
 const SITE_CATALOG = "https://gus-constantino.github.io/portal-castanhads/dist/mcp/catalog.json";
 // catálogo: CASTANHA_CATALOG (arquivo ou URL) · o do repo (dist/mcp/) · o ao lado do arquivo único · o publicado no site
 const SRC = (typeof process !== "undefined" && process.env && process.env.CASTANHA_CATALOG) || (function(){
@@ -279,6 +279,9 @@ const TOOLS = [
       const x = findComponent(c, a.nome) || c.components.find((k) => k.flutter && fold(k.flutter.class) === fold(a.nome));
       if (!x) return "Não achei \"" + a.nome + "\". Parecidos: " + (suggest(c, a.nome).join(", ") || "nenhum") + ".";
       return "# " + x.name + " → `" + ((x.flutter && x.flutter.class) || "?") + "`\n\n" + await FLUTTER.generate(c, x, a); } },
+  { name: "revisar_dart", description: "Revisa um trecho Dart/Flutter que usa o castanha_flutter: widget inexistente, parâmetro inexistente (com o nome certo pelo vocabulário do DS: variant → appearance, iconLeft → leadIcon…), valor fora do enum ou texto no lugar do enum, parâmetro obrigatório faltando, ícone ou ilustração que não existe no pacote do Dart, widget do pacote legado (Castds*) e cor, espaçamento ou raio crus que têm token.",
+    inputSchema: { type: "object", properties: { codigo: { type: "string", description: "Trecho Dart (com os imports, se houver)" } }, required: ["codigo"] },
+    run: async (a) => FLUTTER.reviewText(await catalog(), a.codigo) },
   { name: "revisar_codigo", description: "Revisa um trecho JSX/TSX que usa o castanha-react: componente inexistente ou sem import, prop inexistente, valor fora das opções, prop obrigatória faltando, ícone ou ilustração com nome errado, cor ou tamanho cru que tem token, e padrões do React diferentes do Figma.",
     inputSchema: { type: "object", properties: { codigo: { type: "string", description: "Trecho JSX/TSX (com os imports, se houver)" } }, required: ["codigo"] },
     run: async (a) => REACT.reviewText(await catalog(), a.codigo) }

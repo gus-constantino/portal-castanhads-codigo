@@ -220,7 +220,7 @@ function build(){
   Object.keys(R.items).forEach((id) => { const it = R.items[id]; if (it.component) reactData.items[id] = { component: it.component, import: it.import || null, map: it.map || null }; });
   const stack = exists("integration/stack-check.json") ? JSON.parse(read("integration/stack-check.json")) : null;
   // dados no formato do flutter-kit (mapas + parâmetros e enums do castanha_flutter), para gerar Dart no MCP
-  const flutterData = { source: FL.source || null, enums: FL.enums || {}, extra: FL.extra || {}, ill: FL.ill || {}, items: {} };
+  const flutterData = { source: FL.source || null, enums: FL.enums || {}, extra: FL.extra || {}, ill: FL.ill || {}, dart: FL.dart || {}, only: FL.only || {}, classes: FL.classes || [], items: {} };
   Object.keys(FL.items || {}).forEach((id) => { const it = FL.items[id]; flutterData.items[id] = { class: it.class, params: it.params, constructors: it.constructors, map: FM[id] || null }; });
   const catalog = {
     about: "Catálogo do Castanha DS (playground de handoff Figma ↔ código). Gerado por scripts/mcp/build-catalog.js; fonte do MCP (docs/local/PLANO-MCP.md).",

@@ -108,4 +108,116 @@ async function generate(catalog, comp, args){
     "\n\nGerado pelo mapa `integration/flutter-map/" + comp.id + ".json` (o mesmo do painel \"No Flutter\" do playground). Parâmetros omitidos = padrão do construtor. Callbacks (`onPressed`, `onChanged`…) vêm vazios: troque pela sua lógica.";
 }
 
-module.exports = { generate };
+// ---------- revisar ----------
+function lev(a, b){ const d = Array.from({ length: b.length + 1 }, (_, i) => i); for (let i = 1; i <= a.length; i++){ let prev = d[0]; d[0] = i; for (let j = 1; j <= b.length; j++){ const t = d[j]; d[j] = Math.min(d[j] + 1, d[j - 1] + 1, prev + (a[i - 1] === b[j - 1] ? 0 : 1)); prev = t; } } return d[b.length]; }
+const near = (q, list) => list.map((x) => [x, lev(fold(q), fold(x))]).filter((p) => p[1] <= Math.max(2, Math.floor(q.length / 3))).sort((a, b) => a[1] - b[1]).slice(0, 3).map((p) => p[0]);
+// nomes comuns em outras libs (e os que o CLAUDE.md do castanha-mobile proíbe) → vocabulário do castanha_flutter
+const SYN = { variant: ["appearance", "kind"], color: ["appearance"], theme: ["appearance"], type: ["kind"], category: ["kind"], scale: ["size"], dimension: ["size"],
+  direction: ["orientation"], axis: ["orientation"], isVertical: ["orientation"], iconLeft: ["leadIcon"], leftIcon: ["leadIcon"], startIcon: ["leadIcon"], iconBefore: ["leadIcon"], icon: ["leadIcon"],
+  iconRight: ["trailingIcon", "showTrailingIcon"], rightIcon: ["trailingIcon", "showTrailingIcon"], endIcon: ["trailingIcon", "showTrailingIcon"], rightContent: ["trailingItem"], endSlot: ["trailingItem"],
+  isOpen: ["open"], visible: ["open"], isActive: ["active", "selected"], pressed: ["active"], isSelected: ["selected"], current: ["selected"], hasError: ["error"], isError: ["error"],
+  helperText: ["supportingMessage"], hint: ["supportingMessage", "placeholder"], caption: ["supportingMessage"], text: ["label"], title: ["label", "title"], isDisabled: ["disabled"], enabled: ["disabled"],
+  onTap: ["onPressed"], onClick: ["onPressed"], onChange: ["onChanged"], child: ["label"] };
+/** Lê `Classe(...)` e `Classe.ctor(...)` do pacote: { cls, ctor, line, args: [{ name, value, line }], positional } */
+function parseDart(src){
+  const out = [], lineOf = (i) => src.slice(0, i).split("\n").length;
+  const re = /\b(Castanha[A-Z]\w*)(?:\.(\w+))?\s*\(/g; let m;
+  while ((m = re.exec(src))){
+    let j = re.lastIndex, d = 1, q = null;
+    for (; j < src.length && d; j++){ const c = src[j]; if (q){ if (c === q && src[j - 1] !== "\\") q = null; continue; } if (c === "'" || c === '"') q = c; else if ("([{".includes(c)) d++; else if (")]}".includes(c)) d--; }
+    const body = src.slice(re.lastIndex, j - 1), base = re.lastIndex;
+    const args = []; let cur = "", depth = 0, start = 0, qq = null;
+    for (let k = 0; k <= body.length; k++){
+      const c = body[k];
+      if (k < body.length && qq){ cur += c; if (c === qq && body[k - 1] !== "\\") qq = null; continue; }
+      if (k < body.length && (c === "'" || c === '"')){ qq = c; cur += c; continue; }
+      if (k === body.length || (c === "," && depth === 0)){
+        const t = cur.trim();
+        if (t){ const at = lineOf(base + start + cur.search(/\S/)), nm = /^(\w+)\s*:\s*([\s\S]*)$/.exec(t); args.push(nm ? { name: nm[1], value: nm[2].trim(), line: at } : { name: null, value: t, line: at }); }
+        cur = ""; start = k + 1; continue;
+      }
+      if ("([{".includes(c)) depth++; else if (")]}".includes(c)) depth--;
+      cur += c;
+    }
+    out.push({ cls: m[1], ctor: m[2] || null, line: lineOf(m.index), args });
+  }
+  return out;
+}
+function review(catalog, src){
+  const data = catalog.flutterData || {}, out = [], say = (lv, line, msg) => out.push({ lv, line, msg });
+  const classes = {};
+  Object.keys(data.items || {}).forEach((id) => { const it = data.items[id]; classes[it.class] = { params: it.params, ctors: it.constructors || [], id }; });
+  Object.keys(data.extra || {}).forEach((k) => { classes[k] = classes[k] || { params: data.extra[k].params, ctors: [] }; });
+  Object.keys(data.only || {}).forEach((k) => { classes[k] = classes[k] || { params: data.only[k].params, ctors: data.only[k].constructors || [], only: true }; });
+  const enums = data.enums || {}, dart = data.dart || {};
+  const ASSETS = { CastanhaIcons: dart.icons || [], CastanhaIllustrations: dart.illustrations || [], CastanhaMotions: dart.motion || [] };
+  // tipos citados nos parâmetros (sealed com construtores de fábrica: CastanhaBannerKind.illustration, CastanhaContentListLeadItem.icon…)
+  const cited = new Set(); Object.values(classes).forEach((c) => c.params.forEach((p) => (String(p.t || "").match(/Castanha\w+/g) || []).forEach((n) => cited.add(n))));
+  // import
+  if (/Castanha[A-Z]/.test(src) && /^\s*import\s/m.test(src) && !/package:castanha_flutter\/castanha_flutter\.dart/.test(src))
+    say("alta", 1, "Falta `import 'package:castanha_flutter/castanha_flutter.dart';` (ele também reexporta ícones, ilustrações e tokens).");
+  if (/package:castds_/.test(src)) say("media", 1, "Import de pacote legado `castds_*`: novos códigos usam `castanha_flutter` (widgets `Castanha*`, nunca `Castds*`).");
+  (src.match(/\bCastds\w+/g) || []).filter((v, i, a) => a.indexOf(v) === i).forEach((n) => say("media", 1, "`" + n + "` é do pacote legado (castds_as_is): procure o widget `Castanha*` equivalente."));
+  // constantes de assets
+  src.replace(/\b(CastanhaIcons|CastanhaIllustrations|CastanhaMotions)\.(\w+)/g, (m, k, n, i) => {
+    if (ASSETS[k].length && ASSETS[k].indexOf(n) < 0){ const s = near(n, ASSETS[k]); say("alta", src.slice(0, i).split("\n").length, "`" + k + "." + n + "` não existe no pacote" + (s.length ? ": você quis dizer " + s.map((x) => "`" + x + "`").join(" ou ") + "?" : ". Use as ferramentas `icone` e `ilustracao` para achar o nome.")); }
+    return m;
+  });
+  // enums usados com o tipo errado ou valor inexistente
+  src.replace(/\b(Castanha\w+)\.(\w+)\b(?!\s*\()/g, (m, t, v, i) => {
+    if (enums[t] && enums[t].indexOf(v) < 0 && v !== "values"){ const s = near(v, enums[t]); say("alta", src.slice(0, i).split("\n").length, "`" + t + "." + v + "` não existe. Valores: " + enums[t].map((x) => "`" + x + "`").join(", ") + (s.length ? " (quis dizer `" + s[0] + "`?)" : "") + "."); }
+    return m;
+  });
+  parseDart(src).forEach((w) => {
+    if (ASSETS[w.cls]) return;
+    const c = classes[w.cls];
+    if (!c){
+      if (cited.has(w.cls) || enums[w.cls] || (data.classes || []).indexOf(w.cls) >= 0 || /^Castanha(Row|Column|Field|Text|Theme|Icons|Illustrations|Motions|Spacing|MotionDuration|MotionEasing)\b/.test(w.cls)) return; // tipos auxiliares, primitivos e tokens
+      // primeiro os widgets que contêm a mesma palavra (CastanhaButton → CastanhaMainButton, CastanhaIconButton), depois os parecidos
+      const word = w.cls.replace(/^Castanha/, ""), same = Object.keys(classes).filter((k) => k !== w.cls && k.indexOf(word) > 0 && !/Item$/.test(k) || (k.endsWith(word) && k !== w.cls));
+      const s = (same.length ? same : near(w.cls, Object.keys(classes))).slice(0, 3);
+      say("alta", w.line, "`" + w.cls + "` não existe no castanha_flutter" + (s.length ? ": você quis dizer " + s.map((x) => "`" + x + "`").join(" ou ") + "?" : ". Use `listar_componentes` ou `componente`."));
+      return;
+    }
+    let params = c.params;
+    if (w.ctor){
+      const k = c.ctors.find((x) => x.n === w.ctor);
+      if (!k){ say("alta", w.line, "`" + w.cls + "." + w.ctor + "` não existe" + (c.ctors.length ? ". Construtores nomeados: " + c.ctors.map((x) => "`" + x.n + "`").join(", ") : "") + "."); return; }
+      params = k.params.filter((n) => n !== "key").map((n) => c.params.find((p) => p.n === n) || { n });
+    }
+    const byName = {}; params.forEach((p) => { byName[p.n] = p; });
+    w.args.filter((a) => a.name).forEach((a) => {
+      const p = byName[a.name];
+      if (!p){
+        const syn = (SYN[a.name] || []).filter((x) => byName[x]), s = syn.length ? syn : near(a.name, Object.keys(byName));
+        say("alta", a.line, "`" + a.name + "` não é parâmetro de `" + w.cls + (w.ctor ? "." + w.ctor : "") + "`" + (s.length ? ": use " + s.map((x) => "`" + x + "`").join(" ou ") : "") + ".");
+        return;
+      }
+      const t = String(p.t || "").replace(/\?$/, "");
+      if (enums[t] && /^['"]/.test(a.value)){ const v = a.value.replace(/^['"]|['"]$/g, ""), s = near(v, enums[t]); say("alta", a.line, "`" + a.name + "` é enum: escreva `" + t + "." + (s[0] || enums[t][0]) + "` em vez de `" + a.value + "`."); return; }
+      const em = /^(Castanha\w+)\.\w+$/.exec(a.value);
+      if (enums[t] && em && em[1] !== t && enums[em[1]]) say("alta", a.line, "`" + a.name + "` espera `" + t + "`, não `" + em[1] + "`.");
+      if (/^bool/.test(t) && /^['"]/.test(a.value)) say("alta", a.line, "`" + a.name + "` é bool: use `true` ou `false`, não texto.");
+      if (/^IconData/.test(t) && /^['"]/.test(a.value)) say("alta", a.line, "`" + a.name + "` recebe `IconData`: use `CastanhaIcons.nome` (camelCase), não texto.");
+      if (p.def && a.value === p.def) say("info", a.line, "`" + a.name + ": " + a.value + "` é o padrão do construtor: pode omitir.");
+    });
+    const given = new Set(w.args.map((a) => a.name).filter(Boolean)), positional = w.args.filter((a) => !a.name).length;
+    params.filter((p) => p.req && !given.has(p.n)).forEach((p, i) => { if (i >= positional) say("alta", w.line, "`" + w.cls + (w.ctor ? "." + w.ctor : "") + "` sem o parâmetro obrigatório `" + p.n + "` (`" + p.t + "`)."); });
+    if (c.only) say("info", w.line, "`" + w.cls + "` existe no castanha_flutter, mas ainda não tem componente no playground nem no Figma estável deste portal.");
+  });
+  // valores crus (invariantes do castanha-mobile: tokens do tema, nunca literais)
+  const raw = (re, msg) => src.replace(re, (m, ...r) => { const i = r[r.length - 2]; say("media", src.slice(0, i).split("\n").length, msg.replace("{m}", m.trim())); return m; });
+  raw(/\bColor\(0x[0-9A-Fa-f]{6,8}\)|\bColors\.\w+/g, "Cor crua `{m}`: use o token do tema (`context.castanhaTheme.colors…`).");
+  raw(/\bEdgeInsets\.(?:all|symmetric|only|fromLTRB)\([^)]*\d[^)]*\)/g, "Espaçamento cru `{m}`: use os tokens de tamanho do tema (`theme.sizesX`).");
+  raw(/\bBorderRadius\.circular\(\s*\d+(?:\.\d+)?\s*\)/g, "Raio cru `{m}`: use o token de borda do tema.");
+  raw(/\bSizedBox\(\s*(?:height|width)\s*:\s*\d+(?:\.\d+)?\s*\)/g, "Espaço manual `{m}`: use `CastanhaRow`/`CastanhaColumn` com `spacing: theme.sizesX`.");
+  return { findings: out.sort((a, b) => a.line - b.line) };
+}
+function reviewText(catalog, src){
+  const r = review(catalog, src), L = { alta: "🔴", media: "🟡", info: "⚪" };
+  if (!r.findings.length) return "Nada a apontar: os widgets, parâmetros, enums e assets existem no castanha_flutter (" + ((catalog.flutterData && catalog.flutterData.source) ? catalog.flutterData.source.ref + " " + catalog.flutterData.source.commit : "staging") + ").";
+  return "# Revisão do Dart (castanha_flutter)\n\n" + r.findings.map((f) => "- " + L[f.lv] + " linha " + f.line + ": " + f.msg).join("\n") +
+    "\n\n" + r.findings.filter((f) => f.lv === "alta").length + " que quebram (não compila ou sai errado) · " + r.findings.filter((f) => f.lv === "media").length + " fora do padrão do DS · " + r.findings.filter((f) => f.lv === "info").length + " informativos.";
+}
+
+module.exports = { generate, review, reviewText };

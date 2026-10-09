@@ -66,6 +66,14 @@ const CALLS = [
   ["gerar_dart", { nome: "slider", atributos: { kind: "range", start: "20", end: "80" } }, /CastanhaSlider\.range\([\s\S]*CastanhaSliderRange\(20, 80\)/],
   ["gerar_dart", { nome: "banner", atributos: { illustration: "hub-de-beneficios/pet" } }, /CastanhaIllustrations\.hubPet/],
   ["componente", { nome: "main-button" }, /No castanha_flutter[\s\S]*CastanhaMainButton/],
+  // revisar_dart: erros típicos de quem escreve Flutter sem o DS
+  ["revisar_dart", { codigo: "CastanhaMainButton(label: 'Salvar', onPressed: () {}, variant: CastanhaMainButtonKind.ghost)" }, /`variant` não é parâmetro[\s\S]*`appearance` ou `kind`/],
+  ["revisar_dart", { codigo: "CastanhaMainButton(label: 'Salvar', onPressed: () {}, kind: 'ghost')" }, /é enum: escreva `CastanhaMainButtonKind\.ghost`/],
+  ["revisar_dart", { codigo: "CastanhaTag(appearance: CastanhaTagAppearance.roxo)" }, /CastanhaTagAppearance\.roxo` não existe[\s\S]*sem o parâmetro obrigatório `label`/],
+  ["revisar_dart", { codigo: "CastanhaIcon(icon: CastanhaIcons.homeLne)" }, /CastanhaIcons\.homeLne` não existe no pacote: você quis dizer `homeLine`/],
+  ["revisar_dart", { codigo: "CastanhaButton(label: 'Ok')\nContainer(padding: EdgeInsets.all(16), color: Color(0xFFE80537))" }, /CastanhaButton` não existe[\s\S]*CastanhaMainButton[\s\S]*(Espaçamento cru[\s\S]*Cor crua|Cor crua[\s\S]*Espaçamento cru)/],
+  ["revisar_dart", { codigo: "CastanhaSlider.range(onRangeChanged: (_) {}, rangeValue: const CastanhaSliderRange(20, 80))" }, /Nada a apontar/],
+  ["revisar_dart", { codigo: "CastdsButton(text: 'Ok')" }, /pacote legado/],
   // M2 · revisar_codigo
   ["revisar_codigo", { codigo: "import { Button, TextInput } from '@caju-beneficios/castanha-react';\n<Button appearance=\"primary\" variant=\"ghost\" leadIcon=\"seta\">Ok</Button>\n<TextInput lable=\"CPF\" error=\"inválido\" />\n<div style={{ color: '#1a1a1a', padding: '16px' }} />" },
     /appearance="primary"[\s\S]*variant[\s\S]*seta[\s\S]*lable[\s\S]*supportingMessage[\s\S]*colors-text-intense[\s\S]*sizes-16/],
@@ -77,7 +85,7 @@ const CALLS = [
   expect("initialize", init.result && init.result.serverInfo.name === "castanha-ds");
   srv.stdin.write(JSON.stringify({ jsonrpc: "2.0", method: "notifications/initialized" }) + "\n");
   const tl = await rpc("tools/list", {});
-  expect("tools/list", tl.result && tl.result.tools.length === 12, tl.result && tl.result.tools.length + " ferramentas");
+  expect("tools/list", tl.result && tl.result.tools.length === 13, tl.result && tl.result.tools.length + " ferramentas");
   for (const [name, args, re] of CALLS){
     const r = await rpc("tools/call", { name, arguments: args }), text = r.result && r.result.content[0].text || "";
     expect(name + " " + JSON.stringify(args), r.result && !r.result.isError && re.test(text), text.slice(0, 160).replace(/\n/g, " "));
@@ -97,9 +105,14 @@ const CALLS = [
   for (const id of ids){ const out = await R.generate(cat, cat.components.find((x) => x.id === id), {}), code = (out.match(/```tsx\n([\s\S]*?)```/) || [])[1] || "";
     if (!code || R.review(cat, code).findings.some((f) => f.lv === "alta")) bads.push(id); }
   expect("gerar → revisar (" + ids.length + " mapas)", ids.length >= 70 && !bads.length, bads.join(", "));
+  // o mesmo para o Flutter: o Dart gerado de cada mapa passa sem alerta na revisão (o painel também é validado pelo dart analyze)
+  const FL = require("./flutter.js"), fids = Object.keys(cat.flutterData.items).filter((i) => cat.flutterData.items[i].map), fbads = [];
+  for (const id of fids){ const out = await FL.generate(cat, cat.components.find((x) => x.id === id), {}), code = (out.match(/```dart\n([\s\S]*?)```/) || [])[1] || "";
+    if (!code || FL.review(cat, code).findings.some((f) => f.lv !== "info")) fbads.push(id); }
+  expect("gerar_dart → revisar_dart (" + fids.length + " mapas)", fids.length >= 45 && !fbads.length, fbads.join(", "));
   const bad = await rpc("metodo/inexistente", {});
   expect("método desconhecido", bad.error && bad.error.code === -32601);
   srv.kill();
   if (fails.length){ console.error("❌ MCP: " + fails.length + " de " + n + " falharam\n- " + fails.join("\n- ")); process.exit(1); }
-  console.log("✅ MCP" + (SERVER.endsWith("server.js") ? "" : " (" + path.basename(SERVER) + ")") + ": " + n + " verificações ok (12 ferramentas, resources, prompts e o cruzamento gerar → revisar dos mapas)");
+  console.log("✅ MCP" + (SERVER.endsWith("server.js") ? "" : " (" + path.basename(SERVER) + ")") + ": " + n + " verificações ok (13 ferramentas, resources, prompts e o cruzamento gerar → revisar dos mapas do React e do Flutter)");
 })();

@@ -334,7 +334,7 @@ O repositório é público: nenhum código-fonte do `castanha-react` é copiado.
 O mesmo caminho do React, para o app: o `castanha-mobile` (pacote `castanha_flutter`, clone só leitura em `../castanha-mobile`).
 
 - **Manifesto** (`scripts/integration/build-flutter-manifest.js`): lê a `staging` do clone (widgets, parâmetros do construtor, enums, stories do Widgetbook e Code Connect) e casa cada widget com o componente do playground pela classe (`CastanhaMainButton` → `main-button`), pelo Code Connect ou pelo nome da story. Gera `integration/flutter-data.js` e `integration/flutter/COBERTURA.md`.
-- **Mapas** (`integration/flutter-map/<id>.json`, formato no topo de `scripts/flutter-kit.js`): traduzem prop do Figma para parâmetro do Flutter. Estão no painel **No Flutter** de cada componente, com o Dart ao vivo, e no `gerar_dart` do MCP.
+- **Mapas** (`integration/flutter-map/<id>.json`, formato no topo de `scripts/flutter-kit.js`): traduzem prop do Figma para parâmetro do Flutter. Estão no painel **No Flutter** de cada componente, com o Dart ao vivo, e no `gerar_dart` do MCP. O `revisar_dart` revisa um trecho Dart contra os widgets, parâmetros, enums e assets do pacote.
 - **Check da stack:** Figma × castanha_flutter × playground (`check-flutter-stack.js`), com os assets do Dart (`CastanhaIcons`, `CastanhaIllustrations` e `CastanhaMotions` na versão que o pubspec fixa) e o Dart validado pelo `dart analyze` (`check-dart.js`). O resultado vai para a aba **Stack Flutter** do relatório.
 - **Leitura diária:** `scripts/integration/daily-flutter.js`, rodado pela rotina, com histórico em `integration/flutter/HISTORICO.md`.
 

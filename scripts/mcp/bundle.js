@@ -22,7 +22,7 @@ function build(){
   const kit = read("scripts/react-kit.js"), react = strip(read("mcp/react.js")), server = strip(read("mcp/server.js"));
   return `#!/usr/bin/env node
 /* MCP do Castanha DS · arquivo único · GERADO por scripts/mcp/build-catalog.js + scripts/mcp/bundle.js · não editar à mão
- * Fontes: mcp/server.js, mcp/react.js e o núcleo de scripts/react-kit.js (repo gus-constantino/castanhads-component-teste).
+ * Fontes: mcp/server.js, mcp/react.js e o núcleo de scripts/react-kit.js (repo gus-constantino/portal-castanhads).
  * Uso (Node 18+, sem instalar nada):
  *   node castanha-mcp.js               stdio: Claude Code (claude mcp add castanha-ds -- node /caminho/castanha-mcp.js), Claude Desktop, Cursor
  *   node castanha-mcp.js --http 8787   HTTP: http://127.0.0.1:8787/mcp

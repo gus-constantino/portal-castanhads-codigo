@@ -3,13 +3,13 @@
    scripts/mcp/ (catálogo e arquivo único gerados no build: dist/mcp/catalog.json e dist/mcp/castanha-mcp.js). */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
-  var REPO = "https://github.com/gus-constantino/castanhads-component-teste/blob/main/";
+  var REPO = "https://github.com/gus-constantino/portal-castanhads/blob/main/";
   // soon: Tag neutra "Em breve" no menu e no cabeçalho — o MCP só vai ser ofertado ao time depois (pedido do Gustavo, 05/10)
   CDS.register({ id: "mcp", name: "MCP", resource: true, lede: "Conecte o seu assistente de IA ao Castanha DS: componentes, docs, tokens e diretrizes.", order: 6, soon: "Ainda não ofertado ao time: o MCP está em teste e será liberado depois." });
 
   var CLAUDE_CODE = "claude mcp add castanha-ds -- node /caminho/para/castanha-mcp.js";
   var JSON_CFG = '{\n  "mcpServers": {\n    "castanha-ds": {\n      "command": "node",\n      "args": ["/caminho/para/castanha-mcp.js"]\n    }\n  }\n}';
-  var BAIXAR = "curl -L -o castanha-mcp.js https://gus-constantino.github.io/castanhads-component-teste/dist/mcp/castanha-mcp.js";
+  var BAIXAR = "curl -L -o castanha-mcp.js https://gus-constantino.github.io/portal-castanhads/dist/mcp/castanha-mcp.js";
 
   CDS.docs["mcp"] = {
     tabs: [

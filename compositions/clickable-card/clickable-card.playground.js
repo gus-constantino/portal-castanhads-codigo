@@ -2,7 +2,7 @@
 CDS.register({
   id: "clickable-card", name: "Clickable Card", composition: true, category: "Composições",
   description: "Card com a área de clique inteira, mídia e label: link (navega) ou botão (ação). Composição local enquanto o DS não tem um Card clicável.",
-  issue: "https://github.com/gus-constantino/castanhads-component-teste/issues/1",
+  issue: "https://github.com/gus-constantino/portal-castanhads/issues/1",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
     var st = { mode: "link", media: "square", label: "Label", description: "", current: false };

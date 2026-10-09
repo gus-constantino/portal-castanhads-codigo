@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* MCP do Castanha DS · arquivo único · GERADO por scripts/mcp/build-catalog.js + scripts/mcp/bundle.js · não editar à mão
- * Fontes: mcp/server.js, mcp/react.js e o núcleo de scripts/react-kit.js (repo gus-constantino/castanhads-component-teste).
+ * Fontes: mcp/server.js, mcp/react.js e o núcleo de scripts/react-kit.js (repo gus-constantino/portal-castanhads).
  * Uso (Node 18+, sem instalar nada):
  *   node castanha-mcp.js               stdio: Claude Code (claude mcp add castanha-ds -- node /caminho/castanha-mcp.js), Claude Desktop, Cursor
  *   node castanha-mcp.js --http 8787   HTTP: http://127.0.0.1:8787/mcp
@@ -629,7 +629,7 @@
        *
        * Servidor MCP por stdio, sem dependências (Node 18+): JSON-RPC 2.0, uma mensagem por linha.
        * Lê o catálogo gerado no build (dist/mcp/catalog.json). Para usar fora do repo, aponte para o catálogo publicado:
-       *   CASTANHA_CATALOG=https://gus-constantino.github.io/castanhads-component-teste/dist/mcp/catalog.json node mcp/server.js
+       *   CASTANHA_CATALOG=https://gus-constantino.github.io/portal-castanhads/dist/mcp/catalog.json node mcp/server.js
        *
        * Conectar no Claude Code (na pasta do repo):
        *   claude mcp add castanha-ds -- node mcp/server.js
@@ -645,7 +645,7 @@
       const fs = require("fs"), path = require("path");
       const VERSION = "0.3.0";
       const REACT = require("./react"); // M2: gerar_jsx e revisar_codigo
-      const SITE_CATALOG = "https://gus-constantino.github.io/castanhads-component-teste/dist/mcp/catalog.json";
+      const SITE_CATALOG = "https://gus-constantino.github.io/portal-castanhads/dist/mcp/catalog.json";
       // catálogo: CASTANHA_CATALOG (arquivo ou URL) · o do repo (dist/mcp/) · o ao lado do arquivo único · o publicado no site
       const SRC = (typeof process !== "undefined" && process.env && process.env.CASTANHA_CATALOG) || (function(){
         if (typeof __dirname === "undefined" || !fs.existsSync) return SITE_CATALOG;

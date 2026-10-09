@@ -45,6 +45,7 @@ CASTANHA_CATALOG=https://gus-constantino.github.io/portal-castanhads/dist/mcp/ca
 | `diretrizes` | Conteúdo e escrita, motion, ilustração, patterns, treinamento |
 | `divergencias` | Itens abertos no CONFERIR e no check Figma × castanha-react × playground |
 | `gerar_jsx` | JSX do castanha-react a partir das props como estão no Figma (ex.: `Appearance: Inversed`, `Show Lead Icon: false`). Mesmo código do painel "No React" do playground, com import e hooks; avisa o que não tem tradução e o que falta preencher |
+| `gerar_dart` | Dart do castanha_flutter (app) a partir das props como estão no Figma. Mesmo código do painel "No Flutter" do playground, validado com o `dart analyze`; parâmetros com o valor padrão do construtor ficam de fora e os callbacks vêm vazios |
 | `revisar_codigo` | Revisa um trecho JSX/TSX: componente inexistente ou sem import, prop inexistente (e o equivalente quando vem de outra lib, como `variant`), valor fora das opções, boolean recebendo texto, prop obrigatória faltando, ícone ou ilustração com nome errado, cor ou tamanho cru com o token certo para a propriedade CSS, padrão do React diferente do Figma |
 
 Também tem os **resources** `castanha://componente/{id}` e `castanha://docs/{id}/{tab}`, e os **prompts** `implementar-tela`, `revisar-handoff` e `escrever-texto`.

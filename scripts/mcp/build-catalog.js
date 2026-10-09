@@ -30,7 +30,7 @@ function loadPlayground(){
   ctx.CDS = { docs: {}, kit: {}, register(d){ reg.push(d); } };
   vm.createContext(ctx);
   const run = (f) => { try { vm.runInContext(read(f), ctx, { filename: f }); } catch (e) { /* classes de custom element: não importam para o catálogo */ } };
-  ["scripts/assets-manifest.js", "scripts/figma-status.js", "integration/react-data.js", "integration/assets-react.js"].forEach((f) => { if (exists(f)) run(f); });
+  ["scripts/assets-manifest.js", "scripts/figma-status.js", "integration/react-data.js", "integration/assets-react.js", "integration/flutter-data.js"].forEach((f) => { if (exists(f)) run(f); });
   ["components", "compositions", "resources", "templates"].forEach((top) => {
     if (!exists(top)) return;
     fs.readdirSync(rel(top)).sort().forEach((d) => {
@@ -158,6 +158,7 @@ function conferir(){
 // ---------- montagem ----------
 function build(){
   const { reg, CDS } = loadPlayground();
+  const FL = CDS.flutter || { items: {}, enums: {} }, FM = CDS.flutterMaps || {};
   const FS = (CDS.figmaStatus && CDS.figmaStatus.items) || {}, R = CDS.react || { items: {}, dirs: {} }, RA = CDS.reactAssets || {}, A = CDS.assets || {};
   const FP = figmaProps();
   const seen = {};
@@ -187,6 +188,16 @@ function build(){
         notes: it.notes || []
       };
     } else if (it) c.react = null;
+    const fl = FL.items[d.id], fm = FM[d.id];
+    if (fl) c.flutter = {
+      class: fl.class, import: "import 'package:castanha_flutter/castanha_flutter.dart';", description: fl.doc || null, widgetbook: fl.widgetbook || null, tags: fl.tags || [],
+      params: fl.params.map((p) => { const x = { name: p.n, type: p.t }; if (p.req) x.required = true; if (p.def) x.default = p.def; if (p.d) x.description = p.d; if (p.a11y) x.accessibility = true;
+        const e = FL.enums[String(p.t || "").replace(/\?$/, "")]; if (e) x.values = e; return x; }),
+      constructors: fl.constructors || [],
+      liveMap: !!(fm && fm.curated),
+      figmaToFlutter: fm ? fm.figma.map((r) => ({ figma: r[0], playground: r[1], flutter: r[2], note: r[3] || "" })) : [],
+      checks: (fl.checks || []).map((x) => ({ level: x.l, kind: x.t, text: x.m }))
+    };
     return c;
   });
   // componentes que só existem no React (sem par no Figma/playground)
@@ -208,20 +219,25 @@ function build(){
   const reactData = { items: {}, dirs: R.dirs };
   Object.keys(R.items).forEach((id) => { const it = R.items[id]; if (it.component) reactData.items[id] = { component: it.component, import: it.import || null, map: it.map || null }; });
   const stack = exists("integration/stack-check.json") ? JSON.parse(read("integration/stack-check.json")) : null;
+  // dados no formato do flutter-kit (mapas + parâmetros e enums do castanha_flutter), para gerar Dart no MCP
+  const flutterData = { source: FL.source || null, enums: FL.enums || {}, extra: FL.extra || {}, ill: FL.ill || {}, items: {} };
+  Object.keys(FL.items || {}).forEach((id) => { const it = FL.items[id]; flutterData.items[id] = { class: it.class, params: it.params, constructors: it.constructors, map: FM[id] || null }; });
   const catalog = {
     about: "Catálogo do Castanha DS (playground de handoff Figma ↔ código). Gerado por scripts/mcp/build-catalog.js; fonte do MCP (docs/local/PLANO-MCP.md).",
     site: "https://gus-constantino.github.io/portal-castanhads/",
-    packages: { react: "@caju-beneficios/castanha-react", icons: "@caju-beneficios/castanha-icons", illustrations: "@caju-beneficios/castanha-illustrations", tokens: "@caju-beneficios/castanha-tokens" },
+    packages: { flutter: "castanha_flutter", react: "@caju-beneficios/castanha-react", icons: "@caju-beneficios/castanha-icons", illustrations: "@caju-beneficios/castanha-illustrations", tokens: "@caju-beneficios/castanha-tokens" },
     reactSource: stack ? stack.source : null,
+    flutterSource: FL.source || null,
     counts: {},
     components, reactOnly, tokens: tokens(), icons, illustrations,
     divergences: { conferir: conferir(), stack: stack ? stack.findings : [] },
-    reactData
+    reactData,
+    flutterData
   };
   catalog.counts = {
     components: components.filter((c) => c.kind === "component").length, buildingBlocks: components.filter((c) => c.kind === "building-block").length,
     resources: components.filter((c) => c.kind === "resource" || c.kind === "home").length, compositions: components.filter((c) => c.kind === "composition").length,
-    withDocs: components.filter((c) => c.tabs).length, withReact: components.filter((c) => c.react).length, liveMaps: components.filter((c) => c.react && c.react.liveMap).length,
+    withDocs: components.filter((c) => c.tabs).length, withReact: components.filter((c) => c.react).length, withFlutter: components.filter((c) => c.flutter).length, liveMaps: components.filter((c) => c.react && c.react.liveMap).length,
     reactOnly: reactOnly.length, tokens: catalog.tokens.length, icons: icons.length, illustrations: illustrations.length,
     conferirOpen: catalog.divergences.conferir.filter((x) => !x.resolved).length, stackFindings: catalog.divergences.stack.length
   };

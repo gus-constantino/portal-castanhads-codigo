@@ -207,7 +207,7 @@
   }
 
   // Núcleo puro (sem DOM) para gerar o Dart fora do navegador (check com o dart analyze)
-  CDS.flutterCore = { snippet: function(data, it, get){ prepare(data); return snippet(data, it, get); }, scoped: scoped, text: function(lines){ return lines.map(function(l){ return l.map(function(s){ return s[1]; }).join(""); }).join("\n"); } };
+  CDS.flutterCore = { snippet: function(data, it, get){ prepare(data); CDS.flutter = CDS.flutter || data; return snippet(data, it, get); }, scoped: scoped, text: function(lines){ return lines.map(function(l){ return l.map(function(s){ return s[1]; }).join(""); }).join("\n"); } };
 
   /** Renderiza a seção "No Flutter" de `def` em `root`, ligada ao `preview`. */
   CDS.renderFlutter = function(def, preview, root){

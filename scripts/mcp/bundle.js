@@ -20,9 +20,10 @@ const strip = (src) => src.replace(/^#!.*\n/, "");
 
 function build(){
   const kit = read("scripts/react-kit.js"), react = strip(read("mcp/react.js")), server = strip(read("mcp/server.js"));
+  const fkit = read("scripts/flutter-kit.js"), flutter = strip(read("mcp/flutter.js"));
   return `#!/usr/bin/env node
 /* MCP do Castanha DS · arquivo único · GERADO por scripts/mcp/build-catalog.js + scripts/mcp/bundle.js · não editar à mão
- * Fontes: mcp/server.js, mcp/react.js e o núcleo de scripts/react-kit.js (repo gus-constantino/portal-castanhads).
+ * Fontes: mcp/server.js, mcp/react.js, mcp/flutter.js e os núcleos de scripts/react-kit.js e scripts/flutter-kit.js (repo gus-constantino/portal-castanhads).
  * Uso (Node 18+, sem instalar nada):
  *   node castanha-mcp.js               stdio: Claude Code (claude mcp add castanha-ds -- node /caminho/castanha-mcp.js), Claude Desktop, Cursor
  *   node castanha-mcp.js --http 8787   HTTP: http://127.0.0.1:8787/mcp
@@ -37,9 +38,18 @@ function build(){
 ${kit.split("\n").map((l) => "    " + l).join("\n")}
     return window.CDS.reactCore;
   };
+  // núcleo puro do flutter-kit (gerar Dart), com window/document locais
+  globalThis.__CASTANHA_FLUTTER_KIT__ = function(){
+    var window = { CDS: {} }, document = {}, MutationObserver = null;
+${fkit.split("\n").map((l) => "    " + l).join("\n")}
+    return window.CDS.flutterCore;
+  };
   var MODS = {
     "./react": function(module, exports, require){
 ${react.split("\n").map((l) => "      " + l).join("\n")}
+    },
+    "./flutter": function(module, exports, require){
+${flutter.split("\n").map((l) => "      " + l).join("\n")}
     },
     "./server": function(module, exports, require){
 ${server.split("\n").map((l) => "      " + l).join("\n")}

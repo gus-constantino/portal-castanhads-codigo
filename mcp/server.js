@@ -12,7 +12,7 @@
  *   node mcp/server.js --http 8787   →  http://127.0.0.1:8787/mcp   (handleRequest: handler `fetch` para Workers/Deno/Edge)
  *
  * Ferramentas: listar_componentes · componente · docs · buscar · tokens · icone · ilustracao · diretrizes · divergencias
- *              gerar_jsx · revisar_codigo (M2, mcp/react.js)
+ *              gerar_jsx · revisar_codigo (M2, mcp/react.js) · gerar_dart (castanha_flutter, mcp/flutter.js)
  * Resources:   castanha://componente/{id} · castanha://docs/{id}/{tab}
  * Prompts:     implementar-tela · revisar-handoff · escrever-texto
  */
@@ -20,6 +20,7 @@
 const fs = require("fs"), path = require("path");
 const VERSION = "0.3.0";
 const REACT = require("./react"); // M2: gerar_jsx e revisar_codigo
+const FLUTTER = require("./flutter"); // gerar_dart (castanha_flutter)
 const SITE_CATALOG = "https://gus-constantino.github.io/portal-castanhads/dist/mcp/catalog.json";
 // catálogo: CASTANHA_CATALOG (arquivo ou URL) · o do repo (dist/mcp/) · o ao lado do arquivo único · o publicado no site
 const SRC = (typeof process !== "undefined" && process.env && process.env.CASTANHA_CATALOG) || (function(){
@@ -170,6 +171,18 @@ function componentSummary(c, x){
     if (r.checks.length) L.push("", "## Divergências Figma × React", "", r.checks.map((k) => "- [" + k.level + "] " + k.text).join("\n"));
     if (r.notes.length) L.push("", r.notes.map((n) => "> " + n).join("\n"));
   } else if (x.kind === "component") L.push("", "**No castanha-react:** sem componente equivalente (ainda).");
+  if (x.flutter){
+    const f = x.flutter;
+    L.push("", "## No castanha_flutter", "", "`" + f.class + "`" + (f.tags.length ? " · tags do Widgetbook: " + f.tags.join(", ") : "") + (f.widgetbook ? " · [Widgetbook](" + f.widgetbook + ") (precisa da VPN)" : ""));
+    if (f.description) L.push("", f.description);
+    L.push("", "```dart\n" + f.import + "\n```");
+    const ps = f.params.filter((p) => !p.accessibility);
+    if (ps.length) L.push("", ["| Parâmetro | Tipo | Padrão | Descrição |", "|---|---|---|---|"].concat(ps.map((p) => "| `" + p.name + "`" + (p.required ? " (obrigatório)" : "") + " | `" + p.type + "`" + (p.values ? " (" + p.values.join(", ") + ")" : "") + " | " + (p.default ? "`" + p.default + "`" : "—") + " | " + (p.description || "").replace(/\|/g, "\\|") + " |")).join("\n"));
+    (f.constructors || []).forEach((k) => L.push("", "Construtor `" + f.class + "." + k.n + "`" + (k.d ? ": " + k.d : "")));
+    if (f.figmaToFlutter.length) L.push("", "## Figma → Flutter", "", ["| Figma | Playground | Flutter | Nota |", "|---|---|---|---|"].concat(f.figmaToFlutter.map((m) => "| " + m.figma + " | " + m.playground + " | " + m.flutter + " | " + (m.note || "").replace(/\|/g, "\\|") + " |")).join("\n"));
+    if (f.checks.length) L.push("", "## Divergências Figma × Flutter", "", f.checks.map((k) => "- [" + k.level + "] " + k.text).join("\n"));
+    L.push("", "Use `gerar_dart` para o código a partir das props do Figma.");
+  } else if (x.kind === "component") L.push("", "**No castanha_flutter:** sem widget equivalente (ainda).");
   if (x.tabs && x.tabs.length) L.push("", "## Docs", "", "Tabs: " + x.tabs.map((t) => "`" + t.id + "` (" + t.title + ")").join(", ") + ". Use a ferramenta `docs` para ler.");
   return L.join("\n");
 }
@@ -256,6 +269,16 @@ const TOOLS = [
     run: async (a) => { const c = await catalog(), x = findComponent(c, a.nome);
       if (!x) return "Não achei \"" + a.nome + "\". Parecidos: " + (suggest(c, a.nome).join(", ") || "nenhum") + ".";
       return "# " + x.name + " → `<" + ((x.react && x.react.component) || "?") + ">`\n\n" + await REACT.generate(c, x, a); } },
+  { name: "gerar_dart", description: "Gera o código Dart do castanha_flutter (Flutter, app) para um componente a partir das props como estão no Figma (ex.: {\"Appearance\": \"Inversed\", \"Show Lead Icon\": false, \"Text Label\": \"Salvar\"}). Mesmo código do painel \"No Flutter\" do playground: import e parâmetros nomeados, omitindo o que é padrão do construtor; compila com o dart analyze.",
+    inputSchema: { type: "object", properties: {
+      nome: { type: "string", description: "id, nome ou classe do Flutter (ex.: main-button, Tag, CastanhaMainButton)" },
+      props_figma: { type: "object", description: "Props do Figma → valor (Variant: nome da opção; Boolean: true/false; Text: o texto; Instance swap: nome do ícone)", additionalProperties: true },
+      atributos: { type: "object", description: "Avançado: atributos do web component do playground (ex.: {\"appearance\": \"inversed\"})", additionalProperties: true },
+      itens: { description: "Para componentes com itens (abas, chips, listas, grupos): quantidade ou lista de atributos por item" } }, required: ["nome"] },
+    run: async (a) => { const c = await catalog();
+      const x = findComponent(c, a.nome) || c.components.find((k) => k.flutter && fold(k.flutter.class) === fold(a.nome));
+      if (!x) return "Não achei \"" + a.nome + "\". Parecidos: " + (suggest(c, a.nome).join(", ") || "nenhum") + ".";
+      return "# " + x.name + " → `" + ((x.flutter && x.flutter.class) || "?") + "`\n\n" + await FLUTTER.generate(c, x, a); } },
   { name: "revisar_codigo", description: "Revisa um trecho JSX/TSX que usa o castanha-react: componente inexistente ou sem import, prop inexistente, valor fora das opções, prop obrigatória faltando, ícone ou ilustração com nome errado, cor ou tamanho cru que tem token, e padrões do React diferentes do Figma.",
     inputSchema: { type: "object", properties: { codigo: { type: "string", description: "Trecho JSX/TSX (com os imports, se houver)" } }, required: ["codigo"] },
     run: async (a) => REACT.reviewText(await catalog(), a.codigo) }

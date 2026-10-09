@@ -53,6 +53,7 @@
           ["`diretrizes`", "Conteúdo e escrita, motion, ilustração, patterns e treinamento."],
           ["`divergencias`", "O que está diferente entre Figma, castanha-react e playground (CONFERIR e check da stack)."],
           ["`gerar_jsx`", "Código do castanha-react a partir das props como estão no Figma. É o mesmo código do painel \"No React\" de cada componente."],
+          ["`gerar_dart`", "Código Dart do castanha_flutter (app) a partir das props como estão no Figma. É o mesmo código do painel \"No Flutter\" de cada componente."],
           ["`revisar_codigo`", "Revisa um trecho JSX: componente ou prop inexistente, valor fora das opções, prop obrigatória faltando, ícone ou ilustração com nome errado, cor ou tamanho cru que tem token e padrão do React diferente do Figma."]
         ] } },
         { h3: "Prompts prontos" },
@@ -65,6 +66,9 @@
         { p: "Pedido: \"Gera o código do Main Button com Appearance Inversed, sem ícones, desabilitado, com o texto Salvar.\" O assistente chama `gerar_jsx` e recebe:" },
         { code: "import { Button } from '@caju-beneficios/castanha-react';\n\n<Button appearance=\"inverted\" disabled>Salvar</Button>" },
         { p: "Props com o valor padrão do React ficam de fora, e o que não tem tradução para o React vem avisado." },
+        { p: "O mesmo pedido para o app, com `gerar_dart`:" },
+        { code: "import 'package:castanha_flutter/castanha_flutter.dart';\n\nCastanhaMainButton(\n  label: 'Salvar',\n  onPressed: () {},\n  appearance: CastanhaMainButtonAppearance.inverted,\n  disabled: true,\n)" },
+        { p: "Parâmetros com o valor padrão do construtor ficam de fora, e os callbacks vêm vazios para você trocar pela sua lógica." },
         { h2: "Revisão de código" },
         { p: "Pedido: \"Revisa este trecho\". Com `revisar_codigo`, o assistente aponta, por exemplo:" },
         { code: "<Button appearance=\"primary\" variant=\"ghost\">Salvar</Button>\n<TextInput lable=\"CPF\" error=\"CPF inválido\" />\n<div style={{ color: '#1a1a1a', padding: '16px' }} />" },

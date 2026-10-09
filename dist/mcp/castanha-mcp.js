@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* MCP do Castanha DS · arquivo único · GERADO por scripts/mcp/build-catalog.js + scripts/mcp/bundle.js · não editar à mão
- * Fontes: mcp/server.js, mcp/react.js e o núcleo de scripts/react-kit.js (repo gus-constantino/portal-castanhads).
+ * Fontes: mcp/server.js, mcp/react.js, mcp/flutter.js e os núcleos de scripts/react-kit.js e scripts/flutter-kit.js (repo gus-constantino/portal-castanhads).
  * Uso (Node 18+, sem instalar nada):
  *   node castanha-mcp.js               stdio: Claude Code (claude mcp add castanha-ds -- node /caminho/castanha-mcp.js), Claude Desktop, Cursor
  *   node castanha-mcp.js --http 8787   HTTP: http://127.0.0.1:8787/mcp
@@ -381,6 +381,349 @@
     
     return window.CDS.reactCore;
   };
+  // núcleo puro do flutter-kit (gerar Dart), com window/document locais
+  globalThis.__CASTANHA_FLUTTER_KIT__ = function(){
+    var window = { CDS: {} }, document = {}, MutationObserver = null;
+    /**
+     * "No Flutter" — tradução Figma → castanha_flutter abaixo do "No React" (F1 do plano de integração Flutter).
+     *
+     * Dados: integration/flutter-data.js (CDS.flutter), gerado por scripts/integration/build-flutter-manifest.js a partir do
+     * castanha-mobile (staging, só leitura), e os mapas integration/flutter-map/<id>.json (CDS.flutterMaps, no mesmo arquivo).
+     *
+     * Por componente mostra: widget, import, link do Widgetbook, código Dart AO VIVO (lê os atributos do elemento no
+     * preview e aplica o mapa), tabela Figma → Flutter e os parâmetros do widget (tipo, padrão, descrição).
+     *
+     * Formato do mapa (integration/flutter-map/<id>.json):
+     *   element   seletor do elemento no preview · defaults: valor de cada atributo quando ausente (show-* ausente = "true")
+     *   curated   true quando o mapa foi revisado à mão (sem ele, o painel avisa que é rascunho)
+     *   imports   imports extras (ex.: "package:flutter/widgets.dart" para Text)
+     *   widget    { class, ctor (construtor nomeado, ex.: "range"), if, args: [arg] } · lista de widgets = alternativas (vale o 1º cujo if passa)
+     *   arg       { param, attr | value | code | tpl, map, bool: true|"not", eq, num, offset, scale, br, if, icon: true, positional: true,
+     *               widget (widget aninhado), each + widget | widgets { seletor: widget } (um widget por filho do elemento),
+     *               pick { each, attr, eq, tpl, all } (valor a partir dos filhos marcados: o 1º, ou todos num Set) }
+     *             o valor é escrito conforme o tipo do parâmetro no manifesto: enum → Tipo.valor, String → '…',
+     *             bool, número, IconData → CastanhaIcons.nome (icon: true); code entra como está
+     *             scale multiplica (0.01: 0–100 → 0–1) · br lê número no formato brasileiro ("30.000,00")
+     *             em code e tpl: {@attr} = valor cru · {q:attr} = texto entre aspas · {c:attr} = camelCase (CastanhaIcons.{c:icon})
+     *             · {ill:attr} = constante de CastanhaIllustrations (com os nomes que mudaram no pacote)
+     *             o argumento some quando o valor é o padrão do construtor (obrigatório nunca some)
+     *   pre       linhas antes do widget (ex.: estado) · {@atributo} vira o valor atual
+     *   figma     linhas da tabela: [prop do Figma, atributo do playground, parâmetro do Flutter, nota]
+     */
+    (function(){
+      "use strict";
+      var CDS = window.CDS = window.CDS || {};
+      var WIDTH = 80; // dart format: 80 colunas
+      var RESERVED = { "default": 1, "switch": 1, "class": 1, "new": 1, "in": 1, "is": 1, "do": 1, "if": 1, "else": 1, "for": 1, "null": 1, "true": 1, "false": 1, "this": 1, "super": 1, "enum": 1, "return": 1 };
+      var observer = null;
+    
+      function el(tag, cls, text){ var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
+      function attrs(n, a){ Object.keys(a).forEach(function(k){ if (a[k] != null) n.setAttribute(k, a[k]); }); return n; }
+      function rich(n, s){
+        String(s || "").split(/(`[^`]+`)/).forEach(function(part){
+          if (/^`[^`]+`$/.test(part)) n.appendChild(el("code", null, part.slice(1, -1))); else if (part) n.appendChild(document.createTextNode(part));
+        });
+        return n;
+      }
+      function acc(label, description, body){
+        var a = attrs(document.createElement("cds-accordion-item"), { label: label, description: description, "show-lead-item": "false", "show-divider": "true", collapsed: "" });
+        if (!description) a.setAttribute("show-description", "false");
+        a.appendChild(body);
+        return a;
+      }
+      function table(head, rows, cls){
+        var wrap = el("div", "pg-doc-table-wrap"), t = el("table", "pg-doc-table pg-react__table" + (cls ? " " + cls : ""));
+        var tr = el("tr"); head.forEach(function(h){ tr.appendChild(el("th", null, h)); });
+        var th = el("thead"); th.appendChild(tr); t.appendChild(th);
+        var tb = el("tbody");
+        rows.forEach(function(r){
+          var cells = r.cells || r, row = el("tr", r.note ? "has-note" : null);
+          cells.forEach(function(c){ var td = el("td"); if (c instanceof Node) td.appendChild(c); else rich(td, c); row.appendChild(td); });
+          tb.appendChild(row);
+          if (r.note){ var nr = el("tr", "pg-react__note"), td = el("td"); td.colSpan = cells.length; rich(td, r.note); nr.appendChild(td); tb.appendChild(nr); }
+        });
+        t.appendChild(tb); wrap.appendChild(t);
+        return wrap;
+      }
+    
+      // ---------- leitura do elemento ----------
+      function scoped(find, defaults, i){
+        var get = function(a){
+          var n = find(), v = n ? n.getAttribute(a) : null;
+          if (v === null) v = defaults && defaults[a] != null ? defaults[a] : null;
+          return v === "" && !(defaults && defaults[a] === "") ? "true" : v;
+        };
+        get.el = find; get.i = i || 1;
+        return get;
+      }
+      function reader(map, preview){
+        var node = null;
+        return scoped(function(){ return node && node.isConnected ? node : (node = preview.querySelector(map.element)); }, map.defaults);
+      }
+      function fill(t, v, get){
+        return String(t).replace(/\{v\}/g, v == null ? "" : v).replace(/\{i\}/g, get.i)
+          .replace(/\{q:([a-z-]+)\}/g, function(m, k){ var x = get(k); return dartStr(x == null ? "" : x); })
+          .replace(/\{c:([a-z-]+)\}/g, function(m, k){ var x = get(k); return camel(String(x == null ? "" : x).replace(/\//g, "-")); })
+          .replace(/\{ill:([a-z-]+)\}/g, function(m, k){ var x = String(get(k) || ""), ill = (CDS.flutter && CDS.flutter.ill) || {}; return ill[x] || camel(x.replace(/\//g, "-")); }) // nome do Dart (algumas ilustrações mudaram de nome no pacote)
+          .replace(/\{@([a-z-]+)\}/g, function(m, k){ var x = get(k); return x == null ? "" : x; });
+      }
+      function test(get, ifs){
+        return !ifs || Object.keys(ifs).every(function(k){
+          var w = ifs[k], neg = w.charAt(0) === "!", v = get(k);
+          return (String(v) === (neg ? w.slice(1) : w)) !== neg;
+        });
+      }
+      function truthy(v){ return v != null && v !== "false"; }
+      /** Filhos que casam com o seletor, sem os aninhados em outro que também casa (ex.: itens dentro de itens). */
+      function top(host, sel){ return [].filter.call(host.querySelectorAll(sel), function(n){ var p = n.parentElement; while (p && p !== host){ if (p.matches(sel)) return false; p = p.parentElement; } return true; }); }
+    
+      // ---------- Dart ----------
+      function camel(s){ return String(s).replace(/[-_ ]+([a-z0-9])/gi, function(m, c){ return c.toUpperCase(); }).replace(/^[A-Z]/, function(c){ return c.toLowerCase(); }); }
+      function enumValue(type, v){ var n = camel(v); return type + "." + (RESERVED[n] ? n + "_" : n); }
+      function dartStr(s){ return "'" + String(s).replace(/\\/g, "\\\\").replace(/'/g, "\\'").replace(/\$/g, "\\$") + "'"; }
+      /** Parâmetro `name` da classe (o construtor nomeado usa os mesmos campos). */
+      function paramOf(data, cls, name){
+        var it = data.byClass[cls]; if (!it) return null;
+        for (var i = 0; i < it.params.length; i++) if (it.params[i].n === name) return it.params[i];
+        return null;
+      }
+      /** Resolve um argumento → { name, value (código Dart), kind } ou null (omitido). */
+      function resolve(data, cls, a, get){
+        if (!test(get, a.if)) return null;
+        var p = paramOf(data, cls, a.param) || {}, type = String(p.t || "").replace(/\?$/, ""), def = p.req ? undefined : p.def;
+        if (a.pick){ // valor a partir dos filhos marcados (ex.: o item selecionado do grupo)
+          var host = get.el(), kids = host ? top(host, a.pick.each) : [], vals = [];
+          [].forEach.call(kids, function(k, i){ var g = scoped(function(){ return k; }, a.pick.defaults, i + 1); if (g(a.pick.attr) === a.pick.eq) vals.push(dartStr(fill(a.pick.tpl, null, g))); });
+          if (a.pick.all) return { name: a.param, value: vals.length ? "{" + vals.join(", ") + "}" : "<String>{}", kind: "code" };
+          return { name: a.param, value: vals[0] || "null", kind: "code" };
+        }
+        if (a.code != null) return { name: a.param, value: fill(a.code, null, get), kind: "code", positional: a.positional };
+        var v = a.value != null ? a.value : a.attr ? get(a.attr) : null;
+        if (a.tpl) v = fill(a.tpl, v, get);
+        if (a.bool || a.eq != null){
+          var b = a.eq != null ? v === a.eq : a.bool === "not" ? !truthy(v) : truthy(v);
+          if (!p.req && String(b) === String(def || "false")) return null;
+          return { name: a.param, value: String(b), kind: "bool" };
+        }
+        if (v == null || v === "") return null;
+        if (a.map && a.map[v] != null) v = a.map[v];
+        if (a.br) v = String(v).replace(/\./g, "").replace(",", ".");
+        var out;
+        if (a.icon) out = "CastanhaIcons." + camel(v);
+        else if (a.num || a.br || /^(int|double|num)$/.test(type)){
+          var n = parseFloat(v) * (a.scale || 1) + (a.offset || 0); if (isNaN(n)) return null;
+          n = Math.round(n * 1000) / 1000;
+          out = type === "double" && /^-?\d+$/.test(String(n)) ? n + ".0" : String(n);
+          if (def != null && parseFloat(def) === n) return null;
+        }
+        else if (data.enums[type]) out = enumValue(type, v);
+        else out = dartStr(v);
+        if (def != null && def === out) return null;
+        return { name: a.param, value: out, kind: data.enums[type] ? "enum" : a.icon || /^(int|double|num)$/.test(type) ? "code" : "str", positional: a.positional };
+      }
+      /** Widget em linhas de segmentos [classe, texto]: Classe(arg: valor, …) — uma linha se couber em 80 colunas. */
+      function widget(data, w, get, ind, out, trail){
+        if (Array.isArray(w)){ for (var k = 0; k < w.length; k++) if (test(get, w[k].if)) return widget(data, w[k], get, ind, out, trail); return false; }
+        if (!test(get, w.if)) return false;
+        var name = w.class + (w.ctor ? "." + w.ctor : "");
+        var args = [];
+        (w.args || []).forEach(function(a){
+          if (!test(get, a.if)) return;
+          if (a.each){ // lista: um widget por filho do elemento (ex.: itens das abas); widgets: um tipo por seletor (ex.: Input e Filter Chips)
+            var host = get.el(), list = host ? top(host, a.each) : [], items = [];
+            [].forEach.call(list, function(child, k){
+              var node = a.widget; if (a.widgets) Object.keys(a.widgets).forEach(function(sel){ if (child.matches(sel)) node = a.widgets[sel]; });
+              if (node) items.push({ get: scoped(function(){ return child; }, node.defaults, k + 1), node: node });
+            });
+            args.push({ name: a.param, list: items });
+            return;
+          }
+          if (a.widget){ args.push({ name: a.param, node: a.widget, get: get }); return; }
+          var r = resolve(data, w.class, a, get); if (r) args.push(r);
+        });
+        args.sort(function(x, y){ return (y.positional ? 1 : 0) - (x.positional ? 1 : 0); }); // posicionais antes dos nomeados
+        var flat = args.every(function(a){ return !a.node && !a.list; }) ? args.map(function(a){ return (a.positional ? "" : a.name + ": ") + a.value; }).join(", ") : null;
+        var tail = trail || "";
+        if (flat != null && (ind + name + "(" + flat + ")" + tail).length <= WIDTH){
+          var line = [[null, ind], ["t", name], [null, "("]];
+          args.forEach(function(a, i){ if (i) line.push([null, ", "]); if (!a.positional) line.push(["a", a.name], [null, ": "]); line.push([a.kind === "str" ? "v" : "e", a.value]); });
+          line.push([null, ")" + tail]); out.push(line);
+          return true;
+        }
+        out.push([[null, ind], ["t", name], [null, "("]]);
+        args.forEach(function(a){
+          var pad = ind + "  ";
+          if (a.list){
+            out.push([[null, pad], ["a", a.name], [null, ": ["]]);
+            a.list.forEach(function(x){ widget(data, x.node, x.get, pad + "  ", out, ","); });
+            out.push([[null, pad + "],"]]);
+          } else if (a.node){
+            var start = out.length;
+            widget(data, a.node, a.get, pad, out, ",");
+            if (out[start]) out[start].splice(1, 0, ["a", a.name], [null, ": "]);
+          } else out.push([[null, pad]].concat(a.positional ? [] : [["a", a.name], [null, ": "]]).concat([[a.kind === "str" ? "v" : "e", a.value], [null, ","]]));
+        });
+        out.push([[null, ind + ")" + tail]]);
+        return true;
+      }
+      function snippet(data, it, get){
+        // castanha_flutter reexporta ícones, ilustrações e tokens: um import só (mais os extras do mapa, ex.: widgets do Flutter)
+        var lines = ["package:castanha_flutter/castanha_flutter.dart"].concat(it.map.imports || []).map(function(u){ return [["k", "import"], [null, " "], ["v", "'" + u + "'"], [null, ";"]]; });
+        lines.push([]);
+        (it.map.pre || []).forEach(function(l){ lines.push([[null, l.replace(/\{@([A-Za-z-]+)\}/g, function(m, a){ var v = get(a); return v == null ? "" : v; })]]); });
+        if (it.map.pre) lines.push([]);
+        widget(data, it.map.widget, get, "", lines, "");
+        return lines;
+      }
+      function paint(pre, lines){
+        pre.innerHTML = "";
+        var c = el("code");
+        lines.forEach(function(l, i){
+          l.forEach(function(s){ if (s[0]) c.appendChild(el("span", "pg-react__" + s[0], s[1])); else c.appendChild(document.createTextNode(s[1])); });
+          if (i < lines.length - 1) c.appendChild(document.createTextNode("\n"));
+        });
+        pre.appendChild(c);
+        return lines.map(function(l){ return l.map(function(s){ return s[1]; }).join(""); }).join("\n");
+      }
+      function prepare(data){
+        if (data.byClass) return;
+        data.byClass = {};
+        Object.keys(data.items).forEach(function(k){ data.byClass[data.items[k].class] = data.items[k]; });
+        Object.keys(data.extra || {}).forEach(function(k){ data.byClass[k] = data.extra[k]; }); // classes de valor e de itens (ex.: CastanhaTabItem)
+      }
+    
+      // Núcleo puro (sem DOM) para gerar o Dart fora do navegador (check com o dart analyze)
+      CDS.flutterCore = { snippet: function(data, it, get){ prepare(data); CDS.flutter = CDS.flutter || data; return snippet(data, it, get); }, scoped: scoped, text: function(lines){ return lines.map(function(l){ return l.map(function(s){ return s[1]; }).join(""); }).join("\n"); } };
+    
+      /** Renderiza a seção "No Flutter" de `def` em `root`, ligada ao `preview`. */
+      CDS.renderFlutter = function(def, preview, root){
+        if (observer){ observer.disconnect(); observer = null; }
+        root.innerHTML = "";
+        var data = CDS.flutter, it = data && data.items[def.id];
+        root.hidden = !data || !!def.resource || def.composition || def.template;
+        if (root.hidden) return;
+        prepare(data);
+        var map = (CDS.flutterMaps || {})[def.id];
+        if (it) it.map = map;
+    
+        var head = root.appendChild(el("div", "pg-react__head"));
+        var ttl = head.appendChild(el("div", "pg-react__ttl"));
+        var h2 = ttl.appendChild(el("h2", "pg-react__title"));
+        h2.id = "flutter-title";
+        h2.appendChild(attrs(document.createElement("cds-icon"), { icon: "flutter-fill", size: "large", appearance: "neutral", "aria-hidden": "true" }));
+        h2.appendChild(document.createTextNode("No Flutter"));
+        var sub = ttl.appendChild(el("p", "pg-react__sub"));
+        if (it){ sub.appendChild(el("code", null, it.class)); sub.appendChild(document.createTextNode(" · castanha_flutter")); }
+        else sub.textContent = "castanha_flutter";
+        sub.appendChild(document.createTextNode(" · " + data.source.ref.replace(/^origin\//, "") + " de " + data.source.date.split("-").reverse().join("/")));
+    
+        var tagsRow = root.appendChild(el("div", "pg-react__tags"));
+        function tag(app, label, tip){ var t = tagsRow.appendChild(attrs(document.createElement("cds-tag"), { appearance: app, label: label, "show-lead-item": "false" })); if (CDS.kit && tip) CDS.kit.lazyTip(t, tip, { label: label }); }
+        if (!it){
+          tag("neutral", def.block ? "Building block" : "Sem equivalente no Flutter");
+          root.appendChild(el("p", "pg-react__p", def.block
+            ? "Peça interna do Figma (nome com ponto). No Flutter ela fica dentro do widget que a usa, sem classe pública."
+            : "Existe no Figma e aqui, mas ainda não tem widget no castanha_flutter."));
+          return;
+        }
+        if (map && map.curated) tag("positive", "Dart ao vivo", "Mapa Figma → Flutter revisado: o código abaixo acompanha os controles do playground.");
+        else if (map) tag("warning", "Mapa em rascunho", "Gerado a partir do mapa do React e dos parâmetros do Flutter. Ainda não foi revisado.");
+        else tag("neutral", "Mapa ainda não feito", "Por enquanto: o import e os parâmetros do widget.");
+        var TAGS = { available: ["positive", "Disponível"], newTag: ["warning", "Novo"], soon: ["neutral", "Em breve"], refactor: ["warning", "Melhorado"], deprecated: ["negative", "Depreciado"], noFigma: ["informative", "Sem Figma"] };
+        (it.tags || []).forEach(function(t){ if (TAGS[t]) tag(TAGS[t][0], TAGS[t][1], "Situação do componente no Widgetbook."); });
+        tag(it.via === "code-connect" ? "informative" : "neutral", it.via === "code-connect" ? "Casado pelo Code Connect" : "Casado pelo nome",
+          it.via === "code-connect" ? "O node do Figma deste componente está no Code Connect do castanha-mobile." : "Casado pelo nome da classe ou da story do Widgetbook (sem Code Connect).");
+    
+        // F2: saúde Figma × Flutter (scripts/integration/check-flutter-stack.js) — etiqueta com o pior nível
+        var CK = { alta: ["negative", "Alta"], media: ["warning", "Média"], info: ["neutral", "Informativo"] }, checks = it.checks || [];
+        var worst = ["alta", "media"].filter(function(l){ return checks.some(function(c){ return c.l === l; }); })[0];
+        var nAlert = checks.filter(function(c){ return c.l !== "info"; }).length;
+        if (worst) tag(CK[worst][0], nAlert + (nAlert === 1 ? " divergência" : " divergências") + " Figma × Flutter", "Check em três vértices (Figma × castanha_flutter × playground). Detalhes no bloco \"Saúde Figma × Flutter\", abaixo.");
+        else tag("positive", "Check Figma × Flutter ok", "Nenhuma divergência que mude o resultado entre as props do Figma e os parâmetros do Flutter.");
+    
+        if (it.doc){ var dp = root.appendChild(el("p", "pg-react__p")); rich(dp, it.doc + " "); dp.appendChild(el("span", "pg-react__src", "(dartdoc)")); }
+    
+        function block(title, label){
+          var b = root.appendChild(el("div", "pg-react__code"));
+          b.appendChild(el("h3", "pg-react__h3", title));
+          var pr = b.appendChild(el("pre", "pg-react__pre")); pr.setAttribute("aria-label", label); pr.tabIndex = 0;
+          return { box: b, pre: pr };
+        }
+        var imp = block("Import", "Import do castanha_flutter"), code = map ? block("Código ao vivo", "Código Dart gerado a partir dos controles") : null, text = "";
+        var copy = (code || imp).box.appendChild(CDS.docMainButton ? CDS.docMainButton("Copiar código") : el("button", null, "Copiar código"));
+        copy.classList.add("pg-react__copy");
+        copy.addEventListener("click", function(){
+          var done = function(){ if (CDS.docToast) CDS.docToast("Código copiado"); };
+          if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function(){}); else done();
+        });
+    
+        var get = map ? reader(map, preview) : null, live = [];
+        function render(){
+          var lines = map ? snippet(data, it, get) : [[["k", "import"], [null, " "], ["v", "'package:castanha_flutter/castanha_flutter.dart'"], [null, ";"]]];
+          var cut = -1; for (var i = 0; i < lines.length; i++) if (!lines[i].length){ cut = i; break; }
+          var top = cut < 0 ? lines : lines.slice(0, cut), body = cut < 0 ? [] : lines.slice(cut + 1);
+          var t1 = paint(imp.pre, top), t2 = code ? paint(code.pre, body) : "";
+          text = t2 ? t1 + "\n\n" + t2 : t1;
+          live.forEach(function(f){ f(); });
+        }
+    
+        // Parâmetros do construtor (dartdoc dos campos e argDescriptions do Widgetbook)
+        var ps = it.params.filter(function(p){ return !p.a11y; }), a11y = it.params.filter(function(p){ return p.a11y; });
+        if (ps.length){
+          var box = root.appendChild(el("div", "pg-react__props"));
+          var ph = box.appendChild(el("h3", "pg-react__h3", "Parâmetros"));
+          box.appendChild(table(["Parâmetro", "Tipo", "Padrão", "Descrição"], ps.map(function(p){
+            var t = p.t || "—", en = data.enums[String(t).replace(/\?$/, "")];
+            return ["`" + p.n + "`" + (p.req ? " (obrigatório)" : ""), "`" + t + "`" + (en ? " · " + en.map(function(v){ return "`" + v + "`"; }).join(" ") : ""), p.def ? "`" + p.def + "`" : "—", p.d || ""];
+          }), "is-props"));
+          ph.appendChild(el("span", "pg-react__count", ps.length + (ps.length === 1 ? " parâmetro" : " parâmetros") + (a11y.length ? " · mais " + a11y.map(function(p){ return p.n; }).join(", ") + " (acessibilidade)" : "")));
+          (it.constructors || []).forEach(function(c){
+            var cp = box.appendChild(el("p", "pg-react__p"));
+            rich(cp, "Construtor `" + it.class + "." + c.n + "`" + (c.d ? ": " + c.d : "") + " Parâmetros: " + c.params.filter(function(n){ return n !== "key"; }).map(function(n){ return "`" + n + "`"; }).join(", ") + ".");
+          });
+        }
+    
+        if (map && map.figma){
+          var rows = map.figma.map(function(r){
+            var now = el("code", "pg-react__now");
+            if (/^[a-z-]+$/.test(r[1])) live.push(function(){ var v = get(r[1]); now.textContent = v == null ? "—" : v; });
+            else now.textContent = "—";
+            var codes = function(x){ return x === "—" ? "—" : x.split(" ").map(function(w){ return /^[·+]$/.test(w) ? w : "`" + w + "`"; }).join(" "); };
+            return { cells: [r[0], codes(r[1]), codes(r[2]), now], note: r[3] };
+          });
+          root.appendChild(acc("Figma → Flutter", "Como cada prop do Figma vira parâmetro no Flutter. \"Agora\" segue os controles", table(["Figma", "Playground", "Flutter", "Agora"], rows)));
+        }
+    
+        if (checks.length){
+          root.appendChild(acc("Saúde Figma × Flutter", checks.length + (checks.length === 1 ? " item" : " itens") + " do check em três vértices (relatório: Stack Flutter)",
+            table(["Nível", "Tipo", "O quê"], checks.map(function(c){
+              return [attrs(document.createElement("cds-tag"), { appearance: CK[c.l][0], label: CK[c.l][1], "show-lead-item": "false" }), "`" + c.t + "`", c.m];
+            }), "is-checks")));
+        }
+    
+        var lb = root.appendChild(el("div", "pg-react__useful"));
+        lb.appendChild(el("h3", "pg-react__h3", "Links úteis"));
+        var ul = lb.appendChild(el("ul", "pg-react__list"));
+        [[it.widgetbook, "Widgetbook", "doc e stories do widget no castanha-mobile (precisa da VPN da Caju)", false, "flutter-fill"],
+         [def.figma, "Figma", "componente no [CastanhaDS] Components", false, "figma-line"],
+         ["#/relatorio/stack-flutter", "Saúde da stack Flutter", "cobertura e check Figma × castanha_flutter × playground", true]].forEach(function(l){
+          if (!l[0]) return;
+          var li = ul.appendChild(el("li"));
+          li.appendChild(attrs(document.createElement("cds-link"), { label: l[1], href: l[0], target: l[3] ? null : "_blank", appearance: "neutral", icon: l[3] ? null : l[4] || "link-line", "show-trailing-item": l[3] ? "false" : null }));
+          li.appendChild(document.createTextNode(" — " + l[2]));
+        });
+    
+        render();
+        if (map && window.MutationObserver){
+          var queued = false;
+          observer = new MutationObserver(function(){ if (queued) return; queued = true; setTimeout(function(){ queued = false; render(); }, 16); });
+          observer.observe(preview, { subtree: true, childList: true, attributes: true });
+        }
+      };
+    })();
+    
+    return window.CDS.flutterCore;
+  };
   var MODS = {
     "./react": function(module, exports, require){
       /**
@@ -623,6 +966,120 @@
       module.exports = { generate, reviewText, review, parseJSX, propsFor };
       
     },
+    "./flutter": function(module, exports, require){
+      /**
+       * MCP do Castanha DS · gerar Dart do castanha_flutter (par do gerar_jsx do React).
+       *
+       * gerar — mesmo código do painel "No Flutter" do playground: roda o núcleo puro do scripts/flutter-kit.js (CDS.flutterCore)
+       *         sobre um elemento simulado com os atributos pedidos (traduzidos das props do Figma pelos mapas integration/flutter-map/).
+       */
+      "use strict";
+      const fs = require("fs"), path = require("path"), vm = require("vm");
+      const fold = (s) => String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+      
+      // ---------- núcleo do flutter-kit ----------
+      let CORE = null;
+      async function core(catalog){
+        if (CORE) return CORE;
+        // no arquivo único (dist/mcp/castanha-mcp.js) o núcleo já vem embutido, sem vm nem leitura de arquivo
+        if (typeof globalThis.__CASTANHA_FLUTTER_KIT__ === "function") return (CORE = globalThis.__CASTANHA_FLUTTER_KIT__());
+        const local = path.join(__dirname, "..", "scripts", "flutter-kit.js");
+        const src = fs.existsSync(local) ? fs.readFileSync(local, "utf8") : await (await fetch(catalog.site + "scripts/flutter-kit.js")).text();
+        const ctx = { document: {}, MutationObserver: null }; ctx.window = ctx; ctx.CDS = {};
+        vm.createContext(ctx); vm.runInContext(src, ctx, { filename: "flutter-kit.js" });
+        if (!ctx.CDS.flutterCore) throw new Error("scripts/flutter-kit.js sem CDS.flutterCore.");
+        return (CORE = ctx.CDS.flutterCore);
+      }
+      
+      // ---------- mapa ----------
+      /** Percorre o widget do mapa (alternativas, aninhados e itens de lista). */
+      function walk(w, fn){
+        if (!w) return;
+        if (Array.isArray(w)){ w.forEach((x) => walk(x, fn)); return; }
+        fn(w, null);
+        (w.args || []).forEach((a) => { fn(w, a); if (a.widget) walk(a.widget, fn); if (a.widgets) Object.values(a.widgets).forEach((x) => walk(x, fn)); });
+      }
+      /** Valores que o mapa conhece para cada atributo (padrões, condições, eq, map). */
+      function knownValues(map){
+        const k = {}, add = (a, v) => { if (a && v != null && v !== "") (k[a] = k[a] || new Set()).add(String(v).replace(/^!/, "")); };
+        Object.keys(map.defaults || {}).forEach((a) => add(a, map.defaults[a]));
+        walk(map.widget, (w, a) => {
+          const ifs = a ? a.if : w.if;
+          if (ifs) Object.keys(ifs).forEach((x) => add(x, ifs[x]));
+          if (a && a.eq != null) add(a.attr, a.eq);
+          if (a && a.map) Object.keys(a.map).forEach((v) => add(a.attr, v));
+        });
+        return k;
+      }
+      /** Atributos que o mapa lê. */
+      function mapAttrs(map){
+        const s = new Set(Object.keys(map.defaults || {}));
+        walk(map.widget, (w, a) => {
+          const ifs = a ? a.if : w.if; if (ifs) Object.keys(ifs).forEach((x) => s.add(x));
+          if (a && a.attr) s.add(a.attr);
+          if (a && a.code) (a.code.match(/\{(?:q:|c:|ill:|@)([a-z-]+)\}/g) || []).forEach((m) => s.add(m.replace(/^\{(?:q:|c:|ill:|@)|\}$/g, "")));
+        });
+        (map.figma || []).forEach((r) => String(r[1]).split(/\s*[·+]\s*|\s+/).forEach((x) => { if (/^[a-z][a-z0-9-]*$/.test(x)) s.add(x); }));
+        return s;
+      }
+      const CONV = { "text label": "label", "error message": "error", "supporting message": "supporting", "text content": "text", "text title": "text-title",
+        "text description": "text-description", "placeholder content": "placeholder", "label": "label" };
+      /** Props do Figma → atributos do playground (linhas `figma` do mapa, convenção de nomes e tipos do Figma). */
+      function figmaToAttrs(comp, map, figma){
+        const attrs = {}, notes = [], kv = knownValues(map), types = {}, known = mapAttrs(map);
+        (comp.figmaProps || []).forEach((p) => { types[fold(p.name)] = p; });
+        Object.keys(figma || {}).forEach((name) => {
+          const v = figma[name], fp = types[fold(name)];
+          const row = (map.figma || []).find((r) => fold(r[0]) === fold(name) || fold(r[0]).split(/\s*[·/›]\s*/).indexOf(fold(name)) >= 0);
+          let attr = row ? String(row[1]).split(/\s*[·+]\s*/)[0] : null;
+          if (attr && !/^[a-z][a-z0-9-]*$/.test(attr)) attr = null;
+          if (!attr){ const guess = CONV[fold(name)] || fold(name).replace(/\s+/g, "-"); if (known.has(guess)) attr = guess; }
+          if (!attr){
+            notes.push("`" + name + "` não tem tradução para o Flutter" + (row && row[3] ? " (" + row[3].replace(/`/g, "") + ")" : "") + ".");
+            return;
+          }
+          if (attr === "disabled" || fold(name) === "state"){
+            if (fold(v) === "disabled" || v === true) attrs.disabled = "";
+            else if (!/^(enabled|hovered|pressed|dragged|dragover)$/.test(fold(v))) notes.push("State `" + v + "` não vira parâmetro; só Disabled.");
+            return;
+          }
+          if (typeof v === "boolean" || (fp && fp.type === "Boolean")){ attrs[attr] = String(v === true || fold(v) === "true"); return; }
+          if (fp && (fp.type === "Text" || fp.type === "Instance swap")){ attrs[attr] = String(v); return; }
+          let val = fold(v).trim().replace(/\s+/g, "-");
+          const vals = kv[attr] ? Array.from(kv[attr]) : [];
+          if (fp && fp.options && !fp.options.some((o) => fold(o) === fold(v))){ notes.push("`" + name + ": " + v + "` não é opção no Figma (" + fp.options.join(", ") + "); ignorei."); return; }
+          else if (vals.length && vals.indexOf(val) < 0){ const hit = vals.find((x) => x.length > 2 && (val.indexOf(x) === 0 || x.indexOf(val) === 0)); if (hit) val = hit; }
+          attrs[attr] = val;
+        });
+        return { attrs, notes };
+      }
+      
+      // ---------- gerar ----------
+      async function generate(catalog, comp, args){
+        const data = catalog.flutterData, it = data && data.items[comp.id];
+        if (!it) return "`" + comp.name + "` não tem widget no castanha_flutter.";
+        if (!it.map) return "`" + comp.name + "` ainda não tem mapa Figma → Flutter. Import:\n\n```dart\nimport 'package:castanha_flutter/castanha_flutter.dart';\n```\n\nUse `componente` para ver os parâmetros.";
+        const C = await core(catalog), map = it.map;
+        const t = figmaToAttrs(comp, map, args.props_figma), attrs = Object.assign(t.attrs, args.atributos || {});
+        // filhos (abas, chips, itens de lista): `itens` = número ou lista de atributos por item; padrão 3
+        const items = Array.isArray(args.itens) ? args.itens : Array.from({ length: typeof args.itens === "number" ? args.itens : 3 }, () => ({}));
+        const tags = []; walk(map.widget, (w, a) => { if (a && a.each) String(a.each).split(",").map((s) => s.trim()).forEach((s) => { if (tags.indexOf(s) < 0) tags.push(s); }); });
+        const wanted = fold(Object.values(args.props_figma || {}).join(" "));
+        const words = (x) => fold(x).replace(/\bcds-/g, "").split(/[-\s]+/).filter((w) => w.length > 2);
+        const common = tags.length > 1 ? words(tags[0]).filter((w) => tags.every((x) => words(x).indexOf(w) >= 0)) : [];
+        const pick = tags.find((x) => words(x).some((w) => common.indexOf(w) < 0 && wanted.indexOf(w) >= 0)) || tags[0];
+        const host = { getAttribute: (k) => (attrs[k] == null ? null : String(attrs[k])) };
+        const kids = items.map((a) => ({ tag: pick, parentElement: host, getAttribute: (k) => (a[k] == null ? null : String(a[k])), matches: (sel) => String(sel).split(",").map((s) => s.trim()).indexOf(pick) >= 0 }));
+        host.querySelectorAll = (sel) => kids.filter((k) => k.matches(sel));
+        const get = C.scoped(() => host, map.defaults);
+        const code = C.text(C.snippet(data, Object.assign({}, it), get)).trim();
+        return "```dart\n" + code + "\n```" + (t.notes.length ? "\n\n" + t.notes.map((n) => "- " + n).join("\n") : "") +
+          "\n\nGerado pelo mapa `integration/flutter-map/" + comp.id + ".json` (o mesmo do painel \"No Flutter\" do playground). Parâmetros omitidos = padrão do construtor. Callbacks (`onPressed`, `onChanged`…) vêm vazios: troque pela sua lógica.";
+      }
+      
+      module.exports = { generate };
+      
+    },
     "./server": function(module, exports, require){
       /**
        * MCP do Castanha DS — M1 consulta + M2 gerar e revisar JSX (docs/local/PLANO-MCP.md).
@@ -637,7 +1094,7 @@
        *   node mcp/server.js --http 8787   →  http://127.0.0.1:8787/mcp   (handleRequest: handler `fetch` para Workers/Deno/Edge)
        *
        * Ferramentas: listar_componentes · componente · docs · buscar · tokens · icone · ilustracao · diretrizes · divergencias
-       *              gerar_jsx · revisar_codigo (M2, mcp/react.js)
+       *              gerar_jsx · revisar_codigo (M2, mcp/react.js) · gerar_dart (castanha_flutter, mcp/flutter.js)
        * Resources:   castanha://componente/{id} · castanha://docs/{id}/{tab}
        * Prompts:     implementar-tela · revisar-handoff · escrever-texto
        */
@@ -645,6 +1102,7 @@
       const fs = require("fs"), path = require("path");
       const VERSION = "0.3.0";
       const REACT = require("./react"); // M2: gerar_jsx e revisar_codigo
+      const FLUTTER = require("./flutter"); // gerar_dart (castanha_flutter)
       const SITE_CATALOG = "https://gus-constantino.github.io/portal-castanhads/dist/mcp/catalog.json";
       // catálogo: CASTANHA_CATALOG (arquivo ou URL) · o do repo (dist/mcp/) · o ao lado do arquivo único · o publicado no site
       const SRC = (typeof process !== "undefined" && process.env && process.env.CASTANHA_CATALOG) || (function(){
@@ -795,6 +1253,18 @@
           if (r.checks.length) L.push("", "## Divergências Figma × React", "", r.checks.map((k) => "- [" + k.level + "] " + k.text).join("\n"));
           if (r.notes.length) L.push("", r.notes.map((n) => "> " + n).join("\n"));
         } else if (x.kind === "component") L.push("", "**No castanha-react:** sem componente equivalente (ainda).");
+        if (x.flutter){
+          const f = x.flutter;
+          L.push("", "## No castanha_flutter", "", "`" + f.class + "`" + (f.tags.length ? " · tags do Widgetbook: " + f.tags.join(", ") : "") + (f.widgetbook ? " · [Widgetbook](" + f.widgetbook + ") (precisa da VPN)" : ""));
+          if (f.description) L.push("", f.description);
+          L.push("", "```dart\n" + f.import + "\n```");
+          const ps = f.params.filter((p) => !p.accessibility);
+          if (ps.length) L.push("", ["| Parâmetro | Tipo | Padrão | Descrição |", "|---|---|---|---|"].concat(ps.map((p) => "| `" + p.name + "`" + (p.required ? " (obrigatório)" : "") + " | `" + p.type + "`" + (p.values ? " (" + p.values.join(", ") + ")" : "") + " | " + (p.default ? "`" + p.default + "`" : "—") + " | " + (p.description || "").replace(/\|/g, "\\|") + " |")).join("\n"));
+          (f.constructors || []).forEach((k) => L.push("", "Construtor `" + f.class + "." + k.n + "`" + (k.d ? ": " + k.d : "")));
+          if (f.figmaToFlutter.length) L.push("", "## Figma → Flutter", "", ["| Figma | Playground | Flutter | Nota |", "|---|---|---|---|"].concat(f.figmaToFlutter.map((m) => "| " + m.figma + " | " + m.playground + " | " + m.flutter + " | " + (m.note || "").replace(/\|/g, "\\|") + " |")).join("\n"));
+          if (f.checks.length) L.push("", "## Divergências Figma × Flutter", "", f.checks.map((k) => "- [" + k.level + "] " + k.text).join("\n"));
+          L.push("", "Use `gerar_dart` para o código a partir das props do Figma.");
+        } else if (x.kind === "component") L.push("", "**No castanha_flutter:** sem widget equivalente (ainda).");
         if (x.tabs && x.tabs.length) L.push("", "## Docs", "", "Tabs: " + x.tabs.map((t) => "`" + t.id + "` (" + t.title + ")").join(", ") + ". Use a ferramenta `docs` para ler.");
         return L.join("\n");
       }
@@ -881,6 +1351,16 @@
           run: async (a) => { const c = await catalog(), x = findComponent(c, a.nome);
             if (!x) return "Não achei \"" + a.nome + "\". Parecidos: " + (suggest(c, a.nome).join(", ") || "nenhum") + ".";
             return "# " + x.name + " → `<" + ((x.react && x.react.component) || "?") + ">`\n\n" + await REACT.generate(c, x, a); } },
+        { name: "gerar_dart", description: "Gera o código Dart do castanha_flutter (Flutter, app) para um componente a partir das props como estão no Figma (ex.: {\"Appearance\": \"Inversed\", \"Show Lead Icon\": false, \"Text Label\": \"Salvar\"}). Mesmo código do painel \"No Flutter\" do playground: import e parâmetros nomeados, omitindo o que é padrão do construtor; compila com o dart analyze.",
+          inputSchema: { type: "object", properties: {
+            nome: { type: "string", description: "id, nome ou classe do Flutter (ex.: main-button, Tag, CastanhaMainButton)" },
+            props_figma: { type: "object", description: "Props do Figma → valor (Variant: nome da opção; Boolean: true/false; Text: o texto; Instance swap: nome do ícone)", additionalProperties: true },
+            atributos: { type: "object", description: "Avançado: atributos do web component do playground (ex.: {\"appearance\": \"inversed\"})", additionalProperties: true },
+            itens: { description: "Para componentes com itens (abas, chips, listas, grupos): quantidade ou lista de atributos por item" } }, required: ["nome"] },
+          run: async (a) => { const c = await catalog();
+            const x = findComponent(c, a.nome) || c.components.find((k) => k.flutter && fold(k.flutter.class) === fold(a.nome));
+            if (!x) return "Não achei \"" + a.nome + "\". Parecidos: " + (suggest(c, a.nome).join(", ") || "nenhum") + ".";
+            return "# " + x.name + " → `" + ((x.flutter && x.flutter.class) || "?") + "`\n\n" + await FLUTTER.generate(c, x, a); } },
         { name: "revisar_codigo", description: "Revisa um trecho JSX/TSX que usa o castanha-react: componente inexistente ou sem import, prop inexistente, valor fora das opções, prop obrigatória faltando, ícone ou ilustração com nome errado, cor ou tamanho cru que tem token, e padrões do React diferentes do Figma.",
           inputSchema: { type: "object", properties: { codigo: { type: "string", description: "Trecho JSX/TSX (com os imports, se houver)" } }, required: ["codigo"] },
           run: async (a) => REACT.reviewText(await catalog(), a.codigo) }

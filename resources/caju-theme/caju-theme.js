@@ -143,7 +143,7 @@
           { kind: "do", text: "Teste sempre como as animações se comportam em diferentes dispositivos e plataformas para garantir consistência." },
           { kind: "dont", text: "Para evitar distrações ou confusão no fluxo do usuário, não use quando desperdiça o tempo do usuário." }
         ] },
-        { note: "Fonte: zeroheight · Princípios de Motion (734995) e Velocidade (24e587); os valores das curvas e durações vêm das variáveis do Figma. No Hub, três curvas Expressive não batem com o Figma e faltam Smooth, Overshoot, Short/00 e os delays (C163). Transições (757a5f) está \"In progress\" e fica de fora até ficar estável." }
+        { note: "Fonte: zeroheight · Princípios de Motion (734995) e Velocidade (24e587); os valores das curvas e durações vêm das variáveis do Figma. No Hub, três curvas Expressive não batem com o Figma e faltam Smooth, Overshoot, Short/00 e os delays (C163). As Transições estão na tab ao lado." }
       ] },
       { id: "icones", title: "Ícones", blocks: [
         { h2: "Ícones" },
@@ -390,12 +390,39 @@
       ] }
     ]
   };
-  // Ilustração e Motion: páginas próprias em Padrões (uma tab cada, sem barra de tabs)
+  // Motion › Transições (zeroheight · Fundação › Motion › Transições 757a5f, "In progress", entra por decisão do Gustavo em 09/10).
+  // Texto do Hub; os valores em px dos protótipos ficam de fora (o Hub diz que o layout é ilustrativo). Divergências de duração e curva no C194.
+  var TRANS = { id: "transicoes", title: "Transições", blocks: [
+    { h2: "Transições" },
+    { p: "Ocorrem quando as pessoas mudam de tela, iniciam novos fluxos ou navegam em jornadas, criando sensação de continuidade. Ajudam a entender como o app e o site funcionam, e devem ser discretas e naturais." },
+    { alert: { appearance: "informative", label: "Em construção no Hub", text: "No Castanha Hub, a página de Transições ainda está \"In progress\". As animações de exemplo ficam lá, e os layouts delas são ilustrativos." } },
+    { h3: "Nível Superior · Sem vínculo direto" },
+    { p: "Uma tela sai e a outra aparece do zero, sem rastro da anterior. Evita agrupamento ou persistência entre conteúdos não relacionados e cria uma separação nítida. Funciona porque define uma quebra clara entre fluxos: a pessoa entende que saiu de um tema e entrou em outro." },
+    { h3: "Para frente e para trás · Geral para o específico" },
+    { p: "O movimento horizontal indica navegação para frente e para trás entre telas consecutivas. Funciona porque cria uma relação de profundidade: o detalhamento está dentro do item principal." },
+    { h3: "Lateral · Itens vizinhos" },
+    { p: "Elementos agrupados deslizam juntos na horizontal, sem fade nem paralaxe. Cria uma relação forte entre as telas e aceita o gesto de deslizar. Funciona porque indica igualdade: os elementos estão lado a lado, no mesmo nível de importância." },
+    { h3: "Entrar e sair · Temporário" },
+    { p: "Algo sobe por cima do que está na tela, sem fechar a página. Funciona porque trata o conteúdo como temporário: ele não muda o fluxo, apenas o visita." },
+    { h3: "Transformação · Continuidade" },
+    { p: "É a transição mais expressiva: um elemento focal se transforma na própria interface. Funciona porque elimina o salto visual, já que o olhar segue o elemento condutor." },
+    { h2: "Especificações" },
+    { specs: [
+      { title: "Nível Superior", rows: [["Use para", "Navegação entre as áreas principais do app"], ["Anima", "Posição Y: a tela nova sobe 14 px até o lugar"], ["Duração", "250 ms · `Duration/medium/01`"], ["Easing", "`Systemic/decelerate`"]] },
+      { title: "Para frente e para trás", rows: [["Use para", "Ir de uma categoria do menu para as subcategorias ou mostrar o detalhamento"], ["Anima", "Posição X do conteúdo e posição X e escala do indicador da Tab (100 → 132% → 111%)"], ["Duração", "350 ms no toque e 600 ms ao arrastar. O Hub cita `Duration/long/02`, que no Figma vale 500 ms"], ["Easing", "`Expressive/decelerate`"]] },
+      { title: "Lateral", rows: [["Use para", "Alternar entre subcategorias ou listas relacionadas do mesmo nível hierárquico"], ["Anima", "Posição X: a tela de cima entra ou sai por inteiro, e a de baixo se desloca de leve, sem sair da tela"], ["Duração", "500 ms. O Hub cita `Duration/long/04` (600 ms no Figma) e `Duration/medium/01`"], ["Easing", "O Hub cita `Expressive/accelerate` com os valores do `Expressive/overshoot` (C163)"]] },
+      { title: "Entrar e sair", rows: [["Use para", "Ações temporárias num fluxo, como Bottom Sheet ou avisos de erro"], ["Anima", "Posição Y do sheet, de baixo para cima, e opacidade do fundo (0 → 20%)"], ["Duração", "Entrada 500 ms, saída 300 ms e fundo 250 ms. O Hub cita `Duration/long/04` (600 ms no Figma)"], ["Easing", "O Hub cita `Expressive/accelerate` com os valores do `Expressive/overshoot` (C163)"]] },
+      { title: "Transformação", rows: [["Use para", "Expandir uma imagem para a tela cheia"], ["Anima", "Tamanho, posição, raio e cor do card até ele virar a página, e o caminho inverso ao fechar"], ["Duração", "600 ms · `Duration/long/04`"], ["Easing", "O Hub cita `Expressive/accelerate` com os valores do `Expressive/overshoot` (C163)"]] }
+    ] },
+    { note: "No playground, Modal, Drawer e Bottom Sheet ainda abrem e fecham sem animação, porque a transição de entrada e saída não está especificada nos componentes (C36)." },
+    { note: "Fonte: zeroheight · Fundação › Motion › Transições (757a5f), conferido em 09/10/2026. As durações e curvas que não batem com as variáveis do Figma estão no CONFERIR (C194)." }
+  ] };
+  // Ilustração e Motion: páginas próprias em Padrões (Ilustração com uma tab; Motion com Motion e Transições)
   (function(){
     var t = CDS.docs["caju-theme"].tabs;
     function take(id){ var i = t.map(function(x){ return x.id; }).indexOf(id); return i < 0 ? null : t.splice(i, 1)[0]; }
     var ilu = take("ilustracoes"), mo = take("motion");
     if (ilu) CDS.docs["ilustracao"] = { source: IL_FIGMA, sourceLabel: "Abrir o guia de ilustração no Figma", tabs: [ilu] };
-    if (mo) CDS.docs["motion"] = { source: FIGMA, sourceLabel: "Abrir o [Caju] Theme no Figma", tabs: [mo] };
+    if (mo) CDS.docs["motion"] = { source: FIGMA, sourceLabel: "Abrir o [Caju] Theme no Figma", tabs: [mo, TRANS] };
   })();
 })();

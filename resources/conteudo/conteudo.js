@@ -972,7 +972,7 @@
           { kind: "dont", attrs: screen("notificacoes/empty-state", "Últimas transações", "Sem pagamentos realizados."),
             text: "O texto não engaja e não explica o valor daquela área para a pessoa usuária." }
         ] },
-        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Feedback Pages. Feedback Pages não é um componente do DS, por isso fica aqui; as regras de texto dos componentes (Tabs, Botões, Breadcrumb, Bottom sheet, Links, Stepper) estão na tab Conteúdo de cada componente (C114)." }
+        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Feedback Pages. Feedback Pages não é um componente do DS, por isso fica aqui; as regras de texto dos componentes (Tabs, Botões, Breadcrumb, Bottom sheet, Links, Progress Tracker) estão na tab Conteúdo de cada componente (C114)." }
       ] }
       ,
       { id: "contextos", title: "Contextos", blocks: [

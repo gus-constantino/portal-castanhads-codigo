@@ -110,12 +110,12 @@
         { p: "O truncamento é ativado quando o total de itens ultrapassa 5 ou quando não há espaço suficiente. Os links intermediários são os únicos truncados e ficam agrupados em um dropdown." },
         { p: "Nunca são truncados:" },
         { ul: ["Página de origem", "Última página ancestral (nível imediatamente acima da página atual)", "Página atual"] },
-        { h3: "Breadcrumb vs. Stepper" },
-        { p: "O breadcrumb reflete a hierarquia de navegação estática do produto. O stepper comunica o progresso dentro de um fluxo. Os dois têm responsabilidades distintas e não devem se sobrepor." },
+        { h3: "Breadcrumb vs. Progress Tracker" },
+        { p: "O breadcrumb reflete a hierarquia de navegação estática do produto. O Progress Tracker comunica o progresso dentro de um fluxo. Os dois têm responsabilidades distintas e não devem se sobrepor." },
         { p: "O primeiro item do breadcrumb deve ser sempre a página que originou o fluxo — não o \"Painel Inicial\" ou \"Home\". Isso garante que a pessoa consiga retornar ao contexto exato de onde partiu." },
         { h3: "Do's and Don'ts" },
         { dodont: [
-          { kind: "do", attrs: crumbs(["Créditos Caju", "Transferência entre carteiras"]), text: "O progresso dos passos de um fluxo (stepper) não deve ser representado no Breadcrumb. Ele reflete exclusivamente a hierarquia de navegação estática do produto." },
+          { kind: "do", attrs: crumbs(["Créditos Caju", "Transferência entre carteiras"]), text: "O progresso dos passos de um fluxo (Progress Tracker) não deve ser representado no Breadcrumb. Ele reflete exclusivamente a hierarquia de navegação estática do produto." },
           { kind: "dont", attrs: crumbs(["Painel inicial", "Transferência entre carteiras"]), text: "O primeiro item do Breadcrumb deve ser a página que originou o fluxo, e não o \"Painel Inicial\" ou ”Home”." }
         ] },
         { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Breadcrumb. Regras de escrita do time de Content. Os exemplos usam componentes do DS com os mesmos textos." }

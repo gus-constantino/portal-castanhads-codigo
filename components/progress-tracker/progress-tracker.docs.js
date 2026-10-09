@@ -2,7 +2,8 @@
    Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Progress Tracker, 384247) e props/description da lib estável (Progress Tracker 21470:2390); tab Conteúdo abaixo.
    A lib tem Orientation Vertical|Horizontal; o código só faz a Vertical (CONFERIR C150).
    Conteúdo (regras de texto):
-   Fonte: [CastanhaDS] Component use documentation · 📁 [NEW] Content → Componentes · frame [Componentes] Stepper (6400:16333).
+   Fonte: [CastanhaDS] Component use documentation · 📁 [NEW] Content → Componentes · frame [Componentes] Stepper (6400:16333);
+   desde 09/10 com "Progress Tracker" no lugar de "stepper", como no zeroheight. Diretrizes com as notas dos frames 6795:23325…24311.
    Textos literais do Figma; os exemplos usam componentes do DS (C114). Antes ficava em Conteúdo → Componentes (D98). */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
@@ -83,7 +84,13 @@
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
         { h2: "Diretrizes de uso" },
-        { ul: ["Mantenha uma única etapa atual", "Numere as etapas na ordem em que aparecem", "Escreva rótulos curtos, sobretudo na horizontal", "Case a orientação do container e das etapas", "Avalie o espaço antes de usar seis etapas na horizontal"] },
+        { cards: [
+          ["Mantenha uma única etapa atual", "Apenas uma etapa fica em Status=Current. As anteriores ficam em Completed e as seguintes em Pending. O componente não impede outra combinação, então a consistência é responsabilidade de quem monta."],
+          ["Numere as etapas na ordem em que aparecem", "O Marker label é texto livre. O número precisa refletir a posição da etapa, e a última fica sempre com Show Connector=false."],
+          ["Escreva rótulos curtos, sobretudo na horizontal", "Na orientação horizontal, o rótulo fica abaixo do marcador e divide a largura com as demais etapas. Rótulo longo desalinha a leitura de uma etapa para a outra."],
+          ["Case a orientação do container e das etapas", "Orientation existe no container e em cada etapa, e o container não propaga o valor. Container horizontal com etapas verticais monta sem erro e quebra o layout."],
+          ["Avalie o espaço antes de usar seis etapas na horizontal", "O componente aceita de 2 a 6 etapas nas duas orientações. Na horizontal, seis etapas chegam a 1114px de largura e não cabem em telas estreitas. As mesmas seis na vertical ocupam 200px. Reduza a quantidade de etapas ou escolha a vertical quando a largura for limitada."]
+        ] },
         { h2: "Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: {}, text: "Use o mesmo Kind em todas as etapas do tracker." },
@@ -103,13 +110,13 @@
 
       { id: "conteudo", title: "Conteúdo", blocks: [
         { h2: "Regras de texto" },
-        { p: "O stepper comunica o progresso dentro de um fluxo com etapas definidas. Ele orienta a pessoa sobre o que ainda falta para concluir um fluxo." },
-        { h3: "Como nomear as etapas do stepper" },
-        { p: "Use substantivos, nunca verbos. Transforme a ação em nominalização: o stepper representa uma etapa, não uma instrução. Exemplo:" },
+        { p: "O Progress Tracker comunica o progresso dentro de um fluxo com etapas definidas. Ele orienta a pessoa sobre o que ainda falta para concluir um fluxo." },
+        { h3: "Como nomear as etapas" },
+        { p: "Use substantivos, nunca verbos. Transforme a ação em nominalização: o Progress Tracker representa uma etapa, não uma instrução. Exemplo:" },
         { table: { wrap: true, head: ["Ação", "Etapa"], rows: [["Revisar", "Revisão"], ["Identificar", "Identificação"], ["Pagar", "Pagamento"]] } },
         { ul: [
           "Nomeie as etapas do ponto de vista da pessoa usuária — o que ela está fazendo, não o que o sistema faz.",
-          "O nome da etapa no stepper deve estar alinhado ao H1 da página correspondente. O H1 pode usar verbo, mas o termo principal precisa ser o mesmo. Se a etapa é \"Revisão\", o H1 pode ser \"Revise seus dados\"."
+          "O nome da etapa no Progress Tracker deve estar alinhado ao H1 da página correspondente. O H1 pode usar verbo, mas o termo principal precisa ser o mesmo. Se a etapa é \"Revisão\", o H1 pode ser \"Revise seus dados\"."
         ] },
         { h3: "Regras de escrita" },
         { ul: [
@@ -117,9 +124,9 @@
           "Use no máximo 3 palavras por etapa. O espaço é reduzido, seja direto.",
           "Mantenha o mesmo padrão gramatical em todas as etapas do mesmo fluxo. Não misture substantivos com verbos."
         ] },
-        { h3: "Stepper vs. Breadcrumb" },
-        { p: "O stepper comunica progresso dentro de um fluxo linear. O breadcrumb reflete a hierarquia de navegação do produto. Os dois têm responsabilidades distintas e não devem se sobrepor. Confira mais detalhes na página Breadcrumbs." },
-        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Stepper. Regras de escrita do time de Content. Os exemplos usam componentes do DS com os mesmos textos." }
+        { h3: "Progress Tracker vs. Breadcrumb" },
+        { p: "O Progress Tracker comunica progresso dentro de um fluxo linear. O breadcrumb reflete a hierarquia de navegação do produto. Os dois têm responsabilidades distintas e não devem se sobrepor. Confira mais detalhes na página Breadcrumbs." },
+        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Stepper e a tab Conteúdo do Progress Tracker no zeroheight (conferida em 09/10/2026), que trocou \"stepper\" pelo nome do componente. Regras de escrita do time de Content." }
       ] }
     ]
   };

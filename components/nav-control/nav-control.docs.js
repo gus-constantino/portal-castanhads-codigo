@@ -31,7 +31,7 @@
         { h3: "Utilize para:" },
         { ul: ["Indicar o item ativo em um carrossel", "Reforçar progressão visual em conteúdos sequenciais", "Acompanhar mudanças automáticas ou controladas por outros elementos."] },
         { h3: "Não utilize para:" },
-        { ul: ["Navegação direta entre telas", "Substituição de tabs ou stepper", "Ações clicáveis ou controles interativos."] },
+        { ul: ["Navegação direta entre telas", "Substituição de tabs ou Progress Tracker", "Ações clicáveis ou controles interativos."] },
         { h2: "Casos de uso" },
         { h3: "Nav Control vs Pagination" },
         { p: "O Nav Control é um componente puramente indicativo, utilizado para mostrar a posição atual em uma sequência de conteúdos, como carrosséis, sem permitir interação direta. Já o Pagination é um componente interativo, voltado à navegação ativa entre páginas de tabelas ou listas extensas, permitindo que a pessoa usuária controle explicitamente qual conjunto de dados deseja consultar." },

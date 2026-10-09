@@ -338,12 +338,12 @@
             ["Cartão físico / Cartão Caju / Cartão do Colaborador", "Nome do cartão físico de Multibenefícios e Despesas para colaboradores. Use “Cartão do Colaborador” apenas no contexto de Sponsor app. Não deve aparecer em employee.", "\"plástico\" ou \"Cajuzinho\" — reservados para comunicações de marketing."],
             ["Cartão virtual", "Sempre especifique se o cartão virtual é de Despesas ou de Benefícios."],
             ["Carteiras", "\"Bolsões\" de saldo. Hoje temos duas: Benefícios e Despesas. Para usar o saldo de uma carteira, ela precisa estar selecionada no app."],
-            ["Carteiras digitais / wallets", "Apps como Samsung Wallet, Google Pay e Apple Pay, onde é possível adicionar o cartão virtual da Caju para pagamentos pelo celular.", "\"carteiras\" sozinho — pode confundir com as carteiras de Benefícios e Despesas."],
+            ["Carteiras digitais / wallets", "Apps como Samsung Wallet, Google Pay e Apple Pay, onde é possível adicionar o cartão virtual da Caju para pagamentos pelo celular.", "\"Apple e Google Pay\" (essas marcas vão sempre pelo nome completo) ou \"carteiras\" sozinho — pode confundir com as carteiras de Benefícios e Despesas."],
             ["Categorias", "Definem em que tipo de estabelecimento o saldo pode ser usado. Podem ter saldo fixo ou flexível, conforme definido pela empresa."],
             ["Código de autenticação", "Código numérico de 6 dígitos enviado para o e-mail ou celular cadastrado para validar a tentativa de acesso.", "\"código de verificação\"."],
             ["Código de desbloqueio", "Código numérico de 16 dígitos no verso do cartão físico, usado uma única vez para desbloquear o cartão.", "\"Código de ativação\" — \"ativar cartão\" saiu de uso."],
             ["Conta Caju", "Área para transferências via Pix, saques e pagamento de boletos. Reúne valores de Premiações, reembolsos de Despesas e depósitos de diferentes empresas em um único lugar. A tarifa é de 1,99% sobre o valor depositado pela empresa — pacote que inclui Pix, boleto e saque, independente do porte da empresa.", "\"Saldo Caju\" — nome descontinuado."],
-            ["Contestação", "Quando a pessoa não reconhece uma transação no cartão ou no Pix, ela pode abrir uma contestação para receber o valor de volta, caso a fraude seja confirmada pela Caju."],
+            ["Contestação", "Quando a pessoa não reconhece uma transação no cartão ou no Pix, ela pode abrir uma contestação para receber o valor de volta, caso a fraude seja confirmada pela Caju.", "\"cancelamento\" — cancelamento é a reversão voluntária de uma ação que a pessoa reconhece. Contestação é o termo para disputa e cobrança não reconhecida."],
             ["Contratar", "Termo usado para a adesão de um dos produtos da Caju."],
             ["Crédito de confiança", "Valores recebidos de volta de pagamentos feitos com o cartão, originados de contestações. Aparece como positivo no extrato como Depósito. Se confirmado que não houve fraude, é feito o Resgate do crédito de confiança."],
             ["Créditos Caju", "Recarga feita dentro do Portal para que a empresa use o valor em créditos para pagar pedidos. A confirmação do pagamento ocorre em algumas horas."],
@@ -366,20 +366,19 @@
             ["Home Office", "Categoria de benefícios para compras em papelarias, lojas de móveis e informática e pagamento de contas de consumo (luz, internet, telefone, etc)."]
           ],
           M: [
-            ["Mobilidade", "Categoria de benefícios para recarga de cartão de transporte público, apps de transporte e abastecimento em postos de gasolina nacionais."],
-            ["Multi", "Categoria que reúne todas as categorias de benefícios em uma só. A empresa deposita saldo sem precisar distribuir entre categorias específicas."]
+            ["Mobilidade", "Categoria de benefícios para recarga de cartão de transporte público, apps de transporte e abastecimento em postos de gasolina nacionais."]
           ],
           P: [
             ["Pix", "Sistema de pagamento instantâneo para transferências e pagamentos a qualquer hora e dia da semana. Na Caju, disponível apenas para pessoas com Saldo Caju.", "\"pix\" com p minúsculo — regra do BACEN."],
             ["Portal da Caju para colaboradores", "Nome completo da plataforma web da Caju para colaboradores. Pode ser abreviado para \"Portal para colaboradores\". Sempre com P maiúsculo."],
-            ["Portal da Caju para empresas", "Nome completo da plataforma web da Caju para empresas. Pode ser abreviado para \"Portal para empresas\" ou \"Portal\". Sempre com P maiúsculo.", "\"sponsor app\"."],
+            ["Portal da Caju para empresas", "Nome completo da plataforma web da Caju para empresas. Pode ser abreviado para \"Portal para empresas\" ou \"Portal\". Sempre com P maiúsculo.", "\"sponsor app\" ou \"Portal Caju\"."],
             ["Pré-cadastro", "Processo de cadastro dos dados do colaborador dentro do Portal para empresas pelo RH. A pessoa colaboradora ainda precisa realizar o cadastro no app depois."],
             ["Premiações", "Saldo depositado na Conta Caju para reconhecimento de colaboradores. Pode ser usado livremente."]
           ],
           R: [
             ["Rastrear", "Termo usado para indicar quando a pessoa pode localizar o cartão físico na rota de entrega."],
             ["Reembolso", "Valores que a pessoa colaboradora recebeu de volta da empresa ao gastar com despesas corporativas. O valor cai na Conta Caju ou é transferido para o banco de preferência da empresa."],
-            ["Recuperar senha", "Ação de redefinição de senha.", "\"redefinir senha\"."],
+            ["Recuperar senha", "Ação de redefinição de senha.", "\"redefinir senha\" ou \"Não sei a senha\"."],
             ["Resgate de saldo", "Ação no Portal para empresas que permite retirar o saldo depositado de uma pessoa colaboradora. Acontece em casos de contestação negada, expiração de adiantamento ou colaborador desligado."]
           ],
           S: [
@@ -394,7 +393,7 @@
           T: [
             ["Tarifa", "Custo cobrado por um serviço ou operação financeira.", "\"taxa\" — confira as regras completas em Porcentagens e tarifas."],
             ["Termo de autorização para abertura de conta", "Documento enviado para menores de idade, onde o responsável legal assina e autoriza o cadastro na Caju."],
-            ["Transações", "Pagamentos feitos com o Cartão Caju."]
+            ["Transações", "Termo padrão para se referir a movimentações financeiras feitas com o cartão."]
           ],
           V: [
             ["Vale-transporte", "Benefício exclusivo para transporte público."],
@@ -459,25 +458,25 @@
         { h3: "Estrangeirismos" },
         { p: "Palavras estrangeiras vão contra a brasilidade — um dos pilares da marca Caju. Além disso, leitores de tela leem no idioma em que estão configurados, o que pode comprometer a acessibilidade." },
         { table: { wrap: true, head: ["Não use", "Use"], rows: [
-          ["Download", "Baixar"], ["Feedback", "Sugerir, sugestão"], ["Gift", "Cartão-presente, premiação"], ["Login", "Entrar, acessar"], ["MFA", "Código de autenticação"],
-          ["Status", "Situação, andamento — exceção: permitido em documentação interna e nomes de categoria"], ["Upgrade", "Melhorar, aumentar, evoluir"], ["Upload", "Carregar"],
+          ["Download", "Baixar"], ["Feedback", "Sugerir, sugestão, opinião"], ["Feature", "Funcionalidade"], ["Gift", "Cartão-presente"], ["Login", "Entrar, acessar"], ["MFA", "Código de autenticação"],
+          ["Status", "Situação, andamento — exceção: permitido em documentação interna e em cenários em que os termos em português não se encaixam"], ["Upgrade", "Melhorar, aumentar, evoluir"], ["Upload", "Carregar"],
           ["Tips", "Dicas"], ["Dashboard", "Painel"], ["Overview", "Resumo"]
         ] } },
         { h3: "Verbos sensoriais" },
         { p: "Verbos sensoriais descrevem os cinco sentidos e são comuns na linguagem cotidiana, mas criam barreiras de acessibilidade e inclusão. Nem todas as pessoas experienciam o mundo da mesma forma. Prefira verbos de entendimento e acesso (entender, conhecer, consultar, acessar). Não é uma regra absoluta: quando a ação é olhar um elemento da tela, como um boleto, um comprovante ou um cartão, o verbo visual continua valendo." },
         { table: { wrap: true, head: ["Não use", "Use"], rows: [
-          ["Ver, visualizar", "Conferir, mostrar, abrir, acessar — exceção: quando a ação é de fato olhar algo (boleto, comprovante, cartão) e em peças de marketing"], ["Ver mais", "Nome da área ou acessar {área}"], ["Ver saldo", "Consultar saldo"], ["Ver como funciona", "Entender como funciona"], ["Prove a experiência", "Explore, descubra"], ["Ouvir", "Reproduzir, tocar"]
+          ["Ver, visualizar", "Conferir, mostrar, abrir, acessar — exceção: quando a ação é de fato olhar algo (boleto, comprovante, cartão), em peças de marketing e em fluxos de funil"], ["Ver mais", "Nome da área ou acessar {área}"], ["Ver saldo", "Consultar saldo"], ["Ver como funciona", "Entender como funciona"], ["Prove a experiência", "Explore, descubra"], ["Ouvir", "Reproduzir, tocar"], ["Tenha em mãos", "Você vai usar, você vai precisar"]
         ] } },
         { h3: "Gírias, jargões e regionalismos" },
         { p: "A Caju usa gírias e regionalismos no branding — mas não no produto. Na interface, precisamos garantir o entendimento de todas as pessoas usuárias, independente de região ou contexto." },
         { p: "Nosso estilo é simples e humano, mas isso não é uma abertura para termos conhecidos apenas por uma bolha ou região." },
         { table: { wrap: true, head: ["Não use", "Por quê"], rows: [
-          ["Desenrolar, resolver na mão", "Jargão informal que pode soar descuidado em contextos financeiros"],
+          ["Desenrolar, resolver na mão, tá na mão", "Jargão informal que pode soar descuidado em contextos financeiros"],
           ["Vixe, Ops, Hummm", "Interjeições regionais ou infantis que podem soar como deboche — evite em qualquer momento"],
           ["Mandar ver, arrasar", "Gírias que podem não ser compreendidas por toda a base"],
           ["Valeu!", "Soa como conversa entre amigos, não como cuidado — destoa em momentos formais ou de encerramento (pesquisas, confirmações, agradecimentos)"]
         ] } },
-        { h3: "Termos que causam ansiedade ou perda de confiança" },
+        { h3: "Termos que causam ansiedade ou insegurança" },
         { p: "Algumas palavras tecnicamente corretas geram reações negativas nas pessoas usuárias — confirmado em pesquisas realizadas no Maze. Prefira sempre as alternativas." },
         { note: "Esses termos não são proibidos. Sempre avalie o contexto em que cada um vai ser usado." },
         { table: { wrap: true, head: ["Não use", "Use", "Por quê"], rows: [
@@ -487,13 +486,13 @@
           ["Conta (em bloqueio do app)", "Fale do acesso ao app. Exemplo: \"Limitamos seu acesso\"", "Em cenários de bloqueio do app, \"conta\" remete aos benefícios e ao bloqueio do cartão"],
           ["Garantir", "Proteger, manter", "Soa como venda de serviço ou brinde"],
           ["Taxa", "Tarifa", "Confira as regras em Porcentagens e tarifas"],
-          ["Biometria", "Reconhecimento facial", "\"Biometria\" foi confundida com biometria de dedo em testes"]
+          ["Biometria, biometria facial", "Reconhecimento facial", "Jargão técnico que pode ser confundido, inclusive com a biometria de dedo"]
         ] } },
         { h3: "Termos internos" },
         { p: "Termos usados internamente pelo time da Caju que não devem aparecer no produto ou em comunicações com pessoas usuárias." },
         { table: { wrap: true, head: ["Não use", "Use"], rows: [
           ["Employee app", "App da Caju para colaboradores, app para colaboradores"], ["Sponsor app", "Portal da Caju para empresas, Portal para empresas"],
-          ["Feature", "Funcionalidade"], ["BU", "Área, unidade de negócio"], ["Cajuzinho", "Cartão físico de Benefícios"], ["Plástico", "Cartão físico de Benefícios"],
+          ["BU", "Área, unidade de negócio"], ["Cajuzinho", "Cartão físico de Benefícios"], ["Plástico", "Cartão físico de Benefícios"],
           ["2ª via", "Novo cartão"], ["Conta digital", "Conta Caju"]
         ] } },
 

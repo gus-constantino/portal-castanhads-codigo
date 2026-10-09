@@ -871,6 +871,8 @@ cds-spinner[size="medium"]{ --_size:var(--common-sizes-24); }
 cds-spinner[size="large"]{ --_size:var(--common-sizes-32); }
 cds-spinner[appearance="accent"]{ --_track:var(--common-colors-accent-solid-soft); --_arc:var(--common-colors-icons-accent); }
 cds-spinner[appearance="inversed"]{ --_track:var(--common-colors-surface-inversed); --_arc:var(--common-colors-icons-inversed); }
+/* No Figma, o Track do Inversed tem a camada a 16% (Common/Opacity/semi-transparent), na main e na branch (09/10) */
+cds-spinner[appearance="inversed"] .cds-spin__track{ opacity:var(--common-opacity-semi-transparent); }
 
 cds-spinner > svg{ display:block; width:100%; height:100%; animation:cds-spin calc(var(--common-motion-duration-short-04) * 4) infinite; /* 4 passos × 200ms */ }
 cds-spinner .cds-spin__track{ stroke:var(--_track); }

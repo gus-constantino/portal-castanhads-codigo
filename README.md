@@ -1,11 +1,11 @@
 # Castanha DS · Playground de handoff design ↔ código
 
-[![Smoke](https://github.com/gus-constantino/castanhads-component-teste/actions/workflows/smoke.yml/badge.svg?branch=main)](https://github.com/gus-constantino/castanhads-component-teste/actions/workflows/smoke.yml)
-[![Site](https://img.shields.io/badge/site-GitHub%20Pages-informational)](https://gus-constantino.github.io/castanhads-component-teste/)
+[![Smoke](https://github.com/gus-constantino/portal-castanhads/actions/workflows/smoke.yml/badge.svg?branch=main)](https://github.com/gus-constantino/portal-castanhads/actions/workflows/smoke.yml)
+[![Site](https://img.shields.io/badge/site-GitHub%20Pages-informational)](https://gus-constantino.github.io/portal-castanhads/)
 
 Playground público do **Castanha DS**, o design system da Caju. Cada componente da lib `[CastanhaDS] Components` do Figma vira um custom element `<cds-…>` com as mesmas props, variantes, tokens e estados, ao lado da documentação, da tradução para o `castanha-react` e de um painel de saúde do projeto.
 
-**Site:** https://gus-constantino.github.io/castanhads-component-teste/
+**Site:** https://gus-constantino.github.io/portal-castanhads/
 
 > HTML, CSS e JS puros, sem dependências e sem transpilar nada. Os scripts de build rodam em Node puro e geram arquivos que o site lê.
 
@@ -40,7 +40,7 @@ Playground público do **Castanha DS**, o design system da Caju. Cada componente
 | **No React** | Código do `castanha-react` gerado a partir das props como estão no Figma | `scripts/react-kit.js` · `integration/` |
 | **Recursos** | Caju - Tema (tokens), Camadas, Conteúdo, Patterns, Treinamento, Capacitações, Personas, Agentes e Skills, MCP, FAQ e Changelog | `resources/<id>/` |
 | **Composições** | Peças montadas com tokens e componentes do DS onde o DS ainda não tem o componente (prefixo `cmp-`) | `compositions/<id>/` |
-| **Templates** | Trechos de tela do Figma de templates (ex.: cabeçalho do Sponsor) | `templates/` |
+| **Templates** | Trechos de tela do Figma de templates (ex.: cabeçalho do Sponsor), com `template: "<produto>"` no `CDS.register` | `components/<id>/` · seção Templates do menu |
 | **Relatório** | Painel do projeto: números, sinais vitais, ritmo, publicação na lib, débitos e decisões, lidos direto dos `.md` | `scripts/report.js` · rota `#/relatorio` |
 | **MCP** (em breve) | Servidor MCP que dá a assistentes de IA o conteúdo do DS e gera e revisa JSX | `mcp/` · `dist/mcp/` |
 
@@ -98,7 +98,6 @@ components/<id>/
 compositions/<id>/             peças cmp-* (o DS ainda não tem o componente)
 local/<id>/                    componentes locais loc-* (feitos com tokens do DS para um lugar do playground)
 resources/<id>/<id>.js         recursos (páginas de doc, sem mount)
-templates/                     trechos de templates do Figma
 tokens/figma-snapshot.json     tokens lidos do Figma via MCP
 styles/
   tokens.css · icons.css       GERADOS
@@ -233,7 +232,7 @@ Blocos disponíveis: `h2` `h3` `p` `note` `alert` `ul` `ol` `cards` `display` `c
 
 - **Recurso:** `CDS.register({ id, name, resource: true, order })` + `CDS.docs[id]`. A seção do menu é definida em `RES_SECTIONS` (`scripts/app.js`). Link externo entra em `links` da seção e abre em nova guia.
 - **Composição:** elemento `cmp-*` montado com tokens e componentes do DS. O cabeçalho explica por que existe e quando apagar. Tem uma linha no CONFERIR.
-- **Template:** trecho de um arquivo de templates do Figma, montado com componentes do DS.
+- **Template:** trecho de um arquivo de templates do Figma, montado com componentes do DS. Fica em `components/<id>/` com `template: "<produto>"` no `CDS.register`, que o coloca na seção Templates do menu, num grupo por produto (App, Sponsor…).
 - **Componente local:** elemento `loc-*` em `local/<id>/`, feito com tokens do DS para um lugar do playground, sem a intenção de virar componente (ex.: `<loc-pilha>`, a pilha de cartões do conceito do Castanha Assets, `<loc-vazio>` e `<loc-faixa>`). A explicação de cada tipo (componente, building block, template, team component, componente local e composição) fica na página escondida `#/locais`, aberta pelo link no Relatório › Arquitetura.
 - **Página escondida:** `hidden: true` no `CDS.register` tira a página do menu, da busca, do anterior/próximo e do catálogo do MCP. Ela abre pelo link direto.
 - **Proposta zeroheight → portal:** `docs/pitch/index.html`, página de rolagem com o visual do portal: capítulos, o portal ao vivo trocando de tela ao rolar e números lidos do repositório (← → por capítulo, F tela cheia). Link no Relatório › Arquitetura, embaixo de Componentes locais. Os campos de custo e horas são preenchidos na própria página e ficam salvos no navegador, nunca no repositório.

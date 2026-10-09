@@ -70,7 +70,7 @@ module.exports = function build(ROOT){
   const items = [];
   Object.keys(CDS.docs).sort().forEach((id) => {
     const doc = CDS.docs[id], reg = regs[id] || {};
-    if (!doc || !doc.tabs || reg.hidden) return; // página escondida (hidden): fora da busca, só abre pelo link
+    if (!doc || !doc.tabs || reg.hidden || reg.composition) return; // página escondida (hidden) e composição: fora da busca, só abrem pelo link
     items.push(...sections(id, reg.name || id, doc, resDocs.has(id) || !!reg.resource));
   });
   return { items: items, errors: errs };

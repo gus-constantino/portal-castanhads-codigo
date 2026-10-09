@@ -40,9 +40,9 @@
   // ---------- Side menu ----------
   // Grupos na ordem das páginas do [CastanhaDS] Components; building blocks numa seção recolhida no fim.
   var PAGES = ["Actions","Banner","Breadcrumbs","Buttons","Caju Card","Containers","Content","Datepicker","Dividers","Feedback","File Upload","Fixed Bar","Flags","Images","Lists","Loaders","Navigation","Pagination","Popovers","Progress Indicators","Rating Score","Selection Controls","Slider","Status","Tabs","Tab View","Tables","Text Fields","Tooltips","Utilities"];
-  var blocksOpen = false, cmpsOpen = false;
+  var blocksOpen = false;
   // Composição (compositions/<id>): peça do playground feita só com tokens do DS onde o DS não tem o componente.
-  // Fica numa seção própria depois dos building blocks, recolhida, como eles.
+  // Fica fora do menu, da busca e do anterior/próximo: é referência do time e abre pela página Componentes locais (#/locais).
   function isPart(c){ return c.block || c.composition || c.template; }
   // Templates (D250): seção própria no menu, um grupo por produto. Ordem dos grupos; os que vierem depois entram no fim
   var TEMPLATE_GROUPS = ["App", "Sponsor"];
@@ -261,10 +261,9 @@
   function buildNav(filter){
     var q = (filter || "").trim().toLowerCase();
     nav.innerHTML = "";
-    // hidden: página fora do menu, da busca e do anterior/próximo; só abre pelo link (ex.: #/locais, a partir do Relatório)
-    var shown = list.filter(function(c){ return !c.hidden && (!q || (c.name + " " + (c.task || "") + " " + (c.category || "")).toLowerCase().indexOf(q) !== -1); });
+    // hidden e composição: fora do menu, da busca e do anterior/próximo; só abrem pelo link (ex.: #/locais, a partir do Relatório)
+    var shown = list.filter(function(c){ return !c.hidden && !c.composition && (!q || (c.name + " " + (c.task || "") + " " + (c.category || "")).toLowerCase().indexOf(q) !== -1); });
     var comps = shown.filter(function(c){ return !isPart(c) && !c.resource; }), blocks = shown.filter(function(c){ return c.block && !c.resource; });
-    var cmps = shown.filter(function(c){ return c.composition && !c.resource; });
     // Recursos ficam em seções próprias (RES_SECTIONS), fora dos componentes
     // Início (home: Castanha Hub) fica no topo do menu, fora de Componentes e de Recursos
     var home = list.filter(function(c){ return c.home; });
@@ -314,8 +313,7 @@
         if (items.length) nav.appendChild(navGrid(cat, items));
       });
       if (blocks.length) nav.appendChild(navGrid("Building blocks", blocks)).classList.add("pg-nav-blocks");
-      if (cmps.length) nav.appendChild(navGrid("Composições", cmps)).classList.add("pg-nav-blocks", "pg-nav-cmps");
-      if (!comps.length && !blocks.length && !cmps.length) nav.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Nenhum componente encontrado." }));
+      if (!comps.length && !blocks.length) nav.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Nenhum componente encontrado." }));
       markCurrent();
       return;
     }
@@ -331,14 +329,7 @@
       // Tooltip no cabeçalho do Accordion Item (o botão interno), não no item inteiro
       if (bd.btn) kit.tip(bd.btn, "Peças internas usadas por outros componentes (.Item, .Head…). Não se usam sozinhas.", { container: bli });
     }
-    if (cmps.length){
-      var cd = navGroup("Composições", cmps, cmpsOpen || q || narrow.matches || cmps.some(function(c){ return c.id === cur; }), function(open){ cmpsOpen = open; });
-      cd.classList.add("pg-nav-blocks", "pg-nav-cmps");
-      cd.setAttribute("description", cmps.length + (cmps.length === 1 ? " composição" : " composições"));
-      var cli = nav.appendChild(kit.el("li", null, [cd]));
-      if (cd.btn) kit.tip(cd.btn, "Peças do playground montadas com tokens do DS onde o DS ainda não tem o componente. Não são do Castanha DS.", { container: cli });
-    }
-    if (!comps.length && !blocks.length && !cmps.length) nav.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Nenhum componente encontrado." }));
+    if (!comps.length && !blocks.length) nav.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Nenhum componente encontrado." }));
     markCurrent();
   }
   // Rola só o menu (nunca a página) até o item atual, centralizado. Só quando ele está fora de vista
@@ -617,16 +608,17 @@
     if (def.home) return [ds, { label: def.name, href: "#/" + def.id }];
     if (def.notFound) return [ds, { label: def.name, href: location.hash || "#/" }];
     if (def.hidden) return [ds, { label: "Relatório", href: "#/relatorio" }, { label: def.name, href: "#/" + def.id }];
+    if (def.composition) return [ds, { label: "Componentes locais", href: "#/locais" }, { label: def.name, href: "#/" + def.id }];
     if (def.resource){ var sec = resSection(def); return [ds, { label: sec.title, href: "#/" + sec.items[0].id }, { label: def.name, href: "#/" + def.id }]; }
     if (def.template){ var tfirst = list.filter(function(c){ return c.template && !c.resource; })[0] || def, gfirst = list.filter(function(c){ return c.template === def.template; })[0] || def;
       return [ds, { label: "Templates", href: "#/" + tfirst.id }, { label: def.template, href: "#/" + gfirst.id }, { label: def.name, href: "#/" + def.id }]; }
-    var cat = def.composition ? "Composições" : def.block ? "Building blocks" : (def.category || "Outros");
-    var first = list.filter(function(c){ return !c.resource && (def.composition ? c.composition : def.block ? c.block : !isPart(c) && (c.category || "Outros") === cat); })[0] || def;
+    var cat = def.block ? "Building blocks" : (def.category || "Outros");
+    var first = list.filter(function(c){ return !c.resource && (def.block ? c.block : !isPart(c) && (c.category || "Outros") === cat); })[0] || def;
     return [ds, { label: cat, href: "#/" + first.id }, { label: def.name, href: "#/" + def.id }];
   }
 
   // ---------- Anterior / próximo (fim da página) ----------
-  // Como Carbon e M3: dois cards no fim da página, na ordem do menu (Início › componentes por categoria › building blocks › composições › demais seções).
+  // Como Carbon e M3: dois cards no fim da página, na ordem do menu (Início › componentes por categoria › building blocks › templates › demais seções).
   // Content List Item do DS (Kind Card · Intent Navigation, href). Atalho do Storybook: ⌥← / ⌥→ (Alt no Windows/Linux).
   var pager = (function(){
     var mac = /Mac|iP(hone|ad)/.test(navigator.platform || navigator.userAgent), key = mac ? "⌥" : "Alt+";
@@ -636,11 +628,11 @@
       var secs = resSections(list.filter(function(c){ return c.resource && !c.home && !c.hidden; })), part = function(top){ return secs.filter(function(x){ return !!x.top === top; }).reduce(function(a, x){ return a.concat(x.items); }, []); };
       var seq = list.filter(function(c){ return c.home; }).concat(part(true));
       cats.forEach(function(cat){ seq = seq.concat(comps.filter(function(c){ return (c.category || "Outros") === cat; })); });
-      seq = seq.concat(list.filter(function(c){ return c.block && !c.resource; }), list.filter(function(c){ return c.composition && !c.resource; }));
+      seq = seq.concat(list.filter(function(c){ return c.block && !c.resource; }));
       templateGroups(list.filter(function(c){ return c.template && !c.resource && !c.hidden; })).forEach(function(g){ seq = seq.concat(g.items); });
       return seq.concat(part(false));
     }
-    function near(){ if (currentDef().hidden) return {}; var seq = order(), i = seq.map(function(c){ return c.id; }).indexOf(currentId()); return { prev: seq[i - 1], next: seq[i + 1] }; }
+    function near(){ if (currentDef().hidden || currentDef().composition) return {}; var seq = order(), i = seq.map(function(c){ return c.id; }).indexOf(currentId()); return { prev: seq[i - 1], next: seq[i + 1] }; }
     function card(def, dir){
       if (!def) return kit.el("span", { "class": "pg-pager__gap", "aria-hidden": "true" });
       var prev = dir === "prev";

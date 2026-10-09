@@ -12855,11 +12855,22 @@ try {
         { h2: "No código do playground" },
         { table: { head: ["Tipo", "Pasta", "Prefixo"], rows: [
           ["Componente do DS e building block", "`components/<id>/`", "`cds-`"],
-          ["Template", "`templates/<id>/`", "`cds-`"],
+          ["Template", "`components/<id>/`, com `template: \"<produto>\"` no `CDS.register`", "`cds-`"],
           ["Composição", "`compositions/<id>/`", "`cmp-`"],
           ["Componente local", "`local/<id>/`", "`loc-`"]
         ] } },
-        { p: "O build junta `local/` ao pacote logo depois das composições. Cada componente local tem um `.js` com o cabeçalho explicando o motivo e um `.css` feito com tokens." }
+        { p: "O build junta `local/` ao pacote logo depois das composições. Cada componente local tem um `.js` com o cabeçalho explicando o motivo e um `.css` feito com tokens." },
+        { h2: "Composições do playground" },
+        { p: "As composições ficam fora do menu e da busca: servem ao time e de referência para quem quer organizar peças localmente. Cada uma abre pelo link e tem playground, com o motivo no cabeçalho do arquivo." },
+        { table: { wrap: true, head: ["Composição", "Para que serve"], rows: [
+          ["[Clickable Card](#/clickable-card)", "Card com a área de clique inteira, para link ou ação. Usado na grade do menu"],
+          ["[Definition List](#/definition-list)", "Rótulo e valor, em linha ou empilhados. Usada nas props das nested instances e nas fichas das docs"],
+          ["[Do/Don't](#/do-dont)", "Exemplo e legenda de uso certo ou errado. Usado nas diretrizes das docs"],
+          ["[Lição](#/lesson)", "Uma tela por vez, com vidas, feedback e XP. Usada no Castanha Quiz"],
+          ["[Quiz](#/quiz)", "Pergunta por pergunta, com Card, Selection List e Alert. Usado em Capacitações"],
+          ["[Shortcut](#/shortcut)", "Tecla de atalho com Tag Neutral. Usada no painel de atalhos"],
+          ["[Thumbnail](#/thumbnail)", "Playground real de um componente em miniatura. Usada no preview do hover e no menu em grade"]
+        ] } }
       ] },
       { id: "pilha", title: "Pilha", blocks: [
         { h2: "Pilha" },

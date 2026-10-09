@@ -36,8 +36,8 @@ CDS.docs = CDS.docs || {};
           { title: "Progress Line: avanço mensurável", attrs: line(60) },
           { title: "Spinner: duração indeterminada", attrs: { _tag: "cds-spinner", size: "large", appearance: "accent" } }
         ] },
-        { h3: "Progress Line vs Stepper" },
-        { p: "Enquanto o Progress Line comunica avanço contínuo em percentual, o Stepper é indicado para fluxos divididos em etapas bem definidas e discretas." },
+        { h3: "Progress Line vs Progress Tracker" },
+        { p: "Enquanto o Progress Line comunica avanço contínuo em percentual, o Progress Tracker é indicado para fluxos divididos em etapas bem definidas e discretas." },
         { note: "Suporte: canal #castanha-suporte no Slack." }
       ] },
 

@@ -38,14 +38,15 @@
     ] };
   }
   // Bottom Sheet (inline) com título, texto e duas ações em Main Buttons sem ícone (o Footer do sheet não expõe o Lead Icon)
-  function sheetActions(title, text, a, b){
+  function sheetActions(title, text, a, b, items){ // items: lista opcional abaixo do texto (ex.: o que a ação protege)
     return { _tag: "div", class: "pg-cnt-phone pg-cnt-phone--sheet", _children: [
       { _tag: "cds-bottom-sheet", inline: true, "show-header": false, "show-footer": false, _children: [
         { _tag: "h4", class: "pg-cnt-phone__title", _text: title },
-        { _tag: "p", class: "pg-cnt-phone__text", _text: text },
+        { _tag: "p", class: "pg-cnt-phone__text", _text: text }
+      ].concat(items ? [{ _tag: "ul", class: "pg-cnt-phone__text", _children: items.map(function(t){ return { _tag: "li", _text: t }; }) }] : []).concat([
         { _tag: "cds-main-button", class: "pg-cnt-phone__cta", label: a, "show-lead-icon": false, "show-trailing-icon": false },
         { _tag: "cds-main-button", class: "pg-cnt-phone__cta", appearance: "neutral", label: b, "show-lead-icon": false, "show-trailing-icon": false }
-      ].filter(function(x){ return x._tag !== "cds-main-button" || x.label; }) } // b opcional: uma ação só
+      ]).filter(function(x){ return x._tag !== "cds-main-button" || x.label; }) } // b opcional: uma ação só
     ] };
   }
   // Notificação in-app de exemplo: Card do DS com título, texto e CTA em Link do DS
@@ -86,16 +87,16 @@
           { title: "Pensar títulos com foco na conversa", text: [
               "Quem abre o aplicativo não está procurando funcionalidades: está tentando resolver um problema, economizar tempo ou concluir uma tarefa. Em vez de começar pelo que o produto faz, comece pelo que a novidade representa para a pessoa, com chamadas que façam sentido desde a primeira leitura.",
               "Em segurança, privacidade ou requisitos legais, a clareza vem primeiro: o título comunica o fato de forma direta e a conversa acontece no texto de apoio, que ainda pode acolher e indicar o próximo passo."],
-            list: ["O título comunica um benefício ou apenas descreve uma ferramenta?", "Quem nunca ouviu falar da funcionalidade entenderia por que ela importa?", "O título desperta vontade de continuar lendo?", "Em títulos objetivos: o texto de apoio acolhe a pessoa antes de orientar?"] },
+            list: ["O título comunica um benefício ou apenas descreve uma ferramenta?", "Quem nunca ouviu falar da funcionalidade entenderia por que ela importa?", "O título desperta vontade de continuar lendo?", "Estou iniciando uma conversa ou apenas apresentando uma novidade?", "Em títulos objetivos: o texto de apoio acolhe a pessoa antes de orientar?", "Estou explicando tudo o que posso explicar, sem comprometer requisitos de segurança?", "Existe um verbo mais humano para conduzir essa conversa?"] },
           { title: "Uma conversa que inclui todo mundo", text: [
               "Prefira verbos que expressam entendimento, descoberta ou acesso à informação, em vez de ações só visuais. \"Ver\" e \"visualizar\" pressupõem a visão; \"entender\", \"conhecer\" e \"consultar\" acolhem também quem usa leitor de tela ou outras tecnologias assistivas.",
               "Não é uma regra absoluta: quando a ação realmente é olhar um elemento da tela, como um boleto, um comprovante ou um cartão, o verbo visual continua valendo. Em botões de navegação, use o nome da área ou \"Acessar {área}\" (ver Vocabulário)."],
-            table: { wrap: true, head: ["Em vez de", "Use"], rows: [["Ver como funciona", "Entender como funciona"], ["Ver saldo", "Consultar saldo"], ["Ver mais", "Nome da área ou Acessar {área}"]] },
+            table: { wrap: true, head: ["Em vez de", "Use"], rows: [["Ver como funciona", "Entender como funciona"], ["Ver saldo", "Consultar saldo"], ["Visualizar cartão", "Acessar cartão"], ["Ver mais", "Nome da área ou Acessar {área}"]] },
             list: ["Existe um verbo que represente melhor a experiência da pessoa?", "A escolha de palavras amplia ou limita a compreensão?"] },
           { title: "Todo onboarding é uma conversa", text: [
               "Onboarding não é uma sequência de telas com informações que queremos passar, mas uma conversa com começo, meio e fim. Ao apresentar uma novidade, o objetivo é que a pessoa entenda por que ela existe, como pode ajudar e se sinta segura para começar a usar. No fim, ela não deve sentir que concluiu um tutorial, e sim que alguém lhe explicou a novidade de forma simples e cuidadosa.",
               "A conversa costuma seguir este caminho: Receber (a novidade chega de forma acolhedora) → Contextualizar (por que isso existe e o que muda) → Explicar (como funciona, de forma simples e no momento certo) → Encerrar (o próximo passo fica claro)."],
-            list: ["Estou começando a conversa pelo que importa para a pessoa?", "Existe uma progressão natural entre uma tela e outra?", "Estou explicando só como funciona ou também por que é útil?", "O fluxo termina dando segurança para a pessoa seguir sozinha?"] },
+            list: ["Estou começando a conversa pelo que importa para a pessoa?", "Existe uma progressão natural entre uma tela e outra?", "Cada tela prepara a próxima ou elas parecem independentes?", "Estou explicando só como funciona ou também por que é útil?", "O fluxo termina dando segurança para a pessoa seguir sozinha?"] },
           { title: "Primeiro o conceito, depois a regra", text: [
               "As pessoas entendem melhor uma regra quando primeiro entendem o contexto. Antes de explicar como algo funciona, responda à pergunta que provavelmente trouxe a pessoa até ali. Em vez de partir da lógica do sistema, parta da dúvida de quem está usando o aplicativo.",
               "Exemplo: quem procura \"Como funciona o saldo flexível\" quer saber, na verdade, qual é a diferença entre os saldos. Explicar cada um e dizer que os valores são definidos pela empresa resolve a dúvida sem criar outra (\"Por que não é tudo flexível?\")."],
@@ -972,7 +973,7 @@
           { kind: "dont", attrs: screen("notificacoes/empty-state", "Últimas transações", "Sem pagamentos realizados."),
             text: "O texto não engaja e não explica o valor daquela área para a pessoa usuária." }
         ] },
-        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Feedback Pages. Feedback Pages não é um componente do DS, por isso fica aqui; as regras de texto dos componentes (Tabs, Botões, Breadcrumb, Bottom sheet, Links, Stepper) estão na tab Conteúdo de cada componente (C114)." }
+        { note: "Fonte: Figma · 📁 [NEW] Content → Componentes → Feedback Pages. Feedback Pages não é um componente do DS, por isso fica aqui; as regras de texto dos componentes (Tabs, Botões, Breadcrumb, Bottom sheet, Links, Progress Tracker) estão na tab Conteúdo de cada componente (C114)." }
       ] }
       ,
       { id: "contextos", title: "Contextos", blocks: [
@@ -1001,16 +1002,16 @@
         ] },
         { h3: "Tom" },
         { p: "Combine dois atributos de tom e voz. Juntos, eles guiam sem pressionar e informam sem sobrecarregar: o tranquilizador reduz a ansiedade com mudanças e novidades, e o encorajador reforça as vantagens." },
-        { table: { wrap: true, head: ["Tranquilizador", "Encorajador"], rows: [
-          ["`O caminho para fazer pedidos mudou de lugar, mas continua fácil de usar.`", "`Você só precisa configurar uma vez. Vamos lá?`"],
-          ["`A funcionalidade que você usava antes agora fica em outra área.`", "`Evite pagar contas manualmente todo mês e ative o Pix Automático.`"],
-          ["`Você decide quando alterar.`", "`Reorganizamos para facilitar sua rotina. Confira o que mudou.`"],
-          ["`Configure agora ou deixe para mais tarde.`", "`Ler a nota fiscal de uma despesa nunca foi tão fácil. Ative o leitor automático e economize tempo.`"]
+        { p: "No onboarding, o encorajador puxa a frente: reforce as vantagens e convide a pessoa para explorar. Os exemplos do tom tranquilizador estão no tour guiado, logo abaixo." },
+        { table: { wrap: true, head: ["Faça", "Não faça", "Por quê"], rows: [
+          ["Evite pagar contas manualmente todo mês e ative o Pix Automático.", "Desenvolvemos uma nova funcionalidade de automação de pagamentos recorrentes.", "Descreve o funcionamento técnico do ponto de vista do time, não o valor percebido pela pessoa."],
+          ["Ler a nota fiscal de uma despesa nunca foi tão fácil. Ative o leitor automático e economize tempo.", "Agora você pode usar nosso novo OCR para leitura automática de notas fiscais 📄", "Usa jargão técnico (OCR) e emoji, que não entra nesse contexto."],
+          ["Você só precisa configurar uma vez. Vamos lá?", "Configure agora, é rápido e você não vai se arrepender.", "Promessa vaga em vez de mostrar o valor real."]
         ] } },
         { h3: "Boas práticas" },
         { ul: [
           "Inclua microinterações para reforçar o conteúdo. Se a mensagem fala sobre pagamentos mensais, a ilustração pode mostrar onde encontrar a próxima data de cobrança.",
-          "Deixe o onboarding acessível para ser visto em outro momento. Use os botões padrão para isso.",
+          "Deixe o onboarding acessível para ser visto em outro momento, com o botão \"Me lembrar mais tarde\".",
           "Defina um período para a comunicação ficar no ar e lembre de removê-la quando o prazo encerrar.",
           "Antes de subir uma nova comunicação, verifique quantas interrupções já existem no produto. Se possível, remova uma antes de adicionar outra.",
           "Acompanhe métricas como taxa de abandono e tempo gasto para avaliar a comunicação. Se ela não engaja, vale repensar a estratégia para comunicar o valor da funcionalidade."
@@ -1061,10 +1062,14 @@
         ] },
         { h3: "Tom" },
         { p: "Use um tom tranquilizador para reduzir a ansiedade com mudanças, e encorajador para reforçar o valor da ação. Os dois trabalham juntos nesse contexto. Exemplos:" },
-        { ul: [
-          "`O caminho para fazer pedidos mudou de lugar, mas continua fácil de usar.`", "`A funcionalidade que você usava antes agora fica em outra área.`", "`Você decide quando alterar.`",
-          "`Você só precisa configurar uma vez. Vamos lá?`", "`Reorganizamos para facilitar sua rotina. Confira o que mudou.`", "`Configure agora ou deixe para mais tarde.`"
-        ] },
+        { table: { wrap: true, head: ["Faça", "Não faça", "Por quê"], rows: [
+          ["O caminho para fazer pedidos mudou de lugar, mas continua fácil de usar.", "O caminho para fazer pedidos mudou. Aprenda o novo fluxo agora mesmo!", "Soa como cobrança, sem reduzir a ansiedade da mudança."],
+          ["A funcionalidade que você usava antes agora fica em outra área.", "Sentimos muito, mas você vai precisar reaprender onde fica essa funcionalidade.", "Pedido de desculpas desnecessário, que faz a mudança parecer um problema."],
+          ["Você decide quando alterar.", "Altere agora para não perder o acesso à função.", "Cria falsa urgência num contexto que não é de bloqueio."],
+          ["Você só precisa configurar uma vez. Vamos lá?", "Configure agora, é rápido e você não vai se arrepender.", "Promessa vaga em vez de mostrar o valor real."],
+          ["Reorganizamos para facilitar sua rotina. Confira o que mudou.", "Mudamos tudo! Vem ver as novidades 🎉", "Usa emoji e tom de anúncio de marketing, fora do tom tranquilizador."],
+          ["Configure agora ou deixe para mais tarde.", "Configure agora, senão você vai perder essa oportunidade.", "O Faça oferece uma escolha real, sem pressão. O Não faça transforma o mesmo \"agora\" em ameaça de perda."]
+        ] } },
         { h3: "Botões padronizados" },
         { table: { wrap: true, head: ["Label", "Quando usar", "Não use"], rows: [
           ["Começar", "Inicia o tour guiado — exclusivo para a primeira tela.", "“iniciar” ou “explorar”"],
@@ -1116,9 +1121,9 @@
         ] },
         { h3: "Nível 2 · Do's and Don'ts" },
         { dodont: [
-          { kind: "do", attrs: sheetActions("Seu Caju ainda mais seguro", "Faça o reconhecimento facial e mantenha seu acesso protegido e exclusivo.", "Reforçar proteção", "Me lembrar mais tarde"),
+          { kind: "do", attrs: sheetActions("Seu Caju ainda mais seguro", "Fazer o reconhecimento facial é a melhor forma de aumentar a proteção da sua conta.", "Reforçar proteção", "Me lembrar mais tarde", ["Reconhecimento facial: seu rosto é a chave para manter o acesso protegido e exclusivo.", "Autorização de dispositivo: o limite de 1 dispositivo conectado por vez evita tentativas suspeitas de acesso."]),
             text: "Introduz a consequência futura e explica o valor da ação e tudo que é necessário para finalizá-la." },
-          { kind: "dont", attrs: sheetActions("Ative já sua biometria", "Seu acesso será bloqueado se você não fizer isso agora. Garantimos que é rápido.", "Ativar conta", "Bloquear conta"),
+          { kind: "dont", attrs: sheetActions("Ative já sua biometria", "Seu acesso será bloqueado se você não fizer isso agora. Garantimos que é rápido.", "Ativar biometria", "Bloquear conta", ["Biometria", "Autorização de dispositivo"]),
             text: "Palavras de comando que aumentam a ansiedade e vendemos a consequência como punição, não como proteção." }
         ] },
         { h3: "Nível 3 · Do's and Don'ts" },
@@ -1145,6 +1150,14 @@
             text: "Explicamos que a trava de segurança é mais uma medida de proteção da Caju e não uma burocracia." },
           { kind: "dont", attrs: screen("seguranca/cadeado", "Seu acesso foi bloqueado", "Você não completou a autenticação no prazo. Para desbloquear, faça a biometria.", "Liberar acesso"),
             text: "Não explica que a limitação é uma medida de proteção da Caju e culpa a pessoa diretamente." }
+        ] },
+        { h3: "Palavras para evitar" },
+        { p: "Em ações obrigatórias, algumas palavras aumentam a ansiedade. As diretrizes vêm de pesquisa com pessoas usuárias no Maze, e a lista completa está em [Vocabulário › Termos para evitar](#/conteudo/vocabulario)." },
+        { ul: [
+          "\"Agora\": palavra de comando, aumenta a ansiedade. As pessoas preferem mensagens que expliquem por que a ação é obrigatória.",
+          "\"Garantir\": soa como venda de serviço ou brinde e tira a seriedade do processo.",
+          "\"Libere\": mesmo efeito de \"Agora\", aumenta a ansiedade e pressiona sem explicar.",
+          "\"Conta\": em cenários de bloqueio do app, não use. O termo remete aos benefícios e ao bloqueio do cartão."
         ] },
         { note: "Fonte: Figma · 📁 [NEW] Content → Contextos (Apresentando funcionalidades, Explicando primeiro uso, Urgências e bloqueios). As telas foram refeitas com Card, Bottom Sheet, Main Button e Fixed Bar do DS, com os mesmos textos; os mockups de carrossel e de tooltips do tour ficam de fora (C115)." }
       ] }
@@ -1272,14 +1285,14 @@
           ] },
           { title: "Corpo do e-mail", list: [
             "A informação mais importante vem primeiro.", "Parágrafos curtos — máximo 3 linhas.",
-            "Use listas para passo a passo e instruções e o numeral da lista deve estar usando a cor #C3032C. Confira as regras em Escrevendo para produto.",
+            "Use listas para passo a passo e instruções e o numeral da lista deve estar usando a cor #C3032C. Confira as regras em Formatação de dados.",
             "Para destacar um botão ou área da plataforma no texto, use SemiBold.",
             "Título: Roboto - SemiBold - 23", "Descrição: Roboto - Regular 16"
           ] },
-          { title: "CTA", list: ["Use apenas um CTA por e-mail. Sem botões secundários.", "Use os mesmos verbos e termos do corpo do e-mail e do fluxo no produto.", "Siga as regras de Botões."] },
+          { title: "CTA", list: ["Use apenas um CTA por e-mail. Sem botões secundários.", "Use os mesmos verbos e termos do corpo do e-mail e do fluxo no produto.", "Use infinitivo, no máximo 3 palavras, sem ponto final nem exclamação. As regras completas estão em Botões."] },
           { title: "Call out", text: "Use ao final do e-mail para indicar ajuda extra sobre o tema. Use o template indicado nessa documentação. Fontes: Roboto - Regular - 14", after: "Exemplo: `Precisa de ajuda? Tire suas dúvidas na Central de ajuda ou Fale com a gente.`" },
           { title: "Footer", text: "Seção fixa — não altere o conteúdo. Para correções ou atualizações, entre em contato pelo canal #castanha-suporte." },
-          { title: "Números", text: "Use para indicar senhas ou códigos enviados para a pessoa usuária.", after: "Exemplo: `1 2 3 4 5 6 7 8`" }
+          { title: "Números", text: "Use para indicar senhas ou códigos enviados para a pessoa usuária ou para enumerar ações que ela deve tomar.", after: "Exemplo: `1 2 3 4 5 6 7 8`" }
         ] },
         { h3: "Depois de escrever" },
         { ul: [

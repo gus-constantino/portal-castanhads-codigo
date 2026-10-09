@@ -118,6 +118,7 @@
     "Instance swap": { label: "O que é Instance swap?", text: "Troca do componente aninhado, como qual ícone aparece. As opções vêm das bibliotecas do DS." },
     "Texts": { label: "O que são Texts?", text: "Props de texto do Figma: o conteúdo editável do componente." },
     "Comportamento": { label: "O que é esta seção?", text: "Controle só do código: comportamento web, não é prop do Figma." },
+    "Largura": { label: "O que é esta seção?", text: "Controle só do playground: testa o campo em larguras diferentes. Não é prop do Figma, onde o campo tem 320 px." },
     "Dados": { label: "O que é esta seção?", text: "Controle só do código: dados de exemplo para testar, não é prop do Figma." },
     "Opções": { label: "O que é esta seção?", text: "Controle só do código: as opções da lista, não é prop do Figma." },
     "Acessibilidade": { label: "O que é esta seção?", text: "Controle só do código: nomes e atributos para leitor de tela, não é prop do Figma." },
@@ -212,6 +213,44 @@
     wrap.appendChild(sl);
     panel.appendChild(wrap);
     return { el: sl, get value(){ return String(sl.values[0]); } };
+  }
+
+  /**
+   * Largura do campo (só do playground, não é prop do Figma): Filter Chips + Slider do DS.
+   * Auto: no viewport Mobile o campo preenche o frame, nos demais fica com os 320 px do Figma.
+   * Preencher: ocupa a largura do frame. Personalizada: Slider de 200 px até a largura disponível no frame.
+   */
+  function fieldWidth(ctx, field){
+    var panel = ctx.panel, box = ctx.preview, frame = box.closest("[data-viewport]");
+    var mode = "auto", px = 320, MIN = 200;
+    section(panel, "Largura");
+    seg(panel, { label: "Largura do campo", value: mode, options: [["auto","Auto"],["fill","Preencher"],["custom","Personalizada"]],
+      onChange: function(v){ mode = v; apply(); } });
+    // O Slider só mexe na largura no modo Personalizada (ajustar o max faz o Slider reemitir o valor)
+    var sl = range(panel, { label: "Largura (px)", min: MIN, max: 600, value: px, onInput: function(v){ if (mode !== "custom" || busy) return; px = v; apply(); } });
+    var busy = false;
+    var slWrap = sl.el.parentNode;
+    var info = hint(panel, "");
+    function avail(){ return Math.max(MIN, Math.floor(box.clientWidth)); }
+    function apply(){
+      if (!field.isConnected){ if (mo) mo.disconnect(); ro.disconnect(); return; }
+      var vp = frame ? frame.dataset.viewport : "desktop", max = avail();
+      px = Math.min(Math.max(px, MIN), max);
+      busy = true; sl.el.setAttribute("max", String(max)); sl.el.setAttribute("value", String(px)); busy = false;
+      var fill = mode === "fill" || (mode === "auto" && vp === "mobile");
+      box.classList.toggle("pg-fit", fill || mode === "custom");
+      box.style.setProperty("--pg-fit-w", mode === "custom" ? px + "px" : "100%");
+      slWrap.hidden = mode !== "custom";
+      requestAnimationFrame(function(){
+        var w = Math.round(field.getBoundingClientRect().width);
+        info.textContent = "Agora: " + w + " px. " + (mode === "auto" ? (vp === "mobile" ? "No Mobile, o campo preenche o frame." : "Fora do Mobile, o campo usa os 320 px do Figma.") : mode === "fill" ? "Ocupa a largura do frame." : "Arraste para testar textos longos e quebras.");
+      });
+    }
+    // Viewport novo (data-viewport) e mudança real de tamanho do frame, inclusive durante a animação de largura e no modo fluido
+    var mo = frame ? new MutationObserver(apply) : null, ro = new ResizeObserver(function(){ apply(); });
+    if (mo) mo.observe(frame, { attributes: true, attributeFilter: ["data-viewport"] });
+    ro.observe(box);
+    apply();
   }
 
   /** Ação de texto curta (ex.: "Marcar todos") → Link do DS sem ícone; não navega. */
@@ -322,6 +361,7 @@
   function textField(ctx, o){
     var panel = ctx.panel, p = el(o.tag, o.attrs || {});
     ctx.preview.appendChild(p);
+    fieldWidth(ctx, p);
     var set = function(n, v){ attr(p, n, v); };
     var readout = function(){ ctx.readout(String(p.value == null ? "" : p.value), false); };
     p.addEventListener("cds-change", readout);
@@ -452,5 +492,5 @@
     else node.setAttribute(name, val === true ? "" : val);
   }
 
-  CDS.kit = { state: state, el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, illustrationSwap: illustrationSwap, button: button, action: action, surface: surface, tip: tip, lazyTip: lazyTip, selectionControl: selectionControl, textField: textField, selectField: selectField, overlay: overlay, attr: attr };
+  CDS.kit = { state: state, el: el, section: section, hint: hint, seg: seg, toggle: toggle, text: text, range: range, nested: nested, watch: watch, select: select, iconSwap: iconSwap, illustrationSwap: illustrationSwap, button: button, action: action, surface: surface, tip: tip, lazyTip: lazyTip, selectionControl: selectionControl, textField: textField, fieldWidth: fieldWidth, selectField: selectField, overlay: overlay, attr: attr };
 })();

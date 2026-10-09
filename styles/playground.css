@@ -136,6 +136,9 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
 .pg-frame{ transition:width var(--common-motion-duration-medium-01) var(--common-motion-easing-systemic-smooth), background-color var(--motion-hover-duration) var(--motion-hover-easing); }
 .pg-frame.is-dark .pg-frame-meta, .pg-frame.is-dark .pg-frame-meta code{ color:var(--common-colors-text-inversed); }
 .pg-preview{ width:100%; min-width:0; display:flex; justify-content:safe center; } /* safe: specimen mais largo que o frame (Drawer 640) transborda à direita, sem cortar o início */
+/* Largura do campo (seção Largura dos Text Fields): Preencher = 100% do frame, Personalizada = px do Slider (--pg-fit-w) */
+.pg-preview.pg-fit > *{ display:block; width:var(--pg-fit-w); max-width:100%; }
+.pg-preview.pg-fit > * .cds-tf{ width:100%; } /* o próprio campo também é .cds-tf: a regra vale só para o que está dentro dele */
 
 /* Painel de controles */
 .pg-panel{

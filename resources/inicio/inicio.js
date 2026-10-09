@@ -11,12 +11,16 @@
         // Capa da marca no conceito do Castanha Assets (D221): Surface/accent e a pilha
         { hero: { title: "Castanha Hub", text: "O Castanha é um Hub de soluções para criação de Experiências da Caju, desenvolvido para conectar ideias, pessoas e tecnologia." } },
         { p: "Ele une Ideação, Design e Código para garantir que os Produtos da Caju mantenham consistência com propósito." },
+        // Banners da capa do Hub (09/10, D294): Novidades leva ao Changelog (no Hub, ao Status dos componentes) e o Borô a Agentes e Skills
+        { banner: { area: "ajuda", eyebrow: "Novidades", heading: "Novidades do Castanha DS", text: "As últimas atualizações do Design System para criar experiências expressivas e adaptadas a cada contexto, produto e pessoa.", href: "#/changelog", cta: "Acessar o changelog" } },
+        // Atalhos da capa do Hub: Componentes, Tom e voz, Visão Cliente e Fundação
         { shortcuts: { bento: 4, items: [
           { size: "hero", title: "Componentes", text: "Os componentes do Castanha DS, com Playground ao vivo, documentação de uso e o código React de cada um.", href: "#/main-button", cta: "Ver componentes", illustration: "interfaces/customizacao" },
-          { size: "wide", title: "Conteúdo", text: "Tom e voz, princípios de escrita e regras de texto: como a Caju fala nos produtos.", href: "#/conteudo", cta: "Ver conteúdo", illustration: "comunicacao/perguntas-frequentes" },
-          { title: "Ilustração", text: "Princípios, guidelines e a biblioteca de ilustrações da Caju.", href: "#/ilustracao", cta: "Ver ilustração", illustration: "personagens/nadia" },
-          { title: "Motion", text: "Princípios de motion, curvas, durações e Motion Styles.", href: "#/motion", cta: "Ver motion", illustration: "objetos/foguete" }
+          { size: "wide", title: "Tom e voz", text: "Tom e voz, princípios de escrita e regras de texto que tornam as experiências mais fáceis de usar.", href: "#/conteudo", cta: "Ver conteúdo", illustration: "comunicacao/perguntas-frequentes" },
+          { title: "Visão Cliente", text: "Perfil, personas e ICP de quem usa o produto, para orientar cada decisão de experiência.", href: "#/personas", cta: "Ver personas", illustration: "personagens/joana" },
+          { title: "Fundação", text: "A base de toda interface: cores, tipografia, tamanhos, motion e ilustração do Tema Caju.", href: "#/caju-theme", cta: "Ver tema", illustration: "interfaces/home" }
         ] } },
+        { banner: { area: "ferramentas", eyebrow: "Assistente de Experiência", heading: "Conheça o Borô", text: "Seu parceiro para criar e aplicar Tom e Voz, entender a Visão Cliente e usar os recursos do Castanha Hub. As respostas vêm direto da documentação, sempre atualizada.", href: "#/agentes", cta: "Conhecer o Borô" } },
         { h2: "Comece por aqui" },
         { shortcuts: { bento: 3, items: [
           // O onboarding de design do Hub (p/80dfb0) saiu do ar: o atalho leva ao treinamento de como usar as documentações (C158)
@@ -33,8 +37,8 @@
         ] },
         { h2: "Mais recursos" },
         { shortcuts: { bento: 3, items: [
-          { size: "wide", title: "Personas", text: "Quem usa os produtos da Caju: colaboradores, pessoas de RH e gestão das empresas e os times que operam o Admin. Objetivos, dores e necessidades de cada uma.", href: "#/personas", cta: "Ver personas", illustration: "personagens/joana" },
-          { layout: "row", title: "Tema Caju", text: "Cores, tipografia, tamanhos, bordas, elevação e ícones.", href: "#/caju-theme", cta: "Ver tema", illustration: "interfaces/home" },
+          { size: "wide", title: "Ilustração", text: "Princípios, guidelines e a biblioteca de ilustrações da Caju.", href: "#/ilustracao", cta: "Ver ilustração", illustration: "personagens/nadia" },
+          { layout: "row", title: "Motion", text: "Princípios de motion, curvas, durações e Motion Styles.", href: "#/motion", cta: "Ver motion", illustration: "objetos/foguete" },
           { size: "wide", title: "Agentes e Skills", text: "O Borô no Slack e no Figma, os Patterns escritos para a IA e a skill /castanhads-juntos: IA que ajuda a escrever e construir no padrão da Caju.", href: "#/agentes", cta: "Ver agentes e skills", src: "resources/agentes/boro.svg" },
           { layout: "row", title: "Patterns", text: "Feedback Pages e Tela de loading, montadas com componentes do DS.", href: "#/patterns", cta: "Ver patterns", illustration: "notificacoes/success" },
           { layout: "row", title: "Capacitações", text: "Os treinamentos do Hub em vídeo: Sponsor, Employee, Motion, Ilustração e Content.", href: "#/capacitacoes", cta: "Ver capacitações", illustration: "objetos/medalha-1" },

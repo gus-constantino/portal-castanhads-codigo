@@ -13,6 +13,7 @@ CDS.register({
       supporting: "Digite os 16 números do cartão.", error: "Número de cartão inválido."
     });
     ctx.preview.appendChild(p);
+    kit.fieldWidth(ctx, p);
     function set(name, val){ kit.attr(p, name, val); }
     function readout(){ ctx.readout(p.value, p.value.length === 16); }
     p.addEventListener("cds-change", readout);

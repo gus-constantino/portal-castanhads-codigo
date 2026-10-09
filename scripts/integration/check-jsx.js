@@ -45,7 +45,7 @@ const COLLECT = `(async function(){
   const W = (ms) => new Promise((r) => setTimeout(r, ms));
   const out = [];
   const ids = Object.keys(CDS.react.items).filter((id) => CDS.react.items[id].map);
-  function code(){ const p = [...document.querySelectorAll('pre.pg-react__pre')]; return p.length ? p.map((x) => x.textContent).join("\\n") : null; }
+  function code(){ const p = [...document.querySelectorAll('#react pre.pg-react__pre')]; return p.length ? p.map((x) => x.textContent).join("\\n") : null; }
   function conds(node, acc){ if (!node) return acc; if (node.if) acc.push(node.if); (node.props || []).forEach((p) => p.if && acc.push(p.if));
     (node.children || []).forEach((c) => conds(c, acc)); if (node.each) conds(node.node, acc); return acc; }
   for (const id of ids){

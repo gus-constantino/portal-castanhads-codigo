@@ -16,6 +16,18 @@
       ]) }
     ].concat(action ? [{ _tag: "cds-fixed-bar", kind: "pilled", "primary-label": action, "show-secondary-action": !!secondary, "secondary-label": secondary || null, "show-lead-icon": false }] : []) }; // sem ação: tela sem Fixed Bar
   }
+  // Onboarding: Bottom Sheet (inline) com ilustração, título, texto e os botões padronizados empilhados, como no sheetActions.
+  // No Hub os exemplos são modais do Portal; o Footer do Modal é horizontal e os rótulos longos não cabem no card (decisão do Gustavo, 09/10)
+  function onboarding(ill, title, text, action, secondary){
+    var kids = [{ _tag: "img", class: "pg-cnt-phone__ill", src: ills[ill] || "", alt: "" }];
+    if (title) kids.push({ _tag: "h4", class: "pg-cnt-phone__title", _text: title });
+    kids.push({ _tag: "p", class: "pg-cnt-phone__text", _text: text },
+      { _tag: "cds-main-button", class: "pg-cnt-phone__cta", label: action, "show-lead-icon": false, "show-trailing-icon": false });
+    if (secondary) kids.push({ _tag: "cds-main-button", class: "pg-cnt-phone__cta", appearance: "neutral", label: secondary, "show-lead-icon": false, "show-trailing-icon": false });
+    return { _tag: "div", class: "pg-cnt-phone pg-cnt-phone--sheet", _children: [
+      { _tag: "cds-bottom-sheet", inline: true, "show-header": false, "show-footer": false, _children: kids }
+    ] };
+  }
   // Tela com Bottom Sheet (inline) sobre a lista de cartões
   function sheet(title, text){
     return { _tag: "div", class: "pg-cnt-phone pg-cnt-phone--sheet", _children: [
@@ -966,11 +978,14 @@
       { id: "contextos", title: "Contextos", blocks: [
         { h2: "Apresentando novas funcionalidades (onboarding)" },
         { p: "Apresentar uma funcionalidade nova é uma interrupção intencional na navegação da pessoa. Por isso, cada palavra precisa ter um motivo para estar ali. O objetivo é fisgar a atenção, comunicar valor e levar a pessoa para a ação sem sobrecarregar." },
+        { p: "O onboarding aparece como uma tela inteira no app para colaboradores e como modal ou banner no Portal para empresas." },
+        { note: "Estas diretrizes são para comunicar novidades dentro do produto. Elas não cobrem comunicações em outros canais." },
         { h3: "Quando usar" },
         { ul: [
           "No lançamento de funcionalidades relevantes para a estratégia da Caju.",
           "Quando a novidade cria valor real para a pessoa usuária, não para melhorias pontuais no que já existia.",
           "Quando o time entende que vale a pena interromper uma tarefa para apresentar algo novo.",
+          "Quando o objetivo é reduzir dúvidas sobre o uso de uma funcionalidade.",
           "Quando o objetivo é aumentar o engajamento com um produto da Caju."
         ] },
         { h3: "Como escrever" },
@@ -980,17 +995,49 @@
           "Escreva só o que é importante para aquele contexto e momento.",
           "Explique o conceito e por que a novidade é útil, como numa conversa: receber, contextualizar, explicar e encerrar (Tom e voz, premissa 6). Regras de negócio detalhadas e dúvidas específicas vão para a FAQ.",
           "Evite termos nichados de produto: \"funcionalidades\", \"desenvolvimento\", \"feature\".",
-          "Não use emojis, as ilustrações e animações já dão suporte visual ao texto."
+          "Não use emojis, as ilustrações e animações já dão suporte visual ao texto.",
+          "Evite outros recursos além do texto, como negrito e cores: eles aumentam a carga cognitiva num momento em que a pessoa ainda não conhece o contexto da novidade.",
+          "Títulos e itens de lista não levam pontuação. Descrições levam ponto final."
         ] },
         { h3: "Tom" },
-        { p: "Use um tom encorajador: reforce as vantagens e convide a pessoa para explorar. Exemplos:" },
-        { ul: ["`Você só precisa configurar uma vez. Vamos lá?`", "`Evite pagar contas manualmente todo mês e ative o Pix Automático.`", "`Ler a nota fiscal de uma despesa nunca foi tão fácil. Ative o leitor automático e economize tempo.`"] },
+        { p: "Combine dois atributos de tom e voz. Juntos, eles guiam sem pressionar e informam sem sobrecarregar: o tranquilizador reduz a ansiedade com mudanças e novidades, e o encorajador reforça as vantagens." },
+        { table: { wrap: true, head: ["Tranquilizador", "Encorajador"], rows: [
+          ["`O caminho para fazer pedidos mudou de lugar, mas continua fácil de usar.`", "`Você só precisa configurar uma vez. Vamos lá?`"],
+          ["`A funcionalidade que você usava antes agora fica em outra área.`", "`Evite pagar contas manualmente todo mês e ative o Pix Automático.`"],
+          ["`Você decide quando alterar.`", "`Reorganizamos para facilitar sua rotina. Confira o que mudou.`"],
+          ["`Configure agora ou deixe para mais tarde.`", "`Ler a nota fiscal de uma despesa nunca foi tão fácil. Ative o leitor automático e economize tempo.`"]
+        ] } },
         { h3: "Boas práticas" },
         { ul: [
           "Inclua microinterações para reforçar o conteúdo. Se a mensagem fala sobre pagamentos mensais, a ilustração pode mostrar onde encontrar a próxima data de cobrança.",
           "Deixe o onboarding acessível para ser visto em outro momento. Use os botões padrão para isso.",
           "Defina um período para a comunicação ficar no ar e lembre de removê-la quando o prazo encerrar.",
-          "Antes de subir uma nova comunicação, verifique quantas interrupções já existem no produto. Se possível, remova uma antes de adicionar outra."
+          "Antes de subir uma nova comunicação, verifique quantas interrupções já existem no produto. Se possível, remova uma antes de adicionar outra.",
+          "Acompanhe métricas como taxa de abandono e tempo gasto para avaliar a comunicação. Se ela não engaja, vale repensar a estratégia para comunicar o valor da funcionalidade."
+        ] },
+        { h3: "Boas práticas de UI" },
+        { ul: [
+          "Não use texto dentro de imagens (PNG, JPEG) nos modais: imagens inteiras prejudicam a acessibilidade do Portal para empresas.",
+          "Trabalhe com os templates e faça composições nativas.",
+          "Se o título está centralizado, o texto do corpo também fica centralizado.",
+          "Use as ilustrações padrão de aviso para comunicar uma instabilidade."
+        ] },
+        { h3: "Botões" },
+        { p: "Os botões padronizados do onboarding são os mesmos do tour guiado (tabela em Explicando primeiro uso), com o Começar na primeira tela." },
+        { h3: "Do's and Don'ts" },
+        { dodont: [
+          { kind: "do", attrs: onboarding("hero-sponsor/empacotamento-beneficios", "O Portal para empresas está de cara nova", "Descubra as novidades que preparamos para você e que vão deixar seu dia a dia de RH cada vez mais prático.", "Começar", "Me lembrar mais tarde"),
+            text: "Botões padronizados e tom encorajador para falar de novidades no produto." },
+          { kind: "dont", attrs: onboarding("hero-sponsor/empacotamento-beneficios", "Boas-vindas ao novo Portal Caju!", "Estamos construindo uma experiência ainda melhor para você! Algumas funcionalidades ainda estão em desenvolvimento, mas já dá para explorar as novidades.", "Explorar agora", "Ver depois"),
+            text: "“Funcionalidades” e “desenvolvimento” são termos nichados de produto, e os botões estão fora do padrão." },
+          { kind: "do", attrs: onboarding("objetos/medalha-1", "", "Garanta um reconhecimento extra para seus colaboradores e segurança jurídica para sua empresa com Premiações.", "Quero saber mais"),
+            text: "Comunica a proposta de valor do produto de forma simples e direta." },
+          { kind: "dont", attrs: onboarding("objetos/medalha-1", "", "Ainda dá tempo de presentear seu time com Caju Premiações.", "Saiba mais"),
+            text: "Não diz qual é o benefício de Premiações para o RH ou para o colaborador, e o botão está fora do padrão." },
+          { kind: "do", attrs: onboarding("objetos/presente-aberto", "Concorra a um vale-presente de R$ 80,00", "Participe da pesquisa sobre benefícios e tenha a chance de ganhar 1 dos 3 vales-presente de R$ 80,00. O sorteio é nesta sexta-feira.", "Responder pesquisa", "Não mostrar novamente"),
+            text: "Explica como concorrer ao vale-presente em poucas palavras e usa os botões padrão." },
+          { kind: "dont", attrs: onboarding("objetos/presente-aberto", "Ajude a Caju e concorra a um vale presente de R$80,00", "Queremos entender o que é essencial em uma plataforma de benefícios para você. E no final da pesquisa, você concorre a um vale presente no valor de R$80,00. São 3 vales presente e o sorteio acontece nesta sexta! Vamos lá? 😉", "Ajudar a Caju", "Ignorar"),
+            text: "Texto extenso, com título que quebra em mais de uma linha, e emoji." }
         ] },
 
         { h2: "Explicando primeiro uso (tour guiado)" },

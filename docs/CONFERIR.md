@@ -14,7 +14,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | [Refactor](#refactor) | 39 |
 | [Naming](#naming) | 11 |
 | [Acessibilidade](#acessibilidade) | 7 |
-| [Documentação](#documentação) | 10 |
+| [Documentação](#documentação) | 11 |
 | [Integração React](#integração-react) | 11 |
 
 ## Ajuste de texto
@@ -182,6 +182,7 @@ Frames de documentação no Figma.
 | C159 | Princípios de Design (`/p/42fc2b`) · ícones | SVGs em `#DF3141` sobre `#F7F3ED`, fora dos tokens (o Accent do DS é `#E80537`) | Redesenhar os três ícones com os tokens do tema | Playground mostra os princípios em Cards do DS, sem os ícones | Trocar as três imagens no zeroheight |
 | C188 | Castanha Hub · Feedback Pages (`/p/37d6b8`) e Notificações In-App (`/p/22e67d`) | Feedback Pages › Alertas: as legendas do par "Sua sessão expirou" repetem as do par do estoque, de Sucesso (falam em canal, nível de acesso e "com sucesso", que não aparecem nas telas). Erros: a legenda do Don't "Oscilação no sistema" cita o "Entendi", mas o CTA da imagem é "Voltar". In-App: "Ele expiram em 15/07/2025" e datas no formato `21/05/2025 - 12:40`, fora da regra da própria página (`DD/MM/AAAA HH:MM`) | Legendas próprias para o par da sessão, Don't com "Entendi" e "Ele expira" | Playground com legendas próprias e "Ele expira" (D287) | Na próxima revisão do Hub |
 | C189 | Castanha Hub · Termos para evitar (`/p/9695d5`) e Glossário (`/p/64df35`) | O Hub voltou a divergir de três decisões de 05/10 (C167): "Ver mais → Detalhes" (playground: nome da área ou "acessar {área}"), verbete "Código de ativação" e "Desbloquear cartão: processo de ativação" (playground: Código de desbloqueio, porque "ativar cartão" saiu de uso). Erros de digitação: "Jargão informar" (informal) e "Bolsões\"" com aspas sobrando em Carteiras | Hub alinhado às decisões do C167 | Playground mantém as decisões do C167 (D288) | Levar ao time de Conteúdo |
+| C190 | Castanha Hub · Comunicando Novidades (`/p/21595f`) | Os Do's quebram regras do próprio Hub: "Garanta um reconhecimento extra…" usa "garantir" (Termos para evitar), "pra você" e "!" no fim da descrição (descrições levam ponto final), "R$80,00" sem espaço e "vale presente" sem hífen (Formatação). A tabela de botões do onboarding não tem o "Começar", mas o primeiro Do usa "Começar". O link de "pontuação" aponta para o domínio antigo (`zeroheight.com/…/906fba`) | Do's dentro das regras e "Começar" na tabela | Playground com "para você", ponto final, "R$ 80,00" e "vale-presente"; "Garanta" mantido como no Hub, à espera do time; botões do onboarding remetem à tabela do tour, que tem o "Começar" (D289) | Levar ao time de Conteúdo |
 
 ## Integração React
 

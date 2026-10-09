@@ -1,0 +1,33 @@
+# Espelho da migração: a cada 15 minutos traz a main e a teste do repo de origem com merge (.github/espelho.sh).
+# Fica até a virada. Depois dela, este arquivo e o .github/espelho.sh saem.
+name: Espelho
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: espelho
+  cancel-in-progress: false
+
+jobs:
+  espelho:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Trazer main e teste
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          bash .github/espelho.sh https://github.com/gus-constantino/castanhads-component-teste.git

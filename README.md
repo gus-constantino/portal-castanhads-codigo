@@ -35,7 +35,7 @@ Playground público do **Castanha DS**, o design system da Caju. Cada componente
 
 | Área | O que é | Onde |
 |---|---|---|
-| **Playground** | 77 componentes e 26 building blocks, cada um com controles iguais às props do Figma, viewport (mobile, tablet, desktop) e tema claro ou escuro | `components/<id>/` · rota `#/<id>` |
+| **Playground** | Os componentes e building blocks da lib, cada um com controles iguais às props do Figma, viewport (mobile, tablet, desktop) e tema claro ou escuro. O total atualizado fica no Relatório | `components/<id>/` · rota `#/<id>` |
 | **Documentação** | Tabs de uso, anatomia, estilos, acessibilidade, diretrizes, motion e conteúdo, carregadas sob demanda | `components/<id>/<id>.docs.js` |
 | **No React** | Código do `castanha-react` gerado a partir das props como estão no Figma | `scripts/react-kit.js` · `integration/` |
 | **Recursos** | Caju - Tema (tokens), Camadas, Conteúdo, Patterns, Treinamento, Capacitações, Personas, Agentes e Skills, MCP, FAQ e Changelog | `resources/<id>/` |

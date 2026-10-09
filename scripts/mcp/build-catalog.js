@@ -210,7 +210,7 @@ function build(){
   const stack = exists("integration/stack-check.json") ? JSON.parse(read("integration/stack-check.json")) : null;
   const catalog = {
     about: "Catálogo do Castanha DS (playground de handoff Figma ↔ código). Gerado por scripts/mcp/build-catalog.js; fonte do MCP (docs/local/PLANO-MCP.md).",
-    site: "https://gus-constantino.github.io/castanhads-component-teste/",
+    site: "https://gus-constantino.github.io/portal-castanhads/",
     packages: { react: "@caju-beneficios/castanha-react", icons: "@caju-beneficios/castanha-icons", illustrations: "@caju-beneficios/castanha-illustrations", tokens: "@caju-beneficios/castanha-tokens" },
     reactSource: stack ? stack.source : null,
     counts: {},

@@ -24,7 +24,7 @@ index.html + scripts/app.js (shell: side menu · rotas #/id · tema · viewport)
 tests/smoke.html + tests/smoke.js + tests/expected.js (monta tudo e compara tamanhos com o Figma)
   │  git push main
   ▼
-GitHub Pages (gus-constantino.github.io/castanhads-component-teste)
+GitHub Pages (gus-constantino.github.io/portal-castanhads)
 ```
 
 **Princípios:** sem build em runtime e sem dependências. O Figma manda. Um componente = uma pasta. O que é gerado não se edita à mão.

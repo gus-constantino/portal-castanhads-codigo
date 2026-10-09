@@ -15,21 +15,21 @@ Precisa do Node 18+ e de um clone deste repo (troque o caminho pelo seu).
 
 **Claude Code**
 ```bash
-claude mcp add castanha-ds -- node /caminho/para/castanhads-component-teste/mcp/server.js
+claude mcp add castanha-ds -- node /caminho/para/portal-castanhads/mcp/server.js
 ```
 
 **Claude Desktop** (`~/Library/Application Support/Claude/claude_desktop_config.json`) ou **Cursor** (`.cursor/mcp.json`)
 ```json
 {
   "mcpServers": {
-    "castanha-ds": { "command": "node", "args": ["/caminho/para/castanhads-component-teste/mcp/server.js"] }
+    "castanha-ds": { "command": "node", "args": ["/caminho/para/portal-castanhads/mcp/server.js"] }
   }
 }
 ```
 
 **Sem clonar o repo** (lê o catálogo publicado no site; o `server.js` ainda precisa estar na máquina):
 ```bash
-CASTANHA_CATALOG=https://gus-constantino.github.io/castanhads-component-teste/dist/mcp/catalog.json node mcp/server.js
+CASTANHA_CATALOG=https://gus-constantino.github.io/portal-castanhads/dist/mcp/catalog.json node mcp/server.js
 ```
 
 ## O que oferece

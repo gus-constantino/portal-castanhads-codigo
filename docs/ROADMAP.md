@@ -405,48 +405,8 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D233 | **Proposta zeroheight → portal, em página escondida** (Gustavo, 06/10): `docs/pitch/index.html`, 13 slides num palco 1920×1080 (← →, F tela cheia, N notas de quem apresenta) com tokens, componentes do DS, a pilha e o banner; números ao vivo (componentes, variantes, docs, smoke, decisões) e o portal funcionando dentro do slide 6. Link no fim do índice do Relatório › Arquitetura, embaixo de Componentes locais. Repositório público: licença, renovação e horas são campos editáveis salvos no navegador de quem apresenta (localStorage), sempre "—" no arquivo | 06/10 |
 | D234 | **Revisão de texto pelos princípios do castanha-ai** (Gustavo, 06/10: "só o texto do playground"): ~600 trechos em 104 docs de componentes, nos recursos do playground (MCP, Agentes e Skills, Patterns, Treinamento, FAQ, Camadas) e na interface (app, kits, relatório). Sem só/apenas/fácil/rápido/simples, sem ponto e vírgula, sem veja/visualizar. Building blocks: "Peça interna do X". Ficam como estão: texto literal do zeroheight (Conteúdo, Personas, Início, Caju - Tema, Changelog), copy de interface entre aspas, nomes do Figma, código e comentários |
 | D235 | **Proposta vira página de rolagem** (Gustavo, 06/10: "responsiva, que navega, interativa enquanto rola, sem fugir do Castanha DS"; para contar ao time o que foi feito): `docs/pitch` em 7 capítulos com menu fixo e barra de progresso; capítulo **O que o portal faz** com 11 capacidades e o portal de verdade fixo ao lado, trocando de tela (rota, tema escuro e quadro de 390px) conforme a rolagem; números que contam ao aparecer; efeitos com scroll-driven animations (`@supports`, `prefers-reduced-motion`, sem polyfill) e IntersectionObserver para a troca de telas. Celular: o portal fica fixo em cima e a tabela vira lista. Tokens, componentes do DS, pilha e banner. Teclas ← → por capítulo e F para tela cheia | 06/10 |
-| D237 | **Proposta: uso fino do Castanha DS** (Gustavo, 06/10: "os progress trackers estavam todos incorretos, revise de forma fina, até o header"): topo com o Header do Sponsor Templates como no portal (Voltar, Breadcrumb, Icon Buttons small com Tooltip) e capítulos no Scrollable Tab (`--cds-tab-width` 100%); "O caminho de hoje", "Como se mantém" e "Plano" viram **Progress Tracker** (Kind Number e Icon, Status pending e current, itens de 158 na horizontal; vertical no celular); cartões viram **Card** (Has Border); comparação vira **Table** (sem Checkbox, Toolbar e Pagination); **Status Dot** no portal ao vivo; **Icon** no lugar das máscaras soltas; campos a preencher viram **Tag** Warning "Preencher" e um **Modal** com **Text Input** (lápis no topo, valores só no navegador). Sai a barra de progresso: a Progress Line é de carregamento, e colada nas abas parecia uma segunda aba ativa. Correção no **Tab List**: abas escritas no HTML montavam antes da lista e mostravam o Badge; agora a lista faz cada aba se remontar | 06/10 |
-
-## 5. Dúvidas abertas
-
-Só perguntas de escopo ou de fonte. Divergências entre o Figma e o esperado ficam em **[`docs/CONFERIR.md`](CONFERIR.md)** (o código segue o Figma, D40).
-
-| # | Dúvida | Proposta |
-|---|---|---|
-| Q7 | **TypeScript**: introduzir um build (ex.: esbuild) em algum momento? | Adiar até a lib passar de ~20 componentes |
-| Q9 | ~~Caju Card: de onde vêm as artes?~~ Dos vetores do próprio componente (exportados por variante, D65) | ✅ 02/10 |
-| Q31 | **Animações:** qual é a lib (link do Figma)? A página está reservada como "a definir" | **Deixar para o final** (Gustavo, 02/10): entra depois do Lote 9. **Esperar a lib do Figma** (Gustavo, 05/10): o set atual não tem lib de animações (só a legada "5. [Castanha DS] Motion", 1 componente, jan/2025) e as 44 Lottie do castanha-motion são internas (UNLICENSED), então não vêm para o repo público |
-
-## 5.1 Débito de export (Gustavo)
-
-Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Ícones e ilustrações já foram importados; faltam as bandeiras. Exportar do Figma como SVG, com o nome do componente, e rodar `node scripts/build-assets.js`.
-
-| Asset | Origem | Destino | Hoje no repo |
-|---|---|---|---|
-| ~~Ícones (274)~~ ✅ | `[Caju] Icons` · página `UI & Caju` | `assets/icons/<categoria>/` + `catalog.json` | **274 importados em 01/10** (12 buckets, incluindo `deprecated`), com palavras-chave da description. Reimportar: ver ARCHITECTURE §8 |
-| ~~Ilustrações (237 + Hero + Cartões)~~ ✅ | `[Caju] Illustrations` · páginas `Caju UI` e `Hero` | `assets/illustrations/<categoria>/` + `catalog.json` | **260 importadas em 02/10** (237 da Caju UI + 23 do Hero, 19 categorias), do export SVG do Gustavo. Cartões = componente Caju Card (D65). Reimportar: ver ARCHITECTURE §8 |
-| Bandeiras Elo, Mastercard e Visa | `.Credit Card Flags` (`4934:771`) | `assets/flags/<kind>.svg` | 3, reconstruídas de `vectorPaths` (o Elo com coordenadas arredondadas); o MCP falha com "no visible layers". Substituir pelos SVGs oficiais, sem mudar código |
-
-## 5.2 Débitos de design (Gustavo)
-
-Ajustes que o Gustavo vai fazer no Figma; quando entrarem, o código acompanha (a coluna "Quando corrigir" do CONFERIR diz onde).
-
-| Item | O que fazer no Figma | No código depois |
-|---|---|---|
-| C57 · Date Input | Remover o Character Counter (hoje ligado com "-0000") | Desligar o padrão em `date-input.js` (`updateCounter`) |
-
-## 6. Preferências do Gustavo (observadas)
-
-- Português, tom direto. Mostrar antes de gravar em Jira, Notion, Slack ou Figma.
-- Fidelidade ao Figma acima de tudo: tokens `Common/*`, nada hardcoded.
-- Simples como está: sem framework e sem build por enquanto.
-- Publicar no GitHub Pages ao fim de cada entrega e devolver a URL.
-- Pontos em aberto marcados 🟡, separados do que está pronto.
-
-## 7. Aprendizados
-
-| Data | Aprendizado |
 | D236 | **Roteiro do Playground (página escondida)**: `docs/roteiro/index.html`, "20 coisas para abrir, clicar e mexer" para quem chega pela primeira vez (Gustavo, 06/10) — trio "Se tiver 5 minutos" e cinco blocos (Menu e navegação, Playground, Motion, Marca e visual, Documentação) com link direto para cada parada, Tag do tipo de ação e Checkbox "Vi" (vistas e Progress Line salvas só no navegador de quem lê, `cds-roteiro:vistas`). Só tokens, componentes do DS (Main Button, Icon Button de tema, Card, Link, Tag, Checkbox, Progress Line), a composição `<cmp-shortcut>` e ilustrações da [Caju] Illustrations. Fora do menu e da busca: o link fica no Relatório › Arquitetura, embaixo da Proposta. |
+| D237 | **Proposta: uso fino do Castanha DS** (Gustavo, 06/10: "os progress trackers estavam todos incorretos, revise de forma fina, até o header"): topo com o Header do Sponsor Templates como no portal (Voltar, Breadcrumb, Icon Buttons small com Tooltip) e capítulos no Scrollable Tab (`--cds-tab-width` 100%); "O caminho de hoje", "Como se mantém" e "Plano" viram **Progress Tracker** (Kind Number e Icon, Status pending e current, itens de 158 na horizontal; vertical no celular); cartões viram **Card** (Has Border); comparação vira **Table** (sem Checkbox, Toolbar e Pagination); **Status Dot** no portal ao vivo; **Icon** no lugar das máscaras soltas; campos a preencher viram **Tag** Warning "Preencher" e um **Modal** com **Text Input** (lápis no topo, valores só no navegador). Sai a barra de progresso: a Progress Line é de carregamento, e colada nas abas parecia uma segunda aba ativa. Correção no **Tab List**: abas escritas no HTML montavam antes da lista e mostravam o Badge; agora a lista faz cada aba se remontar | 06/10 |
 | D238 | **Roteiro com uso estrito do Castanha DS** (revisão pedida pelo Gustavo para uma leitura criteriosa): barra do topo com o Header do Sponsor Templates (← · Castanha DS › Relatório › Roteiro · tema no Trailling Items com Tooltip, breadcrumb recolhido no mobile), como no portal; texto só com os Text Styles do tema (sem trocar altura de linha, espaçamento de letras ou caixa); espaços só com Common/Sizes e Common/Grids (margem do grid por viewport) e faixas da coleção Viewport (744 · 1366), sem `vw`/`clamp`; "Se tiver 5 minutos" e rodapé com Card e Divider do DS no lugar de caixa e linha feitas à mão. Os cards das paradas ficam só com número, título, texto e Link "Abrir": saem a Tag do tipo de ação, o Checkbox "Vi", a Progress Line e a contagem (e o localStorage). |
 | D239 | **Roteiro e Proposta: ajuste fino de uso do DS** (Gustavo, 06/10: "revisa o roteiro com o mesmo rigor"). Roteiro: fundo `Surface/default` como no portal (era Surface/01); número das paradas em `Text/medium` (Text/soft reprova contraste em texto informativo, C128); Tooltip "Voltar" no botão do Header, como no portal; contagem de ícones ao vivo, com a mesma conta da página de Ícones (era 274 fixo, são 262); "ritmo" sai da descrição do Relatório (painel escondido, D219). Proposta: o mesmo Tooltip "Voltar"; Text Styles sem trocar altura de linha, caixa, espaçamento ou opacidade; opacidade só com os tokens `Common/Opacity`; os efeitos sem escala, que não tem token no tema | 06/10 |
 | D240 | **Proposta · a virada sem a pilha** (Gustavo, 06/10: "pode tirar o grafismo para caber o texto"): a pergunta ocupa a largura e cabe em duas linhas no desktop; sai a hifenização automática, que partia "documen-tação"; a seção conta como parte do capítulo "Por que" no Scrollable Tab (antes nenhuma aba ficava certa ali) | 06/10 |
@@ -510,6 +470,46 @@ Ajustes que o Gustavo vai fazer no Figma; quando entrarem, o código acompanha (
 | D298 | **Badge e Changelog em dia com o Hub** (Gustavo, 09/10, comparação com o Castanha Hub): o Badge ganhou a diretriz "Absolute position", com o texto da nota do frame de documentação do Figma (3307:3087). O Changelog ganhou a v1.1.0 de conteúdo do Hub (24/04/2026, templates de Feedback Pages). As v1.1.1, v1.1.2 e v1.1.3 ficam de fora até ter o dia: o Hub só dá mês e ano, e o #castanha-novidades não as anunciou. A página Code Input do Hub é a doc legada (Items 1–6, Description link) e não entra: o componente estável é o Code Input OTP |
 | D299 | **Botões dos exemplos em Bottom Sheet na largura total** (Gustavo, 09/10): os Main Buttons dos exemplos montados com Bottom Sheet (Contextos, Bottom Sheet › Conteúdo e Tema Caju) passam a ocupar a largura do sheet, como no .Footer Pilled do DS. Antes ficavam com a largura do texto |
 | D300 | **Revisão de Dart no MCP** (Gustavo, 09/10: "melhorias do Flutter"; feito na branch `flutter-revisar`): ferramenta `revisar_dart` (`mcp/flutter.js`), par do `revisar_codigo` do React. Aponta widget, construtor nomeado ou parâmetro inexistente (com o vocabulário do DS: `variant` → `appearance`, `iconLeft` → `leadIcon`), valor fora do enum, texto no lugar de enum, bool ou `IconData`, parâmetro obrigatório faltando, constante de `CastanhaIcons`/`CastanhaIllustrations`/`CastanhaMotions` que não existe na versão do pacote, widget legado `Castds*` e cor, espaçamento, raio ou `SizedBox` crus. O manifesto passa a levar os nomes das constantes do Dart, os parâmetros dos widgets que só existem no Flutter e todas as classes públicas `Castanha*`, para não acusar tipos auxiliares. O teste do MCP cruza `gerar_dart` → `revisar_dart` nos 45 mapas (achou o Chips Group sem rótulo nos filhos, corrigido no mapa). 13 ferramentas. |
+
+## 5. Dúvidas abertas
+
+Só perguntas de escopo ou de fonte. Divergências entre o Figma e o esperado ficam em **[`docs/CONFERIR.md`](CONFERIR.md)** (o código segue o Figma, D40).
+
+| # | Dúvida | Proposta |
+|---|---|---|
+| Q7 | **TypeScript**: introduzir um build (ex.: esbuild) em algum momento? | Adiar até a lib passar de ~20 componentes |
+| Q9 | ~~Caju Card: de onde vêm as artes?~~ Dos vetores do próprio componente (exportados por variante, D65) | ✅ 02/10 |
+| Q31 | **Animações:** qual é a lib (link do Figma)? A página está reservada como "a definir" | **Deixar para o final** (Gustavo, 02/10): entra depois do Lote 9. **Esperar a lib do Figma** (Gustavo, 05/10): o set atual não tem lib de animações (só a legada "5. [Castanha DS] Motion", 1 componente, jan/2025) e as 44 Lottie do castanha-motion são internas (UNLICENSED), então não vêm para o repo público |
+
+## 5.1 Débito de export (Gustavo)
+
+Assets que o MCP não exporta bem ou que sairiam caros por esta sessão. Ícones e ilustrações já foram importados; faltam as bandeiras. Exportar do Figma como SVG, com o nome do componente, e rodar `node scripts/build-assets.js`.
+
+| Asset | Origem | Destino | Hoje no repo |
+|---|---|---|---|
+| ~~Ícones (274)~~ ✅ | `[Caju] Icons` · página `UI & Caju` | `assets/icons/<categoria>/` + `catalog.json` | **274 importados em 01/10** (12 buckets, incluindo `deprecated`), com palavras-chave da description. Reimportar: ver ARCHITECTURE §8 |
+| ~~Ilustrações (237 + Hero + Cartões)~~ ✅ | `[Caju] Illustrations` · páginas `Caju UI` e `Hero` | `assets/illustrations/<categoria>/` + `catalog.json` | **260 importadas em 02/10** (237 da Caju UI + 23 do Hero, 19 categorias), do export SVG do Gustavo. Cartões = componente Caju Card (D65). Reimportar: ver ARCHITECTURE §8 |
+| Bandeiras Elo, Mastercard e Visa | `.Credit Card Flags` (`4934:771`) | `assets/flags/<kind>.svg` | 3, reconstruídas de `vectorPaths` (o Elo com coordenadas arredondadas); o MCP falha com "no visible layers". Substituir pelos SVGs oficiais, sem mudar código |
+
+## 5.2 Débitos de design (Gustavo)
+
+Ajustes que o Gustavo vai fazer no Figma; quando entrarem, o código acompanha (a coluna "Quando corrigir" do CONFERIR diz onde).
+
+| Item | O que fazer no Figma | No código depois |
+|---|---|---|
+| C57 · Date Input | Remover o Character Counter (hoje ligado com "-0000") | Desligar o padrão em `date-input.js` (`updateCounter`) |
+
+## 6. Preferências do Gustavo (observadas)
+
+- Português, tom direto. Mostrar antes de gravar em Jira, Notion, Slack ou Figma.
+- Fidelidade ao Figma acima de tudo: tokens `Common/*`, nada hardcoded.
+- Simples como está: sem framework e sem build por enquanto.
+- Publicar no GitHub Pages ao fim de cada entrega e devolver a URL.
+- Pontos em aberto marcados 🟡, separados do que está pronto.
+
+## 7. Aprendizados
+
+| Data | Aprendizado |
 |---|---|
 | 30/09 | `curl` para `figma.com` é bloqueado nesta sessão; os ícones saem por `exportAsync({format:'SVG_STRING'})` via `use_figma` |
 | 30/09 | GitHub Pages leva ~1 min por build e faz cache; conferir com `?v=N` (resolvido em 02/10 pelo `?v=hash` automático, D47) |

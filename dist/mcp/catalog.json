@@ -24,7 +24,7 @@
   "tokens": 308,
   "icons": 273,
   "illustrations": 260,
-  "conferirOpen": 130,
+  "conferirOpen": 131,
   "stackFindings": 45
  },
  "components": [
@@ -27886,6 +27886,12 @@
     "group": "Documentação",
     "resolved": false,
     "text": "Castanha Hub · Onboarding (`/p/52b967`) e Primeiro Uso (`/p/732a8a`) · Onboarding, tabela do Tom: a coluna \"Por quê\" está deslocada (a linha do OCR traz \"Pedido de desculpas…\", e o motivo dela, \"jargão técnico e emoji\", está na linha de \"Configure agora\"). A página diz tom encorajador, e Comunicando Novidades diz tranquilizador + encorajador. O 4º item de \"Como escrever\" diz que não é hora de explicar o funcionamento, e o playground segue a premissa 6 (D174). Tour: \"quandor usar\" no exemplo aplicado · Por quê alinhado e um só tom para o onboarding · Playground com o Por quê alinhado (a 3ª linha usa o motivo do Tour), o encorajador à frente e a premissa 6 (D290) · Levar ao time de Conteúdo"
+   },
+   {
+    "id": "C192",
+    "group": "Documentação",
+    "resolved": false,
+    "text": "Castanha Hub · Premissas na Prática (`/p/04dbac`) × Termos para evitar (`/p/9695d5`) · O Hub dá duas trocas diferentes para \"Ver mais\": \"Saber mais\" na premissa 5 e \"Detalhes\" em Verbos sensoriais. Na premissa 6, a tabela \"A conversa costuma seguir um caminho\" junta os 4 passos numa célula só. A numeração das premissas segue trocada (#9 com o emoji 8, #3 com o 2), como no C168 · Uma troca só para \"Ver mais\" · Playground mantém \"nome da área ou Acessar {área}\" (C167) nas duas páginas (D292) · Levar ao time de Conteúdo"
    },
    {
     "id": "C117",

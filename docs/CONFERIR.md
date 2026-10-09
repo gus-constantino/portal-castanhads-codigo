@@ -14,7 +14,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | [Refactor](#refactor) | 39 |
 | [Naming](#naming) | 11 |
 | [Acessibilidade](#acessibilidade) | 7 |
-| [Documentação](#documentação) | 13 |
+| [Documentação](#documentação) | 14 |
 | [Integração React](#integração-react) | 11 |
 
 ## Ajuste de texto
@@ -185,6 +185,7 @@ Frames de documentação no Figma.
 | C190 | Castanha Hub · Comunicando Novidades (`/p/21595f`) | Os Do's quebram regras do próprio Hub: "Garanta um reconhecimento extra…" usa "garantir" (Termos para evitar), "pra você" e "!" no fim da descrição (descrições levam ponto final), "R$80,00" sem espaço e "vale presente" sem hífen (Formatação). A tabela de botões do onboarding não tem o "Começar", mas o primeiro Do usa "Começar". O link de "pontuação" aponta para o domínio antigo (`zeroheight.com/…/906fba`) | Do's dentro das regras e "Começar" na tabela | Playground com "para você", ponto final, "R$ 80,00" e "vale-presente"; "Garanta" mantido como no Hub, à espera do time; botões do onboarding remetem à tabela do tour, que tem o "Começar" (D289) | Levar ao time de Conteúdo |
 | C191 | Castanha Hub · Onboarding (`/p/52b967`) e Primeiro Uso (`/p/732a8a`) | Onboarding, tabela do Tom: a coluna "Por quê" está deslocada (a linha do OCR traz "Pedido de desculpas…", e o motivo dela, "jargão técnico e emoji", está na linha de "Configure agora"). A página diz tom encorajador, e Comunicando Novidades diz tranquilizador + encorajador. O 4º item de "Como escrever" diz que não é hora de explicar o funcionamento, e o playground segue a premissa 6 (D174). Tour: "quandor usar" no exemplo aplicado | Por quê alinhado e um só tom para o onboarding | Playground com o Por quê alinhado (a 3ª linha usa o motivo do Tour), o encorajador à frente e a premissa 6 (D290) | Levar ao time de Conteúdo |
 | C192 | Castanha Hub · Premissas na Prática (`/p/04dbac`) × Termos para evitar (`/p/9695d5`) | O Hub dá duas trocas diferentes para "Ver mais": "Saber mais" na premissa 5 e "Detalhes" em Verbos sensoriais. Na premissa 6, a tabela "A conversa costuma seguir um caminho" junta os 4 passos numa célula só. A numeração das premissas segue trocada (#9 com o emoji 8, #3 com o 2), como no C168 | Uma troca só para "Ver mais" | Playground mantém "nome da área ou Acessar {área}" (C167) nas duas páginas (D292) | Levar ao time de Conteúdo |
+| C193 | Bottom Sheet (20848:2679) · .Footer Pilled (16359:1792) × Main Button | No Mobile, `Specific/Buttons/Main Button/Width/min-width` = 328, mas o .Footer tem padding 20: num sheet de 360 sobram 320 e o botão estoura 8 px (num de 320, 48 px). Vale também para a Fixed Bar Pilled. A Fixed Bar Horizontal no Mobile tem o mesmo conflito em dobro: dois botões de 328 lado a lado não cabem em 360 | Botão Fill sem o mínimo dentro do .Footer, ou padding 16 no Mobile, ou mínimo menor. Definir se a Fixed Bar Horizontal vale no Mobile | No .Footer e na Fixed Bar Pilled o botão ocupa a largura disponível sem o min-width (D301). O sheet inline do playground encolhe para caber no frame | Decidir no Figma |
 
 ## Integração React
 

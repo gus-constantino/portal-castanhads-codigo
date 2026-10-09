@@ -1,7 +1,7 @@
 /* Bottom Sheet · 20848:2679 — largura total (min 320) · raio 16 16 0 0 · Handle 40×4 Icons/soft · ancorado embaixo */
 .cds-sheet{ box-sizing:border-box; width:100%; min-width:320px; max-width:100vw; max-height:90dvh; border-radius:var(--common-border-radius-large) var(--common-border-radius-large) 0 0; }
 .cds-sheet:not(.is-inline){ margin:auto 0 0; inset:auto 0 0 0; transition:transform var(--common-motion-duration-medium-02) var(--common-motion-easing-systemic-accelerate); }
-.cds-sheet.is-inline{ width:320px; }
+.cds-sheet.is-inline{ width:320px; min-width:0; max-width:100%; } /* inline (docs e playground): encolhe para caber no frame, sem transbordar */
 .cds-sheet.is-dragging{ transition:none; }
 .cds-sheet__handle-box{ flex:0 0 auto; display:flex; justify-content:center; padding:var(--common-sizes-8) 0; cursor:grab; touch-action:none; }
 .cds-sheet__handle{ width:var(--common-sizes-40); height:var(--common-sizes-4); border-radius:var(--common-border-radius-pill); background:var(--common-colors-icons-soft); }

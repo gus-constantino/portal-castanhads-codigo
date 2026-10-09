@@ -1034,7 +1034,7 @@ cds-footer [hidden], cds-fixed-bar [hidden]{ display:none !important; }
 .cds-footer__actions{ display:flex; gap:var(--common-sizes-8); padding:var(--common-sizes-20); }
 cds-footer[kind="pilled"] .cds-footer__actions, cds-fixed-bar[kind="pilled"] .cds-footer__actions{ flex-direction:column; }
 cds-footer[kind="pilled"] .cds-footer__actions > cds-main-button, cds-fixed-bar[kind="pilled"] .cds-footer__actions > cds-main-button{ display:flex; }
-cds-footer[kind="pilled"] .cds-footer__actions .cds-btn, cds-fixed-bar[kind="pilled"] .cds-footer__actions .cds-btn{ width:100%; }
+cds-footer[kind="pilled"] .cds-footer__actions .cds-btn, cds-fixed-bar[kind="pilled"] .cds-footer__actions .cds-btn{ width:100%; min-width:0; } /* Pilled = Fill: o min-width do Main Button por viewport (Mobile 328) não cabe no padding 20 do .Footer (C193) */
 
 /* ==== components/fixed-bar/fixed-bar.css ==== */
 /* [Beta] Fixed Bar · 24037:2929 — o visual vem do footer.css; fixed = ancorada no fim da viewport */
@@ -2022,7 +2022,7 @@ cds-drawer[inline]{ max-width:none; } /* 640 fixo; no preview estreito o painel 
 /* Bottom Sheet · 20848:2679 — largura total (min 320) · raio 16 16 0 0 · Handle 40×4 Icons/soft · ancorado embaixo */
 .cds-sheet{ box-sizing:border-box; width:100%; min-width:320px; max-width:100vw; max-height:90dvh; border-radius:var(--common-border-radius-large) var(--common-border-radius-large) 0 0; }
 .cds-sheet:not(.is-inline){ margin:auto 0 0; inset:auto 0 0 0; transition:transform var(--common-motion-duration-medium-02) var(--common-motion-easing-systemic-accelerate); }
-.cds-sheet.is-inline{ width:320px; }
+.cds-sheet.is-inline{ width:320px; min-width:0; max-width:100%; } /* inline (docs e playground): encolhe para caber no frame, sem transbordar */
 .cds-sheet.is-dragging{ transition:none; }
 .cds-sheet__handle-box{ flex:0 0 auto; display:flex; justify-content:center; padding:var(--common-sizes-8) 0; cursor:grab; touch-action:none; }
 .cds-sheet__handle{ width:var(--common-sizes-40); height:var(--common-sizes-4); border-radius:var(--common-border-radius-pill); background:var(--common-colors-icons-soft); }

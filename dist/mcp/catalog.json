@@ -38,7 +38,7 @@
   "tokens": 308,
   "icons": 273,
   "illustrations": 260,
-  "conferirOpen": 131,
+  "conferirOpen": 132,
   "stackFindings": 45
  },
  "components": [
@@ -32638,6 +32638,12 @@
     "group": "Documentação",
     "resolved": false,
     "text": "Castanha Hub · Premissas na Prática (`/p/04dbac`) × Termos para evitar (`/p/9695d5`) · O Hub dá duas trocas diferentes para \"Ver mais\": \"Saber mais\" na premissa 5 e \"Detalhes\" em Verbos sensoriais. Na premissa 6, a tabela \"A conversa costuma seguir um caminho\" junta os 4 passos numa célula só. A numeração das premissas segue trocada (#9 com o emoji 8, #3 com o 2), como no C168 · Uma troca só para \"Ver mais\" · Playground mantém \"nome da área ou Acessar {área}\" (C167) nas duas páginas (D292) · Levar ao time de Conteúdo"
+   },
+   {
+    "id": "C193",
+    "group": "Documentação",
+    "resolved": false,
+    "text": "Bottom Sheet (20848:2679) · .Footer Pilled (16359:1792) × Main Button · No Mobile, `Specific/Buttons/Main Button/Width/min-width` = 328, mas o .Footer tem padding 20: num sheet de 360 sobram 320 e o botão estoura 8 px (num de 320, 48 px). Vale também para a Fixed Bar Pilled. A Fixed Bar Horizontal no Mobile tem o mesmo conflito em dobro: dois botões de 328 lado a lado não cabem em 360 · Botão Fill sem o mínimo dentro do .Footer, ou padding 16 no Mobile, ou mínimo menor. Definir se a Fixed Bar Horizontal vale no Mobile · No .Footer e na Fixed Bar Pilled o botão ocupa a largura disponível sem o min-width (D301). O sheet inline do playground encolhe para caber no frame · Decidir no Figma"
    },
    {
     "id": "C117",

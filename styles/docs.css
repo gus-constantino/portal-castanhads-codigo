@@ -596,7 +596,7 @@ cmp-do-dont .pg-doc-list{ margin:0; }
 .pg-cnt-phone--hero .pg-cnt-phone__body{ padding:0; gap:0; }
 .pg-cnt-phone__hero{ width:100%; height:auto; display:block; }
 .pg-cnt-phone__cta{ display:block; width:100%; margin-top:var(--common-sizes-8); }
-.pg-cnt-phone__cta .cds-btn{ width:100%; } /* como o .Footer Pilled do Bottom Sheet: botões empilhados na largura total */
+.pg-cnt-phone__cta .cds-btn{ width:100%; min-width:0; } /* como o .Footer Pilled do Bottom Sheet: botões empilhados na largura total */
 
 /* Glossário com busca */
 .pg-doc-gloss{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }

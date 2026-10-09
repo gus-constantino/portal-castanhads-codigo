@@ -532,122 +532,6 @@ cds-link[disabled]{ opacity:var(--common-opacity-light); pointer-events:none; }
 cds-list-lead-item{ flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; }
 cds-list-lead-item[kind="image"] > cds-image{ width:var(--common-sizes-40); height:var(--common-sizes-40); border-radius:var(--common-border-radius-extra-small); overflow:hidden; }
 
-/* ==== components/main-button/main-button.css ==== */
-/* =====================================================================
-   Main Button · Buttons · set 4464:427   (base .cds-btn também usada pelo Drop Button)
-   Medium: 48 · raio medium · Label/Medium (Pressed: Label/Bold)
-   Small:  40 · raio small  · Caption/Medium (Pressed: Caption/Bold)
-   padding 0 20 · gap 8 · ícones 20 · Disabled Opacity/light
-   Motion (reactions): Hover e Press var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate)
-   state="hovered|pressed" força o estado (specimen da doc), como no Tab Item
-   Viewport (Specific/Buttons/Main Button/Width/min-width): Desktop 136 · Tablet 220 · Mobile 328
-   ===================================================================== */
-cds-main-button, cds-drop-button{ display:inline-flex; flex:0 0 auto; max-width:100%; }
-cds-main-button > .cds-btn{ --_min-w:136px; }
-.cds-btn{
-  --_bg:var(--common-colors-accent-solid-medium); --_fg:var(--common-colors-support-lighter); --_bd:transparent;
-  --_font:var(--text-style-label-medium); --_font-pressed:var(--text-style-label-bold);
-  display:inline-flex; align-items:center; justify-content:center; gap:var(--common-sizes-8);
-  height:var(--common-sizes-48); min-width:var(--_min-w, 0px); max-width:100%; padding:0 var(--common-sizes-20); margin:0; border:0; cursor:pointer;
-  border-radius:var(--common-border-radius-medium);
-  background:var(--_bg); color:var(--_fg); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--_bd);
-  font:var(--_font); white-space:nowrap;
-  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
-}
-.cds-btn{ --cds-icon-color:var(--_fg); } /* override do Icon aninhado */
-.cds-btn:active, [state="pressed"] > .cds-btn{ font:var(--_font-pressed); }
-[size="small"] > .cds-btn{ height:var(--common-sizes-40); border-radius:var(--common-border-radius-small); --_font:var(--text-style-caption-medium); --_font-pressed:var(--text-style-caption-bold); }
-
-/* Viewport → largura mínima */
-[data-viewport="tablet"] cds-main-button > .cds-btn{ --_min-w:220px; }
-[data-viewport="mobile"] cds-main-button > .cds-btn{ --_min-w:328px; }
-
-/* Default · Accent */
-.cds-btn:hover, [state="hovered"] > .cds-btn{ --_bg:var(--common-colors-accent-solid-semi-intense); }
-.cds-btn:active, [state="pressed"] > .cds-btn{ --_bg:var(--common-colors-accent-solid-medium); }
-/* Ghost · Accent */
-[kind="ghost"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-text-accent); }
-[kind="ghost"] > .cds-btn:hover, [kind="ghost"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); }
-[kind="ghost"] > .cds-btn:active, [kind="ghost"][state="pressed"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-text-accent); --_bd:var(--common-colors-accent-solid-medium); }
-/* Default · Neutral */
-[appearance="neutral"] > .cds-btn{ --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-text-intense); }
-[appearance="neutral"] > .cds-btn:hover, [appearance="neutral"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-medium); }
-[appearance="neutral"] > .cds-btn:active, [appearance="neutral"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-surface-01); }
-/* Default · Inversed */
-[appearance="inversed"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-text-intense); }
-[appearance="inversed"] > .cds-btn:hover, [appearance="inversed"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-intense); --_fg:var(--common-colors-support-lighter); }
-[appearance="inversed"] > .cds-btn:active, [appearance="inversed"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-text-intense); }
-/* Ghost · Neutral */
-[kind="ghost"][appearance="neutral"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-text-intense); --_bd:transparent; }
-[kind="ghost"][appearance="neutral"] > .cds-btn:hover, [kind="ghost"][appearance="neutral"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
-[kind="ghost"][appearance="neutral"] > .cds-btn:active, [kind="ghost"][appearance="neutral"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-surface-01); }
-/* Ghost · Inversed */
-[kind="ghost"][appearance="inversed"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-support-lighter); --_bd:transparent; }
-[kind="ghost"][appearance="inversed"] > .cds-btn:hover, [kind="ghost"][appearance="inversed"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); --_fg:var(--common-colors-support-lighter); }
-[kind="ghost"][appearance="inversed"] > .cds-btn:active, [kind="ghost"][appearance="inversed"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-neutral-opacity-intense-light); --_fg:var(--common-colors-support-lighter); }
-
-/* Disabled — Opacity/light; Ghost Inversed troca o texto para Text/intense (🟡 ver roadmap) */
-cds-main-button[disabled], cds-drop-button[disabled]{ opacity:var(--common-opacity-light); pointer-events:none; }
-[disabled][kind="ghost"][appearance="inversed"] > .cds-btn{ --_fg:var(--common-colors-text-intense); }
-@media (prefers-reduced-motion:reduce){ .cds-btn{ transition:none; } }
-
-/* ==== components/date-navigation/date-navigation.css ==== */
-/* .Navigation Control (Datepicker) · 17465:384 — SPACE_BETWEEN · 40 · Surface/default */
-cds-date-navigation{ display:flex; align-items:center; justify-content:space-between; width:280px; max-width:100%; min-height:var(--common-sizes-40); background:var(--common-colors-surface-default); }
-cds-date-navigation [hidden]{ display:none !important; }
-
-/* ==== components/date-picker/date-picker.css ==== */
-/* Date Picker · set 17629:24427 — Single 320 / Double 620 · pad 0 20 · gap 8 · Surface/default
-   Calendário: cabeçalho 40 (Label/Medium Text/medium) + gap 8 + semanas (gap 8, pb 8) · dois meses com gap 20
-   Month/Year: Main Buttons Medium 280 × 48 (gap 4) em 288 com rolagem · Selected Date: Caption/Medium + Body/Medium */
-cds-date-picker{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-8); box-sizing:border-box;
-  width:320px; max-width:100%; padding:0 var(--common-sizes-20); background:var(--common-colors-surface-default); color:var(--common-colors-text-intense); }
-cds-date-picker[kind="double"]{ width:620px; }
-cds-date-picker [hidden]{ display:none !important; }
-cds-date-picker .cds-dp__nav{ width:100%; }
-cds-date-picker[kind="double"] .cds-dn__btn{ flex:1 1 0; } /* 167 cada no Figma */
-cds-date-picker[kind="double"] .cds-dn__btn .cds-btn{ width:100%; }
-.cds-dp__body{ width:100%; display:flex; justify-content:center; }
-.cds-dp__months{ display:flex; gap:var(--common-sizes-20); }
-.cds-dp__calendar{ display:flex; flex-direction:column; gap:var(--common-sizes-8); width:280px; }
-.cds-dp__weekdays{ display:flex; }
-.cds-dp__weekday{ display:flex; align-items:center; justify-content:center; width:var(--common-sizes-40); height:var(--common-sizes-40); font:var(--text-style-label-medium); color:var(--common-colors-text-medium); }
-.cds-dp__weeks{ display:flex; flex-direction:column; gap:var(--common-sizes-8); padding-bottom:var(--common-sizes-8); }
-.cds-dp__list{ display:flex; flex-direction:column; gap:var(--common-sizes-4); width:100%; height:288px; overflow-y:auto; overscroll-behavior:contain; }
-.cds-dp__item{ display:flex; flex:0 0 auto; }
-.cds-dp__item .cds-btn{ width:100%; }
-.cds-dp__selected{ display:flex; flex-direction:column; gap:var(--common-sizes-4); width:100%; }
-.cds-dp__sel-label{ display:flex; align-items:center; min-height:var(--common-sizes-24); font:var(--text-style-caption-medium); color:var(--common-colors-text-intense); }
-.cds-dp__sel-dates{ display:flex; gap:var(--common-sizes-4); min-height:var(--common-sizes-24); }
-.cds-dp__sel-date, .cds-dp__sel-last span{ font:var(--text-style-body-medium); color:var(--common-colors-text-intense); }
-.cds-dp__sel-last{ display:flex; gap:var(--common-sizes-8); }
-
-/* ==== components/drop-button/drop-button.css ==== */
-/* =====================================================================
-   Drop Button · Buttons · set 6955:6985 — herda .cds-btn (main-button.css)
-   Diferenças do Figma em relação ao Main Button:
-   · Default Neutral Hovered: Neutral/Opacity/Intense/semi-transparent (Main: Neutral/Solid/medium)
-   · Ghost Neutral Pressed: sem fundo (Main: Surface/01)
-   · Default Inversed Pressed: sem fundo, padding 0, raio 0 — variante quebrada no Figma, replicada (CONFERIR.md)
-   · Trailing: dropdown-open-line ↔ dropdown-close-line (Is Active)
-   ===================================================================== */
-cds-drop-button[appearance="neutral"]:not([kind="ghost"]) > .cds-btn:hover, cds-drop-button[appearance="neutral"]:not([kind="ghost"])[state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); }
-cds-drop-button[kind="ghost"][appearance="neutral"] > .cds-btn:active, cds-drop-button[kind="ghost"][appearance="neutral"][state="pressed"] > .cds-btn{ --_bg:transparent; }
-cds-drop-button[appearance="inversed"]:not([kind="ghost"]) > .cds-btn:active, cds-drop-button[appearance="inversed"]:not([kind="ghost"])[state="pressed"] > .cds-btn{ --_bg:transparent; padding:var(--common-sizes-0); border-radius:var(--common-border-radius-none); }
-
-/* ==== components/footer/footer.css ==== */
-/* .Footer · set 16359:1792 — Divider + Actions pad 20 · gap 8 · Horizontal: botões no tamanho do conteúdo · Pilled: coluna, largura total */
-cds-footer, cds-fixed-bar{ display:flex; flex-direction:column; background:var(--common-colors-surface-default); }
-cds-footer [hidden], cds-fixed-bar [hidden]{ display:none !important; }
-.cds-footer__actions{ display:flex; gap:var(--common-sizes-8); padding:var(--common-sizes-20); }
-cds-footer[kind="pilled"] .cds-footer__actions, cds-fixed-bar[kind="pilled"] .cds-footer__actions{ flex-direction:column; }
-cds-footer[kind="pilled"] .cds-footer__actions > cds-main-button, cds-fixed-bar[kind="pilled"] .cds-footer__actions > cds-main-button{ display:flex; }
-cds-footer[kind="pilled"] .cds-footer__actions .cds-btn, cds-fixed-bar[kind="pilled"] .cds-footer__actions .cds-btn{ width:100%; }
-
-/* ==== components/fixed-bar/fixed-bar.css ==== */
-/* [Beta] Fixed Bar · 24037:2929 — o visual vem do footer.css; fixed = ancorada no fim da viewport */
-cds-fixed-bar[fixed]{ position:fixed; left:0; right:0; bottom:0; z-index:10; }
-
 /* ==== components/nav-control-item/nav-control-item.css ==== */
 /* .Item Nav Control · set 19188:379 — pad 4 · 6×6 (ativo 16×6) · raio pill */
 cds-nav-control-item{ --_c:var(--common-colors-neutral-solid-semi-intense); display:inline-flex; padding:var(--common-sizes-4); flex:0 0 auto; }
@@ -897,38 +781,6 @@ cds-confirmation-message{ display:flex; flex-direction:column; align-items:cente
 .cds-cm__title{ margin:0; font:var(--text-style-title-medium); color:var(--common-colors-text-intense); }
 .cds-cm__desc{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
 
-/* ==== components/dropzone/dropzone.css ==== */
-/* Dropzone · set 15386:7230 — 320 · contorno 1px tracejado INSIDE (dash 4 4 no Figma; o CSS usa dashed, C65) · raio medium · Surface/default
-   Desktop 165: coluna pad 12 20 gap 16 · Mobile 80: linha pad 16 gap 12 */
-cds-dropzone{ display:block; width:320px; max-width:100%; }
-cds-dropzone [hidden]{ display:none !important; }
-.cds-dz{
-  --_bg:var(--common-colors-surface-default); --_bd:var(--common-colors-border-medium); --_bw:var(--common-border-width-hairline);
-  box-sizing:border-box; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--common-sizes-16);
-  min-height:165px; padding:var(--common-sizes-12) var(--common-sizes-20); border-radius:var(--common-border-radius-medium); background:var(--_bg); text-align:center;
-  outline:var(--_bw) dashed var(--_bd); outline-offset:calc(-1 * var(--_bw)); /* stroke INSIDE tracejado */
-  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), outline-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
-}
-.cds-dz__body{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-8); min-width:0; }
-.cds-dz__texts{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
-.cds-dz__title{ font:var(--text-style-label-regular); color:var(--common-colors-text-intense); }
-.cds-dz__desc{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
-.cds-dz__input{ position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; }
-/* Mobile (tablet e mobile) */
-cds-dropzone[data-mode="mobile"] .cds-dz{ --_bd:var(--common-colors-border-semi-intense); flex-direction:row; justify-content:flex-start; gap:var(--common-sizes-12); min-height:var(--common-sizes-80); padding:var(--common-sizes-16); text-align:left; cursor:pointer; }
-cds-dropzone[data-mode="mobile"] .cds-dz__texts{ gap:var(--common-sizes-4); }
-cds-dropzone[data-mode="mobile"] .cds-dz__body{ align-items:flex-start; }
-cds-dropzone[data-mode="mobile"] .cds-dz__title{ font:var(--text-style-label-medium); }
-cds-dropzone[data-mode="mobile"] .cds-dz:hover, cds-dropzone[data-mode="mobile"][state="hovered"] .cds-dz{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
-cds-dropzone[data-mode="mobile"] .cds-dz:active, cds-dropzone[data-mode="mobile"][state="pressed"] .cds-dz{ --_bw:var(--common-border-width-thin); }
-cds-dropzone[data-mode="mobile"] .cds-dz:active .cds-dz__desc, cds-dropzone[data-mode="mobile"][state="pressed"] .cds-dz__desc{ font:var(--text-style-caption-medium); }
-cds-dropzone[data-mode="mobile"] .cds-dz:focus-visible{ --_bd:var(--common-colors-support-system); --_bw:2px; } /* foco no próprio contorno (C23) */
-/* Dragover */
-cds-dropzone.is-dragover .cds-dz, cds-dropzone[state="dragover"] .cds-dz{ --_bg:var(--common-colors-accent-solid-soft); --_bd:var(--common-colors-accent-solid-medium); }
-/* Disabled: no Figma só a borda muda (Border/semi-intense), sem opacidade (C65) */
-cds-dropzone[disabled] .cds-dz{ --_bd:var(--common-colors-border-semi-intense); cursor:default; }
-@media (prefers-reduced-motion:reduce){ .cds-dz{ transition:none; } }
-
 /* ==== components/file-lead-item/file-lead-item.css ==== */
 /* .Lead item (File) · set 15207:13262 — 48 · raio medium · overlay Surface/inversed: Hovered Opacity/intense · Pressed semi-opaque */
 cds-file-lead-item{ display:inline-flex; flex:0 0 auto; }
@@ -1031,6 +883,160 @@ cds-spinner .cds-spin__arc{ stroke:var(--_arc); }
   100%{ transform:rotate(360deg); }
 }
 @media (prefers-reduced-motion:reduce){ cds-spinner > svg{ animation-duration:2400ms; } }
+
+/* ==== components/main-button/main-button.css ==== */
+/* =====================================================================
+   Main Button · Buttons · set 4464:427   (base .cds-btn também usada pelo Drop Button)
+   Medium: 48 · raio medium · Label/Medium (Pressed: Label/Bold)
+   Small:  40 · raio small  · Caption/Medium (Pressed: Caption/Bold)
+   padding 0 20 · gap 8 · ícones 20 · Disabled Opacity/light
+   Motion (reactions): Hover e Press var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate)
+   state="hovered|pressed" força o estado (specimen da doc), como no Tab Item
+   Viewport (Specific/Buttons/Main Button/Width/min-width): Desktop 136 · Tablet 220 · Mobile 328
+   ===================================================================== */
+cds-main-button, cds-drop-button{ display:inline-flex; flex:0 0 auto; max-width:100%; }
+cds-main-button > .cds-btn{ --_min-w:136px; }
+.cds-btn{
+  --_bg:var(--common-colors-accent-solid-medium); --_fg:var(--common-colors-support-lighter); --_bd:transparent;
+  --_font:var(--text-style-label-medium); --_font-pressed:var(--text-style-label-bold);
+  display:inline-flex; align-items:center; justify-content:center; gap:var(--common-sizes-8);
+  height:var(--common-sizes-48); min-width:var(--_min-w, 0px); max-width:100%; padding:0 var(--common-sizes-20); margin:0; border:0; cursor:pointer;
+  border-radius:var(--common-border-radius-medium);
+  background:var(--_bg); color:var(--_fg); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--_bd);
+  font:var(--_font); white-space:nowrap;
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+}
+.cds-btn{ --cds-icon-color:var(--_fg); } /* override do Icon aninhado */
+.cds-btn:active, [state="pressed"] > .cds-btn{ font:var(--_font-pressed); }
+[size="small"] > .cds-btn{ height:var(--common-sizes-40); border-radius:var(--common-border-radius-small); --_font:var(--text-style-caption-medium); --_font-pressed:var(--text-style-caption-bold); }
+
+/* Viewport → largura mínima */
+[data-viewport="tablet"] cds-main-button > .cds-btn{ --_min-w:220px; }
+[data-viewport="mobile"] cds-main-button > .cds-btn{ --_min-w:328px; }
+
+/* Default · Accent */
+.cds-btn:hover, [state="hovered"] > .cds-btn{ --_bg:var(--common-colors-accent-solid-semi-intense); }
+.cds-btn:active, [state="pressed"] > .cds-btn{ --_bg:var(--common-colors-accent-solid-medium); }
+/* Ghost · Accent */
+[kind="ghost"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-text-accent); }
+[kind="ghost"] > .cds-btn:hover, [kind="ghost"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); }
+[kind="ghost"] > .cds-btn:active, [kind="ghost"][state="pressed"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-text-accent); --_bd:var(--common-colors-accent-solid-medium); }
+/* Default · Neutral */
+[appearance="neutral"] > .cds-btn{ --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-text-intense); }
+[appearance="neutral"] > .cds-btn:hover, [appearance="neutral"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-medium); }
+[appearance="neutral"] > .cds-btn:active, [appearance="neutral"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-surface-01); }
+/* Default · Inversed */
+[appearance="inversed"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-text-intense); }
+[appearance="inversed"] > .cds-btn:hover, [appearance="inversed"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-intense); --_fg:var(--common-colors-support-lighter); }
+[appearance="inversed"] > .cds-btn:active, [appearance="inversed"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-text-intense); }
+/* Ghost · Neutral */
+[kind="ghost"][appearance="neutral"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-text-intense); --_bd:transparent; }
+[kind="ghost"][appearance="neutral"] > .cds-btn:hover, [kind="ghost"][appearance="neutral"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
+[kind="ghost"][appearance="neutral"] > .cds-btn:active, [kind="ghost"][appearance="neutral"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-surface-01); }
+/* Ghost · Inversed */
+[kind="ghost"][appearance="inversed"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-support-lighter); --_bd:transparent; }
+[kind="ghost"][appearance="inversed"] > .cds-btn:hover, [kind="ghost"][appearance="inversed"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); --_fg:var(--common-colors-support-lighter); }
+[kind="ghost"][appearance="inversed"] > .cds-btn:active, [kind="ghost"][appearance="inversed"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-neutral-opacity-intense-light); --_fg:var(--common-colors-support-lighter); }
+
+/* Loading (Is Loading, branch CDS-1603): conteúdo invisível segura a largura, Spinner no centro; sem hover, pressed nem clique */
+cds-main-button[loading]{ pointer-events:none; }
+cds-main-button[loading] > .cds-btn{ position:relative; }
+cds-main-button[loading] > .cds-btn > :not(.cds-btn__spinner){ visibility:hidden; }
+cds-main-button[loading] > .cds-btn > .cds-btn__spinner{ position:absolute; inset:0; margin:auto; }
+
+/* Disabled — Opacity/light; Ghost Inversed troca o texto para Text/intense (🟡 ver roadmap) */
+cds-main-button[disabled], cds-drop-button[disabled]{ opacity:var(--common-opacity-light); pointer-events:none; }
+[disabled][kind="ghost"][appearance="inversed"] > .cds-btn{ --_fg:var(--common-colors-text-intense); }
+@media (prefers-reduced-motion:reduce){ .cds-btn{ transition:none; } }
+
+/* ==== components/date-navigation/date-navigation.css ==== */
+/* .Navigation Control (Datepicker) · 17465:384 — SPACE_BETWEEN · 40 · Surface/default */
+cds-date-navigation{ display:flex; align-items:center; justify-content:space-between; width:280px; max-width:100%; min-height:var(--common-sizes-40); background:var(--common-colors-surface-default); }
+cds-date-navigation [hidden]{ display:none !important; }
+
+/* ==== components/date-picker/date-picker.css ==== */
+/* Date Picker · set 17629:24427 — Single 320 / Double 620 · pad 0 20 · gap 8 · Surface/default
+   Calendário: cabeçalho 40 (Label/Medium Text/medium) + gap 8 + semanas (gap 8, pb 8) · dois meses com gap 20
+   Month/Year: Main Buttons Medium 280 × 48 (gap 4) em 288 com rolagem · Selected Date: Caption/Medium + Body/Medium */
+cds-date-picker{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-8); box-sizing:border-box;
+  width:320px; max-width:100%; padding:0 var(--common-sizes-20); background:var(--common-colors-surface-default); color:var(--common-colors-text-intense); }
+cds-date-picker[kind="double"]{ width:620px; }
+cds-date-picker [hidden]{ display:none !important; }
+cds-date-picker .cds-dp__nav{ width:100%; }
+cds-date-picker[kind="double"] .cds-dn__btn{ flex:1 1 0; } /* 167 cada no Figma */
+cds-date-picker[kind="double"] .cds-dn__btn .cds-btn{ width:100%; }
+.cds-dp__body{ width:100%; display:flex; justify-content:center; }
+.cds-dp__months{ display:flex; gap:var(--common-sizes-20); }
+.cds-dp__calendar{ display:flex; flex-direction:column; gap:var(--common-sizes-8); width:280px; }
+.cds-dp__weekdays{ display:flex; }
+.cds-dp__weekday{ display:flex; align-items:center; justify-content:center; width:var(--common-sizes-40); height:var(--common-sizes-40); font:var(--text-style-label-medium); color:var(--common-colors-text-medium); }
+.cds-dp__weeks{ display:flex; flex-direction:column; gap:var(--common-sizes-8); padding-bottom:var(--common-sizes-8); }
+.cds-dp__list{ display:flex; flex-direction:column; gap:var(--common-sizes-4); width:100%; height:288px; overflow-y:auto; overscroll-behavior:contain; }
+.cds-dp__item{ display:flex; flex:0 0 auto; }
+.cds-dp__item .cds-btn{ width:100%; }
+.cds-dp__selected{ display:flex; flex-direction:column; gap:var(--common-sizes-4); width:100%; }
+.cds-dp__sel-label{ display:flex; align-items:center; min-height:var(--common-sizes-24); font:var(--text-style-caption-medium); color:var(--common-colors-text-intense); }
+.cds-dp__sel-dates{ display:flex; gap:var(--common-sizes-4); min-height:var(--common-sizes-24); }
+.cds-dp__sel-date, .cds-dp__sel-last span{ font:var(--text-style-body-medium); color:var(--common-colors-text-intense); }
+.cds-dp__sel-last{ display:flex; gap:var(--common-sizes-8); }
+
+/* ==== components/drop-button/drop-button.css ==== */
+/* =====================================================================
+   Drop Button · Buttons · set 6955:6985 — herda .cds-btn (main-button.css)
+   Diferenças do Figma em relação ao Main Button:
+   · Default Neutral Hovered: Neutral/Opacity/Intense/semi-transparent (Main: Neutral/Solid/medium)
+   · Ghost Neutral Pressed: sem fundo (Main: Surface/01)
+   · Default Inversed Pressed: sem fundo, padding 0, raio 0 — variante quebrada no Figma, replicada (CONFERIR.md)
+   · Trailing: dropdown-open-line ↔ dropdown-close-line (Is Active)
+   ===================================================================== */
+cds-drop-button[appearance="neutral"]:not([kind="ghost"]) > .cds-btn:hover, cds-drop-button[appearance="neutral"]:not([kind="ghost"])[state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); }
+cds-drop-button[kind="ghost"][appearance="neutral"] > .cds-btn:active, cds-drop-button[kind="ghost"][appearance="neutral"][state="pressed"] > .cds-btn{ --_bg:transparent; }
+cds-drop-button[appearance="inversed"]:not([kind="ghost"]) > .cds-btn:active, cds-drop-button[appearance="inversed"]:not([kind="ghost"])[state="pressed"] > .cds-btn{ --_bg:transparent; padding:var(--common-sizes-0); border-radius:var(--common-border-radius-none); }
+
+/* ==== components/dropzone/dropzone.css ==== */
+/* Dropzone · set 15386:7230 — 320 · contorno 1px tracejado INSIDE (dash 4 4 no Figma; o CSS usa dashed, C65) · raio medium · Surface/default
+   Desktop 165: coluna pad 12 20 gap 16 · Mobile 80: linha pad 16 gap 12 */
+cds-dropzone{ display:block; width:320px; max-width:100%; }
+cds-dropzone [hidden]{ display:none !important; }
+.cds-dz{
+  --_bg:var(--common-colors-surface-default); --_bd:var(--common-colors-border-medium); --_bw:var(--common-border-width-hairline);
+  box-sizing:border-box; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--common-sizes-16);
+  min-height:165px; padding:var(--common-sizes-12) var(--common-sizes-20); border-radius:var(--common-border-radius-medium); background:var(--_bg); text-align:center;
+  outline:var(--_bw) dashed var(--_bd); outline-offset:calc(-1 * var(--_bw)); /* stroke INSIDE tracejado */
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), outline-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+}
+.cds-dz__body{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-8); min-width:0; }
+.cds-dz__texts{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+.cds-dz__title{ font:var(--text-style-label-regular); color:var(--common-colors-text-intense); }
+.cds-dz__desc{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+.cds-dz__input{ position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; }
+/* Mobile (tablet e mobile) */
+cds-dropzone[data-mode="mobile"] .cds-dz{ --_bd:var(--common-colors-border-semi-intense); flex-direction:row; justify-content:flex-start; gap:var(--common-sizes-12); min-height:var(--common-sizes-80); padding:var(--common-sizes-16); text-align:left; cursor:pointer; }
+cds-dropzone[data-mode="mobile"] .cds-dz__texts{ gap:var(--common-sizes-4); }
+cds-dropzone[data-mode="mobile"] .cds-dz__body{ align-items:flex-start; }
+cds-dropzone[data-mode="mobile"] .cds-dz__title{ font:var(--text-style-label-medium); }
+cds-dropzone[data-mode="mobile"] .cds-dz:hover, cds-dropzone[data-mode="mobile"][state="hovered"] .cds-dz{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
+cds-dropzone[data-mode="mobile"] .cds-dz:active, cds-dropzone[data-mode="mobile"][state="pressed"] .cds-dz{ --_bw:var(--common-border-width-thin); }
+cds-dropzone[data-mode="mobile"] .cds-dz:active .cds-dz__desc, cds-dropzone[data-mode="mobile"][state="pressed"] .cds-dz__desc{ font:var(--text-style-caption-medium); }
+cds-dropzone[data-mode="mobile"] .cds-dz:focus-visible{ --_bd:var(--common-colors-support-system); --_bw:2px; } /* foco no próprio contorno (C23) */
+/* Dragover */
+cds-dropzone.is-dragover .cds-dz, cds-dropzone[state="dragover"] .cds-dz{ --_bg:var(--common-colors-accent-solid-soft); --_bd:var(--common-colors-accent-solid-medium); }
+/* Disabled: no Figma só a borda muda (Border/semi-intense), sem opacidade (C65) */
+cds-dropzone[disabled] .cds-dz{ --_bd:var(--common-colors-border-semi-intense); cursor:default; }
+@media (prefers-reduced-motion:reduce){ .cds-dz{ transition:none; } }
+
+/* ==== components/footer/footer.css ==== */
+/* .Footer · set 16359:1792 — Divider + Actions pad 20 · gap 8 · Horizontal: botões no tamanho do conteúdo · Pilled: coluna, largura total */
+cds-footer, cds-fixed-bar{ display:flex; flex-direction:column; background:var(--common-colors-surface-default); }
+cds-footer [hidden], cds-fixed-bar [hidden]{ display:none !important; }
+.cds-footer__actions{ display:flex; gap:var(--common-sizes-8); padding:var(--common-sizes-20); }
+cds-footer[kind="pilled"] .cds-footer__actions, cds-fixed-bar[kind="pilled"] .cds-footer__actions{ flex-direction:column; }
+cds-footer[kind="pilled"] .cds-footer__actions > cds-main-button, cds-fixed-bar[kind="pilled"] .cds-footer__actions > cds-main-button{ display:flex; }
+cds-footer[kind="pilled"] .cds-footer__actions .cds-btn, cds-fixed-bar[kind="pilled"] .cds-footer__actions .cds-btn{ width:100%; }
+
+/* ==== components/fixed-bar/fixed-bar.css ==== */
+/* [Beta] Fixed Bar · 24037:2929 — o visual vem do footer.css; fixed = ancorada no fim da viewport */
+cds-fixed-bar[fixed]{ position:fixed; left:0; right:0; bottom:0; z-index:10; }
 
 /* ==== components/sponsor-category/sponsor-category.css ==== */
 /* =====================================================================

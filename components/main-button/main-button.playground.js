@@ -16,6 +16,7 @@ CDS.register({
       onChange: function(v){ set("appearance", v); kit.surface(ctx.preview, v === "inversed" ? "var(--common-colors-surface-inversed)" : ""); } });
     kit.seg(panel, { label: "Size", value: "medium", options: [["medium","Medium 48"],["small","Small 40"]], onChange: function(v){ set("size", v); } });
     kit.toggle(panel, { label: "State: Disabled", onChange: function(on){ set("disabled", on); } });
+    kit.toggle(panel, { label: "Is Loading", onChange: function(on){ set("loading", on); } });
     kit.hint(panel, "Hovered e Pressed (texto em Bold) são interação. Largura mínima segue a Viewport: 136 · 220 (744) · 328 (360).");
     kit.section(panel, "Booleans");
     kit.toggle(panel, { label: "Show Lead Icon", checked: true, onChange: function(on){ set("show-lead-icon", on ? null : "false"); } });

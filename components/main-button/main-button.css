@@ -51,6 +51,12 @@ cds-main-button > .cds-btn{ --_min-w:136px; }
 [kind="ghost"][appearance="inversed"] > .cds-btn:hover, [kind="ghost"][appearance="inversed"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); --_fg:var(--common-colors-support-lighter); }
 [kind="ghost"][appearance="inversed"] > .cds-btn:active, [kind="ghost"][appearance="inversed"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-neutral-opacity-intense-light); --_fg:var(--common-colors-support-lighter); }
 
+/* Loading (Is Loading, branch CDS-1603): conteúdo invisível segura a largura, Spinner no centro; sem hover, pressed nem clique */
+cds-main-button[loading]{ pointer-events:none; }
+cds-main-button[loading] > .cds-btn{ position:relative; }
+cds-main-button[loading] > .cds-btn > :not(.cds-btn__spinner){ visibility:hidden; }
+cds-main-button[loading] > .cds-btn > .cds-btn__spinner{ position:absolute; inset:0; margin:auto; }
+
 /* Disabled — Opacity/light; Ghost Inversed troca o texto para Text/intense (🟡 ver roadmap) */
 cds-main-button[disabled], cds-drop-button[disabled]{ opacity:var(--common-opacity-light); pointer-events:none; }
 [disabled][kind="ghost"][appearance="inversed"] > .cds-btn{ --_fg:var(--common-colors-text-intense); }

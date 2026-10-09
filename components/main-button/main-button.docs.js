@@ -1,7 +1,9 @@
 /* Documentação — Main Button
    Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Main button, 0983f6) reaproveitado; props e padrões validados no set da lib estável
    (Main Button 4464:427, key 3805ac7e…); acessibilidade e contrastes medidos no componente do playground; tab Conteúdo do [NEW] Content (6400:15361, D98).
-   Divergências zeroheight × lib no CONFERIR (C142): nomes Type/Style (lib: Kind/Appearance), estado Loading (não existe na lib), Trailing Icon aninhado. */
+   Divergências zeroheight × lib no CONFERIR (C142): nomes Type/Style (lib: Kind/Appearance), Loading como valor de State, Trailing Icon aninhado.
+   Loading (09/10): variante Is Loading do set na branch pIX8i38mYWwax98yIjPmJw (12 variantes, State=Enabled), annotations e o handoff da
+   task CDS-1603 (épico CDS-1600). Ainda não publicado na lib, como o Code Input OTP e o Credit Card Input. */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   CDS.docs["main-button"] = {
@@ -13,6 +15,8 @@
     ] },
     tabs: [
       { id: "uso", title: "Uso", blocks: [
+        { alert: { appearance: "informative", label: "Loading em desenvolvimento · CDS-1603", text: "O estado Loading (variante Is Loading) está na branch do Figma e ainda não existe no castanha-react. O resto do Main Button está publicado." } },
+        { p: "[Abrir a branch no Figma](https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/pIX8i38mYWwax98yIjPmJw/-CastanhaDS--Components?node-id=4464-427) · Jira CDS-1603 · épico CDS-1600." },
         { h2: "Sobre" },
         { p: "Main Button é um componente interativo usado para executar a ações mais importantes em uma tela, formulário ou fluxo." },
         { h3: "Nomes alternativos comuns" },
@@ -42,6 +46,12 @@
           { title: "Main Button: rótulo textual", attrs: { label: "Editar", "show-lead-icon": true, "lead-icon": "edit-line" } },
           { title: "Icon Button: ação pontual", attrs: { _tag: "cds-icon-button", icon: "edit-line", label: "Editar", kind: "ghost", appearance: "neutral" } }
         ] },
+        { h2: "Loading" },
+        { p: "Enquanto uma ação assíncrona acontece, o label dá lugar a um Spinner centralizado e o botão fica indisponível. O Loading é um controle próprio do botão (`Is Loading`), separado dos estados de interação." },
+        { h3: "Utilize para:" },
+        { ul: ["Ações que esperam uma resposta do sistema depois do clique, como enviar, salvar ou pagar.", "Evitar o segundo clique enquanto a primeira ação não termina."] },
+        { h3: "Não utilize para:" },
+        { ul: ["Carregar o conteúdo da tela — use o Skeleton ou o Spinner fora do botão.", "Ações que terminam na hora, sem espera.", "O Icon Button, que não tem Loading (decisão de acessibilidade: o alvo é pequeno)."] },
         { note: "Suporte: fale com o time no canal #castanha-suporte no Slack." }
       ] },
 
@@ -68,9 +78,43 @@
           { name: "Text Label", type: "Text", default: "Label" },
           { name: "Show Lead Icon", type: "Boolean", default: "true" },
           { name: "Lead Icon", type: "Swap component", default: "placeholder-line" },
-          { name: "Show Trailing Icon", type: "Boolean", default: "true" }
+          { name: "Show Trailing Icon", type: "Boolean", default: "true" },
+          { name: "Is Loading", type: "Variant", default: "False", values: ["False", "True"] }
         ] },
-        { note: "Props e padrões lidos do set Main Button da lib estável. No zeroheight, `Kind` e `Appearance` aparecem como Type e Style, e há um estado Loading que a lib não tem (CONFERIR C142). Todas as props podem ser testadas na tab Playground." }
+        { note: "Props e padrões lidos do set Main Button na branch (60 variantes: 48 sem Loading e 12 com `Is Loading=True`, todas em `State=Enabled`). No zeroheight, `Kind` e `Appearance` aparecem como Type e Style, e o Loading aparece como um valor de State (CONFERIR C142). No código: `loading` e `loading-label` (padrão \"Carregando\"). Todas as props podem ser testadas na tab Playground." },
+        { h2: "Loading" },
+        { display: { attrs: [{ label: "Salvar alterações" }, { label: "Salvar alterações", loading: true }] } },
+        { p: "O Loading usa o componente Spinner (4333:3181) no centro do botão. O tamanho e a cor do Spinner vêm do botão:" },
+        { table: { head: ["Botão", "Spinner"], rows: [
+          ["Size Medium", "Size Medium (24)"],
+          ["Size Small", "Size Small (16)"],
+          ["Default · Accent", "Appearance Inversed"],
+          ["Default · Neutral", "Appearance Neutral"],
+          ["Default · Inversed", "Appearance Neutral"],
+          ["Ghost · Accent", "Appearance Accent"],
+          ["Ghost · Neutral", "Appearance Neutral"],
+          ["Ghost · Inversed", "Appearance Inversed"]
+        ], wrap: true } },
+        { h3: "Comportamento" },
+        { ul: [
+          "O Spinner substitui o label e os ícones, no centro. A altura (48 ou 40) e o padding horizontal (20) não mudam.",
+          "O botão mantém a largura de antes. Em largura de container (fill), ela vem do container. Em largura de conteúdo (hug), o código deixa o conteúdo invisível (`visibility: hidden`) e põe o Spinner por cima, para o botão não encolher.",
+          "Clique, hover e pressed ficam desligados enquanto `loading` estiver ligado. O foco continua no botão.",
+          "Atraso opcional antes de mostrar o Spinner, para respostas rápidas não piscarem (referências: Spectrum `pending`, Ant `delay`).",
+          "A animação é a do próprio Spinner."
+        ] },
+        { h2: "Entrega para dev · CDS-1603" },
+        { ul: [
+          "Prop `loading?: boolean` (padrão `false`) no `Button` do castanha-react.",
+          "No loading: label oculto e `Spinner` centralizado, com `size` e `appearance` pela tabela acima.",
+          "Largura preservada em uso hug (label com `visibility: hidden` e Spinner em overlay).",
+          "`aria-busy=\"true\"` e nome acessível por `aria-label` (padrão \"Carregando\").",
+          "Interação desligada no loading, mantendo o foco.",
+          "Atraso antes do Spinner (opcional).",
+          "Fora da entrega: Loading no Icon Button.",
+          "Stories: Loading em cada appearance, Loading Small, Loading Ghost e Loading em container fill. Tipagem sem `any` e testes com cobertura de 80% ou mais.",
+          "No código, `Inversed` do Figma é `inverted` (convenção do castanha-react)."
+        ] }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -89,7 +133,18 @@
         { h2: "Size" },
         { specimens: { min: "var(--common-sizes-160)", items: [
           { label: "Medium · 48", attrs: {} }, { label: "Small · 40", attrs: { size: "small" } }
-        ] } }
+        ] } },
+        { h2: "Is Loading" },
+        { specimens: { title: "Default", min: "var(--common-sizes-160)", items: [
+          { label: "Accent", attrs: { loading: true } }, { label: "Neutral", attrs: { appearance: "neutral", loading: true } }, { label: "Inversed", attrs: { _tag: "div", class: "pg-doc-on-accent", _children: [{ _tag: "cds-main-button", label: "Label", appearance: "inversed", loading: true, "show-lead-icon": false, "show-trailing-icon": false }] } }
+        ] } },
+        { specimens: { title: "Ghost", min: "var(--common-sizes-160)", items: [
+          { label: "Accent", attrs: { kind: "ghost", loading: true } }, { label: "Neutral", attrs: { kind: "ghost", appearance: "neutral", loading: true } }, { label: "Inversed", attrs: { _tag: "div", class: "pg-doc-on-accent", _children: [{ _tag: "cds-main-button", label: "Label", kind: "ghost", appearance: "inversed", loading: true, "show-lead-icon": false, "show-trailing-icon": false }] } }
+        ] } },
+        { specimens: { title: "Small", min: "var(--common-sizes-160)", items: [
+          { label: "Default · Accent", attrs: { size: "small", loading: true } }, { label: "Ghost · Accent", attrs: { size: "small", kind: "ghost", loading: true } }
+        ] } },
+        { note: "O Loading existe em `State=Enabled`. O botão mantém a largura que tinha com o label." }
       ] },
 
       { id: "acessibilidade", title: "Acessibilidade", blocks: [
@@ -110,7 +165,22 @@
           "Ghost · Accent: texto Accent sobre `Surface/default` — 4,54:1, AA.",
           "Estado desabilitado: isento do critério 1.4.3."
         ] },
-        { note: "Contrastes medidos no tema light do playground. O zeroheight ainda não tem seção de Acessibilidade para o Main button." }
+        { h2: "Loading" },
+        { ul: [
+          "Com o label invisível, o nome acessível vem do `aria-label` (padrão \"Carregando\", ajustável em `loading-label`). Conteúdo com `visibility: hidden` sai da árvore de acessibilidade e não serve de nome (WCAG 4.1.2).",
+          "`aria-busy=\"true\"` enquanto carrega.",
+          "O botão fica com `aria-disabled=\"true\"` em vez de `disabled`: continua na tabulação e com o foco, mas não dispara clique nem envia formulário.",
+          "O Spinner dentro do botão fica com `aria-hidden`, para o leitor de tela não anunciar o nome duas vezes.",
+          "Área de toque: o botão inteiro (48 ou 40), acima do mínimo de 24 (WCAG 2.5.8)."
+        ] },
+        { h3: "Contraste do Spinner (WCAG 1.4.11, mínimo de 3:1)" },
+        { table: { head: ["Botão", "Superfície", "Indicador"], rows: [
+          ["Accent", "Fundo accent", "4,54:1 · AA"],
+          ["Neutral", "Surface/01", "7,42:1 · AA"],
+          ["Inversed", "Surface/default", "8,24:1 · AA"]
+        ], wrap: true } },
+        { p: "O anel de fundo (track) é decorativo e fica de fora do critério. No Ghost, o contraste depende da superfície onde o botão está." },
+        { note: "Contrastes medidos no tema light do playground e, no Loading, os do handoff do CDS-1603. O zeroheight ainda não tem seção de Acessibilidade para o Main button." }
       ] },
 
       { id: "diretrizes", title: "Diretrizes", blocks: [
@@ -140,7 +210,9 @@
           { kind: "do", attrs: { label: "Baixar", "show-lead-icon": true, "lead-icon": "download-line" }, text: "Inclua ícones quando agregarem valor e sem prejudicar a legibilidade." },
           { kind: "dont", attrs: { label: "Baixar", "show-lead-icon": true, "lead-icon": "settings-line" }, text: "Não insira ícones que não comuniquem claramente a ação." },
           { kind: "do", attrs: { label: "Enviar" }, text: "Use o Main Button para ações (ex: enviar, excluir, confirmar)." },
-          { kind: "dont", attrs: { label: "Ir para Relatórios", kind: "ghost" }, text: "Não use o Main Button como elemento de navegação entre páginas — use o componente Link nesses casos." }
+          { kind: "dont", attrs: { label: "Ir para Relatórios", kind: "ghost" }, text: "Não use o Main Button como elemento de navegação entre páginas — use o componente Link nesses casos." },
+          { kind: "do", attrs: { label: "Salvar alterações", loading: true }, text: "Mostre o Loading no próprio botão que disparou a ação, com o Spinner no lugar do label." },
+          { kind: "dont", attrs: { label: "Carregando…" }, text: "Não troque o label por um texto de espera: o botão continua clicável e não mostra que está ocupado." }
         ] }
       ] },
 
@@ -154,6 +226,9 @@
           { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
           { title: "→ Disabled", rows: [["Gatilho", "Ao desabilitar"], ["Motion Style", "`Disabled/01`"]] }
         ] },
+        { h3: "Loading" },
+        { display: { attrs: { label: "Salvar alterações", loading: true } } },
+        { p: "O Spinner gira de forma contínua, com a animação do próprio componente Spinner. A troca para o Loading é imediata. Um atraso antes de mostrar o Spinner é opcional, para respostas rápidas." },
         { p: "Reduced motion: honrar `prefers-reduced-motion: reduce` (as transições são desligadas no código)." }
       ] },
       { id: "conteudo", title: "Conteúdo", blocks: [

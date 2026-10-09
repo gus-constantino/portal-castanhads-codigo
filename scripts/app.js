@@ -740,7 +740,8 @@
                 unpublished: def.block
                   ? ["neutral", "Não publicado · building block", "Building block (nome com ponto): fica fora da publicação de propósito e é usado dentro de outros componentes."]
                   : ["negative", "Não publicado no Figma", "Ainda não publicado na lib [CastanhaDS] Components."],
-                branch: ["warning", "Não publicado · em branch", "Existe numa branch do Figma e ainda não está na main nem publicado na lib."] };
+                branch: ["warning", "Não publicado · em branch", "Existe numa branch do Figma e ainda não está na main nem publicado na lib."],
+                "branch-update": ["warning", "Melhoria em branch", "A versão da main está publicada na lib [CastanhaDS] Components, mas esta página já documenta uma melhoria que está numa branch do Figma e ainda não foi publicada" + ((FS.notes || {})[def.id] ? ": " + FS.notes[def.id] : "") + "."] };
     var pub = def.legacy ? ["neutral", "Legado", def.legacy] // fora de uso: motivo no Tooltip (D225)
       : def.soon ? ["neutral", "Em breve", def.soon] // recurso ainda não ofertado (texto do Tooltip em def.soon)
       : def.composition ? ["neutral", "Composição do playground", "Não existe na lib do Figma: montada aqui com tokens do DS até o DS ter o componente."] : st && PUB[st];

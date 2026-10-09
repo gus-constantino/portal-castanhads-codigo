@@ -312,6 +312,7 @@
       ["changed", "Publicado com alterações pendentes", "Publicado, mas o arquivo tem alterações que ainda não foram publicadas.", "informative"],
       ["unpublished-comp", "Não publicado", "Componente que ainda não está publicado na lib.", "negative"],
       ["branch", "Não publicado · em branch", "Existe numa branch do Figma e ainda não está na main.", "warning"],
+      ["branch-update", "Melhoria em branch", "A main está publicada, mas a página documenta uma melhoria que ainda está numa branch.", "warning"],
       ["unpublished-block", "Não publicado · building block", "Building blocks (nome com ponto) ficam fora da publicação de propósito.", "neutral"]];
     var blocks = {}; (CDS.playgrounds || []).forEach(function(c){ if (c.block) blocks[c.name] = true; });
     var un = pubN.unpublished || []; pubN["unpublished-comp"] = un.filter(function(n){ return !blocks[n]; }); pubN["unpublished-block"] = un.filter(function(n){ return blocks[n]; });

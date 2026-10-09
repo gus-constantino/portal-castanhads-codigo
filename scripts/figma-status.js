@@ -2,6 +2,8 @@
    Lido via MCP do Figma com getPublishStatusAsync no nó do link de cada componente (a página não acessa a API).
    current = publicado sem alterações · changed = publicado com alterações não publicadas · unpublished = não publicado
    branch = o link aponta para uma branch e o componente não existe na main (Accordion, Accordion Item, Code Input OTP, Credit Card Input).
+   branch-update = a versão da main está publicada, mas a página já documenta uma melhoria que está numa branch e ainda não foi
+     publicada (o que muda fica em `notes`). Não mostra "Publicado no Figma": a main e a branch estão diferentes (pedido do Gustavo, 09/10).
    Para atualizar: pedir uma nova leitura e trocar `checked`. */
 window.CDS = window.CDS || {};
 CDS.figmaStatus = {
@@ -14,13 +16,20 @@ CDS.figmaStatus = {
       "date-navigation file-lead-item footer header icons-block lead-item list-lead-item nav-control-item nps-value-item select-number tab-item " +
       "table-cell table-head table-toolbar text-content trailing-item");
     add("branch", "accordion accordion-item code-input-otp credit-card-input");
+    add("branch-update", "main-button input-chips filter-chips");
     add("current", "alert async-creatable-select-input async-select-input avatar backdrop badge balance-card banner bottom-sheet breadcrumb caju-brand caju-card card carousel " +
       "checkbox-select-input checkbox chips-group confirmation-message content-list-item content-list csat-score currency date-input date-picker divider drawer " +
-      "drop-button dropzone filter-button filter-chip fixed-bar fixed-tab icon image input-chip link main-button modal-date-picker modal multi-select-input nav-control " +
+      "drop-button dropzone filter-button fixed-bar fixed-tab icon image link modal-date-picker modal multi-select-input nav-control " +
       "nps-score pagination password-input popover progress-line progress-tracker progress-tracker-item quantity-input radio-button " +
       "radio-select-input scrollable-tab search-input selection-list-item selection-list shaped-icon skeleton slider spinner status-dot switch system-banner tab-view table tag " +
       "text-area text-input toast tooltip topic upload-item upload-list viewport-restriction selection-group");
     // Sponsor Header e Side Menu (e os building blocks) são da lib Sponsor Templates, fora desta leitura
     return s;
-  })()
+  })(),
+  // O que está na branch (branch-update): aparece no Tooltip da Tag
+  notes: {
+    "main-button": "o estado Loading (Is Loading), CDS-1603, na branch pIX8i38mYWwax98yIjPmJw",
+    "input-chips": "o Size Small (32), CDS-1599, na branch epatuUj3qrA77Ecbbhy2vw",
+    "filter-chips": "o Size Small (32), CDS-1599, na branch epatuUj3qrA77Ecbbhy2vw"
+  }
 };

@@ -6592,6 +6592,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=12365-2744",
    "figmaNode": "12365-2744",
    "zeroheight": null,
+   "figmaStatus": "branch-update",
    "description": "Chip que liga e desliga um filtro: selecionado, troca o ícone pelo check e inverte as cores. Tem dois tamanhos: Medium (40) e Small (32).",
    "tabs": [
     {
@@ -7613,6 +7614,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=12365-2728",
    "figmaNode": "12365-2728",
    "zeroheight": null,
+   "figmaStatus": "branch-update",
    "description": "Chip que mostra um valor escolhido e pode ser removido com um clique. Tem dois tamanhos: Medium (40) e Small (32).",
    "tabs": [
     {
@@ -8047,7 +8049,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4464-427",
    "figmaNode": "4464-427",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "branch-update",
    "description": "Main Button é um componente interativo usado para executar a ações mais importantes em uma tela, formulário ou fluxo.",
    "tabs": [
     {

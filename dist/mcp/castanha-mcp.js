@@ -769,7 +769,7 @@
           return [x, s]; }).filter((p) => p[1] > 0).sort((a, b) => b[1] - a[1]).slice(0, 5).map((p) => p[0].id);
       }
       const KIND = { component: "Componente", "building-block": "Building block", resource: "Recurso", home: "Início", composition: "Composição" };
-      const STATUS = { current: "publicado na lib, sem pendência", changed: "publicado, com alterações ainda não publicadas", unpublished: "não publicado na lib", branch: "só numa branch do Figma" };
+      const STATUS = { current: "publicado na lib, sem pendência", changed: "publicado, com alterações ainda não publicadas", unpublished: "não publicado na lib", branch: "só numa branch do Figma", "branch-update": "main publicada, com uma melhoria documentada que ainda está numa branch do Figma" };
       const pageUrl = (c, x) => c.site + "#/" + x.id;
       
       // ---------- formatação ----------

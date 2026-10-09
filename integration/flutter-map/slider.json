@@ -1,0 +1,167 @@
+{
+  "element": "cds-slider",
+  "defaults": {
+    "kind": "single",
+    "min": "0",
+    "max": "100",
+    "step": "10",
+    "value": "0",
+    "start": "0",
+    "end": "100",
+    "show-stops": "true",
+    "show-value-indicator": "true",
+    "label": "Valor",
+    "min-label": "Mínimo",
+    "max-label": "Máximo"
+  },
+  "curated": true,
+  "widget": [
+    {
+      "class": "CastanhaSlider",
+      "args": [
+        {
+          "param": "onRangeChanged",
+          "code": "(_) {}"
+        },
+        {
+          "param": "rangeValue",
+          "code": "const CastanhaSliderRange({@start}, {@end})"
+        },
+        {
+          "param": "min",
+          "attr": "min",
+          "num": true
+        },
+        {
+          "param": "max",
+          "attr": "max",
+          "num": true
+        },
+        {
+          "param": "step",
+          "attr": "step",
+          "num": true
+        },
+        {
+          "param": "minLabel",
+          "attr": "min-label"
+        },
+        {
+          "param": "maxLabel",
+          "attr": "max-label"
+        },
+        {
+          "param": "hideStops",
+          "attr": "show-stops",
+          "bool": "not"
+        },
+        {
+          "param": "hideValueIndicator",
+          "attr": "show-value-indicator",
+          "bool": "not"
+        },
+        {
+          "param": "disabled",
+          "attr": "disabled",
+          "bool": true
+        }
+      ],
+      "ctor": "range",
+      "if": {
+        "kind": "range"
+      }
+    },
+    {
+      "class": "CastanhaSlider",
+      "args": [
+        {
+          "param": "onChanged",
+          "code": "(_) {}"
+        },
+        {
+          "param": "value",
+          "attr": "value",
+          "num": true
+        },
+        {
+          "param": "min",
+          "attr": "min",
+          "num": true
+        },
+        {
+          "param": "max",
+          "attr": "max",
+          "num": true
+        },
+        {
+          "param": "step",
+          "attr": "step",
+          "num": true
+        },
+        {
+          "param": "hideStops",
+          "attr": "show-stops",
+          "bool": "not"
+        },
+        {
+          "param": "hideValueIndicator",
+          "attr": "show-value-indicator",
+          "bool": "not"
+        },
+        {
+          "param": "disabled",
+          "attr": "disabled",
+          "bool": true
+        },
+        {
+          "param": "semanticsLabel",
+          "attr": "label"
+        }
+      ]
+    }
+  ],
+  "figma": [
+    [
+      "Kind",
+      "kind",
+      "CastanhaSlider · CastanhaSlider.range",
+      "Single é o construtor padrão; Range é `CastanhaSlider.range`."
+    ],
+    [
+      "Show Stops",
+      "show-stops",
+      "hideStops",
+      "Invertido."
+    ],
+    [
+      "Show Value Indicator",
+      "show-value-indicator",
+      "hideValueIndicator",
+      "Invertido."
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      ""
+    ],
+    [
+      "Value",
+      "value · start/end",
+      "value · rangeValue",
+      "Número no Single; `CastanhaSliderRange(mínimo, máximo)` no Range. Controlado: atualize no `onChanged`."
+    ],
+    [
+      "—",
+      "min · max · step",
+      "min · max · step",
+      "O padrão do Flutter para `step` é `1`; o do playground, `10`."
+    ],
+    [
+      "—",
+      "min-label · max-label",
+      "minLabel · maxLabel",
+      "Só no Range."
+    ]
+  ]
+}

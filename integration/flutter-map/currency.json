@@ -1,0 +1,69 @@
+{
+  "element": "cds-currency",
+  "defaults": {
+    "value": "100,00",
+    "symbol": "R$",
+    "appearance": "neutral",
+    "size": "small",
+    "show-value": "true"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaCurrency",
+    "args": [
+      {
+        "param": "value",
+        "attr": "value",
+        "br": true
+      },
+      {
+        "param": "appearance",
+        "attr": "appearance",
+        "map": {
+          "inversed": "inverted"
+        }
+      },
+      {
+        "param": "size",
+        "attr": "size"
+      },
+      {
+        "param": "showValue",
+        "attr": "show-value",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Appearance",
+      "appearance",
+      "appearance",
+      "Inversed vira `inverted`."
+    ],
+    [
+      "Size",
+      "size",
+      "size",
+      "Padrão `small` nos dois lados."
+    ],
+    [
+      "Show Value",
+      "show-value",
+      "showValue",
+      "`false`: o valor vira pontos."
+    ],
+    [
+      "—",
+      "value",
+      "value",
+      "Número (`double`): o widget formata. `\"100,00\"` vira `100.0`."
+    ],
+    [
+      "—",
+      "symbol",
+      "—",
+      "O símbolo vem do widget."
+    ]
+  ]
+}

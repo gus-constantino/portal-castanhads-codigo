@@ -1,0 +1,138 @@
+{
+  "element": "cds-text-input",
+  "defaults": {
+    "appearance": "neutral",
+    "label": "Label",
+    "supporting": "Supporting Message",
+    "error": "Error Message",
+    "show-label": "true",
+    "show-required": "true",
+    "show-lead-icon": "true",
+    "show-trailing-item": "true",
+    "show-supporting-content": "true",
+    "show-character-counter": "true",
+    "lead-icon": "placeholder-line",
+    "maxlength": "100"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaTextInput",
+    "args": [
+      {
+        "param": "label",
+        "attr": "label"
+      },
+      {
+        "param": "leadIcon",
+        "attr": "lead-icon",
+        "icon": true,
+        "if": {
+          "show-lead-icon": "!false"
+        }
+      },
+      {
+        "param": "mask",
+        "attr": "mask"
+      },
+      {
+        "param": "placeholder",
+        "attr": "placeholder"
+      },
+      {
+        "param": "required",
+        "attr": "show-required",
+        "bool": true
+      },
+      {
+        "param": "error",
+        "attr": "appearance",
+        "eq": "warning"
+      },
+      {
+        "param": "errorMessage",
+        "attr": "error",
+        "if": {
+          "appearance": "warning",
+          "show-supporting-content": "!false"
+        }
+      },
+      {
+        "param": "supportingMessage",
+        "attr": "supporting",
+        "if": {
+          "appearance": "!warning",
+          "show-supporting-content": "!false"
+        }
+      },
+      {
+        "param": "characterCount",
+        "attr": "maxlength",
+        "num": true,
+        "if": {
+          "show-character-counter": "!false"
+        }
+      },
+      {
+        "param": "disabled",
+        "attr": "disabled",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Appearance",
+      "appearance",
+      "error",
+      "Warning vira `error: true`."
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      ""
+    ],
+    [
+      "Show Label",
+      "show-label",
+      "label",
+      "Desligado: omita `label`."
+    ],
+    [
+      "Show Required",
+      "show-required",
+      "required",
+      ""
+    ],
+    [
+      "Show Supporting Content",
+      "show-supporting-content",
+      "supportingMessage · errorMessage",
+      "Duas mensagens separadas: `supportingMessage` e `errorMessage` (com `error`)."
+    ],
+    [
+      "Show Character Counter",
+      "show-character-counter",
+      "characterCount",
+      "É o limite (número), não um boolean."
+    ],
+    [
+      "—",
+      "placeholder",
+      "placeholder",
+      "Padrão `'Placeholder'` no Flutter."
+    ],
+    [
+      "Show Lead Icon",
+      "show-lead-icon · lead-icon",
+      "leadIcon",
+      ""
+    ],
+    [
+      "Mask",
+      "mask",
+      "mask",
+      "`cpf`, `cnpj`, `cep`, `phone`, `cellphone`, `currency`, `date`…"
+    ]
+  ]
+}

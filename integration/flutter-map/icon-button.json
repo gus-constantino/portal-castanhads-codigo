@@ -1,0 +1,106 @@
+{
+  "element": "cds-icon-button",
+  "defaults": {
+    "icon": "placeholder-line",
+    "kind": "default",
+    "appearance": "accent",
+    "size": "medium",
+    "show-notification": "false",
+    "notification": "0"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaIconButton",
+    "args": [
+      {
+        "param": "icon",
+        "attr": "icon",
+        "icon": true
+      },
+      {
+        "param": "onPressed",
+        "code": "() {}"
+      },
+      {
+        "param": "kind",
+        "attr": "kind"
+      },
+      {
+        "param": "appearance",
+        "attr": "appearance",
+        "map": {
+          "inversed": "inverted"
+        }
+      },
+      {
+        "param": "size",
+        "attr": "size"
+      },
+      {
+        "param": "disabled",
+        "attr": "disabled",
+        "bool": true
+      },
+      {
+        "param": "showNotification",
+        "attr": "show-notification",
+        "bool": true
+      },
+      {
+        "param": "notificationLabel",
+        "attr": "notification",
+        "if": {
+          "show-notification": "true"
+        }
+      },
+      {
+        "param": "semanticsLabel",
+        "attr": "label"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Icon",
+      "icon",
+      "icon",
+      ""
+    ],
+    [
+      "Kind",
+      "kind",
+      "kind",
+      ""
+    ],
+    [
+      "Appearance",
+      "appearance",
+      "appearance",
+      "Inversed vira `inverted`."
+    ],
+    [
+      "Size",
+      "size",
+      "size",
+      ""
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira parâmetro."
+    ],
+    [
+      "Show Notification",
+      "show-notification · notification",
+      "showNotification · notificationLabel",
+      "O Badge vem do próprio botão."
+    ],
+    [
+      "—",
+      "label",
+      "semanticsLabel",
+      "Botão só com ícone: o nome acessível é obrigatório."
+    ]
+  ]
+}

@@ -1,0 +1,11 @@
+{
+ "source": {
+  "ref": "origin/staging",
+  "commit": "38504ab7"
+ },
+ "snippets": 81,
+ "components": 45,
+ "errors": 0,
+ "warnings": 0,
+ "issues": []
+}

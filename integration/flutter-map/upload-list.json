@@ -1,0 +1,110 @@
+{
+  "element": "cds-upload-list",
+  "defaults": {
+    "label": "Arquivos"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaUploadList",
+    "args": [
+      {
+        "param": "items",
+        "each": "cds-upload-item",
+        "widget": {
+          "class": "CastanhaUploadItem",
+          "args": [
+            {
+              "param": "fileName",
+              "attr": "text-title"
+            },
+            {
+              "param": "extension",
+              "attr": "file-extension"
+            },
+            {
+              "param": "status",
+              "attr": "status"
+            },
+            {
+              "param": "progress",
+              "attr": "percent",
+              "num": true,
+              "scale": 0.01,
+              "if": {
+                "status": "uploading"
+              }
+            },
+            {
+              "param": "message",
+              "attr": "success-message",
+              "if": {
+                "status": "success"
+              }
+            },
+            {
+              "param": "message",
+              "attr": "error-message",
+              "if": {
+                "status": "error"
+              }
+            },
+            {
+              "param": "message",
+              "attr": "description",
+              "if": {
+                "status": "uploaded"
+              }
+            },
+            {
+              "param": "onDownload",
+              "code": "() {}",
+              "if": {
+                "status": "!uploading",
+                "show-secondary-action": "!false"
+              }
+            },
+            {
+              "param": "onRetry",
+              "code": "() {}",
+              "if": {
+                "status": "error"
+              }
+            },
+            {
+              "param": "onDelete",
+              "code": "() {}",
+              "if": {
+                "show-primary-action": "!false"
+              }
+            }
+          ],
+          "defaults": {
+            "status": "uploading",
+            "text-title": "File name",
+            "file-extension": ".jpg",
+            "success-message": "Enviado com sucesso",
+            "error-message": "Falha ao enviar",
+            "description": "Enviado em 10/05/2025",
+            "percent": "60",
+            "show-primary-action": "true",
+            "show-secondary-action": "true"
+          }
+        }
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Upload itens",
+      "(filhos)",
+      "items",
+      "Um `CastanhaUploadItem` por arquivo, na ordem recebida."
+    ],
+    [
+      "—",
+      "label",
+      "semanticsLabel",
+      "Nome da lista."
+    ]
+  ]
+}

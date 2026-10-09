@@ -1,0 +1,81 @@
+{
+  "element": "cds-topic",
+  "defaults": {
+    "orientation": "horizontal",
+    "title": "Title",
+    "description": "Lorem Ipsum is simply dummy of the printing and typesetting industry lorem Ipsum has been.",
+    "show-lead-item": "true",
+    "show-title": "true",
+    "lead-kind": "shaped-icon",
+    "lead-icon": "placeholder-line"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaTopic",
+    "args": [
+      {
+        "param": "description",
+        "attr": "description"
+      },
+      {
+        "param": "title",
+        "attr": "title",
+        "if": {
+          "show-title": "!false"
+        }
+      },
+      {
+        "param": "orientation",
+        "attr": "orientation"
+      },
+      {
+        "param": "leadItem",
+        "code": "CastanhaTopicLeadItem.icon(CastanhaShapedIcon(icon: CastanhaIcons.{c:lead-icon}))",
+        "if": {
+          "show-lead-item": "!false",
+          "lead-kind": "!image"
+        }
+      },
+      {
+        "param": "leadItem",
+        "code": "CastanhaTopicLeadItem.image(CastanhaImage.asset({q:lead-src}))",
+        "if": {
+          "show-lead-item": "!false",
+          "lead-kind": "image"
+        }
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Orientation",
+      "orientation",
+      "orientation",
+      ""
+    ],
+    [
+      "Show Lead item",
+      "show-lead-item · lead-kind",
+      "leadItem",
+      "`CastanhaTopicLeadItem.icon(CastanhaShapedIcon(…))` ou `.image(CastanhaImage…)`."
+    ],
+    [
+      "Show Title",
+      "show-title",
+      "title",
+      "Desligado: omita `title`."
+    ],
+    [
+      "Text Title",
+      "title",
+      "title",
+      ""
+    ],
+    [
+      "Text Description",
+      "description",
+      "description",
+      "Obrigatória."
+    ]
+  ]
+}

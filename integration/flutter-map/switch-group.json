@@ -1,0 +1,65 @@
+{
+  "element": "cds-switch-group",
+  "defaults": {},
+  "curated": true,
+  "widget": {
+    "class": "CastanhaSwitchGroup",
+    "args": [
+      {
+        "param": "items",
+        "each": "cds-switch",
+        "widget": {
+          "class": "CastanhaSwitchGroupItem",
+          "args": [
+            {
+              "param": "label",
+              "attr": "label"
+            },
+            {
+              "param": "value",
+              "tpl": "opcao-{i}"
+            },
+            {
+              "param": "disabled",
+              "attr": "disabled",
+              "bool": true
+            }
+          ]
+        }
+      },
+      {
+        "param": "values",
+        "pick": {
+          "each": "cds-switch",
+          "attr": "status",
+          "eq": "selected",
+          "tpl": "opcao-{i}",
+          "all": true
+        }
+      },
+      {
+        "param": "onChanged",
+        "code": "(_) {}"
+      },
+      {
+        "param": "disabled",
+        "attr": "disabled",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Slot",
+      "(filhos)",
+      "items",
+      "Um `CastanhaSwitchGroupItem` por opção, com `label` e `value`."
+    ],
+    [
+      "—",
+      "status dos itens",
+      "values",
+      "`Set` com os `value` ligados."
+    ]
+  ]
+}

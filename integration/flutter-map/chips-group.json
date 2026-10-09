@@ -1,0 +1,101 @@
+{
+  "element": "cds-chips-group",
+  "defaults": {
+    "role-kind": "single",
+    "label": "Filtros"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaChipGroup",
+    "args": [
+      {
+        "param": "children",
+        "each": "cds-input-chip, cds-filter-chip",
+        "widgets": {
+          "cds-input-chip": {
+            "class": "CastanhaChipInput",
+            "args": [
+              {
+                "param": "label",
+                "attr": "label"
+              },
+              {
+                "param": "onClose",
+                "code": "() {}"
+              },
+              {
+                "param": "leadIcon",
+                "attr": "icon",
+                "icon": true,
+                "if": {
+                  "show-lead-icon": "true"
+                }
+              },
+              {
+                "param": "disabled",
+                "attr": "disabled",
+                "bool": true
+              }
+            ],
+            "defaults": {
+              "show-lead-icon": "false"
+            }
+          },
+          "cds-filter-chip": {
+            "class": "CastanhaChipFilter",
+            "args": [
+              {
+                "param": "label",
+                "attr": "label"
+              },
+              {
+                "param": "onSelect",
+                "code": "(_) {}"
+              },
+              {
+                "param": "selected",
+                "attr": "selected",
+                "bool": true
+              },
+              {
+                "param": "leadIcon",
+                "attr": "icon",
+                "icon": true,
+                "if": {
+                  "show-lead-icon": "true"
+                }
+              },
+              {
+                "param": "disabled",
+                "attr": "disabled",
+                "bool": true
+              }
+            ],
+            "defaults": {
+              "show-lead-icon": "false"
+            }
+          }
+        }
+      },
+      {
+        "param": "wrap",
+        "attr": "role-kind",
+        "eq": "multiple"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Role",
+      "role-kind",
+      "wrap",
+      "Multiple Rows = `wrap: true`; Single Rows (rolagem horizontal) é o padrão."
+    ],
+    [
+      "Slot",
+      "(filhos)",
+      "children",
+      "Só `CastanhaChipInput` ou `CastanhaChipFilter`."
+    ]
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "element": "cds-selection-list-item",
+  "defaults": {
+    "kind": "default",
+    "label": "Label",
+    "description": "Description",
+    "show-description": "true",
+    "show-lead-item": "true",
+    "show-divider": "true",
+    "lead-icon": "placeholder-line",
+    "trailing-item": "checkbox",
+    "tag-label": "Tag",
+    "trailing-icon": "placeholder-line"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaSelectionListItem",
+    "args": [
+      {
+        "param": "label",
+        "attr": "label"
+      },
+      {
+        "param": "onChanged",
+        "code": "(_) {}"
+      },
+      {
+        "param": "description",
+        "attr": "description",
+        "if": {
+          "show-description": "!false"
+        }
+      },
+      {
+        "param": "kind",
+        "attr": "kind"
+      },
+      {
+        "param": "leadItem",
+        "code": "CastanhaSelectionListLeadItem.icon(CastanhaIcon(icon: CastanhaIcons.{c:lead-icon}))",
+        "if": {
+          "show-lead-item": "!false"
+        }
+      },
+      {
+        "param": "trailingItem",
+        "code": "const CastanhaSelectionListTrailingItem.checkbox()",
+        "if": {
+          "trailing-item": "checkbox"
+        }
+      },
+      {
+        "param": "trailingItem",
+        "code": "const CastanhaSelectionListTrailingItem.checkbox()",
+        "if": {
+          "trailing-item": "chechbox"
+        }
+      },
+      {
+        "param": "trailingItem",
+        "code": "const CastanhaSelectionListTrailingItem.radioButton()",
+        "if": {
+          "trailing-item": "radio-button"
+        }
+      },
+      {
+        "param": "trailingItem",
+        "code": "const CastanhaSelectionListTrailingItem.switch_()",
+        "if": {
+          "trailing-item": "switch"
+        }
+      },
+      {
+        "param": "trailingItem",
+        "code": "CastanhaSelectionListTrailingItem.icon(CastanhaIcon(icon: CastanhaIcons.{c:trailing-icon}))",
+        "if": {
+          "trailing-item": "icon"
+        }
+      },
+      {
+        "param": "trailingItem",
+        "code": "CastanhaSelectionListTrailingItem.tag(CastanhaTag(label: {q:tag-label}))",
+        "if": {
+          "trailing-item": "tag"
+        }
+      },
+      {
+        "param": "selected",
+        "attr": "is-active",
+        "bool": true
+      },
+      {
+        "param": "hideDivider",
+        "attr": "show-divider",
+        "bool": "not"
+      },
+      {
+        "param": "disabled",
+        "attr": "disabled",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Kind",
+      "kind",
+      "kind",
+      ""
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      ""
+    ],
+    [
+      "Is Active",
+      "is-active",
+      "selected",
+      "Fora da lista, controle por `selected` + `onChanged`."
+    ],
+    [
+      "Trailing Item",
+      "trailing-item",
+      "trailingItem",
+      "`.checkbox()`, `.radioButton()`, `.switch_()`, `.icon(…)` ou `.tag(…)`. None: omita."
+    ],
+    [
+      "Show Lead Item",
+      "show-lead-item · lead-icon",
+      "leadItem",
+      "`CastanhaSelectionListLeadItem.icon(CastanhaIcon(…))`; também `.avatar` e `.image`."
+    ],
+    [
+      "Show Divider",
+      "show-divider",
+      "hideDivider",
+      "Invertido."
+    ]
+  ]
+}

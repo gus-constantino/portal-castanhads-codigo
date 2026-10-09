@@ -1,0 +1,40 @@
+{
+  "element": "cds-skeleton",
+  "defaults": {
+    "kind": "round"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaSkeleton",
+    "args": [
+      {
+        "param": "kind",
+        "attr": "kind"
+      },
+      {
+        "param": "width",
+        "attr": "width",
+        "num": true
+      },
+      {
+        "param": "height",
+        "attr": "height",
+        "num": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Kind",
+      "kind",
+      "kind",
+      "`round` ou `square`."
+    ],
+    [
+      "—",
+      "width · height",
+      "width · height",
+      "Tamanho do bloco (sem valor, ocupa o espaço do pai)."
+    ]
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "element": "cds-checkbox-group",
+  "defaults": {
+    "label": "Opções"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaCheckboxGroup",
+    "args": [
+      {
+        "param": "children",
+        "each": "cds-checkbox",
+        "widget": {
+          "class": "CastanhaCheckbox",
+          "args": [
+            {
+              "param": "onChanged",
+              "code": "(_) {}"
+            },
+            {
+              "param": "status",
+              "attr": "status"
+            },
+            {
+              "param": "label",
+              "attr": "label",
+              "if": {
+                "show-text-label": "!false"
+              }
+            },
+            {
+              "param": "disabled",
+              "attr": "disabled",
+              "bool": true
+            }
+          ],
+          "defaults": {
+            "status": "unselected"
+          }
+        }
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Slot",
+      "(filhos)",
+      "children",
+      "Um `CastanhaCheckbox` por item, cada um controlado pelo próprio `status`."
+    ],
+    [
+      "—",
+      "label",
+      "semanticsLabel",
+      "Nome do grupo para leitores de tela."
+    ]
+  ]
+}

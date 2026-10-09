@@ -1,0 +1,61 @@
+{
+  "element": "cds-switch",
+  "defaults": {
+    "label": "Label",
+    "status": "unselected",
+    "show-text-label": "true"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaSwitch",
+    "args": [
+      {
+        "param": "checked",
+        "attr": "status",
+        "eq": "selected"
+      },
+      {
+        "param": "onChanged",
+        "code": "(_) {}"
+      },
+      {
+        "param": "label",
+        "attr": "label",
+        "if": {
+          "show-text-label": "!false"
+        }
+      },
+      {
+        "param": "disabled",
+        "attr": "disabled",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Status",
+      "status",
+      "checked",
+      "Obrigatório: componente controlado."
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      ""
+    ],
+    [
+      "Show Text Label",
+      "show-text-label",
+      "label",
+      "Desligado: omita `label`."
+    ],
+    [
+      "Text Label",
+      "label",
+      "label",
+      ""
+    ]
+  ]
+}

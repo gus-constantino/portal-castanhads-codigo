@@ -1,0 +1,72 @@
+{
+  "element": "cds-filter-chip",
+  "defaults": {
+    "label": "Label",
+    "icon": "placeholder-line",
+    "show-lead-icon": "true"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaChipFilter",
+    "args": [
+      {
+        "param": "label",
+        "attr": "label"
+      },
+      {
+        "param": "onSelect",
+        "code": "(_) {}"
+      },
+      {
+        "param": "selected",
+        "attr": "selected",
+        "bool": true
+      },
+      {
+        "param": "leadIcon",
+        "attr": "icon",
+        "icon": true,
+        "if": {
+          "show-lead-icon": "true"
+        }
+      },
+      {
+        "param": "disabled",
+        "attr": "disabled",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Text Label",
+      "label",
+      "label",
+      ""
+    ],
+    [
+      "Show Lead Icon",
+      "show-lead-icon",
+      "leadIcon",
+      "Desligado: omita `leadIcon`."
+    ],
+    [
+      "Icon",
+      "icon",
+      "leadIcon",
+      ""
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      ""
+    ],
+    [
+      "Is Selected",
+      "selected",
+      "selected",
+      "Obrigatório: o chip é controlado (`selected` + `onSelect`)."
+    ]
+  ]
+}

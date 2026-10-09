@@ -1,0 +1,56 @@
+{
+  "element": "cds-icon",
+  "defaults": {
+    "icon": "placeholder-line",
+    "appearance": "accent",
+    "size": "small"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaIcon",
+    "args": [
+      {
+        "param": "icon",
+        "attr": "icon",
+        "icon": true
+      },
+      {
+        "param": "appearance",
+        "attr": "appearance",
+        "map": {
+          "inversed": "inverted"
+        }
+      },
+      {
+        "param": "size",
+        "attr": "size"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Choose Icon",
+      "icon",
+      "icon",
+      "`CastanhaIcons.nome` em camelCase (`placeholder-line` → `placeholderLine`)."
+    ],
+    [
+      "Appearance",
+      "appearance",
+      "appearance",
+      "Inversed vira `inverted`."
+    ],
+    [
+      "Size",
+      "size",
+      "size",
+      "O padrão do Figma é Small; o do Flutter é `medium`. Declare o tamanho."
+    ],
+    [
+      "—",
+      "label",
+      "semanticsLabel",
+      "Só quando o ícone informa algo sozinho."
+    ]
+  ]
+}

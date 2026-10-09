@@ -1,0 +1,82 @@
+{
+  "element": "cds-avatar",
+  "defaults": {
+    "kind": "default",
+    "appearance": "neutral",
+    "size": "small",
+    "label": "AA"
+  },
+  "curated": true,
+  "imports": [
+    "package:flutter/widgets.dart"
+  ],
+  "widget": {
+    "class": "CastanhaAvatar",
+    "args": [
+      {
+        "param": "kind",
+        "attr": "kind",
+        "map": {
+          "initial": "initials"
+        }
+      },
+      {
+        "param": "appearance",
+        "attr": "appearance",
+        "map": {
+          "inversed": "inverted"
+        }
+      },
+      {
+        "param": "size",
+        "attr": "size"
+      },
+      {
+        "param": "initials",
+        "attr": "label",
+        "if": {
+          "kind": "initial"
+        }
+      },
+      {
+        "param": "image",
+        "code": "AssetImage({q:src})",
+        "if": {
+          "kind": "image"
+        }
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Kind",
+      "kind",
+      "kind",
+      "Initial vira `initials`. Obrigatório no Flutter."
+    ],
+    [
+      "Appearance",
+      "appearance",
+      "appearance",
+      "Inversed vira `inverted`."
+    ],
+    [
+      "Size",
+      "size",
+      "size",
+      "O padrão do Figma é Small; o do Flutter é `medium`. Declare o tamanho."
+    ],
+    [
+      "Text Label",
+      "label",
+      "initials",
+      "Só em `kind: initials`."
+    ],
+    [
+      "—",
+      "src",
+      "image",
+      "Só em `kind: image`: um `ImageProvider` (`AssetImage`, `NetworkImage`)."
+    ]
+  ]
+}

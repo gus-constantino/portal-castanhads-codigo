@@ -1,0 +1,60 @@
+{
+  "element": "cds-shaped-icon",
+  "defaults": {
+    "icon": "placeholder-line",
+    "appearance": "neutral",
+    "size": "smallest"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaShapedIcon",
+    "args": [
+      {
+        "param": "icon",
+        "attr": "icon",
+        "icon": true
+      },
+      {
+        "param": "appearance",
+        "attr": "appearance",
+        "map": {
+          "inversed": "inverted"
+        }
+      },
+      {
+        "param": "size",
+        "attr": "size"
+      },
+      {
+        "param": "semanticsLabel",
+        "attr": "label"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Icon",
+      "icon",
+      "icon",
+      ""
+    ],
+    [
+      "Appearance",
+      "appearance",
+      "appearance",
+      "Inversed vira `inverted`. O padrão do Flutter é `accent`; o do Figma, Neutral."
+    ],
+    [
+      "Size",
+      "size",
+      "size",
+      "Mesmos nomes do Figma (`smallest`, `small`, `medium`, `large`). O padrão do Flutter é `medium`."
+    ],
+    [
+      "—",
+      "label",
+      "semanticsLabel",
+      "Sem nome, é decorativo."
+    ]
+  ]
+}

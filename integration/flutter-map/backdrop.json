@@ -1,0 +1,28 @@
+{
+  "element": "cds-backdrop",
+  "defaults": {},
+  "curated": true,
+  "widget": {
+    "class": "CastanhaBackdrop",
+    "args": [
+      {
+        "param": "onTap",
+        "code": "() {}"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "—",
+      "—",
+      "onTap",
+      "O Backdrop do Figma não tem props. Toque fora fecha o overlay."
+    ],
+    [
+      "—",
+      "—",
+      "invisible",
+      "`true` mantém o toque sem escurecer a tela."
+    ]
+  ]
+}

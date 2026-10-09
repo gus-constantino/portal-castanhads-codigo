@@ -1,0 +1,76 @@
+{
+  "element": "cds-system-banner",
+  "defaults": {
+    "appearance": "positive",
+    "label": "Label",
+    "text": "A message about the system here! You can turn words bold also add a link.",
+    "show-label": "true",
+    "show-close-button": "true"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaSystemBanner",
+    "args": [
+      {
+        "param": "message",
+        "code": "[CastanhaAlertMessageSpan.text({q:text})]"
+      },
+      {
+        "param": "open",
+        "code": "true"
+      },
+      {
+        "param": "appearance",
+        "attr": "appearance"
+      },
+      {
+        "param": "label",
+        "attr": "label",
+        "if": {
+          "show-label": "true"
+        }
+      },
+      {
+        "param": "hideCloseButton",
+        "attr": "show-close-button",
+        "bool": "not"
+      },
+      {
+        "param": "onClose",
+        "code": "() {}"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Appearance",
+      "appearance",
+      "appearance",
+      "Padrão Positive nos dois lados."
+    ],
+    [
+      "Show Label",
+      "show-label",
+      "label",
+      "Desligado: omita `label`."
+    ],
+    [
+      "Text Label",
+      "label",
+      "label",
+      ""
+    ],
+    [
+      "Text Content",
+      "text",
+      "message",
+      "Lista de trechos (`.text`, `.bold`, `.link`), como no Alert."
+    ],
+    [
+      "Show Close Button",
+      "show-close-button",
+      "hideCloseButton",
+      "Invertido. O estado fica com você: `open` + `onClose`."
+    ]
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "element": "cds-progress-line",
+  "defaults": {
+    "percent": "0"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaProgressLine",
+    "args": [
+      {
+        "param": "value",
+        "attr": "percent",
+        "num": true,
+        "scale": 0.01
+      },
+      {
+        "param": "semanticsLabel",
+        "attr": "label"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Percent",
+      "percent",
+      "value",
+      "O Flutter vai de `0.0` a `1.0`: 60% vira `0.6`."
+    ],
+    [
+      "—",
+      "label",
+      "semanticsLabel",
+      "Contexto para o leitor de tela."
+    ]
+  ]
+}

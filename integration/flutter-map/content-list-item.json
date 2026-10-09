@@ -1,0 +1,203 @@
+{
+  "element": "cds-content-list-item",
+  "defaults": {
+    "kind": "default",
+    "intent": "default",
+    "show-description": "true",
+    "show-lead-item": "true",
+    "lead-icon": "placeholder-line",
+    "trailing-icon": "placeholder-line",
+    "shaped-icon": "placeholder-line",
+    "trailing-item": "checkbox",
+    "show-trailing-item": "true",
+    "show-tag": "true",
+    "tag-label": "Tag",
+    "value-description": "Description",
+    "show-divider": "true",
+    "show-navigation-indicator": "true",
+    "label": "Label",
+    "description": "Description"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaContentListItem",
+    "args": [
+      {
+        "param": "label",
+        "attr": "label"
+      },
+      {
+        "param": "description",
+        "attr": "description",
+        "if": {
+          "show-description": "!false"
+        }
+      },
+      {
+        "param": "kind",
+        "attr": "kind"
+      },
+      {
+        "param": "intent",
+        "attr": "intent"
+      },
+      {
+        "param": "leadItem",
+        "code": "CastanhaContentListLeadItem.icon(CastanhaIcon(icon: CastanhaIcons.{c:lead-icon}))",
+        "if": {
+          "show-lead-item": "!false",
+          "intent": "!transaction"
+        }
+      },
+      {
+        "param": "leadItem",
+        "code": "CastanhaContentListLeadItem.shapedIcon(CastanhaShapedIcon(icon: CastanhaIcons.{c:shaped-icon}))",
+        "if": {
+          "show-lead-item": "!false",
+          "intent": "transaction"
+        }
+      },
+      {
+        "param": "trailingItem",
+        "code": "CastanhaContentListTrailingItem.checkbox(onChanged: (_) {}, status: CastanhaCheckboxStatus.unselected)",
+        "if": {
+          "intent": "default",
+          "show-trailing-item": "!false",
+          "trailing-item": "checkbox"
+        }
+      },
+      {
+        "param": "trailingItem",
+        "code": "CastanhaContentListTrailingItem.checkbox(onChanged: (_) {}, status: CastanhaCheckboxStatus.unselected)",
+        "if": {
+          "intent": "default",
+          "show-trailing-item": "!false",
+          "trailing-item": "chechbox"
+        }
+      },
+      {
+        "param": "trailingItem",
+        "code": "CastanhaContentListTrailingItem.radioButton(onChanged: (_) {}, selected: false)",
+        "if": {
+          "intent": "default",
+          "show-trailing-item": "!false",
+          "trailing-item": "radio-button"
+        }
+      },
+      {
+        "param": "trailingItem",
+        "code": "CastanhaContentListTrailingItem.switch_(checked: false, onChanged: (_) {})",
+        "if": {
+          "intent": "default",
+          "show-trailing-item": "!false",
+          "trailing-item": "switch"
+        }
+      },
+      {
+        "param": "trailingItem",
+        "code": "CastanhaContentListTrailingItem.icon(CastanhaIcon(icon: CastanhaIcons.{c:trailing-icon}))",
+        "if": {
+          "intent": "default",
+          "show-trailing-item": "!false",
+          "trailing-item": "icon"
+        }
+      },
+      {
+        "param": "trailingTag",
+        "code": "CastanhaTag(label: {q:tag-label}, appearance: CastanhaTagAppearance.warning)",
+        "if": {
+          "intent": "navigation",
+          "show-tag": "!false"
+        }
+      },
+      {
+        "param": "trailingDescription",
+        "attr": "value-description",
+        "if": {
+          "intent": "transaction"
+        }
+      },
+      {
+        "param": "hideNavigationIndicator",
+        "attr": "show-navigation-indicator",
+        "bool": "not",
+        "if": {
+          "intent": "!default"
+        }
+      },
+      {
+        "param": "hideDivider",
+        "attr": "show-divider",
+        "bool": "not"
+      },
+      {
+        "param": "onPressed",
+        "code": "() {}",
+        "if": {
+          "intent": "!default"
+        }
+      },
+      {
+        "param": "disabled",
+        "attr": "disabled",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Kind",
+      "kind",
+      "kind",
+      ""
+    ],
+    [
+      "Intent",
+      "intent",
+      "intent",
+      "`default`, `navigation` ou `transaction`; cada um troca o trailing."
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira parâmetro."
+    ],
+    [
+      "Show Lead Item",
+      "show-lead-item · lead-icon",
+      "leadItem",
+      "`CastanhaContentListLeadItem.icon(CastanhaIcon(…))`; no Transaction, `.shapedIcon(…)`. Desligado: omita `leadItem`."
+    ],
+    [
+      "Show Trailing Item",
+      "show-trailing-item · trailing-item",
+      "trailingItem",
+      "Intent Default: `.checkbox`, `.radioButton`, `.switch_` ou `.icon`. Desligado: omita."
+    ],
+    [
+      "Show Tag",
+      "show-tag · tag-label",
+      "trailingTag",
+      "Intent Navigation: um `CastanhaTag` (Warning no Figma)."
+    ],
+    [
+      "Show Navigation Indicator",
+      "show-navigation-indicator",
+      "hideNavigationIndicator",
+      "Invertido. O chevron aparece nos Intents Navigation e Transaction."
+    ],
+    [
+      "Show Divider",
+      "show-divider",
+      "hideDivider",
+      "Invertido: desligado = `hideDivider: true`."
+    ],
+    [
+      "—",
+      "value + symbol + value-description",
+      "trailingValue · trailingDescription",
+      "Intent Transaction. `trailingValue` é `int?`: confira a unidade no dartdoc antes de usar."
+    ]
+  ]
+}

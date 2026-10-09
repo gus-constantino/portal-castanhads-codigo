@@ -1,0 +1,49 @@
+{
+  "element": "cds-spinner",
+  "defaults": {
+    "appearance": "neutral",
+    "size": "small",
+    "label": "Carregando"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaSpinner",
+    "args": [
+      {
+        "param": "appearance",
+        "attr": "appearance",
+        "map": {
+          "inversed": "inverted"
+        }
+      },
+      {
+        "param": "size",
+        "attr": "size"
+      },
+      {
+        "param": "semanticsLabel",
+        "attr": "label"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Appearance",
+      "appearance",
+      "appearance",
+      "O padrão do Flutter é `accent`; o do Figma, Neutral."
+    ],
+    [
+      "Size",
+      "size",
+      "size",
+      "O padrão do Flutter é `medium`; o do Figma, Small."
+    ],
+    [
+      "Spinner Position",
+      "—",
+      "—",
+      "É o quadro da animação; no código o giro é contínuo."
+    ]
+  ]
+}

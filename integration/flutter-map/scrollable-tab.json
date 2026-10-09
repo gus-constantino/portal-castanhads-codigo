@@ -1,0 +1,103 @@
+{
+  "element": "cds-scrollable-tab",
+  "defaults": {
+    "active-item": "1"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaScrollableTab",
+    "args": [
+      {
+        "param": "activeIndex",
+        "attr": "active-item",
+        "num": true,
+        "offset": -1
+      },
+      {
+        "param": "items",
+        "each": "cds-tab-item",
+        "widget": {
+          "class": "CastanhaTabItem",
+          "args": [
+            {
+              "param": "label",
+              "attr": "label"
+            },
+            {
+              "param": "leadIcon",
+              "attr": "icon",
+              "icon": true,
+              "if": {
+                "show-lead-item": "true"
+              }
+            },
+            {
+              "param": "showBadge",
+              "attr": "show-badge",
+              "bool": true
+            },
+            {
+              "param": "badgeLabel",
+              "attr": "badge-label",
+              "if": {
+                "show-badge": "true"
+              }
+            },
+            {
+              "param": "disabled",
+              "attr": "disabled",
+              "bool": true
+            }
+          ],
+          "defaults": {
+            "label": "Label",
+            "show-lead-item": "false",
+            "icon": "placeholder-line",
+            "show-badge": "false"
+          }
+        }
+      },
+      {
+        "param": "onChanged",
+        "code": "(_) {}"
+      },
+      {
+        "param": "disabled",
+        "attr": "disabled",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Active Item",
+      "active-item",
+      "activeIndex",
+      "O playground conta a partir de 1; o Flutter, de 0. Controlado: atualize no `onChanged`."
+    ],
+    [
+      ".Item › Text Label",
+      "label",
+      "items › label",
+      "Um `CastanhaTabItem` por aba."
+    ],
+    [
+      ".Item › Show Lead Item",
+      "show-lead-item · icon",
+      "items › leadIcon",
+      "Desligado: omita `leadIcon`."
+    ],
+    [
+      ".Item › Show Badge",
+      "show-badge · badge-label",
+      "items › showBadge · badgeLabel",
+      ""
+    ],
+    [
+      "Fixed × Scrollable",
+      "—",
+      "CastanhaFixedTab · CastanhaScrollableTab",
+      "Um widget para cada: a Fixed divide a largura, a Scrollable rola."
+    ]
+  ]
+}

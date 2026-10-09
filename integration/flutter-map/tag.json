@@ -1,0 +1,60 @@
+{
+  "element": "cds-tag",
+  "defaults": {
+    "appearance": "neutral",
+    "label": "Tag",
+    "show-lead-item": "true",
+    "icon": "placeholder-line"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaTag",
+    "args": [
+      {
+        "param": "label",
+        "attr": "label"
+      },
+      {
+        "param": "appearance",
+        "attr": "appearance",
+        "map": {
+          "inversed": "inverted"
+        }
+      },
+      {
+        "param": "leadIcon",
+        "attr": "icon",
+        "icon": true,
+        "if": {
+          "show-lead-item": "true"
+        }
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Appearance",
+      "appearance",
+      "appearance",
+      "Inversed vira `inverted`. Padrão `neutral` nos dois lados."
+    ],
+    [
+      "Show Lead Item",
+      "show-lead-item",
+      "leadIcon",
+      "Desligado: omita `leadIcon`."
+    ],
+    [
+      "Icon › Choose Icon",
+      "icon",
+      "leadIcon",
+      ""
+    ],
+    [
+      "Text Label",
+      "label",
+      "label",
+      ""
+    ]
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "element": "cds-image",
+  "defaults": {
+    "aspect-ratio": "none",
+    "src": "assets/foto.png"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaImage",
+    "args": [
+      {
+        "param": "src",
+        "code": "{q:src}",
+        "positional": true
+      },
+      {
+        "param": "aspectRatio",
+        "attr": "aspect-ratio",
+        "map": {
+          "1:1": "ratio1x1",
+          "3:2": "ratio3x2"
+        }
+      },
+      {
+        "param": "semanticsLabel",
+        "attr": "alt"
+      }
+    ],
+    "ctor": "asset"
+  },
+  "figma": [
+    [
+      "Aspect Ratio",
+      "aspect-ratio",
+      "aspectRatio",
+      "`none`, `ratio1x1` ou `ratio3x2`."
+    ],
+    [
+      "—",
+      "src",
+      "(construtor)",
+      "`CastanhaImage.asset`, `.network`, `.file` ou `.memory`, conforme a origem."
+    ],
+    [
+      "—",
+      "alt",
+      "semanticsLabel",
+      "Sem texto, a imagem é decorativa."
+    ]
+  ]
+}

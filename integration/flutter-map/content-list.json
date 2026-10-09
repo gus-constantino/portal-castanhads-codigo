@@ -1,0 +1,175 @@
+{
+  "element": "cds-content-list",
+  "defaults": {
+    "kind": "default",
+    "intent": "default"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaContentList",
+    "args": [
+      {
+        "param": "children",
+        "each": "cds-content-list-item",
+        "widget": {
+          "class": "CastanhaContentListItem",
+          "args": [
+            {
+              "param": "label",
+              "attr": "label"
+            },
+            {
+              "param": "description",
+              "attr": "description",
+              "if": {
+                "show-description": "!false"
+              }
+            },
+            {
+              "param": "intent",
+              "attr": "intent"
+            },
+            {
+              "param": "leadItem",
+              "code": "CastanhaContentListLeadItem.icon(CastanhaIcon(icon: CastanhaIcons.{c:lead-icon}))",
+              "if": {
+                "show-lead-item": "!false",
+                "intent": "!transaction"
+              }
+            },
+            {
+              "param": "leadItem",
+              "code": "CastanhaContentListLeadItem.shapedIcon(CastanhaShapedIcon(icon: CastanhaIcons.{c:shaped-icon}))",
+              "if": {
+                "show-lead-item": "!false",
+                "intent": "transaction"
+              }
+            },
+            {
+              "param": "trailingItem",
+              "code": "CastanhaContentListTrailingItem.checkbox(onChanged: (_) {}, status: CastanhaCheckboxStatus.unselected)",
+              "if": {
+                "intent": "default",
+                "show-trailing-item": "!false",
+                "trailing-item": "checkbox"
+              }
+            },
+            {
+              "param": "trailingItem",
+              "code": "CastanhaContentListTrailingItem.checkbox(onChanged: (_) {}, status: CastanhaCheckboxStatus.unselected)",
+              "if": {
+                "intent": "default",
+                "show-trailing-item": "!false",
+                "trailing-item": "chechbox"
+              }
+            },
+            {
+              "param": "trailingItem",
+              "code": "CastanhaContentListTrailingItem.radioButton(onChanged: (_) {}, selected: false)",
+              "if": {
+                "intent": "default",
+                "show-trailing-item": "!false",
+                "trailing-item": "radio-button"
+              }
+            },
+            {
+              "param": "trailingItem",
+              "code": "CastanhaContentListTrailingItem.switch_(checked: false, onChanged: (_) {})",
+              "if": {
+                "intent": "default",
+                "show-trailing-item": "!false",
+                "trailing-item": "switch"
+              }
+            },
+            {
+              "param": "trailingItem",
+              "code": "CastanhaContentListTrailingItem.icon(CastanhaIcon(icon: CastanhaIcons.{c:trailing-icon}))",
+              "if": {
+                "intent": "default",
+                "show-trailing-item": "!false",
+                "trailing-item": "icon"
+              }
+            },
+            {
+              "param": "trailingTag",
+              "code": "CastanhaTag(label: {q:tag-label}, appearance: CastanhaTagAppearance.warning)",
+              "if": {
+                "intent": "navigation",
+                "show-tag": "!false"
+              }
+            },
+            {
+              "param": "trailingDescription",
+              "attr": "value-description",
+              "if": {
+                "intent": "transaction"
+              }
+            },
+            {
+              "param": "hideNavigationIndicator",
+              "attr": "show-navigation-indicator",
+              "bool": "not",
+              "if": {
+                "intent": "!default"
+              }
+            },
+            {
+              "param": "onPressed",
+              "code": "() {}",
+              "if": {
+                "intent": "!default"
+              }
+            },
+            {
+              "param": "disabled",
+              "attr": "disabled",
+              "bool": true
+            }
+          ],
+          "defaults": {
+            "kind": "default",
+            "intent": "default",
+            "show-description": "true",
+            "show-lead-item": "true",
+            "lead-icon": "placeholder-line",
+            "trailing-icon": "placeholder-line",
+            "shaped-icon": "placeholder-line",
+            "trailing-item": "checkbox",
+            "show-trailing-item": "true",
+            "show-tag": "true",
+            "tag-label": "Tag",
+            "value-description": "Description",
+            "show-divider": "false",
+            "show-navigation-indicator": "true",
+            "label": "Label",
+            "description": "Description"
+          }
+        }
+      },
+      {
+        "param": "kind",
+        "attr": "kind"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Kind",
+      "kind",
+      "kind",
+      "Repassado a todos os itens."
+    ],
+    [
+      "Intent",
+      "intent",
+      "intent (de cada item)",
+      "Cada `CastanhaContentListItem` traz o próprio `intent`."
+    ],
+    [
+      "—",
+      "(filhos)",
+      "children",
+      "Um `CastanhaContentListItem` por linha."
+    ]
+  ]
+}

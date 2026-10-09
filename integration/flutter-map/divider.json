@@ -1,0 +1,46 @@
+{
+  "element": "cds-divider",
+  "defaults": {
+    "kind": "solid",
+    "intensity": "soft",
+    "orientation": "horizontal"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaDivider",
+    "args": [
+      {
+        "param": "intensity",
+        "attr": "intensity"
+      },
+      {
+        "param": "kind",
+        "attr": "kind"
+      },
+      {
+        "param": "orientation",
+        "attr": "orientation"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Intensity",
+      "intensity",
+      "intensity",
+      ""
+    ],
+    [
+      "Orientation",
+      "orientation",
+      "orientation",
+      ""
+    ],
+    [
+      "Kind",
+      "kind",
+      "kind",
+      "O Flutter tem a linha tracejada (`dashed`)."
+    ]
+  ]
+}

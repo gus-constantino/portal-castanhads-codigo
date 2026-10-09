@@ -1,0 +1,73 @@
+{
+  "element": "cds-dropzone",
+  "defaults": {
+    "text-title": "Adicionar arquivos",
+    "text-description": "Arquivos permitidos: JPG e PNG",
+    "show-text-description": "true",
+    "show-main-button": "true",
+    "button-label": "Selecionar arquivos",
+    "drop-text": "Solte para adicionar"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaDropzone",
+    "args": [
+      {
+        "param": "label",
+        "attr": "text-title"
+      },
+      {
+        "param": "onPressed",
+        "code": "() {}"
+      },
+      {
+        "param": "description",
+        "attr": "text-description",
+        "if": {
+          "show-text-description": "!false"
+        }
+      },
+      {
+        "param": "dragoverLabel",
+        "attr": "drop-text"
+      },
+      {
+        "param": "disabled",
+        "attr": "disabled",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Text Title",
+      "text-title",
+      "label",
+      ""
+    ],
+    [
+      "Show Text description",
+      "show-text-description",
+      "description",
+      "Desligado: omita `description`."
+    ],
+    [
+      "Text Description",
+      "text-description",
+      "description",
+      "Formatos e tamanho aceitos."
+    ],
+    [
+      "Show Main button",
+      "show-main-button",
+      "—",
+      "O Flutter não tem o botão: a área inteira chama `onPressed`."
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled · dragover",
+      "Disabled vira `disabled`; Dragover vira `dragover` (com `dragoverLabel`)."
+    ]
+  ]
+}

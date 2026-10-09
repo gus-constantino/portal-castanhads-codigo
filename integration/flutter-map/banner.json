@@ -1,0 +1,115 @@
+{
+  "element": "cds-banner",
+  "defaults": {
+    "kind": "illustration",
+    "illustration": "notificacoes/sino",
+    "title": "Label",
+    "show-text-title": "true",
+    "show-cta": "true",
+    "description": "Description",
+    "cta": "Label"
+  },
+  "curated": true,
+  "imports": [
+    "package:flutter/widgets.dart"
+  ],
+  "widget": {
+    "class": "CastanhaBanner",
+    "args": [
+      {
+        "param": "description",
+        "attr": "description"
+      },
+      {
+        "param": "kind",
+        "code": "CastanhaBannerKind.illustration(CastanhaIllustrations.{c:illustration})",
+        "if": {
+          "kind": "illustration",
+          "content": "!inversed"
+        }
+      },
+      {
+        "param": "kind",
+        "code": "CastanhaBannerKind.illustration(CastanhaIllustrations.{c:illustration}, appearance: CastanhaBannerAppearance.inverted)",
+        "if": {
+          "kind": "illustration",
+          "content": "inversed"
+        }
+      },
+      {
+        "param": "kind",
+        "code": "CastanhaBannerKind.image(AssetImage({q:src}))",
+        "if": {
+          "kind": "image"
+        }
+      },
+      {
+        "param": "onPressed",
+        "code": "() {}"
+      },
+      {
+        "param": "title",
+        "attr": "title",
+        "if": {
+          "show-text-title": "true"
+        }
+      },
+      {
+        "param": "ctaLabel",
+        "attr": "cta",
+        "if": {
+          "show-cta": "true"
+        }
+      },
+      {
+        "param": "disabled",
+        "attr": "disabled",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Kind",
+      "kind",
+      "kind",
+      "`CastanhaBannerKind.illustration(nome)` (fundo sólido) ou `.image(provider)` (imagem de fundo)."
+    ],
+    [
+      "Illustration",
+      "illustration",
+      "kind",
+      "Nome do pacote em camelCase: `notificacoes/sino` → `CastanhaIllustrations.notificacoesSino`."
+    ],
+    [
+      "— (.Content Banner) Appearance",
+      "content",
+      "kind",
+      "`appearance` dentro de `.illustration` (`neutral` ou `inverted`)."
+    ],
+    [
+      "— (.Content Banner) Text Title",
+      "title",
+      "title",
+      "Desligado: omita `title`."
+    ],
+    [
+      "— (.Content Banner) CTA",
+      "cta",
+      "ctaLabel",
+      "Desligado: omita `ctaLabel`. O banner inteiro é a área de toque (`onPressed`)."
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira parâmetro."
+    ],
+    [
+      "—",
+      "bg",
+      "kind",
+      "`backgroundColor` dentro de `.illustration`, com um token (`context.castanhaTheme.colorsDecorative04`)."
+    ]
+  ]
+}

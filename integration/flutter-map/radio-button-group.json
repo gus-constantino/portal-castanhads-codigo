@@ -1,0 +1,72 @@
+{
+  "element": "cds-radio-button-group",
+  "defaults": {
+    "label": "Opções"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaRadioButtonGroup",
+    "args": [
+      {
+        "param": "items",
+        "each": "cds-radio-button",
+        "widget": {
+          "class": "CastanhaRadioButtonGroupItem",
+          "args": [
+            {
+              "param": "label",
+              "attr": "label"
+            },
+            {
+              "param": "value",
+              "tpl": "opcao-{i}"
+            },
+            {
+              "param": "disabled",
+              "attr": "disabled",
+              "bool": true
+            }
+          ]
+        }
+      },
+      {
+        "param": "value",
+        "pick": {
+          "each": "cds-radio-button",
+          "attr": "status",
+          "eq": "selected",
+          "tpl": "opcao-{i}"
+        }
+      },
+      {
+        "param": "onChanged",
+        "code": "(_) {}"
+      },
+      {
+        "param": "disabled",
+        "attr": "disabled",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Slot",
+      "(filhos)",
+      "items",
+      "Um `CastanhaRadioButtonGroupItem` por opção, com `label` e `value`."
+    ],
+    [
+      "—",
+      "status dos itens",
+      "value",
+      "O `value` da opção marcada (ou `null`)."
+    ],
+    [
+      "—",
+      "label",
+      "semanticsLabel",
+      "Nome do grupo."
+    ]
+  ]
+}

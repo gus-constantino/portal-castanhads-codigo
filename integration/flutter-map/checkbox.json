@@ -1,0 +1,60 @@
+{
+  "element": "cds-checkbox",
+  "defaults": {
+    "label": "Label",
+    "status": "unselected",
+    "show-text-label": "true"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaCheckbox",
+    "args": [
+      {
+        "param": "onChanged",
+        "code": "(_) {}"
+      },
+      {
+        "param": "status",
+        "attr": "status"
+      },
+      {
+        "param": "label",
+        "attr": "label",
+        "if": {
+          "show-text-label": "!false"
+        }
+      },
+      {
+        "param": "disabled",
+        "attr": "disabled",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Status",
+      "status",
+      "status",
+      "`selected`, `indeterminate` ou `unselected`. Obrigatório (componente controlado: atualize no `onChanged`)."
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira parâmetro."
+    ],
+    [
+      "Show Text Label",
+      "show-text-label",
+      "label",
+      "Desligado: omita `label`."
+    ],
+    [
+      "Text Label",
+      "label",
+      "label",
+      ""
+    ]
+  ]
+}

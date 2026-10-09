@@ -1,0 +1,35 @@
+{
+  "element": "cds-badge",
+  "defaults": {
+    "label": "0",
+    "appearance": "warning"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaBadge",
+    "args": [
+      {
+        "param": "label",
+        "attr": "label"
+      },
+      {
+        "param": "appearance",
+        "attr": "appearance"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Appearance",
+      "appearance",
+      "appearance",
+      "Padrão Warning nos dois lados."
+    ],
+    [
+      "Label",
+      "label",
+      "label",
+      "Número (0–99+) ou texto curto."
+    ]
+  ]
+}

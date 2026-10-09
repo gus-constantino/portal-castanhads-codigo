@@ -1,0 +1,61 @@
+{
+  "element": "cds-radio-button",
+  "defaults": {
+    "label": "Label",
+    "status": "unselected",
+    "show-text-label": "true"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaRadioButton",
+    "args": [
+      {
+        "param": "onChanged",
+        "code": "(_) {}"
+      },
+      {
+        "param": "selected",
+        "attr": "status",
+        "eq": "selected"
+      },
+      {
+        "param": "label",
+        "attr": "label",
+        "if": {
+          "show-text-label": "!false"
+        }
+      },
+      {
+        "param": "disabled",
+        "attr": "disabled",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Status",
+      "status",
+      "selected",
+      "Obrigatório: componente controlado (atualize no `onChanged`)."
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      ""
+    ],
+    [
+      "Show Text Label",
+      "show-text-label",
+      "label",
+      "Desligado: omita `label`."
+    ],
+    [
+      "Text Label",
+      "label",
+      "label",
+      ""
+    ]
+  ]
+}

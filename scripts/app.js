@@ -757,6 +757,7 @@
     var q = query(); writtenQs = qs(q);
     if (writtenQs) kit.state.restore(q); // link do estado: reaplica os controles da URL
     if (CDS.renderReact) CDS.renderReact(def, preview, $("react")); // "No React": tradução Figma → castanha-react (scripts/react-kit.js)
+    if (CDS.renderFlutter) CDS.renderFlutter(def, preview, $("flutter")); // "No Flutter": tradução Figma → castanha_flutter (scripts/flutter-kit.js)
     markCurrent();
     revealCurrent(); // ao abrir (link, recarregar, ⌥←/⌥→, anterior/próximo): o item atual aparece no menu
   }

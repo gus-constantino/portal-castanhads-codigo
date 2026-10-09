@@ -1,0 +1,43 @@
+{
+  "element": "cds-caju-brand",
+  "defaults": {
+    "kind": "default",
+    "show-typography": "true",
+    "label": "Caju"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaCajuBrand",
+    "args": [
+      {
+        "param": "kind",
+        "attr": "kind",
+        "map": {
+          "inversed": "inverted",
+          "full-red": "fullRed",
+          "full-white": "fullWhite",
+          "full-black": "fullBlack"
+        }
+      },
+      {
+        "param": "hasTypography",
+        "attr": "show-typography",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Kind",
+      "kind",
+      "kind",
+      "Inversed vira `inverted`."
+    ],
+    [
+      "Show Typography",
+      "show-typography",
+      "hasTypography",
+      "`false`: só o símbolo."
+    ]
+  ]
+}

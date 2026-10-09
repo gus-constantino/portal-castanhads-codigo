@@ -1,0 +1,83 @@
+{
+  "element": "cds-bottom-sheet",
+  "defaults": {
+    "text-title": "Title",
+    "primary-label": "Label",
+    "secondary-label": "Label"
+  },
+  "curated": true,
+  "imports": [
+    "package:flutter/widgets.dart"
+  ],
+  "widget": {
+    "class": "CastanhaBottomSheet",
+    "args": [
+      {
+        "param": "child",
+        "code": "const Text('Conteúdo')"
+      },
+      {
+        "param": "title",
+        "attr": "text-title",
+        "if": {
+          "show-header": "!false"
+        }
+      },
+      {
+        "param": "hideHeader",
+        "attr": "show-header",
+        "bool": "not"
+      },
+      {
+        "param": "hideFooter",
+        "attr": "show-footer",
+        "bool": "not"
+      },
+      {
+        "param": "primaryActionButton",
+        "code": "CastanhaMainButton(label: {q:primary-label}, onPressed: () {})",
+        "if": {
+          "show-footer": "!false"
+        }
+      },
+      {
+        "param": "secondaryActionButton",
+        "code": "CastanhaMainButton(label: {q:secondary-label}, onPressed: () {}, kind: CastanhaMainButtonKind.ghost)",
+        "if": {
+          "show-footer": "!false",
+          "show-secondary-action-button": "!false"
+        }
+      },
+      {
+        "param": "onClose",
+        "code": "() {}"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Slot",
+      "(filhos)",
+      "child",
+      "O conteúdo vai em `child`."
+    ],
+    [
+      "Show Header · Text Title",
+      "show-header · text-title",
+      "hideHeader · title",
+      "Invertido: desligado = `hideHeader: true`."
+    ],
+    [
+      "Show Footer",
+      "show-footer",
+      "hideFooter",
+      "Invertido: desligado = `hideFooter: true`."
+    ],
+    [
+      "Primary / Secondary",
+      "primary-label · secondary-label",
+      "primaryActionButton · secondaryActionButton",
+      "Cada ação é um `CastanhaMainButton`."
+    ]
+  ]
+}

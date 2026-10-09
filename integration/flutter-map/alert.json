@@ -1,0 +1,75 @@
+{
+  "element": "cds-alert",
+  "defaults": {
+    "appearance": "positive",
+    "label": "Label",
+    "text": "A message about the system here! You can turn words bold also add a link.",
+    "show-label": "true",
+    "show-close-button": "true"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaAlert",
+    "args": [
+      {
+        "param": "message",
+        "code": "[CastanhaAlertMessageSpan.text({q:text})]"
+      },
+      {
+        "param": "appearance",
+        "attr": "appearance"
+      },
+      {
+        "param": "label",
+        "attr": "label",
+        "if": {
+          "show-label": "true"
+        }
+      },
+      {
+        "param": "hideCloseButton",
+        "attr": "show-close-button",
+        "bool": "not"
+      },
+      {
+        "param": "onClose",
+        "code": "() {}",
+        "if": {
+          "show-close-button": "true"
+        }
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Appearance",
+      "appearance",
+      "appearance",
+      "O padrão do Flutter é `informative`; o do Figma, Positive. Declare sempre."
+    ],
+    [
+      "Show Label",
+      "show-label",
+      "label",
+      "Desligado: omita `label`."
+    ],
+    [
+      "Text Label",
+      "label",
+      "label",
+      ""
+    ],
+    [
+      "Text Content",
+      "text",
+      "message",
+      "Lista de trechos: `CastanhaAlertMessageSpan.text`, `.bold` e `.link` (com `onPressed`)."
+    ],
+    [
+      "Show Close Button",
+      "show-close-button",
+      "hideCloseButton",
+      "Invertido: desligado no Figma = `hideCloseButton: true`. Ligado, trate o `onClose`."
+    ]
+  ]
+}

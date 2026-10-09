@@ -1,0 +1,56 @@
+{
+  "element": "cds-popover[for]",
+  "defaults": {
+    "placement": "bottom-start",
+    "label": "Opções"
+  },
+  "curated": true,
+  "imports": [
+    "package:flutter/widgets.dart"
+  ],
+  "widget": {
+    "class": "CastanhaPopover",
+    "args": [
+      {
+        "param": "anchor",
+        "code": "CastanhaMainButton(label: 'Abrir', onPressed: () {})"
+      },
+      {
+        "param": "child",
+        "code": "const Text('Conteúdo')"
+      },
+      {
+        "param": "open",
+        "code": "true"
+      },
+      {
+        "param": "placement",
+        "attr": "placement"
+      },
+      {
+        "param": "onClose",
+        "code": "() {}"
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Slot",
+      "(filhos)",
+      "child",
+      "O conteúdo vai em `child`."
+    ],
+    [
+      "—",
+      "for",
+      "anchor",
+      "O gatilho é um widget (`anchor`); o estado aberto fica com você (`open` + `onClose`)."
+    ],
+    [
+      "—",
+      "placement",
+      "placement",
+      "Padrão `bottomStart` nos dois lados."
+    ]
+  ]
+}

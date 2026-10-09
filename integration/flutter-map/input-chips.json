@@ -1,0 +1,67 @@
+{
+  "element": "cds-input-chip",
+  "defaults": {
+    "label": "Label",
+    "icon": "placeholder-line",
+    "show-lead-icon": "true"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaChipInput",
+    "args": [
+      {
+        "param": "label",
+        "attr": "label"
+      },
+      {
+        "param": "onClose",
+        "code": "() {}"
+      },
+      {
+        "param": "leadIcon",
+        "attr": "icon",
+        "icon": true,
+        "if": {
+          "show-lead-icon": "true"
+        }
+      },
+      {
+        "param": "disabled",
+        "attr": "disabled",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Text Label",
+      "label",
+      "label",
+      ""
+    ],
+    [
+      "Show Lead Icon",
+      "show-lead-icon",
+      "leadIcon",
+      "Desligado: omita `leadIcon`."
+    ],
+    [
+      "Icon",
+      "icon",
+      "leadIcon",
+      "`CastanhaIcons.nome` em camelCase."
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira parâmetro."
+    ],
+    [
+      "—",
+      "cds-remove",
+      "onClose",
+      "Toque no chip remove: trate em `onClose`."
+    ]
+  ]
+}

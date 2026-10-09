@@ -1,0 +1,122 @@
+{
+  "element": "cds-upload-item",
+  "defaults": {
+    "status": "uploading",
+    "text-title": "File name",
+    "file-extension": ".jpg",
+    "success-message": "Enviado com sucesso",
+    "error-message": "Falha ao enviar",
+    "description": "Enviado em 10/05/2025",
+    "percent": "60",
+    "show-primary-action": "true",
+    "show-secondary-action": "true"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaUploadItem",
+    "args": [
+      {
+        "param": "fileName",
+        "attr": "text-title"
+      },
+      {
+        "param": "extension",
+        "attr": "file-extension"
+      },
+      {
+        "param": "status",
+        "attr": "status"
+      },
+      {
+        "param": "progress",
+        "attr": "percent",
+        "num": true,
+        "scale": 0.01,
+        "if": {
+          "status": "uploading"
+        }
+      },
+      {
+        "param": "message",
+        "attr": "success-message",
+        "if": {
+          "status": "success"
+        }
+      },
+      {
+        "param": "message",
+        "attr": "error-message",
+        "if": {
+          "status": "error"
+        }
+      },
+      {
+        "param": "message",
+        "attr": "description",
+        "if": {
+          "status": "uploaded"
+        }
+      },
+      {
+        "param": "onDownload",
+        "code": "() {}",
+        "if": {
+          "status": "!uploading",
+          "show-secondary-action": "!false"
+        }
+      },
+      {
+        "param": "onRetry",
+        "code": "() {}",
+        "if": {
+          "status": "error"
+        }
+      },
+      {
+        "param": "onDelete",
+        "code": "() {}",
+        "if": {
+          "show-primary-action": "!false"
+        }
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Text Title",
+      "text-title",
+      "fileName",
+      "Sem a extensão."
+    ],
+    [
+      "File Extension",
+      "file-extension",
+      "extension",
+      "Com o ponto (`.pdf`)."
+    ],
+    [
+      "Status",
+      "status",
+      "status",
+      "O padrão do Flutter é `uploaded`; o do Figma, Uploading."
+    ],
+    [
+      "Success / Error message · Description",
+      "success-message · error-message · description",
+      "message",
+      "Um parâmetro só: o texto muda com o status."
+    ],
+    [
+      "Show primary / secondary action",
+      "show-primary-action · show-secondary-action",
+      "onDelete · onDownload · onRetry",
+      "Cada ação aparece quando o callback existe."
+    ],
+    [
+      "—",
+      "percent",
+      "progress",
+      "De `0.0` a `1.0`: 60% vira `0.6`."
+    ]
+  ]
+}

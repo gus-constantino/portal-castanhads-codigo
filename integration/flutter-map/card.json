@@ -1,0 +1,38 @@
+{
+  "element": "cds-card",
+  "defaults": {
+    "has-border": "true"
+  },
+  "curated": true,
+  "imports": [
+    "package:flutter/widgets.dart"
+  ],
+  "widget": {
+    "class": "CastanhaCard",
+    "args": [
+      {
+        "param": "child",
+        "code": "const Text('Conteúdo')"
+      },
+      {
+        "param": "hasBorder",
+        "attr": "has-border",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Has Border",
+      "has-border",
+      "hasBorder",
+      "Padrão `true` nos dois lados."
+    ],
+    [
+      "Slot",
+      "(filhos)",
+      "child",
+      "O conteúdo vai em `child`."
+    ]
+  ]
+}

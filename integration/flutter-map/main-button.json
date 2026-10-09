@@ -1,0 +1,116 @@
+{
+  "element": "cds-main-button",
+  "defaults": {
+    "kind": "default",
+    "appearance": "accent",
+    "size": "medium",
+    "label": "Label",
+    "show-lead-icon": "true",
+    "show-trailing-icon": "true",
+    "lead-icon": "placeholder-line",
+    "trailing-icon": "placeholder-line"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaMainButton",
+    "args": [
+      {
+        "param": "label",
+        "attr": "label"
+      },
+      {
+        "param": "onPressed",
+        "code": "() {}"
+      },
+      {
+        "param": "kind",
+        "attr": "kind"
+      },
+      {
+        "param": "appearance",
+        "attr": "appearance",
+        "map": {
+          "inversed": "inverted"
+        }
+      },
+      {
+        "param": "size",
+        "attr": "size"
+      },
+      {
+        "param": "disabled",
+        "attr": "disabled",
+        "bool": true
+      },
+      {
+        "param": "leadIcon",
+        "attr": "lead-icon",
+        "icon": true,
+        "if": {
+          "show-lead-icon": "true"
+        }
+      },
+      {
+        "param": "showTrailingIcon",
+        "attr": "show-trailing-icon",
+        "bool": true
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Kind",
+      "kind",
+      "kind",
+      ""
+    ],
+    [
+      "Appearance",
+      "appearance",
+      "appearance",
+      "Inversed vira `inverted`."
+    ],
+    [
+      "Size",
+      "size",
+      "size",
+      ""
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      "Só Disabled vira parâmetro. Hovered e Pressed são interação."
+    ],
+    [
+      "Show Lead Icon",
+      "show-lead-icon",
+      "leadIcon",
+      "Desligado: omita `leadIcon`."
+    ],
+    [
+      "Lead Icon",
+      "lead-icon",
+      "leadIcon",
+      "`CastanhaIcons.nome` em camelCase."
+    ],
+    [
+      "Show Trailing Icon",
+      "show-trailing-icon",
+      "showTrailingIcon",
+      "O ícone do fim é fixo (`goLine`): no Flutter só liga ou desliga."
+    ],
+    [
+      "Text Label",
+      "label",
+      "label",
+      ""
+    ],
+    [
+      "Is Loading",
+      "loading",
+      "—",
+      "Ainda não existe no castanha_flutter."
+    ]
+  ]
+}

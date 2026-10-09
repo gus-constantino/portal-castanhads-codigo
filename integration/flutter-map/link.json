@@ -1,0 +1,96 @@
+{
+  "element": "cds-link",
+  "defaults": {
+    "label": "Link content",
+    "href": "#",
+    "appearance": "neutral",
+    "icon": "navigation-right-line",
+    "show-trailing-item": "true"
+  },
+  "curated": true,
+  "widget": {
+    "class": "CastanhaLink",
+    "args": [
+      {
+        "param": "label",
+        "attr": "label"
+      },
+      {
+        "param": "onPressed",
+        "code": "() {}"
+      },
+      {
+        "param": "appearance",
+        "attr": "appearance",
+        "map": {
+          "inversed": "inverted"
+        }
+      },
+      {
+        "param": "disabled",
+        "attr": "disabled",
+        "bool": true
+      },
+      {
+        "param": "showTrailingIcon",
+        "attr": "show-trailing-item",
+        "bool": true
+      },
+      {
+        "param": "trailingIcon",
+        "attr": "icon",
+        "map": {
+          "navigation-right-line": "navigationRight",
+          "go-line": "go",
+          "back-line": "back",
+          "up-line": "up",
+          "down-line": "down",
+          "diagonal-up-right-line": "diagonalUpRight",
+          "dropdown-open-line": "dropdownOpen",
+          "dropdown-close-line": "dropdownClose"
+        },
+        "if": {
+          "show-trailing-item": "!false"
+        }
+      }
+    ]
+  },
+  "figma": [
+    [
+      "Link Content",
+      "label",
+      "label",
+      ""
+    ],
+    [
+      "Appearance",
+      "appearance",
+      "appearance",
+      "Inversed vira `inverted`."
+    ],
+    [
+      "State",
+      "disabled",
+      "disabled",
+      ""
+    ],
+    [
+      "Show Trailing Item",
+      "show-trailing-item",
+      "showTrailingIcon",
+      "Padrão `true` nos dois lados."
+    ],
+    [
+      "Change Icon",
+      "icon",
+      "trailingIcon",
+      "Enum de 8 setas (`navigationRight`, `go`, `back`…): outro ícone não entra."
+    ],
+    [
+      "—",
+      "href",
+      "onPressed",
+      "A navegação fica no `onPressed`."
+    ]
+  ]
+}

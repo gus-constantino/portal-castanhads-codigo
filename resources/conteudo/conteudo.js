@@ -38,14 +38,15 @@
     ] };
   }
   // Bottom Sheet (inline) com título, texto e duas ações em Main Buttons sem ícone (o Footer do sheet não expõe o Lead Icon)
-  function sheetActions(title, text, a, b){
+  function sheetActions(title, text, a, b, items){ // items: lista opcional abaixo do texto (ex.: o que a ação protege)
     return { _tag: "div", class: "pg-cnt-phone pg-cnt-phone--sheet", _children: [
       { _tag: "cds-bottom-sheet", inline: true, "show-header": false, "show-footer": false, _children: [
         { _tag: "h4", class: "pg-cnt-phone__title", _text: title },
-        { _tag: "p", class: "pg-cnt-phone__text", _text: text },
+        { _tag: "p", class: "pg-cnt-phone__text", _text: text }
+      ].concat(items ? [{ _tag: "ul", class: "pg-cnt-phone__text", _children: items.map(function(t){ return { _tag: "li", _text: t }; }) }] : []).concat([
         { _tag: "cds-main-button", class: "pg-cnt-phone__cta", label: a, "show-lead-icon": false, "show-trailing-icon": false },
         { _tag: "cds-main-button", class: "pg-cnt-phone__cta", appearance: "neutral", label: b, "show-lead-icon": false, "show-trailing-icon": false }
-      ].filter(function(x){ return x._tag !== "cds-main-button" || x.label; }) } // b opcional: uma ação só
+      ]).filter(function(x){ return x._tag !== "cds-main-button" || x.label; }) } // b opcional: uma ação só
     ] };
   }
   // Notificação in-app de exemplo: Card do DS com título, texto e CTA em Link do DS
@@ -1120,9 +1121,9 @@
         ] },
         { h3: "Nível 2 · Do's and Don'ts" },
         { dodont: [
-          { kind: "do", attrs: sheetActions("Seu Caju ainda mais seguro", "Faça o reconhecimento facial e mantenha seu acesso protegido e exclusivo.", "Reforçar proteção", "Me lembrar mais tarde"),
+          { kind: "do", attrs: sheetActions("Seu Caju ainda mais seguro", "Fazer o reconhecimento facial é a melhor forma de aumentar a proteção da sua conta.", "Reforçar proteção", "Me lembrar mais tarde", ["Reconhecimento facial: seu rosto é a chave para manter o acesso protegido e exclusivo.", "Autorização de dispositivo: o limite de 1 dispositivo conectado por vez evita tentativas suspeitas de acesso."]),
             text: "Introduz a consequência futura e explica o valor da ação e tudo que é necessário para finalizá-la." },
-          { kind: "dont", attrs: sheetActions("Ative já sua biometria", "Seu acesso será bloqueado se você não fizer isso agora. Garantimos que é rápido.", "Ativar conta", "Bloquear conta"),
+          { kind: "dont", attrs: sheetActions("Ative já sua biometria", "Seu acesso será bloqueado se você não fizer isso agora. Garantimos que é rápido.", "Ativar biometria", "Bloquear conta", ["Biometria", "Autorização de dispositivo"]),
             text: "Palavras de comando que aumentam a ansiedade e vendemos a consequência como punição, não como proteção." }
         ] },
         { h3: "Nível 3 · Do's and Don'ts" },
@@ -1149,6 +1150,14 @@
             text: "Explicamos que a trava de segurança é mais uma medida de proteção da Caju e não uma burocracia." },
           { kind: "dont", attrs: screen("seguranca/cadeado", "Seu acesso foi bloqueado", "Você não completou a autenticação no prazo. Para desbloquear, faça a biometria.", "Liberar acesso"),
             text: "Não explica que a limitação é uma medida de proteção da Caju e culpa a pessoa diretamente." }
+        ] },
+        { h3: "Palavras para evitar" },
+        { p: "Em ações obrigatórias, algumas palavras aumentam a ansiedade. As diretrizes vêm de pesquisa com pessoas usuárias no Maze, e a lista completa está em [Vocabulário › Termos para evitar](#/conteudo/vocabulario)." },
+        { ul: [
+          "\"Agora\": palavra de comando, aumenta a ansiedade. As pessoas preferem mensagens que expliquem por que a ação é obrigatória.",
+          "\"Garantir\": soa como venda de serviço ou brinde e tira a seriedade do processo.",
+          "\"Libere\": mesmo efeito de \"Agora\", aumenta a ansiedade e pressiona sem explicar.",
+          "\"Conta\": em cenários de bloqueio do app, não use. O termo remete aos benefícios e ao bloqueio do cartão."
         ] },
         { note: "Fonte: Figma · 📁 [NEW] Content → Contextos (Apresentando funcionalidades, Explicando primeiro uso, Urgências e bloqueios). As telas foram refeitas com Card, Bottom Sheet, Main Button e Fixed Bar do DS, com os mesmos textos; os mockups de carrossel e de tooltips do tour ficam de fora (C115)." }
       ] }
@@ -1276,14 +1285,14 @@
           ] },
           { title: "Corpo do e-mail", list: [
             "A informação mais importante vem primeiro.", "Parágrafos curtos — máximo 3 linhas.",
-            "Use listas para passo a passo e instruções e o numeral da lista deve estar usando a cor #C3032C. Confira as regras em Escrevendo para produto.",
+            "Use listas para passo a passo e instruções e o numeral da lista deve estar usando a cor #C3032C. Confira as regras em Formatação de dados.",
             "Para destacar um botão ou área da plataforma no texto, use SemiBold.",
             "Título: Roboto - SemiBold - 23", "Descrição: Roboto - Regular 16"
           ] },
-          { title: "CTA", list: ["Use apenas um CTA por e-mail. Sem botões secundários.", "Use os mesmos verbos e termos do corpo do e-mail e do fluxo no produto.", "Siga as regras de Botões."] },
+          { title: "CTA", list: ["Use apenas um CTA por e-mail. Sem botões secundários.", "Use os mesmos verbos e termos do corpo do e-mail e do fluxo no produto.", "Use infinitivo, no máximo 3 palavras, sem ponto final nem exclamação. As regras completas estão em Botões."] },
           { title: "Call out", text: "Use ao final do e-mail para indicar ajuda extra sobre o tema. Use o template indicado nessa documentação. Fontes: Roboto - Regular - 14", after: "Exemplo: `Precisa de ajuda? Tire suas dúvidas na Central de ajuda ou Fale com a gente.`" },
           { title: "Footer", text: "Seção fixa — não altere o conteúdo. Para correções ou atualizações, entre em contato pelo canal #castanha-suporte." },
-          { title: "Números", text: "Use para indicar senhas ou códigos enviados para a pessoa usuária.", after: "Exemplo: `1 2 3 4 5 6 7 8`" }
+          { title: "Números", text: "Use para indicar senhas ou códigos enviados para a pessoa usuária ou para enumerar ações que ela deve tomar.", after: "Exemplo: `1 2 3 4 5 6 7 8`" }
         ] },
         { h3: "Depois de escrever" },
         { ul: [

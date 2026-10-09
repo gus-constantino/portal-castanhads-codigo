@@ -14,7 +14,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | [Refactor](#refactor) | 39 |
 | [Naming](#naming) | 11 |
 | [Acessibilidade](#acessibilidade) | 7 |
-| [Documentação](#documentação) | 8 |
+| [Documentação](#documentação) | 9 |
 | [Integração React](#integração-react) | 11 |
 
 ## Ajuste de texto
@@ -180,6 +180,7 @@ Frames de documentação no Figma.
 | C157 | Treinamento: Como usar as Documentações? (zeroheight, Capacitações) | 7 tabs só com vídeo do Drive, sem texto; arquivos "[HOLD] Castanha DS_ Lançamento da nossa Documentação_…" (um com "recusos"); sem legenda nem transcrição; tab "Duvidas" sem acento; números e links de janeiro (20 de 62/64 componentes, Storybook 2.0 temporário, seções com nomes antigos) | Resumo em texto por tab, aviso de data, legendas, arquivos renomeados; decidir se regrava os trechos velhos | Playground: Recursos de suporte → Treinamento, com o resumo de cada tema (das Anotações do Gemini) e link para o vídeo | Colar `docs/zeroheight/treinamento.md`; renomear e legendar os vídeos no Drive |
 | C158 | Castanha Hub · capa (`/p/111e49`) e Changelog (`/p/327118`) | Capa: todos os atalhos no domínio antigo `zeroheight.com/…`; "Content" → Princípios de escrita (`108ccb`) e "Designers" → onboarding (`80dfb0`) levam a páginas que não existem mais. Changelog: 4 links caem na capa (Notificações `625967`, Princípios de escrita `108ccb`, Feedback pages `116ab2`, SMS `177b5e`) e o do Main Button abre o editor (`castanha.zeroheight.com/styleguide/…`) | Atalhos e links no domínio atual, apontando para as páginas de hoje; SMS sem página (tirar o link ou recriar) | Início do playground: o atalho "Designers" agora leva a Recursos de suporte → Treinamento | Colar `docs/zeroheight/sobre.md` (capa e Changelog) |
 | C159 | Princípios de Design (`/p/42fc2b`) · ícones | SVGs em `#DF3141` sobre `#F7F3ED`, fora dos tokens (o Accent do DS é `#E80537`) | Redesenhar os três ícones com os tokens do tema | Playground mostra os princípios em Cards do DS, sem os ícones | Trocar as três imagens no zeroheight |
+| C188 | Castanha Hub · Feedback Pages (`/p/37d6b8`) e Notificações In-App (`/p/22e67d`) | Feedback Pages › Alertas: as legendas do par "Sua sessão expirou" repetem as do par do estoque, de Sucesso (falam em canal, nível de acesso e "com sucesso", que não aparecem nas telas). Erros: a legenda do Don't "Oscilação no sistema" cita o "Entendi", mas o CTA da imagem é "Voltar". In-App: "Ele expiram em 15/07/2025" e datas no formato `21/05/2025 - 12:40`, fora da regra da própria página (`DD/MM/AAAA HH:MM`) | Legendas próprias para o par da sessão, Don't com "Entendi" e "Ele expira" | Playground com legendas próprias e "Ele expira" (D287) | Na próxima revisão do Hub |
 
 ## Integração React
 

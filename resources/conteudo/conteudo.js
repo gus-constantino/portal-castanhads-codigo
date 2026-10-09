@@ -10,10 +10,10 @@
   function screen(ill, title, text, action, secondary){
     return { _tag: "div", class: "pg-cnt-phone", _children: [
       { _tag: "div", class: "pg-cnt-phone__body", _children: [
-        { _tag: "img", class: "pg-cnt-phone__ill", src: ills[ill] || "", alt: "" },
-        { _tag: "h4", class: "pg-cnt-phone__title", _text: title },
+        { _tag: "img", class: "pg-cnt-phone__ill", src: ills[ill] || "", alt: "" }
+      ].concat(title ? [{ _tag: "h4", class: "pg-cnt-phone__title", _text: title }] : []).concat([ // sem título: tela só com o texto (ex.: Don't da busca)
         { _tag: "p", class: "pg-cnt-phone__text", _text: text }
-      ] }
+      ]) }
     ].concat(action ? [{ _tag: "cds-fixed-bar", kind: "pilled", "primary-label": action, "show-secondary-action": !!secondary, "secondary-label": secondary || null, "show-lead-icon": false }] : []) }; // sem ação: tela sem Fixed Bar
   }
   // Tela com Bottom Sheet (inline) sobre a lista de cartões
@@ -889,7 +889,8 @@
             text: "Não devemos usar onomatopéias e culpar o usuário. Na descrição, o uso de humor soa como deboche." },
           { kind: "do", attrs: screen("notificacoes/error", "Desculpe, a página está indisponível", "Já estamos trabalhando para que tudo volte ao normal. Tente de novo mais tarde.", "Voltar"),
             text: "Pedimos desculpas em erros críticos de origem do nosso sistema. O tom é tranquilizador: já estamos cientes e vamos resolver. A solução é tentar em outro momento." },
-          { kind: "dont", attrs: screen("notificacoes/error", "Oscilação no sistema", "Estamos passando por uma falha no sistema e não é possível realizar ações agora.", "Entendi"), text: "" }
+          { kind: "dont", attrs: screen("notificacoes/error", "Oscilação no sistema", "Estamos passando por uma falha no sistema e não é possível realizar ações agora.", "Entendi"),
+            text: "Termos difíceis e nenhuma saída para um erro crítico de origem do nosso sistema. Além disso, usa o “Entendi”, um CTA que não usamos mais." }
         ] },
         { h3: "Alertas" },
         { p: "Use para situações que exigem atenção ou estados de espera. O alerta não é necessariamente um bloqueio, mas um pedido de ação consciente." },
@@ -907,7 +908,11 @@
           { kind: "do", attrs: screen("notificacoes/alert", "Pix temporariamente fora do ar", "Enquanto resolvemos, você pode pagar com o cartão virtual ou boleto. Podemos te avisar aqui no app assim que normalizar.", "Quero ser avisado", "Fechar"),
             text: "Tom colaborativo (“estamos”) + alternativa de solução + estimativa de prazo de resolução + canal de notificação" },
           { kind: "dont", attrs: screen("notificacoes/alert", "Pix indisponível", "Estamos passando por uma instabilidade no sistema e não é possível fazer pagamentos via Pix no momento.", "Fechar"),
-            text: "Uso de termos complexos, sem solução ou prazo e tom robotizado." }
+            text: "Uso de termos complexos, sem solução ou prazo e tom robotizado." },
+          { kind: "do", attrs: screen("notificacoes/alert", "Sua sessão expirou", "Segurança é prioridade por aqui! Para continuar, acesse de novo com seu e-mail e senha.", "Entrar novamente"),
+            text: "O título diz o que aconteceu, a descrição explica o motivo de segurança e mostra como continuar." },
+          { kind: "dont", attrs: screen("notificacoes/alert", "Você demorou muito para realizar a ação", "A sessão foi encerrado. Faça login novamente.", "Fazer login novamente"),
+            text: "O título culpa a pessoa pela demora, a descrição não explica o motivo e o CTA repete o texto." }
         ] },
         { h3: "Sucesso" },
         { p: "Use para confirmar que uma tarefa foi concluída. O tom varia entre neutralidade, acolhimento (ações sensíveis) e celebração (momentos WOW)." },
@@ -926,6 +931,10 @@
           ["Momentos WOW", "Pode quebrar a voz passiva para ser mais celebrativo. Use ilustração ou motion se possível."]
         ] } },
         { dodont: [
+          { kind: "do", attrs: screen("notificacoes/success", "O novo estoque foi solicitado", "Vamos enviar o rastreio por e-mail para os administradores do Portal. Acompanhe também pela aba de Rastreamento.", "Nova solicitação", "Voltar para cartões"),
+            text: "O título é conversacional e foca na ação. A descrição diz o canal e o nível de acesso que vai receber o aviso e oferece um jeito de acompanhar. Os CTAs estão com as labels corretas." },
+          { kind: "dont", attrs: screen("notificacoes/success", "Agradecemos sua solicitação", "O estoque foi solicitado com sucesso e agora é só aguardar a entrega.", "Entendi", "Fechar"),
+            text: "Título genérico com agradecimento, o pleonasmo “com sucesso” e labels incorretas nos CTAs: “Entendi” não é mais usado na experiência." },
           { kind: "do", attrs: screen("notificacoes/success", "Tudo pronto com seu cartão físico!", "Use a senha de 4 números que você acabou de criar para pagar na maquininha. Quer mais praticidade? Adicione o virtual nas carteiras digitais e pague por aproximação.", "Acessar cartão físico", "Criar cartão virtual"),
             text: "Esse é um momento “WOW”, se possível use uma ilustração diferente e sempre dê informações contextuais sobre a ação realizada." },
           { kind: "dont", attrs: screen("notificacoes/success", "Feito!", "Seu cartão físico foi ativado com sucesso e você já pode aproveitar seus benefícios.", "Acessar cartão físico", "Criar cartão virtual"),
@@ -943,6 +952,10 @@
           ["Área vazia", "Tom colaborativo no título: \"Já estamos prontos para os primeiros colaboradores\". Evite títulos vagos como \"Nada por aqui por enquanto\" — não dão contexto nem incentivam ação."]
         ] } },
         { dodont: [
+          { kind: "do", attrs: screen("notificacoes/search-not-found", "Tente buscar por outro CPF", "O CPF 123.456.789-10 ainda não está cadastrado no Portal.", "Limpar busca"),
+            text: "Tom acolhedor: não encontramos e explicamos o motivo." },
+          { kind: "dont", attrs: screen("notificacoes/search-not-found", "", "CPF não encontrado.", "Tentar novamente"),
+            text: "Não explica o motivo, não direciona para a solução e usa o CTA errado: em busca, o CTA fixo é “Limpar busca”." },
           { kind: "do", attrs: screen("notificacoes/empty-state", "Últimas transações", "Os pagamentos recentes feitos com seu cartão ficam listados aqui."),
             text: "Explicamos o que a pessoa usuária vai encontrar e qual o valor dela." },
           { kind: "dont", attrs: screen("notificacoes/empty-state", "Últimas transações", "Sem pagamentos realizados."),
@@ -1105,8 +1118,14 @@
           "Não use \"com sucesso\" em confirmações — se aconteceu, não existe uma forma de acontecer com erros.",
           "Não use \"ops\", \"que pena\" ou \"desculpa\" em falhas.",
           "Não use emojis em notificações negativas.",
-          "Sempre confira a documentação regulatória quando houver. O BACEN, por exemplo, exige mascaramento específico de CPF em notificações de Pix."
+          "Sempre confira a documentação regulatória quando houver. Em notificações de Pix, o CPF aparece mascarado no formato `•••.456.789-••`."
         ] },
+        { table: { wrap: true, head: ["Faça", "Não faça", "Por quê"], rows: [
+          ["Seu Caju caiu! Você tem R$ 306,00 disponíveis em sua conta para usar.", "Seu Caju foi depositado com sucesso! 🎉 Você recebeu com sucesso o valor em sua conta, aproveite!", "Usa o pleonasmo “com sucesso” e omite o valor exato. “Aproveite” é vago."],
+          ["Pagamento recusado. O valor de R$ 36,00 em Pg*ton Flor Acaiter foi recusado por saldo insuficiente na categoria Saldo Livre.", "Ops, seu pagamento não rolou 😢 Não foi possível completar sua compra, tente novamente mais tarde", "Usa “ops”, tom informal fora do padrão e emoji em notificação negativa. Some com o valor, o estabelecimento e o motivo real da recusa."],
+          ["Senha incorreta. Transação recusada por senha incorreta. Tente novamente ou redefina sua senha no app.", "Que pena, senha errada! Você errou a senha do cartão, CUIDADO para não bloquear sua conta!!!", "Usa “que pena”, caixa alta no meio da frase e tom alarmista. Mostra o risco, mas não o caminho para resolver."],
+          ["Pix recebido. Você recebeu um Pix de R$ 35,00 de Cajuína Castanha •••.123.456-••.", "Pix recebido com sucesso! 🎉 Você recebeu uma transferência, confira o valor no app.", "Pleonasmo “com sucesso”, emoji e sem valor nem remetente: obriga a pessoa a abrir o app para saber o que já deveria estar na notificação."]
+        ] } },
 
         { h2: "In-app" },
         { p: "Notificações in-app aparecem dentro do produto enquanto a pessoa navega — na Central de Notificações do Employee ou do Sponsor. Diferente do push, ela não interrompe: a pessoa acessa quando quiser." },
@@ -1122,7 +1141,7 @@
           "Use infinitivo nos CTAs.", "Não use ponto de exclamação.", "Não use letras maiúsculas no meio da frase.",
           "Não use \"com sucesso\" em confirmações — se aconteceu, não existe uma forma de acontecer com erros.",
           "Não use \"ops\", \"que pena\" ou \"desculpa\" em falhas.", "Não use emojis em notificações negativas.",
-          "Sempre confira a documentação regulatória quando houver. O BACEN, por exemplo, exige mascaramento específico de CPF em notificações de Pix."
+          "Sempre confira a documentação regulatória quando houver. Em notificações de Pix, o CPF aparece mascarado no formato `•••.456.789-••`."
         ] },
         { h3: "Datas na notificação" },
         { table: { wrap: true, head: ["Quando", "Formato"], rows: [["No mesmo dia", "`Hoje HH:MM`"], ["No dia anterior", "`Ontem HH:MM`"], ["Dois dias ou mais", "`DD/MM/AAAA HH:MM`"]] } },
@@ -1136,20 +1155,43 @@
         ] } },
         { p: "Urgência é diferente de incidente técnico. Se o app está fora do ar, a Central de Notificações também fica indisponível — use outros canais nesses casos." },
         { h3: "Templates por tipo" },
-        { guides: [
-          { title: "Lembrete", text: "Título: Que evento está chegando · Descrição: contexto + consequência de não agir + tempo de reação · CTA (opcional): Finalizar / Revisar / Continuar · Deep link: retoma o estado anterior sempre que possível",
-            attrs: notif("Seu cartão físico vai expirar", "Solicite uma nova via ou siga usando seus cartões virtuais.", "Solicitar") },
-          { title: "Transacional", text: "Título: confirmação objetiva · Descrição: o que aconteceu + detalhes claros (valor, destino, data) · CTA (opcional): Detalhes · Deep link: detalhes da ação concluída",
-            attrs: notif("Pix enviado", "Pix de R$ 1.000,00 para Juca Castanha •••.456.789-•• enviado.", "Detalhes") },
-          { title: "Falha ou bloqueio", text: "Título: o que impediu a ação · Descrição: o que falhou + por que falhou + o que fazer agora · CTA (opcional): Tentar de novo / Recarregar · Deep link: tela ou área que permite resolver",
-            attrs: notif("Pagamento de R$ 36,00 recusado", "Cartão bloqueado temporariamente. Acesse a área de Cartões para desbloquear.", "Cartões") },
-          { title: "Status ou andamento", text: "Título: atualização de status · Descrição: em que etapa está + o que esperar agora · CTA (opcional): Detalhes · Deep link: linha do tempo ou detalhes do processo",
-            attrs: notif("Contestação em análise", "Recebemos sua solicitação e vamos te avisar quando houver atualização.") },
-          { title: "Segurança ou prevenção", text: "Título: proteção em destaque · Descrição: risco evitado + benefício claro · CTA (opcional): infinitivo da ação · Deep link: tela de configuração ou validação",
-            attrs: notif("Proteja seu acesso", "Ative o reconhecimento facial para aumentar a segurança da sua conta.", "Ativar") },
-          { title: "Urgência", text: "Título: urgência explícita e direta · Descrição: o que está acontecendo + impacto imediato + o que fazer · CTA (opcional): infinitivo da ação · Deep link: sempre para a ação crítica ou tela de resolução",
-            attrs: notif("Pix indisponível", "A área Pix estará temporariamente indisponível amanhã até 12:00.") }
+        { table: { wrap: true, head: ["Tipo", "Título", "Descrição", "CTA (opcional)", "Deep link"], rows: [
+          ["Lembrete", "Que evento está chegando", "Contexto + consequência de não agir + tempo de reação", "Finalizar, Revisar ou Continuar", "Retoma o estado anterior sempre que possível"],
+          ["Transacional", "Confirmação objetiva", "O que aconteceu + detalhes claros (valor, destino, data)", "Detalhes", "Detalhes da ação concluída"],
+          ["Falha ou bloqueio", "O que impediu a ação", "O que falhou + por que falhou + o que fazer agora", "Tentar de novo ou Recarregar", "Tela ou área que permite resolver"],
+          ["Status ou andamento", "Atualização de status", "Em que etapa está + o que esperar agora", "Detalhes", "Linha do tempo ou detalhes do processo"],
+          ["Segurança ou prevenção", "Proteção em destaque", "Risco evitado + benefício claro", "Infinitivo da ação", "Tela de configuração ou validação"],
+          ["Urgência", "Urgência explícita e direta", "O que está acontecendo + impacto imediato + o que fazer", "Infinitivo da ação", "Sempre para a ação crítica ou a tela de resolução"]
+        ] } },
+        { dodont: [
+          { kind: "do", title: "Lembrete", attrs: notif("Cartão virtual expira em breve", "Ele expira em 15/07/2025. Crie um novo e evite falhas nos pagamentos.", "Criar novo cartão"),
+            text: "Antecipação clara, data objetiva e ação preventiva." },
+          { kind: "dont", title: "Lembrete", attrs: notif("Cartão virtual expirando", "Seu cartão vai expirar e pode parar de funcionar a qualquer momento.", "Detalhes"),
+            text: "Sem data, gera ansiedade e não orienta a ação." },
+          { kind: "do", title: "Transacional", attrs: notif("Pagamento confirmado", "O pagamento do seu boleto no valor de R$ 239,53 foi confirmado.", "Detalhes"),
+            text: "Texto direto e tom neutro." },
+          { kind: "dont", title: "Transacional", attrs: notif("Pagamento confirmado", "Boa notícia, seu pagamento foi confirmado com sucesso.", "Ver mais"),
+            text: "Tom emocional, o pleonasmo “com sucesso” e nenhum dado do pagamento." },
+          { kind: "do", title: "Falha ou bloqueio", attrs: notif("Pagamento recusado", "Seu cartão não está habilitado para compras internacionais. Acesse a área de Cartões para habilitar.", "Cartões"),
+            text: "Explica o motivo da falha e orienta a solução." },
+          { kind: "dont", title: "Falha ou bloqueio", attrs: notif("Pagamento Recusado", "Não foi possível concluir o pagamento. Tente novamente mais tarde.", "Saber mais"),
+            text: "Maiúscula no meio do título, sem o motivo e sem o próximo passo." },
+          { kind: "do", title: "Status ou andamento", attrs: notif("Solicitação em análise", "Sua solicitação de reembolso foi recebida pela empresa e está sendo analisada.", "Detalhes"),
+            text: "Confirma o recebimento e mostra o estado atual, sem urgência falsa." },
+          { kind: "dont", title: "Status ou andamento", attrs: notif("Estamos verificando", "Sua solicitação está sendo analisada e em breve retornaremos.", "Detalhes"),
+            text: "Genérico e não ajuda a entender o progresso." },
+          { kind: "do", title: "Segurança ou prevenção", attrs: notif("Proteja sua conta", "Ative o reconhecimento facial para aumentar a segurança do seu acesso.", "Ativar"),
+            text: "Educativo e com o benefício claro." },
+          { kind: "dont", title: "Segurança ou prevenção", attrs: notif("Sua conta pode estar em risco", "Ative o reconhecimento facial para evitar acessos indevidos à sua conta.", "Ativar"),
+            text: "Tom alarmista: segurança baseada em medo." },
+          { kind: "do", title: "Urgência", attrs: notif("Último dia para ativar", "Ative o reconhecimento facial até 12/05 para manter seu acesso.", "Ativar"),
+            text: "Consequência clara, prazo real e uma ação." },
+          { kind: "dont", title: "Urgência", attrs: notif("Atenção importante", "Precisamos que você ative a biometria o quanto antes para evitar problemas.", "Ativar"),
+            text: "Não explica o impacto, a urgência é genérica e perde credibilidade." }
         ] },
+        { p: "Outros exemplos do Hub. Segurança: “Contato de confiança cadastrado · Seu contato de confiança foi cadastrado para reforçar sua segurança no Pix.” Urgência: “Pix indisponível · A área Pix vai estar temporariamente indisponível amanhã até 12:00 (meio-dia).”" },
+        { p: "Para montar uma régua de urgência ou bloqueio, veja [Contextos › Urgências e bloqueios](#/conteudo/contextos)." },
+        { note: "Fonte dos Do's and Don'ts de Push e In-app: Castanha Hub (Canais › Push Notification 191aee e Notificações In-App 22e67d), conferido em 09/10/2026. No Lembrete, o “Ele expiram” do Hub virou “Ele expira”." },
 
         { h2: "E-mails transacionais" },
         { p: "E-mails transacionais informam ou orientam a pessoa na conclusão de uma tarefa. São disparados automaticamente por um evento: cadastro, pagamento, redefinição de senha. Diferente do push e do SMS, permitem comunicações mais longas e servem como histórico." },

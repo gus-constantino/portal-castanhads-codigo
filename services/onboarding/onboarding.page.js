@@ -32,10 +32,27 @@
       var m = CDS.onboarding.metrics(f.id), exits = Object.keys(m.exitAt || {}).map(function(k){ return "passo " + (+k + 1) + ": " + m.exitAt[k]; }).join(", ") || "nenhuma";
       rows.push([f.id, String(m.runs), String(m.completed), String(m.reminded), String(m.dismissed), exits, m.runs ? Math.round(m.ms / m.runs / 1000) + " s" : "—"]);
     });
-    var box = el("div");
-    if (CDS.docTable) box.appendChild(CDS.docTable(["Fluxo", "Inícios", "Concluídos", "Lembrar depois", "Dispensados", "Saídas por passo", "Tempo médio"], rows));
-    else rows.forEach(function(r){ box.appendChild(el("p", null, "pg-doc-p")).textContent = r.join(" · "); });
+    var box = el("div", null, "svc-onb-doc");
+    table(box, ["Fluxo", "Inícios", "Concluídos", "Lembrar depois", "Dispensados", "Saídas por passo", "Tempo médio"], rows);
+    // Primeiros passos e trilha Explorar (F4): o que este navegador já marcou
+    var o = CDS.onboarding;
+    if (o){
+      var done = o.tasksDone(), trail = o.trailDone(), stops = o.trailStops(), blocks = {};
+      stops.forEach(function(s){ var b = blocks[s.block] = blocks[s.block] || [0, 0]; b[1]++; if (trail[s.id]) b[0]++; });
+      box.appendChild(el("h3", null, "pg-doc-h3")).textContent = "Primeiros passos e trilha";
+      table(box, ["Item", "Valor"], [
+        ["Perfil escolhido", o.profile() || "nenhum"],
+        ["Tarefas concluídas", String(Object.keys(done).length) + (Object.keys(done).length ? " (" + Object.keys(done).join(", ") + ")" : "")],
+        ["Paradas abertas na trilha", Object.keys(trail).length + " de " + stops.length]
+      ].concat(Object.keys(blocks).map(function(b){ return [b, blocks[b][0] + " de " + blocks[b][1]]; })));
+      var rs = box.appendChild(el("cds-main-button", { label: "Limpar tarefas e trilha", kind: "ghost", appearance: "neutral", size: "small", "show-lead-icon": "false", "show-trailing-icon": "false" }));
+      rs.addEventListener("click", function(){ try { localStorage.removeItem("cds-onb-tarefas"); localStorage.removeItem("cds-onb-trilha"); } catch (e) {} if (CDS.docToast) CDS.docToast("Tarefas e trilha limpas"); box.replaceWith(metricsBox()); });
+    }
     return box;
+  }
+  function table(box, head, rows){
+    if (CDS.docTable) box.appendChild(CDS.docTable(head, rows));
+    else rows.forEach(function(r){ box.appendChild(el("p", null, "pg-doc-p")).textContent = r.join(" · "); });
   }
   CDS.docs["onboarding"] = { tabs: [
     { id: "visao", title: "Visão geral", blocks: [
@@ -48,6 +65,7 @@
         "O estado (novo, em andamento, lembrar depois, concluído, dispensado) e as métricas ficam no localStorage deste navegador.",
         "A boas-vindas abre sozinha na primeira visita (fora do Relatório e das páginas escondidas). Me lembrar mais tarde traz de volta a partir do dia seguinte, no máximo 2 vezes. Começar segue para o tour, com o menu lateral, e o tour termina nos Primeiros passos do Início.",
         "Os Primeiros passos ficam numa tab do Início e no item da Ajuda, com o checklist do perfil e o botão Fazer o tour. Cada tarefa se marca quando a pessoa abre a página (ou mexe numa prop no Playground).",
+        "Embaixo do checklist fica a trilha Explorar o portal: as 20 paradas do antigo Roteiro, em 5 blocos de Accordion. Cada parada se marca quando a pessoa abre o link pela lista. O tour também abre pelo modal de atalhos (tecla ?) e a FAQ explica como refazer.",
         "Durante o tour, o Backdrop do DS fica atrás do passo e o bloco com a área apontada (o menu) fica por cima, claro.",
         "`?tour=<id>` abre um fluxo na hora e `?onboarding=off` desliga o serviço (o smoke das docs roda assim)."
       ] },

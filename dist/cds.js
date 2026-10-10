@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 266 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 267 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.js ==== */
 try {
 /**
@@ -9725,17 +9725,19 @@ try {
  * Primeiros passos (checklist da tab do Início): CDS.onboarding.checklist({ profiles: [{ id, label, tasks: [{ id, label, text,
  *   href, done: { visit: "rota" } | { playground: true } | { profile: true } }] }] }) · checklistView() monta a tela.
  *   A tarefa se marca pela ação (abrir a página, mexer numa prop no Playground), não por clique em Feito.
+ * Trilha Explorar (F4, o antigo Roteiro): CDS.onboarding.trail({ title, intro, blocks: [{ id, title, items: [[título, texto, href]] }] })
+ *   · trailView() monta Accordion por bloco com Content List; a parada se marca quando a pessoa abre o link pela lista.
  *
  * API: register · flows · start(id) · stop · next · back · remind · dismiss · state(id) · reset(id) · metrics(id) · active
- *   profile() / profile(id) · checklist(def) · checklistView() · tasksDone()
- * Evento (document): cds-onboarding { type: start|show|complete|remind|dismiss|skip|task|profile, flow, step }
- * localStorage: cds-onb:<id> (estado do fluxo) · cds-onb-metrics:<id> · cds-onb-perfil · cds-onb-tarefas
+ *   profile() / profile(id) · checklist(def) · checklistView() · tasksDone() · trail(def) · trailView() · trailDone() · trailStops()
+ * Evento (document): cds-onboarding { type: start|show|complete|remind|dismiss|skip|task|stop|profile, flow, step }
+ * localStorage: cds-onb:<id> (estado do fluxo) · cds-onb-metrics:<id> · cds-onb-perfil · cds-onb-tarefas · cds-onb-trilha
  * Desliga com ?onboarding=off. ?tour=<id> abre um fluxo na hora.
  */
 (function(){
   "use strict";
   var CDS = window.CDS = window.CDS || {};
-  var FLOWS = {}, ORDER = [], CHECK = null;
+  var FLOWS = {}, ORDER = [], CHECK = null, TRAIL = null;
   var BUTTONS = { start: "Começar", next: "Continuar", back: "Voltar", done: "Concluir", close: "Fechar", remind: "Me lembrar mais tarde", dismiss: "Não mostrar novamente", more: "Quero saber mais" };
 
   // ---------- Estado e métricas (localStorage, sempre com try/catch) ----------
@@ -9947,6 +9949,13 @@ try {
       if (d.playground && withQuery && CDS.playgrounds && CDS.playgrounds.some(function(c){ return c.id === r.split("/")[0] && !c.resource; })) markDone(t.id);
     });
   }
+  // Tag aninhada do item (override de instância): check no Concluído, sem ícone no Pendente. Na 1ª pintura a tela ainda não
+  // está na página e o item não montou a Tag: aplica quando ela existir
+  function tagStatus(item, ok, tries){
+    if (!item.tagEl){ if ((tries || 0) < 20) requestAnimationFrame(function(){ tagStatus(item, ok, (tries || 0) + 1); }); return; }
+    if (ok){ item.tagEl.setAttribute("icon", "check-line"); item.tagEl.removeAttribute("show-lead-item"); }
+    else item.tagEl.setAttribute("show-lead-item", "false");
+  }
   function markProfile(){ allTasks().forEach(function(t){ if (t.done && t.done.profile && profile()) markDone(t.id); }); }
   function checklistView(){
     var c = CDS.create, box = c("div", null, "svc-onb-check");
@@ -9972,8 +9981,7 @@ try {
         var ok = !!d[t.id];
         var item = list.appendChild(c("cds-content-list-item", { label: t.label, description: t.text, href: t.href || null, intent: "navigation", "show-tag": "true",
           "tag-label": ok ? "Concluído" : "Pendente", "tag-appearance": ok ? "positive" : "neutral", "show-lead-item": "false", "show-divider": "true" }));
-        // Tag aninhada (override de instância): check no Concluído, sem ícone no Pendente
-        if (item.tagEl){ if (ok) item.tagEl.setAttribute("icon", "check-line"); else item.tagEl.setAttribute("show-lead-item", "false"); }
+        tagStatus(item, ok);
       });
       tourBtn.hidden = tip.hidden = window.innerWidth <= 1100;
     }
@@ -9985,6 +9993,45 @@ try {
     return box;
   }
   function checklist(def){ CHECK = def; }
+
+  // ---------- Trilha Explorar (F4, antigo Roteiro): blocos em Accordion, paradas em Content List, marcadas ao abrir pela lista ----------
+  function trailDone(){ return read("cds-onb-trilha", {}); }
+  function trailStops(){ return TRAIL ? TRAIL.blocks.reduce(function(a, b){ return a.concat(b.items.map(function(it, i){ return { id: b.id + "-" + (i + 1), block: b.title }; })); }, []) : []; }
+  function markStop(id){
+    var d = trailDone(); if (d[id]) return;
+    d[id] = today(); write("cds-onb-trilha", d); emit("stop", { stop: id });
+  }
+  function trailView(){
+    var c = CDS.create, box = c("div", null, "svc-onb-check");
+    if (!TRAIL){ box.appendChild(c("p", null, "pg-doc-p")).textContent = "Nenhuma trilha registrada."; return box; }
+    box.appendChild(c("p", null, "pg-doc-p")).textContent = TRAIL.intro;
+    var countEl = box.appendChild(c("p", { "aria-live": "polite" }, "svc-onb-check__count"));
+    var acc = box.appendChild(c("cds-accordion", { label: TRAIL.title }, "svc-onb-check__list"));
+    var parts = TRAIL.blocks.map(function(b){
+      var item = acc.appendChild(c("cds-accordion-item", { label: b.title, "show-lead-item": "false", "heading-level": "3", collapsed: "" }));
+      var list = c("cds-content-list", { label: b.title, intent: "navigation" });
+      item.appendChild(list); // Slot: entra antes de conectar
+      list.addEventListener("click", function(e){ var row = e.target.closest && e.target.closest("cds-content-list-item[data-stop]"); if (row){ markStop(row.getAttribute("data-stop")); setTimeout(paint, 0); } }); // repinta depois: o link precisa estar na página para navegar
+      return { b: b, item: item, list: list };
+    });
+    function paint(){
+      var d = trailDone(), total = 0, done = 0;
+      parts.forEach(function(p){
+        var n = 0; p.list.innerHTML = "";
+        p.b.items.forEach(function(it, i){
+          var id = p.b.id + "-" + (i + 1), ok = !!d[id]; total++; if (ok){ done++; n++; }
+          var row = p.list.appendChild(c("cds-content-list-item", { "data-stop": id, label: it[0], description: it[1], href: it[2], intent: "navigation", "show-tag": "true",
+            "tag-label": ok ? "Concluído" : "Pendente", "tag-appearance": ok ? "positive" : "neutral", "show-lead-item": "false", "show-divider": "true" }));
+          tagStatus(row, ok);
+        });
+        p.item.setAttribute("description", n + " de " + p.b.items.length);
+      });
+      countEl.textContent = done + " de " + total + " abertas";
+    }
+    paint();
+    return box;
+  }
+  function trail(def){ TRAIL = def; }
 
   // ---------- Registro ----------
   function register(f){
@@ -9998,6 +10045,7 @@ try {
     start: start, stop: function(){ stop("stop"); }, next: next, back: back, remind: remind, dismiss: dismiss,
     state: state, reset: reset, metrics: metrics, profile: profile,
     checklist: checklist, checklistView: checklistView, tasksDone: tasksDone,
+    trail: trail, trailView: trailView, trailDone: trailDone, trailStops: trailStops,
     active: function(){ return run ? { flow: run.id, step: run.i, total: run.steps.length } : null; },
     buttons: BUTTONS
   };
@@ -10043,6 +10091,52 @@ try {
   });
 })();
 } catch (e) { console.error("[cds] services/onboarding/flows/boas-vindas.flow.js", e); }
+
+/* ==== services/onboarding/flows/explorar.flow.js ==== */
+try {
+/* Explorar o portal (F4, plano §3.4 e Q7): as 20 paradas do antigo Roteiro (docs/roteiro, D236) viram uma trilha opcional dos
+   Primeiros passos. Cada parada se marca quando a pessoa abre o link dela pela trilha. O Roteiro agora redireciona para cá. */
+(function(){
+  var CDS = window.CDS = window.CDS || {};
+  if (!CDS.onboarding || !CDS.onboarding.trail) return;
+  CDS.onboarding.trail({
+    title: "Explorar o portal",
+    intro: "20 coisas para abrir, clicar e mexer, em 5 blocos. Cada uma se marca quando você abre pela lista.",
+    blocks: [
+      { id: "menu", title: "Menu e navegação", items: [
+        ["Menu em grade com miniaturas vivas", "Em Componentes, clique no ícone de grade. Cada card é o componente real, reduzido.", "#/main-button"],
+        ["Busca no conteúdo das docs", "Digite uma regra na busca do menu, como Disabled. Ela acha a frase dentro das docs, além do nome do componente.", "#/main-button"],
+        ["Preview no menu em lista", "Na lista de componentes, passe o mouse sobre os nomes. A miniatura aparece ao lado do menu.", "#/main-button"],
+        ["Atalhos de teclado", "Aperte ? para conhecer todos. Alt e seta para a direita levam ao componente seguinte.", "#/main-button"]
+      ] },
+      { id: "playground", title: "Playground", items: [
+        ["Componente ao vivo", "No Main Button, os controles da direita mudam o botão na hora: Kind, Appearance, Size e ícones.", "#/main-button"],
+        ["Mobile, tablet e desktop", "Os ícones de viewport acima do componente mostram como ele se comporta em cada tamanho.", "#/card"],
+        ["Tema escuro", "O ícone de lua no topo deixa o site inteiro no escuro, com os tokens do tema.", "#/tag"],
+        ["Abrir chamado no Slack", "No topo da página, Abrir chamado copia um resumo do componente e abre o #castanha-suporte.", "#/badge"],
+        ["Do Figma para o React", "Role a página até No React. O código do castanha-react muda junto com os controles.", "#/text-input"]
+      ] },
+      { id: "motion", title: "Motion", items: [
+        ["Motion de cada componente", "Na tab Motion do Main Button, passe o mouse e pressione o botão para conferir cada transição.", "#/main-button/motion"],
+        ["Laboratório de Motion", "Motion Styles em ação e um laboratório para comparar curvas, durações e velocidades.", "#/motion"]
+      ] },
+      { id: "marca", title: "Marca e visual", items: [
+        ["Cores do Tema Caju", "A paleta entra animada e cada amostra copia o token com um clique.", "#/caju-theme/cores"],
+        ["Elevação", "Escolha o nível e o card sobe com a sombra, decomposta em x, y, blur, spread e cor.", "#/caju-theme/elevacao"],
+        ["Galeria de ícones", "Os ícones da Caju com troca de cor e tamanho para a grade toda e o detalhe de cada um.", "#/caju-theme/icones"],
+        ["Ilustração", "Paletas clicáveis, personagens e uma simulação de condições visuais sobre uma ilustração.", "#/ilustracao"]
+      ] },
+      { id: "docs", title: "Documentação e recursos", items: [
+        ["Do's and Don'ts", "As diretrizes do Main Button mostram o certo e o errado lado a lado, com o componente real.", "#/main-button/diretrizes"],
+        ["Patterns", "Os tipos de Feedback Page do Sponsor ao vivo, com as ilustrações do Figma.", "#/patterns/sponsor"],
+        ["Templates do Sponsor", "Passe o mouse sobre o Side Menu colapsado: ele abre por cima do conteúdo, como no produto.", "#/sponsor-side-menu"],
+        ["Castanha Quiz", "Escolha um tema, faça o treino de 5 minutos e jogue com os componentes reais.", "#/castanha-quiz"],
+        ["Agentes e Skills", "Conheça o Borô, o assistente do Castanha no Slack, e a skill /castanhads-juntos.", "#/agentes"]
+      ] }
+    ]
+  });
+})();
+} catch (e) { console.error("[cds] services/onboarding/flows/explorar.flow.js", e); }
 
 /* ==== services/onboarding/flows/portal.flow.js ==== */
 try {
@@ -10150,10 +10244,27 @@ try {
       var m = CDS.onboarding.metrics(f.id), exits = Object.keys(m.exitAt || {}).map(function(k){ return "passo " + (+k + 1) + ": " + m.exitAt[k]; }).join(", ") || "nenhuma";
       rows.push([f.id, String(m.runs), String(m.completed), String(m.reminded), String(m.dismissed), exits, m.runs ? Math.round(m.ms / m.runs / 1000) + " s" : "—"]);
     });
-    var box = el("div");
-    if (CDS.docTable) box.appendChild(CDS.docTable(["Fluxo", "Inícios", "Concluídos", "Lembrar depois", "Dispensados", "Saídas por passo", "Tempo médio"], rows));
-    else rows.forEach(function(r){ box.appendChild(el("p", null, "pg-doc-p")).textContent = r.join(" · "); });
+    var box = el("div", null, "svc-onb-doc");
+    table(box, ["Fluxo", "Inícios", "Concluídos", "Lembrar depois", "Dispensados", "Saídas por passo", "Tempo médio"], rows);
+    // Primeiros passos e trilha Explorar (F4): o que este navegador já marcou
+    var o = CDS.onboarding;
+    if (o){
+      var done = o.tasksDone(), trail = o.trailDone(), stops = o.trailStops(), blocks = {};
+      stops.forEach(function(s){ var b = blocks[s.block] = blocks[s.block] || [0, 0]; b[1]++; if (trail[s.id]) b[0]++; });
+      box.appendChild(el("h3", null, "pg-doc-h3")).textContent = "Primeiros passos e trilha";
+      table(box, ["Item", "Valor"], [
+        ["Perfil escolhido", o.profile() || "nenhum"],
+        ["Tarefas concluídas", String(Object.keys(done).length) + (Object.keys(done).length ? " (" + Object.keys(done).join(", ") + ")" : "")],
+        ["Paradas abertas na trilha", Object.keys(trail).length + " de " + stops.length]
+      ].concat(Object.keys(blocks).map(function(b){ return [b, blocks[b][0] + " de " + blocks[b][1]]; })));
+      var rs = box.appendChild(el("cds-main-button", { label: "Limpar tarefas e trilha", kind: "ghost", appearance: "neutral", size: "small", "show-lead-icon": "false", "show-trailing-icon": "false" }));
+      rs.addEventListener("click", function(){ try { localStorage.removeItem("cds-onb-tarefas"); localStorage.removeItem("cds-onb-trilha"); } catch (e) {} if (CDS.docToast) CDS.docToast("Tarefas e trilha limpas"); box.replaceWith(metricsBox()); });
+    }
     return box;
+  }
+  function table(box, head, rows){
+    if (CDS.docTable) box.appendChild(CDS.docTable(head, rows));
+    else rows.forEach(function(r){ box.appendChild(el("p", null, "pg-doc-p")).textContent = r.join(" · "); });
   }
   CDS.docs["onboarding"] = { tabs: [
     { id: "visao", title: "Visão geral", blocks: [
@@ -10166,6 +10277,7 @@ try {
         "O estado (novo, em andamento, lembrar depois, concluído, dispensado) e as métricas ficam no localStorage deste navegador.",
         "A boas-vindas abre sozinha na primeira visita (fora do Relatório e das páginas escondidas). Me lembrar mais tarde traz de volta a partir do dia seguinte, no máximo 2 vezes. Começar segue para o tour, com o menu lateral, e o tour termina nos Primeiros passos do Início.",
         "Os Primeiros passos ficam numa tab do Início e no item da Ajuda, com o checklist do perfil e o botão Fazer o tour. Cada tarefa se marca quando a pessoa abre a página (ou mexe numa prop no Playground).",
+        "Embaixo do checklist fica a trilha Explorar o portal: as 20 paradas do antigo Roteiro, em 5 blocos de Accordion. Cada parada se marca quando a pessoa abre o link pela lista. O tour também abre pelo modal de atalhos (tecla ?) e a FAQ explica como refazer.",
         "Durante o tour, o Backdrop do DS fica atrás do passo e o bloco com a área apontada (o menu) fica por cima, claro.",
         "`?tour=<id>` abre um fluxo na hora e `?onboarding=off` desliga o serviço (o smoke das docs roda assim)."
       ] },
@@ -15569,6 +15681,12 @@ try {
             ["Quais durações e curvas de motion uso?", "As dos Motion Styles por interação (Hover In, Pressed, Selected In e os outros), sempre o estilo `/01`. Não escreva duração nem easing à mão.", 2],
             ["Por que o protótipo do Figma não usa o token de motion?", "O Figma não liga uma transição de protótipo a uma variável. Os valores dos Motion Styles são repetidos no protótipo, e o código usa os tokens.", 1]
           ] },
+          // O portal (onboarding, F4): como refazer o tour, trocar o foco e achar a trilha Explorar
+          { title: "O portal", icon: "home-line", appearance: "neutral", items: [
+            ["Como refaço o tour do portal?", "Em Início, na tab Primeiros passos, use o botão Fazer o tour. Ele também está nos atalhos do teclado (tecla ?). O tour precisa da janela larga, com o menu lateral à mostra.", 2],
+            ["Como troco o meu foco nos Primeiros passos?", "Na tab Primeiros passos do Início, escolha outro perfil. A lista de tarefas muda e o que você já fez continua marcado.", 1],
+            ["Onde estão as 20 coisas para explorar no portal?", "Na tab Primeiros passos do Início, em Explorar o portal. São 5 blocos, e cada parada se marca quando você abre pela lista.", 1]
+          ] },
           { title: "Pedidos e suporte", icon: "support-line", appearance: "positive", items: [
             ["Como peço algo ao time do DS?", ["Pelo formulário de suporte do Castanha DS no Slack, com título, detalhes, prioridade e anexos.", "O time assume o pedido, pede o contexto que faltar (versão, plataforma, prazo) e decide entre orientação de uso, correção, evolução no roadmap ou asset da squad.", "A entrega é anunciada no canal de novidades e o time volta ao pedido para você confirmar."], 30],
             ["Meu prazo é curto e o DS ainda não tem o que preciso", "Use uma solução local com tokens e componentes do Castanha e combine a migração com o time. Quando o DS publicar, troque pela versão oficial.", 4],
@@ -15637,7 +15755,10 @@ try {
       // Primeiros passos (onboarding, D315): perfis, checklist que se marca pela ação e o botão do tour (services/onboarding)
       { id: "primeiros-passos", title: "Primeiros passos", blocks: [
         { h2: "Primeiros passos" },
-        { visual: { bare: true, render: function(){ return CDS.onboarding ? CDS.onboarding.checklistView() : document.createElement("div"); } } }
+        { visual: { bare: true, render: function(){ return CDS.onboarding ? CDS.onboarding.checklistView() : document.createElement("div"); } } },
+        // Trilha Explorar (F4): as 20 paradas do antigo Roteiro (docs/roteiro redireciona para cá)
+        { h2: "Explorar o portal" },
+        { visual: { bare: true, render: function(){ return CDS.onboarding ? CDS.onboarding.trailView() : document.createElement("div"); } } }
       ] },
       // Sobre → Princípios de Design (zeroheight · 7379702). Texto do Hub; os ícones da página usam cores fora dos tokens
       // (C159) e ficam de fora: cada princípio vira um Card do DS.
@@ -18494,4 +18615,4 @@ try {
 
 /* ==== docs sob demanda (gerado) ==== */
 window.CDS = window.CDS || {}; CDS.docsIndex = {"backdrop":{"src":"components/backdrop/backdrop.docs.js?v=65945f2f","desc":"Backdrop é um componente de superfície utilizado para criar uma camada de bloqueio visual entre o conteúdo base da interface e elementos em primeiro plano, como modais e drawers."},"badge":{"src":"components/badge/badge.docs.js?v=5ee287e7","desc":"O Badge é um elemento visual usado exclusivamente para indicar notificações ou atualizações. Ele serve como um alerta discreto que informa a pessoa usuária sobre algo novo ou pendente em um determinado contexto da interface."},"caju-brand":{"src":"components/caju-brand/caju-brand.docs.js?v=a44569e9","desc":"O Caju Brand é um elemento visual fundamental que representa a identidade da Caju dentro dos fluxos do produto. Ele garante consistência no uso da marca, evitando distorções, cores inadequadas ou aplicações incorretas."},"calendar-day":{"src":"components/calendar-day/calendar-day.docs.js?v=abc00938","desc":"Cada dia do Date Picker: número, estado de seleção e o ponto do dia atual."},"calendar-week":{"src":"components/calendar-week/calendar-week.docs.js?v=68d3811f","desc":"Uma linha de 7 dias do Date Picker."},"card":{"src":"components/card/card.docs.js?v=f96742ea","desc":"O componente Card é um contêiner visual usado para agrupar informações relacionadas de forma clara e compacta."},"credit-card-flags":{"src":"components/card-flag/card-flag.docs.js?v=9cf412ba","desc":"Simula visualmente qualquer cartão e pode simbolizar uma bandeira específica."},"currency":{"src":"components/currency/currency.docs.js?v=82d20ffb","desc":"O Currency é um componente de exibição utilizado para apresentar valores monetários de forma padronizada, legível e consistente nas interfaces da Caju."},"currency-content":{"src":"components/currency-content/currency-content.docs.js?v=1c192490","desc":"Valor em moeda com o símbolo, o sinal de negativo opcional e uma descrição embaixo."},"currency-symbol":{"src":"components/currency-symbol/currency-symbol.docs.js?v=18f12baa","desc":"Símbolo da moeda usado nas células de valor da Table."},"divider":{"src":"components/divider/divider.docs.js?v=658da706","desc":"O componente Divider é uma linha fina que separa visualmente agrupamentos de conteúdo em uma interface. Ele atua como uma âncora visual, ajudando a pessoa usuária a escanear e compreender a hierarquia e o relacionamento entre os elementos da página."},"icon":{"src":"components/icon/icon.docs.js?v=6c4b763a","desc":"Icon (ícone) é uma representação visual direta que auxilia na comunicação de ações, estados, tipos de conteúdo ou categorias."},"avatar":{"src":"components/avatar/avatar.docs.js?v=115ebd44","desc":"O Avatar é um componente utilizado para representar visualmente uma pessoa usuária, seja por meio de imagem, iniciais ou ícone padrão. Ele agiliza a identificação de perfis em áreas onde o contexto pessoal é relevante."},"breadcrumb-item":{"src":"components/breadcrumb-item/breadcrumb-item.docs.js?v=d989392b","desc":"Cada nível do Breadcrumb: separador e conteúdo (link, página atual ou o \"…\" do Truncate)."},"caju-card":{"src":"components/caju-card/caju-card.docs.js?v=893becf1","desc":"O Caju Card simula visualmente os diferentes tipos de cartões da Caju nos cenários físicos e virtuais seguindo as diretrizes das lojinhas de app."},"close-toast":{"src":"components/close-toast/close-toast.docs.js?v=6733b6dc","desc":"Botão de fechar do Toast: 40×40, com o ícone close-line."},"close-alert":{"src":"components/close-alert/close-alert.docs.js?v=7209e59c","desc":"Botão de fechar do Alert: 40×40, com o ícone close-line."},"content-banner":{"src":"components/content-banner/content-banner.docs.js?v=68e995dd","desc":"Building block interno do Banner. Agrupa título, descrição e indicação de CTA."},"csat-item":{"src":"components/csat-item/csat-item.docs.js?v=bb328e74","desc":"Cada nível do CSAT Score: estrela e rótulo."},"csat-score":{"src":"components/csat-score/csat-score.docs.js?v=98367a50","desc":"O CSAT Score é um componente de avaliação utilizado para medir o nível de satisfação da pessoa usuária em relação a uma experiência, funcionalidade ou interação específica, por meio de uma escala ordinal visual representada por ícones e rótulos textuais."},"filter-chips":{"src":"components/filter-chip/filter-chip.docs.js?v=b85e3d05","desc":"Chip que liga e desliga um filtro: selecionado, troca o ícone pelo check e inverte as cores. Tem dois tamanhos: Medium (40) e Small (32)."},"icon-button":{"src":"components/icon-button/icon-button.docs.js?v=ac46ea69","desc":"O Icon Button é um botão compacto que exibe um ícone, sem rótulo de texto. Ele é utilizado para ações pontuais, geralmente secundárias, em interfaces que exigem economia de espaço e onde o significado do ícone é amplamente reconhecido."},"header":{"src":"components/header/header.docs.js?v=0b0ddcc8","desc":"Cabeçalho do Modal e do Bottom Sheet: título, botão de fechar e divisor."},"icons-block":{"src":"components/icons-block/icons-block.docs.js?v=f1f31450","desc":"Ícone do Filter Button: filtro (Default) ou calendário (Date)."},"filter-button":{"src":"components/filter-button/filter-button.docs.js?v=ce828b95","desc":"O Filter Button é um botão que serve como gatilho para filtros e, quando acionado, abre opções para refinar ou ajustar a exibição de conteúdos, listas ou tabelas."},"image":{"src":"components/image/image.docs.js?v=401442e2","desc":"O componente Image é utilizado para exibir imagens estáticas em diferentes contextos do produto, garantindo consistência visual e preservação correta das proporções. Ele oferece controle direto, permitindo que a imagem se adapte a diferentes layouts sem distorção."},"banner":{"src":"components/banner/banner.docs.js?v=68e35d7b","desc":"O Banner destaca conteúdo promocional ou informação relevante em uma área própria da tela. Reúne título, descrição e indicação de ação em um bloco clicável por inteiro, com fundo de cor livre ou imagem de fundo. Serve para atrair a pessoa usuária sem interromper o que ela está fazendo."},"input-chips":{"src":"components/input-chip/input-chip.docs.js?v=b4766617","desc":"Chip que mostra um valor escolhido e pode ser removido com um clique. Tem dois tamanhos: Medium (40) e Small (32)."},"chips-group":{"src":"components/chips-group/chips-group.docs.js?v=10be02b2","desc":"Container que organiza Filter Chips ou Input Chips em uma linha com rolagem ou em várias linhas."},"link":{"src":"components/link/link.docs.js?v=e0439fbd","desc":"O Link é um elemento interativo que direciona o usuário para outro destino, como páginas internas, externas, seções específicas ou downloads."},"list-lead-item":{"src":"components/list-lead-item/list-lead-item.docs.js?v=23969ecf","desc":"Item à esquerda das listas: Avatar, Icon ou Image."},"nav-control-item":{"src":"components/nav-control-item/nav-control-item.docs.js?v=1cf64b82","desc":"Cada indicador do Nav Control: ponto 6×6, que cresce para 16×6 quando ativo."},"nav-control":{"src":"components/nav-control/nav-control.docs.js?v=10f26623","desc":"O Nav Control é um componente visual utilizado como indicador de navegação, normalmente associado a carrosséis ou fluxos paginados. Ele representa, de forma ilustrativa, a quantidade total de itens e qual deles está em foco no momento."},"carousel":{"src":"components/carousel/carousel.docs.js?v=49ed1a06","desc":"Organiza de 3 a 10 itens em sequência horizontal, um por vez, com pré-visualização parcial do próximo."},"nps-value-item":{"src":"components/nps-value-item/nps-value-item.docs.js?v=f5a685e1","desc":"Cada valor do NPS Score: pílula 24 com o número."},"nps-score":{"src":"components/nps-score/nps-score.docs.js?v=6e2990ea","desc":"O NPS Score é um componente de seleção única utilizado para capturar a percepção da pessoa usuária em relação a uma experiência, produto ou serviço, geralmente em uma escala numérica de 0 a 10."},"popover":{"src":"components/popover/popover.docs.js?v=c94fbb76","desc":"Popover é um pequeno overlay contextual que aparece quando o usuário interage com um elemento da interface. Ele permite exibir conteúdos adicionais, ações ou informações complementares de forma leve, sem interromper o fluxo principal da experiência."},"breadcrumb":{"src":"components/breadcrumb/breadcrumb.docs.js?v=1374e5e9","desc":"O Breadcrumb é um componente de navegação que mostra a localização atual do usuário dentro de uma hierarquia ou estrutura de conteúdo. Ele oferece links para os níveis superiores, facilitando a navegação."},"progress-line":{"src":"components/progress-line/progress-line.docs.js?v=155b8299","desc":"O Progress Line é um indicador visual não interativo que representa o progresso de uma operação ao longo do tempo, ajudando a pessoa usuária a entender em que estágio o processo se encontra."},"progress-tracker-item":{"src":"components/progress-tracker-item/progress-tracker-item.docs.js?v=c9030f96","desc":"Etapa individual do Progress Tracker."},"progress-tracker":{"src":"components/progress-tracker/progress-tracker.docs.js?v=396eccbe","desc":"Indica o avanço de uma pessoa em um fluxo de múltiplas etapas, mostrando o que já foi concluído, onde ela está e o que ainda falta."},"checkbox":{"src":"components/checkbox/checkbox.docs.js?v=4fbb35d8","desc":"O checkbox é Componente interativo usado para selecionar ou desmarcar opções. Pode ser preenchido com um checkmark (✔) caso seja selecionado, ou por um traço (—) quando indeterminado. Utilizado em formulários e filtros, permitindo múltiplas seleções."},"radio-button":{"src":"components/radio-button/radio-button.docs.js?v=9f6fe1d4","desc":"Radio Button é um componente interativo usado para permitir ao usuário selecionar uma única opção de um conjunto. Essencial em formulários para escolhas únicas."},"shaped-icon":{"src":"components/shaped-icon/shaped-icon.docs.js?v=68f13907","desc":"O Shaped Icon é um ícone envolto por um fundo colorido e com formato definido, que confere maior ênfase visual e peso hierárquico. Ele é utilizado para evidenciar categorias, ações contextuais ou estados visuais sem depender de interação."},"alert":{"src":"components/alert/alert.docs.js?v=885a20f3","desc":"Mensagem fixa e persistente sobre o sistema, que fica visível até a pessoa usuária ler ou fechar."},"confirmation-message":{"src":"components/confirmation-message/confirmation-message.docs.js?v=5087ae73","desc":"Mostre o resultado de uma ação com ícone, título e descrição centralizados."},"file-lead-item":{"src":"components/file-lead-item/file-lead-item.docs.js?v=7d49330c","desc":"Miniatura do arquivo no Upload Item: imagem ou ícone de anexo, com a ação de ver o arquivo."},"lead-item":{"src":"components/lead-item/lead-item.docs.js?v=f404504e","desc":"Elemento à esquerda do Topic: Shaped Icon ou imagem 40×40."},"skeleton":{"src":"components/skeleton/skeleton.docs.js?v=3c935598","desc":"Placeholder de carregamento que ocupa o espaço de um conteúdo enquanto ele não chegou."},"slider":{"src":"components/slider/slider.docs.js?v=b4725007","desc":"Slider de seleção de valor num intervalo."},"spinner":{"src":"components/spinner/spinner.docs.js?v=1d25a27b","desc":"O Spinner é um indicador visual de atividade não interativa que informa à pessoa usuária que o sistema está processando uma ação em segundo plano."},"main-button":{"src":"components/main-button/main-button.docs.js?v=97f016e6","desc":"Main Button é um componente interativo usado para executar a ações mais importantes em uma tela, formulário ou fluxo."},"date-navigation":{"src":"components/date-navigation/date-navigation.docs.js?v=715e0489","desc":"Navegação do Date Picker: mês anterior, mês, ano e próximo mês."},"date-picker":{"src":"components/date-picker/date-picker.docs.js?v=f141eaf3","desc":"Calendário para escolher uma data ou um intervalo de datas, com navegação por mês e ano."},"drop-button":{"src":"components/drop-button/drop-button.docs.js?v=04fa3964","desc":"O Drop Button é um botão interativo que, ao ser acionado, abre um menu suspenso com opções de ação diretamente relacionadas ao contexto do botão. Ele combina a função de acionador visual com o acesso direto a um conjunto de comandos organizados."},"dropzone":{"src":"components/dropzone/dropzone.docs.js?v=62b11669","desc":"O Dropzone é a área delimitada onde a pessoa usuária adiciona arquivos, pelo botão de seleção ou arrastando o arquivo para dentro dela. A área informa os formatos e limites aceitos antes do envio. O acompanhamento de cada arquivo enviado fica no Upload Item."},"footer":{"src":"components/footer/footer.docs.js?v=4fd316e9","desc":"Rodapé do Modal e do Bottom Sheet: divisor e as ações (primária e secundária)."},"fixed-bar":{"src":"components/fixed-bar/fixed-bar.docs.js?v=dc85cbb8","desc":"A Fixed bar é uma área fixa posicionada na base da interface que agrupa duas ações relacionadas — uma primária e outra secundária. Ela é utilizada para decisões importantes no final de fluxos ou seções, permanecendo sempre acessível para a pessoa usuária."},"sponsor-category":{"src":"components/sponsor-category/sponsor-category.docs.js?v=c7d3f5f5","desc":"Item de navegação do Side Menu. Intent=Default navega direto, e Intent=Accordion abre subitens no Slot."},"sponsor-subcategory":{"src":"components/sponsor-subcategory/sponsor-subcategory.docs.js?v=99829327","desc":"Item de segundo nível do Side Menu, dentro do Slot de um .Category com Intent=Accordion."},"sponsor-user-profile":{"src":"components/sponsor-user-profile/sponsor-user-profile.docs.js?v=040bc349","desc":"Rodapé de identificação do Side Menu: avatar, nome e CNPJ, com ação opcional."},"status-dot":{"src":"components/status-dot/status-dot.docs.js?v=50b743c4","desc":"Indicador compacto de estado, formado por um ponto colorido e um rótulo em texto."},"switch":{"src":"components/switch/switch.docs.js?v=1c8eee92","desc":"O Switch é um componente que funciona como um interruptor digital, alterando imediatamente o estado de uma configuração entre opções binárias, como sim ou não, e ligado ou desligado, sem necessidade de confirmação."},"checkbox-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Checkboxes com um nome para o conjunto: zero, uma ou várias opções."},"radio-button-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Radio Buttons com um nome para o conjunto: exatamente uma opção."},"switch-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Switches com um nome para o conjunto: cada um liga ou desliga uma configuração na hora."},"system-banner":{"src":"components/system-banner/system-banner.docs.js?v=b00a0529","desc":"Aviso do sistema que ocupa a largura toda da página, com a mesma anatomia do Alert."},"tab-item":{"src":"components/tab-item/tab-item.docs.js?v=737b8a53","desc":"Cada aba da Fixed Tab e da Scrollable Tab: Lead Item opcional, Label e o sublinhado."},"fixed-tab":{"src":"components/fixed-tab/fixed-tab.docs.js?v=adf9d425","desc":"O Tabs organiza conteúdos relacionados em seções paralelas dentro da mesma página, permitindo que a pessoa usuária alterne rapidamente entre contextos sem navegação externa."},"scrollable-tab":{"src":"components/scrollable-tab/scrollable-tab.docs.js?v=3607a757","needs":["fixed-tab"],"desc":"Abas no tamanho do conteúdo, com rolagem horizontal. Mesma documentação de Tabs da Fixed Tab."},"tab-view":{"src":"components/tab-view/tab-view.docs.js?v=8e22521c","desc":"Alterna a visualização de uma lista entre lista e grade."},"table-head":{"src":"components/table-head/table-head.docs.js?v=7903b75b","desc":"Título de coluna da Table, com ordenação."},"table-toolbar":{"src":"components/table-toolbar/table-toolbar.docs.js?v=0df2607c","desc":"Barra de ações acima da Table."},"tag":{"src":"components/tag/tag.docs.js?v=5a9e9225","desc":"Tag são rótulos compactos e visualmente distintos usados para rapidamente categorizar, identificar e organizar itens."},"balance-card":{"src":"components/balance-card/balance-card.docs.js?v=c5840ec2","desc":"Exibe o saldo de uma categoria com rótulo, valor e status complementares."},"sponsor-header":{"src":"components/sponsor-header/sponsor-header.docs.js?v=3fcf1aaa","desc":"Cabeçalho de página dos templates web do Sponsor: navegação (voltar, breadcrumb e ações utilitárias) e área de título com as ações da página."},"sponsor-side-menu":{"src":"components/sponsor-side-menu/sponsor-side-menu.docs.js?v=d3d1e6ab","desc":"Navegação lateral do app Sponsor: colapsado (80px, só ícones) e expandido (360px), que no desktop abre por hover em overlay sobre o conteúdo."},"table-cell":{"src":"components/table-cell/table-cell.docs.js?v=14a427a8","desc":"Célula de dados da Table: texto, valor, percentual, Tag, Checkbox, Link ou ações."},"text-content":{"src":"components/text-content/text-content.docs.js?v=fd862195","desc":"Par de textos (Label e Description) com o destaque no Label ou na Description."},"accordion-item":{"src":"components/accordion-item/accordion-item.docs.js?v=824db8ab","desc":"Item de um accordion: um header com título que revela conteúdo adicional (no Slot) ao ser expandido."},"accordion":{"src":"components/accordion/accordion.docs.js?v=44db65bf","desc":"O Accordion agrupa vários Accordion Items em uma lista de seções expansíveis, que a pessoa abre sob demanda."},"code-input-otp":{"src":"components/code-input-otp/code-input-otp.docs.js?v=ee42108f","desc":"Campo de código de verificação (OTP/PIN): uma fileira de células de um caractere, preenchidas uma a uma, para inserir um código curto recebido por SMS, e-mail ou app autenticador."},"credit-card-input":{"src":"components/credit-card-input/credit-card-input.docs.js?v=f10e590f","desc":"Campo para inserir o número de um cartão de crédito."},"date-input":{"src":"components/date-input/date-input.docs.js?v=5085dd0b","desc":"Campo de data da família Text Fields: digitar com máscara dd/mm/aaaa ou escolher no calendário."},"password-input":{"src":"components/password-input/password-input.docs.js?v=afaea942","desc":"O Password Input é um campo de entrada específico para senhas."},"quantity-input":{"src":"components/quantity-input/quantity-input.docs.js?v=d00bba47","desc":"O Quantity Input é um campo numérico com controles de incremento e decremento."},"search-input":{"src":"components/search-input/search-input.docs.js?v=5e1d2ba6","desc":"Campo de busca da família Text Fields: lupa fixa e botão de limpar quando há texto."},"text-area":{"src":"components/text-area/text-area.docs.js?v=beb8d21c","desc":"O Text Area é um campo de entrada multilinha que permite à pessoa usuária digitar textos mais longos, como descrições, observações ou comentários."},"text-input":{"src":"components/text-input/text-input.docs.js?v=9841ec39","desc":"O Text Input é um campo de entrada para coleta de informações textuais curtas fornecidas pela pessoa usuária."},"toast":{"src":"components/toast/toast.docs.js?v=82f85974","desc":"O Toast é um componente de notificação temporária que informa a pessoa usuária sobre o resultado de uma ação ou estado do sistema. Ele aparece de forma discreta na interface e desaparece automaticamente após alguns segundos, sem interromper o fluxo de navegação."},"tooltip":{"src":"components/tooltip/tooltip.docs.js?v=145db2e0","desc":"São caixas flutuantes que proporcionam informações sobre algum aspecto da interface que mereça maior atenção."},"topic":{"src":"components/topic/topic.docs.js?v=34a407f2","desc":"Apresente um tópico com ícone ou imagem, título e descrição."},"trailing-item":{"src":"components/trailing-item/trailing-item.docs.js?v=f3876cc2","desc":"Item à direita das listas: Checkbox, Radio Button, Switch, Icon ou Tag."},"content-list-item":{"src":"components/content-list-item/content-list-item.docs.js?v=a9780daa","desc":"O Content list item é um bloco de conteúdo que organiza informações de forma clara e escaneável dentro de listas. Ele combina elementos como título, descrição, ícone, avatar ou status, ajudando o usuário a identificar de relance itens, conteúdos ou ações relacionadas."},"content-list":{"src":"components/content-list/content-list.docs.js?v=6ad148d0","desc":"O Content List é um componente que agrupa e organiza múltiplos Content List Items em uma estrutura única e consistente. Ele funciona como um container, permitindo que diferentes tipos de conteúdo sejam exibidos de forma clara e hierárquica. Pode conter itens informativos, de navegação ou de transações financeiras, adaptando-se a diferentes contextos de uso."},"selection-list-item":{"src":"components/selection-list-item/selection-list-item.docs.js?v=285ee023","desc":"O Selection List Item é um componente de seleção que combina título, descrição e ícone para enriquecer a apresentação das opções. Ele amplia a clareza das escolhas, indo além de seletores básicos como checkbox, radio ou switch."},"async-creatable-select-input":{"src":"components/async-creatable-select-input/async-creatable-select-input.docs.js?v=b89d5e8e","needs":["async-select-input"],"desc":"Como o Async e, quando o texto digitado não existe nas opções, oferece \"Adicionar “…”\" para criar a opção. Faz parte da família Select Input."},"async-select-input":{"src":"components/async-select-input/async-select-input.docs.js?v=5ef84b74","desc":"O Select input permite que a pessoa usuária escolha uma ou mais opções a partir de uma lista pré-definida."},"checkbox-select-input":{"src":"components/checkbox-select-input/checkbox-select-input.docs.js?v=b47659af","needs":["async-select-input"],"desc":"Vários valores sem busca: a lista fica aberta enquanto marca, e o campo mostra quantos foram selecionados. Faz parte da família Select Input."},"multi-select-input":{"src":"components/multi-select-input/multi-select-input.docs.js?v=aff1ad3a","needs":["async-select-input"],"desc":"Vários valores com busca: cada escolha vira um Input Chip dentro do campo. Faz parte da família Select Input."},"radio-select-input":{"src":"components/radio-select-input/radio-select-input.docs.js?v=60d32c71","needs":["async-select-input"],"desc":"Escolha única sem busca: o campo abre a lista de opções, com Radio Button. Faz parte da família Select Input."},"select-number":{"src":"components/select-number/select-number.docs.js?v=2910fc7a","desc":"Seletor de número do Pagination (itens por página e página atual), com lista em Popover."},"pagination":{"src":"components/pagination/pagination.docs.js?v=1acb2983","desc":"O Pagination (paginação) permite navegar entre conjuntos de dados distribuídos em várias páginas, otimizando a performance da visualização e facilitando o consumo de grandes volumes de dados."},"selection-list":{"src":"components/selection-list/selection-list.docs.js?v=3a43fe13","desc":"O Selection List é um agrupamento de opções organizadas em lista, permitindo que o usuário faça uma ou múltiplas seleções de forma clara e consistente. Ele é formado por instâncias do componente Selection List Item empilhados e separados por divisores visuais, facilitando a leitura e a comparação entre alternativas."},"table":{"src":"components/table/table.docs.js?v=48e10ae5","desc":"O componente de Tabela organiza dados estruturados em colunas e linhas, facilitando a leitura, comparação e análise. É ideal para exibir informações com formato uniforme, como listas, transações ou relatórios."},"upload-item":{"src":"components/upload-item/upload-item.docs.js?v=e328a912","desc":"O Upload Item representa um arquivo dentro do fluxo de upload, do envio em curso até o arquivo já armazenado. Ele mostra o nome, a extensão, o estado do envio e as ações disponíveis para aquele arquivo."},"upload-list":{"src":"components/upload-list/upload-list.docs.js?v=fa3ec45d","desc":"Agrupa os Upload Items de um fluxo, com ordem e espaçamento consistentes."},"viewport-restriction":{"src":"components/viewport-restriction/viewport-restriction.docs.js?v=03b58a4b","desc":"Aviso de que o componente não está disponível no viewport atual."},"bottom-sheet":{"src":"components/bottom-sheet/bottom-sheet.docs.js?v=95865ce3","desc":"Camada que surge da base da tela para apresentar conteúdo ou ações complementares sem tirar a pessoa do contexto. A tela de fundo continua visível."},"drawer":{"src":"components/drawer/drawer.docs.js?v=69db3d04","desc":"O Drawer é um painel lateral deslizante utilizado para expor conteúdos complementares ou etapas adicionais dentro de um fluxo principal, sem interromper a tela atual. Ele aparece sobreposto à interface e permite que a pessoa usuária mantenha o contexto enquanto realiza uma interação específica."},"modal":{"src":"components/modal/modal.docs.js?v=fc145684","desc":"O Modal é um componente de sobreposição que bloqueia a interface base para exibir conteúdos focados, como formulários, informações detalhadas ou confirmações. Ele exige atenção da pessoa usuária antes de retornar ao fluxo principal."},"modal-date-picker":{"src":"components/modal-date-picker/modal-date-picker.docs.js?v=d1e58383","desc":"Calendário num Modal, com Cancelar e Confirmar: a data vale depois de confirmada."}};
-CDS.searchIndex = "dist/search.json?v=5ed526e5"; /* 1629 seções */
+CDS.searchIndex = "dist/search.json?v=54c9c685"; /* 1630 seções */

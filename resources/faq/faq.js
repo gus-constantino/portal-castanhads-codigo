@@ -53,6 +53,12 @@
             ["Quais durações e curvas de motion uso?", "As dos Motion Styles por interação (Hover In, Pressed, Selected In e os outros), sempre o estilo `/01`. Não escreva duração nem easing à mão.", 2],
             ["Por que o protótipo do Figma não usa o token de motion?", "O Figma não liga uma transição de protótipo a uma variável. Os valores dos Motion Styles são repetidos no protótipo, e o código usa os tokens.", 1]
           ] },
+          // O portal (onboarding, F4): como refazer o tour, trocar o foco e achar a trilha Explorar
+          { title: "O portal", icon: "home-line", appearance: "neutral", items: [
+            ["Como refaço o tour do portal?", "Em Início, na tab Primeiros passos, use o botão Fazer o tour. Ele também está nos atalhos do teclado (tecla ?). O tour precisa da janela larga, com o menu lateral à mostra.", 2],
+            ["Como troco o meu foco nos Primeiros passos?", "Na tab Primeiros passos do Início, escolha outro perfil. A lista de tarefas muda e o que você já fez continua marcado.", 1],
+            ["Onde estão as 20 coisas para explorar no portal?", "Na tab Primeiros passos do Início, em Explorar o portal. São 5 blocos, e cada parada se marca quando você abre pela lista.", 1]
+          ] },
           { title: "Pedidos e suporte", icon: "support-line", appearance: "positive", items: [
             ["Como peço algo ao time do DS?", ["Pelo formulário de suporte do Castanha DS no Slack, com título, detalhes, prioridade e anexos.", "O time assume o pedido, pede o contexto que faltar (versão, plataforma, prazo) e decide entre orientação de uso, correção, evolução no roadmap ou asset da squad.", "A entrega é anunciada no canal de novidades e o time volta ao pedido para você confirmar."], 30],
             ["Meu prazo é curto e o DS ainda não tem o que preciso", "Use uma solução local com tokens e componentes do Castanha e combine a migração com o time. Quando o DS publicar, troque pela versão oficial.", 4],

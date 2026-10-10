@@ -23,12 +23,12 @@ const BANNED = [
 const EMOJI = /\p{Extended_Pictographic}/u;
 
 function lint(ROOT){
-  const DIR = path.join(ROOT, "services", "onboarding", "flows"), errors = [], warnings = [], flows = [], checklists = [];
+  const DIR = path.join(ROOT, "services", "onboarding", "flows"), errors = [], warnings = [], flows = [], checklists = [], trails = [];
   if (!fs.existsSync(DIR)) return { errors, warnings, flows };
   const cat = JSON.parse(fs.readFileSync(path.join(ROOT, "assets", "illustrations", "catalog.json"), "utf8"));
   const ills = new Set(); (cat.buckets || []).forEach((b) => (b.items || []).forEach((i) => ills.add(b.id + "/" + (i.name || i.id))));
   fs.readdirSync(DIR).filter((f) => f.endsWith(".flow.js")).sort().forEach((f) => {
-    const CDS = { onboarding: { register: (fl) => flows.push(Object.assign({ file: f }, fl)), checklist: (c) => checklists.push(Object.assign({ file: f }, c)) } };
+    const CDS = { onboarding: { register: (fl) => flows.push(Object.assign({ file: f }, fl)), checklist: (c) => checklists.push(Object.assign({ file: f }, c)), trail: (t) => trails.push(Object.assign({ file: f }, t)) } };
     try { vm.runInNewContext(fs.readFileSync(path.join(DIR, f), "utf8"), { window: { CDS }, CDS, console }, { filename: f }); }
     catch (e) { errors.push(f + ": não roda (" + e.message + ")"); }
   });
@@ -67,7 +67,23 @@ function lint(ROOT){
       });
     });
   });
-  return { errors, warnings, flows };
+  // Trilha Explorar: título até 40 (as paradas citam nomes de componentes), texto com ponto, rota interna, sem palavras a evitar.
+  // O estrangeirismo fica de fora: as paradas usam o nome exato do Figma (ex.: Feedback Page)
+  trails.forEach((tr) => {
+    const seen = new Set();
+    (tr.blocks || []).forEach((b) => {
+      if (!b.id || seen.has(b.id)) errors.push(tr.file + ": bloco sem id ou repetido: " + b.id); seen.add(b.id);
+      (b.items || []).forEach((it, i) => {
+        const at = tr.file + " › " + b.id + " › " + (i + 1), [l, x, href] = it.map(String);
+        if (!l || l.length > 40) errors.push(at + ": título vazio ou com mais de 40 caracteres");
+        if (/[.!:]$/.test(l)) errors.push(at + ": título termina com pontuação");
+        if (!/\.$/.test(x)) errors.push(at + ": texto sem ponto final");
+        if (!/^#\/[\w-]/.test(href)) errors.push(at + ": link fora do portal: " + href);
+        BANNED.filter(([, why]) => why !== "estrangeirismo").forEach(([re, why]) => { if (re.test(l + " " + x)) errors.push(at + ": " + why); });
+      });
+    });
+  });
+  return { errors, warnings, flows, trails };
 }
 module.exports = lint;
 

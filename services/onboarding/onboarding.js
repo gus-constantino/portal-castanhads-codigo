@@ -19,17 +19,19 @@
  * Primeiros passos (checklist da tab do Início): CDS.onboarding.checklist({ profiles: [{ id, label, tasks: [{ id, label, text,
  *   href, done: { visit: "rota" } | { playground: true } | { profile: true } }] }] }) · checklistView() monta a tela.
  *   A tarefa se marca pela ação (abrir a página, mexer numa prop no Playground), não por clique em Feito.
+ * Trilha Explorar (F4, o antigo Roteiro): CDS.onboarding.trail({ title, intro, blocks: [{ id, title, items: [[título, texto, href]] }] })
+ *   · trailView() monta Accordion por bloco com Content List; a parada se marca quando a pessoa abre o link pela lista.
  *
  * API: register · flows · start(id) · stop · next · back · remind · dismiss · state(id) · reset(id) · metrics(id) · active
- *   profile() / profile(id) · checklist(def) · checklistView() · tasksDone()
- * Evento (document): cds-onboarding { type: start|show|complete|remind|dismiss|skip|task|profile, flow, step }
- * localStorage: cds-onb:<id> (estado do fluxo) · cds-onb-metrics:<id> · cds-onb-perfil · cds-onb-tarefas
+ *   profile() / profile(id) · checklist(def) · checklistView() · tasksDone() · trail(def) · trailView() · trailDone() · trailStops()
+ * Evento (document): cds-onboarding { type: start|show|complete|remind|dismiss|skip|task|stop|profile, flow, step }
+ * localStorage: cds-onb:<id> (estado do fluxo) · cds-onb-metrics:<id> · cds-onb-perfil · cds-onb-tarefas · cds-onb-trilha
  * Desliga com ?onboarding=off. ?tour=<id> abre um fluxo na hora.
  */
 (function(){
   "use strict";
   var CDS = window.CDS = window.CDS || {};
-  var FLOWS = {}, ORDER = [], CHECK = null;
+  var FLOWS = {}, ORDER = [], CHECK = null, TRAIL = null;
   var BUTTONS = { start: "Começar", next: "Continuar", back: "Voltar", done: "Concluir", close: "Fechar", remind: "Me lembrar mais tarde", dismiss: "Não mostrar novamente", more: "Quero saber mais" };
 
   // ---------- Estado e métricas (localStorage, sempre com try/catch) ----------
@@ -241,6 +243,13 @@
       if (d.playground && withQuery && CDS.playgrounds && CDS.playgrounds.some(function(c){ return c.id === r.split("/")[0] && !c.resource; })) markDone(t.id);
     });
   }
+  // Tag aninhada do item (override de instância): check no Concluído, sem ícone no Pendente. Na 1ª pintura a tela ainda não
+  // está na página e o item não montou a Tag: aplica quando ela existir
+  function tagStatus(item, ok, tries){
+    if (!item.tagEl){ if ((tries || 0) < 20) requestAnimationFrame(function(){ tagStatus(item, ok, (tries || 0) + 1); }); return; }
+    if (ok){ item.tagEl.setAttribute("icon", "check-line"); item.tagEl.removeAttribute("show-lead-item"); }
+    else item.tagEl.setAttribute("show-lead-item", "false");
+  }
   function markProfile(){ allTasks().forEach(function(t){ if (t.done && t.done.profile && profile()) markDone(t.id); }); }
   function checklistView(){
     var c = CDS.create, box = c("div", null, "svc-onb-check");
@@ -266,8 +275,7 @@
         var ok = !!d[t.id];
         var item = list.appendChild(c("cds-content-list-item", { label: t.label, description: t.text, href: t.href || null, intent: "navigation", "show-tag": "true",
           "tag-label": ok ? "Concluído" : "Pendente", "tag-appearance": ok ? "positive" : "neutral", "show-lead-item": "false", "show-divider": "true" }));
-        // Tag aninhada (override de instância): check no Concluído, sem ícone no Pendente
-        if (item.tagEl){ if (ok) item.tagEl.setAttribute("icon", "check-line"); else item.tagEl.setAttribute("show-lead-item", "false"); }
+        tagStatus(item, ok);
       });
       tourBtn.hidden = tip.hidden = window.innerWidth <= 1100;
     }
@@ -279,6 +287,45 @@
     return box;
   }
   function checklist(def){ CHECK = def; }
+
+  // ---------- Trilha Explorar (F4, antigo Roteiro): blocos em Accordion, paradas em Content List, marcadas ao abrir pela lista ----------
+  function trailDone(){ return read("cds-onb-trilha", {}); }
+  function trailStops(){ return TRAIL ? TRAIL.blocks.reduce(function(a, b){ return a.concat(b.items.map(function(it, i){ return { id: b.id + "-" + (i + 1), block: b.title }; })); }, []) : []; }
+  function markStop(id){
+    var d = trailDone(); if (d[id]) return;
+    d[id] = today(); write("cds-onb-trilha", d); emit("stop", { stop: id });
+  }
+  function trailView(){
+    var c = CDS.create, box = c("div", null, "svc-onb-check");
+    if (!TRAIL){ box.appendChild(c("p", null, "pg-doc-p")).textContent = "Nenhuma trilha registrada."; return box; }
+    box.appendChild(c("p", null, "pg-doc-p")).textContent = TRAIL.intro;
+    var countEl = box.appendChild(c("p", { "aria-live": "polite" }, "svc-onb-check__count"));
+    var acc = box.appendChild(c("cds-accordion", { label: TRAIL.title }, "svc-onb-check__list"));
+    var parts = TRAIL.blocks.map(function(b){
+      var item = acc.appendChild(c("cds-accordion-item", { label: b.title, "show-lead-item": "false", "heading-level": "3", collapsed: "" }));
+      var list = c("cds-content-list", { label: b.title, intent: "navigation" });
+      item.appendChild(list); // Slot: entra antes de conectar
+      list.addEventListener("click", function(e){ var row = e.target.closest && e.target.closest("cds-content-list-item[data-stop]"); if (row){ markStop(row.getAttribute("data-stop")); setTimeout(paint, 0); } }); // repinta depois: o link precisa estar na página para navegar
+      return { b: b, item: item, list: list };
+    });
+    function paint(){
+      var d = trailDone(), total = 0, done = 0;
+      parts.forEach(function(p){
+        var n = 0; p.list.innerHTML = "";
+        p.b.items.forEach(function(it, i){
+          var id = p.b.id + "-" + (i + 1), ok = !!d[id]; total++; if (ok){ done++; n++; }
+          var row = p.list.appendChild(c("cds-content-list-item", { "data-stop": id, label: it[0], description: it[1], href: it[2], intent: "navigation", "show-tag": "true",
+            "tag-label": ok ? "Concluído" : "Pendente", "tag-appearance": ok ? "positive" : "neutral", "show-lead-item": "false", "show-divider": "true" }));
+          tagStatus(row, ok);
+        });
+        p.item.setAttribute("description", n + " de " + p.b.items.length);
+      });
+      countEl.textContent = done + " de " + total + " abertas";
+    }
+    paint();
+    return box;
+  }
+  function trail(def){ TRAIL = def; }
 
   // ---------- Registro ----------
   function register(f){
@@ -292,6 +339,7 @@
     start: start, stop: function(){ stop("stop"); }, next: next, back: back, remind: remind, dismiss: dismiss,
     state: state, reset: reset, metrics: metrics, profile: profile,
     checklist: checklist, checklistView: checklistView, tasksDone: tasksDone,
+    trail: trail, trailView: trailView, trailDone: trailDone, trailStops: trailStops,
     active: function(){ return run ? { flow: run.id, step: run.i, total: run.steps.length } : null; },
     buttons: BUTTONS
   };

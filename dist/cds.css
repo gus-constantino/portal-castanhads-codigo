@@ -2375,6 +2375,8 @@ loc-vazio[size="small"] .loc-vazio__pilha{ height:var(--common-sizes-40); margin
 .svc-onb-check__actions{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--common-sizes-16); }
 .svc-onb-check__actions[hidden], .svc-onb-check__actions [hidden]{ display:none; }
 .svc-onb-check__hint{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+/* Trilha Explorar: a Content List de cada bloco ocupa a largura do Accordion (o Figma tem 320 nas duas peças) */
+.svc-onb-check__list cds-content-list{ width:100%; }
 
 /* ==== resources/castanha-quiz/castanha-quiz.css ==== */
 /* Castanha Quiz: visuais das perguntas e do treinamento rápido (ver castanha-quiz.js). Só tokens */

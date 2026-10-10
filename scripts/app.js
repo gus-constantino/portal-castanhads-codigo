@@ -396,6 +396,10 @@
       var ul = body.appendChild(kit.el("ul", { "class": "pg-shortcuts__list" }));
       g[1].forEach(function(row){ ul.appendChild(kit.el("li", { "class": "pg-shortcuts__row" }, [kit.el("span", { text: row[0] }), keys(row[1])])); });
     });
+    // Rever o tour (onboarding, F4): com o menu lateral à mostra (mais de 1100 px), onde os passos do tour se ancoram
+    var tourRow = body.appendChild(kit.el("div", { "class": "pg-shortcuts__tour" }));
+    var tourBtn = tourRow.appendChild(kit.el("cds-main-button", { label: "Fazer o tour", size: "small", "show-lead-icon": "false", "show-trailing-icon": "false" }));
+    tourBtn.addEventListener("click", function(){ modal.close(); if (window.CDS && CDS.onboarding) setTimeout(function(){ CDS.onboarding.start("portal"); }, 0); });
     var modal = kit.el("cds-modal", { id: "shortcuts", "text-title": "Atalhos do teclado", "show-footer": "false", label: "Atalhos do teclado" }, [body]);
     document.body.appendChild(modal);
     document.addEventListener("keydown", function(e){
@@ -403,7 +407,7 @@
       if (e.key !== "?" || typing || e.metaKey || e.ctrlKey || e.altKey) return;
       e.preventDefault();
       var dlg = modal.querySelector("dialog");
-      if (dlg && dlg.open) modal.close(); else { if (typeof peek !== "undefined") peek.hide(); modal.show(); }
+      if (dlg && dlg.open) modal.close(); else { if (typeof peek !== "undefined") peek.hide(); tourRow.hidden = window.innerWidth <= 1100 || !(window.CDS && CDS.onboarding); modal.show(); }
     });
   })();
 

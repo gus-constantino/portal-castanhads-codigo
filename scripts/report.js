@@ -380,7 +380,7 @@
   // ---------- Adoção ao longo do tempo (Castanha Analytics, Figma 2675:8589) ----------
   // Gráfico de área em %: uma série por stack, eixo 0–100% com 5 linhas de grade, datas embaixo (a do hover vira Tag Neutral),
   // legenda com linha e ponto, Select de período e Tooltip do DS com o valor de cada série no dia. Cores Charts do design
-  // (03 medium · 04 semi-soft · 05 semi-soft). Azul e roxo ficam próximos para protanopia: cada linha leva o valor no fim (C197).
+  // (03 medium · 04 semi-soft · 05 semi-soft). Azul e roxo ficam próximos para protanopia: cada linha leva o valor no fim (C198).
   function adoption(grid){
     var T = extra.trend; if (!T || !T.days || !T.days.length) return null;
     var comps = compsOnly(), C = {}; comps.forEach(function(c){ C[c.id] = 1; });
@@ -587,7 +587,7 @@
     var FS = CDS.figmaStatus || { items: {} }, byId = {}, pubN = {};
     (CDS.playgrounds || []).forEach(function(c){ byId[c.id] = c.name; });
     Object.keys(FS.items).forEach(function(id){ (pubN[FS.items[id]] = pubN[FS.items[id]] || []).push(byId[id] || id); });
-    // 4º item = cor Charts do Castanha Analytics (D316), a mesma da coluna Figma do painel das stacks
+    // 4º item = cor Charts do Castanha Analytics (D318), a mesma da coluna Figma do painel das stacks
     var PUBS = [["current", "Publicado no Figma", "Publicado na lib sem alterações pendentes.", "ch03"],
       ["changed", "Publicado com alterações pendentes", "Publicado, mas o arquivo tem alterações que ainda não foram publicadas.", "ch04"],
       ["unpublished-comp", "Não publicado", "Componente que ainda não está publicado na lib.", "ch05"],
@@ -767,8 +767,8 @@
       toc.appendChild(dsLink("rp-src", "Componentes locais", "#/locais"));
       // Embaixo: a proposta zeroheight → portal (docs/pitch, página própria em tela cheia; Gustavo, 06/10)
       toc.appendChild(dsLink("rp-src", "Proposta: zeroheight → portal", "docs/pitch/"));
-      // E o roteiro de 20 paradas para quem chega (docs/roteiro, página escondida; Gustavo, 06/10)
-      toc.appendChild(dsLink("rp-src", "Roteiro: 20 coisas para explorar", "docs/roteiro/"));
+      // E as 20 paradas para quem chega: o antigo Roteiro virou a trilha Explorar dos Primeiros passos (F4; docs/roteiro redireciona)
+      toc.appendChild(dsLink("rp-src", "Explorar o portal: 20 paradas", "#/inicio/primeiros-passos"));
     }
     filter();
   }

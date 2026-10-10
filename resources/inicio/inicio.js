@@ -51,7 +51,10 @@
       // Primeiros passos (onboarding, D315): perfis, checklist que se marca pela ação e o botão do tour (services/onboarding)
       { id: "primeiros-passos", title: "Primeiros passos", blocks: [
         { h2: "Primeiros passos" },
-        { visual: { bare: true, render: function(){ return CDS.onboarding ? CDS.onboarding.checklistView() : document.createElement("div"); } } }
+        { visual: { bare: true, render: function(){ return CDS.onboarding ? CDS.onboarding.checklistView() : document.createElement("div"); } } },
+        // Trilha Explorar (F4): as 20 paradas do antigo Roteiro (docs/roteiro redireciona para cá)
+        { h2: "Explorar o portal" },
+        { visual: { bare: true, render: function(){ return CDS.onboarding ? CDS.onboarding.trailView() : document.createElement("div"); } } }
       ] },
       // Sobre → Princípios de Design (zeroheight · 7379702). Texto do Hub; os ícones da página usam cores fora dos tokens
       // (C159) e ficam de fora: cada princípio vira um Card do DS.

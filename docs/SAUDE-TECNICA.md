@@ -42,7 +42,7 @@ Nenhum aviso.
 | Primeira visita (tudo o que o index.html carrega) | 2600 KB | 612 KB |
 | dist/cds.js · componentes (117 arquivos) | 340 KB | 85 KB |
 | dist/cds.js · playgrounds (110 arquivos) | 164 KB | 29 KB |
-| dist/cds.js · recursos (39 arquivos) | 752 KB | 215 KB |
+| dist/cds.js · recursos (39 arquivos) | 753 KB | 215 KB |
 | Docs sob demanda (110 arquivos, uma por componente aberto) | — | 293 KB no total |
 
 Limite: 600 KB gzip na primeira visita (aviso no build; `BUDGET_STRICT=1` faz falhar).

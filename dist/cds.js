@@ -9911,10 +9911,14 @@ try {
     }
     if (step.dismissible !== false){ var nm = body.appendChild(c("cds-link", { label: BUTTONS.dismiss, href: "#", appearance: "neutral", "show-trailing-item": "false" }, "svc-onb__dismiss")); nm.addEventListener("click", function(e){ e.preventDefault(); dismiss(); }); }
     var primary = n === 1 ? (f.then ? BUTTONS.start : BUTTONS.close) : (i === 0 ? BUTTONS.start : (i === n - 1 ? BUTTONS.done : BUTTONS.next));
-    var modal = c("cds-modal", { "text-title": step.title, label: step.title, "primary-label": primary,
-      "secondary-label": i === 0 ? BUTTONS.remind : BUTTONS.back, "show-lead-icon": "false", "show-close-button": "false" });
+    // Desktop e tablet: Modal do DS · celular (até 743 px): Bottom Sheet do DS, que é o overlay de mobile (bottom-sheet.docs.js:28)
+    var sheet = window.innerWidth <= 743;
+    var modal = c(sheet ? "cds-bottom-sheet" : "cds-modal", { "text-title": step.title, label: step.title, "primary-label": primary,
+      "secondary-label": i === 0 ? BUTTONS.remind : BUTTONS.back, "show-lead-icon": "false", "show-close-button": "false", viewport: sheet ? "mobile" : null });
     modal.appendChild(body); // Slot: entra antes de conectar
     document.body.appendChild(modal);
+    // Bottom Sheet não repassa show-lead-icon ao .Footer (o Modal repassa, C197): override da instância aninhada
+    if (sheet && modal.footerEl) modal.footerEl.setAttribute("show-lead-icon", "false");
     ui = { modal: modal, choice: choice };
     modal.addEventListener("cds-action", function(e){
       e.stopPropagation();
@@ -9947,7 +9951,7 @@ try {
   function checklistView(){
     var c = CDS.create, box = c("div", null, "svc-onb-check");
     if (!CHECK){ box.appendChild(c("p", null, "pg-doc-p")).textContent = "Nenhum checklist registrado."; return box; }
-    var cur = profile() || CHECK.profiles[0].id;
+    var cur = profile(); // sem perfil: nenhum marcado e só a tarefa Escolher o seu foco
     box.appendChild(c("p", null, "pg-doc-p")).textContent = CHECK.intro;
     var group = box.appendChild(c("cds-selection-group", { label: CHECK.chooseLabel, name: "svc-onb-check-perfil" }, "svc-onb-check__perfis"));
     CHECK.profiles.forEach(function(p){ group.appendChild(c("cds-radio-button", { label: p.label, value: p.id, name: "svc-onb-check-perfil", status: p.id === cur ? "selected" : "unselected" })); });
@@ -9960,8 +9964,8 @@ try {
     var tip = actions.appendChild(c("p", null, "svc-onb-check__hint"));
     tip.textContent = "O tour mostra o menu, a busca e a Ajuda em 3 etapas.";
     function paint(){
-      var p = CHECK.profiles.filter(function(x){ return x.id === cur; })[0] || CHECK.profiles[0], d = tasksDone();
-      var tasks = (CHECK.common || []).concat(p.tasks), done = tasks.filter(function(t){ return d[t.id]; }).length;
+      var p = CHECK.profiles.filter(function(x){ return x.id === cur; })[0], d = tasksDone();
+      var tasks = (CHECK.common || []).concat(p ? p.tasks : []), done = tasks.filter(function(t){ return d[t.id]; }).length;
       countEl.textContent = done + " de " + tasks.length + " concluídos";
       list.innerHTML = "";
       tasks.forEach(function(t){

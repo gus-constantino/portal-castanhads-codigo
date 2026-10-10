@@ -66,6 +66,18 @@ window.CDS_SMOKE_DOCS = async function(opts){
       else a11y(docsEl).forEach(function(x){ rec("errors", id, cur + " · a11y: " + x); });
     }
   }
+  // Onboarding (D316): todo passo de tour precisa achar a área em [data-onb] (âncora quebrada = tour pulando passo)
+  if (CDS.onboarding){
+    location.hash = "#/inicio"; await sleep(80);
+    CDS.onboarding.flows().forEach(function(f){
+      f.steps.forEach(function(s, k){
+        if (s.kind === "modal" || !s.anchor) return;
+        var el = document.querySelector('[data-onb="' + s.anchor + '"]');
+        if (!el) rec("errors", "onboarding", f.id + " › passo " + (k + 1) + ": âncora [data-onb=\"" + s.anchor + "\"] não existe no shell");
+        else if (!opts.mobile && !el.getClientRects().length) rec("errors", "onboarding", f.id + " › passo " + (k + 1) + ": âncora " + s.anchor + " fora da tela no desktop");
+      });
+    });
+  }
   cur = ""; console.error = origErr; window.removeEventListener("error", onErr);
   var all = Object.keys(byId).map(function(k){ return byId[k]; });
   return { docs: ids.length, tabs: tabs,

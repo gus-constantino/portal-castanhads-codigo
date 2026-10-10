@@ -9,7 +9,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | Tipo | Itens |
 |---|---|
 | [Ajuste de texto](#ajuste-de-texto) | 16 |
-| [Ajuste de UI](#ajuste-de-ui) | 28 |
+| [Ajuste de UI](#ajuste-de-ui) | 29 |
 | [Motion](#motion) | 7 |
 | [Refactor](#refactor) | 39 |
 | [Naming](#naming) | 11 |
@@ -74,6 +74,7 @@ Cor, fill, borda, tamanho ou layout de uma variante.
 | C173 | Castanha Assets (capa, .Thumbnail Castanha e .Thumbnail por jornada) · cores | Fills crus fora das variáveis: pilha vermelha `#450206` `#8a0013` `#c10524` `#fe7b7b`, jornadas laranja `#ff7300`, roxo `#a33dc2`, verde `#3fc03f` e azul `#339cff` em 5 tons cada. O fundo da capa usa `Surface/accent` e o título `Decorative/Display` | Ligar às variáveis do tema: `Accent/Solid/*` para a pilha da marca e as escalas `Charts/*` para as jornadas | O playground usa o conceito com as escalas mais próximas: `accent-solid` (marca) e Charts 01–04 e 07 por área, misturadas com `color-mix` entre `intense` e `medium` (componente local Pilha, D221) | Quando o arquivo de assets for revisado |
 | C174 | Side Menu · `.Subcategory` | A description pede a coroa no Trailing Icon para recurso pago, mas o [Caju] Icons não tem ícone de coroa | Ícone de coroa no [Caju] Icons | Trailing Icon por instance swap, sem a coroa | Quando o ícone entrar na lib |
 | C175 | Side Menu · `.User Profile` | O Icon Button do rodapé (Show Icon Button) usa `menu-line`, mas a ação não está descrita no set | Descrever a ação (ex.: menu da conta, trocar de empresa, sair) | `menu-line`, nome acessível "Opções da conta", evento `cds-action` | Próxima revisão do Sponsor Templates |
+| C197 | Bottom Sheet (20848:2679) | Sem prop para o Lead Icon dos botões do .Footer Pilled | O Modal expõe `show-lead-icon` e repassa ao .Footer; o Bottom Sheet não, e os botões aparecem com o ícone de exemplo | O onboarding desliga direto no .Footer aninhado (`footerEl`, override de instância) | Conferir no Figma se o Bottom Sheet expõe o Lead Icon do .Footer; se sim, repassar `show-lead-icon` como o Modal |
 
 ## Motion
 

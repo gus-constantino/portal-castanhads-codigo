@@ -15,34 +15,36 @@
         { banner: { area: "ajuda", eyebrow: "Novidades", heading: "Novidades do Castanha DS", text: "As últimas atualizações do Design System para criar experiências expressivas e adaptadas a cada contexto, produto e pessoa.", href: "#/changelog", cta: "Acessar o changelog" } },
         // Atalhos da capa do Hub: Componentes, Tom e voz, Visão Cliente e Fundação
         { shortcuts: { bento: 4, items: [
-          { size: "hero", title: "Componentes", text: "Os componentes do Castanha DS, com Playground ao vivo, documentação de uso e o código React de cada um.", href: "#/main-button", cta: "Ver componentes", illustration: "interfaces/customizacao" },
-          { size: "wide", title: "Tom e voz", text: "Tom e voz, princípios de escrita e regras de texto que tornam as experiências mais fáceis de usar.", href: "#/conteudo", cta: "Ver conteúdo", illustration: "comunicacao/perguntas-frequentes" },
-          { title: "Visão Cliente", text: "Perfil, personas e ICP de quem usa o produto, para orientar cada decisão de experiência.", href: "#/personas", cta: "Ver personas", illustration: "personagens/joana" },
-          { title: "Fundação", text: "A base de toda interface: cores, tipografia, tamanhos, motion e ilustração do Tema Caju.", href: "#/caju-theme", cta: "Ver tema", illustration: "interfaces/home" }
+          { size: "hero", title: "Componentes", text: "Os componentes do Castanha DS, com Playground ao vivo, documentação de uso e o código React de cada um.", href: "#/main-button", cta: "Acessar componentes", illustration: "interfaces/customizacao" },
+          { size: "wide", title: "Tom e voz", text: "Tom e voz, princípios de escrita e regras de texto que tornam as experiências mais fáceis de usar.", href: "#/conteudo", cta: "Acessar Tom e voz", illustration: "comunicacao/perguntas-frequentes" },
+          { title: "Visão Cliente", text: "Perfil, personas e ICP de quem usa o produto, para orientar cada decisão de experiência.", href: "#/personas", cta: "Acessar personas", illustration: "personagens/joana" },
+          { title: "Fundação", text: "A base de toda interface: cores, tipografia, tamanhos, motion e ilustração do Tema Caju.", href: "#/caju-theme", cta: "Acessar Tema Caju", illustration: "interfaces/home" }
         ] } },
         { banner: { area: "ferramentas", eyebrow: "Assistente de Experiência", heading: "Conheça o Borô", text: "Seu parceiro para criar e aplicar Tom e Voz, entender a Visão Cliente e usar os recursos do Castanha Hub. As respostas vêm direto da documentação, sempre atualizada.", href: "#/agentes", cta: "Conhecer o Borô" } },
         { h2: "Comece por aqui" },
         { shortcuts: { bento: 3, items: [
           // O onboarding de design do Hub (p/80dfb0) saiu do ar: o atalho leva ao treinamento de como usar as documentações (C158)
-          { layout: "row", title: "Designers", text: "Comece pelo treinamento: como usar as documentações do Castanha.", href: "#/treinamento", cta: "Ver treinamento", illustration: "dispositivos/notebook" },
+          { layout: "row", title: "Designers", text: "Comece pelo treinamento: como usar as documentações do Castanha.", href: "#/treinamento", cta: "Treinamento", illustration: "dispositivos/notebook" },
           { layout: "row", title: "Dev. Flutter", text: "Onboarding para desenvolvedores mobile.", href: "https://castanha-staging-flutter.caju.com.br/", cta: "Castanha Flutter", external: true, illustration: "dispositivos/celular-logo" },
-          { layout: "row", title: "Dev. React", text: "Onboarding para desenvolvedores web.", href: "https://castanha-staging.caju.com.br/?path=/docs/actions-button--docs", cta: "Castanha React", external: true, illustration: "dispositivos/notebook-relatorios" }
+          // Dev. React: as docs do Storybook entraram no portal (Desenvolvimento, D305); o atalho leva ao Comece aqui, não mais ao Storybook
+          { layout: "row", title: "Dev. React", text: "Instalação, ambiente e uso dos pacotes do castanha-react, aqui no portal.", href: "#/comece-aqui", cta: "Desenvolvimento", illustration: "dispositivos/notebook-relatorios" }
         ] } },
         // Divulgação dos cursos e capacitações (D230): banners das Notion thumbnails do Castanha Assets (<loc-banner>)
         { h2: "Aprenda o Castanha DS" },
         { banners: [
           { area: "aprenda", eyebrow: "Curso", heading: "Castanha DS na Awtra", text: "O curso do Design System da Caju na plataforma Awtra, para fazer no seu ritmo.", href: "https://lms.awtra.com.br/company/caju/app/course/f5e0c07c-7778-489c-81af-91216c8ccdd0", cta: "Fazer o curso", external: true },
-          { area: "aprenda", eyebrow: "67 vídeos · 7 treinamentos", heading: "Capacitações", text: "Sponsor App, Employee App, Motion, Ilustração e a trilha de Content.", href: "#/capacitacoes", cta: "Ver capacitações" },
-          { area: "aprenda", eyebrow: "7 vídeos", heading: "Como usar as documentações", text: "O treinamento do Castanha DS em vídeo, tema por tema.", href: "#/treinamento", cta: "Ver treinamento" }
+          { area: "aprenda", eyebrow: "67 vídeos · 7 treinamentos", heading: "Capacitações", text: "Sponsor App, Employee App, Motion, Ilustração e a trilha de Content.", href: "#/capacitacoes", cta: "Acessar capacitações" },
+          { area: "aprenda", eyebrow: "7 vídeos", heading: "Como usar as documentações", text: "O treinamento do Castanha DS em vídeo, tema por tema.", href: "#/treinamento", cta: "Acessar treinamento" },
+          { area: "aprenda", eyebrow: "6 temas", heading: "Castanha Quiz", text: "Estude cada tema em uns 5 minutos e pratique com o jogo e o quiz.", href: "#/castanha-quiz", cta: "Acessar o Castanha Quiz" }
         ] },
         { h2: "Mais recursos" },
         { shortcuts: { bento: 3, items: [
-          { size: "wide", title: "Ilustração", text: "Princípios, guidelines e a biblioteca de ilustrações da Caju.", href: "#/ilustracao", cta: "Ver ilustração", illustration: "personagens/nadia" },
-          { layout: "row", title: "Motion", text: "Princípios de motion, curvas, durações e Motion Styles.", href: "#/motion", cta: "Ver motion", illustration: "objetos/foguete" },
-          { size: "wide", title: "Agentes e Skills", text: "O Borô no Slack e no Figma, os Patterns escritos para a IA e a skill /castanhads-juntos: IA que ajuda a escrever e construir no padrão da Caju.", href: "#/agentes", cta: "Ver agentes e skills", src: "resources/agentes/boro.svg" },
-          { layout: "row", title: "Patterns", text: "Feedback Pages e Tela de loading, montadas com componentes do DS.", href: "#/patterns", cta: "Ver patterns", illustration: "notificacoes/success" },
-          { layout: "row", title: "Capacitações", text: "Os treinamentos do Hub em vídeo: Sponsor, Employee, Motion, Ilustração e Content.", href: "#/capacitacoes", cta: "Ver capacitações", illustration: "objetos/medalha-1" },
-          { size: "wide", title: "Changelog", text: "O que saiu em cada release do Castanha: React, Flutter, Figma, ilustrações, ícones e documentação.", href: "#/changelog", cta: "Ver changelog", illustration: "notificacoes/sino" }
+          { size: "wide", title: "Ilustração", text: "Princípios, guidelines e a biblioteca de ilustrações da Caju.", href: "#/ilustracao", cta: "Acessar Ilustração", illustration: "personagens/nadia" },
+          { layout: "row", title: "Motion", text: "Princípios de motion, curvas, durações e Motion Styles.", href: "#/motion", cta: "Acessar Motion", illustration: "objetos/foguete" },
+          { size: "wide", title: "Agentes e Skills", text: "O Borô no Slack e no Figma, os Patterns escritos para a IA e a skill /castanhads-juntos: IA que ajuda a escrever e construir no padrão da Caju.", href: "#/agentes", cta: "Acessar Agentes e Skills", src: "resources/agentes/boro.svg" },
+          { layout: "row", title: "Patterns", text: "Feedback Pages e Tela de loading, montadas com componentes do DS.", href: "#/patterns", cta: "Acessar Patterns", illustration: "notificacoes/success" },
+          { layout: "row", title: "Desenvolvimento", text: "Getting Started, guias, design tokens e Castanha Universe.", href: "#/dev-instalacao", cta: "Acessar Desenvolvimento", illustration: "interfaces/lista" },
+          { size: "wide", title: "Changelog", text: "O que saiu em cada release do Castanha: React, Flutter, Figma, ilustrações, ícones e documentação.", href: "#/changelog", cta: "Acessar Changelog", illustration: "notificacoes/sino" }
         ] } }
       ] },
       // Sobre → Princípios de Design (zeroheight · 7379702). Texto do Hub; os ícones da página usam cores fora dos tokens
@@ -56,7 +58,7 @@
           ["Eficiente", "Uniformizar jornadas, habilitar atalhos, garantir a visibilidade da localização e dos estados atualizados para a pessoa usuária e aproveitar melhor o espaço da tela. Isso torna tudo mais claro e mais rápido, e dá orientação de contexto e de tarefa."],
           ["Consistente", "Projetar para diferentes tipos de produto com fluidez e capacidade de se adaptar a qualquer movimento do negócio, sem deixar de garantir consistência e coerência na Visão Cliente e no ecossistema Caju."]
         ] },
-        { note: "Fonte: página Princípios de Design do Castanha Hub (Sobre). Motion, Ilustração e Conteúdo têm princípios próprios: veja Ilustração, Motion e Conteúdo, em Padrões." }
+        { note: "Fonte: página Princípios de Design do Castanha Hub (Sobre). Motion, Ilustração e Conteúdo têm princípios próprios: consulte Ilustração, Motion e Conteúdo, em Padrões." }
       ] }
     ]
   };

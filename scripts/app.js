@@ -225,7 +225,7 @@
   // Seções dos recursos no menu (ordem dentro da seção = ordem dos ids). Recurso fora da lista cai em "Mais recursos".
   // top: a seção vem antes de Componentes (Desenvolvimento e Padrões, pedido do Gustavo em 09/10)
   var RES_SECTIONS = [
-    { id: "desenvolvimento", top: true, title: "Desenvolvimento", ids: ["comece-aqui", "dev-instalacao", "dev-ambiente", "dev-pacotes", "dev-formularios", "dev-hooks", "dev-assets", "dev-grid", "dev-tokens", "dev-universe"], tip: "Como instalar e usar os pacotes do Castanha no código: Comece aqui, Getting Started, guias, design tokens e Castanha Universe (do Storybook do castanha-react)." },
+    { id: "desenvolvimento", top: true, title: "Desenvolvimento", ids: ["comece-aqui", "dev-instalacao", "dev-ambiente", "dev-pacotes", "dev-formularios", "dev-hooks", "dev-assets", "dev-grid", "dev-tokens", "dev-universe", "flutter-instalacao", "flutter-ambiente", "flutter-componentes"], tip: "Como instalar e usar o Castanha no código: o Comece aqui e as docs de React (Storybook do castanha-react) e de Flutter (Widgetbook do castanha_flutter)." },
     { id: "padroes", top: true, title: "Padrões", ids: ["caju-theme", "ilustracao", "motion", "camadas", "conteudo", "patterns"], tip: "A base e as soluções recorrentes: tema (cores, tipografia, motion…), as camadas do DS, diretrizes de conteúdo e patterns de tela." },
     { id: "aprenda", title: "Aprenda", ids: ["treinamento", "capacitacoes", "castanha-quiz"], tip: "Como o DS funciona e como usar no dia a dia, no Figma e no código.",
       links: [{ name: "Curso na Awtra", href: "https://lms.awtra.com.br/company/caju/app/course/f5e0c07c-7778-489c-81af-91216c8ccdd0",
@@ -257,7 +257,8 @@
   function heroOf(def){
     if (!def || !def.resource || def.home || def.hidden || !def.lede) return null;
     var area = areaOf(def.id); if (!area) return null;
-    return { eyebrow: resSection(def).title, title: def.lede, area: area, level: "p", cards: 3 };
+    var pf = platformOf(def);
+    return { eyebrow: resSection(def).title + (pf ? " · " + pf.title : ""), title: def.lede, area: area, level: "p", cards: 3 };
   }
   // ---------- Seções do menu recolhíveis (Accordion Item do DS) ----------
   // Os títulos (Componentes, Templates, Padrões, Desenvolvimento, Aprenda, Ferramentas, Ajuda) abrem e fecham. Vêm recolhidos;
@@ -272,6 +273,8 @@
   }
   var compSec = $("nav-sec-componentes");
   compSec.addEventListener("cds-toggle", function(e){ if (e.target !== compSec || narrow.matches || searchText()) return; openCats["sec:componentes"] = !e.detail.collapsed; saveOpen(); });
+  var PLATFORMS = [{ id: "react", title: "React" }, { id: "flutter", title: "Flutter" }];
+  function platformOf(def){ return PLATFORMS.filter(function(p){ return p.id === def.platform; })[0]; }
   function buildNav(filter){
     var q = (filter || "").trim().toLowerCase();
     nav.innerHTML = "";
@@ -288,7 +291,14 @@
     [navFound, navRes].forEach(function(box){ box.innerHTML = ""; });
     resSections(res).forEach(function(sec){
       var box = sec.top ? navFound : navRes, ul = kit.el("ul", { "class": "pg-nav" });
-      sec.items.forEach(function(c){ ul.appendChild(kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name, c.soon ? kit.el("cds-tag", { appearance: "neutral", label: "Em breve", "show-lead-item": "false" }) : kit.el("small", { text: c.status || "" })])])); });
+      // Páginas com plataforma (Desenvolvimento: React e Flutter) vão num Accordion Item por plataforma, depois das gerais (Comece aqui)
+      sec.items.filter(function(c){ return !c.platform; }).forEach(function(c){ ul.appendChild(kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name, c.soon ? kit.el("cds-tag", { appearance: "neutral", label: "Em breve", "show-lead-item": "false" }) : kit.el("small", { text: c.status || "" })])])); });
+      PLATFORMS.forEach(function(pf){
+        var items = sec.items.filter(function(c){ return c.platform === pf.id; }); if (!items.length) return;
+        var g = navGroup(pf.title, items, q || narrow.matches || openCats["plat:" + pf.id] || items.some(function(c){ return c.id === currentId(); }), function(open){ openCats["plat:" + pf.id] = open; saveOpen(); });
+        g.setAttribute("description", items.length + (items.length === 1 ? " página" : " páginas"));
+        ul.appendChild(kit.el("li", null, [g]));
+      });
       sec.links.filter(function(l){ return !q || l.name.toLowerCase().indexOf(q) !== -1; }).forEach(function(l){
         var ext = kit.el("a", { href: l.href, target: "_blank", rel: "noopener", "class": "pg-nav-ext", "aria-label": l.name + " (abre em nova guia)" }, [l.name, kit.el("cds-icon", { icon: "link-line", size: "small", appearance: "neutral", "aria-hidden": "true" })]);
         // clique simples pede confirmação (Modal do DS); ⌘/Ctrl/Shift-clique e clique do meio seguem o link direto
@@ -622,7 +632,8 @@
     if (def.notFound) return [ds, { label: def.name, href: location.hash || "#/" }];
     if (def.hidden) return [ds, { label: "Relatório", href: "#/relatorio" }, { label: def.name, href: "#/" + def.id }];
     if (def.composition) return [ds, { label: "Componentes locais", href: "#/locais" }, { label: def.name, href: "#/" + def.id }];
-    if (def.resource){ var sec = resSection(def); return [ds, { label: sec.title, href: "#/" + sec.items[0].id }, { label: def.name, href: "#/" + def.id }]; }
+    if (def.resource){ var sec = resSection(def), pf = platformOf(def), pfirst = pf && sec.items.filter(function(c){ return c.platform === pf.id; })[0];
+      return [ds, { label: sec.title, href: "#/" + sec.items[0].id }].concat(pf ? [{ label: pf.title, href: "#/" + pfirst.id }] : [], [{ label: def.name, href: "#/" + def.id }]); }
     if (def.template){ var tfirst = list.filter(function(c){ return c.template && !c.resource; })[0] || def, gfirst = list.filter(function(c){ return c.template === def.template; })[0] || def;
       return [ds, { label: "Templates", href: "#/" + tfirst.id }, { label: def.template, href: "#/" + gfirst.id }, { label: def.name, href: "#/" + def.id }]; }
     var cat = def.block ? "Building blocks" : (def.category || "Outros");

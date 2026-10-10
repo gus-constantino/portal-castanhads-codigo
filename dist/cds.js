@@ -12834,18 +12834,19 @@ try {
 
 /* ==== resources/desenvolvimento/desenvolvimento.js ==== */
 try {
-/* GERADO por scripts/dev/import-storybook.js a partir do Storybook do castanha-react (origin/staging). Não editar à mão.
-   Páginas de desenvolvimento (Getting Started, Guias, Design Tokens, Castanha Universe) e o Comece aqui (Sobre o Castanha).
-   O texto é o do Storybook; divergências com o guia de Conteúdo ficam no CONFERIR. */
+/* GERADO por scripts/dev/import-storybook.js a partir do Storybook do castanha-react (origin/staging) e do Widgetbook do
+   castanha_flutter (origin/main). Não editar à mão.
+   Páginas de desenvolvimento por plataforma (platform: react ou flutter) e o Comece aqui (Sobre o Castanha).
+   O texto é o das fontes; divergências com o guia de Conteúdo ficam no CONFERIR. */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
-  var SB = "https://castanha-staging.caju.com.br/";
+  var SB = "https://castanha-staging.caju.com.br/", WB = "https://castanha-mobile.caju.com.br/";
   var DATA = {
  "pages": [
   {
    "id": "comece-aqui",
    "name": "Comece aqui",
-   "shortcut": false,
+   "platform": null,
    "tabs": [
     {
      "id": "visao",
@@ -12891,16 +12892,12 @@ try {
       {
        "cards": [
         {
-         "title": "Instalação",
-         "text": "Pacotes do Castanha, instalação mínima para React e requisitos. [Acessar Instalação](#/dev-instalacao)"
+         "title": "React (castanha-react)",
+         "text": "Instalação, ambiente, uso dos pacotes, guias, design tokens e Castanha Universe. [Acessar a Instalação no React](#/dev-instalacao)"
         },
         {
-         "title": "Preparando o ambiente",
-         "text": "Acesso ao GitHub Packages, import de tokens e de estilos e o CastanhaProvider. [Acessar Preparando o ambiente](#/dev-ambiente)"
-        },
-        {
-         "title": "Usando os pacotes",
-         "text": "Tokens, componentes, ícones, ilustrações e motion no código. [Acessar Usando os pacotes](#/dev-pacotes)"
+         "title": "Flutter (castanha_flutter)",
+         "text": "Instalação pelo commons ou direta, tema, tokens e uso dos componentes. [Acessar a Instalação no Flutter](#/flutter-instalacao)"
         }
        ]
       },
@@ -13233,7 +13230,7 @@ try {
   {
    "id": "dev-instalacao",
    "name": "Instalação",
-   "shortcut": false,
+   "platform": "react",
    "tabs": [
     {
      "id": "instalacao",
@@ -13346,7 +13343,7 @@ try {
   {
    "id": "dev-ambiente",
    "name": "Preparando o ambiente",
-   "shortcut": false,
+   "platform": "react",
    "tabs": [
     {
      "id": "ambiente",
@@ -13510,7 +13507,7 @@ try {
   {
    "id": "dev-pacotes",
    "name": "Usando os pacotes",
-   "shortcut": false,
+   "platform": "react",
    "tabs": [
     {
      "id": "pacotes",
@@ -13717,7 +13714,7 @@ try {
   {
    "id": "dev-formularios",
    "name": "Formulários",
-   "shortcut": false,
+   "platform": "react",
    "tabs": [
     {
      "id": "formularios",
@@ -13786,7 +13783,7 @@ try {
   {
    "id": "dev-hooks",
    "name": "Hooks",
-   "shortcut": false,
+   "platform": "react",
    "tabs": [
     {
      "id": "hooks",
@@ -13953,7 +13950,7 @@ try {
   {
    "id": "dev-assets",
    "name": "Assets e cacheamento",
-   "shortcut": false,
+   "platform": "react",
    "tabs": [
     {
      "id": "assets",
@@ -14253,7 +14250,7 @@ try {
   {
    "id": "dev-grid",
    "name": "Grid e breakpoints",
-   "shortcut": false,
+   "platform": "react",
    "tabs": [
     {
      "id": "grid",
@@ -14358,7 +14355,7 @@ try {
   {
    "id": "dev-tokens",
    "name": "Design tokens",
-   "shortcut": false,
+   "platform": "react",
    "tabs": [
     {
      "id": "visao",
@@ -14480,7 +14477,7 @@ try {
   {
    "id": "dev-universe",
    "name": "Castanha Universe",
-   "shortcut": false,
+   "platform": "react",
    "tabs": [
     {
      "id": "intellisense",
@@ -14733,12 +14730,301 @@ try {
     }
    ],
    "lede": "Castanha Intellisense"
+  },
+  {
+   "id": "flutter-instalacao",
+   "name": "Instalação",
+   "platform": "flutter",
+   "tabs": [
+    {
+     "id": "instalacao",
+     "title": "Instalação",
+     "source": "widgetbook: 01. Instalação",
+     "blocks": [
+      {
+       "p": "Os pacotes do Castanha são distribuídos através do repositório privado da Caju no GitHub, disponíveis exclusivamente para Cajuenses."
+      },
+      {
+       "h2": "Mini apps: o Castanha chega pelo commons"
+      },
+      {
+       "p": "Projeto que já depende do `mobile-commons` não declara o `castanha_flutter` no próprio `pubspec.yaml`. O commons passou a expor o DS num barrel dedicado, então instalar é importar:"
+      },
+      {
+       "code": "import 'package:commons/v2/design_system.dart';\n\nCastanhaMainButton(label: 'Confirmar', onPressed: _confirm);"
+      },
+      {
+       "p": "Por que não declarar direto:"
+      },
+      {
+       "p": "Uma linha todas as superfícies:"
+      },
+      {
+       "ul": [
+        "`castanha_flutter` inteiro — Biblioteca estabilizada com componentes, tokens, ícones, ilustrações e motion",
+        "`castds_as_is` (`Castds*`) - Biblioteca legado"
+       ]
+      },
+      {
+       "p": "No `pubspec.yaml` do mini app, as declarações do DS saem:"
+      },
+      {
+       "code": " dependencies:\n   commons:\n     git:\n       url: git@github.com:caju-beneficios/mobile-commons.git\n-  castanha_flutter:\n-    git:\n-      url: git@github.com:caju-beneficios/mobile-castanha-ds.git\n-      path: packages/castanha-flutter\n-      ref: castanha_flutter-v1.3.0\n-  mobile_castanha_ds:\n-    git:\n-      url: git@github.com:caju-beneficios/mobile-castanha-ds.git\n-  design_system:\n-    git:\n-      url: git@github.com:caju-beneficios/mobile-design-system.git"
+      },
+      {
+       "p": "O tema não muda: continua sendo instalado pelo app, como descrito em 02. Preparando o ambiente."
+      },
+      {
+       "h2": "Castanha Flutter"
+      },
+      {
+       "p": "Instalação direta — para projeto que não depende do `mobile-commons`. Se o seu depende, use a seção acima e pule esta."
+      },
+      {
+       "p": "Pacote oficial do Castanha DS — é para onde o design system está convergindo. Todo componente novo nasce aqui, e os componentes legados (hoje em `castds_as_is`) vão sendo portados para cá com o tempo. Quanto mais projetos adotarem `castanha_flutter`, mais rápido o DS atinge cobertura e completude suficientes para aposentar a stack legada de vez."
+      },
+      {
+       "p": "Cada pacote do monorepo é versionado e taggeado independentemente (ex: `castanha_flutter-v1.0.0`); não existe mais uma tag/branch única para \"o Castanha inteiro\"."
+      },
+      {
+       "code": "# pubspec.yaml\ndependencies:\n  flutter:\n    sdk: flutter\n  castanha_flutter:\n    git:\n      url: git@github.com:caju-beneficios/mobile-castanha-ds.git\n      path: packages/castanha-flutter\n      ref: castanha_flutter-v1.1.0"
+      },
+      {
+       "p": "Os pacotes de assets (`castanha_icons`, `castanha_illustrations`, `castanha_motion`) e os tokens (`castanha_tokens`) chegam como dependências."
+      },
+      {
+       "alert": {
+        "appearance": "informative",
+        "label": "Nota",
+        "text": "A URL usa SSH (`git@github.com`). Certifique-se de ter sua chave SSH configurada no GitHub antes de rodar `flutter pub get`. Confirme a tag mais recente em [Releases/Tags do repositório](https://github.com/caju-beneficios/mobile-castanha-ds/tags) — a versão pode não ser `1.0.0` dependendo de quando você instalar."
+       }
+      },
+      {
+       "h2": "Castanha As Is (legado)"
+      },
+      {
+       "p": "Biblioteca legada — mantida só para compatibilidade, não recebe componentes novos e tende a cair em desuso conforme `castanha_flutter` ganha paridade. Use-a apenas para o que `castanha_flutter` ainda não cobre. Ao construir algo novo, verifique primeiro se já existe em `castanha_flutter` antes de recorrer a `castds_as_is`."
+      },
+      {
+       "p": "Se precisar de um componente ainda não portado, instale o pacote legado lado a lado:"
+      },
+      {
+       "code": "# pubspec.yaml\ndependencies:\n  mobile_castanha_ds:\n    git:\n      url: git@github.com:caju-beneficios/mobile-castanha-ds.git\n      ref: castds_as_is-v0.1.0"
+      },
+      {
+       "p": "Os dois pacotes coexistem sem conflito — cada um expõe seus widgets sob prefixos diferentes (`Castanha*` no novo, `Castds*` no legado)."
+      },
+      {
+       "h2": "Já uso o Castanha do jeito antigo?"
+      },
+      {
+       "p": "Se seu projeto ainda importa o DS pelo pacote `mobile_castanha_ds` (git, `ref: main`, sem `path:`), troque `ref: main` por uma tag — sem alterar nenhum import no seu código."
+      },
+      {
+       "p": "Por quê: `ref: main` não é uma versão — é um alvo que se move sozinho. Ele sempre aponta para o commit mais recente da branch principal, então qualquer mudança que chegue em `main` (incluindo um bug introduzido em qualquer outro pacote do monorepo) afeta seu projeto na hora, sem changelog, sem aviso e sem forma de permanecer numa versão que você já validou."
+      },
+      {
+       "p": "A raiz do repositório continua sendo o pacote `mobile_castanha_ds` em qualquer commit — inclusive nos commits marcados pelas tags de `castds_as_is`. Então a troca é só isso:"
+      },
+      {
+       "code": "   mobile_castanha_ds:\n     git:\n       url: git@github.com:caju-beneficios/mobile-castanha-ds.git\n-      ref: main\n+      ref: castds_as_is-v0.1.0"
+      },
+      {
+       "code": "import 'package:mobile_castanha_ds/mobile_castanha_ds.dart'; // continua igual, nada muda"
+      },
+      {
+       "note": "Confirme a tag mais recente em [Releases/Tags do repositório](https://github.com/caju-beneficios/mobile-castanha-ds/tags) antes de fixar — a versão pode não ser `castds_as_is-v0.1.0` dependendo de quando você migrar. Quando `castds_as_is` ganhar uma versão nova, atualize o `ref:` manualmente para pegá-la."
+      },
+      {
+       "alert": {
+        "appearance": "informative",
+        "label": "Atenção",
+        "text": "se algum arquivo do seu projeto importa `package:castds_core/...` diretamente (em vez de passar por `mobile_castanha_ds`), esse import precisa ser atualizado para `package:castds_as_is/...` — essa é a única mudança de código necessária, e só se aplica a quem faz esse tipo de import direto."
+       }
+      },
+      {
+       "h2": "Requisitos"
+      },
+      {
+       "h3": "Versões Mínimas"
+      },
+      {
+       "ul": [
+        "Flutter: 3.41.6 ou superior",
+        "Dart: 3.11.4 ou superior"
+       ]
+      },
+      {
+       "h3": "Acesso ao repositório"
+      },
+      {
+       "p": "O repositório é privado. Verifique o acesso SSH antes de instalar:"
+      },
+      {
+       "code": "# Testar autenticação SSH com o GitHub\nssh -T git@github.com\n\n# Instalar as dependências\nflutter pub get"
+      }
+     ]
+    }
+   ],
+   "lede": "O que tem no Castanha?"
+  },
+  {
+   "id": "flutter-ambiente",
+   "name": "Preparando o ambiente",
+   "platform": "flutter",
+   "tabs": [
+    {
+     "id": "ambiente",
+     "title": "Preparando o ambiente",
+     "source": "widgetbook: 02. Preparando o ambiente",
+     "blocks": [
+      {
+       "p": "Configure o tema do Castanha DS antes de usar os componentes."
+      },
+      {
+       "h2": "Configurando o tema"
+      },
+      {
+       "p": "Os tokens do DS são um `ThemeExtension`, então entram no `ThemeData` do app. A propagação e a troca claro/escuro passam a ser do próprio Flutter — não há provider de tema para instalar."
+      },
+      {
+       "code": "import 'package:castanha_flutter/castanha_flutter.dart';\n\nvoid main() {\n  runApp(\n    MaterialApp(\n      theme: CastanhaTheme.light(),\n      darkTheme: CastanhaTheme.dark(),\n      themeMode: ThemeMode.system,\n      home: const MyApp(),\n    ),\n  );\n}"
+      },
+      {
+       "p": "Já tem um `ThemeData` próprio? Componha com ele:"
+      },
+      {
+       "code": "theme: CastanhaTheme.light(base: meuThemeData),"
+      },
+      {
+       "alert": {
+        "appearance": "informative",
+        "label": "Migrando de `castds_as_is`",
+        "text": "se seu projeto ainda usa componentes legados (`Castds*`), mantenha o `CastdsThemeManagerV2` (do pacote `castds_as_is`) no seu `ChangeNotifierProvider` — ele é independente do tema do `castanha_flutter`, e os dois coexistem sem conflito enquanto a migração widget a widget não termina."
+       }
+      },
+      {
+       "h3": "Trocando de tema (claro/escuro)"
+      },
+      {
+       "p": "Com `themeMode: ThemeMode.system` a troca acompanha o sistema operacional. Para controlar pelo app, guarde o `ThemeMode` no seu gerenciador de estado e passe para o `MaterialApp`."
+      },
+      {
+       "h3": "Subárvores sem MaterialApp"
+      },
+      {
+       "p": "Para árvores Cupertino, subárvores com tema próprio ou testes de widget isolados, use `CastanhaThemeProvider`:"
+      },
+      {
+       "code": "CastanhaThemeProvider(\n  tokens: castanhaTokensCajuDark,\n  child: const MyWidget(),\n)"
+      },
+      {
+       "h2": "Acessando tokens nos widgets"
+      },
+      {
+       "p": "Use `context.castanhaTheme` para acessar os tokens de design diretamente — os getters já retornam `Color`/`double` prontos para uso, sem conversão:"
+      },
+      {
+       "code": "import 'package:castanha_flutter/castanha_flutter.dart';\nimport 'package:flutter/widgets.dart';\n\n@override\nWidget build(BuildContext context) {\n  final theme = context.castanhaTheme;\n\n  return Container(\n    color: theme.colorsSurfaceDefault,\n    padding: EdgeInsets.all(theme.sizes16),\n    child: Text(\n      'Olá, Castanha!',\n      style: TextStyle(color: theme.colorsTextIntense),\n    ),\n  );\n}"
+      },
+      {
+       "alert": {
+        "appearance": "informative",
+        "label": "Dica",
+        "text": "`context.castanhaTheme` já usa `listen: false` internamente — não causa rebuild ao trocar o tema. Para reagir a mudanças de tema (ex: um switch de dark mode), use `context.watch<CastanhaTheme>().tokens`."
+       }
+      },
+      {
+       "h2": "Testando a configuração"
+      },
+      {
+       "p": "Após configurar o tema, teste com um componente simples:"
+      },
+      {
+       "code": "import 'package:castanha_flutter/castanha_flutter.dart';\nimport 'package:flutter/material.dart';\n\nvoid main() {\n  runApp(\n    MaterialApp(\n      theme: CastanhaTheme.light(),\n      home: Scaffold(\n        body: Center(\n          child: CastanhaText.heading(\n            'Olá, Castanha!',\n            size: CastanhaHeadingSize.mediumHeading,\n          ),\n        ),\n      ),\n    ),\n  );\n}"
+      },
+      {
+       "p": "Se o texto renderizar com a tipografia do Castanha, o ambiente está configurado corretamente."
+      }
+     ]
+    }
+   ],
+   "lede": "Preparando o ambiente"
+  },
+  {
+   "id": "flutter-componentes",
+   "name": "Usando os componentes",
+   "platform": "flutter",
+   "tabs": [
+    {
+     "id": "componentes",
+     "title": "Usando os componentes",
+     "source": "widgetbook: 03. Usando os componentes",
+     "blocks": [
+      {
+       "p": "Aprenda a usar os componentes do Castanha DS com exemplos práticos."
+      },
+      {
+       "h2": "Importação"
+      },
+      {
+       "p": "Um único import cobre componentes, tokens e catálogos de assets:"
+      },
+      {
+       "code": "import 'package:castanha_flutter/castanha_flutter.dart';"
+      },
+      {
+       "p": "Isso inclui `CastanhaIcons`, `CastanhaIllustrations`, `CastanhaMotionAssets` e `CastanhaTokens` — nenhum import direto dos pacotes de asset é necessário."
+      },
+      {
+       "h2": "Texto — CastanhaText"
+      },
+      {
+       "p": "Cada construtor nomeado tem finalidade semântica, tamanho e peso tipográfico próprios:"
+      },
+      {
+       "code": "// Corpo — size controla o peso (w400/w500/w700); 16sp, lh 150%\nCastanhaText.body('Parágrafo', size: CastanhaBodySize.regular)\n\n// Heading — size define o tamanho de 24sp a 80sp; sempre w700, lh 160%\nCastanhaText.heading('Título', size: CastanhaHeadingSize.mediumHeading)\n\n// Label — igual a body mas com lh 100% (ideal para formulários)\nCastanhaText.label('Nome', size: CastanhaLabelSize.medium)\n\n// Link — underline automático; tamanho de 14sp a 24sp; sempre w700\nCastanhaText.link('Saiba mais', size: CastanhaLinkSize.medium)\n\n// Decorativo — excluído da árvore de semântica (aria-hidden)\nCastanhaText.decorative('✦', size: CastanhaDecorativeSize.large)"
+      },
+      {
+       "h2": "Ícone — CastanhaIcon"
+      },
+      {
+       "p": "Ícones sem `semanticsLabel` são excluídos da árvore de semântica por padrão (decorativos). Forneça `semanticsLabel` quando o ícone transmite informação sem texto adjacente:"
+      },
+      {
+       "code": "CastanhaIcon(icon: CastanhaIcons.checkLine)\n\nCastanhaIcon(\n  icon: CastanhaIcons.warningLine,\n  appearance: CastanhaIconAppearance.warning,\n  size: CastanhaIconSize.large,\n)\n\nCastanhaIcon(\n  icon: CastanhaIcons.informationLine,\n  appearance: CastanhaIconAppearance.informative,\n  semanticsLabel: 'Informação',\n)"
+      },
+      {
+       "h2": "Layout — CastanhaRow / CastanhaColumn"
+      },
+      {
+       "p": "Substituem `Row`/`Column` com `SizedBox` manual de espaçamento — o `spacing` usa a escala tokenizada de `CastanhaSpacing`, então o gap nunca fica fora do grid de design:"
+      },
+      {
+       "code": "CastanhaRow(\n  spacing: CastanhaSpacing.spacing8,\n  children: [iconWidget, labelWidget],\n)\n\nCastanhaColumn(\n  spacing: CastanhaSpacing.spacing16,\n  children: [labelWidget, inputWidget, messageWidget],\n)"
+      },
+      {
+       "note": "Use `Row`/`Column` puros apenas quando precisar de um alinhamento que os primitivos não suportam (ex: `MainAxisAlignment.spaceBetween`)."
+      },
+      {
+       "h2": "Motion e Illustration"
+      },
+      {
+       "code": "// Autoplay + loop\nCastanhaMotion(name: CastanhaMotionAssets.notificacoesGalo)\n\n// Tamanho customizado, sem loop\nCastanhaMotion(name: CastanhaMotionAssets.feedbackSuccess, width: 320)"
+      },
+      {
+       "code": "CastanhaIllustration(name: CastanhaIllustrations.notificacoesSuccess)\n\nCastanhaIllustration(\n  name: CastanhaIllustrations.documentosAdmissao,\n  size: CastanhaIllustrationSize.large,\n  semanticsLabel: 'Documentos de admissão',\n)"
+      }
+     ]
+    }
+   ],
+   "lede": "Uso na prática"
   }
  ]
 };
   DATA.pages.forEach(function(p, i){
-    CDS.register({ id: p.id, name: p.name, resource: true, shortcut: p.shortcut || undefined, order: 40 + i, lede: p.lede, description: p.lede });
-    CDS.docs[p.id] = { source: SB, sourceLabel: "Storybook do castanha-react", tabs: p.tabs };
+    CDS.register({ id: p.id, name: p.name, resource: true, platform: p.platform || undefined, order: 40 + i, lede: p.lede, description: p.lede });
+    CDS.docs[p.id] = p.platform === "flutter" ? { source: WB, sourceLabel: "Widgetbook do castanha_flutter", tabs: p.tabs } : { source: SB, sourceLabel: "Storybook do castanha-react", tabs: p.tabs };
   });
 })();
 } catch (e) { console.error("[cds] resources/desenvolvimento/desenvolvimento.js", e); }
@@ -14842,7 +15128,8 @@ try {
         { shortcuts: { bento: 3, items: [
           // O onboarding de design do Hub (p/80dfb0) saiu do ar: o atalho leva ao treinamento de como usar as documentações (C158)
           { layout: "row", title: "Designers", text: "Comece pelo treinamento: como usar as documentações do Castanha.", href: "#/treinamento", cta: "Treinamento", illustration: "dispositivos/notebook" },
-          { layout: "row", title: "Dev. Flutter", text: "Onboarding para desenvolvedores mobile.", href: "https://castanha-staging-flutter.caju.com.br/", cta: "Castanha Flutter", external: true, illustration: "dispositivos/celular-logo" },
+          // Dev. Flutter: o Getting Started do Widgetbook entrou no portal (Desenvolvimento › Flutter, D311)
+          { layout: "row", title: "Dev. Flutter", text: "Instalação, tema e uso dos componentes do castanha_flutter, aqui no portal.", href: "#/flutter-instalacao", cta: "Desenvolvimento", illustration: "dispositivos/celular-logo" },
           // Dev. React: as docs do Storybook entraram no portal (Desenvolvimento, D305); o atalho leva ao Comece aqui, não mais ao Storybook
           { layout: "row", title: "Dev. React", text: "Instalação, ambiente e uso dos pacotes do castanha-react, aqui no portal.", href: "#/comece-aqui", cta: "Desenvolvimento", illustration: "dispositivos/notebook-relatorios" }
         ] } },
@@ -14860,7 +15147,7 @@ try {
           { layout: "row", title: "Motion", text: "Princípios de motion, curvas, durações e Motion Styles.", href: "#/motion", cta: "Acessar Motion", illustration: "objetos/foguete" },
           { size: "wide", title: "Agentes e Skills", text: "O Borô no Slack e no Figma, os Patterns escritos para a IA e a skill /castanhads-juntos: IA que ajuda a escrever e construir no padrão da Caju.", href: "#/agentes", cta: "Acessar Agentes e Skills", src: "resources/agentes/boro.svg" },
           { layout: "row", title: "Patterns", text: "Feedback Pages e Tela de loading, montadas com componentes do DS.", href: "#/patterns", cta: "Acessar Patterns", illustration: "notificacoes/success" },
-          { layout: "row", title: "Desenvolvimento", text: "Getting Started, guias, design tokens e Castanha Universe.", href: "#/dev-instalacao", cta: "Acessar Desenvolvimento", illustration: "interfaces/lista" },
+          { layout: "row", title: "Desenvolvimento", text: "Instalação, guias e design tokens para React e Flutter.", href: "#/comece-aqui", cta: "Acessar Desenvolvimento", illustration: "interfaces/lista" },
           { size: "wide", title: "Changelog", text: "O que saiu em cada release do Castanha: React, Flutter, Figma, ilustrações, ícones e documentação.", href: "#/changelog", cta: "Acessar Changelog", illustration: "notificacoes/sino" }
         ] } }
       ] },
@@ -17718,4 +18005,4 @@ try {
 
 /* ==== docs sob demanda (gerado) ==== */
 window.CDS = window.CDS || {}; CDS.docsIndex = {"backdrop":{"src":"components/backdrop/backdrop.docs.js?v=65945f2f","desc":"Backdrop é um componente de superfície utilizado para criar uma camada de bloqueio visual entre o conteúdo base da interface e elementos em primeiro plano, como modais e drawers."},"badge":{"src":"components/badge/badge.docs.js?v=5ee287e7","desc":"O Badge é um elemento visual usado exclusivamente para indicar notificações ou atualizações. Ele serve como um alerta discreto que informa a pessoa usuária sobre algo novo ou pendente em um determinado contexto da interface."},"caju-brand":{"src":"components/caju-brand/caju-brand.docs.js?v=a44569e9","desc":"O Caju Brand é um elemento visual fundamental que representa a identidade da Caju dentro dos fluxos do produto. Ele garante consistência no uso da marca, evitando distorções, cores inadequadas ou aplicações incorretas."},"calendar-day":{"src":"components/calendar-day/calendar-day.docs.js?v=abc00938","desc":"Cada dia do Date Picker: número, estado de seleção e o ponto do dia atual."},"calendar-week":{"src":"components/calendar-week/calendar-week.docs.js?v=68d3811f","desc":"Uma linha de 7 dias do Date Picker."},"card":{"src":"components/card/card.docs.js?v=f96742ea","desc":"O componente Card é um contêiner visual usado para agrupar informações relacionadas de forma clara e compacta."},"credit-card-flags":{"src":"components/card-flag/card-flag.docs.js?v=9cf412ba","desc":"Simula visualmente qualquer cartão e pode simbolizar uma bandeira específica."},"currency":{"src":"components/currency/currency.docs.js?v=82d20ffb","desc":"O Currency é um componente de exibição utilizado para apresentar valores monetários de forma padronizada, legível e consistente nas interfaces da Caju."},"currency-content":{"src":"components/currency-content/currency-content.docs.js?v=1c192490","desc":"Valor em moeda com o símbolo, o sinal de negativo opcional e uma descrição embaixo."},"currency-symbol":{"src":"components/currency-symbol/currency-symbol.docs.js?v=18f12baa","desc":"Símbolo da moeda usado nas células de valor da Table."},"divider":{"src":"components/divider/divider.docs.js?v=658da706","desc":"O componente Divider é uma linha fina que separa visualmente agrupamentos de conteúdo em uma interface. Ele atua como uma âncora visual, ajudando a pessoa usuária a escanear e compreender a hierarquia e o relacionamento entre os elementos da página."},"icon":{"src":"components/icon/icon.docs.js?v=6c4b763a","desc":"Icon (ícone) é uma representação visual direta que auxilia na comunicação de ações, estados, tipos de conteúdo ou categorias."},"avatar":{"src":"components/avatar/avatar.docs.js?v=115ebd44","desc":"O Avatar é um componente utilizado para representar visualmente uma pessoa usuária, seja por meio de imagem, iniciais ou ícone padrão. Ele agiliza a identificação de perfis em áreas onde o contexto pessoal é relevante."},"breadcrumb-item":{"src":"components/breadcrumb-item/breadcrumb-item.docs.js?v=d989392b","desc":"Cada nível do Breadcrumb: separador e conteúdo (link, página atual ou o \"…\" do Truncate)."},"caju-card":{"src":"components/caju-card/caju-card.docs.js?v=893becf1","desc":"O Caju Card simula visualmente os diferentes tipos de cartões da Caju nos cenários físicos e virtuais seguindo as diretrizes das lojinhas de app."},"close-toast":{"src":"components/close-toast/close-toast.docs.js?v=6733b6dc","desc":"Botão de fechar do Toast: 40×40, com o ícone close-line."},"close-alert":{"src":"components/close-alert/close-alert.docs.js?v=7209e59c","desc":"Botão de fechar do Alert: 40×40, com o ícone close-line."},"content-banner":{"src":"components/content-banner/content-banner.docs.js?v=68e995dd","desc":"Building block interno do Banner. Agrupa título, descrição e indicação de CTA."},"csat-item":{"src":"components/csat-item/csat-item.docs.js?v=bb328e74","desc":"Cada nível do CSAT Score: estrela e rótulo."},"csat-score":{"src":"components/csat-score/csat-score.docs.js?v=98367a50","desc":"O CSAT Score é um componente de avaliação utilizado para medir o nível de satisfação da pessoa usuária em relação a uma experiência, funcionalidade ou interação específica, por meio de uma escala ordinal visual representada por ícones e rótulos textuais."},"filter-chips":{"src":"components/filter-chip/filter-chip.docs.js?v=b85e3d05","desc":"Chip que liga e desliga um filtro: selecionado, troca o ícone pelo check e inverte as cores. Tem dois tamanhos: Medium (40) e Small (32)."},"icon-button":{"src":"components/icon-button/icon-button.docs.js?v=ac46ea69","desc":"O Icon Button é um botão compacto que exibe um ícone, sem rótulo de texto. Ele é utilizado para ações pontuais, geralmente secundárias, em interfaces que exigem economia de espaço e onde o significado do ícone é amplamente reconhecido."},"header":{"src":"components/header/header.docs.js?v=0b0ddcc8","desc":"Cabeçalho do Modal e do Bottom Sheet: título, botão de fechar e divisor."},"icons-block":{"src":"components/icons-block/icons-block.docs.js?v=f1f31450","desc":"Ícone do Filter Button: filtro (Default) ou calendário (Date)."},"filter-button":{"src":"components/filter-button/filter-button.docs.js?v=ce828b95","desc":"O Filter Button é um botão que serve como gatilho para filtros e, quando acionado, abre opções para refinar ou ajustar a exibição de conteúdos, listas ou tabelas."},"image":{"src":"components/image/image.docs.js?v=401442e2","desc":"O componente Image é utilizado para exibir imagens estáticas em diferentes contextos do produto, garantindo consistência visual e preservação correta das proporções. Ele oferece controle direto, permitindo que a imagem se adapte a diferentes layouts sem distorção."},"banner":{"src":"components/banner/banner.docs.js?v=68e35d7b","desc":"O Banner destaca conteúdo promocional ou informação relevante em uma área própria da tela. Reúne título, descrição e indicação de ação em um bloco clicável por inteiro, com fundo de cor livre ou imagem de fundo. Serve para atrair a pessoa usuária sem interromper o que ela está fazendo."},"input-chips":{"src":"components/input-chip/input-chip.docs.js?v=b4766617","desc":"Chip que mostra um valor escolhido e pode ser removido com um clique. Tem dois tamanhos: Medium (40) e Small (32)."},"chips-group":{"src":"components/chips-group/chips-group.docs.js?v=10be02b2","desc":"Container que organiza Filter Chips ou Input Chips em uma linha com rolagem ou em várias linhas."},"link":{"src":"components/link/link.docs.js?v=e0439fbd","desc":"O Link é um elemento interativo que direciona o usuário para outro destino, como páginas internas, externas, seções específicas ou downloads."},"list-lead-item":{"src":"components/list-lead-item/list-lead-item.docs.js?v=23969ecf","desc":"Item à esquerda das listas: Avatar, Icon ou Image."},"nav-control-item":{"src":"components/nav-control-item/nav-control-item.docs.js?v=1cf64b82","desc":"Cada indicador do Nav Control: ponto 6×6, que cresce para 16×6 quando ativo."},"nav-control":{"src":"components/nav-control/nav-control.docs.js?v=10f26623","desc":"O Nav Control é um componente visual utilizado como indicador de navegação, normalmente associado a carrosséis ou fluxos paginados. Ele representa, de forma ilustrativa, a quantidade total de itens e qual deles está em foco no momento."},"carousel":{"src":"components/carousel/carousel.docs.js?v=49ed1a06","desc":"Organiza de 3 a 10 itens em sequência horizontal, um por vez, com pré-visualização parcial do próximo."},"nps-value-item":{"src":"components/nps-value-item/nps-value-item.docs.js?v=f5a685e1","desc":"Cada valor do NPS Score: pílula 24 com o número."},"nps-score":{"src":"components/nps-score/nps-score.docs.js?v=6e2990ea","desc":"O NPS Score é um componente de seleção única utilizado para capturar a percepção da pessoa usuária em relação a uma experiência, produto ou serviço, geralmente em uma escala numérica de 0 a 10."},"popover":{"src":"components/popover/popover.docs.js?v=c94fbb76","desc":"Popover é um pequeno overlay contextual que aparece quando o usuário interage com um elemento da interface. Ele permite exibir conteúdos adicionais, ações ou informações complementares de forma leve, sem interromper o fluxo principal da experiência."},"breadcrumb":{"src":"components/breadcrumb/breadcrumb.docs.js?v=1374e5e9","desc":"O Breadcrumb é um componente de navegação que mostra a localização atual do usuário dentro de uma hierarquia ou estrutura de conteúdo. Ele oferece links para os níveis superiores, facilitando a navegação."},"progress-line":{"src":"components/progress-line/progress-line.docs.js?v=155b8299","desc":"O Progress Line é um indicador visual não interativo que representa o progresso de uma operação ao longo do tempo, ajudando a pessoa usuária a entender em que estágio o processo se encontra."},"progress-tracker-item":{"src":"components/progress-tracker-item/progress-tracker-item.docs.js?v=c9030f96","desc":"Etapa individual do Progress Tracker."},"progress-tracker":{"src":"components/progress-tracker/progress-tracker.docs.js?v=396eccbe","desc":"Indica o avanço de uma pessoa em um fluxo de múltiplas etapas, mostrando o que já foi concluído, onde ela está e o que ainda falta."},"checkbox":{"src":"components/checkbox/checkbox.docs.js?v=4fbb35d8","desc":"O checkbox é Componente interativo usado para selecionar ou desmarcar opções. Pode ser preenchido com um checkmark (✔) caso seja selecionado, ou por um traço (—) quando indeterminado. Utilizado em formulários e filtros, permitindo múltiplas seleções."},"radio-button":{"src":"components/radio-button/radio-button.docs.js?v=9f6fe1d4","desc":"Radio Button é um componente interativo usado para permitir ao usuário selecionar uma única opção de um conjunto. Essencial em formulários para escolhas únicas."},"shaped-icon":{"src":"components/shaped-icon/shaped-icon.docs.js?v=68f13907","desc":"O Shaped Icon é um ícone envolto por um fundo colorido e com formato definido, que confere maior ênfase visual e peso hierárquico. Ele é utilizado para evidenciar categorias, ações contextuais ou estados visuais sem depender de interação."},"alert":{"src":"components/alert/alert.docs.js?v=885a20f3","desc":"Mensagem fixa e persistente sobre o sistema, que fica visível até a pessoa usuária ler ou fechar."},"confirmation-message":{"src":"components/confirmation-message/confirmation-message.docs.js?v=5087ae73","desc":"Mostre o resultado de uma ação com ícone, título e descrição centralizados."},"file-lead-item":{"src":"components/file-lead-item/file-lead-item.docs.js?v=7d49330c","desc":"Miniatura do arquivo no Upload Item: imagem ou ícone de anexo, com a ação de ver o arquivo."},"lead-item":{"src":"components/lead-item/lead-item.docs.js?v=f404504e","desc":"Elemento à esquerda do Topic: Shaped Icon ou imagem 40×40."},"skeleton":{"src":"components/skeleton/skeleton.docs.js?v=3c935598","desc":"Placeholder de carregamento que ocupa o espaço de um conteúdo enquanto ele não chegou."},"slider":{"src":"components/slider/slider.docs.js?v=b4725007","desc":"Slider de seleção de valor num intervalo."},"spinner":{"src":"components/spinner/spinner.docs.js?v=1d25a27b","desc":"O Spinner é um indicador visual de atividade não interativa que informa à pessoa usuária que o sistema está processando uma ação em segundo plano."},"main-button":{"src":"components/main-button/main-button.docs.js?v=97f016e6","desc":"Main Button é um componente interativo usado para executar a ações mais importantes em uma tela, formulário ou fluxo."},"date-navigation":{"src":"components/date-navigation/date-navigation.docs.js?v=715e0489","desc":"Navegação do Date Picker: mês anterior, mês, ano e próximo mês."},"date-picker":{"src":"components/date-picker/date-picker.docs.js?v=f141eaf3","desc":"Calendário para escolher uma data ou um intervalo de datas, com navegação por mês e ano."},"drop-button":{"src":"components/drop-button/drop-button.docs.js?v=04fa3964","desc":"O Drop Button é um botão interativo que, ao ser acionado, abre um menu suspenso com opções de ação diretamente relacionadas ao contexto do botão. Ele combina a função de acionador visual com o acesso direto a um conjunto de comandos organizados."},"dropzone":{"src":"components/dropzone/dropzone.docs.js?v=62b11669","desc":"O Dropzone é a área delimitada onde a pessoa usuária adiciona arquivos, pelo botão de seleção ou arrastando o arquivo para dentro dela. A área informa os formatos e limites aceitos antes do envio. O acompanhamento de cada arquivo enviado fica no Upload Item."},"footer":{"src":"components/footer/footer.docs.js?v=4fd316e9","desc":"Rodapé do Modal e do Bottom Sheet: divisor e as ações (primária e secundária)."},"fixed-bar":{"src":"components/fixed-bar/fixed-bar.docs.js?v=dc85cbb8","desc":"A Fixed bar é uma área fixa posicionada na base da interface que agrupa duas ações relacionadas — uma primária e outra secundária. Ela é utilizada para decisões importantes no final de fluxos ou seções, permanecendo sempre acessível para a pessoa usuária."},"sponsor-category":{"src":"components/sponsor-category/sponsor-category.docs.js?v=c7d3f5f5","desc":"Item de navegação do Side Menu. Intent=Default navega direto, e Intent=Accordion abre subitens no Slot."},"sponsor-subcategory":{"src":"components/sponsor-subcategory/sponsor-subcategory.docs.js?v=99829327","desc":"Item de segundo nível do Side Menu, dentro do Slot de um .Category com Intent=Accordion."},"sponsor-user-profile":{"src":"components/sponsor-user-profile/sponsor-user-profile.docs.js?v=040bc349","desc":"Rodapé de identificação do Side Menu: avatar, nome e CNPJ, com ação opcional."},"status-dot":{"src":"components/status-dot/status-dot.docs.js?v=50b743c4","desc":"Indicador compacto de estado, formado por um ponto colorido e um rótulo em texto."},"switch":{"src":"components/switch/switch.docs.js?v=1c8eee92","desc":"O Switch é um componente que funciona como um interruptor digital, alterando imediatamente o estado de uma configuração entre opções binárias, como sim ou não, e ligado ou desligado, sem necessidade de confirmação."},"checkbox-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Checkboxes com um nome para o conjunto: zero, uma ou várias opções."},"radio-button-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Radio Buttons com um nome para o conjunto: exatamente uma opção."},"switch-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Switches com um nome para o conjunto: cada um liga ou desliga uma configuração na hora."},"system-banner":{"src":"components/system-banner/system-banner.docs.js?v=b00a0529","desc":"Aviso do sistema que ocupa a largura toda da página, com a mesma anatomia do Alert."},"tab-item":{"src":"components/tab-item/tab-item.docs.js?v=737b8a53","desc":"Cada aba da Fixed Tab e da Scrollable Tab: Lead Item opcional, Label e o sublinhado."},"fixed-tab":{"src":"components/fixed-tab/fixed-tab.docs.js?v=adf9d425","desc":"O Tabs organiza conteúdos relacionados em seções paralelas dentro da mesma página, permitindo que a pessoa usuária alterne rapidamente entre contextos sem navegação externa."},"scrollable-tab":{"src":"components/scrollable-tab/scrollable-tab.docs.js?v=3607a757","needs":["fixed-tab"],"desc":"Abas no tamanho do conteúdo, com rolagem horizontal. Mesma documentação de Tabs da Fixed Tab."},"tab-view":{"src":"components/tab-view/tab-view.docs.js?v=8e22521c","desc":"Alterna a visualização de uma lista entre lista e grade."},"table-head":{"src":"components/table-head/table-head.docs.js?v=7903b75b","desc":"Título de coluna da Table, com ordenação."},"table-toolbar":{"src":"components/table-toolbar/table-toolbar.docs.js?v=0df2607c","desc":"Barra de ações acima da Table."},"tag":{"src":"components/tag/tag.docs.js?v=5a9e9225","desc":"Tag são rótulos compactos e visualmente distintos usados para rapidamente categorizar, identificar e organizar itens."},"balance-card":{"src":"components/balance-card/balance-card.docs.js?v=c5840ec2","desc":"Exibe o saldo de uma categoria com rótulo, valor e status complementares."},"sponsor-header":{"src":"components/sponsor-header/sponsor-header.docs.js?v=3fcf1aaa","desc":"Cabeçalho de página dos templates web do Sponsor: navegação (voltar, breadcrumb e ações utilitárias) e área de título com as ações da página."},"sponsor-side-menu":{"src":"components/sponsor-side-menu/sponsor-side-menu.docs.js?v=d3d1e6ab","desc":"Navegação lateral do app Sponsor: colapsado (80px, só ícones) e expandido (360px), que no desktop abre por hover em overlay sobre o conteúdo."},"table-cell":{"src":"components/table-cell/table-cell.docs.js?v=14a427a8","desc":"Célula de dados da Table: texto, valor, percentual, Tag, Checkbox, Link ou ações."},"text-content":{"src":"components/text-content/text-content.docs.js?v=fd862195","desc":"Par de textos (Label e Description) com o destaque no Label ou na Description."},"accordion-item":{"src":"components/accordion-item/accordion-item.docs.js?v=824db8ab","desc":"Item de um accordion: um header com título que revela conteúdo adicional (no Slot) ao ser expandido."},"accordion":{"src":"components/accordion/accordion.docs.js?v=44db65bf","desc":"O Accordion agrupa vários Accordion Items em uma lista de seções expansíveis, que a pessoa abre sob demanda."},"code-input-otp":{"src":"components/code-input-otp/code-input-otp.docs.js?v=ee42108f","desc":"Campo de código de verificação (OTP/PIN): uma fileira de células de um caractere, preenchidas uma a uma, para inserir um código curto recebido por SMS, e-mail ou app autenticador."},"credit-card-input":{"src":"components/credit-card-input/credit-card-input.docs.js?v=f10e590f","desc":"Campo para inserir o número de um cartão de crédito."},"date-input":{"src":"components/date-input/date-input.docs.js?v=5085dd0b","desc":"Campo de data da família Text Fields: digitar com máscara dd/mm/aaaa ou escolher no calendário."},"password-input":{"src":"components/password-input/password-input.docs.js?v=afaea942","desc":"O Password Input é um campo de entrada específico para senhas."},"quantity-input":{"src":"components/quantity-input/quantity-input.docs.js?v=d00bba47","desc":"O Quantity Input é um campo numérico com controles de incremento e decremento."},"search-input":{"src":"components/search-input/search-input.docs.js?v=5e1d2ba6","desc":"Campo de busca da família Text Fields: lupa fixa e botão de limpar quando há texto."},"text-area":{"src":"components/text-area/text-area.docs.js?v=beb8d21c","desc":"O Text Area é um campo de entrada multilinha que permite à pessoa usuária digitar textos mais longos, como descrições, observações ou comentários."},"text-input":{"src":"components/text-input/text-input.docs.js?v=9841ec39","desc":"O Text Input é um campo de entrada para coleta de informações textuais curtas fornecidas pela pessoa usuária."},"toast":{"src":"components/toast/toast.docs.js?v=82f85974","desc":"O Toast é um componente de notificação temporária que informa a pessoa usuária sobre o resultado de uma ação ou estado do sistema. Ele aparece de forma discreta na interface e desaparece automaticamente após alguns segundos, sem interromper o fluxo de navegação."},"tooltip":{"src":"components/tooltip/tooltip.docs.js?v=145db2e0","desc":"São caixas flutuantes que proporcionam informações sobre algum aspecto da interface que mereça maior atenção."},"topic":{"src":"components/topic/topic.docs.js?v=34a407f2","desc":"Apresente um tópico com ícone ou imagem, título e descrição."},"trailing-item":{"src":"components/trailing-item/trailing-item.docs.js?v=f3876cc2","desc":"Item à direita das listas: Checkbox, Radio Button, Switch, Icon ou Tag."},"content-list-item":{"src":"components/content-list-item/content-list-item.docs.js?v=a9780daa","desc":"O Content list item é um bloco de conteúdo que organiza informações de forma clara e escaneável dentro de listas. Ele combina elementos como título, descrição, ícone, avatar ou status, ajudando o usuário a identificar de relance itens, conteúdos ou ações relacionadas."},"content-list":{"src":"components/content-list/content-list.docs.js?v=6ad148d0","desc":"O Content List é um componente que agrupa e organiza múltiplos Content List Items em uma estrutura única e consistente. Ele funciona como um container, permitindo que diferentes tipos de conteúdo sejam exibidos de forma clara e hierárquica. Pode conter itens informativos, de navegação ou de transações financeiras, adaptando-se a diferentes contextos de uso."},"selection-list-item":{"src":"components/selection-list-item/selection-list-item.docs.js?v=285ee023","desc":"O Selection List Item é um componente de seleção que combina título, descrição e ícone para enriquecer a apresentação das opções. Ele amplia a clareza das escolhas, indo além de seletores básicos como checkbox, radio ou switch."},"async-creatable-select-input":{"src":"components/async-creatable-select-input/async-creatable-select-input.docs.js?v=b89d5e8e","needs":["async-select-input"],"desc":"Como o Async e, quando o texto digitado não existe nas opções, oferece \"Adicionar “…”\" para criar a opção. Faz parte da família Select Input."},"async-select-input":{"src":"components/async-select-input/async-select-input.docs.js?v=5ef84b74","desc":"O Select input permite que a pessoa usuária escolha uma ou mais opções a partir de uma lista pré-definida."},"checkbox-select-input":{"src":"components/checkbox-select-input/checkbox-select-input.docs.js?v=b47659af","needs":["async-select-input"],"desc":"Vários valores sem busca: a lista fica aberta enquanto marca, e o campo mostra quantos foram selecionados. Faz parte da família Select Input."},"multi-select-input":{"src":"components/multi-select-input/multi-select-input.docs.js?v=aff1ad3a","needs":["async-select-input"],"desc":"Vários valores com busca: cada escolha vira um Input Chip dentro do campo. Faz parte da família Select Input."},"radio-select-input":{"src":"components/radio-select-input/radio-select-input.docs.js?v=60d32c71","needs":["async-select-input"],"desc":"Escolha única sem busca: o campo abre a lista de opções, com Radio Button. Faz parte da família Select Input."},"select-number":{"src":"components/select-number/select-number.docs.js?v=2910fc7a","desc":"Seletor de número do Pagination (itens por página e página atual), com lista em Popover."},"pagination":{"src":"components/pagination/pagination.docs.js?v=1acb2983","desc":"O Pagination (paginação) permite navegar entre conjuntos de dados distribuídos em várias páginas, otimizando a performance da visualização e facilitando o consumo de grandes volumes de dados."},"selection-list":{"src":"components/selection-list/selection-list.docs.js?v=3a43fe13","desc":"O Selection List é um agrupamento de opções organizadas em lista, permitindo que o usuário faça uma ou múltiplas seleções de forma clara e consistente. Ele é formado por instâncias do componente Selection List Item empilhados e separados por divisores visuais, facilitando a leitura e a comparação entre alternativas."},"table":{"src":"components/table/table.docs.js?v=48e10ae5","desc":"O componente de Tabela organiza dados estruturados em colunas e linhas, facilitando a leitura, comparação e análise. É ideal para exibir informações com formato uniforme, como listas, transações ou relatórios."},"upload-item":{"src":"components/upload-item/upload-item.docs.js?v=e328a912","desc":"O Upload Item representa um arquivo dentro do fluxo de upload, do envio em curso até o arquivo já armazenado. Ele mostra o nome, a extensão, o estado do envio e as ações disponíveis para aquele arquivo."},"upload-list":{"src":"components/upload-list/upload-list.docs.js?v=fa3ec45d","desc":"Agrupa os Upload Items de um fluxo, com ordem e espaçamento consistentes."},"viewport-restriction":{"src":"components/viewport-restriction/viewport-restriction.docs.js?v=03b58a4b","desc":"Aviso de que o componente não está disponível no viewport atual."},"bottom-sheet":{"src":"components/bottom-sheet/bottom-sheet.docs.js?v=95865ce3","desc":"Camada que surge da base da tela para apresentar conteúdo ou ações complementares sem tirar a pessoa do contexto. A tela de fundo continua visível."},"drawer":{"src":"components/drawer/drawer.docs.js?v=69db3d04","desc":"O Drawer é um painel lateral deslizante utilizado para expor conteúdos complementares ou etapas adicionais dentro de um fluxo principal, sem interromper a tela atual. Ele aparece sobreposto à interface e permite que a pessoa usuária mantenha o contexto enquanto realiza uma interação específica."},"modal":{"src":"components/modal/modal.docs.js?v=fc145684","desc":"O Modal é um componente de sobreposição que bloqueia a interface base para exibir conteúdos focados, como formulários, informações detalhadas ou confirmações. Ele exige atenção da pessoa usuária antes de retornar ao fluxo principal."},"modal-date-picker":{"src":"components/modal-date-picker/modal-date-picker.docs.js?v=d1e58383","desc":"Calendário num Modal, com Cancelar e Confirmar: a data vale depois de confirmada."}};
-CDS.searchIndex = "dist/search.json?v=e7349387"; /* 1613 seções */
+CDS.searchIndex = "dist/search.json?v=5ed526e5"; /* 1629 seções */

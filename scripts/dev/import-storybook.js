@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 /**
- * Importa as páginas de documentação do Storybook do castanha-react para o portal (D305).
- * Fonte: clone ../castanha (só leitura), ramo origin/staging, packages/castanha-react/src/docs/**.mdx.
+ * Importa as páginas de documentação do Storybook do castanha-react (D305) e o Getting Started do Widgetbook do
+ * castanha_flutter (D311) para o portal.
+ * React: clone ../castanha (só leitura), ramo origin/staging, packages/castanha-react/src/docs/**.mdx.
+ * Flutter: clone ../castanha-mobile (só leitura), origin/main, packages/castanha-flutter/example/lib/stories/getting_started/
+ *   getting_started.dart. Cada docsPage('NN. Nome', [...]) vira uma página: _PageTitle é a capa, _LeadText o 1º parágrafo e cada
+ *   MarkdownDocBlock(description: _const) é Markdown com a mesma sintaxe do Storybook.
  * Saída: resources/desenvolvimento/desenvolvimento.js — GERADO, não editar à mão. Rodar de novo quando o Storybook mudar:
  *   node scripts/dev/import-storybook.js
  *
@@ -30,22 +34,27 @@ const PAGES = [
     { id: "acessibilidade", title: "Acessibilidade", file: "about/accessibility" },
     { id: "faq", title: "FAQ de desenvolvimento", file: "about/faq" }
   ] },
-  { id: "dev-instalacao", name: "Instalação", tabs: [{ id: "instalacao", title: "Instalação", file: "getting-started/installation" }] },
-  { id: "dev-ambiente", name: "Preparando o ambiente", tabs: [{ id: "ambiente", title: "Preparando o ambiente", file: "getting-started/configuration" }] },
-  { id: "dev-pacotes", name: "Usando os pacotes", tabs: [{ id: "pacotes", title: "Usando os pacotes", file: "getting-started/usage" }] },
-  { id: "dev-formularios", name: "Formulários", tabs: [{ id: "formularios", title: "Formulários", file: "guides/forms" }] },
-  { id: "dev-hooks", name: "Hooks", tabs: [{ id: "hooks", title: "Hooks", file: "guides/hooks" }] },
-  { id: "dev-assets", name: "Assets e cacheamento", tabs: [{ id: "assets", title: "Assets e cacheamento", file: "guides/caching" }] },
-  { id: "dev-grid", name: "Grid e breakpoints", tabs: [{ id: "grid", title: "Grid e breakpoints", file: "guides/grid" }] },
-  { id: "dev-tokens", name: "Design tokens", tabs: [
+  // React (castanha-react): Storybook
+  { id: "dev-instalacao", platform: "react", name: "Instalação", tabs: [{ id: "instalacao", title: "Instalação", file: "getting-started/installation" }] },
+  { id: "dev-ambiente", platform: "react", name: "Preparando o ambiente", tabs: [{ id: "ambiente", title: "Preparando o ambiente", file: "getting-started/configuration" }] },
+  { id: "dev-pacotes", platform: "react", name: "Usando os pacotes", tabs: [{ id: "pacotes", title: "Usando os pacotes", file: "getting-started/usage" }] },
+  { id: "dev-formularios", platform: "react", name: "Formulários", tabs: [{ id: "formularios", title: "Formulários", file: "guides/forms" }] },
+  { id: "dev-hooks", platform: "react", name: "Hooks", tabs: [{ id: "hooks", title: "Hooks", file: "guides/hooks" }] },
+  { id: "dev-assets", platform: "react", name: "Assets e cacheamento", tabs: [{ id: "assets", title: "Assets e cacheamento", file: "guides/caching" }] },
+  { id: "dev-grid", platform: "react", name: "Grid e breakpoints", tabs: [{ id: "grid", title: "Grid e breakpoints", file: "guides/grid" }] },
+  { id: "dev-tokens", platform: "react", name: "Design tokens", tabs: [
     { id: "visao", title: "Visão geral", file: "design-tokens/overview", after: [{ note: "Os valores de cada token (cores, tamanhos, bordas, opacidade, elevação e tipografia) estão em [Tema Caju](#/caju-theme), lidos do Figma." }] },
     { id: "fonte", title: "Fonte da verdade", file: "design-tokens/source-of-truth" }
   ] },
-  { id: "dev-universe", name: "Castanha Universe", tabs: [
+  { id: "dev-universe", platform: "react", name: "Castanha Universe", tabs: [
     { id: "intellisense", title: "Intellisense", file: "castanha-universe/intellisense" },
     { id: "castoken", title: "Castoken", file: "castanha-universe/castoken" },
     { id: "optimizer", title: "Optimizer", file: "castanha-universe/optimizer" }
-  ] }
+  ] },
+  // Flutter (castanha_flutter): Getting Started do Widgetbook, pelo nome da docsPage
+  { id: "flutter-instalacao", platform: "flutter", name: "Instalação", tabs: [{ id: "instalacao", title: "Instalação", widgetbook: "01. Instalação" }] },
+  { id: "flutter-ambiente", platform: "flutter", name: "Preparando o ambiente", tabs: [{ id: "ambiente", title: "Preparando o ambiente", widgetbook: "02. Preparando o ambiente" }] },
+  { id: "flutter-componentes", platform: "flutter", name: "Usando os componentes", tabs: [{ id: "componentes", title: "Usando os componentes", widgetbook: "03. Usando os componentes" }] }
 ];
 
 // Comece aqui (tab feita à mão): o conteúdo da HomePage do Storybook, com os destinos do portal no lugar dos externos quando existem
@@ -59,9 +68,8 @@ const START = [
   ] } },
   { h2: "Para desenvolver" },
   { cards: [
-    { title: "Instalação", text: "Pacotes do Castanha, instalação mínima para React e requisitos. [Acessar Instalação](#/dev-instalacao)" },
-    { title: "Preparando o ambiente", text: "Acesso ao GitHub Packages, import de tokens e de estilos e o CastanhaProvider. [Acessar Preparando o ambiente](#/dev-ambiente)" },
-    { title: "Usando os pacotes", text: "Tokens, componentes, ícones, ilustrações e motion no código. [Acessar Usando os pacotes](#/dev-pacotes)" }
+    { title: "React (castanha-react)", text: "Instalação, ambiente, uso dos pacotes, guias, design tokens e Castanha Universe. [Acessar a Instalação no React](#/dev-instalacao)" },
+    { title: "Flutter (castanha_flutter)", text: "Instalação pelo commons ou direta, tema, tokens e uso dos componentes. [Acessar a Instalação no Flutter](#/flutter-instalacao)" }
   ] },
   { h2: "Recursos e ferramentas" },
   { cards: [
@@ -73,6 +81,30 @@ const START = [
 ];
 
 function git(file){ return execFileSync("git", ["-C", REPO, "show", REF + ":" + BASE + file + ".mdx"], { encoding: "utf8" }); }
+
+// Widgetbook (Flutter): lê a docsPage pelo nome e junta a lead e os blocos Markdown, na ordem
+const FLUTTER_REPO = path.join(ROOT, "..", "castanha-mobile"), FLUTTER_REF = "origin/main";
+const FLUTTER_FILE = "packages/castanha-flutter/example/lib/stories/getting_started/getting_started.dart";
+const TQ = "'''"; // aspas triplas das strings brutas do Dart (r'''…''')
+let flutterSrc = null;
+function dartStrings(src){ return (src.match(/'((?:[^'\\]|\\.)*)'/g) || []).map((x) => x.slice(1, -1).replace(/\\'/g, "'")).join(""); }
+function widgetbook(name){
+  if (flutterSrc == null) flutterSrc = execFileSync("git", ["-C", FLUTTER_REPO, "show", FLUTTER_REF + ":" + FLUTTER_FILE], { encoding: "utf8" });
+  const start = flutterSrc.indexOf("'" + name + "'");
+  if (start < 0) throw new Error("Widgetbook: página não encontrada: " + name);
+  const body = flutterSrc.slice(start, flutterSrc.indexOf("\n);", start));
+  const title = (body.match(/_PageTitle\(([\s\S]*?)\)/) || [])[1];
+  const lead = (body.match(/_LeadText\(([\s\S]*?)\),/) || [])[1];
+  const md = lead ? [dartStrings(lead)] : [];
+  body.replace(/MarkdownDocBlock\(description:\s*(_\w+)\)/g, (all, id) => {
+    const at = flutterSrc.indexOf("const " + id + " = r" + TQ);
+    if (at < 0) return all;
+    const from = at + ("const " + id + " = r" + TQ).length;
+    md.push(flutterSrc.slice(from, flutterSrc.indexOf(TQ, from)));
+    return all;
+  });
+  return { title: title ? dartStrings(title) : name.replace(/^\d+\.\s*/, ""), md: md.join("\n\n") };
+}
 function storyId(title){ return title.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/\./g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
 
 // Mapa: id da story do Storybook → rota do portal
@@ -154,9 +186,15 @@ function convert(src){
 
 const out = { pages: [] };
 PAGES.forEach((p) => {
-  const page = { id: p.id, name: p.name, shortcut: !!p.shortcut, tabs: [] };
+  const page = { id: p.id, name: p.name, platform: p.platform || null, tabs: [] };
   p.tabs.forEach((t) => {
     if (t.manual){ page.tabs.push({ id: t.id, title: t.title, blocks: START }); return; }
+    if (t.widgetbook){
+      const w = widgetbook(t.widgetbook), wc = convert(w.md);
+      if (!page.lede) page.lede = w.title;
+      page.tabs.push({ id: t.id, title: t.title, source: "widgetbook: " + t.widgetbook, blocks: wc.blocks.concat(t.after || []) });
+      return;
+    }
     const c = convert(git(t.file));
     if (!page.lede) page.lede = c.title;
     page.tabs.push({ id: t.id, title: t.title, source: t.file, blocks: c.blocks.concat(t.after || []) });
@@ -165,19 +203,20 @@ PAGES.forEach((p) => {
   out.pages.push(page);
 });
 
-const head = `/* GERADO por scripts/dev/import-storybook.js a partir do Storybook do castanha-react (${REF}). Não editar à mão.
-   Páginas de desenvolvimento (Getting Started, Guias, Design Tokens, Castanha Universe) e o Comece aqui (Sobre o Castanha).
-   O texto é o do Storybook; divergências com o guia de Conteúdo ficam no CONFERIR. */
+const head = `/* GERADO por scripts/dev/import-storybook.js a partir do Storybook do castanha-react (${REF}) e do Widgetbook do
+   castanha_flutter (${FLUTTER_REF}). Não editar à mão.
+   Páginas de desenvolvimento por plataforma (platform: react ou flutter) e o Comece aqui (Sobre o Castanha).
+   O texto é o das fontes; divergências com o guia de Conteúdo ficam no CONFERIR. */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
-  var SB = "https://castanha-staging.caju.com.br/";
+  var SB = "https://castanha-staging.caju.com.br/", WB = "https://castanha-mobile.caju.com.br/";
   var DATA = ${JSON.stringify(out, null, 1)};
   DATA.pages.forEach(function(p, i){
-    CDS.register({ id: p.id, name: p.name, resource: true, shortcut: p.shortcut || undefined, order: 40 + i, lede: p.lede, description: p.lede });
-    CDS.docs[p.id] = { source: SB, sourceLabel: "Storybook do castanha-react", tabs: p.tabs };
+    CDS.register({ id: p.id, name: p.name, resource: true, platform: p.platform || undefined, order: 40 + i, lede: p.lede, description: p.lede });
+    CDS.docs[p.id] = p.platform === "flutter" ? { source: WB, sourceLabel: "Widgetbook do castanha_flutter", tabs: p.tabs } : { source: SB, sourceLabel: "Storybook do castanha-react", tabs: p.tabs };
   });
 })();
 `;
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, head);
-console.log("Storybook → " + path.relative(ROOT, OUT) + " · " + out.pages.length + " páginas · " + out.pages.reduce((n, p) => n + p.tabs.length, 0) + " tabs · rotas do Storybook mapeadas: " + Object.keys(ROUTES).length);
+console.log("Storybook e Widgetbook → " + path.relative(ROOT, OUT) + " · " + out.pages.length + " páginas · " + out.pages.reduce((n, p) => n + p.tabs.length, 0) + " tabs · rotas do Storybook mapeadas: " + Object.keys(ROUTES).length);

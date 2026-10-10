@@ -1,15 +1,16 @@
-/* GERADO por scripts/dev/import-storybook.js a partir do Storybook do castanha-react (origin/staging). Não editar à mão.
-   Páginas de desenvolvimento (Getting Started, Guias, Design Tokens, Castanha Universe) e o Comece aqui (Sobre o Castanha).
-   O texto é o do Storybook; divergências com o guia de Conteúdo ficam no CONFERIR. */
+/* GERADO por scripts/dev/import-storybook.js a partir do Storybook do castanha-react (origin/staging) e do Widgetbook do
+   castanha_flutter (origin/main). Não editar à mão.
+   Páginas de desenvolvimento por plataforma (platform: react ou flutter) e o Comece aqui (Sobre o Castanha).
+   O texto é o das fontes; divergências com o guia de Conteúdo ficam no CONFERIR. */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
-  var SB = "https://castanha-staging.caju.com.br/";
+  var SB = "https://castanha-staging.caju.com.br/", WB = "https://castanha-mobile.caju.com.br/";
   var DATA = {
  "pages": [
   {
    "id": "comece-aqui",
    "name": "Comece aqui",
-   "shortcut": false,
+   "platform": null,
    "tabs": [
     {
      "id": "visao",
@@ -55,16 +56,12 @@
       {
        "cards": [
         {
-         "title": "Instalação",
-         "text": "Pacotes do Castanha, instalação mínima para React e requisitos. [Acessar Instalação](#/dev-instalacao)"
+         "title": "React (castanha-react)",
+         "text": "Instalação, ambiente, uso dos pacotes, guias, design tokens e Castanha Universe. [Acessar a Instalação no React](#/dev-instalacao)"
         },
         {
-         "title": "Preparando o ambiente",
-         "text": "Acesso ao GitHub Packages, import de tokens e de estilos e o CastanhaProvider. [Acessar Preparando o ambiente](#/dev-ambiente)"
-        },
-        {
-         "title": "Usando os pacotes",
-         "text": "Tokens, componentes, ícones, ilustrações e motion no código. [Acessar Usando os pacotes](#/dev-pacotes)"
+         "title": "Flutter (castanha_flutter)",
+         "text": "Instalação pelo commons ou direta, tema, tokens e uso dos componentes. [Acessar a Instalação no Flutter](#/flutter-instalacao)"
         }
        ]
       },
@@ -397,7 +394,7 @@
   {
    "id": "dev-instalacao",
    "name": "Instalação",
-   "shortcut": false,
+   "platform": "react",
    "tabs": [
     {
      "id": "instalacao",
@@ -510,7 +507,7 @@
   {
    "id": "dev-ambiente",
    "name": "Preparando o ambiente",
-   "shortcut": false,
+   "platform": "react",
    "tabs": [
     {
      "id": "ambiente",
@@ -674,7 +671,7 @@
   {
    "id": "dev-pacotes",
    "name": "Usando os pacotes",
-   "shortcut": false,
+   "platform": "react",
    "tabs": [
     {
      "id": "pacotes",
@@ -881,7 +878,7 @@
   {
    "id": "dev-formularios",
    "name": "Formulários",
-   "shortcut": false,
+   "platform": "react",
    "tabs": [
     {
      "id": "formularios",
@@ -950,7 +947,7 @@
   {
    "id": "dev-hooks",
    "name": "Hooks",
-   "shortcut": false,
+   "platform": "react",
    "tabs": [
     {
      "id": "hooks",
@@ -1117,7 +1114,7 @@
   {
    "id": "dev-assets",
    "name": "Assets e cacheamento",
-   "shortcut": false,
+   "platform": "react",
    "tabs": [
     {
      "id": "assets",
@@ -1417,7 +1414,7 @@
   {
    "id": "dev-grid",
    "name": "Grid e breakpoints",
-   "shortcut": false,
+   "platform": "react",
    "tabs": [
     {
      "id": "grid",
@@ -1522,7 +1519,7 @@
   {
    "id": "dev-tokens",
    "name": "Design tokens",
-   "shortcut": false,
+   "platform": "react",
    "tabs": [
     {
      "id": "visao",
@@ -1644,7 +1641,7 @@
   {
    "id": "dev-universe",
    "name": "Castanha Universe",
-   "shortcut": false,
+   "platform": "react",
    "tabs": [
     {
      "id": "intellisense",
@@ -1897,11 +1894,300 @@
     }
    ],
    "lede": "Castanha Intellisense"
+  },
+  {
+   "id": "flutter-instalacao",
+   "name": "Instalação",
+   "platform": "flutter",
+   "tabs": [
+    {
+     "id": "instalacao",
+     "title": "Instalação",
+     "source": "widgetbook: 01. Instalação",
+     "blocks": [
+      {
+       "p": "Os pacotes do Castanha são distribuídos através do repositório privado da Caju no GitHub, disponíveis exclusivamente para Cajuenses."
+      },
+      {
+       "h2": "Mini apps: o Castanha chega pelo commons"
+      },
+      {
+       "p": "Projeto que já depende do `mobile-commons` não declara o `castanha_flutter` no próprio `pubspec.yaml`. O commons passou a expor o DS num barrel dedicado, então instalar é importar:"
+      },
+      {
+       "code": "import 'package:commons/v2/design_system.dart';\n\nCastanhaMainButton(label: 'Confirmar', onPressed: _confirm);"
+      },
+      {
+       "p": "Por que não declarar direto:"
+      },
+      {
+       "p": "Uma linha todas as superfícies:"
+      },
+      {
+       "ul": [
+        "`castanha_flutter` inteiro — Biblioteca estabilizada com componentes, tokens, ícones, ilustrações e motion",
+        "`castds_as_is` (`Castds*`) - Biblioteca legado"
+       ]
+      },
+      {
+       "p": "No `pubspec.yaml` do mini app, as declarações do DS saem:"
+      },
+      {
+       "code": " dependencies:\n   commons:\n     git:\n       url: git@github.com:caju-beneficios/mobile-commons.git\n-  castanha_flutter:\n-    git:\n-      url: git@github.com:caju-beneficios/mobile-castanha-ds.git\n-      path: packages/castanha-flutter\n-      ref: castanha_flutter-v1.3.0\n-  mobile_castanha_ds:\n-    git:\n-      url: git@github.com:caju-beneficios/mobile-castanha-ds.git\n-  design_system:\n-    git:\n-      url: git@github.com:caju-beneficios/mobile-design-system.git"
+      },
+      {
+       "p": "O tema não muda: continua sendo instalado pelo app, como descrito em 02. Preparando o ambiente."
+      },
+      {
+       "h2": "Castanha Flutter"
+      },
+      {
+       "p": "Instalação direta — para projeto que não depende do `mobile-commons`. Se o seu depende, use a seção acima e pule esta."
+      },
+      {
+       "p": "Pacote oficial do Castanha DS — é para onde o design system está convergindo. Todo componente novo nasce aqui, e os componentes legados (hoje em `castds_as_is`) vão sendo portados para cá com o tempo. Quanto mais projetos adotarem `castanha_flutter`, mais rápido o DS atinge cobertura e completude suficientes para aposentar a stack legada de vez."
+      },
+      {
+       "p": "Cada pacote do monorepo é versionado e taggeado independentemente (ex: `castanha_flutter-v1.0.0`); não existe mais uma tag/branch única para \"o Castanha inteiro\"."
+      },
+      {
+       "code": "# pubspec.yaml\ndependencies:\n  flutter:\n    sdk: flutter\n  castanha_flutter:\n    git:\n      url: git@github.com:caju-beneficios/mobile-castanha-ds.git\n      path: packages/castanha-flutter\n      ref: castanha_flutter-v1.1.0"
+      },
+      {
+       "p": "Os pacotes de assets (`castanha_icons`, `castanha_illustrations`, `castanha_motion`) e os tokens (`castanha_tokens`) chegam como dependências."
+      },
+      {
+       "alert": {
+        "appearance": "informative",
+        "label": "Nota",
+        "text": "A URL usa SSH (`git@github.com`). Certifique-se de ter sua chave SSH configurada no GitHub antes de rodar `flutter pub get`. Confirme a tag mais recente em [Releases/Tags do repositório](https://github.com/caju-beneficios/mobile-castanha-ds/tags) — a versão pode não ser `1.0.0` dependendo de quando você instalar."
+       }
+      },
+      {
+       "h2": "Castanha As Is (legado)"
+      },
+      {
+       "p": "Biblioteca legada — mantida só para compatibilidade, não recebe componentes novos e tende a cair em desuso conforme `castanha_flutter` ganha paridade. Use-a apenas para o que `castanha_flutter` ainda não cobre. Ao construir algo novo, verifique primeiro se já existe em `castanha_flutter` antes de recorrer a `castds_as_is`."
+      },
+      {
+       "p": "Se precisar de um componente ainda não portado, instale o pacote legado lado a lado:"
+      },
+      {
+       "code": "# pubspec.yaml\ndependencies:\n  mobile_castanha_ds:\n    git:\n      url: git@github.com:caju-beneficios/mobile-castanha-ds.git\n      ref: castds_as_is-v0.1.0"
+      },
+      {
+       "p": "Os dois pacotes coexistem sem conflito — cada um expõe seus widgets sob prefixos diferentes (`Castanha*` no novo, `Castds*` no legado)."
+      },
+      {
+       "h2": "Já uso o Castanha do jeito antigo?"
+      },
+      {
+       "p": "Se seu projeto ainda importa o DS pelo pacote `mobile_castanha_ds` (git, `ref: main`, sem `path:`), troque `ref: main` por uma tag — sem alterar nenhum import no seu código."
+      },
+      {
+       "p": "Por quê: `ref: main` não é uma versão — é um alvo que se move sozinho. Ele sempre aponta para o commit mais recente da branch principal, então qualquer mudança que chegue em `main` (incluindo um bug introduzido em qualquer outro pacote do monorepo) afeta seu projeto na hora, sem changelog, sem aviso e sem forma de permanecer numa versão que você já validou."
+      },
+      {
+       "p": "A raiz do repositório continua sendo o pacote `mobile_castanha_ds` em qualquer commit — inclusive nos commits marcados pelas tags de `castds_as_is`. Então a troca é só isso:"
+      },
+      {
+       "code": "   mobile_castanha_ds:\n     git:\n       url: git@github.com:caju-beneficios/mobile-castanha-ds.git\n-      ref: main\n+      ref: castds_as_is-v0.1.0"
+      },
+      {
+       "code": "import 'package:mobile_castanha_ds/mobile_castanha_ds.dart'; // continua igual, nada muda"
+      },
+      {
+       "note": "Confirme a tag mais recente em [Releases/Tags do repositório](https://github.com/caju-beneficios/mobile-castanha-ds/tags) antes de fixar — a versão pode não ser `castds_as_is-v0.1.0` dependendo de quando você migrar. Quando `castds_as_is` ganhar uma versão nova, atualize o `ref:` manualmente para pegá-la."
+      },
+      {
+       "alert": {
+        "appearance": "informative",
+        "label": "Atenção",
+        "text": "se algum arquivo do seu projeto importa `package:castds_core/...` diretamente (em vez de passar por `mobile_castanha_ds`), esse import precisa ser atualizado para `package:castds_as_is/...` — essa é a única mudança de código necessária, e só se aplica a quem faz esse tipo de import direto."
+       }
+      },
+      {
+       "h2": "Requisitos"
+      },
+      {
+       "h3": "Versões Mínimas"
+      },
+      {
+       "ul": [
+        "Flutter: 3.41.6 ou superior",
+        "Dart: 3.11.4 ou superior"
+       ]
+      },
+      {
+       "h3": "Acesso ao repositório"
+      },
+      {
+       "p": "O repositório é privado. Verifique o acesso SSH antes de instalar:"
+      },
+      {
+       "code": "# Testar autenticação SSH com o GitHub\nssh -T git@github.com\n\n# Instalar as dependências\nflutter pub get"
+      }
+     ]
+    }
+   ],
+   "lede": "O que tem no Castanha?"
+  },
+  {
+   "id": "flutter-ambiente",
+   "name": "Preparando o ambiente",
+   "platform": "flutter",
+   "tabs": [
+    {
+     "id": "ambiente",
+     "title": "Preparando o ambiente",
+     "source": "widgetbook: 02. Preparando o ambiente",
+     "blocks": [
+      {
+       "p": "Configure o tema do Castanha DS antes de usar os componentes."
+      },
+      {
+       "h2": "Configurando o tema"
+      },
+      {
+       "p": "Os tokens do DS são um `ThemeExtension`, então entram no `ThemeData` do app. A propagação e a troca claro/escuro passam a ser do próprio Flutter — não há provider de tema para instalar."
+      },
+      {
+       "code": "import 'package:castanha_flutter/castanha_flutter.dart';\n\nvoid main() {\n  runApp(\n    MaterialApp(\n      theme: CastanhaTheme.light(),\n      darkTheme: CastanhaTheme.dark(),\n      themeMode: ThemeMode.system,\n      home: const MyApp(),\n    ),\n  );\n}"
+      },
+      {
+       "p": "Já tem um `ThemeData` próprio? Componha com ele:"
+      },
+      {
+       "code": "theme: CastanhaTheme.light(base: meuThemeData),"
+      },
+      {
+       "alert": {
+        "appearance": "informative",
+        "label": "Migrando de `castds_as_is`",
+        "text": "se seu projeto ainda usa componentes legados (`Castds*`), mantenha o `CastdsThemeManagerV2` (do pacote `castds_as_is`) no seu `ChangeNotifierProvider` — ele é independente do tema do `castanha_flutter`, e os dois coexistem sem conflito enquanto a migração widget a widget não termina."
+       }
+      },
+      {
+       "h3": "Trocando de tema (claro/escuro)"
+      },
+      {
+       "p": "Com `themeMode: ThemeMode.system` a troca acompanha o sistema operacional. Para controlar pelo app, guarde o `ThemeMode` no seu gerenciador de estado e passe para o `MaterialApp`."
+      },
+      {
+       "h3": "Subárvores sem MaterialApp"
+      },
+      {
+       "p": "Para árvores Cupertino, subárvores com tema próprio ou testes de widget isolados, use `CastanhaThemeProvider`:"
+      },
+      {
+       "code": "CastanhaThemeProvider(\n  tokens: castanhaTokensCajuDark,\n  child: const MyWidget(),\n)"
+      },
+      {
+       "h2": "Acessando tokens nos widgets"
+      },
+      {
+       "p": "Use `context.castanhaTheme` para acessar os tokens de design diretamente — os getters já retornam `Color`/`double` prontos para uso, sem conversão:"
+      },
+      {
+       "code": "import 'package:castanha_flutter/castanha_flutter.dart';\nimport 'package:flutter/widgets.dart';\n\n@override\nWidget build(BuildContext context) {\n  final theme = context.castanhaTheme;\n\n  return Container(\n    color: theme.colorsSurfaceDefault,\n    padding: EdgeInsets.all(theme.sizes16),\n    child: Text(\n      'Olá, Castanha!',\n      style: TextStyle(color: theme.colorsTextIntense),\n    ),\n  );\n}"
+      },
+      {
+       "alert": {
+        "appearance": "informative",
+        "label": "Dica",
+        "text": "`context.castanhaTheme` já usa `listen: false` internamente — não causa rebuild ao trocar o tema. Para reagir a mudanças de tema (ex: um switch de dark mode), use `context.watch<CastanhaTheme>().tokens`."
+       }
+      },
+      {
+       "h2": "Testando a configuração"
+      },
+      {
+       "p": "Após configurar o tema, teste com um componente simples:"
+      },
+      {
+       "code": "import 'package:castanha_flutter/castanha_flutter.dart';\nimport 'package:flutter/material.dart';\n\nvoid main() {\n  runApp(\n    MaterialApp(\n      theme: CastanhaTheme.light(),\n      home: Scaffold(\n        body: Center(\n          child: CastanhaText.heading(\n            'Olá, Castanha!',\n            size: CastanhaHeadingSize.mediumHeading,\n          ),\n        ),\n      ),\n    ),\n  );\n}"
+      },
+      {
+       "p": "Se o texto renderizar com a tipografia do Castanha, o ambiente está configurado corretamente."
+      }
+     ]
+    }
+   ],
+   "lede": "Preparando o ambiente"
+  },
+  {
+   "id": "flutter-componentes",
+   "name": "Usando os componentes",
+   "platform": "flutter",
+   "tabs": [
+    {
+     "id": "componentes",
+     "title": "Usando os componentes",
+     "source": "widgetbook: 03. Usando os componentes",
+     "blocks": [
+      {
+       "p": "Aprenda a usar os componentes do Castanha DS com exemplos práticos."
+      },
+      {
+       "h2": "Importação"
+      },
+      {
+       "p": "Um único import cobre componentes, tokens e catálogos de assets:"
+      },
+      {
+       "code": "import 'package:castanha_flutter/castanha_flutter.dart';"
+      },
+      {
+       "p": "Isso inclui `CastanhaIcons`, `CastanhaIllustrations`, `CastanhaMotionAssets` e `CastanhaTokens` — nenhum import direto dos pacotes de asset é necessário."
+      },
+      {
+       "h2": "Texto — CastanhaText"
+      },
+      {
+       "p": "Cada construtor nomeado tem finalidade semântica, tamanho e peso tipográfico próprios:"
+      },
+      {
+       "code": "// Corpo — size controla o peso (w400/w500/w700); 16sp, lh 150%\nCastanhaText.body('Parágrafo', size: CastanhaBodySize.regular)\n\n// Heading — size define o tamanho de 24sp a 80sp; sempre w700, lh 160%\nCastanhaText.heading('Título', size: CastanhaHeadingSize.mediumHeading)\n\n// Label — igual a body mas com lh 100% (ideal para formulários)\nCastanhaText.label('Nome', size: CastanhaLabelSize.medium)\n\n// Link — underline automático; tamanho de 14sp a 24sp; sempre w700\nCastanhaText.link('Saiba mais', size: CastanhaLinkSize.medium)\n\n// Decorativo — excluído da árvore de semântica (aria-hidden)\nCastanhaText.decorative('✦', size: CastanhaDecorativeSize.large)"
+      },
+      {
+       "h2": "Ícone — CastanhaIcon"
+      },
+      {
+       "p": "Ícones sem `semanticsLabel` são excluídos da árvore de semântica por padrão (decorativos). Forneça `semanticsLabel` quando o ícone transmite informação sem texto adjacente:"
+      },
+      {
+       "code": "CastanhaIcon(icon: CastanhaIcons.checkLine)\n\nCastanhaIcon(\n  icon: CastanhaIcons.warningLine,\n  appearance: CastanhaIconAppearance.warning,\n  size: CastanhaIconSize.large,\n)\n\nCastanhaIcon(\n  icon: CastanhaIcons.informationLine,\n  appearance: CastanhaIconAppearance.informative,\n  semanticsLabel: 'Informação',\n)"
+      },
+      {
+       "h2": "Layout — CastanhaRow / CastanhaColumn"
+      },
+      {
+       "p": "Substituem `Row`/`Column` com `SizedBox` manual de espaçamento — o `spacing` usa a escala tokenizada de `CastanhaSpacing`, então o gap nunca fica fora do grid de design:"
+      },
+      {
+       "code": "CastanhaRow(\n  spacing: CastanhaSpacing.spacing8,\n  children: [iconWidget, labelWidget],\n)\n\nCastanhaColumn(\n  spacing: CastanhaSpacing.spacing16,\n  children: [labelWidget, inputWidget, messageWidget],\n)"
+      },
+      {
+       "note": "Use `Row`/`Column` puros apenas quando precisar de um alinhamento que os primitivos não suportam (ex: `MainAxisAlignment.spaceBetween`)."
+      },
+      {
+       "h2": "Motion e Illustration"
+      },
+      {
+       "code": "// Autoplay + loop\nCastanhaMotion(name: CastanhaMotionAssets.notificacoesGalo)\n\n// Tamanho customizado, sem loop\nCastanhaMotion(name: CastanhaMotionAssets.feedbackSuccess, width: 320)"
+      },
+      {
+       "code": "CastanhaIllustration(name: CastanhaIllustrations.notificacoesSuccess)\n\nCastanhaIllustration(\n  name: CastanhaIllustrations.documentosAdmissao,\n  size: CastanhaIllustrationSize.large,\n  semanticsLabel: 'Documentos de admissão',\n)"
+      }
+     ]
+    }
+   ],
+   "lede": "Uso na prática"
   }
  ]
 };
   DATA.pages.forEach(function(p, i){
-    CDS.register({ id: p.id, name: p.name, resource: true, shortcut: p.shortcut || undefined, order: 40 + i, lede: p.lede, description: p.lede });
-    CDS.docs[p.id] = { source: SB, sourceLabel: "Storybook do castanha-react", tabs: p.tabs };
+    CDS.register({ id: p.id, name: p.name, resource: true, platform: p.platform || undefined, order: 40 + i, lede: p.lede, description: p.lede });
+    CDS.docs[p.id] = p.platform === "flutter" ? { source: WB, sourceLabel: "Widgetbook do castanha_flutter", tabs: p.tabs } : { source: SB, sourceLabel: "Storybook do castanha-react", tabs: p.tabs };
   });
 })();

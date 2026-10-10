@@ -25,7 +25,8 @@
         { shortcuts: { bento: 3, items: [
           // O onboarding de design do Hub (p/80dfb0) saiu do ar: o atalho leva ao treinamento de como usar as documentações (C158)
           { layout: "row", title: "Designers", text: "Comece pelo treinamento: como usar as documentações do Castanha.", href: "#/treinamento", cta: "Treinamento", illustration: "dispositivos/notebook" },
-          { layout: "row", title: "Dev. Flutter", text: "Onboarding para desenvolvedores mobile.", href: "https://castanha-staging-flutter.caju.com.br/", cta: "Castanha Flutter", external: true, illustration: "dispositivos/celular-logo" },
+          // Dev. Flutter: o Getting Started do Widgetbook entrou no portal (Desenvolvimento › Flutter, D311)
+          { layout: "row", title: "Dev. Flutter", text: "Instalação, tema e uso dos componentes do castanha_flutter, aqui no portal.", href: "#/flutter-instalacao", cta: "Desenvolvimento", illustration: "dispositivos/celular-logo" },
           // Dev. React: as docs do Storybook entraram no portal (Desenvolvimento, D305); o atalho leva ao Comece aqui, não mais ao Storybook
           { layout: "row", title: "Dev. React", text: "Instalação, ambiente e uso dos pacotes do castanha-react, aqui no portal.", href: "#/comece-aqui", cta: "Desenvolvimento", illustration: "dispositivos/notebook-relatorios" }
         ] } },
@@ -43,7 +44,7 @@
           { layout: "row", title: "Motion", text: "Princípios de motion, curvas, durações e Motion Styles.", href: "#/motion", cta: "Acessar Motion", illustration: "objetos/foguete" },
           { size: "wide", title: "Agentes e Skills", text: "O Borô no Slack e no Figma, os Patterns escritos para a IA e a skill /castanhads-juntos: IA que ajuda a escrever e construir no padrão da Caju.", href: "#/agentes", cta: "Acessar Agentes e Skills", src: "resources/agentes/boro.svg" },
           { layout: "row", title: "Patterns", text: "Feedback Pages e Tela de loading, montadas com componentes do DS.", href: "#/patterns", cta: "Acessar Patterns", illustration: "notificacoes/success" },
-          { layout: "row", title: "Desenvolvimento", text: "Getting Started, guias, design tokens e Castanha Universe.", href: "#/dev-instalacao", cta: "Acessar Desenvolvimento", illustration: "interfaces/lista" },
+          { layout: "row", title: "Desenvolvimento", text: "Instalação, guias e design tokens para React e Flutter.", href: "#/comece-aqui", cta: "Acessar Desenvolvimento", illustration: "interfaces/lista" },
           { size: "wide", title: "Changelog", text: "O que saiu em cada release do Castanha: React, Flutter, Figma, ilustrações, ícones e documentação.", href: "#/changelog", cta: "Acessar Changelog", illustration: "notificacoes/sino" }
         ] } }
       ] },

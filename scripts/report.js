@@ -133,8 +133,6 @@
     });
     var openC = conf.sections.filter(function(s){ return TYPES.indexOf(s.title) !== -1; }).reduce(function(a, s){ return a + items(s.lines).length; }, 0);
     var solved = items(sec(conf, function(s){ return s.title === "Resolvidos"; }).lines).length;
-    var dec = items(sec(road, function(s){ return s.num === "4"; }).lines).length;
-    var qs = items(sec(road, function(s){ return s.num === "5"; }).lines).filter(function(l){ return !/✅/.test(l); }).length;
     var pg = (CDS.playgrounds || []).filter(function(c){ return !c.resource; });
     var comps = pg.filter(function(c){ return !c.block && !c.composition && !c.template; }).length;
     var tpls = pg.filter(function(c){ return c.template; }).length;
@@ -142,10 +140,23 @@
       { label: "Componentes no playground", value: comps, sub: "+ " + pg.filter(function(c){ return c.block; }).length + " building blocks" + (tpls ? " e " + tpls + " templates" : ""), icon: "view-module-line", app: "accent", tip: "Componentes do Figma implementados no playground, sem contar building blocks, templates, composições e recursos de apoio." },
       { label: "Variantes do Figma cobertas", value: variants, sub: "em " + sets + " sets da lib · todas no playground", icon: "check-line", app: "positive", pct: 100, tip: "Soma das variantes dos sets do inventário da lib (Roadmap §2). Todas estão implementadas no playground." },
       { label: "Débitos e melhorias mapeados", value: openC, sub: solved + " já resolvidos (" + Math.round(solved / ((openC + solved) || 1) * 100) + "%)", icon: "warning-line", app: "warning", pct: Math.round(solved / ((openC + solved) || 1) * 1000) / 10, href: "#/relatorio/conferir", tip: "Itens em aberto no Conferir: divergências entre Figma e código, gaps e propostas de melhoria. A barra mostra a parte já resolvida." },
-      { label: "Decisões registradas", value: dec, sub: qs ? qs + (qs === 1 ? " dúvida em aberto" : " dúvidas em aberto") : "Sem dúvidas em aberto", icon: "bookmark-line", app: "informative", href: "#/relatorio/roadmap", tip: "Decisões tomadas e registradas no Roadmap (D1, D2…). Embaixo, as dúvidas que ainda aguardam resposta." }
+      health(docs)
     ];
   }
 
+  // Saúde geral (Gustavo, 09/10, no lugar de Decisões registradas): um status só, juntando o build do portal (smoke, docs e peso)
+  // e o check de cada stack. Atenção = algo falhou ou há divergência alta; Com avisos = avisos ou divergências médias.
+  function health(docs){
+    var build = rows(sec(docs.saude, function(s){ return s.title === "Resumo"; }).lines).map(function(r){ return plain(r[1] || ""); });
+    var fail = build.filter(function(t){ return /❌/.test(t); }).length, warn = build.filter(function(t){ return /⚠️/.test(t); }).length;
+    var lr = levels(docs.stack), lf = levels(docs["stack-flutter"]), alta = (lr["Alta"] || 0) + (lf["Alta"] || 0), media = (lr["Média"] || 0) + (lf["Média"] || 0);
+    var st = fail || alta ? ["negative", "Atenção"] : warn || media ? ["warning", "Com avisos"] : ["positive", "Em dia"];
+    var parts = [fail ? fail + (fail === 1 ? " verificação do build falhou" : " verificações do build falharam") : "Build do portal em dia"];
+    if (alta) parts.push(alta + (alta === 1 ? " divergência alta" : " divergências altas") + " nas stacks");
+    else if (media) parts.push(media + (media === 1 ? " divergência média" : " divergências médias") + " nas stacks");
+    return { label: "Saúde geral", value: st[1], sub: parts.join(" · "), icon: "health-line", app: st[0], href: "#/relatorio/saude",
+      tip: "Junta o último build do portal (smoke dos componentes, das docs e peso) e o check Figma × React e Figma × Flutter. Atenção: algo falhou ou há divergência alta. Com avisos: avisos ou divergências médias." };
+  }
   function sec(doc, test){ return doc.sections.filter(test)[0] || { title: "", lines: [] }; }
   function rows(lines){ return lines.filter(function(l){ return /^\|/.test(l) && !/^\|\s*:?-{3,}/.test(l); }).slice(1).map(cells); }
   function plain(s){ return s.replace(/\*\*|~~|`/g, "").replace(/\[([^\]]+)\]\([^)]*\)/g, "$1"); }
@@ -476,7 +487,8 @@
     // Últimas decisões
     var dec = rows(sec(road, function(s){ return s.num === "4"; }).lines).filter(function(r){ return /^D\d+/.test(r[0]); })
       .sort(function(a, b){ return parseInt(a[0].slice(1), 10) - parseInt(b[0].slice(1), 10); });
-    var p6 = panel(grid, "Últimas decisões", dec.length + " registradas · ver todas no Roadmap", "rp-panel--wide");
+    var qs = items(sec(road, function(s){ return s.num === "5"; }).lines).filter(function(l){ return !/✅/.test(l); }).length; // dúvidas em aberto (saíram do topo com a Saúde geral)
+    var p6 = panel(grid, "Últimas decisões", dec.length + " registradas · " + (qs ? qs + (qs === 1 ? " dúvida em aberto" : " dúvidas em aberto") : "sem dúvidas em aberto") + " · ver todas no Roadmap", "rp-panel--wide");
     var dl = p6.appendChild(el("ul", "rp-list rp-list--cols"));
     dec.slice(-6).reverse().forEach(function(r){
       var li = dl.appendChild(el("li"));
@@ -520,9 +532,16 @@
     }
 
     var p8 = stacks(grid), p9 = trend(grid);
-    // Ordem (Gustavo, 09/10, painel para o time e a liderança): Figma, React e Flutter · Componentes · Adaptações · Publicação · Débitos · Decisões ·
-    // Sinais vitais · Tendência por último
-    [p8, p4, p3, p5].concat(typeof p7 !== "undefined" ? [p7] : []).concat([p2, p6, p0]).concat(p9 ? [p9] : []).forEach(function(p, i){ var c = p.closest("cds-card"); c.style.setProperty("--_i", String(i)); grid.appendChild(c); });
+    // Duas seções (Gustavo, 09/10): Progresso (como o DS avança nas stacks, para quem acompanha de fora) e Detalhes (o que pede ação
+    // e o que explica as decisões, para quem trabalha no DS). Nomes comuns, sem citar público.
+    var groups = [["Progresso", "Cobertura no Figma, no React e no Flutter, publicação na lib e evolução dia a dia", [p8, p5, p9]],
+      ["Detalhes", "Débitos, regras de adaptação, componentes, decisões e o build do portal", [p2, p4, p3].concat(typeof p7 !== "undefined" ? [p7] : []).concat([p6, p0])]], k = 0;
+    groups.forEach(function(g){
+      var h = grid.appendChild(el("div", "rp-dash__group"));
+      h.appendChild(el("h2", "rp-dash__group-title", esc(g[0])));
+      h.appendChild(el("p", "rp-dash__group-sub", esc(g[1])));
+      g[2].filter(Boolean).forEach(function(p){ var c = p.closest("cds-card"); c.style.setProperty("--_i", String(k++)); grid.appendChild(c); });
+    });
     grow(grid);
     // Tooltips da legenda (precisam do item já no documento)
     if (CDS.kit) [].forEach.call(leg.children, function(li){ if (li._tip) CDS.kit.tip(li, li._tip[3], { label: li._tip[1].replace(/ \(.*$/, ""), container: leg.parentNode }); });

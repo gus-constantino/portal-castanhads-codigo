@@ -26,6 +26,7 @@
 .rp-kpi--positive{ --_c:var(--common-colors-feedback-positive-medium); --_s:var(--common-colors-feedback-positive-soft); }
 .rp-kpi--warning{ --_c:var(--common-colors-feedback-warning-medium); --_s:var(--common-colors-feedback-warning-soft); }
 .rp-kpi--informative{ --_c:var(--common-colors-feedback-informative-medium); --_s:var(--common-colors-feedback-informative-soft); }
+.rp-kpi--negative{ --_c:var(--common-colors-feedback-negative-medium); --_s:var(--common-colors-feedback-negative-soft); }
 .rp-kpi__head{ display:flex; align-items:center; gap:var(--common-sizes-8); }
 .rp-kpi__label{ font:var(--text-style-caption-medium); color:var(--common-colors-text-medium); }
 .rp-kpi__value{ margin-top:var(--common-sizes-12) !important; font:var(--text-style-heading-small); color:var(--common-colors-text-intense); font-variant-numeric:tabular-nums; }
@@ -92,6 +93,11 @@
 .rp-body.is-dash{ display:block; }
 .rp-dash{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:var(--common-sizes-12); }
 .rp-panel{ min-width:0; } /* Card do DS */
+/* Seções da Visão geral (Progresso e Detalhes) */
+.rp-dash__group{ grid-column:1 / -1; margin-top:var(--common-sizes-24); }
+.rp-dash__group:first-child{ margin-top:0; }
+.rp-dash__group-title{ margin:0; font:var(--text-style-subtitle-medium); color:var(--common-colors-text-intense); }
+.rp-dash__group-sub{ margin:var(--common-sizes-2) 0 0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
 .rp-panel__body{ display:flex; flex-direction:column; min-width:0; }
 .rp-panel--wide{ grid-column:1 / -1; }
 .rp-panel__head{ margin-bottom:var(--common-sizes-16); }

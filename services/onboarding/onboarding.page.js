@@ -69,6 +69,15 @@
         "Durante o tour, o Backdrop do DS fica atrás do passo e o bloco com a área apontada (o menu) fica por cima, claro.",
         "`?tour=<id>` abre um fluxo na hora e `?onboarding=off` desliga o serviço (o smoke das docs roda assim)."
       ] },
+      { h2: "Progresso entre navegadores" },
+      { p: "Desligado por enquanto. O progresso fica no localStorage de cada navegador. O serviço já tem a entrada para um adaptador remoto, no mesmo molde do ranking do Castanha Quiz: quem conecta passa um objeto com `load`, `save` e, se quiser, `track`, e o serviço não depende do backend. Liga quando o portal estiver conectado ao ambiente da Caju, com a sessão da pessoa." },
+      { ul: [
+        "`load()` devolve o progresso guardado. O serviço junta com o local: tarefas e paradas somam, o estado de cada fluxo fica com o mais recente e o perfil deste navegador ganha quando existe.",
+        "`save(snapshot)` recebe o progresso depois de cada mudança, agrupado a cada 1 s.",
+        "`track(evento)` recebe as métricas anônimas (início, conclusão, saída por passo, tarefa, parada e perfil), sem chave de pessoa. É o que falta para a taxa de abandono agregada.",
+        "Os contadores de métricas deste navegador não vão no snapshot."
+      ] },
+      { code: "CDS.onboarding.remote({\n  load: () => fetch(API + \"/onboarding\", { credentials: \"include\" }).then(r => r.ok ? r.json() : null),\n  save: (snap) => fetch(API + \"/onboarding\", { method: \"PUT\", credentials: \"include\", body: JSON.stringify(snap) }),\n  track: (ev) => navigator.sendBeacon(API + \"/onboarding/eventos\", JSON.stringify(ev))\n});" },
       { h2: "Regras de conteúdo" },
       { p: "O build roda o `scripts/dev/lint-onboarding.js` e reprova o fluxo que sair do guia: título até 30 caracteres e sem ponto, exclamação ou dois-pontos, título e texto juntos até 110 caracteres, no máximo 3 passos de tour, ilustração que existe no catálogo e as palavras do Termos para evitar. Nas tarefas dos Primeiros passos: até 5 por perfil, rótulo até 30 caracteres e regra de conclusão." },
       { code: "CDS.onboarding.register({ id: \"exemplo\", version: 1, steps: [\n  { kind: \"modal\", title: \"…\", text: \"…\", illustration: \"objetos/kit-onboarding\" },\n  { anchor: \"busca\", title: \"…\", text: \"…\" }\n] });\nCDS.onboarding.start(\"exemplo\");" }

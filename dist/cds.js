@@ -9730,9 +9730,22 @@ try {
  *
  * API: register · flows · start(id) · stop · next · back · remind · dismiss · state(id) · reset(id) · metrics(id) · active
  *   profile() / profile(id) · checklist(def) · checklistView() · tasksDone() · trail(def) · trailView() · trailDone() · trailStops()
- * Evento (document): cds-onboarding { type: start|show|complete|remind|dismiss|skip|task|stop|profile, flow, step }
+ *   · remote(adaptador) · snapshot() · merge(snapshot) · connected()
+ * Evento (document): cds-onboarding { type: start|show|complete|remind|dismiss|skip|task|stop|profile|sync, flow, step }
  * localStorage: cds-onb:<id> (estado do fluxo) · cds-onb-metrics:<id> · cds-onb-perfil · cds-onb-tarefas · cds-onb-trilha
  * Desliga com ?onboarding=off. ?tour=<id> abre um fluxo na hora.
+ *
+ * Adaptador remoto (F5, D319): desligado. O localStorage continua sendo a fonte; com um remoto, o progresso também
+ *   vai para ele e volta ao abrir o portal em outro navegador. Mesmo molde do remote do Quiz (cmp-lesson): quem conecta passa
+ *   um objeto, e o serviço não sabe qual é o backend. Fica para quando o portal estiver conectado ao ambiente da Caju.
+ *   CDS.onboarding.remote({
+ *     load()          → Promise<snapshot | null>   progresso guardado da pessoa (o backend sabe quem é pela sessão da Caju)
+ *     save(snapshot)  → Promise                    chamado depois de cada mudança, agrupado (1 s)
+ *     track(evento)   → void (opcional)            métricas anônimas: { type, flow, step, profile, task, stop }, sem chave de pessoa
+ *   })
+ *   snapshot() devolve { v: 1, perfil, tarefas, trilha, fluxos: { id: estado } } · merge(snapshot) junta com o local:
+ *   tarefas e paradas somam (fica a data mais antiga), o estado de cada fluxo fica com o mais recente (updated) e o perfil
+ *   local ganha quando existe. Métricas por navegador (cds-onb-metrics) não entram no snapshot.
  */
 (function(){
   "use strict";
@@ -9742,7 +9755,7 @@ try {
 
   // ---------- Estado e métricas (localStorage, sempre com try/catch) ----------
   function read(key, fb){ try { var v = JSON.parse(localStorage.getItem(key) || "null"); return v || fb; } catch (e) { return fb; } }
-  function write(key, v){ try { localStorage.setItem(key, JSON.stringify(v)); } catch (e) {} }
+  function write(key, v){ try { localStorage.setItem(key, JSON.stringify(v)); } catch (e) {} if (key.indexOf("cds-onb-metrics:") !== 0) queueSave(); }
   function today(){ return new Date().toISOString().slice(0, 10); }
   function state(id){ return read("cds-onb:" + id, { status: "novo", step: 0, version: (FLOWS[id] || {}).version || 1, remindCount: 0 }); }
   function setState(id, patch){ var s = state(id); Object.keys(patch).forEach(function(k){ s[k] = patch[k]; }); s.updated = new Date().toISOString(); write("cds-onb:" + id, s); return s; }
@@ -9762,7 +9775,11 @@ try {
 
   // ---------- Execução ----------
   var run = null, ui = null; // run: { id, i, steps, t0, back } · ui: elementos do passo aberto
-  function emit(type, extra){ var d = { type: type, flow: run && run.id, step: run && run.i }; if (extra) Object.keys(extra).forEach(function(k){ d[k] = extra[k]; }); document.dispatchEvent(new CustomEvent("cds-onboarding", { detail: d })); }
+  function emit(type, extra){
+    var d = { type: type, flow: run && run.id, step: run && run.i }; if (extra) Object.keys(extra).forEach(function(k){ d[k] = extra[k]; });
+    document.dispatchEvent(new CustomEvent("cds-onboarding", { detail: d }));
+    if (REMOTE && REMOTE.track){ try { REMOTE.track({ type: d.type, flow: d.flow || null, step: d.step == null ? null : d.step, profile: profile(), task: d.task || null, stop: d.stop || null }); } catch (e) {} }
+  }
   function off(){ return /[?&]onboarding=off\b/.test(location.search); }
   function anchorOf(step){ return step.anchor ? document.querySelector('[data-onb="' + step.anchor + '"]') : null; }
   function visible(el){ return !!(el && el.getClientRects().length); }
@@ -10033,6 +10050,40 @@ try {
   }
   function trail(def){ TRAIL = def; }
 
+  // ---------- Adaptador remoto (F5): desligado até o portal ter o ambiente da Caju ----------
+  var REMOTE = null, saveTimer = null, merging = false;
+  function snapshot(){
+    var fluxos = {};
+    ORDER.forEach(function(id){ var st = read("cds-onb:" + id, null); if (st) fluxos[id] = st; });
+    return { v: 1, perfil: read("cds-onb-perfil", null), tarefas: tasksDone(), trilha: trailDone(), fluxos: fluxos };
+  }
+  function union(a, b){ var o = {}; [a || {}, b || {}].forEach(function(m){ Object.keys(m).forEach(function(k){ if (!o[k] || m[k] < o[k]) o[k] = m[k]; }); }); return o; }
+  function merge(snap){
+    if (!snap || snap.v !== 1) return false;
+    merging = true;
+    try {
+      write("cds-onb-tarefas", union(tasksDone(), snap.tarefas));
+      write("cds-onb-trilha", union(trailDone(), snap.trilha));
+      if (!read("cds-onb-perfil", null) && snap.perfil) write("cds-onb-perfil", snap.perfil);
+      Object.keys(snap.fluxos || {}).forEach(function(id){
+        var mine = read("cds-onb:" + id, null), theirs = snap.fluxos[id];
+        if (!mine || (theirs.updated || "") > (mine.updated || "")) write("cds-onb:" + id, theirs);
+      });
+    } finally { merging = false; }
+    return true;
+  }
+  function queueSave(){
+    if (!REMOTE || merging) return;
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){ try { Promise.resolve(REMOTE.save(snapshot())).catch(function(){}); } catch (e) {} }, 1000);
+  }
+  // Conecta (ou desliga, com null). Devolve a Promise do load: quem conecta pode repintar a tela depois do merge
+  function remote(r){
+    REMOTE = r && typeof r.load === "function" && typeof r.save === "function" ? r : null;
+    if (!REMOTE) return Promise.resolve(false);
+    return Promise.resolve(REMOTE.load()).then(function(snap){ var ok = merge(snap); queueSave(); if (ok) emit("sync"); return ok; }, function(){ return false; });
+  }
+
   // ---------- Registro ----------
   function register(f){
     if (!f || !f.id || !f.steps) return;
@@ -10046,6 +10097,7 @@ try {
     state: state, reset: reset, metrics: metrics, profile: profile,
     checklist: checklist, checklistView: checklistView, tasksDone: tasksDone,
     trail: trail, trailView: trailView, trailDone: trailDone, trailStops: trailStops,
+    remote: remote, snapshot: snapshot, merge: merge, connected: function(){ return !!REMOTE; },
     active: function(){ return run ? { flow: run.id, step: run.i, total: run.steps.length } : null; },
     buttons: BUTTONS
   };
@@ -10281,6 +10333,15 @@ try {
         "Durante o tour, o Backdrop do DS fica atrás do passo e o bloco com a área apontada (o menu) fica por cima, claro.",
         "`?tour=<id>` abre um fluxo na hora e `?onboarding=off` desliga o serviço (o smoke das docs roda assim)."
       ] },
+      { h2: "Progresso entre navegadores" },
+      { p: "Desligado por enquanto. O progresso fica no localStorage de cada navegador. O serviço já tem a entrada para um adaptador remoto, no mesmo molde do ranking do Castanha Quiz: quem conecta passa um objeto com `load`, `save` e, se quiser, `track`, e o serviço não depende do backend. Liga quando o portal estiver conectado ao ambiente da Caju, com a sessão da pessoa." },
+      { ul: [
+        "`load()` devolve o progresso guardado. O serviço junta com o local: tarefas e paradas somam, o estado de cada fluxo fica com o mais recente e o perfil deste navegador ganha quando existe.",
+        "`save(snapshot)` recebe o progresso depois de cada mudança, agrupado a cada 1 s.",
+        "`track(evento)` recebe as métricas anônimas (início, conclusão, saída por passo, tarefa, parada e perfil), sem chave de pessoa. É o que falta para a taxa de abandono agregada.",
+        "Os contadores de métricas deste navegador não vão no snapshot."
+      ] },
+      { code: "CDS.onboarding.remote({\n  load: () => fetch(API + \"/onboarding\", { credentials: \"include\" }).then(r => r.ok ? r.json() : null),\n  save: (snap) => fetch(API + \"/onboarding\", { method: \"PUT\", credentials: \"include\", body: JSON.stringify(snap) }),\n  track: (ev) => navigator.sendBeacon(API + \"/onboarding/eventos\", JSON.stringify(ev))\n});" },
       { h2: "Regras de conteúdo" },
       { p: "O build roda o `scripts/dev/lint-onboarding.js` e reprova o fluxo que sair do guia: título até 30 caracteres e sem ponto, exclamação ou dois-pontos, título e texto juntos até 110 caracteres, no máximo 3 passos de tour, ilustração que existe no catálogo e as palavras do Termos para evitar. Nas tarefas dos Primeiros passos: até 5 por perfil, rótulo até 30 caracteres e regra de conclusão." },
       { code: "CDS.onboarding.register({ id: \"exemplo\", version: 1, steps: [\n  { kind: \"modal\", title: \"…\", text: \"…\", illustration: \"objetos/kit-onboarding\" },\n  { anchor: \"busca\", title: \"…\", text: \"…\" }\n] });\nCDS.onboarding.start(\"exemplo\");" }

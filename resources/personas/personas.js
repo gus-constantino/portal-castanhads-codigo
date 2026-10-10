@@ -1221,6 +1221,7 @@
         "Recorrente: Ações ficam registradas sem o motivo — acaba mantendo prints e planilhas paralelas para se proteger.",
         "Recorrente: Casos voltam de outros times sem prazo definido, gerando vaivém.",
         "Recorrente: Prazo regulatório de 10 dias e prazo interno de 5 a 6 dias colidem, sem saída prevista no processo.",
+        "Recorrente: Qualquer operador executa ações de alto impacto, sem controle de alçada nem permissão por perfil.",
         "Recorrente: Consultas lentas, que exigem recarregar a página para ver o resultado.",
         "Recorrente: Respostas rápidas no CRM são pouco ágeis de usar no dia a dia.",
         "Pontual: Extrato montado à mão, com edição antes de gerar o PDF.",
@@ -1234,6 +1235,7 @@
         "Registro do motivo de cada ação, não só de que ela foi feita.",
         "Prazo definido e acompanhável para casos escalados entre times.",
         "Confirmação clara antes de ações de alto impacto.",
+        "Controle de alçada por perfil: ações críticas com aprovação ou acesso restrito.",
         "Consultas rápidas, sem recarregar a página.",
         "Atalhos de texto rápido integrados ao CRM.",
         "Extrato gerado automaticamente, pronto para exportar em PDF.",
@@ -1283,7 +1285,7 @@
       {
        "title": "Dores",
        "items": [
-        "Recorrente: Muitos chamados nascem de cadastros com dados no campo errado (ex.: e-mail corporativo no lugar do pessoal), que o sistema aceita sem validar.",
+        "Recorrente: 60% dos chamados nascem de cadastros com dados no campo errado (ex.: e-mail corporativo no lugar do pessoal), que o sistema aceita sem validar.",
         "Recorrente: Sem histórico de alterações — não sabe quem mudou o cadastro, nem quando.",
         "Recorrente: Status como \"em análise\" ou \"falha\" aparecem sem descrição do motivo, o que obriga a escalar.",
         "Recorrente: Admin e portal do RH mostram dados diferentes para o mesmo cadastro.",
@@ -1347,11 +1349,11 @@
        "title": "Dores",
        "items": [
         "Recorrente: Sem histórico de alterações — qualquer contestação de cliente vira investigação manual.",
-        "Recorrente: Emissão e cancelamento de notas fiscais feitos à mão, um a um.",
+        "Recorrente: Emissão e cancelamento de notas fiscais feitos à mão, de 35 a 60 notas por empresa.",
         "Recorrente: Várias abas do Admin abertas ao mesmo tempo, uma por CNPJ, para atender clientes simultâneos.",
         "Recorrente: Dados cadastrais (ex.: nome social, CPF) divergentes entre o Admin e o portal do RH.",
         "Recorrente: Dependência total do Admin, sem alternativa quando algo falha.",
-        "Pontual: Chamados de parceiros que não deveriam chegar ao atendimento.",
+        "Pontual: Cerca de 37% dos chamados de parceiros não deveriam chegar ao atendimento, e o parceiro não tem prazo definido.",
         "Pontual: Respostas prontas mantidas em notas pessoais, porque a busca do CRM não ajuda.",
         "Pontual: Sem histórico de contratos no Admin — não dá para confirmar o que foi contratado e quando."
        ]
@@ -1549,8 +1551,9 @@
        "title": "Dores",
        "items": [
         "Recorrente: Sem responsáveis definidos — quando algo quebra, ninguém sabe quem resolve.",
+        "Recorrente: Sem ambiente de testes — empresas fictícias convivem com dados financeiros reais de produção.",
         "Recorrente: Etapas da jornada financeira (recebimentos, pagamentos, saldos, liquidação) feitas à mão.",
-        "Recorrente: Acompanhamento de saldos manual, sem alertas.",
+        "Recorrente: Monitoramento do lastro e dos saldos feito à mão, sem alertas, embora a disponibilidade de papéis no mercado varie.",
         "Recorrente: Conciliação de contas de impostos manual, com risco de erro e retrabalho.",
         "Recorrente: Demandas chegam incompletas e os dados estão descentralizados.",
         "Recorrente: Sem integração entre o sistema de chamados e o ERP para conciliar pagamentos, e os aprovadores são gerenciados à mão.",
@@ -1563,6 +1566,7 @@
        "title": "Necessidades",
        "items": [
         "Responsável definido por área e por tipo de problema.",
+        "Ambiente de testes separado, sem dados de teste em produção.",
         "Integração entre o Admin e o ERP, com conciliação automática.",
         "Relatório de assinaturas canceladas direto no Admin.",
         "Ações em lote no faturamento, como prorrogação e gestão de dívidas.",
@@ -1617,10 +1621,15 @@
       {
        "title": "Dores",
        "items": [
-        "Recorrente: O Admin mostra os dados, mas permite poucas ações — funciona mais como espelho do que como ferramenta.",
+        "Recorrente: Sem trilha de auditoria — não dá para saber quem cadastrou ou alterou o quê.",
+        "Recorrente: O Admin mostra os dados, mas permite poucas ações — funciona mais como espelho do que como ferramenta. A satisfação com ele é de 2,56 de 5, a mais baixa entre as áreas.",
         "Recorrente: Casos acompanhados em planilhas, sem fila estruturada nem atribuição de responsáveis.",
         "Recorrente: Dados do colaborador fragmentados: benefícios, Pix e saldo em telas separadas, e o histórico de contestações não aparece.",
-        "Pontual: Ações repetidas caso a caso, sem operação em lote."
+        "Recorrente: 6.395 contas sem encerramento real no Banco Central — desativar não conta para o regulador.",
+        "Pontual: Ações repetidas caso a caso, sem operação em lote.",
+        "Pontual: Cerca de 200 cadastros de PEP e sanções verificados à mão por dia, e uma falha no fluxo pula a etapa de documentos.",
+        "Pontual: Regras de prevenção configuradas numa ferramenta de dados, fora do Admin — o time criou as próprias automações por necessidade.",
+        "Pontual: Risco de LGPD — o acesso livre ao campo de investigação expõe dados sigilosos entre analistas."
        ]
       },
       {
@@ -1691,6 +1700,7 @@
         "Pontual: CNPJ não obrigatório no CRM, o que gera contas e oportunidades duplicadas.",
         "Pontual: Higienização de listas totalmente manual.",
         "Pontual: Leads perdidos ficam sem caminho de retomada.",
+        "Pontual: Ex-clientes mantêm acesso ativo por até 3 anos, o que confunde a qualificação do lead.",
         "Pontual: Uso de IA no time sem padrão — cada pessoa usa uma ferramenta diferente por conta própria."
        ]
       },
@@ -1701,6 +1711,7 @@
         "Cadência automática e sincronizada, sem depender de memória ou planilha.",
         "CNPJ obrigatório e deduplicação automática no CRM.",
         "Higienização de listas automatizada.",
+        "Encerramento automático do acesso depois do churn, sem ex-cliente ativo por anos.",
         "Campos do CRM ajustados por cenário, não universais para todas as áreas.",
         "Uso de IA padronizado no time."
        ]

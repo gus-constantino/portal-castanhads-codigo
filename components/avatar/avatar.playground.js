@@ -5,7 +5,7 @@ CDS.register({
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
     var stage = kit.el("div", { style: "display:grid; place-items:center; padding:var(--common-sizes-16);" });
-    var p = kit.el("cds-avatar", { kind: "default", appearance: "neutral", size: "small", label: "AA", src: "assets/brand/sample-photo.svg" });
+    var p = kit.el("cds-avatar", { kind: "default", appearance: "neutral", size: "small", label: "AA", src: "assets/brand/avatar-photo.jpg" });
     stage.appendChild(p); ctx.preview.appendChild(stage);
     function set(n, v){ kit.attr(p, n, v); }
 

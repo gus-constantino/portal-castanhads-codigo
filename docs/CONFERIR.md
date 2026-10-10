@@ -14,7 +14,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | [Refactor](#refactor) | 39 |
 | [Naming](#naming) | 11 |
 | [Acessibilidade](#acessibilidade) | 7 |
-| [Documentação](#documentação) | 14 |
+| [Documentação](#documentação) | 15 |
 | [Integração React](#integração-react) | 11 |
 
 ## Ajuste de texto
@@ -186,6 +186,7 @@ Frames de documentação no Figma.
 | C191 | Castanha Hub · Onboarding (`/p/52b967`) e Primeiro Uso (`/p/732a8a`) | Onboarding, tabela do Tom: a coluna "Por quê" está deslocada (a linha do OCR traz "Pedido de desculpas…", e o motivo dela, "jargão técnico e emoji", está na linha de "Configure agora"). A página diz tom encorajador, e Comunicando Novidades diz tranquilizador + encorajador. O 4º item de "Como escrever" diz que não é hora de explicar o funcionamento, e o playground segue a premissa 6 (D174). Tour: "quandor usar" no exemplo aplicado | Por quê alinhado e um só tom para o onboarding | Playground com o Por quê alinhado (a 3ª linha usa o motivo do Tour), o encorajador à frente e a premissa 6 (D290) | Levar ao time de Conteúdo |
 | C192 | Castanha Hub · Premissas na Prática (`/p/04dbac`) × Termos para evitar (`/p/9695d5`) | O Hub dá duas trocas diferentes para "Ver mais": "Saber mais" na premissa 5 e "Detalhes" em Verbos sensoriais. Na premissa 6, a tabela "A conversa costuma seguir um caminho" junta os 4 passos numa célula só. A numeração das premissas segue trocada (#9 com o emoji 8, #3 com o 2), como no C168 | Uma troca só para "Ver mais" | Playground mantém "nome da área ou Acessar {área}" (C167) nas duas páginas (D292) | Levar ao time de Conteúdo |
 | C193 | Bottom Sheet (20848:2679) · .Footer Pilled (16359:1792) × Main Button | No Mobile, `Specific/Buttons/Main Button/Width/min-width` = 328, mas o .Footer tem padding 20: num sheet de 360 sobram 320 e o botão estoura 8 px (num de 320, 48 px). Vale também para a Fixed Bar Pilled. A Fixed Bar Horizontal no Mobile tem o mesmo conflito em dobro: dois botões de 328 lado a lado não cabem em 360 | Botão Fill sem o mínimo dentro do .Footer, ou padding 16 no Mobile, ou mínimo menor. Definir se a Fixed Bar Horizontal vale no Mobile | No .Footer e na Fixed Bar Pilled o botão ocupa a largura disponível sem o min-width (D301). O sheet inline do playground encolhe para caber no frame | Decidir no Figma |
+| C194 | Castanha Hub · Fundação › Motion › Transições (`/p/757a5f`, "In progress") | As durações em ms não batem com os tokens citados: Para frente e para trás 350 ms com `long/02` (500 ms no Figma); Lateral 500 ms e Entrar e sair 500/300 ms com `long/04` (600 ms). Lateral, Entrar e sair e Transformação citam `Expressive/accelerate` com 0.90, 0, 0.60, 1, que no Figma é o `Expressive/overshoot` (o accelerate é 0.2, 0, 0.9, 1), como no C163. Na Transformação, a cor aparece como "E8537" | Token e valor iguais em cada padrão | Playground mostra o ms do Hub e o token citado, com a divergência no card (D302) | Levar ao time de Motion |
 
 ## Integração React
 

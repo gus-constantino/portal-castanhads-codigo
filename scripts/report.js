@@ -283,7 +283,8 @@
       st: pend ? ["warning", "Com avisos"] : ["positive", "Em dia"],
       segs: [["positive", "Publicados", fk.current, "Publicados na lib sem alterações pendentes."],
         ["warning", "Mudança em branch", br, "Existem numa branch do Figma ou têm melhoria numa branch que ainda não foi para a main."],
-        ["negative", "Pendentes", pend, "Ainda não publicados ou com alterações que não foram publicadas."]],
+        ["informative", "Com alteração pendente", fk.changed, "Publicados, mas o arquivo tem alterações que ainda não foram publicadas."],
+        ["negative", "Não publicado", fk.unpublished, "Componentes que ainda não estão publicados na lib."]],
       facts: ["Última mudança no Figma em " + String(FS.checked || "").replace(/\/\d{4}$/, "")],
       link: ["Ver no Roadmap", "#/relatorio/roadmap"], tip: "Componentes da lib [CastanhaDS] Components publicados sem alterações pendentes, lidos no Figma. Building blocks ficam fora da conta." });
     // React: par no castanha-react (manifesto), JSX validado com o tsc e o check Figma × React

@@ -244,8 +244,8 @@
           <p class="pt-p">Os mesmos controles do Figma: variante, estado, ícone e texto. O link guarda o estado para mandar no Slack.</p></article>
         <article class="pt-cap" data-route="#/main-button/uso"><p class="pt-step">02 · Documentação</p><h3>Uso, anatomia, estilos, acessibilidade e diretrizes</h3>
           <p class="pt-p">A doc completa de cada componente, com exemplos vivos no lugar de imagens exportadas.</p></article>
-        <article class="pt-cap" data-route="#/date-picker"><p class="pt-step pt-cap__n"><cds-icon icon="react-line" size="small" appearance="accent"></cds-icon>03 · Código</p><h3>Do Figma ao React, lado a lado</h3>
-          <p class="pt-p">Cada componente mostra o equivalente no castanha-react, com o mapa de props. 70 de 70 mapeados.</p></article>
+        <article class="pt-cap" data-route="#/date-picker"><p class="pt-step pt-cap__n"><cds-icon icon="react-line" size="small" appearance="accent"></cds-icon>03 · Código</p><h3>Do Figma ao React e ao Flutter, lado a lado</h3>
+          <p class="pt-p">Cada componente mostra o código do castanha-react e do castanha_flutter, com o mapa de props. O código é validado pelo TypeScript e pelo dart analyze: 70 componentes mapeados no React e 45 no Flutter.</p></article>
         <article class="pt-cap" data-route="#/sponsor-side-menu"><p class="pt-step pt-cap__n"><cds-icon icon="menu-line" size="small" appearance="accent"></cds-icon>04 · Templates</p><h3>Templates do produto, fiéis ao Figma</h3>
           <p class="pt-p">Header e Side Menu do Sponsor com as medidas, as camadas ocultas e o conteúdo do Figma. Passe o mouse no menu colapsado: ele abre por cima do conteúdo.</p></article>
         <article class="pt-cap" data-route="#/caju-theme"><p class="pt-step">05 · Tema</p><h3>Tokens lidos do Figma, no claro e no escuro</h3>
@@ -262,12 +262,16 @@
           <p class="pt-p">Abrir chamado copia o resumo da página (componente, link e status no Figma) e abre o #castanha-suporte. O time recebe o pedido completo.</p></article>
         <article class="pt-cap" data-route="#/main-button" data-theme="dark" data-device="phone"><p class="pt-step pt-cap__n"><cds-icon icon="smartphone-line" size="small" appearance="accent"></cds-icon>11 · Escuro e celular</p><h3>Tudo funciona no tema escuro e no celular</h3>
           <p class="pt-p">Cada mudança é testada em claro, escuro e 375px antes de publicar.</p></article>
-        <article class="pt-cap" data-route="#/relatorio"><p class="pt-step pt-cap__n"><cds-icon icon="chart-up-line" size="small" appearance="accent"></cds-icon>12 · Relatório</p><h3>A saúde da stack, atualizada sozinha</h3>
-          <p class="pt-p">Componentes, variantes cobertas, débitos mapeados e decisões, lidos direto do repositório.</p></article>
+        <article class="pt-cap" data-route="#/relatorio"><p class="pt-step pt-cap__n"><cds-icon icon="chart-up-line" size="small" appearance="accent"></cds-icon>12 · Relatório</p><h3>A saúde do DS, atualizada sozinha</h3>
+          <p class="pt-p">Saúde geral, Equalização (quanto do DS já está no Figma, no React e no Flutter, dia a dia), Tendência e débitos, no visual do Castanha Analytics. Tudo lido direto do repositório.</p></article>
         <article class="pt-cap" data-route="#/agentes"><p class="pt-step pt-cap__n"><cds-icon icon="sparkles-ai-fill" size="small" appearance="accent"></cds-icon>13 · IA</p><h3>Agentes e skills que conhecem o Castanha</h3>
-          <p class="pt-p">O Borô responde no Slack com base na documentação, a skill /castanhads-juntos confere e documenta componentes no Claude, e o MCP leva componentes, props e tokens para a IA de quem desenvolve.</p></article>
+          <p class="pt-p">O Borô responde no Slack com base na documentação, a skill /castanhads-juntos confere e documenta componentes no Claude, e o MCP leva componentes, props e tokens para a IA de quem desenvolve, além de gerar e revisar código React e Flutter.</p></article>
         <article class="pt-cap" data-route="#/changelog"><p class="pt-step">14 · Changelog</p><h3>As novidades do Slack, publicadas sozinhas</h3>
           <p class="pt-p">Uma rotina diária lê o #castanha-novidades e publica as releases com busca e filtro.</p></article>
+        <article class="pt-cap" data-route="#/comece-aqui"><p class="pt-step">15 · Desenvolvimento</p><h3>Guias para quem desenvolve, ao lado dos componentes</h3>
+          <p class="pt-p">Instalação, ambiente e tokens para React e Flutter, com as docs do Storybook do castanha-react trazidas para o portal.</p></article>
+        <article class="pt-cap" data-route="#/inicio/primeiros-passos"><p class="pt-step">16 · Primeiros passos</p><h3>Quem chega já sabe por onde começar</h3>
+          <p class="pt-p">Boas-vindas com escolha de perfil, uma lista de tarefas que se marca sozinha, tour guiado e 24 coisas para explorar no portal.</p></article>
       </div>
       <div class="pt-demo" aria-label="Portal Castanha DS ao vivo">
         <cds-status-dot id="pt-live" appearance="positive" size="small" label="Ao vivo · #/main-button"></cds-status-dot>
@@ -289,8 +293,8 @@
       <cds-card class="pt-reveal"><p class="pt-num" data-kpi="smoke">—</p><p class="pt-p">componentes testados a cada mudança</p></cds-card>
       <cds-card class="pt-reveal"><p class="pt-num" data-count="67">67</p><p class="pt-p">vídeos de capacitação</p></cds-card>
       <cds-card class="pt-reveal"><p class="pt-num" data-kpi="decisions">—</p><p class="pt-p">decisões registradas, com o porquê</p></cds-card>
-      <cds-card class="pt-reveal"><p class="pt-num">70/70</p><p class="pt-p">componentes com o mapa para o React</p></cds-card>
-      <cds-card class="pt-reveal"><p class="pt-num" data-count="2">2</p><p class="pt-p">rotinas diárias: Figma e changelog</p></cds-card>
+      <cds-card class="pt-reveal"><p class="pt-num">70 e 45</p><p class="pt-p">componentes com o mapa para o React e para o Flutter</p></cds-card>
+      <cds-card class="pt-reveal"><p class="pt-num" data-count="2">2</p><p class="pt-p">rotinas diárias: Figma, React e Flutter, e changelog</p></cds-card>
     </div>
     <div class="pt-grid pt-grid--3" style="margin-top:var(--common-sizes-56);">
       <cds-card class="pt-reveal"><p class="pt-step">O par</p><h3 class="pt-h4">Claude Code no dia a dia</h3><p class="pt-p">A IA escreve o código e as docs. Cada entrega passa por decisão, revisão e validação humanas.</p></cds-card>
@@ -367,7 +371,7 @@
     <div class="pt-end__text">
       <p class="pt-eyebrow">Teste agora</p>
       <h2 class="pt-display" id="t-fim">Três coisas para ver ao vivo</h2>
-      <ol><li>Abrir um componente e mexer no Playground</li><li>Buscar uma regra de conteúdo, como "Pix"</li><li>Abrir o Relatório e ver a saúde da stack</li></ol>
+      <ol><li>Abrir um componente e mexer no Playground</li><li>Buscar uma regra de conteúdo, como "Pix"</li><li>Abrir o Relatório e ver a Equalização das stacks</li></ol>
       <div class="pt-end__links">
         <cds-link appearance="inversed" label="Abrir o portal" href="../../index.html#/main-button"></cds-link>
         <cds-link appearance="inversed" label="Abrir o Relatório" href="../../index.html#/relatorio"></cds-link>

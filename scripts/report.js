@@ -240,7 +240,9 @@
   function compsOnly(){ return (CDS.playgrounds || []).filter(function(c){ return !c.resource && !c.block && !c.composition && !c.template; }); }
 
   // ---------- Figma, React e Flutter lado a lado ----------
-  // Uma coluna por stack: cobertura (número + Progress Line), status (Tag), código validado, divergências e de quando é a leitura.
+  // Uma coluna por stack: cobertura, status (Tag), código validado, divergências e de quando é a leitura.
+  // Cobertura em barra dividida (Gustavo, 09/10): a barra inteira é sempre o total de componentes e cada parte tem nome e número
+  // na legenda, para não parecer uma meta de 100% nem deixar a parte vazia sem explicação. Cores = Tags de status (como a Publicação).
   function stacks(grid){
     var comps = compsOnly(), N = comps.length;
     var p = panel(grid, "Figma, React e Flutter", "Quanto do Castanha DS já está em cada stack e se a tradução entre elas está em dia", "rp-panel--wide");
@@ -252,9 +254,17 @@
       var ic = nm.appendChild(el("cds-shaped-icon")); ic.setAttribute("icon", o.icon); ic.setAttribute("appearance", "neutral"); ic.setAttribute("size", "small");
       nm.appendChild(el("h3", "rp-stk__title", esc(o.name)));
       var tg = h.appendChild(el("cds-tag", "rp-vital__st")); tg.setAttribute("label", o.st[1]); tg.setAttribute("appearance", o.st[0]); tg.setAttribute("show-lead-item", "false");
-      var v = c.appendChild(el("p", "rp-stk__value", "<strong>" + fmt(o.n) + "</strong> de " + fmt(o.of)));
-      c.appendChild(el("p", "rp-stk__what", esc(o.what)));
-      var pl = c.appendChild(el("cds-progress-line", "rp-stk__pl")); pl.setAttribute("percent", "0"); pl.dataset.pct = String(Math.round(o.n / (o.of || 1) * 1000) / 10); pl.setAttribute("aria-hidden", "true");
+      var v = c.appendChild(el("p", "rp-stk__value", "<strong>" + fmt(o.n) + "</strong> de " + fmt(o.of) + " " + esc(o.base)));
+      c.appendChild(el("p", "rp-stk__what", esc(o.what) + " (" + Math.round(o.n / (o.of || 1) * 100) + "%)"));
+      var bar = c.appendChild(el("div", "rp-stack rp-stk__bar")); bar.setAttribute("role", "img");
+      bar.setAttribute("aria-label", o.segs.map(function(sg){ return sg[1] + ": " + sg[2]; }).join("; ") + " (de " + o.of + ")");
+      var lgS = c.appendChild(el("ul", "rp-stk__legend"));
+      o.segs.forEach(function(sg, i){
+        if (!sg[2]) return;
+        var b = bar.appendChild(el("span", "rp-stack__seg is-pub-" + sg[0])); b.style.setProperty("--_w", String(sg[2] / (o.of || 1))); b.style.setProperty("--_i", String(i)); b.setAttribute("data-grow", "");
+        var li = lgS.appendChild(el("li")); li.appendChild(el("span", "rp-legend__sw is-pub-" + sg[0])); li.appendChild(el("span", null, esc(sg[1]))); li.appendChild(el("strong", null, fmt(sg[2])));
+        if (CDS.kit){ var tx = sg[2] + " de " + o.of + " (" + Math.round(sg[2] / (o.of || 1) * 100) + "%)." + (sg[3] ? " " + sg[3] : ""); CDS.kit.lazyTip(b, tx, { label: sg[1], focus: false }); CDS.kit.lazyTip(li, tx, { label: sg[1], focus: false }); }
+      });
       var ul = c.appendChild(el("ul", "rp-stk__facts"));
       o.facts.forEach(function(f){ if (f) ul.appendChild(el("li", null, f)); });
       if (o.levels){
@@ -269,20 +279,24 @@
     (CDS.playgrounds || []).forEach(function(c){ if (c.block) block[c.id] = true; });
     Object.keys(FS.items).forEach(function(id){ if (block[id]) return; fTotal++; fk[FS.items[id]] = (fk[FS.items[id]] || 0) + 1; });
     var pend = fk.changed + fk.unpublished, br = fk.branch + fk["branch-update"];
-    col({ name: "Figma", icon: "figma-line", n: fk.current, of: fTotal, what: "componentes publicados na lib sem pendência",
+    col({ name: "Figma", icon: "figma-line", n: fk.current, of: fTotal, base: "componentes na lib", what: "publicados sem pendência",
       st: pend ? ["warning", "Com avisos"] : ["positive", "Em dia"],
-      facts: [br ? br + (br === 1 ? " componente com mudança em branch" : " componentes com mudança em branch") : "", pend ? pend + (pend === 1 ? " não publicado ou com alteração pendente" : " não publicados ou com alteração pendente") : "",
-        "Última mudança no Figma em " + String(FS.checked || "").replace(/\/\d{4}$/, "")],
+      segs: [["positive", "Publicados", fk.current, "Publicados na lib sem alterações pendentes."],
+        ["warning", "Mudança em branch", br, "Existem numa branch do Figma ou têm melhoria numa branch que ainda não foi para a main."],
+        ["negative", "Pendentes", pend, "Ainda não publicados ou com alterações que não foram publicadas."]],
+      facts: ["Última mudança no Figma em " + String(FS.checked || "").replace(/\/\d{4}$/, "")],
       link: ["Ver no Roadmap", "#/relatorio/roadmap"], tip: "Componentes da lib [CastanhaDS] Components publicados sem alterações pendentes, lidos no Figma. Building blocks ficam fora da conta." });
     // React: par no castanha-react (manifesto), JSX validado com o tsc e o check Figma × React
     var R = CDS.react || { items: {} }, rN = comps.filter(function(c){ return R.items[c.id] && R.items[c.id].status === "react"; }).length, lvR = levels(docs.stack), jx = extra.jsx;
-    col({ name: "React", icon: "react-line", n: rN, of: N, what: "componentes com par no castanha-react (web)", st: stStatus(lvR), levels: lvR,
+    col({ name: "React", icon: "react-line", n: rN, of: N, base: "componentes do playground", what: "com par no castanha-react (web)", st: stStatus(lvR), levels: lvR,
+      segs: [["positive", "Com par no React", rN, "Componentes do playground que já existem no castanha-react."], ["neutral", "Ainda sem par", N - rN, "Existem no Figma e no playground, mas ainda não no castanha-react."]],
       facts: [jx ? "Código gerado validado: " + fmt(jx.trechos) + " trechos, " + (jx.erros || []).length + ((jx.erros || []).length === 1 ? " erro" : " erros") : "",
         R.source ? "Leitura da staging de " + brDate(R.source.date) : ""],
       link: ["Abrir Stack React", "#/relatorio/stack"], tip: "Componentes do playground que já existem no castanha-react. O código do painel \"No React\" é validado com o TypeScript da lib a cada leitura." });
     // Flutter: widget no castanha_flutter, Dart validado com o dart analyze e o check Figma × Flutter
     var F = CDS.flutter || { items: {} }, fN = comps.filter(function(c){ return F.items[c.id]; }).length, lvF = levels(docs["stack-flutter"]), dt = extra.dart;
-    col({ name: "Flutter", icon: "flutter-fill", n: fN, of: N, what: "componentes com widget no castanha_flutter (app)", st: stStatus(lvF), levels: lvF,
+    col({ name: "Flutter", icon: "flutter-fill", n: fN, of: N, base: "componentes do playground", what: "com widget no castanha_flutter (app)", st: stStatus(lvF), levels: lvF,
+      segs: [["positive", "Com widget no Flutter", fN, "Componentes do playground que já existem no castanha_flutter."], ["neutral", "Ainda sem par", N - fN, "Existem no Figma e no playground, mas ainda não no castanha_flutter."]],
       facts: [dt ? "Código gerado validado: " + fmt(dt.snippets) + " trechos, " + dt.errors + (dt.errors === 1 ? " erro" : " erros") : "",
         F.source ? "Leitura da staging de " + brDate(F.source.date) : ""],
       link: ["Abrir Stack Flutter", "#/relatorio/stack-flutter"], tip: "Componentes do playground que já existem no castanha_flutter. O código do painel \"No Flutter\" é validado com o dart analyze a cada leitura." });

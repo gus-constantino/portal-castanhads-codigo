@@ -255,7 +255,7 @@ Estado por fluxo, em `localStorage` com prefixo `cds-onb:` e o padrão `try/catc
 | Fase | Entrega | Pronto quando |
 |---|---|---|
 | **F0** | Decisões da §10 e fixes P1 do backlog | Respostas registradas como D, fixes na `teste` com smoke verde |
-| **F1** | Motor, store, métricas, lint, página escondida `#/onboarding`, tipo Serviço no ARCHITECTURE e na página Componentes locais. Nenhum fluxo visível | Smoke, audit e lint verdes, fluxo de exemplo rodando por `?tour=` |
+| **F1** ✅ 09/10 | Motor, store, métricas, lint, página escondida `#/onboarding`, tipo Serviço no ARCHITECTURE e na página Componentes locais. Nenhum fluxo visível | Smoke, audit e lint verdes, fluxo de exemplo rodando por `?tour=` |
 | **F2** | Tab Primeiros passos no Início com cards por perfil e checklist, e a boas-vindas | Conferido em 1366, 744 e 360, claro e escuro, teclado e leitor |
 | **F3** | Tour de 3 passos no desktop, aberto por escolha | Smoke dos fluxos sem âncora quebrada |
 | **F4** | Rever o tour, trilha Explorar (Roteiro), métricas na página escondida | Roteiro aposentado ou redirecionado |

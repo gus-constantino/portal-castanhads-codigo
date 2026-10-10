@@ -879,6 +879,7 @@
   CDS.docBlocks = BLOCKS; // extensões (ex.: scripts/tokens-kit.js acrescenta o bloco `tokens`)
   CDS.docToast = toast; CDS.docMainButton = mainButton; // Toast e Main Button do DS para as extensões
   CDS.docChoice = choice; CDS.docRich = rich; // texto com `código` para os blocos dos recursos (ex.: resources/arquitetura)
+  CDS.docTable = function(head, rows, wrap){ return BLOCKS.table(null, { head: head, rows: rows, wrap: wrap }); }; // tabela das docs montada por recurso ou serviço (ex.: métricas do onboarding)
 
   /** Capa do componente (frame [Header] do Figma): o componente real (vivo) numa moldura, acima das tabs.
    *  Sem `doc.cover`, esvazia e esconde `root`. Fundo provisório = Accent/Solid/soft (o Surface/03 do Figma é legado, sem token: C91). */

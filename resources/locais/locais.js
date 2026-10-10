@@ -45,7 +45,8 @@
           ["Componente do DS e building block", "`components/<id>/`", "`cds-`"],
           ["Template", "`components/<id>/`, com `template: \"<produto>\"` no `CDS.register`", "`cds-`"],
           ["Composição", "`compositions/<id>/`", "`cmp-`"],
-          ["Componente local", "`local/<id>/`", "`loc-`"]
+          ["Componente local", "`local/<id>/`", "`loc-`"],
+          ["Serviço (lógica e estado, sem UI própria)", "`services/<id>/`", "`CDS.<nome>` e `svc-` no CSS"]
         ] } },
         { p: "O build junta `local/` ao pacote logo depois das composições. Cada componente local tem um `.js` com o cabeçalho explicando o motivo e um `.css` feito com tokens." },
         { h2: "Composições do playground" },

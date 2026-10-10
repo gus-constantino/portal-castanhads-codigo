@@ -35,7 +35,9 @@ const RAW_CSS = [
   [/(?<![\w-])\d*\.?\d+px\b/, "px cru"], [/#[0-9a-fA-F]{3,8}\b/, "cor hex"], [/\brgba?\(/, "rgb/rgba"],
   [/(?<![\w-])\d*\.?\d+m?s\b/, "duração crua"], [/font:\s*\d/, "font cru"], [/cubic-bezier\(/, "easing cru"],
 ];
-for (const f of ["styles/playground.css", "styles/docs.css", "styles/report.css"].map((p) => path.join(ROOT, p))){
+// shell e serviços (services/<id>/<id>.css, D313): o CSS de um serviço também é só token
+const SERVICE_CSS = fs.existsSync(path.join(ROOT, "services")) ? fs.readdirSync(path.join(ROOT, "services")).map((d) => "services/" + d + "/" + d + ".css").filter((p) => fs.existsSync(path.join(ROOT, p))) : [];
+for (const f of ["styles/playground.css", "styles/docs.css", "styles/report.css"].concat(SERVICE_CSS).map((p) => path.join(ROOT, p))){
   let inComment = false;
   read(f).split("\n").forEach((raw, i) => {
     let line = raw;

@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 125 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 126 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.css ==== */
 /* Backdrop · 13784:3271 — Surface/inversed · Opacity/medium (0.4). O mesmo visual vale para o ::backdrop dos overlays */
 cds-backdrop{ position:absolute; inset:0; display:block; background:var(--common-colors-surface-inversed); opacity:var(--common-opacity-medium); }
@@ -2337,6 +2337,28 @@ loc-vazio .loc-vazio__actions{ display:flex; flex-wrap:wrap; justify-content:cen
 loc-vazio [hidden]{ display:none; }
 loc-vazio[size="small"]{ padding-block:var(--common-sizes-24); }
 loc-vazio[size="small"] .loc-vazio__pilha{ height:var(--common-sizes-40); margin-bottom:0; }
+
+/* ==== services/onboarding/onboarding.css ==== */
+/* CDS.onboarding (services/onboarding) — passos do tour (Popover do DS) e boas-vindas (Modal do DS). Só tokens */
+.svc-onb__body{ box-sizing:border-box; width:calc(var(--common-sizes-200) + var(--common-sizes-120)); /* 320: cabem Voltar e Continuar (Main Button tem largura mínima) */ max-width:calc(100vw - var(--common-sizes-32)); padding:var(--common-sizes-16); display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+.svc-onb__count{ margin:0; font:var(--text-style-disclaimer-medium); color:var(--common-colors-text-medium); }
+.svc-onb__title{ margin:0; font:var(--text-style-title-small); color:var(--common-colors-text-intense); }
+.svc-onb__title:focus{ outline:none; } /* foco programático no título: o leitor de tela anuncia o passo; não é um controle */
+.svc-onb__text{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+.svc-onb__more{ align-self:flex-start; }
+.svc-onb__actions{ display:flex; flex-wrap:wrap; justify-content:flex-end; gap:var(--common-sizes-8); margin-top:var(--common-sizes-8); }
+/* Área apontada pelo passo: o anel de foco do sistema (Support/system), sem escurecer a tela (não há Spotlight no DS, Q2) */
+[data-onb-active]{ outline:var(--common-border-width-thin) solid var(--common-colors-support-system); outline-offset:var(--common-border-width-thin); border-radius:var(--common-border-radius-small); }
+/* Boas-vindas no Modal: ilustração Md (144 = 120 + 24, como no Bottom Sheet), texto e Não mostrar novamente. Alinhado à esquerda como o título do Modal (conteudo.js:1022) */
+.svc-onb__modal{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-16); max-width:calc(var(--common-sizes-200) + var(--common-sizes-160)); }
+.svc-onb__ill{ width:calc(var(--common-sizes-120) + var(--common-sizes-24)); height:calc(var(--common-sizes-120) + var(--common-sizes-24)); }
+/* Página #/onboarding (onboarding.page.js): cards dos fluxos */
+.svc-onb-doc{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
+.svc-onb-doc__card{ display:block; }
+.svc-onb-doc__head{ display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-8); }
+.svc-onb-doc__head .pg-doc-h3{ margin:0; }
+.svc-onb-doc__steps{ margin:var(--common-sizes-8) 0; padding-left:var(--common-sizes-24); font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+.svc-onb-doc__actions{ display:flex; flex-wrap:wrap; gap:var(--common-sizes-8); }
 
 /* ==== resources/castanha-quiz/castanha-quiz.css ==== */
 /* Castanha Quiz: visuais das perguntas e do treinamento rápido (ver castanha-quiz.js). Só tokens */

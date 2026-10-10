@@ -265,7 +265,7 @@
   // abrem na seção da página atual, durante a busca e quando a pessoa abre (lembrado no navegador). Na faixa estreita, tudo aberto.
   function navSection(id, label, content, open, tip){
     var isOpen = open || narrow.matches || !!openCats["sec:" + id];
-    var acc = kit.el("cds-accordion-item", { "class": "pg-nav-cat pg-nav-sec", id: "nav-sec-" + id, label: label, "show-description": "false", "show-lead-item": "false", "show-divider": "false", collapsed: !isOpen });
+    var acc = kit.el("cds-accordion-item", { "class": "pg-nav-cat pg-nav-sec", id: "nav-sec-" + id, "data-onb": "sec-" + id, label: label, "show-description": "false", "show-lead-item": "false", "show-divider": "false", collapsed: !isOpen });
     acc.appendChild(content); // Slot: entra antes de conectar
     acc.addEventListener("cds-toggle", function(e){ if (e.target !== acc || narrow.matches || searchText()) return; openCats["sec:" + id] = !e.detail.collapsed; saveOpen(); });
     if (tip) setTimeout(function(){ if (acc.btn) kit.tip(acc.btn, tip, { container: acc.parentNode }); }, 0);

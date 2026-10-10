@@ -197,23 +197,65 @@
     if (external){ l.setAttribute("target", "_blank"); l.setAttribute("icon", "link-line"); }
     return l;
   }
-  function bars(parent, data, opts){
-    var max = Math.max.apply(null, data.map(function(d){ return d.value; }).concat([1]));
-    var ul = parent.appendChild(el("ul", "rp-bars"));
-    data.forEach(function(d){
-      var li = ul.appendChild(el("li"));
-      var row = li.appendChild(el(d.href ? "a" : "div", "rp-bar"));
-      if (d.href) row.href = d.href;
-      row.appendChild(el("span", "rp-bar__label", esc(d.label)));
-      // Progress Line do DS (decorativa: o rótulo e o número já estão na linha)
-      var pl = row.appendChild(el("cds-progress-line", "rp-bar__line" + (d.tone || (opts && opts.tone) ? " is-" + (d.tone || opts.tone) : "")));
-      pl.setAttribute("percent", "0"); pl.dataset.pct = String(Math.round(d.value / max * 1000) / 10); pl.setAttribute("aria-hidden", "true");
-      row.appendChild(el("span", "rp-bar__value", String(d.value)));
-      // Tooltip da linha: valor e % do total; nos débitos, o que entra naquele tipo (1ª frase da seção no Conferir)
-      var total = (opts && opts.total) || data.reduce(function(a, x){ return a + x.value; }, 0); // total real (o painel pode mostrar só as maiores)
-      if (CDS.kit) CDS.kit.lazyTip(row, d.value + " de " + total + " (" + Math.round(d.value / (total || 1) * 100) + "%)" + (d.desc ? ". " + d.desc : "") + (d.href ? " Clique para ver os itens." : ""), { label: d.label });
+  // ---------- Peças do Castanha Analytics (Figma xHh4XiLrKxt8GGmEFsytpr, v.3 › UI Refinada) ----------
+  // Tag de variação (Big numbers 2476:16442): Positive + up-line, Negative + down-line, Neutral sem ícone quando não mudou
+  function deltaTag(diff, unit){
+    var t = el("cds-tag", "rp-delta"), v = Math.round(diff * 10) / 10;
+    t.setAttribute("label", (v > 0 ? "+" : v < 0 ? "−" : "") + fmt(Math.abs(v)) + " " + unit);
+    t.setAttribute("appearance", v > 0 ? "positive" : v < 0 ? "negative" : "neutral");
+    if (v) t.setAttribute("icon", v > 0 ? "up-line" : "down-line"); else t.setAttribute("show-lead-item", "false");
+    return t;
+  }
+  // Big numbers: número grande (Heading/Medium) + Tag de variação, Progress Line e legenda embaixo
+  function bigNumber(parent, value, delta, pct, caption){
+    var b = parent.appendChild(el("div", "rp-big"));
+    var row = b.appendChild(el("div", "rp-big__row")); row.appendChild(el("p", "rp-big__n", esc(value)));
+    if (delta) row.appendChild(delta);
+    if (pct != null){ var pl = b.appendChild(el("cds-progress-line", "rp-big__pl")); pl.setAttribute("percent", "0"); pl.dataset.pct = String(pct); pl.setAttribute("aria-hidden", "true"); }
+    if (caption) b.appendChild(el("p", "rp-big__cap", esc(caption)));
+    return b;
+  }
+  // Legenda com o Indicator do design (bolinha na cor Charts)
+  function chipLegend(parent, list){
+    var ul = parent.appendChild(el("ul", "rp-chips"));
+    list.forEach(function(x){ var li = ul.appendChild(el("li")); li.appendChild(el("span", "rp-legend__sw is-" + x.cls)); li.appendChild(el("span", null, esc(x.label))); if (x.tip && CDS.kit) CDS.kit.lazyTip(li, x.tip, { label: x.label, focus: false }); });
+    return ul;
+  }
+  // Lista percentual (.Percentual list 2476:18755): posição em Accent, nome e descrição, Progress Line (ou barra dividida) e valor,
+  // chevron quando a linha leva a algum lugar, Divider Soft entre as linhas
+  function pctList(parent, list){
+    var ul = parent.appendChild(el("ul", "rp-plist"));
+    list.forEach(function(r, i){
+      var li = ul.appendChild(el("li")), row = li.appendChild(el(r.href ? "a" : "div", "rp-plist__row")); if (r.href) row.href = r.href;
+      var txt = row.appendChild(el("div", "rp-plist__text"));
+      if (r.rank) txt.appendChild(el("span", "rp-plist__rank", r.rank + "."));
+      var lab = txt.appendChild(el("div", "rp-plist__lab")); lab.appendChild(el("span", "rp-plist__name", esc(r.label))); if (r.desc) lab.appendChild(el("span", "rp-plist__desc", esc(r.desc)));
+      var pr = row.appendChild(el("div", "rp-plist__prog"));
+      if (r.segs){
+        var tr = pr.appendChild(el("span", "rp-plist__track")); tr.setAttribute("aria-hidden", "true");
+        var fill = tr.appendChild(el("span", "rp-plist__fill")); fill.style.setProperty("--_w", String(r.segs.reduce(function(a, s){ return a + s[1]; }, 0) / (r.of || 1))); fill.setAttribute("data-grow", ""); fill.style.setProperty("--_i", String(i));
+        r.segs.forEach(function(s){ if (!s[1]) return; var sg = fill.appendChild(el("span", "rp-stack__seg is-" + s[0])); sg.style.flexGrow = String(s[1]); });
+      } else { var pl = pr.appendChild(el("cds-progress-line", "rp-plist__pl")); pl.setAttribute("percent", "0"); pl.dataset.pct = String(Math.round(r.pct * 10) / 10); pl.setAttribute("aria-hidden", "true"); }
+      pr.appendChild(el("span", "rp-plist__value", esc(r.value)));
+      if (r.href){ var ic = row.appendChild(el("cds-icon", "rp-plist__go")); ic.setAttribute("icon", "navigation-right-line"); ic.setAttribute("size", "large"); ic.setAttribute("appearance", "neutral"); ic.setAttribute("aria-hidden", "true"); }
+      if (i < list.length - 1){ var dv = li.appendChild(el("cds-divider")); dv.setAttribute("intensity", "soft"); }
+      if (r.tip && CDS.kit) CDS.kit.lazyTip(row, r.tip, { label: r.label, focus: false });
+    });
+    return ul;
+  }
+  // Barra empilhada com legenda em colunas ("Castanha nos projetos" 2675:8470): Indicator, nome, descrição e o % grande
+  function stackCols(parent, list, total){
+    var bar = parent.appendChild(el("div", "rp-stack rp-scols__bar")); bar.setAttribute("role", "img");
+    bar.setAttribute("aria-label", list.map(function(x){ return x.label + ": " + x.n + " (" + Math.round(x.n / (total || 1) * 100) + "%)"; }).join("; "));
+    var cols = parent.appendChild(el("ul", "rp-scols"));
+    list.forEach(function(x, i){
+      if (x.n){ var sg = bar.appendChild(el("span", "rp-stack__seg is-" + x.cls)); sg.style.setProperty("--_w", String(x.n / (total || 1))); sg.style.setProperty("--_i", String(i)); sg.setAttribute("data-grow", ""); }
+      var li = cols.appendChild(el("li")), hd = li.appendChild(el("p", "rp-scols__name")); hd.appendChild(el("span", "rp-legend__sw is-" + x.cls)); hd.appendChild(el("span", null, esc(x.label)));
+      if (x.desc) li.appendChild(el("p", "rp-scols__desc", esc(x.desc)));
+      li.appendChild(el("p", "rp-scols__n", "<strong>" + Math.round(x.n / (total || 1) * 100) + "%</strong> <span>" + fmt(x.n) + (x.n === 1 ? " item" : " itens") + "</span>"));
     });
   }
+
   // ---------- Movimento (Motion Styles/tokens; nada anima com prefers-reduced-motion) ----------
   var still = function(){ return matchMedia("(prefers-reduced-motion:reduce)").matches; };
   function ms(token){ return parseFloat(getComputedStyle(document.documentElement).getPropertyValue(token)) || 0; }
@@ -245,17 +287,21 @@
   // na legenda, para não parecer uma meta de 100% nem deixar a parte vazia sem explicação. Cores = Tags de status (como a Publicação).
   function stacks(grid){
     var comps = compsOnly(), N = comps.length;
+    // variação em pontos percentuais desde a última leitura fechada da Equalização (campo cob do docs/tendencia.json)
+    var prevCob = {}, TD = (extra.trend && extra.trend.days || []).filter(function(d){ return d.cob; }), lastC = TD.length ? TD[TD.length - 1].cob : {};
+    Object.keys(lastC).forEach(function(k){ if (lastC[k] && lastC[k][1]) prevCob[k] = Math.round(lastC[k][0] / lastC[k][1] * 1000) / 10; });
     var p = panel(grid, "Figma, React e Flutter", "Quanto do Castanha DS já está em cada stack e se a tradução entre elas está em dia", "rp-panel--wide");
     var row = p.appendChild(el("div", "rp-stacks"));
     function col(o){
       var c = row.appendChild(el("section", "rp-stk")); c.setAttribute("aria-label", o.name);
       var h = c.appendChild(el("div", "rp-vital__head"));
       var nm = h.appendChild(el("div", "rp-stk__name"));
-      var ic = nm.appendChild(el("cds-shaped-icon")); ic.setAttribute("icon", o.icon); ic.setAttribute("appearance", "neutral"); ic.setAttribute("size", "small");
+      var ic = nm.appendChild(el("cds-icon")); ic.setAttribute("icon", o.icon); ic.setAttribute("appearance", "accent"); ic.setAttribute("size", "medium");
       nm.appendChild(el("h3", "rp-stk__title", esc(o.name)));
       var tg = h.appendChild(el("cds-tag", "rp-vital__st")); tg.setAttribute("label", o.st[1]); tg.setAttribute("appearance", o.st[0]); tg.setAttribute("show-lead-item", "false");
-      var v = c.appendChild(el("p", "rp-stk__value", "<strong>" + fmt(o.n) + "</strong> de " + fmt(o.of) + " " + esc(o.base)));
-      c.appendChild(el("p", "rp-stk__what", esc(o.what) + " (" + Math.round(o.n / (o.of || 1) * 100) + "%)"));
+      var pv = Math.round(o.n / (o.of || 1) * 1000) / 10, prev = prevCob[o.key];
+      var v = bigNumber(c, fmt(pv) + "%", prev != null ? deltaTag(pv - prev, "pp") : null, null, fmt(o.n) + " de " + fmt(o.of) + " " + o.base + " · " + o.what);
+      v.classList.add("rp-big--small");
       var bar = c.appendChild(el("div", "rp-stack rp-stk__bar")); bar.setAttribute("role", "img");
       bar.setAttribute("aria-label", o.segs.map(function(sg){ return sg[1] + ": " + sg[2]; }).join("; ") + " (de " + o.of + ")");
       var lgS = c.appendChild(el("ul", "rp-stk__legend"));
@@ -272,14 +318,14 @@
         [["negative", "Alta"], ["warning", "Média"]].forEach(function(x){ var t = lt.appendChild(el("cds-tag")); t.setAttribute("label", (o.levels[x[1]] || 0) + " " + x[1].toLowerCase()); t.setAttribute("appearance", (o.levels[x[1]] ? x[0] : "neutral")); t.setAttribute("show-lead-item", "false"); });
       }
       c.appendChild(dsLink("rp-vital__more", o.link[0], o.link[1]));
-      if (CDS.kit) CDS.kit.lazyTip(v, o.tip, { label: o.name, focus: false });
+      if (CDS.kit) CDS.kit.lazyTip(v.querySelector(".rp-big__n"), o.tip + (prev != null ? " A Tag mostra a variação desde a leitura anterior, em pontos percentuais." : ""), { label: o.name, focus: false });
     }
     // Figma: status de publicação lido no Figma (scripts/figma-status.js), sem os building blocks
     var FS = CDS.figmaStatus || { items: {} }, isComp = {}, fk = { current: 0, changed: 0, unpublished: 0, branch: 0, "branch-update": 0 }, fTotal = 0;
     comps.forEach(function(c){ isComp[c.id] = true; }); // mesma base do gráfico Adoção ao longo do tempo
     Object.keys(FS.items).forEach(function(id){ if (!isComp[id]) return; fTotal++; fk[FS.items[id]] = (fk[FS.items[id]] || 0) + 1; });
     var pend = fk.changed + fk.unpublished, br = fk.branch + fk["branch-update"];
-    col({ name: "Figma", icon: "figma-line", n: fk.current, of: fTotal, base: "componentes na lib", what: "publicados sem pendência",
+    col({ key: "figma", name: "Figma", icon: "figma-line", n: fk.current, of: fTotal, base: "componentes na lib", what: "publicados sem pendência",
       st: pend ? ["warning", "Com avisos"] : ["positive", "Em dia"],
       segs: [["ch03", "Publicados", fk.current, "Publicados na lib sem alterações pendentes."],
         ["ch01", "Mudança em branch", br, "Existem numa branch do Figma ou têm melhoria numa branch que ainda não foi para a main."],
@@ -289,14 +335,14 @@
       link: ["Ver no Roadmap", "#/relatorio/roadmap"], tip: "Componentes da lib [CastanhaDS] Components publicados sem alterações pendentes, lidos no Figma. Building blocks, composições e templates ficam fora da conta." });
     // React: par no castanha-react (manifesto), JSX validado com o tsc e o check Figma × React
     var R = CDS.react || { items: {} }, rN = comps.filter(function(c){ return R.items[c.id] && R.items[c.id].status === "react"; }).length, lvR = levels(docs.stack), jx = extra.jsx;
-    col({ name: "React", icon: "react-line", n: rN, of: N, base: "componentes do playground", what: "com par no castanha-react (web)", st: stStatus(lvR), levels: lvR,
+    col({ key: "react", name: "React", icon: "react-line", n: rN, of: N, base: "componentes do playground", what: "com par no castanha-react (web)", st: stStatus(lvR), levels: lvR,
       segs: [["ch03", "Com par no React", rN, "Componentes do playground que já existem no castanha-react."], ["ch07", "Ainda sem par", N - rN, "Existem no Figma e no playground, mas ainda não no castanha-react."]],
       facts: [jx ? "Código gerado validado: " + fmt(jx.trechos) + " trechos, " + (jx.erros || []).length + ((jx.erros || []).length === 1 ? " erro" : " erros") : "",
         R.source ? "Leitura da staging de " + brDate(R.source.date) : ""],
       link: ["Abrir Stack React", "#/relatorio/stack"], tip: "Componentes do playground que já existem no castanha-react. O código do painel \"No React\" é validado com o TypeScript da lib a cada leitura." });
     // Flutter: widget no castanha_flutter, Dart validado com o dart analyze e o check Figma × Flutter
     var F = CDS.flutter || { items: {} }, fN = comps.filter(function(c){ return F.items[c.id]; }).length, lvF = levels(docs["stack-flutter"]), dt = extra.dart;
-    col({ name: "Flutter", icon: "flutter-fill", n: fN, of: N, base: "componentes do playground", what: "com widget no castanha_flutter (app)", st: stStatus(lvF), levels: lvF,
+    col({ key: "flutter", name: "Flutter", icon: "flutter-fill", n: fN, of: N, base: "componentes do playground", what: "com widget no castanha_flutter (app)", st: stStatus(lvF), levels: lvF,
       segs: [["ch03", "Com widget no Flutter", fN, "Componentes do playground que já existem no castanha_flutter."], ["ch07", "Ainda sem par", N - fN, "Existem no Figma e no playground, mas ainda não no castanha_flutter."]],
       facts: [dt ? "Código gerado validado: " + fmt(dt.snippets) + " trechos, " + dt.errors + (dt.errors === 1 ? " erro" : " erros") : "",
         F.source ? "Leitura da staging de " + brDate(F.source.date) : ""],
@@ -304,11 +350,112 @@
     return p;
   }
 
+  // ---------- Gráfico de área do Castanha Analytics (Figma 2675:8589), reutilizado por Equalização e Tendência ----------
+  // Eixo com linhas de grade, áreas com degradê, linha tracejada e pontos no hover, Tooltip do DS com o valor de cada série,
+  // data do hover em Tag Neutral, valor no fim de cada linha. Teclado: o gráfico recebe foco e as setas trocam o dia.
+  // Cores Charts do design: is-s1 Charts/04 semi-soft · is-s2 Charts/03 medium · is-s3 Charts/05 semi-soft (ressalva de daltonismo: C198).
+  var chartUid = 0;
+  function todayISO(){ var n = new Date(); return n.getFullYear() + "-" + ("0" + (n.getMonth() + 1)).slice(-2) + "-" + ("0" + n.getDate()).slice(-2); }
+  function periodDays(days, period){
+    var lim = period === "7" ? 7 : period === "30" ? 30 : 0; if (!lim) return days;
+    var t1 = Date.parse(days[days.length - 1].d), v = days.filter(function(d){ return Date.parse(d.d) >= t1 - (lim - 1) * 864e5; });
+    return v.length < 2 ? days.slice(-2) : v;
+  }
+  // Select de período (Async Select Input do DS, como no Figma); as opções entram antes de conectar (o componente lê uma vez)
+  function periodSelect(parent, onChange){
+    var sel = el("cds-async-select-input", "rp-adop__period");
+    [["label", "Período"], ["show-required", "false"], ["show-supporting-content", "false"], ["show-lead-icon", "false"], ["placeholder", "Período"], ["value", "tudo"]].forEach(function(x){ sel.setAttribute(x[0], x[1]); });
+    [["7", "Últimos 7 dias"], ["30", "Últimos 30 dias"], ["tudo", "Desde o início"]].forEach(function(o){ var op = document.createElement("option"); op.value = o[0]; op.textContent = o[1]; sel.appendChild(op); });
+    sel.addEventListener("cds-change", function(e){ e.stopPropagation(); onChange((e.detail && e.detail.value) || "tudo"); });
+    parent.appendChild(sel);
+    return sel;
+  }
+  // Legenda do design: linha e ponto na cor da série, nome embaixo
+  function chartLegend(parent, series){
+    var lg = parent.appendChild(el("ul", "rp-adop__legend"));
+    series.forEach(function(s){ var li = lg.appendChild(el("li", s.cls)); li.appendChild(el("span", "rp-adop__key")).setAttribute("aria-hidden", "true"); li.appendChild(el("span", null, esc(s.name))); if (s.tip && CDS.kit) CDS.kit.lazyTip(li, s.tip, { label: s.name, focus: false }); });
+    return lg;
+  }
+  // o = { series: [{ name, cls, get(d) }], max (fixo, ex. 100) · unit ("%" ou "") · ticks (5 ou 3) · compact · label (nome para leitor de tela) }
+  function areaChart(host, o){
+    var chart = host.appendChild(el("div", "rp-adop" + (o.compact ? " is-compact" : "")));
+    var yax = chart.appendChild(el("div", "rp-adop__y")); yax.setAttribute("aria-hidden", "true");
+    var plot = chart.appendChild(el("div", "rp-adop__plot")); plot.tabIndex = 0; plot.setAttribute("role", "img");
+    var xs = chart.appendChild(el("div", "rp-adop__x"));
+    var NS = "http://www.w3.org/2000/svg", W = 1000, H = 300, uid = ++chartUid, tipEl = null;
+    var val = function(d, s){ var v = s.get(d); return v == null || isNaN(v) ? null : v; };
+    var show_ = function(v){ return fmt(v) + (o.unit || ""); };
+    function nice(n){ if (n <= 0) return 1; var p = Math.pow(10, Math.floor(Math.log10(n))), m = n / p; return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 5 ? 5 : 10) * p; }
+    function curve(pts){ // curva suave sem passar do valor real entre dois dias
+      var d = "M" + pts[0][0] + "," + pts[0][1];
+      for (var i = 0; i < pts.length - 1; i++){ var a = pts[i], b = pts[i + 1], mx = (a[0] + b[0]) / 2; d += " C" + mx + "," + a[1] + " " + mx + "," + b[1] + " " + b[0] + "," + b[1]; }
+      return d;
+    }
+    function draw(view){
+      plot.innerHTML = ""; xs.innerHTML = ""; yax.innerHTML = ""; if (tipEl) tipEl.remove();
+      var all = []; view.forEach(function(d){ o.series.forEach(function(s){ var v = val(d, s); if (v != null) all.push(v); }); });
+      var ticks = o.ticks || 5, max = o.max || nice(Math.max.apply(null, all.concat([1])) * 1.1);
+      for (var k = 0; k < ticks; k++) yax.appendChild(el("span", null, show_(Math.round(max - k * max / (ticks - 1)))));
+      var t0 = Date.parse(view[0].d), span = (Date.parse(view[view.length - 1].d) - t0) || 1;
+      var X = function(d){ return (Date.parse(d.d) - t0) / span * W; }, Y = function(v){ return H - Math.min(v, max) / max * H; };
+      var area = plot.appendChild(el("div", "rp-adop__area")), ends = [];
+      var svg = area.appendChild(document.createElementNS(NS, "svg")); svg.setAttribute("viewBox", "0 0 " + W + " " + H); svg.setAttribute("preserveAspectRatio", "none"); svg.setAttribute("class", "rp-adop__svg"); svg.setAttribute("aria-hidden", "true");
+      var defs = svg.appendChild(document.createElementNS(NS, "defs"));
+      for (k = 0; k < ticks; k++){ var g = svg.appendChild(document.createElementNS(NS, "line")); g.setAttribute("class", "rp-adop__grid"); g.setAttribute("x1", "0"); g.setAttribute("x2", String(W)); g.setAttribute("y1", String(k * H / (ticks - 1))); g.setAttribute("y2", String(k * H / (ticks - 1))); }
+      o.series.forEach(function(s, si){
+        var on = view.filter(function(d){ return val(d, s) != null; }); if (!on.length) return;
+        var pts = on.map(function(d){ return [Math.round(X(d) * 10) / 10, Math.round(Y(val(d, s)) * 10) / 10]; });
+        if (pts.length > 1){
+          var gid = "rp-ch" + uid + "-" + si, lgr = defs.appendChild(document.createElementNS(NS, "linearGradient")); lgr.setAttribute("id", gid); lgr.setAttribute("x1", "0"); lgr.setAttribute("x2", "0"); lgr.setAttribute("y1", "0"); lgr.setAttribute("y2", "1");
+          [[0, ".22"], [.45, ".1"], [.85, ".03"], [1, "0"]].forEach(function(st){ var e = lgr.appendChild(document.createElementNS(NS, "stop")); e.setAttribute("offset", String(st[0])); e.setAttribute("class", "rp-adop__stop " + s.cls); e.setAttribute("stop-opacity", st[1]); });
+          var ar = svg.appendChild(document.createElementNS(NS, "path")); ar.setAttribute("d", curve(pts) + " L" + pts[pts.length - 1][0] + "," + H + " L" + pts[0][0] + "," + H + " Z"); ar.setAttribute("fill", "url(#" + gid + ")");
+          var ln = svg.appendChild(document.createElementNS(NS, "path")); ln.setAttribute("d", curve(pts)); ln.setAttribute("class", "rp-adop__line " + s.cls);
+        }
+        var last = on[on.length - 1], end = plot.appendChild(el("span", "rp-adop__end " + s.cls, show_(val(last, s))));
+        ends.push({ el: end, y: Y(val(last, s)) / H * 100 });
+      });
+      // valores do fim sem sobrepor: de cima para baixo, cada um pelo menos um rótulo abaixo do anterior
+      var minGap = o.compact ? 16 : 9;
+      ends.sort(function(a, b){ return a.y - b.y; }).forEach(function(e, i, a){ if (i && e.y < a[i - 1].y + minGap) e.y = a[i - 1].y + minGap; e.el.style.top = e.y + "%"; });
+      var rule = area.appendChild(el("span", "rp-adop__rule")); rule.hidden = true;
+      var dots = o.series.map(function(s){ var d = area.appendChild(el("span", "rp-adop__dot " + s.cls)); d.hidden = true; return d; });
+      var anchor = area.appendChild(el("span", "rp-adop__anchor")); anchor.id = "rp-ch-anchor-" + uid;
+      tipEl = el("cds-tooltip", "rp-adop__tip"); tipEl.setAttribute("for", anchor.id); tipEl.setAttribute("show-label", "true"); tipEl.setAttribute("placement", "bottom"); tipEl.setAttribute("label", " "); tipEl.setAttribute("text", " ");
+      chart.appendChild(tipEl);
+      // datas: do fim para o começo, só as que ficam a 56px da anterior (cabe no celular); o hover mostra qualquer uma
+      var labs = [], wpx = area.getBoundingClientRect().width || W, lastX = Infinity, lx = view.map(function(d){ return X(d) / W * wpx; });
+      view.forEach(function(d){ var lb = xs.appendChild(el("span", "rp-adop__xl")); lb.style.left = (X(d) / W * 100) + "%"; lb.textContent = d.live ? "Hoje" : brDate(d.d); labs.push(lb); });
+      for (var li = view.length - 1; li >= 0; li--){ var px = X(view[li]) / W * wpx; if (li === view.length - 1 || lastX - px >= 56) lastX = px; else labs[li].classList.add("is-quiet"); }
+      plot.setAttribute("aria-label", (o.label || "Gráfico") + ": " + view.map(function(d){ return (d.live ? "hoje" : brDate(d.d)) + ", " + o.series.map(function(s){ var v = val(d, s); return (o.series.length > 1 ? s.name + " " : "") + (v == null ? "sem leitura" : show_(v)); }).join(", "); }).join("; "));
+      var cur = -1;
+      function show(i){
+        labs.forEach(function(l, j){ var t = l.querySelector("cds-tag"), on = j === i;
+          if (on && !t){ var txt = l.textContent; l.textContent = ""; t = l.appendChild(el("cds-tag")); t.setAttribute("label", txt); t.setAttribute("appearance", "neutral"); t.setAttribute("show-lead-item", "false"); }
+          else if (!on && t) l.textContent = t.getAttribute("label");
+          l.classList.toggle("is-on", on); l.classList.toggle("is-near", i >= 0 && !on && Math.abs(lx[j] - lx[i]) < 56); });
+        if (i < 0){ rule.hidden = true; dots.forEach(function(d){ d.hidden = true; }); tipEl.hidden = true; cur = -1; return; }
+        cur = i; var d = view[i], x = X(d) / W * 100, topY = 100;
+        rule.hidden = false; rule.style.left = x + "%";
+        o.series.forEach(function(s, si){ var v = val(d, s); dots[si].hidden = v == null; if (v != null){ dots[si].style.left = x + "%"; dots[si].style.top = (Y(v) / H * 100) + "%"; topY = Math.min(topY, Y(v) / H * 100); } });
+        anchor.style.left = x + "%"; anchor.style.top = topY + "%";
+        tipEl.setAttribute("label", d.live ? "Hoje" : new Date(d.d + "T12:00").toLocaleDateString("pt-BR", { day: "2-digit", month: "long" }));
+        tipEl.setAttribute("text", o.series.map(function(s){ var v = val(d, s); return (o.series.length > 1 || o.name ? (s.name || o.name) + ": " : "") + (v == null ? "sem leitura" : show_(v) + (o.detail ? o.detail(d, s) : "")); }).join("\n"));
+        tipEl.show();
+      }
+      plot.onpointermove = function(e){ var r = area.getBoundingClientRect(), t = t0 + (e.clientX - r.left) / r.width * span, best = 0;
+        view.forEach(function(d, i){ if (Math.abs(Date.parse(d.d) - t) < Math.abs(Date.parse(view[best].d) - t)) best = i; }); if (best !== cur) show(best); };
+      plot.onpointerleave = function(){ show(-1); };
+      plot.onfocus = function(){ show(view.length - 1); }; plot.onblur = function(){ show(-1); };
+      plot.onkeydown = function(e){ if (e.key === "ArrowLeft" || e.key === "ArrowRight"){ e.preventDefault(); show(Math.max(0, Math.min(view.length - 1, (cur < 0 ? view.length - 1 : cur) + (e.key === "ArrowLeft" ? -1 : 1)))); } else if (e.key === "Escape") show(-1); };
+    }
+    return { draw: draw };
+  }
+
   // ---------- Tendência (docs/tendencia.json + o ponto de hoje calculado dos registros atuais) ----------
-  // Um gráfico pequeno por indicador (escalas diferentes não dividem eixo): linha de 2px, ponto no último dia, dica por dia.
+  // Um gráfico por indicador (escalas diferentes não dividem eixo), no estilo do Castanha Analytics, com um Select de período para todos.
   function trend(grid){
     var T = extra.trend; if (!T || !T.days || !T.days.length) return null;
-    var days = T.days.slice(), now = new Date(), today = now.getFullYear() + "-" + ("0" + (now.getMonth() + 1)).slice(-2) + "-" + ("0" + now.getDate()).slice(-2);
+    var days = T.days.slice(), today = todayISO();
     if (days[days.length - 1].d < today){
       var ab = 0, rs = 0; docs.conferir.sections.forEach(function(s){ var n = items(s.lines).filter(function(l){ return /^\|\s*(~~)?C\d+/.test(l); }).length; if (/^Resolvidos/.test(s.title)) rs += n; else ab += n; });
       var srcs = {}; Object.keys(CDS.docsIndex || {}).forEach(function(k){ srcs[String(CDS.docsIndex[k].src).split("?")[0]] = 1; });
@@ -319,74 +466,54 @@
     var sum = function(k){ return function(d){ return d[k] ? d[k][0] + d[k][1] : null; }; };
     // Cada card tem uma ou mais séries da mesma unidade (dividem o eixo). Débitos: em aberto ao lado dos resolvidos (Gustavo, 09/10).
     var M = [
-      { t: "Documentações de componente", tip: "Docs de uso, anatomia, estilos e acessibilidade publicadas no portal.", s: [{ get: function(d){ return d.docs; } }] },
-      { t: "Decisões registradas", tip: "Decisões de produto e de implementação registradas no Roadmap.", s: [{ get: function(d){ return d.decisoes; } }] },
+      { t: "Documentações de componente", tip: "Docs de uso, anatomia, estilos e acessibilidade publicadas no portal.", s: [{ name: "Documentações", cls: "is-s2", get: function(d){ return d.docs; } }] },
+      { t: "Decisões registradas", tip: "Decisões de produto e de implementação registradas no Roadmap.", s: [{ name: "Decisões", cls: "is-s2", get: function(d){ return d.decisoes; } }] },
       { t: "Débitos no Conferir", tip: "Divergências, gaps e propostas do Conferir: os que ainda esperam ação e os já resolvidos (no Figma ou no código).", s: [
-        { name: "Em aberto", get: function(d){ return d.abertos; } },
-        { name: "Resolvidos", get: function(d){ return d.resolvidos; }, cls: "is-res" }] },
-      { t: "Divergências Figma × React", tip: "Itens de nível alto e médio no check Figma × castanha-react.", s: [{ get: sum("react") }] },
-      { t: "Divergências Figma × Flutter", tip: "Itens de nível alto e médio no check Figma × castanha_flutter.", s: [{ get: sum("flutter") }] }
+        { name: "Em aberto", cls: "is-s2", get: function(d){ return d.abertos; } },
+        { name: "Resolvidos", cls: "is-s3", get: function(d){ return d.resolvidos; } }] },
+      { t: "Divergências Figma × React", tip: "Itens de nível alto e médio no check Figma × castanha-react.", s: [{ name: "Divergências", cls: "is-s2", get: sum("react") }] },
+      { t: "Divergências Figma × Flutter", tip: "Itens de nível alto e médio no check Figma × castanha_flutter.", s: [{ name: "Divergências", cls: "is-s2", get: sum("flutter") }] }
     ];
-    var first = days[0].d, p = panel(grid, "Tendência", "Como os registros evoluíram dia a dia, de " + brDate(first) + " até hoje", "rp-panel--wide");
-    var wrap = p.appendChild(el("div", "rp-trends")), NS = "http://www.w3.org/2000/svg", W = 240, H = 64, PAD = 4;
-    var dayLabel = function(d){ return new Date(d + "T12:00").toLocaleDateString("pt-BR", { weekday: "long", day: "2-digit", month: "2-digit" }); };
+    var p = panel(grid, "Tendência", "Como os registros evoluíram dia a dia, de " + brDate(days[0].d) + " até hoje", "rp-panel--wide");
+    var charts = [], period = "tudo";
+    var top = p.appendChild(el("div", "rp-adop__top")); periodSelect(top, function(v){ period = v; redraw(); });
+    var wrap = p.appendChild(el("div", "rp-trends"));
     var signed = function(n){ return (n > 0 ? "+" : n < 0 ? "−" : "") + fmt(Math.abs(n)); };
-    M.forEach(function(m, mi){
-      var rowsD = days.filter(function(d){ return m.s.every(function(s){ return s.get(d) != null; }); });
-      if (!rowsD.length) return;
-      var c = wrap.appendChild(el("section", "rp-trend")), d0 = rowsD[0], dl = rowsD[rowsD.length - 1], multi = m.s.length > 1;
-      c.setAttribute("aria-label", m.t);
+    M.forEach(function(m){
+      var c = wrap.appendChild(el("section", "rp-trend")); c.setAttribute("aria-label", m.t);
       c.appendChild(el("h3", "rp-trend__title", esc(m.t)));
-      if (multi){
-        // legenda com o valor de hoje e a variação: a cor nunca é a única pista
-        var lg = c.appendChild(el("ul", "rp-trend__legend"));
-        m.s.forEach(function(s){ var li = lg.appendChild(el("li")); li.appendChild(el("span", "rp-trend__sw " + (s.cls || ""))); li.appendChild(el("span", null, esc(s.name)));
-          li.appendChild(el("strong", null, fmt(s.get(dl)))); if (rowsD.length > 1) li.appendChild(el("span", "rp-trend__delta", signed(s.get(dl) - s.get(d0)))); });
-      } else {
-        var g = m.s[0].get, delta = g(dl) - g(d0);
-        c.appendChild(el("p", "rp-trend__value", "<strong>" + fmt(g(dl)) + "</strong> <span>" + (rowsD.length < 2 ? "primeira leitura hoje" : signed(delta) + " desde " + brDate(d0.d)) + "</span>"));
-      }
-      if (rowsD.length < 2){ c.appendChild(el("p", "rp-trend__empty", "A linha aparece a partir da próxima leitura diária.")); return; }
-      var all = [].concat.apply([], m.s.map(function(s){ return rowsD.map(s.get); }));
-      var lo = Math.min.apply(null, all), hi = Math.max.apply(null, all);
-      if (multi || (lo > 0 && hi - lo < hi * 0.1)) lo = Math.min(lo, 0); // comparação ou variação pequena: o eixo começa no zero
-      // eixo x pelas datas: dia sem registro (fim de semana) deixa o espaço dele
-      var t0 = Date.parse(d0.d), span = (Date.parse(dl.d) - t0) || 1;
-      var X = function(i){ return PAD + (Date.parse(rowsD[i].d) - t0) / span * (W - 2 * PAD); }, Y = function(n){ return H - PAD - (hi === lo ? 0.5 : (n - lo) / (hi - lo)) * (H - 2 * PAD); };
-      var box = c.appendChild(el("div", "rp-trend__chart"));
-      var svg = box.appendChild(document.createElementNS(NS, "svg")); svg.setAttribute("viewBox", "0 0 " + W + " " + H); svg.setAttribute("preserveAspectRatio", "none"); svg.setAttribute("class", "rp-trend__svg");
-      svg.setAttribute("role", "img"); svg.setAttribute("aria-label", m.t + ": " + rowsD.map(function(d){ return brDate(d.d) + " " + m.s.map(function(s){ return (s.name ? s.name.toLowerCase() + " " : "") + s.get(d); }).join(", "); }).join("; "));
-      var base = svg.appendChild(document.createElementNS(NS, "line")); base.setAttribute("class", "rp-trend__base"); base.setAttribute("x1", "0"); base.setAttribute("x2", String(W)); base.setAttribute("y1", String(H - PAD)); base.setAttribute("y2", String(H - PAD));
-      m.s.forEach(function(s){
-        var line = svg.appendChild(document.createElementNS(NS, "polyline")); line.setAttribute("class", "rp-trend__line " + (s.cls || "")); line.setAttribute("pathLength", "100"); line.setAttribute("data-grow", ""); line.style.setProperty("--_i", String(mi));
-        line.setAttribute("points", rowsD.map(function(d, i){ return X(i).toFixed(1) + "," + Y(s.get(d)).toFixed(1); }).join(" "));
-        // ponto do último dia (HTML sobre o SVG: o SVG estica na largura e um círculo sairia oval)
-        var dot = box.appendChild(el("span", "rp-trend__dot " + (s.cls || ""))); dot.style.left = (X(rowsD.length - 1) / W * 100) + "%"; dot.style.top = (Y(s.get(dl)) / H * 100) + "%";
-      });
-      // uma faixa por dia para a dica (alvo maior que a marca)
-      var hits = box.appendChild(el("div", "rp-trend__hits"));
-      rowsD.forEach(function(d, i){
-        var hcol = hits.appendChild(el("span", "rp-trend__hit")); hcol.style.setProperty("--_x", String(X(i) / W));
-        var tx = m.s.map(function(s){ return (s.name ? s.name + ": " : "") + fmt(s.get(d)); }).join(" · ") + (d.live ? " (hoje, calculado dos registros atuais)." : ".");
-        if (CDS.kit) CDS.kit.lazyTip(hcol, tx, { label: dayLabel(d.d), focus: false });
-      });
-      var ax = c.appendChild(el("p", "rp-trend__axis")); ax.appendChild(el("span", null, brDate(d0.d))); ax.appendChild(el("span", null, dl.live ? "Hoje" : brDate(dl.d)));
       if (CDS.kit) CDS.kit.lazyTip(c.querySelector(".rp-trend__title"), m.tip, { focus: false });
+      var head = c.appendChild(el("div", "rp-trend__head"));
+      if (m.s.length > 1) chartLegend(c, m.s);
+      var ch = areaChart(c, { series: m.s, ticks: 3, compact: true, label: m.t });
+      charts.push({ m: m, head: head, ch: ch, card: c });
     });
-    p.appendChild(el("p", "rp-panel__foot", "Um ponto por dia, com o último registro de cada dia na linha principal do repositório (<code>scripts/dev/tendencia.js</code>). O ponto de hoje é calculado dos registros atuais."));
+    function redraw(){
+      var view = periodDays(days, period);
+      charts.forEach(function(x){
+        var rows = view.filter(function(d){ return x.m.s.every(function(s){ return s.get(d) != null; }); });
+        x.head.innerHTML = ""; var empty = x.card.querySelector(".rp-trend__empty"); if (empty) empty.remove();
+        var chartEl = x.card.querySelector(".rp-adop"); chartEl.hidden = rows.length < 2;
+        if (!rows.length) return;
+        var d0 = rows[0], dl = rows[rows.length - 1];
+        if (x.m.s.length === 1){ var g = x.m.s[0].get; x.head.appendChild(el("p", "rp-trend__value", "<strong>" + fmt(g(dl)) + "</strong> <span>" + (rows.length < 2 ? "primeira leitura hoje" : signed(g(dl) - g(d0)) + " desde " + brDate(d0.d)) + "</span>")); }
+        else x.head.appendChild(el("p", "rp-trend__value", x.m.s.map(function(s){ return "<strong>" + fmt(s.get(dl)) + "</strong> <span>" + esc(s.name.toLowerCase()) + (rows.length > 1 ? " (" + signed(s.get(dl) - s.get(d0)) + ")" : "") + "</span>"; }).join(" · ")));
+        if (rows.length < 2){ x.card.appendChild(el("p", "rp-trend__empty", "A linha aparece a partir da próxima leitura diária.")); return; }
+        x.ch.draw(rows);
+      });
+    }
+    redraw();
+    p.appendChild(el("p", "rp-panel__foot", "Um ponto por dia, com o último registro de cada dia na linha principal do repositório (<code>scripts/dev/tendencia.js</code>). O ponto de hoje é calculado dos registros atuais. Passe o mouse ou use as setas para ver cada dia."));
     return p;
   }
 
-  // ---------- Adoção ao longo do tempo (Castanha Analytics, Figma 2675:8589) ----------
-  // Gráfico de área em %: uma série por stack, eixo 0–100% com 5 linhas de grade, datas embaixo (a do hover vira Tag Neutral),
-  // legenda com linha e ponto, Select de período e Tooltip do DS com o valor de cada série no dia. Cores Charts do design
-  // (03 medium · 04 semi-soft · 05 semi-soft). Azul e roxo ficam próximos para protanopia: cada linha leva o valor no fim (C198).
-  function adoption(grid){
+  // ---------- Equalização (antes "Adoção ao longo do tempo"; Gustavo, 09/10) ----------
+  // % dos componentes do playground em cada stack, dia a dia, com eixo fixo 0–100%.
+  function equalizacao(grid){
     var T = extra.trend; if (!T || !T.days || !T.days.length) return null;
     var comps = compsOnly(), C = {}; comps.forEach(function(c){ C[c.id] = 1; });
-    var days = T.days.filter(function(d){ return d.cob; }).map(function(d){ return { d: d.d, cob: d.cob }; });
+    var days = T.days.filter(function(d){ return d.cob; }).map(function(d){ return { d: d.d, cob: d.cob }; }), today = todayISO();
     // hoje, calculado ao vivo com a mesma conta do scripts/dev/tendencia.js
-    var now = new Date(), today = now.getFullYear() + "-" + ("0" + (now.getMonth() + 1)).slice(-2) + "-" + ("0" + now.getDate()).slice(-2);
     if (!days.length || days[days.length - 1].d < today){
       var R = (CDS.react || { items: {} }).items, F = (CDS.flutter || { items: {} }).items, FS = (CDS.figmaStatus || { items: {} }).items;
       var base = comps.filter(function(c){ return R[c.id]; }), fsIds = Object.keys(FS).filter(function(id){ return C[id]; });
@@ -395,99 +522,18 @@
         flutter: [base.filter(function(c){ return F[c.id]; }).length, base.length],
         figma: [fsIds.filter(function(id){ return FS[id] === "current"; }).length, fsIds.length] } });
     }
-    var S = [{ k: "figma", name: "Figma", tip: "Publicados na lib sem pendência", cls: "is-s1" },
-      { k: "react", name: "React", tip: "Com par no castanha-react", cls: "is-s2" },
-      { k: "flutter", name: "Flutter", tip: "Com widget no castanha_flutter", cls: "is-s3" }];
-    var pct = function(d, k){ var v = d.cob[k]; return v && v[1] ? Math.round(v[0] / v[1] * 1000) / 10 : null; };
-    var p = panel(grid, "Adoção ao longo do tempo", "Quanto dos componentes do playground já está em cada stack, dia a dia", "rp-panel--wide");
-    // Select de período + legenda (linha e ponto)
-    var top = p.appendChild(el("div", "rp-adop__top"));
-    // Async Select Input do DS (como no Figma): as opções entram como <option> antes de conectar (o componente lê uma vez)
-    var sel = el("cds-async-select-input", "rp-adop__period");
-    [["label", "Período"], ["show-required", "false"], ["show-supporting-content", "false"], ["show-lead-icon", "false"], ["placeholder", "Período"], ["value", "tudo"]].forEach(function(x){ sel.setAttribute(x[0], x[1]); });
-    [["7", "Últimos 7 dias"], ["30", "Últimos 30 dias"], ["tudo", "Desde o início"]].forEach(function(o){ var op = document.createElement("option"); op.value = o[0]; op.textContent = o[1]; sel.appendChild(op); });
-    top.appendChild(sel);
-    var lg = top.appendChild(el("ul", "rp-adop__legend"));
-    S.forEach(function(s){ var li = lg.appendChild(el("li", s.cls)); li.appendChild(el("span", "rp-adop__key")).setAttribute("aria-hidden", "true"); li.appendChild(el("span", null, esc(s.name))); if (CDS.kit) CDS.kit.lazyTip(li, s.tip + ".", { label: s.name, focus: false }); });
-    var chart = p.appendChild(el("div", "rp-adop"));
-    var yax = chart.appendChild(el("div", "rp-adop__y")); yax.setAttribute("aria-hidden", "true");
-    [100, 75, 50, 25, 0].forEach(function(v){ yax.appendChild(el("span", null, v + "%")); });
-    var plot = chart.appendChild(el("div", "rp-adop__plot")); plot.tabIndex = 0; plot.setAttribute("role", "img");
-    var xs = chart.appendChild(el("div", "rp-adop__x"));
-    var NS = "http://www.w3.org/2000/svg", W = 1000, H = 300;
-    var tipEl = null, anchor = null, cur = -1, view = [], period = "tudo";
-    function smooth(pts){ // curva monotônica (não passa do valor real entre dois dias)
-      if (pts.length < 2) return "";
-      var d = "M" + pts[0][0] + "," + pts[0][1];
-      for (var i = 0; i < pts.length - 1; i++){ var a = pts[i], b = pts[i + 1], mx = (a[0] + b[0]) / 2; d += " C" + mx + "," + a[1] + " " + mx + "," + b[1] + " " + b[0] + "," + b[1]; }
-      return d;
-    }
-    function draw(){
-      var lim = period === "7" ? 7 : period === "30" ? 30 : 0;
-      var t1 = Date.parse(days[days.length - 1].d), t0 = lim ? t1 - (lim - 1) * 864e5 : Date.parse(days[0].d);
-      view = days.filter(function(d){ return Date.parse(d.d) >= t0; });
-      if (view.length < 2) view = days.slice(-2);
-      t0 = Date.parse(view[0].d);
-      var span = (t1 - t0) || 1, X = function(d){ return (Date.parse(d.d) - t0) / span * W; }, Y = function(v){ return H - v / 100 * H; };
-      plot.innerHTML = ""; xs.innerHTML = "";
-      var area = plot.appendChild(el("div", "rp-adop__area")); // linhas e hover; à direita fica a coluna dos rótulos do fim
-      var ends = [], svg = area.appendChild(document.createElementNS(NS, "svg")); svg.setAttribute("viewBox", "0 0 " + W + " " + H); svg.setAttribute("preserveAspectRatio", "none"); svg.setAttribute("class", "rp-adop__svg"); svg.setAttribute("aria-hidden", "true");
-      var defs = svg.appendChild(document.createElementNS(NS, "defs"));
-      [0, 1, 2, 3, 4].forEach(function(i){ var g = svg.appendChild(document.createElementNS(NS, "line")); g.setAttribute("class", "rp-adop__grid"); g.setAttribute("x1", "0"); g.setAttribute("x2", String(W)); g.setAttribute("y1", String(i * H / 4)); g.setAttribute("y2", String(i * H / 4)); });
-      S.forEach(function(s, si){
-        var pts = view.filter(function(d){ return pct(d, s.k) != null; }).map(function(d){ return [Math.round(X(d) * 10) / 10, Math.round(Y(pct(d, s.k)) * 10) / 10]; });
-        if (!pts.length) return;
-        var gid = "rp-adop-g" + si, lgr = defs.appendChild(document.createElementNS(NS, "linearGradient")); lgr.setAttribute("id", gid); lgr.setAttribute("x1", "0"); lgr.setAttribute("x2", "0"); lgr.setAttribute("y1", "0"); lgr.setAttribute("y2", "1");
-        [[0, ".22"], [.45, ".1"], [.85, ".03"], [1, "0"]].forEach(function(st){ var e = lgr.appendChild(document.createElementNS(NS, "stop")); e.setAttribute("offset", String(st[0])); e.setAttribute("class", "rp-adop__stop " + s.cls); e.setAttribute("stop-opacity", st[1]); });
-        if (pts.length > 1){
-          var area = svg.appendChild(document.createElementNS(NS, "path")); area.setAttribute("d", smooth(pts) + " L" + pts[pts.length - 1][0] + "," + H + " L" + pts[0][0] + "," + H + " Z"); area.setAttribute("fill", "url(#" + gid + ")");
-          var line = svg.appendChild(document.createElementNS(NS, "path")); line.setAttribute("d", smooth(pts)); line.setAttribute("class", "rp-adop__line " + s.cls);
-        }
-        // valor no fim da linha (relevo para a paleta: azul e roxo próximos para protanopia)
-        var lastD = view.filter(function(d){ return pct(d, s.k) != null; }).pop(), end = plot.appendChild(el("span", "rp-adop__end " + s.cls, fmt(pct(lastD, s.k)) + "%"));
-        end.style.top = (Y(pct(lastD, s.k)) / H * 100) + "%"; ends.push({ el: end, y: Y(pct(lastD, s.k)) / H * 100 });
-      });
-      // rótulos do fim sem sobrepor: de cima para baixo, cada um pelo menos 9% abaixo do anterior
-      ends.sort(function(a, b){ return a.y - b.y; }).forEach(function(e, i, a){ if (i && e.y < a[i - 1].y + 9) e.y = a[i - 1].y + 9; e.el.style.top = e.y + "%"; });
-      // linha do hover, pontos e âncora do Tooltip
-      var rule = area.appendChild(el("span", "rp-adop__rule")); rule.hidden = true;
-      var dots = S.map(function(s){ var d = area.appendChild(el("span", "rp-adop__dot " + s.cls)); d.hidden = true; return d; });
-      anchor = area.appendChild(el("span", "rp-adop__anchor")); anchor.id = "rp-adop-anchor";
-      if (tipEl) tipEl.remove();
-      tipEl = el("cds-tooltip", "rp-adop__tip"); tipEl.setAttribute("for", anchor.id); tipEl.setAttribute("show-label", "true"); tipEl.setAttribute("placement", "bottom"); tipEl.setAttribute("label", " "); tipEl.setAttribute("text", " ");
-      chart.appendChild(tipEl);
-      // datas: até 8 rótulos espalhados; o do hover vira Tag Neutral
-      // datas: do fim para o começo, só as que ficam a pelo menos 56px da anterior (cabe no celular); o hover mostra qualquer uma
-      var labs = [], wpx = area.getBoundingClientRect().width || W, gap = 56, lastX = Infinity;
-      view.forEach(function(d){
-        var lb = xs.appendChild(el("span", "rp-adop__xl")); lb.style.left = (X(d) / W * 100) + "%";
-        lb.textContent = d.live ? "Hoje" : brDate(d.d);
-        labs.push(lb);
-      });
-      for (var li = view.length - 1; li >= 0; li--){ var px = X(view[li]) / W * wpx; if (lastX - px >= gap || li === view.length - 1){ lastX = px; } else labs[li].classList.add("is-quiet"); }
-      plot.setAttribute("aria-label", "Adoção por stack: " + view.map(function(d){ return (d.live ? "hoje" : brDate(d.d)) + ", " + S.map(function(s){ var v = pct(d, s.k); return s.name + " " + (v == null ? "sem dado" : fmt(v) + "%"); }).join(", "); }).join("; "));
-      function show(i){
-        if (i < 0 || i >= view.length){ rule.hidden = true; dots.forEach(function(d){ d.hidden = true; }); tipEl.hidden = true; labs.forEach(function(l){ l.classList.remove("is-on"); var t = l.querySelector("cds-tag"); if (t){ l.textContent = t.getAttribute("label"); } }); cur = -1; return; }
-        cur = i; var d = view[i], x = X(d) / W * 100, topY = 100;
-        rule.hidden = false; rule.style.left = x + "%";
-        S.forEach(function(s, si){ var v = pct(d, s.k); dots[si].hidden = v == null; if (v != null){ dots[si].style.left = x + "%"; dots[si].style.top = (Y(v) / H * 100) + "%"; topY = Math.min(topY, Y(v) / H * 100); } });
-        anchor.style.left = x + "%"; anchor.style.top = topY + "%";
-        labs.forEach(function(l, li){ var on = li === i, t = l.querySelector("cds-tag");
-          if (on && !t){ var txt = l.textContent; l.textContent = ""; t = l.appendChild(el("cds-tag")); t.setAttribute("label", txt); t.setAttribute("appearance", "neutral"); t.setAttribute("show-lead-item", "false"); }
-          else if (!on && t){ l.textContent = t.getAttribute("label"); }
-          l.classList.toggle("is-on", on); });
-        tipEl.setAttribute("label", d.live ? "Hoje" : new Date(d.d + "T12:00").toLocaleDateString("pt-BR", { day: "2-digit", month: "long" }));
-        tipEl.setAttribute("text", S.map(function(s){ var v = pct(d, s.k); return s.name + ": " + (v == null ? "sem leitura" : fmt(v) + "% (" + d.cob[s.k][0] + " de " + d.cob[s.k][1] + ")"); }).join("\n"));
-        tipEl.show();
-      }
-      plot.onpointermove = function(e){ var r = area.getBoundingClientRect(), t = t0 + (e.clientX - r.left) / r.width * span, best = 0;
-        view.forEach(function(d, i){ if (Math.abs(Date.parse(d.d) - t) < Math.abs(Date.parse(view[best].d) - t)) best = i; }); if (best !== cur) show(best); };
-      plot.onpointerleave = function(){ show(-1); };
-      plot.onfocus = function(){ show(view.length - 1); }; plot.onblur = function(){ show(-1); };
-      plot.onkeydown = function(e){ if (e.key === "ArrowLeft" || e.key === "ArrowRight"){ e.preventDefault(); show(Math.max(0, Math.min(view.length - 1, (cur < 0 ? view.length - 1 : cur) + (e.key === "ArrowLeft" ? -1 : 1)))); } else if (e.key === "Escape") show(-1); };
-    }
-    sel.addEventListener("cds-change", function(e){ e.stopPropagation(); period = (e.detail && e.detail.value) || "tudo"; draw(); });
-    draw();
+    var pct = function(k){ return function(d){ var v = d.cob[k]; return v && v[1] ? Math.round(v[0] / v[1] * 1000) / 10 : null; }; };
+    var S = [{ name: "Figma", cls: "is-s1", tip: "Publicados na lib sem pendência.", get: pct("figma"), k: "figma" },
+      { name: "React", cls: "is-s2", tip: "Com par no castanha-react.", get: pct("react"), k: "react" },
+      { name: "Flutter", cls: "is-s3", tip: "Com widget no castanha_flutter.", get: pct("flutter"), k: "flutter" }];
+    var p = panel(grid, "Equalização", "Quanto dos componentes do playground já está em cada stack, dia a dia", "rp-panel--wide");
+    var top = p.appendChild(el("div", "rp-adop__top")), period = "tudo";
+    var ch;
+    periodSelect(top, function(v){ period = v; ch.draw(periodDays(days, period)); });
+    chartLegend(top, S);
+    ch = areaChart(p, { series: S, max: 100, unit: "%", label: "Equalização por stack",
+      detail: function(d, s){ var v = d.cob[s.k]; return v ? " (" + v[0] + " de " + v[1] + ")" : ""; } });
+    ch.draw(periodDays(days, period));
     p.appendChild(el("p", "rp-panel__foot", "Base: os componentes do playground (sem building blocks, composições e templates) que já existiam em cada dia. Figma = publicados na lib sem pendência; React e Flutter = com par na lib de código. Passe o mouse ou use as setas para ver cada dia."));
     return p;
   }
@@ -496,17 +542,18 @@
     var road = docs.roadmap, conf = docs.conferir;
     var grid = bodyEl.appendChild(el("div", "rp-dash"));
 
-    // Divergências por tipo
+    // Débitos e melhorias (Castanha Analytics): Big numbers do quanto já foi resolvido + lista percentual por tipo de ajuste,
+    // com a barra de cada tipo dividida em como o código tratou (cores Charts, mesma legenda de Adaptações)
     var open = conf.sections.filter(function(s){ return TYPES.indexOf(s.title) !== -1; });
     var total = open.reduce(function(a, s){ return a + items(s.lines).length; }, 0);
-    // Débitos e melhorias: progresso geral (resolvidos) + uma barra por tipo, dividida em como o código tratou cada item
-    // (segue o Figma · exceção aprovada · débito), nas cores da rosca de Adaptações. Comprimento = quantidade no tipo.
     var solvedN = items(sec(conf, function(s){ return s.title === "Resolvidos"; }).lines).length;
     var p2 = panel(grid, "Débitos e melhorias mapeados", total + " em aberto e " + solvedN + " resolvidos · por tipo de ajuste e como o código tratou", "rp-panel--wide");
-    var prog = p2.appendChild(el("div", "rp-prog"));
-    var pl = prog.appendChild(el("cds-progress-line", "rp-prog__pl")); pl.setAttribute("percent", "0"); pl.dataset.pct = String(Math.round(solvedN / ((total + solvedN) || 1) * 1000) / 10); pl.setAttribute("aria-hidden", "true");
-    prog.appendChild(el("p", "rp-prog__t", "<strong>" + Math.round(solvedN / ((total + solvedN) || 1) * 100) + "% resolvido</strong> · " + solvedN + " de " + (total + solvedN) + " itens já registrados no Conferir"));
+    var solvedPct = Math.round(solvedN / ((total + solvedN) || 1) * 100);
+    bigNumber(p2, fmt(solvedPct) + "%", null, solvedPct, solvedN + " de " + (total + solvedN) + " itens registrados no Conferir já foram resolvidos");
     var KIND = function(r){ var code = r[4] || "", act = r[5] || ""; return /débito|erro no figma/i.test(act) ? "deb" : /exceção/i.test(code) ? "exc" : "seg"; };
+    var TREAT = [["seg", "Segue o Figma", "ch03", "O código faz o que o Figma faz hoje, mesmo quando parece errado. A divergência fica registrada para corrigir no Figma."],
+      ["exc", "Exceção aprovada", "ch01", "O código difere do Figma por decisão do Gustavo, falta de especificação ou adaptação para web aprovada."],
+      ["deb", "Débito ou erro no Figma", "ch05", "Problema confirmado no Figma, a corrigir lá. O código acompanha quando a correção entrar."]];
     var types = open.map(function(s){
       var rs = rows(s.lines).filter(function(r){ return /^(~~)?C\d+/.test(r[0]); }), k = { seg: 0, exc: 0, deb: 0 };
       rs.forEach(function(r){ k[KIND(r)]++; });
@@ -514,67 +561,30 @@
       return { label: s.title, n: items(s.lines).length, k: k, href: "#/relatorio/conferir/" + slug(s.title), desc: desc };
     }).sort(function(a, b){ return b.n - a.n; });
     var maxT = Math.max.apply(null, types.map(function(t){ return t.n; }).concat([1]));
-    var tl = p2.appendChild(el("ul", "rp-bars rp-types"));
-    types.forEach(function(t, i){
-      var li = tl.appendChild(el("li")), row = li.appendChild(el("a", "rp-bar rp-type")); row.href = t.href;
-      row.appendChild(el("span", "rp-bar__label", esc(t.label)));
-      var track = row.appendChild(el("span", "rp-type__track")); track.setAttribute("aria-hidden", "true");
-      var fill = track.appendChild(el("span", "rp-type__fill")); fill.style.setProperty("--_w", String(t.n / maxT)); fill.style.setProperty("--_i", String(i)); fill.setAttribute("data-grow", "");
-      ["seg", "exc", "deb"].forEach(function(k){ if (!t.k[k]) return; var sg = fill.appendChild(el("span", "rp-type__seg is-" + k)); sg.style.flexGrow = String(t.k[k]); });
-      row.appendChild(el("span", "rp-bar__value", String(t.n)));
-      var parts = [["seg", "seguem o Figma"], ["exc", "exceção aprovada"], ["deb", "débito ou erro no Figma"]].filter(function(x){ return t.k[x[0]]; }).map(function(x){ return t.k[x[0]] + " " + x[1]; }).join(" · ");
-      if (CDS.kit) CDS.kit.lazyTip(row, t.n + " em aberto: " + parts + "." + (t.desc ? " " + t.desc : "") + " Clique para ver os itens.", { label: t.label });
-    });
-    var lg = p2.appendChild(el("ul", "rp-legend rp-legend--inline"));
-    [["seg", "Segue o Figma"], ["exc", "Exceção aprovada"], ["deb", "Débito ou erro no Figma"]].forEach(function(x){ var li = lg.appendChild(el("li")); li.appendChild(el("span", "rp-legend__sw is-" + x[0])); li.appendChild(el("span", null, x[1])); });
+    chipLegend(p2, TREAT.map(function(x){ return { cls: x[2], label: x[1], tip: x[3] }; }));
+    pctList(p2, types.map(function(t){
+      var SHORT = { seg: ["segue o Figma", "seguem o Figma"], exc: ["exceção aprovada", "exceções aprovadas"], deb: ["débito ou erro no Figma", "débitos ou erros no Figma"] };
+      var parts = TREAT.filter(function(x){ return t.k[x[0]]; }).map(function(x){ return t.k[x[0]] + " " + SHORT[x[0]][t.k[x[0]] === 1 ? 0 : 1]; }).join(" · ");
+      return { label: t.label, desc: parts, value: fmt(t.n), href: t.href, segs: TREAT.map(function(x){ return [x[2], t.k[x[0]]]; }), of: maxT,
+        tip: t.n + " em aberto: " + parts + "." + (t.desc ? " " + t.desc : "") };
+    }));
 
-    // Como o código tratou
+    // Adaptações para código (Castanha Analytics, "Castanha nos projetos"): barra empilhada + legenda em colunas com o %
     var all = [].concat.apply([], open.map(function(s){ return rows(s.lines).filter(function(r){ return /^(~~)?C\d+/.test(r[0]); }); }));
-    var kinds = { exc: 0, deb: 0, seg: 0 };
-    all.forEach(function(r){ var code = r[4] || "", act = r[5] || ""; if (/débito|erro no figma/i.test(act)) kinds.deb++; else if (/exceção/i.test(code)) kinds.exc++; else kinds.seg++; });
-    var p3 = panel(grid, "Adaptações para código", "Regra D40: o código segue o Figma, e o que muda é exceção aprovada ou débito registrado");
-    var parts = [["seg", "Segue o Figma", kinds.seg, "O código faz o que o Figma faz hoje, mesmo quando parece errado. A divergência fica registrada para corrigir no Figma."],
-      ["exc", "Exceção aprovada (web, sem especificação ou decisão)", kinds.exc, "O código difere do Figma por decisão do Gustavo, falta de especificação ou adaptação para web aprovada."],
-      ["deb", "Débito ou erro no Figma", kinds.deb, "Problema confirmado no Figma, a corrigir lá. O código acompanha quando a correção entrar."]];
-    // Rosca em SVG (traços com pathLength 100): desenha ao abrir; passar o mouse ou focar uma fatia/legenda destaca e mostra o número no centro
-    var donut = p3.appendChild(el("div", "rp-donut")), NS = "http://www.w3.org/2000/svg", n = all.length || 1;
-    var box = donut.appendChild(el("div", "rp-donut__ring"));
-    var svg = box.appendChild(document.createElementNS(NS, "svg")); svg.setAttribute("viewBox", "0 0 42 42"); svg.setAttribute("class", "rp-donut__svg");
-    svg.setAttribute("role", "img"); svg.setAttribute("aria-label", parts.map(function(pt){ return pt[1] + ": " + pt[2]; }).join("; "));
-    var trk = svg.appendChild(document.createElementNS(NS, "circle")); trk.setAttribute("class", "rp-donut__track");
-    var acc = 0, segs = {};
-    parts.forEach(function(pt){
-      var c = svg.appendChild(document.createElementNS(NS, "circle")), len = pt[2] / n * 100;
-      c.setAttribute("class", "rp-donut__seg is-" + pt[0]); c.setAttribute("pathLength", "100");
-      c.style.setProperty("--_len", String(Math.max(0, len - (len > 1 ? 0.6 : 0)))); c.style.setProperty("--_off", String(-acc));
-      c.setAttribute("data-grow", ""); acc += len; segs[pt[0]] = c;
-    });
-    [trk].concat(Object.keys(segs).map(function(k){ return segs[k]; })).forEach(function(c){ c.setAttribute("cx", "21"); c.setAttribute("cy", "21"); c.setAttribute("r", "15.915"); });
-    var mid = box.appendChild(el("div", "rp-donut__mid", "<strong>" + all.length + "</strong><span>itens</span>"));
-    var leg = donut.appendChild(el("ul", "rp-legend"));
-    function focusPart(k){
-      donut.classList.toggle("is-focus", !!k);
-      Object.keys(segs).forEach(function(x){ segs[x].classList.toggle("is-on", x === k); });
-      [].forEach.call(leg.children, function(li){ li.classList.toggle("is-on", li._tip && li._tip[0] === k); });
-      var pt = parts.filter(function(x){ return x[0] === k; })[0];
-      mid.innerHTML = pt ? "<strong>" + pt[2] + "</strong><span>" + Math.round(pt[2] / n * 100) + "% · " + esc(pt[1].replace(/ \(.*$/, "")) + "</span>" : "<strong>" + all.length + "</strong><span>itens</span>";
-    }
-    parts.forEach(function(pt){
-      var li = leg.appendChild(el("li")); li.appendChild(el("span", "rp-legend__sw is-" + pt[0])); li.appendChild(el("span", null, esc(pt[1]))); li.appendChild(el("strong", null, String(pt[2]))); li._tip = pt;
-      li.addEventListener("mouseenter", function(){ focusPart(pt[0]); }); li.addEventListener("mouseleave", function(){ focusPart(null); });
-      li.addEventListener("focusin", function(){ focusPart(pt[0]); }); li.addEventListener("focusout", function(){ focusPart(null); });
-      segs[pt[0]].addEventListener("mouseenter", function(){ focusPart(pt[0]); }); segs[pt[0]].addEventListener("mouseleave", function(){ focusPart(null); });
-    });
+    var kinds = { exc: 0, deb: 0, seg: 0 }; all.forEach(function(r){ kinds[KIND(r)]++; });
+    var p3 = panel(grid, "Adaptações para código", "Regra D40: o código segue o Figma, e o que muda é exceção aprovada ou débito registrado · " + all.length + " itens");
+    stackCols(p3, TREAT.map(function(x){ return { cls: x[2], label: x[1], desc: x[3].replace(/\..*$/, "."), n: kinds[x[0]] }; }), all.length);
 
-    // Componentes por categoria
+    // Componentes por página do Figma (Castanha Analytics, lista percentual): as 8 maiores e o resto num Main Button Ghost
     var pg = (CDS.playgrounds || []).filter(function(c){ return !c.resource && !c.block && !c.composition; }), cats = {};
     pg.forEach(function(c){ var k = c.category || "Outros"; cats[k] = (cats[k] || 0) + 1; });
     var p4 = panel(grid, "Componentes por página do Figma", pg.length + " componentes em " + Object.keys(cats).length + " páginas");
     var first = {}; pg.forEach(function(c){ var k = c.category || "Outros"; if (!first[k]) first[k] = c.id; });
-    var cl = Object.keys(cats).map(function(k){ return { label: k, value: cats[k], href: "#/" + first[k], desc: "Abre o primeiro componente da página " + k + "." }; }).sort(function(a, b){ return b.value - a.value || a.label.localeCompare(b.label, "pt-BR"); });
-    bars(p4, cl, { tone: "components", total: pg.length });
-    // painel curto: as 8 maiores; o resto abre com Main Button Ghost do DS
-    var rowsC = [].slice.call(p4.querySelectorAll(".rp-bars > li"));
+    var cl = Object.keys(cats).map(function(k){ return { label: k, n: cats[k] }; }).sort(function(a, b){ return b.n - a.n || a.label.localeCompare(b.label, "pt-BR"); });
+    var maxC = cl.length ? cl[0].n : 1;
+    var listC = pctList(p4, cl.map(function(c, i){ return { rank: i + 1, label: c.label, desc: Math.round(c.n / (pg.length || 1) * 100) + "% dos componentes", value: fmt(c.n), pct: c.n / maxC * 100, href: "#/" + first[c.label],
+      tip: c.n + " de " + pg.length + " componentes. Clique para abrir o primeiro componente da página " + c.label + "." }; }));
+    var rowsC = [].slice.call(listC.children);
     if (rowsC.length > 8){
       rowsC.slice(8).forEach(function(li){ li.hidden = true; });
       var more = p4.appendChild(el("cds-main-button", "rp-expand"));
@@ -661,7 +671,7 @@
       });
     }
 
-    var p8 = stacks(grid), p10 = adoption(grid), p9 = trend(grid);
+    var p8 = stacks(grid), p10 = equalizacao(grid), p9 = trend(grid);
     // Duas seções (Gustavo, 09/10): Progresso (como o DS avança nas stacks, para quem acompanha de fora) e Detalhes (o que pede ação
     // e o que explica as decisões, para quem trabalha no DS). Nomes comuns, sem citar público.
     var groups = [["Progresso", "Cobertura no Figma, no React e no Flutter, publicação na lib e evolução dia a dia", [p8, p10, p5, p9]],
@@ -673,8 +683,6 @@
       g[2].filter(Boolean).forEach(function(p){ var c = p.closest("cds-card"); c.style.setProperty("--_i", String(k++)); grid.appendChild(c); });
     });
     grow(grid);
-    // Tooltips da legenda (precisam do item já no documento)
-    if (CDS.kit) [].forEach.call(leg.children, function(li){ if (li._tip) CDS.kit.tip(li, li._tip[3], { label: li._tip[1].replace(/ \(.*$/, ""), container: leg.parentNode }); });
     p6.appendChild(dsLink("rp-more", "Ver decisões", "#/relatorio/roadmap/" + slug(sec(road, function(s){ return s.num === "4"; }).title)));
   }
   function goTo(section){

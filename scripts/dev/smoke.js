@@ -87,7 +87,7 @@ server.listen(0, "127.0.0.1", async () => {
     // ---------- Docs (D128): o app de verdade, cada tab de cada doc, em desktop e num celular de 375px ----------
     let docsFail = 0, lastDocs = null;
     if (!process.argv.includes("--sem-docs")){
-      const t1 = Date.now(), base = `http://127.0.0.1:${server.address().port}/index.html`;
+      const t1 = Date.now(), base = `http://127.0.0.1:${server.address().port}/index.html?onboarding=off`; // sem a boas-vindas automática (D315) por cima das docs
       const code = fs.readFileSync(path.join(ROOT, "tests", "smoke-docs.js"), "utf8");
       const runDocs = async (mobile) => {
         if (mobile) await send("Emulation.setDeviceMetricsOverride", { width: 375, height: 812, deviceScaleFactor: 2, mobile: true });

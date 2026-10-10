@@ -2359,6 +2359,22 @@ loc-vazio[size="small"] .loc-vazio__pilha{ height:var(--common-sizes-40); margin
 .svc-onb-doc__head .pg-doc-h3{ margin:0; }
 .svc-onb-doc__steps{ margin:var(--common-sizes-8) 0; padding-left:var(--common-sizes-24); font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
 .svc-onb-doc__actions{ display:flex; flex-wrap:wrap; gap:var(--common-sizes-8); }
+/* Tour: Backdrop do DS numa camada fixa atrás do passo (o Popover fica na camada de topo). O bloco que tem a área apontada
+   (ex.: o menu lateral) sobe por cima da camada para continuar claro */
+.svc-onb__layer{ position:fixed; inset:0; z-index:30; }
+[data-onb-lift][data-onb-lift]{ z-index:31; }
+[data-onb-lift="static"]{ position:relative; } /* área sem bloco posicionado em volta: ela mesma sobe */
+/* Boas-vindas: escolha de perfil (Radio Button do DS) */
+.svc-onb__legend{ margin:0; font:var(--text-style-label-medium); color:var(--common-colors-text-intense); }
+.svc-onb__choice{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+/* Tab Primeiros passos do Início: perfis, contagem, checklist (Content List + Tag) e o botão do tour */
+.svc-onb-check{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
+.svc-onb-check__perfis{ display:flex; flex-wrap:wrap; gap:var(--common-sizes-8) var(--common-sizes-24); }
+.svc-onb-check__count{ margin:0; font:var(--text-style-label-medium); color:var(--common-colors-text-intense); }
+.svc-onb-check__list{ width:100%; max-width:calc(var(--common-sizes-200) + var(--common-sizes-200) + var(--common-sizes-200) + var(--common-sizes-40)); } /* 640: a lista do Figma tem 320; aqui ocupa a coluna de leitura */
+.svc-onb-check__actions{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--common-sizes-16); }
+.svc-onb-check__actions[hidden], .svc-onb-check__actions [hidden]{ display:none; }
+.svc-onb-check__hint{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
 
 /* ==== resources/castanha-quiz/castanha-quiz.css ==== */
 /* Castanha Quiz: visuais das perguntas e do treinamento rápido (ver castanha-quiz.js). Só tokens */

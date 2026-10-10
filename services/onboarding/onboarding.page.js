@@ -46,10 +46,13 @@
         "Os botões vêm do guia de Conteúdo, pelo papel do passo: Começar, Continuar, Voltar, Concluir, Fechar, Me lembrar mais tarde e Não mostrar novamente. Esc vale como Me lembrar mais tarde.",
         "Passo cuja área não está na tela (largura estreita, seção que sumiu) é pulado e o evento fica registrado.",
         "O estado (novo, em andamento, lembrar depois, concluído, dispensado) e as métricas ficam no localStorage deste navegador.",
-        "Nesta fase nenhum fluxo abre sozinho: só por `?tour=<id>` na URL ou pelo botão Testar o fluxo. `?onboarding=off` desliga o serviço."
+        "A boas-vindas abre sozinha na primeira visita (fora do Relatório e das páginas escondidas). Me lembrar mais tarde traz de volta a partir do dia seguinte, no máximo 2 vezes. Começar segue para o tour, com o menu lateral, e o tour termina nos Primeiros passos do Início.",
+        "Os Primeiros passos ficam numa tab do Início e no item da Ajuda, com o checklist do perfil e o botão Fazer o tour. Cada tarefa se marca quando a pessoa abre a página (ou mexe numa prop no Playground).",
+        "Durante o tour, o Backdrop do DS fica atrás do passo e o bloco com a área apontada (o menu) fica por cima, claro.",
+        "`?tour=<id>` abre um fluxo na hora e `?onboarding=off` desliga o serviço (o smoke das docs roda assim)."
       ] },
       { h2: "Regras de conteúdo" },
-      { p: "O build roda o `scripts/dev/lint-onboarding.js` e reprova o fluxo que sair do guia: título até 30 caracteres e sem ponto, exclamação ou dois-pontos, título e texto juntos até 110 caracteres, no máximo 3 passos de tour, ilustração que existe no catálogo e as palavras do Termos para evitar." },
+      { p: "O build roda o `scripts/dev/lint-onboarding.js` e reprova o fluxo que sair do guia: título até 30 caracteres e sem ponto, exclamação ou dois-pontos, título e texto juntos até 110 caracteres, no máximo 3 passos de tour, ilustração que existe no catálogo e as palavras do Termos para evitar. Nas tarefas dos Primeiros passos: até 5 por perfil, rótulo até 30 caracteres e regra de conclusão." },
       { code: "CDS.onboarding.register({ id: \"exemplo\", version: 1, steps: [\n  { kind: \"modal\", title: \"…\", text: \"…\", illustration: \"objetos/kit-onboarding\" },\n  { anchor: \"busca\", title: \"…\", text: \"…\" }\n] });\nCDS.onboarding.start(\"exemplo\");" }
     ] },
     { id: "fluxos", title: "Fluxos", blocks: [

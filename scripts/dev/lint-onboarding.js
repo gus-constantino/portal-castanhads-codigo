@@ -23,12 +23,12 @@ const BANNED = [
 const EMOJI = /\p{Extended_Pictographic}/u;
 
 function lint(ROOT){
-  const DIR = path.join(ROOT, "services", "onboarding", "flows"), errors = [], warnings = [], flows = [];
+  const DIR = path.join(ROOT, "services", "onboarding", "flows"), errors = [], warnings = [], flows = [], checklists = [];
   if (!fs.existsSync(DIR)) return { errors, warnings, flows };
   const cat = JSON.parse(fs.readFileSync(path.join(ROOT, "assets", "illustrations", "catalog.json"), "utf8"));
   const ills = new Set(); (cat.buckets || []).forEach((b) => (b.items || []).forEach((i) => ills.add(b.id + "/" + (i.name || i.id))));
   fs.readdirSync(DIR).filter((f) => f.endsWith(".flow.js")).sort().forEach((f) => {
-    const CDS = { onboarding: { register: (fl) => flows.push(Object.assign({ file: f }, fl)) } };
+    const CDS = { onboarding: { register: (fl) => flows.push(Object.assign({ file: f }, fl)), checklist: (c) => checklists.push(Object.assign({ file: f }, c)) } };
     try { vm.runInNewContext(fs.readFileSync(path.join(DIR, f), "utf8"), { window: { CDS }, CDS, console }, { filename: f }); }
     catch (e) { errors.push(f + ": não roda (" + e.message + ")"); }
   });
@@ -50,6 +50,21 @@ function lint(ROOT){
       if (s.kind !== "modal" && !s.anchor) errors.push(where(i) + ": passo de tour sem anchor");
       if (s.illustration && !ills.has(s.illustration)) errors.push(where(i) + ": ilustração fora do catálogo: " + s.illustration);
       if ((x.match(/,/g) || []).length > 3) warnings.push(where(i) + ": mais de 3 vírgulas");
+    });
+  });
+  // Primeiros passos: rótulo curto e sem pontuação no fim, texto com ponto, as mesmas palavras a evitar, até 5 tarefas por perfil
+  checklists.forEach((ck) => {
+    (ck.profiles || []).forEach((p) => {
+      const tasks = (ck.common || []).concat(p.tasks || []);
+      if (tasks.length > 5) errors.push(ck.file + " › " + p.id + ": " + tasks.length + " tarefas (máximo 5)");
+      tasks.forEach((t) => {
+        const at = ck.file + " › " + p.id + " › " + t.id, l = String(t.label || ""), x = String(t.text || "");
+        if (!l || l.length > 30) errors.push(at + ": rótulo vazio ou com mais de 30 caracteres");
+        if (/[.!:]$/.test(l)) errors.push(at + ": rótulo termina com pontuação");
+        if (x && !/\.$/.test(x)) errors.push(at + ": texto sem ponto final");
+        if (!t.done) errors.push(at + ": sem regra de conclusão (done)");
+        BANNED.forEach(([re, why]) => { if (re.test(l + " " + x)) errors.push(at + ": " + why); });
+      });
     });
   });
   return { errors, warnings, flows };

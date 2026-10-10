@@ -48,6 +48,11 @@
           { size: "wide", title: "Changelog", text: "O que saiu em cada release do Castanha: React, Flutter, Figma, ilustrações, ícones e documentação.", href: "#/changelog", cta: "Acessar Changelog", illustration: "notificacoes/sino" }
         ] } }
       ] },
+      // Primeiros passos (onboarding, D315): perfis, checklist que se marca pela ação e o botão do tour (services/onboarding)
+      { id: "primeiros-passos", title: "Primeiros passos", blocks: [
+        { h2: "Primeiros passos" },
+        { visual: { bare: true, render: function(){ return CDS.onboarding ? CDS.onboarding.checklistView() : document.createElement("div"); } } }
+      ] },
       // Sobre → Princípios de Design (zeroheight · 7379702). Texto do Hub; os ícones da página usam cores fora dos tokens
       // (C159) e ficam de fora: cada princípio vira um Card do DS.
       { id: "principios", title: "Princípios de Design", blocks: [

@@ -231,7 +231,7 @@
       links: [{ name: "Curso na Awtra", href: "https://lms.awtra.com.br/company/caju/app/course/f5e0c07c-7778-489c-81af-91216c8ccdd0",
         confirm: { title: "Abrir o curso na Awtra?", text: "O curso fica na plataforma Awtra, fora deste site, e abre numa nova guia. Entre com a sua conta da Caju para acessar.", action: "Abrir curso" } }] }, // links externos: sem página, abrem em nova guia (com confirm: Modal do DS antes)
     { id: "ferramentas", title: "Ferramentas", ids: ["personas", "agentes", "mcp"], tip: "Apoio ao projeto: as personas para quem projetamos, assistentes de IA e integrações com o Castanha DS." },
-    { id: "ajuda", title: "Ajuda", ids: ["faq", "changelog"], tip: "Perguntas frequentes e o que mudou no DS." }
+    { id: "ajuda", title: "Ajuda", ids: ["faq", "changelog"], links: [{ name: "Primeiros passos", href: "#/inicio/primeiros-passos", internal: true }], tip: "Perguntas frequentes e o que mudou no DS." }
   ];
   function resSections(res){
     var known = {}, out = RES_SECTIONS.map(function(sec){
@@ -300,6 +300,7 @@
         ul.appendChild(kit.el("li", null, [g]));
       });
       sec.links.filter(function(l){ return !q || l.name.toLowerCase().indexOf(q) !== -1; }).forEach(function(l){
+        if (l.internal){ ul.appendChild(kit.el("li", null, [kit.el("a", { href: l.href }, [l.name])])); return; } // link para outra tab do portal (ex.: Primeiros passos do Início)
         var ext = kit.el("a", { href: l.href, target: "_blank", rel: "noopener", "class": "pg-nav-ext", "aria-label": l.name + " (abre em nova guia)" }, [l.name, kit.el("cds-icon", { icon: "link-line", size: "small", appearance: "neutral", "aria-hidden": "true" })]);
         // clique simples pede confirmação (Modal do DS); ⌘/Ctrl/Shift-clique e clique do meio seguem o link direto
         if (l.confirm) ext.addEventListener("click", function(e){ if (e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; e.preventDefault(); confirmExternal(l); });
@@ -685,6 +686,7 @@
     var r = route(); if (r[1] && r[1] !== "playground") return;
     writtenQs = qs(p);
     history.replaceState(null, "", "#/" + currentId() + (writtenQs ? "?" + writtenQs : ""));
+    document.dispatchEvent(new CustomEvent("cds-playground-change", { detail: { id: currentId() } })); // o onboarding marca "Testar um componente"
     lastHash = location.hash;
   });
   var mountedId = null, reportBtn = $("report-btn"), report = $("report"), lastHash = "#/";

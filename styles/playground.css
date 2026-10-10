@@ -51,8 +51,8 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
 .pg-nav-sections[hidden]{ display:none; }
 .pg-nav a.pg-nav-ext cds-icon{ flex:none; } /* link externo do menu (ex.: curso): ícone no lugar do contador */
 .pg-nav-sections > .pg-nav-title:not(:first-child){ margin-top:var(--common-sizes-20); }
-#nav-found{ margin-bottom:var(--common-sizes-20); }
-.pg-nav-sections--after{ margin-top:var(--common-sizes-24); padding-top:var(--common-sizes-16); box-shadow:inset 0 var(--common-border-width-hairline) 0 var(--pg-line); }
+#nav-found{ margin-bottom:0; } /* seções recolhíveis (D306): todas com o mesmo espaçamento, sem divisor entre os blocos */
+.pg-nav-sections--after{ margin-top:0; }
 .pg-nav-title{ margin:0 var(--common-sizes-8) var(--common-sizes-8); font:var(--text-style-disclaimer-medium); color:var(--common-colors-text-medium); }
 .pg-nav{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:var(--common-sizes-4); }
 .pg-nav a{
@@ -94,7 +94,7 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
 .pg-nav-cat .pg-nav{ padding:0 0 var(--common-sizes-8); }
 
 /* Exibição do menu (Lista · Grade): Icon Buttons Small na linha do título Componentes */
-.pg-nav-head{ display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-8); margin:0 0 var(--common-sizes-8); }
+.pg-nav-head{ display:flex; align-items:center; justify-content:flex-end; gap:var(--common-sizes-8); margin:0 0 var(--common-sizes-8); } /* Lista · Grade no topo da seção Componentes */
 .pg-nav-head .pg-nav-title{ margin:0 var(--common-sizes-8); }
 .pg-nav-view{ display:flex; align-items:center; gap:var(--common-sizes-4); }
 .pg-nav-view[hidden]{ display:none; }

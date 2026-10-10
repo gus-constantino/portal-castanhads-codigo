@@ -27,11 +27,11 @@
 <link rel="stylesheet" href="styles/icons.css?v=5eee2965" />
 <!-- Componentes — GERADO por scripts/build-index.js (ordem de dependência) -->
 <!-- @components:css -->
-<link rel="stylesheet" href="dist/cds.css?v=18440182" />
+<link rel="stylesheet" href="dist/cds.css?v=6033de70" />
 <!-- /@components:css -->
 <!-- Templates provisórios (fora do menu) -->
 <!-- Shell do playground -->
-<link rel="stylesheet" href="styles/playground.css?v=89c94e97" />
+<link rel="stylesheet" href="styles/playground.css?v=74c42b74" />
 <link rel="stylesheet" href="styles/report.css?v=b534e20e" />
 <link rel="stylesheet" href="styles/docs.css?v=cbf4a61c" />
 </head>
@@ -54,8 +54,10 @@
     <cds-search-input class="pg-search" id="search" label="Buscar componente" show-label="false" placeholder="Buscar componente" show-required="false" show-supporting-content="false"></cds-search-input>
     <ul class="pg-nav pg-nav--home" id="nav-home" aria-label="Início"></ul>
     <div class="pg-nav-sections" id="nav-found"></div>
-    <p class="pg-nav-title">Componentes</p>
-    <ul class="pg-nav" id="nav"></ul>
+    <!-- Seção Componentes recolhível (Accordion Item do DS): Lista · Grade no topo e as categorias embaixo -->
+    <cds-accordion-item class="pg-nav-cat pg-nav-sec" id="nav-sec-componentes" label="Componentes" show-description="false" show-lead-item="false" show-divider="false" collapsed>
+      <ul class="pg-nav" id="nav"></ul>
+    </cds-accordion-item>
     <div class="pg-nav-sections pg-nav-sections--after" id="nav-res"></div>
     <p class="pg-nav-title pg-nav-title--res" id="nav-hits-title" hidden>No conteúdo das docs</p>
     <ul class="pg-nav pg-nav--hits" id="nav-hits" aria-labelledby="nav-hits-title" hidden></ul>
@@ -104,11 +106,11 @@
 <script src="scripts/assets-manifest.js?v=a1ab1bac"></script>
 <!-- Componentes — GERADO por scripts/build-index.js (ordem de dependência) -->
 <!-- @components:js -->
-<script src="dist/cds.js?v=5699ca12"></script>
+<script src="dist/cds.js?v=ee3ae2f6"></script>
 <!-- /@components:js -->
 <!-- Shell: side menu, rotas, tema, viewport, relatório -->
 <script src="scripts/figma-status.js?v=ab0a0df6"></script>
 <script src="scripts/report.js?v=33bb3794"></script>
-<script src="scripts/app.js?v=9b05c67c"></script>
+<script src="scripts/app.js?v=1cf680da"></script>
 </body>
 </html>

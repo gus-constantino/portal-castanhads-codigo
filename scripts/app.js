@@ -173,9 +173,8 @@
       row.appendChild(tip);
     });
     // Na linha do título "Componentes", alinhado à direita (o título fica de pé quando o alternador some)
-    var title = nav.previousElementSibling, headRow = kit.el("div", { "class": "pg-nav-head" });
-    title.parentNode.insertBefore(headRow, title);
-    headRow.appendChild(title); headRow.appendChild(row);
+    var headRow = kit.el("div", { "class": "pg-nav-head" }); // no topo da seção Componentes, acima das categorias
+    nav.parentNode.insertBefore(headRow, nav); headRow.appendChild(row);
     paint();
     return row;
   })();
@@ -224,8 +223,10 @@
     extModal.show();
   }
   // Seções dos recursos no menu (ordem dentro da seção = ordem dos ids). Recurso fora da lista cai em "Mais recursos".
+  // top: a seção vem antes de Componentes (Desenvolvimento e Padrões, pedido do Gustavo em 09/10)
   var RES_SECTIONS = [
-    { id: "padroes", title: "Padrões", ids: ["caju-theme", "ilustracao", "motion", "camadas", "conteudo", "patterns"], tip: "A base e as soluções recorrentes: tema (cores, tipografia, motion…), as camadas do DS, diretrizes de conteúdo e patterns de tela." },
+    { id: "desenvolvimento", top: true, title: "Desenvolvimento", ids: ["comece-aqui", "dev-instalacao", "dev-ambiente", "dev-pacotes", "dev-formularios", "dev-hooks", "dev-assets", "dev-grid", "dev-tokens", "dev-universe"], tip: "Como instalar e usar os pacotes do Castanha no código: Comece aqui, Getting Started, guias, design tokens e Castanha Universe (do Storybook do castanha-react)." },
+    { id: "padroes", top: true, title: "Padrões", ids: ["caju-theme", "ilustracao", "motion", "camadas", "conteudo", "patterns"], tip: "A base e as soluções recorrentes: tema (cores, tipografia, motion…), as camadas do DS, diretrizes de conteúdo e patterns de tela." },
     { id: "aprenda", title: "Aprenda", ids: ["treinamento", "capacitacoes", "castanha-quiz"], tip: "Como o DS funciona e como usar no dia a dia, no Figma e no código.",
       links: [{ name: "Curso na Awtra", href: "https://lms.awtra.com.br/company/caju/app/course/f5e0c07c-7778-489c-81af-91216c8ccdd0",
         confirm: { title: "Abrir o curso na Awtra?", text: "O curso fica na plataforma Awtra, fora deste site, e abre numa nova guia. Entre com a sua conta da Caju para acessar.", action: "Abrir curso" } }] }, // links externos: sem página, abrem em nova guia (com confirm: Modal do DS antes)
@@ -243,7 +244,7 @@
   }
   function resSection(def){ return resSections([def])[0]; }
   // Cor por área (D223): a seção do menu escolhe a escala da pilha (local/pilha · CDS.local.areas)
-  var AREAS = { padroes: 1, aprenda: 1, ferramentas: 1, ajuda: 1 };
+  var AREAS = { padroes: 1, desenvolvimento: 1, aprenda: 1, ferramentas: 1, ajuda: 1 };
   function areaOf(id){
     var def = list.filter(function(c){ return c.id === id; })[0];
     if (!def || def.hidden) return null;
@@ -258,6 +259,19 @@
     var area = areaOf(def.id); if (!area) return null;
     return { eyebrow: resSection(def).title, title: def.lede, area: area, level: "p", cards: 3 };
   }
+  // ---------- Seções do menu recolhíveis (Accordion Item do DS) ----------
+  // Os títulos (Componentes, Templates, Padrões, Desenvolvimento, Aprenda, Ferramentas, Ajuda) abrem e fecham. Vêm recolhidos;
+  // abrem na seção da página atual, durante a busca e quando a pessoa abre (lembrado no navegador). Na faixa estreita, tudo aberto.
+  function navSection(id, label, content, open, tip){
+    var isOpen = open || narrow.matches || !!openCats["sec:" + id];
+    var acc = kit.el("cds-accordion-item", { "class": "pg-nav-cat pg-nav-sec", id: "nav-sec-" + id, label: label, "show-description": "false", "show-lead-item": "false", "show-divider": "false", collapsed: !isOpen });
+    acc.appendChild(content); // Slot: entra antes de conectar
+    acc.addEventListener("cds-toggle", function(e){ if (e.target !== acc || narrow.matches || searchText()) return; openCats["sec:" + id] = !e.detail.collapsed; saveOpen(); });
+    if (tip) setTimeout(function(){ if (acc.btn) kit.tip(acc.btn, tip, { container: acc.parentNode }); }, 0);
+    return acc;
+  }
+  var compSec = $("nav-sec-componentes");
+  compSec.addEventListener("cds-toggle", function(e){ if (e.target !== compSec || narrow.matches || searchText()) return; openCats["sec:componentes"] = !e.detail.collapsed; saveOpen(); });
   function buildNav(filter){
     var q = (filter || "").trim().toLowerCase();
     nav.innerHTML = "";
@@ -273,10 +287,7 @@
     var res = shown.filter(function(c){ return c.resource && !c.home; });
     [navFound, navRes].forEach(function(box){ box.innerHTML = ""; });
     resSections(res).forEach(function(sec){
-      var box = sec.top ? navFound : navRes, tid = "nav-sec-" + sec.id;
-      var title = box.appendChild(kit.el("p", { "class": "pg-nav-title", id: tid, text: sec.title }));
-      if (sec.tip) kit.tip(title, sec.tip, { text: true });
-      var ul = box.appendChild(kit.el("ul", { "class": "pg-nav", "aria-labelledby": tid }));
+      var box = sec.top ? navFound : navRes, ul = kit.el("ul", { "class": "pg-nav" });
       sec.items.forEach(function(c){ ul.appendChild(kit.el("li", null, [kit.el("a", { href: "#/" + c.id }, [c.name, c.soon ? kit.el("cds-tag", { appearance: "neutral", label: "Em breve", "show-lead-item": "false" }) : kit.el("small", { text: c.status || "" })])])); });
       sec.links.filter(function(l){ return !q || l.name.toLowerCase().indexOf(q) !== -1; }).forEach(function(l){
         var ext = kit.el("a", { href: l.href, target: "_blank", rel: "noopener", "class": "pg-nav-ext", "aria-label": l.name + " (abre em nova guia)" }, [l.name, kit.el("cds-icon", { icon: "link-line", size: "small", appearance: "neutral", "aria-hidden": "true" })]);
@@ -284,23 +295,25 @@
         if (l.confirm) ext.addEventListener("click", function(e){ if (e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; e.preventDefault(); confirmExternal(l); });
         ul.appendChild(kit.el("li", null, [ext]));
       });
+      box.appendChild(navSection(sec.id, sec.title, ul, q || sec.items.some(function(c){ return c.id === currentId(); }), sec.tip));
     });
     // Templates: depois de Componentes e antes dos recursos. Título da seção + um Accordion Item por produto (App, Sponsor…)
     var tpls = shown.filter(function(c){ return c.template && !c.resource; });
     if (tpls.length){
-      // o título entra no menu antes do Tooltip: o kit.tip põe o Tooltip ao lado do alvo (sem pai, iria para o fim da página)
-      var tbox = document.createDocumentFragment(), tt = tbox.appendChild(kit.el("p", { "class": "pg-nav-title", id: "nav-sec-templates", text: "Templates" }));
-      kit.tip(tt, "Telas e partes de tela prontas de cada produto, montadas com componentes do DS.", { text: true });
-      var tul = kit.el("ul", { "class": "pg-nav", "aria-labelledby": "nav-sec-templates" });
-      templateGroups(tpls).forEach(function(g){
+      // Seção Templates recolhível; com um produto só, os templates entram direto; com mais, um Accordion Item por produto
+      var tul = kit.el("ul", { "class": "pg-nav" }), tgroups = templateGroups(tpls);
+      tgroups.forEach(function(g){
+        if (tgroups.length === 1){ g.items.forEach(function(c){ tul.appendChild(link(c)); }); return; }
         var acc = navGroup(g.name, g.items, q || narrow.matches || openCats["tpl:" + g.name] || g.items.some(function(c){ return c.id === currentId(); }), function(open){ openCats["tpl:" + g.name] = open; saveOpen(); });
         acc.setAttribute("description", g.items.length + (g.items.length === 1 ? " template" : " templates"));
         tul.appendChild(kit.el("li", null, [acc]));
       });
-      tbox.appendChild(tul);
-      navRes.insertBefore(tbox, navRes.firstChild);
+      navRes.insertBefore(navSection("templates", "Templates", tul, q || tpls.some(function(c){ return c.id === currentId(); }), "Telas e partes de tela prontas de cada produto, montadas com componentes do DS."), navRes.firstChild);
     }
     navFound.hidden = !navFound.children.length; navRes.hidden = !navRes.children.length;
+    // Seção Componentes (Accordion Item do index.html): recolhida por padrão, aberta na página de um componente, na busca ou se a pessoa abriu
+    var compOpen = (q && (comps.length || blocks.length)) || narrow.matches || openCats["sec:componentes"] || comps.concat(blocks).some(function(c){ return c.id === currentId(); });
+    if (compSec.collapsed === !!compOpen) compSec.collapsed = !compOpen;
     var cats = PAGES.concat(comps.map(function(c){ return c.category || "Outros"; }).filter(function(x, i, a){ return PAGES.indexOf(x) === -1 && a.indexOf(x) === i; }));
     // Categorias em accordion: abre a da página atual, as que a pessoa abriu (lembrado no navegador) e todas durante a busca
     var cur = currentId();
@@ -348,7 +361,7 @@
   function markCurrent(){
     var cur = currentId();
     [].slice.call(nav.querySelectorAll("a")).concat([].slice.call(navRes.querySelectorAll("a")), [].slice.call(navFound.querySelectorAll("a")), navHome ? [].slice.call(navHome.querySelectorAll("a")) : []).forEach(function(a){
-      if (a.getAttribute("href") === "#/" + cur){ a.setAttribute("aria-current", "page"); var d = a.closest("cds-accordion-item"); if (d && d.collapsed) d.collapsed = false; }
+      if (a.getAttribute("href") === "#/" + cur){ a.setAttribute("aria-current", "page"); for (var d = a.closest("cds-accordion-item"); d; d = d.parentElement && d.parentElement.closest("cds-accordion-item")) if (d.collapsed) d.collapsed = false; }
       else a.removeAttribute("aria-current");
     });
   }

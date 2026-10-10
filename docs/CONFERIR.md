@@ -8,13 +8,13 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 
 | Tipo | Itens |
 |---|---|
-| [Ajuste de texto](#ajuste-de-texto) | 15 |
+| [Ajuste de texto](#ajuste-de-texto) | 16 |
 | [Ajuste de UI](#ajuste-de-ui) | 28 |
 | [Motion](#motion) | 7 |
 | [Refactor](#refactor) | 39 |
 | [Naming](#naming) | 11 |
 | [Acessibilidade](#acessibilidade) | 7 |
-| [Documentação](#documentação) | 15 |
+| [Documentação](#documentação) | 16 |
 | [Integração React](#integração-react) | 11 |
 
 ## Ajuste de texto
@@ -38,6 +38,7 @@ Copy, exemplos e descriptions no Figma. Não muda layout nem comportamento.
 | C186 | Main Button · Is Loading (branch pIX8i38mYWwax98yIjPmJw, CDS-1603) | A annotation resume a cor do Spinner como "Ghost → Accent, Neutral/Inversed → Neutral", mas as instâncias usam Ghost Neutral → Neutral e Ghost Inversed → Inversed (o handoff segue as instâncias). As variantes com Loading são hug (64 × 48 e 56 × 40), sem o label | Annotation igual às instâncias | Segue as instâncias e o handoff: o botão mantém a largura de antes (label com `visibility: hidden`), como a própria annotation pede para o código | Publicação do Loading |
 | C187 | Main Button · Is Loading × Spinner (4333:3181), revisão de cor por appearance (09/10) | Fundo do Loading = fundo do Enabled nas 12 variantes (ok). O Spinner muda de lógica por appearance: **arco** = cor do conteúdo no Accent (Support/lighter no Default, Icons/Accent no Ghost) e no Ghost Inversed, mas `Icons/medium` (#4d4d4d) no Neutral e no Default Inversed, onde o label é `Text/intense` (#1a1a1a). **Anel** (track): Neutral usa `Surface/02` (#999999) opaco — 2,50 a 2,78:1 contra o fundo e 2,97:1 contra o arco, aparece como um anel cinza inteiro; Accent usa `Accent/Solid/soft` — 1,08:1, quase some; Inversed usa `Surface/inversed` a 16% — 1,28:1. Resultado: nos botões Neutral e Inversed o Spinner parece um círculo cinza completo, nos Accent parece só o arco | Uma regra só: arco na cor do label de cada appearance e anel com a mesma lógica nas três (ex.: cor do conteúdo a 16%, `Common/Opacity/semi-transparent`, como já é no Inversed). Decidir se muda o Spinner (todos os usos) ou só o Loading do Main Button | Segue o Figma. Corrigido o Track do Inversed no código, que estava sem os 16% | Antes de publicar o Loading (CDS-1603) |
 | C179 | Main Button · Diretrizes › Hierarquia (Component use documentation 2054:1999) | Ênfase média diz "Button: Default/Accent e Ghost/Accent", mas o exemplo "Editar" é Default/Neutral | Texto e exemplo iguais: provavelmente "Default/Neutral e Ghost/Accent" | Texto e exemplos iguais ao Figma | Ajustar o texto ou o exemplo no Figma |
+| C195 | Docs do Storybook (Desenvolvimento e Comece aqui) | — | O texto importado do Storybook do castanha-react sai do guia de Conteúdo em alguns pontos: "Sim!" no FAQ, emoji 🎨 nas citações de Design tokens, ponto e vírgula no fim de itens de lista (tirado na importação), anglicismos (bundle, chunks, consumer) e verbos sensoriais ("visualizar" em Acessibilidade) | Segue o Storybook: texto literal, gerado por `scripts/dev/import-storybook.js` (negrito e itálico saem porque o docs-kit não formata) | Levar ao time do castanha-react; corrigir na fonte e rodar o importador de novo |
 
 ## Ajuste de UI
 
@@ -187,6 +188,7 @@ Frames de documentação no Figma.
 | C192 | Castanha Hub · Premissas na Prática (`/p/04dbac`) × Termos para evitar (`/p/9695d5`) | O Hub dá duas trocas diferentes para "Ver mais": "Saber mais" na premissa 5 e "Detalhes" em Verbos sensoriais. Na premissa 6, a tabela "A conversa costuma seguir um caminho" junta os 4 passos numa célula só. A numeração das premissas segue trocada (#9 com o emoji 8, #3 com o 2), como no C168 | Uma troca só para "Ver mais" | Playground mantém "nome da área ou Acessar {área}" (C167) nas duas páginas (D292) | Levar ao time de Conteúdo |
 | C193 | Bottom Sheet (20848:2679) · .Footer Pilled (16359:1792) × Main Button | No Mobile, `Specific/Buttons/Main Button/Width/min-width` = 328, mas o .Footer tem padding 20: num sheet de 360 sobram 320 e o botão estoura 8 px (num de 320, 48 px). Vale também para a Fixed Bar Pilled. A Fixed Bar Horizontal no Mobile tem o mesmo conflito em dobro: dois botões de 328 lado a lado não cabem em 360 | Botão Fill sem o mínimo dentro do .Footer, ou padding 16 no Mobile, ou mínimo menor. Definir se a Fixed Bar Horizontal vale no Mobile | No .Footer e na Fixed Bar Pilled o botão ocupa a largura disponível sem o min-width (D301). O sheet inline do playground encolhe para caber no frame | Decidir no Figma |
 | C194 | Castanha Hub · Fundação › Motion › Transições (`/p/757a5f`, "In progress") | As durações em ms não batem com os tokens citados: Para frente e para trás 350 ms com `long/02` (500 ms no Figma); Lateral 500 ms e Entrar e sair 500/300 ms com `long/04` (600 ms). Lateral, Entrar e sair e Transformação citam `Expressive/accelerate` com 0.90, 0, 0.60, 1, que no Figma é o `Expressive/overshoot` (o accelerate é 0.2, 0, 0.9, 1), como no C163. Na Transformação, a cor aparece como "E8537" | Token e valor iguais em cada padrão | Playground mostra o ms do Hub e o token citado, com a divergência no card (D302) | Levar ao time de Motion |
+| C196 | Storybook › Sobre o Castanha › Diferenciais | — | O link "Castanha Optimizer" da seção Bundle proporcional ao uso real aponta para a story do Castoken (`castanha-universe-02-castanha-castoken`) | Segue o Storybook: no portal o link leva a Castanha Universe › Castoken | Corrigir o link no `differentials.mdx` do castanha-react e rodar o importador de novo |
 
 ## Integração React
 

@@ -2296,6 +2296,10 @@ loc-pilha[align="end"] > span{ top:auto; bottom:0; transform:translateX(calc(var
   --loc-f3:var(--common-colors-charts-03-intense); --loc-f2:var(--common-colors-charts-03-semi-intense); --loc-f1:var(--common-colors-charts-03-medium); --loc-f:var(--common-colors-charts-03-mild);
   --loc-back:var(--common-colors-charts-03-intense); --loc-tint:var(--common-colors-charts-03-pale);
 }
+[data-loc-area="desenvolvimento"], loc-pilha[area="desenvolvimento"]{ /* Charts/05 tem 4 stops: os dois de trás repetem intense */
+  --loc-f3:var(--common-colors-charts-05-intense); --loc-f2:var(--common-colors-charts-05-intense); --loc-f1:var(--common-colors-charts-05-medium); --loc-f:var(--common-colors-charts-05-semi-soft);
+  --loc-back:var(--common-colors-charts-05-intense); --loc-tint:var(--common-colors-charts-05-soft);
+}
 [data-loc-area="ferramentas"], loc-pilha[area="ferramentas"]{
   --loc-f3:var(--common-colors-charts-02-intense); --loc-f2:var(--common-colors-charts-02-semi-intense); --loc-f1:var(--common-colors-charts-02-medium); --loc-f:var(--common-colors-charts-02-mild);
   --loc-back:var(--common-colors-charts-02-intense); --loc-tint:var(--common-colors-charts-02-pale);

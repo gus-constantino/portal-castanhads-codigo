@@ -1309,7 +1309,7 @@
         "Recorrente: Admin e Sponsor App mostram dados diferentes para o mesmo cadastro.",
         "Pontual: Conhecimento tácito, que depende de quem treinou; sem documentação oficial integrada.",
         "Pontual: Escalonamento chega ao próximo nível sem formatação e precisa ser editado à mão.",
-        "Pontual: Dados do Caju Mais e do Wellhub só acessíveis em planilhas externas."
+        "Pontual: Dados do CajuMais e do Wellhub só acessíveis em planilhas externas."
        ]
       },
       {

@@ -256,6 +256,23 @@
     });
   }
 
+  function bars(parent, data, opts){
+    var max = Math.max.apply(null, data.map(function(d){ return d.value; }).concat([1]));
+    var ul = parent.appendChild(el("ul", "rp-bars"));
+    data.forEach(function(d){
+      var li = ul.appendChild(el("li"));
+      var row = li.appendChild(el(d.href ? "a" : "div", "rp-bar"));
+      if (d.href) row.href = d.href;
+      row.appendChild(el("span", "rp-bar__label", esc(d.label)));
+      // Progress Line do DS (decorativa: o rótulo e o número já estão na linha)
+      var pl = row.appendChild(el("cds-progress-line", "rp-bar__line" + (d.tone || (opts && opts.tone) ? " is-" + (d.tone || opts.tone) : "")));
+      pl.setAttribute("percent", "0"); pl.dataset.pct = String(Math.round(d.value / max * 1000) / 10); pl.setAttribute("aria-hidden", "true");
+      row.appendChild(el("span", "rp-bar__value", String(d.value)));
+      // Tooltip da linha: valor e % do total; nos débitos, o que entra naquele tipo (1ª frase da seção no Conferir)
+      var total = (opts && opts.total) || data.reduce(function(a, x){ return a + x.value; }, 0); // total real (o painel pode mostrar só as maiores)
+      if (CDS.kit) CDS.kit.lazyTip(row, d.value + " de " + total + " (" + Math.round(d.value / (total || 1) * 100) + "%)" + (d.desc ? ". " + d.desc : "") + (d.href ? " Clique para ver os itens." : ""), { label: d.label });
+    });
+  }
   // ---------- Movimento (Motion Styles/tokens; nada anima com prefers-reduced-motion) ----------
   var still = function(){ return matchMedia("(prefers-reduced-motion:reduce)").matches; };
   function ms(token){ return parseFloat(getComputedStyle(document.documentElement).getPropertyValue(token)) || 0; }
@@ -575,16 +592,15 @@
     var p3 = panel(grid, "Adaptações para código", "Regra D40: o código segue o Figma, e o que muda é exceção aprovada ou débito registrado · " + all.length + " itens");
     stackCols(p3, TREAT.map(function(x){ return { cls: x[2], label: x[1], desc: x[3].replace(/\..*$/, "."), n: kinds[x[0]] }; }), all.length);
 
-    // Componentes por página do Figma (Castanha Analytics, lista percentual): as 8 maiores e o resto num Main Button Ghost
+    // Componentes por página do Figma: linhas com a Progress Line do DS (como antes; Gustavo, 09/10: "precisa ser o componente do Figma como era antes")
     var pg = (CDS.playgrounds || []).filter(function(c){ return !c.resource && !c.block && !c.composition; }), cats = {};
     pg.forEach(function(c){ var k = c.category || "Outros"; cats[k] = (cats[k] || 0) + 1; });
     var p4 = panel(grid, "Componentes por página do Figma", pg.length + " componentes em " + Object.keys(cats).length + " páginas");
     var first = {}; pg.forEach(function(c){ var k = c.category || "Outros"; if (!first[k]) first[k] = c.id; });
-    var cl = Object.keys(cats).map(function(k){ return { label: k, n: cats[k] }; }).sort(function(a, b){ return b.n - a.n || a.label.localeCompare(b.label, "pt-BR"); });
-    var maxC = cl.length ? cl[0].n : 1;
-    var listC = pctList(p4, cl.map(function(c, i){ return { rank: i + 1, label: c.label, desc: Math.round(c.n / (pg.length || 1) * 100) + "% dos componentes", value: fmt(c.n), pct: c.n / maxC * 100, href: "#/" + first[c.label],
-      tip: c.n + " de " + pg.length + " componentes. Clique para abrir o primeiro componente da página " + c.label + "." }; }));
-    var rowsC = [].slice.call(listC.children);
+    var cl = Object.keys(cats).map(function(k){ return { label: k, value: cats[k], href: "#/" + first[k], desc: "Abre o primeiro componente da página " + k + "." }; }).sort(function(a, b){ return b.value - a.value || a.label.localeCompare(b.label, "pt-BR"); });
+    bars(p4, cl, { tone: "components", total: pg.length });
+    // painel curto: as 8 maiores; o resto abre com Main Button Ghost do DS
+    var rowsC = [].slice.call(p4.querySelectorAll(".rp-bars > li"));
     if (rowsC.length > 8){
       rowsC.slice(8).forEach(function(li){ li.hidden = true; });
       var more = p4.appendChild(el("cds-main-button", "rp-expand"));

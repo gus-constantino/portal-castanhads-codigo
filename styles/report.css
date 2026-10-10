@@ -105,7 +105,6 @@
 .rp-panel__sub{ margin:var(--common-sizes-2) 0 0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
 /* Barras = Progress Line do DS com as cores do relatório (Charts/*, Accent) */
 
-/* Publicação na lib: mesmas cores da Tag de status (Feedback/<cor>/medium na barra, Feedback/<cor>/soft no trilho = fundo da Tag) */
 
 .rp-legend{ list-style:none; margin:0; padding:0; flex:1; min-width:var(--common-sizes-200); display:grid; gap:var(--common-sizes-12); }
 .rp-legend li{ display:grid; grid-template-columns:var(--common-sizes-12) minmax(0,1fr) auto; gap:var(--common-sizes-12); align-items:center; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
@@ -328,3 +327,17 @@ a.rp-plist__row:focus-visible{ outline:var(--common-border-width-thin) solid var
 .rp-scols__n{ margin:auto 0 0; padding-top:var(--common-sizes-4); font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
 .rp-scols__n strong{ margin-right:var(--common-sizes-4); font:var(--text-style-heading-small); color:var(--common-colors-text-intense); }
 
+/* Componentes por página: linhas com a Progress Line do DS (restaurado, D323) */
+.rp-bars{ list-style:none; margin:0; padding:0; display:grid; gap:var(--common-sizes-2); }
+.rp-bar{ display:grid; grid-template-columns:minmax(var(--common-sizes-92), 38%) minmax(0,1fr) var(--common-sizes-28); align-items:center; gap:var(--common-sizes-12); padding:var(--common-sizes-6) var(--common-sizes-8); margin:0 calc(-1 * var(--common-sizes-8)); border-radius:var(--common-border-radius-extra-small);
+  font:var(--text-style-caption-regular); color:var(--common-colors-text-intense); text-decoration:none; }
+a.rp-bar:hover{ background:var(--common-colors-surface-01); }
+/* Barras = Progress Line do DS com as cores do relatório (Charts/*, Accent) */
+.rp-bar__line{ --cds-progress-color:var(--rp-bar); --cds-progress-track:var(--rp-bar-track); }
+.rp-bar__line.is-components{ --cds-progress-color:var(--rp-bar-comp); --cds-progress-track:var(--rp-bar-comp-track); }
+a.rp-bar:focus-visible{ outline:var(--common-border-width-thin) solid var(--common-colors-border-intense); outline-offset:var(--common-border-width-hairline); }
+.rp-bar__label{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.rp-bar__value{ text-align:right; font:var(--text-style-caption-medium); }
+a.rp-bar{ transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
+.rp-bar__value{ font-variant-numeric:tabular-nums; }
+.rp-bars > li[hidden]{ display:none; }

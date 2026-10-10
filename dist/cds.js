@@ -15388,10 +15388,10 @@ try {
 
 /* ==== resources/personas/personas.js ==== */
 try {
-/* Personas: versão pública da seção Visão Cliente do Castanha Hub (pedido do Gustavo, 05/10: "personas completo", sem o sensível).
-   Gerado por scratchpad/gen_personas.py a partir das páginas do Hub; ficam de fora dados de pesquisa interna, potencial
-   comercial dos ICPs, parceiros/fornecedores, links internos e depoimentos de entrevistas (C166, C171). Ilustrações
-   dos personagens da [Caju] Illustrations no lugar das fotos. Bloco persona do docs-kit. */
+/* Personas: versão da seção Visão Cliente do Castanha Hub (pedido do Gustavo, 05/10 e 09/10: "completo"; as personas são
+   fictícias). Gerado por scratchpad/gen_personas.py a partir das páginas do Hub e atualizado à mão (D304). Ficam de fora o potencial
+   comercial dos ICPs, links internos e os depoimentos das entrevistas (C166, C171). Ferramentas com o nome real. Ilustrações dos
+   personagens da [Caju] Illustrations no lugar das fotos. Bloco persona do docs-kit (abas) e personaFilter (busca e grupo). */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   CDS.register({ id: "personas", name: "Personas", resource: true, lede: "Quem usa os produtos da Caju e o que cada pessoa precisa.", order: 7, zeroheight: "https://castanha.caju.com.br/858426090/v/latest/p/40e414" });
@@ -15616,7 +15616,7 @@ try {
     ]
    },
    {
-    "note": "Fonte: Castanha Hub · Visão Cliente (Personas). Versão pública: sem dados de pesquisa interna, potencial comercial dos ICPs, nomes de parceiros e fornecedores, links internos nem os depoimentos das entrevistas. As fotos do Hub viraram as ilustrações dos personagens da biblioteca de ilustrações."
+    "note": "Fonte: Castanha Hub · Visão Cliente (Personas). As personas são fictícias. Ficam de fora o potencial comercial dos ICPs, os links internos e os depoimentos das entrevistas. As fotos do Hub viraram as ilustrações dos personagens da biblioteca de ilustrações."
    }
   ]
  },
@@ -15637,6 +15637,12 @@ try {
    },
    {
     "p": "Pessoas que usam o cartão e o app de benefícios no dia a dia."
+   },
+   {
+    "personaFilter": {
+     "label": "Buscar persona",
+     "placeholder": "Buscar nome, cargo ou dor"
+    }
    },
    {
     "h2": "De 18 a 29 anos"
@@ -15981,7 +15987,7 @@ try {
     }
    },
    {
-    "note": "Fonte: Castanha Hub · Visão Cliente (Personas). Versão pública: sem dados de pesquisa interna, potencial comercial dos ICPs, nomes de parceiros e fornecedores, links internos nem os depoimentos das entrevistas. As fotos do Hub viraram as ilustrações dos personagens da biblioteca de ilustrações."
+    "note": "Fonte: Castanha Hub · Visão Cliente (Personas). As personas são fictícias. Ficam de fora o potencial comercial dos ICPs, os links internos e os depoimentos das entrevistas. As fotos do Hub viraram as ilustrações dos personagens da biblioteca de ilustrações."
    }
   ]
  },
@@ -15991,6 +15997,12 @@ try {
   "blocks": [
    {
     "p": "Pessoas de RH e gestão que contratam e administram os benefícios na empresa."
+   },
+   {
+    "personaFilter": {
+     "label": "Buscar persona",
+     "placeholder": "Buscar nome, cargo ou dor"
+    }
    },
    {
     "h2": "Micro e pequenas empresas"
@@ -16535,7 +16547,7 @@ try {
        "items": [
         "Muita pressão para mostrar trabalho e resultados.",
         "Não conhece todas as ferramentas e precisa de suporte constante.",
-        "Pouca autonomia: tem só acesso de visualização e não acessa os sistemas mais complexos.",
+        "Pouca autonomia: tem só acesso de visualização e não acessa os sistemas mais complexos, como o TOTVS.",
         "Precisa reportar constantemente para a líder."
        ]
       },
@@ -16551,7 +16563,7 @@ try {
     }
    },
    {
-    "note": "Fonte: Castanha Hub · Visão Cliente (Personas). Versão pública: sem dados de pesquisa interna, potencial comercial dos ICPs, nomes de parceiros e fornecedores, links internos nem os depoimentos das entrevistas. As fotos do Hub viraram as ilustrações dos personagens da biblioteca de ilustrações."
+    "note": "Fonte: Castanha Hub · Visão Cliente (Personas). As personas são fictícias. Ficam de fora o potencial comercial dos ICPs, os links internos e os depoimentos das entrevistas. As fotos do Hub viraram as ilustrações dos personagens da biblioteca de ilustrações."
    }
   ]
  },
@@ -16564,6 +16576,12 @@ try {
    },
    {
     "p": "Pessoas dos times da Caju que usam o Admin no dia a dia. Ajudam a desenhar ferramentas internas a partir de quem as usa: objetivos, dores recorrentes e pontuais e o que precisam para trabalhar melhor."
+   },
+   {
+    "personaFilter": {
+     "label": "Buscar persona",
+     "placeholder": "Buscar nome, área ou dor"
+    }
    },
    {
     "h2": "CX"
@@ -16588,11 +16606,11 @@ try {
        "Alta"
       ],
       [
-       "Dependência do CRM",
+       "Dependência do Salesforce",
        "Alta"
       ]
      ],
-     "story": "John é o especialista acionado quando o caso é complexo demais para o nível anterior — e ele entra em cena pedindo uma coisa: evidência. Com alta dependência do Admin, atua em casos críticos, mapeamento de processos e gestão de crise, navegando por um arsenal de ferramentas que vai do CRM a painéis de dados e portais externos. Sua maior frustração é gastar tempo ensinando o que já sabe enquanto falta contexto centralizado para investigar o que ainda não sabe. Para ele, um Admin com dados completos, acessíveis e confiáveis não é luxo — é o pré-requisito para fechar qualquer caso.",
+     "story": "John é o especialista acionado quando o caso é complexo demais para o nível anterior — e ele entra em cena pedindo uma coisa: evidência. Com alta dependência do Admin, atua em casos críticos, mapeamento de processos e gestão de crise, navegando por um arsenal de ferramentas que vai do Salesforce ao Databricks e a portais externos. Sua maior frustração é gastar tempo ensinando o que já sabe enquanto falta contexto centralizado para investigar o que ainda não sabe. Para ele, um Admin com dados completos, acessíveis e confiáveis não é luxo — é o pré-requisito para fechar qualquer caso.",
      "illustration": null,
      "icon": "support-line",
      "cols": [
@@ -16613,9 +16631,9 @@ try {
         "Recorrente: Prazo regulatório de 10 dias e prazo interno de 5 a 6 dias colidem, sem saída prevista no processo.",
         "Recorrente: Qualquer operador executa ações de alto impacto, sem controle de alçada nem permissão por perfil.",
         "Recorrente: Consultas lentas, que exigem recarregar a página para ver o resultado.",
-        "Recorrente: Respostas rápidas no CRM são pouco ágeis de usar no dia a dia.",
+        "Recorrente: Respostas rápidas no Salesforce são pouco ágeis de usar no dia a dia.",
         "Pontual: Extrato montado à mão, com edição antes de gerar o PDF.",
-        "Pontual: Conferência manual de dados enviados a parceiros — erros de digitação só aparecem depois.",
+        "Pontual: Conferência manual de dados enviados ao Wellhub — erros de digitação só aparecem depois.",
         "Pontual: Status de entrega do cartão nem sempre está disponível na hora do atendimento."
        ]
       },
@@ -16627,7 +16645,7 @@ try {
         "Confirmação clara antes de ações de alto impacto.",
         "Controle de alçada por perfil: ações críticas com aprovação ou acesso restrito.",
         "Consultas rápidas, sem recarregar a página.",
-        "Atalhos de texto rápido integrados ao CRM.",
+        "Atalhos de texto rápido integrados ao Salesforce.",
         "Extrato gerado automaticamente, pronto para exportar em PDF.",
         "Contexto centralizado por caso: evidências, histórico e dependências em um só lugar."
        ]
@@ -16655,7 +16673,7 @@ try {
        "Máxima"
       ],
       [
-       "Dependência do CRM",
+       "Dependência do Salesforce",
        "Máxima"
       ]
      ],
@@ -16678,10 +16696,10 @@ try {
         "Recorrente: 60% dos chamados nascem de cadastros com dados no campo errado (ex.: e-mail corporativo no lugar do pessoal), que o sistema aceita sem validar.",
         "Recorrente: Sem histórico de alterações — não sabe quem mudou o cadastro, nem quando.",
         "Recorrente: Status como \"em análise\" ou \"falha\" aparecem sem descrição do motivo, o que obriga a escalar.",
-        "Recorrente: Admin e portal do RH mostram dados diferentes para o mesmo cadastro.",
+        "Recorrente: Admin e Sponsor App mostram dados diferentes para o mesmo cadastro.",
         "Pontual: Conhecimento tácito, que depende de quem treinou; sem documentação oficial integrada.",
         "Pontual: Escalonamento chega ao próximo nível sem formatação e precisa ser editado à mão.",
-        "Pontual: Dados de parceiros só acessíveis em planilhas externas."
+        "Pontual: Dados do Caju Mais e do Wellhub só acessíveis em planilhas externas."
        ]
       },
       {
@@ -16690,9 +16708,9 @@ try {
         "Histórico de alterações nativo no Admin (quem alterou e quando).",
         "Validação de campos no cadastro (ex.: e-mail pessoal × corporativo).",
         "Status com descrição do motivo.",
-        "Fonte única de verdade: Admin e portal do RH exibindo os mesmos dados.",
+        "Fonte única de verdade: Admin e Sponsor App exibindo os mesmos dados.",
         "Documentação interna acessível direto no fluxo de trabalho.",
-        "Dados de parceiros visíveis no Admin, sem consultas externas."
+        "Dados de parceiros visíveis no Admin, sem consultas no Databricks."
        ]
       }
      ]
@@ -16718,11 +16736,11 @@ try {
        "Máxima"
       ],
       [
-       "Dependência do CRM",
+       "Dependência do Salesforce",
        "Máxima"
       ]
      ],
-     "story": "Dolores é a ponte entre o RH das empresas clientes e as soluções da Caju — e opera com dependência máxima do Admin. Seu dia é marcado por múltiplas abas abertas, planilhas paralelas e dados espalhados em sistemas que nem sempre conversam entre si. Ela quer ser rápida e assertiva, mas esbarra constantemente na falta de uma visão unificada do cliente: quem é a empresa, quem são os admins, qual o status do cadastro. Sem uma base de conhecimento confiável e centralizada, o chat interno vira sua fonte da verdade — e isso diz muito. Acredita que o fluxo \"feliz\" do cliente começa com ela tendo as informações certas, no lugar certo, na hora certa.",
+     "story": "Dolores é a ponte entre o RH das empresas clientes e as soluções da Caju — e opera com dependência máxima do Admin. Seu dia é marcado por múltiplas abas abertas, planilhas paralelas e dados espalhados em sistemas que nem sempre conversam entre si. Ela quer ser rápida e assertiva, mas esbarra constantemente na falta de uma visão unificada do cliente: quem é a empresa, quem são os admins, qual o status do cadastro. Sem uma base de conhecimento confiável e centralizada, o Slack vira sua fonte da verdade — e isso diz muito. Acredita que o fluxo \"feliz\" do cliente começa com ela tendo as informações certas, no lugar certo, na hora certa.",
      "illustration": null,
      "icon": "support-line",
      "cols": [
@@ -16731,7 +16749,7 @@ try {
        "items": [
         "Atender vários clientes ao mesmo tempo sem perder o contexto de nenhum.",
         "Resolver contestações com histórico, sem investigação manual.",
-        "Eliminar processos manuais recorrentes, como notas fiscais e respostas prontas guardadas fora do sistema.",
+        "Eliminar processos manuais recorrentes, como notas fiscais e respostas prontas guardadas no Google Keep.",
         "Ter a visão completa do cliente em um só lugar, sem cruzar abas."
        ]
       },
@@ -16741,10 +16759,10 @@ try {
         "Recorrente: Sem histórico de alterações — qualquer contestação de cliente vira investigação manual.",
         "Recorrente: Emissão e cancelamento de notas fiscais feitos à mão, de 35 a 60 notas por empresa.",
         "Recorrente: Várias abas do Admin abertas ao mesmo tempo, uma por CNPJ, para atender clientes simultâneos.",
-        "Recorrente: Dados cadastrais (ex.: nome social, CPF) divergentes entre o Admin e o portal do RH.",
+        "Recorrente: Dados cadastrais (ex.: nome social, CPF) divergentes entre o Admin e o Sponsor App.",
         "Recorrente: Dependência total do Admin, sem alternativa quando algo falha.",
-        "Pontual: Cerca de 37% dos chamados de parceiros não deveriam chegar ao atendimento, e o parceiro não tem prazo definido.",
-        "Pontual: Respostas prontas mantidas em notas pessoais, porque a busca do CRM não ajuda.",
+        "Pontual: Cerca de 37% dos chamados do Wellhub não deveriam chegar ao atendimento, e o parceiro não tem prazo definido.",
+        "Pontual: Respostas prontas mantidas no Google Keep, porque a busca do Salesforce não ajuda.",
         "Pontual: Sem histórico de contratos no Admin — não dá para confirmar o que foi contratado e quando."
        ]
       },
@@ -16754,10 +16772,10 @@ try {
         "Histórico de alterações nativo: quem alterou, o quê e quando.",
         "Emissão e cancelamento de notas fiscais automatizados.",
         "Visão consolidada por cliente, sem abrir um Admin por CNPJ.",
-        "Fonte única: Admin e portal do RH com os mesmos dados cadastrais.",
+        "Fonte única: Admin e Sponsor App com os mesmos dados cadastrais.",
         "Base de conhecimento integrada ao fluxo de trabalho.",
         "Histórico e contratos da empresa visíveis no Admin.",
-        "Andamento dos casos com parceiros visível direto no sistema."
+        "Andamento dos casos com o Wellhub visível direto no sistema."
        ]
       }
      ]
@@ -16786,11 +16804,11 @@ try {
        "Máxima"
       ],
       [
-       "Dependência do CRM",
+       "Dependência do Salesforce",
        "Máxima"
       ]
      ],
-     "story": "Márcia é quem fica entre o cliente e o valor que ele ainda não enxerga no produto Caju — e tem dependência máxima do Admin para fazer esse trabalho. Seu dia vai da implementação às reuniões executivas de resultados, passando por treinamentos, retenção e expansão, mas esbarra na falta de autonomia para resolver situações críticas sem depender de outras áreas ou de processos manuais que travam o que deveria fluir. Opera num ecossistema extenso de ferramentas — CRM, painéis de dados, assinatura eletrônica e mais —, costurando informações que deveriam estar integradas. Quer provar valor, construir cases e expandir contas, mas sente que é difícil ser especialista quando faltam referências de preço, acompanhamento de satisfação e dados confiáveis para sustentar o discurso.",
+     "story": "Márcia é quem fica entre o cliente e o valor que ele ainda não enxerga no produto Caju — e tem dependência máxima do Admin para fazer esse trabalho. Seu dia vai da implementação às reuniões executivas de resultados, passando por treinamentos, retenção e expansão, mas esbarra na falta de autonomia para resolver situações críticas sem depender de outras áreas ou de processos manuais que travam o que deveria fluir. Opera num ecossistema extenso de ferramentas — Salesforce, Metabase, Databricks, Docusign e mais —, costurando informações que deveriam estar integradas. Quer provar valor, construir cases e expandir contas, mas sente que é difícil ser especialista quando faltam referências de preço, acompanhamento de satisfação e dados confiáveis para sustentar o discurso.",
      "illustration": null,
      "icon": "chart-up-line",
      "cols": [
@@ -16800,14 +16818,14 @@ try {
         "Ter visão 360° do cliente em um só lugar, sem navegar entre várias ferramentas para montar o contexto.",
         "Reduzir o trabalho operacional para ganhar tempo estratégico.",
         "Gerenciar grupos econômicos com vários CNPJs sem consultar unidade por unidade.",
-        "Reter clientes com um processo estruturado, sem idas e vindas entre chat, CRM e cliente."
+        "Reter clientes com um processo estruturado, sem idas e vindas entre Slack, Salesforce e cliente."
        ]
       },
       {
        "title": "Dores",
        "items": [
         "Recorrente: Sem histórico de alterações — não sabe quem editou um dado.",
-        "Recorrente: Contexto do cliente espalhado em várias ferramentas, sem fonte única.",
+        "Recorrente: Contexto do cliente espalhado entre Salesforce, Metabase, Slack, Notion e WhatsApp, sem fonte única.",
         "Recorrente: Visão fragmentada de grupos econômicos: cada CNPJ consultado separadamente.",
         "Recorrente: A maior parte do tempo vai para tarefas operacionais, sem autonomia para ações simples.",
         "Pontual: Criação manual de assinaturas CNPJ por CNPJ — repetitiva e sujeita a erro.",
@@ -16853,11 +16871,11 @@ try {
        "Máxima"
       ],
       [
-       "Dependência do CRM",
+       "Dependência do Salesforce",
        "Máxima"
       ]
      ],
-     "story": "Jaqueline monitora cada cartão físico que sai — e entra em ação antes que o colaborador perceba que algo deu errado. Com dependência máxima do Admin, opera ao mesmo tempo em painéis de dados, plataformas de transportadoras, CRM e planilhas para rastrear pedidos, confirmar remessas e evitar escalonamentos. Sua maior dor é a falta de rastreabilidade e de histórico dentro do próprio Admin, o que a força a buscar dados em vários sistemas para ter uma visão que deveria estar em um só lugar.",
+     "story": "Jaqueline monitora cada cartão físico que sai — e entra em ação antes que o colaborador perceba que algo deu errado. Com dependência máxima do Admin, opera ao mesmo tempo em Databricks, Mobi, Salesforce, Flash e planilhas para rastrear pedidos, confirmar remessas e evitar escalonamentos. Sua maior dor é a falta de rastreabilidade e de histórico dentro do próprio Admin, o que a força a buscar dados em vários sistemas para ter uma visão que deveria estar em um só lugar.",
      "illustration": null,
      "icon": "delivery-line",
      "cols": [
@@ -16873,7 +16891,7 @@ try {
       {
        "title": "Dores",
        "items": [
-        "Recorrente: Tudo manual no Admin, sem integração entre plataformas nem com o CRM.",
+        "Recorrente: Tudo manual no Admin, sem integração entre plataformas nem com o Salesforce.",
         "Recorrente: Sem integração com transportadoras — status atualizado à mão, sem notificação automática.",
         "Pontual: Ação em lote de alto impacto fica colada a uma ação comum e não pede confirmação — um clique errado afeta a base inteira.",
         "Pontual: Colaborador com histórico anterior fica com a elegibilidade bloqueada sem nenhum aviso ao RH.",
@@ -16885,7 +16903,7 @@ try {
       {
        "title": "Necessidades",
        "items": [
-        "Integração automática com transportadoras: status em tempo real no Admin e no CRM.",
+        "Integração automática com transportadoras: status em tempo real no Admin e no Salesforce.",
         "Operações em lote com confirmação, sem risco de disparo acidental.",
         "Alerta automático de prazo vencido.",
         "Comprovante de entrega com dados verificáveis.",
@@ -16920,11 +16938,11 @@ try {
        "Moderada"
       ],
       [
-       "Dependência do CRM",
+       "Dependência do Salesforce",
        "Baixa"
       ]
      ],
-     "story": "Serena é quem garante que cada centavo da Caju esteja no lugar certo — faturado, cobrado e conciliado. Com dependência moderada do Admin, transita entre o Admin, o ERP, a ferramenta de cobrança, painéis de dados e o CRM para dar conta de um fluxo que mistura obrigações fiscais, regulatórias e demandas internas que nem sempre chegam completas. Seu maior inimigo é o processo manual e urgente que a impede de evoluir o que realmente importa: a saúde contábil da operação.",
+     "story": "Serena é quem garante que cada centavo da Caju esteja no lugar certo — faturado, cobrado e conciliado. Com dependência moderada do Admin, transita entre o Admin, o NetSuite, a Vindi, o Databricks e o Salesforce para dar conta de um fluxo que mistura obrigações fiscais, regulatórias e demandas internas que nem sempre chegam completas. Seu maior inimigo é o processo manual e urgente que a impede de evoluir o que realmente importa: a saúde contábil da operação.",
      "illustration": null,
      "icon": "bank-line",
      "cols": [
@@ -16932,7 +16950,7 @@ try {
        "title": "Objetivos",
        "items": [
         "Automatizar conciliações e processos críticos, sem cruzamento manual entre bases.",
-        "Ter integrações confiáveis entre o Admin, o ERP e o sistema de chamados, sem conferência manual.",
+        "Ter integrações confiáveis entre o Admin, o NetSuite e o Jira, sem conferência manual.",
         "Cumprir prazos fiscais com processos estruturados, não na base do esforço.",
         "Saber quem é responsável quando algo quebra no Admin."
        ]
@@ -16946,9 +16964,9 @@ try {
         "Recorrente: Monitoramento do lastro e dos saldos feito à mão, sem alertas, embora a disponibilidade de papéis no mercado varie.",
         "Recorrente: Conciliação de contas de impostos manual, com risco de erro e retrabalho.",
         "Recorrente: Demandas chegam incompletas e os dados estão descentralizados.",
-        "Recorrente: Sem integração entre o sistema de chamados e o ERP para conciliar pagamentos, e os aprovadores são gerenciados à mão.",
+        "Recorrente: Sem integração entre o Jira e o NetSuite para conciliar pagamentos, e os aprovadores são gerenciados à mão.",
         "Recorrente: Apuração de impostos exige três avaliações, com prazos fechados pelos órgãos fiscais e sem processo estruturado.",
-        "Pontual: Conferência manual entre o Admin e o ERP; cobrança feita fora do sistema, por e-mail e mensagem.",
+        "Pontual: Conferência manual entre o Admin e o NetSuite; cobrança feita fora do sistema, por e-mail e WhatsApp.",
         "Pontual: Sem relatório estável de assinaturas canceladas; sem ações em lote em faturas e boletos."
        ]
       },
@@ -16957,7 +16975,7 @@ try {
        "items": [
         "Responsável definido por área e por tipo de problema.",
         "Ambiente de testes separado, sem dados de teste em produção.",
-        "Integração entre o Admin e o ERP, com conciliação automática.",
+        "Integração entre o Admin e o NetSuite, com conciliação automática.",
         "Relatório de assinaturas canceladas direto no Admin.",
         "Ações em lote no faturamento, como prorrogação e gestão de dívidas.",
         "Monitoramento automatizado de saldos, com alertas.",
@@ -16990,11 +17008,11 @@ try {
        "Máxima"
       ],
       [
-       "Dependência do CRM",
+       "Dependência do Salesforce",
        "Máxima"
       ]
      ],
-     "story": "Camila é quem vigia o que os outros não veem — e age antes que o problema se torne prejuízo. Com dependência máxima do Admin, seu trabalho exige dados claros, rastreáveis e consolidados, mas esbarra em informações espalhadas e em etapas que acontecem fora do sistema. Opera em um ecossistema denso de ferramentas de dados e de verificação de identidade, além do CRM, costurando informações que deveriam estar integradas.",
+     "story": "Camila é quem vigia o que os outros não veem — e age antes que o problema se torne prejuízo. Com dependência máxima do Admin, seu trabalho exige dados claros, rastreáveis e consolidados, mas esbarra em informações espalhadas e em etapas que acontecem fora do sistema. Opera em um ecossistema denso de ferramentas, como Databricks, Big Data, Unico, CAF e Certta, além do Salesforce, costurando informações que deveriam estar integradas.",
      "illustration": null,
      "icon": "lock-line",
      "cols": [
@@ -17013,12 +17031,12 @@ try {
        "items": [
         "Recorrente: Sem trilha de auditoria — não dá para saber quem cadastrou ou alterou o quê.",
         "Recorrente: O Admin mostra os dados, mas permite poucas ações — funciona mais como espelho do que como ferramenta. A satisfação com ele é de 2,56 de 5, a mais baixa entre as áreas.",
-        "Recorrente: Casos acompanhados em planilhas, sem fila estruturada nem atribuição de responsáveis.",
+        "Recorrente: Casos acompanhados no Excel, sem fila estruturada nem atribuição de responsáveis.",
         "Recorrente: Dados do colaborador fragmentados: benefícios, Pix e saldo em telas separadas, e o histórico de contestações não aparece.",
         "Recorrente: 6.395 contas sem encerramento real no Banco Central — desativar não conta para o regulador.",
         "Pontual: Ações repetidas caso a caso, sem operação em lote.",
         "Pontual: Cerca de 200 cadastros de PEP e sanções verificados à mão por dia, e uma falha no fluxo pula a etapa de documentos.",
-        "Pontual: Regras de prevenção configuradas numa ferramenta de dados, fora do Admin — o time criou as próprias automações por necessidade.",
+        "Pontual: Regras de prevenção configuradas no Databricks, fora do Admin — o time criou as próprias automações por necessidade.",
         "Pontual: Risco de LGPD — o acesso livre ao campo de investigação expõe dados sigilosos entre analistas."
        ]
       },
@@ -17031,7 +17049,7 @@ try {
         "Registro do motivo de cada ação, não só de que ela foi feita.",
         "Encerramento definitivo de contas, com reflexo no Banco Central.",
         "Perfil de administrador com permissões por tipo de dado.",
-        "Regras de prevenção configuradas dentro do Admin, sem depender de ferramentas de dados externas."
+        "Regras de prevenção configuradas dentro do Admin, sem depender do Databricks."
        ]
       }
      ]
@@ -17060,15 +17078,15 @@ try {
        "Mínima"
       ],
       [
-       "Dependência do CRM",
+       "Dependência do Salesforce",
        "Máxima"
       ],
       [
-       "Dependência da agenda",
+       "Dependência do Meetime",
        "Máxima"
       ]
      ],
-     "story": "Mariana é a primeira voz que o lead ouve — e a responsável por garantir que ele chegue ao vendedor pronto para fechar. Com baixa dependência do Admin, mas máxima do CRM e da ferramenta de agendamento, seu maior problema está justamente aí: processos manuais, campos duplicados, cadências que não funcionam e consultas em dois lugares ao mesmo tempo. O que mais escuta dos clientes é \"não entendi\" — e sabe que a causa está nas informações desatualizadas que chegam até ela. Quer centralizar, automatizar e passar dados limpos adiante, mas o sistema ainda a obriga a compensar com planilhas o que a ferramenta não entrega.",
+     "story": "Mariana é a primeira voz que o lead ouve — e a responsável por garantir que ele chegue ao vendedor pronto para fechar. Com baixa dependência do Admin, mas máxima do Salesforce e do Meetime, seu maior problema está justamente aí: processos manuais, campos duplicados, cadências que não funcionam e consultas em dois lugares ao mesmo tempo. O que mais escuta dos clientes é \"não entendi\" — e sabe que a causa está nas informações desatualizadas que chegam até ela. Quer centralizar, automatizar e passar dados limpos adiante, mas o sistema ainda a obriga a compensar com planilhas o que a ferramenta não entrega.",
      "illustration": null,
      "icon": "calendar-check-line",
      "cols": [
@@ -17086,23 +17104,23 @@ try {
        "items": [
         "Recorrente: Dados de cliente duplicados ou desatualizados.",
         "Recorrente: Verificar se o lead já é cliente exige consultar várias abas.",
-        "Recorrente: A mesma informação é preenchida em várias ferramentas, sem integração.",
-        "Pontual: CNPJ não obrigatório no CRM, o que gera contas e oportunidades duplicadas.",
+        "Recorrente: A mesma informação é preenchida no Meetime, no Salesforce e no SPNota, sem integração.",
+        "Pontual: CNPJ não obrigatório no Salesforce, o que gera contas e oportunidades duplicadas.",
         "Pontual: Higienização de listas totalmente manual.",
         "Pontual: Leads perdidos ficam sem caminho de retomada.",
         "Pontual: Ex-clientes mantêm acesso ativo por até 3 anos, o que confunde a qualificação do lead.",
-        "Pontual: Uso de IA no time sem padrão — cada pessoa usa uma ferramenta diferente por conta própria."
+        "Pontual: Uso de IA no time sem padrão — cada pessoa usa uma ferramenta diferente, como Gemini ou ChatGPT, por conta própria."
        ]
       },
       {
        "title": "Necessidades",
        "items": [
-        "Verificação automática de \"já é cliente\" integrada ao CRM.",
+        "Verificação automática de \"já é cliente\" integrada ao Salesforce.",
         "Cadência automática e sincronizada, sem depender de memória ou planilha.",
-        "CNPJ obrigatório e deduplicação automática no CRM.",
+        "CNPJ obrigatório e deduplicação automática no Salesforce.",
         "Higienização de listas automatizada.",
         "Encerramento automático do acesso depois do churn, sem ex-cliente ativo por anos.",
-        "Campos do CRM ajustados por cenário, não universais para todas as áreas.",
+        "Campos do Salesforce ajustados por cenário, não universais para todas as áreas.",
         "Uso de IA padronizado no time."
        ]
       }
@@ -17132,11 +17150,11 @@ try {
        "Mínima"
       ],
       [
-       "Dependência do CRM",
+       "Dependência do Salesforce",
        "Máxima"
       ]
      ],
-     "story": "Socorro é o ponto-chave entre o cliente que considera usar a Caju e o momento em que ele realmente usa — e carrega esse papel com intenção. Com baixa dependência do Admin para ativar vendas, mas alta dependência do CRM para expansão, seu maior obstáculo é a fragmentação: dados de porte pouco confiáveis no CRM, informações de uso espalhadas entre Admin, CRM e painéis de dados, e processos repetitivos que dependem de outras pessoas para avançar. Quer ter uma atuação consultiva, mas ainda gasta energia demais operando — preenchendo campos redundantes, consolidando planilhas e compensando o que a integração entre ferramentas não entrega.",
+     "story": "Socorro é o ponto-chave entre o cliente que considera usar a Caju e o momento em que ele realmente usa — e carrega esse papel com intenção. Com baixa dependência do Admin para ativar vendas, mas alta dependência do Salesforce para expansão, seu maior obstáculo é a fragmentação: dados de porte pouco confiáveis no Salesforce, informações de uso espalhadas entre Admin, Salesforce e Metabase, e processos repetitivos que dependem de outras pessoas para avançar. Quer ter uma atuação consultiva, mas ainda gasta energia demais operando — preenchendo campos redundantes, consolidando planilhas e compensando o que a integração entre ferramentas não entrega.",
      "illustration": null,
      "icon": "shop-line",
      "cols": [
@@ -17146,7 +17164,7 @@ try {
         "Ter visão consolidada por grupo econômico, sem abrir CNPJ por CNPJ para entender o cliente.",
         "Automatizar o que vem depois do fechamento, sem risco de esquecer de ativar o que foi vendido.",
         "Ter um forecast confiável, sem datas de fechamento chutadas só para preencher campo obrigatório.",
-        "Centralizar negociação e acompanhamento no CRM, sem ferramentas paralelas."
+        "Centralizar negociação e acompanhamento no Salesforce, sem ferramentas paralelas."
        ]
       },
       {
@@ -17158,8 +17176,8 @@ try {
         "Recorrente: Produtos parecidos seguem lógicas diferentes para criar assinatura.",
         "Pontual: Cotação não editável — qualquer mudança gera dias de retrabalho do zero.",
         "Pontual: Data de fechamento obrigatória preenchida no chute, o que deixa o forecast pouco confiável.",
-        "Pontual: Repasse para CS feito fora do CRM, em ferramentas paralelas.",
-        "Pontual: Agenda não integrada ao CRM — reuniões duplicadas à mão.",
+        "Pontual: Repasse para CS feito fora do Salesforce, em ferramentas paralelas como Meet Rocks e Trello.",
+        "Pontual: Google Agenda não integrado ao Salesforce — reuniões duplicadas à mão.",
         "Pontual: Campos redundantes preenchidos só para conseguir avançar."
        ]
       },
@@ -17167,11 +17185,11 @@ try {
        "title": "Necessidades",
        "items": [
         "Visão consolidada de grupo econômico: todos os CNPJs e planos ativos em uma tela.",
-        "Ativação automática de funcionalidades após o fechamento, disparada pelo CRM.",
-        "Integração da agenda com o CRM.",
+        "Ativação automática de funcionalidades após o fechamento, disparada pelo Salesforce.",
+        "Integração do Google Agenda com o Salesforce.",
         "Cotação editável, sem retrabalho a cada ajuste na negociação.",
         "Forecast por oportunidade, não pelo potencial total da conta.",
-        "Repasse para CS centralizado no CRM.",
+        "Repasse para CS centralizado no Salesforce.",
         "Automação de tarefas recorrentes.",
         "Campos obrigatórios só quando fazem sentido, sem redundância."
        ]
@@ -17202,11 +17220,11 @@ try {
        "Baixa"
       ],
       [
-       "Dependência do CRM",
+       "Dependência do Salesforce",
        "Alta"
       ]
      ],
-     "story": "Natália equilibra múltiplas campanhas, jornadas e gatilhos ao mesmo tempo — e torce para que nenhum caia. Com alta dependência do CRM e da plataforma de automação de marketing, seu trabalho é transformar dados em comunicações certeiras, mas esbarra num processo ainda muito manual e operacional: dados de leads que não viram gatilho, e-mails enviados na hora errada e respostas que a plataforma não contabiliza. Quer vender bem e apoiar a venda, mas passa boa parte do tempo remediando o que a integração entre ferramentas deveria resolver.",
+     "story": "Natália equilibra múltiplas campanhas, jornadas e gatilhos ao mesmo tempo — e torce para que nenhum caia. Com alta dependência do Salesforce e do Marketing Cloud, seu trabalho é transformar dados em comunicações certeiras, mas esbarra num processo ainda muito manual e operacional: dados de leads que não viram gatilho, e-mails enviados na hora errada e respostas que o Marketing Cloud não contabiliza. Quer vender bem e apoiar a venda, mas passa boa parte do tempo remediando o que a integração entre ferramentas deveria resolver.",
      "illustration": null,
      "icon": "megaphone-line",
      "cols": [
@@ -17214,7 +17232,7 @@ try {
        "title": "Objetivos",
        "items": [
         "Automatizar a criação e o disparo de campanhas, sem fragmentação entre plataformas.",
-        "Usar os dados já disponíveis na plataforma de automação, sem reimportações.",
+        "Usar os dados já disponíveis no Marketing Cloud, sem reimportações.",
         "Construir réguas que funcionam, com critério de saída — lead convertido não recebe mais comunicação.",
         "Ter uma governança que funcione sem precisar treinar os solicitantes de novo a cada vez."
        ]
@@ -17222,10 +17240,10 @@ try {
       {
        "title": "Dores",
        "items": [
-        "Recorrente: A plataforma tem mais recursos do que o time consegue operar; integrações existem, mas não estão habilitadas.",
+        "Recorrente: O Marketing Cloud tem mais recursos do que o time consegue operar; integrações existem, mas não estão habilitadas.",
         "Recorrente: Solicitantes repetem erros de nomenclatura mesmo depois de treinados.",
         "Recorrente: Processo de campanhas manual e fragmentado entre várias plataformas.",
-        "Pontual: O editor de jornadas não salva automaticamente — uma interrupção apaga o trabalho feito.",
+        "Pontual: O Journey Builder não salva automaticamente — uma interrupção apaga o trabalho feito.",
         "Pontual: Dados já integrados são reimportados por falta de saber consumi-los direto.",
         "Pontual: Jornadas sem critério de saída.",
         "Pontual: Migração de templates entre unidades feita à mão, recriando tudo do zero.",
@@ -17236,11 +17254,11 @@ try {
        "title": "Necessidades",
        "items": [
         "Jornadas de comunicação com critérios de entrada e saída configurados por padrão.",
-        "Dados integrados prontos para consumo direto na plataforma.",
-        "Salvamento automático no editor de jornadas.",
+        "Dados integrados prontos para consumo direto no Marketing Cloud.",
+        "Salvamento automático no Journey Builder.",
         "Portabilidade de templates entre unidades.",
         "Alinhamento com Pré-vendas sobre ferramentas e comunicações.",
-        "Apoio técnico para usar recursos que a plataforma já tem.",
+        "Apoio técnico para usar recursos que o Marketing Cloud já tem.",
         "Regras de nomenclatura garantidas pelo próprio sistema, sem depender de treinamento."
        ]
       }
@@ -17248,7 +17266,7 @@ try {
     }
    },
    {
-    "note": "Fonte: Castanha Hub · Visão Cliente (Personas). Versão pública: sem dados de pesquisa interna, potencial comercial dos ICPs, nomes de parceiros e fornecedores, links internos nem os depoimentos das entrevistas. As fotos do Hub viraram as ilustrações dos personagens da biblioteca de ilustrações."
+    "note": "Fonte: Castanha Hub · Visão Cliente (Personas). As personas são fictícias. Ficam de fora o potencial comercial dos ICPs, os links internos e os depoimentos das entrevistas. As fotos do Hub viraram as ilustrações dos personagens da biblioteca de ilustrações."
    }
   ]
  }
@@ -17698,4 +17716,4 @@ try {
 
 /* ==== docs sob demanda (gerado) ==== */
 window.CDS = window.CDS || {}; CDS.docsIndex = {"backdrop":{"src":"components/backdrop/backdrop.docs.js?v=65945f2f","desc":"Backdrop é um componente de superfície utilizado para criar uma camada de bloqueio visual entre o conteúdo base da interface e elementos em primeiro plano, como modais e drawers."},"badge":{"src":"components/badge/badge.docs.js?v=5ee287e7","desc":"O Badge é um elemento visual usado exclusivamente para indicar notificações ou atualizações. Ele serve como um alerta discreto que informa a pessoa usuária sobre algo novo ou pendente em um determinado contexto da interface."},"caju-brand":{"src":"components/caju-brand/caju-brand.docs.js?v=a44569e9","desc":"O Caju Brand é um elemento visual fundamental que representa a identidade da Caju dentro dos fluxos do produto. Ele garante consistência no uso da marca, evitando distorções, cores inadequadas ou aplicações incorretas."},"calendar-day":{"src":"components/calendar-day/calendar-day.docs.js?v=abc00938","desc":"Cada dia do Date Picker: número, estado de seleção e o ponto do dia atual."},"calendar-week":{"src":"components/calendar-week/calendar-week.docs.js?v=68d3811f","desc":"Uma linha de 7 dias do Date Picker."},"card":{"src":"components/card/card.docs.js?v=f96742ea","desc":"O componente Card é um contêiner visual usado para agrupar informações relacionadas de forma clara e compacta."},"credit-card-flags":{"src":"components/card-flag/card-flag.docs.js?v=9cf412ba","desc":"Simula visualmente qualquer cartão e pode simbolizar uma bandeira específica."},"currency":{"src":"components/currency/currency.docs.js?v=82d20ffb","desc":"O Currency é um componente de exibição utilizado para apresentar valores monetários de forma padronizada, legível e consistente nas interfaces da Caju."},"currency-content":{"src":"components/currency-content/currency-content.docs.js?v=1c192490","desc":"Valor em moeda com o símbolo, o sinal de negativo opcional e uma descrição embaixo."},"currency-symbol":{"src":"components/currency-symbol/currency-symbol.docs.js?v=18f12baa","desc":"Símbolo da moeda usado nas células de valor da Table."},"divider":{"src":"components/divider/divider.docs.js?v=658da706","desc":"O componente Divider é uma linha fina que separa visualmente agrupamentos de conteúdo em uma interface. Ele atua como uma âncora visual, ajudando a pessoa usuária a escanear e compreender a hierarquia e o relacionamento entre os elementos da página."},"icon":{"src":"components/icon/icon.docs.js?v=6c4b763a","desc":"Icon (ícone) é uma representação visual direta que auxilia na comunicação de ações, estados, tipos de conteúdo ou categorias."},"avatar":{"src":"components/avatar/avatar.docs.js?v=115ebd44","desc":"O Avatar é um componente utilizado para representar visualmente uma pessoa usuária, seja por meio de imagem, iniciais ou ícone padrão. Ele agiliza a identificação de perfis em áreas onde o contexto pessoal é relevante."},"breadcrumb-item":{"src":"components/breadcrumb-item/breadcrumb-item.docs.js?v=d989392b","desc":"Cada nível do Breadcrumb: separador e conteúdo (link, página atual ou o \"…\" do Truncate)."},"caju-card":{"src":"components/caju-card/caju-card.docs.js?v=893becf1","desc":"O Caju Card simula visualmente os diferentes tipos de cartões da Caju nos cenários físicos e virtuais seguindo as diretrizes das lojinhas de app."},"close-toast":{"src":"components/close-toast/close-toast.docs.js?v=6733b6dc","desc":"Botão de fechar do Toast: 40×40, com o ícone close-line."},"close-alert":{"src":"components/close-alert/close-alert.docs.js?v=7209e59c","desc":"Botão de fechar do Alert: 40×40, com o ícone close-line."},"content-banner":{"src":"components/content-banner/content-banner.docs.js?v=68e995dd","desc":"Building block interno do Banner. Agrupa título, descrição e indicação de CTA."},"csat-item":{"src":"components/csat-item/csat-item.docs.js?v=bb328e74","desc":"Cada nível do CSAT Score: estrela e rótulo."},"csat-score":{"src":"components/csat-score/csat-score.docs.js?v=98367a50","desc":"O CSAT Score é um componente de avaliação utilizado para medir o nível de satisfação da pessoa usuária em relação a uma experiência, funcionalidade ou interação específica, por meio de uma escala ordinal visual representada por ícones e rótulos textuais."},"filter-chips":{"src":"components/filter-chip/filter-chip.docs.js?v=b85e3d05","desc":"Chip que liga e desliga um filtro: selecionado, troca o ícone pelo check e inverte as cores. Tem dois tamanhos: Medium (40) e Small (32)."},"icon-button":{"src":"components/icon-button/icon-button.docs.js?v=ac46ea69","desc":"O Icon Button é um botão compacto que exibe um ícone, sem rótulo de texto. Ele é utilizado para ações pontuais, geralmente secundárias, em interfaces que exigem economia de espaço e onde o significado do ícone é amplamente reconhecido."},"header":{"src":"components/header/header.docs.js?v=0b0ddcc8","desc":"Cabeçalho do Modal e do Bottom Sheet: título, botão de fechar e divisor."},"icons-block":{"src":"components/icons-block/icons-block.docs.js?v=f1f31450","desc":"Ícone do Filter Button: filtro (Default) ou calendário (Date)."},"filter-button":{"src":"components/filter-button/filter-button.docs.js?v=ce828b95","desc":"O Filter Button é um botão que serve como gatilho para filtros e, quando acionado, abre opções para refinar ou ajustar a exibição de conteúdos, listas ou tabelas."},"image":{"src":"components/image/image.docs.js?v=401442e2","desc":"O componente Image é utilizado para exibir imagens estáticas em diferentes contextos do produto, garantindo consistência visual e preservação correta das proporções. Ele oferece controle direto, permitindo que a imagem se adapte a diferentes layouts sem distorção."},"banner":{"src":"components/banner/banner.docs.js?v=68e35d7b","desc":"O Banner destaca conteúdo promocional ou informação relevante em uma área própria da tela. Reúne título, descrição e indicação de ação em um bloco clicável por inteiro, com fundo de cor livre ou imagem de fundo. Serve para atrair a pessoa usuária sem interromper o que ela está fazendo."},"input-chips":{"src":"components/input-chip/input-chip.docs.js?v=b4766617","desc":"Chip que mostra um valor escolhido e pode ser removido com um clique. Tem dois tamanhos: Medium (40) e Small (32)."},"chips-group":{"src":"components/chips-group/chips-group.docs.js?v=10be02b2","desc":"Container que organiza Filter Chips ou Input Chips em uma linha com rolagem ou em várias linhas."},"link":{"src":"components/link/link.docs.js?v=e0439fbd","desc":"O Link é um elemento interativo que direciona o usuário para outro destino, como páginas internas, externas, seções específicas ou downloads."},"list-lead-item":{"src":"components/list-lead-item/list-lead-item.docs.js?v=23969ecf","desc":"Item à esquerda das listas: Avatar, Icon ou Image."},"nav-control-item":{"src":"components/nav-control-item/nav-control-item.docs.js?v=1cf64b82","desc":"Cada indicador do Nav Control: ponto 6×6, que cresce para 16×6 quando ativo."},"nav-control":{"src":"components/nav-control/nav-control.docs.js?v=10f26623","desc":"O Nav Control é um componente visual utilizado como indicador de navegação, normalmente associado a carrosséis ou fluxos paginados. Ele representa, de forma ilustrativa, a quantidade total de itens e qual deles está em foco no momento."},"carousel":{"src":"components/carousel/carousel.docs.js?v=49ed1a06","desc":"Organiza de 3 a 10 itens em sequência horizontal, um por vez, com pré-visualização parcial do próximo."},"nps-value-item":{"src":"components/nps-value-item/nps-value-item.docs.js?v=f5a685e1","desc":"Cada valor do NPS Score: pílula 24 com o número."},"nps-score":{"src":"components/nps-score/nps-score.docs.js?v=6e2990ea","desc":"O NPS Score é um componente de seleção única utilizado para capturar a percepção da pessoa usuária em relação a uma experiência, produto ou serviço, geralmente em uma escala numérica de 0 a 10."},"popover":{"src":"components/popover/popover.docs.js?v=c94fbb76","desc":"Popover é um pequeno overlay contextual que aparece quando o usuário interage com um elemento da interface. Ele permite exibir conteúdos adicionais, ações ou informações complementares de forma leve, sem interromper o fluxo principal da experiência."},"breadcrumb":{"src":"components/breadcrumb/breadcrumb.docs.js?v=1374e5e9","desc":"O Breadcrumb é um componente de navegação que mostra a localização atual do usuário dentro de uma hierarquia ou estrutura de conteúdo. Ele oferece links para os níveis superiores, facilitando a navegação."},"progress-line":{"src":"components/progress-line/progress-line.docs.js?v=155b8299","desc":"O Progress Line é um indicador visual não interativo que representa o progresso de uma operação ao longo do tempo, ajudando a pessoa usuária a entender em que estágio o processo se encontra."},"progress-tracker-item":{"src":"components/progress-tracker-item/progress-tracker-item.docs.js?v=c9030f96","desc":"Etapa individual do Progress Tracker."},"progress-tracker":{"src":"components/progress-tracker/progress-tracker.docs.js?v=396eccbe","desc":"Indica o avanço de uma pessoa em um fluxo de múltiplas etapas, mostrando o que já foi concluído, onde ela está e o que ainda falta."},"checkbox":{"src":"components/checkbox/checkbox.docs.js?v=4fbb35d8","desc":"O checkbox é Componente interativo usado para selecionar ou desmarcar opções. Pode ser preenchido com um checkmark (✔) caso seja selecionado, ou por um traço (—) quando indeterminado. Utilizado em formulários e filtros, permitindo múltiplas seleções."},"radio-button":{"src":"components/radio-button/radio-button.docs.js?v=9f6fe1d4","desc":"Radio Button é um componente interativo usado para permitir ao usuário selecionar uma única opção de um conjunto. Essencial em formulários para escolhas únicas."},"shaped-icon":{"src":"components/shaped-icon/shaped-icon.docs.js?v=68f13907","desc":"O Shaped Icon é um ícone envolto por um fundo colorido e com formato definido, que confere maior ênfase visual e peso hierárquico. Ele é utilizado para evidenciar categorias, ações contextuais ou estados visuais sem depender de interação."},"alert":{"src":"components/alert/alert.docs.js?v=885a20f3","desc":"Mensagem fixa e persistente sobre o sistema, que fica visível até a pessoa usuária ler ou fechar."},"confirmation-message":{"src":"components/confirmation-message/confirmation-message.docs.js?v=5087ae73","desc":"Mostre o resultado de uma ação com ícone, título e descrição centralizados."},"file-lead-item":{"src":"components/file-lead-item/file-lead-item.docs.js?v=7d49330c","desc":"Miniatura do arquivo no Upload Item: imagem ou ícone de anexo, com a ação de ver o arquivo."},"lead-item":{"src":"components/lead-item/lead-item.docs.js?v=f404504e","desc":"Elemento à esquerda do Topic: Shaped Icon ou imagem 40×40."},"skeleton":{"src":"components/skeleton/skeleton.docs.js?v=3c935598","desc":"Placeholder de carregamento que ocupa o espaço de um conteúdo enquanto ele não chegou."},"slider":{"src":"components/slider/slider.docs.js?v=b4725007","desc":"Slider de seleção de valor num intervalo."},"spinner":{"src":"components/spinner/spinner.docs.js?v=1d25a27b","desc":"O Spinner é um indicador visual de atividade não interativa que informa à pessoa usuária que o sistema está processando uma ação em segundo plano."},"main-button":{"src":"components/main-button/main-button.docs.js?v=97f016e6","desc":"Main Button é um componente interativo usado para executar a ações mais importantes em uma tela, formulário ou fluxo."},"date-navigation":{"src":"components/date-navigation/date-navigation.docs.js?v=715e0489","desc":"Navegação do Date Picker: mês anterior, mês, ano e próximo mês."},"date-picker":{"src":"components/date-picker/date-picker.docs.js?v=f141eaf3","desc":"Calendário para escolher uma data ou um intervalo de datas, com navegação por mês e ano."},"drop-button":{"src":"components/drop-button/drop-button.docs.js?v=04fa3964","desc":"O Drop Button é um botão interativo que, ao ser acionado, abre um menu suspenso com opções de ação diretamente relacionadas ao contexto do botão. Ele combina a função de acionador visual com o acesso direto a um conjunto de comandos organizados."},"dropzone":{"src":"components/dropzone/dropzone.docs.js?v=62b11669","desc":"O Dropzone é a área delimitada onde a pessoa usuária adiciona arquivos, pelo botão de seleção ou arrastando o arquivo para dentro dela. A área informa os formatos e limites aceitos antes do envio. O acompanhamento de cada arquivo enviado fica no Upload Item."},"footer":{"src":"components/footer/footer.docs.js?v=4fd316e9","desc":"Rodapé do Modal e do Bottom Sheet: divisor e as ações (primária e secundária)."},"fixed-bar":{"src":"components/fixed-bar/fixed-bar.docs.js?v=dc85cbb8","desc":"A Fixed bar é uma área fixa posicionada na base da interface que agrupa duas ações relacionadas — uma primária e outra secundária. Ela é utilizada para decisões importantes no final de fluxos ou seções, permanecendo sempre acessível para a pessoa usuária."},"sponsor-category":{"src":"components/sponsor-category/sponsor-category.docs.js?v=c7d3f5f5","desc":"Item de navegação do Side Menu. Intent=Default navega direto, e Intent=Accordion abre subitens no Slot."},"sponsor-subcategory":{"src":"components/sponsor-subcategory/sponsor-subcategory.docs.js?v=99829327","desc":"Item de segundo nível do Side Menu, dentro do Slot de um .Category com Intent=Accordion."},"sponsor-user-profile":{"src":"components/sponsor-user-profile/sponsor-user-profile.docs.js?v=040bc349","desc":"Rodapé de identificação do Side Menu: avatar, nome e CNPJ, com ação opcional."},"status-dot":{"src":"components/status-dot/status-dot.docs.js?v=50b743c4","desc":"Indicador compacto de estado, formado por um ponto colorido e um rótulo em texto."},"switch":{"src":"components/switch/switch.docs.js?v=1c8eee92","desc":"O Switch é um componente que funciona como um interruptor digital, alterando imediatamente o estado de uma configuração entre opções binárias, como sim ou não, e ligado ou desligado, sem necessidade de confirmação."},"checkbox-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Checkboxes com um nome para o conjunto: zero, uma ou várias opções."},"radio-button-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Radio Buttons com um nome para o conjunto: exatamente uma opção."},"switch-group":{"src":"components/selection-group/selection-group.docs.js?v=53eaa5f8","desc":"Coluna de Switches com um nome para o conjunto: cada um liga ou desliga uma configuração na hora."},"system-banner":{"src":"components/system-banner/system-banner.docs.js?v=b00a0529","desc":"Aviso do sistema que ocupa a largura toda da página, com a mesma anatomia do Alert."},"tab-item":{"src":"components/tab-item/tab-item.docs.js?v=737b8a53","desc":"Cada aba da Fixed Tab e da Scrollable Tab: Lead Item opcional, Label e o sublinhado."},"fixed-tab":{"src":"components/fixed-tab/fixed-tab.docs.js?v=adf9d425","desc":"O Tabs organiza conteúdos relacionados em seções paralelas dentro da mesma página, permitindo que a pessoa usuária alterne rapidamente entre contextos sem navegação externa."},"scrollable-tab":{"src":"components/scrollable-tab/scrollable-tab.docs.js?v=3607a757","needs":["fixed-tab"],"desc":"Abas no tamanho do conteúdo, com rolagem horizontal. Mesma documentação de Tabs da Fixed Tab."},"tab-view":{"src":"components/tab-view/tab-view.docs.js?v=8e22521c","desc":"Alterna a visualização de uma lista entre lista e grade."},"table-head":{"src":"components/table-head/table-head.docs.js?v=7903b75b","desc":"Título de coluna da Table, com ordenação."},"table-toolbar":{"src":"components/table-toolbar/table-toolbar.docs.js?v=0df2607c","desc":"Barra de ações acima da Table."},"tag":{"src":"components/tag/tag.docs.js?v=5a9e9225","desc":"Tag são rótulos compactos e visualmente distintos usados para rapidamente categorizar, identificar e organizar itens."},"balance-card":{"src":"components/balance-card/balance-card.docs.js?v=c5840ec2","desc":"Exibe o saldo de uma categoria com rótulo, valor e status complementares."},"sponsor-header":{"src":"components/sponsor-header/sponsor-header.docs.js?v=3fcf1aaa","desc":"Cabeçalho de página dos templates web do Sponsor: navegação (voltar, breadcrumb e ações utilitárias) e área de título com as ações da página."},"sponsor-side-menu":{"src":"components/sponsor-side-menu/sponsor-side-menu.docs.js?v=d3d1e6ab","desc":"Navegação lateral do app Sponsor: colapsado (80px, só ícones) e expandido (360px), que no desktop abre por hover em overlay sobre o conteúdo."},"table-cell":{"src":"components/table-cell/table-cell.docs.js?v=14a427a8","desc":"Célula de dados da Table: texto, valor, percentual, Tag, Checkbox, Link ou ações."},"text-content":{"src":"components/text-content/text-content.docs.js?v=fd862195","desc":"Par de textos (Label e Description) com o destaque no Label ou na Description."},"accordion-item":{"src":"components/accordion-item/accordion-item.docs.js?v=824db8ab","desc":"Item de um accordion: um header com título que revela conteúdo adicional (no Slot) ao ser expandido."},"accordion":{"src":"components/accordion/accordion.docs.js?v=44db65bf","desc":"O Accordion agrupa vários Accordion Items em uma lista de seções expansíveis, que a pessoa abre sob demanda."},"code-input-otp":{"src":"components/code-input-otp/code-input-otp.docs.js?v=ee42108f","desc":"Campo de código de verificação (OTP/PIN): uma fileira de células de um caractere, preenchidas uma a uma, para inserir um código curto recebido por SMS, e-mail ou app autenticador."},"credit-card-input":{"src":"components/credit-card-input/credit-card-input.docs.js?v=f10e590f","desc":"Campo para inserir o número de um cartão de crédito."},"date-input":{"src":"components/date-input/date-input.docs.js?v=5085dd0b","desc":"Campo de data da família Text Fields: digitar com máscara dd/mm/aaaa ou escolher no calendário."},"password-input":{"src":"components/password-input/password-input.docs.js?v=afaea942","desc":"O Password Input é um campo de entrada específico para senhas."},"quantity-input":{"src":"components/quantity-input/quantity-input.docs.js?v=d00bba47","desc":"O Quantity Input é um campo numérico com controles de incremento e decremento."},"search-input":{"src":"components/search-input/search-input.docs.js?v=5e1d2ba6","desc":"Campo de busca da família Text Fields: lupa fixa e botão de limpar quando há texto."},"text-area":{"src":"components/text-area/text-area.docs.js?v=beb8d21c","desc":"O Text Area é um campo de entrada multilinha que permite à pessoa usuária digitar textos mais longos, como descrições, observações ou comentários."},"text-input":{"src":"components/text-input/text-input.docs.js?v=9841ec39","desc":"O Text Input é um campo de entrada para coleta de informações textuais curtas fornecidas pela pessoa usuária."},"toast":{"src":"components/toast/toast.docs.js?v=82f85974","desc":"O Toast é um componente de notificação temporária que informa a pessoa usuária sobre o resultado de uma ação ou estado do sistema. Ele aparece de forma discreta na interface e desaparece automaticamente após alguns segundos, sem interromper o fluxo de navegação."},"tooltip":{"src":"components/tooltip/tooltip.docs.js?v=145db2e0","desc":"São caixas flutuantes que proporcionam informações sobre algum aspecto da interface que mereça maior atenção."},"topic":{"src":"components/topic/topic.docs.js?v=34a407f2","desc":"Apresente um tópico com ícone ou imagem, título e descrição."},"trailing-item":{"src":"components/trailing-item/trailing-item.docs.js?v=f3876cc2","desc":"Item à direita das listas: Checkbox, Radio Button, Switch, Icon ou Tag."},"content-list-item":{"src":"components/content-list-item/content-list-item.docs.js?v=a9780daa","desc":"O Content list item é um bloco de conteúdo que organiza informações de forma clara e escaneável dentro de listas. Ele combina elementos como título, descrição, ícone, avatar ou status, ajudando o usuário a identificar de relance itens, conteúdos ou ações relacionadas."},"content-list":{"src":"components/content-list/content-list.docs.js?v=6ad148d0","desc":"O Content List é um componente que agrupa e organiza múltiplos Content List Items em uma estrutura única e consistente. Ele funciona como um container, permitindo que diferentes tipos de conteúdo sejam exibidos de forma clara e hierárquica. Pode conter itens informativos, de navegação ou de transações financeiras, adaptando-se a diferentes contextos de uso."},"selection-list-item":{"src":"components/selection-list-item/selection-list-item.docs.js?v=285ee023","desc":"O Selection List Item é um componente de seleção que combina título, descrição e ícone para enriquecer a apresentação das opções. Ele amplia a clareza das escolhas, indo além de seletores básicos como checkbox, radio ou switch."},"async-creatable-select-input":{"src":"components/async-creatable-select-input/async-creatable-select-input.docs.js?v=b89d5e8e","needs":["async-select-input"],"desc":"Como o Async e, quando o texto digitado não existe nas opções, oferece \"Adicionar “…”\" para criar a opção. Faz parte da família Select Input."},"async-select-input":{"src":"components/async-select-input/async-select-input.docs.js?v=5ef84b74","desc":"O Select input permite que a pessoa usuária escolha uma ou mais opções a partir de uma lista pré-definida."},"checkbox-select-input":{"src":"components/checkbox-select-input/checkbox-select-input.docs.js?v=b47659af","needs":["async-select-input"],"desc":"Vários valores sem busca: a lista fica aberta enquanto marca, e o campo mostra quantos foram selecionados. Faz parte da família Select Input."},"multi-select-input":{"src":"components/multi-select-input/multi-select-input.docs.js?v=aff1ad3a","needs":["async-select-input"],"desc":"Vários valores com busca: cada escolha vira um Input Chip dentro do campo. Faz parte da família Select Input."},"radio-select-input":{"src":"components/radio-select-input/radio-select-input.docs.js?v=60d32c71","needs":["async-select-input"],"desc":"Escolha única sem busca: o campo abre a lista de opções, com Radio Button. Faz parte da família Select Input."},"select-number":{"src":"components/select-number/select-number.docs.js?v=2910fc7a","desc":"Seletor de número do Pagination (itens por página e página atual), com lista em Popover."},"pagination":{"src":"components/pagination/pagination.docs.js?v=1acb2983","desc":"O Pagination (paginação) permite navegar entre conjuntos de dados distribuídos em várias páginas, otimizando a performance da visualização e facilitando o consumo de grandes volumes de dados."},"selection-list":{"src":"components/selection-list/selection-list.docs.js?v=3a43fe13","desc":"O Selection List é um agrupamento de opções organizadas em lista, permitindo que o usuário faça uma ou múltiplas seleções de forma clara e consistente. Ele é formado por instâncias do componente Selection List Item empilhados e separados por divisores visuais, facilitando a leitura e a comparação entre alternativas."},"table":{"src":"components/table/table.docs.js?v=48e10ae5","desc":"O componente de Tabela organiza dados estruturados em colunas e linhas, facilitando a leitura, comparação e análise. É ideal para exibir informações com formato uniforme, como listas, transações ou relatórios."},"upload-item":{"src":"components/upload-item/upload-item.docs.js?v=e328a912","desc":"O Upload Item representa um arquivo dentro do fluxo de upload, do envio em curso até o arquivo já armazenado. Ele mostra o nome, a extensão, o estado do envio e as ações disponíveis para aquele arquivo."},"upload-list":{"src":"components/upload-list/upload-list.docs.js?v=fa3ec45d","desc":"Agrupa os Upload Items de um fluxo, com ordem e espaçamento consistentes."},"viewport-restriction":{"src":"components/viewport-restriction/viewport-restriction.docs.js?v=03b58a4b","desc":"Aviso de que o componente não está disponível no viewport atual."},"bottom-sheet":{"src":"components/bottom-sheet/bottom-sheet.docs.js?v=95865ce3","desc":"Camada que surge da base da tela para apresentar conteúdo ou ações complementares sem tirar a pessoa do contexto. A tela de fundo continua visível."},"drawer":{"src":"components/drawer/drawer.docs.js?v=69db3d04","desc":"O Drawer é um painel lateral deslizante utilizado para expor conteúdos complementares ou etapas adicionais dentro de um fluxo principal, sem interromper a tela atual. Ele aparece sobreposto à interface e permite que a pessoa usuária mantenha o contexto enquanto realiza uma interação específica."},"modal":{"src":"components/modal/modal.docs.js?v=fc145684","desc":"O Modal é um componente de sobreposição que bloqueia a interface base para exibir conteúdos focados, como formulários, informações detalhadas ou confirmações. Ele exige atenção da pessoa usuária antes de retornar ao fluxo principal."},"modal-date-picker":{"src":"components/modal-date-picker/modal-date-picker.docs.js?v=d1e58383","desc":"Calendário num Modal, com Cancelar e Confirmar: a data vale depois de confirmada."}};
-CDS.searchIndex = "dist/search.json?v=cf0f4755"; /* 1613 seções */
+CDS.searchIndex = "dist/search.json?v=f948ad17"; /* 1613 seções */

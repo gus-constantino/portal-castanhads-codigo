@@ -437,7 +437,8 @@
       if (v.href){ var l = el("cds-link", "pg-doc-release__link"); l.setAttribute("label", v.cta || "Abrir"); l.setAttribute("href", v.href); l.setAttribute("target", "_blank"); l.setAttribute("icon", "link-line"); l.setAttribute("appearance", "neutral"); c.appendChild(l); }
       return c;
     },
-    // Persona: Card do DS com ilustração, nome, apelido (Tag), frase, dados, história e colunas Objetivos · Dores · Necessidades
+    // Persona: Card do DS com ilustração, nome, apelido (Tag), frase e dados. Objetivos · Dores · Necessidades · História
+    // ficam em abas (Scrollable Tab do DS, contagem no Badge), uma por vez. Dores com "Recorrente:"/"Pontual:" viram Tag
     persona: function(d, v){
       var ills = {}; ((window.CDS.assets || {}).illustrations || []).forEach(function(i){ ills[i.name] = i.src; });
       var c = el("cds-card", "pg-doc-persona"); c.setAttribute("has-border", "true"); c.id = "persona-" + v.id;
@@ -453,15 +454,74 @@
         var dl = id.appendChild(el("dl", "pg-doc-persona__data"));
         v.data.forEach(function(p){ dl.appendChild(el("dt", null, p[0])); dl.appendChild(el("dd", null, p[1])); });
       }
-      if (v.story) c.appendChild(rich(el("p", "pg-doc-p"), v.story));
-      var cols = c.appendChild(el("div", "pg-doc-persona__cols"));
+      var panes = [];
       (v.cols || []).forEach(function(col){
         if (!col.items || !col.items.length) return;
-        var box = cols.appendChild(el("div", "pg-doc-persona__col"));
-        box.appendChild(el("h4", "pg-doc-h4", col.title));
-        box.appendChild(list("ul", col.items));
+        var ul = el("ul", "pg-doc-list pg-doc-persona__list");
+        col.items.forEach(function(t){
+          var li = ul.appendChild(el("li")), m = /^(Recorrentes?|Pontua(?:l|is)):\s*/.exec(t);
+          if (m){
+            var rec = /^Recorrente/.test(m[1]), tg = el("cds-tag");
+            tg.setAttribute("label", rec ? "Recorrente" : "Pontual"); tg.setAttribute("appearance", rec ? "warning" : "neutral"); tg.setAttribute("show-lead-item", "false");
+            li.className = "pg-doc-persona__tagged"; li.appendChild(tg); li.appendChild(rich(el("span"), t.slice(m[0].length)));
+          } else rich(li, t);
+        });
+        panes.push({ label: col.title, n: col.items.length, node: ul });
       });
+      if (v.story) panes.push({ label: "História", node: rich(el("p", "pg-doc-p"), v.story) });
+      if (panes.length){
+        var tabs = c.appendChild(el("cds-scrollable-tab", "pg-doc-persona__tabs")); tabs.setAttribute("label", v.name + ": detalhes");
+        panes.forEach(function(p, i){
+          var it = tabs.appendChild(el("cds-tab-item")); it.setAttribute("label", p.label); it.setAttribute("controls", c.id + "-" + i);
+          if (p.n){ it.setAttribute("show-badge", "true"); it.setAttribute("badge-label", String(p.n)); }
+          var pane = c.appendChild(el("div", "pg-doc-persona__pane")); pane.id = c.id + "-" + i; pane.setAttribute("role", "tabpanel"); pane.setAttribute("aria-label", p.label);
+          pane.appendChild(p.node); pane.hidden = i > 0; p.el = pane;
+        });
+        tabs.addEventListener("cds-change", function(e){ panes.forEach(function(p, i){ p.el.hidden = i + 1 !== e.detail.index; }); });
+      }
+      c._txt = [v.name, v.nick, v.quote, v.story].concat((v.data || []).map(function(p){ return p.join(" "); }), (v.cols || []).reduce(function(a, col){ return a.concat(col.items || []); }, [])).join(" ").toLowerCase();
       return c;
+    },
+    // Busca (Search Input) e grupo (Filter Chips, escolha única) para as personas da tab. Lê os blocos seguintes:
+    // cada h2 abre um grupo com o texto e os cards dele; a nota do fim fica fora. v = { label, placeholder }
+    personaFilter: function(d, v){
+      var wrap = el("div", "pg-doc-releases pg-doc-persona-filter");
+      var bar = wrap.appendChild(el("div", "pg-doc-releases__bar"));
+      var q = el("cds-search-input", "pg-doc-releases__search");
+      [["label", v.label || "Buscar persona"], ["show-label", "false"], ["placeholder", v.placeholder || "Buscar nome, cargo ou dor"], ["show-required", "false"], ["show-supporting-content", "false"]].forEach(function(a){ q.setAttribute(a[0], a[1]); });
+      bar.appendChild(q);
+      var count = wrap.appendChild(el("p", "pg-doc-note")); count.setAttribute("aria-live", "polite");
+      var empty = el("div"); empty.appendChild(vazio("Nenhuma persona encontrada", "Tente outro termo ou escolha Todos.", true)); empty.hidden = true;
+      var term = "", group = "", groups = [], total = 0;
+      function run(){
+        var n = 0;
+        groups.forEach(function(g){
+          var vis = 0, inGroup = !group || g.name === group;
+          g.cards.forEach(function(c){ var ok = inGroup && (!term || c._txt.indexOf(term) !== -1); c.hidden = !ok; if (ok) vis++; });
+          g.rest.forEach(function(e){ e.hidden = !vis; });
+          n += vis;
+        });
+        count.textContent = n === total ? total + " personas" : n + " de " + total + " personas";
+        empty.hidden = n > 0;
+      }
+      setTimeout(function(){ // os blocos seguintes já estão na página
+        var cur = null;
+        for (var e = wrap.nextElementSibling; e; e = e.nextElementSibling){
+          if (e.matches(".pg-doc-alert, .pg-doc-source")) break;
+          if (e.matches("h2")){ cur = { name: e.textContent, rest: [e], cards: [] }; groups.push(cur); continue; }
+          if (!cur) continue;
+          if (e.matches(".pg-doc-persona")){ cur.cards.push(e); total++; } else cur.rest.push(e);
+        }
+        if (groups.length > 1){
+          var g = choice("Filtrar por grupo", "", [["", "Todos"]].concat(groups.map(function(x){ return [x.name, x.name]; })), function(val){ group = val; run(); });
+          bar.appendChild(g);
+        }
+        wrap.parentNode.insertBefore(empty, wrap.nextSibling);
+        run();
+      }, 0);
+      q.addEventListener("cds-change", function(e){ term = String(e.detail.value || "").trim().toLowerCase(); run(); });
+      q.addEventListener("cds-clear", function(){ term = ""; run(); });
+      return wrap;
     },
     // Lista de releases com busca (Search Input) e Filter Chips por área; agrupa por mês. v = { items, areas, months }
     releases: function(d, v){

@@ -1,7 +1,7 @@
-/* Personas: versão pública da seção Visão Cliente do Castanha Hub (pedido do Gustavo, 05/10: "personas completo", sem o sensível).
-   Gerado por scratchpad/gen_personas.py a partir das páginas do Hub; ficam de fora dados de pesquisa interna, potencial
-   comercial dos ICPs, parceiros/fornecedores, links internos e depoimentos de entrevistas (C166, C171). Ilustrações
-   dos personagens da [Caju] Illustrations no lugar das fotos. Bloco persona do docs-kit. */
+/* Personas: versão da seção Visão Cliente do Castanha Hub (pedido do Gustavo, 05/10 e 09/10: "completo"; as personas são
+   fictícias). Gerado por scratchpad/gen_personas.py a partir das páginas do Hub e atualizado à mão (D304). Ficam de fora o potencial
+   comercial dos ICPs, links internos e os depoimentos das entrevistas (C166, C171). Ferramentas com o nome real. Ilustrações dos
+   personagens da [Caju] Illustrations no lugar das fotos. Bloco persona do docs-kit (abas) e personaFilter (busca e grupo). */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   CDS.register({ id: "personas", name: "Personas", resource: true, lede: "Quem usa os produtos da Caju e o que cada pessoa precisa.", order: 7, zeroheight: "https://castanha.caju.com.br/858426090/v/latest/p/40e414" });
@@ -226,7 +226,7 @@
     ]
    },
    {
-    "note": "Fonte: Castanha Hub · Visão Cliente (Personas). Versão pública: sem dados de pesquisa interna, potencial comercial dos ICPs, nomes de parceiros e fornecedores, links internos nem os depoimentos das entrevistas. As fotos do Hub viraram as ilustrações dos personagens da biblioteca de ilustrações."
+    "note": "Fonte: Castanha Hub · Visão Cliente (Personas). As personas são fictícias. Ficam de fora o potencial comercial dos ICPs, os links internos e os depoimentos das entrevistas. As fotos do Hub viraram as ilustrações dos personagens da biblioteca de ilustrações."
    }
   ]
  },
@@ -247,6 +247,12 @@
    },
    {
     "p": "Pessoas que usam o cartão e o app de benefícios no dia a dia."
+   },
+   {
+    "personaFilter": {
+     "label": "Buscar persona",
+     "placeholder": "Buscar nome, cargo ou dor"
+    }
    },
    {
     "h2": "De 18 a 29 anos"
@@ -591,7 +597,7 @@
     }
    },
    {
-    "note": "Fonte: Castanha Hub · Visão Cliente (Personas). Versão pública: sem dados de pesquisa interna, potencial comercial dos ICPs, nomes de parceiros e fornecedores, links internos nem os depoimentos das entrevistas. As fotos do Hub viraram as ilustrações dos personagens da biblioteca de ilustrações."
+    "note": "Fonte: Castanha Hub · Visão Cliente (Personas). As personas são fictícias. Ficam de fora o potencial comercial dos ICPs, os links internos e os depoimentos das entrevistas. As fotos do Hub viraram as ilustrações dos personagens da biblioteca de ilustrações."
    }
   ]
  },
@@ -601,6 +607,12 @@
   "blocks": [
    {
     "p": "Pessoas de RH e gestão que contratam e administram os benefícios na empresa."
+   },
+   {
+    "personaFilter": {
+     "label": "Buscar persona",
+     "placeholder": "Buscar nome, cargo ou dor"
+    }
    },
    {
     "h2": "Micro e pequenas empresas"
@@ -1145,7 +1157,7 @@
        "items": [
         "Muita pressão para mostrar trabalho e resultados.",
         "Não conhece todas as ferramentas e precisa de suporte constante.",
-        "Pouca autonomia: tem só acesso de visualização e não acessa os sistemas mais complexos.",
+        "Pouca autonomia: tem só acesso de visualização e não acessa os sistemas mais complexos, como o TOTVS.",
         "Precisa reportar constantemente para a líder."
        ]
       },
@@ -1161,7 +1173,7 @@
     }
    },
    {
-    "note": "Fonte: Castanha Hub · Visão Cliente (Personas). Versão pública: sem dados de pesquisa interna, potencial comercial dos ICPs, nomes de parceiros e fornecedores, links internos nem os depoimentos das entrevistas. As fotos do Hub viraram as ilustrações dos personagens da biblioteca de ilustrações."
+    "note": "Fonte: Castanha Hub · Visão Cliente (Personas). As personas são fictícias. Ficam de fora o potencial comercial dos ICPs, os links internos e os depoimentos das entrevistas. As fotos do Hub viraram as ilustrações dos personagens da biblioteca de ilustrações."
    }
   ]
  },
@@ -1174,6 +1186,12 @@
    },
    {
     "p": "Pessoas dos times da Caju que usam o Admin no dia a dia. Ajudam a desenhar ferramentas internas a partir de quem as usa: objetivos, dores recorrentes e pontuais e o que precisam para trabalhar melhor."
+   },
+   {
+    "personaFilter": {
+     "label": "Buscar persona",
+     "placeholder": "Buscar nome, área ou dor"
+    }
    },
    {
     "h2": "CX"
@@ -1198,11 +1216,11 @@
        "Alta"
       ],
       [
-       "Dependência do CRM",
+       "Dependência do Salesforce",
        "Alta"
       ]
      ],
-     "story": "John é o especialista acionado quando o caso é complexo demais para o nível anterior — e ele entra em cena pedindo uma coisa: evidência. Com alta dependência do Admin, atua em casos críticos, mapeamento de processos e gestão de crise, navegando por um arsenal de ferramentas que vai do CRM a painéis de dados e portais externos. Sua maior frustração é gastar tempo ensinando o que já sabe enquanto falta contexto centralizado para investigar o que ainda não sabe. Para ele, um Admin com dados completos, acessíveis e confiáveis não é luxo — é o pré-requisito para fechar qualquer caso.",
+     "story": "John é o especialista acionado quando o caso é complexo demais para o nível anterior — e ele entra em cena pedindo uma coisa: evidência. Com alta dependência do Admin, atua em casos críticos, mapeamento de processos e gestão de crise, navegando por um arsenal de ferramentas que vai do Salesforce ao Databricks e a portais externos. Sua maior frustração é gastar tempo ensinando o que já sabe enquanto falta contexto centralizado para investigar o que ainda não sabe. Para ele, um Admin com dados completos, acessíveis e confiáveis não é luxo — é o pré-requisito para fechar qualquer caso.",
      "illustration": null,
      "icon": "support-line",
      "cols": [
@@ -1223,9 +1241,9 @@
         "Recorrente: Prazo regulatório de 10 dias e prazo interno de 5 a 6 dias colidem, sem saída prevista no processo.",
         "Recorrente: Qualquer operador executa ações de alto impacto, sem controle de alçada nem permissão por perfil.",
         "Recorrente: Consultas lentas, que exigem recarregar a página para ver o resultado.",
-        "Recorrente: Respostas rápidas no CRM são pouco ágeis de usar no dia a dia.",
+        "Recorrente: Respostas rápidas no Salesforce são pouco ágeis de usar no dia a dia.",
         "Pontual: Extrato montado à mão, com edição antes de gerar o PDF.",
-        "Pontual: Conferência manual de dados enviados a parceiros — erros de digitação só aparecem depois.",
+        "Pontual: Conferência manual de dados enviados ao Wellhub — erros de digitação só aparecem depois.",
         "Pontual: Status de entrega do cartão nem sempre está disponível na hora do atendimento."
        ]
       },
@@ -1237,7 +1255,7 @@
         "Confirmação clara antes de ações de alto impacto.",
         "Controle de alçada por perfil: ações críticas com aprovação ou acesso restrito.",
         "Consultas rápidas, sem recarregar a página.",
-        "Atalhos de texto rápido integrados ao CRM.",
+        "Atalhos de texto rápido integrados ao Salesforce.",
         "Extrato gerado automaticamente, pronto para exportar em PDF.",
         "Contexto centralizado por caso: evidências, histórico e dependências em um só lugar."
        ]
@@ -1265,7 +1283,7 @@
        "Máxima"
       ],
       [
-       "Dependência do CRM",
+       "Dependência do Salesforce",
        "Máxima"
       ]
      ],
@@ -1288,10 +1306,10 @@
         "Recorrente: 60% dos chamados nascem de cadastros com dados no campo errado (ex.: e-mail corporativo no lugar do pessoal), que o sistema aceita sem validar.",
         "Recorrente: Sem histórico de alterações — não sabe quem mudou o cadastro, nem quando.",
         "Recorrente: Status como \"em análise\" ou \"falha\" aparecem sem descrição do motivo, o que obriga a escalar.",
-        "Recorrente: Admin e portal do RH mostram dados diferentes para o mesmo cadastro.",
+        "Recorrente: Admin e Sponsor App mostram dados diferentes para o mesmo cadastro.",
         "Pontual: Conhecimento tácito, que depende de quem treinou; sem documentação oficial integrada.",
         "Pontual: Escalonamento chega ao próximo nível sem formatação e precisa ser editado à mão.",
-        "Pontual: Dados de parceiros só acessíveis em planilhas externas."
+        "Pontual: Dados do Caju Mais e do Wellhub só acessíveis em planilhas externas."
        ]
       },
       {
@@ -1300,9 +1318,9 @@
         "Histórico de alterações nativo no Admin (quem alterou e quando).",
         "Validação de campos no cadastro (ex.: e-mail pessoal × corporativo).",
         "Status com descrição do motivo.",
-        "Fonte única de verdade: Admin e portal do RH exibindo os mesmos dados.",
+        "Fonte única de verdade: Admin e Sponsor App exibindo os mesmos dados.",
         "Documentação interna acessível direto no fluxo de trabalho.",
-        "Dados de parceiros visíveis no Admin, sem consultas externas."
+        "Dados de parceiros visíveis no Admin, sem consultas no Databricks."
        ]
       }
      ]
@@ -1328,11 +1346,11 @@
        "Máxima"
       ],
       [
-       "Dependência do CRM",
+       "Dependência do Salesforce",
        "Máxima"
       ]
      ],
-     "story": "Dolores é a ponte entre o RH das empresas clientes e as soluções da Caju — e opera com dependência máxima do Admin. Seu dia é marcado por múltiplas abas abertas, planilhas paralelas e dados espalhados em sistemas que nem sempre conversam entre si. Ela quer ser rápida e assertiva, mas esbarra constantemente na falta de uma visão unificada do cliente: quem é a empresa, quem são os admins, qual o status do cadastro. Sem uma base de conhecimento confiável e centralizada, o chat interno vira sua fonte da verdade — e isso diz muito. Acredita que o fluxo \"feliz\" do cliente começa com ela tendo as informações certas, no lugar certo, na hora certa.",
+     "story": "Dolores é a ponte entre o RH das empresas clientes e as soluções da Caju — e opera com dependência máxima do Admin. Seu dia é marcado por múltiplas abas abertas, planilhas paralelas e dados espalhados em sistemas que nem sempre conversam entre si. Ela quer ser rápida e assertiva, mas esbarra constantemente na falta de uma visão unificada do cliente: quem é a empresa, quem são os admins, qual o status do cadastro. Sem uma base de conhecimento confiável e centralizada, o Slack vira sua fonte da verdade — e isso diz muito. Acredita que o fluxo \"feliz\" do cliente começa com ela tendo as informações certas, no lugar certo, na hora certa.",
      "illustration": null,
      "icon": "support-line",
      "cols": [
@@ -1341,7 +1359,7 @@
        "items": [
         "Atender vários clientes ao mesmo tempo sem perder o contexto de nenhum.",
         "Resolver contestações com histórico, sem investigação manual.",
-        "Eliminar processos manuais recorrentes, como notas fiscais e respostas prontas guardadas fora do sistema.",
+        "Eliminar processos manuais recorrentes, como notas fiscais e respostas prontas guardadas no Google Keep.",
         "Ter a visão completa do cliente em um só lugar, sem cruzar abas."
        ]
       },
@@ -1351,10 +1369,10 @@
         "Recorrente: Sem histórico de alterações — qualquer contestação de cliente vira investigação manual.",
         "Recorrente: Emissão e cancelamento de notas fiscais feitos à mão, de 35 a 60 notas por empresa.",
         "Recorrente: Várias abas do Admin abertas ao mesmo tempo, uma por CNPJ, para atender clientes simultâneos.",
-        "Recorrente: Dados cadastrais (ex.: nome social, CPF) divergentes entre o Admin e o portal do RH.",
+        "Recorrente: Dados cadastrais (ex.: nome social, CPF) divergentes entre o Admin e o Sponsor App.",
         "Recorrente: Dependência total do Admin, sem alternativa quando algo falha.",
-        "Pontual: Cerca de 37% dos chamados de parceiros não deveriam chegar ao atendimento, e o parceiro não tem prazo definido.",
-        "Pontual: Respostas prontas mantidas em notas pessoais, porque a busca do CRM não ajuda.",
+        "Pontual: Cerca de 37% dos chamados do Wellhub não deveriam chegar ao atendimento, e o parceiro não tem prazo definido.",
+        "Pontual: Respostas prontas mantidas no Google Keep, porque a busca do Salesforce não ajuda.",
         "Pontual: Sem histórico de contratos no Admin — não dá para confirmar o que foi contratado e quando."
        ]
       },
@@ -1364,10 +1382,10 @@
         "Histórico de alterações nativo: quem alterou, o quê e quando.",
         "Emissão e cancelamento de notas fiscais automatizados.",
         "Visão consolidada por cliente, sem abrir um Admin por CNPJ.",
-        "Fonte única: Admin e portal do RH com os mesmos dados cadastrais.",
+        "Fonte única: Admin e Sponsor App com os mesmos dados cadastrais.",
         "Base de conhecimento integrada ao fluxo de trabalho.",
         "Histórico e contratos da empresa visíveis no Admin.",
-        "Andamento dos casos com parceiros visível direto no sistema."
+        "Andamento dos casos com o Wellhub visível direto no sistema."
        ]
       }
      ]
@@ -1396,11 +1414,11 @@
        "Máxima"
       ],
       [
-       "Dependência do CRM",
+       "Dependência do Salesforce",
        "Máxima"
       ]
      ],
-     "story": "Márcia é quem fica entre o cliente e o valor que ele ainda não enxerga no produto Caju — e tem dependência máxima do Admin para fazer esse trabalho. Seu dia vai da implementação às reuniões executivas de resultados, passando por treinamentos, retenção e expansão, mas esbarra na falta de autonomia para resolver situações críticas sem depender de outras áreas ou de processos manuais que travam o que deveria fluir. Opera num ecossistema extenso de ferramentas — CRM, painéis de dados, assinatura eletrônica e mais —, costurando informações que deveriam estar integradas. Quer provar valor, construir cases e expandir contas, mas sente que é difícil ser especialista quando faltam referências de preço, acompanhamento de satisfação e dados confiáveis para sustentar o discurso.",
+     "story": "Márcia é quem fica entre o cliente e o valor que ele ainda não enxerga no produto Caju — e tem dependência máxima do Admin para fazer esse trabalho. Seu dia vai da implementação às reuniões executivas de resultados, passando por treinamentos, retenção e expansão, mas esbarra na falta de autonomia para resolver situações críticas sem depender de outras áreas ou de processos manuais que travam o que deveria fluir. Opera num ecossistema extenso de ferramentas — Salesforce, Metabase, Databricks, Docusign e mais —, costurando informações que deveriam estar integradas. Quer provar valor, construir cases e expandir contas, mas sente que é difícil ser especialista quando faltam referências de preço, acompanhamento de satisfação e dados confiáveis para sustentar o discurso.",
      "illustration": null,
      "icon": "chart-up-line",
      "cols": [
@@ -1410,14 +1428,14 @@
         "Ter visão 360° do cliente em um só lugar, sem navegar entre várias ferramentas para montar o contexto.",
         "Reduzir o trabalho operacional para ganhar tempo estratégico.",
         "Gerenciar grupos econômicos com vários CNPJs sem consultar unidade por unidade.",
-        "Reter clientes com um processo estruturado, sem idas e vindas entre chat, CRM e cliente."
+        "Reter clientes com um processo estruturado, sem idas e vindas entre Slack, Salesforce e cliente."
        ]
       },
       {
        "title": "Dores",
        "items": [
         "Recorrente: Sem histórico de alterações — não sabe quem editou um dado.",
-        "Recorrente: Contexto do cliente espalhado em várias ferramentas, sem fonte única.",
+        "Recorrente: Contexto do cliente espalhado entre Salesforce, Metabase, Slack, Notion e WhatsApp, sem fonte única.",
         "Recorrente: Visão fragmentada de grupos econômicos: cada CNPJ consultado separadamente.",
         "Recorrente: A maior parte do tempo vai para tarefas operacionais, sem autonomia para ações simples.",
         "Pontual: Criação manual de assinaturas CNPJ por CNPJ — repetitiva e sujeita a erro.",
@@ -1463,11 +1481,11 @@
        "Máxima"
       ],
       [
-       "Dependência do CRM",
+       "Dependência do Salesforce",
        "Máxima"
       ]
      ],
-     "story": "Jaqueline monitora cada cartão físico que sai — e entra em ação antes que o colaborador perceba que algo deu errado. Com dependência máxima do Admin, opera ao mesmo tempo em painéis de dados, plataformas de transportadoras, CRM e planilhas para rastrear pedidos, confirmar remessas e evitar escalonamentos. Sua maior dor é a falta de rastreabilidade e de histórico dentro do próprio Admin, o que a força a buscar dados em vários sistemas para ter uma visão que deveria estar em um só lugar.",
+     "story": "Jaqueline monitora cada cartão físico que sai — e entra em ação antes que o colaborador perceba que algo deu errado. Com dependência máxima do Admin, opera ao mesmo tempo em Databricks, Mobi, Salesforce, Flash e planilhas para rastrear pedidos, confirmar remessas e evitar escalonamentos. Sua maior dor é a falta de rastreabilidade e de histórico dentro do próprio Admin, o que a força a buscar dados em vários sistemas para ter uma visão que deveria estar em um só lugar.",
      "illustration": null,
      "icon": "delivery-line",
      "cols": [
@@ -1483,7 +1501,7 @@
       {
        "title": "Dores",
        "items": [
-        "Recorrente: Tudo manual no Admin, sem integração entre plataformas nem com o CRM.",
+        "Recorrente: Tudo manual no Admin, sem integração entre plataformas nem com o Salesforce.",
         "Recorrente: Sem integração com transportadoras — status atualizado à mão, sem notificação automática.",
         "Pontual: Ação em lote de alto impacto fica colada a uma ação comum e não pede confirmação — um clique errado afeta a base inteira.",
         "Pontual: Colaborador com histórico anterior fica com a elegibilidade bloqueada sem nenhum aviso ao RH.",
@@ -1495,7 +1513,7 @@
       {
        "title": "Necessidades",
        "items": [
-        "Integração automática com transportadoras: status em tempo real no Admin e no CRM.",
+        "Integração automática com transportadoras: status em tempo real no Admin e no Salesforce.",
         "Operações em lote com confirmação, sem risco de disparo acidental.",
         "Alerta automático de prazo vencido.",
         "Comprovante de entrega com dados verificáveis.",
@@ -1530,11 +1548,11 @@
        "Moderada"
       ],
       [
-       "Dependência do CRM",
+       "Dependência do Salesforce",
        "Baixa"
       ]
      ],
-     "story": "Serena é quem garante que cada centavo da Caju esteja no lugar certo — faturado, cobrado e conciliado. Com dependência moderada do Admin, transita entre o Admin, o ERP, a ferramenta de cobrança, painéis de dados e o CRM para dar conta de um fluxo que mistura obrigações fiscais, regulatórias e demandas internas que nem sempre chegam completas. Seu maior inimigo é o processo manual e urgente que a impede de evoluir o que realmente importa: a saúde contábil da operação.",
+     "story": "Serena é quem garante que cada centavo da Caju esteja no lugar certo — faturado, cobrado e conciliado. Com dependência moderada do Admin, transita entre o Admin, o NetSuite, a Vindi, o Databricks e o Salesforce para dar conta de um fluxo que mistura obrigações fiscais, regulatórias e demandas internas que nem sempre chegam completas. Seu maior inimigo é o processo manual e urgente que a impede de evoluir o que realmente importa: a saúde contábil da operação.",
      "illustration": null,
      "icon": "bank-line",
      "cols": [
@@ -1542,7 +1560,7 @@
        "title": "Objetivos",
        "items": [
         "Automatizar conciliações e processos críticos, sem cruzamento manual entre bases.",
-        "Ter integrações confiáveis entre o Admin, o ERP e o sistema de chamados, sem conferência manual.",
+        "Ter integrações confiáveis entre o Admin, o NetSuite e o Jira, sem conferência manual.",
         "Cumprir prazos fiscais com processos estruturados, não na base do esforço.",
         "Saber quem é responsável quando algo quebra no Admin."
        ]
@@ -1556,9 +1574,9 @@
         "Recorrente: Monitoramento do lastro e dos saldos feito à mão, sem alertas, embora a disponibilidade de papéis no mercado varie.",
         "Recorrente: Conciliação de contas de impostos manual, com risco de erro e retrabalho.",
         "Recorrente: Demandas chegam incompletas e os dados estão descentralizados.",
-        "Recorrente: Sem integração entre o sistema de chamados e o ERP para conciliar pagamentos, e os aprovadores são gerenciados à mão.",
+        "Recorrente: Sem integração entre o Jira e o NetSuite para conciliar pagamentos, e os aprovadores são gerenciados à mão.",
         "Recorrente: Apuração de impostos exige três avaliações, com prazos fechados pelos órgãos fiscais e sem processo estruturado.",
-        "Pontual: Conferência manual entre o Admin e o ERP; cobrança feita fora do sistema, por e-mail e mensagem.",
+        "Pontual: Conferência manual entre o Admin e o NetSuite; cobrança feita fora do sistema, por e-mail e WhatsApp.",
         "Pontual: Sem relatório estável de assinaturas canceladas; sem ações em lote em faturas e boletos."
        ]
       },
@@ -1567,7 +1585,7 @@
        "items": [
         "Responsável definido por área e por tipo de problema.",
         "Ambiente de testes separado, sem dados de teste em produção.",
-        "Integração entre o Admin e o ERP, com conciliação automática.",
+        "Integração entre o Admin e o NetSuite, com conciliação automática.",
         "Relatório de assinaturas canceladas direto no Admin.",
         "Ações em lote no faturamento, como prorrogação e gestão de dívidas.",
         "Monitoramento automatizado de saldos, com alertas.",
@@ -1600,11 +1618,11 @@
        "Máxima"
       ],
       [
-       "Dependência do CRM",
+       "Dependência do Salesforce",
        "Máxima"
       ]
      ],
-     "story": "Camila é quem vigia o que os outros não veem — e age antes que o problema se torne prejuízo. Com dependência máxima do Admin, seu trabalho exige dados claros, rastreáveis e consolidados, mas esbarra em informações espalhadas e em etapas que acontecem fora do sistema. Opera em um ecossistema denso de ferramentas de dados e de verificação de identidade, além do CRM, costurando informações que deveriam estar integradas.",
+     "story": "Camila é quem vigia o que os outros não veem — e age antes que o problema se torne prejuízo. Com dependência máxima do Admin, seu trabalho exige dados claros, rastreáveis e consolidados, mas esbarra em informações espalhadas e em etapas que acontecem fora do sistema. Opera em um ecossistema denso de ferramentas, como Databricks, Big Data, Unico, CAF e Certta, além do Salesforce, costurando informações que deveriam estar integradas.",
      "illustration": null,
      "icon": "lock-line",
      "cols": [
@@ -1623,12 +1641,12 @@
        "items": [
         "Recorrente: Sem trilha de auditoria — não dá para saber quem cadastrou ou alterou o quê.",
         "Recorrente: O Admin mostra os dados, mas permite poucas ações — funciona mais como espelho do que como ferramenta. A satisfação com ele é de 2,56 de 5, a mais baixa entre as áreas.",
-        "Recorrente: Casos acompanhados em planilhas, sem fila estruturada nem atribuição de responsáveis.",
+        "Recorrente: Casos acompanhados no Excel, sem fila estruturada nem atribuição de responsáveis.",
         "Recorrente: Dados do colaborador fragmentados: benefícios, Pix e saldo em telas separadas, e o histórico de contestações não aparece.",
         "Recorrente: 6.395 contas sem encerramento real no Banco Central — desativar não conta para o regulador.",
         "Pontual: Ações repetidas caso a caso, sem operação em lote.",
         "Pontual: Cerca de 200 cadastros de PEP e sanções verificados à mão por dia, e uma falha no fluxo pula a etapa de documentos.",
-        "Pontual: Regras de prevenção configuradas numa ferramenta de dados, fora do Admin — o time criou as próprias automações por necessidade.",
+        "Pontual: Regras de prevenção configuradas no Databricks, fora do Admin — o time criou as próprias automações por necessidade.",
         "Pontual: Risco de LGPD — o acesso livre ao campo de investigação expõe dados sigilosos entre analistas."
        ]
       },
@@ -1641,7 +1659,7 @@
         "Registro do motivo de cada ação, não só de que ela foi feita.",
         "Encerramento definitivo de contas, com reflexo no Banco Central.",
         "Perfil de administrador com permissões por tipo de dado.",
-        "Regras de prevenção configuradas dentro do Admin, sem depender de ferramentas de dados externas."
+        "Regras de prevenção configuradas dentro do Admin, sem depender do Databricks."
        ]
       }
      ]
@@ -1670,15 +1688,15 @@
        "Mínima"
       ],
       [
-       "Dependência do CRM",
+       "Dependência do Salesforce",
        "Máxima"
       ],
       [
-       "Dependência da agenda",
+       "Dependência do Meetime",
        "Máxima"
       ]
      ],
-     "story": "Mariana é a primeira voz que o lead ouve — e a responsável por garantir que ele chegue ao vendedor pronto para fechar. Com baixa dependência do Admin, mas máxima do CRM e da ferramenta de agendamento, seu maior problema está justamente aí: processos manuais, campos duplicados, cadências que não funcionam e consultas em dois lugares ao mesmo tempo. O que mais escuta dos clientes é \"não entendi\" — e sabe que a causa está nas informações desatualizadas que chegam até ela. Quer centralizar, automatizar e passar dados limpos adiante, mas o sistema ainda a obriga a compensar com planilhas o que a ferramenta não entrega.",
+     "story": "Mariana é a primeira voz que o lead ouve — e a responsável por garantir que ele chegue ao vendedor pronto para fechar. Com baixa dependência do Admin, mas máxima do Salesforce e do Meetime, seu maior problema está justamente aí: processos manuais, campos duplicados, cadências que não funcionam e consultas em dois lugares ao mesmo tempo. O que mais escuta dos clientes é \"não entendi\" — e sabe que a causa está nas informações desatualizadas que chegam até ela. Quer centralizar, automatizar e passar dados limpos adiante, mas o sistema ainda a obriga a compensar com planilhas o que a ferramenta não entrega.",
      "illustration": null,
      "icon": "calendar-check-line",
      "cols": [
@@ -1696,23 +1714,23 @@
        "items": [
         "Recorrente: Dados de cliente duplicados ou desatualizados.",
         "Recorrente: Verificar se o lead já é cliente exige consultar várias abas.",
-        "Recorrente: A mesma informação é preenchida em várias ferramentas, sem integração.",
-        "Pontual: CNPJ não obrigatório no CRM, o que gera contas e oportunidades duplicadas.",
+        "Recorrente: A mesma informação é preenchida no Meetime, no Salesforce e no SPNota, sem integração.",
+        "Pontual: CNPJ não obrigatório no Salesforce, o que gera contas e oportunidades duplicadas.",
         "Pontual: Higienização de listas totalmente manual.",
         "Pontual: Leads perdidos ficam sem caminho de retomada.",
         "Pontual: Ex-clientes mantêm acesso ativo por até 3 anos, o que confunde a qualificação do lead.",
-        "Pontual: Uso de IA no time sem padrão — cada pessoa usa uma ferramenta diferente por conta própria."
+        "Pontual: Uso de IA no time sem padrão — cada pessoa usa uma ferramenta diferente, como Gemini ou ChatGPT, por conta própria."
        ]
       },
       {
        "title": "Necessidades",
        "items": [
-        "Verificação automática de \"já é cliente\" integrada ao CRM.",
+        "Verificação automática de \"já é cliente\" integrada ao Salesforce.",
         "Cadência automática e sincronizada, sem depender de memória ou planilha.",
-        "CNPJ obrigatório e deduplicação automática no CRM.",
+        "CNPJ obrigatório e deduplicação automática no Salesforce.",
         "Higienização de listas automatizada.",
         "Encerramento automático do acesso depois do churn, sem ex-cliente ativo por anos.",
-        "Campos do CRM ajustados por cenário, não universais para todas as áreas.",
+        "Campos do Salesforce ajustados por cenário, não universais para todas as áreas.",
         "Uso de IA padronizado no time."
        ]
       }
@@ -1742,11 +1760,11 @@
        "Mínima"
       ],
       [
-       "Dependência do CRM",
+       "Dependência do Salesforce",
        "Máxima"
       ]
      ],
-     "story": "Socorro é o ponto-chave entre o cliente que considera usar a Caju e o momento em que ele realmente usa — e carrega esse papel com intenção. Com baixa dependência do Admin para ativar vendas, mas alta dependência do CRM para expansão, seu maior obstáculo é a fragmentação: dados de porte pouco confiáveis no CRM, informações de uso espalhadas entre Admin, CRM e painéis de dados, e processos repetitivos que dependem de outras pessoas para avançar. Quer ter uma atuação consultiva, mas ainda gasta energia demais operando — preenchendo campos redundantes, consolidando planilhas e compensando o que a integração entre ferramentas não entrega.",
+     "story": "Socorro é o ponto-chave entre o cliente que considera usar a Caju e o momento em que ele realmente usa — e carrega esse papel com intenção. Com baixa dependência do Admin para ativar vendas, mas alta dependência do Salesforce para expansão, seu maior obstáculo é a fragmentação: dados de porte pouco confiáveis no Salesforce, informações de uso espalhadas entre Admin, Salesforce e Metabase, e processos repetitivos que dependem de outras pessoas para avançar. Quer ter uma atuação consultiva, mas ainda gasta energia demais operando — preenchendo campos redundantes, consolidando planilhas e compensando o que a integração entre ferramentas não entrega.",
      "illustration": null,
      "icon": "shop-line",
      "cols": [
@@ -1756,7 +1774,7 @@
         "Ter visão consolidada por grupo econômico, sem abrir CNPJ por CNPJ para entender o cliente.",
         "Automatizar o que vem depois do fechamento, sem risco de esquecer de ativar o que foi vendido.",
         "Ter um forecast confiável, sem datas de fechamento chutadas só para preencher campo obrigatório.",
-        "Centralizar negociação e acompanhamento no CRM, sem ferramentas paralelas."
+        "Centralizar negociação e acompanhamento no Salesforce, sem ferramentas paralelas."
        ]
       },
       {
@@ -1768,8 +1786,8 @@
         "Recorrente: Produtos parecidos seguem lógicas diferentes para criar assinatura.",
         "Pontual: Cotação não editável — qualquer mudança gera dias de retrabalho do zero.",
         "Pontual: Data de fechamento obrigatória preenchida no chute, o que deixa o forecast pouco confiável.",
-        "Pontual: Repasse para CS feito fora do CRM, em ferramentas paralelas.",
-        "Pontual: Agenda não integrada ao CRM — reuniões duplicadas à mão.",
+        "Pontual: Repasse para CS feito fora do Salesforce, em ferramentas paralelas como Meet Rocks e Trello.",
+        "Pontual: Google Agenda não integrado ao Salesforce — reuniões duplicadas à mão.",
         "Pontual: Campos redundantes preenchidos só para conseguir avançar."
        ]
       },
@@ -1777,11 +1795,11 @@
        "title": "Necessidades",
        "items": [
         "Visão consolidada de grupo econômico: todos os CNPJs e planos ativos em uma tela.",
-        "Ativação automática de funcionalidades após o fechamento, disparada pelo CRM.",
-        "Integração da agenda com o CRM.",
+        "Ativação automática de funcionalidades após o fechamento, disparada pelo Salesforce.",
+        "Integração do Google Agenda com o Salesforce.",
         "Cotação editável, sem retrabalho a cada ajuste na negociação.",
         "Forecast por oportunidade, não pelo potencial total da conta.",
-        "Repasse para CS centralizado no CRM.",
+        "Repasse para CS centralizado no Salesforce.",
         "Automação de tarefas recorrentes.",
         "Campos obrigatórios só quando fazem sentido, sem redundância."
        ]
@@ -1812,11 +1830,11 @@
        "Baixa"
       ],
       [
-       "Dependência do CRM",
+       "Dependência do Salesforce",
        "Alta"
       ]
      ],
-     "story": "Natália equilibra múltiplas campanhas, jornadas e gatilhos ao mesmo tempo — e torce para que nenhum caia. Com alta dependência do CRM e da plataforma de automação de marketing, seu trabalho é transformar dados em comunicações certeiras, mas esbarra num processo ainda muito manual e operacional: dados de leads que não viram gatilho, e-mails enviados na hora errada e respostas que a plataforma não contabiliza. Quer vender bem e apoiar a venda, mas passa boa parte do tempo remediando o que a integração entre ferramentas deveria resolver.",
+     "story": "Natália equilibra múltiplas campanhas, jornadas e gatilhos ao mesmo tempo — e torce para que nenhum caia. Com alta dependência do Salesforce e do Marketing Cloud, seu trabalho é transformar dados em comunicações certeiras, mas esbarra num processo ainda muito manual e operacional: dados de leads que não viram gatilho, e-mails enviados na hora errada e respostas que o Marketing Cloud não contabiliza. Quer vender bem e apoiar a venda, mas passa boa parte do tempo remediando o que a integração entre ferramentas deveria resolver.",
      "illustration": null,
      "icon": "megaphone-line",
      "cols": [
@@ -1824,7 +1842,7 @@
        "title": "Objetivos",
        "items": [
         "Automatizar a criação e o disparo de campanhas, sem fragmentação entre plataformas.",
-        "Usar os dados já disponíveis na plataforma de automação, sem reimportações.",
+        "Usar os dados já disponíveis no Marketing Cloud, sem reimportações.",
         "Construir réguas que funcionam, com critério de saída — lead convertido não recebe mais comunicação.",
         "Ter uma governança que funcione sem precisar treinar os solicitantes de novo a cada vez."
        ]
@@ -1832,10 +1850,10 @@
       {
        "title": "Dores",
        "items": [
-        "Recorrente: A plataforma tem mais recursos do que o time consegue operar; integrações existem, mas não estão habilitadas.",
+        "Recorrente: O Marketing Cloud tem mais recursos do que o time consegue operar; integrações existem, mas não estão habilitadas.",
         "Recorrente: Solicitantes repetem erros de nomenclatura mesmo depois de treinados.",
         "Recorrente: Processo de campanhas manual e fragmentado entre várias plataformas.",
-        "Pontual: O editor de jornadas não salva automaticamente — uma interrupção apaga o trabalho feito.",
+        "Pontual: O Journey Builder não salva automaticamente — uma interrupção apaga o trabalho feito.",
         "Pontual: Dados já integrados são reimportados por falta de saber consumi-los direto.",
         "Pontual: Jornadas sem critério de saída.",
         "Pontual: Migração de templates entre unidades feita à mão, recriando tudo do zero.",
@@ -1846,11 +1864,11 @@
        "title": "Necessidades",
        "items": [
         "Jornadas de comunicação com critérios de entrada e saída configurados por padrão.",
-        "Dados integrados prontos para consumo direto na plataforma.",
-        "Salvamento automático no editor de jornadas.",
+        "Dados integrados prontos para consumo direto no Marketing Cloud.",
+        "Salvamento automático no Journey Builder.",
         "Portabilidade de templates entre unidades.",
         "Alinhamento com Pré-vendas sobre ferramentas e comunicações.",
-        "Apoio técnico para usar recursos que a plataforma já tem.",
+        "Apoio técnico para usar recursos que o Marketing Cloud já tem.",
         "Regras de nomenclatura garantidas pelo próprio sistema, sem depender de treinamento."
        ]
       }
@@ -1858,7 +1876,7 @@
     }
    },
    {
-    "note": "Fonte: Castanha Hub · Visão Cliente (Personas). Versão pública: sem dados de pesquisa interna, potencial comercial dos ICPs, nomes de parceiros e fornecedores, links internos nem os depoimentos das entrevistas. As fotos do Hub viraram as ilustrações dos personagens da biblioteca de ilustrações."
+    "note": "Fonte: Castanha Hub · Visão Cliente (Personas). As personas são fictícias. Ficam de fora o potencial comercial dos ICPs, os links internos e os depoimentos das entrevistas. As fotos do Hub viraram as ilustrações dos personagens da biblioteca de ilustrações."
    }
   ]
  }

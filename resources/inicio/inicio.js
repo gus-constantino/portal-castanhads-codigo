@@ -65,7 +65,7 @@
       { id: "primeiros-passos", title: "Primeiros passos", blocks: [
         { h2: "Primeiros passos" },
         { visual: { bare: true, render: function(){ return CDS.onboarding ? CDS.onboarding.checklistView() : document.createElement("div"); } } },
-        // Trilha Explorar (F4): as 20 paradas do antigo Roteiro (docs/roteiro redireciona para cá)
+        // Trilha Explorar (F4): as 20 paradas do Roteiro, que continua como página própria em docs/roteiro
         { h2: "Explorar o portal" },
         { visual: { bare: true, render: function(){ return CDS.onboarding ? CDS.onboarding.trailView() : document.createElement("div"); } } }
       ] }

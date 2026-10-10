@@ -57,7 +57,7 @@
           { title: "O portal", icon: "home-line", appearance: "neutral", items: [
             ["Como refaço o tour do portal?", "Em Início, na tab Primeiros passos, use o botão Fazer o tour. Ele também está nos atalhos do teclado (tecla ?). O tour precisa da janela larga, com o menu lateral à mostra.", 2],
             ["Como troco o meu foco nos Primeiros passos?", "Na tab Primeiros passos do Início, escolha outro perfil. A lista de tarefas muda e o que você já fez continua marcado.", 1],
-            ["Onde estão as 20 coisas para explorar no portal?", "Na tab Primeiros passos do Início, em Explorar o portal. São 5 blocos, e cada parada se marca quando você abre pela lista.", 1]
+            ["Onde estão as 20 coisas para explorar no portal?", "Na tab Primeiros passos do Início, em Explorar o portal. São 5 blocos, e cada parada se marca quando você abre pela lista. Elas também estão na página Roteiro, com ilustrações, pelo Relatório › Arquitetura.", 1]
           ] },
           { title: "Pedidos e suporte", icon: "support-line", appearance: "positive", items: [
             ["Como peço algo ao time do DS?", ["Pelo formulário de suporte do Castanha DS no Slack, com título, detalhes, prioridade e anexos.", "O time assume o pedido, pede o contexto que faltar (versão, plataforma, prazo) e decide entre orientação de uso, correção, evolução no roadmap ou asset da squad.", "A entrega é anunciada no canal de novidades e o time volta ao pedido para você confirmar."], 30],

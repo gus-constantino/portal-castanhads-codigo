@@ -10147,7 +10147,7 @@ try {
 /* ==== services/onboarding/flows/explorar.flow.js ==== */
 try {
 /* Explorar o portal (F4, plano §3.4 e Q7): as 20 paradas do antigo Roteiro (docs/roteiro, D236) viram uma trilha opcional dos
-   Primeiros passos. Cada parada se marca quando a pessoa abre o link dela pela trilha. O Roteiro agora redireciona para cá. */
+   Primeiros passos. Cada parada se marca quando a pessoa abre o link dela pela trilha. A página do Roteiro (docs/roteiro, no Relatório › Arquitetura) continua no ar com as ilustrações e as animações (Gustavo, 09/10). */
 (function(){
   var CDS = window.CDS = window.CDS || {};
   if (!CDS.onboarding || !CDS.onboarding.trail) return;
@@ -10329,7 +10329,7 @@ try {
         "O estado (novo, em andamento, lembrar depois, concluído, dispensado) e as métricas ficam no localStorage deste navegador.",
         "A boas-vindas abre sozinha na primeira visita (fora do Relatório e das páginas escondidas). Me lembrar mais tarde traz de volta a partir do dia seguinte, no máximo 2 vezes. Começar segue para o tour, com o menu lateral, e o tour termina nos Primeiros passos do Início.",
         "Os Primeiros passos ficam numa tab do Início e no item da Ajuda, com o checklist do perfil e o botão Fazer o tour. Cada tarefa se marca quando a pessoa abre a página (ou mexe numa prop no Playground).",
-        "Embaixo do checklist fica a trilha Explorar o portal: as 20 paradas do antigo Roteiro, em 5 blocos de Accordion. Cada parada se marca quando a pessoa abre o link pela lista. O tour também abre pelo modal de atalhos (tecla ?) e a FAQ explica como refazer.",
+        "Embaixo do checklist fica a trilha Explorar o portal: as 20 paradas do Roteiro (que continua como página própria em docs/roteiro), em 5 blocos de Accordion. Cada parada se marca quando a pessoa abre o link pela lista. O tour também abre pelo modal de atalhos (tecla ?) e a FAQ explica como refazer.",
         "Durante o tour, o Backdrop do DS fica atrás do passo e o bloco com a área apontada (o menu) fica por cima, claro.",
         "`?tour=<id>` abre um fluxo na hora e `?onboarding=off` desliga o serviço (o smoke das docs roda assim)."
       ] },
@@ -15746,7 +15746,7 @@ try {
           { title: "O portal", icon: "home-line", appearance: "neutral", items: [
             ["Como refaço o tour do portal?", "Em Início, na tab Primeiros passos, use o botão Fazer o tour. Ele também está nos atalhos do teclado (tecla ?). O tour precisa da janela larga, com o menu lateral à mostra.", 2],
             ["Como troco o meu foco nos Primeiros passos?", "Na tab Primeiros passos do Início, escolha outro perfil. A lista de tarefas muda e o que você já fez continua marcado.", 1],
-            ["Onde estão as 20 coisas para explorar no portal?", "Na tab Primeiros passos do Início, em Explorar o portal. São 5 blocos, e cada parada se marca quando você abre pela lista.", 1]
+            ["Onde estão as 20 coisas para explorar no portal?", "Na tab Primeiros passos do Início, em Explorar o portal. São 5 blocos, e cada parada se marca quando você abre pela lista. Elas também estão na página Roteiro, com ilustrações, pelo Relatório › Arquitetura.", 1]
           ] },
           { title: "Pedidos e suporte", icon: "support-line", appearance: "positive", items: [
             ["Como peço algo ao time do DS?", ["Pelo formulário de suporte do Castanha DS no Slack, com título, detalhes, prioridade e anexos.", "O time assume o pedido, pede o contexto que faltar (versão, plataforma, prazo) e decide entre orientação de uso, correção, evolução no roadmap ou asset da squad.", "A entrega é anunciada no canal de novidades e o time volta ao pedido para você confirmar."], 30],
@@ -15830,7 +15830,7 @@ try {
       { id: "primeiros-passos", title: "Primeiros passos", blocks: [
         { h2: "Primeiros passos" },
         { visual: { bare: true, render: function(){ return CDS.onboarding ? CDS.onboarding.checklistView() : document.createElement("div"); } } },
-        // Trilha Explorar (F4): as 20 paradas do antigo Roteiro (docs/roteiro redireciona para cá)
+        // Trilha Explorar (F4): as 20 paradas do Roteiro, que continua como página própria em docs/roteiro
         { h2: "Explorar o portal" },
         { visual: { bare: true, render: function(){ return CDS.onboarding ? CDS.onboarding.trailView() : document.createElement("div"); } } }
       ] }

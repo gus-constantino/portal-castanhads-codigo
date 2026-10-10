@@ -791,8 +791,9 @@
       toc.appendChild(dsLink("rp-src", "Componentes locais", "#/locais"));
       // Embaixo: a proposta zeroheight → portal (docs/pitch, página própria em tela cheia; Gustavo, 06/10)
       toc.appendChild(dsLink("rp-src", "Proposta: zeroheight → portal", "docs/pitch/"));
-      // E as 20 paradas para quem chega: o antigo Roteiro virou a trilha Explorar dos Primeiros passos (F4; docs/roteiro redireciona)
-      toc.appendChild(dsLink("rp-src", "Explorar o portal: 20 paradas", "#/inicio/primeiros-passos"));
+      // E o roteiro de 20 paradas para quem chega (docs/roteiro, página escondida; Gustavo, 06/10). Volta como página própria,
+      // com as ilustrações e as animações, ao lado da trilha Explorar dos Primeiros passos (Gustavo, 09/10)
+      toc.appendChild(dsLink("rp-src", "Roteiro: 20 coisas para explorar", "docs/roteiro/"));
     }
     filter();
   }

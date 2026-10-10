@@ -1,16 +1,265 @@
 <!doctype html>
-<!-- Roteiro do Playground (D236–D260): aposentado na F4 do onboarding. As 20 paradas viraram a trilha Explorar o portal,
-     na tab Primeiros passos do Início (services/onboarding/flows/explorar.flow.js). Esta página só redireciona os links antigos. -->
-<html lang="pt-BR">
+<!-- Roteiro do Playground: 20 coisas para abrir, clicar e mexer no portal (D236; revisão com uso estrito do DS, D238; ajuste fino D239; itens novos D260).
+     Página ESCONDIDA: fora do menu e da busca. O link fica no Relatório › Arquitetura, embaixo da Proposta.
+     Feita para quem chega pela primeira vez (Gustavo, 06/10): cada parada tem o link direto para a página no portal.
+     Regra: só o que o Castanha DS tem.
+       · Componentes: Header do Sponsor Templates (barra do topo, como no portal), Main Button, Icon Button + Tooltip,
+         Card (Has Border), Link, Tag e Divider; a composição <cmp-shortcut> nas teclas.
+       · Texto só com os Text Styles do tema, sem trocar altura de linha, espaçamento ou caixa.
+       · Espaços só com Common/Sizes e Common/Grids; faixas da coleção Viewport (744 · 1366).
+       · Ilustrações da [Caju] Illustrations. -->
+<html lang="pt-BR" data-theme="light">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="robots" content="noindex" />
-<meta http-equiv="refresh" content="0; url=../../index.html#/inicio/primeiros-passos" />
-<title>Explorar o portal · Castanha DS</title>
-<script>location.replace("../../index.html#/inicio/primeiros-passos");</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Roteiro do Playground · Castanha DS</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Work+Sans:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../styles/tokens.css" />
+<link rel="stylesheet" href="../../styles/shared.css" />
+<link rel="stylesheet" href="../../styles/icons.css" />
+<link rel="stylesheet" href="../../dist/cds.css" />
+<link rel="stylesheet" href="../../components/sponsor-header/sponsor-header.css" />
+<style>
+  /* Guia de passeio: barra do topo do portal, abertura com a ação principal, "Se tiver 5 minutos" e cinco blocos de paradas.
+     Mobile no :root; Tablet ≥ 744; Desktop ≥ 1366 (coleção Viewport do castanha-tokens). */
+  :root{ --rt-max:calc(5 * var(--common-sizes-200) + var(--common-sizes-160)); }
+  body{ margin:0; background:var(--common-colors-surface-default); color:var(--common-colors-text-intense); font:var(--text-style-body-regular); }
+  p, h1, h2, h3{ margin:0; }
+
+  /* Barra do topo: .Heading do Header do Sponsor (← · Breadcrumb · tema) */
+  .rt-top{ position:sticky; top:0; z-index:10; background:var(--common-colors-surface-default); }
+  .rt-top__head{ display:flex; align-items:center; height:var(--common-sizes-64); padding-inline:var(--common-sizes-16); }
+  .rt-top__head > cds-sponsor-header{ flex:1 1 auto; min-width:0; padding:0; gap:0; }
+  .rt-top__head .cds-sh__lead{ gap:var(--common-sizes-12); }
+  .rt-top__head .cds-sh__crumb{ flex:1 1 auto; overflow:hidden; }
+
+  .rt{ max-width:var(--rt-max); margin:0 auto; box-sizing:border-box; padding-inline:var(--common-grids-margin); padding-block:var(--common-sizes-32) var(--common-sizes-48); display:flex; flex-direction:column; gap:var(--common-sizes-48); }
+
+  /* Abertura */
+  .rt-head{ display:flex; flex-direction:column; gap:var(--common-sizes-24); }
+  .rt-head__art{ width:var(--common-sizes-120); height:var(--common-sizes-120); object-fit:contain; }
+  .rt-head__text{ display:flex; flex-direction:column; gap:var(--common-sizes-12); min-width:0; }
+  .rt-eyebrow{ font:var(--text-style-label-bold); color:var(--common-colors-text-accent); }
+  .rt-display{ font:var(--text-style-decorative-extra-large); }
+  .rt-lede{ font:var(--text-style-body-regular); color:var(--common-colors-text-medium); max-width:calc(3 * var(--common-sizes-200)); }
+  .rt-actions{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-8); }
+  .rt-note{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+
+  /* Títulos de seção e textos de apoio */
+  .rt-h2{ font:var(--text-style-decorative-medium); }
+  .rt-sub{ font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+
+  /* Se tiver 5 minutos: Card do DS com a ilustração e três Cards */
+  .rt-start .cds-card__slot{ gap:var(--common-sizes-16); }
+  .rt-start__head{ display:flex; align-items:center; gap:var(--common-sizes-16); }
+  .rt-start__head img{ width:var(--common-sizes-80); height:var(--common-sizes-80); object-fit:contain; flex:none; }
+  .rt-trio{ display:grid; grid-template-columns:minmax(0, 1fr); gap:var(--common-grids-gutter); }
+
+  /* Paradas */
+  .rt-stops{ display:flex; flex-direction:column; gap:var(--common-sizes-48); }
+  .rt-stop{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
+  .rt-stop__head{ display:flex; align-items:center; gap:var(--common-sizes-16); }
+  .rt-stop__art{ width:var(--common-sizes-80); height:var(--common-sizes-80); object-fit:contain; flex:none; }
+  .rt-stop__title{ display:flex; flex-direction:column; gap:var(--common-sizes-4); min-width:0; }
+  .rt-items{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:minmax(0, 1fr); gap:var(--common-grids-gutter); }
+  .rt-item{ min-width:0; display:flex; }
+  .rt-item > cds-card, .rt-trio > cds-card{ flex:1 1 auto; min-width:0; }
+  .rt-item .cds-card__slot, .rt-trio .cds-card__slot{ height:100%; }
+  .rt-item__top{ display:flex; align-items:baseline; gap:var(--common-sizes-8); }
+  .rt-item__n{ font:var(--text-style-disclaimer-medium); color:var(--common-colors-text-medium); /* Text/soft reprova contraste em texto informativo (C128) */ font-variant-numeric:tabular-nums; flex:none; }
+  .rt-item__title{ font:var(--text-style-title-small); }
+  .rt-item__text{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); flex:1 1 auto; }
+  .rt-item__foot{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--common-sizes-8) var(--common-sizes-12); }
+
+  .rt-end{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
+  .rt-end__row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--common-sizes-16); font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+
+  /* Tablet ≥ 744: duas colunas de paradas, abertura com a ilustração ao lado */
+  @media (min-width:744px){
+    .rt{ padding-inline:var(--common-sizes-40); padding-block:var(--common-sizes-48) var(--common-sizes-64); gap:var(--common-sizes-64); }
+    .rt-stops{ gap:var(--common-sizes-64); }
+    .rt-head{ flex-direction:row-reverse; justify-content:flex-end; align-items:center; gap:var(--common-sizes-40); }
+    .rt-head__art{ width:calc(var(--common-sizes-200) - var(--common-sizes-40)); height:calc(var(--common-sizes-200) - var(--common-sizes-40)); }
+    .rt-display{ font:var(--text-style-decorative-big); }
+    .rt-items{ grid-template-columns:repeat(2, minmax(0, 1fr)); gap:var(--common-sizes-16); }
+    .rt-trio{ grid-template-columns:repeat(3, minmax(0, 1fr)); gap:var(--common-sizes-16); }
+    .rt-h2{ font:var(--text-style-decorative-large); }
+  }
+  /* Desktop ≥ 1366: margem do grid de Desktop, título da parada fixo ao lado */
+  @media (min-width:1366px){
+    .rt{ padding-inline:var(--common-grids-margin); gap:var(--common-sizes-72); }
+    .rt-stops{ gap:var(--common-sizes-72); }
+    .rt-head__art{ width:var(--common-sizes-200); height:var(--common-sizes-200); }
+    .rt-display{ font:var(--text-style-decorative-display); }
+    .rt-stop{ display:grid; grid-template-columns:calc(var(--common-sizes-200) + var(--common-sizes-40)) minmax(0, 1fr); gap:var(--common-sizes-48); align-items:start; }
+    .rt-stop__head{ position:sticky; top:calc(var(--common-sizes-64) + var(--common-sizes-24)); flex-direction:column; align-items:flex-start; }
+    .rt-stop__art{ width:var(--common-sizes-120); height:var(--common-sizes-120); }
+  }
+</style>
 </head>
 <body>
-<p>O Roteiro agora fica no portal: <a href="../../index.html#/inicio/primeiros-passos">Primeiros passos, em Explorar o portal</a>.</p>
+<header class="rt-top">
+  <div class="rt-top__head">
+    <cds-sponsor-header id="rt-header" show-title="false" show-search="false" show-notification="false" show-close="false"></cds-sponsor-header>
+  </div>
+  <cds-divider></cds-divider>
+</header>
+
+<main class="rt">
+  <section class="rt-head" aria-labelledby="rt-title">
+    <img class="rt-head__art" data-ill="objetos/presente-aberto" alt="" />
+    <div class="rt-head__text">
+      <p class="rt-eyebrow">Castanha DS · Playground</p>
+      <h1 class="rt-display" id="rt-title">20 coisas para abrir, clicar e mexer</h1>
+      <p class="rt-lede">Os componentes do Figma rodando de verdade no navegador, com documentação, motion, código React e o Tema Caju num lugar só. Escolha por onde começar.</p>
+      <div class="rt-actions">
+        <cds-main-button id="rt-open" label="Abrir o playground" show-lead-icon="false" trailing-icon="link-line"></cds-main-button>
+        <p class="rt-note">Funciona melhor no computador, com a janela larga. Em telas estreitas o menu vira uma faixa no topo.</p>
+      </div>
+    </div>
+  </section>
+
+  <cds-card class="rt-start" has-border="true">
+    <div class="rt-start__head">
+      <img data-ill="maos/estalar-dedos" alt="" />
+      <div class="rt-stop__title">
+        <h2 class="rt-h2">Se tiver 5 minutos</h2>
+        <p class="rt-sub">As três paradas que mais mostram o que dá para fazer.</p>
+      </div>
+    </div>
+    <div class="rt-trio" id="rt-trio"></div>
+  </cds-card>
+
+  <div class="rt-stops" id="rt-stops"></div>
+
+  <footer class="rt-end">
+    <cds-divider></cds-divider>
+    <div class="rt-end__row">
+      <span>Feito por Gustavo Constantino com o Claude Code · outubro de 2026</span>
+      <cds-link label="Voltar ao playground" href="../../" appearance="accent"></cds-link>
+    </div>
+  </footer>
+</main>
+
+<script src="../../scripts/cds-element.js"></script>
+<script src="../../scripts/playground-kit.js"></script>
+<script src="../../scripts/assets-manifest.js"></script>
+<script src="../../dist/cds.js"></script>
+<script src="../../components/sponsor-header/sponsor-header.js"></script>
+<script>
+(function(){
+  "use strict";
+  var B = "../../";
+  // Mesma conta da página de Ícones do Tema Caju: categorias do [Caju] Icons, sem Deprecated e sem glifos
+  function nIcons(){ return ((window.CDS.assets || {}).iconBuckets || []).filter(function(b){ return !b.deprecated && !b.glyphs; }).reduce(function(t, b){ return t + b.icons.length; }, 0); }
+  var STOPS = [
+    { id: "menu", title: "Menu e navegação", text: "O menu lateral mostra cada componente funcionando, além do nome.", ill: "interfaces/carrossel", items: [
+      ["Menu em grade com miniaturas vivas", "Clique no ícone de grade ao lado de \"Componentes\". Cada card é o componente real, reduzido.", "#/main-button"],
+      ["Busca no conteúdo das docs", "Digite uma regra na busca do menu, como \"Disabled\". Ela acha a frase dentro das docs, além do nome do componente.", "#/main-button"],
+      ["Preview no menu em lista", "Volte para a lista e passe o mouse sobre os nomes. A miniatura aparece ao lado do menu.", "#/main-button"],
+      ["Atalhos de teclado", "Aperte {?} para ver todos. {⌥ →} passa para o próximo componente e o menu acompanha.", "#/main-button"]
+    ] },
+    { id: "playground", title: "Playground", text: "Cada componente com os mesmos controles das props do Figma.", ill: "interfaces/customizacao", items: [
+      ["Componente ao vivo", "No Main Button, os controles da direita mudam o botão na hora: Kind, Appearance, Size e ícones.", "#/main-button"],
+      ["Mobile, tablet e desktop", "Os ícones de viewport acima do componente mostram como ele se comporta em cada tamanho.", "#/main-button"],
+      ["Tema escuro", "O ícone de lua no topo deixa o site inteiro no escuro, com os tokens do tema.", "#/card"],
+      ["Abrir chamado no Slack", "No topo da página, Abrir chamado copia um resumo do componente e abre o #castanha-suporte. Cole e envie.", "#/tag"],
+      ["Do Figma para o React", "Role a página até \"No React\". O código do castanha-react muda junto com os controles.", "#/main-button"]
+    ] },
+    { id: "motion", title: "Motion", text: "As transições usam os Motion Styles do Figma, como Hover In/01.", ill: "objetos/foguete", items: [
+      ["Motion de cada componente", "Na tab Motion do Main Button, passe o mouse e pressione o botão para ver cada transição.", "#/main-button/motion"],
+      ["Laboratório de Motion", "Motion Styles em ação e um laboratório para comparar curvas, durações e velocidades.", "#/motion"]
+    ] },
+    { id: "marca", title: "Marca e visual", text: "Tokens, ícones e ilustrações da Caju, todos clicáveis.", ill: "objetos/gema-rubi", items: [
+      ["Cores do Tema Caju", "A paleta entra animada e cada amostra copia o token com um clique.", "#/caju-theme/cores"],
+      ["Elevação", "Escolha o nível e o card sobe com a sombra, decomposta em x, y, blur, spread e cor.", "#/caju-theme/elevacao"],
+      ["Galeria de ícones", "Os " + nIcons() + " ícones com troca de cor e tamanho para a grade toda e o detalhe de cada um.", "#/caju-theme/icones"],
+      ["Ilustração", "Paletas clicáveis, personagens e uma simulação de condições visuais, como o daltonismo, sobre uma ilustração.", "#/ilustracao"]
+    ] },
+    { id: "docs", title: "Documentação e recursos", text: "Uso, anatomia, diretrizes, templates e IA, com exemplos montados com os componentes reais.", ill: "documentos/relatorios-1", items: [
+      ["Do's and Don'ts", "As diretrizes do Main Button mostram o certo e o errado lado a lado, com o componente real.", "#/main-button/diretrizes"],
+      ["Patterns", "Os 9 tipos de Feedback Page do Sponsor ao vivo, com as ilustrações do Figma.", "#/patterns/sponsor"],
+      ["Templates do Sponsor", "Passe o mouse sobre o Side Menu colapsado: ele abre por cima do conteúdo, como no produto. Desligue Is Collapsed e abra os accordions.", "#/sponsor-side-menu"],
+      ["Castanha Quiz", "Escolha um tema, faça o treino de 5 minutos e jogue \"Qual é o componente?\" com os componentes reais. O melhor resultado fica guardado.", "#/castanha-quiz"],
+      ["Agentes e Skills", "Conheça o Borô, o assistente do Castanha no Slack, e a skill /castanhads-juntos para o Claude.", "#/agentes"]
+    ] }
+  ];
+  var PICKS = [[1, "Menu em grade", "Clique no ícone de grade ao lado de \"Componentes\" e veja cada componente em miniatura, ao vivo."],
+               [10, "Motion do Main Button", "Passe o mouse e pressione o botão para ver cada transição com o Motion Style do Figma."],
+               [13, "Elevação", "Escolha o nível e o card sobe com a sombra, que aparece decomposta ao lado."]];
+
+  function el(tag, attrs, kids){
+    var n = document.createElement(tag);
+    Object.keys(attrs || {}).forEach(function(k){ var v = attrs[k]; if (v == null) return; if (k === "text") n.textContent = v; else if (k === "class") n.className = v; else n.setAttribute(k, v); });
+    (kids || []).forEach(function(k){ if (k) n.appendChild(typeof k === "string" ? document.createTextNode(k) : k); });
+    return n;
+  }
+  // Texto com {teclas} → composição <cmp-shortcut> (uma Tag Neutral por tecla)
+  function richText(s){
+    var p = el("p", { "class": "rt-item__text" });
+    s.split(/(\{[^}]+\})/).forEach(function(part){
+      var m = part.match(/^\{(.+)\}$/);
+      p.appendChild(m ? el("cmp-shortcut", { keys: m[1] }) : document.createTextNode(part));
+    });
+    return p;
+  }
+  function open(href){ return el("cds-link", { label: "Abrir", href: B + href, target: "_blank", icon: "link-line", appearance: "accent" }); }
+  // Ilustrações da [Caju] Illustrations (o caminho do catálogo é a partir da raiz do site)
+  function ill(name){ var u = CDS.illustration(name); return /^(https?:|\/|data:)/.test(u) ? u : B + u; }
+  [].forEach.call(document.querySelectorAll("img[data-ill]"), function(i){ i.src = ill(i.dataset.ill); });
+
+  // Paradas: um Card (Has Border) por parada, com número, título, texto e o Link para a página
+  var host = document.getElementById("rt-stops"), hrefs = {}, n = 0;
+  STOPS.forEach(function(s){
+    var ul = el("ol", { "class": "rt-items" });
+    var art = el("img", { "class": "rt-stop__art", alt: "" }); art.src = ill(s.ill);
+    host.appendChild(el("section", { "class": "rt-stop", "aria-labelledby": "rt-" + s.id }, [
+      el("div", { "class": "rt-stop__head" }, [art, el("div", { "class": "rt-stop__title" }, [el("h2", { "class": "rt-h2", id: "rt-" + s.id, text: s.title }), el("p", { "class": "rt-sub", text: s.text })])]),
+      ul
+    ]));
+    s.items.forEach(function(it){
+      n++; hrefs[n] = it[2];
+      ul.appendChild(el("li", { "class": "rt-item" }, [el("cds-card", { "has-border": "true" }, [
+        el("div", { "class": "rt-item__top" }, [el("span", { "class": "rt-item__n", text: String(n).padStart(2, "0") }), el("h3", { "class": "rt-item__title", text: it[0] })]),
+        richText(it[1]),
+        el("div", { "class": "rt-item__foot" }, [open(it[2])])
+      ])]));
+    });
+  });
+  // Se tiver 5 minutos: Cards com link para a parada (a Tag diz qual é)
+  var trio = document.getElementById("rt-trio");
+  PICKS.forEach(function(p){
+    trio.appendChild(el("cds-card", { "has-border": "true" }, [
+      el("h3", { "class": "rt-item__title", text: p[1] }), el("p", { "class": "rt-item__text", text: p[2] }),
+      el("div", { "class": "rt-item__foot" }, [open(hrefs[p[0]]), el("cds-tag", { label: "Parada " + p[0], appearance: "accent", "show-lead-item": "false" })])
+    ]));
+  });
+  document.getElementById("rt-open").addEventListener("click", function(){ window.open(B, "_blank", "noopener"); });
+
+  // Barra do topo: Header do Sponsor (← · Castanha DS › Relatório › Roteiro) e tema no Trailling Items, como no portal
+  var header = document.getElementById("rt-header"), root = document.documentElement, narrow = window.matchMedia("(max-width:743px)");
+  function setupHeader(){
+    if (!header.setBreadcrumb) return requestAnimationFrame(setupHeader);
+    // Mobile (< 744): os níveis anteriores vão para o "…" do Breadcrumb e fica só a página atual, como no portal
+    function crumbs(){ header.setBreadcrumb([{ label: "Castanha DS", href: B + "index.html#/" }, { label: "Relatório", href: B + "index.html#/relatorio/arquitetura" }, { label: "Roteiro" }], narrow.matches ? 2 : 0); }
+    crumbs(); narrow.addEventListener("change", crumbs);
+    header.backBtn.addEventListener("click", function(){ location.href = B + "index.html#/relatorio/arquitetura"; });
+    header.backBtn.id = "rt-back"; // Tooltip "Voltar", como no portal
+    header.trailEl.appendChild(CDS.create("cds-tooltip", { "for": "rt-back", placement: "bottom", "show-label": "false", text: "Voltar" }));
+    var tb = header.trailEl.appendChild(CDS.create("cds-icon-button", { id: "rt-theme", icon: "dark-mode-line", kind: "default", appearance: "neutral", size: "small", label: "Ativar tema escuro", pressed: "false" }));
+    var tip = header.trailEl.appendChild(CDS.create("cds-tooltip", { "for": "rt-theme", placement: "bottom", "show-label": "false" }));
+    function paintTheme(){
+      var dark = root.getAttribute("data-theme") === "dark";
+      tb.setAttribute("icon", dark ? "light-mode-line" : "dark-mode-line");
+      tb.setAttribute("label", dark ? "Ativar tema claro" : "Ativar tema escuro");
+      tb.setAttribute("pressed", String(dark));
+      tip.setAttribute("text", dark ? "Tema claro" : "Tema escuro");
+    }
+    tb.addEventListener("click", function(){ root.setAttribute("data-theme", root.getAttribute("data-theme") === "dark" ? "light" : "dark"); paintTheme(); });
+    paintTheme();
+  }
+  setupHeader();
+})();
+</script>
 </body>
 </html>

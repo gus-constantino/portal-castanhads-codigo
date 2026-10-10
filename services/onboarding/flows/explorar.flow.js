@@ -1,5 +1,5 @@
 /* Explorar o portal (F4, plano §3.4 e Q7): as 20 paradas do antigo Roteiro (docs/roteiro, D236) viram uma trilha opcional dos
-   Primeiros passos. Cada parada se marca quando a pessoa abre o link dela pela trilha. O Roteiro agora redireciona para cá. */
+   Primeiros passos. Cada parada se marca quando a pessoa abre o link dela pela trilha. A página do Roteiro (docs/roteiro, no Relatório › Arquitetura) continua no ar com as ilustrações e as animações (Gustavo, 09/10). */
 (function(){
   var CDS = window.CDS = window.CDS || {};
   if (!CDS.onboarding || !CDS.onboarding.trail) return;

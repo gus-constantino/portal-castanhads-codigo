@@ -1,0 +1,9 @@
+{"days": [
+  {"d":"2026-10-01","docs":2,"decisoes":39,"abertos":0,"resolvidos":0,"react":null,"flutter":null},
+  {"d":"2026-10-02","docs":9,"decisoes":73,"abertos":87,"resolvidos":16,"react":null,"flutter":null},
+  {"d":"2026-10-03","docs":9,"decisoes":74,"abertos":88,"resolvidos":16,"react":null,"flutter":null},
+  {"d":"2026-10-05","docs":103,"decisoes":219,"abertos":111,"resolvidos":61,"react":[2,7],"flutter":null},
+  {"d":"2026-10-06","docs":108,"decisoes":265,"abertos":118,"resolvidos":61,"react":[2,7],"flutter":null},
+  {"d":"2026-10-07","docs":110,"decisoes":270,"abertos":123,"resolvidos":61,"react":[2,6],"flutter":null},
+  {"d":"2026-10-08","docs":110,"decisoes":278,"abertos":124,"resolvidos":61,"react":[2,6],"flutter":null}
+]}

@@ -250,4 +250,7 @@ if (process.argv.includes("--smoke")){
   const out = L.join("\n"), file = rel("docs/SAUDE-TECNICA.md");
   if (!fs.existsSync(file) || fs.readFileSync(file, "utf8") !== out){ fs.writeFileSync(file, out); console.log("Painel de saúde atualizado: docs/SAUDE-TECNICA.md"); }
 })();
+// ---------- Tendência (docs/tendencia.json → painel "Tendência" do relatório) ----------
+// Um ponto por dia fechado, lido do git. Muda uma vez por dia; no clone raso do CI não mexe no arquivo.
+try { require("child_process").spawnSync(process.execPath, [path.join(__dirname, "dev", "tendencia.js")], { stdio: "inherit" }); } catch (e) {}
 if (smokeStatus === 1) process.exit(1);

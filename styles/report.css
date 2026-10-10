@@ -209,6 +209,40 @@ a.rp-bar{ transition:background-color var(--motion-hover-in-01-timing) var(--mot
 .rp-col.is-zero .rp-col__n{ color:var(--common-colors-text-medium); }
 .rp-col__d{ font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); }
 
+/* Figma, React e Flutter: uma coluna por stack (mesmo bloco dos Sinais vitais) */
+.rp-stacks{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:var(--common-sizes-8); }
+.rp-stk{ display:flex; flex-direction:column; gap:var(--common-sizes-8); min-width:0; padding:var(--common-sizes-16); border-radius:var(--common-border-radius-large); background:var(--common-colors-surface-01); }
+.rp-stk__name{ display:flex; align-items:center; gap:var(--common-sizes-8); min-width:0; }
+.rp-stk__title{ margin:0; font:var(--text-style-label-bold); color:var(--common-colors-text-intense); }
+.rp-stk__value{ margin:var(--common-sizes-4) 0 0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+.rp-stk__value strong{ font:var(--text-style-heading-small); color:var(--common-colors-text-intense); font-variant-numeric:tabular-nums; }
+.rp-stk__what{ margin:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+.rp-stk__pl{ --cds-progress-color:var(--rp-bar-comp); --cds-progress-track:var(--rp-bar-comp-track); }
+.rp-stk__facts{ list-style:none; margin:var(--common-sizes-4) 0 0; padding:0; display:grid; gap:var(--common-sizes-6); font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); }
+.rp-stk__levels{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--common-sizes-4); }
+.rp-stk__levels > span{ margin-right:var(--common-sizes-4); }
+
+/* Tendência: um gráfico pequeno por indicador (linha Accent de 2px, base recessiva, ponto no último dia) */
+.rp-trends{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:var(--common-sizes-8); }
+.rp-trend{ display:flex; flex-direction:column; gap:var(--common-sizes-4); min-width:0; padding:var(--common-sizes-16); border-radius:var(--common-border-radius-large); background:var(--common-colors-surface-01); }
+.rp-trend__title{ margin:0; font:var(--text-style-caption-medium); color:var(--common-colors-text-intense); }
+.rp-trend__value{ margin:0; font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); }
+.rp-trend__value strong{ margin-right:var(--common-sizes-4); font:var(--text-style-subtitle-small); color:var(--common-colors-text-intense); font-variant-numeric:tabular-nums; }
+.rp-trend__chart{ position:relative; height:var(--common-sizes-64); margin-top:var(--common-sizes-8); }
+.rp-trend__svg{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+.rp-trend__base{ stroke:var(--pg-line); stroke-width:var(--common-border-width-hairline); vector-effect:non-scaling-stroke; }
+.rp-trend__line{ fill:none; stroke:var(--common-colors-accent-solid-medium); stroke-width:var(--common-border-width-thin); stroke-linejoin:round; stroke-linecap:round; vector-effect:non-scaling-stroke;
+  stroke-dasharray:0 100; transition:stroke-dasharray var(--common-motion-duration-extra-long-03) var(--common-motion-easing-expressive-decelerate); transition-delay:calc(var(--_i, 0) * var(--common-motion-duration-short-02)); }
+.rp-trend__line.is-grown{ stroke-dasharray:100 0; }
+.rp-trend__dot{ position:absolute; width:var(--common-sizes-8); height:var(--common-sizes-8); margin:calc(-1 * var(--common-sizes-4)) 0 0 calc(-1 * var(--common-sizes-4)); border-radius:50%;
+  background:var(--common-colors-accent-solid-medium); box-shadow:0 0 0 var(--common-border-width-thin) var(--common-colors-surface-01); pointer-events:none; }
+.rp-trend__hits{ position:absolute; inset:0; }
+.rp-trend__hit{ position:absolute; top:0; bottom:0; left:calc(var(--_x) * 100%); width:var(--common-sizes-16); margin-left:calc(-1 * var(--common-sizes-8)); border-radius:var(--common-border-radius-quark);
+  transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
+.rp-trend__hit:hover{ background:var(--pg-line); }
+.rp-trend__empty{ margin:auto 0 0; padding-top:var(--common-sizes-8); font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); }
+.rp-trend__axis{ display:flex; justify-content:space-between; margin:var(--common-sizes-4) 0 0; font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); }
+
 /* Débitos e melhorias: progresso geral + barra por tipo dividida em como o código tratou (cores da rosca) */
 .rp-prog{ display:flex; flex-direction:column; gap:var(--common-sizes-8); margin-bottom:var(--common-sizes-16); }
 .rp-prog__pl{ --cds-progress-color:var(--common-colors-feedback-positive-medium); --cds-progress-track:var(--common-colors-feedback-positive-soft); }
@@ -222,9 +256,10 @@ a.rp-bar{ transition:background-color var(--motion-hover-in-01-timing) var(--mot
 .rp-type__seg.is-seg{ background:var(--rp-c-seg); } .rp-type__seg.is-exc{ background:var(--rp-c-exc); } .rp-type__seg.is-deb{ background:var(--rp-c-deb); }
 .rp-legend--inline{ display:flex; flex-wrap:wrap; gap:var(--common-sizes-4) var(--common-sizes-24); margin-top:var(--common-sizes-12); min-width:0; }
 .rp-legend--inline li{ display:flex; align-items:center; gap:var(--common-sizes-8); }
-@media (prefers-reduced-motion:reduce){ .pg-report *, .rp-kpi, .rp-dash > .rp-panel{ animation:none !important; transition:none !important; } }
+@media (prefers-reduced-motion:reduce){ .pg-report *, .rp-kpi, .rp-dash > .rp-panel{ animation:none !important; transition:none !important; } .rp-trend__line{ stroke-dasharray:none; } }
 
 @media (max-width:1100px){
+  .rp-trends{ grid-template-columns:repeat(2, minmax(0,1fr)); }
   .rp-kpis{ grid-template-columns:repeat(2, minmax(0,1fr)); }
   .rp-body{ grid-template-columns:minmax(0,1fr); }
   .rp-toc{ position:static; max-height:none; display:flex; flex-wrap:wrap; gap:var(--common-sizes-4) var(--common-sizes-8); align-items:center; }
@@ -243,6 +278,7 @@ a.rp-bar{ transition:background-color var(--motion-hover-in-01-timing) var(--mot
   .rp-dash{ grid-template-columns:minmax(0,1fr); }
   .rp-list--cols{ columns:1; }
   .rp-vitals{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+  .rp-stacks, .rp-trends{ grid-template-columns:minmax(0,1fr); }
   .rp-cols{ gap:var(--common-sizes-4); }
   .rp-panel{ padding:var(--common-sizes-16); }
 }

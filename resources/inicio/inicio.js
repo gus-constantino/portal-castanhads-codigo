@@ -48,14 +48,6 @@
           { size: "wide", title: "Changelog", text: "O que saiu em cada release do Castanha: React, Flutter, Figma, ilustrações, ícones e documentação.", href: "#/changelog", cta: "Acessar Changelog", illustration: "notificacoes/sino" }
         ] } }
       ] },
-      // Primeiros passos (onboarding, D315): perfis, checklist que se marca pela ação e o botão do tour (services/onboarding)
-      { id: "primeiros-passos", title: "Primeiros passos", blocks: [
-        { h2: "Primeiros passos" },
-        { visual: { bare: true, render: function(){ return CDS.onboarding ? CDS.onboarding.checklistView() : document.createElement("div"); } } },
-        // Trilha Explorar (F4): as 20 paradas do antigo Roteiro (docs/roteiro redireciona para cá)
-        { h2: "Explorar o portal" },
-        { visual: { bare: true, render: function(){ return CDS.onboarding ? CDS.onboarding.trailView() : document.createElement("div"); } } }
-      ] },
       // Sobre → Princípios de Design (zeroheight · 7379702). Texto do Hub; os ícones da página usam cores fora dos tokens
       // (C159) e ficam de fora: cada princípio vira um Card do DS.
       { id: "principios", title: "Princípios de Design", blocks: [
@@ -68,6 +60,14 @@
           ["Consistente", "Projetar para diferentes tipos de produto com fluidez e capacidade de se adaptar a qualquer movimento do negócio, sem deixar de garantir consistência e coerência na Visão Cliente e no ecossistema Caju."]
         ] },
         { note: "Fonte: página Princípios de Design do Castanha Hub (Sobre). Motion, Ilustração e Conteúdo têm princípios próprios: consulte Ilustração, Motion e Conteúdo, em Padrões." }
+      ] },
+      // Primeiros passos (onboarding, D315), por último nas tabs (Gustavo, 09/10): perfis, checklist que se marca pela ação e o botão do tour (services/onboarding)
+      { id: "primeiros-passos", title: "Primeiros passos", blocks: [
+        { h2: "Primeiros passos" },
+        { visual: { bare: true, render: function(){ return CDS.onboarding ? CDS.onboarding.checklistView() : document.createElement("div"); } } },
+        // Trilha Explorar (F4): as 20 paradas do antigo Roteiro (docs/roteiro redireciona para cá)
+        { h2: "Explorar o portal" },
+        { visual: { bare: true, render: function(){ return CDS.onboarding ? CDS.onboarding.trailView() : document.createElement("div"); } } }
       ] }
     ]
   };

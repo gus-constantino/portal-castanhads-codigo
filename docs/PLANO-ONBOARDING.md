@@ -259,7 +259,7 @@ Estado por fluxo, em `localStorage` com prefixo `cds-onb:` e o padrão `try/catc
 | **F2** ✅ 09/10 | Tab Primeiros passos no Início com perfil e checklist, e a boas-vindas (com o tour de 3 passos e Backdrop) | Conferido em 1366, 744 e 360, claro e escuro, teclado e leitor |
 | **F3** ✅ 09/10 | Tour pronto para valer: âncoras no smoke, Bottom Sheet no celular, conferência em larguras, tema e teclado | Smoke dos fluxos sem âncora quebrada |
 | **F4** ✅ 09/10 | Rever o tour (Primeiros passos, atalhos `?` e FAQ › O portal), trilha Explorar com as 20 paradas do Roteiro, métricas de tarefas e trilha na página escondida | `docs/roteiro` redireciona para os Primeiros passos |
-| **F5** | Adaptador remoto (progresso entre navegadores) | Depende do backend Caju |
+| **F5** 🟡 09/10 | Adaptador remoto (progresso entre navegadores): a entrada `CDS.onboarding.remote({ load, save, track })` está pronta e desligada. Ligar com o backend e as métricas anônimas fica para quando o portal estiver conectado ao ambiente da Caju (Gustavo, 09/10) | Conectado ao ambiente Caju, com o progresso voltando em outro navegador e a taxa de abandono agregada |
 
 Cada fase termina com "O que mudou / Onde testar" e mostra as peças visuais novas antes de publicar.
 

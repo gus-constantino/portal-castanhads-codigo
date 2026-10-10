@@ -261,8 +261,8 @@
       var lgS = c.appendChild(el("ul", "rp-stk__legend"));
       o.segs.forEach(function(sg, i){
         if (!sg[2]) return;
-        var b = bar.appendChild(el("span", "rp-stack__seg is-pub-" + sg[0])); b.style.setProperty("--_w", String(sg[2] / (o.of || 1))); b.style.setProperty("--_i", String(i)); b.setAttribute("data-grow", "");
-        var li = lgS.appendChild(el("li")); li.appendChild(el("span", "rp-legend__sw is-pub-" + sg[0])); li.appendChild(el("span", null, esc(sg[1]))); li.appendChild(el("strong", null, fmt(sg[2])));
+        var b = bar.appendChild(el("span", "rp-stack__seg is-" + sg[0])); b.style.setProperty("--_w", String(sg[2] / (o.of || 1))); b.style.setProperty("--_i", String(i)); b.setAttribute("data-grow", "");
+        var li = lgS.appendChild(el("li")); li.appendChild(el("span", "rp-legend__sw is-" + sg[0])); li.appendChild(el("span", null, esc(sg[1]))); li.appendChild(el("strong", null, fmt(sg[2])));
         if (CDS.kit){ var tx = sg[2] + " de " + o.of + " (" + Math.round(sg[2] / (o.of || 1) * 100) + "%)." + (sg[3] ? " " + sg[3] : ""); CDS.kit.lazyTip(b, tx, { label: sg[1], focus: false }); CDS.kit.lazyTip(li, tx, { label: sg[1], focus: false }); }
       });
       var ul = c.appendChild(el("ul", "rp-stk__facts"));
@@ -275,29 +275,29 @@
       if (CDS.kit) CDS.kit.lazyTip(v, o.tip, { label: o.name, focus: false });
     }
     // Figma: status de publicação lido no Figma (scripts/figma-status.js), sem os building blocks
-    var FS = CDS.figmaStatus || { items: {} }, block = {}, fk = { current: 0, changed: 0, unpublished: 0, branch: 0, "branch-update": 0 }, fTotal = 0;
-    (CDS.playgrounds || []).forEach(function(c){ if (c.block) block[c.id] = true; });
-    Object.keys(FS.items).forEach(function(id){ if (block[id]) return; fTotal++; fk[FS.items[id]] = (fk[FS.items[id]] || 0) + 1; });
+    var FS = CDS.figmaStatus || { items: {} }, isComp = {}, fk = { current: 0, changed: 0, unpublished: 0, branch: 0, "branch-update": 0 }, fTotal = 0;
+    comps.forEach(function(c){ isComp[c.id] = true; }); // mesma base do gráfico Adoção ao longo do tempo
+    Object.keys(FS.items).forEach(function(id){ if (!isComp[id]) return; fTotal++; fk[FS.items[id]] = (fk[FS.items[id]] || 0) + 1; });
     var pend = fk.changed + fk.unpublished, br = fk.branch + fk["branch-update"];
     col({ name: "Figma", icon: "figma-line", n: fk.current, of: fTotal, base: "componentes na lib", what: "publicados sem pendência",
       st: pend ? ["warning", "Com avisos"] : ["positive", "Em dia"],
-      segs: [["positive", "Publicados", fk.current, "Publicados na lib sem alterações pendentes."],
-        ["warning", "Mudança em branch", br, "Existem numa branch do Figma ou têm melhoria numa branch que ainda não foi para a main."],
-        ["informative", "Com alteração pendente", fk.changed, "Publicados, mas o arquivo tem alterações que ainda não foram publicadas."],
-        ["negative", "Não publicado", fk.unpublished, "Componentes que ainda não estão publicados na lib."]],
+      segs: [["ch03", "Publicados", fk.current, "Publicados na lib sem alterações pendentes."],
+        ["ch01", "Mudança em branch", br, "Existem numa branch do Figma ou têm melhoria numa branch que ainda não foi para a main."],
+        ["ch04", "Com alteração pendente", fk.changed, "Publicados, mas o arquivo tem alterações que ainda não foram publicadas."],
+        ["ch05", "Não publicado", fk.unpublished, "Componentes que ainda não estão publicados na lib."]],
       facts: ["Última mudança no Figma em " + String(FS.checked || "").replace(/\/\d{4}$/, "")],
-      link: ["Ver no Roadmap", "#/relatorio/roadmap"], tip: "Componentes da lib [CastanhaDS] Components publicados sem alterações pendentes, lidos no Figma. Building blocks ficam fora da conta." });
+      link: ["Ver no Roadmap", "#/relatorio/roadmap"], tip: "Componentes da lib [CastanhaDS] Components publicados sem alterações pendentes, lidos no Figma. Building blocks, composições e templates ficam fora da conta." });
     // React: par no castanha-react (manifesto), JSX validado com o tsc e o check Figma × React
     var R = CDS.react || { items: {} }, rN = comps.filter(function(c){ return R.items[c.id] && R.items[c.id].status === "react"; }).length, lvR = levels(docs.stack), jx = extra.jsx;
     col({ name: "React", icon: "react-line", n: rN, of: N, base: "componentes do playground", what: "com par no castanha-react (web)", st: stStatus(lvR), levels: lvR,
-      segs: [["positive", "Com par no React", rN, "Componentes do playground que já existem no castanha-react."], ["neutral", "Ainda sem par", N - rN, "Existem no Figma e no playground, mas ainda não no castanha-react."]],
+      segs: [["ch03", "Com par no React", rN, "Componentes do playground que já existem no castanha-react."], ["ch07", "Ainda sem par", N - rN, "Existem no Figma e no playground, mas ainda não no castanha-react."]],
       facts: [jx ? "Código gerado validado: " + fmt(jx.trechos) + " trechos, " + (jx.erros || []).length + ((jx.erros || []).length === 1 ? " erro" : " erros") : "",
         R.source ? "Leitura da staging de " + brDate(R.source.date) : ""],
       link: ["Abrir Stack React", "#/relatorio/stack"], tip: "Componentes do playground que já existem no castanha-react. O código do painel \"No React\" é validado com o TypeScript da lib a cada leitura." });
     // Flutter: widget no castanha_flutter, Dart validado com o dart analyze e o check Figma × Flutter
     var F = CDS.flutter || { items: {} }, fN = comps.filter(function(c){ return F.items[c.id]; }).length, lvF = levels(docs["stack-flutter"]), dt = extra.dart;
     col({ name: "Flutter", icon: "flutter-fill", n: fN, of: N, base: "componentes do playground", what: "com widget no castanha_flutter (app)", st: stStatus(lvF), levels: lvF,
-      segs: [["positive", "Com widget no Flutter", fN, "Componentes do playground que já existem no castanha_flutter."], ["neutral", "Ainda sem par", N - fN, "Existem no Figma e no playground, mas ainda não no castanha_flutter."]],
+      segs: [["ch03", "Com widget no Flutter", fN, "Componentes do playground que já existem no castanha_flutter."], ["ch07", "Ainda sem par", N - fN, "Existem no Figma e no playground, mas ainda não no castanha_flutter."]],
       facts: [dt ? "Código gerado validado: " + fmt(dt.snippets) + " trechos, " + dt.errors + (dt.errors === 1 ? " erro" : " erros") : "",
         F.source ? "Leitura da staging de " + brDate(F.source.date) : ""],
       link: ["Abrir Stack Flutter", "#/relatorio/stack-flutter"], tip: "Componentes do playground que já existem no castanha_flutter. O código do painel \"No Flutter\" é validado com o dart analyze a cada leitura." });
@@ -374,6 +374,121 @@
       if (CDS.kit) CDS.kit.lazyTip(c.querySelector(".rp-trend__title"), m.tip, { focus: false });
     });
     p.appendChild(el("p", "rp-panel__foot", "Um ponto por dia, com o último registro de cada dia na linha principal do repositório (<code>scripts/dev/tendencia.js</code>). O ponto de hoje é calculado dos registros atuais."));
+    return p;
+  }
+
+  // ---------- Adoção ao longo do tempo (Castanha Analytics, Figma 2675:8589) ----------
+  // Gráfico de área em %: uma série por stack, eixo 0–100% com 5 linhas de grade, datas embaixo (a do hover vira Tag Neutral),
+  // legenda com linha e ponto, Select de período e Tooltip do DS com o valor de cada série no dia. Cores Charts do design
+  // (03 medium · 04 semi-soft · 05 semi-soft). Azul e roxo ficam próximos para protanopia: cada linha leva o valor no fim (C197).
+  function adoption(grid){
+    var T = extra.trend; if (!T || !T.days || !T.days.length) return null;
+    var comps = compsOnly(), C = {}; comps.forEach(function(c){ C[c.id] = 1; });
+    var days = T.days.filter(function(d){ return d.cob; }).map(function(d){ return { d: d.d, cob: d.cob }; });
+    // hoje, calculado ao vivo com a mesma conta do scripts/dev/tendencia.js
+    var now = new Date(), today = now.getFullYear() + "-" + ("0" + (now.getMonth() + 1)).slice(-2) + "-" + ("0" + now.getDate()).slice(-2);
+    if (!days.length || days[days.length - 1].d < today){
+      var R = (CDS.react || { items: {} }).items, F = (CDS.flutter || { items: {} }).items, FS = (CDS.figmaStatus || { items: {} }).items;
+      var base = comps.filter(function(c){ return R[c.id]; }), fsIds = Object.keys(FS).filter(function(id){ return C[id]; });
+      days.push({ d: today, live: true, cob: {
+        react: [base.filter(function(c){ return R[c.id].status === "react"; }).length, base.length],
+        flutter: [base.filter(function(c){ return F[c.id]; }).length, base.length],
+        figma: [fsIds.filter(function(id){ return FS[id] === "current"; }).length, fsIds.length] } });
+    }
+    var S = [{ k: "figma", name: "Figma", tip: "Publicados na lib sem pendência", cls: "is-s1" },
+      { k: "react", name: "React", tip: "Com par no castanha-react", cls: "is-s2" },
+      { k: "flutter", name: "Flutter", tip: "Com widget no castanha_flutter", cls: "is-s3" }];
+    var pct = function(d, k){ var v = d.cob[k]; return v && v[1] ? Math.round(v[0] / v[1] * 1000) / 10 : null; };
+    var p = panel(grid, "Adoção ao longo do tempo", "Quanto dos componentes do playground já está em cada stack, dia a dia", "rp-panel--wide");
+    // Select de período + legenda (linha e ponto)
+    var top = p.appendChild(el("div", "rp-adop__top"));
+    // Async Select Input do DS (como no Figma): as opções entram como <option> antes de conectar (o componente lê uma vez)
+    var sel = el("cds-async-select-input", "rp-adop__period");
+    [["label", "Período"], ["show-required", "false"], ["show-supporting-content", "false"], ["show-lead-icon", "false"], ["placeholder", "Período"], ["value", "tudo"]].forEach(function(x){ sel.setAttribute(x[0], x[1]); });
+    [["7", "Últimos 7 dias"], ["30", "Últimos 30 dias"], ["tudo", "Desde o início"]].forEach(function(o){ var op = document.createElement("option"); op.value = o[0]; op.textContent = o[1]; sel.appendChild(op); });
+    top.appendChild(sel);
+    var lg = top.appendChild(el("ul", "rp-adop__legend"));
+    S.forEach(function(s){ var li = lg.appendChild(el("li", s.cls)); li.appendChild(el("span", "rp-adop__key")).setAttribute("aria-hidden", "true"); li.appendChild(el("span", null, esc(s.name))); if (CDS.kit) CDS.kit.lazyTip(li, s.tip + ".", { label: s.name, focus: false }); });
+    var chart = p.appendChild(el("div", "rp-adop"));
+    var yax = chart.appendChild(el("div", "rp-adop__y")); yax.setAttribute("aria-hidden", "true");
+    [100, 75, 50, 25, 0].forEach(function(v){ yax.appendChild(el("span", null, v + "%")); });
+    var plot = chart.appendChild(el("div", "rp-adop__plot")); plot.tabIndex = 0; plot.setAttribute("role", "img");
+    var xs = chart.appendChild(el("div", "rp-adop__x"));
+    var NS = "http://www.w3.org/2000/svg", W = 1000, H = 300;
+    var tipEl = null, anchor = null, cur = -1, view = [], period = "tudo";
+    function smooth(pts){ // curva monotônica (não passa do valor real entre dois dias)
+      if (pts.length < 2) return "";
+      var d = "M" + pts[0][0] + "," + pts[0][1];
+      for (var i = 0; i < pts.length - 1; i++){ var a = pts[i], b = pts[i + 1], mx = (a[0] + b[0]) / 2; d += " C" + mx + "," + a[1] + " " + mx + "," + b[1] + " " + b[0] + "," + b[1]; }
+      return d;
+    }
+    function draw(){
+      var lim = period === "7" ? 7 : period === "30" ? 30 : 0;
+      var t1 = Date.parse(days[days.length - 1].d), t0 = lim ? t1 - (lim - 1) * 864e5 : Date.parse(days[0].d);
+      view = days.filter(function(d){ return Date.parse(d.d) >= t0; });
+      if (view.length < 2) view = days.slice(-2);
+      t0 = Date.parse(view[0].d);
+      var span = (t1 - t0) || 1, X = function(d){ return (Date.parse(d.d) - t0) / span * W; }, Y = function(v){ return H - v / 100 * H; };
+      plot.innerHTML = ""; xs.innerHTML = "";
+      var area = plot.appendChild(el("div", "rp-adop__area")); // linhas e hover; à direita fica a coluna dos rótulos do fim
+      var ends = [], svg = area.appendChild(document.createElementNS(NS, "svg")); svg.setAttribute("viewBox", "0 0 " + W + " " + H); svg.setAttribute("preserveAspectRatio", "none"); svg.setAttribute("class", "rp-adop__svg"); svg.setAttribute("aria-hidden", "true");
+      var defs = svg.appendChild(document.createElementNS(NS, "defs"));
+      [0, 1, 2, 3, 4].forEach(function(i){ var g = svg.appendChild(document.createElementNS(NS, "line")); g.setAttribute("class", "rp-adop__grid"); g.setAttribute("x1", "0"); g.setAttribute("x2", String(W)); g.setAttribute("y1", String(i * H / 4)); g.setAttribute("y2", String(i * H / 4)); });
+      S.forEach(function(s, si){
+        var pts = view.filter(function(d){ return pct(d, s.k) != null; }).map(function(d){ return [Math.round(X(d) * 10) / 10, Math.round(Y(pct(d, s.k)) * 10) / 10]; });
+        if (!pts.length) return;
+        var gid = "rp-adop-g" + si, lgr = defs.appendChild(document.createElementNS(NS, "linearGradient")); lgr.setAttribute("id", gid); lgr.setAttribute("x1", "0"); lgr.setAttribute("x2", "0"); lgr.setAttribute("y1", "0"); lgr.setAttribute("y2", "1");
+        [[0, ".22"], [.45, ".1"], [.85, ".03"], [1, "0"]].forEach(function(st){ var e = lgr.appendChild(document.createElementNS(NS, "stop")); e.setAttribute("offset", String(st[0])); e.setAttribute("class", "rp-adop__stop " + s.cls); e.setAttribute("stop-opacity", st[1]); });
+        if (pts.length > 1){
+          var area = svg.appendChild(document.createElementNS(NS, "path")); area.setAttribute("d", smooth(pts) + " L" + pts[pts.length - 1][0] + "," + H + " L" + pts[0][0] + "," + H + " Z"); area.setAttribute("fill", "url(#" + gid + ")");
+          var line = svg.appendChild(document.createElementNS(NS, "path")); line.setAttribute("d", smooth(pts)); line.setAttribute("class", "rp-adop__line " + s.cls);
+        }
+        // valor no fim da linha (relevo para a paleta: azul e roxo próximos para protanopia)
+        var lastD = view.filter(function(d){ return pct(d, s.k) != null; }).pop(), end = plot.appendChild(el("span", "rp-adop__end " + s.cls, fmt(pct(lastD, s.k)) + "%"));
+        end.style.top = (Y(pct(lastD, s.k)) / H * 100) + "%"; ends.push({ el: end, y: Y(pct(lastD, s.k)) / H * 100 });
+      });
+      // rótulos do fim sem sobrepor: de cima para baixo, cada um pelo menos 9% abaixo do anterior
+      ends.sort(function(a, b){ return a.y - b.y; }).forEach(function(e, i, a){ if (i && e.y < a[i - 1].y + 9) e.y = a[i - 1].y + 9; e.el.style.top = e.y + "%"; });
+      // linha do hover, pontos e âncora do Tooltip
+      var rule = area.appendChild(el("span", "rp-adop__rule")); rule.hidden = true;
+      var dots = S.map(function(s){ var d = area.appendChild(el("span", "rp-adop__dot " + s.cls)); d.hidden = true; return d; });
+      anchor = area.appendChild(el("span", "rp-adop__anchor")); anchor.id = "rp-adop-anchor";
+      if (tipEl) tipEl.remove();
+      tipEl = el("cds-tooltip", "rp-adop__tip"); tipEl.setAttribute("for", anchor.id); tipEl.setAttribute("show-label", "true"); tipEl.setAttribute("placement", "bottom"); tipEl.setAttribute("label", " "); tipEl.setAttribute("text", " ");
+      chart.appendChild(tipEl);
+      // datas: até 8 rótulos espalhados; o do hover vira Tag Neutral
+      // datas: do fim para o começo, só as que ficam a pelo menos 56px da anterior (cabe no celular); o hover mostra qualquer uma
+      var labs = [], wpx = area.getBoundingClientRect().width || W, gap = 56, lastX = Infinity;
+      view.forEach(function(d){
+        var lb = xs.appendChild(el("span", "rp-adop__xl")); lb.style.left = (X(d) / W * 100) + "%";
+        lb.textContent = d.live ? "Hoje" : brDate(d.d);
+        labs.push(lb);
+      });
+      for (var li = view.length - 1; li >= 0; li--){ var px = X(view[li]) / W * wpx; if (lastX - px >= gap || li === view.length - 1){ lastX = px; } else labs[li].classList.add("is-quiet"); }
+      plot.setAttribute("aria-label", "Adoção por stack: " + view.map(function(d){ return (d.live ? "hoje" : brDate(d.d)) + ", " + S.map(function(s){ var v = pct(d, s.k); return s.name + " " + (v == null ? "sem dado" : fmt(v) + "%"); }).join(", "); }).join("; "));
+      function show(i){
+        if (i < 0 || i >= view.length){ rule.hidden = true; dots.forEach(function(d){ d.hidden = true; }); tipEl.hidden = true; labs.forEach(function(l){ l.classList.remove("is-on"); var t = l.querySelector("cds-tag"); if (t){ l.textContent = t.getAttribute("label"); } }); cur = -1; return; }
+        cur = i; var d = view[i], x = X(d) / W * 100, topY = 100;
+        rule.hidden = false; rule.style.left = x + "%";
+        S.forEach(function(s, si){ var v = pct(d, s.k); dots[si].hidden = v == null; if (v != null){ dots[si].style.left = x + "%"; dots[si].style.top = (Y(v) / H * 100) + "%"; topY = Math.min(topY, Y(v) / H * 100); } });
+        anchor.style.left = x + "%"; anchor.style.top = topY + "%";
+        labs.forEach(function(l, li){ var on = li === i, t = l.querySelector("cds-tag");
+          if (on && !t){ var txt = l.textContent; l.textContent = ""; t = l.appendChild(el("cds-tag")); t.setAttribute("label", txt); t.setAttribute("appearance", "neutral"); t.setAttribute("show-lead-item", "false"); }
+          else if (!on && t){ l.textContent = t.getAttribute("label"); }
+          l.classList.toggle("is-on", on); });
+        tipEl.setAttribute("label", d.live ? "Hoje" : new Date(d.d + "T12:00").toLocaleDateString("pt-BR", { day: "2-digit", month: "long" }));
+        tipEl.setAttribute("text", S.map(function(s){ var v = pct(d, s.k); return s.name + ": " + (v == null ? "sem leitura" : fmt(v) + "% (" + d.cob[s.k][0] + " de " + d.cob[s.k][1] + ")"); }).join("\n"));
+        tipEl.show();
+      }
+      plot.onpointermove = function(e){ var r = area.getBoundingClientRect(), t = t0 + (e.clientX - r.left) / r.width * span, best = 0;
+        view.forEach(function(d, i){ if (Math.abs(Date.parse(d.d) - t) < Math.abs(Date.parse(view[best].d) - t)) best = i; }); if (best !== cur) show(best); };
+      plot.onpointerleave = function(){ show(-1); };
+      plot.onfocus = function(){ show(view.length - 1); }; plot.onblur = function(){ show(-1); };
+      plot.onkeydown = function(e){ if (e.key === "ArrowLeft" || e.key === "ArrowRight"){ e.preventDefault(); show(Math.max(0, Math.min(view.length - 1, (cur < 0 ? view.length - 1 : cur) + (e.key === "ArrowLeft" ? -1 : 1)))); } else if (e.key === "Escape") show(-1); };
+    }
+    sel.addEventListener("cds-change", function(e){ e.stopPropagation(); period = (e.detail && e.detail.value) || "tudo"; draw(); });
+    draw();
+    p.appendChild(el("p", "rp-panel__foot", "Base: os componentes do playground (sem building blocks, composições e templates) que já existiam em cada dia. Figma = publicados na lib sem pendência; React e Flutter = com par na lib de código. Passe o mouse ou use as setas para ver cada dia."));
     return p;
   }
 
@@ -472,13 +587,13 @@
     var FS = CDS.figmaStatus || { items: {} }, byId = {}, pubN = {};
     (CDS.playgrounds || []).forEach(function(c){ byId[c.id] = c.name; });
     Object.keys(FS.items).forEach(function(id){ (pubN[FS.items[id]] = pubN[FS.items[id]] || []).push(byId[id] || id); });
-    // 4º item = cor da Tag do mesmo status no título do componente (scripts/app.js)
-    var PUBS = [["current", "Publicado no Figma", "Publicado na lib sem alterações pendentes.", "positive"],
-      ["changed", "Publicado com alterações pendentes", "Publicado, mas o arquivo tem alterações que ainda não foram publicadas.", "informative"],
-      ["unpublished-comp", "Não publicado", "Componente que ainda não está publicado na lib.", "negative"],
-      ["branch", "Não publicado · em branch", "Existe numa branch do Figma e ainda não está na main.", "warning"],
-      ["branch-update", "Melhoria em branch", "A main está publicada, mas a página documenta uma melhoria que ainda está numa branch.", "warning"],
-      ["unpublished-block", "Não publicado · building block", "Building blocks (nome com ponto) ficam fora da publicação de propósito.", "neutral"]];
+    // 4º item = cor Charts do Castanha Analytics (D316), a mesma da coluna Figma do painel das stacks
+    var PUBS = [["current", "Publicado no Figma", "Publicado na lib sem alterações pendentes.", "ch03"],
+      ["changed", "Publicado com alterações pendentes", "Publicado, mas o arquivo tem alterações que ainda não foram publicadas.", "ch04"],
+      ["unpublished-comp", "Não publicado", "Componente que ainda não está publicado na lib.", "ch05"],
+      ["branch", "Não publicado · em branch", "Existe numa branch do Figma e ainda não está na main.", "ch01"],
+      ["branch-update", "Melhoria em branch", "A main está publicada, mas a página documenta uma melhoria que ainda está numa branch.", "ch01"],
+      ["unpublished-block", "Não publicado · building block", "Building blocks (nome com ponto) ficam fora da publicação de propósito.", "ch07"]];
     var blocks = {}; (CDS.playgrounds || []).forEach(function(c){ if (c.block) blocks[c.name] = true; });
     var un = pubN.unpublished || []; pubN["unpublished-comp"] = un.filter(function(n){ return !blocks[n]; }); pubN["unpublished-block"] = un.filter(function(n){ return blocks[n]; });
     var pubTotal = Object.keys(FS.items).length;
@@ -490,9 +605,9 @@
     PUBS.forEach(function(pt, i){
       var names = (pubN[pt[0]] || []).slice().sort(function(a, b){ return a.localeCompare(b, "pt-BR"); }), nn = names.length;
       var list = nn <= 8 ? names.join(", ") : "Ex.: " + names.slice(0, 6).join(", ") + "…", tipTx = nn + " de " + pubTotal + " (" + Math.round(nn / (pubTotal || 1) * 100) + "%). " + pt[2] + (nn ? " " + list + "." : "");
-      if (nn){ var sg = stack.appendChild(el("span", "rp-stack__seg is-pub-" + pt[3])); sg.style.setProperty("--_w", String(nn / (pubTotal || 1))); sg.style.setProperty("--_i", String(i)); sg.setAttribute("data-grow", "");
+      if (nn){ var sg = stack.appendChild(el("span", "rp-stack__seg is-" + pt[3])); sg.style.setProperty("--_w", String(nn / (pubTotal || 1))); sg.style.setProperty("--_i", String(i)); sg.setAttribute("data-grow", "");
         if (CDS.kit) CDS.kit.lazyTip(sg, tipTx, { label: pt[1], focus: false }); }
-      var li = legP.appendChild(el("li")); li.appendChild(el("span", "rp-legend__sw is-pub-" + pt[3])); li.appendChild(el("span", null, esc(pt[1])));
+      var li = legP.appendChild(el("li")); li.appendChild(el("span", "rp-legend__sw is-" + pt[3])); li.appendChild(el("span", null, esc(pt[1])));
       li.appendChild(el("strong", null, nn + " <span class=\"rp-legend__pct\">" + Math.round(nn / (pubTotal || 1) * 100) + "%</span>"));
       if (CDS.kit) CDS.kit.lazyTip(li, tipTx, { label: pt[1] });
     });
@@ -546,10 +661,10 @@
       });
     }
 
-    var p8 = stacks(grid), p9 = trend(grid);
+    var p8 = stacks(grid), p10 = adoption(grid), p9 = trend(grid);
     // Duas seções (Gustavo, 09/10): Progresso (como o DS avança nas stacks, para quem acompanha de fora) e Detalhes (o que pede ação
     // e o que explica as decisões, para quem trabalha no DS). Nomes comuns, sem citar público.
-    var groups = [["Progresso", "Cobertura no Figma, no React e no Flutter, publicação na lib e evolução dia a dia", [p8, p5, p9]],
+    var groups = [["Progresso", "Cobertura no Figma, no React e no Flutter, publicação na lib e evolução dia a dia", [p8, p10, p5, p9]],
       ["Detalhes", "Débitos, regras de adaptação, componentes, decisões e o build do portal", [p2, p4, p3].concat(typeof p7 !== "undefined" ? [p7] : []).concat([p6, p0])]], k = 0;
     groups.forEach(function(g){
       var h = grid.appendChild(el("div", "rp-dash__group"));

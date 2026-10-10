@@ -38,7 +38,7 @@
   "tokens": 308,
   "icons": 273,
   "illustrations": 260,
-  "conferirOpen": 135,
+  "conferirOpen": 136,
   "stackFindings": 45
  },
  "components": [
@@ -32827,6 +32827,12 @@
     "group": "Acessibilidade",
     "resolved": false,
     "text": "Main Button e Icon Button **Small** × área de toque (Scale) · A Scale pede 48px de área de toque e a imagem mostra o Small (40px) dentro de 48px · Small tem **40px** e **não amplia** a área de toque no componente (nem no Figma nem no código). Definir: Small só na web/desktop, ou área de toque de 48px no componente · Segue o Figma (40px). O próprio playground usa Icon Button Small na barra do topo (desktop) · Decidir no DS; se ganhar área de toque, ajustar `main-button.css` / `icon-button.css`"
+   },
+   {
+    "id": "C197",
+    "group": "Acessibilidade",
+    "resolved": false,
+    "text": "Castanha Analytics · gráficos (Figma `xHh4XiLrKxt8GGmEFsytpr`, branch, nós 2675:8589 e 2675:8470) · Área \"Adoção ao longo do tempo\" com Charts/03 medium (#339cff), Charts/04 semi-soft (#be83e2) e Charts/05 semi-soft (#46b6bb); barra empilhada com Charts/03, 01, 04 medium e 05 semi-soft · No validador de paleta, azul × roxo da área dá ΔE 4,2 para protanopia (mínimo 8), e o amarelo Charts/01 medium (#ffc833) fica fora da faixa de luminosidade sobre o fundo claro. Trocar o roxo por um tom mais escuro (ex.: Charts/04 medium) e o amarelo por Charts/01 intense? · Segue o Figma: Relatório › Visão geral usa as mesmas cores. Para compensar, cada linha da área tem o valor no fim, e a legenda das barras traz nome e número · Quando o Castanha Analytics revisar a paleta dos gráficos"
    },
    {
     "id": "C12",

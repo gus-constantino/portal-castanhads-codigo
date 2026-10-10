@@ -13,7 +13,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | [Motion](#motion) | 7 |
 | [Refactor](#refactor) | 39 |
 | [Naming](#naming) | 11 |
-| [Acessibilidade](#acessibilidade) | 7 |
+| [Acessibilidade](#acessibilidade) | 8 |
 | [Documentação](#documentação) | 16 |
 | [Integração React](#integração-react) | 11 |
 
@@ -166,6 +166,7 @@ Contraste, foco e estados que não se distinguem.
 | C127 | `Text/accent` sobre fundo escuro · Filter Button, Main Button Ghost Accent (ex.: "Selecionar arquivos" do Dropzone) | Conferido no Figma (05/10): `Text/accent` (e `Icons/Accent`) **não tem valor escuro**: `#e80537` sobre `Surface/default` escuro (`#1a1a1a`) dá **3,74:1** (AA pede 4,5:1 para Label 14–16px; no claro passa com 4,54:1) | **Proposta:** valor escuro de `Text/accent` e `Icons/Accent` = o escuro de `Accent/Solid/semi-intense` (`#fe959b` → **8,28:1**). Não muda `Accent/Solid/medium` (fundo do Main Button) | Segue o Figma; aviso no smoke | Nada no código: só o valor do token (o build de tokens traz) |
 | C128 | `Text/soft` em texto informativo · contador do Text Input / Text Area ("0/100") e máscara do Date Input ("-0000") | Conferido no Figma (05/10): contador em `Text/soft` (Disclaimer/Regular 12px). `Text/soft` sobre `Surface/default`: **2,78:1** no claro e **4,41:1** no escuro (o smoke mede 2,50:1 sobre o fundo do campo) | **Proposta:** contador e máscara em `Text/medium` (**8,24:1** / **10,84:1**); `Text/soft` fica para o placeholder e o desabilitado, que o WCAG não exige. Confirmar com a11y | Segue o Figma; aviso no smoke | Trocar o token em `text-field.css` / `date-input.css` |
 | C152 | Main Button e Icon Button **Small** × área de toque (Scale) | A Scale pede 48px de área de toque e a imagem mostra o Small (40px) dentro de 48px | Small tem **40px** e **não amplia** a área de toque no componente (nem no Figma nem no código). Definir: Small só na web/desktop, ou área de toque de 48px no componente | Segue o Figma (40px). O próprio playground usa Icon Button Small na barra do topo (desktop) | Decidir no DS; se ganhar área de toque, ajustar `main-button.css` / `icon-button.css` |
+| C197 | Castanha Analytics · gráficos (Figma `xHh4XiLrKxt8GGmEFsytpr`, branch, nós 2675:8589 e 2675:8470) | Área "Adoção ao longo do tempo" com Charts/03 medium (#339cff), Charts/04 semi-soft (#be83e2) e Charts/05 semi-soft (#46b6bb); barra empilhada com Charts/03, 01, 04 medium e 05 semi-soft | No validador de paleta, azul × roxo da área dá ΔE 4,2 para protanopia (mínimo 8), e o amarelo Charts/01 medium (#ffc833) fica fora da faixa de luminosidade sobre o fundo claro. Trocar o roxo por um tom mais escuro (ex.: Charts/04 medium) e o amarelo por Charts/01 intense? | Segue o Figma: Relatório › Visão geral usa as mesmas cores. Para compensar, cada linha da área tem o valor no fim, e a legenda das barras traz nome e número | Quando o Castanha Analytics revisar a paleta dos gráficos |
 
 ## Documentação
 

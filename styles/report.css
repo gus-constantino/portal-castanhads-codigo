@@ -87,7 +87,8 @@
 .pg-report{ --rp-track:var(--pg-line);
   --rp-c-seg:var(--common-colors-accent-solid-medium); --rp-c-exc:var(--common-colors-charts-03-semi-soft); --rp-c-deb:var(--common-colors-charts-07-medium);
   --rp-bar:var(--common-colors-charts-07-medium); --rp-bar-track:var(--common-colors-charts-07-soft);
-  --rp-bar-comp:var(--common-colors-accent-solid-medium); --rp-bar-comp-track:var(--common-colors-charts-07-soft); }
+  --rp-bar-comp:var(--common-colors-accent-solid-medium);
+  --rp-c-res:var(--common-colors-charts-03-semi-intense); /* Resolvidos na Tendência: #0084ff, validado contra o Accent (CVD e contraste) */ --rp-bar-comp-track:var(--common-colors-charts-07-soft); }
 .rp-body.is-dash{ display:block; }
 .rp-dash{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:var(--common-sizes-12); }
 .rp-panel{ min-width:0; } /* Card do DS */
@@ -241,6 +242,13 @@ a.rp-bar{ transition:background-color var(--motion-hover-in-01-timing) var(--mot
   transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
 .rp-trend__hit:hover{ background:var(--pg-line); }
 .rp-trend__empty{ margin:auto 0 0; padding-top:var(--common-sizes-8); font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); }
+.rp-trend__line.is-res{ stroke:var(--rp-c-res); }
+.rp-trend__dot.is-res{ background:var(--rp-c-res); }
+.rp-trend__legend{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:var(--common-sizes-4) var(--common-sizes-16); font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); }
+.rp-trend__legend li{ display:flex; align-items:center; gap:var(--common-sizes-6); }
+.rp-trend__legend strong{ font:var(--text-style-caption-medium); color:var(--common-colors-text-intense); font-variant-numeric:tabular-nums; }
+.rp-trend__sw{ width:var(--common-sizes-12); height:var(--common-border-width-thin); border-radius:var(--common-border-radius-pill); background:var(--common-colors-accent-solid-medium); }
+.rp-trend__sw.is-res{ background:var(--rp-c-res); }
 .rp-trend__axis{ display:flex; justify-content:space-between; margin:var(--common-sizes-4) 0 0; font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); }
 
 /* Débitos e melhorias: progresso geral + barra por tipo dividida em como o código tratou (cores da rosca) */
@@ -287,3 +295,4 @@ a.rp-bar{ transition:background-color var(--motion-hover-in-01-timing) var(--mot
   .rp-body{ display:block; }
   .rp-section, .rp-panel{ break-inside:avoid-page; }
 }
+html[data-theme="dark"] .pg-report{ --rp-c-res:var(--common-colors-charts-03-soft); } /* no escuro a escala Charts inverte: soft = o mesmo #0084ff */

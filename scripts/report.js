@@ -291,45 +291,61 @@
         abertos: ab, resolvidos: rs, react: lr["Alta"] != null ? [lr["Alta"], lr["Média"] || 0] : null, flutter: lf["Alta"] != null ? [lf["Alta"], lf["Média"] || 0] : null, live: true });
     }
     var sum = function(k){ return function(d){ return d[k] ? d[k][0] + d[k][1] : null; }; };
+    // Cada card tem uma ou mais séries da mesma unidade (dividem o eixo). Débitos: em aberto ao lado dos resolvidos (Gustavo, 09/10).
     var M = [
-      ["Documentações de componente", function(d){ return d.docs; }, "Docs de uso, anatomia, estilos e acessibilidade publicadas no portal."],
-      ["Decisões registradas", function(d){ return d.decisoes; }, "Decisões de produto e de implementação registradas no Roadmap."],
-      ["Débitos resolvidos", function(d){ return d.resolvidos; }, "Itens do Conferir já resolvidos (no Figma ou no código)."],
-      ["Débitos em aberto", function(d){ return d.abertos; }, "Divergências, gaps e propostas registradas no Conferir que ainda esperam ação."],
-      ["Divergências Figma × React", sum("react"), "Itens de nível alto e médio no check Figma × castanha-react."],
-      ["Divergências Figma × Flutter", sum("flutter"), "Itens de nível alto e médio no check Figma × castanha_flutter."]
+      { t: "Documentações de componente", tip: "Docs de uso, anatomia, estilos e acessibilidade publicadas no portal.", s: [{ get: function(d){ return d.docs; } }] },
+      { t: "Decisões registradas", tip: "Decisões de produto e de implementação registradas no Roadmap.", s: [{ get: function(d){ return d.decisoes; } }] },
+      { t: "Débitos no Conferir", tip: "Divergências, gaps e propostas do Conferir: os que ainda esperam ação e os já resolvidos (no Figma ou no código).", s: [
+        { name: "Em aberto", get: function(d){ return d.abertos; } },
+        { name: "Resolvidos", get: function(d){ return d.resolvidos; }, cls: "is-res" }] },
+      { t: "Divergências Figma × React", tip: "Itens de nível alto e médio no check Figma × castanha-react.", s: [{ get: sum("react") }] },
+      { t: "Divergências Figma × Flutter", tip: "Itens de nível alto e médio no check Figma × castanha_flutter.", s: [{ get: sum("flutter") }] }
     ];
     var first = days[0].d, p = panel(grid, "Tendência", "Como os registros evoluíram dia a dia, de " + brDate(first) + " até hoje", "rp-panel--wide");
     var wrap = p.appendChild(el("div", "rp-trends")), NS = "http://www.w3.org/2000/svg", W = 240, H = 64, PAD = 4;
+    var dayLabel = function(d){ return new Date(d + "T12:00").toLocaleDateString("pt-BR", { weekday: "long", day: "2-digit", month: "2-digit" }); };
+    var signed = function(n){ return (n > 0 ? "+" : n < 0 ? "−" : "") + fmt(Math.abs(n)); };
     M.forEach(function(m, mi){
-      var pts = days.map(function(d){ return { d: d.d, v: m[1](d), live: d.live }; }).filter(function(x){ return x.v != null; });
-      if (!pts.length) return;
-      var c = wrap.appendChild(el("section", "rp-trend")), last = pts[pts.length - 1], d0 = pts[0], delta = last.v - d0.v;
-      c.setAttribute("aria-label", m[0]);
-      c.appendChild(el("h3", "rp-trend__title", esc(m[0])));
-      var v = c.appendChild(el("p", "rp-trend__value", "<strong>" + fmt(last.v) + "</strong> <span>" + (pts.length < 2 ? "primeira leitura hoje" : (delta > 0 ? "+" : delta < 0 ? "−" : "") + fmt(Math.abs(delta)) + " desde " + brDate(d0.d)) + "</span>"));
-      if (pts.length < 2){ c.appendChild(el("p", "rp-trend__empty", "A linha aparece a partir da próxima leitura diária.")); return; }
-      var lo = Math.min.apply(null, pts.map(function(x){ return x.v; })), hi = Math.max.apply(null, pts.map(function(x){ return x.v; }));
-      if (lo > 0 && hi - lo < hi * 0.1) lo = 0; // variação pequena: o eixo começa no zero para não exagerar a curva
+      var rowsD = days.filter(function(d){ return m.s.every(function(s){ return s.get(d) != null; }); });
+      if (!rowsD.length) return;
+      var c = wrap.appendChild(el("section", "rp-trend")), d0 = rowsD[0], dl = rowsD[rowsD.length - 1], multi = m.s.length > 1;
+      c.setAttribute("aria-label", m.t);
+      c.appendChild(el("h3", "rp-trend__title", esc(m.t)));
+      if (multi){
+        // legenda com o valor de hoje e a variação: a cor nunca é a única pista
+        var lg = c.appendChild(el("ul", "rp-trend__legend"));
+        m.s.forEach(function(s){ var li = lg.appendChild(el("li")); li.appendChild(el("span", "rp-trend__sw " + (s.cls || ""))); li.appendChild(el("span", null, esc(s.name)));
+          li.appendChild(el("strong", null, fmt(s.get(dl)))); if (rowsD.length > 1) li.appendChild(el("span", "rp-trend__delta", signed(s.get(dl) - s.get(d0)))); });
+      } else {
+        var g = m.s[0].get, delta = g(dl) - g(d0);
+        c.appendChild(el("p", "rp-trend__value", "<strong>" + fmt(g(dl)) + "</strong> <span>" + (rowsD.length < 2 ? "primeira leitura hoje" : signed(delta) + " desde " + brDate(d0.d)) + "</span>"));
+      }
+      if (rowsD.length < 2){ c.appendChild(el("p", "rp-trend__empty", "A linha aparece a partir da próxima leitura diária.")); return; }
+      var all = [].concat.apply([], m.s.map(function(s){ return rowsD.map(s.get); }));
+      var lo = Math.min.apply(null, all), hi = Math.max.apply(null, all);
+      if (multi || (lo > 0 && hi - lo < hi * 0.1)) lo = Math.min(lo, 0); // comparação ou variação pequena: o eixo começa no zero
       // eixo x pelas datas: dia sem registro (fim de semana) deixa o espaço dele
-      var t0 = Date.parse(d0.d), span = (Date.parse(last.d) - t0) || 1, xr = function(i){ return (Date.parse(pts[i].d) - t0) / span; };
-      var X = function(i){ return PAD + xr(i) * (W - 2 * PAD); }, Y = function(n){ return H - PAD - (hi === lo ? 0.5 : (n - lo) / (hi - lo)) * (H - 2 * PAD); };
+      var t0 = Date.parse(d0.d), span = (Date.parse(dl.d) - t0) || 1;
+      var X = function(i){ return PAD + (Date.parse(rowsD[i].d) - t0) / span * (W - 2 * PAD); }, Y = function(n){ return H - PAD - (hi === lo ? 0.5 : (n - lo) / (hi - lo)) * (H - 2 * PAD); };
       var box = c.appendChild(el("div", "rp-trend__chart"));
       var svg = box.appendChild(document.createElementNS(NS, "svg")); svg.setAttribute("viewBox", "0 0 " + W + " " + H); svg.setAttribute("preserveAspectRatio", "none"); svg.setAttribute("class", "rp-trend__svg");
-      svg.setAttribute("role", "img"); svg.setAttribute("aria-label", m[0] + ": " + pts.map(function(x){ return brDate(x.d) + " " + x.v; }).join("; "));
+      svg.setAttribute("role", "img"); svg.setAttribute("aria-label", m.t + ": " + rowsD.map(function(d){ return brDate(d.d) + " " + m.s.map(function(s){ return (s.name ? s.name.toLowerCase() + " " : "") + s.get(d); }).join(", "); }).join("; "));
       var base = svg.appendChild(document.createElementNS(NS, "line")); base.setAttribute("class", "rp-trend__base"); base.setAttribute("x1", "0"); base.setAttribute("x2", String(W)); base.setAttribute("y1", String(H - PAD)); base.setAttribute("y2", String(H - PAD));
-      var line = svg.appendChild(document.createElementNS(NS, "polyline")); line.setAttribute("class", "rp-trend__line"); line.setAttribute("pathLength", "100"); line.setAttribute("data-grow", ""); line.style.setProperty("--_i", String(mi));
-      line.setAttribute("points", pts.map(function(x, i){ return X(i).toFixed(1) + "," + Y(x.v).toFixed(1); }).join(" "));
-      // ponto do último dia (HTML sobre o SVG: o SVG estica na largura e um círculo sairia oval)
-      var dot = box.appendChild(el("span", "rp-trend__dot")); dot.style.left = (X(pts.length - 1) / W * 100) + "%"; dot.style.top = (Y(last.v) / H * 100) + "%";
+      m.s.forEach(function(s){
+        var line = svg.appendChild(document.createElementNS(NS, "polyline")); line.setAttribute("class", "rp-trend__line " + (s.cls || "")); line.setAttribute("pathLength", "100"); line.setAttribute("data-grow", ""); line.style.setProperty("--_i", String(mi));
+        line.setAttribute("points", rowsD.map(function(d, i){ return X(i).toFixed(1) + "," + Y(s.get(d)).toFixed(1); }).join(" "));
+        // ponto do último dia (HTML sobre o SVG: o SVG estica na largura e um círculo sairia oval)
+        var dot = box.appendChild(el("span", "rp-trend__dot " + (s.cls || ""))); dot.style.left = (X(rowsD.length - 1) / W * 100) + "%"; dot.style.top = (Y(s.get(dl)) / H * 100) + "%";
+      });
       // uma faixa por dia para a dica (alvo maior que a marca)
       var hits = box.appendChild(el("div", "rp-trend__hits"));
-      pts.forEach(function(x, i){
+      rowsD.forEach(function(d, i){
         var hcol = hits.appendChild(el("span", "rp-trend__hit")); hcol.style.setProperty("--_x", String(X(i) / W));
-        if (CDS.kit) CDS.kit.lazyTip(hcol, fmt(x.v) + (x.live ? " (hoje, calculado dos registros atuais)." : "."), { label: new Date(x.d + "T12:00").toLocaleDateString("pt-BR", { weekday: "long", day: "2-digit", month: "2-digit" }), focus: false });
+        var tx = m.s.map(function(s){ return (s.name ? s.name + ": " : "") + fmt(s.get(d)); }).join(" · ") + (d.live ? " (hoje, calculado dos registros atuais)." : ".");
+        if (CDS.kit) CDS.kit.lazyTip(hcol, tx, { label: dayLabel(d.d), focus: false });
       });
-      var ax = c.appendChild(el("p", "rp-trend__axis")); ax.appendChild(el("span", null, brDate(d0.d))); ax.appendChild(el("span", null, last.live ? "Hoje" : brDate(last.d)));
-      if (CDS.kit) CDS.kit.lazyTip(c.querySelector(".rp-trend__title"), m[2], { focus: false });
+      var ax = c.appendChild(el("p", "rp-trend__axis")); ax.appendChild(el("span", null, brDate(d0.d))); ax.appendChild(el("span", null, dl.live ? "Hoje" : brDate(dl.d)));
+      if (CDS.kit) CDS.kit.lazyTip(c.querySelector(".rp-trend__title"), m.tip, { focus: false });
     });
     p.appendChild(el("p", "rp-panel__foot", "Um ponto por dia, com o último registro de cada dia na linha principal do repositório (<code>scripts/dev/tendencia.js</code>). O ponto de hoje é calculado dos registros atuais."));
     return p;

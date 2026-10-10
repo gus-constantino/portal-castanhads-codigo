@@ -1,11 +1,11 @@
 /* Explorar o portal (F4, plano §3.4 e Q7): as 20 paradas do antigo Roteiro (docs/roteiro, D236) viram uma trilha opcional dos
-   Primeiros passos. Em 09/10 entrou o bloco Código e dados (Flutter, Desenvolvimento, MCP e Relatório): 24 paradas em 6 blocos. Cada parada se marca quando a pessoa abre o link dela pela trilha. O Roteiro agora redireciona para cá. */
+   Primeiros passos. Cada parada se marca quando a pessoa abre o link dela pela trilha. O Roteiro agora redireciona para cá. */
 (function(){
   var CDS = window.CDS = window.CDS || {};
   if (!CDS.onboarding || !CDS.onboarding.trail) return;
   CDS.onboarding.trail({
     title: "Explorar o portal",
-    intro: "24 coisas para abrir, clicar e mexer, em 6 blocos. Cada uma se marca quando você abre pela lista.",
+    intro: "20 coisas para abrir, clicar e mexer, em 5 blocos. Cada uma se marca quando você abre pela lista.",
     blocks: [
       { id: "menu", title: "Menu e navegação", items: [
         ["Menu em grade com miniaturas vivas", "Em Componentes, clique no ícone de grade. Cada card é o componente real, reduzido.", "#/main-button"],
@@ -36,12 +36,6 @@
         ["Templates do Sponsor", "Passe o mouse sobre o Side Menu colapsado: ele abre por cima do conteúdo, como no produto.", "#/sponsor-side-menu"],
         ["Castanha Quiz", "Escolha um tema, faça o treino de 5 minutos e jogue com os componentes reais.", "#/castanha-quiz"],
         ["Agentes e Skills", "Conheça o Borô, o assistente do Castanha no Slack, e a skill /castanhads-juntos.", "#/agentes"]
-      ] },
-      { id: "codigo", title: "Código e dados", items: [
-        ["Do Figma para o Flutter", "Role a página até No Flutter. O Dart do castanha_flutter muda junto com os controles.", "#/text-input"],
-        ["Guias de desenvolvimento", "Instalação, ambiente e tokens para React e Flutter, com as docs do Storybook do castanha-react.", "#/comece-aqui"],
-        ["MCP para a sua IA", "Conecte o seu assistente ao Castanha. Ele gera e revisa código React e Flutter com os componentes do DS.", "#/mcp"],
-        ["Relatório do DS", "Na Equalização, passe o mouse para conferir quanto do DS está no Figma, no React e no Flutter em cada dia.", "#/relatorio"]
       ] }
     ]
   });

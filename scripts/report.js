@@ -792,7 +792,7 @@
       // Embaixo: a proposta zeroheight → portal (docs/pitch, página própria em tela cheia; Gustavo, 06/10)
       toc.appendChild(dsLink("rp-src", "Proposta: zeroheight → portal", "docs/pitch/"));
       // E as 20 paradas para quem chega: o antigo Roteiro virou a trilha Explorar dos Primeiros passos (F4; docs/roteiro redireciona)
-      toc.appendChild(dsLink("rp-src", "Explorar o portal: 24 paradas", "#/inicio/primeiros-passos"));
+      toc.appendChild(dsLink("rp-src", "Explorar o portal: 20 paradas", "#/inicio/primeiros-passos"));
     }
     filter();
   }

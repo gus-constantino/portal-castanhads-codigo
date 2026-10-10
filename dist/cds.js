@@ -10147,13 +10147,13 @@ try {
 /* ==== services/onboarding/flows/explorar.flow.js ==== */
 try {
 /* Explorar o portal (F4, plano §3.4 e Q7): as 20 paradas do antigo Roteiro (docs/roteiro, D236) viram uma trilha opcional dos
-   Primeiros passos. Em 09/10 entrou o bloco Código e dados (Flutter, Desenvolvimento, MCP e Relatório): 24 paradas em 6 blocos. Cada parada se marca quando a pessoa abre o link dela pela trilha. O Roteiro agora redireciona para cá. */
+   Primeiros passos. Cada parada se marca quando a pessoa abre o link dela pela trilha. O Roteiro agora redireciona para cá. */
 (function(){
   var CDS = window.CDS = window.CDS || {};
   if (!CDS.onboarding || !CDS.onboarding.trail) return;
   CDS.onboarding.trail({
     title: "Explorar o portal",
-    intro: "24 coisas para abrir, clicar e mexer, em 6 blocos. Cada uma se marca quando você abre pela lista.",
+    intro: "20 coisas para abrir, clicar e mexer, em 5 blocos. Cada uma se marca quando você abre pela lista.",
     blocks: [
       { id: "menu", title: "Menu e navegação", items: [
         ["Menu em grade com miniaturas vivas", "Em Componentes, clique no ícone de grade. Cada card é o componente real, reduzido.", "#/main-button"],
@@ -10184,12 +10184,6 @@ try {
         ["Templates do Sponsor", "Passe o mouse sobre o Side Menu colapsado: ele abre por cima do conteúdo, como no produto.", "#/sponsor-side-menu"],
         ["Castanha Quiz", "Escolha um tema, faça o treino de 5 minutos e jogue com os componentes reais.", "#/castanha-quiz"],
         ["Agentes e Skills", "Conheça o Borô, o assistente do Castanha no Slack, e a skill /castanhads-juntos.", "#/agentes"]
-      ] },
-      { id: "codigo", title: "Código e dados", items: [
-        ["Do Figma para o Flutter", "Role a página até No Flutter. O Dart do castanha_flutter muda junto com os controles.", "#/text-input"],
-        ["Guias de desenvolvimento", "Instalação, ambiente e tokens para React e Flutter, com as docs do Storybook do castanha-react.", "#/comece-aqui"],
-        ["MCP para a sua IA", "Conecte o seu assistente ao Castanha. Ele gera e revisa código React e Flutter com os componentes do DS.", "#/mcp"],
-        ["Relatório do DS", "Na Equalização, passe o mouse para conferir quanto do DS está no Figma, no React e no Flutter em cada dia.", "#/relatorio"]
       ] }
     ]
   });
@@ -10335,7 +10329,7 @@ try {
         "O estado (novo, em andamento, lembrar depois, concluído, dispensado) e as métricas ficam no localStorage deste navegador.",
         "A boas-vindas abre sozinha na primeira visita (fora do Relatório e das páginas escondidas). Me lembrar mais tarde traz de volta a partir do dia seguinte, no máximo 2 vezes. Começar segue para o tour, com o menu lateral, e o tour termina nos Primeiros passos do Início.",
         "Os Primeiros passos ficam numa tab do Início e no item da Ajuda, com o checklist do perfil e o botão Fazer o tour. Cada tarefa se marca quando a pessoa abre a página (ou mexe numa prop no Playground).",
-        "Embaixo do checklist fica a trilha Explorar o portal: as 20 paradas do antigo Roteiro e o bloco Código e dados, 24 paradas em 6 blocos de Accordion. Cada parada se marca quando a pessoa abre o link pela lista. O tour também abre pelo modal de atalhos (tecla ?) e a FAQ explica como refazer.",
+        "Embaixo do checklist fica a trilha Explorar o portal: as 20 paradas do antigo Roteiro, em 5 blocos de Accordion. Cada parada se marca quando a pessoa abre o link pela lista. O tour também abre pelo modal de atalhos (tecla ?) e a FAQ explica como refazer.",
         "Durante o tour, o Backdrop do DS fica atrás do passo e o bloco com a área apontada (o menu) fica por cima, claro.",
         "`?tour=<id>` abre um fluxo na hora e `?onboarding=off` desliga o serviço (o smoke das docs roda assim)."
       ] },
@@ -15752,7 +15746,7 @@ try {
           { title: "O portal", icon: "home-line", appearance: "neutral", items: [
             ["Como refaço o tour do portal?", "Em Início, na tab Primeiros passos, use o botão Fazer o tour. Ele também está nos atalhos do teclado (tecla ?). O tour precisa da janela larga, com o menu lateral à mostra.", 2],
             ["Como troco o meu foco nos Primeiros passos?", "Na tab Primeiros passos do Início, escolha outro perfil. A lista de tarefas muda e o que você já fez continua marcado.", 1],
-            ["Onde estão as coisas para explorar no portal?", "Na tab Primeiros passos do Início, em Explorar o portal. São 5 blocos, e cada parada se marca quando você abre pela lista.", 1]
+            ["Onde estão as 20 coisas para explorar no portal?", "Na tab Primeiros passos do Início, em Explorar o portal. São 5 blocos, e cada parada se marca quando você abre pela lista.", 1]
           ] },
           { title: "Pedidos e suporte", icon: "support-line", appearance: "positive", items: [
             ["Como peço algo ao time do DS?", ["Pelo formulário de suporte do Castanha DS no Slack, com título, detalhes, prioridade e anexos.", "O time assume o pedido, pede o contexto que faltar (versão, plataforma, prazo) e decide entre orientação de uso, correção, evolução no roadmap ou asset da squad.", "A entrega é anunciada no canal de novidades e o time volta ao pedido para você confirmar."], 30],

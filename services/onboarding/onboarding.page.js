@@ -65,7 +65,7 @@
         "O estado (novo, em andamento, lembrar depois, concluído, dispensado) e as métricas ficam no localStorage deste navegador.",
         "A boas-vindas abre sozinha na primeira visita (fora do Relatório e das páginas escondidas). Me lembrar mais tarde traz de volta a partir do dia seguinte, no máximo 2 vezes. Começar segue para o tour, com o menu lateral, e o tour termina nos Primeiros passos do Início.",
         "Os Primeiros passos ficam numa tab do Início e no item da Ajuda, com o checklist do perfil e o botão Fazer o tour. Cada tarefa se marca quando a pessoa abre a página (ou mexe numa prop no Playground).",
-        "Embaixo do checklist fica a trilha Explorar o portal: as 20 paradas do antigo Roteiro e o bloco Código e dados, 24 paradas em 6 blocos de Accordion. Cada parada se marca quando a pessoa abre o link pela lista. O tour também abre pelo modal de atalhos (tecla ?) e a FAQ explica como refazer.",
+        "Embaixo do checklist fica a trilha Explorar o portal: as 20 paradas do antigo Roteiro, em 5 blocos de Accordion. Cada parada se marca quando a pessoa abre o link pela lista. O tour também abre pelo modal de atalhos (tecla ?) e a FAQ explica como refazer.",
         "Durante o tour, o Backdrop do DS fica atrás do passo e o bloco com a área apontada (o menu) fica por cima, claro.",
         "`?tour=<id>` abre um fluxo na hora e `?onboarding=off` desliga o serviço (o smoke das docs roda assim)."
       ] },

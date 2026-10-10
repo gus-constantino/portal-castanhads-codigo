@@ -50,13 +50,13 @@
 
 **Critério de sucesso** (métricas do guia, `conteudo.js:1016`): taxa de abandono por passo e tempo gasto. Medição local na fase 1, remota quando houver backend (§5.6).
 
-**Perfis propostos** (nenhum existe hoje, decisão Q5):
+**Perfis** (decidido em 09/10, Q5: os 5):
 
 | Perfil | Primeiro caminho | Destinos que já existem |
 |---|---|---|
 | Design | Usar a lib no Figma | Treinamento, Organizar o Figma, Protótipos, Componentes, Quiz › Componentes |
-| Dev. React | Do token ao código | Camadas, Stack React (Relatório), MCP, Storybook |
-| Dev. Flutter | Do token ao código | Camadas, staging Flutter |
+| Dev. React | Do token ao código | Desenvolvimento › React (Instalação, Preparando o ambiente, Usando os pacotes, guias, Design tokens), Camadas, MCP |
+| Dev. Flutter | Do token ao código | Desenvolvimento › Flutter (Instalação, Preparando o ambiente, Usando os componentes), Camadas |
 | Conteúdo | Escrever com a voz da Caju | Tom e voz, Contextos, Vocabulário, Capacitações › Content, Quiz › Conteúdo |
 | Produto | Decidir com o DS | Princípios de Design, Personas, Patterns, Relatório › Visão geral |
 
@@ -68,7 +68,7 @@ Segue o roteiro **Receber → Contextualizar → Explicar → Encerrar** (`conte
 
 ### 3.1 Receber: boas-vindas
 
-- **Papel:** porta de entrada, não peça central. O centro do onboarding é a página Comece aqui (§3.3), que fica sempre no menu. Nenhum portal de DS de referência usa modal ou tour como centro (§14.3).
+- **Papel:** porta de entrada, não peça central. O centro do onboarding é a tab **Primeiros passos do Início** (§3.3, decisão de 09/10). Nenhum portal de DS de referência usa modal ou tour como centro (§14.3).
 - **Quando:** primeira visita a qualquer rota (também fora do Início), depois que a página terminou de montar. Abre uma vez e nunca junto com outro passo ou aviso.
 - **Peça:** Modal (padrão do shell, `app.js:211-224`) no desktop. No celular, Bottom Sheet, porque o Bottom Sheet é de mobile (`bottom-sheet.docs.js:28`). Decisão Q4.
 - **Conteúdo:** ilustração oficial (candidatas no §5.7), título de 1 linha, uma frase de valor e a escolha de perfil (Radio Button Group ou Selection List do DS).
@@ -80,38 +80,38 @@ Segue o roteiro **Receber → Contextualizar → Explicar → Encerrar** (`conte
 
 Desktop (largura ≥ 1100, onde o menu é lateral). No celular e no tablet, o menu vira tela cheia ou faixa, o Nav Control não aparece no tablet (C46) e o Popover perde a âncora. Ali o onboarding pula direto para o checklist (§3.3).
 
-Proposta de **3 passos** (Q8). Os benchmarks mostram 66% de conclusão em 3 passos e cerca de 22% em 5, e Atlassian e Fluent limitam a 3 (§14.1 e §14.2). O tour abre por escolha, no Começar da boas-vindas ou no Comece aqui: aberto por escolha, conclui cerca de 2 vezes mais que o automático.
+Proposta de **3 passos** (Q8). Os benchmarks mostram 66% de conclusão em 3 passos e cerca de 22% em 5, e Atlassian e Fluent limitam a 3 (§14.1 e §14.2). O tour abre por escolha (decidido em 09/10), no Começar da boas-vindas ou na tab Primeiros passos do Início: aberto por escolha, conclui cerca de 2 vezes mais que o automático.
 
 | # | Âncora | Mensagem (direção, não copy final) |
 |---|---|---|
-| 1 | Menu lateral | Resume o valor: tudo do DS num lugar, separado por área (Componentes, Padrões, Aprenda, Ferramentas, Ajuda). A 1ª tooltip resume o valor porque os cliques caem a partir dela (`conteudo.js:1056`) |
+| 1 | Menu lateral | Resume o valor: tudo do DS num lugar, em seções que abrem e fecham (Desenvolvimento, Padrões, Componentes, Templates, Aprenda, Ferramentas, Ajuda; D306). A 1ª tooltip resume o valor porque os cliques caem a partir dela (`conteudo.js:1056`) |
 | 2 | Busca | Busca no nome e dentro das docs, com `/` ou ⌘K |
-| 3 | Ajuda | FAQ, Abrir chamado e o caminho de volta para o Comece aqui |
+| 3 | Ajuda | FAQ, Abrir chamado e o caminho de volta para os Primeiros passos do Início |
 
 O que saiu do tour vira item do checklist, aprendido fazendo: Playground (item "Testar um componente", marcado quando a pessoa mexe numa prop), tema e Relatório.
 
-- **Peça:** Popover do DS ancorado (`for`, `placement`). Sem escurecer a tela, porque não existe Spotlight no DS (Q2).
-- **Indicador de etapas:** o guia pede o número de etapas (`conteudo.js:1058`). A Progress Line é de carregamento e não serve para leitura (regra de 06/10). Opções na Q3.
+- **Peça:** Popover do DS ancorado, em `popover="manual"`, sem escurecer a tela, porque não existe Spotlight no DS (Q2, decidido em 09/10).
+- **Indicador de etapas:** texto "Etapa X de 3" no título do passo (Q3). A Progress Line é de carregamento e não serve para leitura (regra de 06/10).
 - **Botões:** Continuar · Voltar a partir do 2º passo · Concluir no último · Me lembrar mais tarde, que sai do último passo. Os rótulos seguem o guia da Caju, não os de mercado (Next, Finish, Skip tour).
 - **Âncora ausente:** o passo é pulado e o evento vai para as métricas. Seletor que não acha o alvo é a causa nº 1 de tour quebrado no mercado (§14.4).
 
-### 3.3 Encerrar: Comece aqui e primeiros passos
+### 3.3 Encerrar: Primeiros passos no Início
 
 - **Celebração** curta (premissa 9) com ilustração oficial e sucesso na voz passiva, sem "com sucesso", sem "!" no título e sem "Entendi".
-- **Página Comece aqui**, sempre no menu (Aprenda ou Ajuda, Q13), com cards por perfil, como o Get started da Atlassian (Design, Develop, Content design). Evolui o "Comece por aqui" do Início. Não mostrar novamente esconde os convites, nunca esta página.
-- **Checklist "Primeiros passos"** dentro do Comece aqui e resumido no Início:
+- **Tab "Primeiros passos" no Início** (decidido em 09/10, no lugar de uma página Comece aqui nova: o nome Comece aqui já é da página de desenvolvimento, D305). Cards por perfil, como o Get started da Atlassian (Design, Develop, Content design), e o checklist do perfil escolhido. Evolui o "Comece por aqui" da tab Castanha Hub. Não mostrar novamente esconde os convites, nunca esta tab.
+- **Checklist "Primeiros passos"** na tab:
   - até 5 itens por perfil, **em qualquer ordem** (padrão de lista de tarefas do GOV.UK e do Polaris);
   - o 1º item já vem concluído ("Escolher o seu foco"), porque progresso inicial aumenta a conclusão (Nunes e Drèze, 2006);
   - status em texto ("2 de 5 concluídos") e por item;
   - cada item se marca pela **ação real** (mexer numa prop, abrir o Figma, terminar um quiz), não por clique em "Feito".
-- **Peça do checklist (Q12):** o Progress Tracker comunica etapas em sequência, e o checklist não tem ordem. Proposta: Content List com Tag de status por item, mais a contagem em texto.
+- **Peça do checklist (Q12, decidido em 09/10):** Content List Item com link e Tag de status (Concluído ou Pendente) por tarefa, mais a contagem "2 de 5 concluídos" em texto. O Progress Tracker ficou de fora porque comunica sequência.
 - O último item de toda trilha é o Castanha Quiz do tema, para fechar aprendendo.
 
 ### 3.4 Primeiros dias
 
 - **Rever o tour:** item na Ajuda (FAQ) e no Modal de atalhos (`?`).
 - **Explorar:** o Roteiro deixa de ser página escondida e vira trilha opcional do serviço, com as 20 paradas marcadas como feitas.
-- **Retomar:** quem escolheu Me lembrar mais tarde recebe o convite de novo na visita seguinte, no máximo 2 vezes. Depois disso fica o Comece aqui, porque cerca de 3% voltam a um tour adiado (§14.1). O ponto de reentrada fixo vale mais que o adiamento.
+- **Retomar:** quem escolheu Me lembrar mais tarde recebe o convite de novo na visita seguinte, no máximo 2 vezes. Depois disso ficam os Primeiros passos do Início, porque cerca de 3% voltam a um tour adiado (§14.1). O ponto de reentrada fixo vale mais que o adiamento.
 
 ---
 
@@ -256,7 +256,7 @@ Estado por fluxo, em `localStorage` com prefixo `cds-onb:` e o padrão `try/catc
 |---|---|---|
 | **F0** | Decisões da §10 e fixes P1 do backlog | Respostas registradas como D, fixes na `teste` com smoke verde |
 | **F1** | Motor, store, métricas, lint, página escondida `#/onboarding`, tipo Serviço no ARCHITECTURE e na página Componentes locais. Nenhum fluxo visível | Smoke, audit e lint verdes, fluxo de exemplo rodando por `?tour=` |
-| **F2** | Página Comece aqui com cards por perfil, checklist Primeiros passos e boas-vindas | Conferido em 1366, 744 e 360, claro e escuro, teclado e leitor |
+| **F2** | Tab Primeiros passos no Início com cards por perfil e checklist, e a boas-vindas | Conferido em 1366, 744 e 360, claro e escuro, teclado e leitor |
 | **F3** | Tour de 3 passos no desktop, aberto por escolha | Smoke dos fluxos sem âncora quebrada |
 | **F4** | Rever o tour, trilha Explorar (Roteiro), métricas na página escondida | Roteiro aposentado ou redirecionado |
 | **F5** | Adaptador remoto (progresso entre navegadores) | Depende do backend Caju |
@@ -389,7 +389,9 @@ Prioridade: **P1** bloqueia o onboarding ou mostra dado errado · **P2** incoer�
 
 ---
 
-## 10. Decisões que esperam o Gustavo
+## 10. Decisões
+
+**Decididas em 09/10:** Q2 (Popover sem escurecer), Q3 (texto "Etapa X de 3"), Q5 (os 5 perfis), Q8 (3 passos), Q12 (Content List + Tag) e Q13 (onboarding numa tab Primeiros passos do Início, não numa página nova). As outras seguem com a recomendação da tabela até ele dizer o contrário.
 
 | # | Pergunta | Opções | Recomendação |
 |---|---|---|---|
@@ -441,7 +443,7 @@ Contagem em cada passo: "Etapa 1 de 3" (Q3).
 |---|---|---|---|
 | 1 | Tudo do Castanha por área | Componentes, Padrões, Aprenda, Ferramentas e Ajuda ficam no menu lateral. | Continuar · Me lembrar mais tarde |
 | 2 | Encontre qualquer regra | A busca lê os nomes e o texto das documentações. Use / ou ⌘K em qualquer página. | Voltar · Continuar |
-| 3 | Ajuda a um clique | Na Ajuda ficam a FAQ e o Comece aqui. Para falar com o time, use Abrir chamado. | Voltar · Concluir |
+| 3 | Ajuda a um clique | Na Ajuda ficam a FAQ e o Changelog. Para falar com o time, use Abrir chamado. | Voltar · Concluir |
 
 **Por quê:** o 1º passo resume o valor (`conteudo.js:1056`). Cada passo mostra o impacto da ação (`:1057`). Começar fica na boas-vindas, Continuar nunca no último e Concluir fecha tour de mais de 1 etapa (`:1073-1082`).
 
@@ -612,8 +614,8 @@ Nenhum dos grandes portais usa tour ou modal de boas-vindas. Todos têm página 
 | Antes | Depois | Fonte principal |
 |---|---|---|
 | Tour de 5 passos | 3 passos | Chameleon, Atlassian, Fluent |
-| Tour logo depois da boas-vindas | Tour por escolha (Começar ou Comece aqui) | Chameleon 2024, NN/g |
-| Modal como peça central | Página Comece aqui fixa, modal como porta | Atlassian Get started, NN/g |
+| Tour logo depois da boas-vindas | Tour por escolha (Começar ou Primeiros passos do Início) | Chameleon 2024, NN/g |
+| Modal como peça central | Tab Primeiros passos fixa no Início, modal como porta | Atlassian Get started, NN/g |
 | Progress Tracker no checklist | Lista sem ordem com status em texto (Q12) | GOV.UK, Polaris |
 | Checklist vazio | 1º item já concluído | Nunes e Drèze |
 | Item marcado ao abrir a página | Item marcado pela ação real | Polaris, Amplitude |
@@ -633,7 +635,7 @@ Pela skill de pesquisa com usuário. Objetivo: validar perfis, primeiro caminho 
 | P0 | Teste do portal **sem** onboarding (linha de base): achar um componente, a regra de um contexto e o caminho de chamado | Pessoas que nunca abriram o portal | 5 | Antes da F1 |
 | P1 | Entrevista curta (30 min) sobre como a pessoa começou no DS e o que faltou | 2 por perfil: Design, Dev React, Dev Flutter, Conteúdo, Produto | 10 | Antes da F2 |
 | P2 | Card sorting fechado dos destinos do checklist por perfil | Mesmas pessoas ou pesquisa no #castanha-suporte | 15 a 20 | Antes da F2 |
-| P3 | Mesmas tarefas do P0 com Comece aqui e tour (pensando em voz alta) | Outras pessoas que nunca abriram o portal | 5 a 6 | Fim da F3 |
+| P3 | Mesmas tarefas do P0 com os Primeiros passos e o tour (pensando em voz alta) | Outras pessoas que nunca abriram o portal | 5 a 6 | Fim da F3 |
 | P4 | Métricas locais da página `#/onboarding` (abandono por passo, tempo, % que escolhe perfil) | Primeiros usuários | — | Depois da F3 |
 
 **Roteiro da entrevista (P1)**

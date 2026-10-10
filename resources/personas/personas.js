@@ -99,6 +99,12 @@
     "h2": "Como as personas foram criadas"
    },
    {
+    "p": "Este trabalho é fruto de uma pesquisa que levou seis meses. Entre agosto de 2024 e janeiro de 2025, várias iniciativas buscaram na base de clientes os perfis que resumem as principais dores, necessidades e objetivos de quem usa os serviços da Caju."
+   },
+   {
+    "p": "No fim de 2025, o material foi revisitado: as personas ganharam informações de mais de 80 pesquisas e os ICPs entraram no estudo. Dados quantitativos, estudos e pesquisas de mercado e entrevistas anteriores ajudaram a definir quem usa o app do RH e o app de colaboradores."
+   },
+   {
     "p": "O estudo de personas é qualitativo, mas se apoia também em dados. Para as personas B2C (Colaborador), partimos de pesquisas públicas sobre trabalho e renda e de outras fontes secundárias, cruzadas com informações da base (como idade e região), e conduzimos entrevistas com pessoas de diferentes faixas de idade, regiões e maturidade digital. Um workshop com lideranças fechou o agrupamento dos perfis."
    },
    {
@@ -624,6 +630,10 @@
       [
        "Empresas",
        "Pequenas e médias"
+      ],
+      [
+       "Arquétipos",
+       "Multitarefa, Eficiente, Especialista"
       ]
      ],
      "story": "Desde a infância, Cris sempre quis empreender. Hoje, aos 35 anos, ela luta para equilibrar a gestão do negócio com as responsabilidades pessoais. Sob pressão por resultados em um mercado competitivo, lida com o estresse e reconhece a importância de cuidar da saúde mental. Suas principais necessidades incluem capacitação, acesso a capital e o apoio de uma rede de relacionamentos. Para equilibrar a vida pessoal e a profissional, adota práticas de bem-estar e usa ferramentas tecnológicas. Suas aspirações são alcançar independência financeira e sucesso profissional.",
@@ -681,6 +691,10 @@
       [
        "Empresas",
        "Micro e pequenas"
+      ],
+      [
+       "Arquétipos",
+       "Multitarefa, Atendimento digital"
       ]
      ],
      "story": "Aos 43 anos, Eliane é assistente financeira e de RH em uma empresa pequena e trabalha diretamente com o dono. Mãe solo, divide o tempo entre o trabalho e os filhos, mostrando na prática força e determinação. É muito dedicada, conhecida por todos na empresa e sempre procurada quando alguém precisa de ajuda. Seu trabalho é essencial para o bom funcionamento e o sucesso do negócio.",
@@ -743,6 +757,10 @@
       [
        "Empresas",
        "Médias"
+      ],
+      [
+       "Arquétipos",
+       "Eficiente, Atendimento prioritário"
       ]
      ],
      "story": "Maria Beatriz, ou Mabê para o time, é gerente de RH em uma empresa de médio porte e lidera uma equipe de quatro pessoas. É reconhecida pela ética, pelo jeito colaborativo e por colocar a mão na massa sempre que precisa. Equilibra a carreira com causas pessoais, atuando com empatia, compromisso e vontade real de fazer a diferença.",
@@ -799,6 +817,10 @@
       [
        "Empresas",
        "Médias"
+      ],
+      [
+       "Arquétipos",
+       "Eficiente, Atendimento prioritário"
       ]
      ],
      "story": "Sônia é uma analista de RH muito focada e dedicada. Cheia de planos para o futuro, quer fazer uma pós-graduação para crescer na carreira. No trabalho, enfrenta uma rotina puxada: cuida das demandas do setor e ainda treina Enzo, o estagiário que está em fase de aprendizado. Sua chefe, Mabê, é parceira e aberta a ajudar, mas tem a agenda cheia, o que faz Sônia precisar ser cada vez mais organizada e autônoma no dia a dia.",
@@ -854,6 +876,10 @@
       [
        "Empresas",
        "Médias"
+      ],
+      [
+       "Arquétipos",
+       "Eficiente, Atendimento prioritário"
       ]
      ],
      "story": "Enzo está no último ano da faculdade e acabou de começar como estagiário na equipe de Mabê. Animado com a nova fase, busca independência e crescimento profissional — inclusive acabou de alugar o primeiro apartamento. No trabalho, aprende principalmente com Sônia, a analista que o acompanha de perto: ela é atenciosa e uma referência técnica, mas está sobrecarregada. Já Mabê, a gestora, é simpática, porém mais distante, o que faz Enzo depender bastante do apoio de Sônia para se desenvolver.",
@@ -909,6 +935,10 @@
       [
        "Empresas",
        "Médias"
+      ],
+      [
+       "Arquétipos",
+       "Eficiente, Atendimento prioritário"
       ]
      ],
      "story": "Robson é um analista financeiro experiente e detalhista, responsável pela análise de notas fiscais, conciliações e reembolsos. Valoriza organização, precisão e conformidade com o compliance; é cético, orientado por dados e confere tudo antes de validar uma decisão. Seu foco está em reduzir erros, otimizar processos e garantir transparência nas operações financeiras.",
@@ -973,6 +1003,10 @@
       [
        "Empresas",
        "Grandes"
+      ],
+      [
+       "Arquétipos",
+       "Especialista, Atendimento VIP"
       ]
      ],
      "story": "Adriana é uma executiva experiente e uma referência para muitas pessoas, inclusive para as duas filhas. Construiu uma carreira sólida, superando desafios até se tornar uma líder respeitada no mercado. Hoje é head da área de Benefícios na Diretoria de Pessoas e lidera um time de 25 pessoas. Sua liderança é inclusiva e motivadora, e a equipe se sente valorizada e satisfeita no trabalho. Seu maior desejo é que esse clima positivo se espalhe para as outras áreas da empresa.",
@@ -1029,6 +1063,10 @@
       [
        "Empresas",
        "Grandes"
+      ],
+      [
+       "Arquétipos",
+       "Especialista, Atendimento VIP"
       ]
      ],
      "story": "Andrea faz parte da equipe de Adriana, uma líder que ela admira muito. Ao longo da carreira, trabalhou em várias áreas de RH, o que a tornou uma profissional versátil e experiente. Recentemente, realizou o sonho de comprar a casa própria, o que aumentou a importância da estabilidade no trabalho. Mesmo assim, segue ambiciosa e acredita que dedicação e esforço serão fundamentais para continuar crescendo na carreira.",
@@ -1084,6 +1122,10 @@
       [
        "Empresas",
        "Grandes"
+      ],
+      [
+       "Arquétipos",
+       "Especialista, Atendimento VIP"
       ]
      ],
      "story": "Jonas é um funcionário antigo da empresa e já passou por várias áreas, começando pela logística. Em busca de um ritmo de trabalho mais tranquilo, decidiu ir para o RH como um novo desafio. Conhece bem a empresa e tem boa influência entre os colegas, mas ainda conta com o apoio de Andrea para aprender as rotinas do setor. Mesmo em adaptação, contribui bastante nas reuniões, trazendo insights valiosos graças à experiência e à conexão com outras áreas.",
@@ -1178,6 +1220,7 @@
        "items": [
         "Recorrente: Ações ficam registradas sem o motivo — acaba mantendo prints e planilhas paralelas para se proteger.",
         "Recorrente: Casos voltam de outros times sem prazo definido, gerando vaivém.",
+        "Recorrente: Prazo regulatório de 10 dias e prazo interno de 5 a 6 dias colidem, sem saída prevista no processo.",
         "Recorrente: Consultas lentas, que exigem recarregar a página para ver o resultado.",
         "Recorrente: Respostas rápidas no CRM são pouco ágeis de usar no dia a dia.",
         "Pontual: Extrato montado à mão, com edição antes de gerar o PDF.",
@@ -1510,6 +1553,8 @@
         "Recorrente: Acompanhamento de saldos manual, sem alertas.",
         "Recorrente: Conciliação de contas de impostos manual, com risco de erro e retrabalho.",
         "Recorrente: Demandas chegam incompletas e os dados estão descentralizados.",
+        "Recorrente: Sem integração entre o sistema de chamados e o ERP para conciliar pagamentos, e os aprovadores são gerenciados à mão.",
+        "Recorrente: Apuração de impostos exige três avaliações, com prazos fechados pelos órgãos fiscais e sem processo estruturado.",
         "Pontual: Conferência manual entre o Admin e o ERP; cobrança feita fora do sistema, por e-mail e mensagem.",
         "Pontual: Sem relatório estável de assinaturas canceladas; sem ações em lote em faturas e boletos."
        ]
@@ -1564,7 +1609,9 @@
        "items": [
         "Agir rápido — bloquear, cancelar e investigar sem trocar de sistema.",
         "Ter o histórico consolidado do colaborador para investigar com eficácia.",
-        "Trabalhar com processos estruturados, sem depender de planilhas."
+        "Trabalhar com processos estruturados, sem depender de planilhas.",
+        "Encerrar contas definitivamente, como exige o Banco Central.",
+        "Reduzir a exposição regulatória com processos automatizados."
        ]
       },
       {
@@ -1582,7 +1629,10 @@
         "Ações em lote direto no Admin, com confirmação.",
         "Fila de casos integrada, com atribuição e histórico.",
         "Histórico consolidado do colaborador em uma tela: benefícios, Pix, transações e contestações.",
-        "Registro do motivo de cada ação, não só de que ela foi feita."
+        "Registro do motivo de cada ação, não só de que ela foi feita.",
+        "Encerramento definitivo de contas, com reflexo no Banco Central.",
+        "Perfil de administrador com permissões por tipo de dado.",
+        "Regras de prevenção configuradas dentro do Admin, sem depender de ferramentas de dados externas."
        ]
       }
      ]
@@ -1613,6 +1663,10 @@
       [
        "Dependência do CRM",
        "Máxima"
+      ],
+      [
+       "Dependência da agenda",
+       "Máxima"
       ]
      ],
      "story": "Mariana é a primeira voz que o lead ouve — e a responsável por garantir que ele chegue ao vendedor pronto para fechar. Com baixa dependência do Admin, mas máxima do CRM e da ferramenta de agendamento, seu maior problema está justamente aí: processos manuais, campos duplicados, cadências que não funcionam e consultas em dois lugares ao mesmo tempo. O que mais escuta dos clientes é \"não entendi\" — e sabe que a causa está nas informações desatualizadas que chegam até ela. Quer centralizar, automatizar e passar dados limpos adiante, mas o sistema ainda a obriga a compensar com planilhas o que a ferramenta não entrega.",
@@ -1636,7 +1690,8 @@
         "Recorrente: A mesma informação é preenchida em várias ferramentas, sem integração.",
         "Pontual: CNPJ não obrigatório no CRM, o que gera contas e oportunidades duplicadas.",
         "Pontual: Higienização de listas totalmente manual.",
-        "Pontual: Leads perdidos ficam sem caminho de retomada."
+        "Pontual: Leads perdidos ficam sem caminho de retomada.",
+        "Pontual: Uso de IA no time sem padrão — cada pessoa usa uma ferramenta diferente por conta própria."
        ]
       },
       {
@@ -1646,7 +1701,8 @@
         "Cadência automática e sincronizada, sem depender de memória ou planilha.",
         "CNPJ obrigatório e deduplicação automática no CRM.",
         "Higienização de listas automatizada.",
-        "Campos do CRM ajustados por cenário, não universais para todas as áreas."
+        "Campos do CRM ajustados por cenário, não universais para todas as áreas.",
+        "Uso de IA padronizado no time."
        ]
       }
      ]
@@ -1688,6 +1744,7 @@
        "items": [
         "Ter visão consolidada por grupo econômico, sem abrir CNPJ por CNPJ para entender o cliente.",
         "Automatizar o que vem depois do fechamento, sem risco de esquecer de ativar o que foi vendido.",
+        "Ter um forecast confiável, sem datas de fechamento chutadas só para preencher campo obrigatório.",
         "Centralizar negociação e acompanhamento no CRM, sem ferramentas paralelas."
        ]
       },
@@ -1698,6 +1755,8 @@
         "Recorrente: Ativação manual e pouco intuitiva de funcionalidades depois do fechamento, frequentemente esquecida.",
         "Recorrente: Tarefas recorrentes feitas à mão, sem automação.",
         "Recorrente: Produtos parecidos seguem lógicas diferentes para criar assinatura.",
+        "Pontual: Cotação não editável — qualquer mudança gera dias de retrabalho do zero.",
+        "Pontual: Data de fechamento obrigatória preenchida no chute, o que deixa o forecast pouco confiável.",
         "Pontual: Repasse para CS feito fora do CRM, em ferramentas paralelas.",
         "Pontual: Agenda não integrada ao CRM — reuniões duplicadas à mão.",
         "Pontual: Campos redundantes preenchidos só para conseguir avançar."
@@ -1709,6 +1768,8 @@
         "Visão consolidada de grupo econômico: todos os CNPJs e planos ativos em uma tela.",
         "Ativação automática de funcionalidades após o fechamento, disparada pelo CRM.",
         "Integração da agenda com o CRM.",
+        "Cotação editável, sem retrabalho a cada ajuste na negociação.",
+        "Forecast por oportunidade, não pelo potencial total da conta.",
         "Repasse para CS centralizado no CRM.",
         "Automação de tarefas recorrentes.",
         "Campos obrigatórios só quando fazem sentido, sem redundância."

@@ -160,7 +160,8 @@
         { specimens: { min: "var(--common-sizes-160)", items: [
           { label: "Marca e Componentes · Accent", attrs: { area: "componentes", style: H } },
           { label: "Padrões · Charts 03", attrs: { area: "padroes", style: H } },
-          { label: "Aprenda · Charts 04", attrs: { area: "aprenda", style: H } },
+          { label: "Desenvolvimento · Charts 05", attrs: { area: "desenvolvimento", style: H } },
+          { label: "Aprenda · Charts 03", attrs: { area: "aprenda", style: H } },
           { label: "Ferramentas · Charts 02", attrs: { area: "ferramentas", style: H } },
           { label: "Ajuda · Charts 01", attrs: { area: "ajuda", style: H } },
           { label: "Legado · Charts 07", attrs: { area: "legado", style: H } }
@@ -168,7 +169,8 @@
         { table: { wrap: true, head: ["Área", "Escala", "Cartões, de trás para a frente", "Fundo suave", "Seções"], rows: [
           ["Marca e Componentes", "Accent/Solid", "intense, semi-intense, medium, semi-soft", "soft", "Início, componentes, building blocks e composições"],
           ["Padrões", "Charts 03", "intense, semi-intense, medium, mild", "pale", "Tema Caju, Ilustração, Motion, Camadas, Conteúdo e Patterns"],
-          ["Aprenda", "Charts 04", "intense, intense, medium, semi-soft", "soft", "Treinamento e Capacitações"],
+          ["Desenvolvimento", "Charts 05", "intense, intense, medium, semi-soft", "soft", "Getting Started, guias, design tokens e Castanha Universe"],
+          ["Aprenda", "Charts 03", "intense, semi-intense, medium, mild", "pale", "Treinamento, Capacitações e Castanha Quiz"],
           ["Ferramentas", "Charts 02", "intense, semi-intense, medium, mild", "pale", "Personas, Agentes e Skills e MCP"],
           ["Ajuda", "Charts 01", "intense, semi-intense, medium, mild", "pale", "FAQ e Changelog"],
           ["Legado", "Charts 07", "intense, intense, medium, semi-soft", "soft", "Componente ou página fora de uso"]

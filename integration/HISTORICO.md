@@ -2,6 +2,13 @@
 
 Escrito por `scripts/integration/daily.js` (rotina diária): só entram as leituras em que algo mudou.
 
+### 12/10/2026 · staging `ca2b41ae`
+
+- 🆕 informativo · carousel · Sem Code Connect: o par com o React vem só do node da story.
+- 🆕 informativo · skeleton · Sem Code Connect: o par com o React vem só do node da story.
+- ✅ resolvido · carousel · Sem retrato das props do Figma (rode a leitura via MCP).
+- ✅ resolvido · skeleton · Sem retrato das props do Figma (rode a leitura via MCP).
+
 ### 07/10/2026 · staging `ca2b41ae`
 
 - castanha-react `origin/staging`: `1e0a5335` → `ca2b41ae` (2026-10-07).

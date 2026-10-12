@@ -106,8 +106,8 @@
   {
    "id": "carousel",
    "level": "info",
-   "kind": "sem-figma",
-   "msg": "Sem retrato das props do Figma (rode a leitura via MCP)."
+   "kind": "sem-code-connect",
+   "msg": "Sem Code Connect: o par com o React vem só do node da story."
   },
   {
    "id": "checkbox-select-input",
@@ -224,8 +224,8 @@
   {
    "id": "skeleton",
    "level": "info",
-   "kind": "sem-figma",
-   "msg": "Sem retrato das props do Figma (rode a leitura via MCP)."
+   "kind": "sem-code-connect",
+   "msg": "Sem Code Connect: o par com o React vem só do node da story."
   },
   {
    "id": "slider",

@@ -1,6 +1,6 @@
 # Saúde da stack — Figma × castanha_flutter × playground
 
-Gerado por `node scripts/integration/build-flutter-manifest.js` em 2026-10-09 (F2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). Flutter: `origin/staging` (`38504ab7`) do castanha-mobile.
+Gerado por `node scripts/integration/build-flutter-manifest.js` em 2026-10-12 (F2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). Flutter: `origin/staging` (`38504ab7`) do castanha-mobile.
 
 ## Resumo
 
@@ -8,7 +8,7 @@ Gerado por `node scripts/integration/build-flutter-manifest.js` em 2026-10-09 (F
 |---|---|---:|
 | Alta | quebra a tradução: parâmetro ou valor que não existe no Flutter, ícone ou ilustração fora do pacote do Dart | 2 |
 | Média | muda o resultado sem quebrar: padrão diferente entre Figma e Flutter | 10 |
-| Informativo | prop do Figma sem parâmetro no Flutter, ou parâmetro só do código | 38 |
+| Informativo | prop do Figma sem parâmetro no Flutter, ou parâmetro só do código | 37 |
 
 Cobertura: 45 componentes do playground com widget no castanha_flutter, 36 sem par e 4 só no Flutter. Dart do painel: 81 trechos, 0 erros no `dart analyze` (`node scripts/integration/check-dart.js`).
 
@@ -43,7 +43,6 @@ Cobertura: 45 componentes do playground com widget no castanha_flutter, 36 sem p
 | `icon-button` | so-no-flutter | Parâmetros do Flutter sem prop no Figma: `notificationAppearance`. |
 | `main-button` | so-no-flutter | Parâmetros do Flutter sem prop no Figma: `expanded`. |
 | `selection-list-item` | so-no-flutter | Parâmetros do Flutter sem prop no Figma: `highlight`. |
-| `skeleton` | sem-props-do-figma | Sem leitura das props do Figma (`figma-props.tsv`) para este componente. |
 | `spinner` | figma-sem-parametro | `Spinner Position` (Figma) não tem parâmetro no Flutter. É o quadro da animação; no código o giro é contínuo. |
 | `switch-group` | sem-props-do-figma | Sem leitura das props do Figma (`figma-props.tsv`) para este componente. |
 | `text-area` | figma-fora-do-mapa | Prop do Figma `Show Trailing Item` não aparece na tabela Figma → Flutter. |
@@ -92,6 +91,9 @@ Constantes do Dart (`CastanhaIcons`, `CastanhaIllustrations`, `CastanhaMotions`)
 
 ## Histórico
 
+**12/10/2026 · staging `38504ab7`**
+
+- ✅ resolvido · skeleton · Sem leitura das props do Figma (`figma-props.tsv`) para este componente.
 **09/10/2026 · staging `38504ab7`**
 
 - Primeira leitura com histórico (sem versão anterior para comparar).

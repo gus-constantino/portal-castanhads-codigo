@@ -3492,6 +3492,12 @@
      "text": "## Motion\n\nA troca de item é a rolagem da faixa até o início do item, com encaixe (scroll-snap). O Figma não define duração nem curva para essa transição."
     }
    ],
+   "figmaProps": [
+    {
+     "name": "Content Slot",
+     "type": "Slot"
+    }
+   ],
    "react": {
     "component": "Carousel",
     "import": "import { Carousel } from '@caju-beneficios/castanha-react';",
@@ -3545,8 +3551,8 @@
     "checks": [
      {
       "level": "info",
-      "kind": "sem-figma",
-      "text": "Sem retrato das props do Figma (rode a leitura via MCP)."
+      "kind": "sem-code-connect",
+      "text": "Sem Code Connect: o par com o React vem só do node da story."
      }
     ],
     "notes": []
@@ -16100,6 +16106,17 @@
      "text": "## Motion\n\nUm brilho atravessa a forma e faz uma pausa, em loop, como no Skeleton do castanha-react: 700ms de deslocamento (`Duration/Extra Long/01`, curva `Systemic/decelerate`) e 500ms de pausa (`Duration/Long/02`).\n\n- Com `prefers-reduced-motion`, a animação para e o brilho fica no centro.\n- No Figma o Skeleton é estático. O playground segue o React por decisão registrada no CONFERIR (C181)."
     }
    ],
+   "figmaProps": [
+    {
+     "name": "Kind",
+     "type": "Variant",
+     "default": "Round",
+     "options": [
+      "Round",
+      "Square"
+     ]
+    }
+   ],
    "react": {
     "component": "Skeleton",
     "import": "import { Skeleton } from '@caju-beneficios/castanha-react';",
@@ -16135,8 +16152,8 @@
     "checks": [
      {
       "level": "info",
-      "kind": "sem-figma",
-      "text": "Sem retrato das props do Figma (rode a leitura via MCP)."
+      "kind": "sem-code-connect",
+      "text": "Sem Code Connect: o par com o React vem só do node da story."
      }
     ],
     "notes": [
@@ -16207,13 +16224,7 @@
       "note": "Tamanho do bloco (sem valor, ocupa o espaço do pai)."
      }
     ],
-    "checks": [
-     {
-      "level": "info",
-      "kind": "sem-props-do-figma",
-      "text": "Sem leitura das props do Figma (`figma-props.tsv`) para este componente."
-     }
-    ]
+    "checks": []
    }
   },
   {
@@ -33421,8 +33432,8 @@
    {
     "id": "carousel",
     "level": "info",
-    "kind": "sem-figma",
-    "msg": "Sem retrato das props do Figma (rode a leitura via MCP)."
+    "kind": "sem-code-connect",
+    "msg": "Sem Code Connect: o par com o React vem só do node da story."
    },
    {
     "id": "checkbox-select-input",
@@ -33539,8 +33550,8 @@
    {
     "id": "skeleton",
     "level": "info",
-    "kind": "sem-figma",
-    "msg": "Sem retrato das props do Figma (rode a leitura via MCP)."
+    "kind": "sem-code-connect",
+    "msg": "Sem Code Connect: o par com o React vem só do node da story."
    },
    {
     "id": "slider",

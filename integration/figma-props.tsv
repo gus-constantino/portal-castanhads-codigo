@@ -1,4 +1,4 @@
-# Props do Figma ([CastanhaDS] Components, componentPropertyDefinitions) · lidas via MCP em 2026-10-05 · scripts/integration/figma-props.js
+# Props do Figma ([CastanhaDS] Components, componentPropertyDefinitions) · lidas via MCP em 2026-10-12 · scripts/integration/figma-props.js
 11864-12559	Alert	Text Content=T;Show Close Button=B:1;Text Label=T;Show Label=B:1;Appearance=V:Positive:Positive|Warning|Informative
 11018-5694	Async creatable Select Input	Show Trailing Item=B:1;Show Supporting Content=B:1;Show Caret=B:1;Show Label=B:1;Show Required=B:1;Show Lead Icon=B:1;Text Label=T;Supporting Message=T;Error Message=T;Lead Icon=I:placeholder-line;Required Text=T;Appearance=V:Neutral:Neutral|Warning;State=V:Enabled:Enabled|Disabled|Hovered|Pressed;Is Filled=V:False:False|True;Is Active=V:False:False|True
 11030-7644	Async Select Input	Show Trailing Item=B:1;Show Supporting Content=B:1;Show Caret=B:1;Show Label=B:1;Show Required=B:1;Show Lead Icon=B:1;Text Label=T;Supporting Message=T;Error Message=T;Lead Icon=I:placeholder-line;Required Text=T;Appearance=V:Neutral:Neutral|Warning;State=V:Enabled:Enabled|Disabled|Hovered|Pressed;Is Filled=V:False:False|True;Is Active=V:False:False|True
@@ -11,6 +11,7 @@
 11271-154	Caju Brand	Show Typography=B:1;Kind=V:Default:Default|Inversed|Full Red|Full White|Full Black
 17053-1181	Caju Card	Activation Code=T;Full Card Number=T;CVV=T;Expiration Date=T;Kind=V:Físico:Físico|Virtual/Credito|Voucher|Virtual/Credito Corporativo|Físico Corporativo;Orientation=V:Vertical:Horizontal|Vertical;Is Blocked=V:False:False|True;Side View=V:Front:Front|Back
 5256-540	Card	Slot=S;Has Border=V:True:True|False
+21215-242	Carousel	Content Slot=S
 4123-2560	Checkbox	Text Label=T;Show Text Label=B:1;State=V:Enabled:Enabled|Hovered|Pressed|Disabled;Status=V:Unselected:Selected|Indeterminate|Unselected
 4132-1511	Checkbox Group	
 11143-4833	Checkbox Select Input	Show Trailing Item=B:1;Show Supporting Content=B:1;Show Caret=B:1;Show Label=B:1;Show Required=B:1;Show Lead Icon=B:1;Text Label=T;Supporting Message=T;Error Message=T;Lead Icon=I:placeholder-line;Required Text=T;Appearance=V:Neutral:Neutral|Warning;State=V:Enabled:Enabled|Disabled|Hovered|Pressed;Is Filled=V:False:False|True;Is Active=V:False:False|True
@@ -54,6 +55,7 @@
 5488-1552	Selection List	Kind=V:Default:Default|Card
 5488-812	Selection List Item	Show Lead Item=B:1;Show Divider=B:1;Kind=V:Default:Default|Card;State=V:Enabled:Enabled|Hovered|Pressed|Disabled;Is Active=V:False:False|True;Trailing Item=V:Chechbox:Chechbox|Radio Button|Switch|Tag|Icon|None
 2272-146	Shaped Icon	Icon=I:placeholder-line;Appearance=V:Neutral:Accent|Neutral|Positive|Warning|Negative|Informative|Inversed;Size=V:Smallest:Smallest|Small|Medium|Large
+20967-742	Skeleton	Kind=V:Round:Round|Square
 20056-11908	Slider	Show Stops=B:1;Show Value Indicator=B:1;Kind=V:Single:Single|Range;State=V:Enabled:Enabled|Hovered|Pressed|Dragged|Disabled;Value=V:0:0|50|100|00/00|-20/+20|-50/+50
 4333-3181	Spinner	Appearance=V:Neutral:Accent|Neutral|Inversed;Size=V:Small:Small|Medium|Large;Spinner Position=V:0:0|1|2|3
 21745-69	Status Dot	Text Label=T;Appearance=V:Neutral:Neutral|Positive|Warning|Informative|Negative;Size=V:Small:Small|Medium|Large

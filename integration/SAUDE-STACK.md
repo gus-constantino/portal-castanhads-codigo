@@ -1,6 +1,6 @@
 # Saúde da stack — Figma × castanha-react × playground × castanha-ai
 
-Gerado por `node scripts/integration/build-manifest.js` em 2026-10-07 (R2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). React: `origin/staging` (`ca2b41ae`) e Code Connect `origin/feat/figma-code-connect`. Playground: mapas de `integration/prop-map/`. castanha-ai (4º vértice, repo interno, só leitura): não lido (sem o clone `../castanha-ai`). A coluna Gap usa as categorias do Gap Report do castanha-ai.
+Gerado por `node scripts/integration/build-manifest.js` em 2026-10-12 (R2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). React: `origin/staging` (`ca2b41ae`) e Code Connect `origin/feat/figma-code-connect`. Playground: mapas de `integration/prop-map/`. castanha-ai (4º vértice, repo interno, só leitura): não lido (sem o clone `../castanha-ai`). A coluna Gap usa as categorias do Gap Report do castanha-ai.
 
 ## Resumo
 
@@ -67,7 +67,7 @@ Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`
 | Async Select Input (`async-select-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Lead Icon`, `Error Message`, `Lead Icon`. |
 | Banner (`banner`) | sem-code-connect | — | Sem Code Connect: o par com o React vem só do node da story. |
 | Breadcrumb (`breadcrumb`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `showItem03`, `showItem04`, `showItem05`, `showItem06`, `Kind`. |
-| Carousel (`carousel`) | sem-figma | — | Sem retrato das props do Figma (rode a leitura via MCP). |
+| Carousel (`carousel`) | sem-code-connect | — | Sem Code Connect: o par com o React vem só do node da story. |
 | Checkbox Select Input (`checkbox-select-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
 | Chips Group (`chips-group`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Kind`. |
 | Content List Item (`content-list-item`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Show Navigation Indicator`, `Show Tag`. |
@@ -84,7 +84,7 @@ Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`
 | Radio Select Input (`radio-select-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
 | Search Input (`search-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
 | Selection List Item (`selection-list-item`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Trailing Item`. |
-| Skeleton (`skeleton`) | sem-figma | — | Sem retrato das props do Figma (rode a leitura via MCP). |
+| Skeleton (`skeleton`) | sem-code-connect | — | Sem Code Connect: o par com o React vem só do node da story. |
 | Slider (`slider`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Value`. |
 | Status Dot (`status-dot`) | sem-code-connect | — | Sem Code Connect: o par com o React vem só do node da story. |
 | Table (`table`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Kind`. |
@@ -101,6 +101,13 @@ Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`
 O lado Figma × playground continua no check de props (`docs/CHECK-PROPS.md`). Divergências que pedem decisão do time DS vão para o CONFERIR (grupo Integração React).
 
 ## Histórico
+
+### 12/10/2026 · staging `ca2b41ae`
+
+- 🆕 informativo · carousel · Sem Code Connect: o par com o React vem só do node da story.
+- 🆕 informativo · skeleton · Sem Code Connect: o par com o React vem só do node da story.
+- ✅ resolvido · carousel · Sem retrato das props do Figma (rode a leitura via MCP).
+- ✅ resolvido · skeleton · Sem retrato das props do Figma (rode a leitura via MCP).
 
 ### 07/10/2026 · staging `ca2b41ae`
 

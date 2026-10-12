@@ -5,5 +5,6 @@
   {"d":"2026-10-05","docs":103,"decisoes":219,"abertos":111,"resolvidos":61,"react":[2,7],"flutter":null,"cob":{"react":[70,79],"figma":[2,79]}},
   {"d":"2026-10-06","docs":108,"decisoes":265,"abertos":118,"resolvidos":61,"react":[2,7],"flutter":null,"cob":{"react":[70,79],"figma":[2,79]}},
   {"d":"2026-10-07","docs":110,"decisoes":270,"abertos":123,"resolvidos":61,"react":[2,6],"flutter":null,"cob":{"react":[72,81],"figma":[71,76]}},
-  {"d":"2026-10-08","docs":110,"decisoes":278,"abertos":124,"resolvidos":61,"react":[2,6],"flutter":null,"cob":{"react":[72,81],"figma":[71,76]}}
+  {"d":"2026-10-08","docs":110,"decisoes":278,"abertos":124,"resolvidos":61,"react":[2,6],"flutter":null,"cob":{"react":[72,81],"figma":[71,76]}},
+  {"d":"2026-10-09","docs":110,"decisoes":325,"abertos":137,"resolvidos":61,"react":[2,6],"flutter":[2,10],"cob":{"react":[72,81],"flutter":[45,81],"figma":[70,78]}}
 ]}

@@ -38,7 +38,7 @@
   "tokens": 308,
   "icons": 273,
   "illustrations": 260,
-  "conferirOpen": 137,
+  "conferirOpen": 138,
   "stackFindings": 45
  },
  "components": [
@@ -32449,6 +32449,12 @@
     "group": "Ajuste de UI",
     "resolved": false,
     "text": "Bottom Sheet (20848:2679) · Sem prop para o Lead Icon dos botões do .Footer Pilled · O Modal expõe `show-lead-icon` e repassa ao .Footer; o Bottom Sheet não, e os botões aparecem com o ícone de exemplo · O onboarding desliga direto no .Footer aninhado (`footerEl`, override de instância) · Conferir no Figma se o Bottom Sheet expõe o Lead Icon do .Footer; se sim, repassar `show-lead-icon` como o Modal"
+   },
+   {
+    "id": "C199",
+    "group": "Ajuste de UI",
+    "resolved": false,
+    "text": "Link (4926:213) · Sem variante para link no meio de um texto · O Link é um controle solto: alvo de 48 px de altura, `inline-flex` e Label/Medium. Num parágrafo ou numa célula de tabela, ele aumenta a linha e troca a fonte · O glossário do Relatório (R1 do onboarding dos Relatórios) usa o Link Accent no termo com `display:inline`, sem altura mínima e com a fonte do texto (`.rp-dfn`, Gustavo, 13/10) · Levar ao time da lib: um Link inline (Size Inline ou Kind Text), com a fonte herdada e o sublinhado sempre visível"
    },
    {
     "id": "C01",

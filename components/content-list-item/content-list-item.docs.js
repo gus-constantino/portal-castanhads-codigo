@@ -1,12 +1,17 @@
 /* Documentação — Content List Item
    Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Content List Item, 32e6da · status Backlog) reaproveitado; props e padrões do set da lib
-   estável (Content List Item 5488:675 — sem description); acessibilidade e contrastes do playground (C139). */
+   estável (Content List Item 5488:675 — sem description); acessibilidade e contrastes do playground (C139).
+   Arrastar para reordenar (CDS-1592, 13/10): Show Drag Handle e State=Dragged lidos na branch bHFCiEbEkTYCXNipG4iqN0 e o handoff
+   do Gustavo (docs/local/handoffs). O que a branch e o handoff dizem diferente está no C200. */
 (function(){
   window.CDS = window.CDS || {};
   CDS.docs = CDS.docs || {};
   function cli(more){ return Object.assign({ _tag: "cds-content-list-item" }, more || {}); }
   function nav(label, description, icon, more){ return cli(Object.assign({ intent: "navigation", label: label, description: description, "lead-icon": icon, href: "#", "show-tag": false }, more || {})); }
   function tx(label, description, value, more){ return cli(Object.assign({ intent: "transaction", label: label, description: description, value: value, "value-description": "Débito", "shaped-icon": "meal-line", href: "#" }, more || {})); }
+  function reo(card){ return { _tag: "cds-content-list", reorderable: "", label: "Atalhos da tela inicial", kind: card ? "card" : null, intent: "navigation", _children: [
+    nav("Cartões", "Físico e virtual", "cards-line"), nav("Colaboradores", "Cadastro e acessos", "user-money-line"), nav("Limites", "Diário e por compra", "chart-bar-line"), nav("Configurações", "Empresa e preferências", "settings-line")
+  ] }; }
   function stack(items, card){ return { _tag: "div", class: "pg-doc-list-stack" + (card ? " pg-doc-list-stack--card" : ""), _children: items }; }
 
   CDS.docs["content-list-item"] = {
@@ -18,6 +23,8 @@
     ] },
     tabs: [
       { id: "uso", title: "Uso", blocks: [
+        { alert: { appearance: "informative", label: "Arrastar para reordenar em desenvolvimento · CDS-1592", text: "A alça (Show Drag Handle) e o estado Dragged estão na branch do Figma e entram no Release 26. Ainda não existem no castanha-react. O resto do Content List Item está publicado." } },
+        { p: "[Abrir a branch no Figma](https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/bHFCiEbEkTYCXNipG4iqN0/-CastanhaDS--Components?node-id=5488-675) · Jira CDS-1592 · épico CDS-1586." },
         { h2: "Sobre" },
         { p: "O Content list item é um bloco de conteúdo que organiza informações de forma clara e escaneável dentro de listas. Ele combina elementos como título, descrição, ícone, avatar ou status, ajudando o usuário a identificar de relance itens, conteúdos ou ações relacionadas." },
         { h3: "Nomes alternativos comuns" },
@@ -41,6 +48,14 @@
           { title: "Content List Item: exibe e navega", attrs: nav("Dados da empresa", "CNPJ, endereço e contatos", "business-line") },
           { title: "Selection List Item: escolhe", attrs: { _tag: "cds-selection-list-item", label: "Vale-refeição", description: "Restaurantes e delivery", "lead-icon": "meal-line", "is-active": true } }
         ] },
+        { h2: "Lista reordenável" },
+        { p: "Arrastar para reordenar é uma capacidade do Content List Item, não um componente separado. Com Show Drag Handle ligado, o item mostra a alça à esquerda. Ao arrastar, ele fica no estado Dragged e a lista abre o espaço no lugar de destino." },
+        { display: { attrs: reo(), live: true } },
+        { note: "Exemplo interativo: arraste pela alça, ou leve o foco até a alça com Tab, aperte Espaço, mova com as setas e aperte Espaço de novo." },
+        { h3: "Utilize para:" },
+        { ul: ["Deixar a pessoa escolher a ordem de itens que ela mesma organiza, como atalhos, prioridades ou etapas."] },
+        { h3: "Não utilize para:" },
+        { ul: ["Ordenar por um critério fixo, como data ou valor (use a ordenação da própria lista).", "Listas de seleção: a capacidade não chegou ao Selection List Item."] },
         { note: "Suporte: canal #castanha-suporte no Slack." }
       ] },
 
@@ -51,15 +66,34 @@
         { props: [
           { name: "Kind", type: "Variant", default: "Default", values: ["Default", "Card"] },
           { name: "Intent", type: "Variant", default: "Default", values: ["Default", "Navigation", "Transaction"] },
-          { name: "State", type: "Variant", default: "Enabled", values: ["Enabled", "Hovered", "Pressed", "Disabled"] },
+          { name: "State", type: "Variant", default: "Enabled", values: ["Enabled", "Hovered", "Pressed", "Disabled", "Dragged"] },
           { name: "Show Lead Item", type: "Boolean", default: "true" },
           { name: "Show Trailing Item", type: "Boolean", default: "true" },
           { name: "Show Divider", type: "Boolean", default: "true" },
           { name: "Show Navigation Indicator", type: "Boolean", default: "true" },
-          { name: "Show Tag", type: "Boolean", default: "true" }
+          { name: "Show Tag", type: "Boolean", default: "true" },
+          { name: "Show Drag Handle", type: "Boolean", default: "false" }
         ] },
+        { p: "Dragged e Show Drag Handle são da branch (CDS-1592). Show Drag Handle começa desligado: nenhuma instância que já existe passa a mostrar a alça." },
         { table: { head: ["Intent", "Composição"], rows: [["Default", ".Lead Item + .Text Content + .Trailing Item (padrão Checkbox)"], ["Navigation", ".Lead Item + .Text Content + Tag (Warning) + navigation-right-line"], ["Transaction", "Shaped Icon (Neutral, Small) + .Text Content + .Currency Content + navigation-right-line"]] } },
-        { note: "Props e padrões lidos do set Content List Item da lib estável. O zeroheight lista \"Show Lead Icon\" e \"Show Trailing Icon\" e um grupo \"Role\". Na lib são Show Lead Item, Show Trailing Item e Intent (CONFERIR C139). No código: `intent`, `href` (a linha vira link), `trailing-item`, `status`, `tag-label`, `tag-appearance`, `shaped-icon`, `value`, `symbol`, `show-negative-symbol`, `value-description` e os `show-*`." }
+        { note: "Props e padrões lidos do set Content List Item da lib estável. O zeroheight lista \"Show Lead Icon\" e \"Show Trailing Icon\" e um grupo \"Role\". Na lib são Show Lead Item, Show Trailing Item e Intent (CONFERIR C139). No código: `intent`, `href` (a linha vira link), `trailing-item`, `status`, `tag-label`, `tag-appearance`, `shaped-icon`, `value`, `symbol`, `show-negative-symbol`, `value-description` e os `show-*`. Para a alça: `show-drag-handle` e `state=\"dragged\"`. A reordenação é da lista: `<cds-content-list reorderable>`." },
+        { h2: "Entrega para dev · CDS-1592" },
+        { table: { head: ["Elemento", "Token ou valor (branch, 13/10)"], rows: [
+          [".Drag Handle", "Building block 26029:1189 · 24×24 · padding `Sizes/2` · ícone `drag-line` 20 em `Icons/intense` · à esquerda do Lead Item"],
+          ["Dragged · fundo", "`Surface/default`"],
+          ["Dragged · elevação", "`Elevation/level 1` (x 0 · y 4 · blur 8)"],
+          ["Dragged · borda", "`Border/semi-soft` por dentro, fora do layout. Kind=Default: só à esquerda, `Border/Width/hairline`. Card: `hairline` em cima, à direita e embaixo e `Border/Width/thick` à esquerda"],
+          ["Dragged · Divider e altura", "Iguais ao Enabled: Divider no Kind=Default, 69 no Intent Default, 62 no Navigation e no Transaction, 80 no Card"]
+        ] } },
+        { ul: [
+          "Prop `showDragHandle?: boolean` (padrão `false`) e o estado `dragged` no Content List Item do castanha-react.",
+          "A alça é um controle de reordenação com nome acessível \"Reordenar {label}\". Ela não pode disparar a ação da linha (link, botão ou controle). De preferência, fora do elemento da linha, para não aninhar controles.",
+          "A reordenação é da lista: abre o espaço no índice sob o cursor e desloca os vizinhos. O espaçamento da lista não muda.",
+          "Alternativa sem arrastar (WCAG 2.5.7): Espaço ou Enter levanta, setas movem, Espaço ou Enter solta, Esc cancela.",
+          "Anunciar a posição nova (`aria-live`), contando a partir de 1.",
+          "Evento de mudança com origem e destino (no portal, `cds-reorder { from, to }`).",
+          "Fora da entrega: a alça no Selection List Item."
+        ] }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -76,7 +110,15 @@
         { h2: "State" },
         { specimens: { items: [
           { label: "Enabled", attrs: { intent: "navigation", href: "#", "show-tag": false } }, { label: "Hovered", attrs: { intent: "navigation", href: "#", "show-tag": false, state: "hovered" } },
-          { label: "Pressed", attrs: { intent: "navigation", href: "#", "show-tag": false, state: "pressed" } }, { label: "Disabled", attrs: { intent: "navigation", "show-tag": false, disabled: true } }
+          { label: "Pressed", attrs: { intent: "navigation", href: "#", "show-tag": false, state: "pressed" } }, { label: "Disabled", attrs: { intent: "navigation", "show-tag": false, disabled: true } },
+          { label: "Dragged", attrs: { intent: "navigation", href: "#", "show-tag": false, "show-drag-handle": "true", state: "dragged" } }
+        ] } },
+        { h2: "Show Drag Handle" },
+        { specimens: { items: [
+          { label: "Default", attrs: { intent: "navigation", href: "#", "show-tag": false, "show-drag-handle": "true" } },
+          { label: "Default · Dragged", attrs: { intent: "navigation", href: "#", "show-tag": false, "show-drag-handle": "true", state: "dragged" } },
+          { label: "Card", attrs: { kind: "card", intent: "navigation", href: "#", "show-tag": false, "show-drag-handle": "true" } },
+          { label: "Card · Dragged", attrs: { kind: "card", intent: "navigation", href: "#", "show-tag": false, "show-drag-handle": "true", state: "dragged" } }
         ] } }
       ] },
 
@@ -88,6 +130,14 @@
           "Sem link nem controle, a linha é um botão.",
           "O indicador de navegação (seta) e o Lead Item são decorativos.",
           "No Transaction, o valor é lido como texto. Se for negativo, o sinal precisa estar no texto, não exclusivamente na cor."
+        ] },
+        { h2: "Arrastar para reordenar" },
+        { ul: [
+          "Alvo de toque (2.5.8): a alça tem 24×24.",
+          "Sem arrastar (2.5.7): com o foco na alça, Espaço ou Enter levanta o item, as setas movem, Espaço ou Enter solta e Esc cancela.",
+          "A alça se chama \"Reordenar {label}\" e a instrução de teclado vem na descrição.",
+          "A posição nova é anunciada: \"Limites, posição 2 de 4\".",
+          "Contraste da alça (1.4.11): `Icons/intense` sobre `Surface/default`, 16,96:1."
         ] },
         { h2: "Contraste (WCAG)" },
         { ul: ["Label (Text/intense) 16,96:1 · descrição (Text/medium) 8,24:1 sobre Surface/default — AA e AAA.", "Valor do Transaction e indicador de navegação: 16,96:1."] },
@@ -118,8 +168,10 @@
         { specs: [
           { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
           { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
-          { title: "→ Disabled", rows: [["Gatilho", "Ao desabilitar"], ["Motion Style", "`Disabled/01`"]] }
+          { title: "→ Disabled", rows: [["Gatilho", "Ao desabilitar"], ["Motion Style", "`Disabled/01`"]] },
+          { title: "Enabled → Dragged", rows: [["Gatilho", "Ao arrastar pela alça"], ["Motion Style", "Em teste na branch (CDS-1592)"]] }
         ] },
+        { p: "Na lista reordenável, os vizinhos se deslocam com Duration/Short/04 e Easing/Systemic/default enquanto o item é arrastado. É uma escolha do portal até o Motion do On drag sair da branch (C200)." },
         { alert: { appearance: "warning", label: "Especificação pendente", text: "A seção Motion do zeroheight está com o texto modelo e a tabela vazia. O mapeamento acima segue o padrão de estados de interação. No código, short/03 + systemic/accelerate (CONFERIR C139)." } }
       ] }
     ]

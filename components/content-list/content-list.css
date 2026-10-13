@@ -1,3 +1,13 @@
 /* Content List · set 5488:1482 — coluna · Default sem gap · Card gap 8 */
 cds-content-list{ display:flex; flex-direction:column; width:320px; max-width:100%; }
 cds-content-list[kind="card"]{ gap:var(--common-sizes-8); }
+
+/* Reordenar (CDS-1592): o espaço de destino é o deslocamento dos vizinhos (o itemSpacing não muda) */
+cds-content-list > .cds-cl__live{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+cds-content-list[reorderable]{ position:relative; }
+cds-content-list[data-dragging] > cds-content-list-item{ transition:transform var(--common-motion-duration-short-04) var(--common-motion-easing-systemic-default); }
+cds-content-list[data-dragging] > cds-content-list-item[state="dragged"]{ transition:none; position:relative; z-index:1; }
+cds-content-list[data-dragging]{ user-select:none; -webkit-user-select:none; }
+@media (prefers-reduced-motion:reduce){ cds-content-list[data-dragging] > cds-content-list-item{ transition:none; } }
+cds-content-list[data-dragging] > cds-content-list-item:not([state="dragged"]) > .cds-li{ --_bg:var(--common-colors-surface-default); }
+cds-content-list[kind="card"][data-dragging] > cds-content-list-item:not([state="dragged"]) > .cds-li{ --_stroke-c:var(--common-colors-border-semi-soft); }

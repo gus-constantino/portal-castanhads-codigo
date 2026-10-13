@@ -7,6 +7,8 @@ CDS.register({
     kit.section(panel, "Variants");
     kit.seg(panel, { label: "Kind", value: "default", options: [["default","Default"],["card","Card"]], onChange: function(v){ kit.attr(p, "kind", v === "default" ? null : v); } });
     kit.seg(panel, { label: "Intent", value: "default", options: [["default","Default"],["switch","Switch"],["navigation","Navigation"]], hint: "No Figma, Intent=Switch usa itens Intent=Transaction (C54).", onChange: function(v){ kit.attr(p, "intent", v === "default" ? null : v); } });
+    kit.toggle(panel, { label: "Reorderable (CDS-1592)", checked: false, hint: "Liga a alça dos itens. Arraste pela alça ou use Espaço e as setas.", onChange: function(on){ kit.attr(p, "reorderable", on); } });
+    p.addEventListener("cds-reorder", function(e){ ctx.readout("cds-reorder " + (e.detail.from + 1) + " → " + (e.detail.to + 1), false); });
     kit.range(panel, { label: "Itens (amostra)", min: 1, max: 12, value: 12, onInput: function(v){ p.setAttribute("count", v); } });
   }
 });

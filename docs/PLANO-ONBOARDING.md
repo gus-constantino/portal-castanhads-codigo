@@ -300,7 +300,7 @@ O Relatório tem outro público (quem acompanha ou mantém o projeto), outro vis
 |---|---|
 | **R0** ✅ 13/10 | Fixes P1 do Relatório (B1 a B6): B1 já resolvido (decisões só na §4), B2 cobertura lida do inventário × playground, B3 Sem dado em vez de Em dia, B4 painel por página sem templates e Sem página no lugar de Outros, B6 estado vazio na busca e Publicação sem leitura do Figma. B5 fica: o título Saúde do Castanha DS é decisão do dashboard |
 | **R1** ✅ 13/10 | Glossário (fonte única em `scripts/report-glossario.js`, 30 termos): tab Glossário no Relatório e a 1ª ocorrência de cada termo por tab vira Link do DS que abre o Popover do DS (clique ou Enter, Esc fecha). O glossário do Conteúdo fica de fora: ele é de produto, para quem usa a Caju |
-| **R2** | Tour da 1ª visita e entrada por perfil |
+| **R2** ✅ 13/10 | Tour da 1ª visita e entrada por perfil: 3 etapas (o lint limita a 3, então as 5 perguntas viraram 3): Como está o projeto? nos números, a 2ª por perfil (E o React? na Stack React, E o Flutter? na Stack Flutter, O que diverge do Figma? no Conferir) e Termo novo? no Glossário. Abre na 1ª visita ao Relatório, a partir do tablet, e de novo pelo botão da tab Glossário |
 
 ---
 

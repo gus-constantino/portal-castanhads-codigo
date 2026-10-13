@@ -743,14 +743,14 @@
     t.appendChild(searchEl);
     var pilha = head.appendChild(el("loc-pilha", "rp-head__pilha")); pilha.setAttribute("on", "inversed");
     searchEl.addEventListener("cds-change", function(e){ e.stopPropagation(); filter(); });
-    kpiEl = root.appendChild(el("div", "rp-kpis"));
+    kpiEl = root.appendChild(el("div", "rp-kpis")); kpiEl.setAttribute("data-onb", "rel-kpis"); // âncoras do tour do Relatório (R2)
     // Scrollable Tab do DS (teclado e foco itinerante vêm do componente)
     var wrap = root.appendChild(el("div", "pg-tabs rp-tabs"));
     tabsEl = document.createElement("cds-scrollable-tab");
     tabsEl.setAttribute("label", "Registros");
     TABS.forEach(function(tab){
       var it = document.createElement("cds-tab-item");
-      it.setAttribute("label", tab.title); it.id = "rp-tab-" + tab.id; it.dataset.tab = tab.id;
+      it.setAttribute("label", tab.title); it.id = "rp-tab-" + tab.id; it.dataset.tab = tab.id; it.setAttribute("data-onb", "rel-tab-" + tab.id);
       tabsEl.appendChild(it);
     });
     wrap.appendChild(tabsEl); // só depois das abas: conectado vazio, o componente desenha a amostra do Figma (6 "Label")
@@ -825,7 +825,14 @@
       var L = g.term.charAt(0).toUpperCase(); (letters[L] = letters[L] || []).push([g.term, g.def]);
     });
     var wrap = bodyEl.appendChild(el("div", "rp-gloss"));
-    wrap.appendChild(el("p", "rp-gloss__intro", "Os termos do Relatório que nem todo mundo conhece. Nas outras tabs, a primeira vez que um deles aparece vira um link: clique para conferir a definição sem sair da página."));
+    var head = wrap.appendChild(el("div", "rp-gloss__head"));
+    head.appendChild(el("p", "rp-gloss__intro", "Os termos do Relatório que nem todo mundo conhece. Nas outras tabs, a primeira vez que um deles aparece vira um link: clique para conferir a definição sem sair da página."));
+    // Rever o tour do Relatório (R2): com a janela a partir do tablet, onde os passos têm onde se ancorar
+    if (CDS.onboarding && window.innerWidth > 743){
+      var tour = head.appendChild(document.createElement("cds-main-button"));
+      [["label", "Fazer o tour do Relatório"], ["kind", "ghost"], ["size", "small"], ["show-lead-icon", "false"], ["show-trailing-icon", "false"]].forEach(function(x){ tour.setAttribute(x[0], x[1]); });
+      tour.addEventListener("click", function(){ window.scrollTo(0, 0); setTimeout(function(){ CDS.onboarding.start("relatorio"); }, 300); });
+    }
     if (CDS.docBlocks && CDS.docBlocks.glossary) wrap.appendChild(CDS.docBlocks.glossary(null, { label: "Buscar no glossário", placeholder: "Termo ou definição (ex.: smoke, débito, D40)", letters: letters }));
   }
   // Primeira ocorrência de cada termo na tab: Link do DS dentro de <dfn> que abre um Popover do DS (clique ou Enter, Esc fecha)

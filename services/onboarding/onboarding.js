@@ -11,6 +11,8 @@
  *     { anchor: "busca", title, text, more, placement, showIf(ctx) }                             // passo do tour (Popover)
  *   ], onComplete(api) })
  *   auto: abre sozinho na 1ª visita (e de novo depois de Me lembrar mais tarde, no máximo 2 vezes, a partir do dia seguinte)
+ *   route: com auto, abre na 1ª visita a essa rota (ex.: "relatorio"), ao carregar ou ao navegar até ela (R2)
+ *   group: passos alternativos (showIf diferente) que ocupam a mesma etapa, como a entrada por perfil; o lint conta uma vez
  *   then: o primário da boas-vindas vira Começar (o onboarding continua no onComplete)
  * Botões pelo papel do passo, com os rótulos do guia de Conteúdo (conteudo.js:1073-1082): Começar · Continuar · Voltar ·
  *   Concluir · Fechar · Me lembrar mais tarde · Não mostrar novamente. Esc = Me lembrar mais tarde.
@@ -79,7 +81,7 @@
   function visible(el){ return !!(el && el.getClientRects().length); }
   // ⌘K no Mac, Ctrl+K nos outros sistemas (copy do plano §11.4)
   function keys(t){ return /Mac|iP(hone|ad)/.test(navigator.platform || navigator.userAgent) ? t : String(t).replace(/⌘K/g, "Ctrl+K"); }
-  function ctx(){ return { width: window.innerWidth, route: route() }; }
+  function ctx(){ return { width: window.innerWidth, route: route(), profile: profile() }; }
   function route(){ return (location.hash || "").replace(/^#\/?/, "").split("?")[0]; }
   function usable(step){
     if (step.showIf && !step.showIf(ctx())) return false;
@@ -170,7 +172,7 @@
     if (ui.pop){ ui.pop.hide(); ui.pop.remove(); }
     if (ui.modal){ ui.closing = true; ui.modal.close(); ui.modal.remove(); }
     document.removeEventListener("keydown", ui.onKey, true);
-    window.removeEventListener("resize", ui.onResize);
+    window.removeEventListener("resize", ui.onResize); window.removeEventListener("scroll", ui.onResize, true);
     ui = null;
   }
   function show(){
@@ -197,13 +199,16 @@
     layer.addEventListener("click", remind);
     document.body.appendChild(layer);
     document.body.appendChild(pop);
+    // área fora da tela (ex.: as tabs do Relatório, abaixo dos números): traz para o centro antes de posicionar o passo (R2)
+    var box = anchor.getBoundingClientRect();
+    if (box.top < 0 || box.bottom > window.innerHeight) anchor.scrollIntoView({ block: "center", inline: "nearest", behavior: "auto" });
     var lift = lifted(anchor); lift.setAttribute("data-onb-lift", getComputedStyle(lift).position === "static" ? "static" : "");
     anchor.setAttribute("data-onb-active", "");
     ui = { pop: pop, anchor: anchor, layer: layer, lift: lift };
     pop.show();
     var place = function(){ if (ui && ui.pop === pop) CDS.position(anchor, pop, { placement: step.placement || "bottom-start", gap: 8 }); };
     place();
-    ui.onResize = place; window.addEventListener("resize", place);
+    ui.onResize = place; window.addEventListener("resize", place); window.addEventListener("scroll", place, true); // rolou a página: o passo acompanha a área
     // Esc = Me lembrar mais tarde (não perde o progresso); o foco vai para o título do passo
     ui.onKey = function(e){ if (e.key === "Escape" && run){ e.preventDefault(); e.stopPropagation(); remind(); } };
     document.addEventListener("keydown", ui.onKey, true);
@@ -344,6 +349,21 @@
   }
   function trail(def){ TRAIL = def; }
 
+  // Fluxo de rota (R2): na 1ª visita à rota, espera a âncora do 1º passo aparecer (o Relatório monta depois de ler os registros)
+  function routeFlow(){
+    var r = route().split("/")[0];
+    var f = ORDER.map(function(id){ return FLOWS[id]; }).filter(function(x){ return x.auto && x.route === r && due(x); })[0];
+    if (!f || run) return false;
+    var t0 = Date.now();
+    (function wait(){
+      if (run || route().split("/")[0] !== r) return;
+      var first = f.steps.filter(function(s){ return !s.showIf || s.showIf(ctx()); })[0];
+      if (first && (first.kind === "modal" || visible(anchorOf(first)))) return void setTimeout(function(){ if (!run && route().split("/")[0] === r) start(f.id); }, 400);
+      if (Date.now() - t0 < 8000) setTimeout(wait, 250);
+    })();
+    return true;
+  }
+
   // ---------- Adaptador remoto (F5): desligado até o portal ter o ambiente da Caju ----------
   var REMOTE = null, saveTimer = null, merging = false;
   function snapshot(){
@@ -400,6 +420,7 @@
   // Páginas fora do menu (relatório, escondidas) não abrem nada sozinhas.
   if (typeof window !== "undefined" && window.addEventListener){
     window.addEventListener("hashchange", markRoute);
+    window.addEventListener("hashchange", function(){ if (!off()) routeFlow(); });
     // o Playground grava as props na URL com replaceState (sem hashchange): o shell avisa com cds-playground-change
     document.addEventListener("cds-playground-change", function(){ allTasks().forEach(function(t){ if (t.done && t.done.playground) markDone(t.id); }); });
     window.addEventListener("load", function(){
@@ -407,9 +428,10 @@
       if (off()) return;
       var m = location.search.match(/[?&]tour=([\w-]+)/);
       if (m) return setTimeout(function(){ start(m[1]); }, 300);
+      if (routeFlow()) return;
       var r = route().split("/")[0], def = CDS.playgrounds && CDS.playgrounds.filter(function(c){ return c.id === r; })[0];
       if (r === "relatorio" || (def && def.hidden)) return;
-      var auto = ORDER.map(function(id){ return FLOWS[id]; }).filter(function(f){ return f.auto && due(f); })[0];
+      var auto = ORDER.map(function(id){ return FLOWS[id]; }).filter(function(f){ return f.auto && !f.route && due(f); })[0];
       if (auto) setTimeout(function(){ start(auto.id); }, 600);
     });
   }

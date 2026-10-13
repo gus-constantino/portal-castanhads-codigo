@@ -67,16 +67,24 @@ window.CDS_SMOKE_DOCS = async function(opts){
     }
   }
   // Onboarding (D316): todo passo de tour precisa achar a área em [data-onb] (âncora quebrada = tour pulando passo)
+  // Fluxo com route (R2, ex.: o tour do Relatório) confere as âncoras na rota dele, depois que ela monta (até 5 s)
   if (CDS.onboarding){
-    location.hash = "#/inicio"; await sleep(80);
-    CDS.onboarding.flows().forEach(function(f){
-      f.steps.forEach(function(s, k){
-        if (s.kind === "modal" || !s.anchor) return;
-        var el = document.querySelector('[data-onb="' + s.anchor + '"]');
-        if (!el) rec("errors", "onboarding", f.id + " › passo " + (k + 1) + ": âncora [data-onb=\"" + s.anchor + "\"] não existe no shell");
-        else if (!opts.mobile && !el.getClientRects().length) rec("errors", "onboarding", f.id + " › passo " + (k + 1) + ": âncora " + s.anchor + " fora da tela no desktop");
+    var byRoute = {};
+    CDS.onboarding.flows().forEach(function(f){ (byRoute[f.route || "inicio"] = byRoute[f.route || "inicio"] || []).push(f); });
+    for (var rt in byRoute){
+      location.hash = "#/" + rt;
+      var need = [].concat.apply([], byRoute[rt].map(function(f){ return f.steps.filter(function(s){ return s.kind !== "modal" && s.anchor; }).map(function(s){ return s.anchor; }); }));
+      for (var w = 0; w < 50 && need.some(function(a){ return !document.querySelector('[data-onb="' + a + '"]'); }); w++) await sleep(100);
+      await sleep(80);
+      byRoute[rt].forEach(function(f){
+        f.steps.forEach(function(s, k){
+          if (s.kind === "modal" || !s.anchor) return;
+          var el = document.querySelector('[data-onb="' + s.anchor + '"]');
+          if (!el) rec("errors", "onboarding", f.id + " › passo " + (k + 1) + ": âncora [data-onb=\"" + s.anchor + "\"] não existe em #/" + rt);
+          else if (!opts.mobile && !el.getClientRects().length) rec("errors", "onboarding", f.id + " › passo " + (k + 1) + ": âncora " + s.anchor + " fora da tela no desktop");
+        });
       });
-    });
+    }
   }
   cur = ""; console.error = origErr; window.removeEventListener("error", onErr);
   var all = Object.keys(byId).map(function(k){ return byId[k]; });

@@ -35,8 +35,8 @@ function lint(ROOT){
   flows.forEach((fl) => {
     const where = (i) => fl.file + " › " + fl.id + " › passo " + (i + 1);
     if (!fl.id || !Array.isArray(fl.steps) || !fl.steps.length){ errors.push(fl.file + ": fluxo sem id ou sem passos"); return; }
-    const tour = fl.steps.filter((s) => s.kind !== "modal");
-    if (tour.length > 3) errors.push(fl.file + " › " + fl.id + ": " + tour.length + " passos de tour (máximo 3)");
+    const tour = fl.steps.filter((s) => s.kind !== "modal"), etapas = new Set(tour.map((s, i) => s.group ? "g" + s.group : i));
+    if (etapas.size > 3) errors.push(fl.file + " › " + fl.id + ": " + etapas.size + " etapas de tour (máximo 3)");
     fl.steps.forEach((s, i) => {
       const t = String(s.title || ""), x = String(s.text || "");
       if (!t) errors.push(where(i) + ": sem título");

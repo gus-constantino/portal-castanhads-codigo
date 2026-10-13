@@ -10,7 +10,7 @@
  *   Kind=Card: pad 8 · raio large · stroke Border/semi-soft INSIDE · Container min 80, pad 0 16 · Slot pad 16 · sem Divider
  *   States: Hovered Surface/01 (Card Border/medium) · Pressed Neutral/Opacity/Intense/semi-transparent (Card Border/intense)
  *           Disabled Opacity/light (Card Border/medium)
- *   Ícone: dropdown-open-line recolhido · dropdown-close-line aberto (variantes e description do Figma, C79 resolvido)
+ *   Ícone: dropdown-close-line sempre, no frame Icon de 24, girado 180° quando recolhido (ajuste do Figma em 13/10; antes trocava o glifo, C79)
  *
  * Web: o cabeçalho é um <button aria-expanded aria-controls> e o conteúdo um role="region" (padrão Accordion do WAI-ARIA).
  * O Figma pinta o item inteiro no hover/press; aqui o alvo é o cabeçalho e a cor continua no item todo.
@@ -64,7 +64,7 @@
       CDS.attr(this.headWrap, "aria-level", lvl >= 1 && lvl <= 6 ? String(lvl) : null);
       this.leadEl.hidden = !this.flag("show-lead-item");
       CDS.attr(this.leadEl, "icon", this.getAttribute("lead-icon") || "placeholder-line");
-      CDS.attr(this.chevEl, "icon", open ? "dropdown-close-line" : "dropdown-open-line");
+      CDS.attr(this.chevEl, "icon", "dropdown-close-line"); // o giro de 180° recolhido fica no CSS, para animar junto com o Slot
       CDS.attr(this.textEl, "label", this.text("label", "Label"));
       CDS.attr(this.textEl, "description", this.text("description", "Description"));
       CDS.attr(this.textEl, "show-description", this.flag("show-description") ? null : "false");

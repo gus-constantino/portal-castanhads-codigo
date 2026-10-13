@@ -1407,6 +1407,9 @@ cds-accordion-item [hidden]{ display:none !important; }
 .cds-acc__head:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:-2px; } /* C23 */
 .cds-acc__text{ flex:1 1 auto; }
 .cds-acc__lead, .cds-acc__chev{ flex:0 0 auto; }
+/* Ícone indicador: um glifo só (dropdown-close-line) que gira 180° recolhido, no tempo e na curva do Slot */
+.cds-acc__chev{ transition:rotate var(--common-motion-duration-short-04) var(--common-motion-easing-expressive-decelerate); }
+[collapsed] > .cds-acc .cds-acc__chev{ rotate:180deg; transition-duration:var(--common-motion-duration-medium-03); }
 
 /* Slot: altura animada por grid-template-rows (0fr ↔ 1fr); o espaço de 4 até o Container fica dentro da área animada */
 .cds-acc__panel{
@@ -1442,7 +1445,7 @@ cds-accordion-item [hidden]{ display:none !important; }
 [disabled] > .cds-acc .cds-acc__head{ cursor:default; pointer-events:none; }
 
 @media (prefers-reduced-motion:reduce){
-  .cds-acc, .cds-acc__panel, [collapsed] > .cds-acc > .cds-acc__panel{ transition:none; }
+  .cds-acc, .cds-acc__panel, [collapsed] > .cds-acc > .cds-acc__panel, .cds-acc__chev{ transition:none; }
 }
 
 /* ==== components/accordion/accordion.css ==== */

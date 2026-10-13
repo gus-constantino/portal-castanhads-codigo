@@ -33,7 +33,7 @@ CDS.docs = CDS.docs || {};
         { cards: [
           ["Revelar sob demanda", "O conteúdo extra fica no Slot, oculto até a pessoa expandir — reduz a carga visual e deixa a leitura previsível."],
           ["Título claro e curto", "O header (Label + Description) resume o que há dentro, pra pessoa prever o conteúdo antes de abrir."],
-          ["Estado além da cor", "O chevron (open/close) e a revelação do conteúdo sinalizam expandido ou recolhido — não use a cor como único sinal."]
+          ["Estado além da cor", "O chevron, que gira quando o item abre ou fecha, e a revelação do conteúdo sinalizam o estado — não use a cor como único sinal."]
         ] },
         { h2: "Quando usar" },
         { p: "Utilize o Accordion Item para organizar conteúdo extenso em seções que a pessoa abre sob demanda, agrupando informação secundária sem tirá-la da página." },
@@ -57,7 +57,7 @@ CDS.docs = CDS.docs || {};
           legend: ["Lead Item (opcional)", "Label + Description", "Ícone indicador (chevron)", "Slot (conteúdo revelado)", "Divider (opcional)"]
         } },
         { h2: "Composição do componente" },
-        { p: "O Accordion Item é composto por um header — .Lead Item (opcional), .Text Content (Label + Description) e o ícone indicador (dropdown-open/close-line) — mais o Slot que recebe o conteúdo revelado e um Divider opcional. Vários itens são arranjados pelo conjunto Accordion." },
+        { p: "O Accordion Item é composto por um header — .Lead Item (opcional), .Text Content (Label + Description) e o ícone indicador (dropdown-close-line, girado 180° quando recolhido) — mais o Slot que recebe o conteúdo revelado e um Divider opcional. Vários itens são arranjados pelo conjunto Accordion." },
         { h2: "Propriedades" },
         { props: [
           { name: "State", type: "Variant" },

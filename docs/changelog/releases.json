@@ -1,9 +1,22 @@
 {
  "fonte": "Slack #castanha-novidades (C09F7GD1A6M)",
- "lido_ate": "2026-10-08",
- "atualizado_em": "2026-10-09",
+ "lido_ate": "2026-10-13",
+ "atualizado_em": "2026-10-13",
  "nota": "lido_ate = último dia em que o canal foi lido por completo. A rotina lê a partir desse dia (inclusive); releases repetidas (mesma data, área e título) são ignoradas.",
  "releases": [
+  {
+   "data": "2026-10-13",
+   "area": "Outro",
+   "titulo": "Skills de Claude Code do Castanha DS",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Skills de Claude Code aderentes às regras do Castanha DS para as etapas de Startup, Criação de Telas e Migração de Componentes, entre outras"
+    }
+   ],
+   "link": null
+  },
   {
    "data": "2026-10-07",
    "area": "Figma",

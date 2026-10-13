@@ -97,7 +97,7 @@
 .pg-doc-figure figcaption{ font:var(--text-style-body-bold); }
 .pg-doc-specimen{ align-items:flex-start; }
 .pg-doc-specimen figcaption{ order:-1; font:var(--text-style-caption-bold); color:var(--common-colors-text-medium); }
-.pg-doc-display--grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(min(var(--_min, calc(var(--common-sizes-200) + var(--common-sizes-120))), 100%), 1fr)); justify-items:center; gap:var(--common-sizes-40) var(--common-sizes-32); }
+.pg-doc-display--grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(min(var(--_min, calc(var(--common-sizes-200) + var(--common-sizes-120))), 100%), 1fr)); justify-items:start; align-items:start; gap:var(--common-sizes-40) var(--common-sizes-32); }
 
 /* Anatomia — marcador 24×24, stroke Accent/Solid/medium, raio extra-small, número Text/accent */
 .pg-doc-anatomy{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }

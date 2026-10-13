@@ -1,13 +1,12 @@
 <!doctype html>
-<!-- Roteiro do Playground: 20 coisas para abrir, clicar e mexer no portal (D236; revisão com uso estrito do DS, D238; ajuste fino D239; itens novos D260).
+<!-- Roteiro do Playground: 20 coisas para abrir, clicar e mexer no portal (D236).
+     Visual da primeira entrega (Gustavo, 13/10: "igual na primeira entrega, só atualizar as informações"): ilustração grande na
+     abertura, "Vi" com Progress Line, blocos com a ilustração ao lado. As paradas seguem as da trilha Explorar dos Primeiros passos.
      Página ESCONDIDA: fora do menu e da busca. O link fica no Relatório › Arquitetura, embaixo da Proposta.
-     Feita para quem chega pela primeira vez (Gustavo, 06/10): cada parada tem o link direto para a página no portal.
-     Regra: só o que o Castanha DS tem.
-       · Componentes: Header do Sponsor Templates (barra do topo, como no portal), Main Button, Icon Button + Tooltip,
-         Card (Has Border), Link, Tag e Divider; a composição <cmp-shortcut> nas teclas.
-       · Texto só com os Text Styles do tema, sem trocar altura de linha, espaçamento ou caixa.
-       · Espaços só com Common/Sizes e Common/Grids; faixas da coleção Viewport (744 · 1366).
-       · Ilustrações da [Caju] Illustrations. -->
+     Feita para quem chega pela primeira vez (Gustavo, 06/10): cada parada tem o link direto e uma caixa "Vi".
+     Só tokens, componentes do DS (Main Button, Icon Button, Card, Link, Tag, Checkbox, Progress Line) e as
+     composições do playground (<cmp-shortcut>). As ilustrações vêm da [Caju] Illustrations.
+     As paradas vistas ficam salvas SÓ no navegador de quem lê (localStorage "cds-roteiro:vistas"). -->
 <html lang="pt-BR" data-theme="light">
 <head>
 <meta charset="utf-8" />
@@ -18,126 +17,113 @@
 <link rel="stylesheet" href="../../styles/shared.css" />
 <link rel="stylesheet" href="../../styles/icons.css" />
 <link rel="stylesheet" href="../../dist/cds.css" />
-<link rel="stylesheet" href="../../components/sponsor-header/sponsor-header.css" />
 <style>
-  /* Guia de passeio: barra do topo do portal, abertura com a ação principal, "Se tiver 5 minutos" e cinco blocos de paradas.
-     Mobile no :root; Tablet ≥ 744; Desktop ≥ 1366 (coleção Viewport do castanha-tokens). */
-  :root{ --rt-max:calc(5 * var(--common-sizes-200) + var(--common-sizes-160)); }
-  body{ margin:0; background:var(--common-colors-surface-default); color:var(--common-colors-text-intense); font:var(--text-style-body-regular); }
-  p, h1, h2, h3{ margin:0; }
+  /* Guia de passeio: cabeçalho com a ação principal, trio "se tiver 5 minutos" e cinco blocos de paradas */
+  :root{ --rt-max:calc(5 * var(--common-sizes-200) + var(--common-sizes-120)); --rt-gutter:clamp(var(--common-sizes-16), 4vw, var(--common-sizes-40)); }
+  body{ margin:0; background:var(--common-colors-surface-01); color:var(--common-colors-text-intense); font:var(--text-style-body-regular); }
+  .rt{ max-width:var(--rt-max); margin:0 auto; padding-inline:var(--rt-gutter); padding-block:clamp(var(--common-sizes-24), 5vw, var(--common-sizes-64)) var(--common-sizes-48); box-sizing:border-box; display:flex; flex-direction:column; gap:clamp(var(--common-sizes-40), 6vw, var(--common-sizes-72)); }
+  .rt p{ margin:0; }
 
-  /* Barra do topo: .Heading do Header do Sponsor (← · Breadcrumb · tema) */
-  .rt-top{ position:sticky; top:0; z-index:10; background:var(--common-colors-surface-default); }
-  .rt-top__head{ display:flex; align-items:center; height:var(--common-sizes-64); padding-inline:var(--common-sizes-16); }
-  .rt-top__head > cds-sponsor-header{ flex:1 1 auto; min-width:0; padding:0; gap:0; }
-  .rt-top__head .cds-sh__lead{ gap:var(--common-sizes-12); }
-  .rt-top__head .cds-sh__crumb{ flex:1 1 auto; overflow:hidden; }
+  /* Cabeçalho */
+  .rt-head{ display:grid; grid-template-columns:minmax(0, 1.5fr) minmax(0, 1fr); gap:var(--common-sizes-32); align-items:center; }
+  .rt-head__text{ display:flex; flex-direction:column; gap:var(--common-sizes-16); min-width:0; }
+  .rt-eyebrow{ font:var(--text-style-label-bold); letter-spacing:.06em; text-transform:uppercase; color:var(--common-colors-text-accent); }
+  .rt-display{ margin:0; font:var(--text-style-decorative-display); line-height:1.02; text-wrap:balance; overflow-wrap:break-word; }
+  .rt-display em{ font-style:normal; color:var(--common-colors-text-accent); }
+  .rt-lede{ max-width:56ch; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+  .rt-actions{ display:flex; align-items:center; flex-wrap:wrap; gap:var(--common-sizes-12); }
+  .rt-note{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); max-width:44ch; }
+  .rt-head__art{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-16); }
+  .rt-head__art img{ width:min(100%, calc(var(--common-sizes-200) + var(--common-sizes-40))); aspect-ratio:1; object-fit:contain; }
+  .rt-progress{ width:100%; max-width:calc(var(--common-sizes-200) + var(--common-sizes-80)); display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+  .rt-progress__label{ font:var(--text-style-caption-medium); color:var(--common-colors-text-medium); font-variant-numeric:tabular-nums; text-align:center; }
+  .rt-theme{ position:absolute; z-index:5; top:calc(env(safe-area-inset-top, 0px) + var(--common-sizes-16)); right:var(--common-sizes-16); }
 
-  .rt{ max-width:var(--rt-max); margin:0 auto; box-sizing:border-box; padding-inline:var(--common-grids-margin); padding-block:var(--common-sizes-32) var(--common-sizes-48); display:flex; flex-direction:column; gap:var(--common-sizes-48); }
-
-  /* Abertura */
-  .rt-head{ display:flex; flex-direction:column; gap:var(--common-sizes-24); }
-  .rt-head__art{ width:var(--common-sizes-120); height:var(--common-sizes-120); object-fit:contain; }
-  .rt-head__text{ display:flex; flex-direction:column; gap:var(--common-sizes-12); min-width:0; }
-  .rt-eyebrow{ font:var(--text-style-label-bold); color:var(--common-colors-text-accent); }
-  .rt-display{ font:var(--text-style-decorative-extra-large); }
-  .rt-lede{ font:var(--text-style-body-regular); color:var(--common-colors-text-medium); max-width:calc(3 * var(--common-sizes-200)); }
-  .rt-actions{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-8); }
-  .rt-note{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
-
-  /* Títulos de seção e textos de apoio */
-  .rt-h2{ font:var(--text-style-decorative-medium); }
+  /* Se tiver 5 minutos */
+  .rt-start{ border-radius:var(--common-border-radius-large); background:var(--common-colors-surface-default); box-shadow:var(--common-elevation-level-1); padding:clamp(var(--common-sizes-20), 3vw, var(--common-sizes-32)); display:grid; grid-template-columns:auto minmax(0, 1fr); gap:var(--common-sizes-24); align-items:center; }
+  .rt-start > img{ width:var(--common-sizes-120); height:var(--common-sizes-120); object-fit:contain; }
+  .rt-start__body{ display:flex; flex-direction:column; gap:var(--common-sizes-16); min-width:0; }
+  .rt-h2{ margin:0; font:var(--text-style-decorative-large); line-height:1.15; text-wrap:balance; }
   .rt-sub{ font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
-
-  /* Se tiver 5 minutos: Card do DS com a ilustração e três Cards */
-  .rt-start .cds-card__slot{ gap:var(--common-sizes-16); }
-  .rt-start__head{ display:flex; align-items:center; gap:var(--common-sizes-16); }
-  .rt-start__head img{ width:var(--common-sizes-80); height:var(--common-sizes-80); object-fit:contain; flex:none; }
-  .rt-trio{ display:grid; grid-template-columns:minmax(0, 1fr); gap:var(--common-grids-gutter); }
+  .rt-trio{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:var(--common-sizes-12); }
+  .rt-pick{ min-width:0; }
+  .rt-pick .cds-card__slot{ height:100%; }
+  .rt-pick__title{ margin:0; font:var(--text-style-title-small); }
+  .rt-pick__text{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); flex:1 1 auto; }
 
   /* Paradas */
-  .rt-stops{ display:flex; flex-direction:column; gap:var(--common-sizes-48); }
-  .rt-stop{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
-  .rt-stop__head{ display:flex; align-items:center; gap:var(--common-sizes-16); }
-  .rt-stop__art{ width:var(--common-sizes-80); height:var(--common-sizes-80); object-fit:contain; flex:none; }
-  .rt-stop__title{ display:flex; flex-direction:column; gap:var(--common-sizes-4); min-width:0; }
-  .rt-items{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:minmax(0, 1fr); gap:var(--common-grids-gutter); }
+  .rt-stop{ display:grid; grid-template-columns:calc(var(--common-sizes-200) + var(--common-sizes-40)) minmax(0, 1fr); gap:clamp(var(--common-sizes-20), 4vw, var(--common-sizes-48)); align-items:start; }
+  .rt-stop__head{ position:sticky; top:calc(env(safe-area-inset-top, 0px) + var(--common-sizes-24)); display:flex; flex-direction:column; gap:var(--common-sizes-12); }
+  .rt-stop__art{ width:var(--common-sizes-120); height:var(--common-sizes-120); object-fit:contain; }
+  .rt-items{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:var(--common-sizes-12); }
   .rt-item{ min-width:0; display:flex; }
-  .rt-item > cds-card, .rt-trio > cds-card{ flex:1 1 auto; min-width:0; }
-  .rt-item .cds-card__slot, .rt-trio .cds-card__slot{ height:100%; }
+  .rt-item cds-card{ flex:1 1 auto; transition:box-shadow var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
+  .rt-item cds-card .cds-card__slot{ height:100%; }
+  .rt-item.is-done cds-card{ box-shadow:inset 0 0 0 var(--common-border-width-thin) var(--common-colors-feedback-positive-intense); }
   .rt-item__top{ display:flex; align-items:baseline; gap:var(--common-sizes-8); }
-  .rt-item__n{ font:var(--text-style-disclaimer-medium); color:var(--common-colors-text-medium); /* Text/soft reprova contraste em texto informativo (C128) */ font-variant-numeric:tabular-nums; flex:none; }
-  .rt-item__title{ font:var(--text-style-title-small); }
+  .rt-item__n{ font:var(--text-style-disclaimer-medium); color:var(--common-colors-text-soft); font-variant-numeric:tabular-nums; flex:none; }
+  .rt-item__title{ margin:0; font:var(--text-style-title-small); text-wrap:balance; }
+  .rt-item.is-done .rt-item__title{ text-decoration:line-through; text-decoration-color:var(--common-colors-feedback-positive-intense); }
   .rt-item__text{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); flex:1 1 auto; }
-  .rt-item__foot{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--common-sizes-8) var(--common-sizes-12); }
+  .rt-item__text cmp-shortcut{ vertical-align:middle; }
+  .rt-item__foot{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--common-sizes-8) var(--common-sizes-12); padding-top:var(--common-sizes-4); }
+  .rt-item__meta{ display:flex; align-items:center; gap:var(--common-sizes-12); }
 
-  .rt-end{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
-  .rt-end__row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--common-sizes-16); font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+  .rt-end{ border-top:var(--common-border-width-hairline) solid var(--common-colors-border-semi-soft); padding-top:var(--common-sizes-24); display:flex; justify-content:space-between; flex-wrap:wrap; gap:var(--common-sizes-16); font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
 
-  /* Tablet ≥ 744: duas colunas de paradas, abertura com a ilustração ao lado */
-  @media (min-width:744px){
-    .rt{ padding-inline:var(--common-sizes-40); padding-block:var(--common-sizes-48) var(--common-sizes-64); gap:var(--common-sizes-64); }
-    .rt-stops{ gap:var(--common-sizes-64); }
-    .rt-head{ flex-direction:row-reverse; justify-content:flex-end; align-items:center; gap:var(--common-sizes-40); }
-    .rt-head__art{ width:calc(var(--common-sizes-200) - var(--common-sizes-40)); height:calc(var(--common-sizes-200) - var(--common-sizes-40)); }
-    .rt-display{ font:var(--text-style-decorative-big); }
-    .rt-items{ grid-template-columns:repeat(2, minmax(0, 1fr)); gap:var(--common-sizes-16); }
-    .rt-trio{ grid-template-columns:repeat(3, minmax(0, 1fr)); gap:var(--common-sizes-16); }
-    .rt-h2{ font:var(--text-style-decorative-large); }
+  @media (max-width:900px){
+    .rt-head, .rt-stop{ grid-template-columns:minmax(0, 1fr); }
+    .rt-head__art{ order:-1; align-items:flex-start; }
+    .rt-head__art img{ width:var(--common-sizes-120); }
+    .rt-stop__head{ position:static; flex-direction:row; align-items:center; flex-wrap:wrap; }
+    .rt-stop__art{ width:var(--common-sizes-80); height:var(--common-sizes-80); }
   }
-  /* Desktop ≥ 1366: margem do grid de Desktop, título da parada fixo ao lado */
-  @media (min-width:1366px){
-    .rt{ padding-inline:var(--common-grids-margin); gap:var(--common-sizes-72); }
-    .rt-stops{ gap:var(--common-sizes-72); }
-    .rt-head__art{ width:var(--common-sizes-200); height:var(--common-sizes-200); }
-    .rt-display{ font:var(--text-style-decorative-display); }
-    .rt-stop{ display:grid; grid-template-columns:calc(var(--common-sizes-200) + var(--common-sizes-40)) minmax(0, 1fr); gap:var(--common-sizes-48); align-items:start; }
-    .rt-stop__head{ position:sticky; top:calc(var(--common-sizes-64) + var(--common-sizes-24)); flex-direction:column; align-items:flex-start; }
-    .rt-stop__art{ width:var(--common-sizes-120); height:var(--common-sizes-120); }
+  @media (max-width:640px){
+    .rt-trio, .rt-items{ grid-template-columns:minmax(0, 1fr); }
+    .rt-start{ grid-template-columns:minmax(0, 1fr); }
+    .rt-start > img{ width:var(--common-sizes-80); height:var(--common-sizes-80); }
   }
+  @media (prefers-reduced-motion:reduce){ .rt-item cds-card{ transition:none; } }
 </style>
 </head>
 <body>
-<header class="rt-top">
-  <div class="rt-top__head">
-    <cds-sponsor-header id="rt-header" show-title="false" show-search="false" show-notification="false" show-close="false"></cds-sponsor-header>
-  </div>
-  <cds-divider></cds-divider>
-</header>
-
+<cds-icon-button class="rt-theme" id="rt-theme" icon="dark-mode-line" kind="default" appearance="neutral" size="small" label="Ativar tema escuro" pressed="false"></cds-icon-button>
 <main class="rt">
-  <section class="rt-head" aria-labelledby="rt-title">
-    <img class="rt-head__art" data-ill="objetos/presente-aberto" alt="" />
+  <header class="rt-head">
     <div class="rt-head__text">
       <p class="rt-eyebrow">Castanha DS · Playground</p>
-      <h1 class="rt-display" id="rt-title">20 coisas para abrir, clicar e mexer</h1>
-      <p class="rt-lede">Os componentes do Figma rodando de verdade no navegador, com documentação, motion, código React e o Tema Caju num lugar só. Escolha por onde começar.</p>
+      <h1 class="rt-display">20 coisas para <em>abrir, clicar e mexer</em></h1>
+      <p class="rt-lede">Os componentes do Figma rodando de verdade no navegador, com documentação, motion, código React e Flutter e o Tema Caju num lugar só. Escolha por onde começar.</p>
       <div class="rt-actions">
         <cds-main-button id="rt-open" label="Abrir o playground" show-lead-icon="false" trailing-icon="link-line"></cds-main-button>
-        <p class="rt-note">Funciona melhor no computador, com a janela larga. Em telas estreitas o menu vira uma faixa no topo.</p>
       </div>
+      <p class="rt-note">Funciona melhor no computador, com a janela larga. Em telas estreitas o menu vira uma faixa no topo.</p>
+    </div>
+    <div class="rt-head__art">
+      <img data-ill="objetos/presente-aberto" alt="" />
+      <div class="rt-progress">
+        <cds-progress-line id="rt-bar" percent="0" label="Paradas vistas"></cds-progress-line>
+        <p class="rt-progress__label" id="rt-count" aria-live="polite">0 de 20 vistas</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="rt-start" aria-labelledby="rt-start-h">
+    <img data-ill="maos/estalar-dedos" alt="" />
+    <div class="rt-start__body">
+      <div>
+        <h2 class="rt-h2" id="rt-start-h">Se tiver 5 minutos</h2>
+        <p class="rt-sub">As três paradas que mais mostram o que dá para fazer.</p>
+      </div>
+      <div class="rt-trio" id="rt-trio"></div>
     </div>
   </section>
 
-  <cds-card class="rt-start" has-border="true">
-    <div class="rt-start__head">
-      <img data-ill="maos/estalar-dedos" alt="" />
-      <div class="rt-stop__title">
-        <h2 class="rt-h2">Se tiver 5 minutos</h2>
-        <p class="rt-sub">As três paradas que mais mostram o que dá para fazer.</p>
-      </div>
-    </div>
-    <div class="rt-trio" id="rt-trio"></div>
-  </cds-card>
-
-  <div class="rt-stops" id="rt-stops"></div>
+  <div id="rt-stops" style="display:flex; flex-direction:column; gap:clamp(var(--common-sizes-40), 6vw, var(--common-sizes-72));"></div>
 
   <footer class="rt-end">
-    <cds-divider></cds-divider>
-    <div class="rt-end__row">
-      <span>Feito por Gustavo Constantino com o Claude Code · outubro de 2026</span>
-      <cds-link label="Voltar ao playground" href="../../" appearance="accent"></cds-link>
-    </div>
+    <span>Feito por Gustavo Constantino com o Claude Code · outubro de 2026</span>
+    <cds-link label="Voltar ao playground" href="../../" appearance="accent" icon="navigation-right-line"></cds-link>
   </footer>
 </main>
 
@@ -145,43 +131,42 @@
 <script src="../../scripts/playground-kit.js"></script>
 <script src="../../scripts/assets-manifest.js"></script>
 <script src="../../dist/cds.js"></script>
-<script src="../../components/sponsor-header/sponsor-header.js"></script>
 <script>
 (function(){
   "use strict";
   var B = "../../";
-  // Mesma conta da página de Ícones do Tema Caju: categorias do [Caju] Icons, sem Deprecated e sem glifos
+  // Total de ícones da [Caju] Icons, lido do manifesto (o número acompanha a lib)
   function nIcons(){ return ((window.CDS.assets || {}).iconBuckets || []).filter(function(b){ return !b.deprecated && !b.glyphs; }).reduce(function(t, b){ return t + b.icons.length; }, 0); }
   var STOPS = [
     { id: "menu", title: "Menu e navegação", text: "O menu lateral mostra cada componente funcionando, além do nome.", ill: "interfaces/carrossel", items: [
-      ["Menu em grade com miniaturas vivas", "Clique no ícone de grade ao lado de \"Componentes\". Cada card é o componente real, reduzido.", "#/main-button"],
-      ["Busca no conteúdo das docs", "Digite uma regra na busca do menu, como \"Disabled\". Ela acha a frase dentro das docs, além do nome do componente.", "#/main-button"],
-      ["Preview no menu em lista", "Volte para a lista e passe o mouse sobre os nomes. A miniatura aparece ao lado do menu.", "#/main-button"],
-      ["Atalhos de teclado", "Aperte {?} para ver todos. {⌥ →} passa para o próximo componente e o menu acompanha.", "#/main-button"]
+      ["Menu em grade com miniaturas vivas", "Clique no ícone de grade ao lado de \"Componentes\". Cada card é o componente real, reduzido.", "#/main-button", "Clique"],
+      ["Busca no conteúdo das docs", "Digite uma regra na busca do menu, como \"Disabled\". Ela acha a frase dentro das docs, além do nome do componente.", "#/main-button", "Digite"],
+      ["Preview no menu em lista", "Volte para a lista e passe o mouse sobre os nomes. A miniatura aparece ao lado do menu.", "#/main-button", "Hover"],
+      ["Atalhos de teclado", "Aperte {?} para ver todos. {⌥ →} passa para o próximo componente e o menu acompanha.", "#/main-button", "Teclado"]
     ] },
     { id: "playground", title: "Playground", text: "Cada componente com os mesmos controles das props do Figma.", ill: "interfaces/customizacao", items: [
-      ["Componente ao vivo", "No Main Button, os controles da direita mudam o botão na hora: Kind, Appearance, Size e ícones.", "#/main-button"],
-      ["Mobile, tablet e desktop", "Os ícones de viewport acima do componente mostram como ele se comporta em cada tamanho.", "#/main-button"],
-      ["Tema escuro", "O ícone de lua no topo deixa o site inteiro no escuro, com os tokens do tema.", "#/card"],
-      ["Abrir chamado no Slack", "No topo da página, Abrir chamado copia um resumo do componente e abre o #castanha-suporte. Cole e envie.", "#/tag"],
-      ["Do Figma para o React", "Role a página até \"No React\". O código do castanha-react muda junto com os controles.", "#/main-button"]
+      ["Componente ao vivo", "No Main Button, os controles da direita mudam o botão na hora: Kind, Appearance, Size e ícones.", "#/main-button", "Clique"],
+      ["Mobile, tablet e desktop", "Os ícones de viewport acima do componente mostram como ele se comporta em cada tamanho.", "#/main-button", "Clique"],
+      ["Tema escuro", "O ícone de lua no topo deixa o site inteiro no escuro, com os tokens do tema.", "#/card", "Clique"],
+      ["Abrir chamado no Slack", "No topo da página, Abrir chamado copia um resumo do componente e abre o #castanha-suporte. Cole e envie.", "#/tag", "Compartilhar"],
+      ["Do Figma para o React e o Flutter", "Role a página até \"No React\" e \"No Flutter\". O código do castanha-react e do castanha_flutter muda junto com os controles.", "#/text-input", "Rolar"]
     ] },
     { id: "motion", title: "Motion", text: "As transições usam os Motion Styles do Figma, como Hover In/01.", ill: "objetos/foguete", items: [
-      ["Motion de cada componente", "Na tab Motion do Main Button, passe o mouse e pressione o botão para ver cada transição.", "#/main-button/motion"],
-      ["Laboratório de Motion", "Motion Styles em ação e um laboratório para comparar curvas, durações e velocidades.", "#/motion"]
+      ["Motion de cada componente", "Na tab Motion do Main Button, passe o mouse e pressione o botão para ver cada transição.", "#/main-button/motion", "Hover"],
+      ["Laboratório de Motion", "Motion Styles em ação e um laboratório para comparar curvas, durações e velocidades.", "#/motion", "Clique"]
     ] },
     { id: "marca", title: "Marca e visual", text: "Tokens, ícones e ilustrações da Caju, todos clicáveis.", ill: "objetos/gema-rubi", items: [
-      ["Cores do Tema Caju", "A paleta entra animada e cada amostra copia o token com um clique.", "#/caju-theme/cores"],
-      ["Elevação", "Escolha o nível e o card sobe com a sombra, decomposta em x, y, blur, spread e cor.", "#/caju-theme/elevacao"],
-      ["Galeria de ícones", "Os " + nIcons() + " ícones com troca de cor e tamanho para a grade toda e o detalhe de cada um.", "#/caju-theme/icones"],
-      ["Ilustração", "Paletas clicáveis, personagens e uma simulação de condições visuais, como o daltonismo, sobre uma ilustração.", "#/ilustracao"]
+      ["Cores do Tema Caju", "A paleta entra animada e cada amostra copia o token com um clique.", "#/caju-theme/cores", "Clique"],
+      ["Elevação", "Escolha o nível e o card sobe com a sombra, decomposta em x, y, blur, spread e cor.", "#/caju-theme/elevacao", "Clique"],
+      ["Galeria de ícones", "Os " + nIcons() + " ícones com troca de cor e tamanho para a grade toda e o detalhe de cada um.", "#/caju-theme/icones", "Clique"],
+      ["Ilustração", "Paletas clicáveis, personagens e uma simulação de condições visuais, como o daltonismo, sobre uma ilustração.", "#/ilustracao", "Rolar"]
     ] },
     { id: "docs", title: "Documentação e recursos", text: "Uso, anatomia, diretrizes, templates e IA, com exemplos montados com os componentes reais.", ill: "documentos/relatorios-1", items: [
-      ["Do's and Don'ts", "As diretrizes do Main Button mostram o certo e o errado lado a lado, com o componente real.", "#/main-button/diretrizes"],
-      ["Patterns", "Os 9 tipos de Feedback Page do Sponsor ao vivo, com as ilustrações do Figma.", "#/patterns/sponsor"],
-      ["Templates do Sponsor", "Passe o mouse sobre o Side Menu colapsado: ele abre por cima do conteúdo, como no produto. Desligue Is Collapsed e abra os accordions.", "#/sponsor-side-menu"],
-      ["Castanha Quiz", "Escolha um tema, faça o treino de 5 minutos e jogue \"Qual é o componente?\" com os componentes reais. O melhor resultado fica guardado.", "#/castanha-quiz"],
-      ["Agentes e Skills", "Conheça o Borô, o assistente do Castanha no Slack, e a skill /castanhads-juntos para o Claude.", "#/agentes"]
+      ["Do's and Don'ts", "As diretrizes do Main Button mostram o certo e o errado lado a lado, com o componente real.", "#/main-button/diretrizes", "Ler"],
+      ["Patterns", "Os 9 tipos de Feedback Page do Sponsor ao vivo, com as ilustrações do Figma.", "#/patterns/sponsor", "Ler"],
+      ["Templates do Sponsor", "Passe o mouse sobre o Side Menu colapsado: ele abre por cima do conteúdo, como no produto.", "#/sponsor-side-menu", "Hover"],
+      ["Castanha Quiz", "Escolha um tema, faça o treino de 5 minutos e jogue \"Qual é o componente?\" com os componentes reais.", "#/castanha-quiz", "Jogar"],
+      ["Agentes e Skills", "O Borô no Slack, a skill /castanhads-juntos e o MCP, que gera e revisa código React e Flutter com os componentes do DS.", "#/agentes", "Ler"]
     ] }
   ];
   var PICKS = [[1, "Menu em grade", "Clique no ícone de grade ao lado de \"Componentes\" e veja cada componente em miniatura, ao vivo."],
@@ -203,62 +188,78 @@
     });
     return p;
   }
-  function open(href){ return el("cds-link", { label: "Abrir", href: B + href, target: "_blank", icon: "link-line", appearance: "accent" }); }
+  function open(href){ return el("cds-link", { label: "Abrir", href: B + href, target: "_blank", icon: "link-line", appearance: "accent", "data-open": "" }); }
+
+  // Vistas: só no navegador de quem lê
+  var KEY = "cds-roteiro:vistas", seen = {};
+  try { seen = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { seen = {}; }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(seen)); } catch (e) {} }
+
   // Ilustrações da [Caju] Illustrations (o caminho do catálogo é a partir da raiz do site)
   function ill(name){ var u = CDS.illustration(name); return /^(https?:|\/|data:)/.test(u) ? u : B + u; }
   [].forEach.call(document.querySelectorAll("img[data-ill]"), function(i){ i.src = ill(i.dataset.ill); });
 
-  // Paradas: um Card (Has Border) por parada, com número, título, texto e o Link para a página
-  var host = document.getElementById("rt-stops"), hrefs = {}, n = 0;
+  // Paradas
+  var host = document.getElementById("rt-stops"), byN = {}, n = 0, FIRST = {};
   STOPS.forEach(function(s){
     var ul = el("ol", { "class": "rt-items" });
     var art = el("img", { "class": "rt-stop__art", alt: "" }); art.src = ill(s.ill);
     host.appendChild(el("section", { "class": "rt-stop", "aria-labelledby": "rt-" + s.id }, [
-      el("div", { "class": "rt-stop__head" }, [art, el("div", { "class": "rt-stop__title" }, [el("h2", { "class": "rt-h2", id: "rt-" + s.id, text: s.title }), el("p", { "class": "rt-sub", text: s.text })])]),
+      el("div", { "class": "rt-stop__head" }, [art, el("div", null, [el("h2", { "class": "rt-h2", id: "rt-" + s.id, text: s.title }), el("p", { "class": "rt-sub", text: s.text })])]),
       ul
     ]));
     s.items.forEach(function(it){
-      n++; hrefs[n] = it[2];
-      ul.appendChild(el("li", { "class": "rt-item" }, [el("cds-card", { "has-border": "true" }, [
-        el("div", { "class": "rt-item__top" }, [el("span", { "class": "rt-item__n", text: String(n).padStart(2, "0") }), el("h3", { "class": "rt-item__title", text: it[0] })]),
+      n++;
+      var num = n, box = el("cds-checkbox", { label: "Vi", status: seen[num] ? "selected" : "unselected", id: "rt-vi-" + num, "data-n": num });
+      var card = el("cds-card", { "has-border": "true" }, [
+        el("div", { "class": "rt-item__top" }, [el("span", { "class": "rt-item__n", text: String(num).padStart(2, "0") }), el("h3", { "class": "rt-item__title", text: it[0] })]),
         richText(it[1]),
-        el("div", { "class": "rt-item__foot" }, [open(it[2])])
-      ])]));
+        el("div", { "class": "rt-item__foot" }, [open(it[2]), el("div", { "class": "rt-item__meta" }, [el("cds-tag", { label: it[3], appearance: "neutral", "show-lead-item": "false" }), box])])
+      ]);
+      var li = el("li", { "class": "rt-item", "data-n": num }, [card]);
+      ul.appendChild(li); byN[num] = { li: li, box: box, href: it[2] };
     });
   });
-  // Se tiver 5 minutos: Cards com link para a parada (a Tag diz qual é)
+  // Se tiver 5 minutos: Cards com link para a parada no playground
   var trio = document.getElementById("rt-trio");
   PICKS.forEach(function(p){
-    trio.appendChild(el("cds-card", { "has-border": "true" }, [
-      el("h3", { "class": "rt-item__title", text: p[1] }), el("p", { "class": "rt-item__text", text: p[2] }),
-      el("div", { "class": "rt-item__foot" }, [open(hrefs[p[0]]), el("cds-tag", { label: "Parada " + p[0], appearance: "accent", "show-lead-item": "false" })])
+    trio.appendChild(el("cds-card", { "class": "rt-pick", "has-border": "true", "data-n": p[0] }, [
+      el("h3", { "class": "rt-pick__title", text: p[1] }), el("p", { "class": "rt-pick__text", text: p[2] }),
+      el("div", { "class": "rt-item__foot" }, [open(byN[p[0]].href), el("cds-tag", { label: "Parada " + p[0], appearance: "accent", "show-lead-item": "false" })])
     ]));
+  });
+
+  function paint(){
+    var total = 0;
+    Object.keys(byN).forEach(function(k){
+      var on = !!seen[k], it = byN[k]; it.li.classList.toggle("is-done", on);
+      CDS.attr(it.box, "status", on ? "selected" : "unselected"); if (on) total++;
+    });
+    document.getElementById("rt-count").textContent = total + " de 20 vistas";
+    CDS.attr(document.getElementById("rt-bar"), "percent", String(Math.round(total / 20 * 100)));
+  }
+  document.addEventListener("cds-change", function(e){
+    var cb = e.target.closest && e.target.closest("cds-checkbox[data-n]"); if (!cb) return;
+    if (cb.getAttribute("status") === "selected") seen[cb.dataset.n] = 1; else delete seen[cb.dataset.n];
+    save(); paint();
+  });
+  // Abrir pelo link já conta como vista
+  document.addEventListener("click", function(e){
+    var l = e.target.closest && e.target.closest("cds-link[data-open]"); if (!l) return;
+    var c = l.closest("[data-n]"); if (c){ seen[c.dataset.n] = 1; save(); paint(); }
   });
   document.getElementById("rt-open").addEventListener("click", function(){ window.open(B, "_blank", "noopener"); });
 
-  // Barra do topo: Header do Sponsor (← · Castanha DS › Relatório › Roteiro) e tema no Trailling Items, como no portal
-  var header = document.getElementById("rt-header"), root = document.documentElement, narrow = window.matchMedia("(max-width:743px)");
-  function setupHeader(){
-    if (!header.setBreadcrumb) return requestAnimationFrame(setupHeader);
-    // Mobile (< 744): os níveis anteriores vão para o "…" do Breadcrumb e fica só a página atual, como no portal
-    function crumbs(){ header.setBreadcrumb([{ label: "Castanha DS", href: B + "index.html#/" }, { label: "Relatório", href: B + "index.html#/relatorio/arquitetura" }, { label: "Roteiro" }], narrow.matches ? 2 : 0); }
-    crumbs(); narrow.addEventListener("change", crumbs);
-    header.backBtn.addEventListener("click", function(){ location.href = B + "index.html#/relatorio/arquitetura"; });
-    header.backBtn.id = "rt-back"; // Tooltip "Voltar", como no portal
-    header.trailEl.appendChild(CDS.create("cds-tooltip", { "for": "rt-back", placement: "bottom", "show-label": "false", text: "Voltar" }));
-    var tb = header.trailEl.appendChild(CDS.create("cds-icon-button", { id: "rt-theme", icon: "dark-mode-line", kind: "default", appearance: "neutral", size: "small", label: "Ativar tema escuro", pressed: "false" }));
-    var tip = header.trailEl.appendChild(CDS.create("cds-tooltip", { "for": "rt-theme", placement: "bottom", "show-label": "false" }));
-    function paintTheme(){
-      var dark = root.getAttribute("data-theme") === "dark";
-      tb.setAttribute("icon", dark ? "light-mode-line" : "dark-mode-line");
-      tb.setAttribute("label", dark ? "Ativar tema claro" : "Ativar tema escuro");
-      tb.setAttribute("pressed", String(dark));
-      tip.setAttribute("text", dark ? "Tema claro" : "Tema escuro");
-    }
-    tb.addEventListener("click", function(){ root.setAttribute("data-theme", root.getAttribute("data-theme") === "dark" ? "light" : "dark"); paintTheme(); });
-    paintTheme();
+  // Tema: Icon Button do DS, como no topo do playground
+  var root = document.documentElement, tb = document.getElementById("rt-theme");
+  function paintTheme(){
+    var dark = root.getAttribute("data-theme") === "dark";
+    tb.setAttribute("icon", dark ? "light-mode-line" : "dark-mode-line");
+    tb.setAttribute("label", dark ? "Ativar tema claro" : "Ativar tema escuro");
+    tb.setAttribute("pressed", String(dark));
   }
-  setupHeader();
+  tb.addEventListener("click", function(){ root.setAttribute("data-theme", root.getAttribute("data-theme") === "dark" ? "light" : "dark"); paintTheme(); });
+  paintTheme(); paint();
 })();
 </script>
 </body>

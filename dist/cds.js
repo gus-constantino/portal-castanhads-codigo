@@ -10166,7 +10166,7 @@ try {
         ["Mobile, tablet e desktop", "Os ícones de viewport acima do componente mostram como ele se comporta em cada tamanho.", "#/card"],
         ["Tema escuro", "O ícone de lua no topo deixa o site inteiro no escuro, com os tokens do tema.", "#/tag"],
         ["Abrir chamado no Slack", "No topo da página, Abrir chamado copia um resumo do componente e abre o #castanha-suporte.", "#/badge"],
-        ["Do Figma para o React", "Role a página até No React. O código do castanha-react muda junto com os controles.", "#/text-input"]
+        ["Do Figma para o React e o Flutter", "Role a página até No React e No Flutter. O código do castanha-react e do castanha_flutter muda junto com os controles.", "#/text-input"]
       ] },
       { id: "motion", title: "Motion", items: [
         ["Motion de cada componente", "Na tab Motion do Main Button, passe o mouse e pressione o botão para conferir cada transição.", "#/main-button/motion"],

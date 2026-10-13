@@ -1864,9 +1864,9 @@ cds-content-list-item[kind="card"] > .cds-li:active, cds-content-list-item[kind=
 cds-content-list-item .cds-li__currency{ flex:0 0 auto; margin-left:auto; text-align:right; align-items:flex-end; }
 cds-content-list-item .cds-li__tag, cds-content-list-item .cds-li__nav{ flex:0 0 auto; }
 
-/* .Drag Handle (26029:1189, CDS-1592): 24×24 · padding 2 · drag-line 20 · Icons/intense · à esquerda do Lead Item */
+/* Drag Handle (CDS-1592): frame do próprio item, não é building block. Mín. 24×24 (Sizes/24) · padding Sizes/2 · drag-line 20 · Icons/intense · à esquerda do Lead Item */
 cds-content-list-item .cds-li__drag{ flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box;
-  width:var(--common-sizes-24); height:var(--common-sizes-24); padding:var(--common-sizes-2); cursor:grab; touch-action:none; }
+  min-width:var(--common-sizes-24); min-height:var(--common-sizes-24); padding:var(--common-sizes-2); cursor:grab; touch-action:none; }
 cds-content-list-item .cds-li__drag:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:0; } /* C23 */
 cds-content-list-item[disabled] .cds-li__drag{ cursor:default; }
 

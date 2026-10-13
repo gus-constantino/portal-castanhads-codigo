@@ -11,7 +11,7 @@
  *   trailing-item (kind do .Trailing Item · checkbox) · status (do controle) · tag-label ("Tag") · tag-appearance (warning)
  *   shaped-icon (placeholder-line) · value ("30.000,00") · symbol ("R$") · show-negative-symbol · value-description
  *   href — a linha vira <a>
- *   show-drag-handle — .Drag Handle à esquerda (padrão desligado, CDS-1592) · state="dragged" — item levantado
+ *   show-drag-handle — alça Drag Handle à esquerda (padrão desligado, CDS-1592) · state="dragged" — item levantado
  *     A alça é role=button com o nome "Reordenar {label}"; quem reordena é a lista (<cds-content-list reorderable>).
  * A linha é <a> com href, <div> que repassa o clique ao controle (Intent=Default com controle), senão <button>.
  * Eventos: cds-change { status } (controle) · click
@@ -29,7 +29,7 @@
     get defaultLeadKind(){ return "icon"; }
     get hasDragHandle(){ var v = this.getAttribute("show-drag-handle"); return v != null && v !== "false"; }
     buildItems(items, c){
-      // .Drag Handle (building block 26029:1189): 24×24, padding 2, drag-line 20 em Icons/intense
+      // Drag Handle: frame do item (não é building block), mín. 24×24, padding 2, drag-line 20 em Icons/intense
       var dh = this.dragEl = CDS.create("span", { role: "button", tabindex: "0" }, "cds-li__drag");
       dh.appendChild(CDS.create("cds-icon", { icon: "drag-line", size: "medium", appearance: "neutral", "aria-hidden": "true" }, "cds-li__drag-icon"));
       c.insertBefore(dh, this.leadEl);

@@ -79,7 +79,7 @@
         { note: "Props e padrões lidos do set Content List Item da lib estável. O zeroheight lista \"Show Lead Icon\" e \"Show Trailing Icon\" e um grupo \"Role\". Na lib são Show Lead Item, Show Trailing Item e Intent (CONFERIR C139). No código: `intent`, `href` (a linha vira link), `trailing-item`, `status`, `tag-label`, `tag-appearance`, `shaped-icon`, `value`, `symbol`, `show-negative-symbol`, `value-description` e os `show-*`. Para a alça: `show-drag-handle` e `state=\"dragged\"`. A reordenação é da lista: `<cds-content-list reorderable>`." },
         { h2: "Entrega para dev · CDS-1592" },
         { table: { head: ["Elemento", "Token ou valor (branch, 13/10)"], rows: [
-          [".Drag Handle", "Building block 26029:1189 · 24×24 · padding `Sizes/2` · ícone `drag-line` 20 em `Icons/intense` · à esquerda do Lead Item"],
+          ["Drag Handle", "Frame do próprio item, sem building block · mín. 24×24 (`Sizes/24`) · padding `Sizes/2` · ícone `drag-line` 20 em `Icons/intense` · à esquerda do Lead Item"],
           ["Dragged · fundo", "`Surface/default`"],
           ["Dragged · elevação", "`Elevation/level 1` (x 0 · y 4 · blur 8)"],
           ["Dragged · borda", "`Border/semi-soft` por dentro, fora do layout. Kind=Default: só à esquerda, `Border/Width/hairline`. Card: `hairline` em cima, à direita e embaixo e `Border/Width/thick` à esquerda"],

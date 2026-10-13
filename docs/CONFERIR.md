@@ -9,7 +9,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | Tipo | Itens |
 |---|---|
 | [Ajuste de texto](#ajuste-de-texto) | 16 |
-| [Ajuste de UI](#ajuste-de-ui) | 29 |
+| [Ajuste de UI](#ajuste-de-ui) | 30 |
 | [Motion](#motion) | 7 |
 | [Refactor](#refactor) | 39 |
 | [Naming](#naming) | 11 |
@@ -75,6 +75,7 @@ Cor, fill, borda, tamanho ou layout de uma variante.
 | C174 | Side Menu · `.Subcategory` | A description pede a coroa no Trailing Icon para recurso pago, mas o [Caju] Icons não tem ícone de coroa | Ícone de coroa no [Caju] Icons | Trailing Icon por instance swap, sem a coroa | Quando o ícone entrar na lib |
 | C175 | Side Menu · `.User Profile` | O Icon Button do rodapé (Show Icon Button) usa `menu-line`, mas a ação não está descrita no set | Descrever a ação (ex.: menu da conta, trocar de empresa, sair) | `menu-line`, nome acessível "Opções da conta", evento `cds-action` | Próxima revisão do Sponsor Templates |
 | C197 | Bottom Sheet (20848:2679) | Sem prop para o Lead Icon dos botões do .Footer Pilled | O Modal expõe `show-lead-icon` e repassa ao .Footer; o Bottom Sheet não, e os botões aparecem com o ícone de exemplo | O onboarding desliga direto no .Footer aninhado (`footerEl`, override de instância) | Conferir no Figma se o Bottom Sheet expõe o Lead Icon do .Footer; se sim, repassar `show-lead-icon` como o Modal |
+| C199 | Link (4926:213) | Sem variante para link no meio de um texto | O Link é um controle solto: alvo de 48 px de altura, `inline-flex` e Label/Medium. Num parágrafo ou numa célula de tabela, ele aumenta a linha e troca a fonte | O glossário do Relatório (R1 do onboarding dos Relatórios) usa o Link Accent no termo com `display:inline`, sem altura mínima e com a fonte do texto (`.rp-dfn`, Gustavo, 13/10) | Levar ao time da lib: um Link inline (Size Inline ou Kind Text), com a fonte herdada e o sublinhado sempre visível |
 
 ## Motion
 

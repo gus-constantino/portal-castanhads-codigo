@@ -344,3 +344,13 @@ a.rp-bar{ transition:background-color var(--motion-hover-in-01-timing) var(--mot
 /* Busca sem resultado (R0/B6 do onboarding): <loc-vazio> com respiro */
 .rp-empty{ margin:var(--common-sizes-24) 0; }
 .rp-empty[hidden]{ display:none; }
+/* Glossário (R1 do onboarding dos Relatórios): tab própria e o termo na 1ª ocorrência (Link do DS + Popover do DS) */
+.rp-gloss{ display:flex; flex-direction:column; gap:var(--common-sizes-16); max-width:calc(var(--common-sizes-200) * 4); }
+.rp-gloss__intro{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+.rp-dfn{ font-style:normal; }
+.rp-dfn cds-link{ display:inline; }
+/* Link do DS no meio do texto (C199): o DS não tem link inline, então o termo fica na linha, com a fonte do texto e sublinhado */
+.rp-dfn cds-link > a{ display:inline; min-height:0; font:inherit; font-weight:var(--common-font-weight-medium); text-decoration:underline; text-decoration-color:currentColor; }
+.rp-dfn__pop{ box-sizing:border-box; width:calc(var(--common-sizes-200) + var(--common-sizes-80)); max-width:calc(100vw - var(--common-sizes-32)); padding:var(--common-sizes-8); display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+.rp-dfn__term{ margin:0; font:var(--text-style-label-medium); color:var(--common-colors-text-intense); }
+.rp-dfn__def{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }

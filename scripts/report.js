@@ -25,6 +25,8 @@
     { id: "roadmap", title: "Roadmap", file: "docs/ROADMAP.md", groups: [
       ["Andamento", ["8", "3"]], ["Decisões e pendências", ["4", "5", "5.1", "5.2"]], ["Referência", ["2", "7", "1"]] ], hide: ["6"] }, // 6 = Preferências (nota de trabalho, fica só no doc)
   ];
+  // Glossário (R1 do onboarding dos Relatórios): termos de scripts/report-glossario.js, por último entre as tabs
+  TABS.push({ id: "glossario", title: "Glossário" });
   var DOCS = TABS.filter(function(t){ return t.file; });
   var TYPES = TABS.filter(function(t){ return t.id === "conferir"; })[0].groups[0][1];
   var cache = {}, modified = 0;
@@ -768,9 +770,10 @@
     var idx = TABS.map(function(t){ return t.id; }).indexOf(id); if (tabsEl.getAttribute("active-item") !== String(idx + 1)) tabsEl.setAttribute("active-item", String(idx + 1));
     bodyEl.setAttribute("aria-labelledby", "rp-tab-" + id);
     bodyEl.innerHTML = "";
-    bodyEl.classList.toggle("is-dash", !tab.file);
+    bodyEl.classList.toggle("is-dash", !tab.file && id !== "glossario");
     searchEl.hidden = !tab.file;
-    if (!tab.file){ overview(); return; }
+    if (id === "glossario"){ glossaryTab(); return; }
+    if (!tab.file){ overview(); markTerms(bodyEl); return; }
     var toc = bodyEl.appendChild(el("nav", "rp-toc")); toc.setAttribute("aria-label", "Seções");
     var content = bodyEl.appendChild(el("div", "rp-content"));
     var intro = blocks(doc.intro);
@@ -810,7 +813,63 @@
       // com as ilustrações e as animações, ao lado da trilha Explorar dos Primeiros passos (Gustavo, 09/10)
       toc.appendChild(dsLink("rp-src", "Roteiro: 20 coisas para explorar", "docs/roteiro/"));
     }
+    markTerms(bodyEl);
     filter();
+  }
+
+  // ---------- Glossário (R1): tab própria e a primeira ocorrência de cada termo numa tab ----------
+  function gloss(){ return CDS.reportGlossary || []; }
+  function glossaryTab(){
+    var letters = {};
+    gloss().slice().sort(function(a, b){ return a.term.localeCompare(b.term, "pt-BR"); }).forEach(function(g){
+      var L = g.term.charAt(0).toUpperCase(); (letters[L] = letters[L] || []).push([g.term, g.def]);
+    });
+    var wrap = bodyEl.appendChild(el("div", "rp-gloss"));
+    wrap.appendChild(el("p", "rp-gloss__intro", "Os termos do Relatório que nem todo mundo conhece. Nas outras tabs, a primeira vez que um deles aparece vira um link: clique para conferir a definição sem sair da página."));
+    if (CDS.docBlocks && CDS.docBlocks.glossary) wrap.appendChild(CDS.docBlocks.glossary(null, { label: "Buscar no glossário", placeholder: "Termo ou definição (ex.: smoke, débito, D40)", letters: letters }));
+  }
+  // Primeira ocorrência de cada termo na tab: Link do DS dentro de <dfn> que abre um Popover do DS (clique ou Enter, Esc fecha)
+  var gid = 0;
+  function markTerms(scope){
+    var terms = gloss(); if (!terms.length) return;
+    var left = terms.slice(), roots = scope.querySelectorAll(".rp-md p, .rp-md li, .rp-md td, .rp-panel__sub, .rp-panel__foot");
+    for (var r = 0; r < roots.length && left.length; r++){
+      var root = roots[r], walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: function(n){
+        for (var p = n.parentNode; p && p !== root; p = p.parentNode){ /* dentro do parágrafo: fora de link, código e componente */ if (/^(A|CODE|DFN|BUTTON|CDS-[A-Z-]+|LOC-[A-Z-]+)$/.test(p.tagName)) return NodeFilter.FILTER_REJECT; }
+        return NodeFilter.FILTER_ACCEPT; } }), nodes = [], n;
+      while ((n = walker.nextNode())) nodes.push(n);
+      nodes.forEach(function(node){
+        for (var i = 0; i < left.length; i++){
+          var m = node.nodeValue.match(left[i].match); if (!m) continue;
+          var after = node.splitText(m.index); after.nodeValue = after.nodeValue.slice(m[0].length);
+          node.parentNode.insertBefore(term(m[0], left[i]), after);
+          left.splice(i, 1);
+          node = after; i = -1; // continua no resto do texto com os termos que faltam
+        }
+      });
+    }
+  }
+  function term(text, g){
+    var dfn = el("dfn", "rp-dfn"), link = dfn.appendChild(document.createElement("cds-link"));
+    link.id = "rp-dfn-" + (++gid);
+    link.setAttribute("label", text); link.setAttribute("href", "#/relatorio/glossario"); link.setAttribute("appearance", "accent"); link.setAttribute("show-trailing-item", "false");
+    var pop = null;
+    link.addEventListener("click", function(e){
+      e.preventDefault();
+      if (!pop){
+        pop = document.createElement("cds-popover");
+        pop.setAttribute("for", link.id); pop.setAttribute("label", g.term); pop.id = link.id + "-def";
+        var box = pop.appendChild(el("div", "rp-dfn__pop"));
+        box.appendChild(el("p", "rp-dfn__term")).textContent = g.term;
+        box.appendChild(el("p", "rp-dfn__def")).textContent = g.def;
+        box.appendChild(dsLink("rp-dfn__more", "Abrir o glossário", "#/relatorio/glossario"));
+        document.body.appendChild(pop); // Slot: o conteúdo entra antes de conectar
+        pop.addEventListener("cds-toggle", function(ev){ var a = link.querySelector("a"); if (a) a.setAttribute("aria-expanded", String(ev.detail.open)); });
+        var a = link.querySelector("a"); if (a){ a.setAttribute("aria-controls", pop.id); a.setAttribute("aria-haspopup", "dialog"); }
+      }
+      pop.toggle();
+    });
+    return dfn;
   }
 
   // Busca: esconde linhas de tabela, itens de lista e seções sem o termo

@@ -298,7 +298,7 @@ O Relatório tem outro público (quem acompanha ou mantém o projeto), outro vis
 
 | Fase | Entrega |
 |---|---|
-| **R0** | Fixes P1 do Relatório (B1 a B6) |
+| **R0** ✅ 13/10 | Fixes P1 do Relatório (B1 a B6): B1 já resolvido (decisões só na §4), B2 cobertura lida do inventário × playground, B3 Sem dado em vez de Em dia, B4 painel por página sem templates e Sem página no lugar de Outros, B6 estado vazio na busca e Publicação sem leitura do Figma. B5 fica: o título Saúde do Castanha DS é decisão do dashboard |
 | **R1** | Glossário (fonte única) e Popover nos termos |
 | **R2** | Tour da 1ª visita e entrada por perfil |
 

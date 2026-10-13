@@ -341,3 +341,6 @@ a.rp-bar:focus-visible{ outline:var(--common-border-width-thin) solid var(--comm
 a.rp-bar{ transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
 .rp-bar__value{ font-variant-numeric:tabular-nums; }
 .rp-bars > li[hidden]{ display:none; }
+/* Busca sem resultado (R0/B6 do onboarding): <loc-vazio> com respiro */
+.rp-empty{ margin:var(--common-sizes-24) 0; }
+.rp-empty[hidden]{ display:none; }

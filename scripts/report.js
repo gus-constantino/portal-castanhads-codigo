@@ -124,13 +124,23 @@
   // ---------- Números do topo ----------
   function kpis(docs){
     var road = docs.roadmap, conf = docs.conferir;
-    // Inventário (§2): soma da coluna Var. ("12 / 1" = dois sets)
-    var sets = 0, variants = 0;
+    // Inventário (§2): soma da coluna Var. ("12 / 1" = dois sets). Cobertura lida, não escrita (R0/B2 do onboarding): o set conta
+    // quando o nome dele (coluna Componente, "Radio Button / Group" alinhado com "8 / 1") tem página no playground
+    var sets = 0, variants = 0, setsOk = 0, varOk = 0, missing = [], col = 1, have = {};
+    var norm = function(x){ return plain(x).replace(/\([^)]*\)|\[[^\]]*\]|[`*✅]|\uFE0F/g, "").trim().toLowerCase(); };
+    (CDS.playgrounds || []).forEach(function(c){ if (!c.resource) have[norm(c.name)] = true; });
     sec(road, function(s){ return s.num === "2"; }).lines.forEach(function(l){
-      if (!/^\|/.test(l) || /^\|\s*:?-{3,}|^\|\s*(Página|Componente)\s*\|/.test(l)) return;
-      var c = cells(l), v = c[c.length - 2] || "";
-      v.split("/").forEach(function(x){ var n = parseInt(x, 10); if (!isNaN(n)){ variants += n; sets++; } });
+      if (!/^\|/.test(l) || /^\|\s*:?-{3,}/.test(l)) return;
+      var c = cells(l);
+      if (/^\|\s*(Página|Componente)\s*\|/.test(l)){ col = Math.max(0, c.indexOf("Componente")); return; }
+      var v = c[c.length - 2] || "", ns = norm(c[col] || "").split(/\s*\/\s*/), i = 0;
+      v.split("/").forEach(function(x){
+        var n = parseInt(x, 10); if (isNaN(n)) return;
+        var part = ns[i] || ns[0]; i++; variants += n; sets++;
+        if (have[part] || have[ns[0] + " " + part] || have[ns[0].split(" ")[0] + " " + part]){ /* "Radio Button / Group" · "Progress Tracker Item / Tracker" */ varOk += n; setsOk++; } else missing.push(part);
+      });
     });
+    var varPct = variants ? Math.round(varOk / variants * 1000) / 10 : 0;
     var openC = conf.sections.filter(function(s){ return TYPES.indexOf(s.title) !== -1; }).reduce(function(a, s){ return a + items(s.lines).length; }, 0);
     var solved = items(sec(conf, function(s){ return s.title === "Resolvidos"; }).lines).length;
     var pg = (CDS.playgrounds || []).filter(function(c){ return !c.resource; });
@@ -138,7 +148,8 @@
     var tpls = pg.filter(function(c){ return c.template; }).length;
     return [
       { label: "Componentes no playground", value: comps, sub: "+ " + pg.filter(function(c){ return c.block; }).length + " building blocks" + (tpls ? " e " + tpls + " templates" : ""), icon: "view-module-line", app: "accent", tip: "Componentes do Figma implementados no playground, sem contar building blocks, templates, composições e recursos de apoio." },
-      { label: "Variantes do Figma cobertas", value: variants, sub: "em " + sets + " sets da lib · todas no playground", icon: "check-line", app: "positive", pct: 100, tip: "Soma das variantes dos sets do inventário da lib (Roadmap §2). Todas estão implementadas no playground." },
+      { label: "Variantes do Figma cobertas", value: varOk, sub: varOk === variants ? "todas as " + variants + " dos " + sets + " sets da lib" : "de " + variants + " · " + setsOk + " de " + sets + " sets da lib com página no playground", icon: "check-line", app: varOk === variants ? "positive" : "warning", pct: varPct,
+        tip: "Variantes dos sets do inventário da lib (Roadmap §2) que têm página no playground, conferidas pelo nome do set." + (missing.length ? " Sem página: " + missing.join(", ") + "." : "") },
       { label: "Débitos e melhorias mapeados", value: openC, sub: solved + " já resolvidos (" + Math.round(solved / ((openC + solved) || 1) * 100) + "%)", icon: "warning-line", app: "warning", pct: Math.round(solved / ((openC + solved) || 1) * 1000) / 10, href: "#/relatorio/conferir", tip: "Itens em aberto no Conferir: divergências entre Figma e código, gaps e propostas de melhoria. A barra mostra a parte já resolvida." },
       health(docs)
     ];
@@ -149,14 +160,17 @@
   function health(docs){
     var build = rows(sec(docs.saude, function(s){ return s.title === "Resumo"; }).lines).map(function(r){ return plain(r[1] || ""); });
     var fail = build.filter(function(t){ return /❌/.test(t); }).length, warn = build.filter(function(t){ return /⚠️/.test(t); }).length;
+    var nodata = !build.length || build.some(function(t){ return noData(t); });
     var lr = levels(docs.stack), lf = levels(docs["stack-flutter"]), alta = (lr["Alta"] || 0) + (lf["Alta"] || 0), media = (lr["Média"] || 0) + (lf["Média"] || 0);
-    var st = fail || alta ? ["negative", "Atenção"] : warn || media ? ["warning", "Com avisos"] : ["positive", "Em dia"];
-    var parts = [fail ? fail + (fail === 1 ? " verificação do build falhou" : " verificações do build falharam") : "Build do portal em dia"];
+    var st = fail || alta ? ["negative", "Atenção"] : warn || media ? ["warning", "Com avisos"] : nodata ? ["informative", "Sem dado"] : ["positive", "Em dia"];
+    var parts = [fail ? fail + (fail === 1 ? " verificação do build falhou" : " verificações do build falharam") : nodata ? "Build do portal sem o smoke rodado" : "Build do portal em dia"];
     if (alta) parts.push(alta + (alta === 1 ? " divergência alta" : " divergências altas") + " nas stacks");
     else if (media) parts.push(media + (media === 1 ? " divergência média" : " divergências médias") + " nas stacks");
     return { label: "Saúde geral", value: st[1], sub: parts.join(" · "), icon: "health-line", app: st[0], href: "#/relatorio/saude",
       tip: "Junta o último build do portal (smoke dos componentes, das docs e peso) e o check Figma × React e Figma × Flutter. Atenção: algo falhou ou há divergência alta. Com avisos: avisos ou divergências médias." };
   }
+  // Resultado sem dado: smoke ainda não rodado ("—") ou célula vazia. Não vale como Em dia (R0/B3 do onboarding)
+  function noData(t){ return !String(t || "").trim() || /^—|não rodado/i.test(String(t).trim()); }
   function sec(doc, test){ return doc.sections.filter(test)[0] || { title: "", lines: [] }; }
   function rows(lines){ return lines.filter(function(l){ return /^\|/.test(l) && !/^\|\s*:?-{3,}/.test(l); }).slice(1).map(cells); }
   function plain(s){ return s.replace(/\*\*|~~|`/g, "").replace(/\[([^\]]+)\]\([^)]*\)/g, "$1"); }
@@ -593,10 +607,11 @@
     stackCols(p3, TREAT.map(function(x){ return { cls: x[2], label: x[1], desc: x[3].replace(/\..*$/, "."), n: kinds[x[0]] }; }), all.length);
 
     // Componentes por página do Figma: linhas com a Progress Line do DS (como antes; Gustavo, 09/10: "precisa ser o componente do Figma como era antes")
-    var pg = (CDS.playgrounds || []).filter(function(c){ return !c.resource && !c.block && !c.composition; }), cats = {};
-    pg.forEach(function(c){ var k = c.category || "Outros"; cats[k] = (cats[k] || 0) + 1; });
+    // mesma base do KPI Componentes no playground: sem building blocks, composições e templates (R0/B4 do onboarding)
+    var pg = (CDS.playgrounds || []).filter(function(c){ return !c.resource && !c.block && !c.composition && !c.template; }), cats = {};
+    pg.forEach(function(c){ var k = c.category || "Sem página"; cats[k] = (cats[k] || 0) + 1; });
     var p4 = panel(grid, "Componentes por página do Figma", pg.length + " componentes em " + Object.keys(cats).length + " páginas");
-    var first = {}; pg.forEach(function(c){ var k = c.category || "Outros"; if (!first[k]) first[k] = c.id; });
+    var first = {}; pg.forEach(function(c){ var k = c.category || "Sem página"; if (!first[k]) first[k] = c.id; });
     var cl = Object.keys(cats).map(function(k){ return { label: k, value: cats[k], href: "#/" + first[k], desc: "Abre o primeiro componente da página " + k + "." }; }).sort(function(a, b){ return b.value - a.value || a.label.localeCompare(b.label, "pt-BR"); });
     bars(p4, cl, { tone: "components", total: pg.length });
     // painel curto: as 8 maiores; o resto abre com Main Button Ghost do DS
@@ -623,7 +638,7 @@
     var blocks = {}; (CDS.playgrounds || []).forEach(function(c){ if (c.block) blocks[c.name] = true; });
     var un = pubN.unpublished || []; pubN["unpublished-comp"] = un.filter(function(n){ return !blocks[n]; }); pubN["unpublished-block"] = un.filter(function(n){ return blocks[n]; });
     var pubTotal = Object.keys(FS.items).length;
-    var p5 = panel(grid, "Publicação na lib do Figma", (pubN.current || []).length + " de " + pubTotal + " em dia com a lib · última mudança no Figma em " + FS.checked, "rp-panel--wide");
+    var p5 = panel(grid, "Publicação na lib do Figma", pubTotal ? (pubN.current || []).length + " de " + pubTotal + " em dia com a lib" + (FS.checked ? " · última mudança no Figma em " + FS.checked : "") : "Sem leitura do Figma: rode a conferência da lib (scripts/figma-status.js)", "rp-panel--wide");
     // Barra única empilhada (100% = todos os componentes lidos) + legenda com número e %; cores da Tag de status
     var stack = p5.appendChild(el("div", "rp-stack")); stack.setAttribute("role", "img");
     var legP = p5.appendChild(el("ul", "rp-legend rp-legend--grid"));
@@ -659,7 +674,7 @@
     var NAMES = [[/smoke dos componentes/i, "Componentes", "view-module-line"], [/smoke das docs/i, "Docs", "document-line"], [/peso/i, "Peso da 1ª visita", "download-line"]];
     rows(sec(docs.saude, function(s){ return s.title === "Resumo"; }).lines).forEach(function(r){
       var nm = NAMES.filter(function(x){ return x[0].test(r[0]); })[0], res = plain(r[1] || "");
-      var st = /❌/.test(res) ? ["negative", "Falhou"] : /⚠️/.test(res) ? ["warning", "Com avisos"] : ["positive", "Em dia"];
+      var st = /❌/.test(res) ? ["negative", "Falhou"] : /⚠️/.test(res) ? ["warning", "Com avisos"] : noData(res) ? ["informative", "Sem dado"] : ["positive", "Em dia"];
       vital(vit, nm ? nm[1] : plain(r[0]), nm ? nm[2] : "information-line", res.replace(/[✅⚠️❌]\uFE0F?\s*/g, "").trim(), st, "#/relatorio/saude", r[0]);
     });
 
@@ -815,6 +830,14 @@
       while (n && !n.classList.contains("rp-group")){ if (!n.hidden) vis = true; n = n.nextElementSibling; }
       g.hidden = !vis;
     });
+    // Estado vazio (R0/B6 do onboarding): sem nenhuma seção, a tab diz o que aconteceu e como sair
+    var empty = bodyEl.querySelector(".rp-empty"), none = !!q && !bodyEl.querySelector(".rp-section:not([hidden])");
+    // o mesmo estado vazio das docs (<loc-vazio>, como na FAQ e no Changelog)
+    if (none && !empty){
+      empty = bodyEl.appendChild(el("loc-vazio", "rp-empty")); empty.setAttribute("size", "small"); empty.setAttribute("role", "status");
+      empty.setAttribute("text", "Confira a grafia ou busque por outro termo, como o nome de um componente.");
+    }
+    if (empty){ empty.hidden = !none; if (none) empty.setAttribute("heading", "Nenhum resultado para " + String(searchEl.value || "").trim()); }
   }
 
   CDS.report = {

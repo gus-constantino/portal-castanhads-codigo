@@ -2,7 +2,9 @@
    Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Content List Item, 32e6da · status Backlog) reaproveitado; props e padrões do set da lib
    estável (Content List Item 5488:675 — sem description); acessibilidade e contrastes do playground (C139).
    Arrastar para reordenar (CDS-1592, 13/10): Show Drag Handle e State=Dragged lidos na branch bHFCiEbEkTYCXNipG4iqN0 e o handoff
-   do Gustavo (docs/local/handoffs). O que a branch e o handoff dizem diferente está no C200. */
+   do Gustavo (docs/local/handoffs). O que a branch e o handoff dizem diferente está no C200.
+   Textos de arraste (Sobre, Estilos › Arraste, Acessibilidade, diretriz Reordenação, Do/Don't) da folha [Documentation] Content list item
+   da branch (26362:9563), lida em 14/10. */
 (function(){
   window.CDS = window.CDS || {};
   CDS.docs = CDS.docs || {};
@@ -12,13 +14,14 @@
   function reo(card){ return { _tag: "cds-content-list", reorderable: "", label: "Atalhos da tela inicial", kind: card ? "card" : null, intent: "navigation", _children: [
     nav("Cartões", "Físico e virtual", "cards-line"), nav("Colaboradores", "Cadastro e acessos", "user-money-line"), nav("Limites", "Diário e por compra", "chart-bar-line"), nav("Configurações", "Empresa e preferências", "settings-line")
   ] }; }
+  function rlist(items){ return { _tag: "cds-content-list", reorderable: "", label: "Exemplo", _children: items.map(function(i){ return cli({ label: i[0], "lead-icon": i[1], "show-description": "false" }); }) }; }
   function stack(items, card){ return { _tag: "div", class: "pg-doc-list-stack" + (card ? " pg-doc-list-stack--card" : ""), _children: items }; }
 
   CDS.docs["content-list-item"] = {
     tag: "cds-content-list-item",
     base: { label: "Dados da empresa", description: "CNPJ, endereço e contatos", "lead-icon": "business-line" },
     source: "https://castanha.caju.com.br/858426090/v/latest/p/32e6da-content-list-item", sourceLabel: "Abrir o Content List Item no zeroheight",
-    cover: { description: "O Content list item é um bloco de conteúdo que organiza informações de forma clara e escaneável dentro de listas. Ele combina elementos como título, descrição, ícone, avatar ou status, ajudando o usuário a identificar de relance itens, conteúdos ou ações relacionadas.", examples: [
+    cover: { description: "O Content list item é um bloco de conteúdo que organiza informações de forma clara e escaneável dentro de listas. Ele combina elementos como título, descrição, ícone, avatar ou status, ajudando o usuário a identificar de relance itens, conteúdos ou ações relacionadas. Quando a lista é reordenável, o item mostra uma alça de arraste à esquerda e pode ser levantado para mudar de posição.", examples: [
       stack([nav("Dados da empresa", "CNPJ, endereço e contatos", "business-line"), tx("Restaurante Bom Prato", "Hoje, 12:40", "42,90")])
     ] },
     tabs: [
@@ -26,7 +29,7 @@
         { alert: { appearance: "informative", label: "Arrastar para reordenar em desenvolvimento · CDS-1592", text: "A alça (Show Drag Handle) e o estado Dragged estão na branch do Figma e entram no Release 26. Ainda não existem no castanha-react. O resto do Content List Item está publicado." } },
         { p: "[Abrir a branch no Figma](https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/bHFCiEbEkTYCXNipG4iqN0/-CastanhaDS--Components?node-id=5488-675) · Jira CDS-1592 · épico CDS-1586." },
         { h2: "Sobre" },
-        { p: "O Content list item é um bloco de conteúdo que organiza informações de forma clara e escaneável dentro de listas. Ele combina elementos como título, descrição, ícone, avatar ou status, ajudando o usuário a identificar de relance itens, conteúdos ou ações relacionadas." },
+        { p: "O Content list item é um bloco de conteúdo que organiza informações de forma clara e escaneável dentro de listas. Ele combina elementos como título, descrição, ícone, avatar ou status, ajudando o usuário a identificar de relance itens, conteúdos ou ações relacionadas. Quando a lista é reordenável, o item mostra uma alça de arraste à esquerda e pode ser levantado para mudar de posição." },
         { h3: "Nomes alternativos comuns" },
         { p: "List item, Content row, List row." },
         { h3: "Princípios" },
@@ -52,16 +55,15 @@
         { p: "Arrastar para reordenar é uma capacidade do Content List Item, não um componente separado. Com Show Drag Handle ligado, o item mostra a alça à esquerda. Ao arrastar, ele fica no estado Dragged e a lista abre o espaço no lugar de destino." },
         { display: { attrs: reo(), live: true } },
         { note: "Exemplo interativo: arraste pela alça, ou leve o foco até a alça com Tab, aperte Espaço, mova com as setas e aperte Espaço de novo." },
-        { h3: "Utilize para:" },
-        { ul: ["Deixar a pessoa escolher a ordem de itens que ela mesma organiza, como atalhos, prioridades ou etapas."] },
-        { h3: "Não utilize para:" },
-        { ul: ["Ordenar por um critério fixo, como data ou valor (use a ordenação da própria lista).", "Listas de seleção: a capacidade não chegou ao Selection List Item."] },
+        { p: "Ative a alça de arraste só quando a ordem dos itens for definida pelo usuário. Veja Diretrizes › Reordenação." },
         { note: "Suporte: canal #castanha-suporte no Slack." }
       ] },
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
         { anatomy: { attrs: { intent: "default", label: "Dados da empresa", description: "CNPJ, endereço e contatos", "lead-icon": "business-line" }, markers: [{ n: 1, target: ".cds-tc__label", side: "top" }, { n: 2, target: ".cds-li__lead", side: "left" }, { n: 3, target: ".cds-tc__desc", side: "bottom" }, { n: 4, target: "cds-trailing-item", side: "right" }, { n: 5, target: ".cds-li__divider", side: "bottom", align: "start" }], legend: ["Text label", "Lead Item", "Text description", "Trailing item", "Divider"] } },
+        { h3: "Com a alça de arraste" },
+        { anatomy: { attrs: { intent: "default", label: "Dados da empresa", description: "CNPJ, endereço e contatos", "lead-icon": "business-line", "show-drag-handle": "true", "show-trailing-item": false }, markers: [{ n: 1, target: ".cds-li__drag", side: "left" }, { n: 2, target: ".cds-li__lead", side: "top" }], legend: ["Drag Handle (opcional, Show Drag Handle)", "Lead Item"] } },
         { h2: "Propriedades" },
         { props: [
           { name: "Kind", type: "Variant", default: "Default", values: ["Default", "Card"] },
@@ -113,11 +115,13 @@
           { label: "Pressed", attrs: { intent: "navigation", href: "#", "show-tag": false, state: "pressed" } }, { label: "Disabled", attrs: { intent: "navigation", "show-tag": false, disabled: true } },
           { label: "Dragged", attrs: { intent: "navigation", href: "#", "show-tag": false, "show-drag-handle": "true", state: "dragged" } }
         ] } },
-        { h2: "Show Drag Handle" },
+        { h2: "Arraste" },
         { specimens: { items: [
-          { label: "Default", attrs: { intent: "navigation", href: "#", "show-tag": false, "show-drag-handle": "true" } },
+          { label: "Com alça", attrs: { "show-drag-handle": "true", label: "Label", description: "Description", "lead-icon": "placeholder-line" } },
+          { label: "Dragged", attrs: { kind: "card", "show-drag-handle": "true", state: "dragged", label: "Label", description: "Description", "lead-icon": "placeholder-line" } }
+        ] } },
+        { specimens: { title: "Dragged por Kind", items: [
           { label: "Default · Dragged", attrs: { intent: "navigation", href: "#", "show-tag": false, "show-drag-handle": "true", state: "dragged" } },
-          { label: "Card", attrs: { kind: "card", intent: "navigation", href: "#", "show-tag": false, "show-drag-handle": "true" } },
           { label: "Card · Dragged", attrs: { kind: "card", intent: "navigation", href: "#", "show-tag": false, "show-drag-handle": "true", state: "dragged" } }
         ] } }
       ] },
@@ -131,16 +135,26 @@
           "O indicador de navegação (seta) e o Lead Item são decorativos.",
           "No Transaction, o valor é lido como texto. Se for negativo, o sinal precisa estar no texto, não exclusivamente na cor."
         ] },
-        { h2: "Arrastar para reordenar" },
+        { h2: "Alça de arraste" },
         { ul: [
-          "Alvo de toque (2.5.8): a alça tem 24×24.",
-          "Sem arrastar (2.5.7): com o foco na alça, Espaço ou Enter levanta o item, as setas movem, Espaço ou Enter solta e Esc cancela.",
-          "A alça se chama \"Reordenar {label}\" e a instrução de teclado vem na descrição.",
-          "A posição nova é anunciada: \"Limites, posição 2 de 4\".",
-          "Contraste da alça (1.4.11): `Icons/intense` sobre `Surface/default`, 16,96:1."
+          "Nome acessível de controle de reordenação (ex.: Reordenar {item}).",
+          "Alvo de 24×24 (WCAG 2.5.8 Target Size).",
+          "Operável por teclado. O foco segue o padrão global do Castanha DS."
         ] },
+        { h2: "Reordenar sem arrastar" },
+        { ul: [
+          "Ofereça uma alternativa ao arraste (WCAG 2.5.7): teclado ou ação equivalente.",
+          "O arraste não pode ser a única forma de reordenar.",
+          "Anuncie a nova posição ao mover (aria-live)."
+        ] },
+        { table: { head: ["Tecla, com foco na alça", "Efeito", "Anúncio"], rows: [
+          ["Espaço ou Enter", "Levanta o item", "Limites levantado, posição 3 de 4. Use as setas para mover."],
+          ["↑ ou ↓", "Move uma posição, o foco segue a alça", "Limites, posição 2 de 4"],
+          ["Espaço ou Enter", "Solta", "Limites solto na posição 2 de 4"],
+          ["Esc", "Cancela e devolve o item à origem", "Cancelado. Limites voltou para a posição 3 de 4"]
+        ] } },
         { h2: "Contraste (WCAG)" },
-        { ul: ["Label (Text/intense) 16,96:1 · descrição (Text/medium) 8,24:1 sobre Surface/default — AA e AAA.", "Valor do Transaction e indicador de navegação: 16,96:1."] },
+        { ul: ["Label (Text/intense) 16,96:1 · descrição (Text/medium) 8,24:1 sobre Surface/default — AA e AAA.", "Valor do Transaction e indicador de navegação: 16,96:1.", "Alça (Icons/intense): 16,96:1 sobre Surface/default e 15,27:1 sobre Surface/01 (Hovered)."] },
         { note: "Contrastes medidos no tema light do playground." }
       ] },
 
@@ -152,12 +166,17 @@
         ] },
         { ul: ["Itens diferentes devem estar organizados de forma que o usuário entenda com clareza a função de cada um.", "O usuário deve entender de imediato se o item ativa uma ação direta (ex.: switch) ou se leva para outra tela."] },
         { p: "Atenção: Quando a lista envolve seleção de opções (como em formulários ou preferências), evite misturar tipos de itens. Isso pode gerar dúvidas e comprometer a clareza da decisão do usuário." },
+        { guides: [
+          { attrs: reo(), title: "Reordenação", text: "Ative a alça de arraste só quando a ordem dos itens for definida pelo usuário. Garanta sempre uma forma de reordenar sem arrastar." }
+        ] },
         { h2: "Do's and Don'ts" },
         { dodont: [
           { kind: "do", attrs: nav("Dados da empresa", "Consultar e editar", "business-line"), text: "Use a variante de navegação quando o item de lista levar o usuário para telas específicas de edição ou consulta." },
           { kind: "dont", attrs: nav("Continuar", "Próxima etapa", "go-line"), text: "Não use a variante de navegação com a única função de indicar avanço no fluxo." },
           { kind: "do", attrs: tx("Restaurante Bom Prato", "Hoje, 12:40", "1.250,90"), text: "Na variante Transaction, utilize sempre o padrão de formatação monetária: ponto (.) para separar milhares e vírgula (,) para os centavos." },
-          { kind: "dont", attrs: tx("Restaurante Bom Prato", "Hoje, 12:40", "1,250.90"), text: "Não utilize outra formatação monetária, como ponto (.) para separar os centavos, ou até mesmo cortar os centavos." }
+          { kind: "dont", attrs: tx("Restaurante Bom Prato", "Hoje, 12:40", "1,250.90"), text: "Não utilize outra formatação monetária, como ponto (.) para separar os centavos, ou até mesmo cortar os centavos." },
+          { kind: "do", attrs: rlist([["Mercado", "shopping-bag-line"], ["Farmácia", "pill-line"], ["Pizzaria", "food-delivery-line"]]), text: "Ative o arraste quando a ordem é escolha do usuário (favoritos, prioridades)." },
+          { kind: "dont", attrs: rlist([["10 out · Compra", "receipt-line"], ["09 out · Pix", "pix-line"], ["08 out · Boleto", "barcode-line"]]), text: "Não torne reordenável uma lista de ordem fixa (cronológica, alfabética)." }
         ] }
       ] },
 

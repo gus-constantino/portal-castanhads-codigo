@@ -96,7 +96,7 @@ Ordem pensada para que o portal nunca saia do ar: o Vercel entra no ar antes de 
 
 Não há conector do Vercel nesta sessão. A configuração do painel (projeto, ligação com o GitHub, variáveis de ambiente, domínio) é feita no navegador do Gustavo, pelo Claude in Chrome, com a sessão dele.
 - **Valores das variáveis `ACESSO_*`:** quem digita é o Gustavo. O Claude deixa a tela pronta (nome da variável, ambiente) e não digita senha, segredo ou chave.
-- **Permissões:** instalar o app do Vercel no GitHub ou dar acesso ao repositório só com o ok do Gustavo na conversa.
+- **Permissões:** instalar o app do Vercel no GitHub ou dar acesso ao repositório depende do ok do Gustavo na conversa.
 - **Login:** se o Vercel pedir login, quem entra é o Gustavo.
 
 ## 9. Riscos

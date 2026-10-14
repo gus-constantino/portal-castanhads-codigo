@@ -99,6 +99,8 @@
     }
 
     afterInput(){ super.afterInput(); this.grow(); }
+    // Valor escrito por código (ex.: o serviço de voz no ditado) também faz o campo crescer
+    _setValue(v, emit){ super._setValue(v, emit); this.grow(); }
 
     setListening(on){
       if (on === this.listening || (on && this.disabled)) return;

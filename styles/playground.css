@@ -133,6 +133,10 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
 .pg-frame-meta{ align-self:stretch; display:flex; justify-content:space-between; gap:var(--common-sizes-8);
   font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
 .pg-frame-meta code{ color:var(--common-colors-text-intense); }
+/* Valor longo sem espaço (ex.: texto colado no Chat Input) quebra dentro do frame, sem rolagem horizontal */
+.pg-frame-meta > span{ min-width:0; }
+.pg-frame-meta > span:first-child{ flex:0 0 auto; }
+.pg-frame-meta #rval{ overflow-wrap:anywhere; }
 .pg-frame{ transition:width var(--common-motion-duration-medium-01) var(--common-motion-easing-systemic-smooth), background-color var(--motion-hover-duration) var(--motion-hover-easing); }
 .pg-frame.is-dark .pg-frame-meta, .pg-frame.is-dark .pg-frame-meta code{ color:var(--common-colors-text-inversed); }
 .pg-preview{ width:100%; min-width:0; display:flex; justify-content:safe center; } /* safe: specimen mais largo que o frame (Drawer 640) transborda à direita, sem cortar o início */

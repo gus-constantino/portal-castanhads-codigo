@@ -104,7 +104,8 @@ Não há conector do Vercel nesta sessão. A configuração do painel (projeto, 
 | Fase | Situação |
 |---|---|
 | 1 · Vercel | **Feita em 14/10.** Projeto `portal-castanhads` na conta Hobby do Gustavo (equipe "Caju", `caju4`), ligado ao GitHub com acesso a `gus-constantino/portal-castanhads` e nada mais. Preset Other, sem build, raiz `./`. Produção em https://portal-castanhads.vercel.app, aberta, com o Relatório, o pitch, o Roteiro e o catálogo do MCP conferidos. Ignored Build Step em "Only build production": push nas outras branches não gera deploy (limite de 100 deploys por dia no plano gratuito). O GitHub Pages segue no ar até a fase 5. |
-| 2 a 5 | A fazer |
+| 2 · Entrada e perfis | **Pronta na branch `acesso` (14/10), ainda fora do ar.** `middleware.js` (Visitante, Completo, Portal e chave do MCP, cookie assinado de 30 dias), `entrar/` (Code Input OTP de 6 dígitos, Main Button, aviso em Warning), "Sair" no topo do portal e Relatório escondido no perfil Portal (`scripts/app.js`), pacote público `dist/cds-publico.*` (componentes e componentes locais, sem o conteúdo do portal), pitch com `docs/pitch/dados.json` e, para o Visitante, as imagens de `docs/pitch/capturas/` (`scripts/dev/pitch-capturas.js`). Teste `tests/middleware.test.js` (49 verificações) no Smoke. **Antes de publicar:** criar no Vercel as variáveis `ACESSO_SEGREDO`, `ACESSO_COMPLETO`, `ACESSO_PORTAL` e `ACESSO_MCP` (valores digitados pelo Gustavo) e a regra de limite de tentativas em `POST /acesso/entrar`. |
+| 3 a 5 | A fazer |
 
 ## 9. Riscos
 

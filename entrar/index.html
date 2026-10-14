@@ -1,0 +1,94 @@
+<!doctype html>
+<!-- Entrada do portal (docs/PLANO-ACESSO.md, fase 2). Aberta a quem não tem código, como o pitch.
+     Componentes do DS, do pacote público (dist/cds-publico.*): Code Input OTP (6 dígitos, numérico, escondido),
+     Main Button e Link. O código vai para POST /acesso/entrar (middleware.js no Vercel), que grava o cookie do perfil.
+     Depois de entrar, volta para a página pedida (?volta=) com a mesma rota do portal (#/…), que o navegador mantém
+     no redirecionamento. No GitHub Pages e no servidor local não há middleware: a página avisa e leva ao portal. -->
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex" />
+<title>Entrar · Castanha DS</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Work+Sans:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../styles/tokens.css" />
+<link rel="stylesheet" href="../styles/shared.css" />
+<link rel="stylesheet" href="../styles/icons.css" />
+<link rel="stylesheet" href="../dist/cds-publico.css" />
+<style>
+  body{ margin:0; min-height:100svh; display:grid; place-items:center; background:var(--common-colors-surface-01); color:var(--common-colors-text-intense); font:var(--text-style-body-regular); }
+  .en{ box-sizing:border-box; width:min(100% - 2 * var(--common-sizes-16), calc(2 * var(--common-sizes-200) + var(--common-sizes-80))); }
+  .en .cds-card__slot{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-24); }
+  .en__art{ width:var(--common-sizes-120); height:var(--common-sizes-120); object-fit:contain; }
+  .en__text{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+  .en__title{ margin:0; font:var(--text-style-title-large); }
+  .en__lede{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+  .en__form{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-16); width:100%; }
+  .en__foot{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--common-sizes-8) var(--common-sizes-16); }
+  .en__note{ margin:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+</style>
+</head>
+<body>
+<main class="en">
+  <cds-card has-border="true">
+    <img class="en__art" data-ill="seguranca/cadeado" alt="" />
+    <div class="en__text">
+      <h1 class="en__title">Entrar no portal do Castanha DS</h1>
+      <p class="en__lede">Digite o código de acesso que você recebeu do time do Design System.</p>
+    </div>
+    <form class="en__form" id="en-form" novalidate>
+      <cds-code-input id="en-code" length="6" type="numeric" masked label="Código de acesso" show-required="false" supporting="6 números" separators="3"></cds-code-input>
+      <cds-main-button id="en-go" label="Entrar" show-lead-icon="false" show-trailing-icon="false"></cds-main-button>
+    </form>
+    <div class="en__foot">
+      <p class="en__note">Ainda não tem código?</p>
+      <cds-link label="Conhecer a proposta do portal" href="../docs/pitch/" appearance="accent" icon="navigation-right-line"></cds-link>
+    </div>
+  </cds-card>
+</main>
+
+<script src="../scripts/cds-element.js"></script>
+<script src="../scripts/playground-kit.js"></script>
+<script src="../scripts/assets-manifest.js"></script>
+<script>/* a página fica em /entrar: os caminhos do manifest são relativos à raiz do portal */
+(window.CDS.assets && CDS.assets.illustrations || []).forEach(function(i){ if (i.src && !/^(\.\.\/|https?:|\/)/.test(i.src)) i.src = "../" + i.src; });</script>
+<script src="../dist/cds-publico.js"></script>
+<script>
+(function(){
+  "use strict";
+  var code = document.getElementById("en-code"), go = document.getElementById("en-go"), form = document.getElementById("en-form"), busy = false;
+  // ilustração oficial da [Caju] Illustrations (Segurança › cadeado), resolvida pelo manifesto como no Roteiro
+  [].forEach.call(document.querySelectorAll("img[data-ill]"), function(img){ img.src = CDS.illustration(img.dataset.ill); });
+  // volta: só caminhos do próprio portal; a rota (#/…) vem no endereço desta página
+  function destino(){
+    var v = new URLSearchParams(location.search).get("volta") || "/";
+    if (!/^\/(?!\/)/.test(v) || /^\/(entrar|acesso)\b/.test(v)) v = "/";
+    return v + location.hash;
+  }
+  // o Code Input mostra a mensagem de erro com Appearance=Warning, como no Figma
+  function erro(msg){ if (msg){ code.setAttribute("error", msg); code.setAttribute("appearance", "warning"); } else { code.removeAttribute("error"); code.setAttribute("appearance", "neutral"); } }
+  function valor(){ return String(code.value || code.getAttribute("value") || "").replace(/\D/g, ""); }
+  function enviar(){
+    if (busy) return;
+    var v = valor();
+    if (v.length !== 6){ erro("Digite os 6 números do código."); return; }
+    busy = true; go.setAttribute("disabled", ""); erro("");
+    fetch("/acesso/entrar", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ codigo: v }), credentials: "same-origin" })
+      .then(function(r){
+        if (r.status === 429) throw new Error("Muitas tentativas seguidas. Espere alguns minutos e tente de novo.");
+        // sem o middleware (GitHub Pages, servidor local) a rota não existe ou não responde JSON
+        if (!/json/.test(r.headers.get("content-type") || "")) throw new Error("Neste endereço o portal é aberto e não pede código. Abra a página inicial.");
+        return r.json().then(function(j){ if (!r.ok) throw new Error(j.erro || "Não deu para entrar agora. Tente de novo."); return j; });
+      })
+      .then(function(){ location.replace(destino()); })
+      .catch(function(e){ erro(e.message); code.setAttribute("value", ""); busy = false; go.removeAttribute("disabled"); var f = code.querySelector("input"); if (f) f.focus(); });
+  }
+  code.addEventListener("cds-complete", enviar);
+  // o aviso some no próximo envio (trocar a Appearance redesenha o componente e tiraria o foco no meio da digitação)
+  go.addEventListener("click", enviar);
+  form.addEventListener("submit", function(e){ e.preventDefault(); enviar(); });
+  requestAnimationFrame(function(){ var f = code.querySelector("input"); if (f) f.focus(); });
+})();
+</script>
+</body>
+</html>

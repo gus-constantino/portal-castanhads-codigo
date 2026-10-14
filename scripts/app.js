@@ -695,6 +695,21 @@
   });
   var mountedId = null, reportBtn = $("report-btn"), report = $("report"), lastHash = "#/";
   reportBtn.addEventListener("click", function(){ location.hash = route()[0] === "relatorio" ? lastHash : "#/relatorio"; });
+  // ---------- Acesso no Vercel (docs/PLANO-ACESSO.md) ----------
+  // O middleware grava o perfil em cds_perfil. Perfil Portal: sem o Relatório (o middleware já bloqueia os dados dele).
+  // Com perfil, o topo ganha "Sair" (Icon Button do DS + Tooltip, como os vizinhos). No GitHub Pages e no servidor local
+  // não há cookie: nada muda.
+  var PERFIL = (document.cookie.match(/(?:^|;\s*)cds_perfil=(completo|portal)\b/) || [])[1] || null;
+  CDS.perfil = PERFIL;
+  if (PERFIL === "portal"){ reportBtn.hidden = true; $("report-tip").hidden = true; }
+  if (PERFIL){
+    var out = kit.el("cds-icon-button", { id: "logout-btn", kind: "default", appearance: "neutral", size: "small", icon: "logout-line", label: "Sair do portal" });
+    reportBtn.parentNode.insertBefore(out, reportBtn.hidden ? reportBtn.nextSibling : reportBtn);
+    var outTip = kit.el("cds-tooltip", { id: "logout-tip", "for": "logout-btn", placement: "bottom", "show-label": "false" });
+    outTip.setAttribute("text", "Sair");
+    out.parentNode.insertBefore(outTip, out.nextSibling);
+    out.addEventListener("click", function(){ location.href = "/acesso/sair"; });
+  }
   // ---------- Docs sob demanda (D124) ----------
   // O pacote traz só o índice (CDS.docsIndex: id → arquivo?v=hash + docs de que depende). Ao abrir um componente com
   // doc, carrega o arquivo dele (e as dependências) e só então monta: tabs, capa e (i) leem CDS.docs como antes.
@@ -720,7 +735,9 @@
   var lastTab = null; // aba da última rota mostrada (troca de aba x troca de página)
   function showRoute(){
     // #/relatorio[/tab]: o relatório troca o shell inteiro; o botão volta para o último componente
-    var r = route(), isReport = r[0] === "relatorio" && !!CDS.report;
+    var r = route();
+    if (r[0] === "relatorio" && PERFIL === "portal"){ location.replace("#/"); return; } // perfil Portal não abre o Relatório
+    var isReport = r[0] === "relatorio" && !!CDS.report;
     shell.hidden = isReport; report.hidden = !isReport;
     reportBtn.setAttribute("pressed", String(isReport));
     reportBtn.setAttribute("label", isReport ? "Voltar aos componentes" : "Abrir relatório do projeto");

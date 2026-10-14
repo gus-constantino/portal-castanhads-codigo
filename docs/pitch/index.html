@@ -10,7 +10,11 @@
      página aparece completa e parada). A troca de telas do portal usa IntersectionObserver.
      O repositório é público: licença, renovação e horas são editadas no Modal "Valores da proposta" (lápis no topo) e ficam
      salvas SÓ no navegador de quem apresenta (localStorage). No arquivo, aparecem como a Tag "Preencher".
-     Teclas: ← → (ou PageUp/PageDown) pulam de capítulo · F tela cheia. -->
+     Teclas: ← → (ou PageUp/PageDown) pulam de capítulo · F tela cheia.
+     Acesso (docs/PLANO-ACESSO.md): no Vercel esta é a página aberta a quem não tem código. Por isso carrega o pacote público
+     (dist/cds-publico.*, sem o conteúdo do portal), lê os números de docs/pitch/dados.json e, para o Visitante, troca o portal
+     ao vivo pelas imagens de docs/pitch/capturas (scripts/dev/pitch-capturas.js) com o botão "Entrar para ver ao vivo".
+     No GitHub Pages e no servidor local, /acesso/perfil não existe: o portal ao vivo aparece como sempre. -->
 <html lang="pt-BR" data-theme="light">
 <head>
 <meta charset="utf-8" />
@@ -20,7 +24,7 @@
 <link rel="stylesheet" href="../../styles/tokens.css" />
 <link rel="stylesheet" href="../../styles/shared.css" />
 <link rel="stylesheet" href="../../styles/icons.css" />
-<link rel="stylesheet" href="../../dist/cds.css" />
+<link rel="stylesheet" href="../../dist/cds-publico.css" />
 <style>
   /* ---------- Base ---------- */
   :root{ --pt-gutter:var(--common-sizes-56); --pt-max:calc(6 * var(--common-sizes-200) + var(--common-sizes-80)); --pt-top-h:calc(var(--common-sizes-64) + var(--common-sizes-48)); }
@@ -93,6 +97,9 @@
     width:100%; max-width:100%; margin-inline:auto; transition:max-width var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing); }
   .pt-demo__frame.is-phone{ max-width:calc(var(--common-sizes-200) * 2); border-radius:var(--common-border-radius-extra-large); }
   .pt-demo__frame iframe{ position:absolute; left:0; top:0; border:0; transform-origin:0 0; background:var(--common-colors-surface-default); }
+  /* Visitante (sem código, no Vercel): imagem da capacidade no lugar do portal ao vivo, com o Main Button para entrar */
+  .pt-demo__shot{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top left; background:var(--common-colors-surface-default); }
+  .pt-demo__enter{ position:absolute; left:50%; bottom:var(--common-sizes-24); transform:translateX(-50%); }
 
   /* ---------- Decisões ---------- */
   .pt-ask{ display:grid; grid-template-columns:auto minmax(0, 1fr); gap:var(--common-sizes-4) var(--common-sizes-20); align-items:start; }
@@ -275,7 +282,7 @@
       </div>
       <div class="pt-demo" aria-label="Portal Castanha DS ao vivo">
         <cds-status-dot id="pt-live" appearance="positive" size="small" label="Ao vivo · #/main-button"></cds-status-dot>
-        <div class="pt-demo__frame" id="pt-frame"><iframe id="pt-iframe" title="Portal Castanha DS ao vivo" loading="lazy" data-src="../../index.html#/main-button"></iframe></div>
+        <div class="pt-demo__frame" id="pt-frame"><iframe id="pt-iframe" title="Portal Castanha DS ao vivo" loading="lazy" data-src="../../index.html?onboarding=off#/main-button"></iframe></div>
       </div>
     </div>
   </div>
@@ -387,7 +394,7 @@
 <script src="../../scripts/assets-manifest.js"></script>
 <script>/* a página fica em docs/pitch: os caminhos do manifest são relativos à raiz do portal */
 (window.CDS.assets && CDS.assets.illustrations || []).forEach(function(i){ if (i.src && !/^(\.\.\/|https?:|\/)/.test(i.src)) i.src = "../../" + i.src; });</script>
-<script src="../../dist/cds.js"></script>
+<script src="../../dist/cds-publico.js"></script>
 <script>
 (function(){
   "use strict";
@@ -467,20 +474,36 @@
     if (active === cap) return; active = cap;
     caps.forEach(function(c){ c.classList.toggle("is-active", c === cap); });
     var route = cap.dataset.route, phone = cap.dataset.device === "phone";
-    CDS.attr(live, "label", "Ao vivo · " + route + (cap.dataset.theme === "dark" ? " · escuro" : "") + (phone ? " · 390px" : ""));
-    frame.classList.toggle("is-phone", phone); fitFrame();
+    CDS.attr(live, "label", (mode === "visitor" ? "Imagem · " : "Ao vivo · ") + route + (cap.dataset.theme === "dark" ? " · escuro" : "") + (phone ? " · 390px" : ""));
+    frame.classList.toggle("is-phone", phone);
+    if (mode === "visitor"){ shot.src = "capturas/" + String(caps.indexOf(cap) + 1).padStart(2, "0") + ".jpg"; shot.alt = "Portal Castanha DS: " + cap.querySelector("h3").textContent; return; }
+    fitFrame();
     if (!iframe.src) return;
     try {
       var w = iframe.contentWindow;
       if (w.location.hash !== route) w.location.hash = route;
       w.document.documentElement.dataset.theme = cap.dataset.theme || "light";
       w.scrollTo(0, 0);
-    } catch (e) { iframe.src = ROOT + "index.html" + route; }
+    } catch (e) { iframe.src = ROOT + "index.html?onboarding=off" + route; } // sem a boas-vindas do onboarding por cima do quadro
   }
+  // Acesso no Vercel: /acesso/perfil responde { perfil: null } para quem não entrou. Aí o quadro mostra a imagem da
+  // capacidade e o botão de entrar. Sem essa rota (GitHub Pages, servidor local), o portal ao vivo aparece como sempre.
+  var mode = "pending", shot = null, wantLive = false;
+  function liveOn(){ mode = "live"; if (wantLive && !iframe.src) iframe.src = iframe.dataset.src; }
+  function visitor(){
+    mode = "visitor"; iframe.remove();
+    shot = frame.appendChild(CDS.create("img", { "class": "pt-demo__shot", alt: "", decoding: "async" }));
+    var enter = frame.appendChild(CDS.create("cds-main-button", { "class": "pt-demo__enter", label: "Entrar para ver ao vivo", size: "small", "show-lead-icon": "false", "trailing-icon": "navigation-right-line" }));
+    enter.addEventListener("click", function(){ location.href = "/entrar/?volta=" + encodeURIComponent(location.pathname); });
+    CDS.attr(live, "appearance", "neutral");
+    var a = active; active = null; apply(a || caps[0]);
+  }
+  fetch(ROOT + "acesso/perfil", { cache: "no-store" }).then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(j){ if (j && j.perfil === null) visitor(); else liveOn(); }).catch(liveOn);
   iframe.addEventListener("load", function(){ if (active){ var a = active; active = null; apply(a); } });
   var capIO = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) apply(e.target); }); }, { rootMargin: "-45% 0px -45% 0px" });
   caps.forEach(function(c){ capIO.observe(c); });
-  new IntersectionObserver(function(es, o){ if (es[0].isIntersecting){ if (!iframe.src) iframe.src = iframe.dataset.src; o.disconnect(); } }, { rootMargin: "100% 0px" }).observe($("o-portal"));
+  new IntersectionObserver(function(es, o){ if (es[0].isIntersecting){ wantLive = true; if (mode === "live" && !iframe.src) iframe.src = iframe.dataset.src; o.disconnect(); } }, { rootMargin: "100% 0px" }).observe($("o-portal"));
   apply(caps[0]);
 
   // ---------- Valores da proposta: Modal com Text Inputs, salvos SÓ neste navegador ----------
@@ -500,7 +523,7 @@
   });
   paint();
 
-  // ---------- Números ao vivo (os mesmos arquivos do Relatório), contando quando aparecem ----------
+  // ---------- Números ao vivo (docs/pitch/dados.json), contando quando aparecem ----------
   var dur = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--common-motion-duration-extra-long-04")) || 1000;
   function countUp(el, to){
     if (reduce.matches){ el.textContent = to.toLocaleString("pt-BR"); return; }
@@ -510,23 +533,9 @@
   var numIO = new IntersectionObserver(function(es){ es.forEach(function(e){ if (!e.isIntersecting) return; numIO.unobserve(e.target); e.target._seen = true; if (e.target._to != null) countUp(e.target, e.target._to); }); }, { threshold: 0.6 });
   function set(k, v){ [].forEach.call(document.querySelectorAll('[data-kpi="' + k + '"]'), function(e){ e._to = v; if (e._seen) countUp(e, v); else e.textContent = v.toLocaleString("pt-BR"); }); }
   [].forEach.call(document.querySelectorAll("[data-kpi], [data-count]"), function(e){ if (e.dataset.count) e._to = Number(e.dataset.count); numIO.observe(e); });
-  var pg = (window.CDS && CDS.playgrounds || []).filter(function(c){ return !c.resource; });
-  set("comps", pg.filter(function(c){ return !c.block && !c.composition && !c.template; }).length);
-  set("blocks", pg.filter(function(c){ return c.block; }).length);
-  fetch(ROOT + "docs/ROADMAP.md").then(function(r){ return r.text(); }).then(function(tx){
-    var parts = tx.split(/\n(?=## )/), sec = function(n){ return parts.filter(function(p){ return new RegExp("^## " + n + "\\.").test(p); })[0] || ""; };
-    var variants = 0;
-    sec(2).split("\n").forEach(function(l){
-      if (!/^\|/.test(l) || /^\|\s*:?-{3,}|^\|\s*(Página|Componente)\s*\|/.test(l)) return;
-      var c = l.split("|").slice(1, -1).map(function(x){ return x.trim(); }), v = c[c.length - 2] || "";
-      v.split("/").forEach(function(x){ var n = parseInt(x, 10); if (!isNaN(n)) variants += n; });
-    });
-    if (variants) set("variants", variants);
-    set("decisions", sec(4).split("\n").filter(function(l){ return /^\|\s*D\d+\b/.test(l); }).length);
-  }).catch(function(){});
-  fetch(ROOT + "docs/SAUDE-TECNICA.md").then(function(r){ return r.text(); }).then(function(tx){
-    var m = tx.match(/(\d+)\/(\d+) ok/); if (m) set("smoke", Number(m[2]));
-    var d = tx.match(/(\d+) docs · (\d+) tabs/); if (d){ set("docs", Number(d[1])); set("tabs", Number(d[2])); }
+  // os números vêm de docs/pitch/dados.json, gerado pelo build-index com as mesmas contas do Relatório
+  fetch("dados.json", { cache: "no-store" }).then(function(r){ return r.json(); }).then(function(d){
+    ["comps", "blocks", "variants", "decisions", "smoke", "docs", "tabs"].forEach(function(k){ if (typeof d[k] === "number") set(k, d[k]); });
   }).catch(function(){});
 })();
 </script>

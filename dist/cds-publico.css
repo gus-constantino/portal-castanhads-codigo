@@ -1,0 +1,2241 @@
+/* GERADO por scripts/build-index.js · 115 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* ==== components/backdrop/backdrop.css ==== */
+/* Backdrop · 13784:3271 — Surface/inversed · Opacity/medium (0.4). O mesmo visual vale para o ::backdrop dos overlays */
+cds-backdrop{ position:absolute; inset:0; display:block; background:var(--common-colors-surface-inversed); opacity:var(--common-opacity-medium); }
+.cds-overlay::backdrop{ background:var(--common-colors-surface-inversed); opacity:var(--common-opacity-medium); }
+
+/* ==== components/badge/badge.css ==== */
+/* =====================================================================
+   Badge · Status · set 4835:1472
+   Web: pílula 16px · padding 4 · Disclaimer/Medium · Mobile: ponto 8px (Viewport Specific/Badge)
+   ===================================================================== */
+cds-badge{
+  --_bg:var(--common-colors-decorative-01); --_fg:var(--common-colors-support-darker);
+  position:relative; display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto;
+  min-width:var(--common-sizes-16); height:var(--common-sizes-16); padding:0 var(--common-sizes-4);
+  border-radius:var(--common-border-radius-pill); background:var(--_bg); color:var(--_fg);
+  font:var(--text-style-disclaimer-medium); line-height:var(--common-sizes-16); white-space:nowrap;
+}
+cds-badge[appearance="neutral"]{ --_bg:var(--common-colors-surface-inversed); --_fg:var(--common-colors-text-inversed); }
+
+/* Mobile — ponto de 8px; o número continua disponível para leitor de tela */
+[data-viewport="mobile"] cds-badge:not([viewport]), cds-badge[viewport="mobile"]{
+  min-width:var(--common-sizes-8); width:var(--common-sizes-8); height:var(--common-sizes-8); padding:0;
+}
+[data-viewport="mobile"] cds-badge:not([viewport]) > span, cds-badge[viewport="mobile"] > span{
+  position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;
+}
+
+/* ==== components/caju-brand/caju-brand.css ==== */
+/* =====================================================================
+   Caju Brand · Images · set 11271:154 — 69×28 (com tipografia) · 18×28 (só o símbolo)
+   Cores de marca vêm do SVG do Figma (não são tokens)
+   ===================================================================== */
+cds-caju-brand{ display:inline-block; flex:0 0 auto; height:28px; line-height:0; }
+cds-caju-brand > svg{ display:block; height:100%; width:auto; }
+
+/* ==== components/calendar-day/calendar-day.css ==== */
+/* .Day · set 17482:44817 — 40×40 · Label/Medium · motion 150ms + Systemic/accelerate (hover/press)
+   Unselected: Text/medium · Hovered Surface/01 + Text/intense · Pressed Neutral/Opacity/Intense/semi-transparent + Label/Bold
+   Selected (Default/Start/End): Surface/accent + Support/lighter · Hovered Accent/Solid/semi-intense
+   Middle: Surface/01 + Text/intense · Hovered Neutral/Opacity/Intense/semi-transparent · Pressed Accent/Opacity/semi-transparent
+   Disabled: Opacity/medium · raio small: todos (Default), esquerda (Start), direita (End), nenhum (Middle) */
+cds-calendar-day{ display:block; flex:0 0 auto; width:var(--common-sizes-40); height:var(--common-sizes-40); }
+cds-calendar-day [hidden]{ display:none !important; }
+.cds-day{
+  --_bg:var(--common-colors-surface-default); --_fg:var(--common-colors-text-medium); --_dot:var(--common-colors-surface-accent); --_r:0;
+  box-sizing:border-box; width:100%; height:100%; margin:0; padding:0; border:0;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  background:var(--_bg); color:var(--_fg); font:var(--text-style-label-medium); border-radius:var(--_r); cursor:pointer;
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+}
+.cds-day:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:-2px; } /* C23 */
+.cds-day__value{ display:flex; align-items:center; justify-content:center; height:var(--common-sizes-24); }
+.cds-day__dot{ width:var(--common-sizes-4); height:var(--common-sizes-4); border-radius:var(--common-border-radius-pill); background:var(--_dot); }
+/* Unselected */
+.cds-day:hover, [state="hovered"] > .cds-day{ --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-text-intense); --_r:var(--common-border-radius-small); }
+.cds-day:active, [state="pressed"] > .cds-day{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); --_fg:var(--common-colors-text-intense); --_r:var(--common-border-radius-small); font:var(--text-style-label-bold); }
+/* Selected · Default / Start / End */
+cds-calendar-day[selected] > .cds-day{ --_bg:var(--common-colors-surface-accent); --_fg:var(--common-colors-support-lighter); --_dot:var(--common-colors-support-lighter); --_r:var(--common-border-radius-small); }
+cds-calendar-day[selected][role-kind="start"] > .cds-day{ --_r:var(--common-border-radius-small) 0 0 var(--common-border-radius-small); }
+cds-calendar-day[selected][role-kind="end"] > .cds-day{ --_r:0 var(--common-border-radius-small) var(--common-border-radius-small) 0; }
+cds-calendar-day[selected] > .cds-day:hover, cds-calendar-day[selected][state="hovered"] > .cds-day{ --_bg:var(--common-colors-accent-solid-semi-intense); }
+cds-calendar-day[selected] > .cds-day:active, cds-calendar-day[selected][state="pressed"] > .cds-day{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); --_fg:var(--common-colors-text-intense); --_r:var(--common-border-radius-small); font:var(--text-style-label-bold); }
+/* Selected · Middle */
+cds-calendar-day[selected][role-kind="middle"] > .cds-day{ --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-text-intense); --_dot:var(--common-colors-surface-accent); --_r:0; }
+cds-calendar-day[selected][role-kind="middle"] > .cds-day:hover, cds-calendar-day[selected][role-kind="middle"][state="hovered"] > .cds-day{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); }
+cds-calendar-day[selected][role-kind="middle"] > .cds-day:active, cds-calendar-day[selected][role-kind="middle"][state="pressed"] > .cds-day{ --_bg:var(--common-colors-accent-opacity-semi-transparent); --_r:var(--common-border-radius-small); }
+/* Disabled */
+.cds-day:disabled{ opacity:var(--common-opacity-medium); cursor:default; pointer-events:none; }
+@media (prefers-reduced-motion:reduce){ .cds-day{ transition:none; } }
+
+/* ==== components/calendar-week/calendar-week.css ==== */
+/* .Week · 17465:280 — 7 × 40 = 280 · raio small */
+cds-calendar-week{ display:flex; width:280px; height:var(--common-sizes-40); border-radius:var(--common-border-radius-small); }
+.cds-dp__cell{ width:var(--common-sizes-40); height:var(--common-sizes-40); flex:0 0 auto; }
+
+/* ==== components/card/card.css ==== */
+/* Card · set 5256:540 — Surface/default · raio medium · pad 24 · Slot coluna gap 8 pad 8 · Has Border: Border/semi-soft 1px INSIDE */
+cds-card{
+  display:flex; padding:var(--common-sizes-24); border-radius:var(--common-border-radius-medium);
+  background:var(--common-colors-surface-default);
+}
+cds-card:not([has-border="false"]){ box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-semi-soft); }
+.cds-card__slot{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:var(--common-sizes-8); padding:var(--common-sizes-8); }
+
+/* ==== components/card-flag/card-flag.css ==== */
+/* =====================================================================
+   .Credit Card Flags · Flags · set 4934:771 — 40×24
+   Empty: Surface/01 · raio 4 · "chip" 8×4 Surface/default · Bandeiras: SVG de marca (assets/flags)
+   ===================================================================== */
+cds-card-flag{ display:inline-block; flex:0 0 auto; width:40px; height:24px; line-height:0; }
+cds-card-flag > img{ display:block; width:100%; height:100%; }
+cds-card-flag:not([kind]), cds-card-flag[kind="empty"]{
+  position:relative; border-radius:var(--common-border-radius-micro); background:var(--common-colors-surface-01);
+}
+cds-card-flag:not([kind])::after, cds-card-flag[kind="empty"]::after{
+  content:""; position:absolute; left:6px; top:6px; width:8px; height:4px;
+  border-radius:var(--common-border-radius-pill); background:var(--common-colors-surface-default);
+}
+
+/* ==== components/currency/currency.css ==== */
+/* =====================================================================
+   Currency · Content · set 5301:2173
+   Size: Small Caption/Bold · Medium Body/Bold · Large Title/Small · Largest Title/Medium · gap 4
+   Show Value=False: 5 pontos (6px em Small/Medium, 8px em Large/Largest; gap 4, Largest gap 6)
+   ===================================================================== */
+cds-currency{
+  --_fg:var(--common-colors-text-intense); --_dot:var(--common-colors-neutral-solid-intense);
+  --_dot-size:var(--common-sizes-6); --_dot-gap:var(--common-sizes-4);
+  display:inline-flex; align-items:center; gap:var(--common-sizes-4);
+  font:var(--text-style-caption-bold); color:var(--_fg); white-space:nowrap; font-variant-numeric:tabular-nums;
+}
+cds-currency[appearance="inversed"]{ --_fg:var(--common-colors-text-inversed); --_dot:var(--common-colors-neutral-solid-soft); }
+cds-currency[size="medium"]{ font:var(--text-style-body-bold); }
+cds-currency[size="large"]{ font:var(--text-style-title-small); --_dot-size:var(--common-sizes-8); }
+cds-currency[size="largest"]{ font:var(--text-style-title-medium); --_dot-size:var(--common-sizes-8); --_dot-gap:var(--common-sizes-6); }
+/* Figma: no Largest oculto o símbolo usa Heading/Small (24/1.6) em vez de Title/Medium */
+cds-currency[size="largest"][show-value="false"]{ font:var(--text-style-heading-small); }
+
+.cds-cur__dots{ display:inline-flex; align-items:center; gap:var(--_dot-gap); }
+.cds-cur__dots > i{ display:block; width:var(--_dot-size); height:var(--_dot-size); border-radius:var(--common-border-radius-pill); background:var(--_dot); }
+
+/* ==== components/currency-content/currency-content.css ==== */
+/* =====================================================================
+   .Currency Content · .Building Blocks · 5488:631 — alinhado à direita · gap 4
+   Linha: [-][R$] valor (Label/Medium Text/intense) · Descrição Caption/Regular Text/medium
+   ===================================================================== */
+cds-currency-content{ display:inline-flex; flex-direction:column; align-items:flex-end; gap:var(--common-sizes-4); text-align:right; }
+cds-currency-content > .cds-cc2__row{ display:inline-flex; align-items:center; gap:var(--common-sizes-4); font:var(--text-style-label-medium); color:var(--common-colors-text-intense); white-space:nowrap; font-variant-numeric:tabular-nums; }
+cds-currency-content > .cds-cc2__desc{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+
+/* ==== components/currency-symbol/currency-symbol.css ==== */
+/* .Currency Symbol · .Building Blocks · 13438:7016 — Body/Regular Text/intense */
+cds-currency-symbol{ display:inline-block; font:var(--text-style-body-regular); color:var(--common-colors-text-intense); white-space:nowrap; }
+
+/* ==== components/divider/divider.css ==== */
+/* =====================================================================
+   Divider · Dividers · set 4931:207 — ver annotations
+   Solid  = barra preenchida 1px · fill Neutral/Solid/{intensity} · raio pill
+   Dashed = linha SVG · stroke Border/{intensity} · hairline · dash 4 4 · cap round · raio none
+   ===================================================================== */
+cds-divider{
+  --_solid:var(--common-colors-neutral-solid-semi-soft);
+  --_dash:var(--common-colors-border-semi-soft);
+  display:block; flex:0 0 auto; width:100%; height:var(--common-border-width-hairline);
+}
+cds-divider[orientation="vertical"]{ width:var(--common-border-width-hairline); height:auto; min-height:var(--common-sizes-24); align-self:stretch; }
+
+cds-divider[intensity="medium"]{ --_solid:var(--common-colors-neutral-solid-medium); --_dash:var(--common-colors-border-medium); }
+cds-divider[intensity="intense"]{ --_solid:var(--common-colors-neutral-solid-semi-intense); --_dash:var(--common-colors-border-semi-intense); }
+
+cds-divider:not([kind="dashed"]){ background:var(--_solid); border-radius:var(--common-border-radius-pill); }
+cds-divider[kind="dashed"]{ border-radius:var(--common-border-radius-none); }
+cds-divider > svg{ display:block; width:100%; height:100%; overflow:visible; color:var(--_dash); }
+
+/* ==== components/icon/icon.css ==== */
+/* =====================================================================
+   Icon · Images · set 2261:1126
+   Size: Small 16 · Medium 20 · Large 24 — cor por Appearance
+   ===================================================================== */
+cds-icon{
+  --_icon-size:var(--common-sizes-16);
+  --_icon-color:var(--common-colors-icons-accent);
+  display:inline-flex; flex:0 0 auto; width:var(--_icon-size); height:var(--_icon-size);
+  vertical-align:middle;
+}
+cds-icon > .cds-icon{ width:100%; height:100%; }
+/* Pais que fazem override de cor (Tag, Link, botões) definem --cds-icon-color — ver styles/shared.css */
+
+cds-icon[size="medium"]{ --_icon-size:var(--common-sizes-20); }
+cds-icon[size="large"]{ --_icon-size:var(--common-sizes-24); }
+
+cds-icon[appearance="neutral"]{ --_icon-color:var(--common-colors-icons-intense); }
+cds-icon[appearance="positive"]{ --_icon-color:var(--common-colors-feedback-positive-intense); }
+cds-icon[appearance="warning"]{ --_icon-color:var(--common-colors-feedback-warning-intense); }
+cds-icon[appearance="negative"]{ --_icon-color:var(--common-colors-feedback-negative-intense); }
+cds-icon[appearance="informative"]{ --_icon-color:var(--common-colors-feedback-informative-intense); }
+cds-icon[appearance="inversed"]{ --_icon-color:var(--common-colors-icons-inversed); }
+
+/* ==== components/avatar/avatar.css ==== */
+/* =====================================================================
+   Avatar · Images · set 2278:92
+   Size: Small 40 · Medium 48 · Large 64 · raio pill
+   Neutral: Surface/01 + stroke Border/soft hairline · Inversed: Neutral/Opacity/Soft/light
+   Initial: Small Label/Medium · Medium e Large Subtitle/Small
+   ===================================================================== */
+cds-avatar{
+  --_size:var(--common-sizes-40);
+  display:inline-grid; place-items:center; flex:0 0 auto; overflow:hidden;
+  width:var(--_size); height:var(--_size); border-radius:var(--common-border-radius-pill);
+  background:var(--common-colors-surface-01);
+  box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-soft);
+  font:var(--text-style-label-medium); color:var(--common-colors-text-intense);
+}
+cds-avatar[size="medium"]{ --_size:var(--common-sizes-48); font:var(--text-style-subtitle-small); }
+cds-avatar[size="large"]{ --_size:var(--common-sizes-64); font:var(--text-style-subtitle-small); }
+cds-avatar[appearance="inversed"]{ background:var(--common-colors-neutral-opacity-soft-light); box-shadow:none; color:var(--common-colors-text-inversed); }
+cds-avatar[kind="image"]{ box-shadow:none; }
+cds-avatar > img{ width:100%; height:100%; object-fit:cover; }
+
+/* ==== components/breadcrumb-item/breadcrumb-item.css ==== */
+/* .Item (Breadcrumb) · set 6713:3 — 48 de altura · Default pad 0 4 0 0 · Truncate pad 0 8
+   Content pad 8 · raio extra-small · Hovered Surface/01 · Pressed Accent/Solid/soft · Disabled Opacity/light
+   Motion: hover/press 300ms + Systemic/accelerate (reactions do Figma) */
+cds-breadcrumb-item{ display:inline-flex; align-items:center; height:var(--common-sizes-48); padding:0 var(--common-sizes-4) 0 0; flex:0 0 auto; }
+cds-breadcrumb-item[kind="truncate"]{ padding:0 var(--common-sizes-8); }
+cds-breadcrumb-item [hidden]{ display:none !important; }
+cds-breadcrumb-item[disabled]{ opacity:var(--common-opacity-light); }
+.cds-bci__content{
+  --_bg:transparent;
+  display:inline-flex; align-items:center; padding:var(--common-sizes-8); margin:0; border:0; border-radius:var(--common-border-radius-extra-small);
+  background:var(--_bg); font:var(--text-style-label-regular); color:var(--common-colors-text-medium); text-decoration:none; white-space:nowrap;
+  cursor:pointer; transition:background-color var(--common-motion-duration-medium-02) var(--common-motion-easing-systemic-accelerate);
+}
+span.cds-bci__content{ cursor:default; }
+.cds-bci__content:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:0; } /* C23 */
+cds-breadcrumb-item[is-active] .cds-bci__content{ font:var(--text-style-label-medium); color:var(--common-colors-text-intense); }
+a.cds-bci__content:hover, button.cds-bci__content:hover, [state="hovered"] > .cds-bci__content{ --_bg:var(--common-colors-surface-01); color:var(--common-colors-text-intense); }
+a.cds-bci__content:active, button.cds-bci__content:active, [state="pressed"] > .cds-bci__content{ --_bg:var(--common-colors-accent-solid-soft); color:var(--common-colors-text-intense); }
+cds-breadcrumb-item[disabled] .cds-bci__content{ pointer-events:none; color:var(--common-colors-text-medium); }
+@media (prefers-reduced-motion:reduce){ .cds-bci__content{ transition:none; } }
+
+/* ==== components/caju-card/caju-card.css ==== */
+/* Caju Card · set 17053:1181 — Vertical 216 × 288 · Horizontal 312 × 196 · raio large
+   Arte em SVG por variante (cores da arte vêm do Figma, C73) · Is Blocked: Backdrop + lock-line no centro */
+cds-caju-card{ position:relative; display:inline-block; flex:0 0 auto; width:216px; height:288px; border-radius:var(--common-border-radius-large); overflow:hidden;
+  background:var(--common-colors-surface-01); }
+cds-caju-card[data-orientation="horizontal"]{ width:312px; height:196px; }
+.cds-cc__art, .cds-cc__art > svg{ display:block; width:100%; height:100%; }
+.cds-cc__art text{ font-family:Roboto, "Helvetica Neue", Arial, sans-serif; }
+.cds-cc__blocked{ position:absolute; inset:0; display:grid; place-items:center; }
+.cds-cc__blocked[hidden]{ display:none; }
+.cds-cc__lock{ position:relative; z-index:1; }
+
+/* ==== components/chip/chip.css ==== */
+/* =====================================================================
+   Base da família Chips (Input Chips · Filter Chips) — interno
+   40 de altura (Viewport Specific/Selection Controls/*: 40 em todos os modos) · pill
+   padding 0 16 · gap 4 · Label/Regular · ícones 16 · Disabled Opacity/medium
+   Motion: Hover e Press 150ms systemic-accelerate
+   ===================================================================== */
+.cds-chip{
+  --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-text-medium); --_ic:var(--common-colors-icons-medium);
+  --_bd:transparent; --_bw:var(--common-border-width-hairline);
+  display:inline-flex; align-items:center; gap:var(--common-sizes-4); flex:0 0 auto;
+  height:var(--common-sizes-40); padding:0 var(--common-sizes-16); margin:0; border:0; cursor:pointer;
+  border-radius:var(--common-border-radius-pill);
+  background:var(--_bg); color:var(--_fg); box-shadow:inset 0 0 0 var(--_bw) var(--_bd);
+  font:var(--text-style-label-regular); white-space:nowrap;
+  --cds-icon-color:var(--_ic);
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate),
+             box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate),
+             color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+}
+[disabled] > .cds-chip{ --_bg:var(--common-colors-surface-default); --_bd:var(--common-colors-border-semi-soft); }
+/* Size (branch epatuUj3qrA77Ecbbhy2vw, CDS-1599): Small muda apenas a altura, 40 → 32.
+   Tokens na branch: Specific/Selection Controls/{Input|Filter} Chips/{Medium|Small}/height → Common/Sizes/40 e /32 (C185) */
+cds-input-chip[size="small"] > .cds-chip, cds-filter-chip[size="small"] > .cds-chip{ height:var(--common-sizes-32); }
+cds-input-chip[disabled], cds-filter-chip[disabled]{ opacity:var(--common-opacity-medium); pointer-events:none; }
+@media (prefers-reduced-motion:reduce){ .cds-chip{ transition:none; } }
+
+/* ==== components/close-toast/close-toast.css ==== */
+/* .Close Toast · set 5219:558 — 40×40 · raio small · close-line 20 Neutral/Solid/soft (sobre Surface/inversed)
+   Hovered Neutral/Opacity/Soft/semi-transparent · Pressed Neutral/Opacity/Soft/light · Disabled Opacity/light
+   Motion: 150ms · Systemic/accelerate (reaction do Figma) */
+cds-close-toast{ display:inline-flex; flex:0 0 auto; }
+.cds-close{
+  --_bg:transparent;
+  display:inline-grid; place-items:center; width:var(--common-sizes-40); height:var(--common-sizes-40);
+  padding:0; border:0; cursor:pointer; border-radius:var(--common-border-radius-small); background:var(--_bg);
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+}
+.cds-close:focus-visible{ outline:var(--common-border-width-thin) solid var(--common-colors-support-system); outline-offset:var(--common-border-width-thin); }
+.cds-close:disabled{ cursor:default; opacity:var(--common-opacity-light); }
+cds-close-toast .cds-close{ --cds-icon-color:var(--common-colors-neutral-solid-soft); }
+cds-close-toast .cds-close:hover:not(:disabled), cds-close-toast[state="hovered"] .cds-close{ --_bg:var(--common-colors-neutral-opacity-soft-semi-transparent); }
+cds-close-toast .cds-close:active:not(:disabled), cds-close-toast[state="pressed"] .cds-close{ --_bg:var(--common-colors-neutral-opacity-soft-light); }
+@media (prefers-reduced-motion:reduce){ .cds-close{ transition:none; } }
+
+/* ==== components/close-alert/close-alert.css ==== */
+/* .Close Alert · set 11830:5584 — 40×40 · raio small · close-line 20 Icons/intense
+   Hovered Neutral/Opacity/Intense/semi-opaque + Icons/inversed · Pressed Neutral/Opacity/Intense/intense + Icons/inversed
+   Disabled Opacity/light · Motion: 150ms · Systemic/accelerate. Base .cds-close em close-toast.css */
+cds-close-alert{ display:inline-flex; flex:0 0 auto; }
+cds-close-alert .cds-close{ --cds-icon-color:var(--common-colors-icons-intense); }
+cds-close-alert .cds-close:hover:not(:disabled), cds-close-alert[state="hovered"] .cds-close{ --_bg:var(--common-colors-neutral-opacity-intense-semi-opaque); --cds-icon-color:var(--common-colors-icons-inversed); }
+cds-close-alert .cds-close:active:not(:disabled), cds-close-alert[state="pressed"] .cds-close{ --_bg:var(--common-colors-neutral-opacity-intense-intense); --cds-icon-color:var(--common-colors-icons-inversed); }
+
+/* ==== components/content-banner/content-banner.css ==== */
+/* .Content Banner · set 20028:15153 — gap 40 entre texto e CTA · Title Title/Medium · Description Label/Regular ·
+   CTA Subtitle/Small + go-line 20 · Neutral = Text/intense · Inversed = Text/inversed */
+cds-content-banner{ display:flex; flex-direction:column; justify-content:flex-end; gap:var(--common-sizes-40); --_fg:var(--common-colors-text-intense); color:var(--_fg); }
+cds-content-banner[appearance="inversed"]{ --_fg:var(--common-colors-text-inversed); }
+.cds-cb__text{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+.cds-cb__title{ margin:0; font:var(--text-style-title-medium); }
+.cds-cb__desc{ margin:0; font:var(--text-style-label-regular); }
+.cds-cb__cta{ display:inline-flex; align-items:center; gap:var(--common-sizes-8); font:var(--text-style-subtitle-small); }
+
+/* ==== components/csat-item/csat-item.css ==== */
+/* .CSAT Item · set 10100:1155 — coluna gap 8 · pad 4 0 · Item 48 raio medium · ícone 32 */
+cds-csat-item{ display:flex; flex:1 1 0; min-width:0; }
+cds-csat-item [hidden]{ display:none !important; }
+.cds-csi{ position:relative; display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-8); width:100%; padding:var(--common-sizes-4) 0; cursor:pointer; }
+.cds-csi__input{ position:absolute; inset:0; margin:0; opacity:0; cursor:inherit; }
+.cds-csi__item{ --_bg:transparent; --_st:transparent; display:grid; place-items:center; width:var(--common-sizes-48); height:var(--common-sizes-48); border-radius:var(--common-border-radius-medium);
+  background:var(--_bg); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--_st); pointer-events:none;
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate); }
+.cds-csi__icon{ --cds-icon-color:var(--common-colors-surface-02); width:var(--common-sizes-32); height:var(--common-sizes-32); }
+cds-csat-item[active] .cds-csi__icon{ --cds-icon-color:var(--common-colors-decorative-02); }
+.cds-csi__label{ font:var(--text-style-disclaimer-medium); color:var(--common-colors-text-medium); text-align:center; pointer-events:none; }
+.cds-csi:hover .cds-csi__item, cds-csat-item[state="hovered"] .cds-csi__item{ --_bg:var(--common-colors-surface-01); }
+.cds-csi:active .cds-csi__item, cds-csat-item[state="pressed"] .cds-csi__item{ --_bg:var(--common-colors-accent-solid-soft); --_st:var(--common-colors-accent-solid-medium); }
+.cds-csi:has(:focus-visible) .cds-csi__item{ outline:2px solid var(--common-colors-support-system); outline-offset:2px; } /* C23 */
+.cds-csi:has(:disabled){ cursor:default; pointer-events:none; }
+@media (prefers-reduced-motion:reduce){ .cds-csi__item{ transition:none; } }
+
+/* ==== components/csat-score/csat-score.css ==== */
+/* CSAT Score · set 10100:1192 — 320 × 120 · pad 8 0 · gap 8 · SPACE_BETWEEN · Surface/default · itens 56 (Fixed) × Fill
+   Disabled: shape/opacity/high no Figma (fora da Common, C68); aqui Opacity/medium */
+cds-csat-score{ display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-8); box-sizing:border-box; width:320px; max-width:100%; min-height:120px;
+  padding:var(--common-sizes-8) 0; background:var(--common-colors-surface-default); }
+cds-csat-score[disabled]{ opacity:var(--common-opacity-medium); }
+cds-csat-score > cds-csat-item{ flex:0 0 56px; align-self:stretch; } /* 56 Fixed × altura Fill, como no Figma (C71) */
+
+/* ==== components/filter-chip/filter-chip.css ==== */
+/* =====================================================================
+   Filter Chips · Selection Controls · set 12365:2744 — base em chip.css
+   Unselected: sem stroke → Hovered Border/medium → Pressed Border/intense thin (+ intense)
+   Selected: Surface/inversed + Border/intense · Text/inversed · check-line Icons/inversed
+             Hovered Neutral/Solid/semi-intense + Border/semi-intense · Pressed Border/intense thin
+   ===================================================================== */
+cds-filter-chip{ display:inline-flex; }
+cds-filter-chip > .cds-chip:hover, cds-filter-chip[state="hovered"] > .cds-chip{ --_bd:var(--common-colors-border-medium); }
+cds-filter-chip > .cds-chip:active, cds-filter-chip[state="pressed"] > .cds-chip{ --_bd:var(--common-colors-border-intense); --_bw:var(--common-border-width-thin); --_fg:var(--common-colors-text-intense); --_ic:var(--common-colors-icons-intense); }
+
+cds-filter-chip[selected] > .cds-chip{ --_bg:var(--common-colors-surface-inversed); --_bd:var(--common-colors-border-intense); --_fg:var(--common-colors-text-inversed); --_ic:var(--common-colors-icons-inversed); }
+cds-filter-chip[selected] > .cds-chip:hover, cds-filter-chip[state="hovered"][selected] > .cds-chip{ --_bg:var(--common-colors-neutral-solid-semi-intense); --_bd:var(--common-colors-border-semi-intense); }
+cds-filter-chip[selected] > .cds-chip:active, cds-filter-chip[state="pressed"][selected] > .cds-chip{ --_bg:var(--common-colors-neutral-solid-semi-intense); --_bd:var(--common-colors-border-intense); --_bw:var(--common-border-width-thin); --_fg:var(--common-colors-text-inversed); --_ic:var(--common-colors-icons-inversed); }
+cds-filter-chip[selected][disabled] > .cds-chip{ --_bg:var(--common-colors-surface-inversed); --_bd:var(--common-colors-border-intense); }
+
+/* ==== components/icon-button/icon-button.css ==== */
+/* =====================================================================
+   Icon Button · Buttons · set 4464:636
+   Size: Medium 48 / raio medium · Small 40 / raio small · ícone 20 · Disabled Opacity/medium
+   Motion (reactions): Hover e Press var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate)
+   ===================================================================== */
+cds-icon-button{ display:inline-flex; flex:0 0 auto; position:relative; }
+cds-icon-button > .cds-ib{
+  --_bg:var(--common-colors-accent-solid-medium); --_fg:var(--common-colors-support-lighter); --_bd:transparent;
+  position:relative; display:grid; place-items:center; flex:0 0 auto;
+  width:var(--common-sizes-48); height:var(--common-sizes-48); padding:0; margin:0; border:0; cursor:pointer;
+  border-radius:var(--common-border-radius-medium);
+  background:var(--_bg); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--_bd);
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+}
+cds-icon-button > .cds-ib{ --cds-icon-color:var(--_fg); } /* override do Icon aninhado */
+cds-icon-button[size="small"] > .cds-ib{ width:var(--common-sizes-40); height:var(--common-sizes-40); border-radius:var(--common-border-radius-small); }
+cds-icon-button > .cds-ib > cds-badge{ position:absolute; top:6px; right:5px; }
+
+/* Default · Accent */
+cds-icon-button .cds-ib:hover, cds-icon-button[state="hovered"] .cds-ib{ --_bg:var(--common-colors-accent-solid-semi-intense); }
+cds-icon-button .cds-ib:active, cds-icon-button[state="pressed"] .cds-ib{ --_bg:var(--common-colors-accent-solid-medium); }
+/* Ghost · Accent */
+cds-icon-button[kind="ghost"] > .cds-ib{ --_bg:transparent; --_fg:var(--common-colors-icons-accent); }
+cds-icon-button[kind="ghost"] > .cds-ib:hover, cds-icon-button[kind="ghost"][state="hovered"] > .cds-ib{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); }
+cds-icon-button[kind="ghost"] > .cds-ib:active, cds-icon-button[kind="ghost"][state="pressed"] > .cds-ib{ --_bg:transparent; --_fg:var(--common-colors-icons-accent); --_bd:var(--common-colors-accent-solid-medium); }
+/* Default · Neutral */
+cds-icon-button[appearance="neutral"] > .cds-ib{ --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-icons-intense); }
+cds-icon-button[appearance="neutral"] > .cds-ib:hover, cds-icon-button[appearance="neutral"][state="hovered"] > .cds-ib{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
+cds-icon-button[appearance="neutral"] > .cds-ib:active, cds-icon-button[appearance="neutral"][state="pressed"] > .cds-ib{ --_bg:var(--common-colors-neutral-solid-medium); }
+/* Default · Inversed */
+cds-icon-button[appearance="inversed"] > .cds-ib{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-icons-intense); }
+cds-icon-button[appearance="inversed"] > .cds-ib:hover, cds-icon-button[appearance="inversed"][state="hovered"] > .cds-ib{ --_bg:var(--common-colors-surface-inversed); --_fg:var(--common-colors-support-lighter); }
+cds-icon-button[appearance="inversed"] > .cds-ib:active, cds-icon-button[appearance="inversed"][state="pressed"] > .cds-ib{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-icons-intense); }
+/* Ghost · Neutral */
+cds-icon-button[kind="ghost"][appearance="neutral"] > .cds-ib{ --_bg:transparent; --_fg:var(--common-colors-icons-intense); --_bd:transparent; }
+cds-icon-button[kind="ghost"][appearance="neutral"] > .cds-ib:hover, cds-icon-button[kind="ghost"][appearance="neutral"][state="hovered"] > .cds-ib{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
+cds-icon-button[kind="ghost"][appearance="neutral"] > .cds-ib:active, cds-icon-button[kind="ghost"][appearance="neutral"][state="pressed"] > .cds-ib{ --_bg:var(--common-colors-neutral-solid-medium); }
+/* Ghost · Inversed */
+cds-icon-button[kind="ghost"][appearance="inversed"] > .cds-ib{ --_bg:transparent; --_fg:var(--common-colors-support-lighter); --_bd:transparent; }
+cds-icon-button[kind="ghost"][appearance="inversed"] > .cds-ib:hover, cds-icon-button[kind="ghost"][appearance="inversed"][state="hovered"] > .cds-ib{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); --_fg:var(--common-colors-support-lighter); }
+cds-icon-button[kind="ghost"][appearance="inversed"] > .cds-ib:active, cds-icon-button[kind="ghost"][appearance="inversed"][state="pressed"] > .cds-ib{ --_bg:var(--common-colors-neutral-opacity-intense-light); --_fg:var(--common-colors-support-lighter); }
+
+/* Disabled — Opacity/medium (Figma); Ghost Inversed troca o ícone para Icons/intense (🟡 ver roadmap) */
+cds-icon-button[disabled]{ opacity:var(--common-opacity-medium); pointer-events:none; }
+cds-icon-button[disabled][kind="ghost"][appearance="inversed"] > .cds-ib{ --_fg:var(--common-colors-icons-intense); }
+@media (prefers-reduced-motion:reduce){ cds-icon-button > .cds-ib{ transition:none; } }
+
+/* ==== components/header/header.css ==== */
+/* .Header · 16362:3241 — Content pad 12 20 · gap 8 · Title Body/Bold Text/intense · Close Button 48 · Divider Soft */
+cds-header{ display:flex; flex-direction:column; background:var(--common-colors-surface-default); }
+cds-header [hidden]{ display:none !important; }
+.cds-header__content{ display:flex; align-items:center; justify-content:flex-end; gap:var(--common-sizes-8); min-height:var(--common-sizes-72); padding:var(--common-sizes-12) var(--common-sizes-20); }
+.cds-header__title{ flex:1 1 auto; min-width:0; margin:0; font:var(--text-style-body-bold); color:var(--common-colors-text-intense); }
+
+/* ==== components/icons-block/icons-block.css ==== */
+/* .Icons · .Building Blocks · 5218:1271 — Kind Default (filter-line) · Date (calendar-line) · 20×20 */
+cds-icons{ display:inline-flex; flex:0 0 auto; }
+
+/* ==== components/filter-button/filter-button.css ==== */
+/* =====================================================================
+   Filter button · Buttons · set 5099:5389
+   Desktop: 48 de altura · padding 0 20 · gap 8 · raio 16 · .Icons (filter-line) + "Filtros" Label/Medium
+   Mobile/Tablet (Specific/Buttons/Filter button/Is Mobile): 48×48 só o ícone
+   Is Active: fundo Accent/Solid/soft · Badge Neutral no lugar do ícone (contagem de filtros)
+   Motion: Hover e Press var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate) · Disabled Opacity/light
+   ===================================================================== */
+cds-filter-button{ display:inline-flex; flex:0 0 auto; }
+cds-filter-button > .cds-fb{
+  --_bg:var(--common-colors-surface-default); --_fg:var(--common-colors-text-accent); --_ic:var(--common-colors-surface-accent); --_bd:transparent;
+  position:relative; display:inline-flex; align-items:center; justify-content:center; gap:var(--common-sizes-8);
+  height:var(--common-sizes-48); padding:0 var(--common-sizes-20); margin:0; border:0; cursor:pointer;
+  border-radius:var(--common-border-radius-medium);
+  background:var(--_bg); color:var(--_fg); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--_bd);
+  font:var(--text-style-label-medium); white-space:nowrap;
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+}
+cds-filter-button > .cds-fb{ --cds-icon-color:var(--_ic); } /* override do .Icons/Icon aninhado */
+cds-filter-button > .cds-fb:hover, cds-filter-button[state="hovered"] > .cds-fb{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); --_ic:var(--common-colors-accent-solid-semi-intense); font:var(--text-style-label-bold); }
+cds-filter-button > .cds-fb:active, cds-filter-button[state="pressed"] > .cds-fb{ --_bg:transparent; --_bd:var(--common-colors-accent-solid-medium); --_fg:var(--common-colors-accent-solid-medium); --_ic:var(--common-colors-accent-solid-medium); font:var(--text-style-label-medium); }
+
+/* Is Active */
+cds-filter-button[active] > .cds-fb{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); }
+cds-filter-button[active] > .cds-fb:active, cds-filter-button[active][state="pressed"] > .cds-fb{ --_bg:transparent; --_fg:var(--common-colors-text-accent); }
+
+/* Mobile e Tablet — só o ícone, 48×48; o Badge vai para o canto */
+[data-viewport="mobile"] cds-filter-button:not([viewport]) > .cds-fb,
+[data-viewport="tablet"] cds-filter-button:not([viewport]) > .cds-fb,
+cds-filter-button[viewport="mobile"] > .cds-fb{ width:var(--common-sizes-48); padding:0; }
+[data-viewport="mobile"] cds-filter-button:not([viewport]) .cds-fb__label,
+[data-viewport="tablet"] cds-filter-button:not([viewport]) .cds-fb__label,
+cds-filter-button[viewport="mobile"] .cds-fb__label{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+[data-viewport="mobile"] cds-filter-button:not([viewport]) .cds-fb > cds-badge,
+[data-viewport="tablet"] cds-filter-button:not([viewport]) .cds-fb > cds-badge,
+cds-filter-button[viewport="mobile"] .cds-fb > cds-badge{ position:absolute; top:6px; right:5px; }
+/* No Mobile ativo o ícone continua visível (Figma: .Icons + Badge) */
+cds-filter-button .cds-fb > cds-icons.is-mobile-only{ display:none; }
+[data-viewport="mobile"] cds-filter-button:not([viewport])[active] .cds-fb > cds-icons.is-mobile-only,
+[data-viewport="tablet"] cds-filter-button:not([viewport])[active] .cds-fb > cds-icons.is-mobile-only,
+cds-filter-button[viewport="mobile"][active] .cds-fb > cds-icons.is-mobile-only{ display:inline-flex; }
+
+cds-filter-button[disabled]{ opacity:var(--common-opacity-light); pointer-events:none; }
+@media (prefers-reduced-motion:reduce){ cds-filter-button > .cds-fb{ transition:none; } }
+
+/* ==== components/image/image.css ==== */
+/* =====================================================================
+   Image · Images · set 2273:320 — Aspect Ratio: None · 1:1 · 3:2 (fill cover)
+   ===================================================================== */
+cds-image{ display:block; width:80px; max-width:100%; overflow:hidden; background:var(--common-colors-surface-01); }
+cds-image > img{ display:block; width:100%; height:auto; object-fit:cover; }
+cds-image[aspect-ratio="1:1"] > img{ aspect-ratio:1 / 1; height:auto; }
+cds-image[aspect-ratio="3:2"] > img{ aspect-ratio:3 / 2; height:auto; }
+cds-image:not([src]){ aspect-ratio:1 / 1; }
+cds-image[aspect-ratio="3:2"]:not([src]){ aspect-ratio:3 / 2; }
+
+/* ==== components/banner/banner.css ==== */
+/* Banner · set 20051:15726 — raio large · mínimo 280 · State Overlay: Hovered Neutral/Opacity/Intense/semi-transparent,
+   Pressed Neutral/Opacity/Intense/light, Disabled opacity medium (sem overlay) · Motion 150ms · Systemic/accelerate
+   Illustration: fundo Decorative/01 (livre) · pad 24 12 24 24 · conteúdo + ilustração 122×122 lado a lado
+   Image: imagem de fundo + Backdrop Surface/inversed 0.4 · pad 24 · conteúdo Inversed embaixo */
+cds-banner{ display:block; width:280px; min-width:min(280px, 100%); max-width:100%; } /* 280 no Figma; a instância pode esticar */
+.cds-banner{
+  --_banner-bg:var(--common-colors-decorative-01); --_overlay:transparent;
+  position:relative; isolation:isolate; display:flex; align-items:center; gap:var(--common-sizes-16);
+  width:100%; padding:var(--common-sizes-24) var(--common-sizes-12) var(--common-sizes-24) var(--common-sizes-24);
+  border:0; border-radius:var(--common-border-radius-large); overflow:hidden; cursor:pointer;
+  background:var(--_banner-bg); color:inherit; text-align:left; text-decoration:none; font:inherit;
+}
+.cds-banner::after{
+  content:""; position:absolute; inset:0; z-index:2; pointer-events:none; border-radius:inherit; background:var(--_overlay);
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+}
+.cds-banner:hover, cds-banner[state="hovered"] .cds-banner{ --_overlay:var(--common-colors-neutral-opacity-intense-semi-transparent); }
+.cds-banner:active, cds-banner[state="pressed"] .cds-banner{ --_overlay:var(--common-colors-neutral-opacity-intense-light); }
+.cds-banner:disabled{ cursor:default; opacity:var(--common-opacity-medium); --_overlay:transparent; }
+.cds-banner:focus-visible{ outline:var(--common-border-width-thin) solid var(--common-colors-support-system); outline-offset:var(--common-border-width-thin); }
+/* Container de 122 (mínimo): o .Content Banner (127) transborda 5px para cima, como no Figma (C27); com texto mais longo
+   a altura acompanha o conteúdo, como diz a description do set (decisão do Gustavo, 05/10 · C155) */
+.cds-banner__row{ display:flex; justify-content:space-between; align-items:flex-end; gap:var(--common-sizes-8); width:100%; min-height:122px; }
+.cds-banner__row > .cds-banner__content{ flex:1 1 auto; min-width:0; margin-top:-5px; }
+.cds-banner__ill{ width:122px; height:122px; flex:0 0 auto; }
+cds-banner[kind="image"] .cds-banner{ align-items:flex-end; padding:var(--common-sizes-24); min-height:151px; background:var(--common-colors-surface-inversed); }
+.cds-banner__img{ position:absolute; inset:0; z-index:0; width:100%; height:100%; }
+.cds-banner__img img{ width:100%; height:100%; object-fit:cover; }
+.cds-banner__backdrop{ z-index:1; } /* visual vem do Backdrop (backdrop.css) */
+cds-banner[kind="image"] .cds-banner__content{ position:relative; z-index:1; }
+@media (prefers-reduced-motion:reduce){ .cds-banner::after{ transition:none; } }
+
+/* ==== components/input-chip/input-chip.css ==== */
+/* =====================================================================
+   Input Chips · Selection Controls · set 12365:2728 (canônico — o duplicado foi removido) — base em chip.css
+   Stroke Border/semi-soft → Hovered Border/medium → Pressed Border/intense (+ texto e ícone intense)
+   ===================================================================== */
+cds-input-chip{ display:inline-flex; }
+cds-input-chip > .cds-chip{ --_bd:var(--common-colors-border-semi-soft); }
+cds-input-chip > .cds-chip:hover, cds-input-chip[state="hovered"] > .cds-chip{ --_bd:var(--common-colors-border-medium); }
+cds-input-chip > .cds-chip:active, cds-input-chip[state="pressed"] > .cds-chip{ --_bd:var(--common-colors-border-intense); --_fg:var(--common-colors-text-intense); --_ic:var(--common-colors-icons-intense); }
+
+/* ==== components/chips-group/chips-group.css ==== */
+/* =====================================================================
+   Chips Group · Selection Controls · set 12457:3664 — container (herda cores e estados dos chips)
+   320 de largura · gap 8 · Multiple Rows: quebra de linha · Single Row: uma linha com rolagem (48 de altura)
+   ===================================================================== */
+cds-chips-group{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--common-sizes-8); width:320px; max-width:100%; }
+cds-chips-group[role-kind="single"]{ flex-wrap:nowrap; overflow-x:auto; height:var(--common-sizes-48); scrollbar-width:thin; }
+
+/* ==== components/link/link.css ==== */
+/* =====================================================================
+   Link · Content · set 4926:213
+   Label/Medium · gap 4 · alvo de 48px de altura · ícone trailing 16 (Change Icon)
+   Hovered: sublinhado · Pressed: Label/Bold + sublinhado · Disabled: Opacity/light
+   Motion (reactions): Enabled→Hovered 150ms · Hovered→Pressed 150ms · cubic-bezier(.7,0,.8,1)
+   ===================================================================== */
+cds-link{ display:inline-flex; }
+cds-link > a{
+  --_fg:var(--common-colors-text-intense);
+  display:inline-flex; align-items:center; gap:var(--common-sizes-4); min-height:var(--common-sizes-48);
+  font:var(--text-style-label-medium); color:var(--_fg); text-decoration:none; cursor:pointer;
+  text-decoration-color:transparent; text-underline-offset:2px;
+  transition:text-decoration-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+}
+cds-link > a{ --cds-icon-color:var(--_fg); } /* override do Icon aninhado */
+cds-link[appearance="accent"] > a{ --_fg:var(--common-colors-text-accent); }
+cds-link[appearance="inversed"] > a{ --_fg:var(--common-colors-text-inversed); }
+
+cds-link > a:hover, cds-link[state="hovered"] > a{ text-decoration:underline; text-decoration-color:currentColor; }
+cds-link > a:active, cds-link[state="pressed"] > a{ font:var(--text-style-label-bold); text-decoration:underline; text-decoration-color:currentColor; }
+cds-link[disabled]{ opacity:var(--common-opacity-light); pointer-events:none; }
+
+/* ==== components/list-lead-item/list-lead-item.css ==== */
+/* .Lead Item (Lists) · set 5488:640 — Avatar 40 · Icon 20 · Image 40 raio extra-small */
+cds-list-lead-item{ flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; }
+cds-list-lead-item[kind="image"] > cds-image{ width:var(--common-sizes-40); height:var(--common-sizes-40); border-radius:var(--common-border-radius-extra-small); overflow:hidden; }
+
+/* ==== components/nav-control-item/nav-control-item.css ==== */
+/* .Item Nav Control · set 19188:379 — pad 4 · 6×6 (ativo 16×6) · raio pill */
+cds-nav-control-item{ --_c:var(--common-colors-neutral-solid-semi-intense); display:inline-flex; padding:var(--common-sizes-4); flex:0 0 auto; }
+cds-nav-control-item[is-active]{ --_c:var(--common-colors-accent-solid-medium); }
+cds-nav-control-item[appearance="inversed"]{ --_c:var(--common-colors-neutral-opacity-soft-semi-opaque); }
+cds-nav-control-item[appearance="inversed"][is-active]{ --_c:var(--common-colors-neutral-solid-soft); }
+.cds-nci__dot{ display:block; width:var(--common-sizes-6); height:var(--common-sizes-6); border-radius:var(--common-border-radius-pill); background:var(--_c);
+  transition:width var(--common-motion-duration-medium-02) var(--common-motion-easing-systemic-accelerate), background-color var(--common-motion-duration-medium-02) var(--common-motion-easing-systemic-accelerate); }
+cds-nav-control-item[is-active] .cds-nci__dot{ width:var(--common-sizes-16); }
+@media (prefers-reduced-motion:reduce){ .cds-nci__dot{ transition:none; } }
+
+/* ==== components/nav-control/nav-control.css ==== */
+/* Nav Control · set 19560:3280 — Desktop: 280 × 40 · pad-left 12 · SPACE_BETWEEN · indicadores pad 4 0 · setas 40
+   Mobile: só os indicadores · Tablet: nada (Is Mobile e Is Desktop falsos, C46) */
+cds-nav-control{ display:flex; align-items:center; justify-content:space-between; width:280px; max-width:100%; min-height:var(--common-sizes-40); padding-left:var(--common-sizes-12); box-sizing:border-box; }
+.cds-nc__dots{ display:flex; align-items:center; padding:var(--common-sizes-4) 0; }
+.cds-nc__btns{ display:flex; align-items:center; }
+.cds-nc__live{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+/* Viewport (collection Viewport do Figma) */
+[data-viewport="mobile"] cds-nav-control:not([viewport]), cds-nav-control[viewport="mobile"]{ width:auto; min-height:0; padding-left:0; justify-content:flex-start; }
+[data-viewport="mobile"] cds-nav-control:not([viewport]) .cds-nc__btns, cds-nav-control[viewport="mobile"] .cds-nc__btns{ display:none; }
+[data-viewport="tablet"] cds-nav-control:not([viewport]), cds-nav-control[viewport="tablet"]{ display:none; }
+
+/* ==== components/carousel/carousel.css ==== */
+/* Carousel · 21215:242 — vertical · gap Sizes/16 · .Content Slot horizontal com gap Specific/Carousel/gap (8 mobile · 16 tablet/desktop)
+   e Nav Control em Fill. O item mantém a própria largura; a faixa mostra parte do próximo e encaixa (scroll-snap) no início de cada item */
+cds-carousel{ display:flex; flex-direction:column; gap:var(--common-sizes-16); min-width:0; max-width:100%; }
+.cds-carousel__slot{
+  display:flex; gap:var(--specific-carousel-gap); overflow-x:auto; overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory; scrollbar-width:none; -webkit-overflow-scrolling:touch;
+}
+.cds-carousel__slot::-webkit-scrollbar{ display:none; }
+.cds-carousel__item{ flex:none; scroll-snap-align:start; display:flex; }
+cds-carousel > cds-nav-control{ width:100%; } /* Nav Control em Fill dentro do carrossel */
+@media (prefers-reduced-motion: reduce){ .cds-carousel__slot{ scroll-behavior:auto; } }
+
+/* ==== components/nps-value-item/nps-value-item.css ==== */
+/* .Value Item · set 10100:1137 — 24 · pill · Caption/Bold */
+cds-nps-value-item{ display:inline-flex; flex:0 0 auto; }
+.cds-nvi{ --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-text-medium); --_st:transparent;
+  position:relative; display:grid; place-items:center; width:var(--common-sizes-24); height:var(--common-sizes-24); border-radius:var(--common-border-radius-pill);
+  background:var(--_bg); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--_st); cursor:pointer;
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate); }
+.cds-nvi__input{ position:absolute; inset:0; margin:0; opacity:0; cursor:inherit; }
+.cds-nvi__value{ font:var(--text-style-caption-bold); color:var(--_fg); font-variant-numeric:tabular-nums; pointer-events:none; }
+.cds-nvi:hover, [state="hovered"] > .cds-nvi{ --_st:var(--common-colors-accent-solid-medium); }
+.cds-nvi:active, [state="pressed"] > .cds-nvi{ --_bg:var(--common-colors-accent-solid-soft); --_st:var(--common-colors-accent-solid-medium); }
+.cds-nvi:has(:checked), cds-nps-value-item[selected] > .cds-nvi{ --_bg:var(--common-colors-surface-accent); --_fg:var(--common-colors-text-inversed); --_st:transparent; }
+.cds-nvi:has(:checked):hover, cds-nps-value-item[selected][state="hovered"] > .cds-nvi{ --_st:var(--common-colors-border-intense); }
+.cds-nvi:has(:checked):active, cds-nps-value-item[selected][state="pressed"] > .cds-nvi{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-text-intense); --_st:var(--common-colors-border-intense); }
+.cds-nvi:has(:focus-visible){ outline:2px solid var(--common-colors-support-system); outline-offset:2px; } /* C23 */
+.cds-nvi:has(:disabled){ cursor:default; pointer-events:none; }
+@media (prefers-reduced-motion:reduce){ .cds-nvi{ transition:none; } }
+
+/* ==== components/nps-score/nps-score.css ==== */
+/* NPS Score · set 10100:848 — 320 × 72 · gap 4 · pad 24 0 · centralizado · Disabled Opacity/medium */
+cds-nps-score{ display:flex; align-items:center; justify-content:center; gap:var(--common-sizes-4); box-sizing:border-box; width:320px; max-width:100%; padding:var(--common-sizes-24) 0; background:var(--common-colors-surface-default); }
+cds-nps-score[disabled]{ opacity:var(--common-opacity-medium); }
+
+/* ==== components/popover/popover.css ==== */
+/* Popover · 2270:102 — Surface/default · raio large · Elevation/level 3 · pad 8 · Slot raio medium */
+cds-popover{
+  display:flex; box-sizing:border-box; min-width:220px; max-width:min(360px, calc(100vw - 16px));
+  padding:var(--common-sizes-8); border:0; border-radius:var(--common-border-radius-large);
+  background:var(--common-colors-surface-default); color:var(--common-colors-text-intense);
+  box-shadow:var(--common-elevation-level-3); overflow:visible;
+}
+cds-popover[popover]:not(:popover-open){ display:none; }
+cds-popover[popover]{ inset:auto; margin:0; }
+.cds-popover__slot{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; border-radius:var(--common-border-radius-medium); overflow:hidden; }
+
+/* ==== components/breadcrumb/breadcrumb.css ==== */
+/* Breadcrumb · set 6792:24 — 48 de altura, itens lado a lado sem gap; Popover (2270:102) com os níveis escondidos */
+cds-breadcrumb{ display:block; min-width:0; }
+.cds-bcr__list{ display:flex; align-items:center; flex-wrap:wrap; margin:0; padding:0; list-style:none; min-height:var(--common-sizes-48); }
+.cds-bcr__li{ display:flex; }
+.cds-bcr__li[hidden]{ display:none; }
+.cds-bcr__poplist{ display:flex; flex-direction:column; margin:0; padding:0; list-style:none; }
+.cds-bcr__poplist cds-breadcrumb-item{ height:auto; padding:0; }
+.cds-bcr__poplist .cds-bci__content{ width:100%; }
+
+/* ==== components/progress-line/progress-line.css ==== */
+/* =====================================================================
+   Progress Line · Progress Indicators · set 2322:4006
+   Trilho 6px Surface/01 pill · barra Surface/accent pill · largura fluida
+   Quem usa pode trocar as cores por token: --cds-progress-color (barra) e --cds-progress-track (trilho)
+   ===================================================================== */
+cds-progress-line{
+  display:block; width:100%; min-width:var(--common-sizes-40); height:var(--common-sizes-6);
+  border-radius:var(--common-border-radius-pill); background:var(--cds-progress-track, var(--common-colors-surface-01)); overflow:hidden;
+}
+cds-progress-line > .cds-pl__bar{
+  display:block; height:100%; width:var(--_pct, 0%);
+  border-radius:var(--common-border-radius-pill); background:var(--cds-progress-color, var(--common-colors-surface-accent));
+}
+
+/* ==== components/progress-tracker-item/progress-tracker-item.css ==== */
+/* Progress Tracker Item · set 14415:3778 — gap 16 · Marker 32 · Connector 2 · Text section pad 8 0 gap 8 */
+cds-progress-tracker-item{ display:flex; gap:var(--common-sizes-16); box-sizing:border-box; width:206px; max-width:100%; min-height:var(--common-sizes-64); } /* minHeight 64 no Figma (C71) */
+cds-progress-tracker-item [hidden]{ display:none !important; }
+.cds-pti__marker{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-8); flex:0 0 auto; }
+.cds-pti__mark{ --_bg:var(--common-colors-neutral-solid-semi-soft); box-sizing:border-box; display:grid; place-items:center; width:var(--common-sizes-32); height:var(--common-sizes-32); padding:var(--common-sizes-4);
+  border-radius:var(--common-border-radius-pill); background:var(--_bg); }
+.cds-pti__num{ font:var(--text-style-label-medium); color:var(--common-colors-text-intense); }
+.cds-pti__conn{ flex:1 1 auto; width:2px; min-height:var(--common-sizes-20); border-radius:var(--common-border-radius-pill); background:var(--common-colors-neutral-solid-semi-soft); }
+cds-progress-tracker-item[status="current"] .cds-pti__mark{ --_bg:var(--common-colors-surface-default); box-shadow:inset 0 0 0 var(--common-border-width-thin) var(--common-colors-accent-solid-medium); }
+cds-progress-tracker-item[status="completed"] .cds-pti__mark{ --_bg:var(--common-colors-surface-accent); }
+cds-progress-tracker-item[status="completed"] .cds-pti__conn{ background:var(--common-colors-surface-accent); }
+.cds-pti__text{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-8); padding:var(--common-sizes-8) 0; min-width:0; flex:1 1 auto; }
+.cds-pti__sr{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+.cds-pti__label{ font:var(--text-style-label-medium); color:var(--common-colors-text-intense); }
+.cds-pti__desc{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+/* Orientation=Horizontal — coluna gap 8 · 200 · Marker em linha (gap 8) com o Connector preenchendo · Description maxHeight 88 */
+cds-progress-tracker-item[orientation="horizontal"]{ flex-direction:column; gap:var(--common-sizes-8); width:200px; }
+cds-progress-tracker-item[orientation="horizontal"] .cds-pti__marker{ flex-direction:row; align-self:stretch; }
+cds-progress-tracker-item[orientation="horizontal"] .cds-pti__conn{ width:auto; height:var(--common-sizes-2); min-height:0; }
+cds-progress-tracker-item[orientation="horizontal"] .cds-pti__desc{ max-height:var(--common-sizes-88); overflow:hidden; }
+
+/* ==== components/progress-tracker/progress-tracker.css ==== */
+/* Progress Tracker · 14524:1024 — 200 · coluna gap 8 */
+cds-progress-tracker{ display:flex; flex-direction:column; gap:var(--common-sizes-8); width:200px; max-width:100%; }
+cds-progress-tracker > cds-progress-tracker-item{ width:100%; }
+/* Orientation=Horizontal (21470:2390) — Tracker em linha gap 8, largura acompanha o conteúdo · itens de 158 nas instâncias do Figma (C151) */
+cds-progress-tracker[orientation="horizontal"]{ flex-direction:row; align-items:flex-start; width:max-content; }
+cds-progress-tracker[orientation="horizontal"] > cds-progress-tracker-item{ width:158px; }
+
+/* ==== components/selection-control/selection-control.css ==== */
+/* =====================================================================
+   Base da família Selection Controls (Checkbox · Radio Button · Switch) — interno
+   Linha 48 de altura: Selector 48×48 (alvo de toque, raio pill) + Label/Regular Text/intense
+   Disabled: Opacity/light · Motion: Hover e Press 150ms systemic-accelerate (Switch: 300ms)
+   ===================================================================== */
+.cds-sc{
+  --_sel-bg:transparent; --_dur:var(--common-motion-duration-short-03); --_ease:var(--common-motion-easing-systemic-accelerate);
+  display:inline-flex; align-items:center; min-height:var(--common-sizes-48); cursor:pointer;
+  font:var(--text-style-label-regular); color:var(--common-colors-text-intense);
+  -webkit-tap-highlight-color:transparent;
+}
+.cds-sc__selector{
+  position:relative; flex:0 0 auto; display:grid; place-items:center;
+  width:var(--common-sizes-48); height:var(--common-sizes-48);
+  border-radius:var(--common-border-radius-pill); background:var(--_sel-bg);
+  transition:background-color var(--_dur) var(--_ease);
+}
+/* input nativo cobre o selector: teclado, foco e leitor de tela de graça */
+.cds-sc__input{ position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; cursor:inherit; }
+.cds-sc__box{
+  --_bg:transparent; --_bd:var(--common-colors-border-medium);
+  display:grid; place-items:center; width:var(--common-sizes-24); height:var(--common-sizes-24);
+  background:var(--_bg); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--_bd);
+  transition:background-color var(--_dur) var(--_ease), box-shadow var(--_dur) var(--_ease);
+  pointer-events:none;
+}
+/* Foco visível (padrão global do Castanha ainda não especificado em token — 🟡 ver roadmap) */
+.cds-sc__input:focus-visible ~ .cds-sc__box{ outline:2px solid var(--common-colors-support-system); outline-offset:2px; }
+
+[disabled] > .cds-sc{ opacity:var(--common-opacity-light); pointer-events:none; }
+[show-text-label="false"] .cds-sc__label{ display:none; }
+@media (prefers-reduced-motion:reduce){ .cds-sc, .cds-sc *{ transition:none !important; } }
+
+/* ==== components/checkbox/checkbox.css ==== */
+/* =====================================================================
+   Checkbox · Selection Controls · set 4123:2560 — base em selection-control.css
+   Box 24 · raio extra-small · stroke hairline INSIDE · glifo 16 Icons/inversed
+   ===================================================================== */
+cds-checkbox{ display:inline-flex; }
+cds-checkbox .cds-sc__box{ border-radius:var(--common-border-radius-extra-small); }
+cds-checkbox .cds-sc__glyph{ width:var(--common-sizes-16); height:var(--common-sizes-16); --_icon-color:var(--common-colors-icons-inversed); display:none; }
+
+/* Unselected */
+cds-checkbox .cds-sc:hover, cds-checkbox[state="hovered"] .cds-sc{ --_sel-bg:var(--common-colors-surface-01); }
+cds-checkbox .cds-sc:hover .cds-sc__box, cds-checkbox[state="hovered"] .cds-sc .cds-sc__box{ --_bd:var(--common-colors-border-semi-intense); }
+cds-checkbox .cds-sc:active, cds-checkbox[state="pressed"] .cds-sc{ --_sel-bg:var(--common-colors-accent-solid-soft); }
+cds-checkbox .cds-sc:active .cds-sc__box, cds-checkbox[state="pressed"] .cds-sc .cds-sc__box{ --_bd:var(--common-colors-accent-solid-medium); }
+
+/* Selected · Indeterminate — fundo accent; stroke só no Enabled/Disabled (some no Hovered/Pressed) */
+cds-checkbox:is([status="selected"],[status="indeterminate"]) .cds-sc__box{ --_bg:var(--common-colors-surface-accent); --_bd:var(--common-colors-accent-solid-medium); }
+cds-checkbox:is([status="selected"],[status="indeterminate"]) .cds-sc:is(:hover,:active) .cds-sc__box, cds-checkbox:is([status="selected"],[status="indeterminate"]):is([state="hovered"],[state="pressed"]) .cds-sc .cds-sc__box{ --_bd:transparent; }
+cds-checkbox[status="selected"] .cds-sc__glyph--check,
+cds-checkbox[status="indeterminate"] .cds-sc__glyph--indeterminate{ display:block; }
+
+/* ==== components/radio-button/radio-button.css ==== */
+/* =====================================================================
+   Radio Button · Selection Controls · set 4429:10437 — base em selection-control.css
+   Box 24 pill · selecionado: Surface/accent + ponto 8 Icons/inversed
+   🟡 Hover desmarcado usa Accent/Solid/medium (Checkbox usa Border/semi-intense) — como no Figma
+   ===================================================================== */
+cds-radio-button{ display:inline-flex; }
+cds-radio-button .cds-sc__box{ border-radius:var(--common-border-radius-pill); }
+cds-radio-button .cds-rb__dot{ width:var(--common-sizes-8); height:var(--common-sizes-8); border-radius:var(--common-border-radius-pill); background:var(--common-colors-icons-inversed); display:none; }
+
+cds-radio-button .cds-sc:hover, cds-radio-button[state="hovered"] .cds-sc{ --_sel-bg:var(--common-colors-surface-01); }
+cds-radio-button .cds-sc:is(:hover,:active) .cds-sc__box, cds-radio-button:is([state="hovered"],[state="pressed"]) .cds-sc .cds-sc__box{ --_bd:var(--common-colors-accent-solid-medium); }
+cds-radio-button .cds-sc:active, cds-radio-button[state="pressed"] .cds-sc{ --_sel-bg:var(--common-colors-accent-solid-soft); }
+
+cds-radio-button[status="selected"] .cds-sc__box,
+cds-radio-button[status="selected"] .cds-sc:is(:hover,:active) .cds-sc__box, cds-radio-button[status="selected"]:is([state="hovered"],[state="pressed"]) .cds-sc .cds-sc__box{ --_bg:var(--common-colors-surface-accent); --_bd:transparent; }
+cds-radio-button[status="selected"] .cds-rb__dot{ display:block; }
+
+/* ==== components/shaped-icon/shaped-icon.css ==== */
+/* =====================================================================
+   Shaped Icon · Images · set 2272:146
+   Size: Smallest 32/r8/ícone16 · Small 40/r12/16 · Medium 48/r16/20 · Large 56/r16/24
+   ===================================================================== */
+cds-shaped-icon{
+  --_size:var(--common-sizes-32); --_radius:var(--common-border-radius-extra-small);
+  --_bg:var(--common-colors-surface-01);
+  display:inline-grid; place-items:center; flex:0 0 auto;
+  width:var(--_size); height:var(--_size); border-radius:var(--_radius);
+  background:var(--cds-shaped-bg, var(--_bg)); /* override de instância pelo pai (como --cds-icon-color) */
+}
+cds-shaped-icon[size="small"]{ --_size:var(--common-sizes-40); --_radius:var(--common-border-radius-small); }
+cds-shaped-icon[size="medium"]{ --_size:var(--common-sizes-48); --_radius:var(--common-border-radius-medium); }
+cds-shaped-icon[size="large"]{ --_size:var(--common-sizes-56); --_radius:var(--common-border-radius-medium); }
+
+cds-shaped-icon[appearance="inversed"]{ --_bg:var(--common-colors-surface-default); }
+cds-shaped-icon[appearance="accent"]{ --_bg:var(--common-colors-accent-solid-soft); }
+cds-shaped-icon[appearance="positive"]{ --_bg:var(--common-colors-feedback-positive-soft); }
+cds-shaped-icon[appearance="warning"]{ --_bg:var(--common-colors-feedback-warning-soft); }
+cds-shaped-icon[appearance="negative"]{ --_bg:var(--common-colors-feedback-negative-soft); }
+cds-shaped-icon[appearance="informative"]{ --_bg:var(--common-colors-feedback-informative-soft); }
+
+/* ==== components/alert/alert.css ==== */
+/* Alert · set 11864:12559 — Feedback/<Appearance>/soft · raio medium · pad 16 · gap 8
+   Shaped Icon Small (Feedback/<Appearance>/semi-soft) · Label Caption/Bold + mensagem Caption/Regular em
+   Feedback/<Appearance>/intense · gap 2 · .Close Alert */
+cds-alert, cds-system-banner{
+  --_bg:var(--common-colors-feedback-positive-soft); --_fg:var(--common-colors-feedback-positive-intense);
+  --cds-shaped-bg:var(--common-colors-feedback-positive-semi-soft); /* instância do Figma: semi-soft, não o soft do Shaped Icon */
+  display:flex; align-items:center; gap:var(--common-sizes-8);
+  padding:var(--common-sizes-16); border-radius:var(--common-border-radius-medium);
+  background:var(--_bg); color:var(--_fg);
+}
+cds-alert [hidden], cds-system-banner [hidden]{ display:none !important; }
+cds-alert[appearance="warning"], cds-system-banner[appearance="warning"]{ --_bg:var(--common-colors-feedback-warning-soft); --_fg:var(--common-colors-feedback-warning-intense); --cds-shaped-bg:var(--common-colors-feedback-warning-semi-soft); }
+cds-alert[appearance="informative"], cds-system-banner[appearance="informative"]{ --_bg:var(--common-colors-feedback-informative-soft); --_fg:var(--common-colors-feedback-informative-intense); --cds-shaped-bg:var(--common-colors-feedback-informative-semi-soft); }
+.cds-alert__text{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:var(--common-sizes-2); }
+.cds-alert__label{ margin:0; font:var(--text-style-caption-bold); }
+.cds-alert__msg{ margin:0; font:var(--text-style-caption-regular); }
+.cds-alert__msg a{ color:inherit; text-decoration:underline; text-underline-offset:2px; }
+.cds-alert__msg b, .cds-alert__msg strong{ font-weight:700; }
+
+/* ==== components/confirmation-message/confirmation-message.css ==== */
+/* Confirmation Message · set 16359:1803 — 320 · pad 24 20 · gap 24 · centralizado · texto gap 8 */
+cds-confirmation-message{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-24); width:320px; max-width:100%; padding:var(--common-sizes-24) var(--common-sizes-20); text-align:center; }
+.cds-cm__text{ display:flex; flex-direction:column; gap:var(--common-sizes-8); align-self:stretch; }
+.cds-cm__title{ margin:0; font:var(--text-style-title-medium); color:var(--common-colors-text-intense); }
+.cds-cm__desc{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+
+/* ==== components/file-lead-item/file-lead-item.css ==== */
+/* .Lead item (File) · set 15207:13262 — 48 · raio medium · overlay Surface/inversed: Hovered Opacity/intense · Pressed semi-opaque */
+cds-file-lead-item{ display:inline-flex; flex:0 0 auto; }
+.cds-fli{ position:relative; display:grid; place-items:center; width:var(--common-sizes-48); height:var(--common-sizes-48); margin:0; padding:0; border:0; background:none;
+  border-radius:var(--common-border-radius-medium); overflow:hidden; }
+button.cds-fli{ cursor:pointer; }
+button.cds-fli:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:2px; } /* C23 */
+.cds-fli > *{ grid-area:1 / 1; }
+.cds-fli__img{ width:100%; height:100%; }
+.cds-fli__overlay{ width:100%; height:100%; background:var(--common-colors-surface-inversed); opacity:0; transition:opacity var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate); }
+.cds-fli__icon{ opacity:0; z-index:1; }
+button.cds-fli:hover .cds-fli__overlay, [state="hovered"] > .cds-fli .cds-fli__overlay{ opacity:var(--common-opacity-intense); }
+button.cds-fli:active .cds-fli__overlay, [state="pressed"] > .cds-fli .cds-fli__overlay{ opacity:var(--common-opacity-semi-opaque); }
+button.cds-fli:hover .cds-fli__icon, button.cds-fli:active .cds-fli__icon, [state] > .cds-fli .cds-fli__icon{ opacity:1; }
+/* Appearance=File: no hover o Shaped Icon some, fica só o overlay com o ícone (como no Figma) */
+button.cds-fli:hover .cds-fli__file, button.cds-fli:active .cds-fli__file, [state] > .cds-fli .cds-fli__file{ visibility:hidden; }
+@media (prefers-reduced-motion:reduce){ .cds-fli__overlay{ transition:none; } }
+
+/* ==== components/lead-item/lead-item.css ==== */
+/* .Lead item · set 15621:66 — 40×40 */
+cds-lead-item{ display:inline-flex; flex:0 0 auto; width:var(--common-sizes-40); height:var(--common-sizes-40); }
+cds-lead-item > cds-image{ width:100%; height:100%; }
+
+/* ==== components/skeleton/skeleton.css ==== */
+/* Skeleton · set 20967:742 — Shape com gradiente horizontal Neutral/Solid/semi-soft → Surface/default → semi-soft
+   Round: elipse, 80 × 80 de amostra · Square: raio Border/Radius/medium, largura do pai × Sizes/160 de amostra
+   Brilho (shimmer) como no Skeleton do castanha-react (decisão do Gustavo, C181: o Figma é estático): o gradiente em 200% de
+   largura anda de 150% a -50% em 700ms (Duration/Extra Long/01) com Easing/Systemic/decelerate e pausa 500ms (Duration/Long/02),
+   ciclo de 1200ms em loop. Com prefers-reduced-motion: sem animação, brilho parado no centro (como o React). */
+@keyframes cds-skeleton-shimmer{
+  0%{ background-position:150% 0; animation-timing-function:var(--common-motion-easing-systemic-decelerate); } /* curva só no deslocamento */
+  58.333%, 100%{ background-position:-50% 0; } /* 700 de 1200ms; o resto é a pausa */
+}
+cds-skeleton{
+  display:block; flex:none; box-sizing:border-box;
+  width:var(--_w, var(--common-sizes-80)); height:var(--_h, var(--common-sizes-80));
+  border-radius:50%;
+  background-color:var(--common-colors-neutral-solid-semi-soft);
+  background-image:linear-gradient(to right, var(--common-colors-neutral-solid-semi-soft), var(--common-colors-surface-default) 50%, var(--common-colors-neutral-solid-semi-soft));
+  background-repeat:no-repeat; background-size:200% 100%;
+  animation:cds-skeleton-shimmer calc(var(--common-motion-duration-extra-long-01) + var(--common-motion-duration-long-02)) linear infinite both;
+}
+cds-skeleton[data-kind="square"]{ width:var(--_w, 100%); height:var(--_h, var(--common-sizes-160)); border-radius:var(--common-border-radius-medium); }
+@media (prefers-reduced-motion: reduce){ cds-skeleton{ animation:none; background-position:50% 0; } }
+
+/* ==== components/slider/slider.css ==== */
+/* Slider · set 20056:11908 — 320 × 44 · trilha 8 pill · thumb 24 · Stops 4 (y 20) · bolha 24 acima do thumb */
+cds-slider{ --_dot:var(--common-colors-icons-inversed); --_knob:var(--common-colors-surface-accent); --_bubble:var(--common-colors-neutral-solid-semi-intense);
+  position:relative; display:block; box-sizing:border-box; width:320px; max-width:100%; height:var(--common-sizes-44); touch-action:none; -webkit-user-select:none; user-select:none; }
+cds-slider [hidden]{ display:none !important; }
+cds-slider[disabled]{ opacity:var(--common-opacity-medium); }
+.cds-sl__track{ position:absolute; left:0; right:0; top:50%; height:var(--common-sizes-8); margin-top:calc(-1 * var(--common-sizes-4)); border-radius:var(--common-border-radius-pill); background:var(--common-colors-surface-01); overflow:hidden; }
+.cds-sl__fill{ position:absolute; top:0; bottom:0; background:var(--common-colors-surface-accent); }
+.cds-sl__stops{ position:absolute; left:0; right:0; top:50%; margin-top:calc(-1 * var(--common-sizes-2)); display:flex; justify-content:space-between; padding:0 var(--common-sizes-4); pointer-events:none; }
+.cds-sl__stop{ width:var(--common-sizes-4); height:var(--common-sizes-4); border-radius:var(--common-border-radius-pill); background:var(--common-colors-neutral-opacity-intense-medium); }
+.cds-sl__hit{ position:absolute; left:0; right:0; top:0; bottom:0; cursor:pointer; }
+cds-slider[disabled] .cds-sl__hit{ cursor:default; }
+/* Thumb: 24×24 (alvo de toque WCAG 2.5.8) */
+.cds-sl__thumb{ position:absolute; top:50%; z-index:1; display:grid; place-items:center; width:var(--common-sizes-24); height:var(--common-sizes-24); margin:calc(-1 * var(--common-sizes-12)) 0 0 calc(-1 * var(--common-sizes-12));
+  border-radius:var(--common-border-radius-pill); background:var(--_knob); cursor:grab; outline:none;
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate); }
+.cds-sl__thumb:focus-visible{ box-shadow:0 0 0 2px var(--common-colors-surface-default), 0 0 0 4px var(--common-colors-support-system); } /* C23 */
+.cds-sl__dot{ grid-area:1/1; width:var(--common-sizes-8); height:var(--common-sizes-8); border-radius:var(--common-border-radius-pill); background:var(--_dot); }
+.cds-sl__bubble{ position:absolute; bottom:calc(100% + var(--common-sizes-4)); left:50%; transform:translateX(-50%); min-width:var(--common-sizes-24); height:var(--common-sizes-24); box-sizing:border-box;
+  display:flex; align-items:center; justify-content:center; padding:0 var(--common-sizes-4); border-radius:var(--common-border-radius-extra-small);
+  background:var(--_bubble); color:var(--common-colors-text-inversed); font:var(--text-style-caption-medium); white-space:nowrap; font-variant-numeric:tabular-nums; }
+/* Hovered */
+.cds-sl__thumb:hover, cds-slider[state="hovered"] .cds-sl__thumb{ --_dot:var(--common-colors-icons-accent); --_bubble:var(--common-colors-neutral-solid-intense); }
+/* Pressed */
+.cds-sl__thumb:active, cds-slider[state="pressed"] .cds-sl__thumb{ --_knob:var(--common-colors-accent-solid-medium); --_dot:var(--common-colors-accent-solid-semi-intense); --_bubble:var(--common-colors-surface-accent); }
+/* Dragged */
+.cds-sl__thumb.is-dragging, cds-slider[state="dragged"] .cds-sl__thumb{ --_knob:var(--common-colors-surface-accent); --_dot:var(--common-colors-accent-solid-semi-intense); --_bubble:var(--common-colors-surface-accent); cursor:grabbing; }
+cds-slider[disabled] .cds-sl__thumb{ --_knob:var(--common-colors-surface-accent); --_dot:var(--common-colors-icons-inversed); --_bubble:var(--common-colors-neutral-solid-semi-intense); cursor:default; pointer-events:none; }
+@media (prefers-reduced-motion:reduce){ .cds-sl__thumb{ transition:none; } }
+
+/* ==== components/spinner/spinner.css ==== */
+/* =====================================================================
+   Spinner · Loaders · set 4333:3181
+   Anel (track) + arco de 90° com cap round; espessura = tamanho/9
+   Motion: 4 posições (0→90→180→270), cada uma 200ms ease-out (AFTER_TIMEOUT ~0)
+   ===================================================================== */
+cds-spinner{
+  --_size:var(--common-sizes-16);
+  --_track:var(--common-colors-surface-02); --_arc:var(--common-colors-icons-medium);
+  display:inline-block; flex:0 0 auto; width:var(--_size); height:var(--_size);
+}
+cds-spinner[size="medium"]{ --_size:var(--common-sizes-24); }
+cds-spinner[size="large"]{ --_size:var(--common-sizes-32); }
+cds-spinner[appearance="accent"]{ --_track:var(--common-colors-accent-solid-soft); --_arc:var(--common-colors-icons-accent); }
+cds-spinner[appearance="inversed"]{ --_track:var(--common-colors-surface-inversed); --_arc:var(--common-colors-icons-inversed); }
+/* No Figma, o Track do Inversed tem a camada a 16% (Common/Opacity/semi-transparent), na main e na branch (09/10) */
+cds-spinner[appearance="inversed"] .cds-spin__track{ opacity:var(--common-opacity-semi-transparent); }
+
+cds-spinner > svg{ display:block; width:100%; height:100%; animation:cds-spin calc(var(--common-motion-duration-short-04) * 4) infinite; /* 4 passos × 200ms */ }
+cds-spinner .cds-spin__track{ stroke:var(--_track); }
+cds-spinner .cds-spin__arc{ stroke:var(--_arc); }
+@keyframes cds-spin{
+  0%  { transform:rotate(0deg);   animation-timing-function:ease-out; }
+  25% { transform:rotate(90deg);  animation-timing-function:ease-out; }
+  50% { transform:rotate(180deg); animation-timing-function:ease-out; }
+  75% { transform:rotate(270deg); animation-timing-function:ease-out; }
+  100%{ transform:rotate(360deg); }
+}
+@media (prefers-reduced-motion:reduce){ cds-spinner > svg{ animation-duration:2400ms; } }
+
+/* ==== components/main-button/main-button.css ==== */
+/* =====================================================================
+   Main Button · Buttons · set 4464:427   (base .cds-btn também usada pelo Drop Button)
+   Medium: 48 · raio medium · Label/Medium (Pressed: Label/Bold)
+   Small:  40 · raio small  · Caption/Medium (Pressed: Caption/Bold)
+   padding 0 20 · gap 8 · ícones 20 · Disabled Opacity/light
+   Motion (reactions): Hover e Press var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate)
+   state="hovered|pressed" força o estado (specimen da doc), como no Tab Item
+   Viewport (Specific/Buttons/Main Button/Width/min-width): Desktop 136 · Tablet 220 · Mobile 328
+   ===================================================================== */
+cds-main-button, cds-drop-button{ display:inline-flex; flex:0 0 auto; max-width:100%; }
+cds-main-button > .cds-btn{ --_min-w:136px; }
+.cds-btn{
+  --_bg:var(--common-colors-accent-solid-medium); --_fg:var(--common-colors-support-lighter); --_bd:transparent;
+  --_font:var(--text-style-label-medium); --_font-pressed:var(--text-style-label-bold);
+  display:inline-flex; align-items:center; justify-content:center; gap:var(--common-sizes-8);
+  height:var(--common-sizes-48); min-width:var(--_min-w, 0px); max-width:100%; padding:0 var(--common-sizes-20); margin:0; border:0; cursor:pointer;
+  border-radius:var(--common-border-radius-medium);
+  background:var(--_bg); color:var(--_fg); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--_bd);
+  font:var(--_font); white-space:nowrap;
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+}
+.cds-btn{ --cds-icon-color:var(--_fg); } /* override do Icon aninhado */
+.cds-btn:active, [state="pressed"] > .cds-btn{ font:var(--_font-pressed); }
+[size="small"] > .cds-btn{ height:var(--common-sizes-40); border-radius:var(--common-border-radius-small); --_font:var(--text-style-caption-medium); --_font-pressed:var(--text-style-caption-bold); }
+
+/* Viewport → largura mínima */
+[data-viewport="tablet"] cds-main-button > .cds-btn{ --_min-w:220px; }
+[data-viewport="mobile"] cds-main-button > .cds-btn{ --_min-w:328px; }
+
+/* Default · Accent */
+.cds-btn:hover, [state="hovered"] > .cds-btn{ --_bg:var(--common-colors-accent-solid-semi-intense); }
+.cds-btn:active, [state="pressed"] > .cds-btn{ --_bg:var(--common-colors-accent-solid-medium); }
+/* Ghost · Accent */
+[kind="ghost"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-text-accent); }
+[kind="ghost"] > .cds-btn:hover, [kind="ghost"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); }
+[kind="ghost"] > .cds-btn:active, [kind="ghost"][state="pressed"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-text-accent); --_bd:var(--common-colors-accent-solid-medium); }
+/* Default · Neutral */
+[appearance="neutral"] > .cds-btn{ --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-text-intense); }
+[appearance="neutral"] > .cds-btn:hover, [appearance="neutral"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-medium); }
+[appearance="neutral"] > .cds-btn:active, [appearance="neutral"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-surface-01); }
+/* Default · Inversed */
+[appearance="inversed"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-text-intense); }
+[appearance="inversed"] > .cds-btn:hover, [appearance="inversed"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-intense); --_fg:var(--common-colors-support-lighter); }
+[appearance="inversed"] > .cds-btn:active, [appearance="inversed"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-text-intense); }
+/* Ghost · Neutral */
+[kind="ghost"][appearance="neutral"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-text-intense); --_bd:transparent; }
+[kind="ghost"][appearance="neutral"] > .cds-btn:hover, [kind="ghost"][appearance="neutral"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
+[kind="ghost"][appearance="neutral"] > .cds-btn:active, [kind="ghost"][appearance="neutral"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-surface-01); }
+/* Ghost · Inversed */
+[kind="ghost"][appearance="inversed"] > .cds-btn{ --_bg:transparent; --_fg:var(--common-colors-support-lighter); --_bd:transparent; }
+[kind="ghost"][appearance="inversed"] > .cds-btn:hover, [kind="ghost"][appearance="inversed"][state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); --_fg:var(--common-colors-support-lighter); }
+[kind="ghost"][appearance="inversed"] > .cds-btn:active, [kind="ghost"][appearance="inversed"][state="pressed"] > .cds-btn{ --_bg:var(--common-colors-neutral-opacity-intense-light); --_fg:var(--common-colors-support-lighter); }
+
+/* Loading (Is Loading, branch CDS-1603): conteúdo invisível segura a largura, Spinner no centro; sem hover, pressed nem clique */
+cds-main-button[loading]{ pointer-events:none; }
+cds-main-button[loading] > .cds-btn{ position:relative; }
+cds-main-button[loading] > .cds-btn > :not(.cds-btn__spinner){ visibility:hidden; }
+cds-main-button[loading] > .cds-btn > .cds-btn__spinner{ position:absolute; inset:0; margin:auto; }
+
+/* Disabled — Opacity/light; Ghost Inversed troca o texto para Text/intense (🟡 ver roadmap) */
+cds-main-button[disabled], cds-drop-button[disabled]{ opacity:var(--common-opacity-light); pointer-events:none; }
+[disabled][kind="ghost"][appearance="inversed"] > .cds-btn{ --_fg:var(--common-colors-text-intense); }
+@media (prefers-reduced-motion:reduce){ .cds-btn{ transition:none; } }
+
+/* ==== components/date-navigation/date-navigation.css ==== */
+/* .Navigation Control (Datepicker) · 17465:384 — SPACE_BETWEEN · 40 · Surface/default */
+cds-date-navigation{ display:flex; align-items:center; justify-content:space-between; width:280px; max-width:100%; min-height:var(--common-sizes-40); background:var(--common-colors-surface-default); }
+cds-date-navigation [hidden]{ display:none !important; }
+
+/* ==== components/date-picker/date-picker.css ==== */
+/* Date Picker · set 17629:24427 — Single 320 / Double 620 · pad 0 20 · gap 8 · Surface/default
+   Calendário: cabeçalho 40 (Label/Medium Text/medium) + gap 8 + semanas (gap 8, pb 8) · dois meses com gap 20
+   Month/Year: Main Buttons Medium 280 × 48 (gap 4) em 288 com rolagem · Selected Date: Caption/Medium + Body/Medium */
+cds-date-picker{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-8); box-sizing:border-box;
+  width:320px; max-width:100%; padding:0 var(--common-sizes-20); background:var(--common-colors-surface-default); color:var(--common-colors-text-intense); }
+cds-date-picker[kind="double"]{ width:620px; }
+cds-date-picker [hidden]{ display:none !important; }
+cds-date-picker .cds-dp__nav{ width:100%; }
+cds-date-picker[kind="double"] .cds-dn__btn{ flex:1 1 0; } /* 167 cada no Figma */
+cds-date-picker[kind="double"] .cds-dn__btn .cds-btn{ width:100%; }
+.cds-dp__body{ width:100%; display:flex; justify-content:center; }
+.cds-dp__months{ display:flex; gap:var(--common-sizes-20); }
+.cds-dp__calendar{ display:flex; flex-direction:column; gap:var(--common-sizes-8); width:280px; }
+.cds-dp__weekdays{ display:flex; }
+.cds-dp__weekday{ display:flex; align-items:center; justify-content:center; width:var(--common-sizes-40); height:var(--common-sizes-40); font:var(--text-style-label-medium); color:var(--common-colors-text-medium); }
+.cds-dp__weeks{ display:flex; flex-direction:column; gap:var(--common-sizes-8); padding-bottom:var(--common-sizes-8); }
+.cds-dp__list{ display:flex; flex-direction:column; gap:var(--common-sizes-4); width:100%; height:288px; overflow-y:auto; overscroll-behavior:contain; }
+.cds-dp__item{ display:flex; flex:0 0 auto; }
+.cds-dp__item .cds-btn{ width:100%; }
+.cds-dp__selected{ display:flex; flex-direction:column; gap:var(--common-sizes-4); width:100%; }
+.cds-dp__sel-label{ display:flex; align-items:center; min-height:var(--common-sizes-24); font:var(--text-style-caption-medium); color:var(--common-colors-text-intense); }
+.cds-dp__sel-dates{ display:flex; gap:var(--common-sizes-4); min-height:var(--common-sizes-24); }
+.cds-dp__sel-date, .cds-dp__sel-last span{ font:var(--text-style-body-medium); color:var(--common-colors-text-intense); }
+.cds-dp__sel-last{ display:flex; gap:var(--common-sizes-8); }
+
+/* ==== components/drop-button/drop-button.css ==== */
+/* =====================================================================
+   Drop Button · Buttons · set 6955:6985 — herda .cds-btn (main-button.css)
+   Diferenças do Figma em relação ao Main Button:
+   · Default Neutral Hovered: Neutral/Opacity/Intense/semi-transparent (Main: Neutral/Solid/medium)
+   · Ghost Neutral Pressed: sem fundo (Main: Surface/01)
+   · Default Inversed Pressed: sem fundo, padding 0, raio 0 — variante quebrada no Figma, replicada (CONFERIR.md)
+   · Trailing: dropdown-open-line ↔ dropdown-close-line (Is Active)
+   ===================================================================== */
+cds-drop-button[appearance="neutral"]:not([kind="ghost"]) > .cds-btn:hover, cds-drop-button[appearance="neutral"]:not([kind="ghost"])[state="hovered"] > .cds-btn{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); }
+cds-drop-button[kind="ghost"][appearance="neutral"] > .cds-btn:active, cds-drop-button[kind="ghost"][appearance="neutral"][state="pressed"] > .cds-btn{ --_bg:transparent; }
+cds-drop-button[appearance="inversed"]:not([kind="ghost"]) > .cds-btn:active, cds-drop-button[appearance="inversed"]:not([kind="ghost"])[state="pressed"] > .cds-btn{ --_bg:transparent; padding:var(--common-sizes-0); border-radius:var(--common-border-radius-none); }
+
+/* ==== components/dropzone/dropzone.css ==== */
+/* Dropzone · set 15386:7230 — 320 · contorno 1px tracejado INSIDE (dash 4 4 no Figma; o CSS usa dashed, C65) · raio medium · Surface/default
+   Desktop 165: coluna pad 12 20 gap 16 · Mobile 80: linha pad 16 gap 12 */
+cds-dropzone{ display:block; width:320px; max-width:100%; }
+cds-dropzone [hidden]{ display:none !important; }
+.cds-dz{
+  --_bg:var(--common-colors-surface-default); --_bd:var(--common-colors-border-medium); --_bw:var(--common-border-width-hairline);
+  box-sizing:border-box; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--common-sizes-16);
+  min-height:165px; padding:var(--common-sizes-12) var(--common-sizes-20); border-radius:var(--common-border-radius-medium); background:var(--_bg); text-align:center;
+  outline:var(--_bw) dashed var(--_bd); outline-offset:calc(-1 * var(--_bw)); /* stroke INSIDE tracejado */
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), outline-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+}
+.cds-dz__body{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-8); min-width:0; }
+.cds-dz__texts{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+.cds-dz__title{ font:var(--text-style-label-regular); color:var(--common-colors-text-intense); }
+.cds-dz__desc{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+.cds-dz__input{ position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; }
+/* Mobile (tablet e mobile) */
+cds-dropzone[data-mode="mobile"] .cds-dz{ --_bd:var(--common-colors-border-semi-intense); flex-direction:row; justify-content:flex-start; gap:var(--common-sizes-12); min-height:var(--common-sizes-80); padding:var(--common-sizes-16); text-align:left; cursor:pointer; }
+cds-dropzone[data-mode="mobile"] .cds-dz__texts{ gap:var(--common-sizes-4); }
+cds-dropzone[data-mode="mobile"] .cds-dz__body{ align-items:flex-start; }
+cds-dropzone[data-mode="mobile"] .cds-dz__title{ font:var(--text-style-label-medium); }
+cds-dropzone[data-mode="mobile"] .cds-dz:hover, cds-dropzone[data-mode="mobile"][state="hovered"] .cds-dz{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
+cds-dropzone[data-mode="mobile"] .cds-dz:active, cds-dropzone[data-mode="mobile"][state="pressed"] .cds-dz{ --_bw:var(--common-border-width-thin); }
+cds-dropzone[data-mode="mobile"] .cds-dz:active .cds-dz__desc, cds-dropzone[data-mode="mobile"][state="pressed"] .cds-dz__desc{ font:var(--text-style-caption-medium); }
+cds-dropzone[data-mode="mobile"] .cds-dz:focus-visible{ --_bd:var(--common-colors-support-system); --_bw:2px; } /* foco no próprio contorno (C23) */
+/* Dragover */
+cds-dropzone.is-dragover .cds-dz, cds-dropzone[state="dragover"] .cds-dz{ --_bg:var(--common-colors-accent-solid-soft); --_bd:var(--common-colors-accent-solid-medium); }
+/* Disabled: no Figma só a borda muda (Border/semi-intense), sem opacidade (C65) */
+cds-dropzone[disabled] .cds-dz{ --_bd:var(--common-colors-border-semi-intense); cursor:default; }
+@media (prefers-reduced-motion:reduce){ .cds-dz{ transition:none; } }
+
+/* ==== components/footer/footer.css ==== */
+/* .Footer · set 16359:1792 — Divider + Actions pad 20 · gap 8 · Horizontal: botões no tamanho do conteúdo · Pilled: coluna, largura total */
+cds-footer, cds-fixed-bar{ display:flex; flex-direction:column; background:var(--common-colors-surface-default); }
+cds-footer [hidden], cds-fixed-bar [hidden]{ display:none !important; }
+.cds-footer__actions{ display:flex; gap:var(--common-sizes-8); padding:var(--common-sizes-20); }
+cds-footer[kind="pilled"] .cds-footer__actions, cds-fixed-bar[kind="pilled"] .cds-footer__actions{ flex-direction:column; }
+cds-footer[kind="pilled"] .cds-footer__actions > cds-main-button, cds-fixed-bar[kind="pilled"] .cds-footer__actions > cds-main-button{ display:flex; }
+cds-footer[kind="pilled"] .cds-footer__actions .cds-btn, cds-fixed-bar[kind="pilled"] .cds-footer__actions .cds-btn{ width:100%; min-width:0; } /* Pilled = Fill: o min-width do Main Button por viewport (Mobile 328) não cabe no padding 20 do .Footer (C193) */
+
+/* ==== components/fixed-bar/fixed-bar.css ==== */
+/* [Beta] Fixed Bar · 24037:2929 — o visual vem do footer.css; fixed = ancorada no fim da viewport */
+cds-fixed-bar[fixed]{ position:fixed; left:0; right:0; bottom:0; z-index:10; }
+
+/* ==== components/sponsor-category/sponsor-category.css ==== */
+/* =====================================================================
+   .Category · [CastanhaDS] Sponsor Templates (5576:27) — 224×40 · Reduced 40×40
+   Motion: Hover In/01 no hover e Pressed/01 no press (padrão /01 das docs)
+   ===================================================================== */
+cds-sponsor-category{ display:block; box-sizing:border-box; width:var(--cds-sponsor-category-width, 224px); max-width:100%; }
+cds-sponsor-category[kind="reduced"]{ width:var(--common-sizes-40); }
+cds-sponsor-category [hidden]{ display:none !important; }
+.cds-spc__row{
+  --_bg:var(--common-colors-surface-01);
+  box-sizing:border-box; display:flex; align-items:center; gap:var(--common-sizes-4); min-height:var(--common-sizes-40);
+  padding:var(--common-sizes-4) var(--common-sizes-8) var(--common-sizes-4) var(--common-sizes-4);
+  border-radius:var(--common-border-radius-small); background:var(--_bg); color:var(--common-colors-text-intense);
+  text-decoration:none; cursor:pointer; -webkit-tap-highlight-color:transparent;
+  transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing);
+}
+cds-sponsor-category[kind="reduced"] .cds-spc__row{ padding:var(--common-sizes-4); border-radius:var(--common-border-radius-extra-small); }
+.cds-spc__row:hover, cds-sponsor-category[state="hovered"] .cds-spc__row{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); }
+.cds-spc__row:active, cds-sponsor-category[state="pressed"] .cds-spc__row{ --_bg:var(--common-colors-surface-default); transition-duration:var(--motion-pressed-01-timing); transition-timing-function:var(--motion-pressed-01-easing); }
+.cds-spc__row:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:-2px; }
+cds-sponsor-category[disabled] .cds-spc__row{ opacity:0.4; color:var(--common-colors-text-medium); cursor:default; --_bg:var(--common-colors-surface-01); }
+.cds-spc__lead{
+  flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; width:var(--common-sizes-32); height:var(--common-sizes-32);
+  border-radius:var(--common-border-radius-extra-small);
+  transition:background-color var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing);
+}
+cds-sponsor-category[selected] .cds-spc__lead, cds-sponsor-category[intent="accordion"][expanded] .cds-spc__lead{ background:var(--common-colors-surface-accent); } /* aberto = Is Selected=True no Figma */
+.cds-spc__label{ flex:1 1 auto; min-width:0; font:var(--text-style-label-medium); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+cds-sponsor-category[kind="reduced"] .cds-spc__label{ display:none; }
+.cds-spc__badge, .cds-spc__chev{ flex:0 0 auto; }
+cds-sponsor-category[kind="reduced"]{ position:relative; }
+cds-sponsor-category[kind="reduced"] .cds-spc__badge{ position:absolute; top:0; right:0; } /* Badge de 16 sem texto, no canto do item */
+/* Accordion aberto: rótulo em Label/Bold (Figma: Is Collapsed=True) */
+cds-sponsor-category[expanded] .cds-spc__label{ font:var(--text-style-label-bold); }
+.cds-spc__slot{ display:flex; flex-direction:column; gap:var(--common-sizes-8); padding:var(--common-sizes-8) 0 0 var(--common-sizes-12); }
+
+/* ==== components/sponsor-subcategory/sponsor-subcategory.css ==== */
+/* .Subcategory · [CastanhaDS] Sponsor Templates — 188×32 · Motion Hover In/01 e Pressed/01 */
+cds-sponsor-subcategory{ display:block; box-sizing:border-box; width:var(--cds-sponsor-subcategory-width, 188px); max-width:100%; }
+cds-sponsor-category cds-sponsor-subcategory{ width:auto; }
+cds-sponsor-subcategory [hidden]{ display:none !important; }
+.cds-sps__row{
+  --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-text-medium);
+  box-sizing:border-box; display:flex; align-items:center; gap:var(--common-sizes-8); min-height:var(--common-sizes-32);
+  padding:0 var(--common-sizes-8); border-radius:var(--common-border-radius-small); background:var(--_bg); color:var(--_fg);
+  text-decoration:none; cursor:pointer; -webkit-tap-highlight-color:transparent;
+  transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing);
+}
+.cds-sps__row:hover, cds-sponsor-subcategory[state="hovered"] .cds-sps__row{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); --_fg:var(--common-colors-text-intense); }
+.cds-sps__row:active, cds-sponsor-subcategory[state="pressed"] .cds-sps__row{ --_bg:var(--common-colors-surface-default); transition-duration:var(--motion-pressed-01-timing); transition-timing-function:var(--motion-pressed-01-easing); }
+.cds-sps__row:hover .cds-sps__label, .cds-sps__row:active .cds-sps__label, cds-sponsor-subcategory[state] .cds-sps__label{ font:var(--text-style-label-bold); } /* Hovered e Pressed: Label/Bold */
+cds-sponsor-subcategory[selected] .cds-sps__row{ --_fg:var(--common-colors-text-intense); }
+.cds-sps__row:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:-2px; }
+cds-sponsor-subcategory[disabled] .cds-sps__row{ opacity:0.4; cursor:default; --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-text-medium); }
+.cds-sps__label{ flex:1 1 auto; min-width:0; font:var(--text-style-label-regular); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cds-sps__lead, .cds-sps__badge, .cds-sps__trail{ flex:0 0 auto; }
+
+/* ==== components/sponsor-user-profile/sponsor-user-profile.css ==== */
+/* .User Profile · [CastanhaDS] Sponsor Templates — Default 288×92 · Reduced 40×92 */
+cds-sponsor-user-profile{
+  box-sizing:border-box; display:flex; align-items:flex-end; gap:var(--common-sizes-16); width:var(--cds-sponsor-user-profile-width, 288px); max-width:100%;
+  min-height:var(--common-sizes-92); padding:var(--common-sizes-24) 0; background:var(--common-colors-surface-01);
+}
+cds-sponsor-user-profile[kind="reduced"]{ width:var(--common-sizes-40); }
+cds-sponsor-user-profile [hidden]{ display:none !important; }
+.cds-spu__avatar, .cds-spu__action{ flex:0 0 auto; }
+.cds-spu__text{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:var(--common-sizes-4); }
+.cds-spu__name{ font:var(--text-style-label-bold); color:var(--common-colors-text-intense); overflow-wrap:anywhere; }
+.cds-spu__cnpj{ font:var(--text-style-caption-medium); color:var(--common-colors-text-medium); overflow-wrap:anywhere; }
+/* Figma: itens alinhados pela base (cross=MAX), altura mínima 92, texto sem corte (auto height) */
+
+/* ==== components/status-dot/status-dot.css ==== */
+/* =====================================================================
+   Status Dot · Status · set 21745:69
+   Ponto 8px pill + rótulo Text/intense · gap 4 · altura 32
+   Size: Small Disclaimer/Medium · Medium Caption/Medium · Large Body/Medium
+   ===================================================================== */
+cds-status-dot{
+  --_dot:var(--common-colors-neutral-solid-semi-soft);
+  display:inline-flex; align-items:center; gap:var(--common-sizes-4); min-height:var(--common-sizes-32);
+  font:var(--text-style-disclaimer-medium); color:var(--common-colors-text-intense);
+}
+cds-status-dot > .cds-sd__dot{ flex:0 0 auto; width:var(--common-sizes-8); height:var(--common-sizes-8); border-radius:var(--common-border-radius-pill); background:var(--_dot); }
+cds-status-dot[size="medium"]{ font:var(--text-style-caption-medium); }
+cds-status-dot[size="large"]{ font:var(--text-style-body-medium); }
+
+cds-status-dot[appearance="positive"]{ --_dot:var(--common-colors-feedback-positive-medium); }
+cds-status-dot[appearance="warning"]{ --_dot:var(--common-colors-feedback-warning-medium); }
+cds-status-dot[appearance="informative"]{ --_dot:var(--common-colors-feedback-informative-medium); }
+cds-status-dot[appearance="negative"]{ --_dot:var(--common-colors-feedback-negative-medium); }
+
+/* ==== components/switch/switch.css ==== */
+/* =====================================================================
+   Switch · Selection Controls · set 4895:809 — base em selection-control.css
+   Box 40×24 pill · padding 0 4 · toggle 16 pill
+   Unselected: Surface/inversed + toggle Neutral/Solid/soft · Selected: Surface/accent + toggle Surface/default
+   Hovered: anel 4px Border/semi-soft (OUTSIDE) · Pressed: anel 4px Accent/Solid/soft
+   Motion: 300ms systemic-accelerate (exceção documentada do Switch)
+   ===================================================================== */
+cds-switch{ display:inline-flex; }
+cds-switch .cds-sc{ --_dur:var(--common-motion-duration-medium-02); }
+cds-switch .cds-sc__box{
+  --_bg:var(--common-colors-surface-inversed); --_ring:transparent;
+  width:var(--common-sizes-40); height:var(--common-sizes-24); padding:0 var(--common-sizes-4);
+  display:flex; align-items:center; justify-content:flex-start;
+  border-radius:var(--common-border-radius-pill);
+  box-shadow:0 0 0 var(--common-border-width-thick) var(--_ring);
+}
+cds-switch .cds-sw__toggle{
+  width:var(--common-sizes-16); height:var(--common-sizes-16); border-radius:var(--common-border-radius-pill);
+  background:var(--common-colors-neutral-solid-soft);
+  transition:transform var(--_dur) var(--_ease), background-color var(--_dur) var(--_ease);
+}
+cds-switch .cds-sc:hover .cds-sc__box, cds-switch[state="hovered"] .cds-sc .cds-sc__box{ --_ring:var(--common-colors-border-semi-soft); }
+cds-switch .cds-sc:active .cds-sc__box, cds-switch[state="pressed"] .cds-sc .cds-sc__box{ --_ring:var(--common-colors-accent-solid-soft); }
+
+cds-switch[status="selected"] .cds-sc__box{ --_bg:var(--common-colors-surface-accent); }
+cds-switch[status="selected"] .cds-sw__toggle{ transform:translateX(var(--common-sizes-16)); background:var(--common-colors-surface-default); }
+
+/* ==== components/selection-group/selection-group.css ==== */
+/* =====================================================================
+   Checkbox Group · Radio Button Group · Switch Group — sets 4132:1511 · 4429:11192 · 4895:1233
+   Coluna com gap 8 (Common/Sizes/8); itens HUG/FILL
+   ===================================================================== */
+cds-checkbox-group, cds-radio-button-group, cds-switch-group{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-8); }
+
+/* ==== components/system-banner/system-banner.css ==== */
+/* System Banner · set 18432:2090 — base em alert.css · sem raio · largura total · mínimo 360 */
+cds-system-banner{ border-radius:var(--common-border-radius-none); width:100%; min-width:min(360px, 100%); }
+
+/* ==== components/tab-item/tab-item.css ==== */
+/* .Item (Tabs) · set 6498:375 — 48 · sublinhado 2px (Border/Width/thin) · Label Content pad 4 8 gap 4 raio micro
+   Motion: o clique troca o Active em 300ms + Systemic/accelerate (Scrollable Tab); hover e press instantâneos, como no Figma */
+cds-tab-item{ display:flex; min-width:0; }
+cds-tab-item [hidden]{ display:none !important; }
+.cds-tab{
+  --_line:transparent; --_bg:transparent;
+  flex:1 1 auto; display:flex; align-items:center; justify-content:center; height:var(--common-sizes-48); min-width:0;
+  margin:0; padding:0; border:0; background:none; cursor:pointer; font:inherit; color:inherit;
+  box-shadow:inset 0 calc(-1 * var(--common-border-width-thin)) 0 var(--_line);
+  transition:box-shadow var(--common-motion-duration-medium-02) var(--common-motion-easing-systemic-accelerate);
+}
+.cds-tab:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:-2px; } /* C23 */
+.cds-tab__content{ display:inline-flex; align-items:center; gap:var(--common-sizes-4); padding:var(--common-sizes-4) var(--common-sizes-8); border-radius:var(--common-border-radius-micro); background:var(--_bg); }
+.cds-tab__label{ font:var(--text-style-label-regular); color:var(--common-colors-text-medium); white-space:nowrap; }
+/* Is Active */
+.cds-tab[aria-selected="true"]{ --_line:var(--common-colors-accent-solid-medium); }
+.cds-tab[aria-selected="true"] .cds-tab__label{ font:var(--text-style-label-medium); color:var(--common-colors-text-intense); }
+/* Hovered / Pressed (só sem Is Active, como no Figma) */
+.cds-tab[aria-selected="false"]:hover, [state="hovered"] > .cds-tab[aria-selected="false"]{ --_line:var(--common-colors-border-semi-soft); --_bg:var(--common-colors-surface-01); transition:none; }
+.cds-tab[aria-selected="false"]:active, [state="pressed"] > .cds-tab[aria-selected="false"]{ --_line:var(--common-colors-accent-solid-medium); --_bg:var(--common-colors-surface-01); transition:none; }
+.cds-tab[aria-selected="false"]:active .cds-tab__label, [state="pressed"] > .cds-tab[aria-selected="false"] .cds-tab__label{ font:var(--text-style-label-medium); }
+/* Disabled */
+.cds-tab:disabled{ opacity:var(--common-opacity-light); cursor:default; }
+@media (prefers-reduced-motion:reduce){ .cds-tab{ transition:none; } }
+
+/* ==== components/fixed-tab/fixed-tab.css ==== */
+/* Fixed Tab · set 6500:6958 — linha de abas em Fill, sem gap */
+cds-fixed-tab{ display:flex; align-items:center; width:320px; max-width:100%; }
+cds-fixed-tab > cds-tab-item{ flex:1 1 0; }
+
+/* ==== components/scrollable-tab/scrollable-tab.css ==== */
+/* Scrollable Tab · set 6646:181 — abas em Hug, rolagem horizontal sem barra */
+cds-scrollable-tab{ display:flex; align-items:center; width:var(--cds-tab-width, 320px); /* 320 = frame do Figma; quem usa pode trocar */ max-width:100%; overflow-x:auto; scrollbar-width:none; scroll-behavior:smooth; }
+cds-scrollable-tab::-webkit-scrollbar{ display:none; }
+cds-scrollable-tab > cds-tab-item{ flex:0 0 auto; }
+@media (prefers-reduced-motion:reduce){ cds-scrollable-tab{ scroll-behavior:auto; } }
+
+/* ==== components/tab-view/tab-view.css ==== */
+/* Tab View · set 15713:2488 — stroke 1px Border/semi-soft INSIDE · raio medium · pad 8 · gap 8 · Disabled Opacity/medium
+   Motion: hover 150ms (ativo) / 300ms EASE_OUT (inativo) vêm do Icon Button; clique 150ms + Systemic/accelerate */
+cds-tab-view{ display:inline-flex; align-items:center; gap:var(--common-sizes-8); padding:var(--common-sizes-8); border-radius:var(--common-border-radius-medium); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-semi-soft); }
+cds-tab-view[disabled]{ opacity:var(--common-opacity-medium); }
+cds-tab-view[disabled] .cds-tv__btn{ opacity:1; } /* o container já aplica Opacity/medium; o botão não soma o Disabled dele */
+
+/* ==== components/table-head/table-head.css ==== */
+/* .Head · set 13382:1327 — 56 · Surface/01 · borda inferior Border/semi-soft · Caption/Medium Text/intense */
+.cds-th{ --_bg:var(--common-colors-surface-01); box-sizing:border-box; height:var(--common-sizes-56); padding:0; background:var(--_bg); text-align:left; vertical-align:middle;
+  border:0; box-shadow:inset 0 calc(-1 * var(--common-border-width-hairline)) 0 var(--common-colors-border-semi-soft); font-weight:inherit; } /* stroke INSIDE */
+cds-table-head.cds-th{ display:flex; align-items:center; width:201px; }
+.cds-th__btn{ box-sizing:border-box; display:flex; align-items:center; gap:var(--common-sizes-8); width:100%; height:100%; min-height:var(--common-sizes-56);
+  margin:0; padding:0 var(--common-sizes-16) 0 var(--common-sizes-20); border:0; background:var(--_bg); box-shadow:inherit; color:inherit; font:var(--text-style-caption-medium); text-align:left;
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate); }
+button.cds-th__btn{ cursor:pointer; }
+.cds-th__btn:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:-2px; } /* C23 */
+.cds-th__text{ color:var(--common-colors-text-intense); white-space:nowrap; }
+.cds-th__sort{ visibility:hidden; }
+.cds-th__sort.is-sorted, button.cds-th__btn:hover .cds-th__sort, cds-table-head[state] .cds-th__sort{ visibility:visible; }
+button.cds-th__btn:hover, cds-table-head[state="hovered"] .cds-th__btn{ --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent); }
+button.cds-th__btn:active, cds-table-head[state="pressed"] .cds-th__btn{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
+.cds-th[data-kind="multi"]{ width:88px; text-align:center; }
+.cds-th[data-kind="multi"] .cds-sc__label{ display:none; }
+cds-table-head.cds-th[data-kind="multi"]{ justify-content:center; }
+@media (prefers-reduced-motion:reduce){ .cds-th__btn{ transition:none; } }
+
+/* ==== components/table-toolbar/table-toolbar.css ==== */
+/* .Toolbar · 13438:14337 — 64 · pad 8 16 · gap 4 · Surface/default · borda inferior Border/semi-soft */
+cds-table-toolbar{ display:flex; align-items:center; gap:var(--common-sizes-4); box-sizing:border-box; min-height:var(--common-sizes-64); padding:var(--common-sizes-8) var(--common-sizes-16);
+  background:var(--common-colors-surface-default); box-shadow:inset 0 calc(-1 * var(--common-border-width-hairline)) 0 var(--common-colors-border-semi-soft); } /* stroke INSIDE */
+
+/* ==== components/tag/tag.css ==== */
+/* =====================================================================
+   Tag · Status · set 4475:114
+   24px · padding 0 8 · gap 4 · raio extra-small · Caption/Medium · Icon Small 16
+   ===================================================================== */
+cds-tag{
+  --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-text-intense);
+  display:inline-flex; align-items:center; justify-content:center; gap:var(--common-sizes-4);
+  height:var(--common-sizes-24); padding:0 var(--common-sizes-8);
+  border-radius:var(--common-border-radius-extra-small);
+  background:var(--_bg); color:var(--_fg);
+  font:var(--text-style-caption-medium); white-space:nowrap;
+}
+/* Override do Icon aninhado: a cor acompanha o texto em todas as Appearances (como no Figma) */
+cds-tag{ --cds-icon-color:var(--_fg); }
+
+cds-tag[appearance="positive"]{ --_bg:var(--common-colors-feedback-positive-soft); --_fg:var(--common-colors-feedback-positive-intense); }
+cds-tag[appearance="warning"]{ --_bg:var(--common-colors-feedback-warning-soft); --_fg:var(--common-colors-feedback-warning-intense); }
+cds-tag[appearance="negative"]{ --_bg:var(--common-colors-feedback-negative-soft); --_fg:var(--common-colors-feedback-negative-intense); }
+cds-tag[appearance="informative"]{ --_bg:var(--common-colors-feedback-informative-soft); --_fg:var(--common-colors-feedback-informative-intense); }
+cds-tag[appearance="accent"]{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); }
+cds-tag[appearance="inversed"]{ --_bg:var(--common-colors-surface-inversed); --_fg:var(--common-colors-icons-inversed); }
+
+/* ==== components/balance-card/balance-card.css ==== */
+/* Balance Card · set 17881:1707 — Surface/01 · raio large · pad 16 · gap 16 · mínimo 144 (cresce com o conteúdo)
+   Hovered: Label Text/intense (300ms) · Pressed: stroke Border/semi-intense 1px (150ms) · Disabled: Opacity/medium
+   Motion: Systemic/accelerate */
+cds-balance-card{ display:inline-flex; }
+.cds-bc{
+  --_stroke:transparent; --_label:var(--common-colors-text-medium);
+  --_dur:var(--common-motion-duration-medium-02);
+  display:flex; flex-direction:column; gap:var(--common-sizes-16); min-width:144px;
+  padding:var(--common-sizes-16); border:0; border-radius:var(--common-border-radius-large); cursor:pointer;
+  background:var(--common-colors-surface-01); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--_stroke);
+  color:inherit; text-align:left; text-decoration:none; font:inherit;
+  transition:box-shadow var(--_dur) var(--common-motion-easing-systemic-accelerate);
+}
+.cds-bc:hover, cds-balance-card[state="hovered"] .cds-bc{ --_label:var(--common-colors-text-intense); }
+.cds-bc:active, cds-balance-card[state="pressed"] .cds-bc{ --_stroke:var(--common-colors-border-semi-intense); --_dur:var(--common-motion-duration-short-03); }
+.cds-bc:disabled{ cursor:default; opacity:var(--common-opacity-medium); }
+.cds-bc:focus-visible{ outline:var(--common-border-width-thin) solid var(--common-colors-support-system); outline-offset:var(--common-border-width-thin); }
+.cds-bc__head{ display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-8); }
+.cds-bc__content{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-16); }
+.cds-bc__main{ display:flex; flex-direction:column; gap:var(--common-sizes-4); }
+.cds-bc__label{ font:var(--text-style-caption-regular); color:var(--_label); transition:color var(--_dur) var(--common-motion-easing-systemic-accelerate); }
+@media (prefers-reduced-motion:reduce){ .cds-bc, .cds-bc__label{ transition:none; } }
+
+/* ==== components/sponsor-header/sponsor-header.css ==== */
+/* Header · [CastanhaDS] Sponsor Templates 4002:3849 — template provisório (ver sponsor-header.js) */
+cds-sponsor-header{
+  display:flex; flex-direction:column; gap:var(--common-sizes-24); box-sizing:border-box; min-width:calc(var(--common-sizes-200) + var(--common-sizes-104) + var(--common-sizes-8));
+  padding:var(--common-sizes-32) 0 var(--common-sizes-28); background:var(--common-colors-surface-default); color:var(--common-colors-text-intense);
+}
+cds-sponsor-header [hidden]{ display:none !important; }
+.cds-sh__heading{ display:flex; align-items:center; min-height:var(--common-sizes-48); }
+.cds-sh__lead{ flex:1 0 0; min-width:0; display:flex; align-items:center; gap:var(--common-sizes-24); }
+.cds-sh__nav{ display:flex; align-items:center; gap:var(--common-sizes-8); flex:0 0 auto; } /* Navigation Controls: Menu (só celular) · Back */
+.cds-sh__nav:not(:has(> :not([hidden]))){ display:none; }
+.cds-sh__crumb{ min-width:0; }
+.cds-sh__trail{ display:flex; align-items:center; gap:var(--common-sizes-8); flex:0 0 auto; }
+.cds-sh__title-row{ display:flex; flex-wrap:wrap; align-items:flex-start; gap:var(--common-sizes-8); }
+.cds-sh__title-lead{ flex:1 0 0; min-width:calc(var(--common-sizes-200) + var(--common-sizes-120)); display:flex; align-items:center; gap:var(--common-sizes-8); }
+.cds-sh__title{ margin:0; font:var(--text-style-title-large); color:var(--common-colors-text-intense); overflow-wrap:anywhere; }
+
+/* ==== components/sponsor-side-menu/sponsor-side-menu.css ==== */
+/* =====================================================================
+   Side Menu · [CastanhaDS] Sponsor Templates (5576:445) — colapsado 80 · expandido 360 · altura da página (1024 no Figma, mínimo 788)
+   Colapsado abre por hover/foco em overlay: o host reserva 80 e o painel cresce por cima do conteúdo.
+   Motion: largura com Selected In/01
+   ===================================================================== */
+cds-sponsor-side-menu{ display:block; position:relative; box-sizing:border-box; width:var(--common-sizes-80); height:var(--cds-sponsor-side-menu-height, 100%); flex:0 0 auto; z-index:3; }
+cds-sponsor-side-menu[collapsed="false"]{ width:calc(var(--common-sizes-200) + var(--common-sizes-160)); }
+cds-sponsor-side-menu [hidden]{ display:none !important; }
+.cds-ssm{
+  position:absolute; inset:0 auto 0 0; box-sizing:border-box; width:100%; height:100%; min-height:788px; overflow:hidden auto; scrollbar-width:none; /* rola sem barra visível, como o painel do Figma (clip) */
+  display:flex; flex-direction:column; justify-content:space-between;
+  padding:var(--common-sizes-32) var(--common-sizes-20) 0; background:var(--common-colors-surface-01); box-shadow:var(--common-elevation-level-2);
+  border-radius:0 var(--common-border-radius-large) var(--common-border-radius-large) 0;
+  transition:width var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing);
+}
+cds-sponsor-side-menu[peek] .cds-ssm{ width:calc(var(--common-sizes-200) + var(--common-sizes-160)); }
+.cds-ssm__container{ display:flex; flex-direction:column; gap:var(--common-sizes-20); --cds-sponsor-category-width:100%; --cds-sponsor-user-profile-width:100%; }
+.cds-ssm__heading{ display:flex; align-items:center; justify-content:center; gap:var(--common-sizes-8); height:var(--common-sizes-44); }
+.cds-ssm__brand{ flex:1 1 auto; min-width:0; height:var(--common-sizes-40); display:flex; align-items:center; justify-content:center; }
+cds-sponsor-side-menu[collapsed="false"] .cds-ssm__heading, cds-sponsor-side-menu[peek] .cds-ssm__heading{ justify-content:flex-start; padding-left:var(--common-sizes-16); }
+cds-sponsor-side-menu[collapsed="false"] .cds-ssm__brand, cds-sponsor-side-menu[peek] .cds-ssm__brand{ justify-content:flex-start; }
+.cds-ssm__close{ flex:0 0 auto; }
+.cds-ssm__slot{ display:flex; max-height:var(--common-sizes-160); overflow:hidden; padding:var(--common-sizes-16); border-radius:var(--common-border-radius-small); }
+.cds-ssm__shortcuts{ display:flex; flex-direction:column; gap:var(--common-sizes-8); padding-top:var(--common-sizes-8); }
+.cds-ssm__categories{ display:flex; flex-direction:column; gap:var(--common-sizes-20); padding:var(--common-sizes-16) 0; }
+.cds-ssm__user{ display:flex; flex-direction:column; padding:var(--common-sizes-20) 0; --cds-sponsor-category-width:100%; --cds-sponsor-user-profile-width:100%; }
+.cds-ssm__help{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
+@media (prefers-reduced-motion:reduce){ .cds-ssm{ transition:none; } }
+
+/* Celular (protótipo 5318:19215): fora da página; aberto, tela cheia no topo à esquerda, expandido, sem fundo escurecido.
+   Dissolve de 300ms (Duration/Medium/02). No quadro do playground ([data-viewport]) cobre o quadro, não a janela */
+cds-sponsor-side-menu[data-mode="mobile"]{ display:none; width:auto; }
+cds-sponsor-side-menu[data-mode="mobile"][open]{
+  display:block; position:fixed; inset:0; width:100%; height:100%; z-index:1000;
+  animation:cds-ssm-dissolve var(--common-motion-duration-medium-02) var(--common-motion-easing-systemic-default) both;
+}
+[data-viewport] cds-sponsor-side-menu[data-mode="mobile"][open]{ position:absolute; }
+cds-sponsor-side-menu[data-mode="mobile"] .cds-ssm{ min-height:0; }
+cds-sponsor-side-menu[data-mode="mobile"] .cds-ssm__heading{ justify-content:flex-start; padding-left:var(--common-sizes-16); }
+cds-sponsor-side-menu[data-mode="mobile"] .cds-ssm__brand{ justify-content:flex-start; }
+@keyframes cds-ssm-dissolve{ from{ opacity:0; } to{ opacity:1; } }
+@media (prefers-reduced-motion:reduce){ cds-sponsor-side-menu[data-mode="mobile"][open]{ animation:none; } }
+
+/* ==== components/table-cell/table-cell.css ==== */
+/* .Data Cell · set 13404:1015 — 64 · Surface/default · borda inferior Border/semi-soft · gap 4
+   Text: pad 8 20 (à esquerda) · Balance/Percentage: pad 8, à direita · Tag: pad 8 · Checkbox e Action Controls: centralizados */
+.cds-td{ --_bg:var(--common-colors-surface-default); box-sizing:border-box; height:var(--common-sizes-64); padding:var(--common-sizes-8) var(--common-sizes-20); background:var(--_bg);
+  border:0; box-shadow:inset 0 calc(-1 * var(--common-border-width-hairline)) 0 var(--common-colors-border-semi-soft); vertical-align:middle; text-align:left; /* stroke INSIDE */
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate); }
+cds-data-cell.cds-td{ display:flex; align-items:center; width:201px; }
+cds-data-cell[state="hovered"], tr:hover > .cds-td{ --_bg:var(--common-colors-surface-01); } /* na Table o hover é da linha inteira (C62) */
+.cds-td__in{ display:flex; align-items:center; gap:var(--common-sizes-4); min-width:0; flex:1 1 auto; }
+.cds-td[data-kind="balance"], .cds-td[data-kind="percentage"], .cds-td[data-kind="tag"], .cds-td[data-kind="actions"]{ padding:var(--common-sizes-8); }
+.cds-td[data-kind="balance"] .cds-td__in, .cds-td[data-kind="percentage"] .cds-td__in{ justify-content:flex-end; }
+.cds-td[data-kind="checkbox"] .cds-td__in, .cds-td[data-kind="actions"] .cds-td__in{ justify-content:center; }
+.cds-td[data-kind="checkbox"]{ width:88px; }
+.cds-td__text{ display:flex; flex-direction:column; min-width:0; }
+.cds-td__main{ font:var(--text-style-body-regular); color:var(--common-colors-text-intense); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cds-td__desc{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cds-td__value{ font:var(--text-style-label-regular); color:var(--common-colors-text-intense); white-space:nowrap; font-variant-numeric:tabular-nums; }
+.cds-td__num{ font:var(--text-style-body-regular); color:var(--common-colors-text-intense); font-variant-numeric:tabular-nums; }
+.cds-td .cds-sc__label{ display:none; }
+@media (prefers-reduced-motion:reduce){ .cds-td{ transition:none; } }
+
+/* ==== components/text-content/text-content.css ==== */
+/* =====================================================================
+   .Text Content · Content · set 5516:10455 (building block) — gap 4
+   Highlight Label:       Label/Regular Text/intense + Caption/Regular Text/medium
+   Highlight Description: Caption/Regular Text/medium + Body/Regular Text/intense
+   ===================================================================== */
+cds-text-content{ display:flex; flex-direction:column; gap:var(--common-sizes-4); min-width:0; }
+cds-text-content > .cds-tc__label{ font:var(--text-style-label-regular); color:var(--common-colors-text-intense); }
+cds-text-content > .cds-tc__desc{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+cds-text-content[kind="highlight-description"] > .cds-tc__label{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+cds-text-content[kind="highlight-description"] > .cds-tc__desc{ font:var(--text-style-body-regular); color:var(--common-colors-text-intense); }
+
+/* ==== components/accordion-item/accordion-item.css ==== */
+/* =====================================================================
+   Accordion Item · Lists · set 24673:26248 — 320 de largura (Fixed no Figma)
+   Default: 57 recolhido (8 + 44 + 4 + Divider 1) · 143 aberto (+ 4 + Slot 82)
+   Card:    96 recolhido (8 + 80 + 8) · 182 aberto (+ 4 + Slot 82, pad 16)
+   Motion (reactions do Figma): hover 150ms Systemic/default · press 200ms Systemic/accelerate
+     abrir 200ms (Short/04) e fechar 350ms (Medium/03), ambos Expressive/decelerate (decisão de motion, C80)
+   ===================================================================== */
+cds-accordion-item{ display:block; box-sizing:border-box; width:var(--cds-accordion-width, 320px); max-width:100%; min-width:0; }
+cds-accordion-item [hidden]{ display:none !important; }
+.cds-acc{
+  --_bg:var(--common-colors-surface-default); --_stroke:transparent;
+  display:flex; flex-direction:column; box-sizing:border-box;
+  padding:var(--common-sizes-8) var(--common-sizes-4) 0;
+  background:var(--_bg); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--_stroke);
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-default), box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-default);
+}
+.cds-acc__heading{ margin:0; font:inherit; }
+.cds-acc__head{
+  box-sizing:border-box; width:100%; min-height:var(--common-sizes-44); margin:0;
+  display:flex; align-items:center; gap:var(--common-sizes-12); padding:0 var(--common-sizes-12) 0 0;
+  border:0; background:none; font:inherit; color:inherit; text-align:left; cursor:pointer; -webkit-tap-highlight-color:transparent;
+}
+.cds-acc__head:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:-2px; } /* C23 */
+.cds-acc__text{ flex:1 1 auto; }
+.cds-acc__lead, .cds-acc__chev{ flex:0 0 auto; }
+/* Ícone indicador: um glifo só (dropdown-close-line) que gira 180° recolhido, no tempo e na curva do Slot */
+.cds-acc__chev{ transition:rotate var(--common-motion-duration-short-04) var(--common-motion-easing-expressive-decelerate); }
+[collapsed] > .cds-acc .cds-acc__chev{ rotate:180deg; transition-duration:var(--common-motion-duration-medium-03); }
+
+/* Slot: altura animada por grid-template-rows (0fr ↔ 1fr); o espaço de 4 até o Container fica dentro da área animada */
+.cds-acc__panel{
+  display:grid; grid-template-rows:1fr; visibility:visible;
+  transition:grid-template-rows var(--common-motion-duration-short-04) var(--common-motion-easing-expressive-decelerate), visibility 0s;
+}
+.cds-acc__inner{ min-height:0; overflow:hidden; }
+.cds-acc__slot{ margin-top:var(--common-sizes-4); }
+[collapsed] > .cds-acc > .cds-acc__panel{
+  grid-template-rows:0fr; visibility:hidden;
+  transition:grid-template-rows var(--common-motion-duration-medium-03) var(--common-motion-easing-expressive-decelerate), visibility 0s var(--common-motion-duration-medium-03);
+}
+.cds-acc__divider{ margin-top:var(--common-sizes-4); }
+
+/* Kind=Card */
+[kind="card"] > .cds-acc{ --_stroke:var(--common-colors-border-semi-soft); padding:var(--common-sizes-8); border-radius:var(--common-border-radius-large); }
+[kind="card"] > .cds-acc .cds-acc__head{ min-height:var(--common-sizes-80); padding:0 var(--common-sizes-16); }
+[kind="card"] > .cds-acc .cds-acc__head:focus-visible{ border-radius:var(--common-border-radius-medium); }
+[kind="card"] > .cds-acc .cds-acc__slot{ padding:var(--common-sizes-16); }
+
+/* Hovered · Pressed (o alvo é o cabeçalho; a cor vale para o item inteiro, como no Figma) */
+.cds-acc:has(> .cds-acc__heading > .cds-acc__head:hover), [state="hovered"] > .cds-acc{ --_bg:var(--common-colors-surface-01); }
+[kind="card"] > .cds-acc:has(> .cds-acc__heading > .cds-acc__head:hover), [kind="card"][state="hovered"] > .cds-acc{ --_stroke:var(--common-colors-border-medium); }
+.cds-acc:has(> .cds-acc__heading > .cds-acc__head:active), [state="pressed"] > .cds-acc{
+  --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent);
+  transition-duration:var(--common-motion-duration-short-04); transition-timing-function:var(--common-motion-easing-systemic-accelerate);
+}
+[kind="card"] > .cds-acc:has(> .cds-acc__heading > .cds-acc__head:active), [kind="card"][state="pressed"] > .cds-acc{ --_stroke:var(--common-colors-border-intense); }
+
+/* Disabled */
+[disabled] > .cds-acc{ opacity:var(--common-opacity-light); --_bg:var(--common-colors-surface-default); }
+[disabled][kind="card"] > .cds-acc{ --_stroke:var(--common-colors-border-medium); }
+[disabled] > .cds-acc .cds-acc__head{ cursor:default; pointer-events:none; }
+
+@media (prefers-reduced-motion:reduce){
+  .cds-acc, .cds-acc__panel, [collapsed] > .cds-acc > .cds-acc__panel, .cds-acc__chev{ transition:none; }
+}
+
+/* ==== components/accordion/accordion.css ==== */
+/* Accordion · Lists · set 24841:33746 — 320 · Kind=Default gap 0 · Kind=Card gap 8 (Sizes/8) */
+cds-accordion{ display:flex; flex-direction:column; gap:0; box-sizing:border-box; width:var(--cds-accordion-width, 320px); max-width:100%; }
+cds-accordion[kind="card"]{ gap:var(--common-sizes-8); }
+cds-accordion > cds-accordion-item{ width:100%; }
+.cds-accordion__sample{ margin:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+
+/* ==== components/list-item/list-item.css ==== */
+/* =====================================================================
+   Base das listas (Selection List Item 5488:812 · Content List Item 5488:675)
+   Raiz: coluna gap 4 · Surface/default · Container H gap 12 min 44 · Divider Soft no fim (Kind=Default)
+   Kind=Card: raio large · stroke 1px Border/semi-soft INSIDE · pad vertical 16 · min 80 · sem Divider
+   States: Hovered Surface/01 (+ Card Border/medium) · Pressed Accent/Solid/soft (+ Card Accent/Solid/medium)
+           Disabled Opacity/light (+ Card Border/medium)
+   Motion: hover 150ms (Duration/Short/03) + Easing/Systemic/accelerate (reaction ON_HOVER do Figma)
+   ===================================================================== */
+cds-selection-list-item, cds-content-list-item{ display:block; min-width:0; }
+cds-selection-list-item [hidden], cds-content-list-item [hidden]{ display:none !important; }
+.cds-li{
+  --_bg:var(--common-colors-surface-default);
+  --_stroke-c:transparent; --_stroke-w:var(--common-border-width-hairline);
+  box-sizing:border-box; width:100%; margin:0; padding:0; border:0; font:inherit; color:inherit; text-align:left; text-decoration:none;
+  display:flex; flex-direction:column; gap:var(--common-sizes-4);
+  background:var(--_bg); box-shadow:inset 0 0 0 var(--_stroke-w) var(--_stroke-c);
+  cursor:pointer; -webkit-tap-highlight-color:transparent;
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+}
+.cds-li:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:-2px; } /* C23 */
+.cds-li__container{ display:flex; align-items:center; gap:var(--common-sizes-12); min-height:var(--common-sizes-44); padding:var(--common-sizes-8) var(--common-sizes-16) var(--common-sizes-8) var(--common-sizes-24); }
+.cds-li__items{ flex:1 1 auto; min-width:0; display:flex; align-items:center; gap:var(--common-sizes-4); }
+.cds-li__text{ flex:1 1 auto; }
+
+/* Hovered */
+.cds-li:hover, [state="hovered"] > .cds-li, .cds-li.is-current{ --_bg:var(--common-colors-surface-01); }
+/* Pressed */
+.cds-li:active, [state="pressed"] > .cds-li{ --_bg:var(--common-colors-accent-solid-soft); }
+/* Disabled */
+[disabled] > .cds-li{ opacity:var(--common-opacity-light); cursor:default; pointer-events:none; }
+
+/* Kind=Card */
+[kind="card"] > .cds-li{ --_stroke-c:var(--common-colors-border-semi-soft); border-radius:var(--common-border-radius-large); }
+[kind="card"] > .cds-li > .cds-li__container{ min-height:var(--common-sizes-80); padding-top:var(--common-sizes-16); padding-bottom:var(--common-sizes-16); }
+[kind="card"] > .cds-li:hover, [kind="card"][state="hovered"] > .cds-li, [kind="card"] > .cds-li.is-current,
+[kind="card"][disabled] > .cds-li{ --_stroke-c:var(--common-colors-border-medium); }
+[kind="card"] > .cds-li:active, [kind="card"][state="pressed"] > .cds-li{ --_stroke-c:var(--common-colors-accent-solid-medium); }
+
+@media (prefers-reduced-motion:reduce){ .cds-li{ transition:none; } }
+
+/* ==== components/text-field/text-field.css ==== */
+/* =====================================================================
+   Text Fields — base da família (Text Input 5743:325 e irmãos)
+   Label Content · Text Box (48 · pad 0 16 · gap 8 · raio small · stroke INSIDE) · Trailing Content
+   Estados: Hovered Surface/01 + Border/medium · Pressed Border/semi-intense 2px ·
+            Is Active Border/semi-intense 1px · Disabled opacity medium + Border/medium
+   Motion: como na main hoje — 300ms (Duration/Medium/02) + Easing/Systemic/accelerate em hover, press e click
+   (CONFERIR.md · C-motion-tf). O Credit Card e o OTP (branches) usam os Motion Styles e sobrescrevem --tf-*.
+   ===================================================================== */
+.cds-tf{
+  /* motion por interação (o Credit Card sobrescreve com os Motion Styles do branch) */
+  --tf-hover-d:var(--common-motion-duration-medium-02);  --tf-hover-e:var(--common-motion-easing-systemic-accelerate);
+  --tf-press-d:var(--common-motion-duration-medium-02);  --tf-press-e:var(--common-motion-easing-systemic-accelerate);
+  --tf-active-d:var(--common-motion-duration-medium-02); --tf-active-e:var(--common-motion-easing-systemic-accelerate);
+  display:flex; flex-direction:column; align-items:stretch; gap:var(--common-sizes-4);
+  width:320px; max-width:100%;
+  opacity:var(--common-opacity-opaque);
+}
+.cds-tf[disabled]{ opacity:var(--common-opacity-medium); pointer-events:none; }
+.cds-tf [hidden]{ display:none !important; }
+
+/* Label Content — Text Label + Required Text (Label/Medium · Text/intense) */
+.cds-tf__label{
+  display:flex; align-items:center; gap:var(--common-sizes-4); min-height:var(--common-sizes-20);
+  font:var(--text-style-label-medium); color:var(--common-colors-text-intense); white-space:nowrap;
+}
+
+/* Text Box */
+.cds-tf__box{
+  --_stroke-w:var(--common-border-width-hairline);
+  --_stroke-c:var(--common-colors-border-semi-soft);
+  --_bg:var(--common-colors-surface-default);
+  --_dur:var(--tf-hover-d); --_ease:var(--tf-hover-e);
+  display:flex; align-items:center; gap:var(--common-sizes-8);
+  min-height:var(--common-sizes-48); padding:0 var(--common-sizes-16);
+  border-radius:var(--common-border-radius-small);
+  background:var(--_bg);
+  box-shadow:inset 0 0 0 var(--_stroke-w) var(--_stroke-c);
+  cursor:text;
+  transition:background-color var(--_dur) var(--_ease), box-shadow var(--_dur) var(--_ease);
+}
+.cds-tf__content{ flex:1 1 auto; min-width:0; display:flex; align-items:center; gap:var(--common-sizes-4); }
+.cds-tf__lead{ width:var(--common-sizes-16); height:var(--common-sizes-16); }
+.cds-tf__control{
+  flex:1 1 auto; min-width:0; margin:0; padding:0; border:0; outline:0; background:transparent;
+  font:var(--text-style-body-regular); color:var(--common-colors-text-intense);
+  caret-color:var(--common-colors-icons-intense); /* caret nativo — Show Caret é afordância de protótipo */
+}
+.cds-tf__control::placeholder{ color:var(--common-colors-text-soft); opacity:1; }
+.cds-tf__control::-webkit-search-cancel-button{ display:none; }
+.cds-tf__warn{ --_icon-color:var(--common-colors-feedback-warning-semi-intense); width:var(--common-sizes-16); height:var(--common-sizes-16); }
+
+/* Estados forçados (state="hovered|pressed" · is-active) = props State / Is Active do Figma, para specimens */
+/* State=Hovered */
+.cds-tf__box:hover,
+.cds-tf[state="hovered"] .cds-tf__box{
+  --_bg:var(--common-colors-surface-01);
+  --_stroke-c:var(--common-colors-border-medium);
+  --_dur:var(--tf-hover-d); --_ease:var(--tf-hover-e);
+}
+/* State=Pressed */
+.cds-tf__box:active,
+.cds-tf[state="pressed"] .cds-tf__box{
+  --_bg:var(--common-colors-surface-default);
+  --_stroke-w:var(--common-border-width-thin);
+  --_stroke-c:var(--common-colors-border-semi-intense);
+  --_dur:var(--tf-press-d); --_ease:var(--tf-press-e);
+}
+/* Is Active=True */
+.cds-tf__box:focus-within,
+.cds-tf[is-active] .cds-tf__box{
+  --_bg:var(--common-colors-surface-default);
+  --_stroke-w:var(--common-border-width-hairline);
+  --_stroke-c:var(--common-colors-border-semi-intense);
+  --_dur:var(--tf-active-d); --_ease:var(--tf-active-e);
+}
+.cds-tf__box:focus-within:hover{
+  --_bg:var(--common-colors-surface-01);
+  --_stroke-c:var(--common-colors-border-medium);
+  --_dur:var(--tf-hover-d); --_ease:var(--tf-hover-e);
+}
+.cds-tf__box:focus-within:active{
+  --_bg:var(--common-colors-surface-default);
+  --_stroke-w:var(--common-border-width-thin);
+  --_stroke-c:var(--common-colors-border-semi-intense);
+  --_dur:var(--tf-press-d); --_ease:var(--tf-press-e);
+}
+.cds-tf__box.is-tapped:focus-within{
+  --_bg:var(--common-colors-surface-default);
+  --_stroke-w:var(--common-border-width-hairline);
+  --_stroke-c:var(--common-colors-border-semi-intense);
+  --_dur:var(--tf-active-d); --_ease:var(--tf-active-e);
+}
+/* State=Disabled — Border/medium (Is Active=False), container com Opacity/medium */
+.cds-tf[disabled]:not([is-active]) .cds-tf__box{ --_stroke-c:var(--common-colors-border-medium); }
+
+/* Appearance=Warning — stroke warning em todos os estados; no Hovered o Text Box fica sem fill, como no Figma (CONFERIR.md) */
+.cds-tf[appearance="warning"] .cds-tf__box,
+.cds-tf[appearance="warning"][disabled] .cds-tf__box{ --_stroke-c:var(--common-colors-feedback-warning-semi-intense); }
+.cds-tf[appearance="warning"] .cds-tf__box:hover,
+.cds-tf[appearance="warning"][state="hovered"] .cds-tf__box{ --_bg:transparent; }
+
+/* Trailing Content — Supporting/Error Message (Caption/Regular) + Character Counter (Disclaimer/Regular) */
+.cds-tf__foot{ display:flex; align-items:flex-start; gap:var(--common-sizes-4); min-height:var(--common-sizes-24); }
+.cds-tf__msg{ flex:1 1 auto; min-width:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+.cds-tf[appearance="warning"] .cds-tf__msg{ color:var(--common-colors-feedback-warning-semi-intense); }
+.cds-tf__counter{ margin-left:auto; flex:0 0 auto; font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-soft); font-variant-numeric:tabular-nums; }
+
+@media (prefers-reduced-motion:reduce){ .cds-tf__box{ transition:none; } }
+
+/* ==== components/code-input-otp/code-input-otp.css ==== */
+/* =====================================================================
+   Code Input OTP · CDS-1608
+   Figma: PfeMbrThCwzwJFFo2GiAbW · set 24060:7228 · .Value Box 24032:5486
+   ===================================================================== */
+
+/* Base 320px (6 células); cresce com o conteúdo até o teto de 480px da fileira */
+cds-code-input{
+  display:flex; flex-direction:column; align-items:stretch;
+  gap:var(--common-sizes-8);
+  width:max-content; min-width:min(320px, 100%); max-width:min(480px, 100%);
+  opacity:var(--common-opacity-opaque);
+}
+cds-code-input[disabled]{ opacity:var(--common-opacity-medium); pointer-events:none; }
+
+/* Label Content: classe da família (.cds-tf__label, text-field.css) */
+.cds-ci__boxes{
+  display:flex; align-items:center; justify-content:flex-start; gap:var(--common-sizes-4);
+  width:100%; max-width:480px; overflow-x:auto; scrollbar-width:thin;
+}
+/* .Value Box = célula + separator opcional */
+.cds-ci__vb{ display:flex; align-items:center; gap:var(--common-sizes-4); flex:0 0 auto; }
+.cds-ci__sep{
+  width:var(--common-sizes-8); height:var(--common-sizes-2);
+  border-radius:var(--common-border-radius-pill);
+  background:var(--common-colors-neutral-solid-semi-intense);
+}
+
+/* Box — stroke INSIDE via inset shadow (não desloca layout ao trocar hairline → thin) */
+.cds-ci__box{
+  --_stroke-w:var(--common-border-width-hairline);
+  --_stroke-c:var(--common-colors-border-semi-soft); /* repouso: soft/decorativa */
+  --_bg:var(--common-colors-surface-default);
+  --_fg:var(--common-colors-text-medium);
+  /* a transição usada é a do estado de destino; volta ao repouso = reverso do hover */
+  --_dur:var(--motion-hover-duration); --_ease:var(--motion-hover-easing);
+  position:relative; flex:0 0 auto;
+  width:var(--common-sizes-40); height:var(--common-sizes-56);
+  border-radius:var(--common-border-radius-medium);
+  background:var(--_bg);
+  box-shadow:inset 0 0 0 var(--_stroke-w) var(--_stroke-c);
+  transition:background-color var(--_dur) var(--_ease),
+             box-shadow var(--_dur) var(--_ease);
+}
+.cds-ci__input{
+  position:absolute; inset:0; width:100%; height:100%;
+  margin:0; padding:0; border:0; outline:0; background:transparent; border-radius:inherit;
+  text-align:center; font:var(--text-style-subtitle-medium); color:var(--_fg);
+  caret-color:transparent; cursor:text; /* caret nativo oculto — usa o Caret do Figma */
+  transition:color var(--_dur) var(--_ease);
+}
+/* Hidden Value: círculo 8px Icons/intense no lugar do caractere */
+.cds-ci__dot{
+  position:absolute; top:50%; left:50%; width:var(--common-sizes-8); height:var(--common-sizes-8);
+  margin:calc(var(--common-sizes-8) / -2) 0 0 calc(var(--common-sizes-8) / -2);
+  border-radius:var(--common-border-radius-pill); background:var(--common-colors-icons-intense);
+  pointer-events:none; display:none;
+}
+.cds-ci--masked .cds-ci__input{ color:transparent; }
+.cds-ci__input::selection{ background:transparent; color:inherit; } /* sem destaque de seleção sobre o caractere/dot */
+.cds-ci--masked .cds-ci__box.is-filled .cds-ci__dot{ display:block; }
+/* Show Caret — 1×24 Icons/intense, centralizado; só na célula ativa (Is Active=True) e vazia */
+.cds-ci__caret{
+  position:absolute; top:50%; left:50%; width:1px; height:24px; margin:-12px 0 0 -.5px;
+  background:var(--common-colors-icons-intense); pointer-events:none; display:none;
+  animation:cds-ci-blink 1s steps(1, end) infinite;
+}
+.cds-ci__box:focus-within:not(.is-filled) .cds-ci__caret{ display:block; }
+@keyframes cds-ci-blink{ 50%{ opacity:0; } }
+
+/* Estados forçados (state="hovered|pressed" · is-active) = props State / Is Active do .Value Box, para specimens
+   estáticos (doc). Valem para todas as células; em uso real os estados vêm da interação. */
+/* State=Hovered (Is Active=False) — Hover In · 150ms */
+.cds-ci__box:hover,
+cds-code-input[state="hovered"] .cds-ci__box{
+  --_bg:var(--common-colors-surface-01); --_stroke-w:var(--common-border-width-thin);
+  --_stroke-c:var(--common-colors-border-medium);
+  --_dur:var(--motion-hover-duration); --_ease:var(--motion-hover-easing);
+}
+/* State=Pressed (Is Active=False) — Pressed · 200ms */
+.cds-ci__box:active,
+cds-code-input[state="pressed"] .cds-ci__box{
+  --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent);
+  --_stroke-w:var(--common-border-width-thin);
+  --_stroke-c:var(--common-colors-border-semi-intense);
+  --_dur:var(--motion-press-duration); --_ease:var(--motion-press-easing);
+}
+/* Is Active=True (célula em edição) — Selected In · 350ms */
+.cds-ci__box:focus-within,
+cds-code-input[is-active] .cds-ci__box{
+  --_bg:var(--common-colors-surface-default);
+  --_stroke-w:var(--common-border-width-thin);
+  --_stroke-c:var(--common-colors-border-intense);
+  --_fg:var(--common-colors-text-intense);
+  --_dur:var(--motion-active-duration); --_ease:var(--motion-active-easing);
+}
+.cds-ci__box:focus-within:hover{
+  --_bg:var(--common-colors-surface-01); --_stroke-c:var(--common-colors-border-semi-intense);
+  --_dur:var(--motion-hover-duration); --_ease:var(--motion-hover-easing);
+}
+.cds-ci__box:focus-within:active{
+  --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent);
+  --_stroke-c:var(--common-colors-border-intense);
+  --_dur:var(--motion-press-duration); --_ease:var(--motion-press-easing);
+}
+/* Logo após o tap o cursor ainda está sobre a célula: segura Enabled + Is Active pela
+   duração do Selected In para o hover não sobrescrever a transição de 350ms. */
+.cds-ci__box.is-tapped:focus-within{
+  --_bg:var(--common-colors-surface-default);
+  --_stroke-c:var(--common-colors-border-intense);
+  --_dur:var(--motion-active-duration); --_ease:var(--motion-active-easing);
+}
+/* Appearance=Warning — stroke warning em todos os estados */
+cds-code-input[appearance="warning"] .cds-ci__box,
+cds-code-input[appearance="warning"] .cds-ci__box:hover,
+cds-code-input[appearance="warning"] .cds-ci__box:active,
+cds-code-input[appearance="warning"] .cds-ci__box:focus-within,
+cds-code-input[appearance="warning"][state] .cds-ci__box,
+cds-code-input[appearance="warning"][is-active] .cds-ci__box{
+  --_stroke-c:var(--common-colors-feedback-warning-semi-intense);
+}
+
+/* Supporting/Error Message: classe da família (.cds-tf__msg, text-field.css) */
+/* Warning: Label e Required Text também em Feedback/Warning/semi-intense (set 24060:7228) */
+cds-code-input[appearance="warning"] .cds-ci__label,
+cds-code-input[appearance="warning"] .cds-ci__msg{ color:var(--common-colors-feedback-warning-semi-intense); }
+
+@media (prefers-reduced-motion:reduce){ .cds-ci__box, .cds-ci__input{ transition:none; } .cds-ci__caret{ animation:none; } }
+
+/* ==== components/credit-card-input/credit-card-input.css ==== */
+/* =====================================================================
+   Credit Card Input · CDS-1607 · branch NHkGUvBfNMNTLnsxKtAmWa · set 24614:7155
+   Membro da família Text Fields: tudo vem de text-field.css; aqui só o que é do branch.
+   ===================================================================== */
+/* Branch: Motion Styles por interação (Hover In/01 · Pressed/01 · Selected In/01) */
+cds-credit-card-input.cds-tf{
+  --tf-hover-d:var(--motion-hover-duration);   --tf-hover-e:var(--motion-hover-easing);
+  --tf-press-d:var(--motion-press-duration);   --tf-press-e:var(--motion-press-easing);
+  --tf-active-d:var(--motion-active-duration); --tf-active-e:var(--motion-active-easing);
+}
+cds-credit-card-input .cds-tf__lead{ width:var(--common-sizes-24); height:var(--common-sizes-24); } /* 24×24 intencional (bandeira) */
+cds-credit-card-input .cds-tf__control{ font-variant-numeric:tabular-nums; }
+/* Branch: no Warning o Hovered mantém Surface/01 e o Label fica em Feedback/Warning/semi-intense */
+cds-credit-card-input[appearance="warning"] .cds-tf__box:hover,
+cds-credit-card-input[appearance="warning"][state="hovered"] .cds-tf__box{ --_bg:var(--common-colors-surface-01); }
+cds-credit-card-input[appearance="warning"] .cds-tf__label{ color:var(--common-colors-feedback-warning-semi-intense); }
+
+/* ==== components/date-input/date-input.css ==== */
+/* Date Input · set 17962:70687 — base em text-field.css · Text Box pad 0 16 · Calendar Button 40 (Icon Button Small)
+   Is Active = Popover aberto (stroke Border/semi-intense, como o foco) */
+.cds-tf--date.is-open .cds-tf__box{
+  --_bg:var(--common-colors-surface-default); --_stroke-w:var(--common-border-width-hairline); --_stroke-c:var(--common-colors-border-semi-intense);
+}
+.cds-tf--date[appearance="warning"].is-open .cds-tf__box{ --_stroke-c:var(--common-colors-feedback-warning-semi-intense); }
+.cds-di__popover{ min-width:0; }
+
+/* ==== components/password-input/password-input.css ==== */
+/* Password Input · set 5798:2677 — base em text-field.css */
+
+/* ==== components/quantity-input/quantity-input.css ==== */
+/* [Beta] Quantity Input · set 22756:7351 — Decrement 48 · gap 8 · Text Box min 72 (valor centralizado) · Increment 48
+   Is Active não muda o stroke (Figma) · Warning: stroke warning, fundo Surface/default no hover (matriz do Quantity)
+   Motion: 300ms + Systemic/accelerate, herdado da base (como na main) */
+cds-quantity-input.cds-tf{ width:auto; }
+.cds-qty__row{ display:flex; align-items:center; gap:var(--common-sizes-8); }
+.cds-qty__box{ flex:0 0 auto; min-width:var(--common-sizes-72); width:auto; /* Figma: mínimo 72; cresce com prefixo/unidade (C100) */ padding:0 var(--common-sizes-16); justify-content:center; }
+.cds-qty__control{ text-align:center; width:100%; min-width:0; font-variant-numeric:tabular-nums; }
+/* Is Active=True sem mudança de stroke (matriz do Figma) */
+cds-quantity-input .cds-qty__box:focus-within:not(:hover):not(:active){ --_stroke-c:var(--common-colors-border-semi-soft); }
+cds-quantity-input.is-warning .cds-qty__box,
+cds-quantity-input.is-warning .cds-qty__box:hover,
+cds-quantity-input.is-warning .cds-qty__box:focus-within{ --_bg:var(--common-colors-surface-default); --_stroke-c:var(--common-colors-feedback-warning-semi-intense); }
+cds-quantity-input.is-warning .cds-tf__msg{ color:var(--common-colors-feedback-warning-semi-intense); }
+cds-quantity-input[disabled]:not([is-active]) .cds-qty__box{ --_stroke-c:var(--common-colors-border-semi-soft); }
+.cds-qty__live{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+
+/* ==== components/search-input/search-input.css ==== */
+/* Search Input · set 14880:3404 — base em text-field.css */
+
+/* ==== components/text-area/text-area.css ==== */
+/* Text Area Input · set 10110:3028 — Text Box minH 72 · pad 8 16 · conteúdo alinhado no topo */
+cds-text-area .cds-tf__box{ align-items:flex-start; min-height:var(--common-sizes-72); padding:var(--common-sizes-8) var(--common-sizes-16); }
+cds-text-area .cds-tf__control{ resize:none; display:block; min-height:var(--common-sizes-24); line-height:var(--common-sizes-24); }
+
+/* ==== components/text-input/text-input.css ==== */
+/* Text Input · set 5743:325 — tudo vem de text-field.css (base da família) */
+
+/* ==== components/toast/toast.css ==== */
+/* Toast · set 5234:516 — Surface/inversed · raio large · pad 20 · gap 8 · min 312 · max 743
+   Ícone 24 num container 40: Positive Decorative/03 (positive-line) · Warning Decorative/01 (warning-line)
+   Texto Caption/Regular · Text/inversed · até 2 linhas
+   Mobile (Toast mobile): coluna · pad 24 20 · gap 12 · ícone e fechar no topo, sem raio (como no Figma) */
+cds-toast{
+  display:grid; grid-template-columns:auto minmax(0,1fr) auto; grid-template-areas:"icon text close";
+  align-items:center; column-gap:var(--common-sizes-8);
+  width:312px; min-width:min(312px, 100%); max-width:min(743px, 100%); /* 312 no Figma; a instância pode crescer até 743 */
+  padding:var(--common-sizes-20); border-radius:var(--common-border-radius-large);
+  background:var(--common-colors-surface-inversed); color:var(--common-colors-text-inversed);
+}
+cds-toast [hidden]{ display:none !important; }
+.cds-toast__icon{ grid-area:icon; display:grid; place-items:center; width:var(--common-sizes-40); height:var(--common-sizes-40); border-radius:var(--common-border-radius-small); }
+.cds-toast__icon > .cds-icon{ --cds-icon-color:var(--common-colors-decorative-03); width:var(--common-sizes-24); height:var(--common-sizes-24); }
+cds-toast[appearance="warning"] .cds-toast__icon > .cds-icon{ --cds-icon-color:var(--common-colors-decorative-01); }
+.cds-toast__text{
+  grid-area:text; margin:0; font:var(--text-style-caption-regular);
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
+cds-toast > cds-close-toast{ grid-area:close; }
+[data-viewport="mobile"] cds-toast:not([viewport]), cds-toast[viewport="mobile"]{
+  grid-template-columns:auto minmax(0,1fr) auto; grid-template-areas:"icon . close" "text text text";
+  row-gap:var(--common-sizes-12); padding:var(--common-sizes-24) var(--common-sizes-20); border-radius:var(--common-border-radius-none);
+}
+/* Motion (zeroheight · D145): Entrada expressive/decelerate · long/02 (sem Motion Style) · Saída Selected Out/01
+   O Figma não especifica o movimento: opacidade + 8px na vertical */
+@keyframes cds-toast-in{ from{ opacity:0; transform:translateY(var(--common-sizes-8)); } }
+cds-toast{ animation:cds-toast-in var(--common-motion-duration-long-02) var(--common-motion-easing-expressive-decelerate); }
+cds-toast[closing]{ opacity:0; transform:translateY(var(--common-sizes-8)); pointer-events:none;
+  transition:opacity var(--motion-selected-out-01-timing) var(--motion-selected-out-01-easing), transform var(--motion-selected-out-01-timing) var(--motion-selected-out-01-easing); }
+@media (prefers-reduced-motion:reduce){ cds-toast{ animation:none; } cds-toast[closing]{ transition:none; } }
+
+/* ==== components/tooltip/tooltip.css ==== */
+/* Tooltip · 11211:416 — Surface/inversed · raio extra-small · Elevation/level 2 · pad 8 12 · gap 4 · máx. 240
+   Label Caption/Bold + conteúdo Caption/Regular, Text/inversed */
+cds-tooltip{
+  display:flex; flex-direction:column; gap:var(--common-sizes-4); max-width:240px; width:max-content;
+  padding:var(--common-sizes-8) var(--common-sizes-12); border-radius:var(--common-border-radius-extra-small);
+  background:var(--common-colors-surface-inversed); color:var(--common-colors-text-inversed);
+  box-shadow:var(--common-elevation-level-2);
+}
+cds-tooltip[hidden]{ display:none; }
+cds-tooltip.is-floating{ position:fixed; z-index:1000; pointer-events:none; }
+.cds-tooltip__label{ margin:0; font:var(--text-style-caption-bold); }
+.cds-tooltip__text{ margin:0; font:var(--text-style-caption-regular); }
+
+/* ==== components/topic/topic.css ==== */
+/* Topic · set 15621:1175 — Horizontal: linha, gap 16, topo · Vertical: coluna, gap 16 · 340 de largura no Figma */
+cds-topic{ display:flex; align-items:flex-start; gap:var(--common-sizes-16); width:340px; max-width:100%; }
+cds-topic[orientation="vertical"]{ flex-direction:column; }
+.cds-topic__text{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+.cds-topic__title{ margin:0; font:var(--text-style-heading-small); color:var(--common-colors-text-intense); }
+.cds-topic__desc{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+
+/* ==== components/trailing-item/trailing-item.css ==== */
+/* .Trailing Item · set 5488:647 — 48×48 centralizado; Kind=Tag no tamanho do Tag */
+cds-trailing-item{ flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; min-width:var(--common-sizes-48); height:var(--common-sizes-48); }
+cds-trailing-item[kind="tag"]{ min-width:0; height:auto; align-self:flex-start; }
+cds-trailing-item .cds-sc__label{ display:none; }
+
+/* ==== components/content-list-item/content-list-item.css ==== */
+/* Content List Item · set 5488:675 — base em list-item.css
+   Kind=Default: Container pad 8 4 (o Selection List Item usa 8 16 8 24; intencional, compensação de espaços · C41 resolvido) · Kind=Card: 16 16 16 24
+   Card Pressed: stroke 2px (Border/Width/thin) Accent/Solid/medium */
+cds-content-list-item > .cds-li > .cds-li__container{ padding:var(--common-sizes-8) var(--common-sizes-4); }
+cds-content-list-item[kind="card"] > .cds-li > .cds-li__container{ padding:var(--common-sizes-16) var(--common-sizes-16) var(--common-sizes-16) var(--common-sizes-24); }
+cds-content-list-item[kind="card"] > .cds-li:active, cds-content-list-item[kind="card"][state="pressed"] > .cds-li{ --_stroke-w:var(--common-border-width-thin); }
+cds-content-list-item .cds-li__currency{ flex:0 0 auto; margin-left:auto; text-align:right; align-items:flex-end; }
+cds-content-list-item .cds-li__tag, cds-content-list-item .cds-li__nav{ flex:0 0 auto; }
+
+/* Drag Handle (CDS-1592): frame do próprio item, não é building block. Mín. 24×24 (Sizes/24) · padding Sizes/2 · drag-line 20 · Icons/intense · à esquerda do Lead Item */
+cds-content-list-item .cds-li__drag{ flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box;
+  min-width:var(--common-sizes-24); min-height:var(--common-sizes-24); padding:var(--common-sizes-2); cursor:grab; touch-action:none; }
+cds-content-list-item .cds-li__drag:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:0; } /* C23 */
+cds-content-list-item[disabled] .cds-li__drag{ cursor:default; }
+
+/* State=Dragged (CDS-1592), relido na branch em 13/10 (3º ajuste, variantes 26407:10643…10675): estrutura, Divider e altura do Enabled
+   Fundo Surface/default · Elevation/level 1 · stroke Border/semi-soft INSIDE, fora do layout:
+   Kind=Default só à esquerda (Border/Width/hairline) · Kind=Card hairline em cima, à direita e embaixo e Border/Width/thick à esquerda */
+cds-content-list-item[state="dragged"] > .cds-li{
+  --_bg:var(--common-colors-surface-default);
+  box-shadow:inset var(--common-border-width-hairline) 0 0 0 var(--common-colors-border-semi-soft), var(--common-elevation-level-1); cursor:grabbing; }
+cds-content-list-item[kind="card"][state="dragged"] > .cds-li{
+  box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-semi-soft), inset var(--common-border-width-thick) 0 0 0 var(--common-colors-border-semi-soft), var(--common-elevation-level-1); }
+cds-content-list-item[state="dragged"] .cds-li__drag{ cursor:grabbing; }
+/* Apertar a alça não é apertar a linha: sem Pressed (Accent) quando o :active vem da .Drag Handle */
+cds-content-list-item:not([state]) > .cds-li:has(.cds-li__drag:active){ --_bg:var(--common-colors-surface-default); }
+cds-content-list-item[kind="card"]:not([state]) > .cds-li:has(.cds-li__drag:active){ --_stroke-c:var(--common-colors-border-semi-soft); --_stroke-w:var(--common-border-width-hairline); }
+
+/* ==== components/content-list/content-list.css ==== */
+/* Content List · set 5488:1482 — coluna · Default sem gap · Card gap 8 */
+cds-content-list{ display:flex; flex-direction:column; width:320px; max-width:100%; }
+cds-content-list[kind="card"]{ gap:var(--common-sizes-8); }
+
+/* Reordenar (CDS-1592): o espaço de destino é o deslocamento dos vizinhos (o itemSpacing não muda) */
+cds-content-list > .cds-cl__live{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+cds-content-list[reorderable]{ position:relative; }
+cds-content-list[data-dragging] > cds-content-list-item{ transition:transform var(--common-motion-duration-short-04) var(--common-motion-easing-systemic-default); }
+cds-content-list[data-dragging] > cds-content-list-item[state="dragged"]{ transition:none; position:relative; z-index:1; }
+cds-content-list[data-dragging]{ user-select:none; -webkit-user-select:none; }
+@media (prefers-reduced-motion:reduce){ cds-content-list[data-dragging] > cds-content-list-item{ transition:none; } }
+cds-content-list[data-dragging] > cds-content-list-item:not([state="dragged"]) > .cds-li{ --_bg:var(--common-colors-surface-default); }
+cds-content-list[kind="card"][data-dragging] > cds-content-list-item:not([state="dragged"]) > .cds-li{ --_stroke-c:var(--common-colors-border-semi-soft); }
+
+/* ==== components/selection-list-item/selection-list-item.css ==== */
+/* Selection List Item · set 5488:812 — base em list-item.css
+   Is Active=True: Accent/Solid/soft · Card stroke Accent/Solid/semi-soft (Hovered: Border/medium · Pressed: Accent/Solid/medium)
+   Como no Figma hoje (CONFERIR C40): Hovered + Is Active volta a Surface/01; Pressed + Is Active (Default) volta a Surface/default */
+cds-selection-list-item[is-active] > .cds-li{ --_bg:var(--common-colors-accent-solid-soft); }
+cds-selection-list-item[kind="card"][is-active] > .cds-li{ --_stroke-c:var(--common-colors-accent-solid-semi-soft); }
+cds-selection-list-item[is-active] > .cds-li:hover, cds-selection-list-item[is-active][state="hovered"] > .cds-li, cds-selection-list-item[is-active] > .cds-li.is-current{ --_bg:var(--common-colors-surface-01); }
+cds-selection-list-item[kind="card"][is-active] > .cds-li:hover, cds-selection-list-item[kind="card"][is-active][state="hovered"] > .cds-li{ --_stroke-c:var(--common-colors-border-medium); }
+cds-selection-list-item[is-active] > .cds-li:active, cds-selection-list-item[is-active][state="pressed"] > .cds-li{ --_bg:var(--common-colors-surface-default); }
+cds-selection-list-item[kind="card"][is-active] > .cds-li:active, cds-selection-list-item[kind="card"][is-active][state="pressed"] > .cds-li{ --_stroke-c:var(--common-colors-accent-solid-medium); }
+
+/* ==== components/select-field/select-field.css ==== */
+/* =====================================================================
+   Select Inputs — base em text-field.css (mesma anatomia do Text Input)
+   Text Box: pad 0 0 0 16 (o Icon Button Ghost Medium de 48 encosta à direita) · Is Active = popover aberto
+   Popover (2270:102) com a largura do campo; opções = Selection List Item / Content List Item
+   ===================================================================== */
+.cds-tf--select .cds-tf__box{ padding-right:0; }
+.cds-tf--select .cds-tf__control[readonly]{ cursor:pointer; caret-color:transparent; }
+.cds-tf--select .cds-tf__control[readonly]:disabled{ cursor:default; }
+/* Is Active=True — popover aberto */
+.cds-tf--select.is-open .cds-tf__box{
+  --_bg:var(--common-colors-surface-default);
+  --_stroke-w:var(--common-border-width-hairline);
+  --_stroke-c:var(--common-colors-border-semi-intense);
+  --_dur:var(--tf-active-d); --_ease:var(--tf-active-e);
+}
+.cds-tf--select[appearance="warning"].is-open .cds-tf__box{ --_stroke-c:var(--common-colors-feedback-warning-semi-intense); }
+
+.cds-sel__popover{ min-width:0; }
+.cds-sel__list{ display:flex; flex-direction:column; max-height:min(320px, 50vh); overflow-y:auto; overscroll-behavior:contain; } /* altura máxima: sem especificação (C44) */
+.cds-sel__option{ flex:0 0 auto; }
+.cds-sel__empty{ padding:var(--common-sizes-12) var(--common-sizes-16); font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+
+/* Multi: chips (Input Chips) antes do campo, quebrando linha */
+.cds-tf--multi .cds-tf__content{ flex-wrap:wrap; padding:var(--common-sizes-4) 0; row-gap:var(--common-sizes-4); }
+.cds-tf--multi .cds-tf__control{ min-width:var(--common-sizes-80); }
+.cds-sel__chips{ display:contents; }
+.cds-sel__chip{ display:flex; }
+
+/* Motion por membro, como nas reactions do Figma (C42): hover 150ms nos quatro, instantâneo no Checkbox, 300ms no Multi */
+cds-async-select-input.cds-tf, cds-async-creatable-select-input.cds-tf, cds-radio-select-input.cds-tf{
+  --tf-hover-d:var(--common-motion-duration-short-03); --tf-hover-e:var(--common-motion-easing-systemic-accelerate);
+}
+cds-checkbox-select-input.cds-tf{ --tf-hover-d:var(--common-motion-duration-short-00); }
+cds-multi-select-input.cds-tf{ --tf-hover-d:var(--common-motion-duration-medium-02); --tf-hover-e:var(--common-motion-easing-systemic-accelerate); }
+
+/* ==== components/select-number/select-number.css ==== */
+/* .Select Number · set 13408:1596 — pílula Surface/default · pad 4 8 · gap 4 · 29 de altura
+   Motion: 150ms + Systemic/accelerate (hover, press, click) */
+cds-select-number{ display:inline-flex; }
+.cds-sn{
+  --_bg:var(--common-colors-surface-default);
+  display:inline-flex; align-items:center; gap:var(--common-sizes-4); padding:var(--common-sizes-4) var(--common-sizes-8); margin:0; border:0;
+  border-radius:var(--common-border-radius-pill); background:var(--_bg); cursor:pointer;
+  font:var(--text-style-caption-regular); color:var(--common-colors-text-intense);
+  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+}
+.cds-sn:focus-visible{ outline:2px solid var(--common-colors-support-system); outline-offset:0; } /* C23 */
+.cds-sn:hover{ --_bg:var(--common-colors-neutral-solid-semi-soft); color:var(--common-colors-text-medium); }
+.cds-sn:active{ --_bg:var(--common-colors-neutral-solid-semi-soft); color:var(--common-colors-text-intense); font:var(--text-style-caption-medium); }
+.cds-sn:disabled{ opacity:var(--common-opacity-light); color:var(--common-colors-text-medium); cursor:default; }
+.cds-sn__popover{ min-width:0; }
+.cds-sn__list{ display:flex; flex-direction:column; max-height:220px; overflow-y:auto; outline:none; }
+/* override de instância do Figma: opções com 32 de altura */
+.cds-sn__list .cds-li__container{ min-height:0; }
+@media (prefers-reduced-motion:reduce){ .cds-sn{ transition:none; } }
+
+/* ==== components/pagination/pagination.css ==== */
+/* Pagination · 13408:1416 — 780 × 56 · Surface/default · pad 4 16 · SPACE_BETWEEN · grupos gap 16 · partes gap 4
+   Textos Caption/Regular (rótulos) e Caption/Medium (1-10 de 250 itens), Text/intense · Divider vertical Medium 16 */
+cds-pagination{ display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-16); flex-wrap:wrap; box-sizing:border-box;
+  width:780px; max-width:100%; min-height:var(--common-sizes-56); padding:var(--common-sizes-4) var(--common-sizes-16); background:var(--common-colors-surface-default); }
+cds-pagination [hidden]{ display:none !important; }
+.cds-pg__group{ display:flex; align-items:center; gap:var(--common-sizes-16); }
+.cds-pg__part, .cds-pg__total{ display:flex; align-items:center; gap:var(--common-sizes-4); }
+.cds-pg__total{ gap:var(--common-sizes-12); }
+.cds-pg__txt{ font:var(--text-style-caption-regular); color:var(--common-colors-text-intense); white-space:nowrap; }
+.cds-pg__strong{ font:var(--text-style-caption-medium); color:var(--common-colors-text-intense); white-space:nowrap; }
+.cds-pg__div{ height:var(--common-sizes-16); min-height:0; align-self:center; }
+.cds-pg__nav{ display:flex; align-items:center; }
+
+/* ==== components/selection-list/selection-list.css ==== */
+/* Selection List · set 5488:1552 — coluna · Default sem gap · Card gap 8 */
+cds-selection-list{ display:flex; flex-direction:column; width:320px; max-width:100%; }
+cds-selection-list[kind="card"]{ gap:var(--common-sizes-8); }
+
+/* ==== components/table/table.css ==== */
+/* Table · set 13472:5725 — 1053 × 816 no Figma (Default) · Container: stroke 1px INSIDE Border/semi-soft · raio large
+   (outline com offset negativo: o stroke fica por cima, sem somar altura, como o INSIDE do Figma)
+   .Toolbar 64 + .Head 56 + 10 × .Data Cell 64 = 760 · Pagination 56 abaixo (stroke inferior Border/semi-soft)
+   Kind=Empty: Table Columns 376 · coluna gap 24 centralizada · ilustração 200 + texto + Main Button */
+cds-table{ display:flex; flex-direction:column; width:100%; min-width:0; }
+cds-table [hidden]{ display:none !important; }
+.cds-table__box{ display:flex; flex-direction:column; border-radius:var(--common-border-radius-large); overflow:hidden;
+  outline:var(--common-border-width-hairline) solid var(--common-colors-border-semi-soft); outline-offset:calc(-1 * var(--common-border-width-hairline)); }
+.cds-table__scroll{ overflow-x:auto; }
+.cds-table{ width:100%; border-collapse:separate; border-spacing:0; }
+.cds-table__caption{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+.cds-table__empty{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--common-sizes-24); min-height:376px; padding:var(--common-sizes-16); background:var(--common-colors-surface-default); text-align:center; }
+.cds-table__ill{ width:200px; height:200px; }
+.cds-table__empty-text{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+cds-table .cds-table__pager{ width:100%; max-width:none; box-shadow:inset 0 calc(-1 * var(--common-border-width-hairline)) 0 var(--common-colors-border-semi-soft); }
+
+/* ==== components/upload-item/upload-item.css ==== */
+/* Upload Item · set 15029:1115 — 320 × 80 · Surface/default · stroke 1px INSIDE Border/semi-soft · raio large · gap 8 */
+cds-upload-item{ box-sizing:border-box; display:flex; align-items:center; gap:var(--common-sizes-8); width:320px; max-width:100%; min-height:var(--common-sizes-80);
+  padding:var(--common-sizes-8) var(--common-sizes-12); background:var(--common-colors-surface-default); border-radius:var(--common-border-radius-large);
+  box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--common-colors-border-semi-soft); }
+cds-upload-item[status="error"], cds-upload-item[status="uploaded"]{ padding:0 var(--common-sizes-12); }
+cds-upload-item [hidden]{ display:none !important; }
+.cds-ui__loading{ flex:0 0 auto; display:grid; place-items:center; width:var(--common-sizes-48); height:var(--common-sizes-48); border-radius:var(--common-border-radius-medium); background:var(--common-colors-surface-01); }
+.cds-ui__content{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:var(--common-sizes-2); }
+cds-upload-item:not([status]) .cds-ui__content{ gap:6px; } /* Uploading: gap 6 até a Progress Line (sem token, C64) */
+.cds-ui__name{ display:flex; gap:var(--common-sizes-2); min-width:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+.cds-ui__title{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; }
+.cds-ui__ext{ flex:0 0 auto; }
+.cds-ui__msg{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+cds-upload-item[status="success"] .cds-ui__msg{ color:var(--common-colors-feedback-positive-semi-intense); }
+cds-upload-item[status="error"] .cds-ui__msg{ color:var(--common-colors-feedback-warning-semi-intense); }
+.cds-ui__progress{ width:100%; }
+.cds-ui__actions{ flex:0 0 auto; display:flex; align-items:center; }
+
+/* ==== components/upload-list/upload-list.css ==== */
+/* Upload List · 15465:1365 — 320 · coluna gap 8 */
+cds-upload-list{ display:flex; flex-direction:column; gap:var(--common-sizes-8); width:320px; max-width:100%; }
+
+/* ==== components/viewport-restriction/viewport-restriction.css ==== */
+/* Viewport Restriction · 5357:3899 — Feedback/Negative/soft · pad 16 · Caption/Medium Feedback/Negative/intense · 200×200 */
+cds-viewport-restriction{
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  width:200px; height:200px; max-width:100%; padding:var(--common-sizes-16);
+  background:var(--common-colors-feedback-negative-soft); color:var(--common-colors-feedback-negative-intense);
+  font:var(--text-style-caption-medium);
+}
+
+/* ==== components/overlay/overlay.css ==== */
+/* Base dos overlays (Modal · Drawer · Bottom Sheet) — <dialog> nativo; o ::backdrop usa o Backdrop (backdrop.css) */
+.cds-overlay{ padding:0; border:0; color:var(--common-colors-text-intense); background:var(--common-colors-surface-default); max-height:100dvh; overflow:visible; }
+.cds-overlay:focus-visible{ outline:none; }
+.cds-overlay.is-inline{ position:relative; inset:auto; margin:0; }
+.cds-overlay[open]{ display:flex; flex-direction:column; }
+/* .Header e .Footer têm fundo próprio: herdam os cantos do painel para não pintar canto reto sobre o raio (Modal com Header/Footer ficava quadrado) */
+.cds-overlay > cds-header{ border-top-left-radius:inherit; border-top-right-radius:inherit; }
+.cds-overlay > cds-footer{ border-bottom-left-radius:inherit; border-bottom-right-radius:inherit; }
+.cds-overlay__slot{ flex:1 1 auto; min-height:0; overflow:auto; display:flex; flex-direction:column; }
+.cds-overlay [hidden]{ display:none !important; }
+/* O host não ocupa espaço quando o dialog está na camada de topo; no specimen (inline) ele envolve o painel */
+:is(cds-modal, cds-drawer, cds-bottom-sheet){ display:contents; }
+:is(cds-modal, cds-drawer, cds-bottom-sheet)[inline]{ display:inline-flex; position:relative; max-width:100%; }
+cds-drawer[inline]{ max-width:none; } /* 640 fixo; no preview estreito o painel rola */
+
+/* ==== components/bottom-sheet/bottom-sheet.css ==== */
+/* Bottom Sheet · 20848:2679 — largura total (min 320) · raio 16 16 0 0 · Handle 40×4 Icons/soft · ancorado embaixo */
+.cds-sheet{ box-sizing:border-box; width:100%; min-width:320px; max-width:100vw; max-height:90dvh; border-radius:var(--common-border-radius-large) var(--common-border-radius-large) 0 0; }
+.cds-sheet:not(.is-inline){ margin:auto 0 0; inset:auto 0 0 0; transition:transform var(--common-motion-duration-medium-02) var(--common-motion-easing-systemic-accelerate); }
+.cds-sheet.is-inline{ width:320px; min-width:0; max-width:100%; } /* inline (docs e playground): encolhe para caber no frame, sem transbordar */
+.cds-sheet.is-dragging{ transition:none; }
+.cds-sheet__handle-box{ flex:0 0 auto; display:flex; justify-content:center; padding:var(--common-sizes-8) 0; cursor:grab; touch-action:none; }
+.cds-sheet__handle{ width:var(--common-sizes-40); height:var(--common-sizes-4); border-radius:var(--common-border-radius-pill); background:var(--common-colors-icons-soft); }
+.cds-sheet .cds-overlay__slot{ padding:0 var(--common-sizes-20); }
+.cds-sheet__restriction{ display:none; }
+/* Common/Is Desktop — Viewport Restriction cobre o sheet inteiro (Tablet e Mobile mostram o sheet, como no Figma hoje) */
+[data-viewport="desktop"] cds-bottom-sheet:not([viewport]) .cds-sheet__restriction,
+cds-bottom-sheet[viewport="desktop"] .cds-sheet__restriction{ display:flex; position:absolute; inset:0; width:auto; height:auto; z-index:1; border-radius:inherit; }
+@media (prefers-reduced-motion:reduce){ .cds-sheet{ transition:none !important; } }
+
+/* ==== components/drawer/drawer.css ==== */
+/* Drawer · 16456:4381 — 640 × 100% · pad 0 20 · Elevation/level 1 · abre da direita · só desktop */
+.cds-drawer{ box-sizing:border-box; width:640px; max-width:100vw; height:100dvh; max-height:100dvh; box-shadow:var(--common-elevation-level-1); }
+.cds-drawer:not(.is-inline){ margin:0 0 0 auto; inset:0 0 0 auto; }
+.cds-drawer.is-inline{ height:720px; }
+.cds-drawer__panel{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; padding:0 var(--common-sizes-20); }
+.cds-drawer cds-header .cds-header__content{ padding:var(--common-sizes-12) 0; }
+.cds-drawer cds-footer .cds-footer__actions{ padding:var(--common-sizes-20) 0; }
+.cds-drawer cds-footer .cds-footer__actions > cds-main-button{ flex:1 1 0; max-width:320px; display:flex; }
+.cds-drawer cds-footer .cds-btn{ width:100%; }
+.cds-drawer__restriction{ display:none; }
+/* Is Mobile / Is Tablet — painel oculto, Viewport Restriction 200×200 no lugar */
+:is([data-viewport="mobile"], [data-viewport="tablet"]) cds-drawer:not([viewport]) .cds-drawer,
+cds-drawer:is([viewport="mobile"], [viewport="tablet"]) .cds-drawer{ width:fit-content; height:fit-content; padding:0; box-shadow:none; background:transparent; }
+:is([data-viewport="mobile"], [data-viewport="tablet"]) cds-drawer:not([viewport]) .cds-drawer:not(.is-inline),
+cds-drawer:is([viewport="mobile"], [viewport="tablet"]) .cds-drawer:not(.is-inline){ margin:auto; inset:0; }
+:is([data-viewport="mobile"], [data-viewport="tablet"]) cds-drawer:not([viewport]) .cds-drawer__panel,
+cds-drawer:is([viewport="mobile"], [viewport="tablet"]) .cds-drawer__panel{ display:none; }
+:is([data-viewport="mobile"], [data-viewport="tablet"]) cds-drawer:not([viewport]) .cds-drawer__restriction,
+cds-drawer:is([viewport="mobile"], [viewport="tablet"]) .cds-drawer__restriction{ display:flex; }
+
+/* ==== components/modal/modal.css ==== */
+/* Modal · 16362:3267 — abraça o conteúdo, sem limite de largura (Gustavo, C34/C58) · min 272 · Surface/default · raio medium · Elevation/level 2
+   --cds-modal-width fixa uma largura quando quem usa precisar */
+.cds-modal{
+  box-sizing:border-box; width:var(--cds-modal-width, fit-content); min-width:min(272px, calc(100vw - 32px)); max-width:calc(100vw - 32px);
+  max-height:calc(100dvh - 48px); border-radius:var(--common-border-radius-medium); box-shadow:var(--common-elevation-level-2);
+}
+.cds-modal:not(.is-inline){ margin:auto; }
+.cds-modal .cds-overlay__slot{ padding:0 var(--common-sizes-20); }
+
+/* ==== components/modal-date-picker/modal-date-picker.css ==== */
+/* Modal Date Picker · set 17560:51555 — Single 320 · Double 620: o Modal abraça o Date Picker (C58 resolvido)
+   O Date Picker ocupa o Slot sem o padding lateral do Modal (ele já tem pad 0 20) */
+cds-modal-date-picker{ display:contents; }
+cds-modal-date-picker[inline]{ display:inline-flex; }
+cds-modal-date-picker .cds-modal .cds-overlay__slot{ padding:0; position:static; } /* vence o pad 0 20 do Slot do Modal */
+cds-modal-date-picker .cds-mdp__restriction{ display:none; }
+/* Common/Is Mobile e Common/Is Tablet: Viewport Restriction cobre o modal inteiro */
+:is([data-viewport="mobile"], [data-viewport="tablet"]) cds-modal-date-picker:not([viewport]) .cds-mdp__restriction,
+cds-modal-date-picker:is([viewport="mobile"], [viewport="tablet"]) .cds-mdp__restriction{ display:flex; position:absolute; inset:0; width:auto; height:auto; z-index:1; border-radius:inherit; }
+
+/* ==== local/banner/banner.css ==== */
+/* <loc-banner> · componente local do playground (ver banner.js) — só tokens.
+   Fundo = tom escuro da área (--loc-back); três faixas com os stops da escala (--loc-f2, --loc-f1, --loc-f, do fundo para a
+   frente); o cartão da frente usa o fundo suave da área (--loc-tint) e leva o texto. Só tokens existentes, sem misturar cores.
+   Escala da área: [data-loc-area] em local/pilha/pilha.css. */
+loc-banner{
+  --_step:var(--common-sizes-20); --_fan:0;
+  display:flex; align-items:center; justify-content:center; min-width:0; box-sizing:border-box; overflow:hidden;
+  padding:var(--common-sizes-40) var(--common-sizes-32) var(--common-sizes-40) calc(var(--common-sizes-32) + 3 * var(--_step));
+  border-radius:var(--common-border-radius-extra-large); background:var(--loc-back);
+}
+loc-banner:hover, loc-banner:focus-within{ --_fan:1; }
+loc-banner .loc-banner__stack{ position:relative; width:100%; max-width:calc(3 * var(--common-sizes-160)); }
+loc-banner .loc-banner__strip{
+  position:absolute; inset-block:calc(var(--_k) * var(--common-sizes-12)); left:calc(-1 * var(--_k) * var(--_step)); width:100%;
+  border-radius:var(--common-border-radius-large);
+  background:var(--_c);
+  transform:translateX(calc(-1 * var(--_k) * var(--_fan) * var(--common-sizes-6)));
+  transition:transform var(--motion-hover-out-01-timing) var(--motion-hover-out-01-easing) var(--motion-hover-out-01-delay);
+}
+loc-banner .loc-banner__strip:nth-child(1){ --_c:var(--loc-f2); }
+loc-banner .loc-banner__strip:nth-child(2){ --_c:var(--loc-f1); }
+loc-banner .loc-banner__strip:nth-child(3){ --_c:var(--loc-f); }
+loc-banner:hover .loc-banner__strip, loc-banner:focus-within .loc-banner__strip{ transition:transform var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
+loc-banner .loc-banner__front{
+  position:relative; display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-8);
+  min-height:var(--common-sizes-160); box-sizing:border-box; padding:var(--common-sizes-32);
+  border-radius:var(--common-border-radius-large); color:var(--common-colors-text-intense);
+  background:var(--loc-tint);
+}
+loc-banner .loc-banner__eyebrow{ margin:0; font:var(--text-style-label-bold); color:var(--common-colors-text-medium); }
+loc-banner .loc-banner__title{ margin:0; font:var(--text-style-decorative-large); text-wrap:balance; }
+loc-banner .loc-banner__text{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); text-wrap:pretty; }
+loc-banner .loc-banner__link{ margin-top:auto; padding-top:var(--common-sizes-8); }
+loc-banner [hidden]{ display:none; }
+@media (max-width:760px){
+  loc-banner{ --_step:var(--common-sizes-12); padding:var(--common-sizes-24) var(--common-sizes-16) var(--common-sizes-24) calc(var(--common-sizes-16) + 3 * var(--_step)); border-radius:var(--common-border-radius-large); }
+  loc-banner .loc-banner__front{ padding:var(--common-sizes-20); }
+  loc-banner .loc-banner__title{ font:var(--text-style-decorative-medium); }
+}
+@media (prefers-reduced-motion: reduce){ loc-banner .loc-banner__strip{ transition:none; } }
+
+/* ==== local/faixa/faixa.css ==== */
+/* <loc-faixa> · componente local do playground (ver faixa.js) — só tokens.
+   Tarja Surface/inversed no meio do pai, como nas thumbnails arquivadas do Castanha Assets. */
+loc-faixa{
+  position:absolute; inset-inline:0; top:50%; transform:translateY(-50%); z-index:1;
+  padding:var(--common-sizes-16); text-align:center;
+  font:var(--text-style-title-small); color:var(--common-colors-text-inversed); background:var(--common-colors-surface-inversed);
+}
+
+/* ==== local/pilha/pilha.css ==== */
+/* <loc-pilha> · componente local do playground (ver pilha.js) — só tokens.
+   Cartões quadrados; o da frente tem a altura da pilha e encosta à direita. Cada cartão de trás começa 9cqh mais à esquerda
+   e encolhe 14cqh, então aparece como uma faixa à esquerda do seguinte.
+   Cor: cada cartão usa um stop da escala da área, do mais escuro (atrás, --loc-f3) ao mais claro (na frente, --loc-f).
+   Só stops que existem no tema, sem misturar cores (Gustavo, 06/10: "só tokens existentes").
+   A área vem do atributo area ou de um ancestral com data-loc-area (ex.: a capa do recurso), que também usa:
+     --loc-back  tom escuro da área (fundo do banner, sobretítulo da capa clara)
+     --loc-tint  fundo suave da área (pale ou soft da escala; capa clara, capítulos tingidos, cartão do banner) */
+loc-pilha{ --_n:4; --_fan:0; display:block; position:relative; aspect-ratio:127 / 100; container-type:size; pointer-events:none; }
+loc-pilha[cards="3"]{ --_n:3; aspect-ratio:118 / 100; }
+loc-pilha > span{
+  position:absolute; top:50%; left:calc((var(--_n) - 1 - var(--_k)) * 9cqh); height:calc(100cqh - var(--_k) * 14cqh); aspect-ratio:1;
+  border-radius:var(--common-border-radius-large);
+  transform:translate(calc(var(--_k) * var(--_fan) * -6cqh), -50%);
+  transition:transform var(--motion-hover-out-01-timing) var(--motion-hover-out-01-easing) var(--motion-hover-out-01-delay);
+}
+loc-pilha > span:nth-last-child(1){ background:var(--loc-f); }
+loc-pilha > span:nth-last-child(2){ background:var(--loc-f1); }
+loc-pilha > span:nth-last-child(3){ background:var(--loc-f2); }
+loc-pilha > span:nth-last-child(4){ background:var(--loc-f3); }
+loc-pilha[align="end"] > span{ top:auto; bottom:0; transform:translateX(calc(var(--_k) * var(--_fan) * -6cqh)); border-end-start-radius:0; border-end-end-radius:0; }
+/* Leque: hover/foco de quem usa (.loc-pilha-trigger) ou parado na doc ([fan]) */
+.loc-pilha-trigger:hover loc-pilha, .loc-pilha-trigger:focus-within loc-pilha, loc-pilha[fan]{ --_fan:1; }
+.loc-pilha-trigger:hover loc-pilha > span, .loc-pilha-trigger:focus-within loc-pilha > span{
+  transition:transform var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing);
+}
+
+/* Escalas por área (CDS.local.areas). Accent e Charts 01–03 têm 5 a 7 stops; Charts 04 e 07 têm 4 (intense, medium,
+   semi-soft, soft): na pilha de 4 cartões os dois de trás repetem intense. */
+/* padrão (Accent) no :root para herdar; quem tem area ou data-loc-area troca a escala */
+:root, [data-loc-area], loc-pilha[area]{
+  --loc-f3:var(--common-colors-accent-solid-intense); --loc-f2:var(--common-colors-accent-solid-semi-intense);
+  --loc-f1:var(--common-colors-accent-solid-medium); --loc-f:var(--common-colors-accent-solid-semi-soft);
+  --loc-back:var(--common-colors-accent-solid-intense); --loc-tint:var(--common-colors-accent-solid-soft);
+}
+[data-loc-area="padroes"], loc-pilha[area="padroes"]{
+  --loc-f3:var(--common-colors-charts-03-intense); --loc-f2:var(--common-colors-charts-03-semi-intense); --loc-f1:var(--common-colors-charts-03-medium); --loc-f:var(--common-colors-charts-03-mild);
+  --loc-back:var(--common-colors-charts-03-intense); --loc-tint:var(--common-colors-charts-03-pale);
+}
+[data-loc-area="desenvolvimento"], loc-pilha[area="desenvolvimento"]{ /* Charts/05 tem 4 stops: os dois de trás repetem intense */
+  --loc-f3:var(--common-colors-charts-05-intense); --loc-f2:var(--common-colors-charts-05-intense); --loc-f1:var(--common-colors-charts-05-medium); --loc-f:var(--common-colors-charts-05-semi-soft);
+  --loc-back:var(--common-colors-charts-05-intense); --loc-tint:var(--common-colors-charts-05-soft);
+}
+[data-loc-area="ferramentas"], loc-pilha[area="ferramentas"]{
+  --loc-f3:var(--common-colors-charts-02-intense); --loc-f2:var(--common-colors-charts-02-semi-intense); --loc-f1:var(--common-colors-charts-02-medium); --loc-f:var(--common-colors-charts-02-mild);
+  --loc-back:var(--common-colors-charts-02-intense); --loc-tint:var(--common-colors-charts-02-pale);
+}
+[data-loc-area="ajuda"], loc-pilha[area="ajuda"]{
+  --loc-f3:var(--common-colors-charts-01-intense); --loc-f2:var(--common-colors-charts-01-semi-intense); --loc-f1:var(--common-colors-charts-01-medium); --loc-f:var(--common-colors-charts-01-mild);
+  --loc-back:var(--common-colors-charts-01-intense); --loc-tint:var(--common-colors-charts-01-pale);
+}
+[data-loc-area="aprenda"], loc-pilha[area="aprenda"]{ /* azul no lugar do roxo do Charts/04 (Gustavo, 06/10): Charts/03, o azul dos Charts, como em Padrões */
+  --loc-f3:var(--common-colors-charts-03-intense); --loc-f2:var(--common-colors-charts-03-semi-intense); --loc-f1:var(--common-colors-charts-03-medium); --loc-f:var(--common-colors-charts-03-mild);
+  --loc-back:var(--common-colors-charts-03-intense); --loc-tint:var(--common-colors-charts-03-pale);
+}
+[data-loc-area="legado"], loc-pilha[area="legado"]{
+  --loc-f3:var(--common-colors-charts-07-intense); --loc-f2:var(--common-colors-charts-07-intense); --loc-f1:var(--common-colors-charts-07-medium); --loc-f:var(--common-colors-charts-07-semi-soft);
+  --loc-back:var(--common-colors-charts-07-intense); --loc-tint:var(--common-colors-charts-07-soft);
+}
+/* Sobre Surface/accent (capa vermelha): do mais escuro ao rosado, sem o medium (é a cor do fundo). O fundo não muda no
+   Dark, mas a escala accent-solid inverte: no Dark os mesmos tons vêm dos stops opostos. */
+loc-pilha[on="accent"]{ --loc-f3:var(--common-colors-accent-solid-intense); --loc-f2:var(--common-colors-accent-solid-semi-intense); --loc-f1:var(--common-colors-accent-solid-semi-soft); --loc-f:var(--common-colors-accent-solid-soft); }
+html[data-theme="dark"] loc-pilha[on="accent"]{ --loc-f3:var(--common-colors-accent-solid-soft); --loc-f2:var(--common-colors-accent-solid-semi-soft); --loc-f1:var(--common-colors-accent-solid-semi-intense); --loc-f:var(--common-colors-accent-solid-intense); }
+/* Sobre Surface/inversed (topo do Relatório e a virada, cor Black do Assets): faixas claras atrás e o cartão da frente escuro.
+   A escala neutral-solid inverte no Dark junto com o fundo (variação White). */
+loc-pilha[on="inversed"]{ --loc-f3:var(--common-colors-neutral-solid-soft); --loc-f2:var(--common-colors-neutral-solid-semi-soft); --loc-f1:var(--common-colors-neutral-solid-medium); --loc-f:var(--common-colors-neutral-solid-semi-intense); }
+
+@media (prefers-reduced-motion: reduce){ loc-pilha > span{ transition:none; } }
+
+/* ==== local/vazio/vazio.css ==== */
+/* <loc-vazio> · componente local do playground (ver vazio.js) — só tokens */
+loc-vazio{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-8); padding:var(--common-sizes-40) var(--common-sizes-16); text-align:center; }
+loc-vazio[hidden]{ display:none; }
+loc-vazio .loc-vazio__pilha{ height:var(--common-sizes-64); margin-bottom:var(--common-sizes-8); }
+loc-vazio .loc-vazio__title{ margin:0; font:var(--text-style-title-small); color:var(--common-colors-text-intense); text-wrap:balance; }
+loc-vazio .loc-vazio__text{ margin:0; max-width:calc(3 * var(--common-sizes-160)); font:var(--text-style-body-regular); color:var(--common-colors-text-medium); text-wrap:pretty; }
+loc-vazio .loc-vazio__actions{ display:flex; flex-wrap:wrap; justify-content:center; gap:var(--common-sizes-16); margin-top:var(--common-sizes-8); }
+loc-vazio [hidden]{ display:none; }
+loc-vazio[size="small"]{ padding-block:var(--common-sizes-24); }
+loc-vazio[size="small"] .loc-vazio__pilha{ height:var(--common-sizes-40); margin-bottom:0; }

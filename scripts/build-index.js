@@ -95,7 +95,21 @@ function bundle(){
   fs.writeFileSync(path.join(DIST, "cds.css"), head(f.css.length) + f.css.map((r) => `/* ==== ${r} ==== */\n` + fs.readFileSync(path.join(ROOT, r), "utf8").trim()).join("\n\n") + "\n");
   fs.writeFileSync(path.join(DIST, "cds.js"), head(f.js.length) + f.js.map((r) =>
     `/* ==== ${r} ==== */\ntry {\n${fs.readFileSync(path.join(ROOT, r), "utf8").trim()}\n} catch (e) { console.error("[cds] ${r}", e); }`).join("\n\n") + "\n" + docsIndex() + searchIndex(DIST));
+  publicBundle(DIST, head);
   return f;
+}
+
+// Pacote público (plano de acesso, docs/PLANO-ACESSO.md): os componentes do DS e nada mais, sem playgrounds, recursos,
+// serviços nem índices de docs. É o que as páginas abertas (pitch e entrada) carregam, para o conteúdo do portal
+// ficar atrás da senha no Vercel.
+function publicBundle(DIST, head){
+  // + os componentes locais (loc-*, ex.: a pilha e o banner do Castanha Assets que o pitch usa): visual, sem conteúdo de docs
+  const css = order.filter((id) => fs.existsSync(path.join(DIR, id, id + ".css"))).map((id) => `components/${id}/${id}.css`)
+    .concat(locals.filter((id) => fs.existsSync(path.join(LOC, id, id + ".css"))).map((id) => `local/${id}/${id}.css`));
+  const js = order.map((id) => `components/${id}/${id}.js`).concat(locals.map((id) => `local/${id}/${id}.js`));
+  fs.writeFileSync(path.join(DIST, "cds-publico.css"), head(css.length) + css.map((r) => `/* ==== ${r} ==== */\n` + fs.readFileSync(path.join(ROOT, r), "utf8").trim()).join("\n\n") + "\n");
+  fs.writeFileSync(path.join(DIST, "cds-publico.js"), head(js.length) + js.map((r) =>
+    `/* ==== ${r} ==== */\ntry {\n${fs.readFileSync(path.join(ROOT, r), "utf8").trim()}\n} catch (e) { console.error("[cds] ${r}", e); }`).join("\n\n") + "\n");
 }
 
 // Busca no conteúdo (D209): dist/search.json, baixado pelo shell só na primeira busca
@@ -268,6 +282,27 @@ if (process.argv.includes("--smoke")){
   L.push("## Como rodar", "", "```", "node scripts/build-index.js --smoke     # build + smoke (componentes e docs) + este painel", "node scripts/dev/smoke.js --avisos      # só o smoke, listando os avisos", "```", "", "O GitHub roda o mesmo em todo push na `teste` e na `main` (aba Actions).", "");
   const out = L.join("\n"), file = rel("docs/SAUDE-TECNICA.md");
   if (!fs.existsSync(file) || fs.readFileSync(file, "utf8") !== out){ fs.writeFileSync(file, out); console.log("Painel de saúde atualizado: docs/SAUDE-TECNICA.md"); }
+})();
+// ---------- Números do pitch (docs/pitch/dados.json, aberto para quem não tem senha; plano de acesso) ----------
+// As mesmas contas que o pitch fazia no navegador lendo o ROADMAP e a Saúde técnica, que ficam atrás da senha no Vercel.
+(function(){
+  const rel = (f) => path.join(ROOT, f);
+  try {
+    const cat = JSON.parse(fs.readFileSync(rel("dist/mcp/catalog.json"), "utf8"));
+    const road = fs.readFileSync(rel("docs/ROADMAP.md"), "utf8"), saude = fs.readFileSync(rel("docs/SAUDE-TECNICA.md"), "utf8");
+    const sec = (n) => road.split(/\n(?=## )/).filter((x) => new RegExp("^## " + n + "\\.").test(x))[0] || "";
+    let variants = 0;
+    sec(2).split("\n").forEach((l) => {
+      if (!/^\|/.test(l) || /^\|\s*:?-{3,}|^\|\s*(Página|Componente)\s*\|/.test(l)) return;
+      const c = l.split("|").slice(1, -1).map((x) => x.trim()), v = c[c.length - 2] || "";
+      v.split("/").forEach((x) => { const n = parseInt(x, 10); if (!isNaN(n)) variants += n; });
+    });
+    const sm = saude.match(/(\d+)\/(\d+) ok/), dc = saude.match(/(\d+) docs · (\d+) tabs/);
+    const out = { comps: cat.components.filter((c) => c.kind === "component" && c.category).length, blocks: cat.components.filter((c) => c.kind === "building-block").length,
+      variants, decisions: sec(4).split("\n").filter((l) => /^\|\s*D\d+\b/.test(l)).length, smoke: sm ? Number(sm[2]) : null, docs: dc ? Number(dc[1]) : null, tabs: dc ? Number(dc[2]) : null };
+    const json = JSON.stringify(out) + "\n", file = rel("docs/pitch/dados.json");
+    if (!fs.existsSync(file) || fs.readFileSync(file, "utf8") !== json){ fs.writeFileSync(file, json); console.log("Números do pitch: docs/pitch/dados.json"); }
+  } catch (e) { console.warn("⚠️ docs/pitch/dados.json não gerado: " + e.message); }
 })();
 // ---------- Tendência (docs/tendencia.json → painel "Tendência" do relatório) ----------
 // Um ponto por dia fechado, lido do git. Muda uma vez por dia; no clone raso do CI não mexe no arquivo.

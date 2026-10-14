@@ -44,7 +44,6 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
 /* Rodapé do menu: fica no fim da coluna, alinhado à base da tela quando o menu é curto (Disclaimer/Regular · Text/soft) */
 .pg-sidebar{ display:flex; flex-direction:column; }
 .pg-sidebar > *{ flex:0 0 auto; }
-.pg-sidebar-foot{ margin:auto 0 0; padding-top:var(--common-sizes-24); font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); }
 .pg-sidebar{ scrollbar-width:none; }
 .pg-sidebar::-webkit-scrollbar{ display:none; }
 .pg-search{ display:block; width:100%; margin:0 0 var(--common-sizes-24); } /* Search Input do DS */
@@ -194,7 +193,6 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
     padding:var(--common-sizes-8) var(--common-sizes-16); overflow-x:auto; box-shadow:inset 0 calc(-1 * var(--common-border-width-hairline)) 0 var(--pg-line);
   }
   .pg-search{ width:calc(var(--common-sizes-160) + var(--common-sizes-40)); flex:0 0 auto; margin:0; }
-  .pg-sidebar-foot{ display:none; } /* faixa horizontal: sem rodapé */
   .pg-nav-title{ display:none; }
   .pg-nav-sections{ display:flex; gap:var(--common-sizes-4); margin:0; padding:0; box-shadow:none; }
   #nav-found{ margin:0; }

@@ -28,5 +28,10 @@
   "caminho": "/entregas/main-button-loading/",
   "titulo": "Main Button Loading · CDS-1603",
   "tipo": "Entrega"
+ },
+ {
+  "caminho": "/entregas/quantity-input/",
+  "titulo": "[Beta] Quantity Input · CDS-1602",
+  "tipo": "Entrega"
  }
 ]

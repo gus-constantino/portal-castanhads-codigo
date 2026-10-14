@@ -1,0 +1,2 @@
+/* GERADO por scripts/build-index.js a partir de entregas/quantity-input/entrega.json e handoff.md · não editar */
+window.CDS && CDS.entregaDados && CDS.entregaDados({"slug":"quantity-input","titulo":"[Beta] Quantity Input","task":"CDS-1602","resumo":"Campo numérico da família Text Fields, com os controles de diminuir e aumentar no próprio campo.","itens":[{"id":"quantity-input","name":"[Beta] Quantity Input","block":false,"description":"O Quantity Input é um campo numérico com controles de incremento e decremento."}],"handoff":[]});

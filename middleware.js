@@ -290,6 +290,8 @@ export default async function middleware(req){
       if (path === "/dist/cds.js") return new Response(null, { headers: { "x-middleware-rewrite": url.origin + "/dist/cds-entrega.js" + url.search } });
       const f = path.slice(1);
       if (alv.length && (path === "/acesso/alvos.js" || alv.some((a) => ALVOS[a].indexOf(f) >= 0))) return seguir();
+      // ranking do time do Castanha Quiz (api/ranking.mjs): também para quem abriu um link que inclui o Quiz (decisão do Gustavo, 14/10)
+      if (path === "/api/ranking" && alv.some((a) => ALVOS[a].indexOf("resources/castanha-quiz/castanha-quiz.js") >= 0)) return seguir();
       if (/\.docs\.js$/.test(path) ? ent.some((s) => ENTREGAS[s].indexOf(f) >= 0) : ENTREGA_SHELL.some((re) => re.test(path))) return seguir();
     }
     return quer(req) ? paraEntrar(url) : new Response("Entre no portal para abrir este arquivo", { status: 401, headers: { "cache-control": "no-store" } });

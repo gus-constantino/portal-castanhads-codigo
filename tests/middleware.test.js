@@ -174,10 +174,13 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   confere("com o link de página o dist/cds.js vira o pacote sem as páginas", (await comPg("/dist/cds.js")).headers.get("x-middleware-rewrite") === BASE + "/dist/cds-entrega.js");
   r = await comPg("/resources/treinamento/treinamento.js"); confere("o link de página não abre outra página", r.status === 401, String(r.status));
   r = await comPg("/components/main-button/main-button.docs.js"); confere("o link de página não abre a doc de um componente", r.status === 401, String(r.status));
-  r = await comPg("/api/ranking?board=geral"); confere("o link de página não abre o ranking do time", r.status === 401, String(r.status));
+  confere("o link do Quiz lê e grava no ranking do time", segue(await comPg("/api/ranking?board=geral")) && segue(await mw(new Request(BASE + "/api/ranking", { method: "POST", headers: { cookie: o.c, "content-type": "application/json" }, body: "{}" }))));
   // os dois links no mesmo navegador; revogado um, ele para na hora e a página limpa os cookies
   const o2 = await mw(req(new URL(gc.link).pathname, { headers: { cookie: o.c } }));
   const dois = o2.headers.getSetCookie().map((c) => c.split(";")[0]).join("; ");
+  const soMb = (await mw(req(new URL(gc.link).pathname))).headers.getSetCookie().map((c) => c.split(";")[0]).join("; ");
+  r = await mw(req("/api/ranking?board=geral", { headers: { cookie: soMb, accept: "*/*" } }));
+  confere("link sem o Quiz não abre o ranking do time", r.status === 401, String(r.status));
   confere("com os dois links abre a doc do componente", segue(await mw(req("/components/main-button/main-button.docs.js", { headers: { cookie: dois, accept: "*/*" } }))));
   const idMb = lista.links.filter((l) => l.alvo === "componente:main-button")[0].id;
   r = await post("/acesso/links/revogar", completo.cookie, { id: idMb });

@@ -2,7 +2,7 @@
 
 O ranking do Castanha Quiz fica no Vercel, junto do portal (D339). A função [`api/ranking.mjs`](../api/ranking.mjs) lê e grava as partidas num banco Upstash Redis ligado ao projeto `portal-castanhads`.
 
-- **Quem acessa:** quem entrou no portal com código (perfis Completo e Portal). O middleware barra o Visitante e quem abriu um link de entrega.
+- **Quem acessa:** quem entrou no portal com código (perfis Completo e Portal) e quem abriu um link de página que inclui o Quiz (a página Castanha Quiz ou a seção Aprenda). O middleware barra o Visitante, os links de entrega e os links de outras páginas. Link revogado perde o ranking junto.
 - **O que é gravado:** 3 iniciais, pontos, temas e data. O IP serve para limitar o envio (uma partida a cada 20 s) e sai do banco sozinho depois disso.
 - **Sem a função:** no servidor local comum e em cópias sem o Vercel, a aba Jogar mostra o ranking deste navegador, sem aviso.
 

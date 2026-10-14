@@ -9,7 +9,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | Tipo | Itens |
 |---|---|
 | [Ajuste de texto](#ajuste-de-texto) | 16 |
-| [Ajuste de UI](#ajuste-de-ui) | 31 |
+| [Ajuste de UI](#ajuste-de-ui) | 32 |
 | [Motion](#motion) | 8 |
 | [Refactor](#refactor) | 39 |
 | [Naming](#naming) | 11 |
@@ -77,6 +77,7 @@ Cor, fill, borda, tamanho ou layout de uma variante.
 | C197 | Bottom Sheet (20848:2679) | Sem prop para o Lead Icon dos botões do .Footer Pilled | O Modal expõe `show-lead-icon` e repassa ao .Footer; o Bottom Sheet não, e os botões aparecem com o ícone de exemplo | O onboarding desliga direto no .Footer aninhado (`footerEl`, override de instância) | Conferir no Figma se o Bottom Sheet expõe o Lead Icon do .Footer; se sim, repassar `show-lead-icon` como o Modal |
 | C199 | Link (4926:213) | Sem variante para link no meio de um texto | O Link é um controle solto: alvo de 48 px de altura, `inline-flex` e Label/Medium. Num parágrafo ou numa célula de tabela, ele aumenta a linha e troca a fonte | O glossário do Relatório (R1 do onboarding dos Relatórios) usa o Link Accent no termo com `display:inline`, sem altura mínima e com a fonte do texto (`.rp-dfn`, Gustavo, 13/10) | Levar ao time da lib: um Link inline (Size Inline ou Kind Text), com a fonte herdada e o sublinhado sempre visível |
 | C200 | Content List Item · State=Dragged e .Drag Handle (CDS-1592, branch `bHFCiEbEkTYCXNipG4iqN0`) | Relido em 13/10, no 3º ajuste (variantes 26407:10643…10675): mesma estrutura do Enabled; fundo `Surface/default`; stroke `Border/semi-soft` INSIDE, fora do layout (Kind=Default só à esquerda, `hairline`; Card `hairline` em cima, à direita e embaixo e `thick` à esquerda); `Elevation/level 1`; Divider e altura iguais ao Enabled. As variantes Dragged têm a reaction ON_HOVER → Hovered do mesmo Kind e Intent; o motion do On drag ainda não existe | O handoff diz `Elevation/level 2`, Divider oculta e contraste 15,3:1 (o par `Icons/intense` × `Surface/default` dá 16,96:1): atualizar o handoff? A reaction de hover no Dragged é intencional? | Segue a branch, sem hover no Dragged. A alça é `role=button` dentro da linha (link ou botão), um controle aninhado: no castanha-react, de preferência fora do elemento da linha. Deslocamento dos vizinhos com `Short/04` + `Systemic/default`, escolha do portal até o motion sair | Ajustar `content-list-item.css` (bloco State=Dragged) e o Motion da doc |
+| C203 | Chips Group `Single Rows` com Input Chips `Size=Small` (Chat Input, CDS-1594) | Altura fixa `Sizes/48`, pensada para o chip de 40. Com o Small (32) sobram 8 em cima e 8 embaixo | Decidir se o Single Rows acompanha a altura do chip | Segue o Figma: `cds-chips-group[role-kind="single"]` com 48 | Se o Figma mudar, trocar a altura em `chips-group.css` |
 
 ## Motion
 

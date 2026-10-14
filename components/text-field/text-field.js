@@ -144,12 +144,12 @@
 
       // Clicar em qualquer ponto do Text Box foca o campo (exceto nas ações)
       box.addEventListener("mousedown", function(e){
-        if (e.target === ctrl || e.target.closest("cds-icon-button")) return;
+        if (e.target === ctrl || e.target.closest("cds-icon-button, cds-input-chip")) return;
         e.preventDefault(); ctrl.focus();
       });
       // Logo após o tap o cursor ainda está sobre o campo: segura Is Active pela duração do Selected In
       box.addEventListener("pointerup", function(e){
-        if (e.target.closest("cds-icon-button")) return;
+        if (e.target.closest("cds-icon-button, cds-input-chip")) return;
         box.classList.add("is-tapped"); clearTimeout(box._tapT);
         box._tapT = setTimeout(function(){ box.classList.remove("is-tapped"); }, 350);
       });

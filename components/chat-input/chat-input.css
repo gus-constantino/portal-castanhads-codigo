@@ -1,8 +1,8 @@
 /* =====================================================================
    Chat Input · CDS-1594 · branch 4hJ90rFfuEyWx9zHeqJxp4 · set 26567:44273
    Membro da família Text Fields: cores e estados vêm de text-field.css. Aqui, o que é do Chat Input.
-   Text Box vertical, conteúdo embaixo · pad 8 8 8 16 · min Sizes/56 · max Sizes/160
-   Text Content pad 8 0 · Actions gap 4 · Trailing Items à direita, gap 4
+   Text Box vertical · pad 8 8 8 16 · gap Sizes/2 · min Sizes/56 · sem máximo próprio
+   Attachments (Chips Group Single Rows, 48) · Text Content pad 8 0, máx. Sizes/92 · Actions gap 4, fixas embaixo
    ===================================================================== */
 /* Branch: Motion Styles por interação (Hover In/01 · Pressed/01 · Selected In/01) */
 cds-chat-input.cds-tf{
@@ -11,11 +11,14 @@ cds-chat-input.cds-tf{
   --tf-active-d:var(--motion-active-duration); --tf-active-e:var(--motion-active-easing);
 }
 cds-chat-input .cds-tf__box{
-  flex-direction:column; align-items:stretch; justify-content:flex-end; gap:var(--common-sizes-0);
+  flex-direction:column; align-items:stretch; justify-content:flex-end; gap:var(--common-sizes-2);
   padding:var(--common-sizes-8) var(--common-sizes-8) var(--common-sizes-8) var(--common-sizes-16);
-  min-height:var(--common-sizes-56); max-height:var(--common-sizes-160); overflow:hidden;
+  min-height:var(--common-sizes-56);
 }
-cds-chat-input .cds-tf__content{ align-items:flex-start; padding:var(--common-sizes-8) var(--common-sizes-0); }
+/* Texto: cresce até Sizes/92 (cerca de 3 linhas) e rola sozinho. Anexos e ações ficam fixos */
+cds-chat-input .cds-tf__content{ align-items:flex-start; padding:var(--common-sizes-8) var(--common-sizes-0); max-height:var(--common-sizes-92); }
+/* Attachments: Chips Group Single Rows na largura do campo, rolando de lado */
+cds-chat-input .cds-chat__att{ width:auto; max-width:none; flex:0 0 auto; }
 cds-chat-input .cds-tf__control{ resize:none; display:block; height:var(--common-sizes-24); line-height:var(--common-sizes-24); }
 /* Placeholder em uma linha, truncado no fim */
 cds-chat-input .cds-tf__control::placeholder{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -26,5 +29,15 @@ cds-chat-input[listening] .cds-tf__control::placeholder{ color:var(--common-colo
 cds-chat-input .cds-chat__actions{ display:flex; align-items:center; gap:var(--common-sizes-4); cursor:default; }
 cds-chat-input .cds-chat__trailing{ flex:1 1 auto; display:flex; align-items:center; justify-content:flex-end; gap:var(--common-sizes-4); }
 
-/* Anúncio do ditado: só para leitor de tela */
+/* Hover e press são da área do texto (Figma): sobre botões, chips ou padding, o campo fica no estado de repouso */
+cds-chat-input .cds-tf__box:hover:not(:has(.cds-tf__content:hover)),
+cds-chat-input .cds-tf__box:active:not(:has(.cds-tf__content:active)){
+  --_bg:var(--common-colors-surface-default); --_stroke-w:var(--common-border-width-hairline); --_stroke-c:var(--common-colors-border-semi-soft);
+}
+cds-chat-input .cds-tf__box:focus-within:hover:not(:has(.cds-tf__content:hover)),
+cds-chat-input .cds-tf__box:focus-within:active:not(:has(.cds-tf__content:active)){ --_stroke-c:var(--common-colors-border-semi-intense); }
+cds-chat-input[appearance="warning"] .cds-tf__box:hover:not(:has(.cds-tf__content:hover)),
+cds-chat-input[appearance="warning"] .cds-tf__box:active:not(:has(.cds-tf__content:active)){ --_stroke-c:var(--common-colors-feedback-warning-semi-intense); }
+
+/* Anúncio do ditado e dos anexos: só para leitor de tela */
 cds-chat-input > .cds-chat__live{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }

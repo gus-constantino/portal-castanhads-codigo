@@ -1,12 +1,12 @@
 # Chat Input · Handoff técnico
 
-> Composer de mensagem da família **Text Fields** na lib estável do Castanha DS. Serve conversas com IA e atendimento. Aceita texto digitado ou ditado por voz e cresce com o conteúdo.
+> Composer de mensagem da família **Text Fields** na lib estável do Castanha DS. Serve conversas com IA e atendimento. Aceita texto digitado ou ditado por voz e arquivos anexados, e cresce com o conteúdo.
 >
 > **Task:** CDS-1594 · **Épico:** CDS-1586 (Release 26)
 > **Branch Figma:** `4hJ90rFfuEyWx9zHeqJxp4` · **Lib:** `[CastanhaDS] Components` (`LKZBwmlb7fIbDKdGrMncuA`)
-> **Set:** `26567:44273` (Chat Input, 44 variantes), página Text Fields
-> **Base:** `Text Area Input` (`10110:3028`)
-> **Lido ao vivo no branch:** 14/10/2026, depois das annotations e das interações finais
+> **Set:** `26567:44273` (Chat Input, 44 variantes), página Text Fields · **Vitrine de anexos:** `26689:43464`
+> **Base:** `Text Area Input` (`10110:3028`) · **Consome:** Icon Button (`4464:636`), Chips Group (`12457:3664`), Input Chips `Size=Small` (`12365:2728`, CDS-1599)
+> **Lido ao vivo no branch:** 14/10/2026, depois dos anexos com chips, da revisão das interações e das annotations
 > **Referência implementada:** portal Castanha DS, `cds-chat-input` (ditado simulado no playground)
 > **Status:** ✅ `castanha-qa` sem pendências no componente. Pendências de produto na seção 10.
 
@@ -14,10 +14,11 @@
 
 ## 1. Visão geral
 
-- **O que é:** campo de mensagem com três ações: anexar, enviar e ditar.
+- **O que é:** campo de mensagem com três ações (anexar, enviar e ditar) e chips dos arquivos anexados.
 - **Quando usar:** área de digitação de um chat, com IA ou com atendimento humano.
 - **Quando não usar:** formulário com rótulo visível. Para isso, use `Text Area Input`.
 - **Voz é ditado, não mensagem de áudio.** A fala vira texto no campo. Não existe gravação, preview nem envio de áudio.
+- **Anexos são enviados junto com a mensagem.** O composer não mostra progresso de upload.
 - **Não substitui nada do legado.** É componente novo.
 
 ---
@@ -30,7 +31,7 @@
 |---|---|---|---|
 | `Appearance` | `Neutral` · `Warning` | `Neutral` | Borda e mensagem de erro em `Warning` |
 | `State` | `Enabled` · `Hovered` · `Pressed` · `Disabled` | `Enabled` | Fundo, borda e espessura da borda |
-| `Is Filled` | `False` · `True` | `False` | Placeholder × texto. Disponibilidade do `Send Button` |
+| `Is Filled` | `False` · `True` | `False` | Disponibilidade do `Send Button`. É `True` com texto **ou com pelo menos um anexo** |
 | `Is Active` | `False` · `True` | `False` | Foco no campo: borda `semi-intense` e caret |
 | `Is Listening` | `False` · `True` | `False` | Ditado ligado: `Voice Button` vira stop Accent e aparece `Listening Content` |
 
@@ -38,12 +39,15 @@
 
 | Prop | Default | Controla |
 |---|---|---|
+| `Show Attachments` | `false` | Linha de chips dos arquivos anexados, no topo do campo |
 | `Show Attachment` | `true` | Visibilidade do `Attach Button` |
 | `Show Voice` | `true` | Visibilidade do `Voice Button` |
 | `Show Supporting Content` | `true` | Linha de mensagem de apoio ou erro e contador |
 | `Show Character Counter` | `true` | Contador de caracteres |
 | `Show Trailing Item` | `true` | Ícone `warning-line` em `Appearance=Warning` |
 | `Show Caret` | `true` | Caret nas variantes `Is Active=True` vazias |
+
+`Show Attachments` (área de chips) e `Show Attachment` (botão de anexar) são props diferentes. Os nomes vêm do Figma.
 
 ### Text properties
 
@@ -74,25 +78,27 @@ Não implementar esses estados. Se o campo perde o foco ou é desabilitado duran
 ## 3. Anatomia
 
 ```
-Chat Input                         vertical · gap Sizes/4 · largura Specific/Text Fields/Text/min-width a max-width (320–846)
-├─ Text Box                        vertical · conteúdo alinhado embaixo · padding 8 / 8 / 8 / 16
-│  │                               mín. Sizes/56 · máx. Sizes/160 · raio Border/Radius/small · borda por dentro
-│  ├─ Text Content                 horizontal · padding vertical Sizes/8 · gap Sizes/4
-│  │  ├─ Value                     Body/Regular · placeholder, texto ou transcrição
-│  │  ├─ Caret                     1 × Sizes/24 · Icons/intense (Is Active=True e vazio)
-│  │  ├─ Listening Message         Body/Regular · Text/medium (Is Listening=True e vazio)
-│  │  └─ Trailing Icon             warning-line 16 (Appearance=Warning)
-│  └─ Actions                      horizontal · gap Sizes/4 · centralizado na vertical
-│     ├─ Attach Button             Icon Button Ghost Neutral Small · attachment            (opcional)
-│     └─ Trailing Items            horizontal · gap Sizes/4 · alinhado à direita
-│        ├─ Send Button            Icon Button Default Neutral Small · send-line · fundo Surface/01
-│        └─ Voice Button           Icon Button Ghost Neutral Small · microphone-line       (opcional)
-└─ Trailing Content                horizontal · altura Sizes/24 · gap Sizes/4               (opcional)
-   ├─ Supporting Text              Caption/Regular · Text/medium ou Feedback/Warning/semi-intense
-   └─ Character Counter            Disclaimer/Regular · Text/soft                          (opcional)
+Chat Input                          vertical · gap Sizes/4 · largura Specific/Text Fields/Text/min-width a max-width (320–846)
+├─ Text Box                         vertical · padding 8 / 8 / 8 / 16 · gap Sizes/2 · mín. Sizes/56 · raio Border/Radius/small · borda por dentro
+│  ├─ Attachments                   linha única que rola de lado (Show Attachments)                          (opcional)
+│  │  └─ Chips Group                Kind=Input Chips · Role=Single Rows Chips · altura Sizes/48 · gap Sizes/8
+│  │     └─ Input Chips (n)         Size=Small (32) · ícone por tipo · nome do arquivo · fechar
+│  ├─ Text Content                  padding vertical Sizes/8 · máx. Sizes/92 · rola sozinho
+│  │  ├─ Value                      Body/Regular · placeholder, texto ou transcrição
+│  │  ├─ Caret                      1 × Sizes/24 · Icons/intense (Is Active=True e vazio)
+│  │  ├─ Listening Message          Body/Regular · Text/medium (Is Listening=True e vazio)
+│  │  └─ Trailing Icon              warning-line 16 (Appearance=Warning)
+│  └─ Actions                       horizontal · gap Sizes/4 · fixas embaixo
+│     ├─ Attach Button              Icon Button Ghost Neutral Small · attachment                             (opcional)
+│     └─ Trailing Items             horizontal · gap Sizes/4 · alinhado à direita
+│        ├─ Send Button             Icon Button Default Neutral Small · send-line · fundo Surface/01
+│        └─ Voice Button            Icon Button Ghost Neutral Small · microphone-line                        (opcional)
+└─ Trailing Content                 horizontal · altura Sizes/24 · gap Sizes/4                                (opcional)
+   ├─ Supporting Text               Caption/Regular · Text/medium ou Feedback/Warning/semi-intense
+   └─ Character Counter             Disclaimer/Regular · Text/soft                                           (opcional)
 ```
 
-- **Texto em cima, ações embaixo.** O texto usa a largura toda do campo. As ações não disputam espaço com ele.
+- **De cima para baixo:** anexos, texto, ações. O texto usa a largura toda. Os botões não disputam espaço com ele.
 - **Não tem label visível.** O nome acessível vem por `aria-label` (seção 8).
 
 ---
@@ -102,11 +108,16 @@ Chat Input                         vertical · gap Sizes/4 · largura Specific/T
 | Métrica | Valor | Token |
 |---|---|---|
 | Largura | 320 a 846 | `Specific/Text Fields/Text/min-width` · `max-width` |
-| Altura mínima do campo | 56 | `Common/Sizes/56` |
-| Altura máxima do campo | 160 | `Common/Sizes/160` |
+| Altura padrão (sem anexos, 1 linha) | Text Box 98 · componente 126 | — |
+| Altura mínima do Text Box | 56 | `Common/Sizes/56` |
+| Altura máxima do texto | 92 (cerca de 3 linhas) | `Common/Sizes/92` |
+| Altura máxima com anexos e texto | 200 (8 + 48 + 2 + 92 + 2 + 40 + 8) | derivada |
 | Padding do campo (topo, direita, base) | 8 | `Common/Sizes/8` |
 | Padding do campo (esquerda) | 16 | `Common/Sizes/16` |
+| Gap entre anexos, texto e ações | 2 | `Common/Sizes/2` |
 | Padding vertical do texto | 8 | `Common/Sizes/8` |
+| Linha de anexos | 48 de altura · gap 8 entre chips | `Common/Sizes/48` · `Common/Sizes/8` |
+| Chip de anexo | 32 de altura · padding 16 · gap 4 | `Specific/Selection Controls/Input Chips/Small/height` · `Common/Sizes/16` · `Common/Sizes/4` |
 | Gap entre ações | 4 | `Common/Sizes/4` |
 | Gap entre campo e linha de apoio | 4 | `Common/Sizes/4` |
 | Altura da linha de apoio | 24 | `Common/Sizes/24` |
@@ -155,17 +166,35 @@ Chat Input                         vertical · gap Sizes/4 · largura Specific/T
 | `Send Button` | Icon Button `Kind=Default`, `Appearance=Neutral`, `Size=Small` · `send-line` · fundo `Surface/01` | `Disabled` com `Is Filled=False` · `Enabled` com `Is Filled=True` |
 | `Voice Button` | Icon Button `Kind=Ghost`, `Size=Small` | `Appearance=Neutral` + `microphone-line` sem ditado · `Appearance=Accent` + `stop-filled` com `Is Listening=True` |
 
-- O fundo `Surface/01` do `Send Button` é decisão de design sobre o Icon Button Default Neutral. Implementar como está.
-- Os estados internos de hover e press dos botões vêm do Icon Button. Não recriar.
+### Anexos
+
+| Elemento | Componente e tokens |
+|---|---|
+| Linha | Chips Group `Kind=Input Chips`, `Role=Single Rows Chips` |
+| Chip | Input Chips `Size=Small`, `State=Enabled` · fundo `Surface/01` · borda `Border/semi-soft` · raio `Border/Radius/pill` |
+| Ícone do chip | `image-file` (imagem) · `file-line` (documento, PDF, texto) · `file-blank-line` (outros) |
+
+- Os estados internos de hover e press dos botões e dos chips vêm do Icon Button e do Input Chip. Não recriar.
+- O fundo `Surface/01` do `Send Button` é o padrão do Icon Button Default Neutral.
 
 ---
 
 ## 6. Comportamento
 
 ### Campo
-- **Cresce com o texto** de uma linha (56) até o máximo (160). Acima disso o texto rola dentro do campo. As ações ficam fixas embaixo.
+- **Cresce com o texto** de uma linha até `Sizes/92` (cerca de 3 linhas). Acima disso, **só o texto rola**, e o ponto de digitação fica sempre à vista.
 - **Placeholder em uma linha**, truncado no fim quando não cabe.
-- **`Is Filled`** é derivado do conteúdo. Campo com texto, digitado ou ditado, vira `True`.
+- **`Is Filled`** é derivado do conteúdo: texto digitado ou ditado, ou pelo menos um anexo.
+- **A altura muda sem animação.** Animar a altura enquanto a pessoa digita dá tremida.
+
+### Anexos
+1. Toque no `Attach Button` abre o seletor de arquivos do sistema.
+2. Cada arquivo aceito vira um chip na linha de anexos, que aparece no topo do campo (`Show Attachments`). Ao anexar, a linha rola até o chip novo.
+3. **Arquivo inválido** (tipo ou tamanho) não vira chip. O campo vai para `Appearance=Warning`, com a `Error Message` curta e em uma linha (ex.: Envie imagem ou PDF.).
+4. **Toque no chip remove o arquivo.** Sem chips, a linha de anexos some.
+5. **Nome longo é encurtado no meio**, mantendo a extensão (ex.: comprovante-de-ende….pdf). O nome completo fica no nome acessível.
+6. Com muitos anexos, **a linha rola de lado** e fica sempre visível. Ela não empurra o texto.
+7. **Os arquivos são enviados junto com a mensagem.** O progresso do upload aparece no balão da conversa, fora do composer.
 
 ### Ditado
 1. Toque no `Voice Button` liga o ditado. O campo fica focado e entra em `Is Listening=True`.
@@ -175,10 +204,10 @@ Chat Input                         vertical · gap Sizes/4 · largura Specific/T
 5. Perda de foco ou campo desabilitado encerram o ditado.
 
 ### Enviar
-- **Disponível com texto** e indisponível com o campo vazio.
+- **Disponível com texto ou com anexo** e indisponível com o campo vazio.
 - **Enter envia e Shift+Enter quebra a linha.** Ignorar o Enter durante a composição de texto (IME).
 - **Durante o ditado, enviar envia e encerra o ditado.** O texto transcrito até o momento vai na mensagem.
-- Depois de enviar, o campo fica vazio e mantém o foco.
+- **Enviar limpa o campo e o Warning.** Depois do envio, o campo volta a `Appearance=Neutral`, vazio, sem anexos e focado.
 
 ### Permissão do microfone
 - **Negada:** aplicar `Appearance=Warning` com `Error Message` pedindo acesso ao microfone. O campo segue aceitando digitação.
@@ -193,9 +222,16 @@ Chat Input                         vertical · gap Sizes/4 · largura Specific/T
 | Pressed → Enabled com o campo já focado | `Released/01` | 50 ms · `cubic-bezier(0.2, 0, 0.3, 1)` |
 | `Voice Button` liga o ditado | `Selected In/01` | 350 ms · `cubic-bezier(0.4, 0, 0.1, 1)` |
 | `Voice Button` desliga o ditado | `Selected Out/01` | 200 ms · `cubic-bezier(0.4, 0, 0.1, 1)` |
-| `Send Button` envia e limpa o campo | `Selected Out/01` | 200 ms · `cubic-bezier(0.4, 0, 0.1, 1)` |
+| Enter ou `Send Button` envia e limpa o campo | `Selected Out/01` | 200 ms · `cubic-bezier(0.4, 0, 0.1, 1)` |
+| Digitar, transcrever e anexar | sem animação | troca de conteúdo |
 
-Respeitar `prefers-reduced-motion` com o modo `Reduced` dos Motion Styles.
+- **Hover, press e foco são do campo de texto**, não do componente inteiro. Os botões e os chips têm interações próprias e não disparam o estado do campo.
+- Respeitar `prefers-reduced-motion` com o modo `Reduced` dos Motion Styles. Rolagem até o chip novo sem suavização nesse modo.
+
+### Figma × código
+- Texto `Hello`, caret e chips de exemplo são ilustração. O conteúdo real vem do uso.
+- No protótipo do Figma, digitar (qualquer letra, número ou espaço) e a transcrição de 1,5 s simulam conteúdo.
+- **Não simulados no Figma:** abrir o seletor e mostrar chips ao anexar, remover chip, sair do foco e Shift+Enter. No código, todos existem.
 
 ---
 
@@ -206,16 +242,17 @@ Respeitar `prefers-reduced-motion` com o modo `Reduced` dos Motion Styles.
 | `Placeholder Content` | `placeholder` |
 | `Text Content` | `value` |
 | `Listening Content` | `listeningLabel` |
-| `Is Filled` | derivado de `value` |
+| `Is Filled` | derivado de `value` e de `attachments` |
 | `Is Active` | foco do campo |
 | `Is Listening` | `listening` (estado controlado) + evento de início e fim |
+| `Show Attachments` + chips | `attachments` (lista de arquivos) · evento de remoção |
 | `Appearance=Warning` + `Error Message` | `error` / `errorMessage` |
 | `Show Attachment` · `Show Voice` | `showAttachment` · `showVoice` (ou presença do handler) |
 | `Show Supporting Content` · `Supporting Message` | `helperText` |
 | `Show Character Counter` · `Character Counter Value` | `maxLength` + contador |
 | `State=Disabled` | `disabled` |
 | `State=Hovered` · `Pressed` | estados de interação, sem prop |
-| Ação Anexar · Enviar · Ditar | `onAttach` · `onSend` · `onListeningChange` |
+| Ação Anexar · Enviar · Ditar · Remover anexo | `onAttach` · `onSend` · `onListeningChange` · `onRemoveAttachment` |
 
 Os nomes da coluna de código são sugestão. O contrato final é do time de dev.
 
@@ -227,14 +264,16 @@ Os nomes da coluna de código são sugestão. O contrato final é do time de dev
 |---|---|
 | **Nome do campo** | Sem label visível. Usar `aria-label`, ex.: Mensagem. O placeholder não substitui o nome |
 | **Nome das ações** | Anexar arquivo · Enviar mensagem · Ditar mensagem. Ícone sozinho não gera nome |
+| **Nome dos chips** | Nome completo do arquivo e a ação, ex.: Remover comprovante-de-endereco.pdf. A extensão confirma o tipo que o ícone mostra |
 | **`Voice Button` como alternância** | Expor `aria-pressed`. Durante o ditado o nome muda para Parar ditado |
-| **Anúncio do ditado** | Região dinâmica anuncia Ouvindo e Ditado encerrado |
-| **1.4.1 Não depender de cor** | ✅ Ditado troca o ícone (microfone → stop) e mostra texto. Warning tem ícone e mensagem |
+| **Anúncios** | Região dinâmica anuncia Ouvindo, Ditado encerrado, e arquivo adicionado, removido ou recusado |
+| **Foco ao remover chip** | Vai para o chip seguinte, ou para o campo quando não houver outro |
+| **1.4.1 Não depender de cor** | ✅ Ditado troca o ícone (microfone → stop) e mostra texto. Warning tem ícone e mensagem. Tipo de arquivo tem ícone e extensão |
 | **Teclado** | Enter envia · Shift+Enter quebra a linha |
-| **Tabulação** | Ordem visual: campo, Anexar, Enviar, Ditar |
+| **Tabulação** | Ordem visual: chips de anexo, campo, Anexar, Enviar, Ditar |
 | **`Send Button` indisponível** | Anunciado como indisponível. Não sinalizar apenas por cor |
 | **2.4.11 Foco visível ao rolar** | Ao passar do máximo, a rolagem acompanha o ponto de digitação |
-| **2.5.8 Target Size** | ✅ Botões de 40 × 40 (mínimo 24) |
+| **2.5.8 Target Size** | ✅ Botões de 40 × 40 e chips de 32 de altura (mínimo 24) |
 | **Foco** | Padrão de foco global do sistema. Não é variant |
 
 ### Contraste
@@ -251,6 +290,7 @@ Os nomes da coluna de código são sugestão. O contrato final é do time de dev
 | Stop Accent `#e80537` sobre `Surface/default` | 4.54 | ✅ (mínimo 3 para ícone) |
 | Stop Accent sobre `Surface/01` | 4.09 | ✅ |
 | Borda com foco `Border/semi-intense` | 8.24 | ✅ |
+| Chips | — | Herdam o contraste do Input Chip, validado no CDS-966 e no CDS-1599 |
 | Disabled | — | Isento pelo 1.4.3. Não corrigir |
 
 Pares herdados da família abaixo do mínimo estão na seção 10.
@@ -259,18 +299,24 @@ Pares herdados da família abaixo do mínimo estão na seção 10.
 
 ## 9. Checklist técnico
 
-- [ ] 5 variant props, 6 booleans e 6 text props conforme a seção 2
+- [ ] 5 variant props, 7 booleans e 6 text props conforme a seção 2
 - [ ] `Is Listening` existe apenas com foco e fora de `Disabled`
-- [ ] Campo cresce de `Sizes/56` a `Sizes/160` e rola depois
+- [ ] Texto cresce até `Sizes/92` e rola sozinho, com o ponto de digitação à vista
+- [ ] Linha de anexos no topo, rolando de lado, sempre visível
 - [ ] Ações fixas embaixo, `Attach` à esquerda, `Send` e `Voice` à direita
-- [ ] `Send Button` indisponível com o campo vazio
-- [ ] Enviar durante o ditado envia e encerra o ditado
+- [ ] Altura muda sem animação
+- [ ] `Send Button` disponível com texto ou anexo, indisponível com o campo vazio
 - [ ] Enter envia, Shift+Enter quebra a linha
+- [ ] Enviar limpa texto, anexos e Warning, e mantém o foco
+- [ ] Enviar durante o ditado envia e encerra o ditado
 - [ ] Digitar não liga a voz
-- [ ] Permissão negada aplica `Warning` e mantém a digitação
-- [ ] Botões consumidos do Icon Button, sem recriar estados internos
+- [ ] Arquivo inválido não vira chip e aplica `Warning` com mensagem curta
+- [ ] Toque no chip remove o arquivo, com o foco no chip seguinte ou no campo
+- [ ] Nome longo encurtado no meio, mantendo a extensão
+- [ ] Permissão do microfone negada aplica `Warning` e mantém a digitação
+- [ ] Botões e chips consumidos do Icon Button, do Chips Group e do Input Chip, sem recriar estados internos
 - [ ] Todos os tokens semânticos, sem valor solto
-- [ ] `aria-label` no campo, nomes nas ações e `aria-pressed` na voz
+- [ ] `aria-label` no campo, nomes nas ações e nos chips, `aria-pressed` na voz
 - [ ] Motion Styles por interação, com modo `Reduced`
 - [ ] Cross-platform validado (Figma ↔ React ↔ Flutter)
 
@@ -279,7 +325,12 @@ Pares herdados da família abaixo do mínimo estão na seção 10.
 ## 10. Pontos de atenção
 
 ### Bloqueia o dev, precisa de produto
-- **Previews de anexo.** O `Attach Button` existe, mas o estado com arquivo anexado ainda não foi desenhado.
+- **Limites de anexo:** quantidade máxima, tipos aceitos e tamanho. O estado de erro já está desenhado. Falta a regra.
+
+### Do sistema (não bloqueiam)
+- **Chips Group `Single Rows` tem 48 de altura**, pensado para chip de 40. Com o chip Small (32), sobram 8 em cima e 8 embaixo. Implementar como está no Figma.
+- **A rolagem lateral da linha de chips no protótipo** depende do Chips Group. No Figma, rolagem não pode ser ligada numa instância. No código, a linha rola normalmente.
+- **`Error Message` em uma linha:** a linha de apoio dos Text Fields tem altura fixa de 24 no Figma. Mensagem mais longa fica cortada.
 
 ### Herdados da família Text Fields (não bloqueiam)
 - **Borda `Border/semi-soft` com 1.25:1** e borda Hovered `Border/medium` com 2.50:1. O WCAG 1.4.11 pede 3:1 para o limite do campo.
@@ -293,10 +344,11 @@ Os três estão iguais em Text Input, Search, Text Area, Password e Select. Fica
 ## 11. Referências
 
 - **Branch Figma:** https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/4hJ90rFfuEyWx9zHeqJxp4/-CastanhaDS--Components?node-id=26567-44273
-- **Set:** Chat Input `26567:44273` · base Text Area Input `10110:3028` · Icon Button `4464:636`
-- **Ícones ([Caju] Icons):** `attachment` · `send-line` · `microphone-line` · `stop-filled` · `warning-line`
-- **Annotations no set:** Handoff, Accessibility e Motion
-- **Jira:** CDS-1594 (Chat Input) · CDS-1586 (Release 26 · Design System)
+- **Set:** Chat Input `26567:44273` · vitrine de anexos `26689:43464` · base Text Area Input `10110:3028`
+- **Componentes consumidos:** Icon Button `4464:636` · Chips Group `12457:3664` · Input Chips `12365:2728` (`Size=Small`, CDS-1599)
+- **Ícones ([Caju] Icons):** `attachment` · `send-line` · `microphone-line` · `stop-filled` · `warning-line` · `image-file` · `file-line` · `file-blank-line`
+- **Annotations no set:** Handoff (15 itens), Accessibility (12 itens) e Motion
+- **Jira:** CDS-1594 (Chat Input) · CDS-1586 (Release 26 · Design System) · CDS-1599 (Chips Small)
 
 ---
 

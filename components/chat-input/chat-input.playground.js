@@ -9,7 +9,8 @@ CDS.register({
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel, timer = null;
     var FRASE = "Quero saber o saldo do meu cartão e se dá para transferir para outra conta.";
-    var p = kit.el("cds-chat-input", { supporting: "A conversa fica salva no histórico.", error: "Permita o acesso ao microfone para ditar.", maxlength: "500" });
+    var SAMPLE = [{ name: "foto-do-cartao.jpg", type: "image/jpeg" }, { name: "extrato-setembro.pdf", type: "application/pdf" }, { name: "planilha.xlsx", type: "" }];
+    var p = kit.el("cds-chat-input", { accept: "image/*,.pdf,.xlsx", supporting: "A conversa fica salva no histórico.", error: "Permita o acesso ao microfone para ditar.", maxlength: "500" });
     ctx.preview.appendChild(p);
     kit.fieldWidth(ctx, p);
     function set(name, val){ kit.attr(p, name, val); }
@@ -32,7 +33,7 @@ CDS.register({
       }, 900);
     });
     p.addEventListener("cds-send", function(e){ stopSim(); readout("Enviado: " + e.detail.value); });
-    p.addEventListener("cds-attach", function(){ readout("Anexar arquivo acionado"); setTimeout(function(){ readout(); }, 1200); });
+    p.addEventListener("cds-attachments-change", function(e){ readout(e.detail.attachments.length + " anexo(s): " + e.detail.attachments.map(function(a){ return a.name; }).join(", ")); });
     p.addEventListener("cds-change", function(){ readout(); });
 
     kit.seg(panel, { label: "Appearance", value: "neutral", options: [["neutral","Neutral"],["warning","Warning"]],
@@ -41,7 +42,8 @@ CDS.register({
     kit.section(panel, "Variants");
     kit.toggle(panel, { label: "State: Disabled", onChange: function(on){ set("disabled", on); } });
     kit.toggle(panel, { label: "Is Listening", onChange: function(on){ p.listening = on; } });
-    kit.hint(panel, "Hovered, Pressed e <code>Is Active</code> são estados de interação. <code>Is Filled</code> deriva do valor real. <code>Is Listening</code> liga pelo botão de voz: o ditado aqui é simulado. Enter envia, Shift+Enter quebra a linha.");
+    kit.toggle(panel, { label: "Show Attachments (exemplo)", onChange: function(on){ p.attachments = on ? SAMPLE : []; readout(); } });
+    kit.hint(panel, "Hovered, Pressed e <code>Is Active</code> são estados de interação. <code>Is Filled</code> deriva do valor real. <code>Is Listening</code> liga pelo botão de voz: o ditado aqui é simulado. Enter envia, Shift+Enter quebra a linha. O Anexar abre o seletor de arquivos de verdade: imagem, PDF e XLSX viram chip, os outros tipos levam o campo a Warning. Nada é enviado.");
 
     // Booleans do Figma: ligados por padrão → só escreve "false" quando desligados
     kit.section(panel, "Booleans");
@@ -54,6 +56,8 @@ CDS.register({
     kit.text(panel, { label: "Supporting Message (Neutral)", value: "A conversa fica salva no histórico.", onInput: function(v){ set("supporting", v); } });
     kit.text(panel, { label: "Error Message (Warning)", value: "Permita o acesso ao microfone para ditar.", onInput: function(v){ set("error", v); } });
     kit.text(panel, { label: "Limite (contador n/max)", value: "500", onInput: function(v){ set("maxlength", v || null); } });
+    kit.text(panel, { label: "Tipos aceitos (accept)", value: "image/*,.pdf,.xlsx", onInput: function(v){ set("accept", v || null); } });
+    kit.text(panel, { label: "Mensagem do arquivo recusado", value: "Envie imagem ou PDF.", onInput: function(v){ set("attachment-error", v || null); } });
     kit.text(panel, { label: "Label (nome acessível, não aparece)", value: "Mensagem", onInput: function(v){ set("label", v || null); } });
 
     // Nested instances — props das instâncias aninhadas, derivadas ao vivo do estado real
@@ -69,7 +73,8 @@ CDS.register({
       } });
     }
     var refreshers = [
-      ib(".cds-chat__attach", "Attach Button · Icon Button", "Show Attachment. Dispara <code>cds-attach</code>."),
+      ib(".cds-chat__attach", "Attach Button · Icon Button", "Show Attachment. Dispara <code>cds-attach</code> (cancelável) e abre o seletor."),
+      kit.nested(panel, { title: "Attachments · Chips Group", exposed: false, note: "Single Rows com Input Chips Small. Toque no chip remove o arquivo.", props: function(){ var a = p.attachments; return [["Show Attachments", String(a.length > 0)], ["Kind", "Input Chips"], ["Role", "Single Rows Chips"], ["Chips", a.map(function(x){ return x.name; }).join(", ") || "—"]]; } }),
       ib(".cds-chat__send", "Send Button · Icon Button", "Disponível com texto. Enter também envia."),
       ib(".cds-chat__voice", "Voice Button · Icon Button", "Show Voice. Alterna <code>Is Listening</code> (<code>cds-listening-change</code>).")
     ];

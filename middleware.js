@@ -44,6 +44,7 @@ const ABERTO = [
   /^\/docs\/pitch(\/|\/index\.html|\/dados\.json|\/capturas\/[\w-]+\.(jpg|png|webp))?$/,
   /^\/entrar(\/|\/index\.html)?$/,
   /^\/dist\/cds-publico\.(css|js)$/,
+  /^\/dist\/versao\.json$/, // versão do portal (D344): todo perfil e link confere
   /^\/styles\/(tokens|shared|icons)\.css$/,
   /^\/scripts\/(cds-element|playground-kit|assets-manifest)\.js$/,
   /^\/assets\//,

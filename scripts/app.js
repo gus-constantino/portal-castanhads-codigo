@@ -727,7 +727,27 @@
     return docLoads[id];
   }
   CDS.loadDoc = loadDoc;
+  // ---------- Versão nova do portal (D344) ----------
+  // A aba aberta por dias continua com o pacote antigo depois de um deploy, e as docs pedidas com o hash antigo vêm
+  // na versão nova (o servidor ignora o ?v=). O build grava a versão no <meta name="cds-versao"> e no dist/versao.json;
+  // a aba confere o arquivo ao voltar a ficar visível (no máximo a cada 10 min) e, se mudou, recarrega na próxima
+  // troca de página, quando a pessoa já está saindo da tela. Troca de aba ou de controle na mesma página não recarrega.
+  var versao = (document.querySelector('meta[name="cds-versao"]') || {}).content, versaoNova = false, versaoEm = 0;
+  function conferirVersao(){
+    if (!versao || versaoNova || !window.fetch || document.visibilityState === "hidden" || Date.now() - versaoEm < 6e5) return;
+    versaoEm = Date.now();
+    fetch("dist/versao.json", { cache: "no-store" }).then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(j){ if (j && j.versao && j.versao !== versao && tentou() !== j.versao) versaoNova = j.versao; }).catch(function(){});
+  }
+  // trava contra recarga em loop: se a página recarregada ainda vier com a versão antiga, não tenta de novo para a mesma versão
+  function tentou(v){ try { return v ? sessionStorage.setItem("cds-versao-recarga", v) : sessionStorage.getItem("cds-versao-recarga"); } catch (e){ return null; } }
+  document.addEventListener("visibilitychange", conferirVersao);
+  setInterval(conferirVersao, 6e5);
+  var paginaAtual = route()[0];
   function onRoute(){
+    var pagina = route()[0];
+    if (versaoNova && pagina !== paginaAtual){ tentou(versaoNova); location.reload(); return; }
+    paginaAtual = pagina;
     var r0 = route()[0], want = list.some(function(c){ return c.id === r0; }) ? r0 : currentId();
     if (CDS.docsIndex && CDS.docsIndex[want] && !docTried[want] && !(CDS.docs && CDS.docs[want])){ loadDoc(want).then(onRoute); return; }
     showRoute();

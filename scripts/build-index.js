@@ -196,8 +196,18 @@ function rewrite(file, prefix){
   };
   put("css", `<link rel="stylesheet" href="${prefix}dist/cds.css" />`); put("js", `<script src="${prefix}dist/cds.js"></script>`);
   html = stamp(html);
+  if (file === "index.html") html = versao(html);
   fs.writeFileSync(abs, html);
   return true;
+}
+// Versão do portal (D344): hash dos ?v= que o index.html carrega, no <meta name="cds-versao"> e no dist/versao.json.
+// A aba aberta confere o arquivo e recarrega na próxima troca de página quando a versão muda (scripts/app.js).
+function versao(html){
+  const sem = html.replace(/<meta name="cds-versao"[^>]*>\n?/, "");
+  const v = crypto.createHash("sha1").update([...sem.matchAll(/\?v=[0-9a-f]+/g)].map((m) => m[0]).join()).digest("hex").slice(0, 8);
+  const json = JSON.stringify({ versao: v }) + "\n", f = path.join(ROOT, "dist", "versao.json");
+  if (!fs.existsSync(f) || fs.readFileSync(f, "utf8") !== json) fs.writeFileSync(f, json);
+  return sem.replace(/(<meta charset="utf-8" \/>\n)/, `$1<meta name="cds-versao" content="${v}" />\n`);
 }
 
 const bundled = bundle();

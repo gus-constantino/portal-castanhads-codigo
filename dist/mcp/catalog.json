@@ -32906,7 +32906,7 @@
     "id": "C202",
     "group": "Acessibilidade",
     "resolved": false,
-    "text": "Text Fields (todos, inclusive o Chat Input) · Borda em repouso `Border/semi-soft` 1,25:1 e no hover `Border/medium` sobre `Surface/01` 2,50:1. Placeholder e contador em `Text/soft` 2,78:1 · WCAG 1.4.11 pede 3:1 no limite do campo e o 1.4.3 pede 4,5:1 no texto. Proposta (QA da CDS-1594): tokens `Specific/Text Fields/*` para borda e placeholder, sem mexer nos tokens gerais · Segue o Figma · Task de sistema a abrir. Quando os tokens existirem, trocar em `text-field.css`"
+    "text": "Text Fields (todos, inclusive o Chat Input) · Borda em repouso `Border/semi-soft` 1,25:1 e no hover `Border/medium` sobre `Surface/01` 2,50:1. Placeholder e contador em `Text/soft` 2,78:1 · WCAG 1.4.11 pede 3:1 no limite do campo e o 1.4.3 pede 4,5:1 no texto. Proposta (QA da CDS-1594): tokens `Specific/Text Fields/*` para borda e placeholder, sem mexer nos tokens gerais · Segue o Figma · Mantido como está por decisão do Gustavo (14/10): sem task por enquanto, rever junto com os contratos de cores do sistema. Quando houver tokens novos, trocar em `text-field.css`"
    },
    {
     "id": "C12",

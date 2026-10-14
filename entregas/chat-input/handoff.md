@@ -286,7 +286,7 @@ Pares herdados da família abaixo do mínimo estão na seção 10.
 - **Placeholder e contador em `Text/soft` com 2.78:1.** O 1.4.3 pede 4.5:1.
 - **`Warning` + `Hovered` sem fundo.** Em `Neutral` o hover usa `Surface/01`.
 
-Os três estão iguais em Text Input, Search, Text Area, Password e Select. A correção vai para uma task de sistema, não para este componente. Implementar como está no Figma.
+Os três estão iguais em Text Input, Search, Text Area, Password e Select. Ficam como estão por decisão do time, a rever junto com os contratos de cores do sistema. Implementar como está no Figma.
 
 ---
 

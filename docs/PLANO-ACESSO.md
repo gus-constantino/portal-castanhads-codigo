@@ -28,9 +28,9 @@ O antigo perfil "apenas pitch" vira o Visitante: o pitch é aberto a quem tiver 
 
 **Middleware do Vercel.** Um arquivo `middleware.js` na raiz roda antes de cada arquivo ser entregue ([Routing Middleware](https://vercel.com/docs/routing-middleware), disponível no plano gratuito). Ele lê o cookie de acesso e decide: entrega o arquivo, manda para a tela de entrada ou responde "sem acesso". Como a checagem acontece no servidor, ninguém abre um arquivo bloqueado pelo endereço direto.
 
-**Senhas.** Ficam nas variáveis de ambiente do projeto no Vercel, uma por perfil (`ACESSO_COMPLETO`, `ACESSO_PORTAL`), mais um segredo para assinar cookies e links (`ACESSO_SEGREDO`). Trocar uma senha é trocar a variável: quem entrou com a antiga precisa entrar de novo.
+**Senhas.** São códigos de 6 dígitos e ficam nas variáveis de ambiente do projeto no Vercel, uma por perfil (`ACESSO_COMPLETO`, `ACESSO_PORTAL`), mais um segredo para assinar cookies e links (`ACESSO_SEGREDO`). Trocar uma senha é trocar a variável: quem entrou com a antiga precisa entrar de novo.
 
-**Tela de entrada.** Página `/entrar/` montada com o DS (Text Input de senha, Main Button, Feedback de erro). A senha certa grava um cookie assinado com o perfil e a validade (30 dias). No portal, um item "Sair" no menu apaga o cookie.
+**Tela de entrada.** Página `/entrar/` montada com o DS: um **Code Input de 6 dígitos** (`cds-code-input-otp`, Gustavo, 14/10), o Main Button "Entrar" e a mensagem de erro do próprio componente. Cada perfil tem o seu código numérico. O Code Input OTP do portal segue o Figma, onde ele ainda está numa branch (não está na main da lib). A senha certa grava um cookie assinado com o perfil e a validade (30 dias). No portal, um item "Sair" no menu apaga o cookie.
 
 **Links de página.** Formato `/l/<código>`. O código traz o caminho liberado e a data de validade, assinados com `ACESSO_SEGREDO`. Ao abrir o link, o middleware confere a assinatura, grava o acesso daquele caminho no cookie e leva a pessoa até a página. Quem recebe vários links acumula os caminhos. Para invalidar todos os links, troca-se o segredo.
 
@@ -99,8 +99,16 @@ Não há conector do Vercel nesta sessão. A configuração do painel (projeto, 
 - **Permissões:** instalar o app do Vercel no GitHub ou dar acesso ao repositório depende do ok do Gustavo na conversa.
 - **Login:** se o Vercel pedir login, quem entra é o Gustavo.
 
+## Andamento
+
+| Fase | Situação |
+|---|---|
+| 1 · Vercel | **Feita em 14/10.** Projeto `portal-castanhads` na conta Hobby do Gustavo (equipe "Caju", `caju4`), ligado ao GitHub com acesso a `gus-constantino/portal-castanhads` e nada mais. Preset Other, sem build, raiz `./`. Produção em https://portal-castanhads.vercel.app, aberta, com o Relatório, o pitch, o Roteiro e o catálogo do MCP conferidos. Ignored Build Step em "Only build production": push nas outras branches não gera deploy (limite de 100 deploys por dia no plano gratuito). O GitHub Pages segue no ar até a fase 5. |
+| 2 a 5 | A fazer |
+
 ## 9. Riscos
 
 - **Plano gratuito do Vercel:** pelos termos, o Hobby é para uso pessoal e não comercial ([Fair Use](https://vercel.com/docs/limits/fair-use-guidelines)). Escolha consciente por enquanto. A troca para uma conta da Caju muda a conta, e o código continua o mesmo.
 - **Cota do Actions:** coberta pelo ajuste da fase 5. Se apertar, o Smoke roda localmente antes de cada publicação, como já é feito.
+- **Código de 6 dígitos:** tem 1 milhão de combinações. O middleware limita as tentativas (ex.: 5 erros seguidos por endereço de IP bloqueiam por 15 minutos), para o código não ser descoberto por tentativa e erro.
 - **Segredo vazado:** trocar `ACESSO_SEGREDO` derruba todos os cookies e links de uma vez.

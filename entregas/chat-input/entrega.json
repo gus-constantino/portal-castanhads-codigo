@@ -1,0 +1,9 @@
+{
+ "titulo": "Chat Input",
+ "task": "CDS-1594",
+ "resumo": "Componente novo da família Text Fields: o composer de mensagem para conversas com IA e atendimento, com Anexar, Enviar e Ditar (voz vira texto no campo).",
+ "itens": [
+  "chat-input",
+  "icon-button"
+ ]
+}

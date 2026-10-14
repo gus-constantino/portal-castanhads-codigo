@@ -10,10 +10,10 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 |---|---|
 | [Ajuste de texto](#ajuste-de-texto) | 16 |
 | [Ajuste de UI](#ajuste-de-ui) | 31 |
-| [Motion](#motion) | 7 |
+| [Motion](#motion) | 8 |
 | [Refactor](#refactor) | 39 |
 | [Naming](#naming) | 11 |
-| [Acessibilidade](#acessibilidade) | 8 |
+| [Acessibilidade](#acessibilidade) | 9 |
 | [Documentação](#documentação) | 16 |
 | [Integração React](#integração-react) | 11 |
 
@@ -91,6 +91,7 @@ Reactions, durações e curvas.
 | C36 | Modal, Drawer, Bottom Sheet, Popover · motion | Sem reactions de entrada e saída | Motion de abrir/fechar (fade do Backdrop, slide do Drawer e do Sheet) | **Exceção** (sem especificação): abrem e fecham sem animação. Só o retorno do Sheet após arrastar usa `Duration/Medium/02` + `Systemic/accelerate` | Registrado; mantém sem animação (Gustavo, 02/10). Quando houver Motion Styles, aplicar em `overlay.css` e nos CSS de cada um |
 | C42 | Select Inputs · hover e clique | Hover: 150ms `0.7,0,0.8,1` no Async, Creatable e Radio; **instantâneo** no Checkbox; **300ms** no Multi. Clique no Icon Button do Async: 150ms `EASE_OUT` (sem token). A família Text Fields usa 300ms (C01) | Motion Styles por interação, iguais nos cinco | Segue cada um (`select-field.css`, variáveis `--tf-hover-*`) | Mantém como o Figma; **validar e ajustar** (Gustavo, 02/10). Trocar as variáveis em `select-field.css` |
 | C50 | Tabs (.Item) · motion | Hover e press instantâneos; o clique troca o Active em 300ms `0.7,0,0.8,1` (só no Scrollable Tab; o Fixed Tab não tem reaction de clique no Item 1) | Motion Styles por interação, iguais nos dois | Hover/press sem transição; sublinhado em 300ms + `Systemic/accelerate` nos dois | Trocar em `tab-item.css` |
+| C201 | Text Fields (Text, Search, Text Area, Password, os 5 Select, Quantity, Chat) | Na branch `4hJ90rFfuEyWx9zHeqJxp4` (CDS-1594, 14/10) todas as reactions das variantes passaram para os Motion Styles: hover `Hover In/01`, press `Pressed/01`, click `Selected In/01` (o Checkbox Select deixou de ser instantâneo). A main segue com 300ms (C01) e com os valores do C42 | Motion Styles por interação na família inteira | O Chat Input e o Credit Card já usam os Motion Styles. A base (`text-field.css`) e o `select-field.css` seguem a main | Quando a branch for publicada: trocar `--tf-*` na base e no `select-field.css` para `--motion-hover/press/active-*` e fechar C01 e C42 |
 
 ## Refactor
 
@@ -170,6 +171,7 @@ Contraste, foco e estados que não se distinguem.
 | C128 | `Text/soft` em texto informativo · contador do Text Input / Text Area ("0/100") e máscara do Date Input ("-0000") | Conferido no Figma (05/10): contador em `Text/soft` (Disclaimer/Regular 12px). `Text/soft` sobre `Surface/default`: **2,78:1** no claro e **4,41:1** no escuro (o smoke mede 2,50:1 sobre o fundo do campo) | **Proposta:** contador e máscara em `Text/medium` (**8,24:1** / **10,84:1**); `Text/soft` fica para o placeholder e o desabilitado, que o WCAG não exige. Confirmar com a11y | Segue o Figma; aviso no smoke | Trocar o token em `text-field.css` / `date-input.css` |
 | C152 | Main Button e Icon Button **Small** × área de toque (Scale) | A Scale pede 48px de área de toque e a imagem mostra o Small (40px) dentro de 48px | Small tem **40px** e **não amplia** a área de toque no componente (nem no Figma nem no código). Definir: Small só na web/desktop, ou área de toque de 48px no componente | Segue o Figma (40px). O próprio playground usa Icon Button Small na barra do topo (desktop) | Decidir no DS; se ganhar área de toque, ajustar `main-button.css` / `icon-button.css` |
 | C198 | Castanha Analytics · gráficos (Figma `xHh4XiLrKxt8GGmEFsytpr`, branch, nós 2675:8589 e 2675:8470) | Área "Adoção ao longo do tempo" com Charts/03 medium (#339cff), Charts/04 semi-soft (#be83e2) e Charts/05 semi-soft (#46b6bb); barra empilhada com Charts/03, 01, 04 medium e 05 semi-soft | No validador de paleta, azul × roxo da área dá ΔE 4,2 para protanopia (mínimo 8), e o amarelo Charts/01 medium (#ffc833) fica fora da faixa de luminosidade sobre o fundo claro. Trocar o roxo por um tom mais escuro (ex.: Charts/04 medium) e o amarelo por Charts/01 intense? | Segue o Figma: Relatório › Visão geral usa as mesmas cores. Para compensar, cada linha da área tem o valor no fim, e a legenda das barras traz nome e número | Quando o Castanha Analytics revisar a paleta dos gráficos |
+| C202 | Text Fields (todos, inclusive o Chat Input) | Borda em repouso `Border/semi-soft` 1,25:1 e no hover `Border/medium` sobre `Surface/01` 2,50:1. Placeholder e contador em `Text/soft` 2,78:1 | WCAG 1.4.11 pede 3:1 no limite do campo e o 1.4.3 pede 4,5:1 no texto. Proposta (QA da CDS-1594): tokens `Specific/Text Fields/*` para borda e placeholder, sem mexer nos tokens gerais | Segue o Figma | Task de sistema a abrir. Quando os tokens existirem, trocar em `text-field.css` |
 
 ## Documentação
 

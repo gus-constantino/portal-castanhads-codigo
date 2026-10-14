@@ -1,7 +1,7 @@
 {
  "componentes": {
-  "total": 119,
-  "ok": 119,
+  "total": 120,
+  "ok": 120,
   "falhas": [],
   "avisos": [
    {
@@ -22,6 +22,13 @@
     "warnings": [
      "contraste (escuro): “Label” 1.67:1 (C126)",
      "contraste (escuro): “Description” 1.67:1 (C126)"
+    ]
+   },
+   {
+    "id": "chat-input",
+    "warnings": [
+     "contraste (claro): “0/500” 2.50:1 (C128)",
+     "contraste (escuro): “0/500” 2.14:1 (C128)"
     ]
    },
    {
@@ -79,8 +86,8 @@
   ]
  },
  "docs": {
-  "docs": 143,
-  "tabs": 753,
+  "docs": 144,
+  "tabs": 759,
   "falhas": [],
   "avisos": []
  }

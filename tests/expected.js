@@ -54,6 +54,7 @@ window.CDS_EXPECTED = {
   "balance-card":      { w: 144, h: 167, src: "17881:1707" },
   "code-input-otp":    { w: 320, src: "24060:7228 · base 320 (6 células)" },
   "credit-card-input": { w: 320, src: "24614:7155" },
+  "chat-input":        { w: 320, src: "26567:44273 · Text Box 96 (texto 40 + ações 40 + pad 16), cresce até 160" },
   "viewport-restriction": { w: 200, h: 200, src: "5357:3899" },
   "card":              { w: 254, src: "5256:540 · Has Border=True · altura depende do Slot" },
   "thumbnail":         { w: 280, h: 160, src: "composição do playground (sem Figma) · caixa do preview do hover (Sizes/200 + Sizes/80 × Sizes/160)" },

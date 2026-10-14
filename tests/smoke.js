@@ -156,7 +156,7 @@
   var KNOWN = [
     [/^(banner|content-banner|backdrop|carousel)$/, /^contraste \(escuro\)/, "C126"], // carousel: a amostra usa Banners
     [/^(dropzone|filter-button)$/, /^contraste \(escuro\)/, "C127"],
-    [/^(text-input|text-area|date-input)$/, /^contraste/, "C128"],
+    [/^(text-input|text-area|date-input|chat-input)$/, /^contraste/, "C128"],
     [/^(pagination|table)$/, /^mobile:/, "C129"]
   ];
   var fresh = 0;

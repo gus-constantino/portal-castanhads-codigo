@@ -1,5 +1,10 @@
 [
  {
+  "caminho": "/entregas/chat-input/",
+  "titulo": "Chat Input · CDS-1594",
+  "tipo": "Entrega"
+ },
+ {
   "caminho": "/entregas/chips-small/",
   "titulo": "Chips Small · CDS-1599",
   "tipo": "Entrega"

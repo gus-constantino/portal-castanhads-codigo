@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 115 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 116 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.css ==== */
 /* Backdrop · 13784:3271 — Surface/inversed · Opacity/medium (0.4). O mesmo visual vale para o ::backdrop dos overlays */
 cds-backdrop{ position:absolute; inset:0; display:block; background:var(--common-colors-surface-inversed); opacity:var(--common-opacity-medium); }
@@ -1605,6 +1605,38 @@ cds-selection-list-item [hidden], cds-content-list-item [hidden]{ display:none !
 .cds-tf__counter{ margin-left:auto; flex:0 0 auto; font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-soft); font-variant-numeric:tabular-nums; }
 
 @media (prefers-reduced-motion:reduce){ .cds-tf__box{ transition:none; } }
+
+/* ==== components/chat-input/chat-input.css ==== */
+/* =====================================================================
+   Chat Input · CDS-1594 · branch 4hJ90rFfuEyWx9zHeqJxp4 · set 26567:44273
+   Membro da família Text Fields: cores e estados vêm de text-field.css. Aqui, o que é do Chat Input.
+   Text Box vertical, conteúdo embaixo · pad 8 8 8 16 · min Sizes/56 · max Sizes/160
+   Text Content pad 8 0 · Actions gap 4 · Trailing Items à direita, gap 4
+   ===================================================================== */
+/* Branch: Motion Styles por interação (Hover In/01 · Pressed/01 · Selected In/01) */
+cds-chat-input.cds-tf{
+  --tf-hover-d:var(--motion-hover-duration);   --tf-hover-e:var(--motion-hover-easing);
+  --tf-press-d:var(--motion-press-duration);   --tf-press-e:var(--motion-press-easing);
+  --tf-active-d:var(--motion-active-duration); --tf-active-e:var(--motion-active-easing);
+}
+cds-chat-input .cds-tf__box{
+  flex-direction:column; align-items:stretch; justify-content:flex-end; gap:var(--common-sizes-0);
+  padding:var(--common-sizes-8) var(--common-sizes-8) var(--common-sizes-8) var(--common-sizes-16);
+  min-height:var(--common-sizes-56); max-height:var(--common-sizes-160); overflow:hidden;
+}
+cds-chat-input .cds-tf__content{ align-items:flex-start; padding:var(--common-sizes-8) var(--common-sizes-0); }
+cds-chat-input .cds-tf__control{ resize:none; display:block; height:var(--common-sizes-24); line-height:var(--common-sizes-24); }
+/* Placeholder em uma linha, truncado no fim */
+cds-chat-input .cds-tf__control::placeholder{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+/* Is Listening: Listening Content em Text/medium no lugar do placeholder */
+cds-chat-input[listening] .cds-tf__control::placeholder{ color:var(--common-colors-text-medium); }
+
+/* Actions: Attach Button à esquerda, Send Button e Voice Button à direita */
+cds-chat-input .cds-chat__actions{ display:flex; align-items:center; gap:var(--common-sizes-4); cursor:default; }
+cds-chat-input .cds-chat__trailing{ flex:1 1 auto; display:flex; align-items:center; justify-content:flex-end; gap:var(--common-sizes-4); }
+
+/* Anúncio do ditado: só para leitor de tela */
+cds-chat-input > .cds-chat__live{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 
 /* ==== components/code-input-otp/code-input-otp.css ==== */
 /* =====================================================================

@@ -6,9 +6,9 @@
 
 | Verificação | Resultado |
 |---|---|
-| Smoke dos componentes (claro, escuro, mobile 360) | ✅ 119/119 ok · ⚠️ 11 com aviso |
-| Smoke das docs (desktop e 375px) | ✅ 143 docs · 753 tabs · 0 com problema |
-| Peso da primeira visita | ❌ 633 KB gzip de 600 KB · docs sob demanda: 110 arquivos |
+| Smoke dos componentes (claro, escuro, mobile 360) | ✅ 120/120 ok · ⚠️ 12 com aviso |
+| Smoke das docs (desktop e 375px) | ✅ 144 docs · 759 tabs · 0 com problema |
+| Peso da primeira visita | ❌ 637 KB gzip de 600 KB · docs sob demanda: 111 arquivos |
 ## Componentes
 
 Nenhuma falha.
@@ -20,6 +20,7 @@ Nenhuma falha.
 | backdrop | contraste (escuro): “Conteúdo da tela” 1.67:1 (C126) |
 | banner | contraste (escuro): “Label” 1.67:1 (C126) · contraste (escuro): “Description” 1.67:1 (C126) |
 | carousel | contraste (escuro): “Label” 1.67:1 (C126) · contraste (escuro): “Description” 1.67:1 (C126) |
+| chat-input | contraste (claro): “0/500” 2.50:1 (C128) · contraste (escuro): “0/500” 2.14:1 (C128) |
 | content-banner | contraste (escuro): “Label” 1.67:1 (C126) · contraste (escuro): “Description” 1.67:1 (C126) |
 | date-input | contraste (claro): “-0000” 2.50:1 (C128) · contraste (escuro): “-0000” 2.14:1 (C128) |
 | dropzone | contraste (escuro): “Selecionar arquivos” 3.74:1 (C127) |
@@ -39,11 +40,11 @@ Nenhum aviso.
 
 | Parte | Bruto | gzip |
 |---|---|---|
-| Primeira visita (tudo o que o index.html carrega) | 2667 KB | 633 KB |
-| dist/cds.js · componentes (117 arquivos) | 347 KB | 88 KB |
-| dist/cds.js · playgrounds (110 arquivos) | 165 KB | 29 KB |
+| Primeira visita (tudo o que o index.html carrega) | 2683 KB | 637 KB |
+| dist/cds.js · componentes (118 arquivos) | 354 KB | 90 KB |
+| dist/cds.js · playgrounds (111 arquivos) | 170 KB | 30 KB |
 | dist/cds.js · recursos (41 arquivos) | 771 KB | 221 KB |
-| Docs sob demanda (110 arquivos, uma por componente aberto) | — | 296 KB no total |
+| Docs sob demanda (111 arquivos, uma por componente aberto) | — | 300 KB no total |
 
 Limite: 600 KB gzip na primeira visita (aviso no build; `BUDGET_STRICT=1` faz falhar).
 

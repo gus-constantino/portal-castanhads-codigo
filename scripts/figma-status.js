@@ -15,7 +15,7 @@ CDS.figmaStatus = {
     add("unpublished", "breadcrumb-item calendar-day calendar-week close-alert close-toast content-banner csat-item currency-content currency-symbol card-flag " +
       "date-navigation file-lead-item footer header icons-block lead-item list-lead-item nav-control-item nps-value-item select-number tab-item " +
       "table-cell table-head table-toolbar text-content trailing-item");
-    add("branch", "accordion accordion-item code-input-otp credit-card-input");
+    add("branch", "accordion accordion-item chat-input code-input-otp credit-card-input");
     add("branch-update", "main-button input-chips filter-chips content-list-item");
     add("current", "alert async-creatable-select-input async-select-input avatar backdrop badge balance-card banner bottom-sheet breadcrumb caju-brand caju-card card carousel " +
       "checkbox-select-input checkbox chips-group confirmation-message content-list csat-score currency date-input date-picker divider drawer " +

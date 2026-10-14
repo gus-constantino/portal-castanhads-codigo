@@ -48,17 +48,13 @@ As duas usam o mesmo kit do portal (`dist/cds.js`, tokens, `playground-kit.js`),
 
 O pitch depende de duas coisas que ficariam bloqueadas:
 - **Números ao vivo** ("Como foi feito"): hoje ele lê `docs/ROADMAP.md` e `docs/SAUDE-TECNICA.md`. O build passa a gerar `docs/pitch/dados.json`, com os números e nada mais, e esse arquivo fica aberto.
-- **Portal ao vivo ao lado** ("O que faz"): é um iframe com o portal. Para o Visitante, há dois caminhos (decisão em aberto, seção 8):
-  - (a) imagens de cada capacidade, geradas pelo smoke no Chrome headless, e o link "Entrar para ver ao vivo".
-  - (b) liberar para o Visitante o portal sem o Relatório, o que equivale a abrir quase tudo.
+- **Portal ao vivo ao lado** ("O que faz"): é um iframe com o portal. Para o Visitante, o lugar do portal ao vivo mostra uma **imagem de cada capacidade**, gerada pelo smoke no Chrome headless, e o link "Entrar para ver ao vivo" (decidido em 14/10). Quem tem senha continua vendo o portal ao vivo.
 
 Os arquivos que o pitch carrega (estilos, `dist/cds.js`, fontes, ilustrações) ficam abertos. Eles não trazem conteúdo de docs.
 
 ## 5. MCP
 
-O MCP baixa do site o catálogo (`dist/mcp/catalog.json`) e o núcleo de código (`scripts/react-kit.js`, `scripts/flutter-kit.js`). O catálogo traz o texto das docs e as divergências do Conferir. Opções (decisão em aberto):
-- (a) **chave do MCP**: o middleware aceita uma chave no cabeçalho (`Authorization`), configurada uma vez no MCP de cada pessoa (`CASTANHA_CHAVE`).
-- (b) deixar esses arquivos abertos.
+O MCP baixa do site o catálogo (`dist/mcp/catalog.json`) e o núcleo de código (`scripts/react-kit.js`, `scripts/flutter-kit.js`). O catálogo traz o texto das docs e as divergências do Conferir. Decidido em 14/10: **chave do MCP**. O middleware aceita uma chave no cabeçalho (`Authorization`), guardada na variável `ACESSO_MCP` do Vercel e configurada uma vez no MCP de cada pessoa (`CASTANHA_CHAVE`). Sem a chave, esses arquivos ficam fechados.
 
 Em qualquer caso, o endereço do site muda dentro do MCP (`mcp/server.js`, `scripts/mcp/build-catalog.js`) e na página do MCP no portal.
 
@@ -70,7 +66,7 @@ Em qualquer caso, o endereço do site muda dentro do MCP (`mcp/server.js`, `scri
 | Proteção da `main` | A conta gratuita não protege branch de repositório privado | O fluxo `teste` → Smoke verde → `main` continua por disciplina, e o Vercel publica a `main`. |
 | Cota do GitHub Actions | Repositório privado tem cerca de 2.000 minutos grátis por mês. Cada Smoke leva cerca de 2 minutos, e houve 54 runs em 09/10 e 48 em 10/10. Nesse ritmo, a cota acaba em menos de 3 semanas. | Rodar o Smoke em push na `main` e nas branches `rotina/**`, e na `teste` sob demanda (`workflow_dispatch`). O smoke local antes de cada push continua. |
 | Endereço do site | Sai `gus-constantino.github.io/portal-castanhads`, entra o do Vercel (ex.: `portal-castanhads.vercel.app`) | Trocar no README, ARCHITECTURE, pitch, página e servidor do MCP, Roteiro e rotinas. |
-| Links antigos (Jira, Slack, Notion, handoffs) | Param de abrir | Decisão em aberto (seção 8): renomear o repositório e criar um `portal-castanhads` público com uma página que redireciona, mantendo o `#/rota` do link, ou aceitar que os links antigos parem. |
+| Links antigos (Jira, Slack, Notion, handoffs) | Param de abrir | **Redirecionar** (decidido em 14/10): renomear o repositório do código (ex.: `portal-castanhads-codigo`) e criar um `portal-castanhads` público, com uma página que leva ao endereço novo mantendo o caminho e o `#/rota` do link. O GitHub Pages fica ligado nesse repositório pequeno. |
 | Rotinas das 9h e 10h | Fazem push na `main` como hoje | Trocar os links do resumo pelo endereço novo. |
 | Repositório público de vez em quando | O código fica visível enquanto estiver público. O site continua no Vercel com senha. | Nada a fazer. |
 
@@ -82,17 +78,26 @@ Em qualquer caso, o endereço do site muda dentro do MCP (`mcp/server.js`, `scri
 | 2 · Entrada e perfis | `middleware.js`, `/entrar/`, os perfis Completo e Portal, "Sair" no menu e o pitch aberto com `dados.json` | Entrar com cada senha, abrir arquivo bloqueado pelo endereço direto (precisa dar "sem acesso") e abrir o pitch sem senha |
 | 3 · Links de página | `/l/<código>`, `/acesso/links/` e a primeira página própria, `/handoff/chips-small/` | Abrir o link numa janela anônima: abre o handoff e nada mais. Link vencido mostra a tela de entrada. |
 | 4 · Páginas de teste | Modelo de `/teste/<componente>/` e o primeiro uso (ex.: Draggable List, CDS-1592) | A página oficial do componente segue igual e a de teste abre pelo link |
-| 5 · Fechar | Repositório privado, Smoke ajustado à cota, endereço novo em todos os lugares, redirecionamento do endereço antigo (se aprovado) | Rotinas rodando, MCP funcionando com o endereço novo, link antigo levando ao novo |
+| 5 · Fechar | Repositório privado, Smoke ajustado à cota, endereço novo em todos os lugares, redirecionamento do endereço antigo | Rotinas rodando, MCP funcionando com o endereço novo, link antigo levando ao novo |
 
 Ordem pensada para que o portal nunca saia do ar: o Vercel entra no ar antes de o Pages ser desligado.
 
-## 8. Em aberto
+## 8. Decisões de 14/10 (antes em aberto)
 
-1. **Pitch para o Visitante:** imagens das capacidades com "Entrar para ver ao vivo" (a) ou portal sem Relatório aberto (b)? Sugestão: (a).
-2. **MCP:** chave no cabeçalho (a) ou arquivos abertos (b)? Sugestão: (a), porque o catálogo traz as divergências do Conferir.
-3. **Endereço antigo:** redirecionar (renomeando o repositório) ou deixar os links antigos pararem?
-4. **Domínio:** ficar com o `.vercel.app` ou usar um domínio próprio depois?
-5. **Validade padrão dos links de página:** 14 dias?
+| # | Pergunta | Decisão |
+|---|---|---|
+| 1 | Pitch para o Visitante | Imagens de cada capacidade com "Entrar para ver ao vivo" |
+| 2 | MCP | Chave no cabeçalho (`ACESSO_MCP`) |
+| 3 | Endereço antigo | Redirecionar para o novo, mantendo o caminho e a rota |
+| 4 | Domínio | `.vercel.app` por enquanto |
+| 5 | Validade padrão dos links de página | 14 dias |
+
+## Como a configuração do Vercel é feita
+
+Não há conector do Vercel nesta sessão. A configuração do painel (projeto, ligação com o GitHub, variáveis de ambiente, domínio) é feita no navegador do Gustavo, pelo Claude in Chrome, com a sessão dele.
+- **Valores das variáveis `ACESSO_*`:** quem digita é o Gustavo. O Claude deixa a tela pronta (nome da variável, ambiente) e não digita senha, segredo ou chave.
+- **Permissões:** instalar o app do Vercel no GitHub ou dar acesso ao repositório só com o ok do Gustavo na conversa.
+- **Login:** se o Vercel pedir login, quem entra é o Gustavo.
 
 ## 9. Riscos
 

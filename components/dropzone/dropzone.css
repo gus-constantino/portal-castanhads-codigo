@@ -10,7 +10,8 @@ cds-dropzone [hidden]{ display:none !important; }
   transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), outline-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
 }
 .cds-dz__body{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-8); min-width:0; }
-.cds-dz__texts{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+/* Textos quebram linha (Figma: HEIGHT/FILL), inclusive nome de arquivo ou extensão sem espaço */
+.cds-dz__texts{ display:flex; flex-direction:column; gap:var(--common-sizes-8); min-width:0; overflow-wrap:anywhere; }
 .cds-dz__title{ font:var(--text-style-label-regular); color:var(--common-colors-text-intense); }
 .cds-dz__desc{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
 .cds-dz__input{ position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; }

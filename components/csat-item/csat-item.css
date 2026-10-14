@@ -8,7 +8,7 @@ cds-csat-item [hidden]{ display:none !important; }
   transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate); }
 .cds-csi__icon{ --cds-icon-color:var(--common-colors-surface-02); width:var(--common-sizes-32); height:var(--common-sizes-32); }
 cds-csat-item[active] .cds-csi__icon{ --cds-icon-color:var(--common-colors-decorative-02); }
-.cds-csi__label{ font:var(--text-style-disclaimer-medium); color:var(--common-colors-text-medium); text-align:center; pointer-events:none; }
+.cds-csi__label{ font:var(--text-style-disclaimer-medium); color:var(--common-colors-text-medium); text-align:center; pointer-events:none; overflow-wrap:anywhere; } /* Figma: largura fixa, quebra linha */
 .cds-csi:hover .cds-csi__item, cds-csat-item[state="hovered"] .cds-csi__item{ --_bg:var(--common-colors-surface-01); }
 .cds-csi:active .cds-csi__item, cds-csat-item[state="pressed"] .cds-csi__item{ --_bg:var(--common-colors-accent-solid-soft); --_st:var(--common-colors-accent-solid-medium); }
 .cds-csi:has(:focus-visible) .cds-csi__item{ outline:2px solid var(--common-colors-support-system); outline-offset:2px; } /* C23 */

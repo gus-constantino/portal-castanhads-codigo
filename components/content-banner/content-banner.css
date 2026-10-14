@@ -2,7 +2,8 @@
    CTA Subtitle/Small + go-line 20 · Neutral = Text/intense · Inversed = Text/inversed */
 cds-content-banner{ display:flex; flex-direction:column; justify-content:flex-end; gap:var(--common-sizes-40); --_fg:var(--common-colors-text-intense); color:var(--_fg); }
 cds-content-banner[appearance="inversed"]{ --_fg:var(--common-colors-text-inversed); }
-.cds-cb__text{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
-.cds-cb__title{ margin:0; font:var(--text-style-title-medium); }
-.cds-cb__desc{ margin:0; font:var(--text-style-label-regular); }
+.cds-cb__text{ display:flex; flex-direction:column; gap:var(--common-sizes-8); min-width:0; }
+/* Título e descrição quebram linha (Figma: HEIGHT/FILL), inclusive palavra longa sem espaço */
+.cds-cb__title{ margin:0; font:var(--text-style-title-medium); overflow-wrap:anywhere; }
+.cds-cb__desc{ margin:0; font:var(--text-style-label-regular); overflow-wrap:anywhere; }
 .cds-cb__cta{ display:inline-flex; align-items:center; gap:var(--common-sizes-8); font:var(--text-style-subtitle-small); }

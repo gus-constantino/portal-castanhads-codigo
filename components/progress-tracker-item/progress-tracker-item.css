@@ -4,15 +4,16 @@ cds-progress-tracker-item [hidden]{ display:none !important; }
 .cds-pti__marker{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-8); flex:0 0 auto; }
 .cds-pti__mark{ --_bg:var(--common-colors-neutral-solid-semi-soft); box-sizing:border-box; display:grid; place-items:center; width:var(--common-sizes-32); height:var(--common-sizes-32); padding:var(--common-sizes-4);
   border-radius:var(--common-border-radius-pill); background:var(--_bg); }
-.cds-pti__num{ font:var(--text-style-label-medium); color:var(--common-colors-text-intense); }
+.cds-pti__num{ font:var(--text-style-label-medium); color:var(--common-colors-text-intense); max-width:100%; overflow:hidden; white-space:nowrap; } /* Figma: Marker Text de largura fixa, corta o excesso */
 .cds-pti__conn{ flex:1 1 auto; width:2px; min-height:var(--common-sizes-20); border-radius:var(--common-border-radius-pill); background:var(--common-colors-neutral-solid-semi-soft); }
 cds-progress-tracker-item[status="current"] .cds-pti__mark{ --_bg:var(--common-colors-surface-default); box-shadow:inset 0 0 0 var(--common-border-width-thin) var(--common-colors-accent-solid-medium); }
 cds-progress-tracker-item[status="completed"] .cds-pti__mark{ --_bg:var(--common-colors-surface-accent); }
 cds-progress-tracker-item[status="completed"] .cds-pti__conn{ background:var(--common-colors-surface-accent); }
 .cds-pti__text{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-8); padding:var(--common-sizes-8) 0; min-width:0; flex:1 1 auto; }
 .cds-pti__sr{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
-.cds-pti__label{ font:var(--text-style-label-medium); color:var(--common-colors-text-intense); }
-.cds-pti__desc{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+/* Label e descrição quebram linha (Figma: HEIGHT/FILL), inclusive palavra longa sem espaço */
+.cds-pti__label{ font:var(--text-style-label-medium); color:var(--common-colors-text-intense); overflow-wrap:anywhere; }
+.cds-pti__desc{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); overflow-wrap:anywhere; }
 /* Orientation=Horizontal — coluna gap 8 · 200 · Marker em linha (gap 8) com o Connector preenchendo · Description maxHeight 88 */
 cds-progress-tracker-item[orientation="horizontal"]{ flex-direction:column; gap:var(--common-sizes-8); width:200px; }
 cds-progress-tracker-item[orientation="horizontal"] .cds-pti__marker{ flex-direction:row; align-self:stretch; }

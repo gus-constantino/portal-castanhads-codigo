@@ -12,7 +12,8 @@ cds-alert [hidden], cds-system-banner [hidden]{ display:none !important; }
 cds-alert[appearance="warning"], cds-system-banner[appearance="warning"]{ --_bg:var(--common-colors-feedback-warning-soft); --_fg:var(--common-colors-feedback-warning-intense); --cds-shaped-bg:var(--common-colors-feedback-warning-semi-soft); }
 cds-alert[appearance="informative"], cds-system-banner[appearance="informative"]{ --_bg:var(--common-colors-feedback-informative-soft); --_fg:var(--common-colors-feedback-informative-intense); --cds-shaped-bg:var(--common-colors-feedback-informative-semi-soft); }
 .cds-alert__text{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:var(--common-sizes-2); }
-.cds-alert__label{ margin:0; font:var(--text-style-caption-bold); }
-.cds-alert__msg{ margin:0; font:var(--text-style-caption-regular); }
+/* Label e mensagem quebram linha (Figma: HEIGHT/FILL), inclusive palavra longa sem espaço como URL ou e-mail */
+.cds-alert__label{ margin:0; font:var(--text-style-caption-bold); overflow-wrap:anywhere; }
+.cds-alert__msg{ margin:0; font:var(--text-style-caption-regular); overflow-wrap:anywhere; }
 .cds-alert__msg a{ color:inherit; text-decoration:underline; text-underline-offset:2px; }
 .cds-alert__msg b, .cds-alert__msg strong{ font-weight:700; }

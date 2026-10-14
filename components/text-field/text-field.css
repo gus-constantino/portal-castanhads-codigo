@@ -22,6 +22,7 @@
 .cds-tf__label{
   display:flex; align-items:center; gap:var(--common-sizes-4); min-height:var(--common-sizes-20);
   font:var(--text-style-label-medium); color:var(--common-colors-text-intense); white-space:nowrap;
+  overflow:hidden; /* Figma: Label Content corta o que passa da largura do campo (clip, sem reticências) */
 }
 
 /* Text Box */

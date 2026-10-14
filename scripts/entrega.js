@@ -2,7 +2,8 @@
  * Modo entrega (docs/PLANO-ACESSO.md, fase 3): o portal de sempre, só com as páginas de uma entrega para dev.
  * Roda antes do scripts/app.js. Entra no modo quando:
  *   - no Vercel, a pessoa abriu um link de entrega (/l/<código>) e não tem perfil: o middleware grava cds_entrega;
- *   - ?entrega=<slug> no endereço, com o perfil Completo (para ver como a pessoa dev vê) ou fora do Vercel (servidor local).
+ *   - ?entrega=<slug> no endereço: o /l/<código> leva para /?entrega=<slug>, então o link abre a entrega mesmo para quem
+ *     já tem perfil neste navegador. Também vale no perfil Completo (ver como a pessoa dev vê) e fora do Vercel.
  * Carrega entregas/<slug>/entrega.js (gerado pelo build), que chama CDS.entregaDados com o título, os itens e o handoff.
  * O menu passa a ter só os itens da entrega, o Início vira a página da entrega (visão geral e handoff) e saem o Relatório,
  * a busca no conteúdo e o onboarding. No Vercel, quem entra pelo link nem recebe os recursos (dist/cds-entrega.js).
@@ -13,7 +14,10 @@
   function cookie(n){ var m = document.cookie.match(new RegExp("(?:^|;\\s*)" + n + "=([a-z0-9-]+)")); return m ? m[1] : null; }
   var perfil = cookie("cds_perfil"), link = cookie("cds_entrega"), pedida = new URLSearchParams(location.search).get("entrega");
   var vercel = /\.vercel\.app$/.test(location.hostname);
-  var slug = !perfil && link ? link : pedida && /^[a-z0-9-]+$/.test(pedida) && (perfil === "completo" || !vercel) ? pedida : null;
+  // ?entrega=<slug> vale quando veio do link (o mesmo slug do cookie cds_entrega), no perfil Completo ou fora do Vercel;
+  // sem o parâmetro, quem entrou só pelo link (sem perfil) continua na entrega
+  var valida = pedida && /^[a-z0-9-]+$/.test(pedida) && (pedida === link || perfil === "completo" || !vercel);
+  var slug = valida ? pedida : !perfil && link ? link : null;
   if (!slug || !CDS || !CDS.playgrounds) return;
 
   // Checklist do handoff: Checkbox do DS, marcado neste navegador (como o checklist de uma task)

@@ -98,7 +98,7 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   confere("Completo gera link", r.status === 200 && /^https:\/\/portal\.test\/l\//.test(gl.link), JSON.stringify(gl));
   r = await mw(req(new URL(gl.link).pathname));
   const setL = r.headers.getSetCookie(), linkCookie = setL.map((c) => c.split(";")[0]).join("; ");
-  confere("abrir o link leva ao portal e grava cds_links (HttpOnly) e cds_entrega", r.status === 302 && r.headers.get("location") === "/" && setL.some((c) => /^cds_links=/.test(c) && /HttpOnly/.test(c)) && setL.some((c) => /^cds_entrega=chips-small;/.test(c) && !/HttpOnly/.test(c)), r.status + " " + setL.join(" | "));
+  confere("abrir o link leva ao portal e grava cds_links (HttpOnly) e cds_entrega", r.status === 302 && r.headers.get("location") === "/?entrega=chips-small" && setL.some((c) => /^cds_links=/.test(c) && /HttpOnly/.test(c)) && setL.some((c) => /^cds_entrega=chips-small;/.test(c) && !/HttpOnly/.test(c)), r.status + " " + setL.join(" | "));
   const doLink = (p, a) => mw(req(p, { headers: { cookie: linkCookie, accept: a || "*/*" } }));
   confere("com o link abre o portal", segue(await doLink("/", "text/html")));
   confere("com o link abre os dados da entrega", segue(await doLink("/entregas/chips-small/entrega.js")));

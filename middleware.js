@@ -167,7 +167,9 @@ export default async function middleware(req){
     // guarda junto dos outros links ainda válidos (no máximo 20); o cookie vive até o link mais longo vencer
     const atuais = (await linksValidos(req, env)).filter((x) => x.l.c !== l.c).concat([{ codigo, l }]).slice(-20);
     const idade = Math.max.apply(null, atuais.map((x) => Math.ceil((x.l.e - Date.now()) / 1000)));
-    const h = new Headers({ Location: "/", "cache-control": "no-store" });
+    // ?entrega=<slug> abre o modo entrega também para quem já tem perfil neste navegador (scripts/entrega.js);
+    // a rota pedida no link (/l/<código>#/componente) segue no redirecionamento
+    const h = new Headers({ Location: "/?entrega=" + ENTREGA.exec(l.c)[1], "cache-control": "no-store" });
     h.append("set-cookie", "cds_links=" + atuais.map((x) => x.codigo).join("~") + "; Path=/; Max-Age=" + idade + "; HttpOnly; Secure; SameSite=Lax");
     h.append("set-cookie", "cds_entrega=" + ENTREGA.exec(l.c)[1] + "; Path=/; Max-Age=" + idade + "; Secure; SameSite=Lax");
     return new Response(null, { status: 302, headers: h });

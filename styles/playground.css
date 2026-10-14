@@ -49,6 +49,7 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
 .pg-sidebar::-webkit-scrollbar{ display:none; }
 .pg-search{ display:block; width:100%; margin:0 0 var(--common-sizes-24); } /* Search Input do DS */
 .pg-nav-sections[hidden]{ display:none; }
+.pg-nav-sec[hidden]{ display:none; } /* seção Componentes num link de página só com páginas (scripts/app.js) */
 .pg-nav a.pg-nav-ext cds-icon{ flex:none; } /* link externo do menu (ex.: curso): ícone no lugar do contador */
 .pg-nav-sections > .pg-nav-title:not(:first-child){ margin-top:var(--common-sizes-20); }
 #nav-found{ margin-bottom:0; } /* seções recolhíveis (D306): todas com o mesmo espaçamento, sem divisor entre os blocos */

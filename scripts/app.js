@@ -222,21 +222,13 @@
     extModal.querySelector(".pg-ext-confirm__text").textContent = l.confirm.text;
     extModal.show();
   }
-  // Seções dos recursos no menu (ordem dentro da seção = ordem dos ids). Recurso fora da lista cai em "Mais recursos".
-  // top: a seção vem antes de Componentes (Desenvolvimento e Padrões, pedido do Gustavo em 09/10)
-  var RES_SECTIONS = [
-    { id: "desenvolvimento", top: true, title: "Desenvolvimento", ids: ["comece-aqui", "dev-instalacao", "dev-ambiente", "dev-pacotes", "dev-formularios", "dev-hooks", "dev-assets", "dev-grid", "dev-tokens", "dev-universe", "flutter-instalacao", "flutter-ambiente", "flutter-componentes"], tip: "Como instalar e usar o Castanha no código: o Comece aqui e as docs de React (Storybook do castanha-react) e de Flutter (Widgetbook do castanha_flutter)." },
-    { id: "padroes", top: true, title: "Padrões", ids: ["caju-theme", "ilustracao", "motion", "camadas", "conteudo", "patterns"], tip: "A base e as soluções recorrentes: tema (cores, tipografia, motion…), as camadas do DS, diretrizes de conteúdo e patterns de tela." },
-    { id: "aprenda", title: "Aprenda", ids: ["treinamento", "capacitacoes", "castanha-quiz"], tip: "Como o DS funciona e como usar no dia a dia, no Figma e no código.",
-      links: [{ name: "Curso na Awtra", href: "https://lms.awtra.com.br/company/caju/app/course/f5e0c07c-7778-489c-81af-91216c8ccdd0",
-        confirm: { title: "Abrir o curso na Awtra?", text: "O curso fica na plataforma Awtra, fora deste site, e abre numa nova guia. Entre com a sua conta da Caju para acessar.", action: "Abrir curso" } }] }, // links externos: sem página, abrem em nova guia (com confirm: Modal do DS antes)
-    { id: "ferramentas", title: "Ferramentas", ids: ["personas", "agentes", "mcp"], tip: "Apoio ao projeto: as personas para quem projetamos, assistentes de IA e integrações com o Castanha DS." },
-    { id: "ajuda", title: "Ajuda", ids: ["faq", "changelog"], links: [{ name: "Primeiros passos", href: "#/inicio/primeiros-passos", internal: true }], tip: "Perguntas frequentes e o que mudou no DS." }
-  ];
+  // Seções dos recursos no menu: scripts/menu-secoes.js (CDS.menuSecoes), que o build também lê para os links de página
+  var RES_SECTIONS = CDS.menuSecoes || [];
   function resSections(res){
     var known = {}, out = RES_SECTIONS.map(function(sec){
       var items = sec.ids.map(function(id){ known[id] = true; return res.filter(function(c){ return c.id === id; })[0]; }).filter(Boolean);
-      return { id: sec.id, title: sec.title, top: sec.top, tip: sec.tip, items: items, links: sec.links || [] };
+      // no modo link e no modo entrega, a seção mostra só as páginas liberadas (sem os links extras, como Primeiros passos)
+      return { id: sec.id, title: sec.title, top: sec.top, tip: sec.tip, items: items, links: CDS.acessoLink || CDS.entrega ? [] : sec.links || [] };
     });
     var rest = res.filter(function(c){ return !known[c.id]; }).sort(function(a, b){ return (a.order || 99) - (b.order || 99); });
     if (rest.length) out.push({ id: "mais", title: "Mais recursos", items: rest });
@@ -324,8 +316,10 @@
     navFound.hidden = !navFound.children.length; navRes.hidden = !navRes.children.length;
     // Seção Componentes (Accordion Item do index.html): recolhida por padrão, aberta na página de um componente, na busca ou se a pessoa abriu
     // no modo entrega (scripts/entrega.js) a seção e os grupos vêm abertos: são poucos itens
-    var compOpen = (q && (comps.length || blocks.length)) || narrow.matches || !!CDS.entrega || openCats["sec:componentes"] || comps.concat(blocks).some(function(c){ return c.id === currentId(); });
+    var compOpen = (q && (comps.length || blocks.length)) || narrow.matches || !!(CDS.entrega || CDS.acessoLink) || openCats["sec:componentes"] || comps.concat(blocks).some(function(c){ return c.id === currentId(); });
     if (compSec.collapsed === !!compOpen) compSec.collapsed = !compOpen;
+    // link de página só com páginas (sem componentes): a seção Componentes some, em vez de aparecer vazia
+    compSec.hidden = !!CDS.acessoLink && !q && !comps.length && !blocks.length;
     var cats = PAGES.concat(comps.map(function(c){ return c.category || "Outros"; }).filter(function(x, i, a){ return PAGES.indexOf(x) === -1 && a.indexOf(x) === i; }));
     // Categorias em accordion: abre a da página atual, as que a pessoa abriu (lembrado no navegador) e todas durante a busca
     var cur = currentId();
@@ -338,23 +332,23 @@
         if (items.length) nav.appendChild(navGrid(cat, items));
       });
       if (blocks.length) nav.appendChild(navGrid("Building blocks", blocks)).classList.add("pg-nav-blocks");
-      if (!comps.length && !blocks.length) nav.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Nenhum componente encontrado." }));
+      if (!comps.length && !blocks.length && (q || !CDS.acessoLink)) nav.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Nenhum componente encontrado." })); // link de página sem componentes: sem o aviso
       markCurrent();
       return;
     }
     cats.forEach(function(cat){
       var items = comps.filter(function(c){ return (c.category || "Outros") === cat; });
       if (!items.length) return;
-      nav.appendChild(kit.el("li", null, [navGroup(cat, items, q || narrow.matches || !!CDS.entrega || openCats[cat] || items.some(function(c){ return c.id === cur; }), function(open){ openCats[cat] = open; saveOpen(); })]));
+      nav.appendChild(kit.el("li", null, [navGroup(cat, items, q || narrow.matches || !!(CDS.entrega || CDS.acessoLink) || openCats[cat] || items.some(function(c){ return c.id === cur; }), function(open){ openCats[cat] = open; saveOpen(); })]));
     });
     if (blocks.length){
-      var bd = navGroup("Building blocks", blocks, blocksOpen || q || narrow.matches || !!CDS.entrega || blocks.some(function(c){ return c.id === cur; }), function(open){ blocksOpen = open; });
+      var bd = navGroup("Building blocks", blocks, blocksOpen || q || narrow.matches || !!(CDS.entrega || CDS.acessoLink) || blocks.some(function(c){ return c.id === cur; }), function(open){ blocksOpen = open; });
       bd.classList.add("pg-nav-blocks");
       var bli = nav.appendChild(kit.el("li", null, [bd]));
       // Tooltip no cabeçalho do Accordion Item (o botão interno), não no item inteiro
       if (bd.btn) kit.tip(bd.btn, "Peças internas usadas por outros componentes (.Item, .Head…). Não se usam sozinhas.", { container: bli });
     }
-    if (!comps.length && !blocks.length) nav.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Nenhum componente encontrado." }));
+    if (!comps.length && !blocks.length && (q || !CDS.acessoLink)) nav.appendChild(kit.el("li", { "class": "pg-nav-empty", text: "Nenhum componente encontrado." })); // link de página sem componentes: sem o aviso
     markCurrent();
   }
   // Rola só o menu (nunca a página) até o item atual, centralizado. Só quando ele está fora de vista
@@ -425,7 +419,7 @@
       return [].slice.call(document.querySelectorAll(sel)).filter(function(a){ return a.getClientRects().length > 0; });
     }
     function focusSearch(){ var i = input(); if (i){ i.focus(); i.select(); } }
-    search.setAttribute("placeholder", (CDS.entrega ? "Buscar nesta entrega" : "Buscar componente ou conteúdo") + " (" + (mac ? "⌘K" : "Ctrl+K") + ")");
+    search.setAttribute("placeholder", (CDS.entrega ? "Buscar nesta entrega" : CDS.acessoLink ? "Buscar nas páginas do link" : "Buscar componente ou conteúdo") + " (" + (mac ? "⌘K" : "Ctrl+K") + ")");
     document.addEventListener("keydown", function(e){
       var t = e.target, typing = t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
       if ((e.key === "k" || e.key === "K") && (mac ? e.metaKey : e.ctrlKey) && !e.altKey && !e.shiftKey){ e.preventDefault(); focusSearch(); return; }
@@ -524,6 +518,7 @@
     if (id && list.some(function(c){ return c.notFound; })) return list.filter(function(c){ return c.notFound; })[0].id;
     // modo entrega (scripts/entrega.js): sem Início, abre o primeiro componente da entrega, na ordem do entrega.json
     if (CDS.entrega){ var first = CDS.entrega.itens.filter(function(i){ return list.some(function(c){ return c.id === i.id; }); })[0]; if (first) return first.id; }
+    if (CDS.acessoLink){ var primeiro = CDS.acessoLink.ids.filter(function(i){ return list.some(function(c){ return c.id === i; }); })[0]; if (primeiro) return primeiro; } // link de página: abre no primeiro item do alvo
     var home = list.filter(function(c){ return c.home; })[0]; // sem rota: abre o Início (Castanha Hub)
     return (home || list.filter(function(c){ return !isPart(c) && !c.resource; })[0] || list[0]).id;
   }
@@ -705,7 +700,7 @@
   var PERFIL = (document.cookie.match(/(?:^|;\s*)cds_perfil=(completo|portal)\b/) || [])[1] || null;
   CDS.perfil = PERFIL;
   // Modo entrega (scripts/entrega.js): sem o Relatório, como no perfil Portal
-  var SEM_RELATORIO = PERFIL === "portal" || !!CDS.entrega;
+  var SEM_RELATORIO = PERFIL === "portal" || !!CDS.entrega || !!CDS.acessoLink; // e no link de página
   if (SEM_RELATORIO){ reportBtn.hidden = true; $("report-tip").hidden = true; }
   if (PERFIL){
     var out = kit.el("cds-icon-button", { id: "logout-btn", kind: "default", appearance: "neutral", size: "small", icon: "logout-line", label: "Sair do portal" });

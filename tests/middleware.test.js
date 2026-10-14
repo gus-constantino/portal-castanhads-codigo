@@ -10,7 +10,17 @@ const src = fs.readFileSync(path.join(__dirname, "..", "middleware.js"), "utf8")
   .replace(/^export const config\s*=/m, "exports.config =")
   .replace(/^export default async function middleware/m, "exports.default = async function middleware");
 const env = { ACESSO_SEGREDO: "segredo-de-teste", ACESSO_COMPLETO: "111111", ACESSO_PORTAL: "222222", ACESSO_MCP: "chave-de-teste" };
-const ctx = { exports: {}, process: { env }, Buffer, TextEncoder, crypto: globalThis.crypto, Response, Headers, URL, JSON, Date, String, Math, Object, decodeURIComponent, encodeURIComponent };
+// Redis de mentira (registro dos links): hash em memória, no formato do pipeline do Upstash
+const H = {};
+const fakeFetch = async (u, o) => new Response(JSON.stringify(JSON.parse(o.body).map(([c, k, ...a]) => {
+  const h = H[k] = H[k] || {};
+  if (c === "HSET"){ h[a[0]] = a[1]; return { result: 1 }; }
+  if (c === "HMGET") return { result: a.map((f) => f in h ? h[f] : null) };
+  if (c === "HGETALL") return { result: Object.keys(h).flatMap((f) => [f, h[f]]) };
+  if (c === "HDEL") return { result: a.filter((f) => f in h && delete h[f]).length };
+  return { error: "comando " + c };
+})));
+const ctx = { exports: {}, process: { env }, Buffer, TextEncoder, crypto: globalThis.crypto, Response, Headers, URL, JSON, Date, String, Math, Object, decodeURIComponent, encodeURIComponent, fetch: fakeFetch };
 vm.createContext(ctx); vm.runInContext(src, ctx, { filename: "middleware.js" });
 const mw = ctx.exports.default;
 
@@ -140,10 +150,52 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   r = await mw(req("/l/" + trocado));
   confere("link com a entrega trocada não vale", r.status === 302 && r.headers.get("location") === "/entrar/?link=vencido", r.headers.get("location"));
 
+  // Links de página (acesso/paginas): um alvo, registrado no banco, com revogação
+  env.KV_REST_API_URL = "http://redis-teste"; env.KV_REST_API_TOKEN = "t";
+  const post = (p, c, b) => mw(new Request(BASE + p, { method: "POST", headers: { "content-type": "application/json", cookie: c }, body: JSON.stringify(b) }));
+  r = await post("/acesso/links", portal.cookie, { alvo: "pagina:castanha-quiz", dias: 14 });
+  confere("Portal não gera link de página", r.status === 403, String(r.status));
+  r = await post("/acesso/links", completo.cookie, { alvo: "pagina:nao-existe", dias: 14 });
+  confere("alvo desconhecido não gera link", r.status === 400, String(r.status));
+  r = await post("/acesso/links", completo.cookie, { alvo: "pagina:castanha-quiz", titulo: "Castanha Quiz", dias: 14 });
+  const gp = await r.json();
+  confere("Completo gera link de página registrado", r.status === 200 && gp.registrado === true && /\/l\//.test(gp.link), JSON.stringify(gp));
+  r = await post("/acesso/links", completo.cookie, { alvo: "componente:main-button", titulo: "Main Button", dias: 7 });
+  const gc = await r.json();
+  r = await mw(req("/acesso/links/ativos", { headers: { cookie: completo.cookie, accept: "*/*" } }));
+  const lista = await r.json();
+  confere("a lista de ativos traz os dois links", lista.registro && lista.links.length === 2 && lista.links.every((l) => l.link && l.vence), JSON.stringify(lista).slice(0, 200));
+  confere("a tela de links de página é do Completo", segue(await mw(req("/acesso/paginas/", { headers: { cookie: completo.cookie } }))) && (await mw(req("/acesso/paginas/", { headers: { cookie: portal.cookie } }))).status === 403);
+  const abrir = async (link) => { const x = await mw(req(new URL(link).pathname)); return { r: x, c: x.headers.getSetCookie().map((c) => c.split(";")[0]).join("; ") }; };
+  let o = await abrir(gp.link);
+  confere("abrir o link de página leva ao portal no alvo e grava cds_alvos", o.r.status === 302 && o.r.headers.get("location") === "/?alvo=pagina%3Acastanha-quiz" && /cds_alvos=pagina%3Acastanha-quiz/.test(o.c), o.r.headers.get("location") + " " + o.c);
+  const comPg = (p, a) => mw(req(p, { headers: { cookie: o.c, accept: a || "*/*" } }));
+  confere("com o link de página abre o portal e o arquivo da página", segue(await comPg("/", "text/html")) && segue(await comPg("/resources/castanha-quiz/castanha-quiz.js")) && segue(await comPg("/acesso/alvos.js")));
+  confere("com o link de página o dist/cds.js vira o pacote sem as páginas", (await comPg("/dist/cds.js")).headers.get("x-middleware-rewrite") === BASE + "/dist/cds-entrega.js");
+  r = await comPg("/resources/treinamento/treinamento.js"); confere("o link de página não abre outra página", r.status === 401, String(r.status));
+  r = await comPg("/components/main-button/main-button.docs.js"); confere("o link de página não abre a doc de um componente", r.status === 401, String(r.status));
+  r = await comPg("/api/ranking?board=geral"); confere("o link de página não abre o ranking do time", r.status === 401, String(r.status));
+  // os dois links no mesmo navegador; revogado um, ele para na hora e a página limpa os cookies
+  const o2 = await mw(req(new URL(gc.link).pathname, { headers: { cookie: o.c } }));
+  const dois = o2.headers.getSetCookie().map((c) => c.split(";")[0]).join("; ");
+  confere("com os dois links abre a doc do componente", segue(await mw(req("/components/main-button/main-button.docs.js", { headers: { cookie: dois, accept: "*/*" } }))));
+  const idMb = lista.links.filter((l) => l.alvo === "componente:main-button")[0].id;
+  r = await post("/acesso/links/revogar", completo.cookie, { id: idMb });
+  confere("Completo revoga o link", r.status === 200 && (await r.json()).revogado === true);
+  r = await mw(req("/components/main-button/main-button.docs.js", { headers: { cookie: dois, accept: "*/*" } }));
+  confere("revogado, o link para de abrir o conteúdo na hora", r.status === 401, String(r.status));
+  r = await mw(req("/", { headers: { cookie: dois } }));
+  const limpo = r.headers.getSetCookie().join(" | ");
+  confere("a página tira dos cookies o link revogado", r.status === 302 && /cds_alvos=pagina%3Acastanha-quiz;/.test(limpo), r.status + " " + limpo);
+  r = await mw(req(new URL(gc.link).pathname));
+  confere("link revogado vai para a entrada com aviso", r.status === 302 && r.headers.get("location") === "/entrar/?link=vencido", r.headers.get("location"));
+  r = await post("/acesso/links/revogar", portal.cookie, { id: idMb });
+  confere("Portal não revoga link", r.status === 403, String(r.status));
+
   // Sem segredo configurado: ninguém entra
   env.ACESSO_SEGREDO = "";
   r = await entrar("111111"); confere("sem ACESSO_SEGREDO a entrada responde 503", r.status === 503, String(r.status));
 
   if (falhas){ console.error("❌ Middleware: " + falhas + " falha(s), " + ok + " ok"); process.exit(1); }
-  console.log("✅ Middleware: " + ok + " verificações ok (Visitante, Completo, Portal, MCP, ranking, links de entrega, cookie adulterado, sair)");
+  console.log("✅ Middleware: " + ok + " verificações ok (Visitante, Completo, Portal, MCP, ranking, links de entrega, links de página e revogação, cookie adulterado, sair)");
 })().catch((e) => { console.error(e); process.exit(1); });

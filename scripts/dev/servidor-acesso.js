@@ -10,12 +10,14 @@
 "use strict";
 const fs = require("fs"), path = require("path"), vm = require("vm"), http = require("http");
 const ROOT = path.join(__dirname, "..", ".."), PORTA = Number(process.argv[2]) || 8790;
-const env = { ACESSO_SEGREDO: "segredo-local", ACESSO_COMPLETO: "111111", ACESSO_PORTAL: "222222", ACESSO_MCP: "chave-de-teste" };
+const env = { ACESSO_SEGREDO: "segredo-local", ACESSO_COMPLETO: "111111", ACESSO_PORTAL: "222222", ACESSO_MCP: "chave-de-teste",
+  KV_REST_API_URL: "http://redis-local", KV_REST_API_TOKEN: "local" }; // registro dos links no Redis de mentira (abaixo)
 function carregar(){ // relê o middleware a cada pedido: editar e recarregar a página basta
   const src = fs.readFileSync(path.join(ROOT, "middleware.js"), "utf8")
     .replace(/^export const config\s*=/m, "exports.config =")
     .replace(/^export default async function middleware/m, "exports.default = async function middleware");
-  const ctx = { exports: {}, process: { env }, Buffer, TextEncoder, crypto: globalThis.crypto, Response, Headers, URL, JSON, Date, String, Math, Object, decodeURIComponent, encodeURIComponent };
+  const ctx = { exports: {}, process: { env }, Buffer, TextEncoder, crypto: globalThis.crypto, Response, Headers, URL, JSON, Date, String, Math, Object, decodeURIComponent, encodeURIComponent,
+    fetch: (u, o) => globalThis.fetch(u, o) };
   vm.createContext(ctx); vm.runInContext(src, ctx, { filename: "middleware.js" });
   return ctx.exports.default;
 }
@@ -29,8 +31,9 @@ function arquivo(res, p){
   res.writeHead(200, { "content-type": TIPOS[path.extname(f)] || "application/octet-stream", "cache-control": "no-store" });
   fs.createReadStream(f).pipe(res);
 }
-// Redis de mentira para o api/ranking.mjs: responde ao pipeline do Upstash (SET NX, ZADD, ZREMRANGEBYRANK, ZREVRANK, ZREVRANGE)
-const Z = {}, KV = {}, fetchReal = globalThis.fetch;
+// Redis de mentira para o api/ranking.mjs e o registro de links do middleware: responde ao pipeline do Upstash
+// (SET NX, ZADD, ZREMRANGEBYRANK, ZREVRANK, ZREVRANGE, HSET, HMGET, HGETALL, HDEL)
+const Z = {}, KV = {}, H = {}, fetchReal = globalThis.fetch;
 process.env.KV_REST_API_URL = "http://redis-local"; process.env.KV_REST_API_TOKEN = "local";
 globalThis.fetch = async (u, o) => {
   if (!String(u).startsWith("http://redis-local")) return fetchReal(u, o);
@@ -41,6 +44,12 @@ globalThis.fetch = async (u, o) => {
     if (c === "ZREMRANGEBYRANK"){ Z[k] = ord().slice(0, -Number(a[1]) - 1); return { result: 0 }; }
     if (c === "ZREVRANK"){ const i = ord().findIndex((x) => x.m === a[0]); return { result: i < 0 ? null : i }; }
     if (c === "ZREVRANGE") return { result: ord().slice(0, Number(a[1]) + 1).flatMap((x) => [x.m, String(x.s)]) };
+    // hash (registro dos links de página e de entrega)
+    const h = H[k] = H[k] || {};
+    if (c === "HSET"){ h[a[0]] = a[1]; return { result: 1 }; }
+    if (c === "HMGET") return { result: a.map((f) => f in h ? h[f] : null) };
+    if (c === "HGETALL") return { result: Object.keys(h).flatMap((f) => [f, h[f]]) };
+    if (c === "HDEL") return { result: a.filter((f) => f in h && delete h[f]).length };
     return { error: "comando " + c };
   });
   return new Response(JSON.stringify(out), { headers: { "content-type": "application/json" } });

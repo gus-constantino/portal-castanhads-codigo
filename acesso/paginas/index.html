@@ -1,0 +1,184 @@
+<!doctype html>
+<!-- Links de página (D341). Só o perfil Completo abre esta tela (middleware.js).
+     Gera um link que abre o portal só com um alvo: um componente, uma página, uma seção do menu ou uma categoria
+     (lista em acesso/alvos.js, gerada pelo build-index), com validade de 7, 14 ou 30 dias, por POST /acesso/links.
+     Embaixo, os links ativos (de página e de entrega) registrados no banco, com Copiar e Revogar.
+     Componentes do DS, do pacote público (dist/cds-publico.*): Card, Radio Select Input, Radio Button Group,
+     Main Button, Link, Text Input, Alert, Toast, Table e Modal. -->
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex" />
+<title>Links de página · Castanha DS</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Work+Sans:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../styles/tokens.css" />
+<link rel="stylesheet" href="../../styles/shared.css" />
+<link rel="stylesheet" href="../../styles/icons.css" />
+<link rel="stylesheet" href="../../dist/cds-publico.css" />
+<style>
+  body{ margin:0; min-height:100svh; background:var(--common-colors-surface-01); color:var(--common-colors-text-intense); font:var(--text-style-body-regular); }
+  .lk{ box-sizing:border-box; width:min(100% - 2 * var(--common-sizes-16), calc(4 * var(--common-sizes-200))); margin:0 auto; padding:var(--common-sizes-40) 0; display:flex; flex-direction:column; gap:var(--common-sizes-24); }
+  .lk .cds-card__slot{ display:flex; flex-direction:column; align-items:stretch; gap:var(--common-sizes-24); }
+  .lk__text{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+  .lk__title{ margin:0; font:var(--text-style-title-large); }
+  .lk__subtitle{ margin:0; font:var(--text-style-title-small); }
+  .lk__lede{ margin:0; color:var(--common-colors-text-medium); }
+  .lk__field{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+  .lk__label{ margin:0; font:var(--text-style-subtitle-small); }
+  .lk__pair{ display:grid; grid-template-columns:repeat(auto-fit, minmax(calc(var(--common-sizes-200) + var(--common-sizes-40)), 1fr)); gap:var(--common-sizes-16); }
+  .lk__actions{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--common-sizes-16) var(--common-sizes-24); }
+  .lk__out{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-12); }
+  .lk__out[hidden]{ display:none; }
+  .lk cds-radio-select-input, .lk__out cds-text-input, .lk__out cds-alert, .lk__list cds-alert, .lk__list cds-table{ width:100%; align-self:stretch; } /* Text Field em Fill, na largura do card */
+  .lk__list{ display:flex; flex-direction:column; gap:var(--common-sizes-12); }
+  .lk__toast{ position:fixed; left:50%; bottom:var(--common-sizes-24); transform:translateX(-50%); }
+</style>
+</head>
+<body>
+<main class="lk">
+  <cds-card has-border="true">
+    <div class="lk__text">
+      <h1 class="lk__title">Links de página</h1>
+      <p class="lk__lede">Gere um link que abre o portal só com um componente, uma página, uma seção do menu ou uma categoria de componentes. Quem recebe não precisa de código e vê só isso até o link vencer ou ser revogado.</p>
+    </div>
+    <div class="lk__pair">
+      <cds-radio-select-input id="lk-tipo" label="Tipo" show-required="false" show-supporting-content="false" show-lead-icon="false"></cds-radio-select-input>
+      <cds-radio-select-input id="lk-alvo" label="Item" show-required="false" placeholder="Escolha o item" show-supporting-content="false" show-lead-icon="false"></cds-radio-select-input>
+    </div>
+    <div class="lk__field">
+      <p class="lk__label">Validade</p>
+      <cds-radio-button-group id="lk-days" label="Validade" name="lk-dias">
+        <cds-radio-button label="7 dias" value="7" status="unselected"></cds-radio-button>
+        <cds-radio-button label="14 dias" value="14" status="selected"></cds-radio-button>
+        <cds-radio-button label="30 dias" value="30" status="unselected"></cds-radio-button>
+      </cds-radio-button-group>
+    </div>
+    <div class="lk__actions">
+      <cds-main-button id="lk-go" label="Gerar link" show-lead-icon="false" show-trailing-icon="false"></cds-main-button>
+      <cds-link id="lk-ver" label="Ver como quem recebe vê" href="/" appearance="accent" icon="link-line" target="_blank"></cds-link>
+    </div>
+    <div class="lk__out" id="lk-out" hidden></div>
+  </cds-card>
+
+  <cds-card has-border="true">
+    <div class="lk__text">
+      <h2 class="lk__subtitle">Links ativos</h2>
+      <p class="lk__lede">Os links de página e de entrega que ainda valem. Revogado, o link para de abrir na hora, inclusive para quem já abriu.</p>
+    </div>
+    <div class="lk__list" id="lk-list"></div>
+  </cds-card>
+</main>
+
+<script src="../../scripts/cds-element.js"></script>
+<script src="../../scripts/playground-kit.js"></script>
+<script src="../../scripts/assets-manifest.js"></script>
+<script src="../../dist/cds-publico.js"></script>
+<script src="../alvos.js"></script>
+<script>
+(function(){
+  "use strict";
+  var ALVOS = (window.CDS && CDS.alvos) || {};
+  var tipo = document.getElementById("lk-tipo"), alvo = document.getElementById("lk-alvo"), days = document.getElementById("lk-days");
+  var go = document.getElementById("lk-go"), out = document.getElementById("lk-out"), ver = document.getElementById("lk-ver"), list = document.getElementById("lk-list"), busy = false;
+  // Tipos da tela: Componente junta componentes, building blocks e templates
+  var TIPOS = [["componente", "Componente", ["Componente", "Building block", "Template"]], ["pagina", "Página", ["Página"]], ["secao", "Seção do menu", ["Seção do menu"]], ["categoria", "Categoria de componentes", ["Categoria"]]];
+  function opcoes(t){
+    var def = TIPOS.filter(function(x){ return x[0] === t; })[0] || TIPOS[0];
+    return Object.keys(ALVOS).filter(function(k){ return def[2].indexOf(ALVOS[k].tipo) >= 0; })
+      .map(function(k){ var a = ALVOS[k]; return { value: k, label: a.tipo === "Componente" || a.tipo === "Página" || a.tipo === "Seção do menu" || a.tipo === "Categoria" ? a.titulo : a.titulo + " · " + a.tipo }; })
+      .sort(function(a, b){ return a.label.localeCompare(b.label, "pt-BR"); });
+  }
+  function atual(el){ return el.value || el.getAttribute("value") || ""; } // a escolha atual fica na propriedade value
+  function verLink(){ var k = atual(alvo); ver.hidden = !ALVOS[k]; if (ALVOS[k]) ver.setAttribute("href", "/?alvo=" + encodeURIComponent(k) + "#/"); }
+  function trocarTipo(){
+    var o = opcoes(atual(tipo));
+    alvo.options = o; alvo.value = ""; alvo.removeAttribute("value"); // começa sem item: a pessoa escolhe
+    verLink();
+  }
+  tipo.options = TIPOS.map(function(t){ return { value: t[0], label: t[1] }; });
+  tipo.setAttribute("value", "componente");
+  tipo.addEventListener("cds-change", function(){ setTimeout(trocarTipo, 0); });
+  alvo.addEventListener("cds-change", function(){ setTimeout(verLink, 0); });
+  trocarTipo();
+
+  function dias(){ var r = days.querySelector('cds-radio-button[status="selected"]'); return Number(r ? r.getAttribute("value") : 14); }
+  function data(v){ return new Date(v).toLocaleDateString("pt-BR", { day: "2-digit", month: "long", year: "numeric" }); }
+  function aviso(box, appearance, label, text){ box.hidden = false; box.innerHTML = ""; box.appendChild(CDS.create("cds-alert", { appearance: appearance, label: label, text: text, "show-close-button": "false" })); }
+  function toast(text){
+    var t = document.body.appendChild(CDS.create("cds-toast", { appearance: "positive", text: text, "show-trailing-item": "false" }));
+    t.classList.add("lk__toast"); setTimeout(function(){ if (t.isConnected) t.remove(); }, 3000);
+  }
+  function copiar(texto, campo){
+    (navigator.clipboard ? navigator.clipboard.writeText(texto) : Promise.reject()).then(function(){ toast("Link copiado"); }, function(){ if (campo){ campo.focus(); campo.select(); } });
+  }
+  function pedir(url, corpo){
+    return fetch(url, corpo ? { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(corpo), credentials: "same-origin" } : { credentials: "same-origin", cache: "no-store" })
+      .then(function(r){
+        // sem o middleware (GitHub Pages, servidor local comum) a rota não existe
+        if (!/json/.test(r.headers.get("content-type") || "")) throw new Error("Links de página funcionam no endereço do Vercel, onde o portal pede código.");
+        return r.json().then(function(j){ if (!r.ok) throw new Error(j.erro || "O servidor não respondeu."); return j; });
+      });
+  }
+
+  function gerar(){
+    if (busy) return;
+    var k = atual(alvo);
+    if (!ALVOS[k]){ aviso(out, "warning", "Escolha o item", "O link abre o portal só com ele."); return; }
+    busy = true; go.setAttribute("disabled", "");
+    pedir("/acesso/links", { alvo: k, titulo: ALVOS[k].titulo, dias: dias() })
+      .then(function(j){
+        out.hidden = false; out.innerHTML = "";
+        out.appendChild(CDS.create("cds-alert", { appearance: "positive", label: "Link pronto", "show-close-button": "false",
+          text: ALVOS[k].titulo + " (" + ALVOS[k].tipo + "). Vale até " + data(j.vence) + "." + (j.registrado ? "" : " O registro de links não respondeu, então este link não aparece na lista nem pode ser revogado.") }));
+        var field = out.appendChild(CDS.create("cds-text-input", { label: "Link", value: j.link, "show-required": "false", "show-supporting-content": "false", "show-lead-icon": "false", "show-trailing-item": "false" }));
+        var f = field.querySelector("input"); if (f){ f.readOnly = true; f.addEventListener("focus", function(){ f.select(); }); }
+        var copy = out.appendChild(CDS.create("cds-main-button", { label: "Copiar link", kind: "ghost", appearance: "neutral", size: "small", "lead-icon": "copy-line", "show-trailing-icon": "false" }));
+        copy.addEventListener("click", function(){ copiar(j.link, f); });
+        carregar();
+      })
+      .catch(function(e){ aviso(out, "warning", "Link não gerado", e.message); })
+      .then(function(){ busy = false; go.removeAttribute("disabled"); });
+  }
+  go.addEventListener("click", gerar);
+
+  // ---------- Links ativos ----------
+  var ativos = [], revogando = null;
+  var modal = CDS.create("cds-modal", { "show-close-button": "false", "show-lead-icon": "false", "secondary-label": "Cancelar", "primary-label": "Revogar", "text-title": "Revogar este link?", label: "Revogar este link?" }, null);
+  var modalText = modal.appendChild(document.createElement("p"));
+  document.body.appendChild(modal);
+  modal.addEventListener("cds-action", function(e){
+    e.stopPropagation();
+    var l = revogando; modal.close();
+    if (!(e.detail && e.detail.action === "primary") || !l) return;
+    pedir("/acesso/links/revogar", { id: l.id })
+      .then(function(){ toast("Link revogado"); carregar(); })
+      .catch(function(err){ aviso(list, "warning", "Link não revogado", err.message); });
+  });
+  function carregar(){
+    pedir("/acesso/links/ativos").then(function(j){
+      list.innerHTML = "";
+      if (!j.registro){ aviso(list, "informative", "Registro de links indisponível", "Sem o banco do Vercel, os links funcionam até vencer, mas não aparecem aqui."); return; }
+      ativos = j.links;
+      if (!ativos.length){ aviso(list, "informative", "Nenhum link ativo", "Os links que você gerar aparecem aqui até vencer ou ser revogados."); return; }
+      var t = CDS.create("cds-table", { label: "Links ativos", selectable: "false", "show-toolbar": "false", "show-pagination": ativos.length > 10 ? "true" : "false" });
+      t.columns = [{ key: "titulo", label: "Abre", kind: "text", sortable: false }, { key: "tipo", label: "Tipo", kind: "tag", sortable: false },
+        { key: "vence", label: "Vence em", kind: "text", sortable: false }, { key: "acoes", label: "Ações", kind: "actions", sortable: false, width: 120 }];
+      t.rows = ativos.map(function(l){
+        return { id: l.id, titulo: { text: l.titulo, description: "", icon: false }, tipo: { label: l.tipo === "entrega" ? "Entrega" : ALVOS[l.alvo] ? ALVOS[l.alvo].tipo : "Página", showLeadItem: false },
+          vence: { text: data(l.vence), description: "", icon: false },
+          acoes: { actions: (l.link ? [{ icon: "copy-line", label: "Copiar link", action: "copiar" }] : []).concat([{ icon: "unlinked-line", label: "Revogar link", action: "revogar" }]) } };
+      });
+      t.addEventListener("cds-action", function(e){
+        var l = ativos.filter(function(x){ return x.id === e.detail.id; })[0]; if (!l) return;
+        if (e.detail.action === "copiar") copiar(l.link);
+        if (e.detail.action === "revogar"){ revogando = l; modalText.textContent = l.titulo + " para de abrir na hora, inclusive para quem já abriu. Não dá para desfazer: se precisar, gere um link novo."; modal.show(); }
+      });
+      list.appendChild(t);
+    }).catch(function(e){ aviso(list, "warning", "Lista indisponível", e.message); });
+  }
+  carregar();
+})();
+</script>
+</body>
+</html>

@@ -814,6 +814,8 @@
       toc.appendChild(dsLink("rp-src", "Roteiro: 20 coisas para explorar", "docs/roteiro/"));
       // Links de entrega (acesso/links, só o perfil Completo no Vercel; docs/PLANO-ACESSO.md, fase 3)
       if (CDS.perfil === "completo") toc.appendChild(dsLink("rp-src", "Links de entrega", "acesso/links/"));
+      // Links de página (acesso/paginas, só o perfil Completo): um componente, página, seção do menu ou categoria, com revogação
+      if (CDS.perfil === "completo") toc.appendChild(dsLink("rp-src", "Links de página", "acesso/paginas/"));
     }
     markTerms(bodyEl);
     filter();

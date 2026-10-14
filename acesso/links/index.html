@@ -50,6 +50,7 @@
     <div class="lk__actions">
       <cds-main-button id="lk-go" label="Gerar link" show-lead-icon="false" show-trailing-icon="false"></cds-main-button>
       <cds-link id="lk-ver" label="Ver como a pessoa dev vê" href="/" appearance="accent" icon="link-line" target="_blank"></cds-link>
+      <cds-link label="Links ativos e links de página" href="../paginas/" appearance="accent" icon="link-line"></cds-link>
     </div>
     <div class="lk__out" id="lk-out" hidden></div>
   </cds-card>
@@ -87,7 +88,7 @@
     var caminho = sel.value || sel.getAttribute("value") || "";
     if (!caminho){ aviso("warning", "Escolha a entrega", "O link abre o portal só com as páginas dela."); return; }
     busy = true; go.setAttribute("disabled", "");
-    fetch("/acesso/links", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ caminho: caminho, dias: dias() }), credentials: "same-origin" })
+    fetch("/acesso/links", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ caminho: caminho, dias: dias(), titulo: (paginas.filter(function(x){ return x.caminho === caminho; })[0] || {}).titulo }), credentials: "same-origin" })
       .then(function(r){
         // sem o middleware (GitHub Pages, servidor local) a rota não existe
         if (!/json/.test(r.headers.get("content-type") || "")) throw new Error("Links de entrega funcionam no endereço do Vercel, onde o portal pede código.");

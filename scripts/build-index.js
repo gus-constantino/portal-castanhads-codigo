@@ -389,7 +389,57 @@ if (process.argv.includes("--smoke")){
     const bloco = "// <entregas> gerado por scripts/build-index.js a partir de entregas/*/entrega.json: as docs que cada entrega libera\nconst ENTREGAS = " + JSON.stringify(mapa) + ";\n// </entregas>";
     const novo = src.replace(/\/\/ <entregas>[\s\S]*?\/\/ <\/entregas>/, bloco);
     if (novo !== src){ fs.writeFileSync(mw, novo); console.log("Entregas no middleware.js"); }
+    alvos(cat, docs);
   } catch (e) { console.warn("⚠️ entregas não geradas: " + e.message); }
+
+  // ---------- Links de página (acesso/paginas/, D341) ----------
+  // Um link abre um alvo: um componente (com as docs de que ele depende), uma página (o arquivo de resources/ que a
+  // registra), uma seção do menu (scripts/menu-secoes.js) ou uma categoria de componentes. Gera acesso/alvos.js (o portal
+  // em modo link e a tela de links leem) e, dentro do middleware.js, os arquivos que cada alvo libera.
+  function alvos(cat, docs){
+    const out = {}, arq = {};
+    const comps = cat.components.filter((c) => c.kind === "component" || c.kind === "building-block");
+    // página → arquivo: o id registrado com CDS.register({ id: "…" }) ou, nas páginas montadas em laço
+    // (Desenvolvimento), o "id": "…" dos dados do arquivo
+    const resFiles = resources.map((id) => ({ id, rel: `resources/${id}/${id}.js`, src: fs.readFileSync(path.join(RES, id, id + ".js"), "utf8") }));
+    function arquivoDa(pid){
+      const f = resFiles.find((r) => new RegExp('CDS\\.register\\(\\{\\s*id:\\s*"' + pid + '"').test(r.src))
+        || resFiles.find((r) => /CDS\.register\(\{\s*id:\s*p\.id/.test(r.src) && r.src.includes('"id": "' + pid + '"'));
+      if (!f) throw new Error("links de página: a página " + pid + " não tem arquivo em resources/");
+      const css = `resources/${f.id}/${f.id}.css`;
+      return [f.rel].concat(fs.existsSync(path.join(ROOT, css)) ? [css] : []);
+    }
+    const FORA = ["inicio", "locais", "nao-encontrada"]; // Início e páginas escondidas não abrem por link
+    const paginas = cat.components.filter((c) => c.kind === "resource" && FORA.indexOf(c.id) < 0);
+    function add(chave, titulo, tipo, ids, recursos){
+      const files = new Set(recursos);
+      ids.forEach((id) => docs(id, new Set()).forEach((d) => files.add(d)));
+      out[chave] = { titulo, tipo, ids, recursos: recursos.filter((r) => /\.js$/.test(r)) };
+      arq[chave] = [...files].sort();
+    }
+    comps.forEach((c) => add("componente:" + c.id, c.name, c.kind === "building-block" ? "Building block" : c.category ? "Componente" : "Template", [c.id], []));
+    paginas.forEach((c) => add("pagina:" + c.id, c.name, "Página", [c.id], arquivoDa(c.id)));
+    const sandbox = { window: {} }; sandbox.window.CDS = {}; sandbox.CDS = sandbox.window.CDS;
+    require("vm").runInNewContext(fs.readFileSync(rel("scripts/menu-secoes.js"), "utf8"), sandbox);
+    (sandbox.CDS.menuSecoes || []).forEach((sec) => {
+      const ids = sec.ids.filter((id) => paginas.some((c) => c.id === id));
+      if (ids.length) add("secao:" + sec.id, sec.title, "Seção do menu", ids, [...new Set(ids.flatMap(arquivoDa))]);
+    });
+    const slug = (t) => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    [...new Set(comps.filter((c) => c.kind === "component" && c.category).map((c) => c.category))].sort().forEach((k) =>
+      add("categoria:" + slug(k), k, "Categoria", comps.filter((c) => c.kind === "component" && c.category === k).map((c) => c.id), []));
+    add("categoria:building-blocks", "Building blocks", "Categoria", comps.filter((c) => c.kind === "building-block").map((c) => c.id), []);
+    const tpl = comps.filter((c) => c.kind === "component" && !c.category).map((c) => c.id);
+    if (tpl.length) add("categoria:templates", "Templates", "Categoria", tpl, []);
+    const js = "/* GERADO por scripts/build-index.js · alvos dos links de página (acesso/paginas/) · não editar */\n" +
+      "window.CDS = window.CDS || {}; CDS.alvos = " + JSON.stringify(out) + ";\nCDS.alvosProntos && CDS.alvosProntos(); // modo link (scripts/entrega.js)\n";
+    const file = rel("acesso/alvos.js");
+    if (!fs.existsSync(file) || fs.readFileSync(file, "utf8") !== js){ fs.writeFileSync(file, js); console.log("Links de página: acesso/alvos.js (" + Object.keys(out).length + " alvos)"); }
+    const mw = rel("middleware.js"), src = fs.readFileSync(mw, "utf8");
+    const bloco = "// <alvos> gerado por scripts/build-index.js: os arquivos que cada alvo de link de página libera\nconst ALVOS = " + JSON.stringify(arq) + ";\n// </alvos>";
+    const novo = /\/\/ <alvos>[\s\S]*?\/\/ <\/alvos>/.test(src) ? src.replace(/\/\/ <alvos>[\s\S]*?\/\/ <\/alvos>/, bloco) : src.replace("// </entregas>", "// </entregas>\n" + bloco);
+    if (novo !== src){ fs.writeFileSync(mw, novo); console.log("Alvos no middleware.js"); }
+  }
 })();
 // ---------- Tendência (docs/tendencia.json → painel "Tendência" do relatório) ----------
 // Um ponto por dia fechado, lido do git. Muda uma vez por dia; no clone raso do CI não mexe no arquivo.

@@ -12357,7 +12357,7 @@ try {
 
   // Ranking do time: api/ranking.mjs no Vercel (D339), no mesmo endereço do portal e atrás do código de acesso.
   // Um Top 10 por tema e o Geral, que recebe todas as partidas (com o x1,5 de quem joga todos os temas).
-  // Sem a função (servidor local, GitHub Pages), vale o ranking deste navegador, sem aviso.
+  // Sem a função (servidor local, GitHub Pages) ou por link de página (sem código), vale o ranking deste navegador, sem aviso.
   var RANKING_URL = "/api/ranking";
   var team = {}; // por quadro: { state: "loading" | "on" | "fail" | "off", top }
   function api(params, body){
@@ -12366,7 +12366,8 @@ try {
       headers: body ? { "content-type": "application/json" } : {}, body: body ? JSON.stringify(params) : undefined, signal: ctl ? ctl.signal : undefined })
       .then(function(r){
         clearTimeout(t);
-        if (r.status === 404){ var off = new Error("off"); off.off = true; throw off; }
+        // 404: sem a função (servidor local, Pages) · 401: link de página sem código (o ranking do time é de quem entrou)
+        if (r.status === 404 || r.status === 401){ var off = new Error("off"); off.off = true; throw off; }
         return r.json().catch(function(){ return {}; }).then(function(j){ if (r.ok && j.ok) return j; throw new Error(j.error || "rede"); });
       }, function(e){ clearTimeout(t); throw new Error(e && e.name === "AbortError" ? "timeout" : "rede"); });
   }

@@ -8,6 +8,12 @@
  * O menu passa a ter só os itens da entrega, o link abre no Playground do primeiro componente, cada componente ganha as
  * abas Visão geral e Handoff (logo depois do Playground) e saem o Início, o Relatório,
  * a busca no conteúdo e o onboarding. No Vercel, quem entra pelo link nem recebe os recursos (dist/cds-entrega.js).
+ *
+ * Modo link de página (D341): o mesmo portal só com um alvo (componente, página, seção do menu ou categoria).
+ *   - no Vercel, /l/<código> grava cds_alvos (os alvos dos links abertos neste navegador) e leva a /?alvo=<alvo>;
+ *   - ?alvo=<alvo> vale quando está no cookie, no perfil Completo ("Ver como quem recebe vê") ou fora do Vercel.
+ * Carrega acesso/alvos.js (gerado pelo build: ids e arquivos de cada alvo) e, quando o pacote veio sem os recursos,
+ * os arquivos das páginas liberadas. O menu fica só com os ids do alvo, e a rota padrão é o primeiro deles.
  */
 (function(){
   "use strict";
@@ -19,7 +25,8 @@
   // sem o parâmetro, quem entrou só pelo link (sem perfil) continua na entrega
   var valida = pedida && /^[a-z0-9-]+$/.test(pedida) && (pedida === link || perfil === "completo" || !vercel);
   var slug = valida ? pedida : !perfil && link ? link : null;
-  if (!slug || !CDS || !CDS.playgrounds) return;
+  if (!CDS || !CDS.playgrounds) return;
+  if (!slug){ modoLink(); return; }
 
   // Checklist do handoff: Checkbox do DS, marcado neste navegador (como o checklist de uma task)
   function checklist(items){
@@ -69,4 +76,33 @@
     document.documentElement.classList.add("is-entrega");
   };
   document.write('<script src="entregas/' + slug + '/entrega.js"><\/script>');
+
+  // ---------- Modo link de página ----------
+  function modoLink(){
+    var guardados = [];
+    try { guardados = decodeURIComponent((document.cookie.match(/(?:^|;\s*)cds_alvos=([^;]+)/) || [])[1] || "").split("~").filter(Boolean); } catch (e) {}
+    var alvo = new URLSearchParams(location.search).get("alvo");
+    var ok = alvo && /^[a-z]+:[a-z0-9-]+$/.test(alvo) && (guardados.indexOf(alvo) >= 0 || perfil === "completo" || !vercel);
+    var lista = ok ? [alvo] : !perfil ? guardados : [];
+    if (!lista.length) return;
+    CDS.alvosProntos = function(){
+      var alvos = lista.filter(function(a){ return CDS.alvos && CDS.alvos[a]; });
+      if (!alvos.length) return;
+      var ids = [], recursos = [];
+      alvos.forEach(function(a){ CDS.alvos[a].ids.forEach(function(i){ if (ids.indexOf(i) < 0) ids.push(i); }); CDS.alvos[a].recursos.forEach(function(r){ if (recursos.indexOf(r) < 0) recursos.push(r); }); });
+      CDS.acessoLink = { alvos: alvos, ids: ids, titulo: alvos.map(function(a){ return CDS.alvos[a].titulo; }).join(" + ") };
+      // o pacote de quem entra pelo link (dist/cds-entrega.js) vem sem as páginas: carrega as liberadas antes do app.js
+      var comPaginas = CDS.playgrounds.some(function(c){ return c.resource; });
+      if (!comPaginas) recursos.forEach(function(r){ document.write('<script src="' + r + '"><\/script>'); });
+      document.write('<script>CDS.alvosFim && CDS.alvosFim()<\/script>');
+    };
+    CDS.alvosFim = function(){
+      var ids = CDS.acessoLink.ids, keep = CDS.playgrounds.filter(function(c){ return ids.indexOf(c.id) >= 0; });
+      CDS.playgrounds.length = 0; keep.forEach(function(c){ CDS.playgrounds.push(c); });
+      CDS.searchIndex = null; // a busca fica só nos nomes do menu
+      CDS.onboarding = null;
+      document.documentElement.classList.add("is-entrega");
+    };
+    document.write('<script src="acesso/alvos.js"><\/script>');
+  }
 })();

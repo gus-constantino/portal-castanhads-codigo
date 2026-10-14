@@ -417,38 +417,24 @@
   function getTotal(){ try { return JSON.parse(localStorage.getItem(TOTAL) || "null") || { xp: 0 }; } catch (e){ return { xp: 0 }; } }
   function addXp(n){ var t = getTotal(); t.xp = (t.xp || 0) + n; try { localStorage.setItem(TOTAL, JSON.stringify(t)); } catch (e){} return t; }
 
-  // Ranking do time: app da Web do Google Apps Script numa planilha da Caju (scripts/ranking/Code.gs, docs/RANKING-TIME.md).
-  // Restrito a contas @caju.com.br; sem o endereço ou fora da conta Caju, vale o ranking deste navegador.
-  var RANKING_URL = "https://script.google.com/a/macros/caju.com.br/s/AKfycbxWFEr522Mq-s3IB-wnM_tZQWnGg0PKsgxA_Nc-fco885cHT3YzvNEtuX3KpDJFhiwM/exec";
-  var team = { top: null, state: RANKING_URL ? "loading" : "off" };
-  function jsonp(params){
-    return new Promise(function(ok, fail){
-      var cb = "cdsRank" + Date.now() + Math.floor(Math.random() * 1e4), s = document.createElement("script"), q = [];
-      var end = function(){ delete window[cb]; s.remove(); clearTimeout(t); };
-      var t = setTimeout(function(){ end(); fail(new Error("timeout")); }, 8000);
-      window[cb] = function(r){ end(); if (r && r.ok) ok(r); else fail(new Error(r && r.error || "erro")); };
-      Object.keys(params).forEach(function(k){ q.push(k + "=" + encodeURIComponent(params[k])); });
-      s.src = RANKING_URL + "?" + q.concat("callback=" + cb).join("&");
-      s.onerror = function(){ end(); fail(new Error("rede")); };
-      document.head.appendChild(s);
-    });
+  // Ranking do time: api/ranking.mjs no Vercel (D339), no mesmo endereço do portal e atrás do código de acesso.
+  // Um Top 10 por tema e o Geral, que recebe todas as partidas (com o x1,5 de quem joga todos os temas).
+  // Sem a função (servidor local, GitHub Pages), vale o ranking deste navegador, sem aviso.
+  var RANKING_URL = "/api/ranking";
+  var team = {}; // por quadro: { state: "loading" | "on" | "fail" | "off", top }
+  function api(params, body){
+    var ctl = window.AbortController ? new AbortController() : null, t = setTimeout(function(){ if (ctl) ctl.abort(); }, 8000);
+    return fetch(RANKING_URL + (body ? "" : "?board=" + encodeURIComponent(params.board)), { method: body ? "POST" : "GET", credentials: "same-origin", cache: "no-store",
+      headers: body ? { "content-type": "application/json" } : {}, body: body ? JSON.stringify(params) : undefined, signal: ctl ? ctl.signal : undefined })
+      .then(function(r){
+        clearTimeout(t);
+        if (r.status === 404){ var off = new Error("off"); off.off = true; throw off; }
+        return r.json().catch(function(){ return {}; }).then(function(j){ if (r.ok && j.ok) return j; throw new Error(j.error || "rede"); });
+      }, function(e){ clearTimeout(t); throw new Error(e && e.name === "AbortError" ? "timeout" : "rede"); });
   }
-
-  // Na rede da Caju, o Chrome trata a chamada ao Google como acesso à rede local (Local Network Access) e pede permissão.
-  // Quem bloqueou ou ainda não respondeu precisa do caminho do "Permitir"; o resto, da conta da Caju logada.
-  function lnaState(){
-    var p = navigator.permissions; if (!p || !p.query) return Promise.resolve(null);
-    return p.query({ name: "local-network-access" }).catch(function(){ return p.query({ name: "local-network" }); })
-      .then(function(r){ return r.state; }, function(){ return null; });
-  }
-  function failAlert(lna){
-    var c = CDS.create, tail = " Enquanto isso, o ranking fica neste navegador.";
-    if (lna === "denied") return c("cds-alert", { appearance: "warning", label: "O Chrome bloqueou o ranking do time", "show-close-button": "false",
-      text: "Na rede da Caju, o ranking passa pelo acesso à rede local. Clique no ícone à esquerda do endereço do site, abra Configurações do site, mude Acesso à rede local para Permitir e recarregue a página. Confira também se a conta da Caju está logada no Google." + tail });
-    if (lna === "prompt") return c("cds-alert", { appearance: "informative", label: "Permita o acesso à rede local", "show-close-button": "false",
-      text: "Quando o Chrome perguntar se este site pode acessar a rede local, clique em Permitir e recarregue a página. Na rede da Caju, o ranking do time depende disso." + tail });
-    return c("cds-alert", { appearance: "informative", label: "Ranking do time indisponível", "show-close-button": "false",
-      text: "Entre com sua conta da Caju no Google para ver e entrar no ranking do time." + tail });
+  function failAlert(){
+    return CDS.create("cds-alert", { appearance: "informative", label: "Ranking do time indisponível", "show-close-button": "false",
+      text: "O ranking do time não respondeu. Enquanto isso, o ranking fica neste navegador." });
   }
 
   function jogar(){
@@ -466,30 +452,45 @@
     function chosen(){ var ids = themeChips.filter(function(ch){ return ch.hasAttribute("selected"); }).map(function(ch){ return ch._id; }); return ids.length ? ids : ORDER.slice(); }
     function build(){
       var ids = chosen(), isAll = ids.length === ORDER.length;
+      board = ids.length === 1 ? ids[0] : "geral"; boardName = ids.length === 1 ? NAMES[ids[0]] : "Geral";
       var l = c("cmp-lesson", { label: "Jogo · " + (isAll ? "Todos os temas" : ids.map(function(id){ return NAMES[id]; }).join(" + ")),
         heading: isAll ? "Todos os temas" : ids.map(function(id){ return NAMES[id]; }).join(" + "), illustration: "objetos/foguete",
         "storage-key": "jogo-" + (isAll ? "todos" : ids.slice().sort().join("+")),
-        "score-multiplier": isAll ? "1.5" : null, "ranking-key": "castanha-quiz",
+        "score-multiplier": isAll ? "1.5" : null, "ranking-key": board === "geral" ? "castanha-quiz" : "castanha-quiz:" + board,
         "ranking-label": isAll ? "Todos" : ids.map(function(id){ return NAMES[id]; }).join(" + ") });
       l.exercises = sample(ids, 10);
       l.resample = function(){ return sample(ids, 10); }; // cada partida sorteia de novo
       l.addEventListener("cmp-lesson-done", function(e){ addXp(e.detail.xp); drawXp(); });
       l.addEventListener("cmp-lesson-rank", drawRank);
-      lesson = l; attach();
+      lesson = l; load(board);
       host.innerHTML = ""; host.appendChild(l);
+      drawRank();
     }
     // Ranking: Top 10 do time (planilha da Caju) ou deste navegador, com as iniciais de 3 letras gravadas no fim da partida
-    var rank = wrap.appendChild(c("div", null, "pg-cq__rank")), lesson = null;
+    var rank = wrap.appendChild(c("div", null, "pg-cq__rank")), lesson = null, board = "geral", boardName = "Geral";
     // a lição em andamento passa a gravar no ranking do time assim que ele responde (sem recomeçar a partida)
-    function attach(){ if (team.state === "on" && lesson) lesson.remote = { top: team.top, add: function(e){ return jsonp({ action: "add", name: e.name, score: e.score, label: e.label }).then(function(r){ team.top = r.top; if (lesson) lesson.remote.top = r.top; return r; }); } }; }
-    if (team.state === "loading") jsonp({ action: "top" }).then(function(r){ team.top = r.top; team.state = "on"; attach(); drawRank(); }, function(){ team.state = "fail"; lnaState().then(function(st){ team.lna = st; drawRank(); }); });
+    function attach(){
+      var q = board, st = team[q];
+      if (!lesson || !st || st.state !== "on") return;
+      lesson.remote = { top: st.top, add: function(e){ return api({ board: q, name: e.name, score: e.score, label: e.label }, true).then(function(r){
+        st.top = r.top; if (lesson && lesson.remote) lesson.remote.top = r.top;
+        if (q !== "geral" && team.geral) delete team.geral; // o Geral também mudou: busca de novo quando for mostrado
+        return r; }); } };
+    }
+    function load(q){
+      if (lesson) lesson.remote = null;
+      if (team[q] && team[q].state !== "fail"){ attach(); return; }
+      var st = team[q] = { state: "loading", top: null };
+      api({ board: q }).then(function(r){ st.top = r.top; st.state = "on"; }, function(e){ st.state = e.off ? "off" : "fail"; })
+        .then(function(){ if (board === q){ attach(); drawRank(); } });
+    }
     function drawRank(){
-      var L = window.customElements && customElements.get("cmp-lesson"), on = team.state === "on";
-      var list = on ? team.top : L && L.ranking ? L.ranking("castanha-quiz") : [];
+      var L = window.customElements && customElements.get("cmp-lesson"), st = team[board] || { state: "loading" }, on = st.state === "on";
+      var list = on ? st.top : L && L.ranking ? L.ranking(board === "geral" ? "castanha-quiz" : "castanha-quiz:" + board) : [];
       rank.innerHTML = "";
-      rank.appendChild(c("p", null, "pg-cq__cap")).textContent = on ? "Ranking do time" : "Ranking deste navegador";
-      if (team.state === "loading"){ rank.appendChild(c("cds-skeleton", { kind: "square" })); return; }
-      if (team.state === "fail") rank.appendChild(failAlert(team.lna));
+      rank.appendChild(c("p", null, "pg-cq__cap")).textContent = (on ? "Ranking do time" : "Ranking deste navegador") + " · " + boardName;
+      if (st.state === "loading"){ rank.appendChild(c("cds-skeleton", { kind: "square" })); return; }
+      if (st.state === "fail") rank.appendChild(failAlert());
       if (!list.length){ rank.appendChild(c("p", null, "pg-cq__rank-empty")).textContent = "Ninguém no ranking ainda. Termine uma partida e grave suas iniciais."; return; }
       var t = c("cds-table", { label: on ? "Os 10 melhores do time" : "Os 10 melhores neste navegador", selectable: "false", "show-toolbar": "false", "show-pagination": "false" });
       t.columns = [{ key: "pos", label: "#", kind: "text", sortable: false, width: 64 }, { key: "name", label: "Iniciais", kind: "text", sortable: false },
@@ -506,7 +507,7 @@
       if (any) all.removeAttribute("selected"); else all.setAttribute("selected", "");
       build();
     }); });
-    build(); drawRank();
+    build();
     return wrap;
   }
   var inicio = DOC.tabs[0];
@@ -517,10 +518,12 @@
     { h2: "Como pontuar" },
     { table: { wrap: true, head: ["Jogada", "Pontos"], rows: [
       ["Acerto de primeira", "100"], ["Acerto na revisão", "50"], ["3 acertos seguidos", "Combo x2 a partir do 3º"], ["5 acertos seguidos", "Combo x3 a partir do 5º"],
-      ["Cada vida que sobrou no fim", "200"], ["Lição sem erros", "500"], ["Jogar com todos os temas", "Total x1,5"]
+      ["Cada vida que sobrou no fim", "200"], ["Lição sem erros", "500"], ["Jogar com todos os temas", "Total x1,5, no ranking Geral"]
     ] } },
     { p: "Errou, o combo zera. Se as vidas acabarem, os pontos dos acertos ainda valem para o ranking." },
-    { note: "Com a conta da Caju logada no Google, o ranking é do time inteiro e guarda só as 3 iniciais, os pontos, os temas e a data. Sem ela, o ranking fica neste navegador. O XP fica sempre neste navegador." }
+    { h2: "Rankings" },
+    { p: "Cada tema tem o seu Top 10. Jogou um tema, a partida entra no ranking dele e no Geral. Jogou vários temas ou todos, entra no Geral, onde vale o x1,5 de quem joga com todos os temas. A tabela do ranking muda junto com os temas escolhidos." },
+    { note: "O ranking do time guarda as 3 iniciais, os pontos, os temas e a data, sem nenhum dado pessoal. O XP fica neste navegador." }
   ] });
   // Início: estudo nas abas de tema, prática na aba Jogar
   inicio.blocks.forEach(function(b){

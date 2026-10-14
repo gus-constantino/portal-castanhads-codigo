@@ -83,6 +83,11 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   r = await mw(req("/acesso/sair", { headers: { cookie: completo.cookie } }));
   confere("sair apaga os cookies e vai para a entrada", r.status === 302 && r.headers.get("location") === "/entrar/" && /Max-Age=0/.test(r.headers.get("set-cookie") || ""));
 
+  // Ranking do time do Castanha Quiz (api/ranking.mjs): quem entrou lê e grava, o Visitante não
+  r = await mw(new Request(BASE + "/api/ranking", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" }));
+  confere("Visitante não grava no ranking do time", r.status === 401, String(r.status));
+  confere("Completo e Portal abrem o ranking do time", segue(await com("/api/ranking?board=geral", completo.cookie, { headers: { accept: "*/*" } })) && segue(await com("/api/ranking?board=geral", portal.cookie, { headers: { accept: "*/*" } })));
+
   // Links de entrega (fase 3): o portal em modo entrega, só com os itens e as docs da entrega
   const gerar = (c, body) => mw(new Request(BASE + "/acesso/links", { method: "POST", headers: { "content-type": "application/json", cookie: c }, body: JSON.stringify(body) }));
   r = await gerar(portal.cookie, { caminho: "/entregas/chips-small/", dias: 14 });
@@ -105,6 +110,8 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   confere("com o link abre a doc de um item", segue(await doLink("/components/input-chip/input-chip.docs.js")));
   confere("com o link abre o código dos componentes", segue(await doLink("/components/main-button/main-button.js")));
   confere("com o link abre o código React e Flutter", segue(await doLink("/scripts/react-kit.js")) && segue(await doLink("/scripts/flutter-kit.js")));
+  r = await doLink("/api/ranking?board=geral");
+  confere("o link não abre o ranking do time", r.status === 401, String(r.status));
   r = await doLink("/dist/mcp/catalog.json");
   confere("o link não abre o catálogo do MCP", r.status === 401, String(r.status));
   r = await doLink("/dist/cds.js?v=1");
@@ -138,5 +145,5 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   r = await entrar("111111"); confere("sem ACESSO_SEGREDO a entrada responde 503", r.status === 503, String(r.status));
 
   if (falhas){ console.error("❌ Middleware: " + falhas + " falha(s), " + ok + " ok"); process.exit(1); }
-  console.log("✅ Middleware: " + ok + " verificações ok (Visitante, Completo, Portal, MCP, links de entrega, cookie adulterado, sair)");
+  console.log("✅ Middleware: " + ok + " verificações ok (Visitante, Completo, Portal, MCP, ranking, links de entrega, cookie adulterado, sair)");
 })().catch((e) => { console.error(e); process.exit(1); });

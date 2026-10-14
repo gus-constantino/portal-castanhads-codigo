@@ -304,7 +304,7 @@
     rankFailAlert(){
       var f = this._rankFail; if (!f) return;
       var self = this, c = CDS.create, box = this.body.querySelector(".cmp-ls__screen-actions"); if (!box) return;
-      var why = /timeout|rede/.test(f.why || "") || !f.why ? "O ranking do time não respondeu. Confira se você está com a conta da Caju logada no Google e tente de novo." : f.why + ".";
+      var why = /timeout|rede/.test(f.why || "") || !f.why ? "O ranking do time não respondeu. Tente de novo em alguns segundos." : f.why + ".";
       var al = c("cds-alert", { appearance: "warning", label: "Não deu para gravar no ranking do time", "show-close-button": "false", text: why + " A partida ficou salva neste navegador." }, "cmp-ls__rank-alert");
       box.parentNode.insertBefore(al, box);
       var retry = c("cds-main-button", { label: "Tentar gravar de novo", "show-lead-icon": "true", "lead-icon": "refresh-line", "show-trailing-icon": "false" });

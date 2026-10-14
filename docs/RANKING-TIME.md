@@ -1,28 +1,41 @@
 # Ranking do time do Castanha Quiz
 
-O ranking do Castanha Quiz guarda as partidas numa planilha do Google no Drive da Caju. Um Google Apps Script publicado como app da Web lê e grava essa planilha.
+O ranking do Castanha Quiz fica no Vercel, junto do portal (D339). A função [`api/ranking.mjs`](../api/ranking.mjs) lê e grava as partidas num banco Upstash Redis ligado ao projeto `portal-castanhads`.
 
-- **Quem acessa:** só quem está logado com uma conta @caju.com.br.
-- **O que é gravado:** 3 iniciais, pontos, temas e data. O e-mail serve para conferir o domínio e limitar o envio (uma partida a cada 20 s por pessoa). Ele fica só no cache do script e não é gravado na planilha.
-- **Sem conta da Caju:** fora da conta, ou em navegador que bloqueia cookies de terceiros, a página mostra o ranking deste navegador, como antes.
+- **Quem acessa:** quem entrou no portal com código (perfis Completo e Portal). O middleware barra o Visitante e quem abriu um link de entrega.
+- **O que é gravado:** 3 iniciais, pontos, temas e data. O IP serve para limitar o envio (uma partida a cada 20 s) e sai do banco sozinho depois disso.
+- **Sem a função:** no servidor local comum e em cópias sem o Vercel, a aba Jogar mostra o ranking deste navegador, sem aviso.
 
-## Colocar no ar (feito por alguém da Caju, uma vez)
+## Rankings
 
-1. No Drive da Caju, crie uma planilha chamada **Castanha Quiz · Ranking**.
-2. Na planilha, abra **Extensões › Apps Script**.
-3. Apague o conteúdo do arquivo `Código.gs`, cole o de [`scripts/ranking/Code.gs`](../scripts/ranking/Code.gs) e salve.
-4. No seletor de função, escolha `setup` e clique em **Executar**. O Google pede autorização, e o script cria a aba **Ranking**.
-5. Clique em **Implantar › Nova implantação**, escolha o tipo **App da Web** e configure:
-   - **Executar como:** eu;
-   - **Quem pode acessar:** qualquer pessoa na Caju.
-6. Clique em **Implantar**, copie o endereço que termina em `/exec` e mande para o time do Castanha DS.
+| Quadro | O que entra |
+|---|---|
+| Geral | Todas as partidas. Quem joga com todos os temas ganha o x1,5 |
+| Um por tema (`componentes`, `tema-caju`, `motion`, `conteudo`, `ilustracao`, `camadas`) | Partidas com aquele tema sozinho, sem multiplicador |
 
-O time coloca esse endereço em `RANKING_URL`, em `resources/castanha-quiz/castanha-quiz.js`. O endereço não é segredo: o app só responde para contas da Caju.
+Cada quadro guarda as 200 melhores partidas e mostra as 10 primeiras. No empate, quem fez antes fica na frente. O teto é 5.250 pontos no Geral e 3.500 nos temas. Tema novo no Castanha Quiz precisa entrar em `TEMAS`, no começo da função.
 
-## Atualizar o script
+## Contrato
 
-Edite o código no Apps Script, depois **Implantar › Gerenciar implantações › editar › Nova versão**. O endereço continua o mesmo.
+```
+GET  /api/ranking?board=geral                      → { ok, top: [{ name, score, label, date }] }
+POST /api/ranking { board, name, score, label }    → { ok, position, top }
+```
 
-## Migrar para um ambiente da Caju
+Erro: `{ ok: false, error }`, com 400 (dados inválidos), 429 (envio em menos de 20 s) ou 503 (banco não configurado). A aba Jogar entrega isso ao `cmp-lesson` pela propriedade `remote` { top, add }, que continua igual.
 
-O portal não depende do Google: a lição recebe um `remote` com `top` (lista) e `add(entry)` (Promise com `{ position, top }`). Para trocar de backend, basta uma API interna que devolva o mesmo formato e trocar a função `jsonp` da aba Jogar por um `fetch`.
+## Banco
+
+Criado em **Storage › Upstash for Redis** no painel do Vercel e ligado ao projeto. A integração cria as variáveis `KV_REST_API_URL` e `KV_REST_API_TOKEN`. Elas nunca entram no repositório. As chaves são `rank:<quadro>` (sorted set) e `rl:<ip>` (limite de envio).
+
+## Testar sem publicar
+
+```
+node scripts/dev/servidor-acesso.js 8796
+```
+
+O servidor local roda o middleware e a função, com um banco de mentira na memória. Entre com o código de teste do Completo e abra `#/castanha-quiz/jogar`.
+
+## Antes do Vercel
+
+Até 14/10 o ranking ficava numa planilha do Google com Apps Script ([`scripts/ranking/Code.gs`](../scripts/ranking/Code.gs), D275). Na rede da Caju, o Chrome tratava a chamada como acesso à rede local e bloqueava (D278). As partidas da planilha foram copiadas para o Geral.

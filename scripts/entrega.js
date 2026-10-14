@@ -5,7 +5,8 @@
  *   - ?entrega=<slug> no endereço: o /l/<código> leva para /?entrega=<slug>, então o link abre a entrega mesmo para quem
  *     já tem perfil neste navegador. Também vale no perfil Completo (ver como a pessoa dev vê) e fora do Vercel.
  * Carrega entregas/<slug>/entrega.js (gerado pelo build), que chama CDS.entregaDados com o título, os itens e o handoff.
- * O menu passa a ter só os itens da entrega, o Início vira a página da entrega (visão geral e handoff) e saem o Relatório,
+ * O menu passa a ter só os itens da entrega, o link abre no Playground do primeiro componente, cada componente ganha as
+ * abas Visão geral e Handoff (logo depois do Playground) e saem o Início, o Relatório,
  * a busca no conteúdo e o onboarding. No Vercel, quem entra pelo link nem recebe os recursos (dist/cds-entrega.js).
  */
 (function(){
@@ -37,24 +38,32 @@
   CDS.entregaDados = function(d){
     CDS.entrega = d;
     var ids = d.itens.map(function(i){ return i.id; });
-    // só os itens da entrega; o Início (home) passa a ser a página da entrega
+    // só os itens da entrega; sem Início: a rota padrão é o Playground do primeiro componente
     var keep = CDS.playgrounds.filter(function(c){ return ids.indexOf(c.id) >= 0; });
     CDS.playgrounds.length = 0; keep.forEach(function(c){ CDS.playgrounds.push(c); });
-    CDS.register({ id: "entrega", name: d.titulo, resource: true, home: true, order: 0, task: d.task });
     var comps = d.itens.filter(function(i){ return !i.block; }), blocks = d.itens.filter(function(i){ return i.block; });
     function cards(list){ return { shortcuts: list.map(function(i){ return { title: i.name, text: String(i.description || "").split(/(?<=\.)\s/)[0], href: "#/" + i.id, cta: "Abrir " + i.name }; }) }; }
     var geral = [
       { hero: { eyebrow: "Entrega para dev · " + d.task, title: d.titulo, text: d.resumo } },
       { alert: { appearance: "informative", label: "Portal da entrega", text: d.handoff.length
         ? "Este endereço mostra só as páginas desta entrega: o Playground, a documentação e o handoff. O que muda está na aba Handoff e na seção \"Entrega para dev\" da Anatomia de cada componente."
-        : "Este endereço mostra só as páginas desta entrega: o Playground e a documentação completa de cada componente (Uso, Anatomia, Estilos, Acessibilidade e Diretrizes)." } },
-      { h2: "Componentes" }, cards(comps)
+        : "Este endereço mostra só as páginas desta entrega: o Playground e a documentação completa de cada componente (Uso, Anatomia, Estilos, Acessibilidade e Diretrizes)." } }
     ];
+    if (d.itens.length > 1) geral.push({ h2: "Componentes" }, cards(comps));
     if (blocks.length) geral.push({ h2: "Building blocks" }, { p: "Peças usadas dentro dos componentes desta entrega." }, cards(blocks));
     var handoff = d.handoff.map(function(b){ return b.checklist ? { visual: checklist(b.checklist) } : b; });
+    // Visão geral e Handoff entram como abas de cada componente da entrega, logo depois do Playground. As docs chegam
+    // sob demanda (CDS.docsIndex): a propriedade acrescenta as abas quando a doc do componente é gravada em CDS.docs.
+    var extra = [{ id: "visao-geral", title: "Visão geral", blocks: geral }].concat(handoff.length ? [{ id: "handoff", title: "Handoff", blocks: handoff }] : []);
+    function comAbas(doc){
+      if (!doc || !doc.tabs || doc.tabs.some(function(t){ return t.id === "visao-geral"; })) return doc;
+      return Object.assign({}, doc, { tabs: extra.concat(doc.tabs) });
+    }
     CDS.docs = CDS.docs || {};
-    // sem handoff.md na pasta da entrega, a página fica só com a Visão geral
-    CDS.docs.entrega = { tabs: [{ id: "visao-geral", title: "Visão geral", blocks: geral }].concat(handoff.length ? [{ id: "handoff", title: "Handoff", blocks: handoff }] : []) };
+    comps.forEach(function(i){
+      var valor = CDS.docs[i.id] ? comAbas(CDS.docs[i.id]) : (CDS.docsIndex && CDS.docsIndex[i.id] ? undefined : { tabs: extra.slice() });
+      Object.defineProperty(CDS.docs, i.id, { configurable: true, enumerable: true, get: function(){ return valor; }, set: function(v){ valor = comAbas(v); } });
+    });
     CDS.searchIndex = null; // a busca fica só nos nomes do menu
     CDS.onboarding = null;
     document.documentElement.classList.add("is-entrega");

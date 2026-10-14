@@ -77,6 +77,7 @@ Em qualquer caso, o endereço do site muda dentro do MCP (`mcp/server.js`, `scri
 | 1 · Vercel | Projeto no Vercel ligado ao repositório, sem build (o site já sai pronto do `build-index`), publicando a `main` | O portal abre igual no endereço novo, com todas as rotas, o pitch e o Roteiro |
 | 2 · Entrada e perfis | `middleware.js`, `/entrar/`, os perfis Completo e Portal, "Sair" no menu e o pitch aberto com `dados.json` | Entrar com cada senha, abrir arquivo bloqueado pelo endereço direto (precisa dar "sem acesso") e abrir o pitch sem senha |
 | 3 · Links de entrega | `/l/<código>`, `/acesso/links/` e o portal em modo entrega (`entregas/<slug>/`) | Abrir o link numa janela anônima: abre o portal só com os itens da entrega. Link vencido mostra a tela de entrada. |
+| 3 · Ajuste (14/10) | O link abre direto no Playground do primeiro componente da entrega (ordem do `entrega.json`), e a Visão geral e o Handoff viram abas de cada componente, logo depois do Playground. A página inicial separada da entrega saiu. |
 | 4 · Páginas de teste | Substituída pelo modo entrega (a página oficial já documenta a melhoria em branch) | — |
 | 5 · Fechar | Repositório privado, Smoke ajustado à cota, endereço novo em todos os lugares, redirecionamento do endereço antigo | Rotinas rodando, MCP funcionando com o endereço novo, link antigo levando ao novo |
 

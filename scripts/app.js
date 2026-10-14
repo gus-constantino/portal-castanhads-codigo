@@ -522,6 +522,8 @@
     if (list.some(function(c){ return c.id === id; })) return id;
     // Rota desconhecida (link quebrado, página que saiu): página não encontrada em vez de cair no Início sem avisar (D225)
     if (id && list.some(function(c){ return c.notFound; })) return list.filter(function(c){ return c.notFound; })[0].id;
+    // modo entrega (scripts/entrega.js): sem Início, abre o primeiro componente da entrega, na ordem do entrega.json
+    if (CDS.entrega){ var first = CDS.entrega.itens.filter(function(i){ return list.some(function(c){ return c.id === i.id; }); })[0]; if (first) return first.id; }
     var home = list.filter(function(c){ return c.home; })[0]; // sem rota: abre o Início (Castanha Hub)
     return (home || list.filter(function(c){ return !isPart(c) && !c.resource; })[0] || list[0]).id;
   }

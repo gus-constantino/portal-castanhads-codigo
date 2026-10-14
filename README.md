@@ -1,11 +1,11 @@
 # Castanha DS · Playground de handoff design ↔ código
 
-[![Smoke](https://github.com/gus-constantino/portal-castanhads/actions/workflows/smoke.yml/badge.svg?branch=main)](https://github.com/gus-constantino/portal-castanhads/actions/workflows/smoke.yml)
-[![Site](https://img.shields.io/badge/site-GitHub%20Pages-informational)](https://gus-constantino.github.io/portal-castanhads/)
+[![Smoke](https://github.com/gus-constantino/portal-castanhads-codigo/actions/workflows/smoke.yml/badge.svg?branch=main)](https://github.com/gus-constantino/portal-castanhads-codigo/actions/workflows/smoke.yml)
+[![Site](https://img.shields.io/badge/site-Vercel-informational)](https://portal-castanhads.vercel.app/)
 
-Playground público do **Castanha DS**, o design system da Caju. Cada componente da lib `[CastanhaDS] Components` do Figma vira um custom element `<cds-…>` com as mesmas props, variantes, tokens e estados, ao lado da documentação, da tradução para o `castanha-react` e de um painel de saúde do projeto.
+Playground do **Castanha DS**, o design system da Caju. Cada componente da lib `[CastanhaDS] Components` do Figma vira um custom element `<cds-…>` com as mesmas props, variantes, tokens e estados, ao lado da documentação, da tradução para o `castanha-react` e de um painel de saúde do projeto.
 
-**Site:** https://gus-constantino.github.io/portal-castanhads/
+**Site:** https://portal-castanhads.vercel.app/ (pede o código de acesso; o pitch é aberto). O endereço antigo, `gus-constantino.github.io/portal-castanhads`, leva ao novo mantendo a página do link.
 
 > HTML, CSS e JS puros, sem dependências e sem transpilar nada. Os scripts de build rodam em Node puro e geram arquivos que o site lê.
 
@@ -385,6 +385,7 @@ O portal também é publicado no Vercel (https://portal-castanhads.vercel.app), 
 - `entrar/` é a tela de entrada. Os códigos e o segredo ficam nas variáveis de ambiente do Vercel (`ACESSO_*`), nunca no repositório.
 - As páginas abertas carregam `dist/cds-publico.*`, que o build gera com os componentes e nada mais. O pitch lê `docs/pitch/dados.json` e mostra ao Visitante as imagens de `docs/pitch/capturas/` (`node scripts/dev/pitch-capturas.js` gera de novo).
 - Links de entrega: o perfil Completo gera em `acesso/links/` um link `/l/<código>` que abre o portal só com as páginas de uma entrega para dev (os componentes, os building blocks e o handoff), por 7, 14 ou 30 dias. Nova entrega: uma pasta `entregas/<slug>/` com `entrega.json` (`titulo`, `task`, `resumo`, `itens` = ids das páginas) e `handoff.md`. O build faz o resto. Para ver como a pessoa dev vê: `/?entrega=<slug>` (perfil Completo ou servidor local).
+- O código fica no repositório privado `portal-castanhads-codigo`. O `portal-castanhads` público só redireciona o endereço antigo (`scripts/dev/redirecionamento/`). O Smoke roda na `main` e nas `rotina/**`; na `teste`, rode `gh workflow run smoke.yml --ref teste`.
 - `node scripts/dev/servidor-acesso.js` sobe o portal local com o middleware e códigos de teste (Completo 111111, Portal 222222).
 - `node tests/middleware.test.js` confere os perfis com códigos de teste e roda no Smoke.
 

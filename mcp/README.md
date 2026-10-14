@@ -29,7 +29,7 @@ claude mcp add castanha-ds -- node /caminho/para/portal-castanhads/mcp/server.js
 
 **Sem clonar o repo** (lê o catálogo publicado no site; o `server.js` ainda precisa estar na máquina):
 ```bash
-CASTANHA_CATALOG=https://gus-constantino.github.io/portal-castanhads/dist/mcp/catalog.json node mcp/server.js
+CASTANHA_CATALOG=https://portal-castanhads.vercel.app/dist/mcp/catalog.json CASTANHA_CHAVE=<chave do MCP> node mcp/server.js
 ```
 
 ## O que oferece

@@ -1,12 +1,12 @@
-# Smoke do playground em todo push na teste e na main (D121).
+# Smoke do playground (D121). Com o repositório privado (docs/PLANO-ACESSO.md, fase 5), roda em push na main e nas
+# branches rotina/** e, na teste, sob demanda (gh workflow run smoke.yml --ref teste), para caber na cota grátis do Actions.
 # Mesmo comando do terminal: build + smoke no Chrome headless (scripts/dev/smoke.js), auditoria da UI
 # e conferência de que o build commitado está em dia (index.html, dist/ e tests/smoke.html regerados).
 name: Smoke
 
 on:
   push:
-    branches: [main, teste, 'rotina/**'] # rotina/**: a rotina diária sobe aqui, espera o check e só então avança a main protegida
-  pull_request:
+    branches: [main, 'rotina/**'] # rotina/**: a rotina diária sobe aqui, espera o check e só então avança a main
   workflow_dispatch:
 
 permissions:

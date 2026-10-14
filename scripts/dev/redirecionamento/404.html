@@ -1,0 +1,22 @@
+<!doctype html>
+<!-- Redirecionamento do endereço antigo (docs/PLANO-ACESSO.md, fase 5, decisão 3). Fica no repositório público
+     gus-constantino/portal-castanhads, com o GitHub Pages ligado, como index.html e 404.html. Leva cada link antigo
+     (gus-constantino.github.io/portal-castanhads/<caminho>#/rota) ao mesmo caminho e à mesma rota no Vercel.
+     O código do portal fica no repositório privado gus-constantino/portal-castanhads-codigo. -->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>Portal Castanha DS</title>
+<script>
+(function(){
+  var p = location.pathname.replace(/^\/portal-castanhads/, "").replace(/\/index\.html$/, "/") || "/";
+  location.replace("https://portal-castanhads.vercel.app" + p + location.search + location.hash);
+})();
+</script>
+</head>
+<body>
+<p>O portal do Castanha DS mudou de endereço: <a href="https://portal-castanhads.vercel.app/">portal-castanhads.vercel.app</a></p>
+</body>
+</html>

@@ -224,7 +224,7 @@ function build(){
   Object.keys(FL.items || {}).forEach((id) => { const it = FL.items[id]; flutterData.items[id] = { class: it.class, params: it.params, constructors: it.constructors, map: FM[id] || null }; });
   const catalog = {
     about: "Catálogo do Castanha DS (playground de handoff Figma ↔ código). Gerado por scripts/mcp/build-catalog.js; fonte do MCP (docs/local/PLANO-MCP.md).",
-    site: "https://gus-constantino.github.io/portal-castanhads/",
+    site: "https://portal-castanhads.vercel.app/",
     packages: { flutter: "castanha_flutter", react: "@caju-beneficios/castanha-react", icons: "@caju-beneficios/castanha-icons", illustrations: "@caju-beneficios/castanha-illustrations", tokens: "@caju-beneficios/castanha-tokens" },
     reactSource: stack ? stack.source : null,
     flutterSource: FL.source || null,

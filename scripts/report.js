@@ -7,7 +7,7 @@
 (function(){
   "use strict";
   var CDS = window.CDS = window.CDS || {};
-  var REPO = "https://github.com/gus-constantino/portal-castanhads/blob/main/";
+  var REPO = "https://github.com/gus-constantino/portal-castanhads-codigo/blob/main/";
   // Seções por número do título (ROADMAP/ARCHITECTURE) ou pelo nome (CONFERIR). O que não estiver listado vai para o último grupo.
   var TABS = [
     { id: "visao", title: "Visão geral" },

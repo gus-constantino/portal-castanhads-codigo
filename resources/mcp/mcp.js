@@ -3,13 +3,13 @@
    scripts/mcp/ (catálogo e arquivo único gerados no build: dist/mcp/catalog.json e dist/mcp/castanha-mcp.js). */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
-  var REPO = "https://github.com/gus-constantino/portal-castanhads/blob/main/";
+  var REPO = "https://github.com/gus-constantino/portal-castanhads-codigo/blob/main/";
   // soon: Tag neutra "Em breve" no menu e no cabeçalho — o MCP só vai ser ofertado ao time depois (pedido do Gustavo, 05/10)
   CDS.register({ id: "mcp", name: "MCP", resource: true, lede: "Conecte o seu assistente de IA ao Castanha DS: componentes, docs, tokens e diretrizes.", order: 6, soon: "Ainda não ofertado ao time: o MCP está em teste e será liberado depois." });
 
-  var CLAUDE_CODE = "claude mcp add castanha-ds -- node /caminho/para/castanha-mcp.js";
-  var JSON_CFG = '{\n  "mcpServers": {\n    "castanha-ds": {\n      "command": "node",\n      "args": ["/caminho/para/castanha-mcp.js"]\n    }\n  }\n}';
-  var BAIXAR = "curl -L -o castanha-mcp.js https://gus-constantino.github.io/portal-castanhads/dist/mcp/castanha-mcp.js";
+  var CLAUDE_CODE = "claude mcp add castanha-ds -e CASTANHA_CHAVE=<chave do MCP> -- node /caminho/para/castanha-mcp.js";
+  var JSON_CFG = '{\n  "mcpServers": {\n    "castanha-ds": {\n      "command": "node",\n      "args": ["/caminho/para/castanha-mcp.js"],\n      "env": { "CASTANHA_CHAVE": "<chave do MCP>" }\n    }\n  }\n}';
+  var BAIXAR = "curl -L -H \"Authorization: Bearer $CASTANHA_CHAVE\" -o castanha-mcp.js https://portal-castanhads.vercel.app/dist/mcp/castanha-mcp.js";
 
   CDS.docs["mcp"] = {
     tabs: [
@@ -24,8 +24,9 @@
         ] },
         { h2: "Passo a passo" },
         { steps: [
+          { title: "Peça a chave do MCP", text: "O site do portal pede código, e o MCP entra com uma chave própria. Peça a chave ao time do Design System e guarde no terminal como `CASTANHA_CHAVE` (ex.: `export CASTANHA_CHAVE=…`)." },
           { title: "Baixe o arquivo", text: "Salve o `castanha-mcp.js` numa pasta fixa do seu computador (ex.: `~/castanha/`). Pelo terminal:" },
-          { title: "Conecte no seu assistente", text: "Troque `/caminho/para/` pela pasta onde salvou o arquivo. Abaixo estão o comando ou a configuração de cada assistente." },
+          { title: "Conecte no seu assistente", text: "Troque `/caminho/para/` pela pasta onde salvou o arquivo e `<chave do MCP>` pela chave. Abaixo estão o comando ou a configuração de cada assistente." },
           { title: "Teste", text: "Abra uma conversa nova e pergunte, por exemplo: \"Como uso o Tag em estado de erro no React?\" ou \"Qual ícone do Castanha DS uso para cartão?\". O assistente deve consultar o Castanha DS antes de responder." }
         ] },
         { code: BAIXAR },

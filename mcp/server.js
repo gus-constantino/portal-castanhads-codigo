@@ -4,7 +4,8 @@
  *
  * Servidor MCP por stdio, sem dependências (Node 18+): JSON-RPC 2.0, uma mensagem por linha.
  * Lê o catálogo gerado no build (dist/mcp/catalog.json). Para usar fora do repo, aponte para o catálogo publicado:
- *   CASTANHA_CATALOG=https://gus-constantino.github.io/portal-castanhads/dist/mcp/catalog.json node mcp/server.js
+ *   CASTANHA_CATALOG=https://portal-castanhads.vercel.app/dist/mcp/catalog.json CASTANHA_CHAVE=<chave> node mcp/server.js
+ * O site pede a chave do MCP (docs/PLANO-ACESSO.md): CASTANHA_CHAVE vai no cabeçalho Authorization.
  *
  * Conectar no Claude Code (na pasta do repo):
  *   claude mcp add castanha-ds -- node mcp/server.js
@@ -21,7 +22,7 @@ const fs = require("fs"), path = require("path");
 const VERSION = "0.3.0";
 const REACT = require("./react"); // M2: gerar_jsx e revisar_codigo
 const FLUTTER = require("./flutter"); // gerar_dart e revisar_dart (castanha_flutter)
-const SITE_CATALOG = "https://gus-constantino.github.io/portal-castanhads/dist/mcp/catalog.json";
+const SITE_CATALOG = "https://portal-castanhads.vercel.app/dist/mcp/catalog.json";
 // catálogo: CASTANHA_CATALOG (arquivo ou URL) · o do repo (dist/mcp/) · o ao lado do arquivo único · o publicado no site
 const SRC = (typeof process !== "undefined" && process.env && process.env.CASTANHA_CATALOG) || (function(){
   if (typeof __dirname === "undefined" || !fs.existsSync) return SITE_CATALOG;
@@ -32,7 +33,8 @@ const SRC = (typeof process !== "undefined" && process.env && process.env.CASTAN
 let C = null;
 async function catalog(){
   if (C) return C;
-  if (/^https?:/.test(SRC)){ const r = await fetch(SRC); if (!r.ok) throw new Error("Catálogo indisponível: " + r.status + " " + SRC); C = await r.json(); }
+  if (/^https?:/.test(SRC)){ const chave = process.env && process.env.CASTANHA_CHAVE; const r = await fetch(SRC, chave ? { headers: { authorization: "Bearer " + chave } } : undefined);
+    if (!r.ok) throw new Error("Catálogo indisponível: " + r.status + " " + SRC + (r.status === 401 ? " (o site pede a chave do MCP: defina CASTANHA_CHAVE)" : "")); C = await r.json(); }
   else C = JSON.parse(fs.readFileSync(SRC, "utf8"));
   C.components.forEach((c) => { c._text = fold([c.id, c.name, c.category, c.description, c.react && c.react.component, (c.tabs || []).map((t) => t.text).join(" ")].join(" ")); });
   return C;

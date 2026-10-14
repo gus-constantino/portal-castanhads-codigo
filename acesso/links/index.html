@@ -65,7 +65,7 @@
   var sel = document.getElementById("lk-page"), days = document.getElementById("lk-days"), go = document.getElementById("lk-go"), out = document.getElementById("lk-out"), busy = false, paginas = [];
   // "Ver como a pessoa dev vê": o portal com ?entrega=<slug>, que o perfil Completo pode abrir (scripts/entrega.js)
   var verLink = document.getElementById("lk-ver");
-  function ver(){ var m = /^\/entregas\/([a-z0-9-]+)\/$/.exec(sel.getAttribute("value") || ""); verLink.hidden = !m; if (m) verLink.setAttribute("href", "/?entrega=" + m[1] + "#/"); }
+  function ver(){ var m = /^\/entregas\/([a-z0-9-]+)\/$/.exec(sel.value || sel.getAttribute("value") || ""); verLink.hidden = !m; if (m) verLink.setAttribute("href", "/?entrega=" + m[1] + "#/"); }
   sel.addEventListener("cds-change", function(){ setTimeout(ver, 0); });
   function dias(){ var r = days.querySelector('cds-radio-button[status="selected"]'); return Number(r ? r.getAttribute("value") : 14); }
   function data(iso){ return new Date(iso).toLocaleDateString("pt-BR", { day: "2-digit", month: "long", year: "numeric" }); }
@@ -83,7 +83,8 @@
 
   function gerar(){
     if (busy) return;
-    var caminho = sel.getAttribute("value") || sel.value || "";
+    // a escolha atual fica na propriedade value; o atributo guarda só a inicial
+    var caminho = sel.value || sel.getAttribute("value") || "";
     if (!caminho){ aviso("warning", "Escolha a entrega", "O link abre o portal só com as páginas dela."); return; }
     busy = true; go.setAttribute("disabled", "");
     fetch("/acesso/links", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ caminho: caminho, dias: dias() }), credentials: "same-origin" })

@@ -106,8 +106,13 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   confere("link só para uma entrega", r.status === 400, String(r.status));
   r = await gerar(completo.cookie, { caminho: "/entregas/nao-existe/", dias: 14 });
   confere("link só para entrega que existe", r.status === 400, String(r.status));
-  r = await gerar(completo.cookie, { caminho: "/entregas/chips-small/", dias: 3 });
-  confere("validade fora de 7/14/30 dá 400", r.status === 400, String(r.status));
+  r = await gerar(completo.cookie, { caminho: "/entregas/chips-small/", dias: 91 });
+  confere("validade acima de 90 dias dá 400", r.status === 400, String(r.status));
+  r = await gerar(completo.cookie, { caminho: "/entregas/chips-small/", dias: 1.5 });
+  confere("validade em dias quebrados dá 400", r.status === 400, String(r.status));
+  r = await gerar(completo.cookie, { caminho: "/entregas/chips-small/", dias: 2 });
+  const g2 = await r.json();
+  confere("validade de 2 dias vale", r.status === 200 && Math.abs(new Date(g2.vence) - Date.now() - 2 * 864e5) < 6e4, r.status + " " + g2.vence);
   r = await gerar(completo.cookie, { caminho: "/entregas/chips-small/", dias: 14 });
   const gl = await r.json();
   confere("Completo gera link", r.status === 200 && /^https:\/\/portal\.test\/l\//.test(gl.link), JSON.stringify(gl));

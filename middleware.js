@@ -8,9 +8,9 @@
  *   Portal    (ACESSO_PORTAL)   · tudo, menos o Relatório e os dados dele
  *   MCP       (ACESSO_MCP no cabeçalho Authorization: Bearer …) · o catálogo e os núcleos de código do MCP
  *   Entrega   (fase 3) · /l/<código> abre o portal em modo entrega: só as páginas dos itens de uma entrega para dev
- *             (entregas/<slug>/entrega.json), com as docs deles, por 7, 14 ou 30 dias, sem código
+ *             (entregas/<slug>/entrega.json), com as docs deles, por 1 a 90 dias, sem código
  *   Página    (D341) · /l/<código> abre o portal só com um alvo: um componente, uma página, uma seção do menu
- *             ou uma categoria (ALVOS, gerado pelo build a partir de acesso/alvos.js), também por 7, 14 ou 30 dias
+ *             ou uma categoria (ALVOS, gerado pelo build a partir de acesso/alvos.js), também por 1 a 90 dias
  *
  * Variáveis de ambiente do projeto no Vercel (nunca no repositório):
  *   ACESSO_COMPLETO, ACESSO_PORTAL · códigos de 6 dígitos de cada perfil
@@ -63,7 +63,8 @@ const ENTREGA_SHELL = [
   /^\/(index\.html)?$/, /^\/styles\/[\w.-]+\.css$/, /^\/scripts\/[\w.-]+\.js$/, /^\/integration\/[\w./-]+\.js$/,
   /^\/dist\/cds(-entrega)?\.(css|js)$/, /^\/(components|compositions|local)\/[\w-]+\/[\w.-]+\.(js|css|svg|png|jpg|webp)$/
 ];
-const LINK_DIAS = [7, 14, 30];
+// validade dos links: dias inteiros de 1 a 90 (as telas sugerem 2, 7, 14 e 30 e aceitam outro valor)
+const LINK_DIAS_MAX = 90;
 const MCP = [/^\/dist\/mcp\//, /^\/scripts\/(react|flutter)-kit\.js$/];
 // Relatório: os registros que ele lê e os checks das stacks (o perfil Portal não abre)
 const RELATORIO = [
@@ -194,7 +195,7 @@ export default async function middleware(req){
     let b = {};
     try { b = await req.json(); } catch (e) {}
     const dias = Number(b.dias) || 14;
-    if (LINK_DIAS.indexOf(dias) < 0) return json({ erro: "Validade: 7, 14 ou 30 dias." }, 400);
+    if (!Number.isInteger(dias) || dias < 1 || dias > LINK_DIAS_MAX) return json({ erro: "Validade: de 1 a " + LINK_DIAS_MAX + " dias." }, 400);
     let dados, info;
     if (b.alvo !== undefined){
       const alvo = String(b.alvo || "");

@@ -1,7 +1,7 @@
 <!doctype html>
 <!-- Links de página (D341). Só o perfil Completo abre esta tela (middleware.js).
      Gera um link que abre o portal só com um alvo: um componente, uma página, uma seção do menu ou uma categoria
-     (lista em acesso/alvos.js, gerada pelo build-index), com validade de 7, 14 ou 30 dias, por POST /acesso/links.
+     (lista em acesso/alvos.js, gerada pelo build-index), com validade de 2, 7, 14, 30 ou outro valor de 1 a 90 dias, por POST /acesso/links.
      Embaixo, os links ativos (de página e de entrega) registrados no banco, com Copiar e Revogar.
      Componentes do DS, do pacote público (dist/cds-publico.*): Card, Radio Select Input, Radio Button Group,
      Main Button, Link, Text Input, Alert, Toast, Table e Modal. -->
@@ -36,6 +36,7 @@
   .lk cds-radio-select-input, .lk__out cds-text-input, .lk__out cds-alert, .lk__list cds-alert, .lk__list cds-table{ width:100%; align-self:stretch; } /* Text Field em Fill, na largura do card */
   .lk__list{ display:flex; flex-direction:column; gap:var(--common-sizes-12); }
   .lk__toast{ position:fixed; left:50%; bottom:var(--common-sizes-24); transform:translateX(-50%); }
+  .lk cds-quantity-input[hidden]{ display:none; }
 </style>
 </head>
 <body>
@@ -52,10 +53,14 @@
     <div class="lk__field">
       <p class="lk__label">Validade</p>
       <cds-radio-button-group id="lk-days" label="Validade" name="lk-dias">
+        <cds-radio-button label="2 dias" value="2" status="unselected"></cds-radio-button>
         <cds-radio-button label="7 dias" value="7" status="unselected"></cds-radio-button>
         <cds-radio-button label="14 dias" value="14" status="selected"></cds-radio-button>
         <cds-radio-button label="30 dias" value="30" status="unselected"></cds-radio-button>
+        <cds-radio-button label="Outro" value="outro" status="unselected"></cds-radio-button>
       </cds-radio-button-group>
+      <!-- Outro: quantos dias, de 1 a 90 (o middleware recusa fora disso). [Beta] Quantity Input do DS -->
+      <cds-quantity-input id="lk-days-n" label="Dias de validade" value="3" min="1" max="90" suffix=" dias" supporting="De 1 a 90 dias" show-required="false" hidden></cds-quantity-input>
     </div>
     <div class="lk__actions">
       <cds-main-button id="lk-go" label="Gerar link" show-lead-icon="false" show-trailing-icon="false"></cds-main-button>
@@ -105,7 +110,17 @@
   alvo.addEventListener("cds-change", function(){ setTimeout(verLink, 0); });
   trocarTipo();
 
-  function dias(){ var r = days.querySelector('cds-radio-button[status="selected"]'); return Number(r ? r.getAttribute("value") : 14); }
+  // validade: uma das opções ou, em "Outro", o número digitado (1 a 90)
+  var diasN = document.getElementById("lk-days-n");
+  function outro(){ var r = days.querySelector('cds-radio-button[status="selected"]'); return !!r && r.getAttribute("value") === "outro"; }
+  days.addEventListener("cds-change", function(){ setTimeout(function(){ diasN.hidden = !outro(); }, 0); });
+  function dias(){
+    var r = days.querySelector('cds-radio-button[status="selected"]');
+    if (!r) return 14;
+    if (r.getAttribute("value") !== "outro") return Number(r.getAttribute("value"));
+    var n = Math.round(Number(String(diasN.value != null ? diasN.value : diasN.getAttribute("value")).replace(/\D/g, "")));
+    return Math.min(90, Math.max(1, n || 1));
+  }
   function data(v){ return new Date(v).toLocaleDateString("pt-BR", { day: "2-digit", month: "long", year: "numeric" }); }
   function aviso(box, appearance, label, text){ box.hidden = false; box.innerHTML = ""; box.appendChild(CDS.create("cds-alert", { appearance: appearance, label: label, text: text, "show-close-button": "false" })); }
   function toast(text){

@@ -1,7 +1,17 @@
 [
  {
-  "caminho": "/handoff/chips-small/",
-  "titulo": "Chips — Small Size",
-  "tipo": "Handoff"
+  "caminho": "/entregas/chips-small/",
+  "titulo": "Chips Small · CDS-1599",
+  "tipo": "Entrega"
+ },
+ {
+  "caminho": "/entregas/draggable-list/",
+  "titulo": "Draggable List · CDS-1592",
+  "tipo": "Entrega"
+ },
+ {
+  "caminho": "/entregas/main-button-loading/",
+  "titulo": "Main Button Loading · CDS-1603",
+  "tipo": "Entrega"
  }
 ]

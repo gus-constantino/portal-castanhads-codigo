@@ -96,6 +96,11 @@ function bundle(){
   fs.writeFileSync(path.join(DIST, "cds.js"), head(f.js.length) + f.js.map((r) =>
     `/* ==== ${r} ==== */\ntry {\n${fs.readFileSync(path.join(ROOT, r), "utf8").trim()}\n} catch (e) { console.error("[cds] ${r}", e); }`).join("\n\n") + "\n" + docsIndex() + searchIndex(DIST));
   publicBundle(DIST, head);
+  // Modo entrega (docs/PLANO-ACESSO.md): o mesmo pacote sem os recursos (Início, Treinamento, Padrões…), o onboarding e o
+  // índice da busca. No Vercel, quem entra só por link de entrega recebe este arquivo no lugar do dist/cds.js (middleware.js).
+  const ent = f.js.filter((r) => !/^(resources|services)\//.test(r));
+  fs.writeFileSync(path.join(DIST, "cds-entrega.js"), head(ent.length) + ent.map((r) =>
+    `/* ==== ${r} ==== */\ntry {\n${fs.readFileSync(path.join(ROOT, r), "utf8").trim()}\n} catch (e) { console.error("[cds] ${r}", e); }`).join("\n\n") + "\n" + docsIndex());
   return f;
 }
 
@@ -123,6 +128,7 @@ function searchIndex(DIST){
 
 // Índice das docs (fim do dist/cds.js): id → arquivo com ?v=hash e as docs de que ela depende
 // (uma doc que lê CDS.docs["outra"], ex.: Scrollable Tab reaproveita Fixed Tab). O shell carrega sob demanda.
+let DOCS_IDX = {};
 function docsIndex(){
   const idx = {};
   order.forEach((id) => {
@@ -144,6 +150,7 @@ function docsIndex(){
       idx[d] = m ? Object.assign({}, file, { desc: JSON.parse('"' + m[1] + '"') }) : file;
     });
   });
+  DOCS_IDX = idx; // as entregas (modo entrega) leem daqui os arquivos de doc de cada item
   return "\n/* ==== docs sob demanda (gerado) ==== */\nwindow.CDS = window.CDS || {}; CDS.docsIndex = " + JSON.stringify(idx) + ";\n";
 }
 
@@ -304,25 +311,85 @@ if (process.argv.includes("--smoke")){
     if (!fs.existsSync(file) || fs.readFileSync(file, "utf8") !== json){ fs.writeFileSync(file, json); console.log("Números do pitch: docs/pitch/dados.json"); }
   } catch (e) { console.warn("⚠️ docs/pitch/dados.json não gerado: " + e.message); }
 })();
-// ---------- Páginas que aceitam link (acesso/links/paginas.json → tela "Links de página"; plano de acesso, fase 3) ----------
-// As pastas de handoff/ e teste/ (menos o _kit). O título vem do # do handoff.md ou do <title> da página.
+// ---------- Entregas para dev (modo entrega; docs/PLANO-ACESSO.md, fase 3) ----------
+// Cada pasta entregas/<slug>/ tem entrega.json (título, task, resumo e itens = ids das páginas do portal) e handoff.md.
+// Gera: entregas/<slug>/entrega.js (página inicial da entrega com o handoff em blocos da doc), a lista da tela de links
+// (acesso/links/paginas.json) e, dentro do middleware.js, as docs que cada entrega libera para quem entra pelo link.
 (function(){
-  const rel = (f) => path.join(ROOT, f);
+  const rel = (f) => path.join(ROOT, f), DIR_E = rel("entregas");
+  // Markdown do handoff → blocos do docs-kit (h2, h3, p, ul, ol, table, code, alert) e checklist (montado por scripts/entrega.js)
+  function url(u){ return /figma\.com\/.*\/branch\//.test(u) ? "Figma · branch" : /figma\.com/.test(u) ? "Figma" : u.replace(/^https?:\/\/(www\.)?/, "").replace(/[/?].*$/, ""); }
+  function inline(t){
+    return String(t).replace(/\*\*([^*]+)\*\*/g, "$1").replace(/(^|[\s(])\*([^*\s][^*]*)\*/g, "$1$2")
+      .replace(/(^|[^(\]])(https?:\/\/[^\s)]+)/g, (m, a, u) => a + "[" + url(u) + "](" + u + ")").trim();
+  }
+  function cells(l){ return l.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((c) => inline(c.trim())); }
+  function blocos(md){
+    const L = md.replace(/\r/g, "").split("\n"), out = []; let i = 0;
+    while (i < L.length){
+      const l = L[i];
+      if (!l.trim() || /^---+\s*$/.test(l) || /^#\s/.test(l)){ i++; continue; }
+      if (/^```/.test(l)){ const c = []; i++; while (i < L.length && !/^```/.test(L[i])) c.push(L[i++]); i++; out.push({ code: c.join("\n") }); continue; }
+      if (/^>/.test(l)){
+        const q = []; while (i < L.length && /^>/.test(L[i])) q.push(L[i++].replace(/^>\s?/, ""));
+        const t = q.filter((x) => x.trim()).map(inline);
+        // o primeiro bloco de citação é o resumo do handoff; os outros são notas dentro das seções
+        out.push({ alert: Object.assign({ appearance: "informative", text: t[0] || "" }, out.length ? {} : { label: "Resumo" }) });
+        if (t.length > 1) out.push({ ul: t.slice(1) });
+        continue;
+      }
+      let m;
+      if ((m = l.match(/^##\s+(.*)$/))){ out.push({ h2: inline(m[1]) }); i++; continue; }
+      if ((m = l.match(/^#{3,}\s+(.*)$/))){ out.push({ h3: inline(m[1]) }); i++; continue; }
+      if (/^\|/.test(l) && /^\|?\s*:?-{3,}/.test(L[i + 1] || "")){
+        const head = cells(l), rows = []; i += 2;
+        while (i < L.length && /^\|/.test(L[i])) rows.push(cells(L[i++]));
+        out.push({ table: { head, rows, wrap: true } }); continue;
+      }
+      if (/^\s*[-*]\s+\[[ xX]\]\s+/.test(l)){
+        const items = []; while (i < L.length && /^\s*[-*]\s+\[[ xX]\]\s+/.test(L[i])) items.push(inline(L[i++].replace(/^\s*[-*]\s+\[[ xX]\]\s+/, "")));
+        out.push({ checklist: items }); continue;
+      }
+      if (/^\s*([-*]|\d+\.)\s+/.test(l)){
+        const ol = /^\s*\d+\./.test(l), items = [];
+        while (i < L.length && /^\s*([-*]|\d+\.)\s+/.test(L[i]) && !/^\s*[-*]\s+\[[ xX]\]/.test(L[i])) items.push(inline(L[i++].replace(/^\s*([-*]|\d+\.)\s+/, "")));
+        out.push(ol ? { ol: items } : { ul: items }); continue;
+      }
+      const p = [l.trim()]; i++;
+      while (i < L.length && L[i].trim() && !/^(#|>|\||```|\s*[-*]\s|\s*\d+\.\s|---)/.test(L[i])) p.push(L[i++].trim());
+      out.push({ p: inline(p.join(" ")) });
+    }
+    return out;
+  }
   try {
-    const out = [];
-    ["handoff", "teste"].forEach((raiz) => {
-      if (!fs.existsSync(rel(raiz))) return;
-      fs.readdirSync(rel(raiz)).filter((d) => /^[a-z0-9-]+$/.test(d) && fs.existsSync(rel(raiz + "/" + d + "/index.html"))).sort().forEach((d) => {
-        const md = rel(raiz + "/" + d + "/handoff.md"), html = fs.readFileSync(rel(raiz + "/" + d + "/index.html"), "utf8");
-        const h1 = fs.existsSync(md) && (fs.readFileSync(md, "utf8").match(/^#\s+(.+)$/m) || [])[1], t = (html.match(/<title>([^<]+)<\/title>/) || [])[1];
-        const titulo = String(h1 || t || d).replace(/\*\*|`/g, "").replace(/\s*·\s*(Castanha DS|Handoff dev)$/, "").trim();
-        out.push({ caminho: "/" + raiz + "/" + d + "/", titulo, tipo: raiz === "handoff" ? "Handoff" : "Teste" });
-      });
+    const cat = JSON.parse(fs.readFileSync(rel("dist/mcp/catalog.json"), "utf8")), byId = {};
+    cat.components.forEach((c) => { byId[c.id] = c; });
+    // docs que um item abre: a dele e as de que ela depende (ex.: Scrollable Tab lê a doc do Fixed Tab)
+    function docs(id, acc){ const ix = DOCS_IDX[id]; if (!ix || acc.has(ix.src)) return acc; acc.add(ix.src.replace(/\?.*$/, "")); (ix.needs || []).forEach((d) => docs(d, acc)); return acc; }
+    const lista = [], mapa = {};
+    (fs.existsSync(DIR_E) ? fs.readdirSync(DIR_E) : []).filter((d) => /^[a-z0-9-]+$/.test(d) && fs.existsSync(rel("entregas/" + d + "/entrega.json"))).sort().forEach((slug) => {
+      const e = JSON.parse(fs.readFileSync(rel("entregas/" + slug + "/entrega.json"), "utf8"));
+      const falta = e.itens.filter((id) => !byId[id]);
+      if (falta.length) throw new Error("entregas/" + slug + ": itens que não existem no portal: " + falta.join(", "));
+      const md = rel("entregas/" + slug + "/handoff.md"), handoff = fs.existsSync(md) ? blocos(fs.readFileSync(md, "utf8")) : [];
+      const itens = e.itens.map((id) => ({ id, name: byId[id].name, block: byId[id].kind === "building-block", description: byId[id].description || "" }));
+      const dados = { slug, titulo: e.titulo, task: e.task, resumo: e.resumo, itens, handoff };
+      const js = "/* GERADO por scripts/build-index.js a partir de entregas/" + slug + "/entrega.json e handoff.md · não editar */\n" +
+        "window.CDS && CDS.entregaDados && CDS.entregaDados(" + JSON.stringify(dados) + ");\n";
+      const file = rel("entregas/" + slug + "/entrega.js");
+      if (!fs.existsSync(file) || fs.readFileSync(file, "utf8") !== js){ fs.writeFileSync(file, js); console.log("Entrega: entregas/" + slug + "/entrega.js"); }
+      lista.push({ caminho: "/entregas/" + slug + "/", titulo: e.titulo + " · " + e.task, tipo: "Entrega" });
+      mapa[slug] = [...e.itens.reduce((acc, id) => docs(id, acc), new Set())].sort();
     });
-    const json = JSON.stringify(out, null, 1) + "\n", file = rel("acesso/links/paginas.json");
-    fs.mkdirSync(path.dirname(file), { recursive: true });
-    if (!fs.existsSync(file) || fs.readFileSync(file, "utf8") !== json){ fs.writeFileSync(file, json); console.log("Páginas com link: acesso/links/paginas.json"); }
-  } catch (e) { console.warn("⚠️ acesso/links/paginas.json não gerado: " + e.message); }
+    const json = JSON.stringify(lista, null, 1) + "\n", pj = rel("acesso/links/paginas.json");
+    fs.mkdirSync(path.dirname(pj), { recursive: true });
+    if (!fs.existsSync(pj) || fs.readFileSync(pj, "utf8") !== json){ fs.writeFileSync(pj, json); console.log("Entregas com link: acesso/links/paginas.json"); }
+    // middleware.js: o bloco entre as marcas é gerado aqui (o middleware não lê arquivos do site)
+    const mw = rel("middleware.js"), src = fs.readFileSync(mw, "utf8");
+    const bloco = "// <entregas> gerado por scripts/build-index.js a partir de entregas/*/entrega.json: as docs que cada entrega libera\nconst ENTREGAS = " + JSON.stringify(mapa) + ";\n// </entregas>";
+    const novo = src.replace(/\/\/ <entregas>[\s\S]*?\/\/ <\/entregas>/, bloco);
+    if (novo !== src){ fs.writeFileSync(mw, novo); console.log("Entregas no middleware.js"); }
+  } catch (e) { console.warn("⚠️ entregas não geradas: " + e.message); }
 })();
 // ---------- Tendência (docs/tendencia.json → painel "Tendência" do relatório) ----------
 // Um ponto por dia fechado, lido do git. Muda uma vez por dia; no clone raso do CI não mexe no arquivo.

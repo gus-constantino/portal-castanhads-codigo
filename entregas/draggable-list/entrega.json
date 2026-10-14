@@ -1,0 +1,6 @@
+{
+ "titulo": "Draggable List",
+ "task": "CDS-1592",
+ "resumo": "Arrastar para reordenar no Content List Item, com a alça Drag Handle e o estado Dragged, e a Content List reordenável.",
+ "itens": ["content-list-item", "content-list", "list-lead-item", "trailing-item"]
+}

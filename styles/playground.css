@@ -293,3 +293,6 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
 .pg-shortcuts__tour[hidden]{ display:none; }
 .pg-keys{ justify-content:flex-end; } /* <cmp-shortcut> (compositions/shortcut) alinhado à direita da linha */
 .pg-ext-confirm__text{ margin:0; max-width:calc(var(--common-sizes-200) + var(--common-sizes-160)); font:var(--text-style-body-regular); color:var(--common-colors-text-medium); } /* texto do modal de saída do site */
+
+/* Modo entrega (scripts/entrega.js): checklist do handoff com o Checkbox do DS */
+.pg-entrega-checks{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-8); }

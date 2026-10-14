@@ -384,7 +384,8 @@ O portal também é publicado no Vercel (https://portal-castanhads.vercel.app), 
 - `middleware.js` roda no Vercel antes de cada arquivo e libera por perfil: Visitante (o pitch e a entrada), Completo, Portal (sem o Relatório) e a chave do MCP. No GitHub Pages e no servidor local ele não roda, e o portal fica aberto.
 - `entrar/` é a tela de entrada. Os códigos e o segredo ficam nas variáveis de ambiente do Vercel (`ACESSO_*`), nunca no repositório.
 - As páginas abertas carregam `dist/cds-publico.*`, que o build gera com os componentes e nada mais. O pitch lê `docs/pitch/dados.json` e mostra ao Visitante as imagens de `docs/pitch/capturas/` (`node scripts/dev/pitch-capturas.js` gera de novo).
-- Links de página: o perfil Completo gera em `acesso/links/` um link `/l/<código>` que abre uma página de `handoff/` ou `teste/` (e só ela) por 7, 14 ou 30 dias. Cada página própria fica numa pasta; a de handoff tem um `index.html` igual ao de `handoff/chips-small/` e o `handoff.md` ao lado. O build lista as páginas em `acesso/links/paginas.json`.
+- Links de entrega: o perfil Completo gera em `acesso/links/` um link `/l/<código>` que abre o portal só com as páginas de uma entrega para dev (os componentes, os building blocks e o handoff), por 7, 14 ou 30 dias. Nova entrega: uma pasta `entregas/<slug>/` com `entrega.json` (`titulo`, `task`, `resumo`, `itens` = ids das páginas) e `handoff.md`. O build faz o resto. Para ver como a pessoa dev vê: `/?entrega=<slug>` (perfil Completo ou servidor local).
+- `node scripts/dev/servidor-acesso.js` sobe o portal local com o middleware e códigos de teste (Completo 111111, Portal 222222).
 - `node tests/middleware.test.js` confere os perfis com códigos de teste e roda no Smoke.
 
 ---

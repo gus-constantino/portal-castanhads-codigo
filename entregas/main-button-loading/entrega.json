@@ -1,0 +1,6 @@
+{
+ "titulo": "Main Button Loading",
+ "task": "CDS-1603",
+ "resumo": "Estado Loading do Main Button: o Spinner no lugar do conteúdo, com o texto de carregamento para leitor de tela.",
+ "itens": ["main-button", "spinner"]
+}

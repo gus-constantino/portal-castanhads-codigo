@@ -1,0 +1,6 @@
+{
+ "titulo": "Chips Small",
+ "task": "CDS-1599",
+ "resumo": "Tamanho Small (32px) no Input Chips e no Filter Chips, com a property Size. O resto das métricas vem do Medium.",
+ "itens": ["input-chips", "filter-chips"]
+}

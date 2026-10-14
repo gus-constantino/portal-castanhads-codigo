@@ -323,7 +323,8 @@
     }
     navFound.hidden = !navFound.children.length; navRes.hidden = !navRes.children.length;
     // Seção Componentes (Accordion Item do index.html): recolhida por padrão, aberta na página de um componente, na busca ou se a pessoa abriu
-    var compOpen = (q && (comps.length || blocks.length)) || narrow.matches || openCats["sec:componentes"] || comps.concat(blocks).some(function(c){ return c.id === currentId(); });
+    // no modo entrega (scripts/entrega.js) a seção e os grupos vêm abertos: são poucos itens
+    var compOpen = (q && (comps.length || blocks.length)) || narrow.matches || !!CDS.entrega || openCats["sec:componentes"] || comps.concat(blocks).some(function(c){ return c.id === currentId(); });
     if (compSec.collapsed === !!compOpen) compSec.collapsed = !compOpen;
     var cats = PAGES.concat(comps.map(function(c){ return c.category || "Outros"; }).filter(function(x, i, a){ return PAGES.indexOf(x) === -1 && a.indexOf(x) === i; }));
     // Categorias em accordion: abre a da página atual, as que a pessoa abriu (lembrado no navegador) e todas durante a busca
@@ -344,10 +345,10 @@
     cats.forEach(function(cat){
       var items = comps.filter(function(c){ return (c.category || "Outros") === cat; });
       if (!items.length) return;
-      nav.appendChild(kit.el("li", null, [navGroup(cat, items, q || narrow.matches || openCats[cat] || items.some(function(c){ return c.id === cur; }), function(open){ openCats[cat] = open; saveOpen(); })]));
+      nav.appendChild(kit.el("li", null, [navGroup(cat, items, q || narrow.matches || !!CDS.entrega || openCats[cat] || items.some(function(c){ return c.id === cur; }), function(open){ openCats[cat] = open; saveOpen(); })]));
     });
     if (blocks.length){
-      var bd = navGroup("Building blocks", blocks, blocksOpen || q || narrow.matches || blocks.some(function(c){ return c.id === cur; }), function(open){ blocksOpen = open; });
+      var bd = navGroup("Building blocks", blocks, blocksOpen || q || narrow.matches || !!CDS.entrega || blocks.some(function(c){ return c.id === cur; }), function(open){ blocksOpen = open; });
       bd.classList.add("pg-nav-blocks");
       var bli = nav.appendChild(kit.el("li", null, [bd]));
       // Tooltip no cabeçalho do Accordion Item (o botão interno), não no item inteiro
@@ -424,7 +425,7 @@
       return [].slice.call(document.querySelectorAll(sel)).filter(function(a){ return a.getClientRects().length > 0; });
     }
     function focusSearch(){ var i = input(); if (i){ i.focus(); i.select(); } }
-    search.setAttribute("placeholder", "Buscar componente ou conteúdo (" + (mac ? "⌘K" : "Ctrl+K") + ")");
+    search.setAttribute("placeholder", (CDS.entrega ? "Buscar nesta entrega" : "Buscar componente ou conteúdo") + " (" + (mac ? "⌘K" : "Ctrl+K") + ")");
     document.addEventListener("keydown", function(e){
       var t = e.target, typing = t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
       if ((e.key === "k" || e.key === "K") && (mac ? e.metaKey : e.ctrlKey) && !e.altKey && !e.shiftKey){ e.preventDefault(); focusSearch(); return; }
@@ -701,7 +702,9 @@
   // não há cookie: nada muda.
   var PERFIL = (document.cookie.match(/(?:^|;\s*)cds_perfil=(completo|portal)\b/) || [])[1] || null;
   CDS.perfil = PERFIL;
-  if (PERFIL === "portal"){ reportBtn.hidden = true; $("report-tip").hidden = true; }
+  // Modo entrega (scripts/entrega.js): sem o Relatório, como no perfil Portal
+  var SEM_RELATORIO = PERFIL === "portal" || !!CDS.entrega;
+  if (SEM_RELATORIO){ reportBtn.hidden = true; $("report-tip").hidden = true; }
   if (PERFIL){
     var out = kit.el("cds-icon-button", { id: "logout-btn", kind: "default", appearance: "neutral", size: "small", icon: "logout-line", label: "Sair do portal" });
     reportBtn.parentNode.insertBefore(out, reportBtn.hidden ? reportBtn.nextSibling : reportBtn);
@@ -736,7 +739,7 @@
   function showRoute(){
     // #/relatorio[/tab]: o relatório troca o shell inteiro; o botão volta para o último componente
     var r = route();
-    if (r[0] === "relatorio" && PERFIL === "portal"){ location.replace("#/"); return; } // perfil Portal não abre o Relatório
+    if (r[0] === "relatorio" && SEM_RELATORIO){ location.replace("#/"); return; } // perfil Portal e modo entrega não abrem o Relatório
     var isReport = r[0] === "relatorio" && !!CDS.report;
     shell.hidden = isReport; report.hidden = !isReport;
     reportBtn.setAttribute("pressed", String(isReport));

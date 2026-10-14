@@ -83,41 +83,60 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   r = await mw(req("/acesso/sair", { headers: { cookie: completo.cookie } }));
   confere("sair apaga os cookies e vai para a entrada", r.status === 302 && r.headers.get("location") === "/entrar/" && /Max-Age=0/.test(r.headers.get("set-cookie") || ""));
 
-  // Links de página (fase 3)
+  // Links de entrega (fase 3): o portal em modo entrega, só com os itens e as docs da entrega
   const gerar = (c, body) => mw(new Request(BASE + "/acesso/links", { method: "POST", headers: { "content-type": "application/json", cookie: c }, body: JSON.stringify(body) }));
-  r = await gerar(portal.cookie, { caminho: "/handoff/chips-small/", dias: 14 });
+  r = await gerar(portal.cookie, { caminho: "/entregas/chips-small/", dias: 14 });
   confere("perfil Portal não gera link", r.status === 403, String(r.status));
   r = await gerar(completo.cookie, { caminho: "/docs/ROADMAP.md", dias: 14 });
-  confere("link só para /handoff/ ou /teste/", r.status === 400, String(r.status));
-  r = await gerar(completo.cookie, { caminho: "/handoff/chips-small/", dias: 3 });
+  confere("link só para uma entrega", r.status === 400, String(r.status));
+  r = await gerar(completo.cookie, { caminho: "/entregas/nao-existe/", dias: 14 });
+  confere("link só para entrega que existe", r.status === 400, String(r.status));
+  r = await gerar(completo.cookie, { caminho: "/entregas/chips-small/", dias: 3 });
   confere("validade fora de 7/14/30 dá 400", r.status === 400, String(r.status));
-  r = await gerar(completo.cookie, { caminho: "/handoff/chips-small/", dias: 14 });
+  r = await gerar(completo.cookie, { caminho: "/entregas/chips-small/", dias: 14 });
   const gl = await r.json();
   confere("Completo gera link", r.status === 200 && /^https:\/\/portal\.test\/l\//.test(gl.link), JSON.stringify(gl));
   r = await mw(req(new URL(gl.link).pathname));
-  const setL = r.headers.get("set-cookie") || "", linkCookie = setL.split(";")[0];
-  confere("abrir o link leva à página e grava cds_links", r.status === 302 && r.headers.get("location") === "/handoff/chips-small/" && /^cds_links=/.test(setL) && /HttpOnly/.test(setL), r.status + " " + setL);
-  confere("com o link abre a página", segue(await mw(req("/handoff/chips-small/", { headers: { cookie: linkCookie } }))));
-  confere("com o link abre o conteúdo da página", segue(await mw(req("/handoff/chips-small/handoff.md", { headers: { cookie: linkCookie, accept: "*/*" } }))));
-  r = await mw(req("/handoff/outro/", { headers: { cookie: linkCookie } }));
-  confere("o link não abre outra página", r.status === 302 && /^\/entrar\//.test(r.headers.get("location")), r.status + " " + r.headers.get("location"));
-  r = await mw(req("/docs/ROADMAP.md", { headers: { cookie: linkCookie, accept: "*/*" } }));
-  confere("o link não abre o resto do portal", r.status === 401, String(r.status));
+  const setL = r.headers.getSetCookie(), linkCookie = setL.map((c) => c.split(";")[0]).join("; ");
+  confere("abrir o link leva ao portal e grava cds_links (HttpOnly) e cds_entrega", r.status === 302 && r.headers.get("location") === "/" && setL.some((c) => /^cds_links=/.test(c) && /HttpOnly/.test(c)) && setL.some((c) => /^cds_entrega=chips-small;/.test(c) && !/HttpOnly/.test(c)), r.status + " " + setL.join(" | "));
+  const doLink = (p, a) => mw(req(p, { headers: { cookie: linkCookie, accept: a || "*/*" } }));
+  confere("com o link abre o portal", segue(await doLink("/", "text/html")));
+  confere("com o link abre os dados da entrega", segue(await doLink("/entregas/chips-small/entrega.js")));
+  confere("com o link abre a doc de um item", segue(await doLink("/components/input-chip/input-chip.docs.js")));
+  confere("com o link abre o código dos componentes", segue(await doLink("/components/main-button/main-button.js")));
+  confere("com o link abre o código React e Flutter", segue(await doLink("/scripts/react-kit.js")) && segue(await doLink("/scripts/flutter-kit.js")));
+  r = await doLink("/dist/mcp/catalog.json");
+  confere("o link não abre o catálogo do MCP", r.status === 401, String(r.status));
+  r = await doLink("/dist/cds.js?v=1");
+  confere("com o link o dist/cds.js vira o pacote sem os recursos", r.headers.get("x-middleware-rewrite") === BASE + "/dist/cds-entrega.js?v=1", String(r.headers.get("x-middleware-rewrite")));
+  r = await doLink("/components/main-button/main-button.docs.js");
+  confere("o link não abre a doc de outro componente", r.status === 401, String(r.status));
+  r = await doLink("/entregas/draggable-list/entrega.js");
+  confere("o link não abre outra entrega", r.status === 401, String(r.status));
+  r = await doLink("/dist/search.json");
+  confere("o link não abre a busca no conteúdo", r.status === 401, String(r.status));
+  r = await doLink("/docs/ROADMAP.md");
+  confere("o link não abre os dados do Relatório", r.status === 401, String(r.status));
+  r = await doLink("/resources/inicio/inicio.js");
+  confere("o link não abre os recursos", r.status === 401, String(r.status));
+  r = await doLink("/docs/roteiro/", "text/html");
+  confere("o link não abre outras páginas", r.status === 302 && /^\/entrar\//.test(r.headers.get("location")), r.status + " " + r.headers.get("location"));
+  r = await mw(req("/dist/cds.js", { headers: { cookie: completo.cookie, accept: "*/*" } }));
+  confere("perfil continua com o pacote inteiro", segue(r) && !r.headers.get("x-middleware-rewrite"));
   r = await mw(req("/acesso/links/", { headers: { cookie: portal.cookie } }));
   confere("tela de gerar links fecha para o Portal", r.status === 403, String(r.status));
   confere("tela de gerar links abre para o Completo", segue(await mw(req("/acesso/links/", { headers: { cookie: completo.cookie } }))));
-  confere("leitor das páginas próprias é aberto", segue(await mw(req("/handoff/_kit/handoff.js", { headers: { accept: "*/*" } }))));
-  const vencido = (() => { const d = Buffer.from(JSON.stringify({ c: "/handoff/chips-small/", e: Date.now() - 1000 })).toString("base64url"); return d + ".assinatura"; })();
+  const vencido = (() => { const d = Buffer.from(JSON.stringify({ c: "/entregas/chips-small/", e: Date.now() - 1000 })).toString("base64url"); return d + ".assinatura"; })();
   r = await mw(req("/l/" + vencido));
   confere("link vencido ou falso vai para a entrada com aviso", r.status === 302 && r.headers.get("location") === "/entrar/?link=vencido", r.headers.get("location"));
-  const trocado = new URL(gl.link).pathname.slice(3).replace(/^[^.]+/, Buffer.from(JSON.stringify({ c: "/teste/outro/", e: Date.now() + 1e9 })).toString("base64url"));
+  const trocado = new URL(gl.link).pathname.slice(3).replace(/^[^.]+/, Buffer.from(JSON.stringify({ c: "/entregas/draggable-list/", e: Date.now() + 1e9 })).toString("base64url"));
   r = await mw(req("/l/" + trocado));
-  confere("link com a página trocada não vale", r.status === 302 && r.headers.get("location") === "/entrar/?link=vencido", r.headers.get("location"));
+  confere("link com a entrega trocada não vale", r.status === 302 && r.headers.get("location") === "/entrar/?link=vencido", r.headers.get("location"));
 
   // Sem segredo configurado: ninguém entra
   env.ACESSO_SEGREDO = "";
   r = await entrar("111111"); confere("sem ACESSO_SEGREDO a entrada responde 503", r.status === 503, String(r.status));
 
   if (falhas){ console.error("❌ Middleware: " + falhas + " falha(s), " + ok + " ok"); process.exit(1); }
-  console.log("✅ Middleware: " + ok + " verificações ok (Visitante, Completo, Portal, MCP, links de página, cookie adulterado, sair)");
+  console.log("✅ Middleware: " + ok + " verificações ok (Visitante, Completo, Portal, MCP, links de entrega, cookie adulterado, sair)");
 })().catch((e) => { console.error(e); process.exit(1); });

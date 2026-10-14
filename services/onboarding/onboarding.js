@@ -76,7 +76,8 @@
     document.dispatchEvent(new CustomEvent("cds-onboarding", { detail: d }));
     if (REMOTE && REMOTE.track){ try { REMOTE.track({ type: d.type, flow: d.flow || null, step: d.step == null ? null : d.step, profile: profile(), task: d.task || null, stop: d.stop || null }); } catch (e) {} }
   }
-  function off(){ return /[?&]onboarding=off\b/.test(location.search); }
+  // desligado também no modo entrega (scripts/entrega.js): o portal da entrega não tem as páginas que o tour visita
+  function off(){ return /[?&]onboarding=off\b/.test(location.search) || document.documentElement.classList.contains("is-entrega"); }
   function anchorOf(step){ return step.anchor ? document.querySelector('[data-onb="' + step.anchor + '"]') : null; }
   function visible(el){ return !!(el && el.getClientRects().length); }
   // ⌘K no Mac, Ctrl+K nos outros sistemas (copy do plano §11.4)

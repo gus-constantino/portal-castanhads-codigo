@@ -41,13 +41,16 @@
     function cards(list){ return { shortcuts: list.map(function(i){ return { title: i.name, text: String(i.description || "").split(/(?<=\.)\s/)[0], href: "#/" + i.id, cta: "Abrir " + i.name }; }) }; }
     var geral = [
       { hero: { eyebrow: "Entrega para dev · " + d.task, title: d.titulo, text: d.resumo } },
-      { alert: { appearance: "informative", label: "Portal da entrega", text: "Este endereço mostra só as páginas desta entrega: o Playground, a documentação e o handoff. O que muda está na aba Handoff e na seção \"Entrega para dev\" da Anatomia de cada componente." } },
+      { alert: { appearance: "informative", label: "Portal da entrega", text: d.handoff.length
+        ? "Este endereço mostra só as páginas desta entrega: o Playground, a documentação e o handoff. O que muda está na aba Handoff e na seção \"Entrega para dev\" da Anatomia de cada componente."
+        : "Este endereço mostra só as páginas desta entrega: o Playground e a documentação completa de cada componente (Uso, Anatomia, Estilos, Acessibilidade e Diretrizes)." } },
       { h2: "Componentes" }, cards(comps)
     ];
     if (blocks.length) geral.push({ h2: "Building blocks" }, { p: "Peças usadas dentro dos componentes desta entrega." }, cards(blocks));
     var handoff = d.handoff.map(function(b){ return b.checklist ? { visual: checklist(b.checklist) } : b; });
     CDS.docs = CDS.docs || {};
-    CDS.docs.entrega = { tabs: [{ id: "visao-geral", title: "Visão geral", blocks: geral }, { id: "handoff", title: "Handoff", blocks: handoff }] };
+    // sem handoff.md na pasta da entrega, a página fica só com a Visão geral
+    CDS.docs.entrega = { tabs: [{ id: "visao-geral", title: "Visão geral", blocks: geral }].concat(handoff.length ? [{ id: "handoff", title: "Handoff", blocks: handoff }] : []) };
     CDS.searchIndex = null; // a busca fica só nos nomes do menu
     CDS.onboarding = null;
     document.documentElement.classList.add("is-entrega");

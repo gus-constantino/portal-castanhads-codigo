@@ -5,6 +5,16 @@
   "tipo": "Entrega"
  },
  {
+  "caminho": "/entregas/code-input-otp/",
+  "titulo": "Code Input OTP · CDS-1608",
+  "tipo": "Entrega"
+ },
+ {
+  "caminho": "/entregas/credit-card-input/",
+  "titulo": "Credit Card Input · CDS-1607",
+  "tipo": "Entrega"
+ },
+ {
   "caminho": "/entregas/draggable-list/",
   "titulo": "Draggable List · CDS-1592",
   "tipo": "Entrega"

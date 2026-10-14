@@ -1,0 +1,6 @@
+{
+ "titulo": "Credit Card Input",
+ "task": "CDS-1607",
+ "resumo": "Componente novo da família Text Fields: o campo do número do cartão, com a máscara de 16 dígitos e a bandeira.",
+ "itens": ["credit-card-input", "credit-card-flags"]
+}

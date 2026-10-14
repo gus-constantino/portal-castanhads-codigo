@@ -1,0 +1,6 @@
+{
+ "titulo": "Code Input OTP",
+ "task": "CDS-1608",
+ "resumo": "Componente novo da família Text Fields: o campo de código de verificação (OTP/PIN), com 3 a 6 células de um caractere.",
+ "itens": ["code-input-otp"]
+}

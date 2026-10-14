@@ -25,6 +25,7 @@
   .en__lede{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
   .en__form{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-16); width:100%; }
   .en__foot{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--common-sizes-8) var(--common-sizes-16); }
+  .en__alert{ align-self:stretch; }
   .en__note{ margin:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
 </style>
 </head>
@@ -82,6 +83,11 @@
       })
       .then(function(){ location.replace(destino()); })
       .catch(function(e){ erro(e.message); code.setAttribute("value", ""); busy = false; go.removeAttribute("disabled"); var f = code.querySelector("input"); if (f) f.focus(); });
+  }
+  // /l/<código> vencido ou inválido chega aqui com ?link=vencido (middleware.js, fase 3)
+  if (new URLSearchParams(location.search).get("link") === "vencido"){
+    var av = CDS.create("cds-alert", { appearance: "warning", label: "Este link venceu", text: "Peça um novo ao time do Design System ou entre com o seu código.", "show-close-button": "false" });
+    av.classList.add("en__alert"); document.querySelector(".en__text").after(av);
   }
   code.addEventListener("cds-complete", enviar);
   // o aviso some no próximo envio (trocar a Appearance redesenha o componente e tiraria o foco no meio da digitação)

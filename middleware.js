@@ -7,6 +7,7 @@
  *   Completo  (ACESSO_COMPLETO) · tudo
  *   Portal    (ACESSO_PORTAL)   · tudo, menos o Relatório e os dados dele
  *   MCP       (ACESSO_MCP no cabeçalho Authorization: Bearer …) · o catálogo e os núcleos de código do MCP
+ *   Link      (fase 3) · /l/<código> libera uma página própria (/handoff/<id>/ ou /teste/<id>/) por 14 dias, sem código
  *
  * Variáveis de ambiente do projeto no Vercel (nunca no repositório):
  *   ACESSO_COMPLETO, ACESSO_PORTAL · códigos de 6 dígitos de cada perfil
@@ -18,7 +19,10 @@
  *   POST /acesso/entrar {codigo} · confere o código e grava os cookies (o limite de tentativas é a regra do Firewall do Vercel)
  *   GET  /acesso/sair            · apaga os cookies e leva à entrada
  *   GET  /acesso/perfil          · { perfil } ou { perfil: null }
- * Cookies: cds_acesso (assinado, HttpOnly) e cds_perfil (o perfil, legível pelo portal para ajustar o menu).
+ *   POST /acesso/links {caminho, dias} · só o perfil Completo: devolve o link assinado da página (7, 14 ou 30 dias)
+ *   GET  /l/<código>             · confere o link, guarda o acesso à página no cookie cds_links e leva até ela
+ * Cookies: cds_acesso (assinado, HttpOnly), cds_perfil (o perfil, legível pelo portal para ajustar o menu) e
+ *   cds_links (os links de página abertos neste navegador, cada um com a própria assinatura e validade).
  */
 export const config = { runtime: "nodejs" };
 
@@ -30,8 +34,12 @@ const ABERTO = [
   /^\/styles\/(tokens|shared|icons)\.css$/,
   /^\/scripts\/(cds-element|playground-kit|assets-manifest)\.js$/,
   /^\/assets\//,
-  /^\/(favicon\.(ico|svg|png)|robots\.txt)$/
+  /^\/(favicon\.(ico|svg|png)|robots\.txt)$/,
+  /^\/(handoff|teste)\/_kit\/[\w.-]+$/ // o leitor das páginas próprias (sem conteúdo)
 ];
+// páginas que podem ganhar link (fase 3): uma pasta por página, com o conteúdo dentro dela
+const PAGINA = /^\/(handoff|teste)\/[a-z0-9-]+\/$/;
+const LINK_DIAS = [7, 14, 30];
 const MCP = [/^\/dist\/mcp\//, /^\/scripts\/(react|flutter)-kit\.js$/];
 // Relatório: os registros que ele lê e os checks das stacks (o perfil Portal não abre)
 const RELATORIO = [
@@ -72,6 +80,25 @@ async function cookieAcesso(p, env){
   const dados = b64u(enc.encode(JSON.stringify({ p, e: Date.now() + DIAS * 864e5 })));
   return dados + "." + await hmac(env.ACESSO_SEGREDO, dados);
 }
+// ---------- links de página ----------
+async function criarLink(caminho, dias, env){
+  const dados = b64u(enc.encode(JSON.stringify({ c: caminho, e: Date.now() + dias * 864e5 })));
+  return dados + "." + await hmac(env.ACESSO_SEGREDO, "link." + dados);
+}
+async function lerLink(codigo, env){
+  const [dados, sig] = String(codigo || "").split(".");
+  if (!dados || !sig || !env.ACESSO_SEGREDO || !(await igual(sig, await hmac(env.ACESSO_SEGREDO, "link." + dados), env.ACESSO_SEGREDO))) return null;
+  try {
+    const l = JSON.parse(Buffer.from(dados.replace(/-/g, "+").replace(/_/g, "/"), "base64").toString("utf8"));
+    return l && PAGINA.test(l.c) && l.e > Date.now() ? l : null;
+  } catch (e) { return null; }
+}
+async function linksValidos(req, env){
+  const out = [];
+  for (const c of String(cookies(req).cds_links || "").split("~").filter(Boolean).slice(0, 20)){ const l = await lerLink(c, env); if (l) out.push({ codigo: c, l }); }
+  return out;
+}
+
 const seguir = () => new Response(null, { headers: { "x-middleware-next": "1" } });
 const json = (obj, status, extra) => new Response(JSON.stringify(obj), { status: status || 200, headers: Object.assign({ "content-type": "application/json; charset=utf-8", "cache-control": "no-store" }, extra || {}) });
 function quer(req){ // navegação de página (vai para a entrada) ou arquivo (responde 401/403)
@@ -112,6 +139,25 @@ export default async function middleware(req){
     return new Response(null, { status: 302, headers: h });
   }
   if (path === "/acesso/perfil") return json({ perfil: await perfil(req, env) });
+  if (path === "/acesso/links" && req.method === "POST"){
+    if (await perfil(req, env) !== "completo") return json({ erro: "Gerar links é do perfil Completo." }, 403);
+    let b = {};
+    try { b = await req.json(); } catch (e) {}
+    const caminho = String(b.caminho || ""), dias = Number(b.dias) || 14;
+    if (!PAGINA.test(caminho)) return json({ erro: "Escolha uma página de /handoff/ ou /teste/." }, 400);
+    if (LINK_DIAS.indexOf(dias) < 0) return json({ erro: "Validade: 7, 14 ou 30 dias." }, 400);
+    const codigo = await criarLink(caminho, dias, env);
+    return json({ link: url.origin + "/l/" + codigo, caminho, vence: new Date(Date.now() + dias * 864e5).toISOString() });
+  }
+  if (path.startsWith("/l/")){
+    const codigo = path.slice(3), l = await lerLink(codigo, env);
+    if (!l) return new Response(null, { status: 302, headers: { Location: "/entrar/?link=vencido", "cache-control": "no-store" } });
+    // guarda junto dos outros links ainda válidos (no máximo 20); o cookie vive até o link mais longo vencer
+    const atuais = (await linksValidos(req, env)).filter((x) => x.l.c !== l.c).concat([{ codigo, l }]).slice(-20);
+    const idade = Math.max.apply(null, atuais.map((x) => Math.ceil((x.l.e - Date.now()) / 1000)));
+    return new Response(null, { status: 302, headers: { Location: l.c, "cache-control": "no-store",
+      "set-cookie": "cds_links=" + atuais.map((x) => x.codigo).join("~") + "; Path=/; Max-Age=" + idade + "; HttpOnly; Secure; SameSite=Lax" } });
+  }
 
   // --- arquivos ---
   if (ABERTO.some((re) => re.test(path))) return seguir();
@@ -121,7 +167,12 @@ export default async function middleware(req){
     if (p || (env.ACESSO_MCP && env.ACESSO_SEGREDO && chave && await igual(chave, env.ACESSO_MCP, env.ACESSO_SEGREDO))) return seguir();
     return new Response("Chave do MCP ausente ou inválida", { status: 401, headers: { "cache-control": "no-store" } });
   }
-  if (!p) return quer(req) ? paraEntrar(url) : new Response("Entre no portal para abrir este arquivo", { status: 401, headers: { "cache-control": "no-store" } });
+  if (!p){
+    // sem perfil: um link de página abre aquela pasta e o que está dentro dela
+    if ((await linksValidos(req, env)).some((x) => path.startsWith(x.l.c) || path + "/" === x.l.c)) return seguir();
+    return quer(req) ? paraEntrar(url) : new Response("Entre no portal para abrir este arquivo", { status: 401, headers: { "cache-control": "no-store" } });
+  }
+  if (/^\/acesso\/links\//.test(path) && p !== "completo") return semAcesso(quer(req)); // a tela de gerar links é do Completo
   if (p === "portal" && RELATORIO.some((re) => re.test(path))) return semAcesso(quer(req));
   return seguir();
 }

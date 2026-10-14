@@ -1,0 +1,105 @@
+<!doctype html>
+<!-- Links de página (docs/PLANO-ACESSO.md, fase 3). Só o perfil Completo abre esta tela (middleware.js).
+     Escolhe uma página de /handoff/ ou /teste/ (lista em paginas.json, gerada pelo build-index), a validade
+     (7, 14 ou 30 dias) e pede o link assinado em POST /acesso/links. Quem recebe o link abre só aquela página.
+     Componentes do DS, do pacote público (dist/cds-publico.*): Card, Radio Select Input, Radio Button Group,
+     Main Button, Text Input, Alert e Toast. -->
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex" />
+<title>Links de página · Castanha DS</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Work+Sans:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../styles/tokens.css" />
+<link rel="stylesheet" href="../../styles/shared.css" />
+<link rel="stylesheet" href="../../styles/icons.css" />
+<link rel="stylesheet" href="../../dist/cds-publico.css" />
+<style>
+  body{ margin:0; min-height:100svh; display:grid; place-items:center; background:var(--common-colors-surface-01); color:var(--common-colors-text-intense); font:var(--text-style-body-regular); }
+  .lk{ box-sizing:border-box; width:min(100% - 2 * var(--common-sizes-16), calc(2 * var(--common-sizes-200) + var(--common-sizes-120))); padding:var(--common-sizes-40) 0; }
+  .lk .cds-card__slot{ display:flex; flex-direction:column; align-items:stretch; gap:var(--common-sizes-24); }
+  .lk__text{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+  .lk__title{ margin:0; font:var(--text-style-title-large); }
+  .lk__lede{ margin:0; color:var(--common-colors-text-medium); }
+  .lk__field{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+  .lk__label{ margin:0; font:var(--text-style-subtitle-small); }
+  .lk__go{ align-self:flex-start; }
+  .lk__out{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-12); }
+  .lk__out[hidden]{ display:none; }
+  .lk cds-radio-select-input, .lk__out cds-text-input{ width:100%; align-self:stretch; } /* Text Field em Fill, na largura do card */
+  .lk__toast{ position:fixed; left:50%; bottom:var(--common-sizes-24); transform:translateX(-50%); }
+</style>
+</head>
+<body>
+<main class="lk">
+  <cds-card has-border="true">
+    <div class="lk__text">
+      <h1 class="lk__title">Links de página</h1>
+      <p class="lk__lede">Gere um link que abre uma página de handoff ou de teste para quem não tem código. A pessoa vê só aquela página até o link vencer.</p>
+    </div>
+    <cds-radio-select-input id="lk-page" label="Página" show-required="false" placeholder="Escolha a página" show-supporting-content="false" show-lead-icon="false"></cds-radio-select-input>
+    <div class="lk__field">
+      <p class="lk__label" id="lk-days-label">Validade</p>
+      <cds-radio-button-group id="lk-days" label="Validade" name="lk-dias">
+        <cds-radio-button label="7 dias" value="7" status="unselected"></cds-radio-button>
+        <cds-radio-button label="14 dias" value="14" status="selected"></cds-radio-button>
+        <cds-radio-button label="30 dias" value="30" status="unselected"></cds-radio-button>
+      </cds-radio-button-group>
+    </div>
+    <cds-main-button class="lk__go" id="lk-go" label="Gerar link" show-lead-icon="false" show-trailing-icon="false"></cds-main-button>
+    <div class="lk__out" id="lk-out" hidden></div>
+  </cds-card>
+</main>
+
+<script src="../../scripts/cds-element.js"></script>
+<script src="../../scripts/playground-kit.js"></script>
+<script src="../../scripts/assets-manifest.js"></script>
+<script src="../../dist/cds-publico.js"></script>
+<script>
+(function(){
+  "use strict";
+  var sel = document.getElementById("lk-page"), days = document.getElementById("lk-days"), go = document.getElementById("lk-go"), out = document.getElementById("lk-out"), busy = false, paginas = [];
+  function dias(){ var r = days.querySelector('cds-radio-button[status="selected"]'); return Number(r ? r.getAttribute("value") : 14); }
+  function data(iso){ return new Date(iso).toLocaleDateString("pt-BR", { day: "2-digit", month: "long", year: "numeric" }); }
+  function aviso(appearance, label, text){ out.hidden = false; out.innerHTML = ""; out.appendChild(CDS.create("cds-alert", { appearance: appearance, label: label, text: text, "show-close-button": "false" })); }
+  function toast(text){
+    var t = document.body.appendChild(CDS.create("cds-toast", { appearance: "positive", text: text, "show-trailing-item": "false" }));
+    t.classList.add("lk__toast"); setTimeout(function(){ if (t.isConnected) t.remove(); }, 3000);
+  }
+  fetch("paginas.json", { cache: "no-store" }).then(function(r){ return r.json(); }).then(function(list){
+    paginas = list;
+    sel.options = list.map(function(p){ return { value: p.caminho, label: p.tipo + " · " + p.titulo }; });
+    if (list.length) sel.setAttribute("value", list[0].caminho);
+  }).catch(function(){ aviso("warning", "Lista de páginas indisponível", "Não deu para ler as páginas de handoff e de teste. Recarregue a página."); });
+
+  function gerar(){
+    if (busy) return;
+    var caminho = sel.getAttribute("value") || sel.value || "";
+    if (!caminho){ aviso("warning", "Escolha a página", "O link abre uma página de handoff ou de teste."); return; }
+    busy = true; go.setAttribute("disabled", "");
+    fetch("/acesso/links", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ caminho: caminho, dias: dias() }), credentials: "same-origin" })
+      .then(function(r){
+        // sem o middleware (GitHub Pages, servidor local) a rota não existe
+        if (!/json/.test(r.headers.get("content-type") || "")) throw new Error("Links de página funcionam no endereço do Vercel, onde o portal pede código.");
+        return r.json().then(function(j){ if (!r.ok) throw new Error(j.erro || "Não deu para gerar o link agora."); return j; });
+      })
+      .then(function(j){
+        var p = paginas.filter(function(x){ return x.caminho === j.caminho; })[0];
+        out.hidden = false; out.innerHTML = "";
+        out.appendChild(CDS.create("cds-alert", { appearance: "positive", label: "Link pronto", text: (p ? p.titulo : j.caminho) + ". Vale até " + data(j.vence) + ".", "show-close-button": "false" }));
+        var field = out.appendChild(CDS.create("cds-text-input", { label: "Link", value: j.link, "show-required": "false", "show-supporting-content": "false", "show-lead-icon": "false", "show-trailing-item": "false" }));
+        var f = field.querySelector("input"); if (f){ f.readOnly = true; f.addEventListener("focus", function(){ f.select(); }); }
+        var copy = out.appendChild(CDS.create("cds-main-button", { label: "Copiar link", kind: "ghost", appearance: "neutral", size: "small", "lead-icon": "copy-line", "show-trailing-icon": "false" }));
+        copy.addEventListener("click", function(){
+          (navigator.clipboard ? navigator.clipboard.writeText(j.link) : Promise.reject()).then(function(){ toast("Link copiado"); }, function(){ if (f){ f.focus(); f.select(); } });
+        });
+      })
+      .catch(function(e){ aviso("warning", "Link não gerado", e.message); })
+      .then(function(){ busy = false; go.removeAttribute("disabled"); });
+  }
+  go.addEventListener("click", gerar);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+/* Páginas próprias de handoff (docs/PLANO-ACESSO.md, fase 3): leitura de um handoff.md com os componentes do DS */
+:root{ --pg-mono:ui-monospace, Menlo, Consolas, monospace; } /* a mesma fonte de código do playground (styles/playground.css), que esta página não carrega */
+body{ margin:0; background:var(--common-colors-surface-01); color:var(--common-colors-text-intense); font:var(--text-style-body-regular); }
+.ho{ box-sizing:border-box; max-width:calc(4 * var(--common-sizes-200) + var(--common-sizes-120)); margin:0 auto; padding:var(--common-sizes-40) var(--common-sizes-16) var(--common-sizes-64); display:flex; flex-direction:column; gap:var(--common-sizes-16); }
+.ho-head{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-8); }
+.ho-title{ margin:0; font:var(--text-style-title-large); }
+.ho-quote{ display:flex; flex-direction:column; gap:var(--common-sizes-4); }
+.ho-quote p{ margin:0; }
+.ho-sec .cds-card__slot{ display:block; }
+.ho-sec__body{ display:flex; flex-direction:column; gap:var(--common-sizes-12); min-width:0; }
+.ho-h2{ margin:0; font:var(--text-style-subtitle-medium); }
+.ho-h3{ margin:var(--common-sizes-8) 0 0; font:var(--text-style-subtitle-small); }
+.ho-p{ margin:0; color:var(--common-colors-text-medium); }
+.ho-list{ margin:0; padding-left:var(--common-sizes-20); display:flex; flex-direction:column; gap:var(--common-sizes-4); }
+.ho-checks{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+.ho-table{ display:block; overflow-x:auto; }
+.ho code{ padding:var(--common-sizes-2) var(--common-sizes-4); border-radius:var(--common-border-radius-micro); background:var(--common-colors-neutral-solid-semi-soft); font:var(--text-style-disclaimer-regular); font-family:var(--pg-mono); } /* como o código inline do Relatório */
+.ho-link{ vertical-align:baseline; }
+.ho-foot{ font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }

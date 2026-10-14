@@ -83,10 +83,41 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   r = await mw(req("/acesso/sair", { headers: { cookie: completo.cookie } }));
   confere("sair apaga os cookies e vai para a entrada", r.status === 302 && r.headers.get("location") === "/entrar/" && /Max-Age=0/.test(r.headers.get("set-cookie") || ""));
 
+  // Links de página (fase 3)
+  const gerar = (c, body) => mw(new Request(BASE + "/acesso/links", { method: "POST", headers: { "content-type": "application/json", cookie: c }, body: JSON.stringify(body) }));
+  r = await gerar(portal.cookie, { caminho: "/handoff/chips-small/", dias: 14 });
+  confere("perfil Portal não gera link", r.status === 403, String(r.status));
+  r = await gerar(completo.cookie, { caminho: "/docs/ROADMAP.md", dias: 14 });
+  confere("link só para /handoff/ ou /teste/", r.status === 400, String(r.status));
+  r = await gerar(completo.cookie, { caminho: "/handoff/chips-small/", dias: 3 });
+  confere("validade fora de 7/14/30 dá 400", r.status === 400, String(r.status));
+  r = await gerar(completo.cookie, { caminho: "/handoff/chips-small/", dias: 14 });
+  const gl = await r.json();
+  confere("Completo gera link", r.status === 200 && /^https:\/\/portal\.test\/l\//.test(gl.link), JSON.stringify(gl));
+  r = await mw(req(new URL(gl.link).pathname));
+  const setL = r.headers.get("set-cookie") || "", linkCookie = setL.split(";")[0];
+  confere("abrir o link leva à página e grava cds_links", r.status === 302 && r.headers.get("location") === "/handoff/chips-small/" && /^cds_links=/.test(setL) && /HttpOnly/.test(setL), r.status + " " + setL);
+  confere("com o link abre a página", segue(await mw(req("/handoff/chips-small/", { headers: { cookie: linkCookie } }))));
+  confere("com o link abre o conteúdo da página", segue(await mw(req("/handoff/chips-small/handoff.md", { headers: { cookie: linkCookie, accept: "*/*" } }))));
+  r = await mw(req("/handoff/outro/", { headers: { cookie: linkCookie } }));
+  confere("o link não abre outra página", r.status === 302 && /^\/entrar\//.test(r.headers.get("location")), r.status + " " + r.headers.get("location"));
+  r = await mw(req("/docs/ROADMAP.md", { headers: { cookie: linkCookie, accept: "*/*" } }));
+  confere("o link não abre o resto do portal", r.status === 401, String(r.status));
+  r = await mw(req("/acesso/links/", { headers: { cookie: portal.cookie } }));
+  confere("tela de gerar links fecha para o Portal", r.status === 403, String(r.status));
+  confere("tela de gerar links abre para o Completo", segue(await mw(req("/acesso/links/", { headers: { cookie: completo.cookie } }))));
+  confere("leitor das páginas próprias é aberto", segue(await mw(req("/handoff/_kit/handoff.js", { headers: { accept: "*/*" } }))));
+  const vencido = (() => { const d = Buffer.from(JSON.stringify({ c: "/handoff/chips-small/", e: Date.now() - 1000 })).toString("base64url"); return d + ".assinatura"; })();
+  r = await mw(req("/l/" + vencido));
+  confere("link vencido ou falso vai para a entrada com aviso", r.status === 302 && r.headers.get("location") === "/entrar/?link=vencido", r.headers.get("location"));
+  const trocado = new URL(gl.link).pathname.slice(3).replace(/^[^.]+/, Buffer.from(JSON.stringify({ c: "/teste/outro/", e: Date.now() + 1e9 })).toString("base64url"));
+  r = await mw(req("/l/" + trocado));
+  confere("link com a página trocada não vale", r.status === 302 && r.headers.get("location") === "/entrar/?link=vencido", r.headers.get("location"));
+
   // Sem segredo configurado: ninguém entra
   env.ACESSO_SEGREDO = "";
   r = await entrar("111111"); confere("sem ACESSO_SEGREDO a entrada responde 503", r.status === 503, String(r.status));
 
   if (falhas){ console.error("❌ Middleware: " + falhas + " falha(s), " + ok + " ok"); process.exit(1); }
-  console.log("✅ Middleware: " + ok + " verificações ok (Visitante, Completo, Portal, MCP, cookie adulterado, sair)");
+  console.log("✅ Middleware: " + ok + " verificações ok (Visitante, Completo, Portal, MCP, links de página, cookie adulterado, sair)");
 })().catch((e) => { console.error(e); process.exit(1); });

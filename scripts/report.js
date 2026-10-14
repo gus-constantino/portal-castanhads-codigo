@@ -812,6 +812,8 @@
       // E o roteiro de 20 paradas para quem chega (docs/roteiro, página escondida; Gustavo, 06/10). Volta como página própria,
       // com as ilustrações e as animações, ao lado da trilha Explorar dos Primeiros passos (Gustavo, 09/10)
       toc.appendChild(dsLink("rp-src", "Roteiro: 20 coisas para explorar", "docs/roteiro/"));
+      // Links de página (acesso/links, só o perfil Completo no Vercel; docs/PLANO-ACESSO.md, fase 3)
+      if (CDS.perfil === "completo") toc.appendChild(dsLink("rp-src", "Links de página", "acesso/links/"));
     }
     markTerms(bodyEl);
     filter();

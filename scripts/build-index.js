@@ -304,6 +304,26 @@ if (process.argv.includes("--smoke")){
     if (!fs.existsSync(file) || fs.readFileSync(file, "utf8") !== json){ fs.writeFileSync(file, json); console.log("Números do pitch: docs/pitch/dados.json"); }
   } catch (e) { console.warn("⚠️ docs/pitch/dados.json não gerado: " + e.message); }
 })();
+// ---------- Páginas que aceitam link (acesso/links/paginas.json → tela "Links de página"; plano de acesso, fase 3) ----------
+// As pastas de handoff/ e teste/ (menos o _kit). O título vem do # do handoff.md ou do <title> da página.
+(function(){
+  const rel = (f) => path.join(ROOT, f);
+  try {
+    const out = [];
+    ["handoff", "teste"].forEach((raiz) => {
+      if (!fs.existsSync(rel(raiz))) return;
+      fs.readdirSync(rel(raiz)).filter((d) => /^[a-z0-9-]+$/.test(d) && fs.existsSync(rel(raiz + "/" + d + "/index.html"))).sort().forEach((d) => {
+        const md = rel(raiz + "/" + d + "/handoff.md"), html = fs.readFileSync(rel(raiz + "/" + d + "/index.html"), "utf8");
+        const h1 = fs.existsSync(md) && (fs.readFileSync(md, "utf8").match(/^#\s+(.+)$/m) || [])[1], t = (html.match(/<title>([^<]+)<\/title>/) || [])[1];
+        const titulo = String(h1 || t || d).replace(/\*\*|`/g, "").replace(/\s*·\s*(Castanha DS|Handoff dev)$/, "").trim();
+        out.push({ caminho: "/" + raiz + "/" + d + "/", titulo, tipo: raiz === "handoff" ? "Handoff" : "Teste" });
+      });
+    });
+    const json = JSON.stringify(out, null, 1) + "\n", file = rel("acesso/links/paginas.json");
+    fs.mkdirSync(path.dirname(file), { recursive: true });
+    if (!fs.existsSync(file) || fs.readFileSync(file, "utf8") !== json){ fs.writeFileSync(file, json); console.log("Páginas com link: acesso/links/paginas.json"); }
+  } catch (e) { console.warn("⚠️ acesso/links/paginas.json não gerado: " + e.message); }
+})();
 // ---------- Tendência (docs/tendencia.json → painel "Tendência" do relatório) ----------
 // Um ponto por dia fechado, lido do git. Muda uma vez por dia; no clone raso do CI não mexe no arquivo.
 try { require("child_process").spawnSync(process.execPath, [path.join(__dirname, "dev", "tendencia.js")], { stdio: "inherit" }); } catch (e) {}

@@ -5913,7 +5913,10 @@ CDS.register({
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel, timer = null;
     var FRASE = "Quero saber o saldo do meu cartão e se dá para transferir para outra conta.";
-    var SAMPLE = [{ name: "foto-do-cartao.jpg", type: "image/jpeg" }, { name: "extrato-setembro.pdf", type: "application/pdf" }, { name: "planilha.xlsx", type: "" }];
+    // Exemplo: liga com 2 anexos; "Adicionar anexo" acrescenta os seguintes da lista, em ciclo
+    var SAMPLE = [{ name: "foto-do-cartao.jpg", type: "image/jpeg" }, { name: "extrato-setembro.pdf", type: "application/pdf" }, { name: "planilha.xlsx", type: "" },
+      { name: "comprovante-de-endereco.pdf", type: "application/pdf" }, { name: "nota-fiscal.png", type: "image/png" }, { name: "contrato-de-prestacao-de-servicos.pdf", type: "application/pdf" }];
+    var nextSample = 2;
     var p = kit.el("cds-chat-input", { accept: "image/*,.pdf,.xlsx", supporting: "A conversa fica salva no histórico.", error: "Permita o acesso ao microfone para ditar.", maxlength: "500" });
     ctx.preview.appendChild(p);
     kit.fieldWidth(ctx, p);
@@ -5946,8 +5949,13 @@ CDS.register({
     kit.section(panel, "Variants");
     kit.toggle(panel, { label: "State: Disabled", onChange: function(on){ set("disabled", on); } });
     kit.toggle(panel, { label: "Is Listening", onChange: function(on){ p.listening = on; } });
-    kit.toggle(panel, { label: "Show Attachments (exemplo)", onChange: function(on){ p.attachments = on ? SAMPLE : []; readout(); } });
-    kit.hint(panel, "Hovered, Pressed e <code>Is Active</code> são estados de interação. <code>Is Filled</code> deriva do valor real. <code>Is Listening</code> liga pelo botão de voz: o ditado aqui é simulado. Enter envia, Shift+Enter quebra a linha. O Anexar abre o seletor de arquivos de verdade: imagem, PDF e XLSX viram chip, os outros tipos levam o campo a Warning. Nada é enviado.");
+    kit.toggle(panel, { label: "Show Attachments (exemplo)", onChange: function(on){ nextSample = 2; p.attachments = on ? SAMPLE.slice(0, 2) : []; readout(); } });
+    // Depois da primeira volta, o nome ganha " (2)", " (3)"… antes da extensão, para não repetir chip
+    kit.button(panel, { label: "Adicionar anexo", onClick: function(){
+      var s = SAMPLE[nextSample % SAMPLE.length], round = Math.floor(nextSample++ / SAMPLE.length);
+      p.addAttachments([round ? { name: s.name.replace(/(\.[^.]+)$/, " (" + (round + 1) + ")$1"), type: s.type } : s]);
+    } });
+    kit.hint(panel, "Hovered, Pressed e <code>Is Active</code> são estados de interação. O exemplo de anexos começa com 2 arquivos, e Adicionar anexo põe mais um. <code>Is Filled</code> deriva do valor real. <code>Is Listening</code> liga pelo botão de voz: o ditado aqui é simulado. Enter envia, Shift+Enter quebra a linha. O Anexar abre o seletor de arquivos de verdade: imagem, PDF e XLSX viram chip, os outros tipos levam o campo a Warning. Nada é enviado.");
 
     // Booleans do Figma: ligados por padrão → só escreve "false" quando desligados
     kit.section(panel, "Booleans");

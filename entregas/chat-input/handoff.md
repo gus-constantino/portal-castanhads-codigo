@@ -73,6 +73,8 @@
 
 Não implementar esses estados. Se o campo perde o foco ou é desabilitado durante o ditado, o ditado encerra.
 
+Nas 12 variantes com `Is Listening=True`, o `Send Button` não aparece: os `Trailing Items` têm só o `Voice Button` (stop).
+
 ---
 
 ## 3. Anatomia
@@ -165,7 +167,7 @@ Chat Input                          vertical · gap Sizes/4 · largura Specific/
 | Botão | Componente | Estado por contexto |
 |---|---|---|
 | `Attach Button` | Icon Button `Kind=Ghost`, `Appearance=Neutral`, `Size=Small` · `attachment` | Sempre `Enabled` |
-| `Send Button` | Icon Button `Kind=Default`, `Appearance=Neutral`, `Size=Small` · `send-line` · fundo `Surface/01` | `Disabled` com `Is Filled=False` · `Enabled` com `Is Filled=True` |
+| `Send Button` | Icon Button `Kind=Default`, `Appearance=Neutral`, `Size=Small` · `send-line` · fundo `Surface/01` | `Disabled` com `Is Filled=False` · `Enabled` com `Is Filled=True` · **fora** com `Is Listening=True` (fica o stop) |
 | `Voice Button` | Icon Button `Kind=Ghost`, `Size=Small` | `Appearance=Neutral` + `microphone-line` sem ditado · `Appearance=Accent` + `stop-filled` com `Is Listening=True` |
 
 ### Anexos
@@ -332,7 +334,7 @@ Pares herdados da família abaixo do mínimo estão na seção 10.
 ### Do sistema (não bloqueiam)
 - **Chips Group `Single Rows` tem 48 de altura**, pensado para chip de 40. Com o chip Small (32), sobram 8 em cima e 8 embaixo. Implementar como está no Figma.
 - **A rolagem lateral da linha de chips no protótipo** depende do Chips Group. No Figma, rolagem não pode ser ligada numa instância. No código, a linha rola normalmente.
-- **`Error Message` em uma linha:** a linha de apoio dos Text Fields tem altura fixa de 24 no Figma. Mensagem mais longa fica cortada.
+- **Mensagem longa no rodapé:** desde 15/10 o `Trailing Content` de toda a família Text Fields tem altura mínima `Sizes/24` e cresce com a mensagem (antes cortava em 24). O contador fica alinhado à primeira linha. Mesmo assim, prefira `Error Message` curta, em uma linha.
 
 ### Herdados da família Text Fields (não bloqueiam)
 - **Borda `Border/semi-soft` com 1.25:1** e borda Hovered `Border/medium` com 2.50:1. O WCAG 1.4.11 pede 3:1 para o limite do campo.
@@ -345,8 +347,8 @@ Os três estão iguais em Text Input, Search, Text Area, Password e Select. Fica
 
 ## 11. Referências
 
-- **Branch Figma:** https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/4hJ90rFfuEyWx9zHeqJxp4/-CastanhaDS--Components?node-id=26567-44273
-- **Set:** Chat Input `26567:44273` · vitrine de anexos `26689:43464` · base Text Area Input `10110:3028`
+- **Branch Figma:** https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/4hJ90rFfuEyWx9zHeqJxp4/-CastanhaDS--Components?node-id=26826-12925
+- **Set:** Chat Input `26826:12925` · vitrine de anexos `26689:43464` · base Text Area Input `10110:3028`
 - **Componentes consumidos:** Icon Button `4464:636` · Chips Group `12457:3664` · Input Chips `12365:2728` (`Size=Small`, CDS-1599)
 - **Ícones ([Caju] Icons):** `attachment` · `send-line` · `microphone-line` · `stop-filled` · `warning-line` · `image-file` · `file-line` · `file-blank-line`
 - **Annotations no set:** Handoff (15 itens), Accessibility (12 itens) e Motion

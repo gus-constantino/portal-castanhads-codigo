@@ -554,6 +554,27 @@
     ["conteudo", "Conteúdo", "ch07", "Textos e templates."], ["outros", "Outros", "ch06", "Acessos, pastas e equipes no Figma, ferramentas."]];
   var MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
   function mesCurto(iso){ return MESES[+iso.slice(5, 7) - 1] + "/" + iso.slice(2, 4); }
+  // Período dos painéis de chamados (Gustavo, 15/10): 3 meses (padrão), 6 meses, último ano, desde o início ou um período
+  // escolhido em dois Date Input do DS. onChange recebe { de, ate } em AAAA-MM-DD.
+  var PERIODOS = [["3", "Últimos 3 meses"], ["6", "Últimos 6 meses"], ["12", "Último ano"], ["tudo", "Desde o início"], ["sel", "Selecionar período"]];
+  function periodoChamados(parent, inicio, onChange){
+    var hoje = todayISO(), de = null, ate = null;
+    var faixa = function(v){
+      if (v === "tudo") return { de: inicio, ate: hoje };
+      if (v === "sel") return { de: de || inicio, ate: ate || hoje };
+      var d = new Date(hoje + "T12:00"); d.setDate(1); d.setMonth(d.getMonth() - (+v - 1));
+      return { de: d.toISOString().slice(0, 10), ate: hoje };
+    };
+    var sel = periodSelect(parent, function(v){ atual = v; datas.hidden = v !== "sel"; onChange(faixa(v)); }, PERIODOS), atual = "3";
+    sel.setAttribute("value", "3");
+    var datas = parent.appendChild(el("div", "rp-ch__datas")); datas.hidden = true;
+    [["De", function(v){ de = v; }], ["Até", function(v){ ate = v; }]].forEach(function(x){
+      var di = datas.appendChild(el("cds-date-input"));
+      [["label", x[0]], ["show-required", "false"], ["show-supporting-content", "false"], ["min", inicio.split("-").reverse().join("/")], ["max", hoje.split("-").reverse().join("/")]].forEach(function(a){ di.setAttribute(a[0], a[1]); });
+      di.addEventListener("cds-change", function(e){ e.stopPropagation(); var iso = (e.detail && e.detail.date) || di.date; if (!iso) return; x[1](iso); if (atual === "sel") onChange(faixa("sel")); });
+    });
+    return faixa("3");
+  }
   function suporte(grid, naAba){
     var J = extra.chamados; if (!J || !J.chamados || !J.chamados.length) return [];
     var all = J.chamados, mesHoje = todayISO().slice(0, 7), nomes = {};
@@ -568,9 +589,8 @@
     var idx = {}; meses.forEach(function(r, i){ idx[r.d.slice(0, 7)] = i; });
     all.forEach(function(c){ var r = meses[idx[c.d.slice(0, 7)]]; if (r){ r.total++; r[c.tipo]++; } });
     var p = panel(grid, "Chamados no #castanha-suporte", "Pedidos ao time do DS pelo fluxo de suporte do Slack, por tipo, de " + mesCurto(all[0].d) + " até hoje", "rp-panel--wide");
-    var period = "tudo";
     var top = p.appendChild(el("div", "rp-adop__top"));
-    periodSelect(top, function(v){ period = v; redraw(); }, [["3", "Últimos 3 meses"], ["6", "Últimos 6 meses"], ["12", "Últimos 12 meses"], ["tudo", "Desde o início"]]);
+    var faixa = periodoChamados(top, all[0].d, function(f){ faixa = f; redraw(); });
     var dist = p.appendChild(el("div", "rp-ch__dist"));
     var wrap = p.appendChild(el("div", "rp-trends"));
     var M = [
@@ -590,8 +610,10 @@
       return { m: m, head: head, ch: areaChart(c, { series: m.s, ticks: 3, compact: true, label: m.t, xLabel: function(r){ return mesCurto(r.d); }, tipLabel: mesLongo }) };
     });
     function redraw(){
-      var n = period === "tudo" ? meses.length : +period, view = meses.slice(-Math.max(2, n)), de = view[0].d.slice(0, 7);
-      var noPeriodo = all.filter(function(c){ return c.d.slice(0, 7) >= de; }), tot = noPeriodo.length;
+      var m0 = faixa.de.slice(0, 7), m1 = faixa.ate.slice(0, 7);
+      var view = meses.filter(function(r){ var k = r.d.slice(0, 7); return k >= m0 && k <= m1; });
+      if (view.length < 2){ var i0 = meses.indexOf(view[0] || meses[meses.length - 1]); view = meses.slice(Math.max(0, i0 - 1), Math.max(2, i0 + 1)); } // a linha pede dois meses
+      var noPeriodo = all.filter(function(c){ return c.d >= faixa.de && c.d <= faixa.ate; }), tot = noPeriodo.length;
       dist.innerHTML = "";
       stackCols(dist, CH_TIPOS.map(function(t){ return { cls: t[2], label: t[1], desc: t[3], n: noPeriodo.filter(function(c){ return c.tipo === t[0]; }).length }; }), tot);
       grow(dist);
@@ -797,7 +819,7 @@
     // e o que explica as decisões, para quem trabalha no DS). Nomes comuns, sem citar público.
     // Suporte logo acima da Equalização (Gustavo, 15/10): os chamados do #castanha-suporte entram no Progresso
     var groups = [["Progresso", "Cobertura no Figma, no React e no Flutter, chamados do #castanha-suporte, publicação na lib e evolução dia a dia", [p8].concat(ps).concat([p10, p5, p9])],
-      ["Detalhes", "Débitos, regras de adaptação, componentes, decisões e o build do portal", [p2, p4, p3].concat(typeof p7 !== "undefined" ? [p7] : []).concat([p6, p0])]], k = 0;
+      ["Detalhes", "Débitos, regras de adaptação, componentes e o build do portal", [p2, p4, p3].concat(typeof p7 !== "undefined" ? [p7] : []).concat([p0])]], k = 0;
     groups.forEach(function(g){
       var h = grid.appendChild(el("div", "rp-dash__group"));
       h.appendChild(el("h2", "rp-dash__group-title", esc(g[0])));
@@ -805,7 +827,8 @@
       g[2].filter(Boolean).forEach(function(p){ var c = p.closest("cds-card"); c.style.setProperty("--_i", String(k++)); grid.appendChild(c); });
     });
     grow(grid);
-    p6.appendChild(dsLink("rp-more", "Ver decisões", "#/relatorio/roadmap/" + slug(sec(road, function(s){ return s.num === "4"; }).title)));
+    // Últimas decisões fica oculto na Visão geral (Gustavo, 15/10): as decisões continuam na tab Decisões
+    p6.closest("cds-card").remove();
   }
   function goTo(section){
     if (!section) return;
@@ -914,16 +937,50 @@
   function gloss(){ return CDS.reportGlossary || []; }
   // Mesmo molde das tabs de registro (Gustavo, 15/10): índice das letras à esquerda, um Card do DS por letra com a
   // contagem em Tag e a busca do topo do Relatório (antes a tab inteira caía na coluna do índice, com o resto da tela vazio)
+  // ---------- Tempo de solução (topo da aba Chamados; Gustavo, 15/10) ----------
+  // A Lista do Slack não guarda quando o chamado foi resolvido: scripts/dev/chamados.js grava "resolvido" na leitura em que o
+  // chamado aparece resolvido pela primeira vez, a partir de J.medido. Big numbers como os do topo do Relatório.
+  function solucao(grid, J){
+    var all = J.chamados, hoje = Date.parse(todayISO() + "T12:00"), dia = function(iso){ return Date.parse(iso + "T12:00"); };
+    var p = panel(grid, "Tempo de solução", "Do pedido no #castanha-suporte até o chamado aparecer resolvido na Lista do Slack", "rp-panel--wide");
+    var top = p.appendChild(el("div", "rp-adop__top"));
+    var faixa = periodoChamados(top, all[0].d, function(f){ faixa = f; desenhar(); });
+    var row = p.appendChild(el("div", "rp-kpis rp-ch__kpis"));
+    var abertos = all.filter(function(c){ return c.status !== "resolvido"; }), idade = function(c){ return Math.round((hoje - dia(c.d)) / 864e5); };
+    var kpi = function(icon, app, label, value, sub){
+      var c = row.appendChild(card("rp-kpi rp-kpi--" + app)), h = c.appendChild(el("div", "rp-kpi__head"));
+      var ic = h.appendChild(el("cds-shaped-icon")); ic.setAttribute("icon", icon); ic.setAttribute("appearance", app); ic.setAttribute("size", "smallest");
+      h.appendChild(el("p", "rp-kpi__label", esc(label)));
+      c.appendChild(el("p", "rp-kpi__value", esc(value))); c.appendChild(el("p", "rp-kpi__sub", esc(sub)));
+    };
+    var dias = function(n){ return fmt(n) + (n === 1 ? " dia" : " dias"); };
+    function desenhar(){
+      row.innerHTML = "";
+      var medidos = all.filter(function(c){ return c.resolvido && c.resolvido >= faixa.de && c.resolvido <= faixa.ate; });
+      var media = medidos.length ? Math.round(medidos.reduce(function(a, c){ return a + Math.max(0, (dia(c.resolvido) - dia(c.d)) / 864e5); }, 0) / medidos.length * 10) / 10 : null;
+      kpi("timer-line", "accent", "Tempo médio de solução", media == null ? "—" : dias(media),
+        media == null ? "Medido desde " + brDate(J.medido) + ": nenhum chamado resolvido no período ainda" : medidos.length + (medidos.length === 1 ? " chamado resolvido" : " chamados resolvidos") + " no período");
+      var mi = abertos.length ? Math.round(abertos.reduce(function(a, c){ return a + idade(c); }, 0) / abertos.length) : 0;
+      kpi("calendar-timer-line", "warning", "Idade média em aberto", abertos.length ? dias(mi) : "—", abertos.length + (abertos.length === 1 ? " chamado em aberto hoje" : " chamados em aberto hoje"));
+      var velho = abertos.slice().sort(function(a, b){ return a.d < b.d ? -1 : 1; })[0];
+      kpi("warning-line", "negative", "Mais antigo em aberto", velho ? dias(idade(velho)) : "—", velho ? (velho.titulo || "Chamado") + " · desde " + brDate(velho.d) : "Nenhum chamado em aberto");
+    }
+    desenhar();
+  }
+
   // ---------- Chamados: os em aberto do #castanha-suporte, do mais antigo ao mais novo (Gustavo, 15/10) ----------
   // Content List (Intent=Navigation) com o título, há quanto tempo está aberto e o status na description, o tipo na Tag e o
   // link do item na Lista do Slack. Filter Chips por tipo: nenhum marcado mostra todos.
   function chamadosTab(){
     var J = extra.chamados, hoje = Date.parse(todayISO() + "T12:00");
     var abertos = J && J.chamados ? J.chamados.filter(function(c){ return c.status !== "resolvido"; }).sort(function(a, b){ return a.d < b.d ? -1 : a.d > b.d ? 1 : 0; }) : [];
-    // a lista primeiro e, embaixo, os mesmos painéis do Suporte da Visão geral (redundância pedida pelo Gustavo, 15/10)
+    // no topo o tempo de solução, depois os mesmos painéis do Suporte da Visão geral (redundância pedida pelo Gustavo, 15/10)
+    // e, por último, a lista dos em aberto
     var grid = bodyEl.appendChild(el("div", "rp-dash"));
+    if (J && J.chamados && J.chamados.length) solucao(grid, J);
+    suporte(grid, true);
     var p = panel(grid, "Chamados em aberto", abertos.length ? abertos.length + " no #castanha-suporte, do mais antigo ao mais novo" + (J.lido ? " · Lista lida em " + brDate(J.lido) : "") : "Nenhum chamado em aberto na Lista do Slack", "rp-panel--wide");
-    var mais = function(){ suporte(grid, true); [].forEach.call(grid.children, function(c, i){ c.style.setProperty("--_i", String(i)); }); grow(grid); };
+    var mais = function(){ [].forEach.call(grid.children, function(c, i){ c.style.setProperty("--_i", String(i)); }); grow(grid); };
     if (!abertos.length){ mais(); return; }
     var nome = {}; CH_TIPOS.forEach(function(t){ nome[t[0]] = t[1]; });
     var dias = function(c){ return Math.max(0, Math.round((hoje - Date.parse(c.d + "T12:00")) / 864e5)); };

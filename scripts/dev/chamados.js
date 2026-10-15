@@ -14,7 +14,10 @@
  *
  * O arquivo guarda só o que os gráficos usam: data, tipo, prioridade, status e os componentes citados. Nada de nomes,
  * e-mails nem o texto dos pedidos. Os chamados em aberto levam também o título e o link do item na Lista, para a aba
- * Chamados do Relatório (pedido do Gustavo, 15/10); ao serem resolvidos, os dois saem. Cada chamado tem uma chave (hash da data e do título) para manter o tipo entre leituras.
+ * Chamados do Relatório (pedido do Gustavo, 15/10); ao serem resolvidos, os dois saem.
+ * Tempo de solução: a Lista não guarda quando o chamado foi resolvido. A cada leitura, o chamado que estava em aberto e
+ * aparece resolvido ganha "resolvido": a data da leitura (precisão de um dia, se a leitura for diária). "medido" é o dia da
+ * primeira leitura com essa conta: os resolvidos antes dele ficam sem data. Cada chamado tem uma chave (hash da data e do título) para manter o tipo entre leituras.
  *
  * Tipos: design (Figma, padrões, componentes novos, dúvidas de uso) · dev (código: bugs, props, pacotes, ícones e ilustrações
  * que faltam na lib em código) · ilustra (ilustrações e ícones novos) · motion (animações, motion, vídeo) · conteudo
@@ -102,6 +105,7 @@ if (ti >= 0) fs.readFileSync(args[ti + 1], "utf8").split("\n").forEach((l) => { 
 const antes = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, "utf8")) : { chamados: [] }, porChave = {};
 antes.chamados.forEach((c) => { porChave[c.k] = c; });
 
+const agora = new Date(), hoje = agora.getFullYear() + "-" + String(agora.getMonth() + 1).padStart(2, "0") + "-" + String(agora.getDate()).padStart(2, "0"); // dia local, não UTC
 let novos = 0;
 const pendentes = []; // linhas do CSV ainda com "revisar": true, para quem roda conferir o tipo e passar em --tipos
 const chamados = rows.map((r, i) => {
@@ -113,6 +117,9 @@ const chamados = rows.map((r, i) => {
   const c = { k, d, tipo, prioridade: ({ High: "alta", Medium: "media", Low: "baixa" })[r.Priority] || null,
     status: STATUS[r.Status] || (r.Completed === "true" ? "resolvido" : "aberto"), comp: componentes(r, tipo) };
   // em aberto: título e link do item na Lista (o registro do aviso mais perto, até 5 min; sem registro, o link guardado ou a Lista)
+  // resolvido nesta leitura (estava em aberto na anterior): grava o dia; a data de antes fica
+  if (velho && velho.resolvido) c.resolvido = velho.resolvido;
+  else if (c.status === "resolvido" && velho && velho.status !== "resolvido") c.resolvido = hoje;
   if (c.status !== "resolvido"){
     const t = minutos(r["Date submitted"]), perto = registros.filter((x) => t != null && Math.abs(x.t - t) <= 5).sort((a, b) => Math.abs(a.t - t) - Math.abs(b.t - t))[0];
     c.titulo = r.Request.trim().replace(/\s+/g, " ").slice(0, 140);
@@ -122,8 +129,7 @@ const chamados = rows.map((r, i) => {
   return c;
 }).filter(Boolean).sort((a, b) => a.d < b.d ? -1 : a.d > b.d ? 1 : a.k < b.k ? -1 : 1);
 
-const hoje = new Date().toISOString().slice(0, 10);
-const out = JSON.stringify({ fonte: "Lista do Slack Castanha suporte - requests (#castanha-suporte)", lido: hoje, chamados }, null, 0)
+const out = JSON.stringify({ fonte: "Lista do Slack Castanha suporte - requests (#castanha-suporte)", lido: hoje, medido: antes.medido || hoje, chamados }, null, 0)
   .replace(/\{"k"/g, "\n  {\"k\"").replace(/\]\}$/, "\n]}") + "\n";
 fs.writeFileSync(OUT, out);
 const conta = {}; chamados.forEach((c) => { conta[c.tipo] = (conta[c.tipo] || 0) + 1; });

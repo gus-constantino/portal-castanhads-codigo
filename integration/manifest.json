@@ -1,6 +1,6 @@
 {
   "_about": "Manifesto de integração Figma ↔ playground ↔ castanha-react (R0). Gerado por scripts/integration/build-manifest.js — não editar à mão.",
-  "generated": "2026-10-07T14:03:45.081Z",
+  "generated": "2026-10-15T12:20:18.268Z",
   "source": {
     "repo": "caju-beneficios/castanha",
     "ref": "origin/staging",
@@ -14,14 +14,14 @@
     "files": 69
   },
   "summary": {
-    "playground": 112,
+    "playground": 113,
     "comReact": 72,
     "viaCodeConnect": 68,
     "viaStory": 4,
     "buildingBlocks": 26,
-    "soFigma": 14,
+    "soFigma": 15,
     "soReact": 10,
-    "comNotas": 24
+    "comNotas": 25
   },
   "components": [
     {
@@ -665,6 +665,20 @@
       },
       "status": "react",
       "notes": []
+    },
+    {
+      "id": "chat-input",
+      "name": "Chat Input",
+      "block": false,
+      "figma": {
+        "fileKey": "LKZBwmlb7fIbDKdGrMncuA",
+        "node": "26567-44273"
+      },
+      "react": null,
+      "status": "so-figma",
+      "notes": [
+        "o link do playground aponta para uma branch do Figma"
+      ]
     },
     {
       "id": "checkbox",

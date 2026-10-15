@@ -10,14 +10,14 @@
  },
  "castanhaAi": null,
  "coverage": {
-  "playground": 112,
+  "playground": 113,
   "comReact": 72,
   "viaCodeConnect": 68,
   "viaStory": 4,
   "buildingBlocks": 26,
-  "soFigma": 14,
+  "soFigma": 15,
   "soReact": 10,
-  "comNotas": 24
+  "comNotas": 25
  },
  "reactOnly": [
   "Box",

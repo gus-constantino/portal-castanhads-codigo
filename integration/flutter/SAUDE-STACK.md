@@ -1,6 +1,6 @@
 # Saúde da stack — Figma × castanha_flutter × playground
 
-Gerado por `node scripts/integration/build-flutter-manifest.js` em 2026-10-09 (F2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). Flutter: `origin/staging` (`38504ab7`) do castanha-mobile.
+Gerado por `node scripts/integration/build-flutter-manifest.js` em 2026-10-15 (F2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). Flutter: `origin/staging` (`38504ab7`) do castanha-mobile.
 
 ## Resumo
 
@@ -10,7 +10,7 @@ Gerado por `node scripts/integration/build-flutter-manifest.js` em 2026-10-09 (F
 | Média | muda o resultado sem quebrar: padrão diferente entre Figma e Flutter | 10 |
 | Informativo | prop do Figma sem parâmetro no Flutter, ou parâmetro só do código | 38 |
 
-Cobertura: 45 componentes do playground com widget no castanha_flutter, 36 sem par e 4 só no Flutter. Dart do painel: 81 trechos, 0 erros no `dart analyze` (`node scripts/integration/check-dart.js`).
+Cobertura: 45 componentes do playground com widget no castanha_flutter, 37 sem par e 4 só no Flutter. Dart do painel: 81 trechos, 0 erros no `dart analyze` (`node scripts/integration/check-dart.js`).
 
 ## Alta
 
@@ -92,6 +92,10 @@ Constantes do Dart (`CastanhaIcons`, `CastanhaIllustrations`, `CastanhaMotions`)
 
 ## Histórico
 
+**15/10/2026 · staging `38504ab7`**
+
+- Cobertura · playground: 107 → 108.
+- Cobertura · missing: 36 → 37.
 **09/10/2026 · staging `38504ab7`**
 
 - Primeira leitura com histórico (sem versão anterior para comparar).

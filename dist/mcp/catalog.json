@@ -3594,7 +3594,8 @@
      "title": "Motion",
      "text": "## Motion\n\nAs transições de estado usam os Motion Styles do Castanha (modo Normal).\n\n> Exemplo interativo: passe o mouse sobre o texto, pressione, foque o campo e ligue a voz para ver cada transição. Hover e press são da área do texto: sobre os botões e os chips, cada um tem o próprio. Digitar, transcrever e anexar não têm animação, e a altura muda sem animação.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n**Pressed → Is Active**\n- Gatilho: On tap\n- Motion Style: `Selected In/01`\n\n**Pressed → Enabled (campo já focado)**\n- Gatilho: On tap\n- Motion Style: `Released/01`\n\n**Voice Button liga o ditado**\n- Gatilho: On tap\n- Motion Style: `Selected In/01`\n\n**Voice Button desliga o ditado**\n- Gatilho: On tap\n- Motion Style: `Selected Out/01`\n\n**Enter ou Send Button envia**\n- Gatilho: On tap · Enter\n- Motion Style: `Selected Out/01`"
     }
-   ]
+   ],
+   "react": null
   },
   {
    "id": "checkbox",
@@ -4288,7 +4289,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=12457-3664",
    "figmaNode": "12457-3664",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "Container que organiza Filter Chips ou Input Chips em uma linha com rolagem ou em várias linhas.",
    "tabs": [
     {
@@ -8049,7 +8050,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=12365-2744",
    "figmaNode": "12365-2744",
    "zeroheight": null,
-   "figmaStatus": "branch-update",
+   "figmaStatus": "changed",
    "description": "Chip que liga e desliga um filtro: selecionado, troca o ícone pelo check e inverte as cores. Tem dois tamanhos: Medium (40) e Small (32).",
    "tabs": [
     {
@@ -9695,7 +9696,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=12365-2728",
    "figmaNode": "12365-2728",
    "zeroheight": null,
-   "figmaStatus": "branch-update",
+   "figmaStatus": "changed",
    "description": "Chip que mostra um valor escolhido e pode ser removido com um clique. Tem dois tamanhos: Medium (40) e Small (32).",
    "tabs": [
     {
@@ -11132,7 +11133,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=13795-4984",
    "figmaNode": "13795-4984",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "Vários valores com busca: cada escolha vira um Input Chip dentro do campo. Faz parte da família Select Input.",
    "tabs": [
     {
@@ -32708,7 +32709,7 @@
     "id": "C93",
     "group": "Refactor",
     "resolved": false,
-    "text": "Publicação da lib [CastanhaDS] Components (leitura de 05/10, `scripts/figma-status.js`) · Só **2** componentes estão publicados sem pendência (Drawer, Nav Control). **71** estão publicados com alterações não publicadas (`CHANGED`). **Banner** e **Progress Tracker** (set novo) não estão publicados. Accordion, Accordion Item, Code Input OTP e Credit Card Input só existem em branch. Os 26 building blocks não são publicados, de propósito · Publicar a lib (ou revisar o que está pendente) e fazer o merge das branches · Tag de status em cada componente do playground · Nova leitura depois de publicar"
+    "text": "Publicação da lib [CastanhaDS] Components (leitura de 15/10, `scripts/figma-status.js`) · **70** componentes estão publicados sem pendência na main (2 deles, Main Button e Content List Item, com melhoria ainda em branch). **5** estão publicados com alterações não publicadas (`CHANGED`): Chips Group, Filter Chips, Icon Button, Input Chips e Multi Select Input (o Size Small do CDS-1599 entrou na main e espera publicação). Accordion, Accordion Item, Chat Input, Code Input OTP e Credit Card Input só existem em branch. Os 26 building blocks não são publicados, de propósito · Publicar a lib (ou revisar o que está pendente) e fazer o merge das branches · Tag de status em cada componente do playground · Nova leitura depois de publicar"
    },
    {
     "id": "C94",

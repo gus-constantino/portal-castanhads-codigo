@@ -1,6 +1,6 @@
 {
  "_about": "Gerado por scripts/integration/build-flutter-manifest.js a partir do castanha-mobile (só leitura). Metadados: nenhum código-fonte copiado.",
- "generated": "2026-10-09",
+ "generated": "2026-10-15",
  "source": {
   "repo": "caju-beneficios/castanha-mobile",
   "ref": "origin/staging",
@@ -14,12 +14,12 @@
   }
  },
  "summary": {
-  "playground": 107,
+  "playground": 108,
   "blocks": 26,
   "flutter": 49,
   "matched": 45,
   "flutterOnly": 4,
-  "missing": 36,
+  "missing": 37,
   "missingBlocks": 26
  },
  "components": [
@@ -4149,6 +4149,10 @@
   {
    "id": "carousel",
    "name": "Carousel"
+  },
+  {
+   "id": "chat-input",
+   "name": "Chat Input"
   },
   {
    "id": "checkbox-select-input",

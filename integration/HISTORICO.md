@@ -2,6 +2,12 @@
 
 Escrito por `scripts/integration/daily.js` (rotina diária): só entram as leituras em que algo mudou.
 
+### 15/10/2026 · staging `ca2b41ae`
+
+- Cobertura · playground: 112 → 113.
+- Cobertura · soFigma: 14 → 15.
+- Cobertura · comNotas: 24 → 25.
+
 ### 07/10/2026 · staging `ca2b41ae`
 
 - castanha-react `origin/staging`: `1e0a5335` → `ca2b41ae` (2026-10-07).

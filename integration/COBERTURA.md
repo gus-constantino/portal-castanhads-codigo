@@ -1,15 +1,15 @@
 # Cobertura Figma ↔ playground ↔ castanha-react
 
-Gerado por `node scripts/integration/build-manifest.js` em 2026-10-07 a partir de `origin/staging` (`ca2b41ae`, 2026-10-07) e do Code Connect `origin/feat/figma-code-connect` (69 arquivos).
+Gerado por `node scripts/integration/build-manifest.js` em 2026-10-15 a partir de `origin/staging` (`ca2b41ae`, 2026-10-07) e do Code Connect `origin/feat/figma-code-connect` (69 arquivos).
 
 | | Componentes |
 |---|---:|
-| No playground | 112 |
+| No playground | 113 |
 | Com par no React | 72 (68 via Code Connect, 4 via story) |
 | Building blocks sem par (internos no React) | 26 |
-| Só no Figma/playground | 14 |
+| Só no Figma/playground | 15 |
 | Só no React | 10 |
-| Com divergência anotada | 24 |
+| Com divergência anotada | 25 |
 
 ## Com par no React
 
@@ -98,6 +98,7 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-07 a partir d
 | `breadcrumb-item` | .Item (Breadcrumb) | — | building-block |  |
 | `calendar-day` | .Day | — | building-block |  |
 | `calendar-week` | .Week | — | building-block |  |
+| `chat-input` | Chat Input | — | so-figma | o link do playground aponta para uma branch do Figma |
 | `close-alert` | .Close Alert | — | building-block |  |
 | `close-toast` | .Close Toast | — | building-block |  |
 | `code-input-otp` | Code Input OTP | — | so-figma | o link do playground aponta para uma branch do Figma |

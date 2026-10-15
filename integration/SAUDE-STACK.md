@@ -1,6 +1,6 @@
 # Saúde da stack — Figma × castanha-react × playground × castanha-ai
 
-Gerado por `node scripts/integration/build-manifest.js` em 2026-10-07 (R2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). React: `origin/staging` (`ca2b41ae`) e Code Connect `origin/feat/figma-code-connect`. Playground: mapas de `integration/prop-map/`. castanha-ai (4º vértice, repo interno, só leitura): não lido (sem o clone `../castanha-ai`). A coluna Gap usa as categorias do Gap Report do castanha-ai.
+Gerado por `node scripts/integration/build-manifest.js` em 2026-10-15 (R2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). React: `origin/staging` (`ca2b41ae`) e Code Connect `origin/feat/figma-code-connect`. Playground: mapas de `integration/prop-map/`. castanha-ai (4º vértice, repo interno, só leitura): não lido (sem o clone `../castanha-ai`). A coluna Gap usa as categorias do Gap Report do castanha-ai.
 
 ## Resumo
 
@@ -101,6 +101,12 @@ Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`
 O lado Figma × playground continua no check de props (`docs/CHECK-PROPS.md`). Divergências que pedem decisão do time DS vão para o CONFERIR (grupo Integração React).
 
 ## Histórico
+
+### 15/10/2026 · staging `ca2b41ae`
+
+- Cobertura · playground: 112 → 113.
+- Cobertura · soFigma: 14 → 15.
+- Cobertura · comNotas: 24 → 25.
 
 ### 07/10/2026 · staging `ca2b41ae`
 

@@ -1,15 +1,16 @@
 <!doctype html>
-<!-- Novidades do Castanha DS: o que mudou na rodada, no formato do "What's new" do Chrome (D347).
+<!-- Novidades do Castanha DS (D347). Visual da peça de release do Figma "Comunicação e Releases" (Release 24 · 116:1612):
+     fundo Surface/01 com o grafismo, linha da plataforma com a marca castanha ds, a release, a manchete com os componentes
+     e os componentes reais em painéis Surface/default (raio Large, padding 24, gap 32, Elevation/level 1). Aqui os
+     componentes funcionam: dá para usar cada um.
      Página ABERTA: no Vercel não pede código (middleware.js, lista ABERTO). Carrega o pacote público (dist/cds-publico.*),
-     com os componentes do DS e nada do conteúdo do portal. Os Links levam ao portal, que pede o código.
-     Componentes do DS, como as docs pedem: Header do Sponsor Templates (Voltar com Tooltip, Breadcrumb, Title e Tag; sem Main
-     Button, porque a página não tem ação principal), Carousel com Nav Control (setas no desktop, swipe no celular) e um Card por
-     novidade (item preferido do Carousel, padding fixo de 24), Tag (atributo: Novo, Igual ao Figma, Correções), Link para ir ao
-     portal (navegação é Link, não Main Button) e os componentes de cada novidade, ao vivo. Tema claro por padrão; o Icon
-     Button do Header troca para o escuro, como no portal, e a escolha fica no localStorage deste navegador.
-     O estado vazio usa o .Feedback Content do pattern Feedback Page (resources/patterns), com a ilustração oficial.
-     Conteúdo: quadro da sprint (Bug Fixes e Melhorias · Novos e Equalização). Para a próxima rodada, troque os <section>
-     de .nv-slide e o rótulo da Tag do cabeçalho. -->
+     com os componentes do DS e nada do conteúdo do portal. O Link "Abrir o portal" leva ao portal, que pede o código.
+     DS: Header do Sponsor Templates só com a .Heading (Show Title desligado: a página tem cabeçalho próprio), com Voltar e
+     Tooltip, Breadcrumb e o Icon Button de tema (claro por padrão, escolha no localStorage, como no portal). Icon figma-line,
+     Link e os componentes da rodada. A marca e o grafismo vêm do Figma (assets/novidades) e são máscaras com cor de token.
+     O estado vazio usa o .Feedback Content do pattern Feedback Page (resources/patterns) com a ilustração oficial e o Fixed
+     Bar Pilled, como a Feedback Page Employee.
+     Para a próxima rodada: troque o rótulo da release, a manchete e os componentes dos painéis. -->
 <html lang="pt-BR" data-theme="light">
 <head>
 <meta charset="utf-8" />
@@ -25,188 +26,118 @@
 <link rel="stylesheet" href="../styles/icons.css" />
 <link rel="stylesheet" href="../dist/cds-publico.css" />
 <style>
-  :root{ --nv-gutter:var(--common-sizes-32); --nv-max:calc(6 * var(--common-sizes-200) + var(--common-sizes-80)); }
+  :root{ --nv-gutter:var(--common-sizes-32); --nv-max:calc(6 * var(--common-sizes-200) + var(--common-sizes-200)); }
   body{ margin:0; background:var(--common-colors-surface-default); color:var(--common-colors-text-intense); font:var(--text-style-body-regular); }
   .nv-wrap{ width:100%; max-width:var(--nv-max); margin:0 auto; padding-inline:var(--nv-gutter); box-sizing:border-box; }
-
-  /* ---------- Topo: Header do Sponsor Templates (.Heading + .Title Content) e a frase de abertura ---------- */
-  .nv-intro{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--common-sizes-8) var(--common-sizes-16); margin:0 0 var(--common-sizes-32); }
-  .nv-intro p{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
   main{ padding-bottom:var(--common-sizes-80); }
 
-  /* ---------- Carousel: um Card por novidade. O item mantém a própria largura e a faixa mostra a borda do próximo ---------- */
-  #nv-carousel{ container-type:inline-size; }
-  .nv-slide{ width:calc(100cqw - var(--common-sizes-64)); }
-  .nv-slide__body{ display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); gap:var(--common-sizes-56); align-items:center; min-height:100%; }
-  .nv-text{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-16); }
-  .nv-title{ margin:0; font:var(--text-style-heading-medium); text-wrap:balance; }
-  .nv-p{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); text-wrap:pretty; }
-  .nv-steps{ margin:0; padding-left:var(--common-sizes-24); display:flex; flex-direction:column; gap:var(--common-sizes-8); font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
-  .nv-demo{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--common-sizes-24); width:100%; max-width:calc(var(--common-sizes-200) + var(--common-sizes-160)); justify-self:center; }
-  .nv-demo > :is(cds-quantity-input, cds-code-input, cds-credit-card-input, cds-multi-select-input, cds-accordion, cds-fixed-bar){ width:100%; }
-  /* .Feedback Content do pattern Feedback Page: ilustração 120 + Title/Small + parágrafo, centralizados */
-  .nv-fb{ text-align:center; }
+  /* ---------- Peça de release (116:1613): Surface/01, raio 64 (2 × Extra Large), padding 64, grafismo atrás ---------- */
+  .nv-release{ position:relative; overflow:hidden; isolation:isolate; background:var(--common-colors-surface-01); border-radius:calc(2 * var(--common-border-radius-extra-large)); padding:var(--common-sizes-64); display:flex; flex-direction:column; gap:var(--common-sizes-48); }
+  .nv-release__graf{ position:absolute; inset:0; z-index:-1; background:var(--common-colors-surface-default); opacity:var(--common-opacity-intense);
+    -webkit-mask:url(../assets/novidades/grafismo.svg) center / cover no-repeat; mask:url(../assets/novidades/grafismo.svg) center / cover no-repeat; }
+
+  /* Header: plataforma + marca (gap 8) · release (Subtitle/Large) + manchete (Decorative/Extra Large) · gap 24 */
+  .nv-head{ display:flex; flex-direction:column; gap:var(--common-sizes-24); }
+  .nv-platform{ display:flex; align-items:center; gap:var(--common-sizes-8); }
+  .nv-platform p{ flex:1 1 auto; margin:0; font:var(--text-style-body-bold); color:var(--common-colors-text-medium); }
+  .nv-logo{ flex:none; width:143px; height:18px; /* tamanho do próprio asset no Figma (116:1623) */ background:var(--common-colors-text-medium);
+    -webkit-mask:url(../assets/novidades/castanha-ds.svg) center / contain no-repeat; mask:url(../assets/novidades/castanha-ds.svg) center / contain no-repeat; }
+  .nv-release-name{ margin:0; font:var(--text-style-subtitle-large); color:var(--common-colors-text-intense); }
+  .nv-headline{ margin:0; font:var(--text-style-decorative-extra-large); color:var(--common-colors-text-intense); text-wrap:balance; }
+
+  /* Resources: painéis lado a lado, gap 32 */
+  .nv-resources{ display:flex; flex-wrap:wrap; gap:var(--common-sizes-32); align-items:stretch; }
+  .nv-panel{ flex:1 1 calc(var(--common-sizes-200) + var(--common-sizes-120)); min-width:0; display:flex; flex-direction:column; justify-content:center; gap:var(--common-sizes-32);
+    padding:var(--common-sizes-24); box-sizing:border-box; background:var(--common-colors-surface-default); border-radius:var(--common-border-radius-large); box-shadow:var(--common-elevation-level-1); }
+  .nv-panel > *{ width:100%; }
+  .nv-panel > cds-main-button{ width:auto; align-self:flex-start; }
+  /* Tela de celular (Frame 5): raio Big, 360 de largura; o .Feedback Content no centro e o Fixed Bar Pilled na base */
+  .nv-phone{ flex:0 1 calc(var(--common-sizes-200) + var(--common-sizes-160)); min-width:0; min-height:calc(3 * var(--common-sizes-200)); display:flex; flex-direction:column;
+    background:var(--common-colors-surface-default); border-radius:var(--common-border-radius-big); box-shadow:var(--common-elevation-level-1); overflow:hidden; }
+  .nv-phone__body{ flex:1 1 auto; display:flex; align-items:center; justify-content:center; padding:var(--common-sizes-24); }
+  .nv-fb{ display:flex; flex-direction:column; align-items:center; gap:var(--common-sizes-24); text-align:center; }
   .nv-fb img{ width:var(--common-sizes-120); height:var(--common-sizes-120); }
   .nv-fb__text{ display:flex; flex-direction:column; gap:var(--common-sizes-12); }
   .nv-fb__title{ margin:0; font:var(--text-style-title-small); color:var(--common-colors-text-intense); }
+  .nv-p{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+  .nv-fb p{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+  .nv-phone cds-fixed-bar{ width:100%; }
+
+  /* Depois da peça: correções e o Link para o portal */
+  .nv-more{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--common-sizes-8) var(--common-sizes-16); margin-top:var(--common-sizes-32); }
+  .nv-more p{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+  .nv-more b{ font:var(--text-style-body-bold); color:var(--common-colors-text-intense); }
 
   @media (max-width:860px){
     :root{ --nv-gutter:var(--common-sizes-16); }
-    .nv-slide{ width:calc(100cqw - var(--common-sizes-32)); }
-    .nv-slide__body{ grid-template-columns:minmax(0, 1fr); gap:var(--common-sizes-32); align-items:start; }
-    .nv-title{ font:var(--text-style-heading-small); }
+    /* no celular a peça ocupa a largura toda e os painéis vão de ponta a ponta: os Text Fields pedem 320 de largura */
+    .nv-release{ margin-inline:calc(-1 * var(--nv-gutter)); padding:var(--common-sizes-32) 0; border-radius:0; gap:var(--common-sizes-32); }
+    .nv-head{ padding-inline:var(--nv-gutter); }
+    .nv-panel, .nv-phone{ border-radius:0; }
+    .nv-headline{ font:var(--text-style-decorative-medium); }
+    .nv-release-name{ font:var(--text-style-subtitle-medium); }
+    .nv-resources{ gap:var(--common-sizes-8); }
+    .nv-panel, .nv-phone{ flex-basis:100%; }
   }
 </style>
 </head>
 <body>
 <header class="nv-wrap">
-  <cds-sponsor-header id="nv-header" title="Novidades do Castanha DS" tag-label="Outubro de 2026"
-    show-menu-button="false" show-search="false" show-notification="false" show-close="false" show-info="false" show-drop-button="false" show-main-button="false"></cds-sponsor-header>
+  <cds-sponsor-header id="nv-header" show-title="false" show-menu-button="false" show-search="false" show-notification="false" show-close="false"></cds-sponsor-header>
 </header>
 
 <main class="nv-wrap">
-  <div class="nv-intro">
-    <p>O Castanha DS foi atualizado. Cada novidade funciona aqui mesmo, experimente antes de abrir no portal.</p>
-    <cds-link id="nv-portal" appearance="accent" label="Abrir o portal" href="../index.html#/"></cds-link>
-  </div>
+  <section class="nv-release" aria-labelledby="nv-headline">
+    <div class="nv-release__graf" aria-hidden="true"></div>
 
-  <cds-carousel id="nv-carousel" label="Novidades" prev-label="Novidade anterior" next-label="Próxima novidade">
-
-    <cds-card class="nv-slide" role="group" aria-labelledby="nv-t1" data-route="quantity-input"><div class="nv-slide__body">
-      <div class="nv-text">
-        <cds-tag appearance="accent" label="Novo" show-lead-item="false"></cds-tag>
-        <h2 class="nv-title" id="nv-t1">Quantidade sem digitar</h2>
-        <p class="nv-p">O Quantity Input chegou pelo InnerSource do time de HCM. Os botões de menos e mais mudam o valor, e o campo respeita o mínimo e o máximo.</p>
-        <ol class="nv-steps">
-          <li>Toque em mais ou menos para mudar a quantidade</li>
-          <li>No teclado, use as setas para cima e para baixo</li>
-          <li>Digite 9 e saia do campo: o valor volta para o máximo</li>
-        </ol>
+    <div class="nv-head">
+      <div class="nv-platform">
+        <cds-icon icon="figma-line" appearance="neutral" size="large"></cds-icon>
+        <p>Figma e portal</p>
+        <span class="nv-logo" role="img" aria-label="castanha ds"></span>
       </div>
-      <div class="nv-demo">
+      <div>
+        <p class="nv-release-name">Outubro de 2026</p>
+        <h1 class="nv-headline" id="nv-headline">Quantity Input, Code Input OTP, Credit Card Input, Loading Button, Accordion, Fixed Bar, Empty State e + ✨</h1>
+      </div>
+    </div>
+
+    <div class="nv-resources">
+      <div class="nv-panel" role="group" aria-label="Campos">
         <cds-quantity-input label="Cartões adicionais" value="1" min="0" max="5" supporting="Até 5 por pessoa" show-required="false"></cds-quantity-input>
-      </div>
-    </div></cds-card>
-
-    <cds-card class="nv-slide" role="group" aria-labelledby="nv-t2" data-route="code-input-otp"><div class="nv-slide__body">
-      <div class="nv-text">
-        <cds-tag appearance="informative" label="Igual ao Figma" show-lead-item="false"></cds-tag>
-        <h2 class="nv-title" id="nv-t2">Código de verificação, casa por casa</h2>
-        <p class="nv-p">O Code Input OTP recebe de 3 a 6 caracteres, com separadores e a opção de esconder o que foi digitado. Agora ele segue o Figma em todos os estados.</p>
-        <ol class="nv-steps">
-          <li>Digite os 6 números do código</li>
-          <li>Use as setas para passar de uma casa a outra</li>
-          <li>Toque no ícone do olho para esconder ou mostrar o código</li>
-        </ol>
-      </div>
-      <div class="nv-demo">
         <cds-code-input label="Código de verificação" type="numeric" separators="3" supporting="Enviamos o código por SMS" show-required="false"></cds-code-input>
-      </div>
-    </div></cds-card>
-
-    <cds-card class="nv-slide" role="group" aria-labelledby="nv-t3" data-route="credit-card-input"><div class="nv-slide__body">
-      <div class="nv-text">
-        <cds-tag appearance="informative" label="Igual ao Figma" show-lead-item="false"></cds-tag>
-        <h2 class="nv-title" id="nv-t3">Número do cartão em blocos de 4</h2>
-        <p class="nv-p">O Credit Card Input aceita números e separa em blocos de 4 enquanto a pessoa digita, do jeito que aparece no cartão.</p>
-        <ol class="nv-steps">
-          <li>Digite os 16 números de um cartão</li>
-          <li>Repare nos espaços entrando a cada 4 números</li>
-        </ol>
-      </div>
-      <div class="nv-demo">
         <cds-credit-card-input label="Número do cartão" placeholder="0000 0000 0000 0000" show-required="false" show-trailing-item="false" show-supporting-content="false"></cds-credit-card-input>
+        <cds-multi-select-input id="nv-multi" label="Benefícios" placeholder="Escolha os benefícios" show-required="false" show-lead-icon="false" show-supporting-content="false"></cds-multi-select-input>
       </div>
-    </div></cds-card>
 
-    <cds-card class="nv-slide" role="group" aria-labelledby="nv-t4" data-route="main-button"><div class="nv-slide__body">
-      <div class="nv-text">
-        <cds-tag appearance="informative" label="Igual ao Figma" show-lead-item="false"></cds-tag>
-        <h2 class="nv-title" id="nv-t4">Botão que avisa que está carregando</h2>
-        <p class="nv-p">O Main Button ganhou o estado de carregamento. O Spinner ocupa o lugar do texto, o botão mantém a largura e não aceita um segundo clique.</p>
-        <ol class="nv-steps">
-          <li>Toque em Confirmar pedido</li>
-          <li>Repare no Spinner no lugar do texto</li>
-          <li>Em 2 segundos, o botão volta ao normal</li>
-        </ol>
+      <div class="nv-phone" role="group" aria-label="Estado vazio com Fixed Bar">
+        <div class="nv-phone__body">
+          <div class="nv-fb">
+            <img src="../assets/illustrations/notificacoes/empty-state.svg" alt="" />
+            <div class="nv-fb__text">
+              <h2 class="nv-fb__title">Ainda não há nada por aqui</h2>
+              <p>Quando você adicionar o primeiro item, ele aparece aqui.</p>
+            </div>
+          </div>
+        </div>
+        <cds-fixed-bar kind="pilled" show-divider="false" primary-label="Adicionar item" show-secondary-action="false" show-lead-icon="false"></cds-fixed-bar>
       </div>
-      <div class="nv-demo">
+
+      <div class="nv-panel" role="group" aria-label="Botão e lista">
         <cds-main-button id="nv-loading" label="Confirmar pedido" show-lead-icon="false" show-trailing-icon="false"></cds-main-button>
-      </div>
-    </div></cds-card>
-
-    <cds-card class="nv-slide" role="group" aria-labelledby="nv-t5" data-route="accordion"><div class="nv-slide__body">
-      <div class="nv-text">
-        <cds-tag appearance="informative" label="Igual ao Figma" show-lead-item="false"></cds-tag>
-        <h2 class="nv-title" id="nv-t5">Accordion em dois formatos</h2>
-        <p class="nv-p">Default, com divisórias, ou Card, com cada item no próprio cartão. Use para perguntas frequentes e detalhes que a pessoa abre quando precisa.</p>
-        <ol class="nv-steps">
-          <li>Toque em uma pergunta para abrir a resposta</li>
-          <li>Abra outra: a anterior fecha, um item por vez</li>
-        </ol>
-      </div>
-      <div class="nv-demo">
         <cds-accordion kind="card" exclusive label="Perguntas frequentes">
           <cds-accordion-item label="Como peço um novo cartão?" show-description="false" show-lead-item="false"><p class="nv-p">No app, abra Cartões e toque em Pedir novo cartão.</p></cds-accordion-item>
           <cds-accordion-item label="Quanto tempo leva a entrega?" show-description="false" show-lead-item="false" collapsed><p class="nv-p">Até 10 dias úteis depois da confirmação.</p></cds-accordion-item>
           <cds-accordion-item label="Posso acompanhar o envio?" show-description="false" show-lead-item="false" collapsed><p class="nv-p">Sim. O código de rastreio aparece em Cartões.</p></cds-accordion-item>
         </cds-accordion>
       </div>
-    </div></cds-card>
+    </div>
+  </section>
 
-    <cds-card class="nv-slide" role="group" aria-labelledby="nv-t6" data-route="fixed-bar"><div class="nv-slide__body">
-      <div class="nv-text">
-        <cds-tag appearance="informative" label="Igual ao Figma" show-lead-item="false"></cds-tag>
-        <h2 class="nv-title" id="nv-t6">Ações sempre no fim da tela</h2>
-        <p class="nv-p">A Fixed Bar segura as ações principais no fim da tela enquanto o conteúdo rola. Horizontal, com botões do tamanho do texto, ou Pilled, com botões empilhados.</p>
-        <ol class="nv-steps">
-          <li>Use Pilled no celular, com a ação principal em cima</li>
-          <li>Use Horizontal quando a tela tiver espaço ao lado</li>
-        </ol>
-      </div>
-      <div class="nv-demo">
-        <cds-fixed-bar kind="pilled" primary-label="Continuar" secondary-label="Voltar" show-lead-icon="false"></cds-fixed-bar>
-      </div>
-    </div></cds-card>
-
-    <cds-card class="nv-slide" role="group" aria-labelledby="nv-t7" data-route="patterns"><div class="nv-slide__body">
-      <div class="nv-text">
-        <cds-tag appearance="accent" label="Novo" show-lead-item="false"></cds-tag>
-        <h2 class="nv-title" id="nv-t7">Estado vazio pronto para usar</h2>
-        <p class="nv-p">O template de Feedback Page ganhou o Empty State: ilustração, título, texto e uma ação para quando ainda não há nada na tela.</p>
-        <ol class="nv-steps">
-          <li>Diga o que falta, sem culpar a pessoa</li>
-          <li>Mostre a ação que resolve, como Adicionar item</li>
-          <li>Para busca sem resultado, use o No Results</li>
-        </ol>
-      </div>
-      <div class="nv-demo nv-fb">
-        <img src="../assets/illustrations/notificacoes/empty-state.svg" alt="" />
-        <div class="nv-fb__text">
-          <h3 class="nv-fb__title">Ainda não há nada por aqui</h3>
-          <p class="nv-p">Quando você adicionar o primeiro item, ele aparece aqui.</p>
-        </div>
-        <cds-main-button label="Adicionar item" show-lead-icon="false" show-trailing-icon="false"></cds-main-button>
-      </div>
-    </div></cds-card>
-
-    <cds-card class="nv-slide" role="group" aria-labelledby="nv-t8" data-route="multi-select-input"><div class="nv-slide__body">
-      <div class="nv-text">
-        <cds-tag appearance="neutral" label="Correções" show-lead-item="false"></cds-tag>
-        <h2 class="nv-title" id="nv-t8">Ajustes que você vai notar</h2>
-        <ol class="nv-steps">
-          <li>Multi Select Input: o Popover não cobre mais o campo</li>
-          <li>List: espaçamento e entrelinhas revistos</li>
-          <li>Side Menu, Tab e Icon Button: correções no Figma</li>
-        </ol>
-        <p class="nv-p">Abra o campo ao lado e escolha mais de um benefício.</p>
-      </div>
-      <div class="nv-demo">
-        <cds-multi-select-input id="nv-multi" label="Benefícios" placeholder="Escolha os benefícios" show-required="false" show-lead-icon="false" show-supporting-content="false"></cds-multi-select-input>
-      </div>
-    </div></cds-card>
-
-  </cds-carousel>
+  <div class="nv-more">
+    <p><b>Correções</b> · Multi Select Input sem o Popover sobre o campo, List com espaçamento e entrelinhas revistos, Side Menu, Tab e Icon Button ajustados no Figma.</p>
+    <cds-link appearance="accent" label="Abrir o portal" href="../index.html#/"></cds-link>
+  </div>
 </main>
 
 <script src="../scripts/cds-element.js"></script>
@@ -218,7 +149,7 @@
   var ROOT = "../", $ = function(id){ return document.getElementById(id); };
   var portal = function(route){ return ROOT + "index.html#/" + (route || ""); };
 
-  // ---------- Header do Sponsor Templates: Voltar com Tooltip, Breadcrumb, Title e Tag ----------
+  // ---------- Header do Sponsor Templates (.Heading): Voltar com Tooltip, Breadcrumb e o Icon Button de tema ----------
   var header = $("nv-header");
   (function setup(){
     if (!header.setBreadcrumb) return requestAnimationFrame(setup);
@@ -226,7 +157,6 @@
     header.backBtn.addEventListener("click", function(){ location.href = portal(); });
     header.backBtn.id = "nv-back";
     header.trailEl.appendChild(CDS.create("cds-tooltip", { for: "nv-back", placement: "bottom", "show-label": "false", text: "Voltar" }));
-    CDS.attr(header.tag, "show-lead-item", "false"); // instância do template: sem o ícone placeholder do Figma
     // Tema, como no portal: light padrão, dark opcional (Icon Button small default neutral dos Trailling Items + Tooltip)
     var root = document.documentElement;
     var tbtn = header.trailEl.appendChild(CDS.create("cds-icon-button", { id: "nv-theme", kind: "default", appearance: "neutral", size: "small" }));
@@ -247,14 +177,7 @@
     paint();
   })();
 
-  // ---------- Cada novidade termina com o Link para a página dela no portal (rótulo descritivo, como pede a doc do Link) ----------
-  var NOMES = { "quantity-input": "Quantity Input", "code-input-otp": "Code Input OTP", "credit-card-input": "Credit Card Input", "main-button": "Main Button",
-    "accordion": "Accordion", "fixed-bar": "Fixed Bar", "patterns": "Feedback Page", "multi-select-input": "Multi Select Input" };
-  [].forEach.call(document.querySelectorAll(".nv-slide"), function(s){
-    s.querySelector(".nv-text").appendChild(CDS.create("cds-link", { appearance: "accent", label: "Abrir " + NOMES[s.dataset.route] + " no portal", href: portal(s.dataset.route) }));
-  });
-
-  // ---------- Demos ----------
+  // ---------- Componentes ao vivo ----------
   var load = $("nv-loading");
   load.addEventListener("click", function(){
     if (load.hasAttribute("loading")) return;

@@ -771,7 +771,7 @@
     bodyEl.setAttribute("aria-labelledby", "rp-tab-" + id);
     bodyEl.innerHTML = "";
     bodyEl.classList.toggle("is-dash", !tab.file && id !== "glossario");
-    searchEl.hidden = !tab.file;
+    searchEl.hidden = !tab.file && id !== "glossario";
     if (id === "glossario"){ glossaryTab(); return; }
     if (!tab.file){ overview(); markTerms(bodyEl); return; }
     var toc = bodyEl.appendChild(el("nav", "rp-toc")); toc.setAttribute("aria-label", "Seções");
@@ -827,21 +827,42 @@
 
   // ---------- Glossário (R1): tab própria e a primeira ocorrência de cada termo numa tab ----------
   function gloss(){ return CDS.reportGlossary || []; }
+  // Mesmo molde das tabs de registro (Gustavo, 15/10): índice das letras à esquerda, um Card do DS por letra com a
+  // contagem em Tag e a busca do topo do Relatório (antes a tab inteira caía na coluna do índice, com o resto da tela vazio)
   function glossaryTab(){
     var letters = {};
     gloss().slice().sort(function(a, b){ return a.term.localeCompare(b.term, "pt-BR"); }).forEach(function(g){
-      var L = g.term.charAt(0).toUpperCase(); (letters[L] = letters[L] || []).push([g.term, g.def]);
+      var L = g.term.charAt(0).toUpperCase(); (letters[L] = letters[L] || []).push(g);
     });
-    var wrap = bodyEl.appendChild(el("div", "rp-gloss"));
-    var head = wrap.appendChild(el("div", "rp-gloss__head"));
-    head.appendChild(el("p", "rp-gloss__intro", "Os termos do Relatório que nem todo mundo conhece. Nas outras tabs, a primeira vez que um deles aparece vira um link: clique para conferir a definição sem sair da página."));
+    var toc = bodyEl.appendChild(el("nav", "rp-toc")); toc.setAttribute("aria-label", "Letras do glossário");
+    var content = bodyEl.appendChild(el("div", "rp-content"));
+    var intro = card("rp-section rp-intro"); intro.id = "rp-glossario-sobre";
+    intro.appendChild(el("div", "rp-md")).appendChild(el("p")).textContent = "Os termos do Relatório que nem todo mundo conhece. Nas outras tabs, a primeira vez que um deles aparece vira um link: clique para conferir a definição sem sair da página.";
+    content.appendChild(intro);
+    toc.appendChild(el("p", "rp-toc__group", "Termos de A a Z"));
+    var ul = toc.appendChild(el("ul"));
+    content.appendChild(el("h2", "rp-group", "Termos de A a Z"));
+    Object.keys(letters).forEach(function(L){
+      var sid = "rp-glossario-" + slug(L), list = letters[L];
+      var a = ul.appendChild(el("li")).appendChild(el("a")); a.textContent = L; a.href = "#" + sid; a.dataset.section = sid;
+      a.appendChild(countTag(list.length));
+      var sec = card("rp-section"); sec.id = sid; sec.dataset.slug = slug(L);
+      var h = sec.appendChild(el("h3", "rp-section__title")); h.textContent = L; h.appendChild(countTag(list.length));
+      var dl = sec.appendChild(el("div", "rp-md")).appendChild(el("dl", "rp-gloss"));
+      list.forEach(function(g){
+        var row = dl.appendChild(el("div", "rp-gloss__item"));
+        row.appendChild(el("dt")).textContent = g.term;
+        row.appendChild(el("dd")).textContent = g.def;
+      });
+      content.appendChild(sec);
+    });
     // Rever o tour do Relatório (R2): com a janela a partir do tablet, onde os passos têm onde se ancorar
     if (CDS.onboarding && window.innerWidth > 743){
-      var tour = head.appendChild(document.createElement("cds-main-button"));
+      var tour = toc.appendChild(document.createElement("cds-main-button")); tour.className = "rp-src";
       [["label", "Fazer o tour do Relatório"], ["kind", "ghost"], ["size", "small"], ["show-lead-icon", "false"], ["show-trailing-icon", "false"]].forEach(function(x){ tour.setAttribute(x[0], x[1]); });
       tour.addEventListener("click", function(){ window.scrollTo(0, 0); setTimeout(function(){ CDS.onboarding.start("relatorio"); }, 300); });
     }
-    if (CDS.docBlocks && CDS.docBlocks.glossary) wrap.appendChild(CDS.docBlocks.glossary(null, { label: "Buscar no glossário", placeholder: "Termo ou definição (ex.: smoke, débito, D40)", letters: letters }));
+    filter();
   }
   // Primeira ocorrência de cada termo na tab: Link do DS dentro de <dfn> que abre um Popover do DS (clique ou Enter, Esc fecha)
   var gid = 0;
@@ -894,7 +915,7 @@
     [].forEach.call(bodyEl.querySelectorAll(".rp-section"), function(sec){
       var hit = !q || sec.querySelector(".rp-section__title") && sec.querySelector(".rp-section__title").textContent.toLowerCase().indexOf(q) !== -1;
       var any = false;
-      [].forEach.call(sec.querySelectorAll("tbody tr, .rp-md > ul > li, .rp-md > ol > li, .rp-md > p"), function(r){
+      [].forEach.call(sec.querySelectorAll("tbody tr, .rp-md > ul > li, .rp-md > ol > li, .rp-md > p, .rp-gloss__item"), function(r){
         var ok = !q || hit || r.textContent.toLowerCase().indexOf(q) !== -1; r.hidden = !ok; if (ok) any = true;
       });
       sec.hidden = !(hit || any);

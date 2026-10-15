@@ -697,8 +697,16 @@
   // O middleware grava o perfil em cds_perfil. Perfil Portal: sem o Relatório (o middleware já bloqueia os dados dele).
   // Com perfil, o topo ganha "Sair" (Icon Button do DS + Tooltip, como os vizinhos). No GitHub Pages e no servidor local
   // não há cookie: nada muda.
-  var PERFIL = (document.cookie.match(/(?:^|;\s*)cds_perfil=(completo|portal)\b/) || [])[1] || null;
+  // Perfil Dashboard (Dsenhas, só por senha temporária): o Relatório e nada mais; qualquer outra rota volta para ele.
+  // cds_senha = quando a senha temporária vence (o Relatório esconde as telas de links e senhas para quem entrou por uma).
+  var PERFIL = (document.cookie.match(/(?:^|;\s*)cds_perfil=(completo|portal|dashboard)\b/) || [])[1] || null;
   CDS.perfil = PERFIL;
+  CDS.senhaTemporaria = /(?:^|;\s*)cds_senha=\d/.test(document.cookie);
+  var DASHBOARD = PERFIL === "dashboard";
+  if (DASHBOARD){ // sem o botão do Relatório, a seta de voltar e a busca do portal (o Relatório tem a própria busca)
+    document.documentElement.classList.add("is-dashboard"); reportBtn.hidden = true; $("report-tip").hidden = true;
+    $("top-header").setAttribute("show-back", "false"); $("top-header").setAttribute("show-search", "false");
+  }
   // Modo entrega (scripts/entrega.js): sem o Relatório, como no perfil Portal
   var SEM_RELATORIO = PERFIL === "portal" || !!CDS.entrega || !!CDS.acessoLink; // e no link de página
   if (SEM_RELATORIO){ reportBtn.hidden = true; $("report-tip").hidden = true; }
@@ -746,6 +754,7 @@
   var paginaAtual = route()[0];
   function onRoute(){
     var pagina = route()[0];
+    if (DASHBOARD && pagina !== "relatorio"){ location.replace("#/relatorio"); return; } // antes de pedir a doc da página
     if (versaoNova && pagina !== paginaAtual){ tentou(versaoNova); location.reload(); return; }
     paginaAtual = pagina;
     var r0 = route()[0], want = list.some(function(c){ return c.id === r0; }) ? r0 : currentId();
@@ -757,6 +766,7 @@
     // #/relatorio[/tab]: o relatório troca o shell inteiro; o botão volta para o último componente
     var r = route();
     if (r[0] === "relatorio" && SEM_RELATORIO){ location.replace("#/"); return; } // perfil Portal e modo entrega não abrem o Relatório
+    if (r[0] !== "relatorio" && DASHBOARD){ location.replace("#/relatorio"); return; } // perfil Dashboard: só o Relatório
     var isReport = r[0] === "relatorio" && !!CDS.report;
     shell.hidden = isReport; report.hidden = !isReport;
     reportBtn.setAttribute("pressed", String(isReport));

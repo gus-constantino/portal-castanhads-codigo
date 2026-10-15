@@ -6,11 +6,15 @@
  *   Visitante (sem código) · o pitch, as Novidades (D347), a tela de entrada e os arquivos que eles carregam
  *   Completo  (ACESSO_COMPLETO) · tudo
  *   Portal    (ACESSO_PORTAL)   · tudo, menos o Relatório e os dados dele
+ *   Dashboard (Dsenhas, só por senha temporária) · a Visão geral do Relatório e os dados dela, sem o resto do portal
  *   MCP       (ACESSO_MCP no cabeçalho Authorization: Bearer …) · o catálogo e os núcleos de código do MCP
  *   Entrega   (fase 3) · /l/<código> abre o portal em modo entrega: só as páginas dos itens de uma entrega para dev
  *             (entregas/<slug>/entrega.json), com as docs deles, por 1 a 90 dias, sem código
  *   Página    (D341) · /l/<código> abre o portal só com um alvo: um componente, uma página, uma seção do menu
  *             ou uma categoria (ALVOS, gerado pelo build a partir de acesso/alvos.js), também por 1 a 90 dias
+ *   Senhas temporárias (Dsenhas) · códigos de 6 dígitos gerados em acesso/senhas/ para um perfil (Completo, Portal ou
+ *             Dashboard), de 5 minutos a 90 dias. O banco guarda o hash do código (nunca o código), e a sessão vence junto
+ *             com a senha. Revogada, a sessão cai no próximo arquivo de conteúdo. Sem o banco não há senha temporária.
  *
  * Variáveis de ambiente do projeto no Vercel (nunca no repositório):
  *   ACESSO_COMPLETO, ACESSO_PORTAL · códigos de 6 dígitos de cada perfil
@@ -28,8 +32,12 @@
  *   POST /acesso/links {alvo, dias}    · só o perfil Completo: devolve o link de página do alvo (ex.: pagina:castanha-quiz)
  *   GET  /acesso/links/ativos          · só o perfil Completo: os links registrados que ainda valem
  *   POST /acesso/links/revogar {id}    · só o perfil Completo: o link para de abrir na hora
+ *   POST /acesso/senhas {perfil, minutos, nome} · só o Completo de senha fixa: devolve uma senha temporária (mostrada uma vez)
+ *   GET  /acesso/senhas/ativas         · só o Completo de senha fixa: as senhas temporárias que ainda valem
+ *   POST /acesso/senhas/revogar {id}   · só o Completo de senha fixa: a senha para de entrar e as sessões dela caem
  *   GET  /l/<código>             · confere o link, guarda o acesso no cookie cds_links e abre o portal na entrega ou no alvo
- * Cookies: cds_acesso (assinado, HttpOnly), cds_perfil (o perfil, legível pelo portal para ajustar o menu) e
+ * Cookies: cds_acesso (assinado, HttpOnly), cds_perfil (o perfil, legível pelo portal para ajustar o menu), cds_senha
+ *   (quando a senha temporária vence, legível pelo portal) e
  *   cds_links (os links de entrega abertos neste navegador, cada um com a própria assinatura e validade) e cds_entrega
  *   (a entrega aberta por último, legível pelo portal para entrar no modo entrega) e cds_alvos (os alvos dos links de
  *   página, legível pelo portal para montar o menu; quem decide o que abre é o cds_links).
@@ -67,6 +75,8 @@ const ENTREGA_SHELL = [
 ];
 // validade dos links: dias inteiros de 1 a 90 (as telas sugerem 2, 7, 14 e 30 e aceitam outro valor)
 const LINK_DIAS_MAX = 90;
+const PERFIS = /^(completo|portal|dashboard)$/;
+// Dashboard (Dsenhas): o shell do portal (com o pacote sem os recursos) e os dados do Relatório; nada de docs, recursos nem MCP
 const MCP = [/^\/dist\/mcp\//, /^\/scripts\/(react|flutter)-kit\.js$/];
 // Relatório: os registros que ele lê e os checks das stacks (o perfil Portal não abre)
 const RELATORIO = [
@@ -92,19 +102,23 @@ function cookies(req){
   String(req.headers.get("cookie") || "").split(/;\s*/).forEach((p) => { const i = p.indexOf("="); if (i > 0) out[p.slice(0, i)] = decodeURIComponent(p.slice(i + 1)); });
   return out;
 }
-async function perfil(req, env){
+// a sessão do cookie: { p (perfil), e (vence em), t (id da senha temporária, quando entrou por uma) }
+async function sessao(req, env){
   const c = cookies(req).cds_acesso, s = env.ACESSO_SEGREDO;
   if (!c || !s) return null;
   const [dados, sig] = c.split(".");
   if (!dados || !sig || !(await igual(sig, await hmac(s, dados), s))) return null;
   try {
     const p = JSON.parse(Buffer.from(dados.replace(/-/g, "+").replace(/_/g, "/"), "base64").toString("utf8"));
-    if (!p || !p.e || Date.now() > p.e || !/^(completo|portal)$/.test(p.p)) return null;
-    return p.p;
+    if (!p || !p.e || Date.now() > p.e || !PERFIS.test(p.p) || (p.p === "dashboard" && !p.t)) return null;
+    return p;
   } catch (e) { return null; }
 }
-async function cookieAcesso(p, env){
-  const dados = b64u(enc.encode(JSON.stringify({ p, e: Date.now() + DIAS * 864e5 })));
+async function perfil(req, env){ const s = await sessao(req, env); return s ? s.p : null; }
+// o Completo de senha fixa: gerar links e senhas não vale para quem entrou por senha temporária (não passa da validade dela)
+async function completoFixo(req, env){ const s = await sessao(req, env); return !!s && s.p === "completo" && !s.t; }
+async function cookieAcesso(p, env, t, vence){
+  const dados = b64u(enc.encode(JSON.stringify(Object.assign({ p, e: vence || Date.now() + DIAS * 864e5 }, t ? { t } : {}))));
   return dados + "." + await hmac(env.ACESSO_SEGREDO, dados);
 }
 // ---------- banco (Upstash Redis, o mesmo do ranking do Castanha Quiz): registro dos links ----------
@@ -118,6 +132,34 @@ function banco(env){
   };
 }
 const REGISTRO = "acesso:links"; // hash id → { tipo, alvo | caminho, titulo, link, criado, vence } (só o Completo lê)
+
+// ---------- senhas temporárias (Dsenhas) ----------
+// SENHAS: hash id → { nome, perfil, criado, vence, chave }. A chave "acesso:senha:<hmac do código>" guarda o id e some
+// sozinha quando a senha vence (EX). O código em si nunca vai para o banco: a tela mostra uma vez.
+const SENHAS = "acesso:senhas";
+const SENHA_MIN = 5, SENHA_MAX = LINK_DIAS_MAX * 1440; // de 5 minutos a 90 dias, em minutos
+const chaveSenha = async (codigo, env) => "acesso:senha:" + await hmac(env.ACESSO_SEGREDO, "senha." + codigo);
+function sortear(){ // 6 dígitos sem viés (descarta o resto da divisão de 2^32 por 1e6)
+  const n = new Uint32Array(1);
+  do crypto.getRandomValues(n); while (n[0] >= 4294000000);
+  return String(n[0] % 1e6).padStart(6, "0");
+}
+async function senhaTemporaria(codigo, env){
+  const db = banco(env);
+  if (!db) return null;
+  try {
+    const id = (await db([["GET", await chaveSenha(codigo, env)]]))[0];
+    if (!id) return null;
+    const x = JSON.parse((await db([["HGET", SENHAS, id]]))[0] || "null");
+    return x && x.vence > Date.now() ? Object.assign({ id }, x) : null;
+  } catch (e) { return null; }
+}
+// a senha temporária da sessão ainda está no registro? (banco fora do ar: vale a assinatura, como nos links)
+async function senhaViva(t, env){
+  const db = banco(env);
+  if (!db) return false;
+  try { return (await db([["HEXISTS", SENHAS, t]]))[0] === 1; } catch (e) { return true; }
+}
 
 // ---------- links de entrega e de página ----------
 // dados do link: c (caminho da entrega) ou a (alvo), e (vence em), i (id no registro, quando o banco existe)
@@ -175,25 +217,31 @@ export default async function middleware(req){
     let codigo = "";
     try { codigo = String((await req.json()).codigo || "").trim(); } catch (e) {}
     if (!/^\d{6}$/.test(codigo)) return json({ erro: "Digite os 6 números do código." }, 400);
-    let p = null;
+    let p = null, temp = null;
     if (env.ACESSO_COMPLETO && await igual(codigo, env.ACESSO_COMPLETO, env.ACESSO_SEGREDO)) p = "completo";
     else if (env.ACESSO_PORTAL && await igual(codigo, env.ACESSO_PORTAL, env.ACESSO_SEGREDO)) p = "portal";
+    else if ((temp = await senhaTemporaria(codigo, env)) && PERFIS.test(temp.perfil)) p = temp.perfil;
     if (!p) return json({ erro: "Código incorreto. Confira e tente de novo." }, 401);
-    const idade = DIAS * 86400, valor = await cookieAcesso(p, env);
+    // senha temporária: a sessão vence junto com ela
+    const idade = temp ? Math.max(1, Math.floor((temp.vence - Date.now()) / 1000)) : DIAS * 86400;
+    const valor = temp ? await cookieAcesso(p, env, temp.id, temp.vence) : await cookieAcesso(p, env);
     const h = new Headers({ "content-type": "application/json; charset=utf-8", "cache-control": "no-store" });
     h.append("set-cookie", "cds_acesso=" + valor + "; Path=/; Max-Age=" + idade + "; HttpOnly; Secure; SameSite=Lax");
     h.append("set-cookie", "cds_perfil=" + p + "; Path=/; Max-Age=" + idade + "; Secure; SameSite=Lax");
-    return new Response(JSON.stringify({ perfil: p }), { status: 200, headers: h });
+    // cds_senha: quando a senha temporária vence (o portal mostra e esconde as telas de links e senhas); senha fixa apaga
+    h.append("set-cookie", "cds_senha=" + (temp ? temp.vence + "; Path=/; Max-Age=" + idade : "; Path=/; Max-Age=0") + "; Secure; SameSite=Lax");
+    return new Response(JSON.stringify(Object.assign({ perfil: p }, temp ? { vence: new Date(temp.vence).toISOString() } : {})), { status: 200, headers: h });
   }
   if (path === "/acesso/sair"){
     const h = new Headers({ Location: "/entrar/", "cache-control": "no-store" });
     h.append("set-cookie", "cds_acesso=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Lax");
     h.append("set-cookie", "cds_perfil=; Path=/; Max-Age=0; Secure; SameSite=Lax");
+    h.append("set-cookie", "cds_senha=; Path=/; Max-Age=0; Secure; SameSite=Lax");
     return new Response(null, { status: 302, headers: h });
   }
   if (path === "/acesso/perfil") return json({ perfil: await perfil(req, env) });
   if (path === "/acesso/links" && req.method === "POST"){
-    if (await perfil(req, env) !== "completo") return json({ erro: "Gerar links é do perfil Completo." }, 403);
+    if (!(await completoFixo(req, env))) return json({ erro: "Gerar links é do perfil Completo." }, 403);
     let b = {};
     try { b = await req.json(); } catch (e) {}
     const dias = Number(b.dias) || 14;
@@ -220,7 +268,7 @@ export default async function middleware(req){
     return json({ link, caminho: info.caminho, alvo: info.alvo, vence: new Date(vence).toISOString(), registrado });
   }
   if (path === "/acesso/links/ativos"){
-    if (await perfil(req, env) !== "completo") return json({ erro: "A lista de links é do perfil Completo." }, 403);
+    if (!(await completoFixo(req, env))) return json({ erro: "A lista de links é do perfil Completo." }, 403);
     const db = banco(env);
     if (!db) return json({ registro: false, links: [] });
     try {
@@ -235,7 +283,7 @@ export default async function middleware(req){
     } catch (e) { return json({ erro: "O registro de links não respondeu." }, 502); }
   }
   if (path === "/acesso/links/revogar" && req.method === "POST"){
-    if (await perfil(req, env) !== "completo") return json({ erro: "Revogar links é do perfil Completo." }, 403);
+    if (!(await completoFixo(req, env))) return json({ erro: "Revogar links é do perfil Completo." }, 403);
     let b = {};
     try { b = await req.json(); } catch (e) {}
     const db = banco(env), id = String(b.id || "");
@@ -243,6 +291,54 @@ export default async function middleware(req){
     if (!/^[a-f0-9]{16}$/.test(id)) return json({ erro: "Link desconhecido." }, 400);
     try { const r = await db([["HDEL", REGISTRO, id]]); return json({ revogado: r[0] === 1 }); }
     catch (e) { return json({ erro: "O registro de links não respondeu." }, 502); }
+  }
+  if (/^\/acesso\/senhas(\/ativas|\/revogar)?$/.test(path)){
+    // gerar, listar e revogar senhas é do Completo de senha fixa: uma senha temporária não cria outras
+    if (!(await completoFixo(req, env))) return json({ erro: "Senhas temporárias são do perfil Completo." }, 403);
+    const db = banco(env);
+    if (path === "/acesso/senhas/ativas"){
+      if (!db) return json({ registro: false, senhas: [] });
+      try {
+        const r = (await db([["HGETALL", SENHAS]]))[0] || [], senhas = [], vencidas = [];
+        for (let k = 0; k < r.length; k += 2){
+          let x = null; try { x = JSON.parse(r[k + 1]); } catch (e) {}
+          if (!x || x.vence <= Date.now()) vencidas.push(r[k]); else senhas.push({ id: r[k], nome: x.nome, perfil: x.perfil, criado: x.criado, vence: x.vence });
+        }
+        if (vencidas.length) await db([["HDEL", SENHAS].concat(vencidas)]);
+        senhas.sort((p, q) => q.criado - p.criado);
+        return json({ registro: true, senhas });
+      } catch (e) { return json({ erro: "O registro de senhas não respondeu." }, 502); }
+    }
+    if (req.method !== "POST") return json({ erro: "Use POST." }, 405);
+    if (!db) return json({ erro: "Senhas temporárias precisam do banco do Vercel." }, 503);
+    let b = {};
+    try { b = await req.json(); } catch (e) {}
+    if (path === "/acesso/senhas/revogar"){
+      const id = String(b.id || "");
+      if (!/^[a-f0-9]{16}$/.test(id)) return json({ erro: "Senha desconhecida." }, 400);
+      try {
+        const x = JSON.parse((await db([["HGET", SENHAS, id]]))[0] || "null");
+        const r = await db([["HDEL", SENHAS, id]].concat(x && x.chave ? [["DEL", x.chave]] : []));
+        return json({ revogada: r[0] === 1 });
+      } catch (e) { return json({ erro: "O registro de senhas não respondeu." }, 502); }
+    }
+    const perfilNovo = String(b.perfil || ""), minutos = Number(b.minutos), nome = String(b.nome || "").trim().slice(0, 60);
+    if (!PERFIS.test(perfilNovo)) return json({ erro: "Escolha o acesso: Completo, Portal ou Dashboard." }, 400);
+    if (!Number.isInteger(minutos) || minutos < SENHA_MIN || minutos > SENHA_MAX) return json({ erro: "Duração: de " + SENHA_MIN + " minutos a " + LINK_DIAS_MAX + " dias." }, 400);
+    if (!nome) return json({ erro: "Diga para quem é a senha." }, 400);
+    const id = crypto.randomUUID().replace(/-/g, "").slice(0, 16), criado = Date.now(), vence = criado + minutos * 6e4;
+    try {
+      // sorteia até achar um código livre: diferente das senhas fixas e de outra senha temporária ativa (SET NX)
+      for (let k = 0; k < 10; k++){
+        const codigo = sortear();
+        if (codigo === env.ACESSO_COMPLETO || codigo === env.ACESSO_PORTAL) continue;
+        const chave = await chaveSenha(codigo, env);
+        if ((await db([["SET", chave, id, "NX", "EX", String(minutos * 60)]]))[0] !== "OK") continue;
+        await db([["HSET", SENHAS, id, JSON.stringify({ nome, perfil: perfilNovo, criado, vence, chave })]]);
+        return json({ codigo, id, nome, perfil: perfilNovo, vence: new Date(vence).toISOString() });
+      }
+      return json({ erro: "Não achei um código livre. Tente de novo." }, 503);
+    } catch (e) { return json({ erro: "O registro de senhas não respondeu." }, 502); }
   }
   if (path.startsWith("/l/")){
     const codigo = path.slice(3), l = await lerLink(codigo, env), vale = l && (await ativos([{ codigo, l }], env)).length;
@@ -262,10 +358,21 @@ export default async function middleware(req){
 
   // --- arquivos ---
   if (ABERTO.some((re) => re.test(path))) return seguir();
-  const p = await perfil(req, env);
+  // conteúdo (páginas, pacote, docs, dados) confere a revogação no banco; os arquivos do shell passam sem consultar
+  const pagina = quer(req) || /^\/(index\.html)?$/.test(path), shell = !pagina && path !== "/dist/cds.js" && !/\.docs\.js$/.test(path) && ENTREGA_SHELL.some((re) => re.test(path));
+  const sess = await sessao(req, env);
+  if (sess && sess.t && !shell && !(await senhaViva(sess.t, env))){
+    // senha temporária revogada: apaga a sessão e leva à entrada com o aviso
+    const h = new Headers(pagina ? { Location: "/entrar/?senha=revogada", "cache-control": "no-store" } : { "cache-control": "no-store" });
+    h.append("set-cookie", "cds_acesso=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Lax");
+    h.append("set-cookie", "cds_perfil=; Path=/; Max-Age=0; Secure; SameSite=Lax");
+    h.append("set-cookie", "cds_senha=; Path=/; Max-Age=0; Secure; SameSite=Lax");
+    return new Response(pagina ? null : "Senha revogada", { status: pagina ? 302 : 401, headers: h });
+  }
+  const p = sess ? sess.p : null;
   if (MCP.some((re) => re.test(path))){
     const chave = String(req.headers.get("authorization") || "").replace(/^Bearer\s+/i, "");
-    if (p || (env.ACESSO_MCP && env.ACESSO_SEGREDO && chave && await igual(chave, env.ACESSO_MCP, env.ACESSO_SEGREDO))) return seguir();
+    if ((p && p !== "dashboard") || (env.ACESSO_MCP && env.ACESSO_SEGREDO && chave && await igual(chave, env.ACESSO_MCP, env.ACESSO_SEGREDO))) return seguir();
     // o código React e Flutter de cada componente (painéis No React e No Flutter) também abre no modo entrega
     if (/^\/scripts\//.test(path) && (await linksValidos(req, env)).length) return seguir();
     return new Response("Chave do MCP ausente ou inválida", { status: 401, headers: { "cache-control": "no-store" } });
@@ -276,7 +383,6 @@ export default async function middleware(req){
     // O registro (revogação) é conferido nas páginas e no pacote, não em cada arquivo.
     // O registro (revogação) é conferido no conteúdo: as páginas (HTML), o pacote, a lista de alvos, as docs e os arquivos
     // das páginas. Os arquivos do shell (estilos, scripts, código dos componentes) passam sem consultar o banco.
-    const pagina = quer(req) || /^\/(index\.html)?$/.test(path), shell = !pagina && path !== "/dist/cds.js" && !/\.docs\.js$/.test(path) && ENTREGA_SHELL.some((re) => re.test(path));
     const todos = await linksValidos(req, env), links = shell ? todos : await ativos(todos, env);
     // página com link revogado no cookie: refaz os cookies sem ele e recarrega (o menu do portal lê o cds_alvos)
     if (pagina && links.length < todos.length){
@@ -299,7 +405,13 @@ export default async function middleware(req){
     }
     return quer(req) ? paraEntrar(url) : new Response("Entre no portal para abrir este arquivo", { status: 401, headers: { "cache-control": "no-store" } });
   }
-  if (/^\/acesso\/(links|paginas)\//.test(path) && p !== "completo") return semAcesso(quer(req)); // as telas de gerar links são do Completo
+  // as telas de gerar links e senhas são do Completo de senha fixa
+  if (/^\/acesso\/(links|paginas|senhas)\//.test(path) && (p !== "completo" || sess.t)) return semAcesso(quer(req));
+  if (p === "dashboard"){
+    if (path === "/dist/cds.js") return new Response(null, { headers: { "x-middleware-rewrite": url.origin + "/dist/cds-entrega.js" + url.search } });
+    if (RELATORIO.some((re) => re.test(path)) || (!/\.docs\.js$/.test(path) && ENTREGA_SHELL.some((re) => re.test(path)))) return seguir();
+    return semAcesso(quer(req));
+  }
   if (p === "portal" && RELATORIO.some((re) => re.test(path))) return semAcesso(quer(req));
   return seguir();
 }

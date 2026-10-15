@@ -1,0 +1,190 @@
+<!doctype html>
+<!-- Senhas temporárias (Dsenhas). Só o perfil Completo de senha fixa abre esta tela (middleware.js).
+     Gera uma senha de 6 dígitos para um acesso (Dashboard, Portal ou Completo) com duração de 30 minutos, 2 horas, 1 dia,
+     7 dias ou outra (dias, horas e minutos, de 5 minutos a 90 dias), por POST /acesso/senhas. A senha aparece uma vez:
+     o banco guarda só o hash. Embaixo, as senhas ativas, com Revogar.
+     Componentes do DS, do pacote público (dist/cds-publico.*): Card, Text Input, Radio Button Group, [Beta] Quantity Input,
+     Main Button, Code Input OTP, Alert, Toast, Table, Tag e Modal. -->
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex" />
+<link rel="icon" type="image/svg+xml" href="../../assets/brand/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/brand/favicon-32.png" />
+<link rel="apple-touch-icon" href="../../assets/brand/apple-touch-icon.png" />
+<title>Senhas temporárias · Castanha DS</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Work+Sans:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../styles/tokens.css" />
+<link rel="stylesheet" href="../../styles/shared.css" />
+<link rel="stylesheet" href="../../styles/icons.css" />
+<link rel="stylesheet" href="../../dist/cds-publico.css" />
+<style>
+  body{ margin:0; min-height:100svh; background:var(--common-colors-surface-01); color:var(--common-colors-text-intense); font:var(--text-style-body-regular); }
+  .lk{ box-sizing:border-box; width:min(100% - 2 * var(--common-sizes-16), calc(4 * var(--common-sizes-200))); margin:0 auto; padding:var(--common-sizes-40) 0; display:flex; flex-direction:column; gap:var(--common-sizes-24); }
+  .lk .cds-card__slot{ display:flex; flex-direction:column; align-items:stretch; gap:var(--common-sizes-24); }
+  .lk__text{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+  .lk__title{ margin:0; font:var(--text-style-title-large); }
+  .lk__subtitle{ margin:0; font:var(--text-style-title-small); }
+  .lk__lede{ margin:0; color:var(--common-colors-text-medium); }
+  .lk__field{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+  .lk__label{ margin:0; font:var(--text-style-subtitle-small); }
+  .lk__pair{ display:grid; grid-template-columns:repeat(auto-fit, minmax(calc(var(--common-sizes-200) + var(--common-sizes-40)), 1fr)); gap:var(--common-sizes-16); }
+  .lk__actions{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--common-sizes-16) var(--common-sizes-24); }
+  .lk__out{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-12); }
+  .lk__out[hidden]{ display:none; }
+  .lk cds-radio-select-input, .lk__out cds-text-input, .lk__out cds-alert, .lk__list cds-alert, .lk__list cds-table{ width:100%; align-self:stretch; } /* Text Field em Fill, na largura do card */
+  .lk__list{ display:flex; flex-direction:column; gap:var(--common-sizes-12); }
+  .lk__toast{ position:fixed; left:50%; bottom:var(--common-sizes-24); transform:translateX(-50%); }
+  .lk__outro{ display:flex; flex-wrap:wrap; gap:var(--common-sizes-16); }
+  .lk__outro[hidden]{ display:none; }
+  .lk cds-text-input{ width:100%; }
+</style>
+</head>
+<body>
+<main class="lk">
+  <cds-card has-border="true">
+    <div class="lk__text">
+      <h1 class="lk__title">Senhas temporárias</h1>
+      <p class="lk__lede">Gere uma senha de 6 dígitos que entra no portal por um tempo definido. Completo abre tudo, Portal abre tudo menos o Relatório e Dashboard abre o Relatório sem o resto do portal. A senha aparece uma vez: guarde antes de sair da tela.</p>
+    </div>
+    <cds-text-input id="sn-nome" label="Para quem" placeholder="Nome da pessoa ou do time" show-required="false" show-supporting-content="false" show-lead-icon="false" show-trailing-item="false"></cds-text-input>
+    <div class="lk__field">
+      <p class="lk__label">Acesso</p>
+      <cds-radio-button-group id="sn-perfil" label="Acesso" name="sn-perfil">
+        <cds-radio-button label="Dashboard" value="dashboard" status="selected"></cds-radio-button>
+        <cds-radio-button label="Portal" value="portal" status="unselected"></cds-radio-button>
+        <cds-radio-button label="Completo" value="completo" status="unselected"></cds-radio-button>
+      </cds-radio-button-group>
+    </div>
+    <div class="lk__field">
+      <p class="lk__label">Duração</p>
+      <cds-radio-button-group id="sn-dur" label="Duração" name="sn-dur">
+        <cds-radio-button label="30 minutos" value="30" status="unselected"></cds-radio-button>
+        <cds-radio-button label="2 horas" value="120" status="unselected"></cds-radio-button>
+        <cds-radio-button label="1 dia" value="1440" status="selected"></cds-radio-button>
+        <cds-radio-button label="7 dias" value="10080" status="unselected"></cds-radio-button>
+        <cds-radio-button label="Outro" value="outro" status="unselected"></cds-radio-button>
+      </cds-radio-button-group>
+      <!-- Outro: dias, horas e minutos, de 5 minutos a 90 dias no total (o middleware recusa fora disso). [Beta] Quantity Input do DS -->
+      <div class="lk__outro" id="sn-outro" hidden>
+        <cds-quantity-input id="sn-dd" label="Dias" value="0" min="0" max="90" supporting="De 0 a 90" show-required="false"></cds-quantity-input>
+        <cds-quantity-input id="sn-hh" label="Horas" value="4" min="0" max="23" supporting="De 0 a 23" show-required="false"></cds-quantity-input>
+        <cds-quantity-input id="sn-mm" label="Minutos" value="0" min="0" max="59" step="5" supporting="De 0 a 59" show-required="false"></cds-quantity-input>
+      </div>
+    </div>
+    <div class="lk__actions">
+      <cds-main-button id="sn-go" label="Gerar senha" show-lead-icon="false" show-trailing-icon="false"></cds-main-button>
+    </div>
+    <div class="lk__out" id="sn-out" hidden></div>
+  </cds-card>
+
+  <cds-card has-border="true">
+    <div class="lk__text">
+      <h2 class="lk__subtitle">Senhas ativas</h2>
+      <p class="lk__lede">As senhas temporárias que ainda valem. Revogada, a senha para de entrar e quem já entrou com ela sai na próxima página que abrir.</p>
+    </div>
+    <div class="lk__list" id="sn-list"></div>
+  </cds-card>
+</main>
+
+<script src="../../scripts/cds-element.js"></script>
+<script src="../../scripts/playground-kit.js"></script>
+<script src="../../scripts/assets-manifest.js"></script>
+<script src="../../dist/cds-publico.js"></script>
+<script>
+(function(){
+  "use strict";
+  var NOMES = { completo: "Completo", portal: "Portal", dashboard: "Dashboard" };
+  var TAGS = { completo: "accent", portal: "informative", dashboard: "neutral" };
+  var nome = document.getElementById("sn-nome"), perfilEl = document.getElementById("sn-perfil"), dur = document.getElementById("sn-dur");
+  var outroEl = document.getElementById("sn-outro"), go = document.getElementById("sn-go"), out = document.getElementById("sn-out"), list = document.getElementById("sn-list"), busy = false;
+  var MAX = 90 * 1440;
+  function escolha(g){ var r = g.querySelector('cds-radio-button[status="selected"]'); return r ? r.getAttribute("value") : ""; }
+  function num(el){ return Math.round(Number(String(el.value != null ? el.value : el.getAttribute("value")).replace(/\D/g, ""))) || 0; }
+  dur.addEventListener("cds-change", function(){ setTimeout(function(){ outroEl.hidden = escolha(dur) !== "outro"; }, 0); });
+  // duração em minutos: uma das opções ou, em "Outro", dias + horas + minutos
+  function minutos(){
+    var v = escolha(dur);
+    if (v !== "outro") return Number(v) || 1440;
+    return num(document.getElementById("sn-dd")) * 1440 + num(document.getElementById("sn-hh")) * 60 + num(document.getElementById("sn-mm"));
+  }
+  function quando(v){ var d = new Date(v); return d.toLocaleDateString("pt-BR", { day: "2-digit", month: "long" }) + ", " + d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }); }
+  function aviso(box, appearance, label, text){ box.hidden = false; box.innerHTML = ""; box.appendChild(CDS.create("cds-alert", { appearance: appearance, label: label, text: text, "show-close-button": "false" })); }
+  function toast(text){
+    var t = document.body.appendChild(CDS.create("cds-toast", { appearance: "positive", text: text, "show-trailing-item": "false" }));
+    t.classList.add("lk__toast"); setTimeout(function(){ if (t.isConnected) t.remove(); }, 3000);
+  }
+  function pedir(url, corpo){
+    return fetch(url, corpo ? { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(corpo), credentials: "same-origin" } : { credentials: "same-origin", cache: "no-store" })
+      .then(function(r){
+        // sem o middleware (GitHub Pages, servidor local comum) a rota não existe
+        if (!/json/.test(r.headers.get("content-type") || "")) throw new Error("Senhas temporárias funcionam no endereço do Vercel, onde o portal pede código.");
+        return r.json().then(function(j){ if (!r.ok) throw new Error(j.erro || "O servidor não respondeu."); return j; });
+      });
+  }
+
+  function gerar(){
+    if (busy) return;
+    var quem = String(nome.value || "").trim(), m = minutos(), p = escolha(perfilEl);
+    if (!quem){ aviso(out, "warning", "Diga para quem é a senha", "O nome aparece na lista de senhas ativas."); return; }
+    if (m < 5 || m > MAX){ aviso(out, "warning", "Duração fora do limite", "A senha vale de 5 minutos a 90 dias."); return; }
+    busy = true; go.setAttribute("disabled", "");
+    pedir("/acesso/senhas", { nome: quem, perfil: p, minutos: m })
+      .then(function(j){
+        out.hidden = false; out.innerHTML = "";
+        out.appendChild(CDS.create("cds-alert", { appearance: "positive", label: "Senha pronta", "show-close-button": "false",
+          text: "Acesso " + NOMES[j.perfil] + " para " + j.nome + ", até " + quando(j.vence) + ". Copie agora: a senha não aparece de novo." }));
+        // a senha no Code Input OTP do DS, para ler (sem editar)
+        var code = out.appendChild(CDS.create("cds-code-input", { label: "Senha", type: "numeric", value: j.codigo, "show-required": "false", "show-supporting-content": "false", "show-trailing-item": "false" }));
+        code.querySelectorAll("input").forEach(function(i){ i.readOnly = true; });
+        var copy = out.appendChild(CDS.create("cds-main-button", { label: "Copiar senha", kind: "ghost", appearance: "neutral", size: "small", "lead-icon": "copy-line", "show-trailing-icon": "false" }));
+        copy.addEventListener("click", function(){
+          (navigator.clipboard ? navigator.clipboard.writeText(j.codigo) : Promise.reject()).then(function(){ toast("Senha copiada"); }, function(){});
+        });
+        carregar();
+      })
+      .catch(function(e){ aviso(out, "warning", "Senha não gerada", e.message); })
+      .then(function(){ busy = false; go.removeAttribute("disabled"); });
+  }
+  go.addEventListener("click", gerar);
+
+  // ---------- Senhas ativas ----------
+  var ativas = [], revogando = null;
+  var modal = CDS.create("cds-modal", { "show-close-button": "false", "show-lead-icon": "false", "secondary-label": "Cancelar", "primary-label": "Revogar", "text-title": "Revogar esta senha?", label: "Revogar esta senha?" }, null);
+  var modalText = modal.appendChild(document.createElement("p"));
+  document.body.appendChild(modal);
+  modal.addEventListener("cds-action", function(e){
+    e.stopPropagation();
+    var s = revogando; modal.close();
+    if (!(e.detail && e.detail.action === "primary") || !s) return;
+    pedir("/acesso/senhas/revogar", { id: s.id })
+      .then(function(){ toast("Senha revogada"); carregar(); })
+      .catch(function(err){ aviso(list, "warning", "Senha não revogada", err.message); });
+  });
+  function carregar(){
+    pedir("/acesso/senhas/ativas").then(function(j){
+      list.innerHTML = "";
+      if (!j.registro){ aviso(list, "informative", "Registro de senhas indisponível", "Sem o banco do Vercel não há senhas temporárias."); return; }
+      ativas = j.senhas;
+      if (!ativas.length){ aviso(list, "informative", "Nenhuma senha ativa", "As senhas que você gerar aparecem aqui até vencer ou ser revogadas."); return; }
+      var t = CDS.create("cds-table", { label: "Senhas ativas", selectable: "false", "show-toolbar": "false", "show-pagination": ativas.length > 10 ? "true" : "false" });
+      t.columns = [{ key: "nome", label: "Para quem", kind: "text", sortable: false }, { key: "perfil", label: "Acesso", kind: "tag", sortable: false },
+        { key: "vence", label: "Vence em", kind: "text", sortable: false }, { key: "acoes", label: "Ações", kind: "actions", sortable: false, width: 120 }];
+      t.rows = ativas.map(function(s){
+        return { id: s.id, nome: { text: s.nome, description: "", icon: false }, perfil: { label: NOMES[s.perfil] || s.perfil, appearance: TAGS[s.perfil], showLeadItem: false },
+          vence: { text: quando(s.vence), description: "", icon: false },
+          acoes: { actions: [{ icon: "lock-line", label: "Revogar senha", action: "revogar" }] } };
+      });
+      t.addEventListener("cds-action", function(e){
+        var s = ativas.filter(function(x){ return x.id === e.detail.id; })[0]; if (!s) return;
+        if (e.detail.action === "revogar"){ revogando = s; modalText.textContent = "A senha de " + s.nome + " para de entrar, e quem já entrou com ela sai na próxima página que abrir. Não dá para desfazer: se precisar, gere uma nova."; modal.show(); }
+      });
+      list.appendChild(t);
+    }).catch(function(e){ aviso(list, "warning", "Lista indisponível", e.message); });
+  }
+  carregar();
+})();
+</script>
+</body>
+</html>

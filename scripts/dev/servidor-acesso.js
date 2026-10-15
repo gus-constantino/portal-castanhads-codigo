@@ -32,14 +32,18 @@ function arquivo(res, p){
   fs.createReadStream(f).pipe(res);
 }
 // Redis de mentira para o api/ranking.mjs e o registro de links do middleware: responde ao pipeline do Upstash
-// (SET NX, ZADD, ZREMRANGEBYRANK, ZREVRANK, ZREVRANGE, HSET, HMGET, HGETALL, HDEL)
+// (SET NX EX, GET, DEL, ZADD, ZREMRANGEBYRANK, ZREVRANK, ZREVRANGE, HSET, HGET, HEXISTS, HMGET, HGETALL, HDEL)
 const Z = {}, KV = {}, H = {}, fetchReal = globalThis.fetch;
 process.env.KV_REST_API_URL = "http://redis-local"; process.env.KV_REST_API_TOKEN = "local";
 globalThis.fetch = async (u, o) => {
   if (!String(u).startsWith("http://redis-local")) return fetchReal(u, o);
   const out = JSON.parse(o.body).map(([c, k, ...a]) => {
     const s = Z[k] = Z[k] || [], ord = () => s.slice().sort((x, y) => y.s - x.s);
-    if (c === "SET"){ if (KV[k] > Date.now()) return { result: null }; KV[k] = Date.now() + Number(a[3]) * 1000; return { result: "OK" }; }
+    // chaves com validade (trava do ranking e senhas temporárias): SET k v NX EX s, GET, DEL
+    const vivo = (x) => x && x.x > Date.now();
+    if (c === "SET"){ if (a[1] === "NX" && vivo(KV[k])) return { result: null }; KV[k] = { v: a[0], x: Date.now() + Number(a[3]) * 1000 }; return { result: "OK" }; }
+    if (c === "GET") return { result: vivo(KV[k]) ? KV[k].v : null };
+    if (c === "DEL"){ const n = vivo(KV[k]) ? 1 : 0; delete KV[k]; return { result: n }; }
     if (c === "ZADD"){ s.push({ s: Number(a[0]), m: a[1] }); return { result: 1 }; }
     if (c === "ZREMRANGEBYRANK"){ Z[k] = ord().slice(0, -Number(a[1]) - 1); return { result: 0 }; }
     if (c === "ZREVRANK"){ const i = ord().findIndex((x) => x.m === a[0]); return { result: i < 0 ? null : i }; }
@@ -47,6 +51,8 @@ globalThis.fetch = async (u, o) => {
     // hash (registro dos links de página e de entrega)
     const h = H[k] = H[k] || {};
     if (c === "HSET"){ h[a[0]] = a[1]; return { result: 1 }; }
+    if (c === "HGET") return { result: a[0] in h ? h[a[0]] : null };
+    if (c === "HEXISTS") return { result: a[0] in h ? 1 : 0 };
     if (c === "HMGET") return { result: a.map((f) => f in h ? h[f] : null) };
     if (c === "HGETALL") return { result: Object.keys(h).flatMap((f) => [f, h[f]]) };
     if (c === "HDEL") return { result: a.filter((f) => f in h && delete h[f]).length };

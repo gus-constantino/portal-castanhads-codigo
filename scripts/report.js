@@ -806,16 +806,20 @@
     toc.appendChild(dsLink("rp-src", "Ver no GitHub", REPO + tab.file, true));
     // Único acesso à página escondida dos componentes locais (#/locais, hidden: fora do menu e da busca; Gustavo, 06/10)
     if (id === "arquitetura"){
-      toc.appendChild(dsLink("rp-src", "Componentes locais", "#/locais"));
+      if (CDS.perfil !== "dashboard") toc.appendChild(dsLink("rp-src", "Componentes locais", "#/locais")); // o Dashboard não abre o portal
       // Embaixo: a proposta zeroheight → portal (docs/pitch, página própria em tela cheia; Gustavo, 06/10)
       toc.appendChild(dsLink("rp-src", "Proposta: zeroheight → portal", "docs/pitch/"));
       // E o roteiro de 20 paradas para quem chega (docs/roteiro, página escondida; Gustavo, 06/10). Volta como página própria,
       // com as ilustrações e as animações, ao lado da trilha Explorar dos Primeiros passos (Gustavo, 09/10)
-      toc.appendChild(dsLink("rp-src", "Roteiro: 20 coisas para explorar", "docs/roteiro/"));
-      // Links de entrega (acesso/links, só o perfil Completo no Vercel; docs/PLANO-ACESSO.md, fase 3)
-      if (CDS.perfil === "completo") toc.appendChild(dsLink("rp-src", "Links de entrega", "acesso/links/"));
-      // Links de página (acesso/paginas, só o perfil Completo): um componente, página, seção do menu ou categoria, com revogação
-      if (CDS.perfil === "completo") toc.appendChild(dsLink("rp-src", "Links de página", "acesso/paginas/"));
+      if (CDS.perfil !== "dashboard") toc.appendChild(dsLink("rp-src", "Roteiro: 20 coisas para explorar", "docs/roteiro/"));
+      // Telas de acesso, só o perfil Completo de senha fixa (quem entrou por senha temporária não gera links nem senhas):
+      // Links de entrega (acesso/links, docs/PLANO-ACESSO.md, fase 3), Links de página (acesso/paginas, D341) e
+      // Senhas temporárias (acesso/senhas, Dsenhas)
+      if (CDS.perfil === "completo" && !CDS.senhaTemporaria){
+        toc.appendChild(dsLink("rp-src", "Links de entrega", "acesso/links/"));
+        toc.appendChild(dsLink("rp-src", "Links de página", "acesso/paginas/"));
+        toc.appendChild(dsLink("rp-src", "Senhas temporárias", "acesso/senhas/"));
+      }
     }
     markTerms(bodyEl);
     filter();

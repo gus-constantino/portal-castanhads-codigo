@@ -33,10 +33,12 @@
   .lk cds-radio-select-input, .lk__out cds-text-input, .lk__out cds-alert{ width:100%; align-self:stretch; } /* Text Field em Fill, na largura do card */
   .lk__toast{ position:fixed; left:50%; bottom:var(--common-sizes-24); transform:translateX(-50%); }
   .lk cds-quantity-input[hidden]{ display:none; }
+  .lk__voltar{ align-self:flex-start; }
 </style>
 </head>
 <body>
 <main class="lk">
+  <cds-link class="lk__voltar" label="Voltar ao admin" href="/admin/" appearance="accent" icon="navigation-left-line"></cds-link>
   <cds-card has-border="true">
     <div class="lk__text">
       <h1 class="lk__title">Links de entrega</h1>

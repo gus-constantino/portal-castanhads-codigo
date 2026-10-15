@@ -814,14 +814,9 @@
       // E o roteiro de 20 paradas para quem chega (docs/roteiro, página escondida; Gustavo, 06/10). Volta como página própria,
       // com as ilustrações e as animações, ao lado da trilha Explorar dos Primeiros passos (Gustavo, 09/10)
       if (CDS.perfil !== "dashboard") toc.appendChild(dsLink("rp-src", "Roteiro: 20 coisas para explorar", "docs/roteiro/"));
-      // Telas de acesso, só o perfil Completo de senha fixa (quem entrou por senha temporária não gera links nem senhas):
-      // Links de entrega (acesso/links, docs/PLANO-ACESSO.md, fase 3), Links de página (acesso/paginas, D341) e
-      // Senhas temporárias (acesso/senhas, D349)
-      if (CDS.perfil === "completo" && !CDS.senhaTemporaria){
-        toc.appendChild(dsLink("rp-src", "Links de entrega", "acesso/links/"));
-        toc.appendChild(dsLink("rp-src", "Links de página", "acesso/paginas/"));
-        toc.appendChild(dsLink("rp-src", "Senhas temporárias", "acesso/senhas/"));
-      }
+      // Admin (D+admin): Links de entrega, Links de página e Senhas temporárias ficam em /admin/, que pede a senha de admin.
+      // Aparece só para o Completo de senha fixa (quem entrou por senha temporária não vira admin)
+      if (CDS.perfil === "completo" && !CDS.senhaTemporaria) toc.appendChild(dsLink("rp-src", "Admin", "admin/"));
     }
     markTerms(bodyEl);
     filter();

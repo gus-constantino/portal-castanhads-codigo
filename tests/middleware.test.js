@@ -9,7 +9,7 @@ const fs = require("fs"), path = require("path"), vm = require("vm");
 const src = fs.readFileSync(path.join(__dirname, "..", "middleware.js"), "utf8")
   .replace(/^export const config\s*=/m, "exports.config =")
   .replace(/^export default async function middleware/m, "exports.default = async function middleware");
-const env = { ACESSO_SEGREDO: "segredo-de-teste", ACESSO_COMPLETO: "111111", ACESSO_PORTAL: "222222", ACESSO_MCP: "chave-de-teste" };
+const env = { ACESSO_SEGREDO: "segredo-de-teste", ACESSO_COMPLETO: "111111", ACESSO_PORTAL: "222222", ACESSO_ADMIN: "333333", ACESSO_MCP: "chave-de-teste" };
 // Redis de mentira (registro dos links): hash em memória, no formato do pipeline do Upstash
 const H = {}, KV = {};
 const fakeFetch = async (u, o) => new Response(JSON.stringify(JSON.parse(o.body).map(([c, k, ...a]) => {
@@ -66,6 +66,33 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   confere("código Portal entra", portal.status === 200 && portal.body.perfil === "portal", JSON.stringify(portal.body));
   const com = (p, c, o) => mw(req(p, { headers: Object.assign({ cookie: c }, (o || {}).headers || {}) }));
 
+  // Admin (D+admin): Completo de senha fixa + senha de admin, cookie cds_admin de 8 horas
+  const entrarAdmin = (c, codigo) => mw(new Request(BASE + "/acesso/entrar", { method: "POST", headers: { "content-type": "application/json", cookie: c || "" }, body: JSON.stringify({ codigo, admin: true }) }));
+  r = await entrarAdmin("", "333333"); confere("senha de admin sem o Completo dá 403", r.status === 403, String(r.status));
+  r = await entrarAdmin(portal.cookie, "333333"); confere("senha de admin no Portal dá 403", r.status === 403, String(r.status));
+  r = await entrarAdmin(completo.cookie, "111111"); confere("código Completo não serve de senha de admin", r.status === 401, String(r.status));
+  r = await entrarAdmin(completo.cookie, "333333");
+  const setAdm = r.headers.getSetCookie(), admCookie = setAdm.map((c) => c.split(";")[0]).filter((c) => /^cds_admin=/.test(c))[0];
+  confere("senha de admin grava cds_admin HttpOnly de 8 horas", r.status === 200 && setAdm.some((c) => /^cds_admin=.+Max-Age=28800; HttpOnly; Secure/.test(c)), setAdm.join(" | "));
+  r = await entrar("333333"); confere("senha de admin não entra no portal sozinha", r.status === 401, String(r.status));
+  const adm = { cookie: completo.cookie + "; " + admCookie };
+  r = await mw(req("/acesso/perfil", { headers: { cookie: adm.cookie } }));
+  confere("perfil diz admin", (await r.json()).admin === true);
+  r = await mw(req("/acesso/perfil", { headers: { cookie: completo.cookie } }));
+  confere("Completo sem a senha de admin não é admin", (await r.json()).admin === false);
+  confere("Completo abre a página de admin (que pede a senha)", segue(await com("/admin/", completo.cookie)));
+  r = await com("/admin/", portal.cookie); confere("Portal não abre a página de admin", r.status === 403, String(r.status));
+  r = await com("/acesso/senhas/", completo.cookie); confere("tela de senhas sem admin volta para /admin/", r.status === 302 && r.headers.get("location") === "/admin/", r.status + " " + r.headers.get("location"));
+  r = await com("/acesso/links/paginas.json", completo.cookie, { headers: { accept: "*/*" } }); confere("lista da tela de links sem admin dá 403", r.status === 403, String(r.status));
+  confere("admin abre as três telas", segue(await com("/acesso/links/", adm.cookie)) && segue(await com("/acesso/paginas/", adm.cookie)) && segue(await com("/acesso/senhas/", adm.cookie)));
+  const admFalso = adm.cookie.replace(/cds_admin=([^.]+)\.(\S+)/, (m, d, s) => "cds_admin=" + d + "." + s.slice(0, -2) + "xx");
+  r = await com("/acesso/senhas/", admFalso); confere("cds_admin adulterado não vale", r.status === 302, String(r.status));
+  r = await com("/acesso/senhas/", portal.cookie + "; " + admCookie); confere("cds_admin no Portal não vale", r.status === 403, String(r.status));
+  r = await mw(req("/acesso/admin/sair", { headers: { cookie: adm.cookie } }));
+  confere("sair do admin apaga o cds_admin", r.status === 302 && r.headers.getSetCookie().some((c) => /^cds_admin=; Path=\/; Max-Age=0/.test(c)));
+  { const real = Date.now; Date.now = () => real() + 8 * 36e5 + 1000; r = await com("/acesso/senhas/", adm.cookie); Date.now = real; }
+  confere("depois de 8 horas o admin vence", r.status === 302, String(r.status));
+
   // Completo
   for (const p of ["/", "/index.html", "/docs/ROADMAP.md", "/docs/tendencia.json", "/integration/SAUDE-STACK.md", "/dist/cds.js", "/docs/roteiro/", "/dist/mcp/catalog.json"])
     confere("Completo abre " + p, segue(await com(p, completo.cookie)));
@@ -109,18 +136,18 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   const gerar = (c, body) => mw(new Request(BASE + "/acesso/links", { method: "POST", headers: { "content-type": "application/json", cookie: c }, body: JSON.stringify(body) }));
   r = await gerar(portal.cookie, { caminho: "/entregas/chips-small/", dias: 14 });
   confere("perfil Portal não gera link", r.status === 403, String(r.status));
-  r = await gerar(completo.cookie, { caminho: "/docs/ROADMAP.md", dias: 14 });
+  r = await gerar(adm.cookie, { caminho: "/docs/ROADMAP.md", dias: 14 });
   confere("link só para uma entrega", r.status === 400, String(r.status));
-  r = await gerar(completo.cookie, { caminho: "/entregas/nao-existe/", dias: 14 });
+  r = await gerar(adm.cookie, { caminho: "/entregas/nao-existe/", dias: 14 });
   confere("link só para entrega que existe", r.status === 400, String(r.status));
-  r = await gerar(completo.cookie, { caminho: "/entregas/chips-small/", dias: 91 });
+  r = await gerar(adm.cookie, { caminho: "/entregas/chips-small/", dias: 91 });
   confere("validade acima de 90 dias dá 400", r.status === 400, String(r.status));
-  r = await gerar(completo.cookie, { caminho: "/entregas/chips-small/", dias: 1.5 });
+  r = await gerar(adm.cookie, { caminho: "/entregas/chips-small/", dias: 1.5 });
   confere("validade em dias quebrados dá 400", r.status === 400, String(r.status));
-  r = await gerar(completo.cookie, { caminho: "/entregas/chips-small/", dias: 2 });
+  r = await gerar(adm.cookie, { caminho: "/entregas/chips-small/", dias: 2 });
   const g2 = await r.json();
   confere("validade de 2 dias vale", r.status === 200 && Math.abs(new Date(g2.vence) - Date.now() - 2 * 864e5) < 6e4, r.status + " " + g2.vence);
-  r = await gerar(completo.cookie, { caminho: "/entregas/chips-small/", dias: 14 });
+  r = await gerar(adm.cookie, { caminho: "/entregas/chips-small/", dias: 14 });
   const gl = await r.json();
   confere("Completo gera link", r.status === 200 && /^https:\/\/portal\.test\/l\//.test(gl.link), JSON.stringify(gl));
   r = await mw(req(new URL(gl.link).pathname));
@@ -154,7 +181,7 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   confere("perfil continua com o pacote inteiro", segue(r) && !r.headers.get("x-middleware-rewrite"));
   r = await mw(req("/acesso/links/", { headers: { cookie: portal.cookie } }));
   confere("tela de gerar links fecha para o Portal", r.status === 403, String(r.status));
-  confere("tela de gerar links abre para o Completo", segue(await mw(req("/acesso/links/", { headers: { cookie: completo.cookie } }))));
+  confere("tela de gerar links abre para o Completo", segue(await mw(req("/acesso/links/", { headers: { cookie: adm.cookie } }))));
   const vencido = (() => { const d = Buffer.from(JSON.stringify({ c: "/entregas/chips-small/", e: Date.now() - 1000 })).toString("base64url"); return d + ".assinatura"; })();
   r = await mw(req("/l/" + vencido));
   confere("link vencido ou falso vai para a entrada com aviso", r.status === 302 && r.headers.get("location") === "/entrar/?link=vencido", r.headers.get("location"));
@@ -167,17 +194,17 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   const post = (p, c, b) => mw(new Request(BASE + p, { method: "POST", headers: { "content-type": "application/json", cookie: c }, body: JSON.stringify(b) }));
   r = await post("/acesso/links", portal.cookie, { alvo: "pagina:castanha-quiz", dias: 14 });
   confere("Portal não gera link de página", r.status === 403, String(r.status));
-  r = await post("/acesso/links", completo.cookie, { alvo: "pagina:nao-existe", dias: 14 });
+  r = await post("/acesso/links", adm.cookie, { alvo: "pagina:nao-existe", dias: 14 });
   confere("alvo desconhecido não gera link", r.status === 400, String(r.status));
-  r = await post("/acesso/links", completo.cookie, { alvo: "pagina:castanha-quiz", titulo: "Castanha Quiz", dias: 14 });
+  r = await post("/acesso/links", adm.cookie, { alvo: "pagina:castanha-quiz", titulo: "Castanha Quiz", dias: 14 });
   const gp = await r.json();
   confere("Completo gera link de página registrado", r.status === 200 && gp.registrado === true && /\/l\//.test(gp.link), JSON.stringify(gp));
-  r = await post("/acesso/links", completo.cookie, { alvo: "componente:main-button", titulo: "Main Button", dias: 7 });
+  r = await post("/acesso/links", adm.cookie, { alvo: "componente:main-button", titulo: "Main Button", dias: 7 });
   const gc = await r.json();
-  r = await mw(req("/acesso/links/ativos", { headers: { cookie: completo.cookie, accept: "*/*" } }));
+  r = await mw(req("/acesso/links/ativos", { headers: { cookie: adm.cookie, accept: "*/*" } }));
   const lista = await r.json();
   confere("a lista de ativos traz os dois links", lista.registro && lista.links.length === 2 && lista.links.every((l) => l.link && l.vence), JSON.stringify(lista).slice(0, 200));
-  confere("a tela de links de página é do Completo", segue(await mw(req("/acesso/paginas/", { headers: { cookie: completo.cookie } }))) && (await mw(req("/acesso/paginas/", { headers: { cookie: portal.cookie } }))).status === 403);
+  confere("a tela de links de página é do admin", segue(await mw(req("/acesso/paginas/", { headers: { cookie: adm.cookie } }))) && (await mw(req("/acesso/paginas/", { headers: { cookie: portal.cookie } }))).status === 403);
   const abrir = async (link) => { const x = await mw(req(new URL(link).pathname)); return { r: x, c: x.headers.getSetCookie().map((c) => c.split(";")[0]).join("; ") }; };
   let o = await abrir(gp.link);
   confere("abrir o link de página leva ao portal no alvo e grava cds_alvos", o.r.status === 302 && o.r.headers.get("location") === "/?alvo=pagina%3Acastanha-quiz" && /cds_alvos=pagina%3Acastanha-quiz/.test(o.c), o.r.headers.get("location") + " " + o.c);
@@ -195,7 +222,7 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   confere("link sem o Quiz não abre o ranking do time", r.status === 401, String(r.status));
   confere("com os dois links abre a doc do componente", segue(await mw(req("/components/main-button/main-button.docs.js", { headers: { cookie: dois, accept: "*/*" } }))));
   const idMb = lista.links.filter((l) => l.alvo === "componente:main-button")[0].id;
-  r = await post("/acesso/links/revogar", completo.cookie, { id: idMb });
+  r = await post("/acesso/links/revogar", adm.cookie, { id: idMb });
   confere("Completo revoga o link", r.status === 200 && (await r.json()).revogado === true);
   r = await mw(req("/components/main-button/main-button.docs.js", { headers: { cookie: dois, accept: "*/*" } }));
   confere("revogado, o link para de abrir o conteúdo na hora", r.status === 401, String(r.status));
@@ -211,15 +238,15 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   const senha = (c, corpo) => post("/acesso/senhas", c, corpo);
   r = await senha(portal.cookie, { nome: "Ana", perfil: "dashboard", minutos: 60 });
   confere("Portal não gera senha", r.status === 403, String(r.status));
-  r = await senha(completo.cookie, { nome: "Ana", perfil: "dashboard", minutos: 2 });
+  r = await senha(adm.cookie, { nome: "Ana", perfil: "dashboard", minutos: 2 });
   confere("senha com menos de 5 minutos dá 400", r.status === 400, String(r.status));
-  r = await senha(completo.cookie, { nome: "Ana", perfil: "dashboard", minutos: 90 * 1440 + 1 });
+  r = await senha(adm.cookie, { nome: "Ana", perfil: "dashboard", minutos: 90 * 1440 + 1 });
   confere("senha com mais de 90 dias dá 400", r.status === 400, String(r.status));
-  r = await senha(completo.cookie, { nome: "", perfil: "dashboard", minutos: 60 });
+  r = await senha(adm.cookie, { nome: "", perfil: "dashboard", minutos: 60 });
   confere("senha sem nome dá 400", r.status === 400, String(r.status));
-  r = await senha(completo.cookie, { nome: "Ana", perfil: "admin", minutos: 60 });
+  r = await senha(adm.cookie, { nome: "Ana", perfil: "admin", minutos: 60 });
   confere("senha com perfil desconhecido dá 400", r.status === 400, String(r.status));
-  const sd = await (await senha(completo.cookie, { nome: "Ana", perfil: "dashboard", minutos: 90 })).json();
+  const sd = await (await senha(adm.cookie, { nome: "Ana", perfil: "dashboard", minutos: 90 })).json();
   confere("Completo gera senha Dashboard de 6 dígitos", /^\d{6}$/.test(sd.codigo) && sd.perfil === "dashboard" && /^[a-f0-9]{16}$/.test(sd.id), JSON.stringify(sd));
   confere("o banco não guarda o código", !JSON.stringify(H).includes(sd.codigo) && !JSON.stringify(KV).includes(sd.codigo));
   const dash = await sessao(sd.codigo);
@@ -236,7 +263,7 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
     confere("Dashboard não abre " + p, r.status === 403 || r.status === 401, String(r.status));
   }
   // senha temporária Completo: abre tudo, mas não gera links nem senhas
-  const sc = await (await senha(completo.cookie, { nome: "Bia", perfil: "completo", minutos: 30 })).json();
+  const sc = await (await senha(adm.cookie, { nome: "Bia", perfil: "completo", minutos: 30 })).json();
   const tempC = await sessao(sc.codigo);
   confere("senha temporária Completo entra", tempC.body.perfil === "completo");
   confere("Completo temporário abre o Relatório", segue(await com("/docs/ROADMAP.md", tempC.cookie)));
@@ -246,17 +273,20 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   confere("Completo temporário não gera link", r.status === 403, String(r.status));
   r = await com("/acesso/senhas/", tempC.cookie);
   confere("Completo temporário não abre a tela de senhas", r.status === 403, String(r.status));
-  confere("Completo fixo abre a tela de senhas", segue(await com("/acesso/senhas/", completo.cookie)));
-  const sp = await (await senha(completo.cookie, { nome: "Caio", perfil: "portal", minutos: 60 })).json(), tempP = await sessao(sp.codigo);
+  r = await com("/acesso/senhas/", tempC.cookie + "; " + admCookie);
+  confere("Completo temporário com cds_admin também não abre", r.status === 403, String(r.status));
+  r = await com("/admin/", tempC.cookie); confere("Completo temporário não abre a página de admin", r.status === 403, String(r.status));
+  confere("admin abre a tela de senhas", segue(await com("/acesso/senhas/", adm.cookie)));
+  const sp = await (await senha(adm.cookie, { nome: "Caio", perfil: "portal", minutos: 60 })).json(), tempP = await sessao(sp.codigo);
   r = await com("/docs/ROADMAP.md", tempP.cookie, { headers: { accept: "*/*" } });
   confere("Portal temporário não abre o Relatório", tempP.body.perfil === "portal" && r.status === 403, String(r.status));
   // lista e revogação
-  r = await mw(req("/acesso/senhas/ativas", { headers: { cookie: completo.cookie } }));
+  r = await mw(req("/acesso/senhas/ativas", { headers: { cookie: adm.cookie } }));
   const ls = await r.json();
   confere("a lista mostra as 3 senhas sem o código", ls.registro && ls.senhas.length === 3 && !JSON.stringify(ls).includes(sd.codigo) && ls.senhas.every((x) => !x.chave), JSON.stringify(ls));
   r = await mw(req("/acesso/senhas/ativas", { headers: { cookie: dash.cookie } }));
   confere("Dashboard não lista senhas", r.status === 403, String(r.status));
-  r = await post("/acesso/senhas/revogar", completo.cookie, { id: sd.id });
+  r = await post("/acesso/senhas/revogar", adm.cookie, { id: sd.id });
   confere("Completo revoga a senha", r.status === 200 && (await r.json()).revogada === true);
   r = await com("/", dash.cookie);
   const saiu = r.headers.getSetCookie().join(" | ");
@@ -267,13 +297,13 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   r = await entrar(sd.codigo);
   confere("senha revogada não entra mais", r.status === 401, String(r.status));
   // vencida: a chave some do banco (EX) e o registro sai da lista
-  const sv = await (await senha(completo.cookie, { nome: "Duda", perfil: "portal", minutos: 5 })).json();
+  const sv = await (await senha(adm.cookie, { nome: "Duda", perfil: "portal", minutos: 5 })).json();
   const real = Date.now; Date.now = () => real() + 31 * 6e4; // passa dos 5 min da Duda e dos 30 da Bia
   r = await entrar(sv.codigo); confere("senha vencida não entra", r.status === 401, String(r.status));
   r = await com("/", tempC.cookie);
   confere("sessão de senha vencida (Bia, 30 min) volta à entrada", r.status === 302 && /^\/entrar\//.test(r.headers.get("location")), r.headers.get("location"));
   Date.now = real;
-  r = await post("/acesso/senhas/revogar", completo.cookie, { id: "xyz" });
+  r = await post("/acesso/senhas/revogar", adm.cookie, { id: "xyz" });
   confere("revogar id inválido dá 400", r.status === 400, String(r.status));
 
   // Sem segredo configurado: ninguém entra
@@ -281,5 +311,5 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   r = await entrar("111111"); confere("sem ACESSO_SEGREDO a entrada responde 503", r.status === 503, String(r.status));
 
   if (falhas){ console.error("❌ Middleware: " + falhas + " falha(s), " + ok + " ok"); process.exit(1); }
-  console.log("✅ Middleware: " + ok + " verificações ok (Visitante, Completo, Portal, MCP, ranking, links de entrega, links de página e revogação, senhas temporárias, cookie adulterado, sair)");
+  console.log("✅ Middleware: " + ok + " verificações ok (Visitante, Completo, Portal, MCP, ranking, links de entrega, links de página e revogação, senhas temporárias, admin, cookie adulterado, sair)");
 })().catch((e) => { console.error(e); process.exit(1); });

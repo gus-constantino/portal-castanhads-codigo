@@ -1,0 +1,119 @@
+<!doctype html>
+<!-- Admin do portal (D+admin). Abre para o perfil Completo de senha fixa e pede a senha de admin (ACESSO_ADMIN no Vercel),
+     que vai para POST /acesso/entrar {codigo, admin: true} e grava o cookie cds_admin por 8 horas (middleware.js).
+     Com o admin, reúne as telas de Links de entrega, Links de página e Senhas temporárias, que pedem o mesmo cookie.
+     Componentes do DS, do pacote público (dist/cds-publico.*): Card, Code Input OTP, Main Button, Link e Alert. -->
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex" />
+<link rel="icon" type="image/svg+xml" href="../assets/brand/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/brand/favicon-32.png" />
+<link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png" />
+<title>Admin · Castanha DS</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Work+Sans:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../styles/tokens.css" />
+<link rel="stylesheet" href="../styles/shared.css" />
+<link rel="stylesheet" href="../styles/icons.css" />
+<link rel="stylesheet" href="../dist/cds-publico.css" />
+<style>
+  body{ margin:0; min-height:100svh; background:var(--common-colors-surface-01); color:var(--common-colors-text-intense); font:var(--text-style-body-regular); }
+  .ad{ box-sizing:border-box; width:min(100% - 2 * var(--common-sizes-16), calc(4 * var(--common-sizes-200))); margin:0 auto; padding:var(--common-sizes-40) 0; display:flex; flex-direction:column; gap:var(--common-sizes-24); }
+  .ad .cds-card__slot{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-24); }
+  .ad__text{ display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+  .ad__title{ margin:0; font:var(--text-style-title-large); }
+  .ad__lede{ margin:0; color:var(--common-colors-text-medium); }
+  .ad__form{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-16); }
+  .ad__form[hidden], .ad__tools[hidden], .ad__alert[hidden], .ad cds-link[hidden]{ display:none; }
+  .ad__alert{ align-self:stretch; }
+  .ad__foot{ display:flex; flex-wrap:wrap; align-items:center; gap:var(--common-sizes-8) var(--common-sizes-24); }
+  .ad__tools{ display:flex; flex-direction:column; gap:var(--common-sizes-16); }
+  .ad__tool{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-4); }
+  .ad__tool p{ margin:0; color:var(--common-colors-text-medium); }
+</style>
+</head>
+<body>
+<main class="ad">
+  <cds-card has-border="true">
+    <div class="ad__text">
+      <h1 class="ad__title">Admin</h1>
+      <p class="ad__lede" id="ad-lede">Gere e revogue os acessos ao portal. A senha de admin é diferente do código Completo e vale por 8 horas neste navegador.</p>
+    </div>
+    <div class="ad__alert" id="ad-alert" hidden></div>
+    <form class="ad__form" id="ad-form" novalidate hidden>
+      <cds-code-input id="ad-code" length="6" type="numeric" masked label="Senha de admin" show-required="false" supporting="6 números" separators="3"></cds-code-input>
+      <cds-main-button id="ad-go" label="Entrar no admin" show-lead-icon="false" show-trailing-icon="false"></cds-main-button>
+    </form>
+    <div class="ad__tools" id="ad-tools" hidden>
+      <div class="ad__tool">
+        <cds-link label="Links de entrega" href="../acesso/links/" appearance="accent" icon="navigation-right-line"></cds-link>
+        <p>Abre o portal com as páginas de uma entrega para a pessoa dev, sem código.</p>
+      </div>
+      <div class="ad__tool">
+        <cds-link label="Links de página" href="../acesso/paginas/" appearance="accent" icon="navigation-right-line"></cds-link>
+        <p>Abre o portal com um componente, uma página, uma seção do menu ou uma categoria.</p>
+      </div>
+      <div class="ad__tool">
+        <cds-link label="Senhas temporárias" href="../acesso/senhas/" appearance="accent" icon="navigation-right-line"></cds-link>
+        <p>Senha de 6 dígitos para Dashboard, Portal ou Completo, de 5 minutos a 90 dias.</p>
+      </div>
+    </div>
+    <div class="ad__foot">
+      <cds-link label="Voltar ao portal" href="/" appearance="accent" icon="navigation-right-line"></cds-link>
+      <cds-link id="ad-sair" label="Sair do admin" href="/acesso/admin/sair" appearance="neutral" icon="logout-line" hidden></cds-link>
+    </div>
+  </cds-card>
+</main>
+
+<script src="../scripts/cds-element.js"></script>
+<script src="../scripts/playground-kit.js"></script>
+<script src="../scripts/assets-manifest.js"></script>
+<script src="../dist/cds-publico.js"></script>
+<script>
+(function(){
+  "use strict";
+  var form = document.getElementById("ad-form"), code = document.getElementById("ad-code"), go = document.getElementById("ad-go");
+  var tools = document.getElementById("ad-tools"), box = document.getElementById("ad-alert"), sair = document.getElementById("ad-sair"), busy = false;
+  function aviso(appearance, label, text){
+    box.innerHTML = ""; box.hidden = !label;
+    if (label) box.appendChild(CDS.create("cds-alert", { appearance: appearance, label: label, text: text, "show-close-button": "false" }));
+  }
+  // o Code Input mostra a mensagem de erro com Appearance=Warning, como na entrada do portal
+  function erro(msg){ if (msg){ code.setAttribute("error", msg); code.setAttribute("appearance", "warning"); } else { code.removeAttribute("error"); code.setAttribute("appearance", "neutral"); } }
+  function mostrar(estado){
+    form.hidden = !estado.pede; tools.hidden = !estado.admin; sair.hidden = !estado.admin;
+    if (estado.pede) requestAnimationFrame(function(){ var f = code.querySelector("input"); if (f) f.focus(); });
+  }
+  function conferir(){
+    fetch("/acesso/perfil", { credentials: "same-origin", cache: "no-store" })
+      .then(function(r){ if (!/json/.test(r.headers.get("content-type") || "")) throw new Error("sem middleware"); return r.json(); })
+      .then(function(j){
+        if (j.admin){ aviso(); mostrar({ admin: true }); return; }
+        if (!j.configurado){ aviso("warning", "Senha de admin não configurada", "Crie a variável ACESSO_ADMIN no Vercel e publique de novo."); mostrar({}); return; }
+        mostrar({ pede: true });
+      })
+      .catch(function(){ aviso("informative", "Admin no endereço do Vercel", "Aqui o portal é aberto e não pede código. O admin funciona onde o middleware roda."); mostrar({}); });
+  }
+  function enviar(){
+    if (busy) return;
+    var v = String(code.value || code.getAttribute("value") || "").replace(/\D/g, "");
+    if (v.length !== 6){ erro("Digite os 6 números da senha."); return; }
+    busy = true; go.setAttribute("disabled", ""); erro("");
+    fetch("/acesso/entrar", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ codigo: v, admin: true }), credentials: "same-origin" })
+      .then(function(r){
+        if (r.status === 429) throw new Error("Muitas tentativas seguidas. Espere alguns minutos e tente de novo.");
+        return r.json().then(function(j){ if (!r.ok) throw new Error(j.erro || "Não deu para entrar agora. Tente de novo."); return j; });
+      })
+      .then(function(){ conferir(); })
+      .catch(function(e){ erro(e.message); code.setAttribute("value", ""); var f = code.querySelector("input"); if (f) f.focus(); })
+      .then(function(){ busy = false; go.removeAttribute("disabled"); });
+  }
+  code.addEventListener("cds-complete", enviar);
+  go.addEventListener("click", enviar);
+  form.addEventListener("submit", function(e){ e.preventDefault(); enviar(); });
+  conferir();
+})();
+</script>
+</body>
+</html>

@@ -37,10 +37,12 @@
   .lk__list{ display:flex; flex-direction:column; gap:var(--common-sizes-12); }
   .lk__toast{ position:fixed; left:50%; bottom:var(--common-sizes-24); transform:translateX(-50%); }
   .lk cds-quantity-input[hidden]{ display:none; }
+  .lk__voltar{ align-self:flex-start; }
 </style>
 </head>
 <body>
 <main class="lk">
+  <cds-link class="lk__voltar" label="Voltar ao admin" href="/admin/" appearance="accent" icon="navigation-left-line"></cds-link>
   <cds-card has-border="true">
     <div class="lk__text">
       <h1 class="lk__title">Links de página</h1>

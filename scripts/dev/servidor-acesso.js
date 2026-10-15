@@ -2,7 +2,7 @@
 /**
  * Servidor local com o middleware.js do Vercel (docs/PLANO-ACESSO.md), para testar a entrada, os perfis e os links de
  * entrega sem publicar. Usa códigos de teste (nunca os do Vercel):
- *   Completo 111111 · Portal 222222 · chave do MCP "chave-de-teste"
+ *   Completo 111111 · Portal 222222 · admin 333333 · chave do MCP "chave-de-teste"
  *   node scripts/dev/servidor-acesso.js [porta]     (padrão 8790) → http://localhost:8790
  * Os cookies saem com Secure, que o navegador aceita em localhost.
  * O ranking do Castanha Quiz (api/ranking.mjs) roda com um Redis de mentira na memória: some ao parar o servidor.
@@ -10,7 +10,7 @@
 "use strict";
 const fs = require("fs"), path = require("path"), vm = require("vm"), http = require("http");
 const ROOT = path.join(__dirname, "..", ".."), PORTA = Number(process.argv[2]) || 8790;
-const env = { ACESSO_SEGREDO: "segredo-local", ACESSO_COMPLETO: "111111", ACESSO_PORTAL: "222222", ACESSO_MCP: "chave-de-teste",
+const env = { ACESSO_SEGREDO: "segredo-local", ACESSO_COMPLETO: "111111", ACESSO_PORTAL: "222222", ACESSO_ADMIN: "333333", ACESSO_MCP: "chave-de-teste",
   KV_REST_API_URL: "http://redis-local", KV_REST_API_TOKEN: "local" }; // registro dos links no Redis de mentira (abaixo)
 function carregar(){ // relê o middleware a cada pedido: editar e recarregar a página basta
   const src = fs.readFileSync(path.join(ROOT, "middleware.js"), "utf8")
@@ -76,4 +76,4 @@ http.createServer(async (rq, res) => {
   const h = {}; r.headers.forEach((v, k) => { if (k !== "set-cookie") h[k] = v; });
   const sc = r.headers.getSetCookie(); if (sc.length) h["set-cookie"] = sc;
   res.writeHead(r.status, h); res.end(Buffer.from(await r.arrayBuffer()));
-}).listen(PORTA, () => console.log("Portal com o middleware em http://localhost:" + PORTA + " · Completo 111111 · Portal 222222"));
+}).listen(PORTA, () => console.log("Portal com o middleware em http://localhost:" + PORTA + " · Completo 111111 · Portal 222222 · admin 333333"));

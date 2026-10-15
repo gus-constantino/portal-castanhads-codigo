@@ -20,6 +20,7 @@
  *   ACESSO_COMPLETO, ACESSO_PORTAL · códigos de 6 dígitos de cada perfil
  *   ACESSO_SEGREDO · assina o cookie de acesso (trocar derruba todas as sessões)
  *   ACESSO_MCP     · chave do MCP
+ *   ACESSO_ADMIN   · código de 6 dígitos da página de admin (/admin/), pedido além do Completo de senha fixa
  *   KV_REST_API_URL, KV_REST_API_TOKEN · banco Upstash (o mesmo do ranking): registro dos links gerados, para listar e revogar.
  *     Sem o banco, os links funcionam, mas não entram na lista nem podem ser revogados.
  * Sem ACESSO_SEGREDO o portal fica fechado para todos, menos o Visitante.
@@ -27,7 +28,11 @@
  * Rotas do próprio middleware
  *   POST /acesso/entrar {codigo} · confere o código e grava os cookies (o limite de tentativas é a regra do Firewall do Vercel)
  *   GET  /acesso/sair            · apaga os cookies e leva à entrada
- *   GET  /acesso/perfil          · { perfil } ou { perfil: null }
+ *   GET  /acesso/perfil          · { perfil, admin } ou { perfil: null }
+ *   POST /acesso/entrar {codigo, admin: true} · Completo de senha fixa: confere ACESSO_ADMIN e grava cds_admin (8 horas).
+ *                                  Passa pela mesma rota da entrada para a regra de tentativas do Firewall valer também.
+ *   GET  /acesso/admin/sair      · apaga o cds_admin e volta ao portal
+ * Admin (D+admin): /admin/ e as telas e rotas de links e senhas pedem o Completo de senha fixa E o cookie cds_admin.
  *   POST /acesso/links {caminho, dias} · só o perfil Completo: devolve o link assinado da entrega (/entregas/<slug>/)
  *   POST /acesso/links {alvo, dias}    · só o perfil Completo: devolve o link de página do alvo (ex.: pagina:castanha-quiz)
  *   GET  /acesso/links/ativos          · só o perfil Completo: os links registrados que ainda valem
@@ -117,6 +122,18 @@ async function sessao(req, env){
 async function perfil(req, env){ const s = await sessao(req, env); return s ? s.p : null; }
 // o Completo de senha fixa: gerar links e senhas não vale para quem entrou por senha temporária (não passa da validade dela)
 async function completoFixo(req, env){ const s = await sessao(req, env); return !!s && s.p === "completo" && !s.t; }
+// admin (D+admin): o Completo de senha fixa com o cookie cds_admin assinado e em dia (8 horas depois da senha de admin)
+const ADMIN_HORAS = 8;
+async function cookieAdmin(env){
+  const dados = b64u(enc.encode(JSON.stringify({ e: Date.now() + ADMIN_HORAS * 36e5 })));
+  return dados + "." + await hmac(env.ACESSO_SEGREDO, "admin." + dados);
+}
+async function admin(req, env){
+  if (!env.ACESSO_ADMIN || !(await completoFixo(req, env))) return false;
+  const [dados, sig] = String(cookies(req).cds_admin || "").split(".");
+  if (!dados || !sig || !(await igual(sig, await hmac(env.ACESSO_SEGREDO, "admin." + dados), env.ACESSO_SEGREDO))) return false;
+  try { return JSON.parse(Buffer.from(dados.replace(/-/g, "+").replace(/_/g, "/"), "base64").toString("utf8")).e > Date.now(); } catch (e) { return false; }
+}
 async function cookieAcesso(p, env, t, vence){
   const dados = b64u(enc.encode(JSON.stringify(Object.assign({ p, e: vence || Date.now() + DIAS * 864e5 }, t ? { t } : {}))));
   return dados + "." + await hmac(env.ACESSO_SEGREDO, dados);
@@ -214,9 +231,17 @@ export default async function middleware(req){
   // --- rotas do próprio middleware ---
   if (path === "/acesso/entrar" && req.method === "POST"){
     if (!env.ACESSO_SEGREDO) return json({ erro: "O acesso ainda não foi configurado." }, 503);
-    let codigo = "";
-    try { codigo = String((await req.json()).codigo || "").trim(); } catch (e) {}
+    let codigo = "", pedeAdmin = false;
+    try { const b = await req.json(); codigo = String(b.codigo || "").trim(); pedeAdmin = b.admin === true; } catch (e) {}
     if (!/^\d{6}$/.test(codigo)) return json({ erro: "Digite os 6 números do código." }, 400);
+    if (pedeAdmin){
+      if (!env.ACESSO_ADMIN) return json({ erro: "A senha de admin ainda não foi configurada no Vercel." }, 503);
+      if (!(await completoFixo(req, env))) return json({ erro: "Entre no portal com o código Completo antes." }, 403);
+      if (!(await igual(codigo, env.ACESSO_ADMIN, env.ACESSO_SEGREDO))) return json({ erro: "Senha de admin incorreta. Confira e tente de novo." }, 401);
+      const h = new Headers({ "content-type": "application/json; charset=utf-8", "cache-control": "no-store" });
+      h.append("set-cookie", "cds_admin=" + await cookieAdmin(env) + "; Path=/; Max-Age=" + ADMIN_HORAS * 3600 + "; HttpOnly; Secure; SameSite=Lax");
+      return new Response(JSON.stringify({ admin: true, vence: new Date(Date.now() + ADMIN_HORAS * 36e5).toISOString() }), { status: 200, headers: h });
+    }
     let p = null, temp = null;
     if (env.ACESSO_COMPLETO && await igual(codigo, env.ACESSO_COMPLETO, env.ACESSO_SEGREDO)) p = "completo";
     else if (env.ACESSO_PORTAL && await igual(codigo, env.ACESSO_PORTAL, env.ACESSO_SEGREDO)) p = "portal";
@@ -237,11 +262,17 @@ export default async function middleware(req){
     h.append("set-cookie", "cds_acesso=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Lax");
     h.append("set-cookie", "cds_perfil=; Path=/; Max-Age=0; Secure; SameSite=Lax");
     h.append("set-cookie", "cds_senha=; Path=/; Max-Age=0; Secure; SameSite=Lax");
+    h.append("set-cookie", "cds_admin=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Lax");
     return new Response(null, { status: 302, headers: h });
   }
-  if (path === "/acesso/perfil") return json({ perfil: await perfil(req, env) });
+  if (path === "/acesso/admin/sair"){
+    const h = new Headers({ Location: "/", "cache-control": "no-store" });
+    h.append("set-cookie", "cds_admin=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Lax");
+    return new Response(null, { status: 302, headers: h });
+  }
+  if (path === "/acesso/perfil") return json({ perfil: await perfil(req, env), admin: await admin(req, env), configurado: !!env.ACESSO_ADMIN });
   if (path === "/acesso/links" && req.method === "POST"){
-    if (!(await completoFixo(req, env))) return json({ erro: "Gerar links é do perfil Completo." }, 403);
+    if (!(await admin(req, env))) return json({ erro: "Gerar links é do admin." }, 403);
     let b = {};
     try { b = await req.json(); } catch (e) {}
     const dias = Number(b.dias) || 14;
@@ -268,7 +299,7 @@ export default async function middleware(req){
     return json({ link, caminho: info.caminho, alvo: info.alvo, vence: new Date(vence).toISOString(), registrado });
   }
   if (path === "/acesso/links/ativos"){
-    if (!(await completoFixo(req, env))) return json({ erro: "A lista de links é do perfil Completo." }, 403);
+    if (!(await admin(req, env))) return json({ erro: "A lista de links é do admin." }, 403);
     const db = banco(env);
     if (!db) return json({ registro: false, links: [] });
     try {
@@ -283,7 +314,7 @@ export default async function middleware(req){
     } catch (e) { return json({ erro: "O registro de links não respondeu." }, 502); }
   }
   if (path === "/acesso/links/revogar" && req.method === "POST"){
-    if (!(await completoFixo(req, env))) return json({ erro: "Revogar links é do perfil Completo." }, 403);
+    if (!(await admin(req, env))) return json({ erro: "Revogar links é do admin." }, 403);
     let b = {};
     try { b = await req.json(); } catch (e) {}
     const db = banco(env), id = String(b.id || "");
@@ -294,7 +325,7 @@ export default async function middleware(req){
   }
   if (/^\/acesso\/senhas(\/ativas|\/revogar)?$/.test(path)){
     // gerar, listar e revogar senhas é do Completo de senha fixa: uma senha temporária não cria outras
-    if (!(await completoFixo(req, env))) return json({ erro: "Senhas temporárias são do perfil Completo." }, 403);
+    if (!(await admin(req, env))) return json({ erro: "Senhas temporárias são do admin." }, 403);
     const db = banco(env);
     if (path === "/acesso/senhas/ativas"){
       if (!db) return json({ registro: false, senhas: [] });
@@ -405,8 +436,9 @@ export default async function middleware(req){
     }
     return quer(req) ? paraEntrar(url) : new Response("Entre no portal para abrir este arquivo", { status: 401, headers: { "cache-control": "no-store" } });
   }
-  // as telas de gerar links e senhas são do Completo de senha fixa
-  if (/^\/acesso\/(links|paginas|senhas)\//.test(path) && (p !== "completo" || sess.t)) return semAcesso(quer(req));
+  // a página de admin abre para o Completo de senha fixa (ela mesma pede a senha de admin); as telas de links e senhas, só com o admin
+  if (/^\/admin(\/|\/index\.html)?$/.test(path) && (p !== "completo" || sess.t)) return semAcesso(quer(req));
+  if (/^\/acesso\/(links|paginas|senhas)\//.test(path) && !(await admin(req, env))) return quer(req) && p === "completo" && !sess.t ? new Response(null, { status: 302, headers: { Location: "/admin/", "cache-control": "no-store" } }) : semAcesso(quer(req));
   if (p === "dashboard"){
     if (path === "/dist/cds.js") return new Response(null, { headers: { "x-middleware-rewrite": url.origin + "/dist/cds-entrega.js" + url.search } });
     if (RELATORIO.some((re) => re.test(path)) || (!/\.docs\.js$/.test(path) && ENTREGA_SHELL.some((re) => re.test(path)))) return seguir();

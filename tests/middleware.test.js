@@ -66,7 +66,7 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   confere("código Portal entra", portal.status === 200 && portal.body.perfil === "portal", JSON.stringify(portal.body));
   const com = (p, c, o) => mw(req(p, { headers: Object.assign({ cookie: c }, (o || {}).headers || {}) }));
 
-  // Admin (D+admin): Completo de senha fixa + senha de admin, cookie cds_admin de 8 horas
+  // Admin (D350): Completo de senha fixa + senha de admin, cookie cds_admin de 8 horas
   const entrarAdmin = (c, codigo) => mw(new Request(BASE + "/acesso/entrar", { method: "POST", headers: { "content-type": "application/json", cookie: c || "" }, body: JSON.stringify({ codigo, admin: true }) }));
   r = await entrarAdmin("", "333333"); confere("senha de admin sem o Completo dá 403", r.status === 403, String(r.status));
   r = await entrarAdmin(portal.cookie, "333333"); confere("senha de admin no Portal dá 403", r.status === 403, String(r.status));

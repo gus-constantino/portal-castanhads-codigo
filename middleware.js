@@ -32,7 +32,7 @@
  *   POST /acesso/entrar {codigo, admin: true} · Completo de senha fixa: confere ACESSO_ADMIN e grava cds_admin (8 horas).
  *                                  Passa pela mesma rota da entrada para a regra de tentativas do Firewall valer também.
  *   GET  /acesso/admin/sair      · apaga o cds_admin e volta ao portal
- * Admin (D+admin): /admin/ e as telas e rotas de links e senhas pedem o Completo de senha fixa E o cookie cds_admin.
+ * Admin (D350): /admin/ e as telas e rotas de links e senhas pedem o Completo de senha fixa E o cookie cds_admin.
  *   POST /acesso/links {caminho, dias} · só o perfil Completo: devolve o link assinado da entrega (/entregas/<slug>/)
  *   POST /acesso/links {alvo, dias}    · só o perfil Completo: devolve o link de página do alvo (ex.: pagina:castanha-quiz)
  *   GET  /acesso/links/ativos          · só o perfil Completo: os links registrados que ainda valem
@@ -122,7 +122,7 @@ async function sessao(req, env){
 async function perfil(req, env){ const s = await sessao(req, env); return s ? s.p : null; }
 // o Completo de senha fixa: gerar links e senhas não vale para quem entrou por senha temporária (não passa da validade dela)
 async function completoFixo(req, env){ const s = await sessao(req, env); return !!s && s.p === "completo" && !s.t; }
-// admin (D+admin): o Completo de senha fixa com o cookie cds_admin assinado e em dia (8 horas depois da senha de admin)
+// admin (D350): o Completo de senha fixa com o cookie cds_admin assinado e em dia (8 horas depois da senha de admin)
 const ADMIN_HORAS = 8;
 async function cookieAdmin(env){
   const dados = b64u(enc.encode(JSON.stringify({ e: Date.now() + ADMIN_HORAS * 36e5 })));

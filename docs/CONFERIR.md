@@ -10,7 +10,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 |---|---|
 | [Ajuste de texto](#ajuste-de-texto) | 16 |
 | [Ajuste de UI](#ajuste-de-ui) | 32 |
-| [Motion](#motion) | 8 |
+| [Motion](#motion) | 9 |
 | [Refactor](#refactor) | 39 |
 | [Naming](#naming) | 11 |
 | [Acessibilidade](#acessibilidade) | 9 |
@@ -93,7 +93,7 @@ Reactions, durações e curvas.
 | C42 | Select Inputs · hover e clique | Hover: 150ms `0.7,0,0.8,1` no Async, Creatable e Radio; **instantâneo** no Checkbox; **300ms** no Multi. Clique no Icon Button do Async: 150ms `EASE_OUT` (sem token). A família Text Fields usa 300ms (C01) | Motion Styles por interação, iguais nos cinco | Segue cada um (`select-field.css`, variáveis `--tf-hover-*`) | Mantém como o Figma; **validar e ajustar** (Gustavo, 02/10). Trocar as variáveis em `select-field.css` |
 | C50 | Tabs (.Item) · motion | Hover e press instantâneos; o clique troca o Active em 300ms `0.7,0,0.8,1` (só no Scrollable Tab; o Fixed Tab não tem reaction de clique no Item 1) | Motion Styles por interação, iguais nos dois | Hover/press sem transição; sublinhado em 300ms + `Systemic/accelerate` nos dois | Trocar em `tab-item.css` |
 | C201 | Text Fields (Text, Search, Text Area, Password, os 5 Select, Quantity, Chat) | Na branch `4hJ90rFfuEyWx9zHeqJxp4` (CDS-1594, 14/10) todas as reactions das variantes passaram para os Motion Styles: hover `Hover In/01`, press `Pressed/01`, click `Selected In/01` (o Checkbox Select deixou de ser instantâneo). A main segue com 300ms (C01) e com os valores do C42 | Motion Styles por interação na família inteira | O Chat Input e o Credit Card já usam os Motion Styles. A base (`text-field.css`) e o `select-field.css` seguem a main | Quando a branch for publicada: trocar `--tf-*` na base e no `select-field.css` para `--motion-hover/press/active-*` e fechar C01 e C42 |
-| C+motion-styles | Motion Styles novos (CDS-730) | Na branch `5ruoj0X35N4WobKIggNV8a` (15/10) a `.Motion Styles` tem 36 estilos, sem descrição de uso em nenhuma variável, e ganhou o `Hover In/01/Delay` (0 ms). O modo Reduced zera durações e delays e troca a curva de 11 estilos (ex.: `Hover In/04` vai de Expressive/decelerate para Systemic/default, `Pressed/04` de Systemic/default para Systemic/accelerate) | Qual componente ou cenário usa cada número (`Loading/01` no Spinner? `Selected In/04` em abrir/fechar?), para as docs apontarem o estilo certo. Confirmar com a Ju se o Reduced deve seguir `prefers-reduced-motion` | Os 103 tokens no `tokens.css` (D+motion-styles), Reduced em `prefers-reduced-motion`. Os componentes seguem no `/01` | Quando a branch entrar na main: reler a coleção e conferir que nada mudou |
+| C204 | Motion Styles novos (CDS-730) | Na branch `5ruoj0X35N4WobKIggNV8a` (15/10) a `.Motion Styles` tem 36 estilos, sem descrição de uso em nenhuma variável, e ganhou o `Hover In/01/Delay` (0 ms). O modo Reduced zera durações e delays e troca a curva de 11 estilos (ex.: `Hover In/04` vai de Expressive/decelerate para Systemic/default, `Pressed/04` de Systemic/default para Systemic/accelerate) | Qual componente ou cenário usa cada número (`Loading/01` no Spinner? `Selected In/04` em abrir/fechar?), para as docs apontarem o estilo certo. Confirmar com a Ju se o Reduced deve seguir `prefers-reduced-motion` | Os 103 tokens no `tokens.css` (D351), Reduced em `prefers-reduced-motion`. Os componentes seguem no `/01` | Quando a branch entrar na main: reler a coleção e conferir que nada mudou |
 
 ## Refactor
 

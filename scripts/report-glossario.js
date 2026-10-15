@@ -9,18 +9,18 @@
   window.CDS = window.CDS || {};
   CDS.reportGlossary = [
     { term: "Regra D40", match: /Regra D40/, def: "Decisão D40: o código segue o Figma. O que muda no código vira exceção aprovada ou débito registrado." },
-    { term: "D + número", match: /\bD\d{2,3}\b/, def: "Decisão registrada no Roadmap, na seção Decisões, com a data e o motivo. Ex.: D328." },
-    { term: "C + número", match: /\bC\d{2,3}\b/, def: "Item do Conferir: uma divergência entre o Figma e o código, com o que falta decidir ou corrigir. Ex.: C198." },
-    { term: "Q + número", match: /\bQ\d{1,2}\b/, def: "Dúvida registrada no Roadmap enquanto espera a resposta do time." },
-    { term: "Conferir", match: /\bConferir\b|\bCONFERIR\b/, def: "Lista das divergências entre o Figma e o código, por tipo (texto, UI, motion, nomes…). Cada item tem um código C." },
+    { term: "D + número", match: /\bD\d{2,3}\b/, def: "Decisão registrada na tab Decisões, com a data e o motivo. Ex.: D328." },
+    { term: "C + número", match: /\bC\d{2,3}\b/, def: "Item das Pendências: uma divergência entre o Figma e o código, com o que falta decidir ou corrigir. Ex.: C198." },
+    { term: "Q + número", match: /\bQ\d{1,2}\b/, def: "Dúvida registrada na tab Decisões enquanto espera a resposta do time." },
+    { term: "Pendências", match: /\bPendências\b|\bConferir\b|\bCONFERIR\b/, def: "Tab com a lista das divergências entre o Figma e o código, por tipo (texto, UI, motion, nomes…). Cada item tem um código C." },
     { term: "Exceção aprovada", match: /[Ee]xceç(?:ão|ões) aprovadas?/, def: "Diferença entre o código e o Figma aceita de propósito: decisão do time, falta de especificação ou adaptação para a web." },
     { term: "Débito", match: /\b[Dd]ébitos?\b/, def: "Diferença entre o Figma e o código que ainda vai ser corrigida, de um lado ou do outro." },
     { term: "Segue o Figma", match: /[Ss]egue o Figma/, def: "O código faz o mesmo que o Figma, sem adaptação." },
     { term: "Smoke", match: /\b[Ss]moke\b/, def: "Teste automático que abre cada componente e cada doc no navegador (claro, escuro e celular) e reprova o que quebrou. Roda em todo envio para o GitHub." },
-    { term: "Aviso", match: /\b[Aa]visos?\b/, def: "Problema que o smoke encontrou sem quebrar a página, como um contraste abaixo do recomendado. Cada aviso tem um item no Conferir." },
+    { term: "Aviso", match: /\b[Aa]visos?\b/, def: "Problema que o smoke encontrou sem quebrar a página, como um contraste abaixo do recomendado. Cada aviso tem um item nas Pendências." },
     { term: "Peso da primeira visita", match: /[Pp]eso da (?:1ª|primeira) visita/, def: "Quanto o navegador baixa para abrir o portal pela primeira vez, já comprimido. O orçamento é de 600 KB." },
     { term: "gzip", match: /\bgzip\b/, def: "Compressão que o servidor aplica nos arquivos antes de enviar. O peso do portal é medido assim." },
-    { term: "Inventário", match: /\b[Ii]nventário\b/, def: "Lista dos componentes publicados na lib do Figma, com o número de variantes de cada set (Roadmap, seção 2)." },
+    { term: "Inventário", match: /\b[Ii]nventário\b/, def: "Lista dos componentes publicados na lib do Figma, com o número de variantes de cada set (tab Decisões, seção 2)." },
     { term: "Set", match: /\bsets\b/, def: "Componente do Figma com variantes. Um componente pode ter mais de um set, como Checkbox e Checkbox Group." },
     { term: "Variante", match: /\b[Vv]ariantes\b/, def: "Cada combinação de propriedades de um set no Figma, como Kind Default com Size Small." },
     { term: "Building block", match: /\b[Bb]uilding blocks?\b/, def: "Peça interna de um componente no Figma, com o nome começando por ponto (ex.: .Footer). Não é publicada sozinha e não conta como componente." },
@@ -36,7 +36,7 @@
     { term: "MISSING-VARIANT", match: /\bMISSING-VARIANT\b/, def: "No check das stacks: uma prop ou variante do Figma que não chega ao código." },
     { term: "APPROXIMATION", match: /\bAPPROXIMATION\b/, def: "No check das stacks: o código chega perto do Figma, mas não igual, como uma prop com outro valor padrão." },
     { term: "castanha-ai", match: /\bcastanha-ai\b/, def: "Repositório interno de IA do Castanha. É o 4º vértice do check, ao lado do Figma, do React e do Flutter." },
-    { term: "Lote", match: /\b[Ll]otes?\b/, def: "Grupo de componentes implementados juntos no portal, na ordem do Roadmap (seção Lotes)." },
+    { term: "Lote", match: /\b[Ll]otes?\b/, def: "Grupo de componentes implementados juntos no portal, na ordem da tab Decisões (seção Lotes)." },
     { term: "Token", match: /\b[Tt]okens\b/, def: "Valor com nome no tema (cor, espaço, raio, tipografia) que o Figma e o código usam igual. Ex.: Common/Sizes/16." }
   ];
 })();

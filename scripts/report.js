@@ -10,20 +10,22 @@
   var REPO = "https://github.com/gus-constantino/portal-castanhads-codigo/blob/main/";
   // Seções por número do título (ROADMAP/ARCHITECTURE) ou pelo nome (CONFERIR). O que não estiver listado vai para o último grupo.
   var TABS = [
+    // Rótulos e ordem de 15/10 (Gustavo): o que pede ação (Pendências), o que foi decidido (Decisões), o estado do código
+    // (Qualidade, React, Flutter) e a referência (Arquitetura, Glossário). Os ids (e as rotas #/relatorio/<id>) não mudaram.
     { id: "visao", title: "Visão geral" },
-    { id: "conferir", title: "Conferir", file: "docs/CONFERIR.md", groups: [
+    { id: "conferir", title: "Pendências", file: "docs/CONFERIR.md", groups: [
       ["Em aberto, por tipo", ["Ajuste de texto", "Ajuste de UI", "Motion", "Refactor", "Naming", "Acessibilidade", "Documentação", "Integração React"]],
       ["Fechados", ["Resolvidos"]], ["Referência", ["Como usar esta lista"]] ] },
-    { id: "saude", title: "Saúde técnica", file: "docs/SAUDE-TECNICA.md", groups: [ // gerado pelo build-index (smoke e peso)
+    { id: "roadmap", title: "Decisões", file: "docs/ROADMAP.md", groups: [
+      ["Andamento", ["8", "3"]], ["Decisões e pendências", ["4", "5", "5.1", "5.2"]], ["Referência", ["2", "7", "1"]] ], hide: ["6"] }, // 6 = Preferências (nota de trabalho, fica só no doc)
+    { id: "saude", title: "Qualidade", file: "docs/SAUDE-TECNICA.md", groups: [ // gerado pelo build-index (smoke e peso)
       ["Resumo", ["Resumo"]], ["Smoke", ["Componentes", "Docs"]], ["Peso", ["Peso"]], ["Referência", ["Como rodar"]] ] },
-    { id: "stack", title: "Stack React", file: "integration/SAUDE-STACK.md", groups: [ // R2: check Figma × castanha-react × playground
+    { id: "stack", title: "React", file: "integration/SAUDE-STACK.md", groups: [ // R2: check Figma × castanha-react × playground
       ["Resumo", ["Resumo"]], ["Por nível", ["Alta", "Média", "Informativo"]], ["Tokens e assets", ["Tokens", "Assets"]], ["Histórico", ["Histórico"]], ["Referência", ["Como rodar"]] ] },
-    { id: "stack-flutter", title: "Stack Flutter", file: "integration/flutter/SAUDE-STACK.md", groups: [ // F2: check Figma × castanha_flutter × playground
+    { id: "stack-flutter", title: "Flutter", file: "integration/flutter/SAUDE-STACK.md", groups: [ // F2: check Figma × castanha_flutter × playground
       ["Resumo", ["Resumo"]], ["Por nível", ["Alta", "Média", "Informativo"]], ["Assets", ["Assets"]], ["Histórico", ["Histórico"]], ["Referência", ["Como rodar"]] ] },
     { id: "arquitetura", title: "Arquitetura", file: "docs/ARCHITECTURE.md", groups: [
       ["Visão", ["1", "2"]], ["Evolução", ["7", "6", "5"]], ["Referência técnica", ["3", "4", "8"]] ] },
-    { id: "roadmap", title: "Roadmap", file: "docs/ROADMAP.md", groups: [
-      ["Andamento", ["8", "3"]], ["Decisões e pendências", ["4", "5", "5.1", "5.2"]], ["Referência", ["2", "7", "1"]] ], hide: ["6"] }, // 6 = Preferências (nota de trabalho, fica só no doc)
   ];
   // Glossário (R1 do onboarding dos Relatórios): termos de scripts/report-glossario.js, por último entre as tabs
   TABS.push({ id: "glossario", title: "Glossário" });
@@ -365,21 +367,21 @@
         ["ch04", "Com alteração pendente", fk.changed, "Publicados, mas o arquivo tem alterações que ainda não foram publicadas."],
         ["ch05", "Não publicado", fk.unpublished, "Componentes que ainda não estão publicados na lib."]],
       facts: ["Última mudança no Figma em " + String(FS.checked || "").replace(/\/\d{4}$/, "")],
-      link: ["Ver no Roadmap", "#/relatorio/roadmap"], tip: "Componentes da lib [CastanhaDS] Components publicados sem alterações pendentes, lidos no Figma. Building blocks, composições e templates ficam fora da conta." });
+      link: ["Ver em Decisões", "#/relatorio/roadmap"], tip: "Componentes da lib [CastanhaDS] Components publicados sem alterações pendentes, lidos no Figma. Building blocks, composições e templates ficam fora da conta." });
     // React: par no castanha-react (manifesto), JSX validado com o tsc e o check Figma × React
     var R = CDS.react || { items: {} }, rN = comps.filter(function(c){ return R.items[c.id] && R.items[c.id].status === "react"; }).length, lvR = levels(docs.stack), jx = extra.jsx;
     col({ key: "react", name: "React", icon: "react-line", n: rN, of: N, base: "componentes do playground", what: "com par no castanha-react (web)", st: stStatus(lvR), levels: lvR,
       segs: [["ch03", "Com par no React", rN, "Componentes do playground que já existem no castanha-react."], ["ch07", "Ainda sem par", N - rN, "Existem no Figma e no playground, mas ainda não no castanha-react."]],
       facts: [jx ? "Código gerado validado: " + fmt(jx.trechos) + " trechos, " + (jx.erros || []).length + ((jx.erros || []).length === 1 ? " erro" : " erros") : "",
         R.source ? "Leitura da staging de " + brDate(R.source.date) : ""],
-      link: ["Abrir Stack React", "#/relatorio/stack"], tip: "Componentes do playground que já existem no castanha-react. O código do painel \"No React\" é validado com o TypeScript da lib a cada leitura." });
+      link: ["Abrir React", "#/relatorio/stack"], tip: "Componentes do playground que já existem no castanha-react. O código do painel \"No React\" é validado com o TypeScript da lib a cada leitura." });
     // Flutter: widget no castanha_flutter, Dart validado com o dart analyze e o check Figma × Flutter
     var F = CDS.flutter || { items: {} }, fN = comps.filter(function(c){ return F.items[c.id]; }).length, lvF = levels(docs["stack-flutter"]), dt = extra.dart;
     col({ key: "flutter", name: "Flutter", icon: "flutter-fill", n: fN, of: N, base: "componentes do playground", what: "com widget no castanha_flutter (app)", st: stStatus(lvF), levels: lvF,
       segs: [["ch03", "Com widget no Flutter", fN, "Componentes do playground que já existem no castanha_flutter."], ["ch07", "Ainda sem par", N - fN, "Existem no Figma e no playground, mas ainda não no castanha_flutter."]],
       facts: [dt ? "Código gerado validado: " + fmt(dt.snippets) + " trechos, " + dt.errors + (dt.errors === 1 ? " erro" : " erros") : "",
         F.source ? "Leitura da staging de " + brDate(F.source.date) : ""],
-      link: ["Abrir Stack Flutter", "#/relatorio/stack-flutter"], tip: "Componentes do playground que já existem no castanha_flutter. O código do painel \"No Flutter\" é validado com o dart analyze a cada leitura." });
+      link: ["Abrir Flutter", "#/relatorio/stack-flutter"], tip: "Componentes do playground que já existem no castanha_flutter. O código do painel \"No Flutter\" é validado com o dart analyze a cada leitura." });
     return p;
   }
 
@@ -500,7 +502,7 @@
     // Cada card tem uma ou mais séries da mesma unidade (dividem o eixo). Débitos: em aberto ao lado dos resolvidos (Gustavo, 09/10).
     var M = [
       { t: "Documentações de componente", tip: "Docs de uso, anatomia, estilos e acessibilidade publicadas no portal.", s: [{ name: "Documentações", cls: "is-s2", get: function(d){ return d.docs; } }] },
-      { t: "Decisões registradas", tip: "Decisões de produto e de implementação registradas no Roadmap.", s: [{ name: "Decisões", cls: "is-s2", get: function(d){ return d.decisoes; } }] },
+      { t: "Decisões registradas", tip: "Decisões de produto e de implementação registradas na tab Decisões.", s: [{ name: "Decisões", cls: "is-s2", get: function(d){ return d.decisoes; } }] },
       { t: "Débitos no Conferir", tip: "Divergências, gaps e propostas do Conferir: os que ainda esperam ação e os já resolvidos (no Figma ou no código).", s: [
         { name: "Em aberto", cls: "is-s2", get: function(d){ return d.abertos; } },
         { name: "Resolvidos", cls: "is-s3", get: function(d){ return d.resolvidos; } }] },
@@ -671,7 +673,7 @@
       if (r[2]) li.appendChild(el("p", "rp-list__note", esc(plain(r[2]))));
     });
     // Sinais vitais: o resumo da Saúde técnica (smoke, docs, peso), em blocos com status
-    var p0 = panel(grid, "Sinais vitais", "Último build do portal: smoke dos componentes, das docs e peso da primeira visita · detalhes na tab Saúde técnica", "rp-panel--wide");
+    var p0 = panel(grid, "Sinais vitais", "Último build do portal: smoke dos componentes, das docs e peso da primeira visita · detalhes na tab Qualidade", "rp-panel--wide");
     var vit = p0.appendChild(el("div", "rp-vitals"));
     var NAMES = [[/smoke dos componentes/i, "Componentes", "view-module-line"], [/smoke das docs/i, "Docs", "document-line"], [/peso/i, "Peso da 1ª visita", "download-line"]];
     rows(sec(docs.saude, function(s){ return s.title === "Resumo"; }).lines).forEach(function(r){

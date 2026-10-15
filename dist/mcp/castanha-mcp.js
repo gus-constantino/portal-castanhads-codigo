@@ -346,7 +346,7 @@
         }
     
         if (checks.length){
-          root.appendChild(acc("Saúde Figma × React", checks.length + (checks.length === 1 ? " item" : " itens") + " do check em quatro vértices (relatório: Stack React)",
+          root.appendChild(acc("Saúde Figma × React", checks.length + (checks.length === 1 ? " item" : " itens") + " do check em quatro vértices (relatório: tab React)",
             table(["Nível", "Gap", "O quê"], checks.map(function(c){
               var t = attrs(document.createElement("cds-tag"), { appearance: CK[c.l][0], label: CK[c.l][1], "show-lead-item": "false" });
               return [t, c.g ? "`" + c.g + "`" : "—", c.m]; // categoria do Gap Report do castanha-ai
@@ -695,7 +695,7 @@
         }
     
         if (checks.length){
-          root.appendChild(acc("Saúde Figma × Flutter", checks.length + (checks.length === 1 ? " item" : " itens") + " do check em três vértices (relatório: Stack Flutter)",
+          root.appendChild(acc("Saúde Figma × Flutter", checks.length + (checks.length === 1 ? " item" : " itens") + " do check em três vértices (relatório: tab Flutter)",
             table(["Nível", "Tipo", "O quê"], checks.map(function(c){
               return [attrs(document.createElement("cds-tag"), { appearance: CK[c.l][0], label: CK[c.l][1], "show-lead-item": "false" }), "`" + c.t + "`", c.m];
             }), "is-checks")));

@@ -9,8 +9,12 @@
  *   node scripts/dev/chamados.js <lista.csv>                     → junta ao docs/chamados.json
  *   node scripts/dev/chamados.js <lista.csv> --tipos <arquivo>   → tipos por linha do CSV: "<n> <tipo>" (tira o "revisar")
  *
+ *   ... --registros <canal.txt>   → a leitura do canal (slack_read_channel C07NM4UQ2S3, ou linhas "RecXXX AAAA-MM-DD HH:MM"):
+ *                                   liga cada chamado ao item dele na Lista pelo horário do aviso "filed a request" (até 5 min)
+ *
  * O arquivo guarda só o que os gráficos usam: data, tipo, prioridade, status e os componentes citados. Nada de nomes,
- * e-mails nem o texto dos pedidos. Cada chamado tem uma chave (hash da data e do título) para manter o tipo entre leituras.
+ * e-mails nem o texto dos pedidos. Os chamados em aberto levam também o título e o link do item na Lista, para a aba
+ * Chamados do Relatório (pedido do Gustavo, 15/10); ao serem resolvidos, os dois saem. Cada chamado tem uma chave (hash da data e do título) para manter o tipo entre leituras.
  *
  * Tipos: design (Figma, padrões, componentes novos, dúvidas de uso) · dev (código: bugs, props, pacotes, ícones e ilustrações
  * que faltam na lib em código) · ilustra (ilustrações e ícones novos) · motion (animações, motion, vídeo) · conteudo
@@ -40,7 +44,12 @@ function csv(text){
   const head = rows.shift();
   return rows.filter((r) => r.length > 1).map((r) => Object.fromEntries(head.map((h, i) => [h, r[i] || ""])));
 }
-// "8/13/25, 3:02 PM" → "2025-08-13"
+// "8/13/25, 3:02 PM" → "2025-08-13" · minutos(…) → minutos desde 1970, para casar com o horário do aviso no canal
+function minutos(s){
+  const m = /^(\d{1,2})\/(\d{1,2})\/(\d{2}),\s*(\d{1,2}):(\d{2})\s*(AM|PM)/i.exec(String(s).trim()); if (!m) return null;
+  const h = (+m[4] % 12) + (/pm/i.test(m[6]) ? 12 : 0);
+  return Date.UTC(2000 + +m[3], +m[1] - 1, +m[2], h, +m[5]) / 6e4;
+}
 function data(s){
   const m = /^(\d{1,2})\/(\d{1,2})\/(\d{2}),/.exec(String(s).trim());
   return m ? "20" + m[3] + "-" + m[1].padStart(2, "0") + "-" + m[2].padStart(2, "0") : null;
@@ -75,7 +84,14 @@ function provisorio(r){
   return { "jaime.guedes": "ilustra", "juliana.barbosa": "motion", "rodrigo.andreata": "dev", "diego.silva": "dev", "jorge.junior": "dev" }[a] || "design";
 }
 
-const args = process.argv.slice(2), file = args[0], ti = args.indexOf("--tipos");
+const args = process.argv.slice(2), file = args[0], ti = args.indexOf("--tipos"), ri = args.indexOf("--registros");
+const LISTA = "https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA";
+// registros da Lista pelo canal: record_id e horário do aviso (texto do slack_read_channel ou linhas "RecXXX AAAA-MM-DD HH:MM")
+const registros = [];
+if (ri >= 0){
+  const txt = fs.readFileSync(args[ri + 1], "utf8"), re = /(Rec[0-9A-Z]{8,})[^\[\n]*?(?:\|request>[^\[]*?\[|\s+)(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/g; let m;
+  while ((m = re.exec(txt))) registros.push({ id: m[1], t: Date.UTC(+m[2], +m[3] - 1, +m[4], +m[5], +m[6]) / 6e4 });
+}
 if (!file){ console.error("Uso: node scripts/dev/chamados.js <lista.csv> [--tipos <arquivo>]"); process.exit(1); }
 let text = fs.readFileSync(file, "utf8");
 const ini = text.indexOf("<file_content"); // saída do slack_read_file: o CSV fica entre as marcas
@@ -96,6 +112,12 @@ const chamados = rows.map((r, i) => {
   if (!TIPOS.includes(tipo)) throw new Error("Tipo desconhecido na linha " + i + ": " + tipo);
   const c = { k, d, tipo, prioridade: ({ High: "alta", Medium: "media", Low: "baixa" })[r.Priority] || null,
     status: STATUS[r.Status] || (r.Completed === "true" ? "resolvido" : "aberto"), comp: componentes(r, tipo) };
+  // em aberto: título e link do item na Lista (o registro do aviso mais perto, até 5 min; sem registro, o link guardado ou a Lista)
+  if (c.status !== "resolvido"){
+    const t = minutos(r["Date submitted"]), perto = registros.filter((x) => t != null && Math.abs(x.t - t) <= 5).sort((a, b) => Math.abs(a.t - t) - Math.abs(b.t - t))[0];
+    c.titulo = r.Request.trim().replace(/\s+/g, " ").slice(0, 140);
+    c.link = perto ? LISTA + "?record_id=" + perto.id : (velho && velho.link) || LISTA;
+  }
   if (revisar){ c.revisar = true; pendentes.push(i + " " + tipo + " · " + d + " · " + r.Request.trim().replace(/\s+/g, " ").slice(0, 90)); }
   return c;
 }).filter(Boolean).sort((a, b) => a.d < b.d ? -1 : a.d > b.d ? 1 : a.k < b.k ? -1 : 1);

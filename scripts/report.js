@@ -16,6 +16,7 @@
     { id: "conferir", title: "Pendências", file: "docs/CONFERIR.md", groups: [
       ["Em aberto, por tipo", ["Ajuste de texto", "Ajuste de UI", "Motion", "Refactor", "Naming", "Acessibilidade", "Documentação", "Integração React"]],
       ["Fechados", ["Resolvidos"]], ["Referência", ["Como usar esta lista"]] ] },
+    { id: "chamados", title: "Chamados" }, // chamados em aberto do #castanha-suporte, do mais antigo ao mais novo (Gustavo, 15/10)
     { id: "roadmap", title: "Decisões", file: "docs/ROADMAP.md", groups: [
       ["Andamento", ["8", "3"]], ["Decisões e pendências", ["4", "5", "5.1", "5.2"]], ["Referência", ["2", "7", "1"]] ], hide: ["6"] }, // 6 = Preferências (nota de trabalho, fica só no doc)
     { id: "saude", title: "Qualidade", file: "docs/SAUDE-TECNICA.md", groups: [ // gerado pelo build-index (smoke e peso)
@@ -553,7 +554,7 @@
     ["conteudo", "Conteúdo", "ch07", "Textos e templates."], ["outros", "Outros", "ch06", "Acessos, pastas e equipes no Figma, ferramentas."]];
   var MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
   function mesCurto(iso){ return MESES[+iso.slice(5, 7) - 1] + "/" + iso.slice(2, 4); }
-  function suporte(grid){
+  function suporte(grid, naAba){
     var J = extra.chamados; if (!J || !J.chamados || !J.chamados.length) return [];
     var all = J.chamados, mesHoje = todayISO().slice(0, 7), nomes = {};
     (CDS.playgrounds || []).forEach(function(c){ nomes[c.id] = c.name; });
@@ -623,6 +624,7 @@
       bars(pa, CH_TIPOS.map(function(t){ var ab = abertos.filter(function(c){ return c.tipo === t[0]; }), and = ab.filter(function(c){ return c.status === "andamento"; }).length;
         return { label: t[1], value: ab.length, desc: and + " em andamento e " + (ab.length - and) + " priorizados." }; }).filter(function(x){ return x.value; }), { total: abertos.length });
     }
+    if (abertos.length && !naAba) pa.appendChild(dsLink("rp-more", "Ver chamados em aberto", "#/relatorio/chamados"));
     return [p, pc, pa];
   }
 
@@ -860,6 +862,7 @@
     bodyEl.classList.toggle("is-dash", !tab.file && id !== "glossario");
     searchEl.hidden = !tab.file && id !== "glossario";
     if (id === "glossario"){ glossaryTab(); return; }
+    if (id === "chamados"){ chamadosTab(); return; }
     if (!tab.file){ overview(); markTerms(bodyEl); return; }
     var toc = bodyEl.appendChild(el("nav", "rp-toc")); toc.setAttribute("aria-label", "Seções");
     var content = bodyEl.appendChild(el("div", "rp-content"));
@@ -911,6 +914,56 @@
   function gloss(){ return CDS.reportGlossary || []; }
   // Mesmo molde das tabs de registro (Gustavo, 15/10): índice das letras à esquerda, um Card do DS por letra com a
   // contagem em Tag e a busca do topo do Relatório (antes a tab inteira caía na coluna do índice, com o resto da tela vazio)
+  // ---------- Chamados: os em aberto do #castanha-suporte, do mais antigo ao mais novo (Gustavo, 15/10) ----------
+  // Content List (Intent=Navigation) com o título, há quanto tempo está aberto e o status na description, o tipo na Tag e o
+  // link do item na Lista do Slack. Filter Chips por tipo: nenhum marcado mostra todos.
+  function chamadosTab(){
+    var J = extra.chamados, hoje = Date.parse(todayISO() + "T12:00");
+    var abertos = J && J.chamados ? J.chamados.filter(function(c){ return c.status !== "resolvido"; }).sort(function(a, b){ return a.d < b.d ? -1 : a.d > b.d ? 1 : 0; }) : [];
+    // a lista primeiro e, embaixo, os mesmos painéis do Suporte da Visão geral (redundância pedida pelo Gustavo, 15/10)
+    var grid = bodyEl.appendChild(el("div", "rp-dash"));
+    var p = panel(grid, "Chamados em aberto", abertos.length ? abertos.length + " no #castanha-suporte, do mais antigo ao mais novo" + (J.lido ? " · Lista lida em " + brDate(J.lido) : "") : "Nenhum chamado em aberto na Lista do Slack", "rp-panel--wide");
+    var mais = function(){ suporte(grid, true); [].forEach.call(grid.children, function(c, i){ c.style.setProperty("--_i", String(i)); }); grow(grid); };
+    if (!abertos.length){ mais(); return; }
+    var nome = {}; CH_TIPOS.forEach(function(t){ nome[t[0]] = t[1]; });
+    var dias = function(c){ return Math.max(0, Math.round((hoje - Date.parse(c.d + "T12:00")) / 864e5)); };
+    var tempo = function(n){ return n === 0 ? "Aberto hoje" : "Aberto há " + n + (n === 1 ? " dia" : " dias"); };
+    var marcados = {};
+    var chips = p.appendChild(el("cds-chips-group", "rp-ch-tab__chips"));
+    chips.setAttribute("kind", "filter"); chips.setAttribute("role-kind", "multiple"); chips.setAttribute("label", "Filtrar por tipo");
+    CH_TIPOS.forEach(function(t){
+      var n = abertos.filter(function(c){ return c.tipo === t[0]; }).length; if (!n) return;
+      var fc = chips.appendChild(el("cds-filter-chip")); fc.setAttribute("label", t[1] + " · " + n); fc.setAttribute("show-lead-icon", "false");
+      fc.addEventListener("cds-change", function(e){ e.stopPropagation(); marcados[t[0]] = !!(e.detail && e.detail.selected); desenhar(); });
+    });
+    var lista = p.appendChild(el("cds-content-list", "rp-ch-tab__list"));
+    lista.setAttribute("intent", "navigation"); lista.setAttribute("label", "Chamados em aberto");
+    function desenhar(){
+      var algum = Object.keys(marcados).some(function(k){ return marcados[k]; });
+      lista.innerHTML = "";
+      abertos.filter(function(c){ return !algum || marcados[c.tipo]; }).forEach(function(c){
+        var n = dias(c), it = lista.appendChild(el("cds-content-list-item"));
+        it.setAttribute("intent", "navigation"); it.setAttribute("show-lead-item", "false");
+        it.setAttribute("label", c.titulo || "Chamado sem título");
+        it.setAttribute("description", tempo(n) + " · " + (c.status === "andamento" ? "Em andamento" : "Priorizado") + " · desde " + brDate(c.d));
+        it.setAttribute("tag-label", nome[c.tipo] || c.tipo);
+        it.setAttribute("tag-appearance", n > 30 ? "warning" : "neutral"); // mais de 30 dias em aberto: Tag em Warning
+        if (c.link) it.setAttribute("href", c.link);
+      });
+      // Tag do item sem o Lead Item (o placeholder-line padrão não diz nada aqui; Show Lead Item é booleano da própria Tag)
+      // (os itens desenham a linha depois de entrar na página: aplica na volta seguinte do navegador)
+      setTimeout(function(){ [].forEach.call(lista.querySelectorAll(".cds-li__tag"), function(t){ t.setAttribute("show-lead-item", "false"); }); }, 0);
+    }
+    // o item da Lista abre no Slack, em outra aba (o item redesenha a linha, então o target não fica no <a>)
+    lista.addEventListener("click", function(e){
+      var a = e.target.closest && e.target.closest("a.cds-li"); if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+      e.preventDefault(); window.open(a.href, "_blank", "noopener");
+    });
+    desenhar();
+    p.appendChild(el("p", "rp-panel__foot", "Tag em Warning: mais de 30 dias em aberto. Cada linha abre o chamado na Lista do Slack. Fonte e classificação: <code>scripts/dev/chamados.js</code>."));
+    mais();
+  }
+
   function glossaryTab(){
     var letters = {};
     gloss().slice().sort(function(a, b){ return a.term.localeCompare(b.term, "pt-BR"); }).forEach(function(g){

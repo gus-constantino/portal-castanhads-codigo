@@ -241,7 +241,7 @@
         video("1fqz1azprKWMYtvSQJlXt1fA8Ijw5oo8C", "Motion"),
         { p: "UX motion comunica comportamento, estado e intenção, eleva a experiência e fortalece a personalidade da marca. Parte dos princípios de design do Castanha (simples, eficiente e consistente) e das boas práticas do mercado." },
         { ul: ["Os princípios viraram motion tokens, documentados no Hub para design e desenvolvimento.", "A ideia é que os componentes já venham com as animações configuradas, prontas para quem desenvolve."] },
-        { note: "Hoje: princípios, curvas, durações e os Motion Styles (/01) estão no playground em Padrões → Motion." }
+        { note: "Hoje: princípios, curvas, durações e os Motion Styles estão no playground em Padrões → Motion." }
       ] },
       { id: "recursos", title: "Recursos e ferramentas", blocks: [
         DATA,

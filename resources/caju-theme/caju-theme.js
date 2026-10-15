@@ -118,7 +118,8 @@
           ["Consistente", "Movimentos suaves e previsíveis garantem uniformidade em todas as plataformas, orientando o usuário no ecossistema."]
         ] },
         { h2: "Motion Styles" },
-        { p: "Os componentes usam os Motion Styles (`/01`), que descem a cascata até os primitivos `Common/Motion/*`. Baseado no explicador castanhads-motion, refeito com os componentes do Castanha DS." },
+        { p: "Os componentes usam os Motion Styles, que descem a cascata até os primitivos `Common/Motion/*`. Cada interação tem estilos numerados (`Hover In/01` a `/05`, `Selected In/01` a `/09`, `Loading/01` e `/02`…) e o componente usa o número indicado no Figma. Baseado no explicador castanhads-motion, refeito com os componentes do Castanha DS." },
+        { p: "A coleção tem dois modos. O Normal é o padrão. O Reduced zera as durações e os delays e troca a curva de 11 estilos: no código ele entra quando o sistema pede menos movimento (`prefers-reduced-motion`)." },
         { note: "Motion não existe no `castanha-tokens`: estes tokens são do playground (lidos do Figma). No castanha-react, as transições vêm dos mixins SCSS (`_motion.scss`)." },
         { tokens: "motion-live" },
         { tokens: "easing-lab" },
@@ -366,7 +367,7 @@
         { h2: "Tema Caju" },
         { p: "Fonte de tudo que os componentes usam por baixo: tokens (cores, tipografia, bordas, tamanhos, elevações, opacidade e motion, em light e dark) e ícones. Ilustração e Motion têm páginas próprias em Padrões." },
         { h3: "O que tem" },
-        { ul: ["250 tokens `Common/*` (89 com valor dark)", "12 tokens da coleção Viewport (`Common/Grids/*` e `Specific/*`, por Mobile, Tablet e Desktop)", "34 text styles, incluindo Decorative em Work Sans", "3 elevações (`Elevation/level 1–3`)", "15 variáveis de Motion Styles (`.Motion Styles`, modo Normal)"] },
+        { ul: ["250 tokens `Common/*` (89 com valor dark)", "12 tokens da coleção Viewport (`Common/Grids/*` e `Specific/*`, por Mobile, Tablet e Desktop)", "34 text styles, incluindo Decorative em Work Sans", "3 elevações (`Elevation/level 1–3`)", "36 Motion Styles em 103 variáveis (`.Motion Styles`, modos Normal e Reduced)"] },
         { h3: "No repo" },
         { ul: ["Snapshot: `tokens/figma-snapshot.json`", "Gerado: `styles/tokens.css`", "Tema escuro: `html[data-theme=\"dark\"]`"] },
         { h3: "Atualizar" },

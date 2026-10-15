@@ -1,6 +1,6 @@
 {
- "_source": "[CastanhaDS] Components (LKZBwmlb7fIbDKdGrMncuA) · collections Brand Style + .Motion Styles · text styles · effect styles · lido via Figma MCP em 01/10/2026 · coleção Viewport (floats: Common/Grids e Specific/*; os booleans Is Mobile/Is Tablet/Is Desktop ficam de fora, não são CSS) lida via MCP em 05/10/2026",
- "_format": "brand/motion: [nome, tipo (F=float C=color S=string E=easing T=timing em s), light, dark?] · viewport: [nome, {Desktop, Tablet, Mobile}] com número (px) ou alias (nome da variável)",
+ "_source": "[CastanhaDS] Components (LKZBwmlb7fIbDKdGrMncuA) · collections Brand Style + .Motion Styles · text styles · effect styles · lido via Figma MCP em 01/10/2026; .Motion Styles (103 variáveis, modos Normal e Reduced) lida da branch 5ruoj0X35N4WobKIggNV8a (CDS-730) em 15/10/2026 · coleção Viewport (floats: Common/Grids e Specific/*; os booleans Is Mobile/Is Tablet/Is Desktop ficam de fora, não são CSS) lida via MCP em 05/10/2026",
+ "_format": "brand/motion: [nome, tipo (F=float C=color S=string E=easing T=timing em s), light, dark?] · viewport: [nome, {Desktop, Tablet, Mobile}] com número (px) ou alias (nome da variável) · motionAlias: Motion Style → primitivo no modo Normal · motionAliasReduced: só os que mudam no modo Reduced",
  "brand": [
   [
    "Common/Border/Radius/none",
@@ -1324,6 +1324,91 @@
    ]
   ],
   [
+   "Hover In/01/Delay",
+   "F",
+   0
+  ],
+  [
+   "Hover In/02/Timing",
+   "T",
+   0.2
+  ],
+  [
+   "Hover In/02/Easing",
+   "E",
+   [
+    0.7,
+    0,
+    0.5,
+    1
+   ]
+  ],
+  [
+   "Hover In/02/Delay",
+   "F",
+   0
+  ],
+  [
+   "Hover In/03/Timing",
+   "T",
+   0.25
+  ],
+  [
+   "Hover In/03/Easing",
+   "E",
+   [
+    0.7,
+    0,
+    0.5,
+    1
+   ]
+  ],
+  [
+   "Hover In/03/Delay",
+   "F",
+   0
+  ],
+  [
+   "Hover In/04/Timing",
+   "T",
+   0.3
+  ],
+  [
+   "Hover In/04/Easing",
+   "E",
+   [
+    0.4,
+    0,
+    0.1,
+    1
+   ]
+  ],
+  [
+   "Hover In/04/Delay",
+   "F",
+   0
+  ],
+  [
+   "Hover In/05/Timing",
+   "T",
+   0.2
+  ],
+  [
+   "Hover In/05/Easing",
+   "E",
+   [
+    0.7,
+    0,
+    0.5,
+    1
+   ]
+  ],
+  [
+   "Hover In/05/Delay",
+   "F",
+   32
+  ],
+  [
    "Hover Out/01/Timing",
    "T",
    0.15
@@ -1344,6 +1429,106 @@
    56
   ],
   [
+   "Hover Out/02/Timing",
+   "T",
+   0.2
+  ],
+  [
+   "Hover Out/02/Easing",
+   "E",
+   [
+    0.7,
+    0,
+    0.5,
+    1
+   ]
+  ],
+  [
+   "Hover Out/02/Delay",
+   "F",
+   56
+  ],
+  [
+   "Hover Out/03/Timing",
+   "T",
+   0.25
+  ],
+  [
+   "Hover Out/03/Easing",
+   "E",
+   [
+    0.7,
+    0,
+    0.5,
+    1
+   ]
+  ],
+  [
+   "Hover Out/03/Delay",
+   "F",
+   56
+  ],
+  [
+   "Hover Out/04/Timing",
+   "T",
+   0.3
+  ],
+  [
+   "Hover Out/04/Easing",
+   "E",
+   [
+    0.4,
+    0,
+    0.1,
+    1
+   ]
+  ],
+  [
+   "Hover Out/04/Delay",
+   "F",
+   0
+  ],
+  [
+   "Hover Out/05/Timing",
+   "T",
+   0.2
+  ],
+  [
+   "Hover Out/05/Easing",
+   "E",
+   [
+    0.7,
+    0,
+    0.5,
+    1
+   ]
+  ],
+  [
+   "Hover Out/05/Delay",
+   "F",
+   32
+  ],
+  [
+   "Hover Out/06/Timing",
+   "T",
+   0.1
+  ],
+  [
+   "Hover Out/06/Easing",
+   "E",
+   [
+    0.7,
+    0,
+    0.8,
+    1
+   ]
+  ],
+  [
+   "Hover Out/06/Delay",
+   "F",
+   104
+  ],
+  [
    "Pressed/01/Timing",
    "T",
    0.2
@@ -1357,6 +1542,106 @@
     0.8,
     1
    ]
+  ],
+  [
+   "Pressed/02/Timing",
+   "T",
+   0.2
+  ],
+  [
+   "Pressed/02/Easing",
+   "E",
+   [
+    0.4,
+    0,
+    0.1,
+    1
+   ]
+  ],
+  [
+   "Pressed/02/Delay",
+   "F",
+   0
+  ],
+  [
+   "Pressed/03/Timing",
+   "T",
+   0.15
+  ],
+  [
+   "Pressed/03/Easing",
+   "E",
+   [
+    0.7,
+    0,
+    0.8,
+    1
+   ]
+  ],
+  [
+   "Pressed/03/Delay",
+   "F",
+   0
+  ],
+  [
+   "Pressed/04/Timing",
+   "T",
+   0.2
+  ],
+  [
+   "Pressed/04/Easing",
+   "E",
+   [
+    0.7,
+    0,
+    0.5,
+    1
+   ]
+  ],
+  [
+   "Pressed/04/Delay",
+   "F",
+   0
+  ],
+  [
+   "Pressed/05/Timing",
+   "T",
+   0.15
+  ],
+  [
+   "Pressed/05/Easing",
+   "E",
+   [
+    0.7,
+    0,
+    0.5,
+    1
+   ]
+  ],
+  [
+   "Pressed/05/Delay",
+   "F",
+   0
+  ],
+  [
+   "Pressed/06/Timing",
+   "T",
+   0.3
+  ],
+  [
+   "Pressed/06/Easing",
+   "E",
+   [
+    0.7,
+    0,
+    0.5,
+    1
+   ]
+  ],
+  [
+   "Pressed/06/Delay",
+   "F",
+   0
   ],
   [
    "Released/01/Timing",
@@ -1389,6 +1674,166 @@
    ]
   ],
   [
+   "Selected In/02/Timing",
+   "T",
+   0.2
+  ],
+  [
+   "Selected In/02/Easing",
+   "E",
+   [
+    0.4,
+    0,
+    0.1,
+    1
+   ]
+  ],
+  [
+   "Selected In/02/Delay",
+   "F",
+   0
+  ],
+  [
+   "Selected In/03/Timing",
+   "T",
+   0.3
+  ],
+  [
+   "Selected In/03/Easing",
+   "E",
+   [
+    0.4,
+    0,
+    0.1,
+    1
+   ]
+  ],
+  [
+   "Selected In/03/Delay",
+   "F",
+   0
+  ],
+  [
+   "Selected In/04/Timing",
+   "T",
+   0.5
+  ],
+  [
+   "Selected In/04/Easing",
+   "E",
+   [
+    0.4,
+    0,
+    0.1,
+    1
+   ]
+  ],
+  [
+   "Selected In/04/Delay",
+   "F",
+   0
+  ],
+  [
+   "Selected In/05/Timing",
+   "T",
+   0.25
+  ],
+  [
+   "Selected In/05/Easing",
+   "E",
+   [
+    0.4,
+    0,
+    0.1,
+    1
+   ]
+  ],
+  [
+   "Selected In/05/Delay",
+   "F",
+   0
+  ],
+  [
+   "Selected In/06/Timing",
+   "T",
+   0.6
+  ],
+  [
+   "Selected In/06/Easing",
+   "E",
+   [
+    0.4,
+    0,
+    0.1,
+    1
+   ]
+  ],
+  [
+   "Selected In/06/Delay",
+   "F",
+   0
+  ],
+  [
+   "Selected In/07/Timing",
+   "T",
+   0.5
+  ],
+  [
+   "Selected In/07/Easing",
+   "E",
+   [
+    0.4,
+    0,
+    0.1,
+    1
+   ]
+  ],
+  [
+   "Selected In/07/Delay",
+   "F",
+   104
+  ],
+  [
+   "Selected In/08/Timing",
+   "T",
+   0.15
+  ],
+  [
+   "Selected In/08/Easing",
+   "E",
+   [
+    0.4,
+    0,
+    0.1,
+    1
+   ]
+  ],
+  [
+   "Selected In/08/Delay",
+   "F",
+   56
+  ],
+  [
+   "Selected In/09/Timing",
+   "T",
+   0.15
+  ],
+  [
+   "Selected In/09/Easing",
+   "E",
+   [
+    0.4,
+    0,
+    0.1,
+    1
+   ]
+  ],
+  [
+   "Selected In/09/Delay",
+   "F",
+   0
+  ],
+  [
    "Selected Out/01/Timing",
    "T",
    0.2
@@ -1404,6 +1849,106 @@
    ]
   ],
   [
+   "Selected Out/02/Timing",
+   "T",
+   0.3
+  ],
+  [
+   "Selected Out/02/Easing",
+   "E",
+   [
+    0.4,
+    0,
+    0.1,
+    1
+   ]
+  ],
+  [
+   "Selected Out/02/Delay",
+   "F",
+   0
+  ],
+  [
+   "Selected Out/03/Timing",
+   "T",
+   0.15
+  ],
+  [
+   "Selected Out/03/Easing",
+   "E",
+   [
+    0.4,
+    0,
+    0.1,
+    1
+   ]
+  ],
+  [
+   "Selected Out/03/Delay",
+   "F",
+   0
+  ],
+  [
+   "Selected Out/04/Timing",
+   "T",
+   0.15
+  ],
+  [
+   "Selected Out/04/Easing",
+   "E",
+   [
+    0.4,
+    0,
+    0.1,
+    1
+   ]
+  ],
+  [
+   "Selected Out/04/Delay",
+   "F",
+   80
+  ],
+  [
+   "Selected Out/05/Timing",
+   "T",
+   0.5
+  ],
+  [
+   "Selected Out/05/Easing",
+   "E",
+   [
+    0.4,
+    0,
+    0.1,
+    1
+   ]
+  ],
+  [
+   "Selected Out/05/Delay",
+   "F",
+   0
+  ],
+  [
+   "Selected Out/06/Timing",
+   "T",
+   0.25
+  ],
+  [
+   "Selected Out/06/Easing",
+   "E",
+   [
+    0.4,
+    0,
+    0.1,
+    1
+   ]
+  ],
+  [
+   "Selected Out/06/Delay",
+   "F",
+   80
+  ],
+  [
    "Disabled/01/Timing",
    "T",
    0.15
@@ -1417,6 +1962,46 @@
     0.5,
     1
    ]
+  ],
+  [
+   "Loading/01/Timing",
+   "T",
+   0.7
+  ],
+  [
+   "Loading/01/Easing",
+   "E",
+   [
+    0.2,
+    0,
+    0.3,
+    1
+   ]
+  ],
+  [
+   "Loading/01/Delay",
+   "F",
+   0
+  ],
+  [
+   "Loading/02/Timing",
+   "T",
+   0.6
+  ],
+  [
+   "Loading/02/Easing",
+   "E",
+   [
+    0.6,
+    0,
+    0.1,
+    1
+   ]
+  ],
+  [
+   "Loading/02/Delay",
+   "F",
+   0
   ]
  ],
  "textStyles": [
@@ -1710,19 +2295,107 @@
  "motionAlias": {
   "Hover In/01/Timing": "Common/Motion/Duration/Short/03",
   "Hover In/01/Easing": "Common/Motion/Easing/Systemic/default",
+  "Hover In/01/Delay": "Common/Motion/Delay/Short/00",
+  "Hover In/02/Timing": "Common/Motion/Duration/Short/04",
+  "Hover In/02/Easing": "Common/Motion/Easing/Systemic/default",
+  "Hover In/02/Delay": "Common/Motion/Delay/Short/00",
+  "Hover In/03/Timing": "Common/Motion/Duration/Medium/01",
+  "Hover In/03/Easing": "Common/Motion/Easing/Systemic/default",
+  "Hover In/03/Delay": "Common/Motion/Delay/Short/00",
+  "Hover In/04/Timing": "Common/Motion/Duration/Medium/02",
+  "Hover In/04/Easing": "Common/Motion/Easing/Expressive/decelerate",
+  "Hover In/04/Delay": "Common/Motion/Delay/Short/00",
+  "Hover In/05/Timing": "Common/Motion/Duration/Short/04",
+  "Hover In/05/Easing": "Common/Motion/Easing/Systemic/default",
+  "Hover In/05/Delay": "Common/Motion/Delay/Short/01",
   "Hover Out/01/Timing": "Common/Motion/Duration/Short/03",
   "Hover Out/01/Easing": "Common/Motion/Easing/Systemic/default",
   "Hover Out/01/Delay": "Common/Motion/Delay/Short/02",
+  "Hover Out/02/Timing": "Common/Motion/Duration/Short/04",
+  "Hover Out/02/Easing": "Common/Motion/Easing/Systemic/default",
+  "Hover Out/02/Delay": "Common/Motion/Delay/Short/02",
+  "Hover Out/03/Timing": "Common/Motion/Duration/Medium/01",
+  "Hover Out/03/Easing": "Common/Motion/Easing/Systemic/default",
+  "Hover Out/03/Delay": "Common/Motion/Delay/Short/02",
+  "Hover Out/04/Timing": "Common/Motion/Duration/Medium/02",
+  "Hover Out/04/Easing": "Common/Motion/Easing/Expressive/decelerate",
+  "Hover Out/04/Delay": "Common/Motion/Delay/Short/00",
+  "Hover Out/05/Timing": "Common/Motion/Duration/Short/04",
+  "Hover Out/05/Easing": "Common/Motion/Easing/Systemic/default",
+  "Hover Out/05/Delay": "Common/Motion/Delay/Short/01",
+  "Hover Out/06/Timing": "Common/Motion/Duration/Short/02",
+  "Hover Out/06/Easing": "Common/Motion/Easing/Systemic/accelerate",
+  "Hover Out/06/Delay": "Common/Motion/Delay/Short/04",
   "Pressed/01/Timing": "Common/Motion/Duration/Short/04",
   "Pressed/01/Easing": "Common/Motion/Easing/Systemic/accelerate",
+  "Pressed/02/Timing": "Common/Motion/Duration/Short/04",
+  "Pressed/02/Easing": "Common/Motion/Easing/Expressive/decelerate",
+  "Pressed/02/Delay": "Common/Motion/Delay/Short/00",
+  "Pressed/03/Timing": "Common/Motion/Duration/Short/03",
+  "Pressed/03/Easing": "Common/Motion/Easing/Systemic/accelerate",
+  "Pressed/03/Delay": "Common/Motion/Delay/Short/00",
+  "Pressed/04/Timing": "Common/Motion/Duration/Short/04",
+  "Pressed/04/Easing": "Common/Motion/Easing/Systemic/default",
+  "Pressed/04/Delay": "Common/Motion/Delay/Short/00",
+  "Pressed/05/Timing": "Common/Motion/Duration/Short/03",
+  "Pressed/05/Easing": "Common/Motion/Easing/Systemic/default",
+  "Pressed/05/Delay": "Common/Motion/Delay/Short/00",
+  "Pressed/06/Timing": "Common/Motion/Duration/Medium/02",
+  "Pressed/06/Easing": "Common/Motion/Easing/Systemic/default",
+  "Pressed/06/Delay": "Common/Motion/Delay/Short/00",
   "Released/01/Timing": "Common/Motion/Duration/Short/01",
   "Released/01/Easing": "Common/Motion/Easing/Systemic/decelerate",
   "Selected In/01/Timing": "Common/Motion/Duration/Medium/03",
   "Selected In/01/Easing": "Common/Motion/Easing/Expressive/decelerate",
+  "Selected In/02/Timing": "Common/Motion/Duration/Short/04",
+  "Selected In/02/Easing": "Common/Motion/Easing/Expressive/decelerate",
+  "Selected In/02/Delay": "Common/Motion/Delay/Short/00",
+  "Selected In/03/Timing": "Common/Motion/Duration/Medium/02",
+  "Selected In/03/Easing": "Common/Motion/Easing/Expressive/decelerate",
+  "Selected In/03/Delay": "Common/Motion/Delay/Short/00",
+  "Selected In/04/Timing": "Common/Motion/Duration/Long/02",
+  "Selected In/04/Easing": "Common/Motion/Easing/Expressive/decelerate",
+  "Selected In/04/Delay": "Common/Motion/Delay/Short/00",
+  "Selected In/05/Timing": "Common/Motion/Duration/Medium/01",
+  "Selected In/05/Easing": "Common/Motion/Easing/Expressive/decelerate",
+  "Selected In/05/Delay": "Common/Motion/Delay/Short/00",
+  "Selected In/06/Timing": "Common/Motion/Duration/Long/04",
+  "Selected In/06/Easing": "Common/Motion/Easing/Expressive/decelerate",
+  "Selected In/06/Delay": "Common/Motion/Delay/Short/00",
+  "Selected In/07/Timing": "Common/Motion/Duration/Long/02",
+  "Selected In/07/Easing": "Common/Motion/Easing/Expressive/decelerate",
+  "Selected In/07/Delay": "Common/Motion/Delay/Short/04",
+  "Selected In/08/Timing": "Common/Motion/Duration/Short/03",
+  "Selected In/08/Easing": "Common/Motion/Easing/Expressive/decelerate",
+  "Selected In/08/Delay": "Common/Motion/Delay/Short/02",
+  "Selected In/09/Timing": "Common/Motion/Duration/Short/03",
+  "Selected In/09/Easing": "Common/Motion/Easing/Expressive/decelerate",
+  "Selected In/09/Delay": "Common/Motion/Delay/Short/00",
   "Selected Out/01/Timing": "Common/Motion/Duration/Short/04",
   "Selected Out/01/Easing": "Common/Motion/Easing/Expressive/decelerate",
+  "Selected Out/02/Timing": "Common/Motion/Duration/Medium/02",
+  "Selected Out/02/Easing": "Common/Motion/Easing/Expressive/decelerate",
+  "Selected Out/02/Delay": "Common/Motion/Delay/Short/00",
+  "Selected Out/03/Timing": "Common/Motion/Duration/Short/03",
+  "Selected Out/03/Easing": "Common/Motion/Easing/Expressive/decelerate",
+  "Selected Out/03/Delay": "Common/Motion/Delay/Short/00",
+  "Selected Out/04/Timing": "Common/Motion/Duration/Short/03",
+  "Selected Out/04/Easing": "Common/Motion/Easing/Expressive/decelerate",
+  "Selected Out/04/Delay": "Common/Motion/Delay/Short/03",
+  "Selected Out/05/Timing": "Common/Motion/Duration/Long/02",
+  "Selected Out/05/Easing": "Common/Motion/Easing/Expressive/decelerate",
+  "Selected Out/05/Delay": "Common/Motion/Delay/Short/00",
+  "Selected Out/06/Timing": "Common/Motion/Duration/Medium/01",
+  "Selected Out/06/Easing": "Common/Motion/Easing/Expressive/decelerate",
+  "Selected Out/06/Delay": "Common/Motion/Delay/Short/03",
   "Disabled/01/Timing": "Common/Motion/Duration/Short/03",
-  "Disabled/01/Easing": "Common/Motion/Easing/Systemic/default"
+  "Disabled/01/Easing": "Common/Motion/Easing/Systemic/default",
+  "Loading/01/Timing": "Common/Motion/Duration/Extra Long/01",
+  "Loading/01/Easing": "Common/Motion/Easing/Systemic/decelerate",
+  "Loading/01/Delay": "Common/Motion/Delay/Short/00",
+  "Loading/02/Timing": "Common/Motion/Duration/Long/04",
+  "Loading/02/Easing": "Common/Motion/Easing/Expressive/default",
+  "Loading/02/Delay": "Common/Motion/Delay/Short/00"
  },
  "viewport": [
   [
@@ -1821,5 +2494,64 @@
     "Mobile": "Common/Sizes/8"
    }
   ]
- ]
+ ],
+ "motionAliasReduced": {
+  "Hover In/01/Timing": "Common/Motion/Duration/Short/00",
+  "Hover In/02/Timing": "Common/Motion/Duration/Short/00",
+  "Hover In/03/Timing": "Common/Motion/Duration/Short/00",
+  "Hover In/04/Timing": "Common/Motion/Duration/Short/00",
+  "Hover In/04/Easing": "Common/Motion/Easing/Systemic/default",
+  "Hover In/05/Timing": "Common/Motion/Duration/Short/00",
+  "Hover In/05/Delay": "Common/Motion/Delay/Short/00",
+  "Hover Out/01/Timing": "Common/Motion/Duration/Short/00",
+  "Hover Out/01/Delay": "Common/Motion/Delay/Short/00",
+  "Hover Out/02/Timing": "Common/Motion/Duration/Short/00",
+  "Hover Out/02/Delay": "Common/Motion/Delay/Short/00",
+  "Hover Out/03/Timing": "Common/Motion/Duration/Short/00",
+  "Hover Out/03/Delay": "Common/Motion/Delay/Short/00",
+  "Hover Out/04/Timing": "Common/Motion/Duration/Short/00",
+  "Hover Out/04/Easing": "Common/Motion/Easing/Systemic/default",
+  "Hover Out/05/Timing": "Common/Motion/Duration/Short/00",
+  "Hover Out/05/Delay": "Common/Motion/Delay/Short/00",
+  "Hover Out/06/Timing": "Common/Motion/Duration/Short/00",
+  "Hover Out/06/Easing": "Common/Motion/Easing/Systemic/default",
+  "Hover Out/06/Delay": "Common/Motion/Delay/Short/00",
+  "Pressed/01/Timing": "Common/Motion/Duration/Short/00",
+  "Pressed/02/Timing": "Common/Motion/Duration/Short/00",
+  "Pressed/02/Easing": "Common/Motion/Easing/Systemic/accelerate",
+  "Pressed/03/Timing": "Common/Motion/Duration/Short/00",
+  "Pressed/04/Timing": "Common/Motion/Duration/Short/00",
+  "Pressed/04/Easing": "Common/Motion/Easing/Systemic/accelerate",
+  "Pressed/05/Timing": "Common/Motion/Duration/Short/00",
+  "Pressed/05/Easing": "Common/Motion/Easing/Systemic/accelerate",
+  "Pressed/06/Timing": "Common/Motion/Duration/Short/00",
+  "Pressed/06/Easing": "Common/Motion/Easing/Systemic/accelerate",
+  "Released/01/Timing": "Common/Motion/Duration/Short/00",
+  "Selected In/01/Timing": "Common/Motion/Duration/Short/00",
+  "Selected In/02/Timing": "Common/Motion/Duration/Short/00",
+  "Selected In/03/Timing": "Common/Motion/Duration/Short/00",
+  "Selected In/04/Timing": "Common/Motion/Duration/Short/00",
+  "Selected In/05/Timing": "Common/Motion/Duration/Short/00",
+  "Selected In/05/Easing": "Common/Motion/Easing/Systemic/accelerate",
+  "Selected In/06/Timing": "Common/Motion/Duration/Short/00",
+  "Selected In/06/Easing": "Common/Motion/Easing/Systemic/accelerate",
+  "Selected In/07/Timing": "Common/Motion/Duration/Short/00",
+  "Selected In/07/Delay": "Common/Motion/Delay/Short/00",
+  "Selected In/08/Timing": "Common/Motion/Duration/Short/00",
+  "Selected In/08/Delay": "Common/Motion/Delay/Short/00",
+  "Selected In/09/Timing": "Common/Motion/Duration/Short/00",
+  "Selected Out/01/Timing": "Common/Motion/Duration/Short/00",
+  "Selected Out/02/Timing": "Common/Motion/Duration/Short/00",
+  "Selected Out/03/Timing": "Common/Motion/Duration/Short/00",
+  "Selected Out/04/Timing": "Common/Motion/Duration/Short/00",
+  "Selected Out/04/Delay": "Common/Motion/Delay/Short/00",
+  "Selected Out/05/Timing": "Common/Motion/Duration/Short/00",
+  "Selected Out/06/Timing": "Common/Motion/Duration/Short/00",
+  "Selected Out/06/Delay": "Common/Motion/Delay/Short/00",
+  "Disabled/01/Timing": "Common/Motion/Duration/Short/00",
+  "Loading/01/Timing": "Common/Motion/Duration/Short/00",
+  "Loading/01/Easing": "Common/Motion/Easing/Systemic/default",
+  "Loading/02/Timing": "Common/Motion/Duration/Short/00",
+  "Loading/02/Easing": "Common/Motion/Easing/Systemic/default"
+ }
 }

@@ -190,7 +190,7 @@
           ["Consistente", "Movimentos suaves e previsíveis garantem uniformidade em todas as plataformas."]
         ] },
         { h2: "Motion Styles" },
-        { p: "Os componentes não escolhem duração nem curva na mão: usam os Motion Styles (`/01`), um por interação. Passe o mouse e pressione o botão para ver dois deles." },
+        { p: "Os componentes não escolhem duração nem curva na mão: usam os Motion Styles, um por interação. Passe o mouse e pressione o botão para ver dois deles." },
         { display: { attrs: { _tag: "cds-main-button", label: "Pagar", "show-lead-icon": false, "show-trailing-icon": false }, live: true } },
         { specs: [
           { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },

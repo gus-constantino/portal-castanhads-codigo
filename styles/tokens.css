@@ -1,6 +1,6 @@
 /* =====================================================================
    Tokens — Castanha DS · GERADO por scripts/build-tokens.js · não editar à mão
-   Fonte: tokens/figma-snapshot.json ([CastanhaDS] Components (LKZBwmlb7fIbDKdGrMncuA) · collections Brand Style + .Motion Styles · text styles · effect styles · lido via Figma MCP em 01/10/2026 · coleção Viewport (floats: Common/Grids e Specific/*; os booleans Is Mobile/Is Tablet/Is Desktop ficam de fora, não são CSS) lida via MCP em 05/10/2026)
+   Fonte: tokens/figma-snapshot.json ([CastanhaDS] Components (LKZBwmlb7fIbDKdGrMncuA) · collections Brand Style + .Motion Styles · text styles · effect styles · lido via Figma MCP em 01/10/2026; .Motion Styles (103 variáveis, modos Normal e Reduced) lida da branch 5ruoj0X35N4WobKIggNV8a (CDS-730) em 15/10/2026 · coleção Viewport (floats: Common/Grids e Specific/*; os booleans Is Mobile/Is Tablet/Is Desktop ficam de fora, não são CSS) lida via MCP em 05/10/2026)
    ===================================================================== */
 :root{
   --common-border-radius-none:0px;
@@ -240,19 +240,107 @@
   --common-colors-charts-07-intense:#727272;
   --motion-hover-in-01-timing:var(--common-motion-duration-short-03); /* Hover In/01/Timing → Common/Motion/Duration/Short/03 */
   --motion-hover-in-01-easing:var(--common-motion-easing-systemic-default); /* Hover In/01/Easing → Common/Motion/Easing/Systemic/default */
+  --motion-hover-in-01-delay:var(--common-motion-delay-short-00); /* Hover In/01/Delay → Common/Motion/Delay/Short/00 */
+  --motion-hover-in-02-timing:var(--common-motion-duration-short-04); /* Hover In/02/Timing → Common/Motion/Duration/Short/04 */
+  --motion-hover-in-02-easing:var(--common-motion-easing-systemic-default); /* Hover In/02/Easing → Common/Motion/Easing/Systemic/default */
+  --motion-hover-in-02-delay:var(--common-motion-delay-short-00); /* Hover In/02/Delay → Common/Motion/Delay/Short/00 */
+  --motion-hover-in-03-timing:var(--common-motion-duration-medium-01); /* Hover In/03/Timing → Common/Motion/Duration/Medium/01 */
+  --motion-hover-in-03-easing:var(--common-motion-easing-systemic-default); /* Hover In/03/Easing → Common/Motion/Easing/Systemic/default */
+  --motion-hover-in-03-delay:var(--common-motion-delay-short-00); /* Hover In/03/Delay → Common/Motion/Delay/Short/00 */
+  --motion-hover-in-04-timing:var(--common-motion-duration-medium-02); /* Hover In/04/Timing → Common/Motion/Duration/Medium/02 */
+  --motion-hover-in-04-easing:var(--common-motion-easing-expressive-decelerate); /* Hover In/04/Easing → Common/Motion/Easing/Expressive/decelerate */
+  --motion-hover-in-04-delay:var(--common-motion-delay-short-00); /* Hover In/04/Delay → Common/Motion/Delay/Short/00 */
+  --motion-hover-in-05-timing:var(--common-motion-duration-short-04); /* Hover In/05/Timing → Common/Motion/Duration/Short/04 */
+  --motion-hover-in-05-easing:var(--common-motion-easing-systemic-default); /* Hover In/05/Easing → Common/Motion/Easing/Systemic/default */
+  --motion-hover-in-05-delay:var(--common-motion-delay-short-01); /* Hover In/05/Delay → Common/Motion/Delay/Short/01 */
   --motion-hover-out-01-timing:var(--common-motion-duration-short-03); /* Hover Out/01/Timing → Common/Motion/Duration/Short/03 */
   --motion-hover-out-01-easing:var(--common-motion-easing-systemic-default); /* Hover Out/01/Easing → Common/Motion/Easing/Systemic/default */
   --motion-hover-out-01-delay:var(--common-motion-delay-short-02); /* Hover Out/01/Delay → Common/Motion/Delay/Short/02 */
+  --motion-hover-out-02-timing:var(--common-motion-duration-short-04); /* Hover Out/02/Timing → Common/Motion/Duration/Short/04 */
+  --motion-hover-out-02-easing:var(--common-motion-easing-systemic-default); /* Hover Out/02/Easing → Common/Motion/Easing/Systemic/default */
+  --motion-hover-out-02-delay:var(--common-motion-delay-short-02); /* Hover Out/02/Delay → Common/Motion/Delay/Short/02 */
+  --motion-hover-out-03-timing:var(--common-motion-duration-medium-01); /* Hover Out/03/Timing → Common/Motion/Duration/Medium/01 */
+  --motion-hover-out-03-easing:var(--common-motion-easing-systemic-default); /* Hover Out/03/Easing → Common/Motion/Easing/Systemic/default */
+  --motion-hover-out-03-delay:var(--common-motion-delay-short-02); /* Hover Out/03/Delay → Common/Motion/Delay/Short/02 */
+  --motion-hover-out-04-timing:var(--common-motion-duration-medium-02); /* Hover Out/04/Timing → Common/Motion/Duration/Medium/02 */
+  --motion-hover-out-04-easing:var(--common-motion-easing-expressive-decelerate); /* Hover Out/04/Easing → Common/Motion/Easing/Expressive/decelerate */
+  --motion-hover-out-04-delay:var(--common-motion-delay-short-00); /* Hover Out/04/Delay → Common/Motion/Delay/Short/00 */
+  --motion-hover-out-05-timing:var(--common-motion-duration-short-04); /* Hover Out/05/Timing → Common/Motion/Duration/Short/04 */
+  --motion-hover-out-05-easing:var(--common-motion-easing-systemic-default); /* Hover Out/05/Easing → Common/Motion/Easing/Systemic/default */
+  --motion-hover-out-05-delay:var(--common-motion-delay-short-01); /* Hover Out/05/Delay → Common/Motion/Delay/Short/01 */
+  --motion-hover-out-06-timing:var(--common-motion-duration-short-02); /* Hover Out/06/Timing → Common/Motion/Duration/Short/02 */
+  --motion-hover-out-06-easing:var(--common-motion-easing-systemic-accelerate); /* Hover Out/06/Easing → Common/Motion/Easing/Systemic/accelerate */
+  --motion-hover-out-06-delay:var(--common-motion-delay-short-04); /* Hover Out/06/Delay → Common/Motion/Delay/Short/04 */
   --motion-pressed-01-timing:var(--common-motion-duration-short-04); /* Pressed/01/Timing → Common/Motion/Duration/Short/04 */
   --motion-pressed-01-easing:var(--common-motion-easing-systemic-accelerate); /* Pressed/01/Easing → Common/Motion/Easing/Systemic/accelerate */
+  --motion-pressed-02-timing:var(--common-motion-duration-short-04); /* Pressed/02/Timing → Common/Motion/Duration/Short/04 */
+  --motion-pressed-02-easing:var(--common-motion-easing-expressive-decelerate); /* Pressed/02/Easing → Common/Motion/Easing/Expressive/decelerate */
+  --motion-pressed-02-delay:var(--common-motion-delay-short-00); /* Pressed/02/Delay → Common/Motion/Delay/Short/00 */
+  --motion-pressed-03-timing:var(--common-motion-duration-short-03); /* Pressed/03/Timing → Common/Motion/Duration/Short/03 */
+  --motion-pressed-03-easing:var(--common-motion-easing-systemic-accelerate); /* Pressed/03/Easing → Common/Motion/Easing/Systemic/accelerate */
+  --motion-pressed-03-delay:var(--common-motion-delay-short-00); /* Pressed/03/Delay → Common/Motion/Delay/Short/00 */
+  --motion-pressed-04-timing:var(--common-motion-duration-short-04); /* Pressed/04/Timing → Common/Motion/Duration/Short/04 */
+  --motion-pressed-04-easing:var(--common-motion-easing-systemic-default); /* Pressed/04/Easing → Common/Motion/Easing/Systemic/default */
+  --motion-pressed-04-delay:var(--common-motion-delay-short-00); /* Pressed/04/Delay → Common/Motion/Delay/Short/00 */
+  --motion-pressed-05-timing:var(--common-motion-duration-short-03); /* Pressed/05/Timing → Common/Motion/Duration/Short/03 */
+  --motion-pressed-05-easing:var(--common-motion-easing-systemic-default); /* Pressed/05/Easing → Common/Motion/Easing/Systemic/default */
+  --motion-pressed-05-delay:var(--common-motion-delay-short-00); /* Pressed/05/Delay → Common/Motion/Delay/Short/00 */
+  --motion-pressed-06-timing:var(--common-motion-duration-medium-02); /* Pressed/06/Timing → Common/Motion/Duration/Medium/02 */
+  --motion-pressed-06-easing:var(--common-motion-easing-systemic-default); /* Pressed/06/Easing → Common/Motion/Easing/Systemic/default */
+  --motion-pressed-06-delay:var(--common-motion-delay-short-00); /* Pressed/06/Delay → Common/Motion/Delay/Short/00 */
   --motion-released-01-timing:var(--common-motion-duration-short-01); /* Released/01/Timing → Common/Motion/Duration/Short/01 */
   --motion-released-01-easing:var(--common-motion-easing-systemic-decelerate); /* Released/01/Easing → Common/Motion/Easing/Systemic/decelerate */
   --motion-selected-in-01-timing:var(--common-motion-duration-medium-03); /* Selected In/01/Timing → Common/Motion/Duration/Medium/03 */
   --motion-selected-in-01-easing:var(--common-motion-easing-expressive-decelerate); /* Selected In/01/Easing → Common/Motion/Easing/Expressive/decelerate */
+  --motion-selected-in-02-timing:var(--common-motion-duration-short-04); /* Selected In/02/Timing → Common/Motion/Duration/Short/04 */
+  --motion-selected-in-02-easing:var(--common-motion-easing-expressive-decelerate); /* Selected In/02/Easing → Common/Motion/Easing/Expressive/decelerate */
+  --motion-selected-in-02-delay:var(--common-motion-delay-short-00); /* Selected In/02/Delay → Common/Motion/Delay/Short/00 */
+  --motion-selected-in-03-timing:var(--common-motion-duration-medium-02); /* Selected In/03/Timing → Common/Motion/Duration/Medium/02 */
+  --motion-selected-in-03-easing:var(--common-motion-easing-expressive-decelerate); /* Selected In/03/Easing → Common/Motion/Easing/Expressive/decelerate */
+  --motion-selected-in-03-delay:var(--common-motion-delay-short-00); /* Selected In/03/Delay → Common/Motion/Delay/Short/00 */
+  --motion-selected-in-04-timing:var(--common-motion-duration-long-02); /* Selected In/04/Timing → Common/Motion/Duration/Long/02 */
+  --motion-selected-in-04-easing:var(--common-motion-easing-expressive-decelerate); /* Selected In/04/Easing → Common/Motion/Easing/Expressive/decelerate */
+  --motion-selected-in-04-delay:var(--common-motion-delay-short-00); /* Selected In/04/Delay → Common/Motion/Delay/Short/00 */
+  --motion-selected-in-05-timing:var(--common-motion-duration-medium-01); /* Selected In/05/Timing → Common/Motion/Duration/Medium/01 */
+  --motion-selected-in-05-easing:var(--common-motion-easing-expressive-decelerate); /* Selected In/05/Easing → Common/Motion/Easing/Expressive/decelerate */
+  --motion-selected-in-05-delay:var(--common-motion-delay-short-00); /* Selected In/05/Delay → Common/Motion/Delay/Short/00 */
+  --motion-selected-in-06-timing:var(--common-motion-duration-long-04); /* Selected In/06/Timing → Common/Motion/Duration/Long/04 */
+  --motion-selected-in-06-easing:var(--common-motion-easing-expressive-decelerate); /* Selected In/06/Easing → Common/Motion/Easing/Expressive/decelerate */
+  --motion-selected-in-06-delay:var(--common-motion-delay-short-00); /* Selected In/06/Delay → Common/Motion/Delay/Short/00 */
+  --motion-selected-in-07-timing:var(--common-motion-duration-long-02); /* Selected In/07/Timing → Common/Motion/Duration/Long/02 */
+  --motion-selected-in-07-easing:var(--common-motion-easing-expressive-decelerate); /* Selected In/07/Easing → Common/Motion/Easing/Expressive/decelerate */
+  --motion-selected-in-07-delay:var(--common-motion-delay-short-04); /* Selected In/07/Delay → Common/Motion/Delay/Short/04 */
+  --motion-selected-in-08-timing:var(--common-motion-duration-short-03); /* Selected In/08/Timing → Common/Motion/Duration/Short/03 */
+  --motion-selected-in-08-easing:var(--common-motion-easing-expressive-decelerate); /* Selected In/08/Easing → Common/Motion/Easing/Expressive/decelerate */
+  --motion-selected-in-08-delay:var(--common-motion-delay-short-02); /* Selected In/08/Delay → Common/Motion/Delay/Short/02 */
+  --motion-selected-in-09-timing:var(--common-motion-duration-short-03); /* Selected In/09/Timing → Common/Motion/Duration/Short/03 */
+  --motion-selected-in-09-easing:var(--common-motion-easing-expressive-decelerate); /* Selected In/09/Easing → Common/Motion/Easing/Expressive/decelerate */
+  --motion-selected-in-09-delay:var(--common-motion-delay-short-00); /* Selected In/09/Delay → Common/Motion/Delay/Short/00 */
   --motion-selected-out-01-timing:var(--common-motion-duration-short-04); /* Selected Out/01/Timing → Common/Motion/Duration/Short/04 */
   --motion-selected-out-01-easing:var(--common-motion-easing-expressive-decelerate); /* Selected Out/01/Easing → Common/Motion/Easing/Expressive/decelerate */
+  --motion-selected-out-02-timing:var(--common-motion-duration-medium-02); /* Selected Out/02/Timing → Common/Motion/Duration/Medium/02 */
+  --motion-selected-out-02-easing:var(--common-motion-easing-expressive-decelerate); /* Selected Out/02/Easing → Common/Motion/Easing/Expressive/decelerate */
+  --motion-selected-out-02-delay:var(--common-motion-delay-short-00); /* Selected Out/02/Delay → Common/Motion/Delay/Short/00 */
+  --motion-selected-out-03-timing:var(--common-motion-duration-short-03); /* Selected Out/03/Timing → Common/Motion/Duration/Short/03 */
+  --motion-selected-out-03-easing:var(--common-motion-easing-expressive-decelerate); /* Selected Out/03/Easing → Common/Motion/Easing/Expressive/decelerate */
+  --motion-selected-out-03-delay:var(--common-motion-delay-short-00); /* Selected Out/03/Delay → Common/Motion/Delay/Short/00 */
+  --motion-selected-out-04-timing:var(--common-motion-duration-short-03); /* Selected Out/04/Timing → Common/Motion/Duration/Short/03 */
+  --motion-selected-out-04-easing:var(--common-motion-easing-expressive-decelerate); /* Selected Out/04/Easing → Common/Motion/Easing/Expressive/decelerate */
+  --motion-selected-out-04-delay:var(--common-motion-delay-short-03); /* Selected Out/04/Delay → Common/Motion/Delay/Short/03 */
+  --motion-selected-out-05-timing:var(--common-motion-duration-long-02); /* Selected Out/05/Timing → Common/Motion/Duration/Long/02 */
+  --motion-selected-out-05-easing:var(--common-motion-easing-expressive-decelerate); /* Selected Out/05/Easing → Common/Motion/Easing/Expressive/decelerate */
+  --motion-selected-out-05-delay:var(--common-motion-delay-short-00); /* Selected Out/05/Delay → Common/Motion/Delay/Short/00 */
+  --motion-selected-out-06-timing:var(--common-motion-duration-medium-01); /* Selected Out/06/Timing → Common/Motion/Duration/Medium/01 */
+  --motion-selected-out-06-easing:var(--common-motion-easing-expressive-decelerate); /* Selected Out/06/Easing → Common/Motion/Easing/Expressive/decelerate */
+  --motion-selected-out-06-delay:var(--common-motion-delay-short-03); /* Selected Out/06/Delay → Common/Motion/Delay/Short/03 */
   --motion-disabled-01-timing:var(--common-motion-duration-short-03); /* Disabled/01/Timing → Common/Motion/Duration/Short/03 */
   --motion-disabled-01-easing:var(--common-motion-easing-systemic-default); /* Disabled/01/Easing → Common/Motion/Easing/Systemic/default */
+  --motion-loading-01-timing:var(--common-motion-duration-extra-long-01); /* Loading/01/Timing → Common/Motion/Duration/Extra Long/01 */
+  --motion-loading-01-easing:var(--common-motion-easing-systemic-decelerate); /* Loading/01/Easing → Common/Motion/Easing/Systemic/decelerate */
+  --motion-loading-01-delay:var(--common-motion-delay-short-00); /* Loading/01/Delay → Common/Motion/Delay/Short/00 */
+  --motion-loading-02-timing:var(--common-motion-duration-long-04); /* Loading/02/Timing → Common/Motion/Duration/Long/04 */
+  --motion-loading-02-easing:var(--common-motion-easing-expressive-default); /* Loading/02/Easing → Common/Motion/Easing/Expressive/default */
+  --motion-loading-02-delay:var(--common-motion-delay-short-00); /* Loading/02/Delay → Common/Motion/Delay/Short/00 */
 
   /* Elevations (effect styles Elevation/level 1–3) */
   --common-elevation-level-1:var(--common-elevations-level-1-x) var(--common-elevations-level-1-y) var(--common-elevations-level-1-blur) var(--common-elevations-level-1-spread) var(--common-elevations-level-1-color);
@@ -597,6 +685,66 @@ html[data-theme="dark"]{
   --common-colors-charts-07-medium:#d3d3d3;
   --common-colors-charts-07-intense:#e3e3e3;
 }
+/* .Motion Styles · modo Reduced: o sistema pede menos movimento (só os estilos que mudam em relação ao Normal) */
+@media (prefers-reduced-motion:reduce){ :root{
+  --motion-hover-in-01-timing:var(--common-motion-duration-short-00);
+  --motion-hover-in-02-timing:var(--common-motion-duration-short-00);
+  --motion-hover-in-03-timing:var(--common-motion-duration-short-00);
+  --motion-hover-in-04-timing:var(--common-motion-duration-short-00);
+  --motion-hover-in-04-easing:var(--common-motion-easing-systemic-default);
+  --motion-hover-in-05-timing:var(--common-motion-duration-short-00);
+  --motion-hover-in-05-delay:var(--common-motion-delay-short-00);
+  --motion-hover-out-01-timing:var(--common-motion-duration-short-00);
+  --motion-hover-out-01-delay:var(--common-motion-delay-short-00);
+  --motion-hover-out-02-timing:var(--common-motion-duration-short-00);
+  --motion-hover-out-02-delay:var(--common-motion-delay-short-00);
+  --motion-hover-out-03-timing:var(--common-motion-duration-short-00);
+  --motion-hover-out-03-delay:var(--common-motion-delay-short-00);
+  --motion-hover-out-04-timing:var(--common-motion-duration-short-00);
+  --motion-hover-out-04-easing:var(--common-motion-easing-systemic-default);
+  --motion-hover-out-05-timing:var(--common-motion-duration-short-00);
+  --motion-hover-out-05-delay:var(--common-motion-delay-short-00);
+  --motion-hover-out-06-timing:var(--common-motion-duration-short-00);
+  --motion-hover-out-06-easing:var(--common-motion-easing-systemic-default);
+  --motion-hover-out-06-delay:var(--common-motion-delay-short-00);
+  --motion-pressed-01-timing:var(--common-motion-duration-short-00);
+  --motion-pressed-02-timing:var(--common-motion-duration-short-00);
+  --motion-pressed-02-easing:var(--common-motion-easing-systemic-accelerate);
+  --motion-pressed-03-timing:var(--common-motion-duration-short-00);
+  --motion-pressed-04-timing:var(--common-motion-duration-short-00);
+  --motion-pressed-04-easing:var(--common-motion-easing-systemic-accelerate);
+  --motion-pressed-05-timing:var(--common-motion-duration-short-00);
+  --motion-pressed-05-easing:var(--common-motion-easing-systemic-accelerate);
+  --motion-pressed-06-timing:var(--common-motion-duration-short-00);
+  --motion-pressed-06-easing:var(--common-motion-easing-systemic-accelerate);
+  --motion-released-01-timing:var(--common-motion-duration-short-00);
+  --motion-selected-in-01-timing:var(--common-motion-duration-short-00);
+  --motion-selected-in-02-timing:var(--common-motion-duration-short-00);
+  --motion-selected-in-03-timing:var(--common-motion-duration-short-00);
+  --motion-selected-in-04-timing:var(--common-motion-duration-short-00);
+  --motion-selected-in-05-timing:var(--common-motion-duration-short-00);
+  --motion-selected-in-05-easing:var(--common-motion-easing-systemic-accelerate);
+  --motion-selected-in-06-timing:var(--common-motion-duration-short-00);
+  --motion-selected-in-06-easing:var(--common-motion-easing-systemic-accelerate);
+  --motion-selected-in-07-timing:var(--common-motion-duration-short-00);
+  --motion-selected-in-07-delay:var(--common-motion-delay-short-00);
+  --motion-selected-in-08-timing:var(--common-motion-duration-short-00);
+  --motion-selected-in-08-delay:var(--common-motion-delay-short-00);
+  --motion-selected-in-09-timing:var(--common-motion-duration-short-00);
+  --motion-selected-out-01-timing:var(--common-motion-duration-short-00);
+  --motion-selected-out-02-timing:var(--common-motion-duration-short-00);
+  --motion-selected-out-03-timing:var(--common-motion-duration-short-00);
+  --motion-selected-out-04-timing:var(--common-motion-duration-short-00);
+  --motion-selected-out-04-delay:var(--common-motion-delay-short-00);
+  --motion-selected-out-05-timing:var(--common-motion-duration-short-00);
+  --motion-selected-out-06-timing:var(--common-motion-duration-short-00);
+  --motion-selected-out-06-delay:var(--common-motion-delay-short-00);
+  --motion-disabled-01-timing:var(--common-motion-duration-short-00);
+  --motion-loading-01-timing:var(--common-motion-duration-short-00);
+  --motion-loading-01-easing:var(--common-motion-easing-systemic-default);
+  --motion-loading-02-timing:var(--common-motion-duration-short-00);
+  --motion-loading-02-easing:var(--common-motion-easing-systemic-default);
+} }
 
 /* Coleção Viewport · faixas do castanha-tokens: Mobile no :root, Tablet ≥ 744, Desktop ≥ 1366; o frame do playground usa [data-viewport] */
 :root{ --common-grids-margin:var(--common-sizes-20); --castanha-grids-margin:var(--common-grids-margin); --common-grids-gutter:var(--common-sizes-16); --castanha-grids-gutter:var(--common-grids-gutter); --specific-buttons-main-button-width-min-width:328px; --castanha-buttons-main-button-width-min-width:var(--specific-buttons-main-button-width-min-width); --specific-lists-content-list-item-max-width:703px; --castanha-lists-content-list-item-max-width:var(--specific-lists-content-list-item-max-width); --specific-lists-selection-list-item-max-width:703px; --castanha-lists-selection-list-item-max-width:var(--specific-lists-selection-list-item-max-width); --specific-selection-controls-filter-chips-height:var(--common-sizes-40); --castanha-selection-controls-filter-chips-height:var(--specific-selection-controls-filter-chips-height); --specific-selection-controls-input-chips-height:var(--common-sizes-40); --castanha-selection-controls-input-chips-height:var(--specific-selection-controls-input-chips-height); --specific-text-fields-text-min-width:320px; --castanha-text-fields-text-min-width:var(--specific-text-fields-text-min-width); --specific-text-fields-text-max-width:723px; --castanha-text-fields-text-max-width:var(--specific-text-fields-text-max-width); --specific-text-fields-password-min-width:320px; --castanha-text-fields-password-min-width:var(--specific-text-fields-password-min-width); --specific-text-fields-password-max-width:723px; --castanha-text-fields-password-max-width:var(--specific-text-fields-password-max-width); --specific-carousel-gap:var(--common-sizes-8); --castanha-carousel-gap:var(--specific-carousel-gap); }

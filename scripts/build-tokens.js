@@ -14,6 +14,7 @@
  *                existem no castanha-tokens e ficam sem alias.
  * Motion Styles: Hover In/01/Timing       → --motion-hover-in-01-timing (o índice fica: vão existir outros estilos)
  *                aponta para o primitivo do Figma (motionAlias), ex.: var(--common-motion-duration-short-03)
+ *                Modo Reduced da coleção (motionAliasReduced) → @media (prefers-reduced-motion:reduce), só os que mudam
  *
  * Ferramenta de desenvolvimento: o site não depende de build, só do CSS gerado.
  */
@@ -59,6 +60,7 @@ snap.motion.forEach((r) => {
   if (a) light.push(`  --${slug("Motion/" + r[0])}:var(--${slug(a)}); /* ${r[0]} → ${a} */`);
   else push("Motion/" + r[0], r[1], r[2], r[3]);
 });
+const motionReduced = Object.keys(snap.motionAliasReduced || {}).map((n) => `  --${slug("Motion/" + n)}:var(--${slug(snap.motionAliasReduced[n])});`);
 
 // Elevations prontas para box-shadow
 const elevations = snap.elevations.map(([, lvl]) => {
@@ -119,6 +121,10 @@ ${aliases.join("\n")}
 html[data-theme="dark"]{
 ${dark.join("\n")}
 }
+/* .Motion Styles · modo Reduced: o sistema pede menos movimento (só os estilos que mudam em relação ao Normal) */
+@media (prefers-reduced-motion:reduce){ :root{
+${motionReduced.join("\n")}
+} }
 ${gridCss}`;
 fs.writeFileSync(path.join(ROOT, "styles/tokens.css"), out);
-console.log(`styles/tokens.css: ${light.length} tokens (${dark.length} com valor dark), ${texts.length} text styles, ${elevations.length} elevations, ${vp.length} tokens de viewport, ${aliases.length + vp.length} aliases --castanha-*`);
+console.log(`styles/tokens.css: ${light.length} tokens (${dark.length} com valor dark), ${texts.length} text styles, ${elevations.length} elevations, ${vp.length} tokens de viewport, ${aliases.length + vp.length} aliases --castanha-*, ${snap.motion.length} variáveis de Motion Styles (${motionReduced.length} com modo Reduced)`);

@@ -5,7 +5,7 @@ CDS.register({
   name: "Chat Input",
   category: "Text Fields",
   task: "CDS-1594",
-  figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/4hJ90rFfuEyWx9zHeqJxp4/-CastanhaDS--Components?node-id=26567-44273",
+  figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/4hJ90rFfuEyWx9zHeqJxp4/-CastanhaDS--Components?node-id=26826-12925",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel, timer = null;
     var FRASE = "Quero saber o saldo do meu cartão e se dá para transferir para outra conta.";

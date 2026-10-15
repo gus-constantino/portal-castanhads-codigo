@@ -3888,13 +3888,13 @@ try {
 try {
 /**
  * @deps text-field icon-button chips-group input-chip
- * <cds-chat-input> — Chat Input · Text Fields · CDS-1594 · branch 4hJ90rFfuEyWx9zHeqJxp4 · set 26567:44273
+ * <cds-chat-input> — Chat Input · Text Fields · CDS-1594 · branch 4hJ90rFfuEyWx9zHeqJxp4 · set 26826:12925
  *
  * Composer de mensagem (IA e atendimento). Membro da família Text Fields (CDS.TextField), sem label visível:
- *   Text Box   [Attachments: chips numa linha que rola de lado] / [texto · warning-line] / [Attach · · · Send · Voice]
- *   Trailing Content  Supporting/Error Message + Character Counter
- * O texto cresce até Sizes/92 (cerca de 3 linhas) e rola sozinho. Com anexos, o campo chega a no máximo 200.
- * As ações ficam fixas embaixo. A altura muda sem animação.
+ *   Text Box   [Attachments: chips numa linha que rola de lado] / [Attach · texto · Send · Voice] numa linha só
+ *   Trailing Content  [warning-line] Supporting/Error Message + Character Counter
+ * O texto cresce até Sizes/92 (cerca de 3 linhas) e rola sozinho. Os botões ficam alinhados pela base da linha.
+ * Durante o ditado o Send Button sai e fica o botão de parar. A altura muda sem animação.
  *
  * Voz é ditado (fala vira texto no campo), não mensagem de áudio. O componente expõe o estado e o evento.
  * Quem implementa liga ao serviço de reconhecimento de voz e escreve o texto com `value`.
@@ -3966,12 +3966,12 @@ try {
 
     configureControl(ctrl){ ctrl.rows = 1; ctrl.enterKeyHint = "send"; }
 
-    // Actions: Attach à esquerda, Trailing Items (Send + Voice) à direita
+    // Actions: Attach à esquerda, texto no meio (movido em build) e Trailing Items (Send + Voice) à direita
     buildTrailing(box){
       var self = this, act = this.actions = el("div", "cds-chat__actions");
       this.attachBtn = act.appendChild(iconButton("cds-chat__attach", "ghost", "neutral", "attachment"));
       this.attachBtn.setAttribute("label", "Anexar arquivo");
-      var trail = act.appendChild(el("div", "cds-chat__trailing"));
+      var trail = this.trailEl = act.appendChild(el("div", "cds-chat__trailing"));
       this.sendBtn = trail.appendChild(iconButton("cds-chat__send", "default", "neutral", "send-line"));
       this.sendBtn.setAttribute("label", "Enviar mensagem");
       this.voiceBtn = trail.appendChild(iconButton("cds-chat__voice", "ghost", "neutral", "microphone-line"));
@@ -3987,10 +3987,13 @@ try {
     build(){
       super.build();
       var self = this, ctrl = this.control;
-      this.content.appendChild(this.warnEl); // no Figma o warning-line fica no Text Content, ao lado do texto
+      // Linha única (Figma): o Text Content fica entre o Attach Button e os Trailing Items
+      this.actions.insertBefore(this.content, this.trailEl);
+      // O warning-line fica no Trailing Content, antes da Error Message (frame Icon, Show Trailing Item)
+      this.foot.insertBefore(this.warnEl, this.msgEl);
       // Attachments: Chips Group Single Rows no topo do Text Box (Show Attachments)
       this.attEl = CDS.create("cds-chips-group", { kind: "input", "role-kind": "single", label: "Arquivos anexados" }, "cds-chat__att");
-      this.box.insertBefore(this.attEl, this.content);
+      this.box.insertBefore(this.attEl, this.actions);
       this.attEl.addEventListener("cds-remove", function(e){
         e.preventDefault();
         var chip = e.target.closest("cds-input-chip"), chips = [].slice.call(self.attEl.children), i = chips.indexOf(chip);
@@ -4053,6 +4056,8 @@ try {
       this.attachBtn.hidden = !this.flag("show-attachment");
       this.voiceBtn.hidden = !this.flag("show-voice");
       this.sendBtn.toggleAttribute("disabled", !this.canSend);
+      // Durante o ditado o Send Button sai: fica o botão de parar (Enter continua enviando)
+      this.sendBtn.hidden = on;
       // Voice Button: Ghost Neutral microphone-line · com Is Listening, Ghost Accent stop-filled
       this.voiceBtn.setAttribute("appearance", on ? "accent" : "neutral");
       this.voiceBtn.setAttribute("icon", on ? "stop-filled" : "microphone-line");

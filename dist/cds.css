@@ -1613,10 +1613,11 @@ cds-selection-list-item [hidden], cds-content-list-item [hidden]{ display:none !
 
 /* ==== components/chat-input/chat-input.css ==== */
 /* =====================================================================
-   Chat Input · CDS-1594 · branch 4hJ90rFfuEyWx9zHeqJxp4 · set 26567:44273
+   Chat Input · CDS-1594 · branch 4hJ90rFfuEyWx9zHeqJxp4 · set 26826:12925
    Membro da família Text Fields: cores e estados vêm de text-field.css. Aqui, o que é do Chat Input.
    Text Box vertical · pad 8 8 8 16 · gap Sizes/2 · min Sizes/56 · sem máximo próprio
-   Attachments (Chips Group Single Rows, 48) · Text Content pad 8 0, máx. Sizes/92 · Actions gap 4, fixas embaixo
+   Attachments (Chips Group Single Rows, 48) · Actions numa linha: Attach · Text Content (pad 8 0, máx. Sizes/92) · Send · Voice,
+   gap 4, botões alinhados pela base
    ===================================================================== */
 /* Branch: Motion Styles por interação (Hover In/01 · Pressed/01 · Selected In/01) */
 cds-chat-input.cds-tf{
@@ -1639,9 +1640,12 @@ cds-chat-input .cds-tf__control::placeholder{ white-space:nowrap; overflow:hidde
 /* Is Listening: Listening Content em Text/medium no lugar do placeholder */
 cds-chat-input[listening] .cds-tf__control::placeholder{ color:var(--common-colors-text-medium); }
 
-/* Actions: Attach Button à esquerda, Send Button e Voice Button à direita */
-cds-chat-input .cds-chat__actions{ display:flex; align-items:center; gap:var(--common-sizes-4); cursor:default; }
-cds-chat-input .cds-chat__trailing{ flex:1 1 auto; display:flex; align-items:center; justify-content:flex-end; gap:var(--common-sizes-4); }
+/* Actions: Attach Button, texto e Trailing Items (Send + Voice) na mesma linha, alinhados pela base */
+cds-chat-input .cds-chat__actions{ display:flex; align-items:flex-end; gap:var(--common-sizes-4); cursor:default; }
+cds-chat-input .cds-chat__actions > .cds-tf__content{ flex:1 1 auto; min-width:0; cursor:text; }
+cds-chat-input .cds-chat__trailing{ flex:0 0 auto; display:flex; align-items:center; gap:var(--common-sizes-4); }
+/* warning-line no Trailing Content, antes da Error Message (frame Icon: pad top Sizes/2) */
+cds-chat-input .cds-tf__foot > .cds-tf__warn{ flex:0 0 auto; margin-top:var(--common-sizes-2); }
 
 /* Hover e press são da área do texto (Figma): sobre botões, chips ou padding, o campo fica no estado de repouso */
 cds-chat-input .cds-tf__box:hover:not(:has(.cds-tf__content:hover)),

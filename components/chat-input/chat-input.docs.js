@@ -1,5 +1,5 @@
 /* Documentação — Chat Input (CDS-1594)
-   Fonte: set Chat Input 26567:44273 na branch 4hJ90rFfuEyWx9zHeqJxp4 (description, annotations de Handoff, Accessibility e Motion)
+   Fonte: set Chat Input 26826:12925 na branch 4hJ90rFfuEyWx9zHeqJxp4 (description, annotations de Handoff, Accessibility e Motion)
    e o handoff dev de 14/10. Ainda não há página no zeroheight nem frame [Documentação] no arquivo de documentação.
    Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs. */
 window.CDS = window.CDS || {};
@@ -7,7 +7,7 @@ CDS.docs = CDS.docs || {};
 CDS.docs["chat-input"] = {
   tag: "cds-chat-input",
   base: { supporting: "Supporting Message", error: "Error Message" },
-  source: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/4hJ90rFfuEyWx9zHeqJxp4/-CastanhaDS--Components?node-id=26567-44273",
+  source: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/4hJ90rFfuEyWx9zHeqJxp4/-CastanhaDS--Components?node-id=26826-12925",
   cover: { description: "Campo para escrever mensagens em conversas com IA e atendimento.",
     attrs: { "show-supporting-content": false } },
   tabs: [
@@ -15,12 +15,12 @@ CDS.docs["chat-input"] = {
       { alert: { appearance: "informative", label: "Em desenvolvimento · CDS-1594", text: "O Chat Input está na branch do Figma e entra no Release 26. Ainda não existe no castanha-react nem no Flutter." } },
       { h2: "Sobre" },
       { p: "Campo para escrever mensagens em conversas com IA e atendimento. Aceita texto digitado ou ditado por voz e arquivos anexados, e cresce com o conteúdo." },
-      { p: "Faz parte da família de text fields, sem label visível. De cima para baixo: os anexos numa linha que rola de lado, o texto e as ações, com Anexar à esquerda e Enviar e Ditar à direita." },
+      { p: "Faz parte da família de text fields, sem label visível. Os anexos ficam numa linha que rola de lado, no topo. Abaixo, numa linha só: Anexar, o texto, Enviar e Ditar." },
       { h3: "Nomes alternativos comuns" },
       { p: "composer, message input, prompt input, caixa de mensagem, campo de chat." },
       { h3: "Princípios" },
       { cards: [
-        ["Texto em primeiro lugar", "O texto usa a largura toda do campo. As ações ficam numa linha própria e não disputam espaço com a mensagem."],
+        ["Uma linha só", "Anexar, texto e ações dividem a mesma linha. O texto quebra a linha e os botões ficam alinhados pela base."],
         ["Voz como alternativa", "Ditar escreve no campo e a mensagem pode ser revisada antes de enviar. Digitar continua disponível o tempo todo."],
         ["Envio claro", "O Enviar fica disponível com texto ou anexo. Enter envia e Shift+Enter quebra a linha."]
       ] },
@@ -48,7 +48,7 @@ CDS.docs["chat-input"] = {
         legend: ["Text Box", "Texto da mensagem", "Attach Button (opcional)", "Send Button", "Voice Button (opcional)", "Supporting ou Error Message (opcional)", "Attachments: chips dos arquivos (opcional)"]
       } },
       { h2: "Composição do componente" },
-      { p: "O texto cresce até `Sizes/92` (cerca de 3 linhas) e rola sozinho. Os anexos ficam numa linha que rola de lado, sempre visível no topo, e as ações ficam fixas embaixo. Com anexos, o campo chega a no máximo 200. A altura muda sem animação. Os anexos são Input Chips Small num Chips Group Single Rows. As três ações são Icon Buttons Small do DS: Attach (Ghost Neutral), Send (Default Neutral) e Voice (Ghost Neutral, ou Ghost Accent com o stop durante o ditado)." },
+      { p: "O texto cresce até `Sizes/92` (cerca de 3 linhas) e rola sozinho. Os anexos ficam numa linha que rola de lado, sempre visível no topo. Attach, texto, Send e Voice ficam na mesma linha, com os botões alinhados pela base. Com anexos, o campo chega a no máximo 158. A altura muda sem animação. Os anexos são Input Chips Small num Chips Group Single Rows. As três ações são Icon Buttons Small do DS: Attach (Ghost Neutral), Send (Default Neutral) e Voice (Ghost Neutral, ou Ghost Accent com o stop durante o ditado)." },
       { h2: "Propriedades" },
       { props: [
         { name: "Appearance", type: "Variant", default: "Neutral", values: ["Neutral", "Warning"] },
@@ -72,13 +72,14 @@ CDS.docs["chat-input"] = {
         ["Texto", "`Body/Regular` · pad vertical `Sizes/8` · máx. `Sizes/92` · `Text/intense` · placeholder `Text/soft`"],
         ["Attachments", "Chips Group `Single Rows` (48) · Input Chips `Size=Small` (32) · ícone `image-file`, `file-line` ou `file-blank-line`"],
         ["Listening Content", "`Body/Regular` · `Text/medium`"],
-        ["Ações", "Icon Button `Size=Small` (40) · gap `Sizes/4`"],
+        ["Ações", "Icon Button `Size=Small` (40) · gap `Sizes/4` · na linha do texto, alinhadas pela base"],
+        ["Error Message", "`warning-line` 16 antes da mensagem (Show Trailing Item) · gap `Sizes/4`"],
         ["Voice Button no ditado", "`Kind=Ghost` · `Appearance=Accent` · `stop-filled`"]
       ] } },
       { ul: [
         "Voz é ditado: a fala vira texto no campo. Não existe gravação, preview nem envio de áudio.",
         "Digitar não liga a voz. Perder o foco ou desabilitar o campo encerra o ditado.",
-        "Enviar fica disponível com texto ou anexo. Durante o ditado, enviar envia e encerra o ditado. Enviar limpa texto, anexos e o Warning: o campo volta a Neutral, vazio e focado.",
+        "Enviar fica disponível com texto ou anexo. Durante o ditado, o Send Button sai e fica o botão de parar. Enter envia e encerra o ditado. Enviar limpa texto, anexos e o Warning: o campo volta a Neutral, vazio e focado.",
         "Enter envia e Shift+Enter quebra a linha.",
         "Permissão do microfone negada: `Appearance=Warning` com Error Message pedindo acesso. A digitação segue funcionando.",
         "Anexos vão junto com a mensagem, sem progresso no composer. Arquivo fora do `accept` não vira chip: o campo vai para Warning com a Error Message curta.",
@@ -129,9 +130,9 @@ CDS.docs["chat-input"] = {
         "A Error Message é anunciada assim que aparece (`role=\"alert\"`)."
       ] },
       { h3: "Ordem de leitura" },
-      { ol: ["Chips de anexo, quando houver", "Campo da mensagem (valor ou placeholder)", "Anexar arquivo, quando presente", "Enviar mensagem", "Ditar mensagem, quando presente", "Mensagem de apoio ou de erro"] },
+      { ol: ["Chips de anexo, quando houver", "Anexar arquivo, quando presente", "Campo da mensagem (valor ou placeholder)", "Enviar mensagem, fora do ditado", "Ditar mensagem, quando presente", "Mensagem de apoio ou de erro"] },
       { h3: "Teclado" },
-      { table: { head: ["Tecla", "Ação"], rows: [["Enter", "Envia a mensagem"], ["Shift+Enter", "Quebra a linha"], ["Tab", "Chips, campo, Anexar, Enviar e Ditar, nessa ordem"], ["Espaço ou Enter num botão", "Aciona o botão"]] } },
+      { table: { head: ["Tecla", "Ação"], rows: [["Enter", "Envia a mensagem"], ["Shift+Enter", "Quebra a linha"], ["Tab", "Chips, Anexar, campo, Enviar e Ditar, nessa ordem"], ["Espaço ou Enter num botão", "Aciona o botão"]] } },
       { h3: "Contraste (WCAG)" },
       { ol: [
         "Texto e ícones: 15,3:1 a 17:1 — AAA.",
@@ -148,7 +149,7 @@ CDS.docs["chat-input"] = {
       { h2: "Diretrizes" },
       { guides: [
         { attrs: { "show-supporting-content": false, value: "Quero saber o saldo do meu cartão" }, title: "Mantenha o Enviar visível",
-          text: "O Send Button não tem boolean para esconder. Ele fica indisponível sem texto e disponível assim que a mensagem tem conteúdo." },
+          text: "O Send Button não tem boolean para esconder. Ele fica indisponível sem texto e disponível assim que a mensagem tem conteúdo. Sai só durante o ditado, quando o botão de parar ocupa o lugar." },
         { attrs: { "show-supporting-content": false, "is-active": true, listening: true }, title: "Ofereça o ditado como alternativa",
           text: "A voz escreve no campo e a pessoa revisa antes de enviar. Nunca deixe o ditado como único meio de escrever." },
         { attrs: { appearance: "warning", error: "Permita o acesso ao microfone para ditar." }, title: "Explique a permissão negada",

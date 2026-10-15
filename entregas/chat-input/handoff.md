@@ -4,9 +4,9 @@
 >
 > **Task:** CDS-1594 · **Épico:** CDS-1586 (Release 26)
 > **Branch Figma:** `4hJ90rFfuEyWx9zHeqJxp4` · **Lib:** `[CastanhaDS] Components` (`LKZBwmlb7fIbDKdGrMncuA`)
-> **Set:** `26567:44273` (Chat Input, 44 variantes), página Text Fields · **Vitrine de anexos:** `26689:43464`
+> **Set:** `26826:12925` (Chat Input, 44 variantes, versão de linha única de 15/10), página Text Fields · **Vitrine de anexos:** `26689:43464`
 > **Base:** `Text Area Input` (`10110:3028`) · **Consome:** Icon Button (`4464:636`), Chips Group (`12457:3664`), Input Chips `Size=Small` (`12365:2728`, CDS-1599)
-> **Lido ao vivo no branch:** 14/10/2026, depois dos anexos com chips, da revisão das interações e das annotations
+> **Lido ao vivo no branch:** 15/10/2026, depois da troca para a linha única (Attach, texto, Send e Voice na mesma linha)
 > **Referência implementada:** portal Castanha DS, `cds-chat-input` (ditado simulado no playground)
 > **Status:** ✅ `castanha-qa` sem pendências no componente. Pendências de produto na seção 10.
 
@@ -83,18 +83,19 @@ Chat Input                          vertical · gap Sizes/4 · largura Specific/
 │  ├─ Attachments                   linha única que rola de lado (Show Attachments)                          (opcional)
 │  │  └─ Chips Group                Kind=Input Chips · Role=Single Rows Chips · altura Sizes/48 · gap Sizes/8
 │  │     └─ Input Chips (n)         Size=Small (32) · ícone por tipo · nome do arquivo · fechar
-│  ├─ Text Content                  padding vertical Sizes/8 · máx. Sizes/92 · rola sozinho
-│  │  ├─ Value                      Body/Regular · placeholder, texto ou transcrição
-│  │  ├─ Caret                      1 × Sizes/24 · Icons/intense (Is Active=True e vazio)
-│  │  ├─ Listening Message          Body/Regular · Text/medium (Is Listening=True e vazio)
-│  │  └─ Trailing Icon              warning-line 16 (Appearance=Warning)
-│  └─ Actions                       horizontal · gap Sizes/4 · fixas embaixo
+│  └─ Actions                       horizontal · gap Sizes/4 · uma linha só · itens alinhados pela base
 │     ├─ Attach Button              Icon Button Ghost Neutral Small · attachment                             (opcional)
-│     └─ Trailing Items             horizontal · gap Sizes/4 · alinhado à direita
-│        ├─ Send Button             Icon Button Default Neutral Small · send-line · fundo Surface/01
+│     ├─ Text Content               ocupa o espaço livre · padding vertical Sizes/8 · máx. Sizes/92 · rola sozinho
+│     │  ├─ Value                   Body/Regular · placeholder, texto ou transcrição
+│     │  ├─ Caret                   1 × Sizes/24 · Icons/intense (Is Active=True e vazio)
+│     │  └─ Listening Message       Body/Regular · Text/medium (Is Listening=True e vazio)
+│     └─ Trailing Items             horizontal · gap Sizes/4
+│        ├─ Send Button             Icon Button Default Neutral Small · send-line · fundo Surface/01 · sai no ditado
 │        └─ Voice Button            Icon Button Ghost Neutral Small · microphone-line                        (opcional)
-└─ Trailing Content                 horizontal · altura Sizes/24 · gap Sizes/4                                (opcional)
-   ├─ Supporting Text               Caption/Regular · Text/medium ou Feedback/Warning/semi-intense
+└─ Trailing Content                 horizontal · mín. Sizes/24, cresce com a mensagem · gap Sizes/4 · contador no topo (opcional)
+   ├─ Supporting Text               gap Sizes/4
+   │  ├─ Icon                       warning-line 16 · pad top Sizes/2 (Appearance=Warning · Show Trailing Item)
+   │  └─ Supporting/Error Message   Caption/Regular · Text/medium ou Feedback/Warning/semi-intense
    └─ Character Counter             Disclaimer/Regular · Text/soft                                           (opcional)
 ```
 
@@ -108,13 +109,14 @@ Chat Input                          vertical · gap Sizes/4 · largura Specific/
 | Métrica | Valor | Token |
 |---|---|---|
 | Largura | 320 a 846 | `Specific/Text Fields/Text/min-width` · `max-width` |
-| Altura padrão (sem anexos, 1 linha) | Text Box 98 · componente 126 | — |
+| Altura padrão (sem anexos, 1 linha) | Text Box 56 · componente 84 | — |
 | Altura mínima do Text Box | 56 | `Common/Sizes/56` |
 | Altura máxima do texto | 92 (cerca de 3 linhas) | `Common/Sizes/92` |
-| Altura máxima com anexos e texto | 200 (8 + 48 + 2 + 92 + 2 + 40 + 8) | derivada |
+| Altura máxima com anexos e texto | 158 (8 + 48 + 2 + 92 + 8) | derivada |
 | Padding do campo (topo, direita, base) | 8 | `Common/Sizes/8` |
 | Padding do campo (esquerda) | 16 | `Common/Sizes/16` |
-| Gap entre anexos, texto e ações | 2 | `Common/Sizes/2` |
+| Gap entre anexos e a linha do texto | 2 | `Common/Sizes/2` |
+| Gap entre Attach, texto, Send e Voice | 4 | `Common/Sizes/4` |
 | Padding vertical do texto | 8 | `Common/Sizes/8` |
 | Linha de anexos | 48 de altura · gap 8 entre chips | `Common/Sizes/48` · `Common/Sizes/8` |
 | Chip de anexo | 32 de altura · padding 16 · gap 4 | `Specific/Selection Controls/Input Chips/Small/height` · `Common/Sizes/16` · `Common/Sizes/4` |
@@ -206,7 +208,7 @@ Chat Input                          vertical · gap Sizes/4 · largura Specific/
 ### Enviar
 - **Disponível com texto ou com anexo** e indisponível com o campo vazio.
 - **Enter envia e Shift+Enter quebra a linha.** Ignorar o Enter durante a composição de texto (IME).
-- **Durante o ditado, enviar envia e encerra o ditado.** O texto transcrito até o momento vai na mensagem.
+- **Durante o ditado, o `Send Button` sai e fica o botão de parar.** Enter envia e encerra o ditado, com o texto transcrito até o momento.
 - **Enviar limpa o campo e o Warning.** Depois do envio, o campo volta a `Appearance=Neutral`, vazio, sem anexos e focado.
 
 ### Permissão do microfone
@@ -270,7 +272,7 @@ Os nomes da coluna de código são sugestão. O contrato final é do time de dev
 | **Foco ao remover chip** | Vai para o chip seguinte, ou para o campo quando não houver outro |
 | **1.4.1 Não depender de cor** | ✅ Ditado troca o ícone (microfone → stop) e mostra texto. Warning tem ícone e mensagem. Tipo de arquivo tem ícone e extensão |
 | **Teclado** | Enter envia · Shift+Enter quebra a linha |
-| **Tabulação** | Ordem visual: chips de anexo, campo, Anexar, Enviar, Ditar |
+| **Tabulação** | Ordem visual: chips de anexo, Anexar, campo, Enviar, Ditar |
 | **`Send Button` indisponível** | Anunciado como indisponível. Não sinalizar apenas por cor |
 | **2.4.11 Foco visível ao rolar** | Ao passar do máximo, a rolagem acompanha o ponto de digitação |
 | **2.5.8 Target Size** | ✅ Botões de 40 × 40 e chips de 32 de altura (mínimo 24) |
@@ -303,12 +305,12 @@ Pares herdados da família abaixo do mínimo estão na seção 10.
 - [ ] `Is Listening` existe apenas com foco e fora de `Disabled`
 - [ ] Texto cresce até `Sizes/92` e rola sozinho, com o ponto de digitação à vista
 - [ ] Linha de anexos no topo, rolando de lado, sempre visível
-- [ ] Ações fixas embaixo, `Attach` à esquerda, `Send` e `Voice` à direita
+- [ ] Linha única: `Attach`, texto, `Send` e `Voice`, com os botões alinhados pela base
 - [ ] Altura muda sem animação
 - [ ] `Send Button` disponível com texto ou anexo, indisponível com o campo vazio
 - [ ] Enter envia, Shift+Enter quebra a linha
 - [ ] Enviar limpa texto, anexos e Warning, e mantém o foco
-- [ ] Enviar durante o ditado envia e encerra o ditado
+- [ ] Durante o ditado o `Send Button` sai; Enter envia e encerra o ditado
 - [ ] Digitar não liga a voz
 - [ ] Arquivo inválido não vira chip e aplica `Warning` com mensagem curta
 - [ ] Toque no chip remove o arquivo, com o foco no chip seguinte ou no campo

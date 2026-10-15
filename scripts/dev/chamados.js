@@ -7,7 +7,7 @@
  * Slack (slack_read_file F09A03756UA), salva o CSV e roda:
  *
  *   node scripts/dev/chamados.js <lista.csv>                     → junta ao docs/chamados.json
- *   node scripts/dev/chamados.js <lista.csv> --tipos <arquivo>   → (uma vez) tipos por linha do CSV: "<n> <tipo>"
+ *   node scripts/dev/chamados.js <lista.csv> --tipos <arquivo>   → tipos por linha do CSV: "<n> <tipo>" (tira o "revisar")
  *
  * O arquivo guarda só o que os gráficos usam: data, tipo, prioridade, status e os componentes citados. Nada de nomes,
  * e-mails nem o texto dos pedidos. Cada chamado tem uma chave (hash da data e do título) para manter o tipo entre leituras.
@@ -15,8 +15,9 @@
  * Tipos: design (Figma, padrões, componentes novos, dúvidas de uso) · dev (código: bugs, props, pacotes, ícones e ilustrações
  * que faltam na lib em código) · ilustra (ilustrações e ícones novos) · motion (animações, motion, vídeo) · conteudo
  * (textos e templates) · outros (acessos, pastas e equipes no Figma, ferramentas).
- * Chamado novo recebe um tipo provisório (pelo responsável e por palavras do pedido) e "revisar": true, para alguém
- * conferir e tirar a marca.
+ * Chamado novo recebe um tipo provisório (pelo responsável e por palavras do pedido) e "revisar": true. O script lista os
+ * pendentes com o número da linha do CSV: quem roda confere o pedido na Lista e roda de novo com --tipos (linha e tipo
+ * certo), o que grava o tipo e tira a marca.
  */
 "use strict";
 const fs = require("fs"), path = require("path"), crypto = require("crypto");
@@ -86,6 +87,7 @@ const antes = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, "utf8")) : { 
 antes.chamados.forEach((c) => { porChave[c.k] = c; });
 
 let novos = 0;
+const pendentes = []; // linhas do CSV ainda com "revisar": true, para quem roda conferir o tipo e passar em --tipos
 const chamados = rows.map((r, i) => {
   const d = data(r["Date submitted"]); if (!d) return null;
   const k = crypto.createHash("sha1").update(d + "|" + r.Request.trim()).digest("hex").slice(0, 10), velho = porChave[k];
@@ -94,7 +96,7 @@ const chamados = rows.map((r, i) => {
   if (!TIPOS.includes(tipo)) throw new Error("Tipo desconhecido na linha " + i + ": " + tipo);
   const c = { k, d, tipo, prioridade: ({ High: "alta", Medium: "media", Low: "baixa" })[r.Priority] || null,
     status: STATUS[r.Status] || (r.Completed === "true" ? "resolvido" : "aberto"), comp: componentes(r, tipo) };
-  if (revisar) c.revisar = true;
+  if (revisar){ c.revisar = true; pendentes.push(i + " " + tipo + " · " + d + " · " + r.Request.trim().replace(/\s+/g, " ").slice(0, 90)); }
   return c;
 }).filter(Boolean).sort((a, b) => a.d < b.d ? -1 : a.d > b.d ? 1 : a.k < b.k ? -1 : 1);
 
@@ -105,3 +107,4 @@ fs.writeFileSync(OUT, out);
 const conta = {}; chamados.forEach((c) => { conta[c.tipo] = (conta[c.tipo] || 0) + 1; });
 console.log("Chamados: " + chamados.length + " em docs/chamados.json (" + TIPOS.map((t) => t + " " + (conta[t] || 0)).join(" · ") + ")" +
   (novos ? ". " + novos + " novo(s) com tipo provisório (revisar: true)." : "."));
+if (pendentes.length) console.log("A revisar (linha do CSV, tipo provisório, data, título). Confira na Lista, escreva \"<linha> <tipo>\" num arquivo e rode de novo com --tipos <arquivo>:\n  " + pendentes.join("\n  "));

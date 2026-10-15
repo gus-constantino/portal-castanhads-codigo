@@ -47,7 +47,7 @@ Cor, fill, borda, tamanho ou layout de uma variante.
 | # | Componente | No Figma hoje | Esperado / dúvida | No código | Quando corrigir no Figma |
 |---|---|---|---|---|---|
 | C03 | Text Input · Warning · Hovered | Text Box sem fill | Provavelmente `Surface/default` (o Quantity usa) | Segue o Figma: fundo transparente | Trocar `--_bg` do Warning hover em `text-field.css` |
-| C05 | Família Text Fields · Label no Warning | Main: `Text/intense`. Branches Credit Card e OTP: `Feedback/Warning/semi-intense` | Um padrão só na família | Segue cada fonte (main × branch) | Alinhar em escala depois (Gustavo) e ajustar o CSS do Credit Card/OTP ou da base |
+| C05 | Família Text Fields · Label no Warning | Main: `Text/intense`. Branch do OTP: `Text/intense` desde a releitura de 15/10 (antes era warning). Branch do Credit Card: `Feedback/Warning/semi-intense` | Um padrão só na família | Segue cada fonte (main × branch); o OTP voltou para `Text/intense` (D346) | Falta só o Credit Card: alinhar na branch dele ou na base (Gustavo) |
 | C08 | Quantity · `Is Active` | Não muda o stroke do Text Box | Igual ao resto da família (`Border/semi-intense`) | Segue o Figma | Remover a regra de exceção em `quantity-input.css` |
 | C09 | Drop Button · Default · Inversed · Pressed | Variante quebrada: sem fundo, padding 0, raio 0 | Pressed como o do Main Button | Segue o Figma (o botão "encolhe" no press) | Remover a última regra de `drop-button.css` |
 | C10 | Filter button · Badge no Mobile | Pílula de 16px | Pela regra do Badge (Viewport), viraria ponto de 8px | Segue o Figma: Badge forçado em `viewport="desktop"` | Tirar o `viewport` em `filter-button.js` |

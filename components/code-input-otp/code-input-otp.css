@@ -120,8 +120,7 @@ cds-code-input[appearance="warning"][is-active] .cds-ci__box{
 }
 
 /* Supporting/Error Message: classe da família (.cds-tf__msg, text-field.css) */
-/* Warning: Label e Required Text também em Feedback/Warning/semi-intense (set 24060:7228) */
-cds-code-input[appearance="warning"] .cds-ci__label,
+/* Warning: só a mensagem em Feedback/Warning/semi-intense; Label e Required Text seguem Text/intense, como no resto da família (set 24060:7228, relido em 15/10; D346) */
 cds-code-input[appearance="warning"] .cds-ci__msg{ color:var(--common-colors-feedback-warning-semi-intense); }
 
 @media (prefers-reduced-motion:reduce){ .cds-ci__box, .cds-ci__input{ transition:none; } .cds-ci__caret{ animation:none; } }

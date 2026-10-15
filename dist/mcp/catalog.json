@@ -32331,7 +32331,7 @@
     "id": "C05",
     "group": "Ajuste de UI",
     "resolved": false,
-    "text": "Família Text Fields · Label no Warning · Main: `Text/intense`. Branches Credit Card e OTP: `Feedback/Warning/semi-intense` · Um padrão só na família · Segue cada fonte (main × branch) · Alinhar em escala depois (Gustavo) e ajustar o CSS do Credit Card/OTP ou da base"
+    "text": "Família Text Fields · Label no Warning · Main: `Text/intense`. Branch do OTP: `Text/intense` desde a releitura de 15/10 (antes era warning). Branch do Credit Card: `Feedback/Warning/semi-intense` · Um padrão só na família · Segue cada fonte (main × branch); o OTP voltou para `Text/intense` (D346) · Falta só o Credit Card: alinhar na branch dele ou na base (Gustavo)"
    },
    {
     "id": "C08",

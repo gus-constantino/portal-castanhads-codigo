@@ -351,13 +351,28 @@
       var groupOf = function(k){ return k.replace(/-\d+$/, ""); };
       var title = function(k){ var m = k.match(/^(.+)-(\d+)$/); return m[1].split("-").map(cap).join(" ") + "/" + m[2]; };
       var s = section(root, "Motion Styles em ação", keys.length);
-      s.appendChild(el("p", "pg-doc-p", "Passe o mouse, pressione e solte o botão. Marque e desmarque o checkbox. Cada interação dispara o Motion Style /01 correspondente: o painel mostra a cascata e o laboratório toca com o timing, a curva e o delay dele. Clique em qualquer estilo da lista para tocar os outros números."));
+      s.appendChild(el("p", "pg-doc-p", "Passe o mouse, pressione e solte o botão. Marque e desmarque o checkbox. Cada interação dispara o Motion Style /01 correspondente: o painel mostra a cascata e o laboratório toca com o timing, a curva e o delay dele."));
+      s.appendChild(el("p", "pg-doc-p", "Para testar cada estilo, use o trilho no fim da linha: passe o mouse (Hover In e Hover Out), pressione e solte (Pressed e Released) ou clique (Selected In, Selected Out, Disabled e Loading). A bolinha anda no tempo, na curva e no delay daquele estilo. Clique no nome para levar o estilo ao painel e copiar a variável."));
       var live = s.appendChild(el("div", "pg-mo-live")), stage = live.appendChild(el("div", "pg-tok-stage"));
       var pay = stage.appendChild(document.createElement("cds-main-button"));
       [["label", "Pagar"], ["kind", "default"], ["appearance", "accent"], ["show-lead-icon", "false"], ["show-trailing-icon", "false"]].forEach(function(a){ pay.setAttribute(a[0], a[1]); });
       var cb = stage.appendChild(document.createElement("cds-checkbox")); cb.setAttribute("label", "Aceito os termos");
       var panel = live.appendChild(el("div", "pg-mo-panel"));
       var ul = s.appendChild(el("div", "pg-tok-styles")), rows = {}, lastGroup = null;
+      // Trilho de teste por estilo: a bolinha liga e desliga com a interação real do grupo, no timing/easing/delay do estilo
+      function tester(k, g, hasD){
+        var rail = el("span", "pg-tok-ease is-lab pg-tok-mstyle__test"), dot = rail.appendChild(el("span", "pg-tok-ease__dot"));
+        rail.style.setProperty("--_t", "var(--motion-" + k + "-timing)"); rail.style.setProperty("--_e", "var(--motion-" + k + "-easing)");
+        if (hasD) rail.style.setProperty("--_d", "var(--motion-" + k + "-delay)");
+        rail.setAttribute("aria-hidden", "true");
+        var on = function(v){ rail.classList.toggle("is-on", v); };
+        if (g === "hover-in" || g === "hover-out"){ rail.addEventListener("mouseenter", function(){ on(true); }); rail.addEventListener("mouseleave", function(){ on(false); }); }
+        else if (g === "pressed" || g === "released"){ rail.addEventListener("pointerdown", function(){ on(true); }); ["pointerup", "pointerleave"].forEach(function(t){ rail.addEventListener(t, function(){ on(false); }); }); }
+        else if (g === "loading") rail.addEventListener("click", function(){ rail.classList.toggle("is-loop"); });
+        else rail.addEventListener("click", function(){ on(!rail.classList.contains("is-on")); });
+        rail.addEventListener("click", function(ev){ ev.stopPropagation(); }); // testar não copia a variável nem troca o painel
+        return rail;
+      }
       keys.forEach(function(k){
         var t = "--motion-" + k + "-timing", e = "--motion-" + k + "-easing", d = "--motion-" + k + "-delay", hasD = names().indexOf(d) !== -1, g = groupOf(k);
         if (g !== lastGroup){
@@ -374,6 +389,7 @@
         nm.appendChild(el("span", "pg-tok__name", title(k)));
         row.appendChild(code(val(t), t));
         row.appendChild(code(val(e) + (hasD ? " · +" + val(d) : ""), e));
+        row.appendChild(tester(k, g, hasD));
         rows[k] = row;
       });
       function chain(parent, layer, n){

@@ -389,7 +389,7 @@
 /* reset das demos: volta ao início sem animar (scripts/tokens-kit.js · replay) */
 .pg-tok-root .is-reset *{ transition:none !important; }
 .pg-tok-styles{ display:flex; flex-direction:column; gap:var(--common-sizes-2); }
-.pg-tok-mstyle{ display:grid; grid-template-columns:minmax(var(--common-sizes-160), 1fr) auto minmax(0, 2fr); align-items:center; gap:var(--common-sizes-12); padding:var(--common-sizes-8); }
+.pg-tok-mstyle{ display:grid; grid-template-columns:minmax(var(--common-sizes-120), 1fr) auto minmax(0, 2fr) minmax(var(--common-sizes-120), 1.5fr); align-items:center; gap:var(--common-sizes-12); padding:var(--common-sizes-8); }
 /* Motion Styles em ação: palco com Main Button e Checkbox do DS; linha atual destacada; cascata com Tags e ícones do DS */
 .pg-tok-stage{ display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:var(--common-sizes-32);
   padding:var(--common-sizes-40) var(--common-sizes-24); border-radius:var(--common-border-radius-big); background:var(--common-colors-surface-default); box-shadow:var(--common-elevation-level-2); }
@@ -399,6 +399,11 @@
 .pg-tok-mstyle__group{ display:flex; align-items:baseline; gap:var(--common-sizes-8); padding:var(--common-sizes-16) var(--common-sizes-8) var(--common-sizes-4); }
 .pg-tok-mstyle__group:first-child{ padding-top:0; }
 .pg-tok-mstyle__group .pg-doc-h4{ margin:0; }
+/* Trilho de teste de cada Motion Style: a bolinha anda com o timing, a curva e o delay do estilo da linha */
+.pg-tok-mstyle__test{ cursor:pointer; touch-action:none; }
+.pg-tok-mstyle__test .pg-tok-ease__dot{ transition-duration:var(--_t); transition-timing-function:var(--_e); transition-delay:var(--_d, var(--common-motion-delay-short-00)); }
+.pg-tok-mstyle__test.is-loop .pg-tok-ease__dot{ animation:pg-tok-mstyle-loop var(--_t) var(--_e) var(--_d, var(--common-motion-delay-short-00)) infinite alternate; }
+@keyframes pg-tok-mstyle-loop{ to{ left:calc(100% - var(--common-sizes-24)); } }
 .pg-tok-cascade{ display:flex; flex-direction:column; gap:var(--common-sizes-12); }
 .pg-tok-chain{ display:flex; align-items:center; flex-wrap:wrap; gap:var(--common-sizes-8); }
 .pg-tok-chain__k{ min-width:var(--common-sizes-56); font:var(--text-style-caption-medium); color:var(--common-colors-text-medium); }

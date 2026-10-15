@@ -91,6 +91,8 @@
       .then(function(j){
         if (j.admin){ aviso(); mostrar({ admin: true }); return; }
         if (!j.configurado){ aviso("warning", "Senha de admin não configurada", "Crie a variável ACESSO_ADMIN no Vercel e publique de novo."); mostrar({}); return; }
+        // o valor no Vercel não tem 6 números: nenhuma senha digitada aqui vai bater
+        if (j.formato === false){ aviso("warning", "Senha de admin com formato errado no Vercel", "A ACESSO_ADMIN precisa ter exatamente 6 números. Edite a variável no Vercel e publique de novo."); mostrar({}); return; }
         mostrar({ pede: true });
       })
       .catch(function(){ aviso("informative", "Admin no endereço do Vercel", "Aqui o portal é aberto e não pede código. O admin funciona onde o middleware roda."); mostrar({}); });

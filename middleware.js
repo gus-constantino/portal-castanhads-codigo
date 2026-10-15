@@ -124,6 +124,8 @@ async function perfil(req, env){ const s = await sessao(req, env); return s ? s.
 async function completoFixo(req, env){ const s = await sessao(req, env); return !!s && s.p === "completo" && !s.t; }
 // admin (D350): o Completo de senha fixa com o cookie cds_admin assinado e em dia (8 horas depois da senha de admin)
 const ADMIN_HORAS = 8;
+// os códigos das variáveis do Vercel sem espaço nem quebra de linha (colar o valor às vezes traz junto)
+const codigoEnv = (v) => String(v || "").replace(/\s+/g, "");
 async function cookieAdmin(env){
   const dados = b64u(enc.encode(JSON.stringify({ e: Date.now() + ADMIN_HORAS * 36e5 })));
   return dados + "." + await hmac(env.ACESSO_SEGREDO, "admin." + dados);
@@ -237,14 +239,14 @@ export default async function middleware(req){
     if (pedeAdmin){
       if (!env.ACESSO_ADMIN) return json({ erro: "A senha de admin ainda não foi configurada no Vercel." }, 503);
       if (!(await completoFixo(req, env))) return json({ erro: "Entre no portal com o código Completo antes." }, 403);
-      if (!(await igual(codigo, env.ACESSO_ADMIN, env.ACESSO_SEGREDO))) return json({ erro: "Senha de admin incorreta. Confira e tente de novo." }, 401);
+      if (!(await igual(codigo, codigoEnv(env.ACESSO_ADMIN), env.ACESSO_SEGREDO))) return json({ erro: "Senha de admin incorreta. Confira e tente de novo." }, 401);
       const h = new Headers({ "content-type": "application/json; charset=utf-8", "cache-control": "no-store" });
       h.append("set-cookie", "cds_admin=" + await cookieAdmin(env) + "; Path=/; Max-Age=" + ADMIN_HORAS * 3600 + "; HttpOnly; Secure; SameSite=Lax");
       return new Response(JSON.stringify({ admin: true, vence: new Date(Date.now() + ADMIN_HORAS * 36e5).toISOString() }), { status: 200, headers: h });
     }
     let p = null, temp = null;
-    if (env.ACESSO_COMPLETO && await igual(codigo, env.ACESSO_COMPLETO, env.ACESSO_SEGREDO)) p = "completo";
-    else if (env.ACESSO_PORTAL && await igual(codigo, env.ACESSO_PORTAL, env.ACESSO_SEGREDO)) p = "portal";
+    if (env.ACESSO_COMPLETO && await igual(codigo, codigoEnv(env.ACESSO_COMPLETO), env.ACESSO_SEGREDO)) p = "completo";
+    else if (env.ACESSO_PORTAL && await igual(codigo, codigoEnv(env.ACESSO_PORTAL), env.ACESSO_SEGREDO)) p = "portal";
     else if ((temp = await senhaTemporaria(codigo, env)) && PERFIS.test(temp.perfil)) p = temp.perfil;
     if (!p) return json({ erro: "Código incorreto. Confira e tente de novo." }, 401);
     // senha temporária: a sessão vence junto com ela
@@ -270,7 +272,7 @@ export default async function middleware(req){
     h.append("set-cookie", "cds_admin=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Lax");
     return new Response(null, { status: 302, headers: h });
   }
-  if (path === "/acesso/perfil") return json({ perfil: await perfil(req, env), admin: await admin(req, env), configurado: !!env.ACESSO_ADMIN });
+  if (path === "/acesso/perfil") return json({ perfil: await perfil(req, env), admin: await admin(req, env), configurado: !!env.ACESSO_ADMIN, formato: /^\d{6}$/.test(codigoEnv(env.ACESSO_ADMIN)) });
   if (path === "/acesso/links" && req.method === "POST"){
     if (!(await admin(req, env))) return json({ erro: "Gerar links é do admin." }, 403);
     let b = {};
@@ -362,7 +364,7 @@ export default async function middleware(req){
       // sorteia até achar um código livre: diferente das senhas fixas e de outra senha temporária ativa (SET NX)
       for (let k = 0; k < 10; k++){
         const codigo = sortear();
-        if (codigo === env.ACESSO_COMPLETO || codigo === env.ACESSO_PORTAL) continue;
+        if (codigo === codigoEnv(env.ACESSO_COMPLETO) || codigo === codigoEnv(env.ACESSO_PORTAL)) continue;
         const chave = await chaveSenha(codigo, env);
         if ((await db([["SET", chave, id, "NX", "EX", String(minutos * 60)]]))[0] !== "OK") continue;
         await db([["HSET", SENHAS, id, JSON.stringify({ nome, perfil: perfilNovo, criado, vence, chave })]]);

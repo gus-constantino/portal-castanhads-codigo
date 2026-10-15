@@ -76,6 +76,11 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   confere("senha de admin grava cds_admin HttpOnly de 8 horas", r.status === 200 && setAdm.some((c) => /^cds_admin=.+Max-Age=28800; HttpOnly; Secure/.test(c)), setAdm.join(" | "));
   r = await entrar("333333"); confere("senha de admin não entra no portal sozinha", r.status === 401, String(r.status));
   const adm = { cookie: completo.cookie + "; " + admCookie };
+  env.ACESSO_ADMIN = " 333333\n"; // valor colado com espaço e quebra de linha no Vercel
+  r = await entrarAdmin(completo.cookie, "333333"); confere("senha de admin ignora espaço e quebra de linha da variável", r.status === 200, String(r.status));
+  env.ACESSO_ADMIN = "33333";
+  r = await mw(req("/acesso/perfil", { headers: { cookie: completo.cookie } })); confere("perfil avisa ACESSO_ADMIN fora do formato", (await r.json()).formato === false);
+  env.ACESSO_ADMIN = "333333";
   r = await mw(req("/acesso/perfil", { headers: { cookie: adm.cookie } }));
   confere("perfil diz admin", (await r.json()).admin === true);
   r = await mw(req("/acesso/perfil", { headers: { cookie: completo.cookie } }));

@@ -243,9 +243,12 @@
 .rp-ch__dist{ margin-bottom:var(--common-sizes-16); }
 .rp-ch-tab__chips{ margin-bottom:var(--common-sizes-16); }
 .rp-ch-tab__chips, .rp-ch-tab__list{ width:100%; } /* Fill na largura do painel (o padrão do Figma é 320) */
-.rp-ch__datas{ display:flex; flex-wrap:wrap; gap:var(--common-sizes-16); margin-top:var(--common-sizes-12); }
+.rp-ch__periodo{ display:flex; flex-direction:column; gap:var(--common-sizes-16); margin-bottom:var(--common-sizes-16); }
+.rp-ch__periodo cds-chips-group{ width:100%; } /* Fill: o padrão do Figma é 320 */
+.rp-ch__datas{ display:flex; flex-wrap:wrap; gap:var(--common-sizes-16); }
 .rp-ch__datas[hidden]{ display:none; }
-.rp-ch__kpis{ margin-top:var(--common-sizes-16); }
+.rp-ch__kpis{ margin-top:0; grid-template-columns:repeat(3, minmax(0,1fr)); }
+@media (max-width:600px){ .rp-ch__kpis{ grid-template-columns:minmax(0,1fr); } }
 .rp-ch__sub{ margin:var(--common-sizes-24) 0 var(--common-sizes-8); font:var(--text-style-caption-medium); color:var(--common-colors-text-intense); }
 .rp-stack__seg[class*="is-ch"], .rp-legend__sw[class*="is-ch"]{ background:var(--_pc); }
 .rp-legend__sw[class*="is-ch"]{ border-radius:50%; } /* Indicator do design: bolinha */

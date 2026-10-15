@@ -554,26 +554,41 @@
     ["conteudo", "Conteúdo", "ch07", "Textos e templates."], ["outros", "Outros", "ch06", "Acessos, pastas e equipes no Figma, ferramentas."]];
   var MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
   function mesCurto(iso){ return MESES[+iso.slice(5, 7) - 1] + "/" + iso.slice(2, 4); }
-  // Período dos painéis de chamados (Gustavo, 15/10): 3 meses (padrão), 6 meses, último ano, desde o início ou um período
-  // escolhido em dois Date Input do DS. onChange recebe { de, ate } em AAAA-MM-DD.
-  var PERIODOS = [["3", "Últimos 3 meses"], ["6", "Últimos 6 meses"], ["12", "Último ano"], ["tudo", "Desde o início"], ["sel", "Selecionar período"]];
+  // Período dos painéis de chamados (Gustavo, 15/10): Filter Chips de escolha única (3 meses, padrão; 6 meses; último ano;
+  // desde o início; selecionar período, que abre dois Date Input do DS). onChange recebe { de, ate } em AAAA-MM-DD.
+  var PERIODOS = [["3", "3 meses"], ["6", "6 meses"], ["12", "Último ano"], ["tudo", "Desde o início"], ["sel", "Selecionar período"]];
   function periodoChamados(parent, inicio, onChange){
-    var hoje = todayISO(), de = null, ate = null;
+    var hoje = todayISO(), de = null, ate = null, atual = "3";
     var faixa = function(v){
       if (v === "tudo") return { de: inicio, ate: hoje };
       if (v === "sel") return { de: de || inicio, ate: ate || hoje };
       var d = new Date(hoje + "T12:00"); d.setDate(1); d.setMonth(d.getMonth() - (+v - 1));
       return { de: d.toISOString().slice(0, 10), ate: hoje };
     };
-    var sel = periodSelect(parent, function(v){ atual = v; datas.hidden = v !== "sel"; onChange(faixa(v)); }, PERIODOS), atual = "3";
-    sel.setAttribute("value", "3");
-    var datas = parent.appendChild(el("div", "rp-ch__datas")); datas.hidden = true;
-    [["De", function(v){ de = v; }], ["Até", function(v){ ate = v; }]].forEach(function(x){
-      var di = datas.appendChild(el("cds-date-input"));
-      [["label", x[0]], ["show-required", "false"], ["show-supporting-content", "false"], ["min", inicio.split("-").reverse().join("/")], ["max", hoje.split("-").reverse().join("/")]].forEach(function(a){ di.setAttribute(a[0], a[1]); });
-      di.addEventListener("cds-change", function(e){ e.stopPropagation(); var iso = (e.detail && e.detail.date) || di.date; if (!iso) return; x[1](iso); if (atual === "sel") onChange(faixa("sel")); });
+    var box = parent.appendChild(el("div", "rp-ch__periodo"));
+    var grupo = box.appendChild(el("cds-chips-group"));
+    grupo.setAttribute("kind", "filter"); grupo.setAttribute("role-kind", "multiple"); grupo.setAttribute("label", "Período");
+    var chips = PERIODOS.map(function(o){
+      var fc = grupo.appendChild(el("cds-filter-chip")); fc.setAttribute("label", o[1]); fc.setAttribute("show-lead-icon", "false"); fc.setAttribute("size", "small");
+      if (o[0] === atual) fc.setAttribute("selected", "");
+      fc.addEventListener("cds-change", function(e){
+        e.stopPropagation();
+        // escolha única: o chip clicado fica marcado (clicar de novo não desmarca) e os outros desmarcam
+        chips.forEach(function(c){ if (c !== fc) c.removeAttribute("selected"); });
+        if (!fc.hasAttribute("selected")) fc.setAttribute("selected", "");
+        atual = o[0]; datas.hidden = atual !== "sel"; onChange(faixa(atual));
+      });
+      return fc;
     });
-    return faixa("3");
+    var datas = box.appendChild(el("div", "rp-ch__datas")); datas.hidden = true;
+    [["De", function(v){ de = v; }], ["Até", function(v){ ate = v; }]].forEach(function(x){
+      var di = el("cds-date-input");
+      [["label", x[0]], ["show-required", "false"], ["show-supporting-content", "false"], ["show-character-counter", "false"],
+        ["min", inicio.split("-").reverse().join("/")], ["max", hoje.split("-").reverse().join("/")]].forEach(function(a){ di.setAttribute(a[0], a[1]); });
+      di.addEventListener("cds-change", function(e){ e.stopPropagation(); var iso = (e.detail && e.detail.date) || di.date; if (!iso) return; x[1](iso); if (atual === "sel") onChange(faixa("sel")); });
+      datas.appendChild(di);
+    });
+    return faixa(atual);
   }
   function suporte(grid, naAba){
     var J = extra.chamados; if (!J || !J.chamados || !J.chamados.length) return [];
@@ -589,8 +604,7 @@
     var idx = {}; meses.forEach(function(r, i){ idx[r.d.slice(0, 7)] = i; });
     all.forEach(function(c){ var r = meses[idx[c.d.slice(0, 7)]]; if (r){ r.total++; r[c.tipo]++; } });
     var p = panel(grid, "Chamados no #castanha-suporte", "Pedidos ao time do DS pelo fluxo de suporte do Slack, por tipo, de " + mesCurto(all[0].d) + " até hoje", "rp-panel--wide");
-    var top = p.appendChild(el("div", "rp-adop__top"));
-    var faixa = periodoChamados(top, all[0].d, function(f){ faixa = f; redraw(); });
+    var faixa = periodoChamados(p, all[0].d, function(f){ faixa = f; redraw(); });
     var dist = p.appendChild(el("div", "rp-ch__dist"));
     var wrap = p.appendChild(el("div", "rp-trends"));
     var M = [
@@ -943,15 +957,16 @@
   function solucao(grid, J){
     var all = J.chamados, hoje = Date.parse(todayISO() + "T12:00"), dia = function(iso){ return Date.parse(iso + "T12:00"); };
     var p = panel(grid, "Tempo de solução", "Do pedido no #castanha-suporte até o chamado aparecer resolvido na Lista do Slack", "rp-panel--wide");
-    var top = p.appendChild(el("div", "rp-adop__top"));
-    var faixa = periodoChamados(top, all[0].d, function(f){ faixa = f; desenhar(); });
+    var faixa = periodoChamados(p, all[0].d, function(f){ faixa = f; desenhar(); });
     var row = p.appendChild(el("div", "rp-kpis rp-ch__kpis"));
     var abertos = all.filter(function(c){ return c.status !== "resolvido"; }), idade = function(c){ return Math.round((hoje - dia(c.d)) / 864e5); };
     var kpi = function(icon, app, label, value, sub){
-      var c = row.appendChild(card("rp-kpi rp-kpi--" + app)), h = c.appendChild(el("div", "rp-kpi__head"));
+      // o conteúdo entra antes do Card ir para a página (como nos números do topo): o Card leva os filhos para o slot ao conectar
+      var c = card("rp-kpi rp-kpi--" + app), h = c.appendChild(el("div", "rp-kpi__head"));
       var ic = h.appendChild(el("cds-shaped-icon")); ic.setAttribute("icon", icon); ic.setAttribute("appearance", app); ic.setAttribute("size", "smallest");
       h.appendChild(el("p", "rp-kpi__label", esc(label)));
       c.appendChild(el("p", "rp-kpi__value", esc(value))); c.appendChild(el("p", "rp-kpi__sub", esc(sub)));
+      row.appendChild(c);
     };
     var dias = function(n){ return fmt(n) + (n === 1 ? " dia" : " dias"); };
     function desenhar(){

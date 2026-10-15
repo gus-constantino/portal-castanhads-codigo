@@ -32,7 +32,7 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
 
 (async () => {
   // Visitante
-  for (const p of ["/docs/pitch/", "/docs/pitch", "/docs/pitch/dados.json", "/entrar/", "/dist/cds-publico.js", "/dist/versao.json", "/styles/tokens.css", "/assets/brand/avatar-photo.jpg", "/scripts/cds-element.js"])
+  for (const p of ["/docs/pitch/", "/docs/pitch", "/docs/pitch/dados.json", "/entrar/", "/novidades/", "/novidades", "/dist/cds-publico.js", "/dist/versao.json", "/styles/tokens.css", "/assets/brand/avatar-photo.jpg", "/scripts/cds-element.js"])
     confere("visitante abre " + p, segue(await mw(req(p))));
   let r = await mw(req("/"));
   confere("visitante em / vai para a entrada", r.status === 302 && r.headers.get("location") === "/entrar/", r.status + " " + r.headers.get("location"));

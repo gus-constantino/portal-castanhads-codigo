@@ -3,7 +3,7 @@
  * No GitHub Pages e no servidor local este arquivo não roda: lá o portal continua aberto como sempre.
  *
  * Perfis
- *   Visitante (sem código) · o pitch, a tela de entrada e os arquivos que eles carregam
+ *   Visitante (sem código) · o pitch, as Novidades (D347), a tela de entrada e os arquivos que eles carregam
  *   Completo  (ACESSO_COMPLETO) · tudo
  *   Portal    (ACESSO_PORTAL)   · tudo, menos o Relatório e os dados dele
  *   MCP       (ACESSO_MCP no cabeçalho Authorization: Bearer …) · o catálogo e os núcleos de código do MCP
@@ -43,6 +43,7 @@ const DIAS = 30;
 const ABERTO = [
   /^\/docs\/pitch(\/|\/index\.html|\/dados\.json|\/capturas\/[\w-]+\.(jpg|png|webp))?$/,
   /^\/entrar(\/|\/index\.html)?$/,
+  /^\/novidades(\/|\/index\.html)?$/, // Novidades do Castanha DS (D347): aberta, com o pacote público
   /^\/dist\/cds-publico\.(css|js)$/,
   /^\/dist\/versao\.json$/, // versão do portal (D344): todo perfil e link confere
   /^\/styles\/(tokens|shared|icons)\.css$/,

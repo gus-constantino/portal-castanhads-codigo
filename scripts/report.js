@@ -814,7 +814,7 @@
       if (CDS.perfil !== "dashboard") toc.appendChild(dsLink("rp-src", "Roteiro: 20 coisas para explorar", "docs/roteiro/"));
       // Telas de acesso, só o perfil Completo de senha fixa (quem entrou por senha temporária não gera links nem senhas):
       // Links de entrega (acesso/links, docs/PLANO-ACESSO.md, fase 3), Links de página (acesso/paginas, D341) e
-      // Senhas temporárias (acesso/senhas, Dsenhas)
+      // Senhas temporárias (acesso/senhas, D349)
       if (CDS.perfil === "completo" && !CDS.senhaTemporaria){
         toc.appendChild(dsLink("rp-src", "Links de entrega", "acesso/links/"));
         toc.appendChild(dsLink("rp-src", "Links de página", "acesso/paginas/"));

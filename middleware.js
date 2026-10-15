@@ -6,13 +6,13 @@
  *   Visitante (sem código) · o pitch, as Novidades (D347), a tela de entrada e os arquivos que eles carregam
  *   Completo  (ACESSO_COMPLETO) · tudo
  *   Portal    (ACESSO_PORTAL)   · tudo, menos o Relatório e os dados dele
- *   Dashboard (Dsenhas, só por senha temporária) · a Visão geral do Relatório e os dados dela, sem o resto do portal
+ *   Dashboard (D349, só por senha temporária) · a Visão geral do Relatório e os dados dela, sem o resto do portal
  *   MCP       (ACESSO_MCP no cabeçalho Authorization: Bearer …) · o catálogo e os núcleos de código do MCP
  *   Entrega   (fase 3) · /l/<código> abre o portal em modo entrega: só as páginas dos itens de uma entrega para dev
  *             (entregas/<slug>/entrega.json), com as docs deles, por 1 a 90 dias, sem código
  *   Página    (D341) · /l/<código> abre o portal só com um alvo: um componente, uma página, uma seção do menu
  *             ou uma categoria (ALVOS, gerado pelo build a partir de acesso/alvos.js), também por 1 a 90 dias
- *   Senhas temporárias (Dsenhas) · códigos de 6 dígitos gerados em acesso/senhas/ para um perfil (Completo, Portal ou
+ *   Senhas temporárias (D349) · códigos de 6 dígitos gerados em acesso/senhas/ para um perfil (Completo, Portal ou
  *             Dashboard), de 5 minutos a 90 dias. O banco guarda o hash do código (nunca o código), e a sessão vence junto
  *             com a senha. Revogada, a sessão cai no próximo arquivo de conteúdo. Sem o banco não há senha temporária.
  *
@@ -76,7 +76,7 @@ const ENTREGA_SHELL = [
 // validade dos links: dias inteiros de 1 a 90 (as telas sugerem 2, 7, 14 e 30 e aceitam outro valor)
 const LINK_DIAS_MAX = 90;
 const PERFIS = /^(completo|portal|dashboard)$/;
-// Dashboard (Dsenhas): o shell do portal (com o pacote sem os recursos) e os dados do Relatório; nada de docs, recursos nem MCP
+// Dashboard (D349): o shell do portal (com o pacote sem os recursos) e os dados do Relatório; nada de docs, recursos nem MCP
 const MCP = [/^\/dist\/mcp\//, /^\/scripts\/(react|flutter)-kit\.js$/];
 // Relatório: os registros que ele lê e os checks das stacks (o perfil Portal não abre)
 const RELATORIO = [
@@ -133,7 +133,7 @@ function banco(env){
 }
 const REGISTRO = "acesso:links"; // hash id → { tipo, alvo | caminho, titulo, link, criado, vence } (só o Completo lê)
 
-// ---------- senhas temporárias (Dsenhas) ----------
+// ---------- senhas temporárias (D349) ----------
 // SENHAS: hash id → { nome, perfil, criado, vence, chave }. A chave "acesso:senha:<hmac do código>" guarda o id e some
 // sozinha quando a senha vence (EX). O código em si nunca vai para o banco: a tela mostra uma vez.
 const SENHAS = "acesso:senhas";

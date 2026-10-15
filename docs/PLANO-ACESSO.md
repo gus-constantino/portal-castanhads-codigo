@@ -82,7 +82,7 @@ Em qualquer caso, o endereço do site muda dentro do MCP (`mcp/server.js`, `scri
 | 4 · Páginas de teste | Substituída pelo modo entrega (a página oficial já documenta a melhoria em branch) | — |
 | 5 · Fechar | Repositório privado, Smoke ajustado à cota, endereço novo em todos os lugares, redirecionamento do endereço antigo | Rotinas rodando, MCP funcionando com o endereço novo, link antigo levando ao novo |
 | 6 · Links de página | `acesso/paginas/`, alvos (`acesso/alvos.js`), registro no Upstash e revogação | Gerar um link de página, abrir numa janela anônima (só o alvo aparece), revogar na lista e recarregar: volta para a entrada. |
-| 7 · Senhas temporárias | **Pronta em 15/10 (Dsenhas), na `teste`.** A tela `acesso/senhas/` (Relatório › Arquitetura, Completo de senha fixa) gera uma senha de 6 dígitos para Dashboard, Portal ou Completo, de 5 minutos a 90 dias (dias, horas e minutos). A senha aparece uma vez (o banco guarda o hash), a sessão vence junto com ela e a revogação derruba a sessão no próximo arquivo de conteúdo. Perfil novo **Dashboard**: o Relatório e nada mais. Depende do Upstash (`KV_REST_API_*`), já configurado. |
+| 7 · Senhas temporárias | **Pronta em 15/10 (D349), na `teste`.** A tela `acesso/senhas/` (Relatório › Arquitetura, Completo de senha fixa) gera uma senha de 6 dígitos para Dashboard, Portal ou Completo, de 5 minutos a 90 dias (dias, horas e minutos). A senha aparece uma vez (o banco guarda o hash), a sessão vence junto com ela e a revogação derruba a sessão no próximo arquivo de conteúdo. Perfil novo **Dashboard**: o Relatório e nada mais. Depende do Upstash (`KV_REST_API_*`), já configurado. |
 
 Ordem pensada para que o portal nunca saia do ar: o Vercel entra no ar antes de o Pages ser desligado.
 

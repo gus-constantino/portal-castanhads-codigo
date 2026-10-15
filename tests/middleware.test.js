@@ -207,7 +207,7 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   r = await post("/acesso/links/revogar", portal.cookie, { id: idMb });
   confere("Portal não revoga link", r.status === 403, String(r.status));
 
-  // Senhas temporárias (Dsenhas)
+  // Senhas temporárias (D349)
   const senha = (c, corpo) => post("/acesso/senhas", c, corpo);
   r = await senha(portal.cookie, { nome: "Ana", perfil: "dashboard", minutos: 60 });
   confere("Portal não gera senha", r.status === 403, String(r.status));

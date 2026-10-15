@@ -697,7 +697,7 @@
   // O middleware grava o perfil em cds_perfil. Perfil Portal: sem o Relatório (o middleware já bloqueia os dados dele).
   // Com perfil, o topo ganha "Sair" (Icon Button do DS + Tooltip, como os vizinhos). No GitHub Pages e no servidor local
   // não há cookie: nada muda.
-  // Perfil Dashboard (Dsenhas, só por senha temporária): o Relatório e nada mais; qualquer outra rota volta para ele.
+  // Perfil Dashboard (D349, só por senha temporária): o Relatório e nada mais; qualquer outra rota volta para ele.
   // cds_senha = quando a senha temporária vence (o Relatório esconde as telas de links e senhas para quem entrou por uma).
   var PERFIL = (document.cookie.match(/(?:^|;\s*)cds_perfil=(completo|portal|dashboard)\b/) || [])[1] || null;
   CDS.perfil = PERFIL;

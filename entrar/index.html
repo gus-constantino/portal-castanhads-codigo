@@ -92,7 +92,7 @@
     var av = CDS.create("cds-alert", { appearance: "warning", label: "Este link venceu", text: "Peça um novo ao time do Design System ou entre com o seu código.", "show-close-button": "false" });
     av.classList.add("en__alert"); document.querySelector(".en__text").after(av);
   }
-  // senha temporária revogada no meio da sessão chega aqui com ?senha=revogada (middleware.js, Dsenhas)
+  // senha temporária revogada no meio da sessão chega aqui com ?senha=revogada (middleware.js, D349)
   if (new URLSearchParams(location.search).get("senha") === "revogada"){
     var sv = CDS.create("cds-alert", { appearance: "warning", label: "Sua senha temporária foi revogada", text: "Peça uma nova ao time do Design System.", "show-close-button": "false" });
     sv.classList.add("en__alert"); document.querySelector(".en__text").after(sv);

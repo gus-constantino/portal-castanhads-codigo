@@ -41,7 +41,7 @@
     return cache[file];
   }
   // Dados auxiliares do painel (checks do código e série da tendência): se faltar, o bloco some sem quebrar a página
-  var EXTRA = { jsx: "integration/jsx-check.json", dart: "integration/flutter/dart-check.json", trend: "docs/tendencia.json" };
+  var EXTRA = { jsx: "integration/jsx-check.json", dart: "integration/flutter/dart-check.json", trend: "docs/tendencia.json", chamados: "docs/chamados.json" };
   function loadJSON(file){ return load(file).then(JSON.parse).catch(function(){ return null; }); }
 
   // ---------- Markdown (o subconjunto que os docs usam) ----------
@@ -397,10 +397,10 @@
     return v.length < 2 ? days.slice(-2) : v;
   }
   // Select de período (Async Select Input do DS, como no Figma); as opções entram antes de conectar (o componente lê uma vez)
-  function periodSelect(parent, onChange){
+  function periodSelect(parent, onChange, opcoes){
     var sel = el("cds-async-select-input", "rp-adop__period");
     [["label", "Período"], ["show-required", "false"], ["show-supporting-content", "false"], ["show-lead-icon", "false"], ["placeholder", "Período"], ["value", "tudo"]].forEach(function(x){ sel.setAttribute(x[0], x[1]); });
-    [["7", "Últimos 7 dias"], ["30", "Últimos 30 dias"], ["tudo", "Desde o início"]].forEach(function(o){ var op = document.createElement("option"); op.value = o[0]; op.textContent = o[1]; sel.appendChild(op); });
+    (opcoes || [["7", "Últimos 7 dias"], ["30", "Últimos 30 dias"], ["tudo", "Desde o início"]]).forEach(function(o){ var op = document.createElement("option"); op.value = o[0]; op.textContent = o[1]; sel.appendChild(op); });
     sel.addEventListener("cds-change", function(e){ e.stopPropagation(); onChange((e.detail && e.detail.value) || "tudo"); });
     parent.appendChild(sel);
     return sel;
@@ -411,7 +411,8 @@
     series.forEach(function(s){ var li = lg.appendChild(el("li", s.cls)); li.appendChild(el("span", "rp-adop__key")).setAttribute("aria-hidden", "true"); li.appendChild(el("span", null, esc(s.name))); if (s.tip && CDS.kit) CDS.kit.lazyTip(li, s.tip, { label: s.name, focus: false }); });
     return lg;
   }
-  // o = { series: [{ name, cls, get(d) }], max (fixo, ex. 100) · unit ("%" ou "") · ticks (5 ou 3) · compact · label (nome para leitor de tela) }
+  // o = { series: [{ name, cls, get(d) }], max (fixo, ex. 100) · unit ("%" ou "") · ticks (5 ou 3) · compact · label (nome para leitor de tela)
+  //       · xLabel(d) e tipLabel(d) (rótulo do eixo e do Tooltip, quando o ponto não é um dia, como nos meses do Suporte) }
   function areaChart(host, o){
     var chart = host.appendChild(el("div", "rp-adop" + (o.compact ? " is-compact" : "")));
     var yax = chart.appendChild(el("div", "rp-adop__y")); yax.setAttribute("aria-hidden", "true");
@@ -459,7 +460,7 @@
       chart.appendChild(tipEl);
       // datas: do fim para o começo, só as que ficam a 56px da anterior (cabe no celular); o hover mostra qualquer uma
       var labs = [], wpx = area.getBoundingClientRect().width || W, lastX = Infinity, lx = view.map(function(d){ return X(d) / W * wpx; });
-      view.forEach(function(d){ var lb = xs.appendChild(el("span", "rp-adop__xl")); lb.style.left = (X(d) / W * 100) + "%"; lb.textContent = d.live ? "Hoje" : brDate(d.d); labs.push(lb); });
+      view.forEach(function(d){ var lb = xs.appendChild(el("span", "rp-adop__xl")); lb.style.left = (X(d) / W * 100) + "%"; lb.textContent = o.xLabel ? o.xLabel(d) : d.live ? "Hoje" : brDate(d.d); labs.push(lb); });
       for (var li = view.length - 1; li >= 0; li--){ var px = X(view[li]) / W * wpx; if (li === view.length - 1 || lastX - px >= 56) lastX = px; else labs[li].classList.add("is-quiet"); }
       plot.setAttribute("aria-label", (o.label || "Gráfico") + ": " + view.map(function(d){ return (d.live ? "hoje" : brDate(d.d)) + ", " + o.series.map(function(s){ var v = val(d, s); return (o.series.length > 1 ? s.name + " " : "") + (v == null ? "sem leitura" : show_(v)); }).join(", "); }).join("; "));
       var cur = -1;
@@ -473,7 +474,7 @@
         rule.hidden = false; rule.style.left = x + "%";
         o.series.forEach(function(s, si){ var v = val(d, s); dots[si].hidden = v == null; if (v != null){ dots[si].style.left = x + "%"; dots[si].style.top = (Y(v) / H * 100) + "%"; topY = Math.min(topY, Y(v) / H * 100); } });
         anchor.style.left = x + "%"; anchor.style.top = topY + "%";
-        tipEl.setAttribute("label", d.live ? "Hoje" : new Date(d.d + "T12:00").toLocaleDateString("pt-BR", { day: "2-digit", month: "long" }));
+        tipEl.setAttribute("label", o.tipLabel ? o.tipLabel(d) : d.live ? "Hoje" : new Date(d.d + "T12:00").toLocaleDateString("pt-BR", { day: "2-digit", month: "long" }));
         tipEl.setAttribute("text", o.series.map(function(s){ var v = val(d, s); return (o.series.length > 1 || o.name ? (s.name || o.name) + ": " : "") + (v == null ? "sem leitura" : show_(v) + (o.detail ? o.detail(d, s) : "")); }).join("\n"));
         tipEl.show();
       }
@@ -540,6 +541,81 @@
     redraw();
     p.appendChild(el("p", "rp-panel__foot", "Um ponto por dia, com o último registro de cada dia na linha principal do repositório (<code>scripts/dev/tendencia.js</code>). O ponto de hoje é calculado dos registros atuais. Passe o mouse ou use as setas para ver cada dia."));
     return p;
+  }
+
+  // ---------- Suporte: chamados do #castanha-suporte (docs/chamados.json, gerado por scripts/dev/chamados.js) ----------
+  // Pedido do Gustavo (15/10): acompanhar os chamados no estilo da Tendência, por tipo. Comparações escolhidas para o DS:
+  // o volume por mês, Design × Dev (Figma ou padrão contra código: Dev bem acima mostra a lib em código atrás do Figma),
+  // Ilustração × Motion (os dois times de marca), a divisão por tipo, os componentes mais citados e o que está em aberto.
+  var CH_TIPOS = [["design", "Design", "ch03", "Figma, padrões, componentes novos e dúvidas de uso."],
+    ["dev", "Dev", "ch01", "Código: bugs, props, pacotes e o que falta na lib em código."],
+    ["ilustra", "Ilustração", "ch04", "Ilustrações e ícones novos."], ["motion", "Motion", "ch05", "Animações, motion e vídeo."],
+    ["conteudo", "Conteúdo", "ch07", "Textos e templates."], ["outros", "Outros", "ch06", "Acessos, pastas e equipes no Figma, ferramentas."]];
+  var MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+  function mesCurto(iso){ return MESES[+iso.slice(5, 7) - 1] + "/" + iso.slice(2, 4); }
+  function suporte(grid){
+    var J = extra.chamados; if (!J || !J.chamados || !J.chamados.length) return [];
+    var all = J.chamados, mesHoje = todayISO().slice(0, 7), nomes = {};
+    (CDS.playgrounds || []).forEach(function(c){ nomes[c.id] = c.name; });
+    // um ponto por mês, do primeiro chamado até o mês atual (que conta até hoje)
+    var meses = [], m0 = all[0].d.slice(0, 7);
+    for (var y = +m0.slice(0, 4), mo = +m0.slice(5, 7); (y + "-" + ("0" + mo).slice(-2)) <= mesHoje; mo === 12 ? (y++, mo = 1) : mo++){
+      var key = y + "-" + ("0" + mo).slice(-2), row = { d: key + "-01", total: 0, live: key === mesHoje };
+      CH_TIPOS.forEach(function(t){ row[t[0]] = 0; });
+      meses.push(row);
+    }
+    var idx = {}; meses.forEach(function(r, i){ idx[r.d.slice(0, 7)] = i; });
+    all.forEach(function(c){ var r = meses[idx[c.d.slice(0, 7)]]; if (r){ r.total++; r[c.tipo]++; } });
+    var p = panel(grid, "Chamados no #castanha-suporte", "Pedidos ao time do DS pelo fluxo de suporte do Slack, por tipo, de " + mesCurto(all[0].d) + " até hoje", "rp-panel--wide");
+    var period = "tudo";
+    var top = p.appendChild(el("div", "rp-adop__top"));
+    periodSelect(top, function(v){ period = v; redraw(); }, [["3", "Últimos 3 meses"], ["6", "Últimos 6 meses"], ["12", "Últimos 12 meses"], ["tudo", "Desde o início"]]);
+    var dist = p.appendChild(el("div", "rp-ch__dist"));
+    var wrap = p.appendChild(el("div", "rp-trends"));
+    var M = [
+      { t: "Chamados por mês", tip: "Todos os chamados abertos no mês, de qualquer tipo. O mês atual conta até hoje.", s: [{ name: "Chamados", cls: "is-s2", get: function(r){ return r.total; } }] },
+      { t: "Design × Dev", tip: "Design pede mudança no Figma ou no padrão; Dev pede mudança no código. Dev bem acima de Design mostra a lib em código atrás do Figma.", s: [
+        { name: "Design", cls: "is-ch03", get: function(r){ return r.design; } }, { name: "Dev", cls: "is-ch01", get: function(r){ return r.dev; } }] },
+      { t: "Ilustração × Motion", tip: "Pedidos de ilustrações e ícones novos e de animações, os dois times de marca.", s: [
+        { name: "Ilustração", cls: "is-ch04", get: function(r){ return r.ilustra; } }, { name: "Motion", cls: "is-ch05", get: function(r){ return r.motion; } }] }
+    ];
+    var mesLongo = function(r){ return new Date(r.d + "T12:00").toLocaleDateString("pt-BR", { month: "long", year: "numeric" }) + (r.live ? " (até hoje)" : ""); };
+    var charts = M.map(function(m){
+      var c = wrap.appendChild(el("section", "rp-trend")); c.setAttribute("aria-label", m.t);
+      c.appendChild(el("h3", "rp-trend__title", esc(m.t)));
+      if (CDS.kit) CDS.kit.lazyTip(c.querySelector(".rp-trend__title"), m.tip, { focus: false });
+      var head = c.appendChild(el("div", "rp-trend__head"));
+      if (m.s.length > 1) chartLegend(c, m.s);
+      return { m: m, head: head, ch: areaChart(c, { series: m.s, ticks: 3, compact: true, label: m.t, xLabel: function(r){ return mesCurto(r.d); }, tipLabel: mesLongo }) };
+    });
+    function redraw(){
+      var n = period === "tudo" ? meses.length : +period, view = meses.slice(-Math.max(2, n)), de = view[0].d.slice(0, 7);
+      var noPeriodo = all.filter(function(c){ return c.d.slice(0, 7) >= de; }), tot = noPeriodo.length;
+      dist.innerHTML = "";
+      stackCols(dist, CH_TIPOS.map(function(t){ return { cls: t[2], label: t[1], desc: t[3], n: noPeriodo.filter(function(c){ return c.tipo === t[0]; }).length }; }), tot);
+      grow(dist);
+      charts.forEach(function(x){
+        x.head.innerHTML = "";
+        var soma = function(s){ return view.reduce(function(a, r){ return a + s.get(r); }, 0); };
+        if (x.m.s.length === 1){
+          var last = view[view.length - 1], media = Math.round(soma(x.m.s[0]) / view.length * 10) / 10;
+          x.head.appendChild(el("p", "rp-trend__value", "<strong>" + fmt(x.m.s[0].get(last)) + "</strong> <span>em " + mesCurto(last.d) + (last.live ? " até hoje" : "") + " · média de " + fmt(media) + " por mês</span>"));
+        } else x.head.appendChild(el("p", "rp-trend__value", x.m.s.map(function(s){ return "<strong>" + fmt(soma(s)) + "</strong> <span>" + esc(s.name.toLowerCase()) + "</span>"; }).join(" · ") + " <span>no período</span>"));
+        x.ch.draw(view);
+      });
+    }
+    redraw();
+    p.appendChild(el("p", "rp-panel__foot", "Um ponto por mês. Fonte: a Lista do Slack do fluxo de suporte, lida em " + brDate(J.lido) + " e classificada por tipo em <code>scripts/dev/chamados.js</code>. O arquivo guarda só data, tipo, prioridade, status e componentes citados."));
+    // Componentes mais citados nos títulos dos chamados de Design e Dev (o que mais gera dúvida ou ajuste)
+    var cont = {}; all.forEach(function(c){ (c.comp || []).forEach(function(id){ cont[id] = (cont[id] || 0) + 1; }); });
+    var ranking = Object.keys(cont).filter(function(id){ return nomes[id] && nomes[id].charAt(0) !== "."; }) /* sem building blocks */.sort(function(a, b){ return cont[b] - cont[a] || nomes[a].localeCompare(nomes[b], "pt-BR"); }).slice(0, 8);
+    var pc = panel(grid, "Componentes mais citados", "Nos títulos dos chamados de Design e Dev, desde " + mesCurto(all[0].d));
+    bars(pc, ranking.map(function(id){ return { label: nomes[id], value: cont[id], href: "#/" + id }; }), { tone: "components" });
+    // Em aberto agora: o que a Lista ainda não deu como resolvido, por tipo
+    var abertos = all.filter(function(c){ return c.status !== "resolvido"; }), and = abertos.filter(function(c){ return c.status === "andamento"; }).length;
+    var pa = panel(grid, "Chamados em aberto", abertos.length ? and + " em andamento e " + (abertos.length - and) + " priorizados na Lista do Slack" : "Nenhum chamado em aberto na Lista do Slack");
+    if (abertos.length) bars(pa, CH_TIPOS.map(function(t){ return { label: t[1], value: abertos.filter(function(c){ return c.tipo === t[0]; }).length, desc: t[3] }; }).filter(function(x){ return x.value; }), { total: abertos.length });
+    return [p, pc, pa];
   }
 
   // ---------- Equalização (antes "Adoção ao longo do tempo"; Gustavo, 09/10) ----------
@@ -706,11 +782,12 @@
       });
     }
 
-    var p8 = stacks(grid), p10 = equalizacao(grid), p9 = trend(grid);
+    var p8 = stacks(grid), p10 = equalizacao(grid), p9 = trend(grid), ps = suporte(grid);
     // Duas seções (Gustavo, 09/10): Progresso (como o DS avança nas stacks, para quem acompanha de fora) e Detalhes (o que pede ação
     // e o que explica as decisões, para quem trabalha no DS). Nomes comuns, sem citar público.
     var groups = [["Progresso", "Cobertura no Figma, no React e no Flutter, publicação na lib e evolução dia a dia", [p8, p10, p5, p9]],
-      ["Detalhes", "Débitos, regras de adaptação, componentes, decisões e o build do portal", [p2, p4, p3].concat(typeof p7 !== "undefined" ? [p7] : []).concat([p6, p0])]], k = 0;
+      ["Detalhes", "Débitos, regras de adaptação, componentes, decisões e o build do portal", [p2, p4, p3].concat(typeof p7 !== "undefined" ? [p7] : []).concat([p6, p0])],
+      ["Suporte", "O que o time pede ao DS no #castanha-suporte, por tipo e ao longo do tempo", ps]], k = 0;
     groups.forEach(function(g){
       var h = grid.appendChild(el("div", "rp-dash__group"));
       h.appendChild(el("h2", "rp-dash__group-title", esc(g[0])));

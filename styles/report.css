@@ -237,6 +237,10 @@
 /* Cores Charts do Castanha Analytics nas barras empilhadas (Figma 2675:8470): Charts/03 medium · 01 medium · 04 medium · 05 semi-soft · 07 medium */
 .is-ch03{ --_pc:var(--common-colors-charts-03-medium); } .is-ch01{ --_pc:var(--common-colors-charts-01-medium); } .is-ch04{ --_pc:var(--common-colors-charts-04-medium); }
 .is-ch05{ --_pc:var(--common-colors-charts-05-semi-soft); } .is-ch07{ --_pc:var(--common-colors-charts-07-medium); }
+.is-ch06{ --_pc:var(--common-colors-charts-06-medium); }
+/* Suporte: as séries dos gráficos por mês na cor do tipo, a mesma da barra empilhada */
+.rp-adop [class*="is-ch"], .rp-adop__legend [class*="is-ch"]{ --_sc:var(--_pc); }
+.rp-ch__dist{ margin-bottom:var(--common-sizes-16); }
 .rp-stack__seg[class*="is-ch"], .rp-legend__sw[class*="is-ch"]{ background:var(--_pc); }
 .rp-legend__sw[class*="is-ch"]{ border-radius:50%; } /* Indicator do design: bolinha */
 .rp-stack{ height:var(--common-sizes-12); }

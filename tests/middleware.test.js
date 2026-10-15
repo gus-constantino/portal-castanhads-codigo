@@ -259,7 +259,7 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   const idadeDash = Number((/Max-Age=(\d+)/.exec(dash.set.find((c) => /^cds_acesso=/.test(c))) || [])[1]);
   confere("a sessão vence junto com a senha (90 min)", idadeDash > 89 * 60 && idadeDash <= 90 * 60, String(idadeDash));
   confere("cds_senha guarda o vencimento", dash.set.some((c) => /^cds_senha=\d+;/.test(c)));
-  for (const p of ["/", "/index.html", "/scripts/report.js", "/styles/shared.css", "/docs/ROADMAP.md", "/docs/tendencia.json", "/integration/SAUDE-STACK.md", "/integration/jsx-check.json", "/components/tag/tag.js"])
+  for (const p of ["/", "/index.html", "/scripts/report.js", "/styles/shared.css", "/docs/ROADMAP.md", "/docs/tendencia.json", "/docs/chamados.json", "/integration/SAUDE-STACK.md", "/integration/jsx-check.json", "/components/tag/tag.js"])
     confere("Dashboard abre " + p, segue(await com(p, dash.cookie)));
   r = await com("/dist/cds.js", dash.cookie, { headers: { accept: "*/*" } });
   confere("Dashboard recebe o pacote sem os recursos", /\/dist\/cds-entrega\.js$/.test(r.headers.get("x-middleware-rewrite") || ""), r.headers.get("x-middleware-rewrite"));
@@ -283,6 +283,10 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   r = await com("/admin/", tempC.cookie); confere("Completo temporário não abre a página de admin", r.status === 403, String(r.status));
   confere("admin abre a tela de senhas", segue(await com("/acesso/senhas/", adm.cookie)));
   const sp = await (await senha(adm.cookie, { nome: "Caio", perfil: "portal", minutos: 60 })).json(), tempP = await sessao(sp.codigo);
+  r = await com("/docs/chamados.json", portal.cookie, { headers: { accept: "*/*" } });
+  confere("Portal não lê os chamados do suporte", r.status === 403, String(r.status));
+  r = await mw(req("/docs/chamados.json", { headers: { accept: "*/*" } }));
+  confere("visitante não lê os chamados do suporte", r.status === 401, String(r.status));
   r = await com("/docs/ROADMAP.md", tempP.cookie, { headers: { accept: "*/*" } });
   confere("Portal temporário não abre o Relatório", tempP.body.perfil === "portal" && r.status === 403, String(r.status));
   // lista e revogação

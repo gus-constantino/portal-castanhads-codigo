@@ -85,7 +85,7 @@ const PERFIS = /^(completo|portal|dashboard)$/;
 const MCP = [/^\/dist\/mcp\//, /^\/scripts\/(react|flutter)-kit\.js$/];
 // Relatório: os registros que ele lê e os checks das stacks (o perfil Portal não abre)
 const RELATORIO = [
-  /^\/docs\/[^/]+\.md$/, /^\/docs\/tendencia\.json$/, /^\/docs\/local\//,
+  /^\/docs\/[^/]+\.md$/, /^\/docs\/(tendencia|chamados)\.json$/, /^\/docs\/local\//,
   /^\/integration\/(.+\/)?[^/]+\.md$/, /^\/integration\/(.+\/)?(stack-check|jsx-check|dart-check)\.json$/, /^\/tests\//
 ];
 

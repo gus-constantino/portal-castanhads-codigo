@@ -2,16 +2,45 @@
   "headers": [
     {
       "source": "/(.*)",
-      "has": [{ "type": "query", "key": "v" }],
-      "headers": [{ "key": "Cache-Control", "value": "private, max-age=31536000, immutable" }]
+      "has": [
+        {
+          "type": "query",
+          "key": "v"
+        }
+      ],
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "private, max-age=31536000, immutable"
+        }
+      ]
     },
     {
       "source": "/dist/cds.js",
-      "headers": [{ "key": "Cache-Control", "value": "private, max-age=0, must-revalidate" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "private, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/dist/cds-entrega.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "private, max-age=0, must-revalidate"
+        }
+      ]
     },
     {
       "source": "/dist/versao.json",
-      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
     }
   ]
 }

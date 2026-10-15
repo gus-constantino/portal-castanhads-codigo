@@ -755,6 +755,12 @@
   function onRoute(){
     var pagina = route()[0];
     if (DASHBOARD && pagina !== "relatorio"){ location.replace("#/relatorio"); return; } // antes de pedir a doc da página
+    // Quem tem código e abriu um link (/?entrega=… ou /?alvo=…) fica no modo do link enquanto navega pelos itens dele.
+    // Pedir outra página (menu, link colado, Relatório) sai do modo: recarrega sem o parâmetro. Antes, o ?entrega= ficava
+    // no endereço, toda rota fora do link caía no primeiro item e nem o Cmd+Shift+R saía dele (Gustavo, 15/10).
+    if (PERFIL && (CDS.entrega || CDS.acessoLink) && location.search && pagina && !list.some(function(c){ return c.id === pagina; })){
+      location.replace(location.pathname + location.hash); return;
+    }
     if (versaoNova && pagina !== paginaAtual){ tentou(versaoNova); location.reload(); return; }
     paginaAtual = pagina;
     var r0 = route()[0], want = list.some(function(c){ return c.id === r0; }) ? r0 : currentId();

@@ -447,8 +447,8 @@
     function drawXp(){ xpTag.setAttribute("label", getTotal().xp + " XP no total"); }
     drawXp();
     var chips = wrap.appendChild(c("cds-chips-group", { "role-kind": "multiple", label: "Temas do jogo" }));
-    var all = chips.appendChild(c("cds-filter-chip", { label: "Todos", "show-lead-icon": "false", selected: "" }));
-    var themeChips = ORDER.map(function(id){ var ch = chips.appendChild(c("cds-filter-chip", { label: NAMES[id], "show-lead-icon": "false" })); ch._id = id; return ch; });
+    var all = chips.appendChild(c("cds-filter-chip", { label: "Todos", "show-lead-icon": "false", size: "small", selected: "" }));
+    var themeChips = ORDER.map(function(id){ var ch = chips.appendChild(c("cds-filter-chip", { label: NAMES[id], "show-lead-icon": "false", size: "small" })); ch._id = id; return ch; });
     var host = wrap.appendChild(c("div", null, "pg-cq__play-lesson"));
     function chosen(){ var ids = themeChips.filter(function(ch){ return ch.hasAttribute("selected"); }).map(function(ch){ return ch._id; }); return ids.length ? ids : ORDER.slice(); }
     function build(){

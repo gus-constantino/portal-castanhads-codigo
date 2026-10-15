@@ -6259,7 +6259,7 @@ CDS.register({
     function buildSep(){
       chips.innerHTML = "";
       for (var pos = 1; pos < n(); pos++){
-        var b = kit.el("cds-filter-chip", { "data-p": pos, label: String(pos), "show-lead-icon": "false", selected: sepOn.indexOf(pos) !== -1 });
+        var b = kit.el("cds-filter-chip", { "data-p": pos, label: String(pos), "show-lead-icon": "false", size: "small", selected: sepOn.indexOf(pos) !== -1 });
         b.addEventListener("cds-change", function(e){
           e.stopPropagation();
           var at = parseInt(this.dataset.p, 10), on = e.detail.selected;

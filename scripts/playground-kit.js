@@ -145,7 +145,7 @@
     var group = el("cds-chips-group", { kind: "filter", "role-kind": "multiple", label: o.label, "class": "pg-choice" });
     function mark(v){ [].forEach.call(group.querySelectorAll("cds-filter-chip"), function(c){ CDS.attr(c, "selected", c.dataset.v === String(v)); }); }
     o.options.forEach(function(opt){
-      var c = el("cds-filter-chip", { label: opt[1], "show-lead-icon": "false", "data-v": opt[0], selected: opt[0] === o.value });
+      var c = el("cds-filter-chip", { label: opt[1], "show-lead-icon": "false", size: "small", "data-v": opt[0], selected: opt[0] === o.value });
       c.addEventListener("cds-change", function(e){
         e.stopPropagation();
         mark(opt[0]); // escolha única: clicar no selecionado não desmarca
@@ -296,7 +296,7 @@
         if (picker.children.length !== items.length){
           picker.innerHTML = "";
           items.forEach(function(lbl, i){
-            var b = el("cds-filter-chip", { label: lbl, "show-lead-icon": "false" });
+            var b = el("cds-filter-chip", { label: lbl, "show-lead-icon": "false", size: "small" });
             b.addEventListener("cds-change", function(e){ e.stopPropagation(); sel = i; refresh(); });
             picker.appendChild(b);
           });

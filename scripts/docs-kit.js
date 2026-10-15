@@ -216,7 +216,7 @@
     function mark(v){ [].forEach.call(g.querySelectorAll("cds-filter-chip"), function(c){ CDS.attr(c, "selected", c.dataset.v === String(v)); }); }
     options.forEach(function(o){
       var c = g.appendChild(document.createElement("cds-filter-chip"));
-      c.setAttribute("label", o[1]); c.setAttribute("show-lead-icon", "false"); c.dataset.v = o[0];
+      c.setAttribute("label", o[1]); c.setAttribute("show-lead-icon", "false"); c.setAttribute("size", "small"); c.dataset.v = o[0];
       c.addEventListener("cds-change", function(e){ e.stopPropagation(); mark(o[0]); if (e.detail && e.detail.selected) onChange(o[0]); });
     });
     mark(value); g.setValue = mark;
@@ -534,7 +534,7 @@
       chips.setAttribute("role", "group"); chips.setAttribute("aria-label", "Filtrar por área");
       var picked = {};
       v.areas.forEach(function(a){
-        var c = el("cds-filter-chip"); c.setAttribute("label", a);
+        var c = el("cds-filter-chip"); c.setAttribute("label", a); c.setAttribute("size", "small");
         if (STACK_ICON[a]) c.setAttribute("icon", STACK_ICON[a]); else c.setAttribute("show-lead-icon", "false");
         c.addEventListener("cds-change", function(e){ if (e.detail.selected) picked[a] = 1; else delete picked[a]; run(); });
         chips.appendChild(c);

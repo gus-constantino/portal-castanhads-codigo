@@ -1005,7 +1005,7 @@
     chips.setAttribute("kind", "filter"); chips.setAttribute("role-kind", "multiple"); chips.setAttribute("label", "Filtrar por tipo");
     CH_TIPOS.forEach(function(t){
       var n = abertos.filter(function(c){ return c.tipo === t[0]; }).length; if (!n) return;
-      var fc = chips.appendChild(el("cds-filter-chip")); fc.setAttribute("label", t[1] + " · " + n); fc.setAttribute("show-lead-icon", "false");
+      var fc = chips.appendChild(el("cds-filter-chip")); fc.setAttribute("label", t[1] + " · " + n); fc.setAttribute("show-lead-icon", "false"); fc.setAttribute("size", "small");
       fc.addEventListener("cds-change", function(e){ e.stopPropagation(); marcados[t[0]] = !!(e.detail && e.detail.selected); desenhar(); });
     });
     var lista = p.appendChild(el("cds-content-list", "rp-ch-tab__list"));

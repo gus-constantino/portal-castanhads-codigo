@@ -241,6 +241,7 @@
 /* Suporte: as séries dos gráficos por mês na cor do tipo, a mesma da barra empilhada */
 .rp-adop [class*="is-ch"], .rp-adop__legend [class*="is-ch"]{ --_sc:var(--_pc); }
 .rp-ch__dist{ margin-bottom:var(--common-sizes-16); }
+.rp-ch__sub{ margin:var(--common-sizes-24) 0 var(--common-sizes-8); font:var(--text-style-caption-medium); color:var(--common-colors-text-intense); }
 .rp-stack__seg[class*="is-ch"], .rp-legend__sw[class*="is-ch"]{ background:var(--_pc); }
 .rp-legend__sw[class*="is-ch"]{ border-radius:50%; } /* Indicator do design: bolinha */
 .rp-stack{ height:var(--common-sizes-12); }

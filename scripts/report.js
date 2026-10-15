@@ -611,10 +611,18 @@
     var ranking = Object.keys(cont).filter(function(id){ return nomes[id] && nomes[id].charAt(0) !== "."; }) /* sem building blocks */.sort(function(a, b){ return cont[b] - cont[a] || nomes[a].localeCompare(nomes[b], "pt-BR"); }).slice(0, 8);
     var pc = panel(grid, "Componentes mais citados", "Nos títulos dos chamados de Design e Dev, desde " + mesCurto(all[0].d));
     bars(pc, ranking.map(function(id){ return { label: nomes[id], value: cont[id], href: "#/" + id }; }), { tone: "components" });
-    // Em aberto agora: o que a Lista ainda não deu como resolvido, por tipo
-    var abertos = all.filter(function(c){ return c.status !== "resolvido"; }), and = abertos.filter(function(c){ return c.status === "andamento"; }).length;
-    var pa = panel(grid, "Chamados em aberto", abertos.length ? and + " em andamento e " + (abertos.length - and) + " priorizados na Lista do Slack" : "Nenhum chamado em aberto na Lista do Slack");
-    if (abertos.length) bars(pa, CH_TIPOS.map(function(t){ return { label: t[1], value: abertos.filter(function(c){ return c.tipo === t[0]; }).length, desc: t[3] }; }).filter(function(x){ return x.value; }), { total: abertos.length });
+    // Status (pedido do Gustavo, 15/10): como a Lista do Slack está agora, desde o início (sem o filtro de período).
+    // Barra empilhada com Resolvido, Em andamento e Priorizado e, embaixo, o que está em aberto por tipo.
+    var ST = [["resolvido", "Resolvido", "ch04", "Atendido e fechado na Lista do Slack."], ["andamento", "Em andamento", "ch05", "Alguém do time já está atendendo."],
+      ["priorizado", "Priorizado", "ch01", "Aceito, esperando a vez na fila."]];
+    var abertos = all.filter(function(c){ return c.status !== "resolvido"; });
+    var pa = panel(grid, "Status dos chamados", abertos.length ? abertos.length + " em aberto de " + fmt(all.length) + " desde " + mesCurto(all[0].d) : "Todos os chamados resolvidos");
+    stackCols(pa, ST.map(function(t){ return { cls: t[2], label: t[1], desc: t[3], n: all.filter(function(c){ return c.status === t[0]; }).length }; }), all.length);
+    if (abertos.length){
+      pa.appendChild(el("h3", "rp-ch__sub", "Em aberto por tipo"));
+      bars(pa, CH_TIPOS.map(function(t){ var ab = abertos.filter(function(c){ return c.tipo === t[0]; }), and = ab.filter(function(c){ return c.status === "andamento"; }).length;
+        return { label: t[1], value: ab.length, desc: and + " em andamento e " + (ab.length - and) + " priorizados." }; }).filter(function(x){ return x.value; }), { total: abertos.length });
+    }
     return [p, pc, pa];
   }
 
@@ -785,9 +793,9 @@
     var p8 = stacks(grid), p10 = equalizacao(grid), p9 = trend(grid), ps = suporte(grid);
     // Duas seções (Gustavo, 09/10): Progresso (como o DS avança nas stacks, para quem acompanha de fora) e Detalhes (o que pede ação
     // e o que explica as decisões, para quem trabalha no DS). Nomes comuns, sem citar público.
-    var groups = [["Progresso", "Cobertura no Figma, no React e no Flutter, publicação na lib e evolução dia a dia", [p8, p10, p5, p9]],
-      ["Detalhes", "Débitos, regras de adaptação, componentes, decisões e o build do portal", [p2, p4, p3].concat(typeof p7 !== "undefined" ? [p7] : []).concat([p6, p0])],
-      ["Suporte", "O que o time pede ao DS no #castanha-suporte, por tipo e ao longo do tempo", ps]], k = 0;
+    // Suporte logo acima da Equalização (Gustavo, 15/10): os chamados do #castanha-suporte entram no Progresso
+    var groups = [["Progresso", "Cobertura no Figma, no React e no Flutter, chamados do #castanha-suporte, publicação na lib e evolução dia a dia", [p8].concat(ps).concat([p10, p5, p9])],
+      ["Detalhes", "Débitos, regras de adaptação, componentes, decisões e o build do portal", [p2, p4, p3].concat(typeof p7 !== "undefined" ? [p7] : []).concat([p6, p0])]], k = 0;
     groups.forEach(function(g){
       var h = grid.appendChild(el("div", "rp-dash__group"));
       h.appendChild(el("h2", "rp-dash__group-title", esc(g[0])));

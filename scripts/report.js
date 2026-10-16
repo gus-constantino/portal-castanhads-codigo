@@ -951,7 +951,7 @@
   function gloss(){ return CDS.reportGlossary || []; }
   // Mesmo molde das tabs de registro (Gustavo, 15/10): índice das letras à esquerda, um Card do DS por letra com a
   // contagem em Tag e a busca do topo do Relatório (antes a tab inteira caía na coluna do índice, com o resto da tela vazio)
-  // ---------- Tempo de solução (topo da aba Chamados; Gustavo, 15/10) ----------
+  // ---------- Tempo de solução (aba Chamados, abaixo de Chamados no #castanha-suporte; Gustavo, 16/10) ----------
   // A Lista do Slack não guarda quando o chamado foi resolvido: scripts/dev/chamados.js grava "resolvido" na leitura em que o
   // chamado aparece resolvido pela primeira vez, a partir de J.medido. Big numbers como os do topo do Relatório.
   function solucao(grid, J){
@@ -989,11 +989,15 @@
   function chamadosTab(){
     var J = extra.chamados, hoje = Date.parse(todayISO() + "T12:00");
     var abertos = J && J.chamados ? J.chamados.filter(function(c){ return c.status !== "resolvido"; }).sort(function(a, b){ return a.d < b.d ? -1 : a.d > b.d ? 1 : 0; }) : [];
-    // no topo o tempo de solução, depois os mesmos painéis do Suporte da Visão geral (redundância pedida pelo Gustavo, 15/10)
-    // e, por último, a lista dos em aberto
-    var grid = bodyEl.appendChild(el("div", "rp-dash"));
-    if (J && J.chamados && J.chamados.length) solucao(grid, J);
+    // os mesmos painéis do Suporte da Visão geral (redundância pedida pelo Gustavo, 15/10), com o tempo de solução logo abaixo
+    // de Chamados no #castanha-suporte (Gustavo, 16/10) e, por último, a lista dos em aberto
+    var grid = bodyEl.appendChild(el("div", "rp-dash")), antes = grid.children.length;
     suporte(grid, true);
+    if (J && J.chamados && J.chamados.length){
+      // montado fora da página e encaixado depois do primeiro painel do Suporte (os Cards recebem o conteúdo antes de conectar)
+      var sol = document.createDocumentFragment(); solucao(sol, J);
+      grid.insertBefore(sol, grid.children[antes + 1] || null);
+    }
     var p = panel(grid, "Chamados em aberto", abertos.length ? abertos.length + " no #castanha-suporte, do mais antigo ao mais novo" + (J.lido ? " · Lista lida em " + brDate(J.lido) : "") : "Nenhum chamado em aberto na Lista do Slack", "rp-panel--wide");
     var mais = function(){ [].forEach.call(grid.children, function(c, i){ c.style.setProperty("--_i", String(i)); }); grow(grid); };
     if (!abertos.length){ mais(); return; }

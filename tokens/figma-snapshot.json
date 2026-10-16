@@ -1,6 +1,6 @@
 {
- "_source": "[CastanhaDS] Components (LKZBwmlb7fIbDKdGrMncuA) · collections Brand Style + .Motion Styles · text styles · effect styles · lido via Figma MCP em 01/10/2026; .Motion Styles (103 variáveis, modos Normal e Reduced) lida da branch 5ruoj0X35N4WobKIggNV8a (CDS-730) em 15/10/2026 · coleção Viewport (floats: Common/Grids e Specific/*; os booleans Is Mobile/Is Tablet/Is Desktop ficam de fora, não são CSS) lida via MCP em 05/10/2026",
- "_format": "brand/motion: [nome, tipo (F=float C=color S=string E=easing T=timing em s), light, dark?] · viewport: [nome, {Desktop, Tablet, Mobile}] com número (px) ou alias (nome da variável) · motionAlias: Motion Style → primitivo no modo Normal · motionAliasReduced: só os que mudam no modo Reduced",
+ "_source": "[CastanhaDS] Components (LKZBwmlb7fIbDKdGrMncuA) · collections Brand Style + .Motion Styles · text styles · effect styles · lido via Figma MCP em 01/10/2026; .Motion Styles (103 variáveis, modos Normal e Reduced) lida da branch 5ruoj0X35N4WobKIggNV8a (CDS-730) em 15/10/2026 · coleção Viewport (floats: Common/Grids e Specific/*; os booleans Is Mobile/Is Tablet/Is Desktop ficam de fora, não são CSS) lida via MCP em 05/10/2026 · descrições de uso da .Motion Styles (motionUsage) lidas da lib em 16/10/2026",
+ "_format": "brand/motion: [nome, tipo (F=float C=color S=string E=easing T=timing em s), light, dark?] · viewport: [nome, {Desktop, Tablet, Mobile}] com número (px) ou alias (nome da variável) · motionAlias: Motion Style → primitivo no modo Normal · motionAliasReduced: só os que mudam no modo Reduced · motionUsage: descrição de uso de cada Motion Style no Figma (onde ele é usado)",
  "brand": [
   [
    "Common/Border/Radius/none",
@@ -2553,5 +2553,29 @@
   "Loading/01/Easing": "Common/Motion/Easing/Systemic/default",
   "Loading/02/Timing": "Common/Motion/Duration/Short/00",
   "Loading/02/Easing": "Common/Motion/Easing/Systemic/default"
- }
+ },
+  "motionUsage": {
+    "Disabled/01": "Disabled: Main Button, Icon Button, Link, Checkbox, Switch, Accordion",
+    "Hover In/01": "Hover: Main Button, Icon Button, Checkbox, Switch, Accordion",
+    "Hover In/03": "Hover: Banner",
+    "Hover In/04": "Hover do Link (deslocamento do ícone em X)",
+    "Hover Out/01": "Sair do hover: Main Button, Icon Button, Checkbox, Switch, Accordion",
+    "Hover Out/03": "Sair do hover: Banner",
+    "Hover Out/04": "Sair do hover do Link (deslocamento do ícone em X)",
+    "Loading/01": "Carregamento do Skeleton (degradê em loop)",
+    "Loading/02": "Carregamento do Spinner (implementado pelo JSON do Lottie)",
+    "Pressed/01": "Pressed: Main Button, Icon Button, bolinha do Switch, Accordion",
+    "Pressed/03": "Pressed: Checkbox",
+    "Pressed/05": "Pressed: Link",
+    "Pressed/06": "Pressed: Banner",
+    "Selected In/01": "Entrada do Modal (Y) e expandir o Accordion",
+    "Selected In/02": "Marcar o Checkbox e cor da bolinha ao ativar o Switch",
+    "Selected In/03": "Posição da bolinha ao ativar o Switch e opacidade na entrada do System Banner",
+    "Selected In/04": "Entrada do System Banner (Y) e avançar o Carousel",
+    "Selected In/09": "Opacidade na entrada do Modal",
+    "Selected Out/01": "Desmarcar o Checkbox, cor da bolinha ao desativar o Switch, saída do Modal (Y) e recolher o Accordion",
+    "Selected Out/02": "Posição da bolinha ao desativar o Switch e opacidade na saída do System Banner",
+    "Selected Out/03": "Opacidade na saída do Modal",
+    "Selected Out/05": "Saída do System Banner (Y) e voltar o Carousel"
+  }
 }

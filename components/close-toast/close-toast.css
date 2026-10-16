@@ -1,13 +1,14 @@
 /* .Close Toast · set 5219:558 — 40×40 · raio small · close-line 20 Neutral/Solid/soft (sobre Surface/inversed)
    Hovered Neutral/Opacity/Soft/semi-transparent · Pressed Neutral/Opacity/Soft/light · Disabled Opacity/light
-   Motion: 150ms · Systemic/accelerate (reaction do Figma) */
+   Motion: Hover In/01 e Hover Out/01 · Pressed/01, como o Icon Button (C204). No Figma o set ainda usa 150ms · Systemic/accelerate */
 cds-close-toast{ display:inline-flex; flex:0 0 auto; }
 .cds-close{
   --_bg:transparent;
   display:inline-grid; place-items:center; width:var(--common-sizes-40); height:var(--common-sizes-40);
   padding:0; border:0; cursor:pointer; border-radius:var(--common-border-radius-small); background:var(--_bg);
-  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+  transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing);
 }
+.cds-close:active:not(:disabled){ transition-duration:var(--motion-pressed-01-timing); transition-timing-function:var(--motion-pressed-01-easing); }
 .cds-close:focus-visible{ outline:var(--common-border-width-thin) solid var(--common-colors-support-system); outline-offset:var(--common-border-width-thin); }
 .cds-close:disabled{ cursor:default; opacity:var(--common-opacity-light); }
 cds-close-toast .cds-close{ --cds-icon-color:var(--common-colors-neutral-solid-soft); }

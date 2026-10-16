@@ -82,6 +82,7 @@
           { title: "Entrada", rows: [["Gatilho", "Ao aparecer"], ["Motion Style · posição", "`Selected In/04`"], ["Motion Style · opacidade", "`Selected In/03`"]] },
           { title: "Saída", rows: [["Gatilho", "Ao fechar"], ["Motion Style · posição", "`Selected Out/05`"], ["Motion Style · opacidade", "`Selected Out/02`"]] },
           { title: "Fechar: Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
+          { title: "Fechar: Hovered → Enabled", rows: [[["Gatilho", "Mouse leave"], ["Motion Style", "`Hover Out/01`"]]] },
           { title: "Fechar: Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] }
         ] },
         { note: "O banner desce do topo enquanto aparece e sobe ao sair. Exemplo interativo: no Playground, feche o banner e clique em Mostrar de novo para ver a saída e a entrada. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma." },

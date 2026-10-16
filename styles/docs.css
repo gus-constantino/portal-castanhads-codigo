@@ -396,6 +396,7 @@
 .pg-tok-mstyle.is-current{ background:var(--common-colors-surface-01); }
 .pg-tok-mstyle__name{ display:flex; flex-direction:column; gap:var(--common-sizes-2); min-width:0; }
 .pg-tok-mstyle__when{ font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); }
+.pg-tok-mstyle__use{ font:var(--text-style-disclaimer-regular); color:var(--common-colors-text-medium); }
 .pg-tok-mstyle__group{ display:flex; align-items:baseline; gap:var(--common-sizes-8); padding:var(--common-sizes-16) var(--common-sizes-8) var(--common-sizes-4); }
 .pg-tok-mstyle__group:first-child{ padding-top:0; }
 .pg-tok-mstyle__group .pg-doc-h4{ margin:0; }

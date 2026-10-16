@@ -1,0 +1,25 @@
+/* GERADO por scripts/build-tokens.js a partir de tokens/figma-snapshot.json (motionUsage) */
+(window.CDS = window.CDS || {}).motionUsage = {
+ "Disabled/01": "Disabled: Main Button, Icon Button, Link, Checkbox, Switch, Accordion",
+ "Hover In/01": "Hover: Main Button, Icon Button, Checkbox, Switch, Accordion",
+ "Hover In/03": "Hover: Banner",
+ "Hover In/04": "Hover do Link (deslocamento do ícone em X)",
+ "Hover Out/01": "Sair do hover: Main Button, Icon Button, Checkbox, Switch, Accordion",
+ "Hover Out/03": "Sair do hover: Banner",
+ "Hover Out/04": "Sair do hover do Link (deslocamento do ícone em X)",
+ "Loading/01": "Carregamento do Skeleton (degradê em loop)",
+ "Loading/02": "Carregamento do Spinner (implementado pelo JSON do Lottie)",
+ "Pressed/01": "Pressed: Main Button, Icon Button, bolinha do Switch, Accordion",
+ "Pressed/03": "Pressed: Checkbox",
+ "Pressed/05": "Pressed: Link",
+ "Pressed/06": "Pressed: Banner",
+ "Selected In/01": "Entrada do Modal (Y) e expandir o Accordion",
+ "Selected In/02": "Marcar o Checkbox e cor da bolinha ao ativar o Switch",
+ "Selected In/03": "Posição da bolinha ao ativar o Switch e opacidade na entrada do System Banner",
+ "Selected In/04": "Entrada do System Banner (Y) e avançar o Carousel",
+ "Selected In/09": "Opacidade na entrada do Modal",
+ "Selected Out/01": "Desmarcar o Checkbox, cor da bolinha ao desativar o Switch, saída do Modal (Y) e recolher o Accordion",
+ "Selected Out/02": "Posição da bolinha ao desativar o Switch e opacidade na saída do System Banner",
+ "Selected Out/03": "Opacidade na saída do Modal",
+ "Selected Out/05": "Saída do System Banner (Y) e voltar o Carousel"
+};

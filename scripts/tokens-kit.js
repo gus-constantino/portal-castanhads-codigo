@@ -350,8 +350,10 @@
       var keys = pick("--motion-").filter(function(n){ return /-\d+-timing$/.test(n); }).map(function(n){ return n.replace(/^--motion-|-timing$/g, ""); });
       var groupOf = function(k){ return k.replace(/-\d+$/, ""); };
       var title = function(k){ var m = k.match(/^(.+)-(\d+)$/); return m[1].split("-").map(cap).join(" ") + "/" + m[2]; };
+      // Onde cada estilo é usado: descrição da variável no Figma (tokens/motion-usage.js, gerado pelo build-tokens)
+      var usage = function(k){ return ((window.CDS && CDS.motionUsage) || {})[title(k)] || ""; };
       var s = section(root, "Motion Styles em ação", keys.length);
-      s.appendChild(el("p", "pg-doc-p", "Passe o mouse, pressione e solte o botão. Marque e desmarque o checkbox. Cada interação dispara o Motion Style /01 correspondente: o painel mostra a cascata e o laboratório toca com o timing, a curva e o delay dele."));
+      s.appendChild(el("p", "pg-doc-p", "Passe o mouse, pressione e solte o botão. Marque e desmarque o checkbox. Cada interação dispara o Motion Style que o componente usa: o painel mostra a cascata e o laboratório toca com o timing, a curva e o delay dele."));
       s.appendChild(el("p", "pg-doc-p", "Para testar cada estilo, use o trilho no fim da linha: passe o mouse (Hover In e Hover Out), pressione e solte (Pressed e Released) ou clique (Selected In, Selected Out, Disabled e Loading). A bolinha anda no tempo, na curva e no delay daquele estilo. Clique no nome para levar o estilo ao painel e copiar a variável."));
       var live = s.appendChild(el("div", "pg-mo-live")), stage = live.appendChild(el("div", "pg-tok-stage"));
       var pay = stage.appendChild(document.createElement("cds-main-button"));
@@ -387,6 +389,7 @@
         row.setAttribute("aria-label", title(k) + " — copiar var(" + t + ")");
         var nm = row.appendChild(el("span", "pg-tok-mstyle__name"));
         nm.appendChild(el("span", "pg-tok__name", title(k)));
+        var use = usage(k); if (use) nm.appendChild(el("span", "pg-tok-mstyle__use", use));
         row.appendChild(code(val(t), t));
         row.appendChild(code(val(e) + (hasD ? " · +" + val(d) : ""), e));
         row.appendChild(tester(k, g, hasD));
@@ -408,6 +411,7 @@
         var head = panel.appendChild(el("div", "pg-mo-panel__head"));
         head.appendChild(el("span", "pg-mo-panel__title", title(k)));
         head.appendChild(el("span", "pg-mo-panel__when", TRIGGER[groupOf(k)] || ""));
+        if (usage(k)) panel.appendChild(el("p", "pg-doc-note", "Usado em: " + usage(k)));
         var t = "--motion-" + k + "-timing", e = "--motion-" + k + "-easing", d = "--motion-" + k + "-delay";
         ["timing", "easing", "delay"].forEach(function(p){ var n = "--motion-" + k + "-" + p; if (names().indexOf(n) !== -1) chain(panel, cap(p), n); });
         panel.appendChild(el("p", "pg-doc-note", "Motion Style → Brand Style (Common/Motion/*) → valor. Primitivos de easing do castanhads-motion (C106)."));
@@ -417,7 +421,7 @@
       pay.addEventListener("mouseleave", function(){ go("hover-out-01"); });
       pay.addEventListener("pointerdown", function(){ go("pressed-01"); });
       pay.addEventListener("pointerup", function(){ go("released-01"); });
-      cb.addEventListener("cds-change", function(ev){ ev.stopPropagation(); go(ev.detail && ev.detail.status === "selected" ? "selected-in-01" : "selected-out-01"); });
+      cb.addEventListener("cds-change", function(ev){ ev.stopPropagation(); go(ev.detail && ev.detail.status === "selected" ? "selected-in-02" : "selected-out-01"); });
       LAB.first = function(){ go(keys[0]); };
     },
     // Laboratório: curva grande com o ponto andando sobre o traçado no tempo real do token + trilho; Filter Chips e Sliders do DS

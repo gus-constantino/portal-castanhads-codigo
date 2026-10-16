@@ -1,6 +1,6 @@
 /* =====================================================================
    Tokens — Castanha DS · GERADO por scripts/build-tokens.js · não editar à mão
-   Fonte: tokens/figma-snapshot.json ([CastanhaDS] Components (LKZBwmlb7fIbDKdGrMncuA) · collections Brand Style + .Motion Styles · text styles · effect styles · lido via Figma MCP em 01/10/2026; .Motion Styles (103 variáveis, modos Normal e Reduced) lida da branch 5ruoj0X35N4WobKIggNV8a (CDS-730) em 15/10/2026 · coleção Viewport (floats: Common/Grids e Specific/*; os booleans Is Mobile/Is Tablet/Is Desktop ficam de fora, não são CSS) lida via MCP em 05/10/2026)
+   Fonte: tokens/figma-snapshot.json ([CastanhaDS] Components (LKZBwmlb7fIbDKdGrMncuA) · collections Brand Style + .Motion Styles · text styles · effect styles · lido via Figma MCP em 01/10/2026; .Motion Styles (103 variáveis, modos Normal e Reduced) lida da branch 5ruoj0X35N4WobKIggNV8a (CDS-730) em 15/10/2026 · coleção Viewport (floats: Common/Grids e Specific/*; os booleans Is Mobile/Is Tablet/Is Desktop ficam de fora, não são CSS) lida via MCP em 05/10/2026 · descrições de uso da .Motion Styles (motionUsage) lidas da lib em 16/10/2026)
    ===================================================================== */
 :root{
   --common-border-radius-none:0px;

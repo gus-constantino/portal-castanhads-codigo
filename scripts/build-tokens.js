@@ -127,4 +127,6 @@ ${motionReduced.join("\n")}
 } }
 ${gridCss}`;
 fs.writeFileSync(path.join(ROOT, "styles/tokens.css"), out);
+// Uso de cada Motion Style (descrição da variável no Figma) → Motion Styles em ação (scripts/tokens-kit.js)
+fs.writeFileSync(path.join(ROOT, "tokens/motion-usage.js"), "/* GERADO por scripts/build-tokens.js a partir de tokens/figma-snapshot.json (motionUsage) */\n(window.CDS = window.CDS || {}).motionUsage = " + JSON.stringify(snap.motionUsage || {}, null, 1) + ";\n");
 console.log(`styles/tokens.css: ${light.length} tokens (${dark.length} com valor dark), ${texts.length} text styles, ${elevations.length} elevations, ${vp.length} tokens de viewport, ${aliases.length + vp.length} aliases --castanha-*, ${snap.motion.length} variáveis de Motion Styles (${motionReduced.length} com modo Reduced)`);

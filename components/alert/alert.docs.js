@@ -92,6 +92,7 @@
         { p: "O Alert entra e sai junto com o conteúdo da tela. O botão de fechar (.Close Alert) tem os estados de interação abaixo." },
         { specs: [
           { title: "Fechar: Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
+          { title: "Fechar: Hovered → Enabled", rows: [[["Gatilho", "Mouse leave"], ["Motion Style", "`Hover Out/01`"]]] },
           { title: "Fechar: Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] }
         ] },
         { alert: { appearance: "warning", label: "Especificação pendente", text: "Não há especificação de Motion para a entrada e a saída do Alert (CONFERIR C136)." } }

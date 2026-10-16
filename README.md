@@ -261,7 +261,7 @@ Blocos disponíveis: `h2` `h3` `p` `note` `alert` `ul` `ol` `cards` `display` `c
 <summary><strong>Documentar um componente</strong></summary>
 
 1. Crie `components/<id>/<id>.docs.js` com `CDS.docs[id] = { tabs: [...] }`.
-2. Motion: um card por transição, com o gatilho e o Motion Style `/01`. Nunca escreva duração ou easing à mão.
+2. Motion: um card por transição, com o gatilho e o Motion Style no número que o componente usa (`Hover In/01`, `Hover In/04`, `Selected In/09`…). O número vem das páginas verdes da documentação de motion para devs (Notion da Ju) e da descrição do estilo no Figma. Página azul ou sem especificação fica em `/01` com o alerta de pendente. Nunca escreva duração ou easing à mão.
 3. Rode o build com `--smoke`. O smoke das docs abre cada tab no desktop e em 375 px e confere erro e a11y.
 </details>
 

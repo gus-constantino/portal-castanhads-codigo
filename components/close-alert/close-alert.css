@@ -1,6 +1,6 @@
 /* .Close Alert · set 11830:5584 — 40×40 · raio small · close-line 20 Icons/intense
    Hovered Neutral/Opacity/Intense/semi-opaque + Icons/inversed · Pressed Neutral/Opacity/Intense/intense + Icons/inversed
-   Disabled Opacity/light · Motion: 150ms · Systemic/accelerate. Base .cds-close em close-toast.css */
+   Disabled Opacity/light · Motion: Hover In/01, Hover Out/01 e Pressed/01, como o Icon Button (C204). Base .cds-close em close-toast.css */
 cds-close-alert{ display:inline-flex; flex:0 0 auto; }
 cds-close-alert .cds-close{ --cds-icon-color:var(--common-colors-icons-intense); }
 cds-close-alert .cds-close:hover:not(:disabled), cds-close-alert[state="hovered"] .cds-close{ --_bg:var(--common-colors-neutral-opacity-intense-semi-opaque); --cds-icon-color:var(--common-colors-icons-inversed); }

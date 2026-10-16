@@ -38,7 +38,7 @@
   "tokens": 396,
   "icons": 273,
   "illustrations": 260,
-  "conferirOpen": 148,
+  "conferirOpen": 147,
   "stackFindings": 55
  },
  "components": [
@@ -2410,12 +2410,12 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Container: 272×180, Neutral ou Accent\n2. Lead Icon: bloco de 40 com ícone de 24\n3. Information Button: Icon Button Ghost Small (opcional)\n4. Label: nome da métrica\n5. Valor: Currency Largest ou número com unidade\n6. Variação: .Variation Big Number (opcional)\n7. Trailing Icon: bloco de 48 com ícone de 24 (opcional)\n\n## Composição do componente\n\nO Header fica no topo, com o Lead Icon e o Information Button. O Body fica na base, com o Label, a linha do valor e o Trailing Icon. O valor monetário é uma instância do Currency `Size=Largest`. O número usa o text style `Title/Medium`. A variação é o building block .Variation Big Number, com texto e ícone, sem fundo.\n\n## Propriedades\n\n- **Kind** (Variant): Currency, Number\n- **Appearance** (Variant): Neutral, Accent\n- **State** (Variant): Enabled, Hovered\n- **Show Information** (Boolean)\n- **Show Variation** (Boolean)\n- **Show Trailing Icon** (Boolean)\n- **Lead Icon** (Swap component)\n- **Trailing Icon** (Swap component)\n- **Text Label** (Text)\n- **Text Value** (Text)\n\n> `Text Value` age só no Kind=Number. No Kind=Currency o valor vem do próprio Currency. A instância `Variation` fica exposta para trocar Appearance, Text Label e Icon. No código: `kind`, `appearance`, `label`, `value`, `symbol`, `unit`, `icon`, `trailing-icon`, `show-information`, `show-variation`, `show-trailing-icon`, `variation`, `variation-appearance`, `variation-icon`, `variation-description` e `info-label`. Evento `cds-info` no Information Button.\n\n## Entrega para dev · CDS-1597\n\n| Elemento | Token ou valor (branch, 16/10) |\n|---|---|\n| Container | 272×180 (mesma medida do legado) · padding `Sizes/24` · raio `Border/Radius/large` |\n| Fundo | Neutral `Surface/01` · Accent `Surface/accent` |\n| Hovered | Neutral `Neutral/Solid/semi-soft` · Accent com overlay `Neutral/Opacity/Intense/semi-transparent` |\n| Lead Icon | 40×40 `Sizes/40` · raio `Border/Radius/small` · fundo `Surface/default` · ícone 24 `Icons/intense` |\n| Trailing Icon | 48×48 `Sizes/48` · raio `Border/Radius/medium` · Neutral `Surface/accent` com ícone `Icons/inversed` · Accent `Surface/default` com ícone `Icons/intense` |\n| Information Button | Icon Button Ghost Small (40) · `information-line` · Inversed no Accent |\n| Texto | Label `Caption/Regular` em `Text/medium` (`Text/inversed` no Accent) · valor `Title/Medium` |\n| Espaços | `Sizes/8` no Header, no Body e entre valor e variação · `Sizes/4` entre Label e valor |\n\n- O card é de leitura: tem Enabled e Hovered, sem Pressed e sem Disabled. O único alvo de toque é o Information Button.\n- O Hovered muda só o fundo. No Neutral o fundo vira sólido. No Accent entra um overlay de 16%.\n- O texto da amostra (Description, R$ 100,00, 0,00 %, +1%) é ilustração. O conteúdo real vem do uso."
+     "text": "## Anatomia\n\nAnatomia:\n1. Container: 180 de altura, a partir de 272 de largura, Neutral ou Accent\n2. Lead Icon: bloco de 40 com ícone de 24\n3. Information Button: Icon Button Ghost Small (opcional)\n4. Label: nome da métrica\n5. Valor: Currency Largest ou número com unidade\n6. Variação: .Variation Big Number (opcional)\n7. Trailing Icon: bloco de 48 com ícone de 24 (opcional)\n\n## Composição do componente\n\nO Header fica no topo, com o Lead Icon e o Information Button. O Body fica na base, com o Label, a linha do valor e o Trailing Icon. O valor monetário é uma instância do Currency `Size=Largest`. O número usa o text style `Title/Medium`. A variação é o building block .Variation Big Number, com texto e ícone, sem fundo.\n\n## Propriedades\n\n- **Kind** (Variant): Currency, Number\n- **Appearance** (Variant): Neutral, Accent\n- **State** (Variant): Enabled, Hovered\n- **Show Information** (Boolean)\n- **Show Variation** (Boolean)\n- **Show Trailing Icon** (Boolean)\n- **Lead Icon** (Swap component)\n- **Trailing Icon** (Swap component)\n- **Text Label** (Text)\n- **Text Value** (Text)\n\n> `Text Value` age só no Kind=Number. No Kind=Currency o valor vem do próprio Currency. A instância `Variation` fica exposta para trocar Appearance, Text Label e Icon. No código: `kind`, `appearance`, `label`, `value`, `symbol`, `unit`, `icon`, `trailing-icon`, `show-information`, `show-variation`, `show-trailing-icon`, `variation`, `variation-appearance`, `variation-icon`, `variation-description` e `info-label`. Evento `cds-info` no Information Button.\n\n## Entrega para dev · CDS-1597\n\n| Elemento | Token ou valor (branch, 16/10) |\n|---|---|\n| Container | altura 180 · largura pelo conteúdo, com mínimo de 272 (medidas do legado) · padding `Sizes/24` · raio `Border/Radius/large` |\n| Fundo | Neutral `Surface/01` · Accent `Surface/accent` |\n| Hovered | Neutral `Neutral/Solid/semi-soft` · Accent com overlay `Neutral/Opacity/Intense/semi-transparent` |\n| Lead Icon | 40×40 `Sizes/40` · raio `Border/Radius/small` · fundo `Surface/default` · ícone 24 `Icons/intense` |\n| Trailing Icon | 48×48 `Sizes/48` · raio `Border/Radius/medium` · Neutral `Surface/accent` com ícone `Icons/inversed` · Accent `Surface/default` com ícone `Icons/intense` |\n| Information Button | Icon Button Ghost Small (40) · `information-line` · Inversed no Accent |\n| Texto | Label `Caption/Regular` em `Text/medium` (`Text/inversed` no Accent) · valor `Title/Medium` |\n| Espaços | `Sizes/8` no Header, no Body e entre valor e variação · `Sizes/4` entre Label e valor |\n\n- O card é de leitura: tem Enabled e Hovered, sem Pressed e sem Disabled. O único alvo de toque é o Information Button.\n- O Hovered muda só o fundo. No Neutral o fundo vira sólido. No Accent entra um overlay de 16%.\n- Valor longo faz o card crescer para a direita, a partir de 272, sem quebrar a linha. O Trailing Icon acompanha, com `Sizes/8` de distância.\n- O texto da amostra (Description, R$ 100,00, 0,00 %, +1%) é ilustração. O conteúdo real vem do uso."
     },
     {
      "id": "estilos",
      "title": "Estilos",
-     "text": "## Estilos\n\n**Kind · Neutral:** Currency, Number\n\n**Kind · Accent:** Currency, Number\n\n**State:** Neutral · Hovered, Accent · Hovered\n\n**.Variation Big Number · Appearance:** Positive, Warning, Negative, Informative, Inversed\n\n**Opcionais:** Sem variação, Sem Trailing Icon, Sem Information Button"
+     "text": "## Estilos\n\n**Kind · Neutral:** Currency, Number\n\n**Kind · Accent:** Currency, Number\n\n**State:** Neutral · Hovered, Accent · Hovered\n\n**.Variation Big Number · Appearance:** Positive, Warning, Negative, Informative, Inversed\n\n**Valor longo: o card cresce com o valor:** R$ 100,00 · 272, R$ 12.480,90, R$ 1.250.480,90\n\n**Opcionais:** Sem variação, Sem Trailing Icon, Sem Information Button"
     },
     {
      "id": "acessibilidade",
@@ -33289,12 +33289,6 @@
     "text": "Date Input · mobile · Annotation na branch `[Add New] Datepicker` (qIbjCjbldhio6XaLTiFIld, mergeada): a coleção Viewport (`Common/Is Desktop`, `Is Tablet`, `Is Mobile`) mostra o calendário do DS no Desktop e, no Mobile, delega a escolha ao seletor nativo do sistema. A annotation diz que o mecanismo é só do Figma e que, no código, a decisão de plataforma é da implementação · Confirmar se o tablet fica com o calendário do DS (a annotation não fala do tablet) · **Exceção** (Gustavo, 16/10, D358): no mobile o Calendar Button abre o `input type=\"date\"` nativo. Desktop e tablet seguem com o Date Picker no Popover. Mobile = atributo `viewport`, senão o `[data-viewport]` mais próximo, senão a janela < 744 · Nada a mudar no código se o Figma confirmar o tablet com o calendário do DS"
    },
    {
-    "id": "C209",
-    "group": "Ajuste de UI",
-    "resolved": false,
-    "text": "Big Number (CDS-1597) · valor longo · Card fixo de 272 × 180, mesma medida do legado. Com o Trailing Icon visível, a linha do valor tem 168 de largura. `R$ 12.480,90` com a variação passa disso e invade o Trailing Icon. O Figma não define quebra, reticências nem encolhimento · Definir o comportamento com valor longo (quebrar a variação, encolher o text style ou esconder o Trailing Icon) · Segue o Figma: o valor não quebra (`white-space:nowrap`) e pode encostar no Trailing Icon. Nas docs, os exemplos com valor de 5 dígitos ficam sem Trailing Icon · Aberto"
-   },
-   {
     "id": "C01",
     "group": "Motion",
     "resolved": false,
@@ -33881,6 +33875,12 @@
     "group": "Integração React",
     "resolved": false,
     "text": "Skeleton (20967:742) · Estático: gradiente sem animação, sem motion definido · Anima um brilho (shimmer): 700ms de deslocamento + 500ms de pausa, curva Systemic/decelerate; o próprio SCSS marca 700ms como fora da escala · **Segue o React** (Gustavo, 07/10: \"faça animado como react\"), com os tokens da escala: 700ms = `Duration/Extra Long/01` e 500ms = `Duration/Long/02` · Levar o motion do shimmer para o Figma (description ou protótipo), para as três pontas baterem. **16/10:** o Notion verde confirma o `Loading/01` (700ms, Systemic/decelerate), já descrito na variável do Figma; o CSS usa o token"
+   },
+   {
+    "id": "C209",
+    "group": "Resolvidos",
+    "resolved": true,
+    "text": "Big Number (CDS-1597) · valor longo invadia o Trailing Icon com o card fixo de 272. O Figma passou a crescer com o valor (raiz em Hug com mínimo de 272, Content com mínimo de 168, altura de 180). Código e docs acompanham (D364) · 16/10"
    },
    {
     "id": "C26",

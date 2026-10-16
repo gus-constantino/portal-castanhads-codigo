@@ -7,7 +7,7 @@ window.CDS = window.CDS || {};
 CDS.docs = CDS.docs || {};
 (function(){
   function bn(attrs){ return Object.assign({ _tag: "cds-big-number" }, attrs); }
-  var SALDO = { label: "Saldo disponível", value: "12.480,90", icon: "coins-line", "show-trailing-icon": "false" };
+  var SALDO = { label: "Saldo disponível", value: "12.480,90", icon: "coins-line", "trailing-icon": "trending-up-line" };
   var USO = { kind: "number", label: "Taxa de uso", value: "87,5", icon: "chart-line", "show-trailing-icon": "false" };
 
   CDS.docs["big-number"] = {
@@ -60,7 +60,7 @@ CDS.docs = CDS.docs || {};
             { n: 6, target: "cds-variation-big-number", side: "bottom" },
             { n: 7, target: ".cds-bn__trail", side: "right" }
           ],
-          legend: ["Container: 272×180, Neutral ou Accent", "Lead Icon: bloco de 40 com ícone de 24", "Information Button: Icon Button Ghost Small (opcional)", "Label: nome da métrica", "Valor: Currency Largest ou número com unidade", "Variação: .Variation Big Number (opcional)", "Trailing Icon: bloco de 48 com ícone de 24 (opcional)"]
+          legend: ["Container: 180 de altura, a partir de 272 de largura, Neutral ou Accent", "Lead Icon: bloco de 40 com ícone de 24", "Information Button: Icon Button Ghost Small (opcional)", "Label: nome da métrica", "Valor: Currency Largest ou número com unidade", "Variação: .Variation Big Number (opcional)", "Trailing Icon: bloco de 48 com ícone de 24 (opcional)"]
         } },
         { h2: "Composição do componente" },
         { p: "O Header fica no topo, com o Lead Icon e o Information Button. O Body fica na base, com o Label, a linha do valor e o Trailing Icon. O valor monetário é uma instância do Currency `Size=Largest`. O número usa o text style `Title/Medium`. A variação é o building block .Variation Big Number, com texto e ícone, sem fundo." },
@@ -80,7 +80,7 @@ CDS.docs = CDS.docs || {};
         { note: "`Text Value` age só no Kind=Number. No Kind=Currency o valor vem do próprio Currency. A instância `Variation` fica exposta para trocar Appearance, Text Label e Icon. No código: `kind`, `appearance`, `label`, `value`, `symbol`, `unit`, `icon`, `trailing-icon`, `show-information`, `show-variation`, `show-trailing-icon`, `variation`, `variation-appearance`, `variation-icon`, `variation-description` e `info-label`. Evento `cds-info` no Information Button." },
         { h2: "Entrega para dev · CDS-1597" },
         { table: { head: ["Elemento", "Token ou valor (branch, 16/10)"], rows: [
-          ["Container", "272×180 (mesma medida do legado) · padding `Sizes/24` · raio `Border/Radius/large`"],
+          ["Container", "altura 180 · largura pelo conteúdo, com mínimo de 272 (medidas do legado) · padding `Sizes/24` · raio `Border/Radius/large`"],
           ["Fundo", "Neutral `Surface/01` · Accent `Surface/accent`"],
           ["Hovered", "Neutral `Neutral/Solid/semi-soft` · Accent com overlay `Neutral/Opacity/Intense/semi-transparent`"],
           ["Lead Icon", "40×40 `Sizes/40` · raio `Border/Radius/small` · fundo `Surface/default` · ícone 24 `Icons/intense`"],
@@ -92,6 +92,7 @@ CDS.docs = CDS.docs || {};
         { ul: [
           "O card é de leitura: tem Enabled e Hovered, sem Pressed e sem Disabled. O único alvo de toque é o Information Button.",
           "O Hovered muda só o fundo. No Neutral o fundo vira sólido. No Accent entra um overlay de 16%.",
+          "Valor longo faz o card crescer para a direita, a partir de 272, sem quebrar a linha. O Trailing Icon acompanha, com `Sizes/8` de distância.",
           "O texto da amostra (Description, R$ 100,00, 0,00 %, +1%) é ilustração. O conteúdo real vem do uso."
         ] }
       ] },
@@ -116,6 +117,11 @@ CDS.docs = CDS.docs || {};
           { label: "Negative", attrs: { _tag: "cds-variation-big-number", appearance: "negative", label: "-8%" } },
           { label: "Informative", attrs: { _tag: "cds-variation-big-number", appearance: "informative", label: "0%" } },
           { label: "Inversed", attrs: { _tag: "div", class: "pg-doc-on-accent", _children: [{ _tag: "cds-variation-big-number", appearance: "inversed" }] } }
+        ] } },
+        { specimens: { title: "Valor longo: o card cresce com o valor", min: 272, items: [
+          { label: "R$ 100,00 · 272", attrs: bn({}) },
+          { label: "R$ 12.480,90", attrs: bn({ value: "12.480,90" }) },
+          { label: "R$ 1.250.480,90", attrs: bn({ value: "1.250.480,90" }) }
         ] } },
         { specimens: { title: "Opcionais", min: 272, items: [
           { label: "Sem variação", attrs: bn({ "show-variation": "false" }) },
@@ -157,7 +163,7 @@ CDS.docs = CDS.docs || {};
         { guides: [
           { attrs: bn(SALDO), title: "Priorize um único dado",
             text: "Cada card mostra uma métrica. Para comparar várias, use vários cards lado a lado." },
-          { attrs: [bn(SALDO), bn({ label: "Gasto no mês", value: "3.210,40", icon: "receipt-line", "show-trailing-icon": "false", "variation-appearance": "negative", variation: "+12%" })], title: "Mantenha consistência entre cards",
+          { attrs: [bn(SALDO), bn({ label: "Gasto no mês", value: "3.210,40", icon: "receipt-line", "trailing-icon": "trending-up-line", "variation-appearance": "negative", variation: "+12%" })], title: "Mantenha consistência entre cards",
             text: "Cards lado a lado usam o mesmo Kind e a mesma Appearance, com a mesma estrutura." },
           { attrs: bn(Object.assign({ appearance: "accent" }, SALDO)), title: "Use o Accent com critério",
             text: "O Accent destaca o dado mais importante da tela. Use um por tela." }

@@ -75,12 +75,12 @@
 ## 3. Anatomia
 
 ```
-Big Number                      vertical · 272 × 180 fixo · padding Sizes/24 · space-between · raio Border/Radius/large
+Big Number                      vertical · altura 180 · largura hug, mín. 272 · padding Sizes/24 · space-between · raio Border/Radius/large
 ├─ Header                       horizontal · fill · space-between · centro · gap Sizes/8
 │  ├─ Lead Icon                 bloco 40 × 40 · raio Border/Radius/small · ícone 24 (Lead Icon)
 │  └─ Information Button        Icon Button Ghost Small 40 × 40 · information-line              (opcional)
-└─ Body                         horizontal · fill · alinhado na base · gap Sizes/8
-   ├─ Content                   vertical · fill · gap Sizes/4
+└─ Body                         horizontal · hug · alinhado na base · gap Sizes/8
+   ├─ Content                   vertical · hug, mín. 168 · gap Sizes/4
    │  ├─ Label                  Text Label · Caption/Regular Caption
    │  └─ Value                  horizontal · centro · gap Sizes/8
    │     ├─ Currency            Currency Largest (Kind=Currency)
@@ -94,6 +94,7 @@ Big Number                      vertical · 272 × 180 fixo · padding Sizes/24 
 ```
 
 - **Header no topo e Body na base.** O espaço entre eles é o que sobra dos 180 de altura.
+- **O card cresce com o valor.** A largura parte de 272 e aumenta com valor longo, sem quebrar a linha. O Trailing Icon acompanha, a `Sizes/8` do valor.
 - **Ordem de leitura:** Label, valor e variação.
 
 ---
@@ -102,7 +103,8 @@ Big Number                      vertical · 272 × 180 fixo · padding Sizes/24 
 
 | Métrica | Valor | Token |
 |---|---|---|
-| Card | 272 × 180 (fixo, mínimo de 272 de largura) | mesma medida do legado |
+| Card | altura 180 · largura pelo conteúdo, mínimo de 272 | mesmas medidas do legado |
+| Content | mínimo de 168 (224 − 8 − 48) | derivada: com o Trailing Icon, o card nunca fica abaixo de 272 |
 | Padding do card | 24 | `Common/Sizes/24` |
 | Raio do card | 24 | `Common/Border/Radius/large` |
 | Gap no Header e no Body | 8 | `Common/Sizes/8` |
@@ -155,7 +157,7 @@ Big Number                      vertical · 272 × 180 fixo · padding Sizes/24 
 
 - **Positive usa `intense` e os outros `semi-intense`.** É decisão de design: o Positive em `semi-intense` não passava AA no Hovered.
 
-**Zero valor solto.** Toda cor, padding, gap, raio, opacidade e tamanho de ícone está ligado a token. A única medida sem token é o card de 272 × 180, que repete o legado.
+**Zero valor solto.** Toda cor, padding, gap, raio, opacidade e tamanho de ícone está ligado a token. As únicas medidas sem token são a altura de 180 e os mínimos de 272 e 168, que repetem o legado.
 
 ---
 
@@ -166,7 +168,8 @@ Big Number                      vertical · 272 × 180 fixo · padding Sizes/24 
 - **Hover:** o card troca o fundo como na seção 5. O conteúdo não muda.
 - **Valor:** o texto da amostra (`Description`, `R$ 100,00`, `0,00 %`, `+1%`) é ilustração. O conteúdo real vem do uso.
 - **Variação opcional.** Sem variação, o valor fica sozinho na linha.
-- **Trailing Icon opcional.** Sem ele, o Content ocupa a largura do Body.
+- **Trailing Icon opcional.** Sem ele, o card fica em 272 com valor curto.
+- **Valor longo:** o card cresce (R$ 12.480,90 → 301, R$ 1.250.480,90 → 335).
 
 ### Motion (Motion Styles, modo Normal)
 
@@ -242,13 +245,13 @@ Fundos: `Surface/01` `#f0f0f0` · `Neutral/Solid/semi-soft` `#e3e3e3` · `Surfac
 - [ ] `kind` e `appearance` cobrem as 4 combinações, incluindo Number + Accent
 - [ ] Kind=Currency consome o Currency `Size=Largest`, sem recriar o texto
 - [ ] Kind=Number usa `Title/Medium` com a mesma cor do Currency
-- [ ] Card de 272 × 180, Header no topo e Body na base
+- [ ] Altura de 180 e largura pelo conteúdo, a partir de 272, sem quebrar a linha do valor
 - [ ] Hover troca o fundo: sólido no Neutral, overlay de 16% no Accent
 - [ ] Sem Pressed e sem Disabled no card
 - [ ] Information Button consumido do Icon Button Ghost Small, sem recriar estados
 - [ ] Variação com texto que diz o sentido, ícones com `aria-hidden`
 - [ ] Positive em `Feedback/Positive/intense`, os outros em `semi-intense`
-- [ ] Todos os tokens semânticos, sem valor solto além de 272 × 180
+- [ ] Todos os tokens semânticos, sem valor solto além de 180, 272 e 168
 - [ ] Motion `Hover In/01` com modo `Reduced`
 - [ ] Cross-platform validado (Figma ↔ React ↔ Flutter)
 

@@ -6402,6 +6402,7 @@ try {
  * <cds-big-number> — Big Number · Content · set 27238:472 (branch KOmiQxHXqiErSbLmoG3sv6 · CDS-1597)
  * Card de leitura: Header (Lead Icon · Information Button) e Body (Label · valor · variação · Trailing Icon).
  * Kind=Currency usa o Currency Largest; Kind=Number usa número + unidade no mesmo text style (Title/Medium).
+ * Largura pelo conteúdo, com mínimo de 272 e altura fixa de 180: valor longo faz o card crescer, sem quebrar a linha.
  * O card não é clicável: Enabled e Hovered (troca do fundo), sem Pressed e sem Disabled. O alvo interno é o Information Button.
  *
  * Atributos (padrões do Figma):

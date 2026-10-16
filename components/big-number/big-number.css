@@ -1,4 +1,5 @@
-/* Big Number · set 27238:472 — 272×180 fixo (mesma medida do legado, sem token na estável) · padding Sizes/24 · raio large
+/* Big Number · set 27238:472 — altura fixa de 180 e largura pelo conteúdo, com mínimo de 272 (medidas do legado, sem token na estável)
+   Content com mínimo de 168 (224 − Sizes/8 − Trailing Icon 48): valor longo empurra o Trailing Icon e o card cresce, sem quebrar a linha · padding Sizes/24 · raio large
    Header no topo, Body na base (space-between) · Neutral: Surface/01 · Accent: Surface/accent
    Hovered: Neutral troca para Neutral/Solid/semi-soft · Accent ganha overlay Neutral/Opacity/Intense/semi-transparent (16%)
    Motion: Hover In/01 (a documentação de motion ainda não tem página do Big Number) */
@@ -7,7 +8,7 @@ cds-big-number{ display:inline-flex; }
   --_bg:var(--common-colors-surface-01); --_overlay:transparent;
   --_label:var(--common-colors-text-medium); --_value:var(--common-colors-text-intense);
   display:flex; flex-direction:column; justify-content:space-between; box-sizing:border-box;
-  width:272px; min-width:272px; height:180px; padding:var(--common-sizes-24);
+  width:max-content; min-width:272px; height:180px; padding:var(--common-sizes-24);
   border-radius:var(--common-border-radius-large);
   background-color:var(--_bg); box-shadow:inset 0 0 0 var(--common-sizes-200) var(--_overlay);
   transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), box-shadow var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing);
@@ -21,7 +22,7 @@ cds-big-number[appearance="accent"] .cds-bn:hover, cds-big-number[appearance="ac
 }
 .cds-bn__head{ display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-8); }
 .cds-bn__body{ display:flex; align-items:flex-end; gap:var(--common-sizes-8); }
-.cds-bn__content{ display:flex; flex-direction:column; gap:var(--common-sizes-4); flex:1 1 auto; min-width:0; }
+.cds-bn__content{ display:flex; flex-direction:column; gap:var(--common-sizes-4); flex:none; min-width:168px; }
 .cds-bn__label{ font:var(--text-style-caption-regular); color:var(--_label); }
 .cds-bn__value{ display:flex; align-items:center; gap:var(--common-sizes-8); }
 .cds-bn__number{ display:inline-flex; align-items:center; gap:var(--common-sizes-4); font:var(--text-style-title-medium); color:var(--_value); white-space:nowrap; font-variant-numeric:tabular-nums; }

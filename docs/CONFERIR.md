@@ -9,7 +9,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | Tipo | Itens |
 |---|---|
 | [Ajuste de texto](#ajuste-de-texto) | 16 |
-| [Ajuste de UI](#ajuste-de-ui) | 34 |
+| [Ajuste de UI](#ajuste-de-ui) | 33 |
 | [Motion](#motion) | 11 |
 | [Refactor](#refactor) | 39 |
 | [Naming](#naming) | 11 |
@@ -79,7 +79,6 @@ Cor, fill, borda, tamanho ou layout de uma variante.
 | C200 | Content List Item · State=Dragged e .Drag Handle (CDS-1592, branch `bHFCiEbEkTYCXNipG4iqN0`) | Relido em 13/10, no 3º ajuste (variantes 26407:10643…10675): mesma estrutura do Enabled; fundo `Surface/default`; stroke `Border/semi-soft` INSIDE, fora do layout (Kind=Default só à esquerda, `hairline`; Card `hairline` em cima, à direita e embaixo e `thick` à esquerda); `Elevation/level 1`; Divider e altura iguais ao Enabled. As variantes Dragged têm a reaction ON_HOVER → Hovered do mesmo Kind e Intent; o motion do On drag ainda não existe | O handoff diz `Elevation/level 2`, Divider oculta e contraste 15,3:1 (o par `Icons/intense` × `Surface/default` dá 16,96:1): atualizar o handoff? A reaction de hover no Dragged é intencional? | Segue a branch, sem hover no Dragged. A alça é `role=button` dentro da linha (link ou botão), um controle aninhado: no castanha-react, de preferência fora do elemento da linha. Deslocamento dos vizinhos com `Short/04` + `Systemic/default`, escolha do portal até o motion sair | Ajustar `content-list-item.css` (bloco State=Dragged) e o Motion da doc |
 | C203 | Chips Group `Single Rows` com Input Chips `Size=Small` (Chat Input, CDS-1594) | Altura fixa `Sizes/48`, pensada para o chip de 40. Com o Small (32) sobram 8 em cima e 8 embaixo | Decidir se o Single Rows acompanha a altura do chip | Segue o Figma: `cds-chips-group[role-kind="single"]` com 48 | Se o Figma mudar, trocar a altura em `chips-group.css` |
 | C208 | Date Input · mobile | Annotation na branch `[Add New] Datepicker` (qIbjCjbldhio6XaLTiFIld, mergeada): a coleção Viewport (`Common/Is Desktop`, `Is Tablet`, `Is Mobile`) mostra o calendário do DS no Desktop e, no Mobile, delega a escolha ao seletor nativo do sistema. A annotation diz que o mecanismo é só do Figma e que, no código, a decisão de plataforma é da implementação | Confirmar se o tablet fica com o calendário do DS (a annotation não fala do tablet) | **Exceção** (Gustavo, 16/10, D358): no mobile o Calendar Button abre o `input type="date"` nativo. Desktop e tablet seguem com o Date Picker no Popover. Mobile = atributo `viewport`, senão o `[data-viewport]` mais próximo, senão a janela < 744 | Nada a mudar no código se o Figma confirmar o tablet com o calendário do DS |
-| C209 | Big Number (CDS-1597) · valor longo | Card fixo de 272 × 180, mesma medida do legado. Com o Trailing Icon visível, a linha do valor tem 168 de largura. `R$ 12.480,90` com a variação passa disso e invade o Trailing Icon. O Figma não define quebra, reticências nem encolhimento | Definir o comportamento com valor longo (quebrar a variação, encolher o text style ou esconder o Trailing Icon) | Segue o Figma: o valor não quebra (`white-space:nowrap`) e pode encostar no Trailing Icon. Nas docs, os exemplos com valor de 5 dígitos ficam sem Trailing Icon | Aberto |
 
 ## Motion
 
@@ -230,6 +229,7 @@ Divergências entre o Figma e o castanha-react (staging + Code Connect), encontr
 
 | # | O que foi | Resolvido em |
 |---|---|---|
+| C209 | Big Number (CDS-1597) · valor longo invadia o Trailing Icon com o card fixo de 272. O Figma passou a crescer com o valor (raiz em Hug com mínimo de 272, Content com mínimo de 168, altura de 180). Código e docs acompanham (D364) | 16/10 |
 | C26 | .Content Banner Inversed: o ícone do CTA já é `Icons/inversed` (override de cor na instância); a leitura inicial olhou só a prop. Código corrigido | 02/10 |
 | C37 | Modal · divisores: o padrão é desligado e quem usa liga só se precisar (Gustavo). O Modal ganhou `show-header-divider` e `show-footer-divider`, desligados por padrão | 02/10 |
 | C38 | Drawer · Backdrop e fechamento: usa Backdrop (no protótipo ele entra como outro asset ao lado) e **sempre** fecha ao clicar fora ou no Esc (Gustavo). O Drawer ignora `dismissible` | 02/10 |

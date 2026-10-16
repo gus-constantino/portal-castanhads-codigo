@@ -175,8 +175,8 @@ Os estados de hover, press e disabled das ações vêm do Main Button. Não recr
 | Hovered → Enabled (FAB) | opacidade do hover | `Hover Out/01` | 150 ms · `cubic-bezier(0.7, 0, 0.5, 1)` · delay |
 | Hovered → Pressed (FAB) | escala 100 → 90 → 100%, âncora no centro | `Pressed/01` | 200 ms · `cubic-bezier(0.7, 0, 0.8, 1)` |
 | → Disabled | opacidade | `Disabled/01` | 150 ms · `cubic-bezier(0.7, 0, 0.5, 1)` |
-| Esconder ao rolar para baixo | Y e opacidade | `Selected Out/05` | tokens |
-| Voltar ao rolar para cima | Y e opacidade | `Selected In/04` | tokens |
+| Esconder ao rolar para baixo | Y e opacidade | `Selected Out/05` | 500 ms · `cubic-bezier(0.4, 0, 0.1, 1)` |
+| Voltar ao rolar para cima | Y e opacidade | `Selected In/04` | 500 ms · `cubic-bezier(0.4, 0, 0.1, 1)` |
 | Abrir (toque no FAB) | ações: Y e escala 100 → 105 → 100% · ícone + → × | `Selected In/01` | 350 ms · `cubic-bezier(0.4, 0, 0.1, 1)` |
 | Abrir | opacidade das ações 0 → 100% | `Hover In/01` | 150 ms |
 | Fechar (toque no FAB ou numa ação) | ações: Y e escala · ícone × → + | `Selected Out/01` | 200 ms · `cubic-bezier(0.4, 0, 0.1, 1)` |
@@ -288,9 +288,9 @@ O par de 4.54 está colado no mínimo. Qualquer mudança em `Accent/Solid/medium
 - **Ícones ([Caju] Icons):** `plus-line` · `close-line`
 - **Motion:** Documentação Geral de motion para desenvolvedores (Notion), páginas verdes do Icon Button, do Drop Button e do Popover
 - **Diário:** Notion `3fa560483c0281719bfcf7227f7eb123`
-- **Annotations:** FAB Menu com Handoff (8 itens), Accessibility (9 itens) e Motion · `.FAB Button` com Handoff (5), Accessibility (3) e Motion
+- **Annotations:** FAB Menu com Handoff (11 itens), Accessibility (9 itens) e Motion (6 interações) · `.FAB Button` com Handoff (5), Accessibility (3) e Motion
 - **Jira:** CDS-1694 (FAB Menu) · CDS-1688 (Release 27 · Design System)
 
 ---
 
-*Handoff gerado seguindo o protocolo IA-assistido do Castanha AI (skill `castanhads-juntos`). Dados extraídos e verificados via Figma MCP em 16/10/2026.*
+*Handoff gerado seguindo o protocolo IA-assistido do Castanha AI (skill `castanhads-juntos`). Dados extraídos e verificados via Figma MCP em 16/10/2026, com posição e rolagem acrescentadas no mesmo dia.*

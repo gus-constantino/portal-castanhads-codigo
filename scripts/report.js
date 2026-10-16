@@ -1004,6 +1004,8 @@
     var nome = {}; CH_TIPOS.forEach(function(t){ nome[t[0]] = t[1]; });
     var dias = function(c){ return Math.max(0, Math.round((hoje - Date.parse(c.d + "T12:00")) / 864e5)); };
     var tempo = function(n){ return n === 0 ? "Aberto hoje" : "Aberto há " + n + (n === 1 ? " dia" : " dias"); };
+    // a mesma conta da Idade média em aberto do Tempo de solução: acima dela, a Tag ganha o warning-line (Gustavo, 16/10)
+    var media = Math.round(abertos.reduce(function(a, c){ return a + dias(c); }, 0) / abertos.length);
     var marcados = {};
     var chips = p.appendChild(el("cds-chips-group", "rp-ch-tab__chips"));
     chips.setAttribute("kind", "filter"); chips.setAttribute("role-kind", "multiple"); chips.setAttribute("label", "Filtrar por tipo");
@@ -1025,10 +1027,15 @@
         it.setAttribute("tag-label", nome[c.tipo] || c.tipo);
         it.setAttribute("tag-appearance", n > 30 ? "warning" : "neutral"); // mais de 30 dias em aberto: Tag em Warning
         if (c.link) it.setAttribute("href", c.link);
+        if (n > media) it.dataset.acima = "1";
       });
-      // Tag do item sem o Lead Item (o placeholder-line padrão não diz nada aqui; Show Lead Item é booleano da própria Tag)
+      // Lead Item da Tag só nos abertos há mais tempo que a idade média, com o warning-line; nos outros, sem Lead Item (o
+      // placeholder-line padrão não diz nada aqui; Show Lead Item é booleano da própria Tag)
       // (os itens desenham a linha depois de entrar na página: aplica na volta seguinte do navegador)
-      setTimeout(function(){ [].forEach.call(lista.querySelectorAll(".cds-li__tag"), function(t){ t.setAttribute("show-lead-item", "false"); }); }, 0);
+      setTimeout(function(){ [].forEach.call(lista.querySelectorAll("cds-content-list-item"), function(it){
+        var t = it.querySelector(".cds-li__tag"); if (!t) return;
+        if (it.dataset.acima){ t.setAttribute("icon", "warning-line"); t.removeAttribute("show-lead-item"); } else t.setAttribute("show-lead-item", "false");
+      }); }, 0);
     }
     // o item da Lista abre no Slack, em outra aba (o item redesenha a linha, então o target não fica no <a>)
     lista.addEventListener("click", function(e){
@@ -1036,7 +1043,7 @@
       e.preventDefault(); window.open(a.href, "_blank", "noopener");
     });
     desenhar();
-    p.appendChild(el("p", "rp-panel__foot", "Tag em Warning: mais de 30 dias em aberto. Cada linha abre o chamado na Lista do Slack. Fonte e classificação: <code>scripts/dev/chamados.js</code>."));
+    p.appendChild(el("p", "rp-panel__foot", "Tag em Warning: mais de 30 dias em aberto. Ícone de alerta na Tag: aberto há mais tempo que a idade média (" + media + (media === 1 ? " dia" : " dias") + "). Cada linha abre o chamado na Lista do Slack. Fonte e classificação: <code>scripts/dev/chamados.js</code>."));
     mais();
   }
 

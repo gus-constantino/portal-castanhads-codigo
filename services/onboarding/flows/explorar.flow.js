@@ -22,7 +22,7 @@
       ] },
       { id: "motion", title: "Motion", items: [
         ["Motion de cada componente", "Na tab Motion do Main Button, passe o mouse e pressione o botão para conferir cada transição.", "#/main-button/motion"],
-        ["Laboratório de Motion", "Motion Styles em ação e um laboratório para comparar curvas, durações e velocidades.", "#/motion"]
+        ["Laboratório de Motion", "Motion Styles em ação e um laboratório para comparar curvas, durações e velocidades.", "#/motion/motion"]
       ] },
       { id: "marca", title: "Marca e visual", items: [
         ["Cores do Tema Caju", "A paleta entra animada e cada amostra copia o token com um clique.", "#/caju-theme/cores"],

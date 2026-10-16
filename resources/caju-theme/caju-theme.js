@@ -15,7 +15,7 @@
     var h = location.hash || "", m = h.match(/^#\/(caju-icons|caju-illustrations|animations)(?:\/([\w-]+))?/);
     if (m) location.replace(MOVED[m[1]]);
     else if (/^#\/caju-theme\/(ilustracoes|ilustracao)(?=$|[\/?])/.test(h)) location.replace("#/ilustracao"); // Ilustrações era tab do tema
-    else if (/^#\/caju-theme\/motion(?=$|[/?])/.test(h)) location.replace("#/motion"); // Motion era tab do tema
+    else if (/^#\/caju-theme\/motion(?=$|[/?])/.test(h)) location.replace("#/motion/motion"); // Motion era tab do tema
   }
   moved(); window.addEventListener("hashchange", moved);
   var A = window.CDS.assets || {};
@@ -438,12 +438,12 @@
     ] },
     { note: "As animações de Feedback (`feedback-splash`, `feedback-success` e `feedback-warning`) existem só no pacote, sem componente na lib. Ficam fora daqui até a decisão." }
   ] };
-  // Ilustração e Motion: páginas próprias em Padrões (Ilustração com uma tab; Motion com Motion e Transições)
+  // Ilustração e Motion: páginas próprias em Padrões (Ilustração com uma tab; Motion com Animações, Transições e Motion)
   (function(){
     var t = CDS.docs["caju-theme"].tabs;
     function take(id){ var i = t.map(function(x){ return x.id; }).indexOf(id); return i < 0 ? null : t.splice(i, 1)[0]; }
     var ilu = take("ilustracoes"), mo = take("motion");
     if (ilu) CDS.docs["ilustracao"] = { source: IL_FIGMA, sourceLabel: "Abrir o guia de ilustração no Figma", tabs: [ilu] };
-    if (mo) CDS.docs["motion"] = { source: FIGMA, sourceLabel: "Abrir o [Caju] Theme no Figma", tabs: [mo, TRANS, ANIM] };
+    if (mo) CDS.docs["motion"] = { source: FIGMA, sourceLabel: "Abrir o [Caju] Theme no Figma", tabs: [ANIM, TRANS, mo] }; // ordem pedida pelo Gustavo (16/10): Animações, Transições, Motion
   })();
 })();

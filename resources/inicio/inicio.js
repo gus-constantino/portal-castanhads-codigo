@@ -41,7 +41,7 @@
         { h2: "Mais recursos" },
         { shortcuts: { bento: 3, items: [
           { size: "wide", title: "Ilustração", text: "Princípios, guidelines e a biblioteca de ilustrações da Caju.", href: "#/ilustracao", cta: "Acessar Ilustração", illustration: "personagens/nadia" },
-          { layout: "row", title: "Motion", text: "Princípios de motion, curvas, durações e Motion Styles.", href: "#/motion", cta: "Acessar Motion", illustration: "objetos/foguete" },
+          { layout: "row", title: "Motion", text: "Princípios de motion, curvas, durações, Motion Styles e animações.", href: "#/motion", cta: "Acessar Motion", illustration: "objetos/foguete" },
           { size: "wide", title: "Agentes e Skills", text: "O Borô no Slack e no Figma, os Patterns escritos para a IA e a skill /castanhads-juntos: IA que ajuda a escrever e construir no padrão da Caju.", href: "#/agentes", cta: "Acessar Agentes e Skills", src: "resources/agentes/boro.svg" },
           { layout: "row", title: "Patterns", text: "Feedback Pages e Tela de loading, montadas com componentes do DS.", href: "#/patterns", cta: "Acessar Patterns", illustration: "notificacoes/success" },
           { layout: "row", title: "Desenvolvimento", text: "Instalação, guias e design tokens para React e Flutter.", href: "#/comece-aqui", cta: "Acessar Desenvolvimento", illustration: "interfaces/lista" },

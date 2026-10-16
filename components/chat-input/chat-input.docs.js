@@ -39,11 +39,11 @@ CDS.docs["chat-input"] = {
         markers: [
           { n: 1, target: ".cds-tf__box", side: "left" },
           { n: 2, target: ".cds-tf__control", side: "top" },
-          { n: 3, target: ".cds-chat__attach", side: "bottom" },
+          { n: 3, target: ".cds-chat__attach", side: "left" },
           { n: 4, target: ".cds-chat__send", side: "bottom" },
           { n: 5, target: ".cds-chat__voice", side: "right" },
           { n: 6, target: ".cds-tf__msg", side: "bottom" },
-          { n: 7, target: ".cds-chat__att", side: "top" }
+          { n: 7, target: ".cds-chat__att", side: "top", align: "start" }
         ],
         legend: ["Text Box", "Texto da mensagem", "Attach Button (opcional)", "Send Button", "Voice Button (opcional)", "Supporting ou Error Message (opcional)", "Attachments: chips dos arquivos (opcional)"]
       } },

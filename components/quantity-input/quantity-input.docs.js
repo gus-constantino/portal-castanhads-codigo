@@ -49,9 +49,9 @@ CDS.docs["quantity-input"] = {
           { n: 1, target: ".cds-tf__label > span:first-child", side: "left" },
           { n: 2, target: ".cds-tf__label > span:last-child", side: "top" },   // Figma: de cima (Down)
           { n: 3, target: ".cds-qty__row > cds-icon-button:first-child", side: "left" },
-          { n: 4, target: ".cds-qty__box", side: "bottom", align: "start", long: true }, // Figma: Right; à direita cruzava o +
+          { n: 4, target: ".cds-qty__box", side: "right" },
           { n: 5, target: ".cds-qty__control", side: "bottom" },
-          { n: 6, target: ".cds-qty__row > cds-icon-button:last-child", side: "right" },
+          { n: 6, target: ".cds-qty__row > cds-icon-button:last-child", side: "bottom" },
           { n: 7, target: ".cds-qty__msg", side: "left" }
         ],
         legend: ["Label Content", "Required Asterisk", "Decrement Button", "Text Box", "Quantity Value", "Increment Button", "Supporting Message"]

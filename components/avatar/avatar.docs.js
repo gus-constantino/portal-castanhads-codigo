@@ -39,7 +39,7 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: { _tag: "div", class: "pg-doc-row", _children: [av({ size: "large" })] }, markers: [{ n: 1, target: "cds-avatar", side: "left" }, { n: 2, target: "cds-icon", side: "right" }], legend: ["Container (círculo)", "Conteúdo: Icon (Default), iniciais (Initial) ou foto (Image)"] } },
+        { anatomy: { attrs: { _tag: "div", class: "pg-doc-row", _children: [av({ size: "medium" }), av({ kind: "image", src: PHOTO, size: "medium", name: "Ana Alves" }), av({ kind: "initial", label: "AA", size: "medium", name: "Ana Alves" })] }, markers: [{ n: 1, target: "cds-avatar", side: "left" }, { n: 2, target: "cds-avatar:nth-child(1) cds-icon", side: "top" }, { n: 3, target: "cds-avatar:nth-child(2) img", side: "top" }, { n: 4, target: "cds-avatar:nth-child(3) span", side: "top" }], legend: ["Avatar container (círculo)", "User line icon (Default)", "Image (Image)", "Initial label (Initial)"] } },
         { h2: "Propriedades" },
         { props: [
           { name: "Kind", type: "Variant", default: "Default", values: ["Default", "Image", "Initial"] },

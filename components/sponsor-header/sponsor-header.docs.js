@@ -28,9 +28,9 @@ CDS.docs["sponsor-header"] = {
     { id: "anatomia", title: "Anatomia", blocks: [
       { h2: "Anatomia" },
       { anatomy: {
-        attrs: { title: "Colaboradores", "tag-label": "Tag", "drop-label": "Mais ações", "main-label": "Adicionar", notification: "3", style: "width:100%" },
+        attrs: { title: "Colaboradores", "tag-label": "Tag", "drop-label": "Mais ações", "main-label": "Adicionar", notification: "3", "show-back": "true", style: "width:100%" },
         markers: [
-          { n: 1, target: ".cds-sh__lead > cds-icon-button", side: "top" },
+          { n: 1, target: ".cds-sh__nav > cds-icon-button:not(.cds-sh__menu)", side: "top" },
           { n: 2, target: ".cds-sh__heading > .cds-sh__trail", side: "top" },
           { n: 3, target: ".cds-sh__title", side: "bottom" },
           { n: 4, target: ".cds-sh__title-lead > cds-icon-button", side: "bottom" },

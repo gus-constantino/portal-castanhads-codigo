@@ -50,7 +50,7 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: { label: "Label", status: "selected" }, markers: [{ n: 1, target: ".cds-sc__box", side: "top" }, { n: 2, target: ".cds-sw__toggle", side: "bottom" }, { n: 3, target: ".cds-sc__label", side: "right" }], legend: ["Track", "Toggle", "Text Label"] } },
+        { anatomy: { attrs: { label: "Label", status: "selected" }, markers: [{ n: 1, target: ".cds-sc__selector, .cds-sc__box", side: "left" }, { n: 2, target: ".cds-sc__label", side: "bottom" }], legend: ["Switch selector (Track e Toggle)", "Label (Text Label)"] } },
         { h2: "Propriedades" },
         { props: [
           { name: "Status", type: "Variant", default: "Unselected", values: ["Selected", "Unselected"] },

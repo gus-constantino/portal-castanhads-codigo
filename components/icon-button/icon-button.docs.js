@@ -42,7 +42,7 @@ CDS.docs["icon-button"] = {
       { h2: "Anatomia" },
       { anatomy: {
         attrs: { icon: "edit-line", label: "Editar" },
-        markers: [{ n: 1, target: ".cds-ib", side: "left" }, { n: 2, target: ".cds-ib > cds-icon", side: "right" }],
+        markers: [{ n: 1, target: ".cds-ib", side: "left" }, { n: 2, target: ".cds-ib > cds-icon", side: "bottom" }],
         legend: ["Container", "Icon"]
       } },
       { h2: "Propriedades" },

@@ -51,7 +51,7 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: { _tag: "div", class: "pg-doc-row", _children: [si("meal-line", "accent", { size: "large" })] }, markers: [{ n: 1, target: "cds-shaped-icon", side: "left" }, { n: 2, target: "cds-icon", side: "right" }], legend: ["Shape (fundo com raio)", "Icon (nested instance)"] } },
+        { anatomy: { attrs: { _tag: "div", class: "pg-doc-row", _children: [si("meal-line", "accent", { size: "large" })] }, markers: [{ n: 1, target: "cds-shaped-icon", side: "left" }, { n: 2, target: "cds-icon", side: "bottom" }], legend: ["Container (Shape, fundo com raio)", "Icon (nested instance)"] } },
         { h2: "Propriedades" },
         { props: [
           { name: "Icon", type: "Instance swap", default: "placeholder" },

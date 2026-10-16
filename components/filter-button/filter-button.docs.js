@@ -40,9 +40,10 @@ CDS.docs["filter-button"] = {
     { id: "anatomia", title: "Anatomia", blocks: [
       { h2: "Anatomia" },
       { anatomy: {
-        attrs: {},
-        markers: [{ n: 1, target: ".cds-fb", side: "left" }, { n: 2, target: ".cds-fb > cds-icons", side: "top" }, { n: 3, target: ".cds-fb__label", side: "right" }],
-        legend: ["Container", "Ícone de filtro (.Icons) — com filtros aplicados, dá lugar ao Badge com a contagem", "Label (padrão \"Filtros\")"]
+        // Figma: duas instâncias, a segunda com filtros aplicados (o Badge com a contagem no lugar do ícone)
+        attrs: { _tag: "div", class: "pg-doc-col", _children: [{ _tag: "cds-filter-button" }, { _tag: "cds-filter-button", active: true, count: "2" }] },
+        markers: [{ n: 1, target: "cds-filter-button:first-child cds-icons", side: "left" }, { n: 2, target: "cds-filter-button:first-child .cds-fb__label", side: "top" }, { n: 3, target: "cds-filter-button:last-child .cds-fb", side: "right" }, { n: 4, target: "cds-filter-button:last-child cds-badge", side: "bottom" }],
+        legend: ["Icon (.Icons, com filtros aplicados dá lugar ao Badge)", "Text label (padrão \"Filtros\")", "Container", "Badge (contagem de filtros aplicados)"]
       } },
       { h2: "Composição do componente" },
       { p: "Container com o ícone de filtro e o Label. Com filtros aplicados (`Is Active`), um Badge Neutral com a contagem ocupa o lugar do ícone. Em Tablet e Mobile, o botão mostra o ícone sem o Label (48×48) e o Badge vai para o canto." },

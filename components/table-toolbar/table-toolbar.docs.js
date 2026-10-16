@@ -22,7 +22,7 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: { _tag: "div", class: "pg-doc-list-stack", _children: [{ _tag: "cds-table-toolbar" }] }, markers: [{ n: 1, target: "cds-icon-button", side: "left" }], legend: ["Slot (ações da tabela)"] } },
+        { anatomy: { attrs: { _tag: "div", class: "pg-doc-list-stack", _children: [{ _tag: "cds-table-toolbar" }] }, markers: [{ n: 1, target: "cds-table-toolbar", side: "left" }], legend: ["Slot (ações da tabela)"] } },
         { h2: "Propriedades" },
         { props: [
           { name: "Slot", type: "Slot", default: "—" }

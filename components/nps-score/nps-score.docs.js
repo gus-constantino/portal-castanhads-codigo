@@ -45,7 +45,7 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: { value: "8" }, markers: [{ n: 1, target: "cds-nps-value-item:nth-child(3)", side: "top" }, { n: 2, target: "cds-nps-value-item:nth-child(9)", side: "bottom" }], legend: ["NPS Value", "NPS Selected Value"] } },
+        { anatomy: { attrs: { value: "8" }, markers: [{ n: 1, target: "cds-nps-value-item:first-child", side: "left" }, { n: 2, target: "cds-nps-value-item:nth-child(9)", side: "bottom" }], legend: ["NPS Value", "NPS Selected Value"] } },
         { p: "Onze .Value Item (0 a 10) em linha. O valor escolhido é o único que fica Selected." },
         { h2: "Propriedades" },
         { props: [

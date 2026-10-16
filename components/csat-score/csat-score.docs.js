@@ -44,7 +44,7 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: { value: "3" }, markers: [{ n: 1, target: "cds-csat-item:nth-child(3) .cds-csi__item", side: "top" }, { n: 2, target: "cds-csat-item:nth-child(3) .cds-csi__label", side: "bottom" }, { n: 3, target: "cds-csat-item:last-child .cds-csi__item", side: "right" }], legend: ["Item ativo (rate-filled · Decorative/02)", "Label Content (rótulo do nível)", "Item inativo (rate-line · Surface/02)"] } },
+        { anatomy: { attrs: { value: "3" }, markers: [{ n: 1, target: "cds-csat-item:first-child .cds-csi__item", side: "left" }, { n: 2, target: "cds-csat-item:nth-child(3) .cds-csi__label", side: "bottom" }], legend: ["CSAT rating item (ativo: rate-filled · Decorative/02 · inativo: rate-line · Surface/02)", "CSAT label (rótulo do nível)"] } },
         { p: "Cinco .CSAT Item: Muito ruim, Ruim, Médio, Bom e Muito bom. Com um valor escolhido, os itens até ele ficam ativos, como estrelas." },
         { h2: "Propriedades" },
         { props: [

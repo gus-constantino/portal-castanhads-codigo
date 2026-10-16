@@ -43,7 +43,7 @@ CDS.docs = CDS.docs || {};
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: line(60), markers: [{ n: 2, target: ".cds-pl__bar", side: "top" }], legend: ["Track (fundo da barra)", "Indicador de progresso"] } },
+        { anatomy: { attrs: line(60), markers: [{ n: 1, target: "cds-progress-line", side: "left" }, { n: 2, target: ".cds-pl__bar", side: "top" }], legend: ["Progress container line (Track, fundo da barra)", "Percentual indicator (indicador de progresso)"] } },
         { h2: "Propriedades" },
         { props: [{ name: "Percent", type: "Variant", default: "0", values: ["0", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100"] }] },
         { note: "Props e padrões lidos do set Progress Line da lib estável. No código, `percent` aceita qualquer valor de 0 a 100 e `label` dá o nome acessível. O zeroheight ainda não tem a tab Style deste componente." }

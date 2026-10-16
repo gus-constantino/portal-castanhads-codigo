@@ -51,8 +51,8 @@ CDS.docs = CDS.docs || {};
             { n: 1, target: ".cds-acc__lead", side: "left" },
             { n: 2, target: ".cds-acc__text", side: "bottom" },
             { n: 3, target: ".cds-acc__chev", side: "right" },
-            { n: 4, target: ".cds-acc__panel", side: "bottom" },
-            { n: 5, target: ".cds-acc__divider", side: "bottom" }
+            { n: 4, target: ".cds-acc__panel", side: "bottom", long: true },
+            { n: 5, target: ".cds-acc__divider", side: "bottom", align: "end" }
           ],
           legend: ["Lead Item (opcional)", "Label + Description", "Ícone indicador (chevron)", "Slot (conteúdo revelado)", "Divider (opcional)"]
         } },

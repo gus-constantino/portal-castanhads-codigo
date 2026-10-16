@@ -44,7 +44,7 @@
         { h2: "Anatomia" },
         { anatomy: {
           attrs: { label: "Link content", appearance: "accent" },
-          markers: [{ n: 1, target: "a > span", side: "top" }, { n: 2, target: "a > cds-icon", side: "right" }],
+          markers: [{ n: 1, target: "a > span", side: "left" }, { n: 2, target: "a > cds-icon", side: "bottom" }],
           legend: ["Link text", "Icon"]
         } },
         { h2: "Propriedades" },

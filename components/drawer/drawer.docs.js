@@ -40,7 +40,7 @@ CDS.docs = CDS.docs || {};
         { h2: "Anatomia" },
         { anatomy: {
           attrs: drawer("Novo centro de custo", FORM),
-          markers: [{ n: 1, target: "cds-header .cds-header__title", side: "left" }, { n: 2, target: ".cds-overlay__slot", side: "left" }, { n: 3, target: "cds-footer", side: "left" }, { n: 4, target: "cds-header cds-icon-button", side: "right" }, { n: 5, target: ".cds-drawer__panel", side: "right" }],
+          markers: [{ n: 1, target: "cds-header", side: "left" }, { n: 2, target: ".cds-overlay__slot", side: "left" }, { n: 3, target: "cds-footer", side: "left" }, { n: 4, target: "cds-header cds-icon-button", side: "right" }, { n: 5, target: ".cds-drawer__panel", side: "right" }],
           legend: ["Header", "Slot", "Footer action", "Close button", "Drawer container"]
         } },
         { h2: "Composição do componente" },

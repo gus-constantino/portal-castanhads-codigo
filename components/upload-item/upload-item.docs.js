@@ -43,9 +43,9 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Enviando" },
-        { anatomy: { attrs: { status: "uploading", percent: "60" }, markers: [{ n: 1, target: ".cds-ui__loading", side: "left" }, { n: 2, target: ".cds-ui__title", side: "top", align: "start" }, { n: 3, target: ".cds-ui__ext", side: "right" }, { n: 4, target: ".cds-ui__msg", side: "right" }, { n: 5, target: ".cds-ui__progress", side: "bottom" }], legend: ["Loading", "Nome do arquivo", "Extensão", "Mensagem de estado", "Progress Line"] } },
+        { anatomy: { attrs: { status: "uploading", percent: "60" }, markers: [{ n: 1, target: ".cds-ui__loading", side: "top" }, { n: 2, target: ".cds-ui__title", side: "top", align: "start" }, { n: 3, target: ".cds-ui__ext", side: "top" }, { n: 4, target: ".cds-ui__msg", side: "bottom", align: "start" }, { n: 5, target: ".cds-ui__progress", side: "bottom", align: "end" }], legend: ["Loading", "Nome do arquivo", "Extensão", "Mensagem de estado", "Progress Line"] } },
         { h2: "Enviado" },
-        { anatomy: { attrs: { status: "uploaded" }, markers: [{ n: 6, target: ".cds-ui__lead", side: "left" }, { n: 7, target: ".cds-ui__actions > :first-child", side: "top" }, { n: 8, target: ".cds-ui__actions > :last-child", side: "right" }], legend: ["Elemento de apoio (.Lead item)", "Ação 2 (baixar ou tentar de novo)", "Ação 1 (remover)"] } },
+        { anatomy: { attrs: { status: "uploaded" }, markers: [{ n: 6, target: ".cds-ui__lead", side: "top" }, { n: 7, target: ".cds-ui__actions > :first-child", side: "top" }, { n: 8, target: ".cds-ui__actions > :last-child", side: "bottom" }], legend: ["Elemento de apoio (.Lead item)", "Ação 2 (baixar ou tentar de novo)", "Ação 1 (remover)"] } },
         { h2: "Propriedades" },
         { props: [
           { name: "Status", type: "Variant", default: "Uploading", values: ["Uploading", "Success", "Error", "Uploaded"] },

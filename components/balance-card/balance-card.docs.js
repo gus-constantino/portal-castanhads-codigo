@@ -46,9 +46,9 @@ CDS.docs["balance-card"] = {
         markers: [
           { n: 1, target: ".cds-bc__head > cds-icon", side: "left" }, // Figma: Right (C92)
           { n: 2, target: ".cds-bc__head > cds-tag", side: "right" }, // Figma: Left (C92)
-          { n: 3, target: ".cds-bc__label", side: "left" },
-          { n: 4, target: "cds-currency", side: "right" },
-          { n: 5, target: ".cds-bc__content > cds-tag", side: "left" }
+          { n: 3, target: ".cds-bc__label", side: "right" },
+          { n: 4, target: "cds-currency", side: "left" },
+          { n: 5, target: ".cds-bc__content > cds-tag", side: "right" }
         ],
         legend: ["Lead Icon — ícone da categoria", "Header Tag — status opcional", "Label — nome da categoria", "Currency — valor do saldo", "Bottom Tag — informação complementar opcional"]
       } },

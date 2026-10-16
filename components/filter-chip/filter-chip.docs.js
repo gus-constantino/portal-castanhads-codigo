@@ -55,7 +55,7 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: {}, markers: [{ n: 1, target: ".cds-chip", side: "left" }, { n: 2, target: ".cds-chip cds-icon", side: "top" }, { n: 3, target: ".cds-chip span", side: "right" }], legend: ["Container (pill)", "Lead Icon (vira check-line quando selecionado)", "Label"] } },
+        { anatomy: { attrs: {}, markers: [{ n: 1, target: ".cds-chip", side: "left" }, { n: 2, target: ".cds-chip cds-icon", side: "top" }, { n: 3, target: ".cds-chip > span", side: "right" }], legend: ["Container (pill)", "Lead Icon (vira check-line quando selecionado)", "Label"] } },
         { h2: "Composição do componente" },
         { p: "Container em pílula, Lead Icon opcional (16, via `Show Lead Icon`) que vira o check-line quando selecionado, e Label em `Label/Regular`. Padding horizontal de 16 e gap de 4 entre as partes, nos dois tamanhos." },
         { h2: "Propriedades" },

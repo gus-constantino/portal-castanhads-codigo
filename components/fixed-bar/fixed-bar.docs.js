@@ -39,10 +39,17 @@ CDS.docs["fixed-bar"] = {
 
     { id: "anatomia", title: "Anatomia", blocks: [
       { h2: "Anatomia" },
+      { h3: "Desktop/Tablet" },
       { anatomy: {
         attrs: { "primary-label": "Continuar", "secondary-label": "Voltar", "show-lead-icon": false, style: "width:calc(var(--common-sizes-200) * 2)" },
-        markers: [{ n: 1, target: "cds-divider", side: "top" }, { n: 2, target: ".cds-footer__actions > cds-main-button:first-child", side: "left" }, { n: 3, target: ".cds-footer__actions > cds-main-button:last-child", side: "right" }],
-        legend: ["Divider (Show Divider)", "Ação secundária (Show Secondary Action)", "Ação primária"]
+        markers: [{ n: 1, target: ".cds-footer__actions > cds-main-button:last-child", side: "right" }, { n: 2, target: ".cds-footer__actions > cds-main-button:first-child", side: "left" }, { n: 3, target: "cds-fixed-bar", side: "right", align: "start" }, { n: 4, target: "cds-divider", side: "left" }],
+        legend: ["Primary action (Ação primária)", "Secondary action (Ação secundária · Show Secondary Action)", "Bottom fixed container", "Divider (Show Divider)"]
+      } },
+      { h3: "Mobile" },
+      { anatomy: {
+        attrs: { kind: "pilled", "primary-label": "Continuar", "secondary-label": "Voltar", "show-lead-icon": false, style: "width:calc(var(--common-sizes-160) * 2)" },
+        markers: [{ n: 5, target: ".cds-footer__actions > cds-main-button:first-child", side: "left" }, { n: 6, target: ".cds-footer__actions > cds-main-button:last-child", side: "right" }, { n: 7, target: "cds-fixed-bar", side: "left", align: "end" }],
+        legend: ["Secondary action", "Primary action", "Bottom fixed container"]
       } },
       { h2: "Composição do componente" },
       { p: "Mesma estrutura do .Footer: Divider e Action Buttons com Main Buttons Neutral (secundária) e Accent (primária). Em `Horizontal`, os botões ficam lado a lado no tamanho do conteúdo. Em `Pilled`, empilhados e com largura total." },

@@ -51,7 +51,7 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: {}, markers: [{ n: 1, target: ".cds-chip", side: "left" }, { n: 2, target: ".cds-chip cds-icon:first-child", side: "top" }, { n: 3, target: ".cds-chip span", side: "bottom" }, { n: 4, target: ".cds-chip cds-icon:last-child", side: "right" }], legend: ["Container (pill, com borda)", "Lead Icon", "Label", "Close Icon (close-line)"] } },
+        { anatomy: { attrs: {}, markers: [{ n: 1, target: ".cds-chip", side: "left" }, { n: 2, target: ".cds-chip cds-icon:first-child", side: "top" }, { n: 3, target: ".cds-chip > span", side: "bottom" }, { n: 4, target: ".cds-chip cds-icon:last-child", side: "right" }], legend: ["Container (pill, com borda)", "Lead Icon", "Label", "Close Icon (close-line)"] } },
         { h2: "Composição do componente" },
         { p: "Container em pílula com borda hairline, Lead Icon opcional (16, via `Show Lead Icon`), Label em `Label/Regular` e o close-line (16) à direita. Padding horizontal de 16 e gap de 4 entre as partes, nos dois tamanhos." },
         { h2: "Propriedades" },

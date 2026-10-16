@@ -47,7 +47,7 @@ CDS.docs["tag"] = {
 
     { id: "anatomia", title: "Anatomia", blocks: [
       { h2: "Anatomia" },
-      { anatomy: { attrs: { label: "Em análise", appearance: "warning", "show-lead-item": true, icon: "timer-line" }, markers: [{ n: 1, target: "cds-icon", side: "left" }, { n: 2, target: "span:last-child", side: "right" }], legend: ["Lead Item (Icon · Small)", "Text Label"] } },
+      { anatomy: { attrs: { label: "Em análise", appearance: "warning", "show-lead-item": true, icon: "timer-line" }, markers: [{ n: 1, target: "cds-icon", side: "bottom" }, { n: 2, target: ":scope > span", side: "right" }], legend: ["Icon (Lead Item · Small)", "Tag (Text Label)"] } },
       { h2: "Propriedades" },
       { props: [
         { name: "Appearance", type: "Variant", default: "Neutral", values: ["Accent", "Neutral", "Positive", "Warning", "Negative", "Informative", "Inversed"] },

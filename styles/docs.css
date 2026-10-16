@@ -652,6 +652,7 @@ cmp-do-dont .pg-doc-list{ margin:0; }
 .pg-doc-on-inversed{ display:inline-flex; align-items:center; gap:var(--common-sizes-8); padding:var(--common-sizes-16); border-radius:var(--common-border-radius-medium); background:var(--common-colors-surface-inversed); }
 .pg-doc-row{ display:inline-flex; align-items:center; gap:var(--common-sizes-8); }
 .pg-doc-row--wide{ gap:var(--common-sizes-16); }
+.pg-doc-col{ display:inline-flex; flex-direction:column; align-items:flex-start; gap:var(--common-sizes-16); } /* instâncias empilhadas sem esticar (Anatomia com 2 instâncias, como no Figma) */
 .pg-doc-media{ display:flex; align-items:flex-start; gap:var(--common-sizes-16); max-width:calc(2 * var(--common-sizes-160)); }
 .pg-doc-media__text{ display:flex; flex-direction:column; gap:var(--common-sizes-4); margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
 .pg-doc-media__text strong{ font:var(--text-style-body-bold); color:var(--common-colors-text-intense); }

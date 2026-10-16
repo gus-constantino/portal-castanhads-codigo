@@ -35,7 +35,10 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: crumbs(["Despesas", "Adiantamentos", "Detalhes"], "1"), markers: [{ n: 1, target: ".cds-bcr__li:first-child .cds-bci__content", side: "left" }, { n: 2, target: ".cds-bcr__li:nth-child(2) .cds-bci__sep", side: "top" }, { n: 3, target: ".cds-bcr__li:nth-child(2) .cds-bci__content", side: "bottom" }, { n: 4, target: ".cds-bcr__li:last-child .cds-bci__content", side: "right" }], legend: [".Item Kind=Truncate (abre o Popover com os níveis escondidos)", "Separator (navigation-right-line 16)", ".Item com link (nível superior)", ".Item atual (Is Active, sem link)"] } },
+        { anatomy: {
+          // Figma: o Popover aberto embaixo do "…". O do componente abre na camada de topo (posição pela tela), então aqui é o mesmo Popover do DS inline, com a lista que o Breadcrumb monta
+          attrs: { _tag: "div", class: "pg-doc-col", _children: [crumbs(["Início", "Despesas", "Adiantamentos", "Detalhes"], "2"), { _tag: "cds-popover", inline: true, label: "Níveis anteriores", _children: [{ _tag: "ul", class: "cds-bcr__poplist", _children: ["Início", "Despesas"].map(function(l){ return { _tag: "li", _children: [{ _tag: "cds-breadcrumb-item", label: l, href: "#", "has-separator": "false" }] }; }) }] }] },
+          markers: [{ n: 1, target: ".cds-bcr__li:first-child .cds-bci__content", side: "left" }, { n: 2, target: ".cds-bcr__li:last-child .cds-bci__content", side: "right" }, { n: 3, target: ":scope > cds-popover", side: "left" }], legend: ["Truncated Item (.Item Kind=Truncate, abre o Popover com os níveis escondidos)", "Item (com link nos níveis superiores e sem link no atual, separados pelo navigation-right-line 16)", "Popover (níveis escondidos)"] } },
         { h2: "Propriedades" },
         { props: [
           { name: "Kind", type: "Variant", default: "Default", values: ["Default"] },

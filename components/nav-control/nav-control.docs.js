@@ -40,7 +40,7 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: {}, markers: [{ n: 1, target: "cds-nav-control-item[is-active]", side: "top" }, { n: 2, target: "cds-nav-control-item:last-child", side: "bottom" }, { n: 3, target: ".cds-nc__btns", side: "right" }], legend: ["Focus indicator (item ativo, 16×6)", "Navigation dots (6×6)", "Botão de navegação (exclusivo do desktop)"] } },
+        { anatomy: { attrs: {}, markers: [{ n: 1, target: "cds-nav-control-item[is-active]", side: "left" }, { n: 2, target: "cds-nav-control-item:last-child", side: "bottom" }, { n: 3, target: ".cds-nc__btns", side: "right" }], legend: ["Indicador ativo (Focus indicator, 16×6)", "Indicador inativo (Navigation dots, 6×6)", "Botão de navegação (apenas desktop)"] } },
         { h2: "Propriedades" },
         { props: [
           { name: "Appearance", type: "Variant", default: "Accent", values: ["Accent", "Inversed"] }

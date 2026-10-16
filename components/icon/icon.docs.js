@@ -43,7 +43,7 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: { _tag: "div", class: "pg-doc-row", _children: [ic("home-line", { size: "large", appearance: "neutral" })] }, markers: [{ n: 1, target: "cds-icon", side: "right" }], legend: ["Icon (Choose Icon · 16, 20 ou 24)"] } },
+        { anatomy: { attrs: { _tag: "div", class: "pg-doc-row", _children: [ic("home-line", { size: "large", appearance: "neutral" })] }, markers: [{ n: 1, target: "cds-icon", side: "left" }], legend: ["Icon (Choose Icon · 16, 20 ou 24)"] } },
         { h2: "Propriedades" },
         { props: [
           { name: "Choose Icon", type: "Instance swap", default: "placeholder" },

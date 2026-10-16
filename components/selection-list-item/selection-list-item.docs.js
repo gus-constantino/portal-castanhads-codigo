@@ -47,7 +47,7 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: { "is-active": true }, markers: [{ n: 1, target: ".cds-tc__label", side: "top" }, { n: 2, target: ".cds-li__lead", side: "left" }, { n: 3, target: ".cds-tc__desc", side: "bottom" }, { n: 4, target: "cds-trailing-item", side: "right" }, { n: 5, target: ".cds-li__divider", side: "bottom", align: "start" }], legend: ["Text label", "Lead Item", "Text description", "Trailing item", "Divider"] } },
+        { anatomy: { attrs: { "is-active": true }, markers: [{ n: 1, target: ".cds-tc__label", side: "top" }, { n: 2, target: ".cds-li__lead", side: "left" }, { n: 3, target: ".cds-tc__desc", side: "bottom" }, { n: 4, target: "cds-trailing-item", side: "top" }, { n: 5, target: ".cds-li__divider", side: "right" }], legend: ["Text label", "Lead Item", "Text description", "Trailing item", "Divider"] } },
         { h2: "Propriedades" },
         { props: [
           { name: "Kind", type: "Variant", default: "Default", values: ["Default", "Card"] },

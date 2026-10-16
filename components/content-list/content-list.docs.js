@@ -42,7 +42,7 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: navList(), markers: [{ n: 1, target: "cds-content-list-item:first-child .cds-li__text", side: "right" }, { n: 2, target: "cds-content-list-item:first-child .cds-li__divider", side: "left" }], legend: ["Content List Item", "Divider (exclusivo do Kind Default)"] } },
+        { anatomy: { attrs: navList(), markers: [{ n: 1, target: "cds-content-list-item:first-child", side: "left" }], legend: ["Content list item"] } },
         { h2: "Propriedades" },
         { props: [
           { name: "Kind", type: "Variant", default: "Default", values: ["Default", "Card"] },

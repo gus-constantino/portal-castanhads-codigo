@@ -38,9 +38,9 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Desktop" },
-        { anatomy: { attrs: {}, markers: [{ n: 1, target: ".cds-dz", side: "left" }, { n: 2, target: ".cds-dz__icon", side: "top" }, { n: 3, target: ".cds-dz__title", side: "right" }, { n: 4, target: ".cds-dz__desc", side: "left" }, { n: 5, target: ".cds-dz__btn", side: "right" }], legend: ["Área de drop", "Shaped Icon", "Título", "Descrição", "Main Button"] } },
+        { anatomy: { attrs: {}, markers: [{ n: 1, target: ".cds-dz", side: "left", align: "start" }, { n: 2, target: ".cds-dz__icon", side: "top" }, { n: 3, target: ".cds-dz__title", side: "left" }, { n: 4, target: ".cds-dz__desc", side: "left" }, { n: 5, target: ".cds-dz__btn", side: "left" }], legend: ["Área de drop", "Shaped Icon", "Título", "Descrição", "Main Button"] } },
         { h2: "Mobile" },
-        { anatomy: { attrs: { viewport: "mobile" }, markers: [{ n: 6, target: ".cds-dz", side: "left" }, { n: 7, target: ".cds-dz__icon", side: "top" }, { n: 8, target: ".cds-dz__title", side: "right" }, { n: 9, target: ".cds-dz__desc", side: "bottom" }], legend: ["Área clicável", "Shaped Icon", "Título", "Descrição"] } },
+        { anatomy: { attrs: { viewport: "mobile" }, markers: [{ n: 6, target: ".cds-dz", side: "top", align: "start" }, { n: 7, target: ".cds-dz__icon", side: "bottom" }, { n: 8, target: ".cds-dz__title", side: "top" }, { n: 9, target: ".cds-dz__desc", side: "right" }], legend: ["Área clicável", "Shaped Icon", "Título", "Descrição"] } },
         { h2: "Propriedades" },
         { props: [
           { name: "State", type: "Variant", default: "Enabled", values: ["Enabled", "Hovered", "Pressed", "Dragover", "Disabled"] },

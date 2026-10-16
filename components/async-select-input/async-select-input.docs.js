@@ -50,7 +50,7 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: {}, markers: [{ n: 1, target: ".cds-tf__label", side: "top", align: "start" }, { n: 2, target: ".cds-tf__control", side: "left" }, { n: 3, target: ".cds-tf__msg", side: "bottom", align: "start" }, { n: 4, target: ".cds-tf__box", side: "top" }, { n: 5, target: ".cds-tf__action", side: "right" }], legend: ["Title label", "Placeholder", "Support text", "Input container", "Dropdown icon button"] } },
+        { anatomy: { attrs: {}, markers: [{ n: 1, target: ".cds-tf__label", side: "left" }, { n: 2, target: ".cds-tf__control", side: "left" }, { n: 3, target: ".cds-tf__msg", side: "bottom", align: "start" }, { n: 4, target: ".cds-tf__box", side: "bottom", align: "end", long: true }, { n: 5, target: ".cds-tf__action", side: "right" }], legend: ["Title label", "Placeholder", "Support text", "Input container", "Dropdown icon button"] } },
         { p: "Ativo (aberto), o campo mostra o Popover com a Selection list das opções." },
         { h2: "Composição do componente" },
         { p: "O Select input é composto por um campo colapsado (trigger) e pela exibição da Selection list para apresentar as opções. Quando o Select estiver no modo ativo (aberto), tanto o campo quanto os Selection list items devem refletir esse estado por meio de ajustes visuais e comportamentais consistentes — como foco, destaque da opção selecionada e feedback de interação — garantindo coerência entre os dois componentes." },

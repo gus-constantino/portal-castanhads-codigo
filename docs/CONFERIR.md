@@ -14,7 +14,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | [Refactor](#refactor) | 39 |
 | [Naming](#naming) | 11 |
 | [Acessibilidade](#acessibilidade) | 9 |
-| [Documentação](#documentação) | 16 |
+| [Documentação](#documentação) | 17 |
 | [Integração React](#integração-react) | 11 |
 
 ## Ajuste de texto
@@ -199,6 +199,7 @@ Frames de documentação no Figma.
 | C193 | Bottom Sheet (20848:2679) · .Footer Pilled (16359:1792) × Main Button | No Mobile, `Specific/Buttons/Main Button/Width/min-width` = 328, mas o .Footer tem padding 20: num sheet de 360 sobram 320 e o botão estoura 8 px (num de 320, 48 px). Vale também para a Fixed Bar Pilled. A Fixed Bar Horizontal no Mobile tem o mesmo conflito em dobro: dois botões de 328 lado a lado não cabem em 360 | Botão Fill sem o mínimo dentro do .Footer, ou padding 16 no Mobile, ou mínimo menor. Definir se a Fixed Bar Horizontal vale no Mobile | No .Footer e na Fixed Bar Pilled o botão ocupa a largura disponível sem o min-width (D301). O sheet inline do playground encolhe para caber no frame | Decidir no Figma |
 | C194 | Castanha Hub · Fundação › Motion › Transições (`/p/757a5f`, "In progress") | As durações em ms não batem com os tokens citados: Para frente e para trás 350 ms com `long/02` (500 ms no Figma); Lateral 500 ms e Entrar e sair 500/300 ms com `long/04` (600 ms). Lateral, Entrar e sair e Transformação citam `Expressive/accelerate` com 0.90, 0, 0.60, 1, que no Figma é o `Expressive/overshoot` (o accelerate é 0.2, 0, 0.9, 1), como no C163. Na Transformação, a cor aparece como "E8537" | Token e valor iguais em cada padrão | Playground mostra o ms do Hub e o token citado, com a divergência no card (D302) | Levar ao time de Motion |
 | C196 | Storybook › Sobre o Castanha › Diferenciais | — | O link "Castanha Optimizer" da seção Bundle proporcional ao uso real aponta para a story do Castoken (`castanha-universe-02-castanha-castoken`) | Segue o Storybook: no portal o link leva a Castanha Universe › Castoken | Corrigir o link no `differentials.mdx` do castanha-react e rodar o importador de novo |
+| C207 | Docs · Anatomia ([CastanhaDS] Component use documentation, frames `anatomia-*`) | (1) Tag: a legenda chama o texto de "Tag" (nome da camada); a prop é `Text Label`. (2) Select input: o estado B Active (6 Popover, 7 Selection list) | (1) Nome da parte igual ao da prop? (2) — | (1) Legenda "Tag (Text Label)". (2) O portal mostra só o estado A no Async Select Input: o Select abre o Popover por cima da página, fora da caixa da Anatomia. (3) Currency: o Figma tem 2 instâncias, o portal mostra 1. (4) Text Input: o item 5 Clear Button do Figma segue de fora (legado, C96). (5) Caju Brand: "Logo vector" no Figma são 2 caminhos no SVG (folha e caju); o marcador aponta o caju | (1) Quando revisar a doc da Tag |
 
 ## Integração React
 

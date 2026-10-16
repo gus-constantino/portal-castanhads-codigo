@@ -17,7 +17,8 @@
  *   cards: [[título, texto], …]           grade de princípios
  *   display: { attrs, live }              caixa de exibição com um exemplo
  *   compare: [{ title, attrs | empty }]   exemplos lado a lado
- *   anatomy: { attrs, markers: [{ n, target, side: left|right|top|bottom, align: "start", long: true }], legend: [...] }
+ *   anatomy: { attrs, markers: [{ n, target, side: left|right|top|bottom, align: "start"|"end", long: true }], legend: [...] }
+ *                                       parte interna: a seta atravessa o componente até o número, do lado de fora · 2º desenho continua a numeração (n 6…)
  *   props: [{ name, type, default, icon, nested: [{ name, type, values }] }]   default = valor padrão no Figma
  *   specimens: { title, min, items: [{ label, attrs }] }   min = largura mínima da coluna
  *   guides: [{ attrs, title, text }]
@@ -131,47 +132,95 @@
     var cmp = example(doc, b.attrs, false);
     cmp.style.flex = "0 0 auto"; // sem encolher como item flex: a medida é a largura natural
     stage.appendChild(cmp);
+    // segundo desenho da mesma anatomia (ex.: Mobile) continua a numeração: legenda e tooltip contam a partir do primeiro n
+    var first = Math.min.apply(null, b.markers.map(function(m){ return m.n; }));
     var marks = b.markers.map(function(m){
       var mk = el("span", "pg-doc-mark pg-doc-mark--" + m.side);
       mk.setAttribute("aria-hidden", "true");
       var num = mk.appendChild(el("span", "pg-doc-mark__n", String(m.n)));
       // Tooltip com o nome da parte (só mouse: o marcador é decorativo e a legenda abaixo já lista as partes)
-      var part = (b.legend || [])[m.n - 1];
+      var part = (b.legend || [])[m.n - first];
       if (part && window.CDS.kit) CDS.kit.lazyTip(num, String(part).replace(/`/g, ""), { focus: false, container: wrap }); // fora do marcador: o transform dele quebraria o position:fixed do Tooltip
-      mk.appendChild(el("span", "pg-doc-mark__line"));
+      var line = mk.appendChild(el("span", "pg-doc-mark__line"));
       if (m.long) mk.classList.add("is-long"); // seta mais longa: número abaixo/acima de outro marcador vizinho
       stage.appendChild(mk);
-      return { m: m, el: mk };
+      return { m: m, el: mk, line: line };
     });
     // Normal: número + seta (76px por lado). Sem esse espaço (telas estreitas), o diagrama encolhe
     // por escala e o número fica colado na parte, sem seta (32px por lado).
     var SIDE = 76, SIDE_COMPACT = 32;
     function place(){
-      cmp.style.transform = ""; cmp.style.maxWidth = "none"; // mede a largura natural do componente
-      var W = cmp.offsetWidth;
+      cmp.style.scale = ""; cmp.style.maxWidth = "none"; // mede a largura natural do componente (scale, não transform: a animação de entrada de alguns componentes, como o Toast, usa transform)
+      var W = cmp.offsetWidth, cs = getComputedStyle(stage);
+      // Componente de largura total (Table, mock do Bottom Sheet): a largura acompanha a caixa, então escalar não abre espaço.
+      // Ele fica mais estreito e os números continuam do lado de fora, com seta (compacto só em tela estreita).
+      var fills = W >= stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - 1;
       // decide pela largura total (o padding muda com a classe; medir por ele faria a decisão oscilar)
-      var compact = stage.clientWidth - 48 < W + 2 * SIDE, avail = stage.clientWidth - 16;
+      var room = stage.clientWidth - 48 - 2 * SIDE;
+      var compact = fills ? room < 320 : stage.clientWidth - 48 < W + 2 * SIDE, avail = stage.clientWidth - 16;
       stage.classList.toggle("is-compact", compact);
-      if (compact) cmp.style.transform = "scale(" + Math.min(1, (avail - 2 * SIDE_COMPACT) / W).toFixed(3) + ")";
+      if (fills){
+        var mw = compact ? avail - 2 * SIDE_COMPACT : room;
+        cmp.style.maxWidth = mw + "px";
+        // largura mínima ou conteúdo que não encolhe: volta à largura natural e escala
+        if (cmp.offsetWidth > mw + 1 || cmp.scrollWidth > cmp.clientWidth + 1){ cmp.style.maxWidth = "none"; cmp.style.scale = (mw / Math.max(cmp.offsetWidth, cmp.scrollWidth)).toFixed(3); }
+      }
+      else if (compact) cmp.style.scale = Math.min(1, (avail - 2 * SIDE_COMPACT) / Math.max(W, cmp.scrollWidth)).toFixed(3); // scrollWidth: conteúdo que passa da própria largura
       else cmp.style.maxWidth = "";
-      var s = stage.getBoundingClientRect(), gap = compact ? 4 : 8;
+      var s = stage.getBoundingClientRect(), c = cmp.getBoundingClientRect(), gap = compact ? 4 : 8;
       marks.forEach(function(x){
-        var t = cmp.querySelector(x.m.target), mk = x.el;
+        var t = cmp.querySelector(x.m.target) || (cmp.matches(x.m.target) ? cmp : null), mk = x.el; // alvo pode ser a própria raiz (ex.: Container do Group)
         if (!t){ mk.hidden = true; return; }
         var r = t.getBoundingClientRect();
         mk.hidden = false; mk.style.left = mk.style.top = mk.style.right = "";
-        if (x.m.side === "left"){ mk.style.right = (s.right - r.left + gap) + "px"; mk.style.top = (r.top - s.top + r.height / 2) + "px"; }
-        else if (x.m.side === "right"){ mk.style.left = (r.right - s.left + gap) + "px"; mk.style.top = (r.top - s.top + r.height / 2) + "px"; }
-        // top/bottom: align "start" encosta a seta na borda esquerda da parte (para não colidir com outra no centro)
-        var bx = x.m.align === "start" ? r.left - s.left + 4 : r.left - s.left + Math.min(r.width / 2, 56);
+        // Parte interna: a seta atravessa o componente e o número fica do lado de fora, como a .Arrow-Anatomia do Figma
+        var extra = Math.max(0, Math.round(x.m.side === "left" ? r.left - c.left : x.m.side === "right" ? c.right - r.right : x.m.side === "top" ? r.top - c.top : c.bottom - r.bottom));
+        var base = x.m.side === "left" || x.m.side === "right" ? "var(--common-sizes-40)" : x.m.long ? "var(--common-sizes-56)" : "var(--common-sizes-24)";
+        x.line.style[x.m.side === "left" || x.m.side === "right" ? "width" : "height"] = compact || !extra ? "" : "calc(" + base + " + " + extra + "px)";
+        // left/right: align "start" / "end" leva a seta para perto do topo / da base da parte (parte alta, como a área do Dropzone)
+        var by = r.top - s.top + (x.m.align === "start" ? Math.min(r.height / 2, 16) : x.m.align === "end" ? r.height - Math.min(r.height / 2, 16) : r.height / 2);
+        if (x.m.side === "left"){ mk.style.right = (s.right - r.left + gap) + "px"; mk.style.top = by + "px"; }
+        else if (x.m.side === "right"){ mk.style.left = (r.right - s.left + gap) + "px"; mk.style.top = by + "px"; }
+        // top/bottom: align "start" / "end" encosta a seta na borda esquerda / direita da parte (para não colidir com outra no centro)
+        var bx = x.m.align === "start" ? r.left - s.left + 4 : x.m.align === "end" ? r.right - s.left - 4 : r.left - s.left + Math.min(r.width / 2, 56);
         if (x.m.side === "top"){ mk.style.left = bx + "px"; mk.style.top = (r.top - s.top - gap) + "px"; }
         else if (x.m.side === "bottom"){ mk.style.left = bx + "px"; mk.style.top = (r.bottom - s.top + gap) + "px"; }
       });
+      // Número sempre dentro da caixa (o Popover, na camada de topo, não acompanha a escala do modo compacto)
+      marks.forEach(function(x){
+        if (x.el.hidden) return;
+        var n = x.el.firstChild.getBoundingClientRect(), dx = n.left < s.left + 2 ? s.left + 2 - n.left : n.right > s.right - 2 ? s.right - 2 - n.right : 0;
+        if (!dx) return;
+        if (x.m.side === "left") x.el.style.right = (parseFloat(x.el.style.right) - dx) + "px"; else x.el.style.left = (parseFloat(x.el.style.left) + dx) + "px";
+      });
+      // Compacto (sem seta): números do mesmo lado que se encostam descem até ficarem separados
+      if (compact) ["left", "right"].forEach(function(side){
+        var prev = null;
+        marks.filter(function(x){ return !x.el.hidden && x.m.side === side; })
+          .sort(function(a, b){ return a.el.firstChild.getBoundingClientRect().top - b.el.firstChild.getBoundingClientRect().top; })
+          .forEach(function(x){
+            var n = x.el.firstChild.getBoundingClientRect();
+            if (prev && n.top < prev.bottom + 2) x.el.style.top = (parseFloat(x.el.style.top) + prev.bottom + 2 - n.top) + "px";
+            prev = x.el.firstChild.getBoundingClientRect();
+          });
+      });
+      // Seta longa em cima/embaixo: a caixa ganha respiro para o número não ser cortado.
+      // Medido a partir do componente (não da caixa), então o próprio padding não entra na conta e não há laço.
+      var c2 = cmp.getBoundingClientRect(), up = 0, down = 0;
+      marks.forEach(function(x){ if (x.el.hidden) return; var n = x.el.firstChild.getBoundingClientRect(); up = Math.max(up, c2.top - n.top); down = Math.max(down, n.bottom - c2.bottom); });
+      var padT = Math.ceil(Math.max(0, up + 8 - 56)), padB = Math.ceil(Math.max(0, down + 8 - 72)); // 56 e 72 = padding da caixa (sizes-56 · sizes-72)
+      if (padT !== (stage._padT || 0) || padB !== (stage._padB || 0)){
+        stage._padT = padT; stage._padB = padB;
+        stage.style.paddingTop = padT ? "calc(var(--common-sizes-56) + " + padT + "px)" : "";
+        stage.style.paddingBottom = padB ? "calc(var(--common-sizes-72) + " + padB + "px)" : "";
+        place();
+      }
     }
     requestAnimationFrame(function(){ requestAnimationFrame(place); });
     if (window.ResizeObserver) new ResizeObserver(place).observe(stage, { box: "border-box" });
     wrap.appendChild(stage);
-    wrap.appendChild(list("ol", b.legend));
+    var ol = wrap.appendChild(list("ol", b.legend));
+    if (first > 1) ol.start = first;
     return wrap;
   }
 

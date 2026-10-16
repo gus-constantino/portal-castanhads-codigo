@@ -43,7 +43,7 @@ CDS.docs["currency"] = {
 
     { id: "anatomia", title: "Anatomia", blocks: [
       { h2: "Anatomia" },
-      { anatomy: { attrs: { value: "1.250,00", size: "largest" }, markers: [{ n: 1, target: "span:last-child", side: "right" }], legend: ["Currency label (símbolo e valor)"] } },
+      { anatomy: { attrs: { value: "1.250,00", size: "largest" }, markers: [{ n: 1, target: ":scope > span:last-child", side: "left" }], legend: ["Currency label (símbolo e valor)"] } },
       { h2: "Propriedades" },
       { props: [
         { name: "Appearance", type: "Variant", default: "Neutral", values: ["Neutral", "Inversed"] },

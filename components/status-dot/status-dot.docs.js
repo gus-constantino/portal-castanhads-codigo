@@ -29,7 +29,7 @@ CDS.docs["status-dot"] = {
 
     { id: "anatomia", title: "Anatomia", blocks: [
       { h2: "Anatomia" },
-      { anatomy: { attrs: { label: "Ativo", appearance: "positive", size: "large" }, markers: [{ n: 1, target: ".cds-sd__dot", side: "left" }, { n: 2, target: ".cds-sd__label, span:last-child", side: "right" }], legend: ["Ponto (reforço visual)", "Text Label (carrega a informação)"] } },
+      { anatomy: { attrs: { label: "Ativo", appearance: "positive", size: "large" }, markers: [{ n: 1, target: ".cds-sd__dot", side: "left" }, { n: 2, target: ".cds-sd__label, span:last-child", side: "bottom" }], legend: ["Indicator (reforço visual)", "Label (carrega a informação)"] } },
       { h2: "Propriedades" },
       { props: [
         { name: "Appearance", type: "Variant", default: "Neutral", values: ["Neutral", "Positive", "Warning", "Informative", "Negative"] },

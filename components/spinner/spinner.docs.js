@@ -41,8 +41,7 @@ CDS.docs["spinner"] = {
 
     { id: "anatomia", title: "Anatomia", blocks: [
       { h2: "Anatomia" },
-      { display: { attrs: { size: "large", appearance: "accent", style: "width:var(--common-sizes-80);height:var(--common-sizes-80)" } } },
-      { ol: ["Progress indicator (arco de 90° que gira)", "Circle track (anel de fundo)"] },
+      { anatomy: { attrs: { size: "large", appearance: "accent", style: "width:var(--common-sizes-80);height:var(--common-sizes-80)" }, markers: [{ n: 1, target: ".cds-spin__arc", side: "left" }, { n: 2, target: ".cds-spin__track", side: "right" }], legend: ["Progress indicator (arco de 90° que gira)", "Circle track (anel de fundo)"] } },
       { h2: "Propriedades" },
       { props: [
         { name: "Appearance", type: "Variant", default: "Neutral", values: ["Accent", "Neutral", "Inversed"] },

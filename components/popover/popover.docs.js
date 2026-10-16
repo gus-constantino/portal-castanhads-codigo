@@ -45,7 +45,7 @@ CDS.docs = CDS.docs || {};
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: pop(), markers: [{ n: 1, target: ".cds-popover__slot", side: "left" }], legend: ["Container com Slot (conteúdo de quem usa)"] } },
+        { anatomy: { attrs: pop(), markers: [{ n: 1, target: "cds-popover", side: "left" }, { n: 2, target: ".cds-popover__slot", side: "right" }], legend: ["Container", "Slot (conteúdo de quem usa)"] } },
         { h2: "Composição do componente" },
         { p: "Container com Surface/default, raio large, Elevation/level 3 e padding 8. O conteúdo é o Slot. Como menu de ações, use o List do DS (ex.: Content List Item), como no Drop Button." },
         { h2: "Propriedades" },

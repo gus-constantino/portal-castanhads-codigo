@@ -42,7 +42,7 @@
         { h2: "Anatomia" },
         { anatomy: {
           attrs: sheet(),
-          markers: [{ n: 1, target: ".cds-sheet__handle", side: "right" }, { n: 2, target: "cds-header", side: "left" }, { n: 3, target: ".cds-overlay__slot", side: "left" }, { n: 4, target: "cds-footer", side: "left" }],
+          markers: [{ n: 1, target: ".cds-sheet__handle", side: "left" }, { n: 2, target: "cds-header", side: "left" }, { n: 3, target: ".cds-overlay__slot", side: "left" }, { n: 4, target: "cds-footer", side: "left" }],
           legend: ["Handle", "Header (opcional)", "Content · Slot (obrigatório)", "Footer (opcional)"]
         } },
         { h2: "Composição" },

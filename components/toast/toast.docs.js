@@ -45,7 +45,7 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: { text: "Perfil atualizado" }, markers: [{ n: 1, target: ".cds-toast__icon", side: "left" }, { n: 2, target: ".cds-toast__text", side: "top" }, { n: 3, target: "cds-close-toast", side: "right" }], legend: ["Ícone (24, cor decorativa por Appearance)", "Text Description (até 2 linhas)", ".Close Toast (Show Trailing Item)"] } },
+        { anatomy: { attrs: { text: "Perfil atualizado" }, markers: [{ n: 1, target: "cds-toast", side: "left" }, { n: 2, target: ".cds-toast__icon", side: "top" }, { n: 3, target: ".cds-toast__text", side: "bottom" }, { n: 4, target: "cds-close-toast", side: "right" }], legend: ["Container", "Icon (24, cor decorativa por Appearance)", "Text label (Text Description, até 2 linhas)", "Icon button (.Close Toast · Show Trailing Item)"] } },
         { h2: "Propriedades" },
         { props: [
           { name: "Appearance", type: "Variant", default: "Positive", values: ["Positive", "Warning"] },

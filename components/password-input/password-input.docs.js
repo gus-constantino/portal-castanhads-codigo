@@ -51,10 +51,10 @@ CDS.docs["password-input"] = {
         attrs: {},
         markers: [
           { n: 1, target: ".cds-tf__lead", side: "left" },
-          { n: 2, target: ".cds-tf__label", side: "left" },     // Figma: de cima (Down); o kit não tem lado de cima
-          { n: 3, target: ".cds-tf__control", side: "bottom" }, // Figma: de cima (Down)
-          { n: 4, target: ".cds-tf__box", side: "right" },      // Figma: de cima (Down)
-          { n: 5, target: "cds-icon-button", side: "top" },   // Figma: Right; à direita cruzava o 4
+          { n: 2, target: ".cds-tf__label", side: "top", align: "start" },
+          { n: 3, target: ".cds-tf__control", side: "top" },
+          { n: 4, target: ".cds-tf__box", side: "top", align: "end", long: true },
+          { n: 5, target: "cds-icon-button", side: "right" },
           { n: 6, target: ".cds-tf__counter", side: "right" },
           { n: 7, target: ".cds-tf__msg", side: "left" }
         ],

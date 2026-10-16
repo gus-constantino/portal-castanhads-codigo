@@ -61,8 +61,8 @@
           attrs: { label: "Label", "show-lead-icon": true, "show-trailing-icon": true },
           markers: [
             { n: 1, target: ".cds-btn", side: "left" },
-            { n: 2, target: ".cds-btn > cds-icon:first-child", side: "top" },
-            { n: 3, target: ".cds-btn > span", side: "bottom" },
+            { n: 2, target: ".cds-btn > cds-icon:first-child", side: "bottom" },
+            { n: 3, target: ".cds-btn > span", side: "top" },
             { n: 4, target: ".cds-btn > cds-icon:last-child", side: "right" }
           ],
           legend: ["Container", "Lead Icon (Icon)", "Label", "Trailing Icon (Icon)"]

@@ -47,9 +47,9 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Illustration" },
-        { anatomy: { attrs: {}, markers: [{ n: 1, target: ".cds-banner", side: "left" }, { n: 2, target: ".cds-cb__title", side: "top", align: "start" }, { n: 3, target: ".cds-cb__desc", side: "left" }, { n: 4, target: ".cds-cb__cta", side: "bottom", align: "start" }, { n: 5, target: ".cds-banner__ill", side: "right" }], legend: ["Fundo", "Título", "Descrição", "Indicação de CTA", "Ilustração"] } },
+        { anatomy: { attrs: {}, markers: [{ n: 1, target: ".cds-banner", side: "right", align: "start" }, { n: 2, target: ".cds-cb__title", side: "left" }, { n: 3, target: ".cds-cb__desc", side: "left" }, { n: 4, target: ".cds-cb__cta", side: "left" }, { n: 5, target: ".cds-banner__ill", side: "right" }], legend: ["Fundo", "Título", "Descrição", "Indicação de CTA", "Ilustração"] } },
         { h2: "Image" },
-        { anatomy: { attrs: { kind: "image", src: PHOTO, alt: "", title: "Cursos", description: "Faculdades parceiras da Caju.", cta: "Ver cursos" }, markers: [{ n: 1, target: ".cds-banner__img", side: "left" }, { n: 2, target: ".cds-banner__backdrop", side: "right" }, { n: 3, target: ".cds-cb__title", side: "top", align: "start" }, { n: 4, target: ".cds-cb__desc", side: "left" }, { n: 5, target: ".cds-cb__cta", side: "bottom", align: "start" }], legend: ["Imagem de fundo", "Backdrop", "Título", "Descrição", "Indicação de CTA"] } },
+        { anatomy: { attrs: { kind: "image", src: PHOTO, alt: "", title: "Cursos", description: "Faculdades parceiras da Caju.", cta: "Ver cursos" }, markers: [{ n: 1, target: ".cds-banner__img", side: "right", align: "start" }, { n: 2, target: ".cds-banner__backdrop", side: "right" }, { n: 3, target: ".cds-cb__title", side: "left" }, { n: 4, target: ".cds-cb__desc", side: "left" }, { n: 5, target: ".cds-cb__cta", side: "left" }], legend: ["Imagem de fundo", "Backdrop", "Título", "Descrição", "Indicação de CTA"] } },
         { h2: "Composição do componente" },
         { p: "O Banner é composto por:" },
         { ul: ["Fundo (obrigatório): cor livre na variante Illustration, imagem com Backdrop na variante Image", "Conteúdo (obrigatório): título e descrição", "Indicação de CTA (opcional): rótulo e ícone, sem componente Button", "Ilustração (opcional): exclusiva da variante Illustration"] },

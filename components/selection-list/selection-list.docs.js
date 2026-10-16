@@ -42,7 +42,7 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: list("default", "checkbox", [0]), markers: [{ n: 1, target: "cds-selection-list-item:first-child .cds-li__text", side: "right" }, { n: 2, target: "cds-selection-list-item:first-child .cds-li__divider", side: "left" }], legend: ["Selection list item", "Divider"] } },
+        { anatomy: { attrs: list("default", "checkbox", [0]), markers: [{ n: 1, target: "cds-selection-list-item:first-child", side: "left" }, { n: 2, target: "cds-selection-list-item:first-child .cds-li__divider", side: "right" }], legend: ["Selection list item", "Divider"] } },
         { h2: "Composição do componente" },
         { p: "O componente Selection List é formado pela composição de múltiplos Selection List Items, organizados de maneira empilhada para criar a lista. Cada item é separado por dividers, garantindo a legibilidade e a distinção visual entre as opções." },
         { h2: "Propriedades" },

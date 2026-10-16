@@ -34,9 +34,9 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Single" },
-        { anatomy: { attrs: { value: "40" }, markers: [{ n: 1, target: ".cds-sl__fill", side: "left" }, { n: 2, target: ".cds-sl__track", side: "bottom", align: "start" }, { n: 3, target: ".cds-sl__thumb", side: "bottom" }, { n: 4, target: ".cds-sl__bubble", side: "top" }, { n: 5, target: ".cds-sl__stops", side: "right" }], legend: ["Trilha ativa (Surface/accent)", "Trilha inativa (Surface/01)", "Thumb (24, alvo de toque)", "Value Indicator (Show Value Indicator)", "Stops (marcas de step, Show Stops)"] } },
+        { anatomy: { attrs: { value: "40" }, markers: [{ n: 1, target: ".cds-sl__fill", side: "left" }, { n: 2, target: ".cds-sl__track", side: "bottom", align: "end" }, { n: 3, target: ".cds-sl__thumb", side: "bottom" }, { n: 4, target: ".cds-sl__bubble", side: "top" }, { n: 5, target: ".cds-sl__stops", side: "top", align: "end" }], legend: ["Trilha ativa (Surface/accent)", "Trilha inativa (Surface/01)", "Thumb (24, alvo de toque)", "Value Indicator (Show Value Indicator)", "Stops (marcas de step, Show Stops)"] } },
         { h2: "Range" },
-        { anatomy: { attrs: { kind: "range", start: "20", end: "70" }, markers: [{ n: 1, target: ".cds-sl__thumb", side: "left" }, { n: 2, target: ".cds-sl__thumb:last-of-type", side: "right" }], legend: ["Thumb Mínimo", "Thumb Máximo"] } },
+        { anatomy: { attrs: { kind: "range", start: "20", end: "70" }, markers: [{ n: 1, target: ".cds-sl__thumb", side: "left" }, { n: 2, target: ".cds-sl__thumb ~ .cds-sl__thumb", side: "right" }], legend: ["Thumb Mínimo", "Thumb Máximo"] } },
         { h2: "Propriedades" },
         { props: [
           { name: "Kind", type: "Variant", default: "Single", values: ["Single", "Range"] },

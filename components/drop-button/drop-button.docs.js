@@ -42,8 +42,15 @@ CDS.docs["drop-button"] = {
     { id: "anatomia", title: "Anatomia", blocks: [
       { h2: "Anatomia" },
       { anatomy: {
-        attrs: { label: "Label", "show-lead-icon": true },
-        markers: [{ n: 1, target: ".cds-btn", side: "left" }, { n: 2, target: ".cds-btn > cds-icon:first-child", side: "top" }, { n: 3, target: ".cds-btn > cds-icon:last-child", side: "right" }],
+        // Figma: o Popover aberto embaixo do botão (marcador 4)
+        attrs: { _tag: "div", class: "pg-doc-col", _children: [
+          { _tag: "cds-drop-button", label: "Label", "show-lead-icon": true, active: true },
+          { _tag: "cds-popover", inline: true, label: "Mais ações", _children: [
+            { _tag: "cds-content-list-item", label: "Baixar relatório", "lead-icon": "download-line", "show-description": false, "show-trailing-item": false, "show-divider": false },
+            { _tag: "cds-content-list-item", label: "Compartilhar", "lead-icon": "share-line", "show-description": false, "show-trailing-item": false, "show-divider": false }
+          ] }
+        ] },
+        markers: [{ n: 1, target: ".cds-btn", side: "left" }, { n: 2, target: ".cds-btn > cds-icon:first-child", side: "top" }, { n: 3, target: ".cds-btn > cds-icon:last-child", side: "right" }, { n: 4, target: "cds-popover", side: "left" }],
         legend: ["Container", "Lead icon", "Trailing icon", "Popover"]
       } },
       { h2: "Composição do componente" },

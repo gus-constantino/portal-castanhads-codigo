@@ -46,7 +46,7 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: { _tag: "cds-fixed-tab", label: "Abas", _children: [{ _tag: "cds-tab-item", label: "Resumo", "show-lead-item": "true", icon: "chart-bar-line" }, { _tag: "cds-tab-item", label: "Detalhes" }, { _tag: "cds-tab-item", label: "Histórico" }] }, markers: [{ n: 1, target: ".cds-tab__icon, cds-tab-item .cds-icon", side: "top", align: "start" }, { n: 2, target: ".cds-tab__label", side: "left" }, { n: 3, target: "cds-tab-item:nth-child(2) .cds-tab", side: "bottom" }, { n: 4, target: "cds-tab-item:nth-child(3)", side: "right" }], legend: ["Lead icon (Show Lead Item)", "Tab label", "Tab divider (sublinhado do item)", "Tab item"] } },
+        { anatomy: { attrs: { _tag: "cds-fixed-tab", label: "Abas", _children: [{ _tag: "cds-tab-item", label: "Resumo", "show-lead-item": "true", icon: "chart-bar-line" }, { _tag: "cds-tab-item", label: "Detalhes" }, { _tag: "cds-tab-item", label: "Histórico" }] }, markers: [{ n: 1, target: ".cds-tab__icon, cds-tab-item .cds-icon", side: "left" }, { n: 2, target: ".cds-tab__label", side: "top" }, { n: 3, target: "cds-tab-item:first-child .cds-tab", side: "bottom", align: "start" }, { n: 4, target: "cds-tab-item:nth-child(3)", side: "right" }], legend: ["Lead icon (Show Lead Item)", "Tab label", "Tab divider (sublinhado do item)", "Tab item"] } },
         { h2: "Propriedades" },
         { props: [
           { name: "Active Item (Fixed Tab)", type: "Variant", default: "1", values: ["1", "2", "3"] },

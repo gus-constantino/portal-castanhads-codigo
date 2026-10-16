@@ -45,7 +45,7 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: { _tag: "div", class: "pg-doc-row", _children: [cb("default")] }, markers: [{ n: 1, target: "path:nth-of-type(1)", side: "top", align: "start" }, { n: 2, target: "path:nth-of-type(2)", side: "bottom", align: "start" }, { n: 3, target: "path:nth-of-type(3)", side: "right" }], legend: ["Folha", "Caju", "Typography (opcional)"] } },
+        { anatomy: { attrs: { _tag: "div", class: "pg-doc-row", _children: [cb("default")] }, markers: [{ n: 1, target: "path:nth-of-type(2)", side: "left" }, { n: 2, target: "path:nth-of-type(3)", side: "bottom" }], legend: ["Logo vector (folha e caju)", "Typography vector (opcional)"] } },
         { h2: "Propriedades" },
         { props: [
           { name: "Kind", type: "Variant", default: "Default", values: ["Default", "Inversed", "Full Red", "Full White", "Full Black"] },

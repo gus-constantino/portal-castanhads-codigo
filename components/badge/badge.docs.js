@@ -43,11 +43,10 @@ CDS.docs["badge"] = {
 
     { id: "anatomia", title: "Anatomia", blocks: [
       { h2: "Anatomia" },
-      { compare: [
-        { title: "Counter: Container + número", attrs: { label: "3" } },
-        { title: "Text: Container + texto", attrs: { label: "Novo" } },
-        { title: "Counter mobile: ponto", attrs: { label: "3", viewport: "mobile" } }
-      ] },
+      // Figma: A Counter (número), B Counter mobile (ponto) e C Text, lado a lado
+      { anatomy: { attrs: { _tag: "div", class: "pg-doc-row", style: "gap:var(--common-sizes-80)", _children: [{ _tag: "cds-badge", label: "3" }, { _tag: "cds-badge", label: "3", viewport: "mobile" }, { _tag: "cds-badge", label: "Novo" }] },
+        markers: [{ n: 1, target: "cds-badge:nth-child(1) span", side: "top" }, { n: 2, target: "cds-badge:nth-child(1)", side: "left" }, { n: 3, target: "cds-badge:nth-child(2)", side: "top" }, { n: 4, target: "cds-badge:nth-child(3)", side: "top", align: "end" }, { n: 5, target: "cds-badge:nth-child(3) span", side: "right" }],
+        legend: ["Counter number (Counter)", "Container", "Counter dot (Counter no mobile)", "Container (Text)", "Text label"] } },
       { h2: "Propriedades" },
       { props: [
         { name: "Appearance", type: "Variant", default: "Warning", values: ["Warning", "Neutral"] },

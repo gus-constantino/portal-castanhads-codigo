@@ -38,7 +38,7 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: { "aspect-ratio": "3:2" }, markers: [{ n: 1, target: "img", side: "right" }], legend: ["Frame com a imagem no Fill (cortada para caber na proporção)"] } },
+        { anatomy: { attrs: { "aspect-ratio": "3:2" }, markers: [{ n: 1, target: "img", side: "left" }], legend: ["Image container (frame com a imagem no Fill, cortada para caber na proporção)"] } },
         { h2: "Propriedades" },
         { props: [
           { name: "Aspect Ratio", type: "Variant", default: "None", values: ["None", "1:1", "3:2"] }

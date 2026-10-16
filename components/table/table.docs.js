@@ -35,7 +35,7 @@
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
-        { anatomy: { attrs: { "per-page": "3", "show-pagination": false }, markers: [{ n: 1, target: "cds-table-toolbar", side: "left" }, { n: 2, target: "thead th:last-child", side: "right" }, { n: 3, target: "tbody tr:last-child td:nth-child(2)", side: "bottom", align: "start" }, { n: 4, target: "thead th:first-child", side: "left" }], legend: [".Toolbar (ações da tabela)", ".Head (título da coluna, ordenação)", ".Data Cell (Text, Balance, Percentage, Tag, Link, Action Controls)", "Coluna de seleção (Checkbox)"] } },
+        { anatomy: { attrs: { "per-page": "3", "show-pagination": false }, markers: [{ n: 1, target: "cds-table-toolbar", side: "left" }, { n: 2, target: "thead th:nth-child(2)", side: "top" }, { n: 3, target: "tbody tr:last-child td:nth-child(2)", side: "bottom", align: "start" }, { n: 4, target: "thead th:first-child", side: "left" }], legend: [".Toolbar (ações da tabela)", ".Head (título da coluna, ordenação)", ".Data Cell (Text, Balance, Percentage, Tag, Link, Action Controls)", "Coluna de seleção (Checkbox)"] } },
         { h2: "Propriedades" },
         { props: [
           { name: "Kind", type: "Variant", default: "Default", values: ["Default", "Empty"] },

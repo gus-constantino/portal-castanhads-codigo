@@ -38,10 +38,17 @@ CDS.docs = CDS.docs || {};
 
       { id: "anatomia", title: "Anatomia", blocks: [
         { h2: "Anatomia" },
+        { h3: "Default" },
         { anatomy: {
           attrs: modal("Alterar grupo", TEXT),
-          markers: [{ n: 1, target: "cds-header", side: "left" }, { n: 2, target: ".cds-overlay__slot", side: "left" }, { n: 3, target: "cds-footer", side: "right" }],
+          markers: [{ n: 1, target: "cds-header", side: "left" }, { n: 2, target: ".cds-overlay__slot", side: "left" }, { n: 3, target: "cds-footer", side: "left" }],
           legend: ["Modal header", "Slot", "Modal action footer"]
+        } },
+        { h3: "Confirmation" },
+        { anatomy: {
+          attrs: modal("", confirmation("positive", "positive-line", "Pedido enviado", "Você recebe a confirmação por e-mail."), { "show-header": "false" }),
+          markers: [{ n: 4, target: "cds-shaped-icon", side: "right" }, { n: 5, target: ".cds-cm__title", side: "right" }, { n: 6, target: ".cds-cm__desc", side: "right" }],
+          legend: ["Shaped icon", "Content title", "Content description"]
         } },
         { h2: "Composição do componente" },
         { ul: ["Header (opcional): título, botão de fechar e divisor — via `Show Header`.", "Content (obrigatório): área livre no Slot.", "Footer (opcional): ações primária e secundária — via `Show Footer`."] },

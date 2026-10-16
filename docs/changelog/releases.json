@@ -1,9 +1,64 @@
 {
  "fonte": "Slack #castanha-novidades (C09F7GD1A6M)",
- "lido_ate": "2026-10-13",
- "atualizado_em": "2026-10-13",
+ "lido_ate": "2026-10-16",
+ "atualizado_em": "2026-10-16",
  "nota": "lido_ate = último dia em que o canal foi lido por completo. A rotina lê a partir desse dia (inclusive); releases repetidas (mesma data, área e título) são ignoradas.",
  "releases": [
+  {
+   "data": "2026-10-15",
+   "area": "Ícones",
+   "titulo": "castanha-icons: novos ícones",
+   "versao": "v1.8.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`monitor-line`, `template-line`, `design-line`, `magical-wand-line`, `inspect-line`, `book-line` e `feedback-line`"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`react-line`: refino visual"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-10-15",
+   "area": "Ilustrações",
+   "titulo": "castanha-illustrations: padronização do Hub de Benefícios",
+   "versao": "v1.9.0",
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "`hub-de-beneficios`: nomes padronizados nas camadas `hero-*` e `hub-*`, sem duplicações (projetos que usavam essas ilustrações precisam migrar os nomes)"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`hero-hub-feedback`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos-arvore-natal`"
+    }
+   ],
+   "link": null
+  },
+  {
+   "data": "2026-10-15",
+   "area": "React",
+   "titulo": "castanha-react: correções",
+   "versao": "v1.12.1",
+   "itens": [
+    {
+     "tipo": "correcao",
+     "texto": "`Checkbox`: comportamento de `hide` no svg \"checked\""
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`FilterButton`: cores de texto"
+    }
+   ],
+   "link": null
+  },
   {
    "data": "2026-10-13",
    "area": "Outro",

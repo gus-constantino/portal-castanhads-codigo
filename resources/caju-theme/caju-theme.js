@@ -10,7 +10,7 @@
   CDS.register({ id: "ilustracao", name: "Ilustração", resource: true, lede: "Princípios, guidelines e a biblioteca de ilustrações da Caju.", order: 1.1, figma: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=3416-2" });
   CDS.register({ id: "motion", name: "Motion", resource: true, lede: "Princípios de motion, curvas, durações, Motion Styles e animações.", order: 1.2, figma: FIGMA });
   // Rotas antigas → endereço atual (links salvos continuam funcionando)
-  var MOVED = { "caju-icons": "#/caju-theme/icones", "caju-illustrations": "#/ilustracao", "animations": "#/motion/animacoes" }; // Animações: tab da página Motion (D+animacoes)
+  var MOVED = { "caju-icons": "#/caju-theme/icones", "caju-illustrations": "#/ilustracao", "animations": "#/motion/animacoes" }; // Animações: tab da página Motion (D361)
   function moved(){
     var h = location.hash || "", m = h.match(/^#\/(caju-icons|caju-illustrations|animations)(?:\/([\w-]+))?/);
     if (m) location.replace(MOVED[m[1]]);

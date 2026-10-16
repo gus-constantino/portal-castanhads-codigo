@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* Importa as animações Lottie do castanha-motion para o portal (D+animacoes).
+/* Importa as animações Lottie do castanha-motion para o portal (D361).
  *
  *   node scripts/dev/import-animations.js [caminho do clone do castanha] [ref]
  *     padrão: ../castanha  origin/staging

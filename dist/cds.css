@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 129 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 131 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.css ==== */
 /* Backdrop · 13784:3271 — Surface/inversed · Opacity/medium (0.4). O mesmo visual vale para o ::backdrop dos overlays */
 cds-backdrop{ position:absolute; inset:0; display:block; background:var(--common-colors-surface-inversed); opacity:var(--common-opacity-medium); }
@@ -2210,6 +2210,56 @@ cds-upload-item[status="error"] .cds-ui__msg{ color:var(--common-colors-feedback
 /* ==== components/upload-list/upload-list.css ==== */
 /* Upload List · 15465:1365 — 320 · coluna gap 8 */
 cds-upload-list{ display:flex; flex-direction:column; gap:var(--common-sizes-8); width:320px; max-width:100%; }
+
+/* ==== components/variation-big-number/variation-big-number.css ==== */
+/* .Variation Big Number · set 27246:396 — texto Caption/Medium + ícone 16 · gap Sizes/2 · sem fundo
+   Positive em Feedback/Positive/intense (o semi-intense não passava AA no Hovered do Big Number, decisão de 16/10);
+   Warning, Negative e Informative em semi-intense · Inversed em Text/inversed (sobre Accent) */
+cds-variation-big-number{
+  --_fg:var(--common-colors-feedback-positive-intense);
+  display:inline-flex; align-items:center; gap:var(--common-sizes-2);
+  font:var(--text-style-caption-medium); color:var(--_fg); white-space:nowrap;
+}
+cds-variation-big-number[appearance="warning"]{ --_fg:var(--common-colors-feedback-warning-semi-intense); }
+cds-variation-big-number[appearance="negative"]{ --_fg:var(--common-colors-feedback-negative-semi-intense); }
+cds-variation-big-number[appearance="informative"]{ --_fg:var(--common-colors-feedback-informative-semi-intense); }
+cds-variation-big-number[appearance="inversed"]{ --_fg:var(--common-colors-text-inversed); }
+cds-variation-big-number cds-icon{ --_icon-color:var(--_fg); }
+.cds-vbn__sr{ position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+
+/* ==== components/big-number/big-number.css ==== */
+/* Big Number · set 27238:472 — 272×180 fixo (mesma medida do legado, sem token na estável) · padding Sizes/24 · raio large
+   Header no topo, Body na base (space-between) · Neutral: Surface/01 · Accent: Surface/accent
+   Hovered: Neutral troca para Neutral/Solid/semi-soft · Accent ganha overlay Neutral/Opacity/Intense/semi-transparent (16%)
+   Motion: Hover In/01 (a documentação de motion ainda não tem página do Big Number) */
+cds-big-number{ display:inline-flex; }
+.cds-bn{
+  --_bg:var(--common-colors-surface-01); --_overlay:transparent;
+  --_label:var(--common-colors-text-medium); --_value:var(--common-colors-text-intense);
+  display:flex; flex-direction:column; justify-content:space-between; box-sizing:border-box;
+  width:272px; min-width:272px; height:180px; padding:var(--common-sizes-24);
+  border-radius:var(--common-border-radius-large);
+  background-color:var(--_bg); box-shadow:inset 0 0 0 var(--common-sizes-200) var(--_overlay);
+  transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), box-shadow var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing);
+}
+cds-big-number[appearance="accent"] .cds-bn{
+  --_bg:var(--common-colors-surface-accent); --_label:var(--common-colors-text-inversed); --_value:var(--common-colors-text-inversed);
+}
+.cds-bn:hover, cds-big-number[state="hovered"] .cds-bn{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
+cds-big-number[appearance="accent"] .cds-bn:hover, cds-big-number[appearance="accent"][state="hovered"] .cds-bn{
+  --_bg:var(--common-colors-surface-accent); --_overlay:var(--common-colors-neutral-opacity-intense-semi-transparent);
+}
+.cds-bn__head{ display:flex; align-items:center; justify-content:space-between; gap:var(--common-sizes-8); }
+.cds-bn__body{ display:flex; align-items:flex-end; gap:var(--common-sizes-8); }
+.cds-bn__content{ display:flex; flex-direction:column; gap:var(--common-sizes-4); flex:1 1 auto; min-width:0; }
+.cds-bn__label{ font:var(--text-style-caption-regular); color:var(--_label); }
+.cds-bn__value{ display:flex; align-items:center; gap:var(--common-sizes-8); }
+.cds-bn__number{ display:inline-flex; align-items:center; gap:var(--common-sizes-4); font:var(--text-style-title-medium); color:var(--_value); white-space:nowrap; font-variant-numeric:tabular-nums; }
+.cds-bn__block{ display:inline-flex; align-items:center; justify-content:center; flex:none; background:var(--common-colors-surface-default); }
+.cds-bn__lead{ width:var(--common-sizes-40); height:var(--common-sizes-40); border-radius:var(--common-border-radius-small); }
+.cds-bn__trail{ width:var(--common-sizes-48); height:var(--common-sizes-48); border-radius:var(--common-border-radius-medium); background:var(--common-colors-surface-accent); }
+cds-big-number[appearance="accent"] .cds-bn__trail{ background:var(--common-colors-surface-default); }
+@media (prefers-reduced-motion:reduce){ .cds-bn{ transition:none; } }
 
 /* ==== components/viewport-restriction/viewport-restriction.css ==== */
 /* Viewport Restriction · 5357:3899 — Feedback/Negative/soft · pad 16 · Caption/Medium Feedback/Negative/intense · 200×200 */

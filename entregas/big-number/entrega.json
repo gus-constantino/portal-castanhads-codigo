@@ -1,0 +1,11 @@
+{
+ "titulo": "Big Number",
+ "task": "CDS-1597",
+ "resumo": "Migração do Big Number para a lib estável: card de leitura com o nome da métrica, o valor em destaque (Currency ou número) e a variação no building block .Variation Big Number.",
+ "itens": [
+  "big-number",
+  "variation-big-number",
+  "currency",
+  "icon-button"
+ ]
+}

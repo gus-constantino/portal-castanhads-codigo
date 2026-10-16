@@ -57,6 +57,8 @@ window.CDS_EXPECTED = {
   "chat-input":        { w: 320, src: "26826:12925 · Text Box 56 (linha única 40 + pad 16), cresce até 108 (texto Sizes/92)" },
   "fab-button":        { w: 56, h: 56, src: "27039:594 · Sizes/56" },
   "fab-menu":          { w: 56, h: 56, src: "27075:22460 · fechado (só o FAB); aberto 3 ações = 240 de altura" },
+  "big-number":        { w: 272, h: 180, src: "27238:472 · 272×180 fixo, como o legado" },
+  "variation-big-number": { w: 45, h: 21, src: "27246:396 · Caption/Medium 14 + ícone 16 · hug" },
   "viewport-restriction": { w: 200, h: 200, src: "5357:3899" },
   "card":              { w: 254, src: "5256:540 · Has Border=True · altura depende do Slot" },
   "thumbnail":         { w: 280, h: 160, src: "composição do playground (sem Figma) · caixa do preview do hover (Sizes/200 + Sizes/80 × Sizes/160)" },

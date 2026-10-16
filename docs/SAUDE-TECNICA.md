@@ -6,9 +6,9 @@
 
 | Verificação | Resultado |
 |---|---|
-| Smoke dos componentes (claro, escuro, mobile 360) | ✅ 122/122 ok · ⚠️ 12 com aviso |
-| Smoke das docs (desktop e 375px) | ✅ 146 docs · 771 tabs · 0 com problema |
-| Peso da primeira visita | ❌ 668 KB gzip de 600 KB · docs sob demanda: 113 arquivos |
+| Smoke dos componentes (claro, escuro, mobile 360) | ✅ 124/124 ok · ⚠️ 12 com aviso |
+| Smoke das docs (desktop e 375px) | ✅ 148 docs · 781 tabs · 0 com problema |
+| Peso da primeira visita | ❌ 672 KB gzip de 600 KB · docs sob demanda: 115 arquivos |
 ## Componentes
 
 Nenhuma falha.
@@ -40,11 +40,11 @@ Nenhum aviso.
 
 | Parte | Bruto | gzip |
 |---|---|---|
-| Primeira visita (tudo o que o index.html carrega) | 2812 KB | 668 KB |
-| dist/cds.js · componentes (120 arquivos) | 377 KB | 96 KB |
-| dist/cds.js · playgrounds (113 arquivos) | 177 KB | 32 KB |
+| Primeira visita (tudo o que o index.html carrega) | 2829 KB | 672 KB |
+| dist/cds.js · componentes (122 arquivos) | 383 KB | 98 KB |
+| dist/cds.js · playgrounds (115 arquivos) | 182 KB | 33 KB |
 | dist/cds.js · recursos (41 arquivos) | 775 KB | 222 KB |
-| Docs sob demanda (113 arquivos, uma por componente aberto) | — | 311 KB no total |
+| Docs sob demanda (115 arquivos, uma por componente aberto) | — | 317 KB no total |
 
 Limite: 600 KB gzip na primeira visita (aviso no build; `BUDGET_STRICT=1` faz falhar).
 

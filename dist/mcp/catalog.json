@@ -26,11 +26,11 @@
   }
  },
  "counts": {
-  "components": 88,
-  "buildingBlocks": 27,
+  "components": 89,
+  "buildingBlocks": 28,
   "resources": 28,
   "compositions": 7,
-  "withDocs": 143,
+  "withDocs": 145,
   "withReact": 72,
   "withFlutter": 45,
   "liveMaps": 70,
@@ -38,7 +38,7 @@
   "tokens": 396,
   "icons": 273,
   "illustrations": 260,
-  "conferirOpen": 147,
+  "conferirOpen": 148,
   "stackFindings": 55
  },
  "components": [
@@ -1885,7 +1885,7 @@
     {
      "id": "uso",
      "title": "Uso",
-     "text": "## Sobre\n\nO Balance Card exibe o saldo de uma categoria com rótulo, valor e status complementares. É um componente interativo e funciona como ponto de entrada para o detalhe ou o extrato da categoria.\n\n### Nomes alternativos comuns\n\nCategory card, Balance tile, Stat card, Summary card, Wallet card.\n\n### Princípios\n\n- **Um saldo por card** — Cada card representa uma única categoria. Não agrupe valores de categorias diferentes no mesmo bloco.\n- **Status complementa, não substitui** — As tags apoiam a leitura do saldo. Reserve as tags para quando a informação muda a decisão da pessoa usuária.\n- **Toque previsível** — O card é sempre clicável e leva ao detalhe da categoria. Não utilize como elemento puramente informativo.\n\n## Quando usar\n\nUtilize o Balance Card quando a pessoa usuária precisar consultar o saldo de uma categoria e acessar seu detalhe a partir dali. Ele funciona bem em listas e grids, onde comparar valores entre categorias faz parte da tarefa, e suporta status complementares quando o saldo tem alguma condição associada.\n\n### Utilize para:\n\n- Exibir saldo por categoria em listas ou grids\n- Dar entrada ao detalhe ou ao extrato da categoria\n- Sinalizar status ligado ao saldo, como bloqueio ou vencimento\n- Compor painéis de saldo com múltiplas categorias\n\n### Não utilize para:\n\n- Exibir um valor isolado, sem categoria (utilize o Currency)\n- Elementos não clicáveis, já que o card tem estados de interação\n- Agrupar vários valores no mesmo bloco (utilize List ou Table)\n- Ações sem valor monetário associado (utilize o Shortcut)\n\n### Balance Card vs Shortcut\n\nUse o Balance Card quando o saldo de uma categoria for a informação principal e a pessoa usuária precisar consultá-lo para decidir algo — especialmente quando o valor precisa de destaque ou vem acompanhado de um status, como bloqueio ou vencimento.\n\nO Shortcut é indicado para acessos diretos e recorrentes, em que o valor aparece como apoio e o objetivo é chegar à ação em menos toques, desde que a categoria seja reconhecível pelo ícone e por um rótulo curto.\n\n- Este é um Balance Card\n\n### Balance Card vs Big number\n\nUse o Balance Card quando o saldo precisar ser consultado e levar a um destino, como o detalhe ou o extrato da categoria — o card é sempre clicável e responde a interação. O Big number é indicado quando o valor existe para ser lido com ênfase, sem nenhuma ação associada, como em painéis e resumos de leitura.\n\n- Este é um Balance Card\n\n> Shortcut e Big number ainda não estão na lib do playground, por isso a comparação mostra o Balance Card sozinho."
+     "text": "## Sobre\n\nO Balance Card exibe o saldo de uma categoria com rótulo, valor e status complementares. É um componente interativo e funciona como ponto de entrada para o detalhe ou o extrato da categoria.\n\n### Nomes alternativos comuns\n\nCategory card, Balance tile, Stat card, Summary card, Wallet card.\n\n### Princípios\n\n- **Um saldo por card** — Cada card representa uma única categoria. Não agrupe valores de categorias diferentes no mesmo bloco.\n- **Status complementa, não substitui** — As tags apoiam a leitura do saldo. Reserve as tags para quando a informação muda a decisão da pessoa usuária.\n- **Toque previsível** — O card é sempre clicável e leva ao detalhe da categoria. Não utilize como elemento puramente informativo.\n\n## Quando usar\n\nUtilize o Balance Card quando a pessoa usuária precisar consultar o saldo de uma categoria e acessar seu detalhe a partir dali. Ele funciona bem em listas e grids, onde comparar valores entre categorias faz parte da tarefa, e suporta status complementares quando o saldo tem alguma condição associada.\n\n### Utilize para:\n\n- Exibir saldo por categoria em listas ou grids\n- Dar entrada ao detalhe ou ao extrato da categoria\n- Sinalizar status ligado ao saldo, como bloqueio ou vencimento\n- Compor painéis de saldo com múltiplas categorias\n\n### Não utilize para:\n\n- Exibir um valor isolado, sem categoria (utilize o Currency)\n- Elementos não clicáveis, já que o card tem estados de interação\n- Agrupar vários valores no mesmo bloco (utilize List ou Table)\n- Ações sem valor monetário associado (utilize o Shortcut)\n\n### Balance Card vs Shortcut\n\nUse o Balance Card quando o saldo de uma categoria for a informação principal e a pessoa usuária precisar consultá-lo para decidir algo — especialmente quando o valor precisa de destaque ou vem acompanhado de um status, como bloqueio ou vencimento.\n\nO Shortcut é indicado para acessos diretos e recorrentes, em que o valor aparece como apoio e o objetivo é chegar à ação em menos toques, desde que a categoria seja reconhecível pelo ícone e por um rótulo curto.\n\n- Este é um Balance Card\n\n### Balance Card vs Big number\n\nUse o Balance Card quando o saldo precisar ser consultado e levar a um destino, como o detalhe ou o extrato da categoria — o card é sempre clicável e responde a interação. O Big number é indicado quando o valor existe para ser lido com ênfase, sem nenhuma ação associada, como em painéis e resumos de leitura.\n\n- Este é um Balance Card\n- Este é um Big Number (exemplo: Saldo disponível)\n\n> O Shortcut ainda não está na lib do playground, por isso a comparação com ele mostra o Balance Card sozinho."
     },
     {
      "id": "anatomia",
@@ -2389,6 +2389,50 @@
     ],
     "checks": []
    }
+  },
+  {
+   "id": "big-number",
+   "name": "Big Number",
+   "kind": "component",
+   "category": "Content",
+   "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/KOmiQxHXqiErSbLmoG3sv6/-CastanhaDS--Components?node-id=27238-472",
+   "figmaNode": "27238-472",
+   "zeroheight": "https://castanha.caju.com.br/858426090/v/latest/p/98e195",
+   "jira": "CDS-1597",
+   "figmaStatus": "branch",
+   "description": "Destaca um dado numérico relevante, como valor monetário ou percentual, em painéis e resumos de leitura rápida.",
+   "tabs": [
+    {
+     "id": "uso",
+     "title": "Uso",
+     "text": "> **Em desenvolvimento · CDS-1597:** O Big Number estável está na branch do Figma e entra no Release 26. Substitui o Big Number [web only] da lib legado. Ainda não existe no castanha-react nem no Flutter.\n\n## Sobre\n\nO Big Number é um card de leitura que destaca um dado numérico. Mostra o nome da métrica, o valor em destaque e, quando houver, a variação do valor.\n\nO valor monetário usa o Currency. Para número com unidade, como percentual, o valor usa o mesmo text style do Currency.\n\n### Nomes alternativos comuns\n\nKPI card, metric card, highlight number, card de métrica.\n\n### Princípios\n\n- **Ênfase no dado** — O valor é o centro do card, com alto contraste e escala tipográfica maior.\n- **Contexto mínimo** — Só o essencial: o nome da métrica e, quando ajuda, a variação.\n- **Leitura rápida** — A pessoa entende o número de relance e compara com cards ao lado.\n\n## Quando usar\n\nUse o Big Number para destacar um dado numérico prioritário em dashboards, resumos ou telas analíticas.\n\n### Utilize para:\n\n- Destacar valores monetários relevantes\n- Apresentar métricas principais (KPIs)\n- Exibir variações percentuais com indicação de tendência\n- Resumir dados em painéis\n\n### Não utilize para:\n\n- Listar vários dados sem hierarquia — use List ou Table\n- Saldo de uma categoria que leva ao detalhe — use o Balance Card\n- Informação complexa ou detalhada\n- Dado que não é prioritário na tela\n\n## Big Number vs. Balance Card\n\n|  | Big Number | Balance Card |\n|---|---|---|\n| Função | Leitura de um dado em destaque | Entrada para o detalhe de uma categoria |\n| Interação | Card não clicável. O alvo é o Information Button | O card inteiro é clicável |\n| Conteúdo | Valor monetário ou número, com variação opcional | Saldo da categoria, com tags de status |\n\n- Big Number: leitura com ênfase (exemplo: Saldo disponível)\n- Balance Card: leva ao detalhe (exemplo: Refeição)"
+    },
+    {
+     "id": "anatomia",
+     "title": "Anatomia",
+     "text": "## Anatomia\n\nAnatomia:\n1. Container: 272×180, Neutral ou Accent\n2. Lead Icon: bloco de 40 com ícone de 24\n3. Information Button: Icon Button Ghost Small (opcional)\n4. Label: nome da métrica\n5. Valor: Currency Largest ou número com unidade\n6. Variação: .Variation Big Number (opcional)\n7. Trailing Icon: bloco de 48 com ícone de 24 (opcional)\n\n## Composição do componente\n\nO Header fica no topo, com o Lead Icon e o Information Button. O Body fica na base, com o Label, a linha do valor e o Trailing Icon. O valor monetário é uma instância do Currency `Size=Largest`. O número usa o text style `Title/Medium`. A variação é o building block .Variation Big Number, com texto e ícone, sem fundo.\n\n## Propriedades\n\n- **Kind** (Variant): Currency, Number\n- **Appearance** (Variant): Neutral, Accent\n- **State** (Variant): Enabled, Hovered\n- **Show Information** (Boolean)\n- **Show Variation** (Boolean)\n- **Show Trailing Icon** (Boolean)\n- **Lead Icon** (Swap component)\n- **Trailing Icon** (Swap component)\n- **Text Label** (Text)\n- **Text Value** (Text)\n\n> `Text Value` age só no Kind=Number. No Kind=Currency o valor vem do próprio Currency. A instância `Variation` fica exposta para trocar Appearance, Text Label e Icon. No código: `kind`, `appearance`, `label`, `value`, `symbol`, `unit`, `icon`, `trailing-icon`, `show-information`, `show-variation`, `show-trailing-icon`, `variation`, `variation-appearance`, `variation-icon`, `variation-description` e `info-label`. Evento `cds-info` no Information Button.\n\n## Entrega para dev · CDS-1597\n\n| Elemento | Token ou valor (branch, 16/10) |\n|---|---|\n| Container | 272×180 (mesma medida do legado) · padding `Sizes/24` · raio `Border/Radius/large` |\n| Fundo | Neutral `Surface/01` · Accent `Surface/accent` |\n| Hovered | Neutral `Neutral/Solid/semi-soft` · Accent com overlay `Neutral/Opacity/Intense/semi-transparent` |\n| Lead Icon | 40×40 `Sizes/40` · raio `Border/Radius/small` · fundo `Surface/default` · ícone 24 `Icons/intense` |\n| Trailing Icon | 48×48 `Sizes/48` · raio `Border/Radius/medium` · Neutral `Surface/accent` com ícone `Icons/inversed` · Accent `Surface/default` com ícone `Icons/intense` |\n| Information Button | Icon Button Ghost Small (40) · `information-line` · Inversed no Accent |\n| Texto | Label `Caption/Regular` em `Text/medium` (`Text/inversed` no Accent) · valor `Title/Medium` |\n| Espaços | `Sizes/8` no Header, no Body e entre valor e variação · `Sizes/4` entre Label e valor |\n\n- O card é de leitura: tem Enabled e Hovered, sem Pressed e sem Disabled. O único alvo de toque é o Information Button.\n- O Hovered muda só o fundo. No Neutral o fundo vira sólido. No Accent entra um overlay de 16%.\n- O texto da amostra (Description, R$ 100,00, 0,00 %, +1%) é ilustração. O conteúdo real vem do uso."
+    },
+    {
+     "id": "estilos",
+     "title": "Estilos",
+     "text": "## Estilos\n\n**Kind · Neutral:** Currency, Number\n\n**Kind · Accent:** Currency, Number\n\n**State:** Neutral · Hovered, Accent · Hovered\n\n**.Variation Big Number · Appearance:** Positive, Warning, Negative, Informative, Inversed\n\n**Opcionais:** Sem variação, Sem Trailing Icon, Sem Information Button"
+    },
+    {
+     "id": "acessibilidade",
+     "title": "Acessibilidade",
+     "text": "## Leitor de tela\n\n### Como é anunciado\n\n1. O card não tem papel interativo. O leitor de tela lê o conteúdo na ordem do layout.\n2. O valor fica exposto como texto, ex.: R$ 12.480,90. O leitor de tela faz a leitura, sem `aria-label` soletrado.\n3. A variação expõe o sentido em texto, não só na cor e no ícone. Use `variation-description`, ex.: Aumento de 1% em relação ao período anterior.\n4. O ícone da variação e os ícones do Lead e do Trailing são decorativos (`aria-hidden`).\n5. O Information Button tem nome acessível com a métrica. Padrão: Mais informações sobre {Label}, ou o texto de `info-label`.\n\n### Ordem de leitura\n\n1. Information Button (Mais informações sobre a métrica)\n2. Label\n3. Valor\n4. Variação\n\n### Teclado\n\n| Tecla | Ação |\n|---|---|\n| Tab | Leva o foco ao Information Button. O card não recebe foco |\n| Enter ou Espaço no Information Button | Dispara `cds-info` |\n\n### Contraste (WCAG)\n\n1. Label (`Text/medium`): 7,42:1 em Enabled e 6,59:1 em Hovered.\n2. Valor (`Text/intense`, 24): 15,27:1 em Enabled e 13,56:1 em Hovered.\n3. Variação: Positive 8,30:1 e 7,37:1 · Warning 5,77:1 e 5,12:1 · Negative 8,55:1 e 7,59:1 · Informative 7,15:1 e 6,35:1.\n4. Texto, valor e variação no Accent (`Text/inversed`): 4,54:1 em Enabled e 5,83:1 em Hovered.\n5. Os blocos do Lead e do Trailing são decorativos. Vale o contraste do ícone dentro deles: 16,96:1 e 4,54:1.\n6. Information Button de 40×40: acima do alvo mínimo de 24×24 (2.5.8)."
+    },
+    {
+     "id": "diretrizes",
+     "title": "Diretrizes",
+     "text": "## Diretrizes\n\n- **Priorize um único dado** — Cada card mostra uma métrica. Para comparar várias, use vários cards lado a lado.\n- **Mantenha consistência entre cards** — Cards lado a lado usam o mesmo Kind e a mesma Appearance, com a mesma estrutura.\n- **Use o Accent com critério** — O Accent destaca o dado mais importante da tela. Use um por tela.\n\n## Do's and Don'ts\n\n- ✅ Faça: Rótulo curto, com o nome da métrica. (exemplo: Saldo disponível)\n- ❌ Evite: Rótulo longo compete com o valor e quebra a leitura rápida. (exemplo: Saldo total disponível para uso neste mês)\n- ✅ Faça: Variação com o sentido em texto para o leitor de tela. (exemplo: Saldo disponível)\n- ❌ Evite: Vários cards em Accent na mesma tela: nenhum deles se destaca. (exemplo: Saldo disponível · Taxa de uso)"
+    },
+    {
+     "id": "motion",
+     "title": "Motion",
+     "text": "## Motion\n\n> **Especificação pendente:** A documentação de motion para devs ainda não tem página do Big Number. Até sair, vale o Hover In/01.\n\nExemplo: Saldo disponível\n\n> Exemplo interativo: passe o mouse no card para ver a troca do fundo.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`"
+    }
+   ]
   },
   {
    "id": "bottom-sheet",
@@ -20909,6 +20953,40 @@
    }
   },
   {
+   "id": "variation-big-number",
+   "name": ".Variation Big Number",
+   "kind": "building-block",
+   "category": "Content",
+   "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/KOmiQxHXqiErSbLmoG3sv6/-CastanhaDS--Components?node-id=27246-396",
+   "figmaNode": "27246-396",
+   "zeroheight": null,
+   "jira": "CDS-1597",
+   "figmaStatus": "branch",
+   "description": "Variação do valor do Big Number, em texto e ícone, sem fundo.",
+   "tabs": [
+    {
+     "id": "uso",
+     "title": "Uso",
+     "text": "> **Em desenvolvimento · CDS-1597:** Building block do Big Number, na branch do Figma. Entra no Release 26.\n\n## Sobre\n\nO .Variation Big Number mostra a variação do valor do Big Number, em texto e ícone, sem fundo. É um building block: não é distribuído sozinho.\n\nSubstitui o .Variation index do legado, agora com tokens da lib estável.\n\n## Quando usar\n\n- Peça interna do Big Number, ao lado do valor, via `Show Variation`.\n- Inversed serve para o Big Number Accent.\n- Para status com fundo, fora do Big Number, use a Tag.\n\n- Dentro do Big Number"
+    },
+    {
+     "id": "anatomia",
+     "title": "Anatomia",
+     "text": "## Anatomia\n\nAnatomia:\n1. Text Label: `Caption/Medium`\n2. Icon: 16, decorativo\n\n## Propriedades\n\n- **Appearance** (Variant): Positive, Warning, Negative, Informative, Inversed\n- **Text Label** (Text)\n- **Icon** (Swap component)\n\n> No código: `appearance`, `label`, `icon` e `description` (sentido da variação para o leitor de tela).\n\n| Appearance | Texto e ícone |\n|---|---|\n| Positive | `Feedback/Positive/intense` |\n| Warning | `Feedback/Warning/semi-intense` |\n| Negative | `Feedback/Negative/semi-intense` |\n| Informative | `Feedback/Informative/semi-intense` |\n| Inversed | `Text/inversed` |\n\n> Positive usa `intense` porque o `semi-intense` não passava AA no Hovered do Big Number. Gap `Sizes/2` entre texto e ícone."
+    },
+    {
+     "id": "estilos",
+     "title": "Estilos",
+     "text": "## Estilos\n\n**Appearance:** Positive, Warning, Negative, Informative, Inversed"
+    },
+    {
+     "id": "acessibilidade",
+     "title": "Acessibilidade",
+     "text": "## Leitor de tela\n\n1. O sentido da variação vai em texto, não só na cor e no ícone. Use `description`, ex.: Aumento de 1% em relação ao período anterior.\n2. Sem `description`, o leitor de tela ouve o texto visível.\n3. O ícone é decorativo (`aria-hidden`)."
+    }
+   ]
+  },
+  {
    "id": "viewport-restriction",
    "name": "Viewport Restriction",
    "kind": "component",
@@ -33211,6 +33289,12 @@
     "text": "Date Input · mobile · Annotation na branch `[Add New] Datepicker` (qIbjCjbldhio6XaLTiFIld, mergeada): a coleção Viewport (`Common/Is Desktop`, `Is Tablet`, `Is Mobile`) mostra o calendário do DS no Desktop e, no Mobile, delega a escolha ao seletor nativo do sistema. A annotation diz que o mecanismo é só do Figma e que, no código, a decisão de plataforma é da implementação · Confirmar se o tablet fica com o calendário do DS (a annotation não fala do tablet) · **Exceção** (Gustavo, 16/10, D358): no mobile o Calendar Button abre o `input type=\"date\"` nativo. Desktop e tablet seguem com o Date Picker no Popover. Mobile = atributo `viewport`, senão o `[data-viewport]` mais próximo, senão a janela < 744 · Nada a mudar no código se o Figma confirmar o tablet com o calendário do DS"
    },
    {
+    "id": "C209",
+    "group": "Ajuste de UI",
+    "resolved": false,
+    "text": "Big Number (CDS-1597) · valor longo · Card fixo de 272 × 180, mesma medida do legado. Com o Trailing Icon visível, a linha do valor tem 168 de largura. `R$ 12.480,90` com a variação passa disso e invade o Trailing Icon. O Figma não define quebra, reticências nem encolhimento · Definir o comportamento com valor longo (quebrar a variação, encolher o text style ou esconder o Trailing Icon) · Segue o Figma: o valor não quebra (`white-space:nowrap`) e pode encostar no Trailing Icon. Nas docs, os exemplos com valor de 5 dígitos ficam sem Trailing Icon · Aberto"
+   },
+   {
     "id": "C01",
     "group": "Motion",
     "resolved": false,
@@ -33400,7 +33484,7 @@
     "id": "C89",
     "group": "Refactor",
     "resolved": false,
-    "text": "Doc do Balance Card ([CastanhaDS] Component use documentation · 6695:9618) · comparações · \"Balance Card vs Shortcut\" e \"vs Big number\" mostram os dois componentes; **Shortcut** é de outra lib remota (set `6640:234`) e **Big number** não existe na lib do playground · Shortcut e Big number na lib principal (ou no playground) · Comparação com o texto completo + só o Balance Card vivo e uma nota explicando (decisão do Gustavo, 02/10) · Trocar `compare` em `components/balance-card/balance-card.docs.js` quando os dois existirem"
+    "text": "Doc do Balance Card ([CastanhaDS] Component use documentation · 6695:9618) · comparações · \"Balance Card vs Shortcut\" e \"vs Big number\" mostram os dois componentes; **Shortcut** é de outra lib remota (set `6640:234`) e **Big number** não existe na lib do playground · Shortcut e Big number na lib principal (ou no playground) · Comparação com o texto completo + só o Balance Card vivo e uma nota explicando (decisão do Gustavo, 02/10) · Trocar `compare` em `components/balance-card/balance-card.docs.js` quando os dois existirem. Atualização (D363): o Big Number entrou na comparação. Falta o Shortcut"
    },
    {
     "id": "C90",

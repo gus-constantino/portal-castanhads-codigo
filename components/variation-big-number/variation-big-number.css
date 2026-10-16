@@ -1,0 +1,14 @@
+/* .Variation Big Number · set 27246:396 — texto Caption/Medium + ícone 16 · gap Sizes/2 · sem fundo
+   Positive em Feedback/Positive/intense (o semi-intense não passava AA no Hovered do Big Number, decisão de 16/10);
+   Warning, Negative e Informative em semi-intense · Inversed em Text/inversed (sobre Accent) */
+cds-variation-big-number{
+  --_fg:var(--common-colors-feedback-positive-intense);
+  display:inline-flex; align-items:center; gap:var(--common-sizes-2);
+  font:var(--text-style-caption-medium); color:var(--_fg); white-space:nowrap;
+}
+cds-variation-big-number[appearance="warning"]{ --_fg:var(--common-colors-feedback-warning-semi-intense); }
+cds-variation-big-number[appearance="negative"]{ --_fg:var(--common-colors-feedback-negative-semi-intense); }
+cds-variation-big-number[appearance="informative"]{ --_fg:var(--common-colors-feedback-informative-semi-intense); }
+cds-variation-big-number[appearance="inversed"]{ --_fg:var(--common-colors-text-inversed); }
+cds-variation-big-number cds-icon{ --_icon-color:var(--_fg); }
+.cds-vbn__sr{ position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }

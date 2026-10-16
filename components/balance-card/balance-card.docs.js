@@ -1,7 +1,7 @@
 /* Documentação — Balance Card
    Fonte: [CastanhaDS] Component use documentation · seção 6695:9618 · frame [Documentação] Balance Card
    Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs. Composição e Acessibilidade estão ocultas no Figma e aparecem aqui;
-   os 2 Do/Don'ts ocultos ficaram de fora. Shortcut e Big number não estão na lib: as comparações mostram só o Balance Card (CONFERIR C89).
+   os 2 Do/Don'ts ocultos ficaram de fora. Shortcut não está na lib: a comparação com ele mostra só o Balance Card (CONFERIR C89). Big number na branch do CDS-1597.
    Motion ainda é placeholder no Figma (C90). */
 window.CDS = window.CDS || {};
 CDS.docs = CDS.docs || {};
@@ -35,8 +35,8 @@ CDS.docs["balance-card"] = {
       { compare: [{ title: "Este é um Balance Card", attrs: {} }] },
       { h3: "Balance Card vs Big number" },
       { p: "Use o Balance Card quando o saldo precisar ser consultado e levar a um destino, como o detalhe ou o extrato da categoria — o card é sempre clicável e responde a interação. O Big number é indicado quando o valor existe para ser lido com ênfase, sem nenhuma ação associada, como em painéis e resumos de leitura." },
-      { compare: [{ title: "Este é um Balance Card", attrs: {} }] },
-      { note: "Shortcut e Big number ainda não estão na lib do playground, por isso a comparação mostra o Balance Card sozinho." }
+      { compare: [{ title: "Este é um Balance Card", attrs: {} }, { title: "Este é um Big Number", attrs: { _tag: "cds-big-number", label: "Saldo disponível", value: "12.480,90", icon: "coins-line", "show-trailing-icon": "false" } }] },
+      { note: "O Shortcut ainda não está na lib do playground, por isso a comparação com ele mostra o Balance Card sozinho." }
     ] },
 
     { id: "anatomia", title: "Anatomia", blocks: [

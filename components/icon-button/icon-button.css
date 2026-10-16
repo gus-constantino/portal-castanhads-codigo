@@ -1,7 +1,7 @@
 /* =====================================================================
    Icon Button · Buttons · set 4464:636
    Size: Medium 48 / raio medium · Small 40 / raio small · ícone 20 · Disabled Opacity/medium
-   Motion (reactions): Hover e Press var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate)
+   Motion: Hover In/01 e Hover Out/01 (150ms Systemic/default) · Pressed/01 (200ms Systemic/accelerate) · Notion verde e Figma
    ===================================================================== */
 cds-icon-button{ display:inline-flex; flex:0 0 auto; position:relative; }
 cds-icon-button > .cds-ib{
@@ -10,7 +10,7 @@ cds-icon-button > .cds-ib{
   width:var(--common-sizes-48); height:var(--common-sizes-48); padding:0; margin:0; border:0; cursor:pointer;
   border-radius:var(--common-border-radius-medium);
   background:var(--_bg); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--_bd);
-  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+  transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), box-shadow var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing);
 }
 cds-icon-button > .cds-ib{ --cds-icon-color:var(--_fg); } /* override do Icon aninhado */
 cds-icon-button[size="small"] > .cds-ib{ width:var(--common-sizes-40); height:var(--common-sizes-40); border-radius:var(--common-border-radius-small); }
@@ -19,6 +19,7 @@ cds-icon-button > .cds-ib > cds-badge{ position:absolute; top:6px; right:5px; }
 /* Default · Accent */
 cds-icon-button .cds-ib:hover, cds-icon-button[state="hovered"] .cds-ib{ --_bg:var(--common-colors-accent-solid-semi-intense); }
 cds-icon-button .cds-ib:active, cds-icon-button[state="pressed"] .cds-ib{ --_bg:var(--common-colors-accent-solid-medium); }
+cds-icon-button .cds-ib:active, cds-icon-button[state="pressed"] .cds-ib{ transition-duration:var(--motion-pressed-01-timing); transition-timing-function:var(--motion-pressed-01-easing); }
 /* Ghost · Accent */
 cds-icon-button[kind="ghost"] > .cds-ib{ --_bg:transparent; --_fg:var(--common-colors-icons-accent); }
 cds-icon-button[kind="ghost"] > .cds-ib:hover, cds-icon-button[kind="ghost"][state="hovered"] > .cds-ib{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); }

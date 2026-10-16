@@ -50,7 +50,12 @@ CDS.docs["carousel"] = {
 
     { id: "motion", title: "Motion", blocks: [
       { h2: "Motion" },
-      { p: "A troca de item é a rolagem da faixa até o início do item, com encaixe (scroll-snap). O Figma não define duração nem curva para essa transição." }
+      { p: "A troca de item é a rolagem da faixa até o início do item, com encaixe (scroll-snap)." },
+      { specs: [
+        { title: "Avançar", rows: [["Gatilho", "On tap ou arrastar"], ["Motion Style", "`Selected In/04`"]] },
+        { title: "Voltar", rows: [["Gatilho", "On tap ou arrastar"], ["Motion Style", "`Selected Out/05`"]] }
+      ] },
+      { note: "O playground usa a rolagem nativa do navegador e ainda não aplica esse timing. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma." }
     ] }
   ]
 };

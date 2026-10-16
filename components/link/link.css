@@ -10,12 +10,12 @@ cds-link > a{
   display:inline-flex; align-items:center; gap:var(--common-sizes-4); min-height:var(--common-sizes-48);
   font:var(--text-style-label-medium); color:var(--_fg); text-decoration:none; cursor:pointer;
   text-decoration-color:transparent; text-underline-offset:2px;
-  transition:text-decoration-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+  transition:text-decoration-color var(--motion-hover-in-04-timing) var(--motion-hover-in-04-easing);
 }
 cds-link > a{ --cds-icon-color:var(--_fg); } /* override do Icon aninhado */
 cds-link[appearance="accent"] > a{ --_fg:var(--common-colors-text-accent); }
 cds-link[appearance="inversed"] > a{ --_fg:var(--common-colors-text-inversed); }
 
 cds-link > a:hover, cds-link[state="hovered"] > a{ text-decoration:underline; text-decoration-color:currentColor; }
-cds-link > a:active, cds-link[state="pressed"] > a{ font:var(--text-style-label-bold); text-decoration:underline; text-decoration-color:currentColor; }
+cds-link > a:active, cds-link[state="pressed"] > a{ transition-duration:var(--motion-pressed-05-timing); transition-timing-function:var(--motion-pressed-05-easing); font:var(--text-style-label-bold); text-decoration:underline; text-decoration-color:currentColor; }
 cds-link[disabled]{ opacity:var(--common-opacity-light); pointer-events:none; }

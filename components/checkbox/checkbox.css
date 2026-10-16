@@ -17,3 +17,8 @@ cds-checkbox:is([status="selected"],[status="indeterminate"]) .cds-sc__box{ --_b
 cds-checkbox:is([status="selected"],[status="indeterminate"]) .cds-sc:is(:hover,:active) .cds-sc__box, cds-checkbox:is([status="selected"],[status="indeterminate"]):is([state="hovered"],[state="pressed"]) .cds-sc .cds-sc__box{ --_bd:transparent; }
 cds-checkbox[status="selected"] .cds-sc__glyph--check,
 cds-checkbox[status="indeterminate"] .cds-sc__glyph--indeterminate{ display:block; }
+
+/* Motion (Notion verde e Figma): Hover In/01 no hover · Pressed/03 no press · Selected In/02 ao marcar */
+cds-checkbox .cds-sc{ --_dur:var(--motion-hover-in-01-timing); --_ease:var(--motion-hover-in-01-easing); }
+cds-checkbox .cds-sc:active, cds-checkbox[state="pressed"] .cds-sc{ --_dur:var(--motion-pressed-03-timing); --_ease:var(--motion-pressed-03-easing); }
+cds-checkbox .cds-sc__box{ transition:background-color var(--motion-selected-in-02-timing) var(--motion-selected-in-02-easing), box-shadow var(--_dur) var(--_ease); }

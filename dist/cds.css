@@ -343,7 +343,7 @@ cds-filter-chip[selected][disabled] > .cds-chip{ --_bg:var(--common-colors-surfa
 /* =====================================================================
    Icon Button · Buttons · set 4464:636
    Size: Medium 48 / raio medium · Small 40 / raio small · ícone 20 · Disabled Opacity/medium
-   Motion (reactions): Hover e Press var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate)
+   Motion: Hover In/01 e Hover Out/01 (150ms Systemic/default) · Pressed/01 (200ms Systemic/accelerate) · Notion verde e Figma
    ===================================================================== */
 cds-icon-button{ display:inline-flex; flex:0 0 auto; position:relative; }
 cds-icon-button > .cds-ib{
@@ -352,7 +352,7 @@ cds-icon-button > .cds-ib{
   width:var(--common-sizes-48); height:var(--common-sizes-48); padding:0; margin:0; border:0; cursor:pointer;
   border-radius:var(--common-border-radius-medium);
   background:var(--_bg); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--_bd);
-  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+  transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), box-shadow var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing);
 }
 cds-icon-button > .cds-ib{ --cds-icon-color:var(--_fg); } /* override do Icon aninhado */
 cds-icon-button[size="small"] > .cds-ib{ width:var(--common-sizes-40); height:var(--common-sizes-40); border-radius:var(--common-border-radius-small); }
@@ -361,6 +361,7 @@ cds-icon-button > .cds-ib > cds-badge{ position:absolute; top:6px; right:5px; }
 /* Default · Accent */
 cds-icon-button .cds-ib:hover, cds-icon-button[state="hovered"] .cds-ib{ --_bg:var(--common-colors-accent-solid-semi-intense); }
 cds-icon-button .cds-ib:active, cds-icon-button[state="pressed"] .cds-ib{ --_bg:var(--common-colors-accent-solid-medium); }
+cds-icon-button .cds-ib:active, cds-icon-button[state="pressed"] .cds-ib{ transition-duration:var(--motion-pressed-01-timing); transition-timing-function:var(--motion-pressed-01-easing); }
 /* Ghost · Accent */
 cds-icon-button[kind="ghost"] > .cds-ib{ --_bg:transparent; --_fg:var(--common-colors-icons-accent); }
 cds-icon-button[kind="ghost"] > .cds-ib:hover, cds-icon-button[kind="ghost"][state="hovered"] > .cds-ib{ --_bg:var(--common-colors-accent-solid-soft); --_fg:var(--common-colors-accent-solid-semi-intense); }
@@ -469,10 +470,11 @@ cds-banner{ display:block; width:280px; min-width:min(280px, 100%); max-width:10
 }
 .cds-banner::after{
   content:""; position:absolute; inset:0; z-index:2; pointer-events:none; border-radius:inherit; background:var(--_overlay);
-  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+  transition:background-color var(--motion-hover-in-03-timing) var(--motion-hover-in-03-easing);
 }
 .cds-banner:hover, cds-banner[state="hovered"] .cds-banner{ --_overlay:var(--common-colors-neutral-opacity-intense-semi-transparent); }
 .cds-banner:active, cds-banner[state="pressed"] .cds-banner{ --_overlay:var(--common-colors-neutral-opacity-intense-light); }
+.cds-banner:active::after, cds-banner[state="pressed"] .cds-banner::after{ transition-duration:var(--motion-pressed-06-timing); transition-timing-function:var(--motion-pressed-06-easing); }
 .cds-banner:disabled{ cursor:default; opacity:var(--common-opacity-medium); --_overlay:transparent; }
 .cds-banner:focus-visible{ outline:var(--common-border-width-thin) solid var(--common-colors-support-system); outline-offset:var(--common-border-width-thin); }
 /* Container de 122 (mínimo): o .Content Banner (127) transborda 5px para cima, como no Figma (C27); com texto mais longo
@@ -518,14 +520,14 @@ cds-link > a{
   display:inline-flex; align-items:center; gap:var(--common-sizes-4); min-height:var(--common-sizes-48);
   font:var(--text-style-label-medium); color:var(--_fg); text-decoration:none; cursor:pointer;
   text-decoration-color:transparent; text-underline-offset:2px;
-  transition:text-decoration-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+  transition:text-decoration-color var(--motion-hover-in-04-timing) var(--motion-hover-in-04-easing);
 }
 cds-link > a{ --cds-icon-color:var(--_fg); } /* override do Icon aninhado */
 cds-link[appearance="accent"] > a{ --_fg:var(--common-colors-text-accent); }
 cds-link[appearance="inversed"] > a{ --_fg:var(--common-colors-text-inversed); }
 
 cds-link > a:hover, cds-link[state="hovered"] > a{ text-decoration:underline; text-decoration-color:currentColor; }
-cds-link > a:active, cds-link[state="pressed"] > a{ font:var(--text-style-label-bold); text-decoration:underline; text-decoration-color:currentColor; }
+cds-link > a:active, cds-link[state="pressed"] > a{ transition-duration:var(--motion-pressed-05-timing); transition-timing-function:var(--motion-pressed-05-easing); font:var(--text-style-label-bold); text-decoration:underline; text-decoration-color:currentColor; }
 cds-link[disabled]{ opacity:var(--common-opacity-light); pointer-events:none; }
 
 /* ==== components/list-lead-item/list-lead-item.css ==== */
@@ -715,6 +717,11 @@ cds-checkbox:is([status="selected"],[status="indeterminate"]) .cds-sc:is(:hover,
 cds-checkbox[status="selected"] .cds-sc__glyph--check,
 cds-checkbox[status="indeterminate"] .cds-sc__glyph--indeterminate{ display:block; }
 
+/* Motion (Notion verde e Figma): Hover In/01 no hover · Pressed/03 no press · Selected In/02 ao marcar */
+cds-checkbox .cds-sc{ --_dur:var(--motion-hover-in-01-timing); --_ease:var(--motion-hover-in-01-easing); }
+cds-checkbox .cds-sc:active, cds-checkbox[state="pressed"] .cds-sc{ --_dur:var(--motion-pressed-03-timing); --_ease:var(--motion-pressed-03-easing); }
+cds-checkbox .cds-sc__box{ transition:background-color var(--motion-selected-in-02-timing) var(--motion-selected-in-02-easing), box-shadow var(--_dur) var(--_ease); }
+
 /* ==== components/radio-button/radio-button.css ==== */
 /* =====================================================================
    Radio Button · Selection Controls · set 4429:10437 — base em selection-control.css
@@ -811,10 +818,10 @@ cds-lead-item > cds-image{ width:100%; height:100%; }
 /* Skeleton · set 20967:742 — Shape com gradiente horizontal Neutral/Solid/semi-soft → Surface/default → semi-soft
    Round: elipse, 80 × 80 de amostra · Square: raio Border/Radius/medium, largura do pai × Sizes/160 de amostra
    Brilho (shimmer) como no Skeleton do castanha-react (decisão do Gustavo, C181: o Figma é estático): o gradiente em 200% de
-   largura anda de 150% a -50% em 700ms (Duration/Extra Long/01) com Easing/Systemic/decelerate e pausa 500ms (Duration/Long/02),
+   largura anda de 150% a -50% no Loading/01 (700ms, Systemic/decelerate) e pausa 500ms (Duration/Long/02),
    ciclo de 1200ms em loop. Com prefers-reduced-motion: sem animação, brilho parado no centro (como o React). */
 @keyframes cds-skeleton-shimmer{
-  0%{ background-position:150% 0; animation-timing-function:var(--common-motion-easing-systemic-decelerate); } /* curva só no deslocamento */
+  0%{ background-position:150% 0; animation-timing-function:var(--motion-loading-01-easing); } /* curva só no deslocamento */
   58.333%, 100%{ background-position:-50% 0; } /* 700 de 1200ms; o resto é a pausa */
 }
 cds-skeleton{
@@ -824,7 +831,7 @@ cds-skeleton{
   background-color:var(--common-colors-neutral-solid-semi-soft);
   background-image:linear-gradient(to right, var(--common-colors-neutral-solid-semi-soft), var(--common-colors-surface-default) 50%, var(--common-colors-neutral-solid-semi-soft));
   background-repeat:no-repeat; background-size:200% 100%;
-  animation:cds-skeleton-shimmer calc(var(--common-motion-duration-extra-long-01) + var(--common-motion-duration-long-02)) linear infinite both;
+  animation:cds-skeleton-shimmer calc(var(--motion-loading-01-timing) + var(--common-motion-duration-long-02)) linear infinite both;
 }
 cds-skeleton[data-kind="square"]{ width:var(--_w, 100%); height:var(--_h, var(--common-sizes-160)); border-radius:var(--common-border-radius-medium); }
 @media (prefers-reduced-motion: reduce){ cds-skeleton{ animation:none; background-position:50% 0; } }
@@ -895,7 +902,7 @@ cds-spinner .cds-spin__arc{ stroke:var(--_arc); }
    Medium: 48 · raio medium · Label/Medium (Pressed: Label/Bold)
    Small:  40 · raio small  · Caption/Medium (Pressed: Caption/Bold)
    padding 0 20 · gap 8 · ícones 20 · Disabled Opacity/light
-   Motion (reactions): Hover e Press var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate)
+   Motion: Hover In/01 e Hover Out/01 (150ms Systemic/default) · Pressed/01 (200ms Systemic/accelerate) · Notion verde e Figma
    state="hovered|pressed" força o estado (specimen da doc), como no Tab Item
    Viewport (Specific/Buttons/Main Button/Width/min-width): Desktop 136 · Tablet 220 · Mobile 328
    ===================================================================== */
@@ -909,10 +916,10 @@ cds-main-button > .cds-btn{ --_min-w:136px; }
   border-radius:var(--common-border-radius-medium);
   background:var(--_bg); color:var(--_fg); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--_bd);
   font:var(--_font); white-space:nowrap;
-  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+  transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), box-shadow var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing);
 }
 .cds-btn{ --cds-icon-color:var(--_fg); } /* override do Icon aninhado */
-.cds-btn:active, [state="pressed"] > .cds-btn{ font:var(--_font-pressed); }
+.cds-btn:active, [state="pressed"] > .cds-btn{ font:var(--_font-pressed); transition-duration:var(--motion-pressed-01-timing); transition-timing-function:var(--motion-pressed-01-easing); }
 [size="small"] > .cds-btn{ height:var(--common-sizes-40); border-radius:var(--common-border-radius-small); --_font:var(--text-style-caption-medium); --_font-pressed:var(--text-style-caption-bold); }
 
 /* Viewport → largura mínima */
@@ -1141,21 +1148,23 @@ cds-status-dot[appearance="negative"]{ --_dot:var(--common-colors-feedback-negat
    Box 40×24 pill · padding 0 4 · toggle 16 pill
    Unselected: Surface/inversed + toggle Neutral/Solid/soft · Selected: Surface/accent + toggle Surface/default
    Hovered: anel 4px Border/semi-soft (OUTSIDE) · Pressed: anel 4px Accent/Solid/soft
-   Motion: 300ms systemic-accelerate (exceção documentada do Switch)
+   Motion (Notion verde e Figma): Hover In/01 no hover · Pressed/01 no press · Selected In/03 na posição e Selected In/02 na cor ao ligar
    ===================================================================== */
 cds-switch{ display:inline-flex; }
-cds-switch .cds-sc{ --_dur:var(--common-motion-duration-medium-02); }
+cds-switch .cds-sc{ --_dur:var(--motion-hover-in-01-timing); --_ease:var(--motion-hover-in-01-easing); }
+cds-switch .cds-sc:active, cds-switch[state="pressed"] .cds-sc{ --_dur:var(--motion-pressed-01-timing); --_ease:var(--motion-pressed-01-easing); }
 cds-switch .cds-sc__box{
   --_bg:var(--common-colors-surface-inversed); --_ring:transparent;
   width:var(--common-sizes-40); height:var(--common-sizes-24); padding:0 var(--common-sizes-4);
   display:flex; align-items:center; justify-content:flex-start;
   border-radius:var(--common-border-radius-pill);
   box-shadow:0 0 0 var(--common-border-width-thick) var(--_ring);
+  transition:background-color var(--motion-selected-in-02-timing) var(--motion-selected-in-02-easing), box-shadow var(--_dur) var(--_ease);
 }
 cds-switch .cds-sw__toggle{
   width:var(--common-sizes-16); height:var(--common-sizes-16); border-radius:var(--common-border-radius-pill);
   background:var(--common-colors-neutral-solid-soft);
-  transition:transform var(--_dur) var(--_ease), background-color var(--_dur) var(--_ease);
+  transition:transform var(--motion-selected-in-03-timing) var(--motion-selected-in-03-easing), background-color var(--motion-selected-in-02-timing) var(--motion-selected-in-02-easing);
 }
 cds-switch .cds-sc:hover .cds-sc__box, cds-switch[state="hovered"] .cds-sc .cds-sc__box{ --_ring:var(--common-colors-border-semi-soft); }
 cds-switch .cds-sc:active .cds-sc__box, cds-switch[state="pressed"] .cds-sc .cds-sc__box{ --_ring:var(--common-colors-accent-solid-soft); }
@@ -1400,7 +1409,7 @@ cds-accordion-item [hidden]{ display:none !important; }
   display:flex; flex-direction:column; box-sizing:border-box;
   padding:var(--common-sizes-8) var(--common-sizes-4) 0;
   background:var(--_bg); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--_stroke);
-  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-default), box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-default);
+  transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), box-shadow var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing);
 }
 .cds-acc__heading{ margin:0; font:inherit; }
 .cds-acc__head{
@@ -1439,7 +1448,7 @@ cds-accordion-item [hidden]{ display:none !important; }
 [kind="card"] > .cds-acc:has(> .cds-acc__heading > .cds-acc__head:hover), [kind="card"][state="hovered"] > .cds-acc{ --_stroke:var(--common-colors-border-medium); }
 .cds-acc:has(> .cds-acc__heading > .cds-acc__head:active), [state="pressed"] > .cds-acc{
   --_bg:var(--common-colors-neutral-opacity-intense-semi-transparent);
-  transition-duration:var(--common-motion-duration-short-04); transition-timing-function:var(--common-motion-easing-systemic-accelerate);
+  transition-duration:var(--motion-pressed-01-timing); transition-timing-function:var(--motion-pressed-01-easing);
 }
 [kind="card"] > .cds-acc:has(> .cds-acc__heading > .cds-acc__head:active), [kind="card"][state="pressed"] > .cds-acc{ --_stroke:var(--common-colors-border-intense); }
 

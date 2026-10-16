@@ -56,7 +56,10 @@ CDS.docs["skeleton"] = {
 
     { id: "motion", title: "Motion", blocks: [
       { h2: "Motion" },
-      { p: "Um brilho atravessa a forma e faz uma pausa, em loop, como no Skeleton do castanha-react: 700ms de deslocamento (`Duration/Extra Long/01`, curva `Systemic/decelerate`) e 500ms de pausa (`Duration/Long/02`)." },
+      { p: "Um brilho atravessa a forma e faz uma pausa de 500ms, em loop, como no Skeleton do castanha-react." },
+      { specs: [
+        { title: "Carregamento", rows: [["Gatilho", "Em loop"], ["Motion Style", "`Loading/01`"]] }
+      ] },
       { ul: ["Com `prefers-reduced-motion`, a animação para e o brilho fica no centro.", "No Figma o Skeleton é estático. O playground segue o React por decisão registrada no CONFERIR (C181)."] }
     ] }
   ]

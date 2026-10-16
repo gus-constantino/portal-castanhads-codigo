@@ -3,7 +3,7 @@
    Medium: 48 · raio medium · Label/Medium (Pressed: Label/Bold)
    Small:  40 · raio small  · Caption/Medium (Pressed: Caption/Bold)
    padding 0 20 · gap 8 · ícones 20 · Disabled Opacity/light
-   Motion (reactions): Hover e Press var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate)
+   Motion: Hover In/01 e Hover Out/01 (150ms Systemic/default) · Pressed/01 (200ms Systemic/accelerate) · Notion verde e Figma
    state="hovered|pressed" força o estado (specimen da doc), como no Tab Item
    Viewport (Specific/Buttons/Main Button/Width/min-width): Desktop 136 · Tablet 220 · Mobile 328
    ===================================================================== */
@@ -17,10 +17,10 @@ cds-main-button > .cds-btn{ --_min-w:136px; }
   border-radius:var(--common-border-radius-medium);
   background:var(--_bg); color:var(--_fg); box-shadow:inset 0 0 0 var(--common-border-width-hairline) var(--_bd);
   font:var(--_font); white-space:nowrap;
-  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate), box-shadow var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+  transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), box-shadow var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing);
 }
 .cds-btn{ --cds-icon-color:var(--_fg); } /* override do Icon aninhado */
-.cds-btn:active, [state="pressed"] > .cds-btn{ font:var(--_font-pressed); }
+.cds-btn:active, [state="pressed"] > .cds-btn{ font:var(--_font-pressed); transition-duration:var(--motion-pressed-01-timing); transition-timing-function:var(--motion-pressed-01-easing); }
 [size="small"] > .cds-btn{ height:var(--common-sizes-40); border-radius:var(--common-border-radius-small); --_font:var(--text-style-caption-medium); --_font-pressed:var(--text-style-caption-bold); }
 
 /* Viewport → largura mínima */

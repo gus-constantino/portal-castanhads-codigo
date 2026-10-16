@@ -84,7 +84,10 @@ CDS.docs["spinner"] = {
       { h2: "Motion" },
       { p: "A animação do Spinner/Loading indica estados de processamento contínuo no sistema. É realizado em loop suave até a conclusão da tarefa, sem distrações indiretas. A reprodução reforça a percepção de atividade em andamento no aplicativo." },
       { display: { attrs: { size: "large", appearance: "accent" } } },
-      { alert: { appearance: "warning", label: "Sem Motion Style", text: "O zeroheight indica o Carregamento com easing expressive/default e duração extra-long/02, que não corresponde a nenhum Motion Style da `.Motion Styles` (loops não têm estilo próprio). No código, o giro usa 4 passos de `short/04` (CONFERIR C133)." } }
+      { specs: [
+        { title: "Carregamento", rows: [["Gatilho", "Em loop"], ["Motion Style", "`Loading/02`"]] }
+      ] },
+      { note: "A animação é de path e vem do JSON do Lottie da Motion, não do CSS. O playground ainda gira em 4 passos de `short/04` até o Lottie entrar (CONFERIR C133). Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma." }
     ] }
   ]
 };

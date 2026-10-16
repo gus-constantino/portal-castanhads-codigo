@@ -110,7 +110,12 @@ CDS.docs = CDS.docs || {};
 
       { id: "motion", title: "Motion", blocks: [
         { h2: "Motion" },
-        { alert: { appearance: "warning", label: "Especificação pendente", text: "A seção de Motion do Modal no zeroheight ainda é placeholder, e o componente não tem animação de entrada e saída no playground." } }
+        { p: "O Modal entra deslizando para baixo enquanto aparece e sai pelo caminho inverso." },
+        { specs: [
+          { title: "Entrada", rows: [["Gatilho", "Ao abrir"], ["Motion Style · posição", "`Selected In/01`"], ["Motion Style · opacidade", "`Selected In/09`"]] },
+          { title: "Saída", rows: [["Gatilho", "Ao fechar"], ["Motion Style · posição", "`Selected Out/01`"], ["Motion Style · opacidade", "`Selected Out/03`"]] }
+        ] },
+        { note: "O playground ainda não anima a entrada e a saída. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma." }
       ] }
     ]
   };

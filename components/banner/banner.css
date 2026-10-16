@@ -12,10 +12,11 @@ cds-banner{ display:block; width:280px; min-width:min(280px, 100%); max-width:10
 }
 .cds-banner::after{
   content:""; position:absolute; inset:0; z-index:2; pointer-events:none; border-radius:inherit; background:var(--_overlay);
-  transition:background-color var(--common-motion-duration-short-03) var(--common-motion-easing-systemic-accelerate);
+  transition:background-color var(--motion-hover-in-03-timing) var(--motion-hover-in-03-easing);
 }
 .cds-banner:hover, cds-banner[state="hovered"] .cds-banner{ --_overlay:var(--common-colors-neutral-opacity-intense-semi-transparent); }
 .cds-banner:active, cds-banner[state="pressed"] .cds-banner{ --_overlay:var(--common-colors-neutral-opacity-intense-light); }
+.cds-banner:active::after, cds-banner[state="pressed"] .cds-banner::after{ transition-duration:var(--motion-pressed-06-timing); transition-timing-function:var(--motion-pressed-06-easing); }
 .cds-banner:disabled{ cursor:default; opacity:var(--common-opacity-medium); --_overlay:transparent; }
 .cds-banner:focus-visible{ outline:var(--common-border-width-thin) solid var(--common-colors-support-system); outline-offset:var(--common-border-width-thin); }
 /* Container de 122 (mínimo): o .Content Banner (127) transborda 5px para cima, como no Figma (C27); com texto mais longo

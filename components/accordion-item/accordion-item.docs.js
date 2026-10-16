@@ -121,11 +121,14 @@ CDS.docs = CDS.docs || {};
         { display: { attrs: { label: "Como funciona o reembolso?", "show-lead-item": false, "show-description": false, collapsed: true }, live: true } },
         { note: "Exemplo interativo: passe o mouse, pressione e abra ou recolha o item para ver cada transição." },
         { specs: [
-          { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
-          { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
-          { title: "Recolhido → Aberto", rows: [["Gatilho", "On tap"], ["Motion Style", "`Selected In/01`"]] },
-          { title: "Aberto → Recolhido", rows: [["Gatilho", "On tap"], ["Motion Style", "`Selected Out/01`"]] }
-        ] }
+            { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
+            { title: "Hovered → Enabled", rows: [["Gatilho", "Mouse leave"], ["Motion Style", "`Hover Out/01`"]] },
+            { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
+            { title: "Recolhido → Aberto", rows: [["Gatilho", "On tap"], ["Motion Style", "`Selected In/01`"]] },
+            { title: "Aberto → Recolhido", rows: [["Gatilho", "On tap"], ["Motion Style", "`Selected Out/01`"]] },
+            { title: "→ Disabled", rows: [["Gatilho", "Ao desabilitar"], ["Motion Style", "`Disabled/01`"]] }
+          ] },
+          { note: "Ao abrir, a seta gira 180º e o conteúdo desce. Ao recolher, o inverso. O playground ainda abre em 200ms e recolhe em 350ms, pela decisão C80, o contrário do Notion (CONFERIR C80). Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma." }
       ] }
     ]
   };

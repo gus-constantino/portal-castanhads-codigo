@@ -127,11 +127,11 @@
         { display: { attrs: {}, live: true } },
         { note: "Exemplo interativo: passe o mouse e pressione o banner." },
         { specs: [
-          { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
-          { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
-          { title: "→ Disabled", rows: [["Gatilho", "Ao desabilitar"], ["Motion Style", "`Disabled/01`"]] }
+          { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/03`"]] },
+          { title: "Hovered → Enabled", rows: [["Gatilho", "Mouse leave"], ["Motion Style", "`Hover Out/03`"]] },
+          { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/06`"]] }
         ] },
-        { alert: { appearance: "warning", label: "Especificação pendente", text: "A seção Motion do [Documentação] Banner está com \"Especificação\" na tabela. O mapeamento acima segue o padrão de estados de interação. No código, o overlay usa short/03 + systemic/accelerate (CONFERIR C145)." } }
+        { note: "Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma." },
       ] }
     ]
   };

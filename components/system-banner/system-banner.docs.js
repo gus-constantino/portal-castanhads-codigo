@@ -77,12 +77,14 @@
 
       { id: "motion", title: "Motion", blocks: [
         { h2: "Motion" },
-        { p: "O botão de fechar (.Close Alert) tem os estados de interação abaixo." },
+        { p: "O System Banner entra e sai com movimento vertical e opacidade. O botão de fechar (.Close Alert) tem os estados de interação do Icon Button." },
         { specs: [
+          { title: "Entrada", rows: [["Gatilho", "Ao aparecer"], ["Motion Style · posição", "`Selected In/04`"], ["Motion Style · opacidade", "`Selected In/03`"]] },
+          { title: "Saída", rows: [["Gatilho", "Ao fechar"], ["Motion Style · posição", "`Selected Out/05`"], ["Motion Style · opacidade", "`Selected Out/02`"]] },
           { title: "Fechar: Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
           { title: "Fechar: Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] }
         ] },
-        { alert: { appearance: "warning", label: "Especificação pendente", text: "Não há especificação de Motion para a entrada e a saída do System Banner (CONFERIR C136)." } }
+        { note: "O banner desce do topo enquanto aparece e sobe ao sair. O playground ainda não anima a entrada e a saída. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma." },
       ] }
     ]
   };

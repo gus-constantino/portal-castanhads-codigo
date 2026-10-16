@@ -223,9 +223,11 @@
         { note: "Exemplo interativo: passe o mouse e pressione o botão para ver cada transição." },
         { specs: [
           { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
+          { title: "Hovered → Enabled", rows: [["Gatilho", "Mouse leave"], ["Motion Style", "`Hover Out/01`"]] },
           { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
           { title: "→ Disabled", rows: [["Gatilho", "Ao desabilitar"], ["Motion Style", "`Disabled/01`"]] }
         ] },
+        { note: "No Pressed, o botão reduz a escala para 90% e volta ao tamanho original. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma." },
         { h3: "Loading" },
         { display: { attrs: { label: "Salvar alterações", loading: true } } },
         { p: "O Spinner gira de forma contínua, com a animação do próprio componente Spinner. A troca para o Loading é imediata. Um atraso antes de mostrar o Spinner é opcional, para respostas rápidas." },

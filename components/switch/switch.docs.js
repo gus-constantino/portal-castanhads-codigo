@@ -115,10 +115,13 @@
         { note: "Exemplo interativo: passe o mouse, pressione e clique para ver cada transição." },
         { specs: [
           { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
+          { title: "Hovered → Enabled", rows: [["Gatilho", "Mouse leave"], ["Motion Style", "`Hover Out/01`"]] },
           { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
+          { title: "Desligado → Ligado", rows: [["Gatilho", "On tap"], ["Motion Style · posição", "`Selected In/03`"], ["Motion Style · cor", "`Selected In/02`"]] },
+          { title: "Ligado → Desligado", rows: [["Gatilho", "On tap"], ["Motion Style · posição", "`Selected Out/02`"], ["Motion Style · cor", "`Selected Out/01`"]] },
           { title: "→ Disabled", rows: [["Gatilho", "Ao desabilitar"], ["Motion Style", "`Disabled/01`"]] }
         ] },
-        { alert: { appearance: "warning", label: "Especificação pendente", text: "O zeroheight indica Is Active True e False (o Toggle deslizando) com expressive/decelerate · medium/02, que não corresponde a nenhum Motion Style da `.Motion Styles` (CONFERIR C134)." } },
+        { note: "No Pressed, a bolinha aumenta 10% e volta. Ao ligar e desligar, ela desliza com um leve rebote. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma." },
         { p: "Reduced motion: honrar `prefers-reduced-motion: reduce` (as transições são desligadas no código)." }
       ] }
     ]

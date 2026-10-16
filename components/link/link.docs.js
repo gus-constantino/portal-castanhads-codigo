@@ -112,11 +112,12 @@
         { display: { attrs: { label: "Termos de uso", appearance: "accent" }, live: true } },
         { note: "Exemplo interativo: passe o mouse e pressione o link para ver cada transição." },
         { specs: [
-          { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
-          { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] },
+          { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/04`"]] },
+          { title: "Hovered → Enabled", rows: [["Gatilho", "Mouse leave"], ["Motion Style", "`Hover Out/04`"]] },
+          { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/05`"]] },
           { title: "→ Disabled", rows: [["Gatilho", "Ao desabilitar"], ["Motion Style", "`Disabled/01`"]] }
         ] },
-        { note: "No zeroheight, o Hovered usa expressive/decelerate · medium/02 e o Pressed systemic/default · short/03, que não correspondem aos Motion Styles de hover e press. Aqui ficam os Motion Styles dos botões (CONFERIR C130)." },
+        { note: "No hover, o ícone desloca para a direita e volta um pouco. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma." },
         { p: "Reduced motion: honrar `prefers-reduced-motion: reduce`." }
       ] },
       { id: "conteudo", title: "Conteúdo", blocks: [

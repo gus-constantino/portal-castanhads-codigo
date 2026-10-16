@@ -125,7 +125,7 @@
     {
      "id": "motion",
      "title": "Motion",
-     "text": "## Motion\n\nAs transições de estado do Accordion Item usam os Motion Styles do Castanha (modo Normal).\n\nExemplo: Como funciona o reembolso?\n\n> Exemplo interativo: passe o mouse, pressione e abra ou recolha o item para ver cada transição.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n**Recolhido → Aberto**\n- Gatilho: On tap\n- Motion Style: `Selected In/01`\n\n**Aberto → Recolhido**\n- Gatilho: On tap\n- Motion Style: `Selected Out/01`"
+     "text": "## Motion\n\nAs transições de estado do Accordion Item usam os Motion Styles do Castanha (modo Normal).\n\nExemplo: Como funciona o reembolso?\n\n> Exemplo interativo: passe o mouse, pressione e abra ou recolha o item para ver cada transição.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Enabled**\n- Gatilho: Mouse leave\n- Motion Style: `Hover Out/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n**Recolhido → Aberto**\n- Gatilho: On tap\n- Motion Style: `Selected In/01`\n\n**Aberto → Recolhido**\n- Gatilho: On tap\n- Motion Style: `Selected Out/01`\n\n**→ Disabled**\n- Gatilho: Ao desabilitar\n- Motion Style: `Disabled/01`\n\n> Ao abrir, a seta gira 180º e o conteúdo desce. Ao recolher, o inverso. O playground ainda abre em 200ms e recolhe em 350ms, pela decisão C80, o contrário do Notion (CONFERIR C80). Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma."
     }
    ],
    "react": null
@@ -2095,7 +2095,7 @@
     {
      "id": "motion",
      "title": "Motion",
-     "text": "## Motion\n\n> Exemplo interativo: passe o mouse e pressione o banner.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n**→ Disabled**\n- Gatilho: Ao desabilitar\n- Motion Style: `Disabled/01`\n\n> **Especificação pendente:** A seção Motion do [Documentação] Banner está com \"Especificação\" na tabela. O mapeamento acima segue o padrão de estados de interação. No código, o overlay usa short/03 + systemic/accelerate (CONFERIR C145)."
+     "text": "## Motion\n\n> Exemplo interativo: passe o mouse e pressione o banner.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/03`\n\n**Hovered → Enabled**\n- Gatilho: Mouse leave\n- Motion Style: `Hover Out/03`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/06`\n\n> Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma."
     }
    ],
    "figmaProps": [
@@ -3489,7 +3489,7 @@
     {
      "id": "motion",
      "title": "Motion",
-     "text": "## Motion\n\nA troca de item é a rolagem da faixa até o início do item, com encaixe (scroll-snap). O Figma não define duração nem curva para essa transição."
+     "text": "## Motion\n\nA troca de item é a rolagem da faixa até o início do item, com encaixe (scroll-snap).\n\n**Avançar**\n- Gatilho: On tap ou arrastar\n- Motion Style: `Selected In/04`\n\n**Voltar**\n- Gatilho: On tap ou arrastar\n- Motion Style: `Selected Out/05`\n\n> O playground usa a rolagem nativa do navegador e ainda não aplica esse timing. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma."
     }
    ],
    "react": {
@@ -3636,7 +3636,7 @@
     {
      "id": "motion",
      "title": "Motion",
-     "text": "## Motion\n\nA animação abrange os estados de interação. Não há delay nos estágios da animação, cada estagio acontece em tempo real de acordo com a interação do usuário com o componente.\n\n> Exemplo interativo: passe o mouse, pressione e clique para ver cada transição.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Selected In/01`\n\n**→ Disabled**\n- Gatilho: Ao desabilitar\n- Motion Style: `Disabled/01`\n\n> No zeroheight, o Pressed do Checkbox usa expressive/decelerate · medium/03 — os valores do `Selected In/01`, não do `Pressed/01` (CONFERIR C134).\n\n> **Especificação pendente:** O zeroheight indica Is Active True (systemic/decelerate · medium/04) e Is Active False (systemic/decelerate · short/04), que não correspondem a nenhum Motion Style da `.Motion Styles`. No playground, a troca de Status ainda não tem animação própria (CONFERIR C134).\n\nReduced motion: honrar `prefers-reduced-motion: reduce` (as transições são desligadas no código)."
+     "text": "## Motion\n\nA animação abrange os estados de interação. Não há delay nos estágios da animação, cada estagio acontece em tempo real de acordo com a interação do usuário com o componente.\n\n> Exemplo interativo: passe o mouse, pressione e clique para ver cada transição.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Enabled**\n- Gatilho: Mouse leave\n- Motion Style: `Hover Out/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/03`\n\n**Unselected → Selected**\n- Gatilho: On tap\n- Motion Style: `Selected In/02`\n\n**Selected → Unselected**\n- Gatilho: On tap\n- Motion Style: `Selected Out/01`\n\n**→ Disabled**\n- Gatilho: Ao desabilitar\n- Motion Style: `Disabled/01`\n\n> Ao marcar, o check cresce a partir do centro e a caixa aumenta 10% e volta. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma.\n\nReduced motion: honrar `prefers-reduced-motion: reduce` (as transições são desligadas no código)."
     }
    ],
    "figmaProps": [
@@ -9000,7 +9000,7 @@
     {
      "id": "motion",
      "title": "Motion",
-     "text": "## Motion\n\nA animação abrange os estados de interação. Não há delay nos estágios da animação, cada estagio acontece em tempo real de acordo com a interação do usuário com o componente.\n\nExemplo: Editar\n\n> Exemplo interativo: passe o mouse e pressione o botão para ver cada transição.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n**→ Disabled**\n- Gatilho: Ao desabilitar\n- Motion Style: `Disabled/01`\n\nReduced motion: honrar `prefers-reduced-motion: reduce` (as transições são desligadas no código)."
+     "text": "## Motion\n\nA animação abrange os estados de interação. Não há delay nos estágios da animação, cada estagio acontece em tempo real de acordo com a interação do usuário com o componente.\n\nExemplo: Editar\n\n> Exemplo interativo: passe o mouse e pressione o botão para ver cada transição.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Enabled**\n- Gatilho: Mouse leave\n- Motion Style: `Hover Out/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n**→ Disabled**\n- Gatilho: Ao desabilitar\n- Motion Style: `Disabled/01`\n\n> No Pressed, o botão reduz a escala para 90% e volta ao tamanho original. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma.\n\nReduced motion: honrar `prefers-reduced-motion: reduce` (as transições são desligadas no código)."
     }
    ],
    "figmaProps": [
@@ -10046,7 +10046,7 @@
     {
      "id": "motion",
      "title": "Motion",
-     "text": "## Motion\n\nA animação abrange os estados de interação. Não há delay nos estágios da animação, cada estagio acontece em tempo real de acordo com a interação do usuário com o componente.\n\nExemplo: Termos de uso\n\n> Exemplo interativo: passe o mouse e pressione o link para ver cada transição.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n**→ Disabled**\n- Gatilho: Ao desabilitar\n- Motion Style: `Disabled/01`\n\n> No zeroheight, o Hovered usa expressive/decelerate · medium/02 e o Pressed systemic/default · short/03, que não correspondem aos Motion Styles de hover e press. Aqui ficam os Motion Styles dos botões (CONFERIR C130).\n\nReduced motion: honrar `prefers-reduced-motion: reduce`."
+     "text": "## Motion\n\nA animação abrange os estados de interação. Não há delay nos estágios da animação, cada estagio acontece em tempo real de acordo com a interação do usuário com o componente.\n\nExemplo: Termos de uso\n\n> Exemplo interativo: passe o mouse e pressione o link para ver cada transição.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/04`\n\n**Hovered → Enabled**\n- Gatilho: Mouse leave\n- Motion Style: `Hover Out/04`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/05`\n\n**→ Disabled**\n- Gatilho: Ao desabilitar\n- Motion Style: `Disabled/01`\n\n> No hover, o ícone desloca para a direita e volta um pouco. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma.\n\nReduced motion: honrar `prefers-reduced-motion: reduce`."
     },
     {
      "id": "conteudo",
@@ -10367,7 +10367,7 @@
     {
      "id": "motion",
      "title": "Motion",
-     "text": "## Motion\n\nA animação abrange os estados de interação. Não há delay nos estágios da animação, cada estagio acontece em tempo real de acordo com a interação do usuário com o componente.\n\nExemplo: Label\n\n> Exemplo interativo: passe o mouse e pressione o botão para ver cada transição.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n**→ Disabled**\n- Gatilho: Ao desabilitar\n- Motion Style: `Disabled/01`\n\n### Loading\n\nExemplo: Salvar alterações\n\nO Spinner gira de forma contínua, com a animação do próprio componente Spinner. A troca para o Loading é imediata. Um atraso antes de mostrar o Spinner é opcional, para respostas rápidas.\n\nReduced motion: honrar `prefers-reduced-motion: reduce` (as transições são desligadas no código)."
+     "text": "## Motion\n\nA animação abrange os estados de interação. Não há delay nos estágios da animação, cada estagio acontece em tempo real de acordo com a interação do usuário com o componente.\n\nExemplo: Label\n\n> Exemplo interativo: passe o mouse e pressione o botão para ver cada transição.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Enabled**\n- Gatilho: Mouse leave\n- Motion Style: `Hover Out/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n**→ Disabled**\n- Gatilho: Ao desabilitar\n- Motion Style: `Disabled/01`\n\n> No Pressed, o botão reduz a escala para 90% e volta ao tamanho original. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma.\n\n### Loading\n\nExemplo: Salvar alterações\n\nO Spinner gira de forma contínua, com a animação do próprio componente Spinner. A troca para o Loading é imediata. Um atraso antes de mostrar o Spinner é opcional, para respostas rápidas.\n\nReduced motion: honrar `prefers-reduced-motion: reduce` (as transições são desligadas no código)."
     },
     {
      "id": "conteudo",
@@ -10756,7 +10756,7 @@
     {
      "id": "motion",
      "title": "Motion",
-     "text": "## Motion\n\n> **Especificação pendente:** A seção de Motion do Modal no zeroheight ainda é placeholder, e o componente não tem animação de entrada e saída no playground."
+     "text": "## Motion\n\nO Modal entra deslizando para baixo enquanto aparece e sai pelo caminho inverso.\n\n**Entrada**\n- Gatilho: Ao abrir\n- Motion Style · posição: `Selected In/01`\n- Motion Style · opacidade: `Selected In/09`\n\n**Saída**\n- Gatilho: Ao fechar\n- Motion Style · posição: `Selected Out/01`\n- Motion Style · opacidade: `Selected Out/03`\n\n> O playground ainda não anima a entrada e a saída. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma."
     }
    ],
    "figmaProps": [
@@ -16142,7 +16142,7 @@
     {
      "id": "motion",
      "title": "Motion",
-     "text": "## Motion\n\nUm brilho atravessa a forma e faz uma pausa, em loop, como no Skeleton do castanha-react: 700ms de deslocamento (`Duration/Extra Long/01`, curva `Systemic/decelerate`) e 500ms de pausa (`Duration/Long/02`).\n\n- Com `prefers-reduced-motion`, a animação para e o brilho fica no centro.\n- No Figma o Skeleton é estático. O playground segue o React por decisão registrada no CONFERIR (C181)."
+     "text": "## Motion\n\nUm brilho atravessa a forma e faz uma pausa de 500ms, em loop, como no Skeleton do castanha-react.\n\n**Carregamento**\n- Gatilho: Em loop\n- Motion Style: `Loading/01`\n\n- Com `prefers-reduced-motion`, a animação para e o brilho fica no centro.\n- No Figma o Skeleton é estático. O playground segue o React por decisão registrada no CONFERIR (C181)."
     }
    ],
    "react": {
@@ -16726,7 +16726,7 @@
     {
      "id": "motion",
      "title": "Motion",
-     "text": "## Motion\n\nA animação do Spinner/Loading indica estados de processamento contínuo no sistema. É realizado em loop suave até a conclusão da tarefa, sem distrações indiretas. A reprodução reforça a percepção de atividade em andamento no aplicativo.\n\n> **Sem Motion Style:** O zeroheight indica o Carregamento com easing expressive/default e duração extra-long/02, que não corresponde a nenhum Motion Style da `.Motion Styles` (loops não têm estilo próprio). No código, o giro usa 4 passos de `short/04` (CONFERIR C133)."
+     "text": "## Motion\n\nA animação do Spinner/Loading indica estados de processamento contínuo no sistema. É realizado em loop suave até a conclusão da tarefa, sem distrações indiretas. A reprodução reforça a percepção de atividade em andamento no aplicativo.\n\n**Carregamento**\n- Gatilho: Em loop\n- Motion Style: `Loading/02`\n\n> A animação é de path e vem do JSON do Lottie da Motion, não do CSS. O playground ainda gira em 4 passos de `short/04` até o Lottie entrar (CONFERIR C133). Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma."
     }
    ],
    "figmaProps": [
@@ -17226,7 +17226,7 @@
     {
      "id": "motion",
      "title": "Motion",
-     "text": "## Motion\n\nA animação abrange os estados de interação. Não há delay nos estágios da animação, cada estagio acontece em tempo real de acordo com a interação do usuário com o componente.\n\n> Exemplo interativo: passe o mouse, pressione e clique para ver cada transição.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n**→ Disabled**\n- Gatilho: Ao desabilitar\n- Motion Style: `Disabled/01`\n\n> **Especificação pendente:** O zeroheight indica Is Active True e False (o Toggle deslizando) com expressive/decelerate · medium/02, que não corresponde a nenhum Motion Style da `.Motion Styles` (CONFERIR C134).\n\nReduced motion: honrar `prefers-reduced-motion: reduce` (as transições são desligadas no código)."
+     "text": "## Motion\n\nA animação abrange os estados de interação. Não há delay nos estágios da animação, cada estagio acontece em tempo real de acordo com a interação do usuário com o componente.\n\n> Exemplo interativo: passe o mouse, pressione e clique para ver cada transição.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Enabled**\n- Gatilho: Mouse leave\n- Motion Style: `Hover Out/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n**Desligado → Ligado**\n- Gatilho: On tap\n- Motion Style · posição: `Selected In/03`\n- Motion Style · cor: `Selected In/02`\n\n**Ligado → Desligado**\n- Gatilho: On tap\n- Motion Style · posição: `Selected Out/02`\n- Motion Style · cor: `Selected Out/01`\n\n**→ Disabled**\n- Gatilho: Ao desabilitar\n- Motion Style: `Disabled/01`\n\n> No Pressed, a bolinha aumenta 10% e volta. Ao ligar e desligar, ela desliza com um leve rebote. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma.\n\nReduced motion: honrar `prefers-reduced-motion: reduce` (as transições são desligadas no código)."
     }
    ],
    "figmaProps": [
@@ -17458,7 +17458,7 @@
     {
      "id": "motion",
      "title": "Motion",
-     "text": "## Motion\n\nO botão de fechar (.Close Alert) tem os estados de interação abaixo.\n\n**Fechar: Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Fechar: Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n> **Especificação pendente:** Não há especificação de Motion para a entrada e a saída do System Banner (CONFERIR C136)."
+     "text": "## Motion\n\nO System Banner entra e sai com movimento vertical e opacidade. O botão de fechar (.Close Alert) tem os estados de interação do Icon Button.\n\n**Entrada**\n- Gatilho: Ao aparecer\n- Motion Style · posição: `Selected In/04`\n- Motion Style · opacidade: `Selected In/03`\n\n**Saída**\n- Gatilho: Ao fechar\n- Motion Style · posição: `Selected Out/05`\n- Motion Style · opacidade: `Selected Out/02`\n\n**Fechar: Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Fechar: Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n> O banner desce do topo enquanto aparece e sobe ao sair. O playground ainda não anima a entrada e a saída. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma."
     }
    ],
    "draft": true,
@@ -33103,7 +33103,7 @@
     "id": "C22",
     "group": "Motion",
     "resolved": false,
-    "text": "Switch · motion · 300ms (`Duration/Medium/02`) · Gustavo vai ajustar · Segue o Figma · Trocar a duração em `switch.css`"
+    "text": "Switch · motion · 300ms (`Duration/Medium/02`) · Gustavo vai ajustar · Segue o Figma · Trocar a duração em `switch.css`. **16/10:** resolvido na branch `motion-verde` com os estilos do Notion verde (`Hover In/01`, `Pressed/01`, `Selected In/03` na posição e `Selected In/02` na cor)"
    },
    {
     "id": "C30",
@@ -33139,7 +33139,7 @@
     "id": "C204",
     "group": "Motion",
     "resolved": false,
-    "text": "Motion Styles novos (CDS-730) · Na branch `5ruoj0X35N4WobKIggNV8a` (15/10) a `.Motion Styles` tem 36 estilos, sem descrição de uso em nenhuma variável, e ganhou o `Hover In/01/Delay` (0 ms). O modo Reduced zera durações e delays e troca a curva de 11 estilos (ex.: `Hover In/04` vai de Expressive/decelerate para Systemic/default, `Pressed/04` de Systemic/default para Systemic/accelerate) · Qual componente ou cenário usa cada número (`Loading/01` no Spinner? `Selected In/04` em abrir/fechar?), para as docs apontarem o estilo certo. Confirmar com a Ju se o Reduced deve seguir `prefers-reduced-motion` · Os 103 tokens no `tokens.css` (D351), Reduced em `prefers-reduced-motion`. Os componentes seguem no `/01` · Quando a branch entrar na main: reler a coleção e conferir que nada mudou"
+    "text": "Motion Styles novos (CDS-730) · Na branch `5ruoj0X35N4WobKIggNV8a` (15/10) a `.Motion Styles` tem 36 estilos, sem descrição de uso em nenhuma variável, e ganhou o `Hover In/01/Delay` (0 ms). O modo Reduced zera durações e delays e troca a curva de 11 estilos (ex.: `Hover In/04` vai de Expressive/decelerate para Systemic/default, `Pressed/04` de Systemic/default para Systemic/accelerate) · Qual componente ou cenário usa cada número (`Loading/01` no Spinner? `Selected In/04` em abrir/fechar?), para as docs apontarem o estilo certo. Confirmar com a Ju se o Reduced deve seguir `prefers-reduced-motion` · Os 103 tokens no `tokens.css` (D351), Reduced em `prefers-reduced-motion`. **16/10 (D+motion-verde):** o número de cada transição vem das páginas verdes da documentação de motion para devs (Notion). Na branch do Figma `pRi6U7xqjSom3NcNCo8Igf`, as transições de Main Button, Icon Button, Checkbox, Switch, Link e Banner ganharam a duração e a curva do estilo (a API não liga a variável) e 22 estilos ganharam descrição de uso. Docs e CSS dos 12 componentes sem dúvida na branch git `motion-verde`. Drop Button, Radio Button, Toast, Popover e Drawer esperam a Ju (artifact de conferência) · Quando a branch entrar na main: reler a coleção e conferir que nada mudou"
    },
    {
     "id": "C04",
@@ -33655,7 +33655,7 @@
     "id": "C181",
     "group": "Integração React",
     "resolved": false,
-    "text": "Skeleton (20967:742) · Estático: gradiente sem animação, sem motion definido · Anima um brilho (shimmer): 700ms de deslocamento + 500ms de pausa, curva Systemic/decelerate; o próprio SCSS marca 700ms como fora da escala · **Segue o React** (Gustavo, 07/10: \"faça animado como react\"), com os tokens da escala: 700ms = `Duration/Extra Long/01` e 500ms = `Duration/Long/02` · Levar o motion do shimmer para o Figma (description ou protótipo), para as três pontas baterem"
+    "text": "Skeleton (20967:742) · Estático: gradiente sem animação, sem motion definido · Anima um brilho (shimmer): 700ms de deslocamento + 500ms de pausa, curva Systemic/decelerate; o próprio SCSS marca 700ms como fora da escala · **Segue o React** (Gustavo, 07/10: \"faça animado como react\"), com os tokens da escala: 700ms = `Duration/Extra Long/01` e 500ms = `Duration/Long/02` · Levar o motion do shimmer para o Figma (description ou protótipo), para as três pontas baterem. **16/10:** o Notion verde confirma o `Loading/01` (700ms, Systemic/decelerate), já descrito na variável do Figma; o CSS usa o token"
    },
    {
     "id": "C26",
@@ -33739,7 +33739,7 @@
     "id": "C80",
     "group": "Resolvidos",
     "resolved": true,
-    "text": "Accordion Item · motion: abrir em 200ms e fechar em 350ms (Expressive/decelerate) é **decisão de motion** (Gustavo); o código segue · 02/10"
+    "text": "Accordion Item · motion: abrir em 200ms e fechar em 350ms (Expressive/decelerate) é **decisão de motion** (Gustavo); o código segue. **16/10:** o Notion verde diz o contrário (expandir `Selected In/01` 350ms, recolher `Selected Out/01` 200ms). A doc mostra os estilos do Notion e avisa que o playground segue esta decisão até alguém confirmar · 02/10"
    },
    {
     "id": "C81",
@@ -33841,7 +33841,7 @@
     "id": "C133",
     "group": "Resolvidos",
     "resolved": true,
-    "text": "`diff zeroheight` · lote Status (05/10). 🔴 **Badge**: página \"In progress\"; lista `Kind` (Text · Counter) e Style — o set da lib (4835:1472) tem só `Appearance` e `Label`; o ponto do mobile vem da collection Viewport. 🟡 Badge: Motion (systemic/decelerate · medium/01) sem Motion Style e sem animação no componente. 🟡 **Tag**: sem tab Style no zeroheight; \"Badge\" listado como nome alternativo da Tag. 🟡 **Status Dot**: sem página no zeroheight — doc a partir da description do set (21745:69). 🟡 **Progress line**: sem tab Style; Motion placeholder. 🟡 **Spinner**: Motion (expressive/default · extra-long/02, loop) sem Motion Style; no código o giro usa 4 × short/04; o zeroheight cita Skeleton, que não existe no DS · 05/10"
+    "text": "`diff zeroheight` · lote Status (05/10). 🔴 **Badge**: página \"In progress\"; lista `Kind` (Text · Counter) e Style — o set da lib (4835:1472) tem só `Appearance` e `Label`; o ponto do mobile vem da collection Viewport. 🟡 Badge: Motion (systemic/decelerate · medium/01) sem Motion Style e sem animação no componente. 🟡 **Tag**: sem tab Style no zeroheight; \"Badge\" listado como nome alternativo da Tag. 🟡 **Status Dot**: sem página no zeroheight — doc a partir da description do set (21745:69). 🟡 **Progress line**: sem tab Style; Motion placeholder. 🟡 **Spinner**: Motion (expressive/default · extra-long/02, loop) sem Motion Style; no código o giro usa 4 × short/04; o zeroheight cita Skeleton, que não existe no DS. **16/10:** o Notion verde indica `Loading/02` e a Ju pede o Spinner pelo JSON do Lottie (animação de path); a doc aponta o estilo, o playground segue nos 4 passos até o Lottie entrar · 05/10"
    },
    {
     "id": "C134",

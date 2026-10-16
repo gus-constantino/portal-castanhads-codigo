@@ -125,11 +125,13 @@
         { note: "Exemplo interativo: passe o mouse, pressione e clique para ver cada transição." },
         { specs: [
           { title: "Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
-          { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Selected In/01`"]] },
+          { title: "Hovered → Enabled", rows: [["Gatilho", "Mouse leave"], ["Motion Style", "`Hover Out/01`"]] },
+          { title: "Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/03`"]] },
+          { title: "Unselected → Selected", rows: [["Gatilho", "On tap"], ["Motion Style", "`Selected In/02`"]] },
+          { title: "Selected → Unselected", rows: [["Gatilho", "On tap"], ["Motion Style", "`Selected Out/01`"]] },
           { title: "→ Disabled", rows: [["Gatilho", "Ao desabilitar"], ["Motion Style", "`Disabled/01`"]] }
         ] },
-        { note: "No zeroheight, o Pressed do Checkbox usa expressive/decelerate · medium/03 — os valores do `Selected In/01`, não do `Pressed/01` (CONFERIR C134)." },
-        { alert: { appearance: "warning", label: "Especificação pendente", text: "O zeroheight indica Is Active True (systemic/decelerate · medium/04) e Is Active False (systemic/decelerate · short/04), que não correspondem a nenhum Motion Style da `.Motion Styles`. No playground, a troca de Status ainda não tem animação própria (CONFERIR C134)." } },
+        { note: "Ao marcar, o check cresce a partir do centro e a caixa aumenta 10% e volta. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma." },
         { p: "Reduced motion: honrar `prefers-reduced-motion: reduce` (as transições são desligadas no código)." }
       ] }
     ]

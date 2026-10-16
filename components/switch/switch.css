@@ -3,21 +3,23 @@
    Box 40×24 pill · padding 0 4 · toggle 16 pill
    Unselected: Surface/inversed + toggle Neutral/Solid/soft · Selected: Surface/accent + toggle Surface/default
    Hovered: anel 4px Border/semi-soft (OUTSIDE) · Pressed: anel 4px Accent/Solid/soft
-   Motion: 300ms systemic-accelerate (exceção documentada do Switch)
+   Motion (Notion verde e Figma): Hover In/01 no hover · Pressed/01 no press · Selected In/03 na posição e Selected In/02 na cor ao ligar
    ===================================================================== */
 cds-switch{ display:inline-flex; }
-cds-switch .cds-sc{ --_dur:var(--common-motion-duration-medium-02); }
+cds-switch .cds-sc{ --_dur:var(--motion-hover-in-01-timing); --_ease:var(--motion-hover-in-01-easing); }
+cds-switch .cds-sc:active, cds-switch[state="pressed"] .cds-sc{ --_dur:var(--motion-pressed-01-timing); --_ease:var(--motion-pressed-01-easing); }
 cds-switch .cds-sc__box{
   --_bg:var(--common-colors-surface-inversed); --_ring:transparent;
   width:var(--common-sizes-40); height:var(--common-sizes-24); padding:0 var(--common-sizes-4);
   display:flex; align-items:center; justify-content:flex-start;
   border-radius:var(--common-border-radius-pill);
   box-shadow:0 0 0 var(--common-border-width-thick) var(--_ring);
+  transition:background-color var(--motion-selected-in-02-timing) var(--motion-selected-in-02-easing), box-shadow var(--_dur) var(--_ease);
 }
 cds-switch .cds-sw__toggle{
   width:var(--common-sizes-16); height:var(--common-sizes-16); border-radius:var(--common-border-radius-pill);
   background:var(--common-colors-neutral-solid-soft);
-  transition:transform var(--_dur) var(--_ease), background-color var(--_dur) var(--_ease);
+  transition:transform var(--motion-selected-in-03-timing) var(--motion-selected-in-03-easing), background-color var(--motion-selected-in-02-timing) var(--motion-selected-in-02-easing);
 }
 cds-switch .cds-sc:hover .cds-sc__box, cds-switch[state="hovered"] .cds-sc .cds-sc__box{ --_ring:var(--common-colors-border-semi-soft); }
 cds-switch .cds-sc:active .cds-sc__box, cds-switch[state="pressed"] .cds-sc .cds-sc__box{ --_ring:var(--common-colors-accent-solid-soft); }

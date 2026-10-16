@@ -38,7 +38,7 @@
   "tokens": 396,
   "icons": 273,
   "illustrations": 260,
-  "conferirOpen": 146,
+  "conferirOpen": 147,
   "stackFindings": 45
  },
  "components": [
@@ -6193,12 +6193,12 @@
     {
      "id": "uso",
      "title": "Uso",
-     "text": "> **Rascunho:** O Date Input ainda não tem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time.\n\n## Sobre\n\nO Date Input é o Text Input com máscara de data (dd/mm/aaaa) e o botão de calendário. A pessoa pode digitar a data ou abrir o Date Picker num Popover.\n\n## Quando usar\n\n### Utilize para:\n\n- Datas em formulários (vencimento, início de vigência, data de nascimento).\n- Quando digitar exige menos esforço que navegar no calendário, mas o calendário ajuda a conferir o dia da semana.\n\n### Não utilize para:\n\n- Escolha de data que precisa de confirmação separada — use o Modal Date Picker.\n- Mês e ano sem o dia — use campos próprios.\n- Horários.\n\n## Casos de uso\n\n### Date Input vs Modal Date Picker\n\nO Date Input fica no formulário e aceita digitar. O calendário abre num Popover e a data vale na hora. O Modal Date Picker abre uma janela e espera o Confirmar para aplicar a data."
+     "text": "> **Rascunho:** O Date Input ainda não tem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time.\n\n## Sobre\n\nO Date Input é o Text Input com máscara de data (dd/mm/aaaa) e o botão de calendário. A pessoa pode digitar a data ou abrir o Date Picker num Popover.\n\n### No mobile\n\nNo mobile, o botão de calendário abre o seletor de data nativo do sistema, e não o Date Picker. No desktop e no tablet, continua o Date Picker num Popover. Digitar a data funciona igual nos dois.\n\n## Quando usar\n\n### Utilize para:\n\n- Datas em formulários (vencimento, início de vigência, data de nascimento).\n- Quando digitar exige menos esforço que navegar no calendário, mas o calendário ajuda a conferir o dia da semana.\n\n### Não utilize para:\n\n- Escolha de data que precisa de confirmação separada — use o Modal Date Picker.\n- Mês e ano sem o dia — use campos próprios.\n- Horários.\n\n## Casos de uso\n\n### Date Input vs Modal Date Picker\n\nO Date Input fica no formulário e aceita digitar. O calendário abre num Popover e a data vale na hora. O Modal Date Picker abre uma janela e espera o Confirmar para aplicar a data."
     },
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Label Content\n2. Text Box com máscara dd/mm/aaaa\n3. Calendar Button (abre o Date Picker)\n4. Supporting Message\n\n## Propriedades\n\n- **Kind** (Variant): Single Calendar, Double Calendar\n- **Appearance** (Variant): Neutral, Warning\n- **State** (Variant): Enabled, Disabled, Hovered, Pressed\n- **Is Filled** (Variant): False, True\n- **Is Active** (Variant): False, True\n- **Show Label** (Boolean)\n- **Text Label** (Text)\n- **Show Required** (Boolean)\n- **Show Trailing Item** (Boolean)\n- **Show Supporting Content** (Boolean)\n- **Supporting Message** (Text)\n- **Error Message** (Text)\n- **Show Character Counter** (Boolean)\n- **Character Counter Value** (Text)\n- **Show Caret** (Boolean)\n\n> Props e padrões lidos do set Date Input da lib estável (o contador ligado com \"-0000\" vem do Figma, C57). No código: os atributos do Text Input (sem `lead-icon`), `kind`, `min`, `max`, `today`, `value` (dd/mm/aaaa) e `calendar-label` (\"Abrir calendário\"), além da propriedade `.date` (AAAA-MM-DD). Eventos `cds-change` e `cds-toggle`."
+     "text": "## Anatomia\n\nAnatomia:\n1. Label Content\n2. Text Box com máscara dd/mm/aaaa\n3. Calendar Button (abre o Date Picker)\n4. Supporting Message\n\n## Propriedades\n\n- **Kind** (Variant): Single Calendar, Double Calendar\n- **Appearance** (Variant): Neutral, Warning\n- **State** (Variant): Enabled, Disabled, Hovered, Pressed\n- **Is Filled** (Variant): False, True\n- **Is Active** (Variant): False, True\n- **Show Label** (Boolean)\n- **Text Label** (Text)\n- **Show Required** (Boolean)\n- **Show Trailing Item** (Boolean)\n- **Show Supporting Content** (Boolean)\n- **Supporting Message** (Text)\n- **Error Message** (Text)\n- **Show Character Counter** (Boolean)\n- **Character Counter Value** (Text)\n- **Show Caret** (Boolean)\n\n> Props e padrões lidos do set Date Input da lib estável (o contador ligado com \"-0000\" vem do Figma, C57). No código: os atributos do Text Input (sem `lead-icon`), `kind`, `min`, `max`, `today`, `value` (dd/mm/aaaa) o `calendar-label` (\"Abrir calendário\") e `viewport` (desktop|tablet|mobile, força o modo: em mobile o botão abre o seletor nativo), além da propriedade `.date` (AAAA-MM-DD). Eventos `cds-change` e `cds-toggle`."
     },
     {
      "id": "estilos",
@@ -6208,7 +6208,7 @@
     {
      "id": "acessibilidade",
      "title": "Acessibilidade",
-     "text": "## Teclado e leitor de tela\n\n- O campo tem o Label como nome e aceita digitar a data. A máscara põe as barras.\n- O botão de calendário é um Icon Button com nome (`calendar-label`, \"Abrir calendário\") e `aria-expanded`.\n- O calendário no Popover segue o teclado do Date Picker. `Esc` fecha e devolve o foco ao campo.\n- Erros aparecem em texto (Error Message), além da cor.\n\n> Contrastes iguais aos da família Text Fields (C141): placeholder e contorno do campo abaixo do mínimo."
+     "text": "## Teclado e leitor de tela\n\n- O campo tem o Label como nome e aceita digitar a data. A máscara põe as barras.\n- O botão de calendário é um Icon Button com nome (`calendar-label`, \"Abrir calendário\") e `aria-expanded`.\n- O calendário no Popover segue o teclado do Date Picker. `Esc` fecha e devolve o foco ao campo.\n- No mobile, o botão abre o seletor nativo do sistema, que já vem com o leitor de tela do aparelho.\n- Erros aparecem em texto (Error Message), além da cor.\n\n> Contrastes iguais aos da família Text Fields (C141): placeholder e contorno do campo abaixo do mínimo."
     },
     {
      "id": "diretrizes",
@@ -6584,7 +6584,7 @@
     {
      "id": "uso",
      "title": "Uso",
-     "text": "> **Rascunho:** O Datepicker ainda não tem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time. As regras de datas são do Conteúdo.\n\n## Sobre\n\nO Date Picker é o calendário do Castanha: mostra os dias de um mês (ou de dois, no Double Calendar), permite escolher uma data ou um intervalo e navegar por mês e ano. Embaixo, mostra a data selecionada por extenso.\n\nEle aparece dentro do Date Input (num Popover) e do Modal Date Picker. Sozinho, serve para calendários fixos na tela.\n\n## Quando usar\n\n### Utilize para:\n\n- Escolher uma data em que o dia da semana ou a proximidade com hoje importa (agendamento, vencimento).\n- Escolher um intervalo (início e fim), como o período de um relatório ou extrato.\n- Ver disponibilidade num calendário fixo na tela.\n\n### Não utilize para:\n\n- Datas conhecidas e distantes, como data de nascimento — prefira digitar no Date Input.\n- Mês e ano sem o dia (validade de cartão) — use campos próprios.\n- Horários — o Date Picker não escolhe hora.\n\n## Casos de uso\n\n### Date Picker, Date Input e Modal Date Picker\n\n| Componente | Quando |\n|---|---|\n| Date Input | Campo de formulário: digitar a data ou abrir o calendário num Popover. |\n| Modal Date Picker | Escolha que precisa de confirmação (Cancelar · Confirmar), exclusivamente no desktop. |\n| Date Picker | Calendário fixo na tela, ou dentro dos dois acima. |"
+     "text": "> **Rascunho:** O Datepicker ainda não tem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time. As regras de datas são do Conteúdo.\n\n## Sobre\n\nO Date Picker é o calendário do Castanha: mostra os dias de um mês (ou de dois, no Double Calendar), permite escolher uma data ou um intervalo e navegar por mês e ano. Embaixo, mostra a data selecionada por extenso.\n\nEle aparece dentro do Date Input (num Popover) e do Modal Date Picker. Sozinho, serve para calendários fixos na tela.\n\nNo mobile, os pickers chamam o seletor de data nativo do sistema: o Date Input abre o nativo e o Modal Date Picker não é usado.\n\n## Quando usar\n\n### Utilize para:\n\n- Escolher uma data em que o dia da semana ou a proximidade com hoje importa (agendamento, vencimento).\n- Escolher um intervalo (início e fim), como o período de um relatório ou extrato.\n- Ver disponibilidade num calendário fixo na tela.\n\n### Não utilize para:\n\n- Datas conhecidas e distantes, como data de nascimento — prefira digitar no Date Input.\n- Mês e ano sem o dia (validade de cartão) — use campos próprios.\n- Horários — o Date Picker não escolhe hora.\n\n## Casos de uso\n\n### Date Picker, Date Input e Modal Date Picker\n\n| Componente | Quando |\n|---|---|\n| Date Input | Campo de formulário: digitar a data ou abrir o calendário num Popover. No mobile, o botão abre o seletor nativo do sistema. |\n| Modal Date Picker | Escolha que precisa de confirmação (Cancelar · Confirmar), exclusivamente no desktop. |\n| Date Picker | Calendário fixo na tela, ou dentro dos dois acima. |"
     },
     {
      "id": "anatomia",
@@ -33086,6 +33086,12 @@
     "group": "Ajuste de UI",
     "resolved": false,
     "text": "Chips Group `Single Rows` com Input Chips `Size=Small` (Chat Input, CDS-1594) · Altura fixa `Sizes/48`, pensada para o chip de 40. Com o Small (32) sobram 8 em cima e 8 embaixo · Decidir se o Single Rows acompanha a altura do chip · Segue o Figma: `cds-chips-group[role-kind=\"single\"]` com 48 · Se o Figma mudar, trocar a altura em `chips-group.css`"
+   },
+   {
+    "id": "C208",
+    "group": "Ajuste de UI",
+    "resolved": false,
+    "text": "Date Input · mobile · Annotation na branch `[Add New] Datepicker` (qIbjCjbldhio6XaLTiFIld, mergeada): a coleção Viewport (`Common/Is Desktop`, `Is Tablet`, `Is Mobile`) mostra o calendário do DS no Desktop e, no Mobile, delega a escolha ao seletor nativo do sistema. A annotation diz que o mecanismo é só do Figma e que, no código, a decisão de plataforma é da implementação · Confirmar se o tablet fica com o calendário do DS (a annotation não fala do tablet) · **Exceção** (Gustavo, 16/10, D358): no mobile o Calendar Button abre o `input type=\"date\"` nativo. Desktop e tablet seguem com o Date Picker no Popover. Mobile = atributo `viewport`, senão o `[data-viewport]` mais próximo, senão a janela < 744 · Nada a mudar no código se o Figma confirmar o tablet com o calendário do DS"
    },
    {
     "id": "C01",

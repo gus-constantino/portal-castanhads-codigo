@@ -1863,6 +1863,9 @@ cds-credit-card-input[appearance="warning"] .cds-tf__label{ color:var(--common-c
 }
 .cds-tf--date[appearance="warning"].is-open .cds-tf__box{ --_stroke-c:var(--common-colors-feedback-warning-semi-intense); }
 .cds-di__popover{ min-width:0; }
+/* Mobile: input type=date nativo fora da vista, ancorado no Calendar Button (o sistema abre o seletor perto dele) */
+.cds-tf--date .cds-tf__box{ position:relative; }
+.cds-di__native{ position:absolute; right:0; bottom:0; width:1px; height:1px; padding:0; margin:0; border:0; opacity:0; pointer-events:none; }
 
 /* ==== components/password-input/password-input.css ==== */
 /* Password Input · set 5798:2677 — base em text-field.css */

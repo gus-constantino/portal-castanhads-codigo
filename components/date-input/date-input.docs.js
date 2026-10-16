@@ -16,6 +16,8 @@
         { alert: { appearance: "warning", label: "Rascunho", text: "O Date Input ainda não tem página no zeroheight nem description no Figma. O texto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
         { h2: "Sobre" },
         { p: "O Date Input é o Text Input com máscara de data (dd/mm/aaaa) e o botão de calendário. A pessoa pode digitar a data ou abrir o Date Picker num Popover." },
+        { h3: "No mobile" },
+        { p: "No mobile, o botão de calendário abre o seletor de data nativo do sistema, e não o Date Picker. No desktop e no tablet, continua o Date Picker num Popover. Digitar a data funciona igual nos dois." },
         { h2: "Quando usar" },
         { h3: "Utilize para:" },
         { ul: ["Datas em formulários (vencimento, início de vigência, data de nascimento).", "Quando digitar exige menos esforço que navegar no calendário, mas o calendário ajuda a conferir o dia da semana."] },
@@ -47,7 +49,7 @@
           { name: "Character Counter Value", type: "Text", default: "-0000" },
           { name: "Show Caret", type: "Boolean", default: "true" }
         ] },
-        { note: "Props e padrões lidos do set Date Input da lib estável (o contador ligado com \"-0000\" vem do Figma, C57). No código: os atributos do Text Input (sem `lead-icon`), `kind`, `min`, `max`, `today`, `value` (dd/mm/aaaa) e `calendar-label` (\"Abrir calendário\"), além da propriedade `.date` (AAAA-MM-DD). Eventos `cds-change` e `cds-toggle`." }
+        { note: "Props e padrões lidos do set Date Input da lib estável (o contador ligado com \"-0000\" vem do Figma, C57). No código: os atributos do Text Input (sem `lead-icon`), `kind`, `min`, `max`, `today`, `value` (dd/mm/aaaa) o `calendar-label` (\"Abrir calendário\") e `viewport` (desktop|tablet|mobile, força o modo: em mobile o botão abre o seletor nativo), além da propriedade `.date` (AAAA-MM-DD). Eventos `cds-change` e `cds-toggle`." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [
@@ -67,6 +69,7 @@
           "O campo tem o Label como nome e aceita digitar a data. A máscara põe as barras.",
           "O botão de calendário é um Icon Button com nome (`calendar-label`, \"Abrir calendário\") e `aria-expanded`.",
           "O calendário no Popover segue o teclado do Date Picker. `Esc` fecha e devolve o foco ao campo.",
+          "No mobile, o botão abre o seletor nativo do sistema, que já vem com o leitor de tela do aparelho.",
           "Erros aparecem em texto (Error Message), além da cor."
         ] },
         { note: "Contrastes iguais aos da família Text Fields (C141): placeholder e contorno do campo abaixo do mínimo." }

@@ -19,6 +19,7 @@
         { h2: "Sobre" },
         { p: "O Date Picker é o calendário do Castanha: mostra os dias de um mês (ou de dois, no Double Calendar), permite escolher uma data ou um intervalo e navegar por mês e ano. Embaixo, mostra a data selecionada por extenso." },
         { p: "Ele aparece dentro do Date Input (num Popover) e do Modal Date Picker. Sozinho, serve para calendários fixos na tela." },
+        { p: "No mobile, os pickers chamam o seletor de data nativo do sistema: o Date Input abre o nativo e o Modal Date Picker não é usado." },
         { h2: "Quando usar" },
         { h3: "Utilize para:" },
         { ul: ["Escolher uma data em que o dia da semana ou a proximidade com hoje importa (agendamento, vencimento).", "Escolher um intervalo (início e fim), como o período de um relatório ou extrato.", "Ver disponibilidade num calendário fixo na tela."] },
@@ -26,7 +27,7 @@
         { ul: ["Datas conhecidas e distantes, como data de nascimento — prefira digitar no Date Input.", "Mês e ano sem o dia (validade de cartão) — use campos próprios.", "Horários — o Date Picker não escolhe hora."] },
         { h2: "Casos de uso" },
         { h3: "Date Picker, Date Input e Modal Date Picker" },
-        { table: { wrap: true, head: ["Componente", "Quando"], rows: [["Date Input", "Campo de formulário: digitar a data ou abrir o calendário num Popover."], ["Modal Date Picker", "Escolha que precisa de confirmação (Cancelar · Confirmar), exclusivamente no desktop."], ["Date Picker", "Calendário fixo na tela, ou dentro dos dois acima."]] } }
+        { table: { wrap: true, head: ["Componente", "Quando"], rows: [["Date Input", "Campo de formulário: digitar a data ou abrir o calendário num Popover. No mobile, o botão abre o seletor nativo do sistema."], ["Modal Date Picker", "Escolha que precisa de confirmação (Cancelar · Confirmar), exclusivamente no desktop."], ["Date Picker", "Calendário fixo na tela, ou dentro dos dois acima."]] } }
       ] },
 
       { id: "anatomia", title: "Anatomia", blocks: [

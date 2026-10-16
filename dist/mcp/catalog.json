@@ -38,7 +38,7 @@
   "tokens": 396,
   "icons": 273,
   "illustrations": 260,
-  "conferirOpen": 145,
+  "conferirOpen": 146,
   "stackFindings": 45
  },
  "components": [
@@ -1258,7 +1258,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Container (círculo)\n2. Conteúdo: Icon (Default), iniciais (Initial) ou foto (Image)\n\n## Propriedades\n\n- **Kind** (Variant): Default, Image, Initial\n- **Appearance** (Variant): Neutral, Inversed\n- **Size** (Variant): Small, Medium, Large\n- **Text Label** (Text)\n\n| Size | Container | Icon (Default) | Iniciais (Initial) |\n|---|---|---|---|\n| Small | 40 | 20 | Label/Medium |\n| Medium | 48 | 20 | Subtitle/Small |\n| Large | 64 | 24 | Subtitle/Small |\n\n> Props e padrões lidos do set Avatar da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código: `src` é a foto (Kind=Image), `label` são as iniciais (Kind=Initial) e `name` é o nome da pessoa (nome acessível). Na lib, Image existe exclusivamente em Neutral."
+     "text": "## Anatomia\n\nAnatomia:\n1. Avatar container (círculo)\n2. User line icon (Default)\n3. Image (Image)\n4. Initial label (Initial)\n\n## Propriedades\n\n- **Kind** (Variant): Default, Image, Initial\n- **Appearance** (Variant): Neutral, Inversed\n- **Size** (Variant): Small, Medium, Large\n- **Text Label** (Text)\n\n| Size | Container | Icon (Default) | Iniciais (Initial) |\n|---|---|---|---|\n| Small | 40 | 20 | Label/Medium |\n| Medium | 48 | 20 | Subtitle/Small |\n| Large | 64 | 24 | Subtitle/Small |\n\n> Props e padrões lidos do set Avatar da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código: `src` é a foto (Kind=Image), `label` são as iniciais (Kind=Initial) e `name` é o nome da pessoa (nome acessível). Na lib, Image existe exclusivamente em Neutral."
     },
     {
      "id": "estilos",
@@ -1710,7 +1710,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\n- Counter: Container + número (exemplo: 3)\n- Text: Container + texto (exemplo: Novo)\n- Counter mobile: ponto (exemplo: 3)\n\n## Propriedades\n\n- **Appearance** (Variant): Warning, Neutral\n- **Label** (Text)\n\n> Props e padrões lidos do set Badge da lib estável. O zeroheight lista `Kind` (Text · Counter) e chama `Appearance` de Style. Na lib, Counter e Text são o mesmo componente com o conteúdo do `Label`, e o ponto do mobile vem da collection Viewport (CONFERIR C133). No código, `viewport` força Desktop ou Mobile."
+     "text": "## Anatomia\n\nAnatomia:\n1. Counter number (Counter)\n2. Container\n3. Counter dot (Counter no mobile)\n4. Container (Text)\n5. Text label\n\n## Propriedades\n\n- **Appearance** (Variant): Warning, Neutral\n- **Label** (Text)\n\n> Props e padrões lidos do set Badge da lib estável. O zeroheight lista `Kind` (Text · Counter) e chama `Appearance` de Style. Na lib, Counter e Text são o mesmo componente com o conteúdo do `Label`, e o ponto do mobile vem da collection Viewport (CONFERIR C133). No código, `viewport` força Desktop ou Mobile."
     },
     {
      "id": "estilos",
@@ -2584,7 +2584,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. .Item Kind=Truncate (abre o Popover com os níveis escondidos)\n2. Separator (navigation-right-line 16)\n3. .Item com link (nível superior)\n4. .Item atual (Is Active, sem link)\n\n## Propriedades\n\n- **Kind** (Variant): Default\n- **Show Popover** (Boolean)\n- **showItem03 … showItem06** (Boolean)\n\n> Props e padrões lidos do set Breadcrumb da lib estável. Cada nível é um .Item (building block). No código: os filhos `<a href>` são os níveis (o último vira a página atual, com `aria-current`) e `collapse` diz quantos níveis iniciais vão para o \"…\" (padrão 1, e \"0\" mostra o caminho todo)."
+     "text": "## Anatomia\n\nAnatomia:\n1. Truncated Item (.Item Kind=Truncate, abre o Popover com os níveis escondidos)\n2. Item (com link nos níveis superiores e sem link no atual, separados pelo navigation-right-line 16)\n3. Popover (níveis escondidos)\n\n## Propriedades\n\n- **Kind** (Variant): Default\n- **Show Popover** (Boolean)\n- **showItem03 … showItem06** (Boolean)\n\n> Props e padrões lidos do set Breadcrumb da lib estável. Cada nível é um .Item (building block). No código: os filhos `<a href>` são os níveis (o último vira a página atual, com `aria-current`) e `collapse` diz quantos níveis iniciais vão para o \"…\" (padrão 1, e \"0\" mostra o caminho todo)."
     },
     {
      "id": "estilos",
@@ -2808,7 +2808,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Folha\n2. Caju\n3. Typography (opcional)\n\n## Propriedades\n\n- **Kind** (Variant): Default, Inversed, Full Red, Full White, Full Black\n- **Show Typography** (Boolean)\n\n> Props e padrões lidos do set Caju Brand da lib estável. O zeroheight ainda não tem a tab Style deste componente. Tamanho fixo: 69×28 com a tipografia e 18×28 com o símbolo sozinho. As cores são da marca (vêm do SVG do Figma), não tokens. No código, `label` muda o nome acessível (padrão \"Caju\")."
+     "text": "## Anatomia\n\nAnatomia:\n1. Logo vector (folha e caju)\n2. Typography vector (opcional)\n\n## Propriedades\n\n- **Kind** (Variant): Default, Inversed, Full Red, Full White, Full Black\n- **Show Typography** (Boolean)\n\n> Props e padrões lidos do set Caju Brand da lib estável. O zeroheight ainda não tem a tab Style deste componente. Tamanho fixo: 69×28 com a tipografia e 18×28 com o símbolo sozinho. As cores são da marca (vêm do SVG do Figma), não tokens. No código, `label` muda o nome acessível (padrão \"Caju\")."
     },
     {
      "id": "estilos",
@@ -3616,7 +3616,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Selector (área de toque 48×48)\n2. Checkbox (24×24)\n3. Text Label\n\n## Propriedades\n\n- **Status** (Variant): Selected, Indeterminate, Unselected\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Text Label** (Text)\n- **Show Text Label** (Boolean)\n\n> Props e padrões lidos do set Checkbox da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, State vem da interação (Hovered/Pressed) e do atributo `disabled`. `state=\"hovered|pressed\"` existe exclusivamente para mostrar o estado em exemplos."
+     "text": "## Anatomia\n\nAnatomia:\n1. Checkbox selector (área de toque 48×48 com o Checkbox 24×24)\n2. Label (Text Label)\n\n## Propriedades\n\n- **Status** (Variant): Selected, Indeterminate, Unselected\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Text Label** (Text)\n- **Show Text Label** (Boolean)\n\n> Props e padrões lidos do set Checkbox da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, State vem da interação (Hovered/Pressed) e do atributo `disabled`. `state=\"hovered|pressed\"` existe exclusivamente para mostrar o estado em exemplos."
     },
     {
      "id": "estilos",
@@ -4839,7 +4839,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Content List Item\n2. Divider (exclusivo do Kind Default)\n\n## Propriedades\n\n- **Kind** (Variant): Default, Card\n- **Intent** (Variant): Default, Switch, Navigation\n\n> Props e padrões lidos do set Content List da lib estável. A lista repassa Kind e Intent aos itens: Default → itens Default (sem Trailing Item), Navigation → Navigation, Switch → Transaction (como no Figma, C54). No código: filhos `<cds-content-list-item>`, `kind`, `intent` e `label` (nome da lista)."
+     "text": "## Anatomia\n\nAnatomia:\n1. Content list item\n\n## Propriedades\n\n- **Kind** (Variant): Default, Card\n- **Intent** (Variant): Default, Switch, Navigation\n\n> Props e padrões lidos do set Content List da lib estável. A lista repassa Kind e Intent aos itens: Default → itens Default (sem Trailing Item), Navigation → Navigation, Switch → Transaction (como no Figma, C54). No código: filhos `<cds-content-list-item>`, `kind`, `intent` e `label` (nome da lista)."
     },
     {
      "id": "estilos",
@@ -5128,7 +5128,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Text label\n2. Lead Item\n3. Text description\n4. Trailing item\n5. Divider\n\n### Com a alça de arraste\n\nAnatomia:\n1. Drag Handle (opcional, Show Drag Handle)\n2. Lead Item\n\n## Propriedades\n\n- **Kind** (Variant): Default, Card\n- **Intent** (Variant): Default, Navigation, Transaction\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled, Dragged\n- **Show Lead Item** (Boolean)\n- **Show Trailing Item** (Boolean)\n- **Show Divider** (Boolean)\n- **Show Navigation Indicator** (Boolean)\n- **Show Tag** (Boolean)\n- **Show Drag Handle** (Boolean)\n\nDragged e Show Drag Handle são da branch (CDS-1592). Show Drag Handle começa desligado: nenhuma instância que já existe passa a mostrar a alça.\n\n| Intent | Composição |\n|---|---|\n| Default | .Lead Item + .Text Content + .Trailing Item (padrão Checkbox) |\n| Navigation | .Lead Item + .Text Content + Tag (Warning) + navigation-right-line |\n| Transaction | Shaped Icon (Neutral, Small) + .Text Content + .Currency Content + navigation-right-line |\n\n> Props e padrões lidos do set Content List Item da lib estável. O zeroheight lista \"Show Lead Icon\" e \"Show Trailing Icon\" e um grupo \"Role\". Na lib são Show Lead Item, Show Trailing Item e Intent (CONFERIR C139). No código: `intent`, `href` (a linha vira link), `trailing-item`, `status`, `tag-label`, `tag-appearance`, `shaped-icon`, `value`, `symbol`, `show-negative-symbol`, `value-description` e os `show-*`. Para a alça: `show-drag-handle` e `state=\"dragged\"`. A reordenação é da lista: `<cds-content-list reorderable>`.\n\n## Entrega para dev · CDS-1592\n\n| Elemento | Token ou valor (branch, 13/10) |\n|---|---|\n| Drag Handle | Frame do próprio item, sem building block · mín. 24×24 (`Sizes/24`) · padding `Sizes/2` · ícone `drag-line` 20 em `Icons/intense` · à esquerda do Lead Item |\n| Dragged · fundo | `Surface/default` |\n| Dragged · elevação | `Elevation/level 1` (x 0 · y 4 · blur 8) |\n| Dragged · borda | `Border/semi-soft` por dentro, fora do layout. Kind=Default: só à esquerda, `Border/Width/hairline`. Card: `hairline` em cima, à direita e embaixo e `Border/Width/thick` à esquerda |\n| Dragged · Divider e altura | Iguais ao Enabled: Divider no Kind=Default, 69 no Intent Default, 62 no Navigation e no Transaction, 80 no Card |\n\n- Prop `showDragHandle?: boolean` (padrão `false`) e o estado `dragged` no Content List Item do castanha-react.\n- A alça é um controle de reordenação com nome acessível \"Reordenar {label}\". Ela não pode disparar a ação da linha (link, botão ou controle). De preferência, fora do elemento da linha, para não aninhar controles.\n- A reordenação é da lista: abre o espaço no índice sob o cursor e desloca os vizinhos. O espaçamento da lista não muda.\n- Alternativa sem arrastar (WCAG 2.5.7): Espaço ou Enter levanta, setas movem, Espaço ou Enter solta, Esc cancela.\n- Anunciar a posição nova (`aria-live`), contando a partir de 1.\n- Evento de mudança com origem e destino (no portal, `cds-reorder { from, to }`).\n- Fora da entrega: a alça no Selection List Item."
+     "text": "## Anatomia\n\nAnatomia:\n1. Text label\n2. Lead Item\n3. Text description\n4. Trailing item\n5. Divider\n\n### Outras variações (Navigation, Transaction e alça de arraste)\n\nAnatomia:\n1. Icon (indicador de navegação)\n2. Shaped Icon\n3. Currency label\n4. Text description\n5. Drag handle (opcional, Show Drag Handle)\n\n## Propriedades\n\n- **Kind** (Variant): Default, Card\n- **Intent** (Variant): Default, Navigation, Transaction\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled, Dragged\n- **Show Lead Item** (Boolean)\n- **Show Trailing Item** (Boolean)\n- **Show Divider** (Boolean)\n- **Show Navigation Indicator** (Boolean)\n- **Show Tag** (Boolean)\n- **Show Drag Handle** (Boolean)\n\nDragged e Show Drag Handle são da branch (CDS-1592). Show Drag Handle começa desligado: nenhuma instância que já existe passa a mostrar a alça.\n\n| Intent | Composição |\n|---|---|\n| Default | .Lead Item + .Text Content + .Trailing Item (padrão Checkbox) |\n| Navigation | .Lead Item + .Text Content + Tag (Warning) + navigation-right-line |\n| Transaction | Shaped Icon (Neutral, Small) + .Text Content + .Currency Content + navigation-right-line |\n\n> Props e padrões lidos do set Content List Item da lib estável. O zeroheight lista \"Show Lead Icon\" e \"Show Trailing Icon\" e um grupo \"Role\". Na lib são Show Lead Item, Show Trailing Item e Intent (CONFERIR C139). No código: `intent`, `href` (a linha vira link), `trailing-item`, `status`, `tag-label`, `tag-appearance`, `shaped-icon`, `value`, `symbol`, `show-negative-symbol`, `value-description` e os `show-*`. Para a alça: `show-drag-handle` e `state=\"dragged\"`. A reordenação é da lista: `<cds-content-list reorderable>`.\n\n## Entrega para dev · CDS-1592\n\n| Elemento | Token ou valor (branch, 13/10) |\n|---|---|\n| Drag Handle | Frame do próprio item, sem building block · mín. 24×24 (`Sizes/24`) · padding `Sizes/2` · ícone `drag-line` 20 em `Icons/intense` · à esquerda do Lead Item |\n| Dragged · fundo | `Surface/default` |\n| Dragged · elevação | `Elevation/level 1` (x 0 · y 4 · blur 8) |\n| Dragged · borda | `Border/semi-soft` por dentro, fora do layout. Kind=Default: só à esquerda, `Border/Width/hairline`. Card: `hairline` em cima, à direita e embaixo e `Border/Width/thick` à esquerda |\n| Dragged · Divider e altura | Iguais ao Enabled: Divider no Kind=Default, 69 no Intent Default, 62 no Navigation e no Transaction, 80 no Card |\n\n- Prop `showDragHandle?: boolean` (padrão `false`) e o estado `dragged` no Content List Item do castanha-react.\n- A alça é um controle de reordenação com nome acessível \"Reordenar {label}\". Ela não pode disparar a ação da linha (link, botão ou controle). De preferência, fora do elemento da linha, para não aninhar controles.\n- A reordenação é da lista: abre o espaço no índice sob o cursor e desloca os vizinhos. O espaçamento da lista não muda.\n- Alternativa sem arrastar (WCAG 2.5.7): Espaço ou Enter levanta, setas movem, Espaço ou Enter solta, Esc cancela.\n- Anunciar a posição nova (`aria-live`), contando a partir de 1.\n- Evento de mudança com origem e destino (no portal, `cds-reorder { from, to }`).\n- Fora da entrega: a alça no Selection List Item."
     },
     {
      "id": "estilos",
@@ -5701,7 +5701,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Item ativo (rate-filled · Decorative/02)\n2. Label Content (rótulo do nível)\n3. Item inativo (rate-line · Surface/02)\n\nCinco .CSAT Item: Muito ruim, Ruim, Médio, Bom e Muito bom. Com um valor escolhido, os itens até ele ficam ativos, como estrelas.\n\n## Propriedades\n\n- **State** (Variant): Enabled, Disabled\n- **Selected Value** (Variant): None, 1, 2, 3, 4, 5\n\n> Props e padrões lidos do set CSAT Score da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código: `value` (1–5 ou vazio), `disabled`, `label` (nome do grupo, padrão \"Avaliação\"), `labels` (os 5 rótulos, separados por vírgula) e `name`. Evento `cds-change { value }`."
+     "text": "## Anatomia\n\nAnatomia:\n1. CSAT rating item (ativo: rate-filled · Decorative/02 · inativo: rate-line · Surface/02)\n2. CSAT label (rótulo do nível)\n\nCinco .CSAT Item: Muito ruim, Ruim, Médio, Bom e Muito bom. Com um valor escolhido, os itens até ele ficam ativos, como estrelas.\n\n## Propriedades\n\n- **State** (Variant): Enabled, Disabled\n- **Selected Value** (Variant): None, 1, 2, 3, 4, 5\n\n> Props e padrões lidos do set CSAT Score da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código: `value` (1–5 ou vazio), `disabled`, `label` (nome do grupo, padrão \"Avaliação\"), `labels` (os 5 rótulos, separados por vírgula) e `name`. Evento `cds-change { value }`."
     },
     {
      "id": "estilos",
@@ -7935,7 +7935,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Container\n2. Ícone de filtro (.Icons) — com filtros aplicados, dá lugar ao Badge com a contagem\n3. Label (padrão \"Filtros\")\n\n## Composição do componente\n\nContainer com o ícone de filtro e o Label. Com filtros aplicados (`Is Active`), um Badge Neutral com a contagem ocupa o lugar do ícone. Em Tablet e Mobile, o botão mostra o ícone sem o Label (48×48) e o Badge vai para o canto.\n\n## Propriedades\n\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Is Active** (Variant): False, True\n\n> Props e padrões lidos do set Filter button da lib estável. O zeroheight ainda não documenta anatomia nem propriedades deste componente. No código: `active`, `count` (número no Badge) e `label`. Quem implementa controla `active`."
+     "text": "## Anatomia\n\nAnatomia:\n1. Icon (.Icons, com filtros aplicados dá lugar ao Badge)\n2. Text label (padrão \"Filtros\")\n3. Container\n4. Badge (contagem de filtros aplicados)\n\n## Composição do componente\n\nContainer com o ícone de filtro e o Label. Com filtros aplicados (`Is Active`), um Badge Neutral com a contagem ocupa o lugar do ícone. Em Tablet e Mobile, o botão mostra o ícone sem o Label (48×48) e o Badge vai para o canto.\n\n## Propriedades\n\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Is Active** (Variant): False, True\n\n> Props e padrões lidos do set Filter button da lib estável. O zeroheight ainda não documenta anatomia nem propriedades deste componente. No código: `active`, `count` (número no Badge) e `label`. Quem implementa controla `active`."
     },
     {
      "id": "estilos",
@@ -8350,7 +8350,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Divider (Show Divider)\n2. Ação secundária (Show Secondary Action)\n3. Ação primária\n\n## Composição do componente\n\nMesma estrutura do .Footer: Divider e Action Buttons com Main Buttons Neutral (secundária) e Accent (primária). Em `Horizontal`, os botões ficam lado a lado no tamanho do conteúdo. Em `Pilled`, empilhados e com largura total.\n\n## Propriedades\n\n- **Kind** (Variant): Horizontal, Pilled\n- **Show Divider** (Boolean)\n- **Show Secondary Action** (Boolean)\n\n> Props e padrões lidos do set [Beta] Fixed Bar da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, `fixed` ancora a barra no fim da viewport."
+     "text": "## Anatomia\n\n### Desktop/Tablet\n\nAnatomia:\n1. Primary action (Ação primária)\n2. Secondary action (Ação secundária · Show Secondary Action)\n3. Bottom fixed container\n4. Divider (Show Divider)\n\n### Mobile\n\nAnatomia:\n1. Secondary action\n2. Primary action\n3. Bottom fixed container\n\n## Composição do componente\n\nMesma estrutura do .Footer: Divider e Action Buttons com Main Buttons Neutral (secundária) e Accent (primária). Em `Horizontal`, os botões ficam lado a lado no tamanho do conteúdo. Em `Pilled`, empilhados e com largura total.\n\n## Propriedades\n\n- **Kind** (Variant): Horizontal, Pilled\n- **Show Divider** (Boolean)\n- **Show Secondary Action** (Boolean)\n\n> Props e padrões lidos do set [Beta] Fixed Bar da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, `fixed` ancora a barra no fim da viewport."
     },
     {
      "id": "estilos",
@@ -9374,7 +9374,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Frame com a imagem no Fill (cortada para caber na proporção)\n\n## Propriedades\n\n- **Aspect Ratio** (Variant): None, 1:1, 3:2\n\n> Props e padrões lidos do set Image da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código: `src` é a imagem, `alt` o texto alternativo e `aspect-ratio` a proporção. A largura vem do container. Sem `src`, aparece a superfície de placeholder (Surface/01)."
+     "text": "## Anatomia\n\nAnatomia:\n1. Image container (frame com a imagem no Fill, cortada para caber na proporção)\n\n## Propriedades\n\n- **Aspect Ratio** (Variant): None, 1:1, 3:2\n\n> Props e padrões lidos do set Image da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código: `src` é a imagem, `alt` o texto alternativo e `aspect-ratio` a proporção. A largura vem do container. Sem `src`, aparece a superfície de placeholder (Surface/01)."
     },
     {
      "id": "estilos",
@@ -10736,7 +10736,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Modal header\n2. Slot\n3. Modal action footer\n\n## Composição do componente\n\n- Header (opcional): título, botão de fechar e divisor — via `Show Header`.\n- Content (obrigatório): área livre no Slot.\n- Footer (opcional): ações primária e secundária — via `Show Footer`.\n\n### Slot — como utilizar\n\n1. Insira o componente Modal na tela\n2. Localize a área de Slot (Content)\n3. Arraste um componente para dentro do slot (ex: text, form, empty state, etc.)\n4. Caso o conteúdo seja uma composição própria (ex: múltiplos elementos agrupados), é necessário transformá-la em componente antes de inserir no slot\n5. O conteúdo inserido passa a respeitar o layout e espaçamento do modal automaticamente\n6. Ajuste o tamanho do conteúdo conforme necessário — o modal se adapta dentro dos limites definidos\n\n## Propriedades\n\n- **Show Header** (Boolean)\n- **Show Footer** (Boolean)\n- **Slot** (Slot)\n\n> Props e padrões lidos do componente Modal da lib estável. O zeroheight ainda lista `Kind` (Default · Confirmation), que a lib não tem: a versão Confirmation é o Confirmation Message dentro do Slot (CONFERIR C131). No código, o fechamento é controlado por `show-close-button` e `dismissible`."
+     "text": "## Anatomia\n\n### Default\n\nAnatomia:\n1. Modal header\n2. Slot\n3. Modal action footer\n\n### Confirmation\n\nAnatomia:\n1. Shaped icon\n2. Content title\n3. Content description\n\n## Composição do componente\n\n- Header (opcional): título, botão de fechar e divisor — via `Show Header`.\n- Content (obrigatório): área livre no Slot.\n- Footer (opcional): ações primária e secundária — via `Show Footer`.\n\n### Slot — como utilizar\n\n1. Insira o componente Modal na tela\n2. Localize a área de Slot (Content)\n3. Arraste um componente para dentro do slot (ex: text, form, empty state, etc.)\n4. Caso o conteúdo seja uma composição própria (ex: múltiplos elementos agrupados), é necessário transformá-la em componente antes de inserir no slot\n5. O conteúdo inserido passa a respeitar o layout e espaçamento do modal automaticamente\n6. Ajuste o tamanho do conteúdo conforme necessário — o modal se adapta dentro dos limites definidos\n\n## Propriedades\n\n- **Show Header** (Boolean)\n- **Show Footer** (Boolean)\n- **Slot** (Slot)\n\n> Props e padrões lidos do componente Modal da lib estável. O zeroheight ainda lista `Kind` (Default · Confirmation), que a lib não tem: a versão Confirmation é o Confirmation Message dentro do Slot (CONFERIR C131). No código, o fechamento é controlado por `show-close-button` e `dismissible`."
     },
     {
      "id": "estilos",
@@ -11570,7 +11570,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Focus indicator (item ativo, 16×6)\n2. Navigation dots (6×6)\n3. Botão de navegação (exclusivo do desktop)\n\n## Propriedades\n\n- **Appearance** (Variant): Accent, Inversed\n\n> Props e padrões lidos do set Nav Control da lib estável. O zeroheight lista Items (2–5), Style e \"Is selectedLead Icon\", que não existem no set (CONFERIR C138). Mobile e desktop vêm da coleção Viewport (no mobile, os indicadores sem as setas). No código: `appearance`, `current` (1-based), `total` (até 10), `prev-label`, `next-label` e `viewport`."
+     "text": "## Anatomia\n\nAnatomia:\n1. Indicador ativo (Focus indicator, 16×6)\n2. Indicador inativo (Navigation dots, 6×6)\n3. Botão de navegação (apenas desktop)\n\n## Propriedades\n\n- **Appearance** (Variant): Accent, Inversed\n\n> Props e padrões lidos do set Nav Control da lib estável. O zeroheight lista Items (2–5), Style e \"Is selectedLead Icon\", que não existem no set (CONFERIR C138). Mobile e desktop vêm da coleção Viewport (no mobile, os indicadores sem as setas). No código: `appearance`, `current` (1-based), `total` (até 10), `prev-label`, `next-label` e `viewport`."
     },
     {
      "id": "estilos",
@@ -12530,7 +12530,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Container com Slot (conteúdo de quem usa)\n\n## Composição do componente\n\nContainer com Surface/default, raio large, Elevation/level 3 e padding 8. O conteúdo é o Slot. Como menu de ações, use o List do DS (ex.: Content List Item), como no Drop Button.\n\n## Propriedades\n\n- **Slot** (Slot)\n\n> Na lib, o Slot é a única prop do Popover. No código: `for` (id do gatilho), `placement` (bottom-start, bottom-end, bottom, top), `label` e os métodos `show()`, `hide()` e `toggle()`."
+     "text": "## Anatomia\n\nAnatomia:\n1. Container\n2. Slot (conteúdo de quem usa)\n\n## Composição do componente\n\nContainer com Surface/default, raio large, Elevation/level 3 e padding 8. O conteúdo é o Slot. Como menu de ações, use o List do DS (ex.: Content List Item), como no Drop Button.\n\n## Propriedades\n\n- **Slot** (Slot)\n\n> Na lib, o Slot é a única prop do Popover. No código: `for` (id do gatilho), `placement` (bottom-start, bottom-end, bottom, top), `label` e os métodos `show()`, `hide()` e `toggle()`."
     },
     {
      "id": "estilos",
@@ -12769,7 +12769,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Track (fundo da barra)\n2. Indicador de progresso\n\n## Propriedades\n\n- **Percent** (Variant): 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100\n\n> Props e padrões lidos do set Progress Line da lib estável. No código, `percent` aceita qualquer valor de 0 a 100 e `label` dá o nome acessível. O zeroheight ainda não tem a tab Style deste componente."
+     "text": "## Anatomia\n\nAnatomia:\n1. Progress container line (Track, fundo da barra)\n2. Percentual indicator (indicador de progresso)\n\n## Propriedades\n\n- **Percent** (Variant): 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100\n\n> Props e padrões lidos do set Progress Line da lib estável. No código, `percent` aceita qualquer valor de 0 a 100 e `label` dá o nome acessível. O zeroheight ainda não tem a tab Style deste componente."
     },
     {
      "id": "estilos",
@@ -13409,7 +13409,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Selector (área de toque 48×48)\n2. Radio (24×24)\n3. Text Label\n\n## Propriedades\n\n- **Status** (Variant): Selected, Unselected\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Text Label** (Text)\n- **Show Text Label** (Boolean)\n\n> Props e padrões lidos do set Radio Button da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, `name` agrupa os Radio Buttons (um único selecionado por grupo). State vem da interação e do atributo `disabled`. O `state=\"hovered|pressed\"` existe exclusivamente para mostrar o estado em exemplos."
+     "text": "## Anatomia\n\nAnatomia:\n1. Radio (área de toque 48×48 com o Radio 24×24)\n2. Label (Text Label)\n\n## Propriedades\n\n- **Status** (Variant): Selected, Unselected\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Text Label** (Text)\n- **Show Text Label** (Boolean)\n\n> Props e padrões lidos do set Radio Button da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, `name` agrupa os Radio Buttons (um único selecionado por grupo). State vem da interação e do atributo `disabled`. O `state=\"hovered|pressed\"` existe exclusivamente para mostrar o estado em exemplos."
     },
     {
      "id": "estilos",
@@ -15896,7 +15896,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Shape (fundo com raio)\n2. Icon (nested instance)\n\n## Propriedades\n\n- **Icon** (Instance swap)\n- **Appearance** (Variant): Accent, Neutral, Positive, Warning, Negative, Informative, Inversed\n- **Size** (Variant): Smallest, Small, Medium, Large\n\n| Size | Shape | Icon |\n|---|---|---|\n| Smallest | 32 · raio extra-small | 16 |\n| Small | 40 · raio small | 16 |\n| Medium | 48 · raio medium | 20 |\n| Large | 56 · raio medium | 24 |\n\n> Props e padrões lidos do set Shaped Icon da lib estável. O zeroheight ainda não tem a tab Style deste componente. Size e Appearance do Icon interno derivam do Shaped Icon."
+     "text": "## Anatomia\n\nAnatomia:\n1. Container (Shape, fundo com raio)\n2. Icon (nested instance)\n\n## Propriedades\n\n- **Icon** (Instance swap)\n- **Appearance** (Variant): Accent, Neutral, Positive, Warning, Negative, Informative, Inversed\n- **Size** (Variant): Smallest, Small, Medium, Large\n\n| Size | Shape | Icon |\n|---|---|---|\n| Smallest | 32 · raio extra-small | 16 |\n| Small | 40 · raio small | 16 |\n| Medium | 48 · raio medium | 20 |\n| Large | 56 · raio medium | 24 |\n\n> Props e padrões lidos do set Shaped Icon da lib estável. O zeroheight ainda não tem a tab Style deste componente. Size e Appearance do Icon interno derivam do Shaped Icon."
     },
     {
      "id": "estilos",
@@ -16706,7 +16706,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\n1. Progress indicator (arco de 90° que gira)\n2. Circle track (anel de fundo)\n\n## Propriedades\n\n- **Appearance** (Variant): Accent, Neutral, Inversed\n- **Size** (Variant): Small, Medium, Large\n- **Spinner Position** (Variant): 0, 1, 2, 3\n\n> Props e padrões lidos do set Spinner da lib estável (o zeroheight chama `Appearance` de Style). `Spinner Position` é o quadro da animação de protótipo: no código vira rotação contínua. Tamanhos: Small 16, Medium 24, Large 32. No código, `label` é o texto anunciado (padrão \"Carregando\")."
+     "text": "## Anatomia\n\nAnatomia:\n1. Progress indicator (arco de 90° que gira)\n2. Circle track (anel de fundo)\n\n## Propriedades\n\n- **Appearance** (Variant): Accent, Neutral, Inversed\n- **Size** (Variant): Small, Medium, Large\n- **Spinner Position** (Variant): 0, 1, 2, 3\n\n> Props e padrões lidos do set Spinner da lib estável (o zeroheight chama `Appearance` de Style). `Spinner Position` é o quadro da animação de protótipo: no código vira rotação contínua. Tamanhos: Small 16, Medium 24, Large 32. No código, `label` é o texto anunciado (padrão \"Carregando\")."
     },
     {
      "id": "estilos",
@@ -17073,7 +17073,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Ponto (reforço visual)\n2. Text Label (carrega a informação)\n\n## Propriedades\n\n- **Appearance** (Variant): Neutral, Positive, Warning, Informative, Negative\n- **Size** (Variant): Small, Medium, Large\n- **Text Label** (Text)"
+     "text": "## Anatomia\n\nAnatomia:\n1. Indicator (reforço visual)\n2. Label (carrega a informação)\n\n## Propriedades\n\n- **Appearance** (Variant): Neutral, Positive, Warning, Informative, Negative\n- **Size** (Variant): Small, Medium, Large\n- **Text Label** (Text)"
     },
     {
      "id": "estilos",
@@ -17206,7 +17206,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Track\n2. Toggle\n3. Text Label\n\n## Propriedades\n\n- **Status** (Variant): Selected, Unselected\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Text Label** (Text)\n- **Show Text Label** (Boolean)\n\n> Props e padrões lidos do set Switch da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, State vem da interação e do atributo `disabled`. O `state=\"hovered|pressed\"` existe para mostrar o estado em exemplos."
+     "text": "## Anatomia\n\nAnatomia:\n1. Switch selector (Track e Toggle)\n2. Label (Text Label)\n\n## Propriedades\n\n- **Status** (Variant): Selected, Unselected\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Text Label** (Text)\n- **Show Text Label** (Boolean)\n\n> Props e padrões lidos do set Switch da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, State vem da interação e do atributo `disabled`. O `state=\"hovered|pressed\"` existe para mostrar o estado em exemplos."
     },
     {
      "id": "estilos",
@@ -18278,7 +18278,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Lead Item (Icon · Small)\n2. Text Label\n\n## Propriedades\n\n- **Appearance** (Variant): Accent, Neutral, Positive, Warning, Negative, Informative, Inversed\n- **Text Label** (Text)\n- **Show Lead Item** (Boolean)\n\n> Props e padrões lidos do set Tag da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, `icon` escolhe o ícone do Lead Item."
+     "text": "## Anatomia\n\nAnatomia:\n1. Icon (Lead Item · Small)\n2. Tag (Text Label)\n\n## Propriedades\n\n- **Appearance** (Variant): Accent, Neutral, Positive, Warning, Negative, Informative, Inversed\n- **Text Label** (Text)\n- **Show Lead Item** (Boolean)\n\n> Props e padrões lidos do set Tag da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, `icon` escolhe o ícone do Lead Item."
     },
     {
      "id": "estilos",
@@ -19588,7 +19588,7 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Ícone (24, cor decorativa por Appearance)\n2. Text Description (até 2 linhas)\n3. .Close Toast (Show Trailing Item)\n\n## Propriedades\n\n- **Appearance** (Variant): Positive, Warning\n- **Text Description** (Text)\n- **Show Trailing Item** (Boolean)\n\n> Props e padrões lidos do set Toast da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código: `text`, `appearance`, `show-trailing-item` e `close-label` (nome do botão de fechar). O layout mobile (ícone e fechar no topo, texto embaixo) vem da coleção Viewport, e `viewport` força o modo."
+     "text": "## Anatomia\n\nAnatomia:\n1. Container\n2. Icon (24, cor decorativa por Appearance)\n3. Text label (Text Description, até 2 linhas)\n4. Icon button (.Close Toast · Show Trailing Item)\n\n## Propriedades\n\n- **Appearance** (Variant): Positive, Warning\n- **Text Description** (Text)\n- **Show Trailing Item** (Boolean)\n\n> Props e padrões lidos do set Toast da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código: `text`, `appearance`, `show-trailing-item` e `close-label` (nome do botão de fechar). O layout mobile (ícone e fechar no topo, texto embaixo) vem da coleção Viewport, e `viewport` força o modo."
     },
     {
      "id": "estilos",
@@ -33602,6 +33602,12 @@
     "group": "Documentação",
     "resolved": false,
     "text": "Storybook › Sobre o Castanha › Diferenciais · — · O link \"Castanha Optimizer\" da seção Bundle proporcional ao uso real aponta para a story do Castoken (`castanha-universe-02-castanha-castoken`) · Segue o Storybook: no portal o link leva a Castanha Universe › Castoken · Corrigir o link no `differentials.mdx` do castanha-react e rodar o importador de novo"
+   },
+   {
+    "id": "C207",
+    "group": "Documentação",
+    "resolved": false,
+    "text": "Docs · Anatomia ([CastanhaDS] Component use documentation, frames `anatomia-*`) · (1) Tag: a legenda chama o texto de \"Tag\" (nome da camada); a prop é `Text Label`. (2) Select input: o estado B Active (6 Popover, 7 Selection list) · (1) Nome da parte igual ao da prop? (2) — · (1) Legenda \"Tag (Text Label)\". (2) O portal mostra só o estado A no Async Select Input: o Select abre o Popover por cima da página, fora da caixa da Anatomia. (3) Currency: o Figma tem 2 instâncias, o portal mostra 1. (4) Text Input: o item 5 Clear Button do Figma segue de fora (legado, C96). (5) Caju Brand: \"Logo vector\" no Figma são 2 caminhos no SVG (folha e caju); o marcador aponta o caju · (1) Quando revisar a doc da Tag"
    },
    {
     "id": "C117",

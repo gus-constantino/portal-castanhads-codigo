@@ -1,6 +1,6 @@
 # Cobertura · playground × castanha_flutter
 
-Gerado por `scripts/integration/build-flutter-manifest.js` a partir de `origin/staging` (38504ab7, 2026-10-07) do castanha-mobile. Não editar à mão.
+Gerado por `scripts/integration/build-flutter-manifest.js` a partir de `origin/staging` (a62701c0, 2026-10-15) do castanha-mobile. Não editar à mão.
 
 | | Quantidade |
 |---|---|

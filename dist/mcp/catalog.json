@@ -10,14 +10,14 @@
  },
  "reactSource": {
   "ref": "origin/staging",
-  "commit": "ca2b41ae",
-  "date": "2026-10-07"
+  "commit": "039c0d37",
+  "date": "2026-10-15"
  },
  "flutterSource": {
   "repo": "caju-beneficios/castanha-mobile",
   "ref": "origin/staging",
-  "commit": "38504ab7",
-  "date": "2026-10-07",
+  "commit": "a62701c0",
+  "date": "2026-10-15",
   "package": "castanha_flutter",
   "codeConnect": {
    "ref": "origin/feat/figma-code-connect",
@@ -3468,7 +3468,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=21215-242",
    "figmaNode": "21215-242",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "Organiza de 3 a 10 itens em sequência horizontal, um por vez, com pré-visualização parcial do próximo.",
    "tabs": [
     {
@@ -7200,7 +7200,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=16456-4381",
    "figmaNode": "16456-4381",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "O Drawer é um painel lateral deslizante utilizado para expor conteúdos complementares ou etapas adicionais dentro de um fluxo principal, sem interromper a tela atual. Ele aparece sobreposto à interface e permite que a pessoa usuária mantenha o contexto enquanto realiza uma interação específica.",
    "tabs": [
     {
@@ -8339,7 +8339,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=24037-2929",
    "figmaNode": "24037-2929",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "A Fixed bar é uma área fixa posicionada na base da interface que agrupa duas ações relacionadas — uma primária e outra secundária. Ela é utilizada para decisões importantes no final de fluxos ou seções, permanecendo sempre acessível para a pessoa usuária.",
    "tabs": [
     {
@@ -8383,7 +8383,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=6500-6958",
    "figmaNode": "6500-6958",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "O Tabs organiza conteúdos relacionados em seções paralelas dentro da mesma página, permitindo que a pessoa usuária alterne rapidamente entre contextos sem navegação externa.",
    "tabs": [
     {
@@ -12922,7 +12922,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=21470-2390",
    "figmaNode": "21470-2390",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "Indica o avanço de uma pessoa em um fluxo de múltiplas etapas, mostrando o que já foi concluído, onde ela está e o que ainda falta.",
    "tabs": [
     {
@@ -13094,7 +13094,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=14415-3778",
    "figmaNode": "14415-3778",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "Etapa individual do Progress Tracker.",
    "tabs": [
     {
@@ -14076,7 +14076,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=6646-181",
    "figmaNode": "6646-181",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "Abas no tamanho do conteúdo, com rolagem horizontal. Mesma documentação de Tabs da Fixed Tab.",
    "tabs": [
     {
@@ -29616,7 +29616,7 @@
     "export": "DispositivosCelularCartaoAproximacao",
     "import": "import { DispositivosCelularCartaoAproximacao } from '@caju-beneficios/castanha-illustrations';",
     "renamed": false,
-    "drawingDiffers": false
+    "drawingDiffers": true
    }
   },
   {
@@ -29691,7 +29691,7 @@
     "export": "DispositivosCelularCartaoVirtualWallet1",
     "import": "import { DispositivosCelularCartaoVirtualWallet1 } from '@caju-beneficios/castanha-illustrations';",
     "renamed": false,
-    "drawingDiffers": false
+    "drawingDiffers": true
    }
   },
   {
@@ -29721,7 +29721,7 @@
     "export": "DispositivosCelularCartaoVirtual1",
     "import": "import { DispositivosCelularCartaoVirtual1 } from '@caju-beneficios/castanha-illustrations';",
     "renamed": false,
-    "drawingDiffers": false
+    "drawingDiffers": true
    }
   },
   {
@@ -29736,7 +29736,7 @@
     "export": "DispositivosCelularCartaoVirtual2",
     "import": "import { DispositivosCelularCartaoVirtual2 } from '@caju-beneficios/castanha-illustrations';",
     "renamed": false,
-    "drawingDiffers": false
+    "drawingDiffers": true
    }
   },
   {
@@ -30651,7 +30651,7 @@
     "export": "FinancasCartaoVoucher",
     "import": "import { FinancasCartaoVoucher } from '@caju-beneficios/castanha-illustrations';",
     "renamed": false,
-    "drawingDiffers": false
+    "drawingDiffers": true
    }
   },
   {
@@ -30666,7 +30666,7 @@
     "export": "FinancasCartoesFisicoVoucher",
     "import": "import { FinancasCartoesFisicoVoucher } from '@caju-beneficios/castanha-illustrations';",
     "renamed": false,
-    "drawingDiffers": false
+    "drawingDiffers": true
    }
   },
   {
@@ -30906,7 +30906,7 @@
     "export": "FinancasCartaoVirtualMinimalista",
     "import": "import { FinancasCartaoVirtualMinimalista } from '@caju-beneficios/castanha-illustrations';",
     "renamed": false,
-    "drawingDiffers": false
+    "drawingDiffers": true
    }
   },
   {
@@ -30921,7 +30921,7 @@
     "export": "FinancasCartaoVoucherMinimalista",
     "import": "import { FinancasCartaoVoucherMinimalista } from '@caju-beneficios/castanha-illustrations';",
     "renamed": false,
-    "drawingDiffers": false
+    "drawingDiffers": true
    }
   },
   {
@@ -30951,7 +30951,7 @@
     "export": "FinancasCartoesFisicoVirtual",
     "import": "import { FinancasCartoesFisicoVirtual } from '@caju-beneficios/castanha-illustrations';",
     "renamed": false,
-    "drawingDiffers": false
+    "drawingDiffers": true
    }
   },
   {
@@ -30981,7 +30981,7 @@
     "export": "FinancasCartaoVirtualWallet1",
     "import": "import { FinancasCartaoVirtualWallet1 } from '@caju-beneficios/castanha-illustrations';",
     "renamed": false,
-    "drawingDiffers": false
+    "drawingDiffers": true
    }
   },
   {
@@ -30996,7 +30996,7 @@
     "export": "FinancasCartaoVirtualWallet2",
     "import": "import { FinancasCartaoVirtualWallet2 } from '@caju-beneficios/castanha-illustrations';",
     "renamed": false,
-    "drawingDiffers": false
+    "drawingDiffers": true
    }
   },
   {
@@ -32591,10 +32591,10 @@
    "size": "741×768",
    "figma": "employee/login",
    "react": {
-    "name": "hero-employee-login",
-    "export": "HeroEmployeeLogin",
-    "import": "import { HeroEmployeeLogin } from '@caju-beneficios/castanha-illustrations';",
-    "renamed": false,
+    "name": "employee-login",
+    "export": "EmployeeLogin",
+    "import": "import { EmployeeLogin } from '@caju-beneficios/castanha-illustrations';",
+    "renamed": true,
     "drawingDiffers": false
    }
   },
@@ -32606,10 +32606,10 @@
    "size": "741×768",
    "figma": "employee/splash-screen",
    "react": {
-    "name": "hero-employee-splash-screen",
-    "export": "HeroEmployeeSplashScreen",
-    "import": "import { HeroEmployeeSplashScreen } from '@caju-beneficios/castanha-illustrations';",
-    "renamed": false,
+    "name": "employee-splash-screen",
+    "export": "EmployeeSplashScreen",
+    "import": "import { EmployeeSplashScreen } from '@caju-beneficios/castanha-illustrations';",
+    "renamed": true,
     "drawingDiffers": false
    }
   },
@@ -32620,13 +32620,7 @@
    "description": "",
    "size": "249×132",
    "figma": "plano-saude",
-   "react": {
-    "name": "hero-hub-de-beneficios-plano-saude",
-    "export": "HeroHubDeBeneficiosPlanoSaude",
-    "import": "import { HeroHubDeBeneficiosPlanoSaude } from '@caju-beneficios/castanha-illustrations';",
-    "renamed": false,
-    "drawingDiffers": true
-   }
+   "react": null
   },
   {
    "id": "hero-hub-de-beneficios/alimentacao",
@@ -32635,13 +32629,7 @@
    "description": "",
    "size": "249×132",
    "figma": "alimentacao",
-   "react": {
-    "name": "hero-hub-de-beneficios-alimentacao",
-    "export": "HeroHubDeBeneficiosAlimentacao",
-    "import": "import { HeroHubDeBeneficiosAlimentacao } from '@caju-beneficios/castanha-illustrations';",
-    "renamed": false,
-    "drawingDiffers": true
-   }
+   "react": null
   },
   {
    "id": "hero-hub-de-beneficios/educacao",
@@ -32650,13 +32638,7 @@
    "description": "",
    "size": "249×132",
    "figma": "educacao",
-   "react": {
-    "name": "hero-hub-de-beneficios-educacao",
-    "export": "HeroHubDeBeneficiosEducacao",
-    "import": "import { HeroHubDeBeneficiosEducacao } from '@caju-beneficios/castanha-illustrations';",
-    "renamed": false,
-    "drawingDiffers": true
-   }
+   "react": null
   },
   {
    "id": "hero-hub-de-beneficios/seguros-previdencia",
@@ -32666,9 +32648,9 @@
    "size": "249×132",
    "figma": "seguros-previdencia",
    "react": {
-    "name": "hero-hub-de-beneficios-seguro-previdencia",
-    "export": "HeroHubDeBeneficiosSeguroPrevidencia",
-    "import": "import { HeroHubDeBeneficiosSeguroPrevidencia } from '@caju-beneficios/castanha-illustrations';",
+    "name": "hero-hub-seguro-previdencia",
+    "export": "HeroHubSeguroPrevidencia",
+    "import": "import { HeroHubSeguroPrevidencia } from '@caju-beneficios/castanha-illustrations';",
     "renamed": true,
     "drawingDiffers": false
    }
@@ -32681,10 +32663,10 @@
    "size": "249×132",
    "figma": "familia",
    "react": {
-    "name": "hero-hub-de-beneficios-familia",
-    "export": "HeroHubDeBeneficiosFamilia",
-    "import": "import { HeroHubDeBeneficiosFamilia } from '@caju-beneficios/castanha-illustrations';",
-    "renamed": false,
+    "name": "hero-hub-familia",
+    "export": "HeroHubFamilia",
+    "import": "import { HeroHubFamilia } from '@caju-beneficios/castanha-illustrations';",
+    "renamed": true,
     "drawingDiffers": false
    }
   },
@@ -32696,10 +32678,10 @@
    "size": "249×132",
    "figma": "descontos",
    "react": {
-    "name": "hero-hub-de-beneficios-descontos",
-    "export": "HeroHubDeBeneficiosDescontos",
-    "import": "import { HeroHubDeBeneficiosDescontos } from '@caju-beneficios/castanha-illustrations';",
-    "renamed": false,
+    "name": "hero-hub-descontos",
+    "export": "HeroHubDescontos",
+    "import": "import { HeroHubDescontos } from '@caju-beneficios/castanha-illustrations';",
+    "renamed": true,
     "drawingDiffers": false
    }
   },
@@ -32710,13 +32692,7 @@
    "description": "",
    "size": "249×132",
    "figma": "plano-odonto",
-   "react": {
-    "name": "hero-hub-de-beneficios-plano-odonto",
-    "export": "HeroHubDeBeneficiosPlanoOdonto",
-    "import": "import { HeroHubDeBeneficiosPlanoOdonto } from '@caju-beneficios/castanha-illustrations';",
-    "renamed": false,
-    "drawingDiffers": true
-   }
+   "react": null
   },
   {
    "id": "hero-hub-de-beneficios/mobilidade",
@@ -32725,13 +32701,7 @@
    "description": "",
    "size": "249×132",
    "figma": "mobilidade",
-   "react": {
-    "name": "hero-hub-de-beneficios-mobilidade",
-    "export": "HeroHubDeBeneficiosMobilidade",
-    "import": "import { HeroHubDeBeneficiosMobilidade } from '@caju-beneficios/castanha-illustrations';",
-    "renamed": false,
-    "drawingDiffers": true
-   }
+   "react": null
   },
   {
    "id": "hero-hub-de-beneficios/cajuzinho",
@@ -32740,13 +32710,7 @@
    "description": "",
    "size": "249×132",
    "figma": "cajuzinho",
-   "react": {
-    "name": "hero-hub-de-beneficios-cajuzinho",
-    "export": "HeroHubDeBeneficiosCajuzinho",
-    "import": "import { HeroHubDeBeneficiosCajuzinho } from '@caju-beneficios/castanha-illustrations';",
-    "renamed": false,
-    "drawingDiffers": true
-   }
+   "react": null
   },
   {
    "id": "hero-hub-de-beneficios/familia-2",
@@ -32756,10 +32720,10 @@
    "size": "249×132",
    "figma": "familia-2",
    "react": {
-    "name": "hero-hub-de-beneficios-familia-2",
-    "export": "HeroHubDeBeneficiosFamilia2",
-    "import": "import { HeroHubDeBeneficiosFamilia2 } from '@caju-beneficios/castanha-illustrations';",
-    "renamed": false,
+    "name": "hero-hub-familia-2",
+    "export": "HeroHubFamilia2",
+    "import": "import { HeroHubFamilia2 } from '@caju-beneficios/castanha-illustrations';",
+    "renamed": true,
     "drawingDiffers": false
    }
   },
@@ -32771,10 +32735,10 @@
    "size": "249×132",
    "figma": "fitness",
    "react": {
-    "name": "hero-hub-de-beneficios-fitness",
-    "export": "HeroHubDeBeneficiosFitness",
-    "import": "import { HeroHubDeBeneficiosFitness } from '@caju-beneficios/castanha-illustrations';",
-    "renamed": false,
+    "name": "hero-hub-fitness",
+    "export": "HeroHubFitness",
+    "import": "import { HeroHubFitness } from '@caju-beneficios/castanha-illustrations';",
+    "renamed": true,
     "drawingDiffers": false
    }
   },
@@ -32786,10 +32750,10 @@
    "size": "249×132",
    "figma": "cultura",
    "react": {
-    "name": "hero-hub-de-beneficios-cultura",
-    "export": "HeroHubDeBeneficiosCultura",
-    "import": "import { HeroHubDeBeneficiosCultura } from '@caju-beneficios/castanha-illustrations';",
-    "renamed": false,
+    "name": "hero-hub-cultura",
+    "export": "HeroHubCultura",
+    "import": "import { HeroHubCultura } from '@caju-beneficios/castanha-illustrations';",
+    "renamed": true,
     "drawingDiffers": false
    }
   },
@@ -32800,13 +32764,7 @@
    "description": "",
    "size": "249×132",
    "figma": "outros",
-   "react": {
-    "name": "hero-hub-de-beneficios-outros",
-    "export": "HeroHubDeBeneficiosOutros",
-    "import": "import { HeroHubDeBeneficiosOutros } from '@caju-beneficios/castanha-illustrations';",
-    "renamed": false,
-    "drawingDiffers": true
-   }
+   "react": null
   },
   {
    "id": "hero-hub-de-beneficios/home-office",
@@ -32816,10 +32774,10 @@
    "size": "249×132",
    "figma": "home-office",
    "react": {
-    "name": "hero-hub-de-beneficios-home-office",
-    "export": "HeroHubDeBeneficiosHomeOffice",
-    "import": "import { HeroHubDeBeneficiosHomeOffice } from '@caju-beneficios/castanha-illustrations';",
-    "renamed": false,
+    "name": "hero-hub-home-office",
+    "export": "HeroHubHomeOffice",
+    "import": "import { HeroHubHomeOffice } from '@caju-beneficios/castanha-illustrations';",
+    "renamed": true,
     "drawingDiffers": false
    }
   },
@@ -32831,10 +32789,10 @@
    "size": "249×132",
    "figma": "lazer",
    "react": {
-    "name": "hero-hub-de-beneficios-lazer",
-    "export": "HeroHubDeBeneficiosLazer",
-    "import": "import { HeroHubDeBeneficiosLazer } from '@caju-beneficios/castanha-illustrations';",
-    "renamed": false,
+    "name": "hero-hub-lazer",
+    "export": "HeroHubLazer",
+    "import": "import { HeroHubLazer } from '@caju-beneficios/castanha-illustrations';",
+    "renamed": true,
     "drawingDiffers": false
    }
   }
@@ -33331,7 +33289,7 @@
     "id": "C93",
     "group": "Refactor",
     "resolved": false,
-    "text": "Publicação da lib [CastanhaDS] Components (leitura de 15/10, `scripts/figma-status.js`) · **70** componentes estão publicados sem pendência na main (2 deles, Main Button e Content List Item, com melhoria ainda em branch). **5** estão publicados com alterações não publicadas (`CHANGED`): Chips Group, Filter Chips, Icon Button, Input Chips e Multi Select Input (o Size Small do CDS-1599 entrou na main e espera publicação). Accordion, Accordion Item, Chat Input, Code Input OTP e Credit Card Input só existem em branch. Os 26 building blocks não são publicados, de propósito · Publicar a lib (ou revisar o que está pendente) e fazer o merge das branches · Tag de status em cada componente do playground · Nova leitura depois de publicar"
+    "text": "Publicação da lib [CastanhaDS] Components (leitura de 16/10, `scripts/figma-status.js`) · **63** componentes estão publicados sem pendência na main (2 deles, Main Button e Content List Item, com melhoria ainda em branch). **12** estão publicados com alterações não publicadas (`CHANGED`): Carousel, Chips Group, Drawer, Filter Chips, Fixed Bar, Fixed Tab, Icon Button, Input Chips, Multi Select Input, Progress Tracker, Progress Tracker Item e Scrollable Tab (o Size Small do CDS-1599 e mudanças nos outros sete esperam publicação). Accordion, Accordion Item, Chat Input, Code Input OTP e Credit Card Input só existem em branch. Os 26 building blocks não são publicados, de propósito · Publicar a lib (ou revisar o que está pendente) e fazer o merge das branches · Tag de status em cada componente do playground · Nova leitura depois de publicar"
    },
    {
     "id": "C94",
@@ -34324,7 +34282,7 @@
     "id": "assets",
     "level": "media",
     "kind": "icone-so-no-pacote",
-    "msg": "O castanha-icons exporta ícones que não existem no [Caju] Icons: `balance-canceled`, `calendar-non-recurrent`, `file-line-1`.",
+    "msg": "O castanha-icons exporta ícones que não existem no [Caju] Icons: `balance-canceled`, `book-line`, `calendar-non-recurrent`, `design-line`, `feedback-line`, `file-line-1`, `inspect-line`, `magical-wand-line`, `monitor-line`, `template-line`.",
     "gap": "MISSING-COMPONENT"
    },
    {
@@ -34345,28 +34303,28 @@
     "id": "assets",
     "level": "alta",
     "kind": "ilustracao-fora-do-pacote",
-    "msg": "Ilustrações do [Caju] Illustrations sem par no castanha-illustrations: `alimentos/drink`, `notificacoes/analysis-low-detail`.",
+    "msg": "Ilustrações do [Caju] Illustrations sem par no castanha-illustrations: `alimentos/drink`, `notificacoes/analysis-low-detail`, `hero-hub-de-beneficios/plano-saude`, `hero-hub-de-beneficios/alimentacao`, `hero-hub-de-beneficios/educacao`, `hero-hub-de-beneficios/plano-odonto`, `hero-hub-de-beneficios/mobilidade`, `hero-hub-de-beneficios/cajuzinho`, `hero-hub-de-beneficios/outros`.",
     "gap": "MISSING-COMPONENT"
    },
    {
     "id": "assets",
     "level": "media",
     "kind": "ilustracao-so-no-pacote",
-    "msg": "O castanha-illustrations exporta ilustrações sem par no [Caju] Illustrations: `hero-sponsor-splash-screen`.",
+    "msg": "O castanha-illustrations exporta ilustrações sem par no [Caju] Illustrations: `hero-hub-feedback`, `hero-sponsor-splash-screen`, `objetos-arvore-natal`.",
     "gap": "MISSING-COMPONENT"
    },
    {
     "id": "assets",
     "level": "media",
     "kind": "ilustracao-renomeada",
-    "msg": "40 ilustrações têm outro nome no pacote (o nome do Figma não serve no `<Illustration name>`): `hub-de-beneficios/pet` → `hub-pet`, `hub-de-beneficios/departamento` → `hub-departamento`, `hub-de-beneficios/plano-saude` → `hub-plano-saude`, `hub-de-beneficios/servicos` → `hub-servicos`, `hub-de-beneficios/entretenimento` → `hub-entretenimento`, `hub-de-beneficios/plano-odonto` → `hub-plano-odonto`, `hub-de-beneficios/educacao` → `hub-educacao`, `hub-de-beneficios/cajuzinho` → `hub-cajuzinho`, `hub-de-beneficios/alimentacao` → `hub-alimentacao`, `hub-de-beneficios/outros` → `hub-outros`, `hub-de-beneficios/saude` → `hub-saude`, `hub-de-beneficios/ofertas` → `hub-ofertas`, `hub-de-beneficios/mobilidade` → `hub-mobilidade`, `hub-de-beneficios/esportes` → `hub-esportes`, `hub-de-beneficios/familia` → `hub-familia`, `hub-de-beneficios/seguro-vida-previdencia` → `hub-previdencia`, `documentos/socio-low-detail` → `low-detail-socio`, `documentos/rg-cnh-frente-low-detail` → `low-detail-rg-cnh-frente`, `documentos/rg-cnh-verso-low-detail` → `low-detail-rg-cnh-verso`, `documentos/rg-papeis-low-detail` → `low-detail-rg-papeis`, `documentos/ctps-low-detail` → `low-detail-ctps`, `financas/cartao-bilhete-unico-low-detail` → `low-detail-cartao-bilhete-unico`, `financas/cartao-customizacao-low-detail` → `low-detail-cartao-customizacao`, `objetos/gema-rubi` → `premiacoes-gema-rubi`, `objetos/gema-esmeralda` → `premiacoes-gema-esmeralda`, `objetos/gema-ouro` → `premiacoes-gema-ouro`, `graficos-e-dashboards/pizza` → `grafico-pizza`, `graficos-e-dashboards/setores` → `grafico-setores`, `graficos-e-dashboards/barra` → `grafico-barra`, `graficos-e-dashboards/objetivo-1` → `graficos-objetivo-1`, `graficos-e-dashboards/objetivo-2` → `graficos-objetivo-2`, `graficos-e-dashboards/objetivo-3` → `graficos-objetivo-3`, `interfaces/lista` → `interface-lista`, `interfaces/assinatura` → `interface-assinatura`, `interfaces/nota-fiscal` → `interface-nota-fiscal`, `interfaces/carrossel` → `interface-carrossel`, `interfaces/customizacao` → `interface-customizacao`, `interfaces/planilha` → `interface-planilha`, `interfaces/home` → `interface-home`, `hero-hub-de-beneficios/seguros-previdencia` → `hero-hub-de-beneficios-seguro-previdencia`.",
+    "msg": "49 ilustrações têm outro nome no pacote (o nome do Figma não serve no `<Illustration name>`): `hub-de-beneficios/pet` → `hub-pet`, `hub-de-beneficios/departamento` → `hub-departamento`, `hub-de-beneficios/plano-saude` → `hub-plano-saude`, `hub-de-beneficios/servicos` → `hub-servicos`, `hub-de-beneficios/entretenimento` → `hub-entretenimento`, `hub-de-beneficios/plano-odonto` → `hub-plano-odonto`, `hub-de-beneficios/educacao` → `hub-educacao`, `hub-de-beneficios/cajuzinho` → `hub-cajuzinho`, `hub-de-beneficios/alimentacao` → `hub-alimentacao`, `hub-de-beneficios/outros` → `hub-outros`, `hub-de-beneficios/saude` → `hub-saude`, `hub-de-beneficios/ofertas` → `hub-ofertas`, `hub-de-beneficios/mobilidade` → `hub-mobilidade`, `hub-de-beneficios/esportes` → `hub-esportes`, `hub-de-beneficios/familia` → `hub-familia`, `hub-de-beneficios/seguro-vida-previdencia` → `hub-previdencia`, `documentos/socio-low-detail` → `low-detail-socio`, `documentos/rg-cnh-frente-low-detail` → `low-detail-rg-cnh-frente`, `documentos/rg-cnh-verso-low-detail` → `low-detail-rg-cnh-verso`, `documentos/rg-papeis-low-detail` → `low-detail-rg-papeis`, `documentos/ctps-low-detail` → `low-detail-ctps`, `financas/cartao-bilhete-unico-low-detail` → `low-detail-cartao-bilhete-unico`, `financas/cartao-customizacao-low-detail` → `low-detail-cartao-customizacao`, `objetos/gema-rubi` → `premiacoes-gema-rubi`, `objetos/gema-esmeralda` → `premiacoes-gema-esmeralda`, `objetos/gema-ouro` → `premiacoes-gema-ouro`, `graficos-e-dashboards/pizza` → `grafico-pizza`, `graficos-e-dashboards/setores` → `grafico-setores`, `graficos-e-dashboards/barra` → `grafico-barra`, `graficos-e-dashboards/objetivo-1` → `graficos-objetivo-1`, `graficos-e-dashboards/objetivo-2` → `graficos-objetivo-2`, `graficos-e-dashboards/objetivo-3` → `graficos-objetivo-3`, `interfaces/lista` → `interface-lista`, `interfaces/assinatura` → `interface-assinatura`, `interfaces/nota-fiscal` → `interface-nota-fiscal`, `interfaces/carrossel` → `interface-carrossel`, `interfaces/customizacao` → `interface-customizacao`, `interfaces/planilha` → `interface-planilha`, `interfaces/home` → `interface-home`, `hero-employee/login` → `employee-login`, `hero-employee/splash-screen` → `employee-splash-screen`, `hero-hub-de-beneficios/seguros-previdencia` → `hero-hub-seguro-previdencia`, `hero-hub-de-beneficios/familia` → `hero-hub-familia`, `hero-hub-de-beneficios/descontos` → `hero-hub-descontos`, `hero-hub-de-beneficios/familia-2` → `hero-hub-familia-2`, `hero-hub-de-beneficios/fitness` → `hero-hub-fitness`, `hero-hub-de-beneficios/cultura` → `hero-hub-cultura`, `hero-hub-de-beneficios/home-office` → `hero-hub-home-office`, `hero-hub-de-beneficios/lazer` → `hero-hub-lazer`.",
     "gap": "APPROXIMATION"
    },
    {
     "id": "assets",
     "level": "info",
     "kind": "ilustracao-svg-difere",
-    "msg": "12 ilustrações têm o desenho diferente do pacote além do arredondamento (posição no quadro ou forma; conferir qual é a atual): `autenticacao-ocr-cartao-2`, `financas-moeda-verde-1`, `financas-moeda-verde-2`, `financas-moeda-verde-3`, `financas-moeda-verde-4`, `hero-hub-de-beneficios-plano-saude`, `hero-hub-de-beneficios-alimentacao`, `hero-hub-de-beneficios-educacao`, `hero-hub-de-beneficios-plano-odonto`, `hero-hub-de-beneficios-mobilidade`, `hero-hub-de-beneficios-cajuzinho`, `hero-hub-de-beneficios-outros`.",
+    "msg": "16 ilustrações têm o desenho diferente do pacote além do arredondamento (posição no quadro ou forma; conferir qual é a atual): `autenticacao-ocr-cartao-2`, `dispositivos-celular-cartao-aproximacao`, `dispositivos-celular-cartao-virtual-wallet-1`, `dispositivos-celular-cartao-virtual-1`, `dispositivos-celular-cartao-virtual-2`, `financas-moeda-verde-1`, `financas-moeda-verde-2`, `financas-moeda-verde-3`, `financas-moeda-verde-4`, `financas-cartao-voucher`, `financas-cartoes-fisico-voucher`, `financas-cartao-virtual-minimalista`, `financas-cartao-voucher-minimalista`, `financas-cartoes-fisico-virtual`, `financas-cartao-virtual-wallet-1`, `financas-cartao-virtual-wallet-2`.",
     "gap": "APPROXIMATION"
    },
    {
@@ -47182,8 +47140,8 @@
   "source": {
    "repo": "caju-beneficios/castanha-mobile",
    "ref": "origin/staging",
-   "commit": "38504ab7",
-   "date": "2026-10-07",
+   "commit": "a62701c0",
+   "date": "2026-10-15",
    "package": "castanha_flutter",
    "codeConnect": {
     "ref": "origin/feat/figma-code-connect",
@@ -47694,23 +47652,16 @@
    "hero-sponsor/empacotamento-beneficios": "heroSponsorEmpacotamentoBeneficios",
    "hero-sponsor/login": "heroSponsorLogin",
    "hero-sponsor/recuperacao-senha": "heroSponsorRecuperacaoSenha",
-   "hero-employee/login": "heroEmployeeLogin",
-   "hero-employee/splash-screen": "heroEmployeeSplashScreen",
-   "hero-hub-de-beneficios/plano-saude": "heroHubDeBeneficiosPlanoSaude",
-   "hero-hub-de-beneficios/alimentacao": "heroHubDeBeneficiosAlimentacao",
-   "hero-hub-de-beneficios/educacao": "heroHubDeBeneficiosEducacao",
-   "hero-hub-de-beneficios/seguros-previdencia": "heroHubDeBeneficiosSeguroPrevidencia",
-   "hero-hub-de-beneficios/familia": "heroHubDeBeneficiosFamilia",
-   "hero-hub-de-beneficios/descontos": "heroHubDeBeneficiosDescontos",
-   "hero-hub-de-beneficios/plano-odonto": "heroHubDeBeneficiosPlanoOdonto",
-   "hero-hub-de-beneficios/mobilidade": "heroHubDeBeneficiosMobilidade",
-   "hero-hub-de-beneficios/cajuzinho": "heroHubDeBeneficiosCajuzinho",
-   "hero-hub-de-beneficios/familia-2": "heroHubDeBeneficiosFamilia2",
-   "hero-hub-de-beneficios/fitness": "heroHubDeBeneficiosFitness",
-   "hero-hub-de-beneficios/cultura": "heroHubDeBeneficiosCultura",
-   "hero-hub-de-beneficios/outros": "heroHubDeBeneficiosOutros",
-   "hero-hub-de-beneficios/home-office": "heroHubDeBeneficiosHomeOffice",
-   "hero-hub-de-beneficios/lazer": "heroHubDeBeneficiosLazer"
+   "hero-employee/login": "employeeLogin",
+   "hero-employee/splash-screen": "employeeSplashScreen",
+   "hero-hub-de-beneficios/seguros-previdencia": "heroHubSeguroPrevidencia",
+   "hero-hub-de-beneficios/familia": "heroHubFamilia",
+   "hero-hub-de-beneficios/descontos": "heroHubDescontos",
+   "hero-hub-de-beneficios/familia-2": "heroHubFamilia2",
+   "hero-hub-de-beneficios/fitness": "heroHubFitness",
+   "hero-hub-de-beneficios/cultura": "heroHubCultura",
+   "hero-hub-de-beneficios/home-office": "heroHubHomeOffice",
+   "hero-hub-de-beneficios/lazer": "heroHubLazer"
   },
   "dart": {
    "icons": [
@@ -47738,6 +47689,7 @@
     "bankLine",
     "barcodeLine",
     "barcodeScanLine",
+    "bookLine",
     "bookmarkLine",
     "branchLine",
     "brightLampLine",
@@ -47796,6 +47748,7 @@
     "database",
     "deleteLine",
     "deliveryStrollerLine",
+    "designLine",
     "despesasLine",
     "diagonalUpRightLine",
     "documentLine",
@@ -47818,6 +47771,7 @@
     "fastDeliveryLine",
     "favoriteFilled",
     "favoriteLine",
+    "feedbackLine",
     "feirinhaCajuLine",
     "figmaLine",
     "fileBlankLine",
@@ -47855,6 +47809,7 @@
     "imageFile",
     "indicateCajuLine",
     "informationLine",
+    "inspectLine",
     "instagramLine",
     "keyLine",
     "lampLine",
@@ -47866,6 +47821,7 @@
     "lockLine",
     "login",
     "logoutLine",
+    "magicalWandLine",
     "marketOfferLine",
     "mealLine",
     "medalLine",
@@ -47877,6 +47833,7 @@
     "mobilityLine",
     "moneyNote",
     "moneySafetyLine",
+    "monitorLine",
     "moreLine",
     "mouse",
     "multibeneficiosLine",
@@ -47943,6 +47900,7 @@
     "tableLine",
     "tagLine",
     "teamLine",
+    "templateLine",
     "testsLine",
     "timerLine",
     "timesheetLine",
@@ -48039,6 +47997,8 @@
     "documentosRgCnhVerso",
     "documentosRgPapeis",
     "documentosSocio",
+    "employeeLogin",
+    "employeeSplashScreen",
     "financasCartaoBilheteUnico",
     "financasCartaoCodigoHorizontal1",
     "financasCartaoCodigoHorizontal2",
@@ -48101,23 +48061,15 @@
     "graficosObjetivo1",
     "graficosObjetivo2",
     "graficosObjetivo3",
-    "heroEmployeeLogin",
-    "heroEmployeeSplashScreen",
-    "heroHubDeBeneficiosAlimentacao",
-    "heroHubDeBeneficiosCajuzinho",
-    "heroHubDeBeneficiosCultura",
-    "heroHubDeBeneficiosDescontos",
-    "heroHubDeBeneficiosEducacao",
-    "heroHubDeBeneficiosFamilia",
-    "heroHubDeBeneficiosFamilia2",
-    "heroHubDeBeneficiosFitness",
-    "heroHubDeBeneficiosHomeOffice",
-    "heroHubDeBeneficiosLazer",
-    "heroHubDeBeneficiosMobilidade",
-    "heroHubDeBeneficiosOutros",
-    "heroHubDeBeneficiosPlanoOdonto",
-    "heroHubDeBeneficiosPlanoSaude",
-    "heroHubDeBeneficiosSeguroPrevidencia",
+    "heroHubCultura",
+    "heroHubDescontos",
+    "heroHubFamilia",
+    "heroHubFamilia2",
+    "heroHubFeedback",
+    "heroHubFitness",
+    "heroHubHomeOffice",
+    "heroHubLazer",
+    "heroHubSeguroPrevidencia",
     "heroSponsorCartaoCorporativo",
     "heroSponsorCartaoDespesas",
     "heroSponsorCartaoFisico",
@@ -48175,6 +48127,7 @@
     "notificacoesSuccess",
     "notificacoesSuccessLowDetail",
     "objetosAmpulheta",
+    "objetosArvoreNatal",
     "objetosCadeiraEscritorio",
     "objetosCadeiraPraia",
     "objetosCaixaBeneficios",

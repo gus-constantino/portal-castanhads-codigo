@@ -1,11 +1,11 @@
 {
  "_about": "Gerado por scripts/integration/build-flutter-manifest.js a partir do castanha-mobile (só leitura). Metadados: nenhum código-fonte copiado.",
- "generated": "2026-10-15",
+ "generated": "2026-10-16",
  "source": {
   "repo": "caju-beneficios/castanha-mobile",
   "ref": "origin/staging",
-  "commit": "38504ab7",
-  "date": "2026-10-07",
+  "commit": "a62701c0",
+  "date": "2026-10-15",
   "package": "castanha_flutter",
   "codeConnect": {
    "ref": "origin/feat/figma-code-connect",

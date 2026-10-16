@@ -7,21 +7,21 @@
    Para atualizar: pedir uma nova leitura e trocar `checked`. */
 window.CDS = window.CDS || {};
 CDS.figmaStatus = {
-  checked: "15/10/2026",
+  checked: "16/10/2026",
   items: (function(){
     var s = {}, add = function(status, ids){ ids.split(" ").forEach(function(id){ s[id] = status; }); };
-    // Leitura de 15/10: o Size Small (CDS-1599) entrou na main do Input Chips e do Filter Chips e espera publicação
-    add("changed", "chips-group filter-chips icon-button input-chips multi-select-input");
+    // Leitura de 16/10: além do Size Small (CDS-1599) no Input Chips e no Filter Chips, Carousel, Drawer, Fixed Bar, Fixed Tab, Progress Tracker (e o item) e Scrollable Tab têm alterações na main esperando publicação
+    add("changed", "carousel chips-group drawer filter-chips fixed-bar fixed-tab icon-button input-chips multi-select-input progress-tracker progress-tracker-item scrollable-tab");
     add("unpublished", "breadcrumb-item calendar-day calendar-week close-alert close-toast content-banner csat-item currency-content currency-symbol card-flag " +
       "date-navigation file-lead-item footer header icons-block lead-item list-lead-item nav-control-item nps-value-item select-number tab-item " +
       "table-cell table-head table-toolbar text-content trailing-item");
     add("branch", "accordion accordion-item chat-input code-input-otp credit-card-input");
     add("branch-update", "main-button content-list-item");
-    add("current", "alert async-creatable-select-input async-select-input avatar backdrop badge balance-card banner bottom-sheet breadcrumb caju-brand caju-card card carousel " +
-      "checkbox-select-input checkbox confirmation-message content-list csat-score currency date-input date-picker divider drawer " +
-      "drop-button dropzone filter-button fixed-bar fixed-tab icon image link modal-date-picker modal nav-control " +
-      "nps-score pagination password-input popover progress-line progress-tracker progress-tracker-item quantity-input radio-button " +
-      "radio-select-input scrollable-tab search-input selection-list-item selection-list shaped-icon skeleton slider spinner status-dot switch system-banner tab-view table tag " +
+    add("current", "alert async-creatable-select-input async-select-input avatar backdrop badge balance-card banner bottom-sheet breadcrumb caju-brand caju-card card " +
+      "checkbox-select-input checkbox confirmation-message content-list csat-score currency date-input date-picker divider " +
+      "drop-button dropzone filter-button icon image link modal-date-picker modal nav-control " +
+      "nps-score pagination password-input popover progress-line quantity-input radio-button " +
+      "radio-select-input search-input selection-list-item selection-list shaped-icon skeleton slider spinner status-dot switch system-banner tab-view table tag " +
       "text-area text-input toast tooltip topic upload-item upload-list viewport-restriction selection-group");
     // Sponsor Header e Side Menu (e os building blocks) são da lib Sponsor Templates, fora desta leitura
     return s;

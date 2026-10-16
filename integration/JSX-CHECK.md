@@ -1,6 +1,6 @@
 # Validação do JSX "No React" com TypeScript
 
-Gerado por `node scripts/integration/check-jsx.js`: o código do painel "No React" de cada mapa curado (estado padrão e uma variante por condição do mapa), tipado com o `tsc` do castanha-react em `origin/staging` (`ca2b41ae`).
+Gerado por `node scripts/integration/check-jsx.js`: o código do painel "No React" de cada mapa curado (estado padrão e uma variante por condição do mapa), tipado com o `tsc` do castanha-react em `origin/staging` (`039c0d37`).
 
 | | |
 |---|---:|

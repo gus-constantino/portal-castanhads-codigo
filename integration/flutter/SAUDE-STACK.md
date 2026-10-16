@@ -1,6 +1,6 @@
 # Saúde da stack — Figma × castanha_flutter × playground
 
-Gerado por `node scripts/integration/build-flutter-manifest.js` em 2026-10-15 (F2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). Flutter: `origin/staging` (`38504ab7`) do castanha-mobile.
+Gerado por `node scripts/integration/build-flutter-manifest.js` em 2026-10-16 (F2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). Flutter: `origin/staging` (`a62701c0`) do castanha-mobile.
 
 ## Resumo
 
@@ -78,20 +78,29 @@ Constantes do Dart (`CastanhaIcons`, `CastanhaIllustrations`, `CastanhaMotions`)
 
 | Pacote | Versão | No pacote | No playground | Mesmo nome | Renomeado | Só aqui | Só no pacote |
 |---|---|---:|---:|---:|---:|---:|---:|
-| castanha_icons | 1.7.0 | 265 | 264 | 262 | — | 2 | 3 |
-| castanha_illustrations | 1.8.0 | 259 | 260 | 218 | 40 | 2 | 1 |
+| castanha_icons | 1.8.0 | 272 | 264 | 262 | — | 2 | 10 |
+| castanha_illustrations | 1.9.0 | 254 | 260 | 202 | 49 | 9 | 3 |
 | castanha_motion | 1.6.0 | 49 | — | — | — | — | 49 |
 
 | Nível | Tipo | O quê |
 |---|---|---|
-| Alta | icone-fora-do-dart | 2 ícones do [Caju] Icons sem constante em `CastanhaIcons` (1.7.0): `checkbox-check`, `checkbox-indeterminate`. |
-| Média | icone-so-no-dart | Constantes de `CastanhaIcons` sem ícone no [Caju] Icons: `balanceCanceled`, `calendarNonRecurrent`, `fileLine1`. |
-| Alta | ilustracao-fora-do-dart | Ilustrações do [Caju] Illustrations sem constante em `CastanhaIllustrations` (1.8.0): `alimentos/drink`, `notificacoes/analysis-low-detail`. |
-| Média | ilustracao-renomeada | 40 ilustrações têm outro nome no pacote (o painel já usa o nome do Dart), ex.: `hub-de-beneficios/pet` → `hubPet`, `hub-de-beneficios/departamento` → `hubDepartamento`, `hub-de-beneficios/plano-saude` → `hubPlanoSaude`, `hub-de-beneficios/servicos` → `hubServicos`. |
+| Alta | icone-fora-do-dart | 2 ícones do [Caju] Icons sem constante em `CastanhaIcons` (1.8.0): `checkbox-check`, `checkbox-indeterminate`. |
+| Média | icone-so-no-dart | Constantes de `CastanhaIcons` sem ícone no [Caju] Icons: `balanceCanceled`, `bookLine`, `calendarNonRecurrent`, `designLine`, `feedbackLine`, `fileLine1`, `inspectLine`, `magicalWandLine`, `monitorLine`, `templateLine`. |
+| Alta | ilustracao-fora-do-dart | Ilustrações do [Caju] Illustrations sem constante em `CastanhaIllustrations` (1.9.0): `alimentos/drink`, `notificacoes/analysis-low-detail`, `hero-hub-de-beneficios/plano-saude`, `hero-hub-de-beneficios/alimentacao`, `hero-hub-de-beneficios/educacao`, `hero-hub-de-beneficios/plano-odonto`, `hero-hub-de-beneficios/mobilidade`, `hero-hub-de-beneficios/cajuzinho`, `hero-hub-de-beneficios/outros`. |
+| Média | ilustracao-renomeada | 49 ilustrações têm outro nome no pacote (o painel já usa o nome do Dart), ex.: `hub-de-beneficios/pet` → `hubPet`, `hub-de-beneficios/departamento` → `hubDepartamento`, `hub-de-beneficios/plano-saude` → `hubPlanoSaude`, `hub-de-beneficios/servicos` → `hubServicos`. |
 | Informativo | motion-so-no-dart | 49 animações em `CastanhaMotions` (1.6.0), ainda sem tab no playground. |
 
 ## Histórico
 
+**16/10/2026 · staging `a62701c0`**
+
+- castanha_flutter `origin/staging`: `38504ab7` → `a62701c0` (2026-10-15).
+- 🆕 alta · assets · 2 ícones do [Caju] Icons sem constante em `CastanhaIcons` (1.8.0): `checkbox-check`, `checkbox-indeterminate`.
+- 🆕 média · assets · Constantes de `CastanhaIcons` sem ícone no [Caju] Icons: `balanceCanceled`, `bookLine`, `calendarNonRecurrent`, `designLine`, `feedbackLine`, `fileLine1`, `inspectLine`, `magicalWandLine`, `monitorLine`, `templateLine`.
+- 🆕 alta · assets · Ilustrações do [Caju] Illustrations sem constante em `CastanhaIllustrations` (1.9.0): `alimentos/drink`, `notificacoes/analysis-low-detail`, `hero-hub-de-beneficios/plano-saude`, `hero-hub-de-beneficios/alimentacao`, `hero-hub-de-beneficios/educacao`, `hero-hub-de-beneficios/plano-odonto`, `hero-hub-de-beneficios/mobilidade`, `hero-hub-de-beneficios/cajuzinho`, `hero-hub-de-beneficios/outros`.
+- 🆕 média · assets · 49 ilustrações têm outro nome no pacote (o painel já usa o nome do Dart), ex.: `hub-de-beneficios/pet` → `hubPet`, `hub-de-beneficios/departamento` → `hubDepartamento`, `hub-de-beneficios/plano-saude` → `hubPlanoSaude`, `hub-de-beneficios/servicos` → `hubServicos`.
+- Pacote castanha_icons: 1.7.0 → 1.8.0.
+- Pacote castanha_illustrations: 1.8.0 → 1.9.0.
 **15/10/2026 · staging `38504ab7`**
 
 - Cobertura · playground: 107 → 108.

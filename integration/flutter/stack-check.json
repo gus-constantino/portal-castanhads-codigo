@@ -2,8 +2,8 @@
  "source": {
   "repo": "caju-beneficios/castanha-mobile",
   "ref": "origin/staging",
-  "commit": "38504ab7",
-  "date": "2026-10-07",
+  "commit": "a62701c0",
+  "date": "2026-10-15",
   "package": "castanha_flutter",
   "codeConnect": {
    "ref": "origin/feat/figma-code-connect",
@@ -301,8 +301,8 @@
   "rows": [
    {
     "pkg": "castanha_icons",
-    "version": "1.7.0",
-    "inPkg": 265,
+    "version": "1.8.0",
+    "inPkg": 272,
     "inPg": 264,
     "same": 262,
     "renamed": 0,
@@ -312,23 +312,39 @@
     ],
     "onlyPkg": [
      "balanceCanceled",
+     "bookLine",
      "calendarNonRecurrent",
-     "fileLine1"
+     "designLine",
+     "feedbackLine",
+     "fileLine1",
+     "inspectLine",
+     "magicalWandLine",
+     "monitorLine",
+     "templateLine"
     ]
    },
    {
     "pkg": "castanha_illustrations",
-    "version": "1.8.0",
-    "inPkg": 259,
+    "version": "1.9.0",
+    "inPkg": 254,
     "inPg": 260,
-    "same": 218,
-    "renamed": 40,
+    "same": 202,
+    "renamed": 49,
     "onlyPg": [
      "alimentos/drink",
-     "notificacoes/analysis-low-detail"
+     "notificacoes/analysis-low-detail",
+     "hero-hub-de-beneficios/plano-saude",
+     "hero-hub-de-beneficios/alimentacao",
+     "hero-hub-de-beneficios/educacao",
+     "hero-hub-de-beneficios/plano-odonto",
+     "hero-hub-de-beneficios/mobilidade",
+     "hero-hub-de-beneficios/cajuzinho",
+     "hero-hub-de-beneficios/outros"
     ],
     "onlyPkg": [
-     "heroSponsorSplashScreen"
+     "heroHubFeedback",
+     "heroSponsorSplashScreen",
+     "objetosArvoreNatal"
     ]
    },
    {
@@ -396,22 +412,22 @@
    {
     "l": "alta",
     "t": "icone-fora-do-dart",
-    "m": "2 ícones do [Caju] Icons sem constante em `CastanhaIcons` (1.7.0): `checkbox-check`, `checkbox-indeterminate`."
+    "m": "2 ícones do [Caju] Icons sem constante em `CastanhaIcons` (1.8.0): `checkbox-check`, `checkbox-indeterminate`."
    },
    {
     "l": "media",
     "t": "icone-so-no-dart",
-    "m": "Constantes de `CastanhaIcons` sem ícone no [Caju] Icons: `balanceCanceled`, `calendarNonRecurrent`, `fileLine1`."
+    "m": "Constantes de `CastanhaIcons` sem ícone no [Caju] Icons: `balanceCanceled`, `bookLine`, `calendarNonRecurrent`, `designLine`, `feedbackLine`, `fileLine1`, `inspectLine`, `magicalWandLine`, `monitorLine`, `templateLine`."
    },
    {
     "l": "alta",
     "t": "ilustracao-fora-do-dart",
-    "m": "Ilustrações do [Caju] Illustrations sem constante em `CastanhaIllustrations` (1.8.0): `alimentos/drink`, `notificacoes/analysis-low-detail`."
+    "m": "Ilustrações do [Caju] Illustrations sem constante em `CastanhaIllustrations` (1.9.0): `alimentos/drink`, `notificacoes/analysis-low-detail`, `hero-hub-de-beneficios/plano-saude`, `hero-hub-de-beneficios/alimentacao`, `hero-hub-de-beneficios/educacao`, `hero-hub-de-beneficios/plano-odonto`, `hero-hub-de-beneficios/mobilidade`, `hero-hub-de-beneficios/cajuzinho`, `hero-hub-de-beneficios/outros`."
    },
    {
     "l": "media",
     "t": "ilustracao-renomeada",
-    "m": "40 ilustrações têm outro nome no pacote (o painel já usa o nome do Dart), ex.: `hub-de-beneficios/pet` → `hubPet`, `hub-de-beneficios/departamento` → `hubDepartamento`, `hub-de-beneficios/plano-saude` → `hubPlanoSaude`, `hub-de-beneficios/servicos` → `hubServicos`."
+    "m": "49 ilustrações têm outro nome no pacote (o painel já usa o nome do Dart), ex.: `hub-de-beneficios/pet` → `hubPet`, `hub-de-beneficios/departamento` → `hubDepartamento`, `hub-de-beneficios/plano-saude` → `hubPlanoSaude`, `hub-de-beneficios/servicos` → `hubServicos`."
    },
    {
     "l": "info",

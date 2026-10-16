@@ -1,11 +1,11 @@
 {
   "_about": "Manifesto de integração Figma ↔ playground ↔ castanha-react (R0). Gerado por scripts/integration/build-manifest.js — não editar à mão.",
-  "generated": "2026-10-15T12:20:18.268Z",
+  "generated": "2026-10-16T12:24:20.701Z",
   "source": {
     "repo": "caju-beneficios/castanha",
     "ref": "origin/staging",
-    "commit": "ca2b41ae68e79eac2e73fa871e3b3e801a1e8600",
-    "date": "2026-10-07 13:01:13 +0000"
+    "commit": "039c0d37cf7a6040ae6ee9cb8dd9c31cca352361",
+    "date": "2026-10-15 20:08:54 +0000"
   },
   "codeConnect": {
     "ref": "origin/feat/figma-code-connect",

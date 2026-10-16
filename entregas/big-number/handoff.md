@@ -4,11 +4,12 @@
 >
 > **Task:** CDS-1597 · **Épico:** CDS-1586 (Release 26) · **Diário:** Notion `3fb560483c028177928dc9192390c32d`
 > **Branch Figma:** `KOmiQxHXqiErSbLmoG3sv6` · **Lib:** `[CastanhaDS] Components` (`LKZBwmlb7fIbDKdGrMncuA`)
-> **Set distribuído:** `Big Number` `27238:472` (8 variantes), página Content, seção Big Number Claude
-> **Building block:** `.Variation Big Number` `27246:396` (5 variantes) · não é distribuído sozinho
+> **Set distribuído:** `Big Number` `27238:472` (8 variantes), página Content
+> **Building block:** `.Variation Big Number` `27246:396` (5 variantes), seção `[Building Block] Big Number` `27283:12213` · não é distribuído sozinho
 > **Consome:** Currency (`5301:2173`) · Icon Button (`4464:636`) · ícones `information-line`, `up-down-line` e `placeholder-line` ([Caju] Icons)
-> **Lido ao vivo no branch:** 16/10/2026
-> **Status:** ✅ `castanha-qa` sem 🔴. Description e annotations de Handoff, Accessibility e Motion no set.
+> **Lido ao vivo no branch:** 16/10/2026, versão final (o card cresce com o valor)
+> **Status:** ✅ `castanha-qa` sem 🔴 · design pronto para deploy. Description e annotations de Handoff, Accessibility e Motion no set.
+> **Referência viva:** portal do Castanha DS, `cds-big-number` e `cds-variation-big-number` (status em branch), com a entrega em `/entregas/big-number/`
 
 ---
 
@@ -272,7 +273,7 @@ Fundos: `Surface/01` `#f0f0f0` · `Neutral/Solid/semi-soft` `#e3e3e3` · `Surfac
 ## 11. Referências
 
 - **Branch Figma:** https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/KOmiQxHXqiErSbLmoG3sv6/-CastanhaDS--Components?node-id=27238-472
-- **Sets:** Big Number `27238:472` · `.Variation Big Number` `27246:396` · legado copiado na seção `LEGADO` `27233:1318`
+- **Sets:** Big Number `27238:472` · `.Variation Big Number` `27246:396` (seção `[Building Block] Big Number` `27283:12213`) · legado copiado na seção `LEGADO` `27233:1318`
 - **Componentes consumidos:** Currency `5301:2173` · Icon Button `4464:636`
 - **Ícones ([Caju] Icons):** `information-line` · `up-down-line` · `placeholder-line`
 - **Legado:** `Big Number [web only]` (`2. [Castanha DS] Core components`, key `06d89b5e…`)

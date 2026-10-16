@@ -988,6 +988,9 @@ cds-main-button > .cds-btn.is-pressing{ animation:cds-btn-press var(--motion-pre
 /* .Navigation Control (Datepicker) · 17465:384 — SPACE_BETWEEN · 40 · Surface/default */
 cds-date-navigation{ display:flex; align-items:center; justify-content:space-between; width:280px; max-width:100%; min-height:var(--common-sizes-40); background:var(--common-colors-surface-default); }
 cds-date-navigation [hidden]{ display:none !important; }
+/* First Month · Year · Trailing Month: Fill no Figma (66,67 cada em 280), sem a largura mínima de viewport do Main Button (136/220/328) */
+cds-date-navigation > cds-main-button.cds-dn__btn{ flex:1 1 0; min-width:0; }
+cds-date-navigation > cds-main-button.cds-dn__btn > .cds-btn{ --_min-w:0px; width:100%; }
 
 /* ==== components/date-picker/date-picker.css ==== */
 /* Date Picker · set 17629:24427 — Single 320 / Double 620 · pad 0 20 · gap 8 · Surface/default

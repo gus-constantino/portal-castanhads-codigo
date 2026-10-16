@@ -345,84 +345,272 @@
     // ===== Motion (referências: Material Motion e Carbon — Systemic × Expressive; easings.net — cartão por curva;
     // explicador castanhads-motion — palco, cascata e laboratório). Um laboratório central recebe curva, duração e delay
     // de qualquer lugar da tab: Motion Styles, cartões de curva e linhas de duração/delay.
+    // ===== Motion Styles em ação (D365): bancada numa tela só, como o Figma e o DevTools.
+    // Lista (Selection List Item) · palco com o componente que usa o estilo · inspetor em abas (Fixed Tab: Curva, Valores,
+    // Código). Controles: Tocar, Loop (Switch), velocidade (Filter Chips), linha do tempo arrastável (Slider), comparar até
+    // 3 estilos no próprio palco e atalhos de teclado. O arrasto pausa as transições do componente (Web Animations).
+    // Referências: Material 3 (Easing and duration), Carbon, easings.net, cubic-bezier.com, Chrome DevTools e motion.dev.
+    // Gráfico da curva e linha do tempo são peças do playground (só tokens).
     "motion-live": function(root){
-      // Todos os estilos da coleção .Motion Styles (Hover In/01…05, Loading/01…), agrupados pela interação, na ordem do Figma
       var keys = pick("--motion-").filter(function(n){ return /-\d+-timing$/.test(n); }).map(function(n){ return n.replace(/^--motion-|-timing$/g, ""); });
       var groupOf = function(k){ return k.replace(/-\d+$/, ""); };
       var title = function(k){ var m = k.match(/^(.+)-(\d+)$/); return m[1].split("-").map(cap).join(" ") + "/" + m[2]; };
-      // Onde cada estilo é usado: descrição da variável no Figma (tokens/motion-usage.js, gerado pelo build-tokens)
       var usage = function(k){ return ((window.CDS && CDS.motionUsage) || {})[title(k)] || ""; };
+      var hasD = function(k){ return names().indexOf("--motion-" + k + "-delay") !== -1; };
+      var ms = function(k, p){ return p === "delay" && !hasD(k) ? 0 : msOf(val("--motion-" + k + "-" + p)); };
+      var bez = function(k){ var m = val("--motion-" + k + "-easing").match(/cubic-bezier\(([^)]+)\)/); return m ? m[1].split(",").map(function(x){ return parseFloat(x); }) : [0.25, 0.1, 0.25, 1]; };
+      var prim = function(k, p){ return (spec("--motion-" + k + "-" + p).match(/var\(--common-motion-(?:duration|easing|delay)-([\w-]+)\)/) || [])[1] || null; };
+      var GROUPS = [["hover-in", "Hover In"], ["hover-out", "Hover Out"], ["pressed", "Pressed"], ["released", "Released"], ["selected-in", "Selected In"], ["selected-out", "Selected Out"], ["disabled", "Disabled"], ["loading", "Loading"]];
+      // Palco: o componente que usa o estilo (o primeiro citado na descrição do Figma); sem uso, uma forma neutra
+      var DEMO = { "hover-in-01": "button", "hover-out-01": "button", "pressed-01": "button", "disabled-01": "button", "released-01": "button",
+        "hover-in-03": "banner", "hover-out-03": "banner", "pressed-06": "banner", "hover-in-04": "link", "hover-out-04": "link", "pressed-05": "link",
+        "pressed-03": "checkbox", "selected-in-02": "checkbox", "selected-out-01": "checkbox", "selected-in-03": "switch", "selected-out-02": "switch",
+        "selected-in-01": "accordion", "selected-in-09": "fade", "selected-out-03": "fade", "selected-in-04": "slide", "selected-out-05": "slide",
+        "loading-01": "skeleton", "loading-02": "spinner" };
+      var DEMO_NAME = { button: "Main Button", banner: "Banner", link: "Link", checkbox: "Checkbox", switch: "Switch", accordion: "Accordion Item", fade: "System Banner", slide: "System Banner", skeleton: "Skeleton", spinner: "Spinner", shape: "Forma neutra (sem uso definido)" };
+      var st = { k: null, cat: "all", speed: 1, code: "css", cmp: [], tab: 1, loop: false, timer: 0, raf: 0 };
+      var short = function(u){ var s = String(u).replace(/^[^:]+:\s*/, ""); return s.length > 34 ? s.slice(0, 33) + "…" : s; };
+      function mk(tagName, attrs){ var n = document.createElement(tagName); Object.keys(attrs || {}).forEach(function(a){ if (attrs[a] != null && attrs[a] !== false) n.setAttribute(a, attrs[a] === true ? "" : attrs[a]); }); return n; }
+      function tag(parent, label, app){ return parent.appendChild(mk("cds-tag", { label: label, appearance: app || "neutral", "show-lead-item": "false" })); }
+      function copy(text){ try { navigator.clipboard.writeText(text); } catch (e) {} if (CDS.docToast) CDS.docToast("Copiado"); }
+      function btn(label, accent){ return mk("cds-main-button", { label: label, kind: "default", appearance: accent ? "accent" : "neutral", size: "small", "show-lead-icon": "false", "show-trailing-icon": "false" }); }
+      // Filter Chips do DS, escolha única
+      function chips(label, opts, value, onChange, hideLabel){
+        var wrap = el("div", "pg-ms-chips"); if (!hideLabel) wrap.appendChild(el("span", "pg-ms-chips__label", label));
+        var g = wrap.appendChild(mk("cds-chips-group", { kind: "filter", "role-kind": "multiple", label: label }));
+        opts.forEach(function(o){ var c = g.appendChild(mk("cds-filter-chip", { label: o[1], "show-lead-icon": "false", size: "small", selected: o[0] === value })); c.dataset.v = o[0];
+          c.addEventListener("cds-change", function(e){ e.stopPropagation(); [].forEach.call(g.querySelectorAll("cds-filter-chip"), function(x){ CDS.attr(x, "selected", x === c); }); onChange(o[0]); }); });
+        wrap.set = function(v){ [].forEach.call(g.querySelectorAll("cds-filter-chip"), function(x){ CDS.attr(x, "selected", x.dataset.v === String(v)); }); };
+        return wrap;
+      }
+
       var s = section(root, "Motion Styles em ação", keys.length);
-      s.appendChild(el("p", "pg-doc-p", "Passe o mouse, pressione e solte o botão. Marque e desmarque o checkbox. Cada interação dispara o Motion Style que o componente usa: o painel mostra a cascata e o laboratório toca com o timing, a curva e o delay dele."));
-      s.appendChild(el("p", "pg-doc-p", "Para testar cada estilo, use o trilho no fim da linha: passe o mouse (Hover In e Hover Out), pressione e solte (Pressed e Released) ou clique (Selected In, Selected Out, Disabled e Loading). A bolinha anda no tempo, na curva e no delay daquele estilo. Clique no nome para levar o estilo ao painel e copiar a variável."));
-      var live = s.appendChild(el("div", "pg-mo-live")), stage = live.appendChild(el("div", "pg-tok-stage"));
-      var pay = stage.appendChild(document.createElement("cds-main-button"));
-      [["label", "Pagar"], ["kind", "default"], ["appearance", "accent"], ["show-lead-icon", "false"], ["show-trailing-icon", "false"]].forEach(function(a){ pay.setAttribute(a[0], a[1]); });
-      var cb = stage.appendChild(document.createElement("cds-checkbox")); cb.setAttribute("label", "Aceito os termos");
-      var panel = live.appendChild(el("div", "pg-mo-panel"));
-      var ul = s.appendChild(el("div", "pg-tok-styles")), rows = {}, lastGroup = null;
-      // Trilho de teste por estilo: a bolinha liga e desliga com a interação real do grupo, no timing/easing/delay do estilo
-      function tester(k, g, hasD){
-        var rail = el("span", "pg-tok-ease is-lab pg-tok-mstyle__test"), dot = rail.appendChild(el("span", "pg-tok-ease__dot"));
-        rail.style.setProperty("--_t", "var(--motion-" + k + "-timing)"); rail.style.setProperty("--_e", "var(--motion-" + k + "-easing)");
-        if (hasD) rail.style.setProperty("--_d", "var(--motion-" + k + "-delay)");
-        rail.setAttribute("aria-hidden", "true");
-        var on = function(v){ rail.classList.toggle("is-on", v); };
-        if (g === "hover-in" || g === "hover-out"){ rail.addEventListener("mouseenter", function(){ on(true); }); rail.addEventListener("mouseleave", function(){ on(false); }); }
-        else if (g === "pressed" || g === "released"){ rail.addEventListener("pointerdown", function(){ on(true); }); ["pointerup", "pointerleave"].forEach(function(t){ rail.addEventListener(t, function(){ on(false); }); }); }
-        else if (g === "loading") rail.addEventListener("click", function(){ rail.classList.toggle("is-loop"); });
-        else rail.addEventListener("click", function(){ on(!rail.classList.contains("is-on")); });
-        rail.addEventListener("click", function(ev){ ev.stopPropagation(); }); // testar não copia a variável nem troca o painel
-        return rail;
-      }
-      keys.forEach(function(k){
-        var t = "--motion-" + k + "-timing", e = "--motion-" + k + "-easing", d = "--motion-" + k + "-delay", hasD = names().indexOf(d) !== -1, g = groupOf(k);
-        if (g !== lastGroup){
-          lastGroup = g;
-          var head = ul.appendChild(el("div", "pg-tok-mstyle__group"));
-          head.appendChild(el("h4", "pg-doc-h4", title(k).replace(/\/\d+$/, "")));
-          head.appendChild(el("span", "pg-tok-mstyle__when", TRIGGER[g] || ""));
-        }
-        // só clique/foco (não hover): o painel muda de conteúdo e, no hover, a lista andava sob o cursor e o estilo "tremia"
-        var row = ul.appendChild(tile("pg-tok-mstyle", t, null));
-        row.addEventListener("click", function(){ go(k); }); row.addEventListener("focus", function(){ go(k); });
-        row.setAttribute("aria-label", title(k) + " — copiar var(" + t + ")");
-        var nm = row.appendChild(el("span", "pg-tok-mstyle__name"));
-        nm.appendChild(el("span", "pg-tok__name", title(k)));
-        var use = usage(k); if (use) nm.appendChild(el("span", "pg-tok-mstyle__use", use));
-        row.appendChild(code(val(t), t));
-        row.appendChild(code(val(e) + (hasD ? " · +" + val(d) : ""), e));
-        row.appendChild(tester(k, g, hasD));
-        rows[k] = row;
+      s.appendChild(el("p", "pg-doc-p", "Escolha um estilo na lista: o palco toca a transição no componente que usa ele. Arraste a linha do tempo para ver quadro a quadro, desacelere ou compare até três estilos."));
+      var box = s.appendChild(el("div", "pg-ms")); box.style.setProperty("--_k", "1"); box.tabIndex = -1;
+      var filterBar = box.appendChild(el("div", "pg-ms-bar"));
+      filterBar.appendChild(chips("Interação", [["all", "Todas"]].concat(GROUPS), "all", function(v){ st.cat = v; filter(); }, true));
+      var ws = box.appendChild(el("div", "pg-ms-ws"));
+      // ---------- lista ----------
+      var listCol = ws.appendChild(el("div", "pg-ms-list")); listCol.setAttribute("aria-label", "Motion Styles");
+      var rows = {};
+      GROUPS.forEach(function(G){
+        var ks = keys.filter(function(k){ return groupOf(k) === G[0]; }); if (!ks.length) return;
+        ks.sort(function(a, b){ return (usage(b) ? 1 : 0) - (usage(a) ? 1 : 0) || a.localeCompare(b); });
+        var sec = listCol.appendChild(el("section", "pg-ms-group")); sec.dataset.g = G[0];
+        sec.appendChild(el("h4", "pg-ms-group__head", G[1]));
+        ks.forEach(function(k){
+          var d = ms(k, "timing") + "ms" + (ms(k, "delay") ? " · delay " + ms(k, "delay") + "ms" : "") + " · " + (usage(k) ? short(usage(k)) : "sem uso");
+          var r = sec.appendChild(mk("cds-selection-list-item", { label: title(k), description: d, "show-description": "true", "show-lead-item": "false", "show-divider": "false",
+            "trailing-item": "none" }));
+          r.dataset.k = k;
+          r.addEventListener("cds-change", function(e){ e.stopPropagation(); select(k); });
+          rows[k] = r;
+        });
       });
-      function chain(parent, layer, n){
-        var line = parent.appendChild(el("div", "pg-tok-chain")), ref = spec(n), target = (ref.match(/var\((--[^)]+)\)/) || [])[1];
-        line.appendChild(el("span", "pg-tok-chain__k", layer));
-        var tag = function(text, app){ var t = line.appendChild(document.createElement("cds-tag")); t.setAttribute("label", text); t.setAttribute("appearance", app); t.setAttribute("show-lead-item", "false"); };
-        var arrow = function(){ var i = line.appendChild(document.createElement("cds-icon")); i.setAttribute("icon", "navigation-right-line"); i.setAttribute("size", "small"); i.setAttribute("appearance", "neutral"); i.setAttribute("aria-hidden", "true"); };
-        if (target){ tag(figmaName(target), "neutral"); var prim = PRIMITIVE[target.replace("--common-motion-easing-", "")]; if (prim && /easing/.test(target)){ arrow(); tag(prim, "neutral"); } arrow(); }
-        line.appendChild(code(val(n), n));
+      // ---------- palco ----------
+      var stageCol = ws.appendChild(el("div", "pg-ms-stage"));
+      var stHead = stageCol.appendChild(el("div", "pg-ms-stage__head"));
+      var stTitle = stHead.appendChild(el("span", "pg-ms-stage__title")), stWhen = stHead.appendChild(el("span", "pg-ms-stage__when"));
+      var stage = stageCol.appendChild(el("div", "pg-ms-stage__area")); stage.setAttribute("aria-live", "polite");
+      var stDemoName = stageCol.appendChild(el("p", "pg-ms-stage__note"));
+      var scrub = stageCol.appendChild(mk("cds-slider", { label: "Linha do tempo", min: "0", max: "100", step: "1", value: "100", "show-stops": "false", "show-value-indicator": "false", "value-text": "{v}%" }));
+      scrub.classList.add("pg-ms-scrub");
+      var tlLegend = stageCol.appendChild(el("p", "pg-ms-stage__note"));
+      var tr = stageCol.appendChild(el("div", "pg-ms-tools pg-ms-transport"));
+      var playB = tr.appendChild(btn("Tocar", true)); playB.addEventListener("click", function(){ play(); });
+      var loopS = tr.appendChild(mk("cds-switch", { label: "Loop", status: "unselected" }));
+      loopS.addEventListener("cds-change", function(e){ e.stopPropagation(); st.loop = !!(e.detail && (e.detail.status === "selected" || e.detail.selected || e.detail.checked)); if (st.loop) play(); else clearTimeout(st.timer); });
+      var speedC = tr.appendChild(chips("Velocidade", [["1", "1×"], ["2", "0,5×"], ["4", "0,25×"]], "1", function(v){ setSpeed(+v); }, true));
+      var cmpRow = stageCol.appendChild(el("div", "pg-ms-tools"));
+      var addCmp = cmpRow.appendChild(btn("Comparar")); addCmp.addEventListener("click", function(){ toggleCmp(st.k); });
+      var cmpChips = cmpRow.appendChild(el("div", "pg-ms-tags"));
+      var keysHint = stageCol.appendChild(el("p", "pg-ms-stage__note", "Atalhos: espaço toca · ↑ ↓ trocam o estilo · 1, 2 e 3 mudam a velocidade · L liga o loop"));
+      // ---------- inspetor ----------
+      var insp = ws.appendChild(el("div", "pg-ms-insp"));
+      var inspHead = insp.appendChild(el("div", "pg-ms-insp__head"));
+      var inTitle = inspHead.appendChild(el("span", "pg-ms-stage__title")), inTags = inspHead.appendChild(el("div", "pg-ms-tags"));
+      var tabs = insp.appendChild(mk("cds-fixed-tab", { label: "Detalhe do estilo", "active-item": "1" }));
+      ["Curva", "Valores", "Código"].forEach(function(t){ tabs.appendChild(mk("cds-tab-item", { label: t })); });
+      var panel = insp.appendChild(el("div", "pg-ms-insp__panel"));
+      tabs.addEventListener("cds-change", function(e){ e.stopPropagation(); st.tab = (e.detail && e.detail.index) || 1; renderInsp(st.k); });
+
+      // ---------- curva e linha do tempo (peças do playground) ----------
+      function curve(k){
+        var b = bez(k), w = el("span", "pg-ms-curve"); w.setAttribute("aria-hidden", "true");
+        var P = function(x, y){ return (x * 100).toFixed(1) + " " + ((1 - y) * 100).toFixed(1); };
+        w.innerHTML = '<svg viewBox="-6 -6 112 112" preserveAspectRatio="none"><path class="pg-ms-curve__grid" d="M0 100H100M0 0V100"/><path class="pg-ms-curve__line" d="M' + P(0, 0) + " C" + P(b[0], b[1]) + " " + P(b[2], b[3]) + " " + P(1, 1) + '"/></svg>';
+        var dx = w.appendChild(el("span", "pg-ms-curve__dx")), dy = dx.appendChild(el("span", "pg-ms-curve__dy")); dy.appendChild(el("span", "pg-ms-curve__dot"));
+        w._dx = dx; w._dy = dy; return w;
       }
-      var curK = null;
-      function go(k){
-        if (k === curK){ if (LAB.replay) LAB.replay(); return; } curK = k;
-        Object.keys(rows).forEach(function(x){ rows[x].classList.toggle("is-current", x === k); });
-        panel.innerHTML = "";
-        var head = panel.appendChild(el("div", "pg-mo-panel__head"));
-        head.appendChild(el("span", "pg-mo-panel__title", title(k)));
-        head.appendChild(el("span", "pg-mo-panel__when", TRIGGER[groupOf(k)] || ""));
-        if (usage(k)) panel.appendChild(el("p", "pg-doc-note", "Usado em: " + usage(k)));
-        var t = "--motion-" + k + "-timing", e = "--motion-" + k + "-easing", d = "--motion-" + k + "-delay";
-        ["timing", "easing", "delay"].forEach(function(p){ var n = "--motion-" + k + "-" + p; if (names().indexOf(n) !== -1) chain(panel, cap(p), n); });
-        panel.appendChild(el("p", "pg-doc-note", "Motion Style → Brand Style (Common/Motion/*) → valor. Primitivos de easing do castanhads-motion (C106)."));
-        if (LAB.set) LAB.set(spec(e).replace(/^var\(|\)$/g, ""), spec(t).replace(/^var\(|\)$/g, ""), names().indexOf(d) !== -1 ? spec(d).replace(/^var\(|\)$/g, "") : null);
+      function timeline(k){
+        var t = ms(k, "timing"), d = ms(k, "delay"), max = 800, w = el("div", "pg-ms-tl");
+        var track = w.appendChild(el("div", "pg-ms-tl__track")); track.setAttribute("aria-hidden", "true");
+        if (d){ var sd = track.appendChild(el("span", "pg-ms-tl__delay")); sd.style.width = (d / max * 100) + "%"; }
+        var sv = track.appendChild(el("span", "pg-ms-tl__dur")); sv.style.width = (Math.min(t, max - d) / max * 100) + "%";
+        var ruler = w.appendChild(el("div", "pg-ms-tl__ruler")); ruler.setAttribute("aria-hidden", "true");
+        [0, 200, 400, 600, 800].forEach(function(x){ ruler.appendChild(el("span", null, x + "ms")); });
+        return w;
       }
-      pay.addEventListener("mouseenter", function(){ go("hover-in-01"); });
-      pay.addEventListener("mouseleave", function(){ go("hover-out-01"); });
-      pay.addEventListener("pointerdown", function(){ go("pressed-01"); });
-      pay.addEventListener("pointerup", function(){ go("released-01"); });
-      cb.addEventListener("cds-change", function(ev){ ev.stopPropagation(); go(ev.detail && ev.detail.status === "selected" ? "selected-in-02" : "selected-out-01"); });
-      LAB.first = function(){ go(keys[0]); };
+      var curveEl = null;
+      function curveAnims(k){
+        if (!curveEl || !curveEl._dx.animate) return [];
+        var t = ms(k, "timing") * st.speed, d = ms(k, "delay") * st.speed, e = val("--motion-" + k + "-easing") || "linear";
+        curveEl._dx.getAnimations().concat(curveEl._dy.getAnimations()).forEach(function(a){ a.cancel(); });
+        return [curveEl._dx.animate([{ transform: "translateX(0)" }, { transform: "translateX(100%)" }], { duration: t, delay: d, easing: "linear", fill: "both" }),
+          curveEl._dy.animate([{ transform: "translateY(0)" }, { transform: "translateY(-100%)" }], { duration: t, delay: d, easing: e, fill: "both" })];
+      }
+      // ---------- código ----------
+      function codeFor(k){
+        var t = ms(k, "timing"), d = ms(k, "delay"), pT = prim(k, "timing"), pE = prim(k, "easing"), b = bez(k).join(", ");
+        var SD = /^(short|medium|long)-0[1-4]$/, SE = /^(systemic-default|systemic-accelerate|expressive-decelerate)$/;
+        var camel = function(x){ return x.replace(/-(\w)/g, function(_, c){ return c.toUpperCase(); }); };
+        if (st.code === "css") return "transition: background-color var(--motion-" + k + "-timing) var(--motion-" + k + "-easing)" + (hasD(k) ? " var(--motion-" + k + "-delay)" : "") + ";";
+        if (st.code === "react") return "@include motion-transition(background-color, " + (pT && SD.test(pT) ? pT : t + "ms") + ", " + (pE && SE.test(pE) ? pE : "cubic-bezier(" + b + ")") + (d ? ", " + d + "ms" : "") + ");";
+        return (d ? "// espera " + d + "ms antes de animar\n" : "") + "AnimatedContainer(\n  duration: " + (pT && SD.test(pT) ? "context.castanhaMotionDuration(CastanhaMotionDuration." + camel(pT) + ")" : "Duration(milliseconds: " + t + ")") +
+          ",\n  curve: " + (pE && SE.test(pE) ? "CastanhaMotionEasing." + camel(pE) + ".curve" : "const Cubic(" + b + ")") + ",\n  …\n)";
+      }
+      function codeNote(k){
+        var pT = prim(k, "timing"), pE = prim(k, "easing"), out = [];
+        if (st.code === "css") return "Tokens do playground (lidos do Figma). No castanha-tokens ainda não existe motion.";
+        if (!pT || !/^(short|medium|long)-0[1-4]$/.test(pT)) out.push("a duração fica fora da escala do pacote e entra em ms");
+        if (!pE || !/^(systemic-default|systemic-accelerate|expressive-decelerate)$/.test(pE)) out.push("a curva fica fora da escala e entra como " + (st.code === "react" ? "cubic-bezier" : "Cubic"));
+        if (ms(k, "delay")) out.push("o delay não tem token e entra em ms");
+        return (st.code === "react" ? "Mixin do castanha-react (_motion.scss)." : "Escala do castanha_flutter (castanha_motion_scale.dart).") + (out.length ? " Neste estilo, " + out.join(", ") + "." : "");
+      }
+      // ---------- inspetor ----------
+      function renderInsp(k){
+        panel.innerHTML = ""; curveEl = null;
+        if (st.tab === 1){
+          curveEl = panel.appendChild(curve(k));
+          panel.appendChild(timeline(k));
+          panel.appendChild(el("p", "pg-ms-insp__text", usage(k) ? "Usado em: " + usage(k) : "Sem uso definido nos componentes. Fica disponível para casos novos."));
+        } else if (st.tab === 2){
+          var dl = panel.appendChild(el("cmp-definition-list", "pg-el-parts")).listEl;
+          [["Duração", "timing"], ["Curva", "easing"], ["Delay", "delay"]].forEach(function(r){
+            var n = "--motion-" + k + "-" + r[1]; if (r[1] === "delay" && !hasD(k)) return;
+            dl.appendChild(el("dt", null, r[0])); var dd = dl.appendChild(el("dd")), target = (spec(n).match(/var\((--[^)]+)\)/) || [])[1];
+            dd.appendChild(code((target ? figmaName(target) + " · " : "") + val(n), n));
+          });
+          panel.appendChild(el("p", "pg-ms-insp__text", "Gatilho: " + (TRIGGER[groupOf(k)] || "") + ". Motion Style → Brand Style (Common/Motion/*) → valor."));
+        } else {
+          panel.appendChild(chips("Código", [["css", "CSS"], ["react", "React"], ["flutter", "Flutter"]], st.code, function(v){ st.code = v; pre.textContent = codeFor(k); note.textContent = codeNote(k); }, true));
+          var pre = panel.appendChild(el("pre", "pg-ms-code")); pre.textContent = codeFor(k);
+          var note = panel.appendChild(el("p", "pg-ms-insp__text", codeNote(k)));
+          var cb = panel.appendChild(btn("Copiar código")); cb.addEventListener("click", function(){ copy(pre.textContent); });
+        }
+      }
+      // ---------- palco: componente(s) com o estilo ----------
+      function demoFor(kind){
+        if (kind === "button") return mk("cds-main-button", { label: "Pagar", kind: "default", appearance: "accent", "show-lead-icon": "false", "show-trailing-icon": "false" });
+        if (kind === "banner") return mk("cds-banner", { kind: "illustration", illustration: "notificacoes/sino", title: "Novidades no Caju", description: "Confira o que chegou para você.", "show-cta": "false" });
+        if (kind === "link") return mk("cds-link", { label: "Ver extrato", href: "#", "show-trailing-item": "true" });
+        if (kind === "checkbox") return mk("cds-checkbox", { label: "Aceito os termos", status: "unselected" });
+        if (kind === "switch") return mk("cds-switch", { label: "Notificações", status: "unselected" });
+        if (kind === "accordion"){ var acc = mk("cds-accordion-item", { label: "Como funciona o saldo?", description: "Toque para ver a resposta", "show-description": "true", "show-lead-item": "false", collapsed: true });
+          // conteúdo do Slot, como no playground do Accordion Item: mostra a área que abre e fecha
+          acc.appendChild(el("p", "pg-ms-acc-slot", "O saldo cai no dia do depósito da empresa. Você usa no app, no cartão físico ou no virtual, e acompanha cada compra no extrato.")); return acc; }
+        if (kind === "fade" || kind === "slide"){ var clip = el("div", "pg-ms-clip"); clip.appendChild(mk("cds-system-banner", { label: "Pagamento confirmado", text: "O comprovante chegou no seu e-mail.", "show-close-button": "false" })); return clip; }
+        if (kind === "skeleton") return mk("cds-skeleton", {});
+        if (kind === "spinner") return mk("cds-spinner", {});
+        return el("span", "pg-ms-shape");
+      }
+      var demos = []; // [{ k, wrap, node }]
+      function buildStage(){
+        var k = st.k, kind = DEMO[k] || "shape"; stage.innerHTML = ""; demos = [];
+        var list = st.cmp.length > 1 && st.cmp.indexOf(k) >= 0 ? st.cmp : [k];
+        stage.classList.toggle("is-cmp", list.length > 1); stage.classList.toggle("is-stack", list.length > 1 && /^(banner|accordion|fade|slide|skeleton)$/.test(kind));
+        list.forEach(function(kk){
+          var cell = stage.appendChild(el("div", "pg-ms-cell"));
+          var wrap = cell.appendChild(el("div", "pg-ms-demo is-" + kind)), node = wrap.appendChild(demoFor(kind));
+          wrap.style.setProperty("--_t", "var(--motion-" + kk + "-timing)"); wrap.style.setProperty("--_e", "var(--motion-" + kk + "-easing)"); wrap.style.setProperty("--_d", hasD(kk) ? "var(--motion-" + kk + "-delay)" : "0ms");
+          if (list.length > 1) cell.appendChild(el("span", "pg-ms-cell__label", title(kk) + " · " + ms(kk, "timing") + "ms"));
+          demos.push({ k: kk, wrap: wrap, node: node.matches && node.matches(".pg-ms-clip") ? node.firstChild : node, kind: kind });
+        });
+        stDemoName.textContent = (kind === "fade" || kind === "slide" ? "System Banner entrando e saindo" : DEMO_NAME[kind]) + (list.length > 1 ? " · comparando " + list.length + " estilos com o mesmo componente" : "") + ". Passe o mouse ou clique nele: o estilo vale também na interação real.";
+      }
+      function setState(D, g, end){
+        var n = D.node, kind = D.kind;
+        var S = function(v){ if (v) n.setAttribute("state", v); else n.removeAttribute("state"); };
+        if (kind === "shape" || kind === "fade" || kind === "slide"){ D.wrap.classList.toggle("is-on", end === (g !== "hover-out" && g !== "selected-out" && g !== "released")); return; }
+        if (g === "hover-in") S(end ? "hovered" : null);
+        else if (g === "hover-out") S(end ? null : "hovered");
+        else if (g === "pressed") S(end ? "pressed" : "hovered");
+        else if (g === "released") S(end ? "hovered" : "pressed");
+        else if (g === "disabled"){ if (end) n.setAttribute("disabled", ""); else n.removeAttribute("disabled"); }
+        else if (g === "selected-in" || g === "selected-out"){ var on = g === "selected-in" ? end : !end;
+          if (kind === "accordion"){ if (on) n.removeAttribute("collapsed"); else n.setAttribute("collapsed", ""); } else n.setAttribute("status", on ? "selected" : "unselected"); }
+      }
+      var total = function(){ return Math.max.apply(null, demos.map(function(D){ return ms(D.k, "timing") + ms(D.k, "delay"); }).concat([ms(st.k, "timing") + ms(st.k, "delay")])) * st.speed; };
+      // dispara do início ao fim e devolve as animações (transições CSS do componente + a curva)
+      function start(){
+        var g = groupOf(st.k);
+        demos.forEach(function(D){ D.wrap.classList.add("is-reset"); setState(D, g, false); });
+        void stage.offsetWidth;
+        demos.forEach(function(D){ D.wrap.classList.remove("is-reset"); });
+        void stage.offsetWidth;
+        demos.forEach(function(D){ setState(D, g, true); });
+        var a = []; demos.forEach(function(D){ if (D.wrap.getAnimations) a = a.concat(D.wrap.getAnimations({ subtree: true })); });
+        return a.concat(curveAnims(st.k));
+      }
+      function play(){
+        if (!st.k) return; clearTimeout(st.timer); cancelAnimationFrame(st.raf);
+        if (groupOf(st.k) === "loading"){ curveAnims(st.k); return; }
+        if (reduced){ demos.forEach(function(D){ setState(D, groupOf(st.k), true); }); return; }
+        var anims = start(), T = total(), t0 = performance.now();
+        (function tick(){ var f = Math.min(1, (performance.now() - t0) / (T || 1)); CDS.attr(scrub, "value", String(Math.round(f * 100)));
+          if (f < 1) st.raf = requestAnimationFrame(tick); })();
+        if (st.loop) st.timer = setTimeout(play, T + 700);
+      }
+      // linha do tempo arrastável: reinicia, pausa e leva cada animação ao quadro f (0 a 1)
+      function seek(f){
+        if (!st.k || groupOf(st.k) === "loading") return; clearTimeout(st.timer); cancelAnimationFrame(st.raf);
+        var anims = start(), T = total();
+        anims.forEach(function(a){ try { a.pause(); a.currentTime = f * T; } catch (e) {} });
+      }
+      scrub.addEventListener("cds-change", function(e){ e.stopPropagation(); var v = e.detail && e.detail.value != null ? +e.detail.value : +scrub.getAttribute("value"); seek(v / 100); });
+      scrub.addEventListener("input", function(){ var v = +scrub.getAttribute("value"); if (!isNaN(v)) seek(v / 100); });
+      function setSpeed(v){ st.speed = v; box.style.setProperty("--_k", String(v)); speedC.set(String(v)); legend(); play(); }
+      function legend(){ var k = st.k, t = ms(k, "timing"), d = ms(k, "delay"); tlLegend.textContent = (d ? "Espera " + d + "ms e anima " : "Anima ") + t + "ms" + (st.speed > 1 ? ", tocando " + (st.speed === 2 ? "0,5×" : "0,25×") + " (" + Math.round((t + d) * st.speed) + "ms)" : "") + ". Arraste para ver quadro a quadro."; }
+      // ---------- comparar ----------
+      function toggleCmp(k){
+        var i = st.cmp.indexOf(k); if (i >= 0) st.cmp.splice(i, 1); else { if (st.cmp.indexOf(st.k) < 0 && k !== st.k) st.cmp.push(st.k); st.cmp.push(k); while (st.cmp.length > 3) st.cmp.shift(); }
+        if (st.cmp.length === 1 && st.cmp[0] === st.k && i < 0){ /* primeiro clique: guarda o atual e espera o próximo */ }
+        renderCmp(); buildStage(); play();
+      }
+      function renderCmp(){
+        cmpChips.innerHTML = "";
+        st.cmp.forEach(function(k){ var c = cmpChips.appendChild(mk("cds-input-chip", { label: title(k), size: "small", "show-lead-icon": "false" })); c.addEventListener("cds-remove", function(){ toggleCmp(k); }); });
+        CDS.attr(addCmp, "label", st.cmp.indexOf(st.k) >= 0 ? "Tirar da comparação" : st.cmp.length ? "Comparar com este" : "Comparar");
+        if (st.cmp.length === 1) cmpChips.appendChild(el("span", "pg-ms-stage__note", "Escolha outro estilo e clique em Comparar com este."));
+      }
+      // ---------- filtro, seleção e teclado ----------
+      function visible(){ return [].map.call(listCol.querySelectorAll(".pg-ms-group:not([hidden]) [data-k]"), function(r){ return r.dataset.k; }); }
+      function filter(){
+        [].forEach.call(listCol.querySelectorAll(".pg-ms-group"), function(sec){ sec.hidden = !(st.cat === "all" || sec.dataset.g === st.cat); });
+        var v = visible(); if (v.length && v.indexOf(st.k) < 0) select(v[0]);
+      }
+      function select(k){
+        if (!k) return;
+        Object.keys(rows).forEach(function(x){ CDS.attr(rows[x], "is-active", x === k); });
+        st.k = k; stTitle.textContent = title(k); stWhen.textContent = TRIGGER[groupOf(k)] || "";
+        inTitle.textContent = title(k); inTags.innerHTML = ""; tag(inTags, usage(k) ? "Em uso" : "Sem uso", usage(k) ? "positive" : "informative"); if (ms(k, "delay")) tag(inTags, "Com delay", "informative");
+        var row = rows[k]; if (row && row.scrollIntoView){ var r = row.getBoundingClientRect(), c = listCol.getBoundingClientRect(); if (r.top < c.top || r.bottom > c.bottom) listCol.scrollTop += r.top - c.top - c.height / 3; }
+        buildStage(); renderInsp(k); renderCmp(); legend();
+        if (LAB.set) LAB.set(spec("--motion-" + k + "-easing").replace(/^var\(|\)$/g, ""), spec("--motion-" + k + "-timing").replace(/^var\(|\)$/g, ""), hasD(k) ? spec("--motion-" + k + "-delay").replace(/^var\(|\)$/g, "") : null);
+        setTimeout(play, 120);
+      }
+      box.addEventListener("keydown", function(e){
+        if (e.target.closest && e.target.closest("input, textarea, [role=slider]")) return;
+        var v = visible(), i = v.indexOf(st.k);
+        if (e.key === " " || e.key === "Spacebar"){ e.preventDefault(); play(); }
+        else if (e.key === "ArrowDown" && i < v.length - 1){ e.preventDefault(); select(v[i + 1]); }
+        else if (e.key === "ArrowUp" && i > 0){ e.preventDefault(); select(v[i - 1]); }
+        else if (e.key === "1" || e.key === "2" || e.key === "3"){ setSpeed({ "1": 1, "2": 2, "3": 4 }[e.key]); }
+        else if (e.key === "l" || e.key === "L"){ st.loop = !st.loop; CDS.attr(loopS, "status", st.loop ? "selected" : "unselected"); if (st.loop) play(); else clearTimeout(st.timer); }
+      });
+      LAB.first = function(){ select(keys[0]); };
+      filter();
+      select(keys[0]);
     },
     // Laboratório: curva grande com o ponto andando sobre o traçado no tempo real do token + trilho; Filter Chips e Sliders do DS
     "easing-lab": function(root){
@@ -523,22 +711,54 @@
       return Y(t); };
   }
   // Duração / delay agrupados por família (Short, Medium…): barra proporcional; hover toca no tempo do token; clique leva ao laboratório
+  // Duração e Delay (D365): régua em escala com a pista (o ponto anda no tempo do token) + cards por família.
+  // O que passa de 1s (Extended/01) fica num card à parte para não esticar a régua. Hover toca, clique copia e leva ao laboratório.
   function runs(root, title, list, prefix, kind){
-    var s = section(root, title, list.length), ul = s.appendChild(el("div", "pg-tok-bars")), fam = null;
-    var max = Math.max.apply(null, list.map(function(n){ return msOf(val(n)); }).filter(function(v){ return v <= 1000; }).concat([1]));
-    list.forEach(function(n){
-      var f = n.slice(prefix.length).replace(/-\d+$/, "");
-      if (f !== fam){ fam = f; ul.appendChild(el("p", "pg-tok-sub", f.split("-").map(cap).join(" ")));
-        var fu = kind === "duration" ? DUR_USE[f] : null; if (fu) ul.appendChild(el("p", "pg-mo-fam-use", fu)); }
-      var bar, row = ul.appendChild(tile("pg-tok-bar", n, function(){ replay(bar); }));
-      row.addEventListener("click", function(){ if (LAB.set) LAB.set(null, kind === "duration" ? n : null, kind === "delay" ? n : null); });
-      row.appendChild(el("span", "pg-tok__name", label(n, prefix).replace(/-(\d+)$/, "/$1")));
-      bar = row.appendChild(el("span", "pg-tok-run"));
-      bar.appendChild(el("span", "pg-tok-run__fill"));
-      bar.style.setProperty("--_w", Math.min(100, Math.round(msOf(val(n)) / max * 1000) / 10) + "%");
-      var fill = bar.firstChild; if (kind === "duration") fill.style.transitionDuration = "var(" + n + ")"; else fill.style.transitionDelay = "var(" + n + ")";
-      row.appendChild(code(val(n), n));
+    var s = section(root, title, list.length), wrap = s.appendChild(el("div", "pg-tok-scale"));
+    var inScale = list.filter(function(n){ return msOf(val(n)) <= 1000; }), out = list.filter(function(n){ return msOf(val(n)) > 1000; });
+    var max = Math.max.apply(null, inScale.map(function(n){ return msOf(val(n)); }).concat([1]));
+    var fams = []; inScale.forEach(function(n){ var f = n.slice(prefix.length).replace(/-\d+$/, ""); if (fams.indexOf(f) < 0) fams.push(f); });
+    var famName = function(f){ return f.split("-").map(cap).join(" "); };
+    // régua: faixas por família, marcas de cada token e a pista
+    var ruler = wrap.appendChild(el("div", "pg-tok-scale__ruler")); ruler.setAttribute("aria-hidden", "true");
+    var bands = ruler.appendChild(el("div", "pg-tok-scale__bands")), marks = ruler.appendChild(el("div", "pg-tok-scale__marks"));
+    var lane = ruler.appendChild(el("div", "pg-tok-scale__lane")), dot = lane.appendChild(el("span", "pg-tok-scale__dot"));
+    var axis = ruler.appendChild(el("div", "pg-tok-scale__axis"));
+    var pct = function(v){ return Math.round(v / max * 1000) / 10 + "%"; };
+    fams.forEach(function(f, i){
+      var vals = inScale.filter(function(n){ return n.slice(prefix.length).replace(/-\d+$/, "") === f; }).map(function(n){ return msOf(val(n)); });
+      var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals), b = bands.appendChild(el("span", "pg-tok-scale__band" + (i % 2 ? " is-alt" : ""), famName(f)));
+      b.style.left = pct(i ? lo : 0); b.style.width = "calc(" + pct(hi - (i ? lo : 0)) + " + var(--common-sizes-8))";
     });
+    var markOf = {};
+    inScale.forEach(function(n){ var m = marks.appendChild(el("span", "pg-tok-scale__mark")); m.style.left = pct(msOf(val(n))); markOf[n] = m; });
+    [0, max / 4, max / 2, max * 3 / 4, max].forEach(function(v){ axis.appendChild(el("span", null, Math.round(v) + "ms")); });
+    var legend = wrap.appendChild(el("p", "pg-tok-scale__legend", "Passe o mouse num token para ver o tempo dele na pista. Clique para copiar a variável e levar ao laboratório."));
+    function run(n){
+      Object.keys(markOf).forEach(function(x){ markOf[x].classList.toggle("is-on", x === n); });
+      var v = msOf(val(n)); legend.textContent = label(n, prefix).replace(/-(\d+)$/, "/$1") + " · " + val(n) + (kind === "delay" ? ": o ponto espera esse tempo e depois anda em 200ms." : ": o ponto atravessa a pista nesse tempo.");
+      if (reduced || !dot.animate) return;
+      dot.getAnimations().forEach(function(a){ a.cancel(); });
+      dot.animate([{ left: "0%" }, { left: kind === "delay" ? "calc(100% - var(--common-sizes-12))" : "calc(" + pct(v) + " - var(--common-sizes-12) * " + (v / max) + ")" }],
+        { duration: kind === "delay" ? 200 : v, delay: kind === "delay" ? v : 0, easing: "linear", fill: "both" });
+    }
+    // cards por família
+    var grid = wrap.appendChild(el("div", "pg-tok-scale__fams"));
+    function card(f, items, note){
+      var c = grid.appendChild(el("div", "pg-tok-fam"));
+      var vals = items.map(function(n){ return msOf(val(n)); });
+      var h = c.appendChild(el("div", "pg-tok-fam__head")); h.appendChild(el("h4", "pg-doc-h4", note ? "Fora da escala" : famName(f)));
+      h.appendChild(el("span", "pg-tok-fam__range", vals.length > 1 ? Math.min.apply(null, vals) + " a " + Math.max.apply(null, vals) + "ms" : vals[0] + "ms"));
+      var use = note || (kind === "duration" ? DUR_USE[f] : null); if (use) c.appendChild(el("p", "pg-tok-fam__use", use));
+      items.forEach(function(n){
+        var row = c.appendChild(tile("pg-tok-fam__row", n, function(){ run(n); }));
+        row.addEventListener("click", function(){ if (LAB.set) LAB.set(null, kind === "duration" ? n : null, kind === "delay" ? n : null); });
+        row.appendChild(el("span", "pg-tok__name", label(n, prefix).replace(/-(\d+)$/, "/$1")));
+        row.appendChild(code(val(n), n));
+      });
+    }
+    fams.forEach(function(f){ card(f, inScale.filter(function(n){ return n.slice(prefix.length).replace(/-\d+$/, "") === f; })); });
+    if (out.length) card("extended", out, "Passa de 1s e fica fora da régua: para loops longos e esperas contínuas, não para transições.");
   }
   function fold(t){ return String(t || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, ""); }
   // Biblioteca de ícones/ilustrações: Search Input + Filter Chips + grade de tiles (C87) + painel de detalhe com Tags e Main Buttons do DS

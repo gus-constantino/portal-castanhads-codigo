@@ -45,7 +45,7 @@ cds-icon-button[kind="ghost"][appearance="inversed"] > .cds-ib:active, cds-icon-
 cds-icon-button[disabled]{ opacity:var(--common-opacity-medium); pointer-events:none; }
 cds-icon-button[disabled][kind="ghost"][appearance="inversed"] > .cds-ib{ --_fg:var(--common-colors-icons-intense); }
 @media (prefers-reduced-motion:reduce){ cds-icon-button > .cds-ib{ transition:none; } }
-/* Pressed: pulso 100 → 90 → 100% no Pressed/01 (C+pressed-escala) */
+/* Pressed: pulso 100 → 90 → 100% no Pressed/01 (C205) */
 @keyframes cds-ib-press{ 41.5%{ scale:.9; } }
 cds-icon-button .cds-ib.is-pressing{ animation:cds-ib-press var(--motion-pressed-01-timing) var(--motion-pressed-01-easing); }
 @media (prefers-reduced-motion:reduce){ cds-icon-button .cds-ib.is-pressing{ animation:none !important; } }

@@ -38,7 +38,7 @@
   "tokens": 396,
   "icons": 273,
   "illustrations": 260,
-  "conferirOpen": 143,
+  "conferirOpen": 145,
   "stackFindings": 45
  },
  "components": [
@@ -33139,7 +33139,19 @@
     "id": "C204",
     "group": "Motion",
     "resolved": false,
-    "text": "Motion Styles novos (CDS-730) · Na branch `5ruoj0X35N4WobKIggNV8a` (15/10) a `.Motion Styles` tem 36 estilos, sem descrição de uso em nenhuma variável, e ganhou o `Hover In/01/Delay` (0 ms). O modo Reduced zera durações e delays e troca a curva de 11 estilos (ex.: `Hover In/04` vai de Expressive/decelerate para Systemic/default, `Pressed/04` de Systemic/default para Systemic/accelerate) · Qual componente ou cenário usa cada número (`Loading/01` no Spinner? `Selected In/04` em abrir/fechar?), para as docs apontarem o estilo certo. Confirmar com a Ju se o Reduced deve seguir `prefers-reduced-motion` · Os 103 tokens no `tokens.css` (D351), Reduced em `prefers-reduced-motion`. **16/10 (D+motion-verde):** o número de cada transição vem das páginas verdes da documentação de motion para devs (Notion). Na branch do Figma `pRi6U7xqjSom3NcNCo8Igf`, as transições de Main Button, Icon Button, Checkbox, Switch, Link e Banner ganharam a duração e a curva do estilo (a API não liga a variável) e 22 estilos ganharam descrição de uso. Docs e CSS dos 12 componentes sem dúvida na branch git `motion-verde`. Drop Button, Radio Button, Toast, Popover e Drawer esperam a Ju (artifact de conferência) · Quando a branch entrar na main: reler a coleção e conferir que nada mudou"
+    "text": "Motion Styles novos (CDS-730) · Na branch `5ruoj0X35N4WobKIggNV8a` (15/10) a `.Motion Styles` tem 36 estilos, sem descrição de uso em nenhuma variável, e ganhou o `Hover In/01/Delay` (0 ms). O modo Reduced zera durações e delays e troca a curva de 11 estilos (ex.: `Hover In/04` vai de Expressive/decelerate para Systemic/default, `Pressed/04` de Systemic/default para Systemic/accelerate) · Qual componente ou cenário usa cada número (`Loading/01` no Spinner? `Selected In/04` em abrir/fechar?), para as docs apontarem o estilo certo. Confirmar com a Ju se o Reduced deve seguir `prefers-reduced-motion` · Os 103 tokens no `tokens.css` (D351), Reduced em `prefers-reduced-motion`. **16/10 (D355):** o número de cada transição vem das páginas verdes da documentação de motion para devs (Notion). Na branch do Figma `pRi6U7xqjSom3NcNCo8Igf`, as transições de Main Button, Icon Button, Checkbox, Switch, Link e Banner ganharam a duração e a curva do estilo (a API não liga a variável) e 22 estilos ganharam descrição de uso. Docs e CSS dos 12 componentes sem dúvida na branch git `motion-verde`. Drop Button, Radio Button, Toast, Popover e Drawer esperam a Ju (artifact de conferência) · Quando a branch entrar na main: reler a coleção e conferir que nada mudou"
+   },
+   {
+    "id": "C205",
+    "group": "Motion",
+    "resolved": false,
+    "text": "Main Button, Icon Button e Switch · escala no `Pressed/01` · O Figma não guarda a escala: a Plugin API recusa (\"Cannot write animations to product components\"), o modo Motion (Beta) mostra \"Components can't be animated\" e o Motion Scale do painel não vale no protótipo. O `Pressed/01` fica só com duração e curva (200ms, Systemic/accelerate) · **Decisão do Gustavo (16/10):** no pressed, quem encolhe é o componente. Main Button e Icon Button vão de 100 → 90 → 100% em 200ms. No Switch, a bolinha cresce. A regra fica no Notion da Ju (documentação de motion para devs). Sem anotação na descrição do `Pressed/01` e sem variante auxiliar. A dúvida está resolvida no artifact de conferência · As docs do Main Button e do Icon Button citam a escala (vem do Notion e do React). Nada muda no código · Não entra no Figma enquanto componentes não puderem ser animados"
+   },
+   {
+    "id": "C206",
+    "group": "Motion",
+    "resolved": false,
+    "text": "Main Button, Icon Button, Switch, Checkbox, Link e Modal · valores das animações · O Figma não guarda escala nem deslocamento das animações (ver C205) · Os valores vêm do Notion da Motion e não têm token: escala 90% (Pressed dos botões), 110% (bolinha do Switch e caixa do Checkbox), check do Checkbox crescendo de 0, ícone do Link andando 14px e assentando em 8px (`Sizes/14` e `Sizes/8`), Modal entrando 112px acima (`Sizes/56` × 2). Combinado com o Gustavo (16/10) · Duração, curva e delay vêm dos tokens dos Motion Styles. As escalas e o 112 ficam fixos no CSS de cada componente, com o motivo comentado · Se a coleção ganhar tokens de escala ou de deslocamento, trocar os valores fixos"
    },
    {
     "id": "C04",

@@ -61,7 +61,7 @@ cds-main-button[loading] > .cds-btn > .cds-btn__spinner{ position:absolute; inse
 cds-main-button[disabled], cds-drop-button[disabled]{ opacity:var(--common-opacity-light); pointer-events:none; }
 [disabled][kind="ghost"][appearance="inversed"] > .cds-btn{ --_fg:var(--common-colors-text-intense); }
 @media (prefers-reduced-motion:reduce){ .cds-btn{ transition:none; } }
-/* Pressed: pulso 100 → 90 → 100% no Pressed/01 (83 + 117ms no Notion da Motion · C+pressed-escala) */
+/* Pressed: pulso 100 → 90 → 100% no Pressed/01 (83 + 117ms no Notion da Motion · C205) */
 @keyframes cds-btn-press{ 41.5%{ scale:.9; } }
 cds-main-button > .cds-btn.is-pressing{ animation:cds-btn-press var(--motion-pressed-01-timing) var(--motion-pressed-01-easing); }
 @media (prefers-reduced-motion:reduce){ cds-main-button > .cds-btn.is-pressing{ animation:none !important; } }

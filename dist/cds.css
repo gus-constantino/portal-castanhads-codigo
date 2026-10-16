@@ -387,7 +387,7 @@ cds-icon-button[kind="ghost"][appearance="inversed"] > .cds-ib:active, cds-icon-
 cds-icon-button[disabled]{ opacity:var(--common-opacity-medium); pointer-events:none; }
 cds-icon-button[disabled][kind="ghost"][appearance="inversed"] > .cds-ib{ --_fg:var(--common-colors-icons-intense); }
 @media (prefers-reduced-motion:reduce){ cds-icon-button > .cds-ib{ transition:none; } }
-/* Pressed: pulso 100 → 90 → 100% no Pressed/01 (C+pressed-escala) */
+/* Pressed: pulso 100 → 90 → 100% no Pressed/01 (C205) */
 @keyframes cds-ib-press{ 41.5%{ scale:.9; } }
 cds-icon-button .cds-ib.is-pressing{ animation:cds-ib-press var(--motion-pressed-01-timing) var(--motion-pressed-01-easing); }
 @media (prefers-reduced-motion:reduce){ cds-icon-button .cds-ib.is-pressing{ animation:none !important; } }
@@ -979,7 +979,7 @@ cds-main-button[loading] > .cds-btn > .cds-btn__spinner{ position:absolute; inse
 cds-main-button[disabled], cds-drop-button[disabled]{ opacity:var(--common-opacity-light); pointer-events:none; }
 [disabled][kind="ghost"][appearance="inversed"] > .cds-btn{ --_fg:var(--common-colors-text-intense); }
 @media (prefers-reduced-motion:reduce){ .cds-btn{ transition:none; } }
-/* Pressed: pulso 100 → 90 → 100% no Pressed/01 (83 + 117ms no Notion da Motion · C+pressed-escala) */
+/* Pressed: pulso 100 → 90 → 100% no Pressed/01 (83 + 117ms no Notion da Motion · C205) */
 @keyframes cds-btn-press{ 41.5%{ scale:.9; } }
 cds-main-button > .cds-btn.is-pressing{ animation:cds-btn-press var(--motion-pressed-01-timing) var(--motion-pressed-01-easing); }
 @media (prefers-reduced-motion:reduce){ cds-main-button > .cds-btn.is-pressing{ animation:none !important; } }
@@ -1194,7 +1194,7 @@ cds-switch .cds-sc:active .cds-sc__box, cds-switch[state="pressed"] .cds-sc .cds
 
 cds-switch[status="selected"] .cds-sc__box{ --_bg:var(--common-colors-surface-accent); }
 cds-switch[status="selected"] .cds-sw__toggle{ transform:translateX(var(--common-sizes-16)); background:var(--common-colors-surface-default); }
-/* Pressed: a bolinha pulsa 100 → 110 → 100% no Pressed/01 (C+pressed-escala). scale é independente do transform da posição */
+/* Pressed: a bolinha pulsa 100 → 110 → 100% no Pressed/01 (C205). scale é independente do transform da posição */
 @keyframes cds-sw-press{ 41.5%{ scale:1.1; } }
 cds-switch .cds-sw__toggle.is-pressing{ animation:cds-sw-press var(--motion-pressed-01-timing) var(--motion-pressed-01-easing); }
 @media (prefers-reduced-motion:reduce){ cds-switch .cds-sw__toggle.is-pressing{ animation:none !important; } }

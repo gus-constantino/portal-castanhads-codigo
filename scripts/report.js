@@ -984,7 +984,7 @@
   }
 
   // ---------- Chamados: os em aberto do #castanha-suporte, do mais antigo ao mais novo (Gustavo, 15/10) ----------
-  // Content List (Intent=Navigation) com o título, há quanto tempo está aberto e o status na description, o tipo na Tag e o
+  // Content List (Intent=Navigation) com o título, o tipo e o status na description, há quanto tempo está aberto na Tag e o
   // link do item na Lista do Slack. Filter Chips por tipo: nenhum marcado mostra todos.
   function chamadosTab(){
     var J = extra.chamados, hoje = Date.parse(todayISO() + "T12:00");
@@ -1023,18 +1023,18 @@
         var n = dias(c), it = lista.appendChild(el("cds-content-list-item"));
         it.setAttribute("intent", "navigation"); it.setAttribute("show-lead-item", "false");
         it.setAttribute("label", c.titulo || "Chamado sem título");
-        it.setAttribute("description", tempo(n) + " · " + (c.status === "andamento" ? "Em andamento" : "Priorizado") + " · desde " + brDate(c.d));
-        it.setAttribute("tag-label", nome[c.tipo] || c.tipo);
+        // tipo e status na description, há quanto tempo está aberto na Tag (Gustavo, 16/10)
+        it.setAttribute("description", (nome[c.tipo] || c.tipo) + " · " + (c.status === "andamento" ? "Em andamento" : "Priorizado") + " · desde " + brDate(c.d));
+        it.setAttribute("tag-label", tempo(n));
         it.setAttribute("tag-appearance", n > 30 ? "warning" : "neutral"); // mais de 30 dias em aberto: Tag em Warning
         if (c.link) it.setAttribute("href", c.link);
         if (n > media) it.dataset.acima = "1";
       });
-      // Lead Item da Tag só nos abertos há mais tempo que a idade média, com o warning-line; nos outros, sem Lead Item (o
-      // placeholder-line padrão não diz nada aqui; Show Lead Item é booleano da própria Tag)
+      // Lead Item da Tag em todos: warning-line nos abertos há mais tempo que a idade média, timer-line nos outros (Gustavo, 16/10)
       // (os itens desenham a linha depois de entrar na página: aplica na volta seguinte do navegador)
       setTimeout(function(){ [].forEach.call(lista.querySelectorAll("cds-content-list-item"), function(it){
         var t = it.querySelector(".cds-li__tag"); if (!t) return;
-        if (it.dataset.acima){ t.setAttribute("icon", "warning-line"); t.removeAttribute("show-lead-item"); } else t.setAttribute("show-lead-item", "false");
+        t.setAttribute("icon", it.dataset.acima ? "warning-line" : "timer-line"); t.removeAttribute("show-lead-item");
       }); }, 0);
     }
     // o item da Lista abre no Slack, em outra aba (o item redesenha a linha, então o target não fica no <a>)

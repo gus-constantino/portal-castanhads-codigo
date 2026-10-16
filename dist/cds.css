@@ -1119,8 +1119,8 @@ cds-fab-menu{ display:inline-flex; flex-direction:column; align-items:flex-end; 
 .cds-fab-menu__actions cds-main-button > .cds-btn{ --_min-w:0px; box-shadow:var(--common-elevation-level-1); }
 
 @keyframes cds-fab-menu-move{ 52%{ translate:0 var(--common-sizes-8); scale:1.05; } }
-@keyframes cds-fab-menu-in{ from{ opacity:0; } }
-@keyframes cds-fab-menu-out{ to{ opacity:0; } }
+@keyframes cds-fab-menu-in{ from{ opacity:var(--common-opacity-transparent); } }
+@keyframes cds-fab-menu-out{ to{ opacity:var(--common-opacity-transparent); } }
 .cds-fab-menu__actions.is-opening{
   animation:cds-fab-menu-move var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing),
             cds-fab-menu-in var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing);
@@ -1130,6 +1130,21 @@ cds-fab-menu{ display:inline-flex; flex-direction:column; align-items:flex-end; 
             cds-fab-menu-out var(--motion-hover-out-06-timing) var(--motion-hover-out-06-easing) var(--motion-hover-out-06-delay) forwards;
 }
 @media (prefers-reduced-motion:reduce){ .cds-fab-menu__actions.is-opening, .cds-fab-menu__actions.is-closing{ animation:none; } }
+
+/* fixed: flutua no canto inferior direito, a Common/Grids/margin das bordas (muda por viewport).
+   Acima de uma barra fixa no rodapé, quem usa passa a altura dela em --cds-fab-menu-offset. */
+cds-fab-menu[fixed]{
+  position:fixed; z-index:10;
+  right:calc(var(--common-grids-margin) + env(safe-area-inset-right, 0px));
+  bottom:calc(var(--common-grids-margin) + var(--cds-fab-menu-offset, 0px) + env(safe-area-inset-bottom, 0px));
+}
+/* hide-on-scroll: some ao rolar para baixo (Selected Out/05) e volta ao subir (Selected In/04), em Y e opacidade */
+cds-fab-menu{ transition:translate var(--motion-selected-in-04-timing) var(--motion-selected-in-04-easing), opacity var(--motion-selected-in-04-timing) var(--motion-selected-in-04-easing); }
+cds-fab-menu[scroll-hidden]{
+  translate:0 calc(100% + var(--common-grids-margin)); opacity:var(--common-opacity-transparent); pointer-events:none;
+  transition-duration:var(--motion-selected-out-05-timing); transition-timing-function:var(--motion-selected-out-05-easing);
+}
+@media (prefers-reduced-motion:reduce){ cds-fab-menu{ transition:none; } }
 
 /* ==== components/footer/footer.css ==== */
 /* .Footer · set 16359:1792 — Divider + Actions pad 20 · gap 8 · Horizontal: botões no tamanho do conteúdo · Pilled: coluna, largura total */

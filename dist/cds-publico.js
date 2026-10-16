@@ -2531,9 +2531,14 @@ try {
  *   icon            Icon do FAB fechado · padrão "plus-line"
  *   appearance      appearance do FAB: accent | neutral | inversed · padrão accent
  *   disabled        desabilita o FAB
+ *   fixed           flutua no canto inferior direito da viewport, a Common/Grids/margin das bordas (Mobile 20 · Tablet 16 · Desktop 104).
+ *                   Acima de uma barra fixa no rodapé: --cds-fab-menu-offset com a altura da barra
+ *   hide-on-scroll  esconde ao rolar para baixo e volta ao rolar para cima (fecha o menu ao esconder)
+ *   scroll-target   id do elemento que rola · padrão a janela
  * Eventos: cds-toggle { active } ao abrir e fechar · cds-action { index, label } ao tocar numa ação (o menu fecha).
  * Teclado: o FAB expõe aria-haspopup="menu", aria-expanded e aria-controls. Aberto, o foco vai para a primeira ação;
  *   ↑ ↓ navegam, Home e End vão à primeira e à última, Esc fecha e devolve o foco ao FAB, Tab para fora fecha.
+ * Esconder e mostrar ao rolar: Selected Out/05 e Selected In/04 (Y e opacidade, como o System Banner).
  * Motion: abrir com Selected In/01 (Y e escala 100 → 105 → 100%) e opacidade Hover In/01;
  *   fechar com Selected Out/01 e opacidade Hover Out/06 · ações e FAB herdam hover e press.
  */
@@ -2541,10 +2546,30 @@ try {
   "use strict";
   var uid = 0;
   class CdsFabMenu extends CDS.Element {
-    static get observedAttributes(){ return ["active", "show-action-3", "show-action-4", "show-action-5", "show-action-6", "actions", "label", "icon", "appearance", "disabled"]; }
+    static get observedAttributes(){ return ["active", "show-action-3", "show-action-4", "show-action-5", "show-action-6", "actions", "label", "icon", "appearance", "disabled", "hide-on-scroll", "scroll-target"]; }
     attributeChangedCallback(name){
       if (!this.isConnected || !this._fab) return;
-      if (name === "active") this._sync(); else this.render();
+      if (name === "active") this._sync();
+      else if (name === "hide-on-scroll" || name === "scroll-target") this._watchScroll();
+      else this.render();
+    }
+    disconnectedCallback(){ this._unwatch(); }
+    _unwatch(){ if (this._scroller){ this._scroller.removeEventListener("scroll", this._onScroll); this._scroller = null; } }
+    // hide-on-scroll: some ao rolar para baixo e volta ao subir. Pequenos tremores (menos de Sizes/8) não contam.
+    _watchScroll(){
+      this._unwatch(); this.removeAttribute("scroll-hidden");
+      if (!this.hasAttribute("hide-on-scroll")) return;
+      var id = this.getAttribute("scroll-target"), el = id && (document.getElementById(id) || this.closest("[id=\"" + id + "\"]")), self = this;
+      var target = el || window, pos = function(){ return el ? el.scrollTop : window.scrollY; }, last = pos();
+      this._onScroll = function(){
+        var y = pos(), d = y - last;
+        if (Math.abs(d) < 8) return;
+        last = y;
+        if (d > 0 && y > 0){ if (self.active) self._toggle(false, false); self.setAttribute("scroll-hidden", ""); }
+        else self.removeAttribute("scroll-hidden");
+      };
+      target.addEventListener("scroll", this._onScroll, { passive: true });
+      this._scroller = target;
     }
     get active(){ return this.hasAttribute("active"); }
     set active(v){ this.toggleAttribute("active", !!v); }
@@ -2595,6 +2620,7 @@ try {
         var b = mb.button; if (b){ b.setAttribute("role", "menuitem"); b.tabIndex = -1; }
       });
       this._sync();
+      if (this._scroller === undefined || (this.hasAttribute("hide-on-scroll") && !this._scroller)) this._watchScroll();
     }
     _buttons(){ return Array.prototype.map.call(this._list.querySelectorAll("cds-main-button"), function(m){ return m.button; }).filter(Boolean); }
     // Is Active → ícone do FAB, aria-expanded e a lista (a saída espera a animação antes de esconder)

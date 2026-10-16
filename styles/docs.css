@@ -895,3 +895,12 @@ cds-banner.pg-doc-banner{ width:calc(var(--common-sizes-200) + var(--common-size
 .pg-arq-namer__var{ font:var(--text-style-caption-bold); font-family:var(--pg-mono); color:var(--common-colors-text-intense); overflow-wrap:anywhere; }
 @media (max-width:900px){ .pg-arq-flow{ flex-direction:column; } .pg-arq-flow__arrow{ transform:rotate(90deg); } }
 .pg-arq-namer .pg-mo-panel__title, .pg-arq-namer .pg-arq-row__code{ overflow-wrap:anywhere; }
+
+/* FAB Menu · telas de exemplo da posição (CDS-1694). A área de conteúdo é o "viewport" do FAB fixed:
+   contain cria o bloco de contenção, então o position:fixed fica preso à tela de exemplo. */
+.pg-doc-fab-screen{ position:relative; justify-content:flex-start; max-width:calc(var(--common-sizes-200) + var(--common-sizes-160)); }
+.pg-doc-fab-screen--desktop{ max-width:none; }
+.pg-doc-fab-area{ position:relative; contain:layout paint; flex:1 1 auto; display:flex; flex-direction:column; min-height:0; max-height:calc(var(--common-sizes-200) * 2); overflow:auto; scrollbar-width:none; }
+.pg-doc-fab-area .pg-doc-list-stack{ width:auto; padding:0 var(--common-grids-margin); }
+.pg-doc-fab-area--end{ justify-content:flex-end; overflow:hidden; } /* mostra o fim da lista, onde o FAB pode encobrir o último item */
+.pg-doc-fab-spacer{ flex:0 0 auto; height:calc(var(--common-sizes-56) + var(--common-grids-margin) * 2); }

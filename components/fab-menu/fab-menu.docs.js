@@ -7,6 +7,20 @@ CDS.docs = CDS.docs || {};
 (function(){
   var ACTIONS = "Nova solicitação:file-line, Pagar com Pix:pix-line, Pagar boleto:barcode-line, Cartões:cards-line, Extrato:receipt-line, Ajuda:support-line";
   function menu(attrs){ return Object.assign({ _tag: "cds-fab-menu", actions: ACTIONS }, attrs); }
+  // Telas de exemplo da posição: a área de conteúdo prende o FAB fixed (contain), com Header e transações do DS
+  var TX = [["Pix enviado", "Hoje, 10:42", "120,00", "pix-line"], ["Posto Avenida", "Ontem, 18:05", "150,00", "mobility-line"], ["Restaurante Sabor", "Ontem, 12:30", "48,90", "meal-line"],
+    ["Mercado Central", "12 out, 19:10", "236,40", "shopping-bag-line"], ["Pix enviado", "11 out, 09:15", "80,00", "pix-line"], ["Posto Avenida", "10 out, 17:48", "142,00", "mobility-line"],
+    ["Restaurante Sabor", "10 out, 12:05", "52,30", "meal-line"], ["Mercado Central", "8 out, 20:22", "198,70", "shopping-bag-line"]];
+  function screen(o){
+    o = o || {};
+    var items = TX.slice(0, o.items || 4).map(function(t){ return { _tag: "cds-content-list-item", intent: "transaction", label: t[0], description: t[1], value: t[2], "value-description": "Débito", "shaped-icon": t[3] }; });
+    var area = [{ _tag: "cds-header", "text-title": "Extrato", "show-close-button": "false" }, { _tag: "div", class: "pg-doc-list-stack", _children: items }];
+    if (o.spacer) area.push({ _tag: "div", class: "pg-doc-fab-spacer" });
+    area.push(menu(Object.assign({ fixed: true }, o.menu || {})));
+    var kids = [{ _tag: "div", class: "pg-doc-fab-area" + (o.end ? " pg-doc-fab-area--end" : ""), id: o.id || null, _children: area }];
+    if (o.bar) kids.push({ _tag: "cds-fixed-bar", "primary-label": "Exportar extrato", "show-secondary-action": "false", "show-lead-icon": false });
+    return { _tag: "div", class: "pg-cnt-phone pg-doc-fab-screen" + (o.desktop ? " pg-doc-fab-screen--desktop" : ""), "data-viewport": o.desktop ? "desktop" : o.tablet ? "tablet" : "mobile", _children: kids };
+  }
   CDS.docs["fab-menu"] = {
     tag: "cds-fab-menu",
     base: { actions: ACTIONS },
@@ -37,7 +51,32 @@ CDS.docs = CDS.docs || {};
           ["Posição", "Flutua no canto inferior, sobre o conteúdo", "No fluxo da página, junto do conteúdo"],
           ["Conteúdo", "De 2 a 6 ações empilhadas, sem rolagem", "Popover com a lista de opções"],
           ["Uso", "Ações principais da tela, sempre ao alcance", "Ações ligadas a um contexto específico"]
-        ] } }
+        ] } },
+        { h2: "Posição" },
+        { p: "O FAB Menu flutua sobre o conteúdo, no canto inferior direito da tela. A distância até as bordas é a margem do grid, `Common/Grids/margin`: 20 no Mobile, 16 no Tablet e 104 no Desktop. Assim o FAB se alinha à coluna de conteúdo em qualquer viewport." },
+        { compare: [
+          { title: "Mobile: canto inferior direito, a 20 das bordas", attrs: screen({}) },
+          { title: "Aberto: as ações sobem a partir do FAB", attrs: screen({ menu: { active: true, "show-action-3": "false" } }) }
+        ] },
+        { compare: [
+          { title: "Com barra fixa no rodapé: o FAB fica acima dela, na mesma margem", attrs: screen({ bar: true }) },
+          { title: "Tablet: a margem do grid é 16", attrs: screen({ tablet: true }) }
+        ] },
+        { display: { attrs: screen({ desktop: true, items: 3 }) } },
+        { note: "Desktop: a margem do grid é 104, e o FAB fica alinhado à coluna de conteúdo." },
+        { h3: "Regras" },
+        { ul: [
+          "Um FAB Menu por tela.",
+          "Sempre no canto inferior direito, na margem do grid (`Common/Grids/margin`), somada à área segura do aparelho.",
+          "O menu abre para cima, no mesmo lugar. O FAB não se move quando o menu abre ou fecha.",
+          "Com uma barra fixa no rodapé (Fixed Bar ou navegação), o FAB fica acima dela e mantém a mesma margem a partir do topo da barra.",
+          "Deixe respiro no fim da área com rolagem, com a altura do FAB e duas margens, para o último item não ficar escondido.",
+          "Use com o Backdrop à parte quando o menu aberto precisar de destaque."
+        ] },
+        { h3: "Ao rolar a tela" },
+        { p: "O FAB Menu some quando a pessoa rola para baixo e volta quando ela rola para cima. Se o menu estiver aberto, ele fecha antes de sumir. Role a lista abaixo para ver." },
+        { display: { attrs: screen({ id: "pg-fab-scroll", items: 8, spacer: true, menu: { "hide-on-scroll": true, "scroll-target": "pg-fab-scroll" } }), live: true } },
+        { note: "No código: `fixed` posiciona o FAB, `--cds-fab-menu-offset` recebe a altura da barra fixa, e `hide-on-scroll` com `scroll-target` liga o esconder ao rolar. Saída em `Selected Out/05` e volta em `Selected In/04`, em Y e opacidade." }
       ] },
 
       { id: "anatomia", title: "Anatomia", blocks: [
@@ -72,7 +111,8 @@ CDS.docs = CDS.docs || {};
         ] } },
         { ul: [
           "Tocar no FAB alterna entre aberto e fechado. Tocar numa ação executa a ação e fecha o menu.",
-          "No layout, o FAB fica em posição fixa no canto inferior. O menu abre para cima e o FAB não sai do lugar. No Figma, a instância usa constraints Right e Bottom.",
+          "No layout, o FAB fica fixo no canto inferior direito, a `Common/Grids/margin` das bordas (20 no Mobile, 16 no Tablet e 104 no Desktop). O menu abre para cima e o FAB não sai do lugar. No Figma, a instância usa constraints Right e Bottom.",
+          "Com barra fixa no rodapé, o FAB fica acima dela, na mesma margem. Ao rolar para baixo, o FAB some (`Selected Out/05`) e volta ao rolar para cima (`Selected In/04`).",
           "Deixe respiro no fim da área com rolagem para o último item ficar acima do FAB.",
           "Acima de 6 ações, use outro componente."
         ] }
@@ -143,7 +183,10 @@ CDS.docs = CDS.docs || {};
         { dodont: [
           { kind: "do", attrs: menu({ active: true }), text: "Mantenha de 2 a 6 ações, todas visíveis sem rolagem." },
           { kind: "dont", attrs: menu({ active: true, actions: "Excluir conta:delete-line, Sair:logout-line", "show-action-3": "false" }), text: "Ação destrutiva ou secundária no FAB: ele destaca a ação principal da tela." },
-          { kind: "do", attrs: menu({}), text: "Combine com o Backdrop à parte quando precisar destacar o menu aberto." }
+          { kind: "do", attrs: menu({}), text: "Combine com o Backdrop à parte quando precisar destacar o menu aberto." },
+          { kind: "do", attrs: screen({ items: 6, spacer: true, end: true }), text: "Deixe respiro no fim da lista: o último item rola até ficar acima do FAB." },
+          { kind: "dont", attrs: screen({ items: 6, end: true }), text: "Lista sem respiro no fim: o último item fica escondido atrás do FAB." },
+          { kind: "dont", attrs: screen({ bar: true, menu: { style: "--cds-fab-menu-offset:calc(var(--common-grids-margin) * -1)" } }), text: "FAB colado na barra fixa do rodapé. Mantenha a margem a partir do topo da barra." }
         ] }
       ] },
 

@@ -151,10 +151,18 @@ Os estados de hover, press e disabled das ações vêm do Main Button. Não recr
 5. O menu não fecha sozinho por tempo.
 
 ### Posição
-- **O FAB flutua sobre o conteúdo**, em posição fixa no canto inferior da tela. A margem até a borda é do layout de quem usa.
+- **O FAB flutua sobre o conteúdo**, fixo no canto inferior direito da tela.
+- **Distância até as bordas = margem do grid**, `Common/Grids/margin`: 20 no Mobile, 16 no Tablet e 104 no Desktop. Somar a área segura do aparelho (`safe-area-inset`).
+- **Com barra fixa no rodapé** (Fixed Bar ou navegação), o FAB fica acima dela, com a mesma margem a partir do topo da barra.
+- **Um FAB Menu por tela.**
 - **O menu abre para cima e alinhado pela direita.** O FAB não sai do lugar quando o menu abre ou fecha.
-- **Respiro no fim da área com rolagem:** o último item do conteúdo precisa ficar acima do FAB.
+- **Respiro no fim da área com rolagem:** altura do FAB mais duas margens, para o último item ficar acima do FAB.
 - No Figma, a instância vem com constraints Right e Bottom pelo mesmo motivo.
+
+### Ao rolar
+- **Rolar para baixo esconde o FAB** e rolar para cima traz de volta. Tremores menores que `Sizes/8` não contam.
+- **Se o menu estiver aberto, ele fecha antes de esconder.**
+- Saída em `Selected Out/05` e volta em `Selected In/04`, em Y e opacidade (o mesmo par da entrada e saída do System Banner).
 
 ### Quantidade de ações
 - De 2 a 6. **O menu não rola.** Acima de 6 ações, use outro componente.
@@ -167,6 +175,8 @@ Os estados de hover, press e disabled das ações vêm do Main Button. Não recr
 | Hovered → Enabled (FAB) | opacidade do hover | `Hover Out/01` | 150 ms · `cubic-bezier(0.7, 0, 0.5, 1)` · delay |
 | Hovered → Pressed (FAB) | escala 100 → 90 → 100%, âncora no centro | `Pressed/01` | 200 ms · `cubic-bezier(0.7, 0, 0.8, 1)` |
 | → Disabled | opacidade | `Disabled/01` | 150 ms · `cubic-bezier(0.7, 0, 0.5, 1)` |
+| Esconder ao rolar para baixo | Y e opacidade | `Selected Out/05` | tokens |
+| Voltar ao rolar para cima | Y e opacidade | `Selected In/04` | tokens |
 | Abrir (toque no FAB) | ações: Y e escala 100 → 105 → 100% · ícone + → × | `Selected In/01` | 350 ms · `cubic-bezier(0.4, 0, 0.1, 1)` |
 | Abrir | opacidade das ações 0 → 100% | `Hover In/01` | 150 ms |
 | Fechar (toque no FAB ou numa ação) | ações: Y e escala · ícone × → + | `Selected Out/01` | 200 ms · `cubic-bezier(0.4, 0, 0.1, 1)` |
@@ -193,6 +203,8 @@ Os estados de hover, press e disabled das ações vêm do Main Button. Não recr
 | `.FAB Button` › `Icon` | `icon` (fechado) |
 | `.FAB Button` › `Appearance` | `appearance` (`accent` padrão) |
 | `State=Disabled` | `disabled` |
+| Posição flutuante | `fixed` · offset da barra do rodapé |
+| Esconder ao rolar | `hideOnScroll` |
 | `State=Hovered` · `Pressed` | estados de interação, sem prop |
 | Nome acessível do FAB | `aria-label` obrigatório (ex.: `label`) |
 
@@ -240,7 +252,10 @@ O par de 4.54 está colado no mínimo. Qualquer mudança em `Accent/Solid/medium
 - [ ] `open` alterna pelo FAB, fecha por ação, por Esc e por Tab para fora
 - [ ] De 2 a 6 ações, sem rolagem
 - [ ] Menu abre para cima, alinhado pela direita, sem o FAB sair do lugar
-- [ ] FAB fixo no canto inferior, com respiro no fim da área com rolagem
+- [ ] FAB fixo no canto inferior direito, a `Common/Grids/margin` das bordas, mais a área segura
+- [ ] Acima de barra fixa no rodapé, com a mesma margem
+- [ ] Esconde ao rolar para baixo e volta ao rolar para cima, fechando o menu antes
+- [ ] Respiro no fim da área com rolagem
 - [ ] Ícone troca de + para × ao abrir
 - [ ] Ações consumidas do Main Button Default Neutral Medium, sem recriar estados internos
 - [ ] Elevação pelas variáveis `Common/Elevations/Level 1–3`

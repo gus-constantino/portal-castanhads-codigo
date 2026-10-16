@@ -432,6 +432,10 @@
 .pg-ic-img{ display:block; width:100%; max-width:var(--common-sizes-120); aspect-ratio:1; object-fit:contain; padding:var(--common-sizes-8); box-sizing:border-box;
   border-radius:var(--common-border-radius-medium); background:var(--_ic-bg); transition:transform var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing); }
 .pg-ic-img.is-big{ max-width:100%; padding:var(--common-sizes-16); }
+/* Animações (Lottie do castanha-motion): mesmo quadro das ilustrações, o SVG do player ocupa o quadro */
+.pg-an-player{ display:block; width:100%; max-width:var(--common-sizes-120); aspect-ratio:1; padding:var(--common-sizes-8); box-sizing:border-box; border-radius:var(--common-border-radius-medium); background:var(--_ic-bg); }
+.pg-an-player svg{ display:block; width:100% !important; height:100% !important; }
+.pg-an-player.is-big{ max-width:100%; padding:var(--common-sizes-16); }
 .pg-ic-panel{ position:sticky; top:calc(var(--pg-header-h, var(--common-sizes-0)) + var(--common-sizes-16)); display:flex; flex-direction:column; gap:var(--common-sizes-12);
   padding:var(--common-sizes-20); border-radius:var(--common-border-radius-big); background:var(--common-colors-surface-01); }
 .pg-ic-preview{ display:grid; place-items:center; min-height:calc(var(--common-sizes-120) + var(--common-sizes-40)); border-radius:var(--common-border-radius-large); background:var(--_ic-bg, var(--common-colors-surface-default)); }

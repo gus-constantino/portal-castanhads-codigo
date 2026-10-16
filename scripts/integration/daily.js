@@ -65,8 +65,7 @@ else {
   if (newReact.length) lines.push("Novo só no React: " + newReact.map((n) => "`" + n + "`").join(", ") + ".");
   if (goneReact.length) lines.push("Saiu de \"só no React\" (ganhou par ou foi removido): " + goneReact.map((n) => "`" + n + "`").join(", ") + ".");
   if (before.tokens.ok !== after.tokens.ok || before.tokens.official !== after.tokens.official) lines.push("Tokens: " + before.tokens.ok + "/" + before.tokens.official + " → " + after.tokens.ok + "/" + after.tokens.official + " batendo.");
-  ["icons", "ills"].forEach((k) => { if (JSON.stringify(before.assets[k]) !== JSON.stringify(after.assets[k])) lines.push("Assets · " + k + ": " + JSON.stringify(before.assets[k]) + " → " + JSON.stringify(after.assets[k]) + "."); });
-  if (before.assets.motion !== after.assets.motion) lines.push("Animações no castanha-motion: " + before.assets.motion + " → " + after.assets.motion + ".");
+  ["icons", "ills", "motion"].forEach((k) => { if (JSON.stringify(before.assets[k]) !== JSON.stringify(after.assets[k])) lines.push("Assets · " + k + ": " + JSON.stringify(before.assets[k]) + " → " + JSON.stringify(after.assets[k]) + "."); });
   const bk = new Set(before.findings.map(key)), ak = new Set(after.findings.map(key));
   const novos = after.findings.filter((f) => !bk.has(key(f))), resolvidos = before.findings.filter((f) => !ak.has(key(f)));
   const LV = { alta: "alta", media: "média", info: "informativo" };

@@ -321,11 +321,11 @@ const smd = ["# Saúde da stack — Figma × castanha-react × playground × cas
   .concat(["alta", "media", "info"].map((l) => "| " + LV[l] + " | " + LVH[l] + " | " + cnt(l) + " |"))
   .concat(["", "Componentes com algum item: " + Object.keys(byId).length + " de " + components.filter((c) => c.react).length + " com par no React.", ""]);
 const AS = assetCheck.summary;
-smd.push("## Assets", "", "Nomes que o código usa (`<Icon name>`, `<Illustration name>`, `<Motion name>`) × [Caju] Icons e [Caju] Illustrations do playground.", "",
+smd.push("## Assets", "", "Nomes que o código usa (`<Icon name>`, `<Illustration name>`, `<Motion name>`) × [Caju] Icons, [Caju] Illustrations e [Caju] Motion do playground.", "",
   "| Pacote | No pacote | No playground | Mesmo nome | Renomeado | Só aqui | Só no pacote |", "|---|---:|---:|---:|---:|---:|---:|",
   "| castanha-icons | " + AS.icons.pkg + " | " + AS.icons.ours + " | " + AS.icons.same + " | — | " + AS.icons.onlyHere + " | " + AS.icons.onlyPkg + " |",
   "| castanha-illustrations | " + AS.ills.pkg + " | " + AS.ills.ours + " | " + AS.ills.same + " | " + AS.ills.renamed + " | " + AS.ills.onlyHere + " | " + AS.ills.onlyPkg + " |",
-  "| castanha-motion | " + AS.motion + " | 0 | — | — | — | " + AS.motion + " |", "",
+  "| castanha-motion | " + AS.motion.pkg + " | " + AS.motion.ours + " | " + AS.motion.same + " | — | " + AS.motion.onlyHere + " | " + AS.motion.onlyPkg + " |", "",
   "| Nível | Tipo | O quê |", "|---|---|---|");
 assetCheck.findings.forEach((f) => smd.push("| " + LV[f.level] + " | " + f.kind + " | " + f.msg.replace(/\|/g, "\\|") + " |"));
 smd.push("");

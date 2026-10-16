@@ -39,7 +39,7 @@
   "icons": 273,
   "illustrations": 260,
   "conferirOpen": 147,
-  "stackFindings": 45
+  "stackFindings": 55
  },
  "components": [
   {
@@ -7908,7 +7908,8 @@
      "title": "Motion",
      "text": "## Motion\n\nExemplo: Mais ações\n\n> Exemplo interativo: passe o mouse e pressione o botão para ver cada transição.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Enabled**\n- Gatilho: Mouse leave\n- Motion Style: `Hover Out/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n**→ Disabled**\n- Gatilho: Ao desabilitar\n- Motion Style: `Disabled/01`\n\n> No Pressed, o botão reduz a escala para 90% e volta ao tamanho original, como o Icon Button. Fonte: documentação de motion para devs (Notion, páginas verdes)."
     }
-   ]
+   ],
+   "react": null
   },
   {
    "id": "fab-menu",
@@ -7952,7 +7953,8 @@
      "title": "Motion",
      "text": "## Motion\n\nAs transições usam os Motion Styles do Castanha (modo Normal).\n\n> Exemplo interativo: passe o mouse no FAB, pressione e toque para abrir e fechar o menu. As ações herdam o motion do Main Button.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Enabled**\n- Gatilho: Mouse leave\n- Motion Style: `Hover Out/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n**→ Disabled**\n- Gatilho: Ao desabilitar\n- Motion Style: `Disabled/01`\n\n**Fechado → Aberto**\n- Gatilho: On tap no FAB\n- Motion Style: `Selected In/01`\n\n**Entrada das ações (opacidade)**\n- Gatilho: On tap no FAB\n- Motion Style: `Hover In/01`\n\n**Aberto → Fechado**\n- Gatilho: On tap no FAB ou numa ação\n- Motion Style: `Selected Out/01`\n\n**Saída das ações (opacidade)**\n- Gatilho: On tap no FAB ou numa ação\n- Motion Style: `Hover Out/06`\n\n> No Pressed, o FAB reduz a escala para 90% e volta ao tamanho original. Ao abrir e ao fechar, as ações se deslocam em Y e a escala vai a 105% e volta, como a caixa do Drop Button e do Popover. Fonte: documentação de motion para devs (Notion, páginas verdes)."
     }
-   ]
+   ],
+   "react": null
   },
   {
    "id": "file-lead-item",
@@ -10242,7 +10244,13 @@
       "note": "Destino do link."
      }
     ],
-    "checks": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "bridge-nome-figma",
+      "text": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Link Content, Show Trailing Item, Change Icon, Appearance, State)."
+     }
+    ],
     "notes": []
    },
    "flutter": {
@@ -10635,7 +10643,13 @@
       "note": "O texto vai como filho."
      }
     ],
-    "checks": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "bridge-nome-figma",
+      "text": "O bridge do castanha-ai usa `Show Trailling Icon`, que não existe na lib (props: Text Label, Show Lead Icon, Show Trailing Icon, Lead Icon, Kind, Appearance, State, Size)."
+     }
+    ],
     "notes": []
    },
    "flutter": {
@@ -15812,6 +15826,11 @@
       "level": "info",
       "kind": "nao-chega-ao-react",
       "text": "Não chega ao React pelo Code Connect: `Trailing Item`."
+     },
+     {
+      "level": "info",
+      "kind": "bridge-nome-figma",
+      "text": "O bridge do castanha-ai usa `Trailling Item`, que não existe na lib (props: Show Lead Item, Show Divider, Kind, State, Is Active, Trailing Item)."
      }
     ],
     "notes": [
@@ -19823,6 +19842,16 @@
       "level": "info",
       "kind": "nao-chega-ao-react",
       "text": "Não chega ao React pelo Code Connect: `Show Trailing Item`."
+     },
+     {
+      "level": "media",
+      "kind": "bridge-componente",
+      "text": "O castanha-ai liga o set a `Toast`; o playground (Code Connect), a `useToast`."
+     },
+     {
+      "level": "info",
+      "kind": "bridge-nome-figma",
+      "text": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Text Description, Show Trailing Item, Appearance)."
      }
     ],
     "notes": []
@@ -21095,6 +21124,11 @@
      "id": "transicoes",
      "title": "Transições",
      "text": "## Transições\n\nOcorrem quando as pessoas mudam de tela, iniciam novos fluxos ou navegam em jornadas, criando sensação de continuidade. Ajudam a entender como o app e o site funcionam, e devem ser discretas e naturais.\n\n> **Em construção no Hub:** No Castanha Hub, a página de Transições ainda está \"In progress\". As animações de exemplo ficam lá, e os layouts delas são ilustrativos.\n\n### Nível Superior · Sem vínculo direto\n\nUma tela sai e a outra aparece do zero, sem rastro da anterior. Evita agrupamento ou persistência entre conteúdos não relacionados e cria uma separação nítida. Funciona porque define uma quebra clara entre fluxos: a pessoa entende que saiu de um tema e entrou em outro.\n\n### Para frente e para trás · Geral para o específico\n\nO movimento horizontal indica navegação para frente e para trás entre telas consecutivas. Funciona porque cria uma relação de profundidade: o detalhamento está dentro do item principal.\n\n### Lateral · Itens vizinhos\n\nElementos agrupados deslizam juntos na horizontal, sem fade nem paralaxe. Cria uma relação forte entre as telas e aceita o gesto de deslizar. Funciona porque indica igualdade: os elementos estão lado a lado, no mesmo nível de importância.\n\n### Entrar e sair · Temporário\n\nAlgo sobe por cima do que está na tela, sem fechar a página. Funciona porque trata o conteúdo como temporário: ele não muda o fluxo, apenas o visita.\n\n### Transformação · Continuidade\n\nÉ a transição mais expressiva: um elemento focal se transforma na própria interface. Funciona porque elimina o salto visual, já que o olhar segue o elemento condutor.\n\n## Especificações\n\n**Nível Superior**\n- Use para: Navegação entre as áreas principais do app\n- Anima: Posição Y: a tela nova sobe 14 px até o lugar\n- Duração: 250 ms · `Duration/medium/01`\n- Easing: `Systemic/decelerate`\n\n**Para frente e para trás**\n- Use para: Ir de uma categoria do menu para as subcategorias ou mostrar o detalhamento\n- Anima: Posição X do conteúdo e posição X e escala do indicador da Tab (100 → 132% → 111%)\n- Duração: 350 ms no toque e 600 ms ao arrastar. O Hub cita `Duration/long/02`, que no Figma vale 500 ms\n- Easing: `Expressive/decelerate`\n\n**Lateral**\n- Use para: Alternar entre subcategorias ou listas relacionadas do mesmo nível hierárquico\n- Anima: Posição X: a tela de cima entra ou sai por inteiro, e a de baixo se desloca de leve, sem sair da tela\n- Duração: 500 ms. O Hub cita `Duration/long/04` (600 ms no Figma) e `Duration/medium/01`\n- Easing: O Hub cita `Expressive/accelerate` com os valores do `Expressive/overshoot` (C163)\n\n**Entrar e sair**\n- Use para: Ações temporárias num fluxo, como Bottom Sheet ou avisos de erro\n- Anima: Posição Y do sheet, de baixo para cima, e opacidade do fundo (0 → 20%)\n- Duração: Entrada 500 ms, saída 300 ms e fundo 250 ms. O Hub cita `Duration/long/04` (600 ms no Figma)\n- Easing: O Hub cita `Expressive/accelerate` com os valores do `Expressive/overshoot` (C163)\n\n**Transformação**\n- Use para: Expandir uma imagem para a tela cheia\n- Anima: Tamanho, posição, raio e cor do card até ele virar a página, e o caminho inverso ao fechar\n- Duração: 600 ms · `Duration/long/04`\n- Easing: O Hub cita `Expressive/accelerate` com os valores do `Expressive/overshoot` (C163)\n\n> No playground, Modal, Drawer e Bottom Sheet ainda abrem e fecham sem animação, porque a transição de entrada e saída não está especificada nos componentes (C36).\n\n> Fonte: zeroheight · Fundação › Motion › Transições (757a5f), conferido em 09/10/2026. As durações e curvas que não batem com as variáveis do Figma estão no CONFERIR (C194)."
+    },
+    {
+     "id": "animacoes",
+     "title": "Animações",
+     "text": "## Animações\n\nIlustrações animadas para momentos de destaque: conclusão de uma etapa, celebração, espera curta ou um aviso que pede atenção. Elas tocam em loop e vêm prontas, sem montar a animação na tela.\n\n## Biblioteca\n\n[Caju] Motion, na ordem e nas categorias do Figma: 46 animações em 10 categorias. Cada uma toca com a Lottie do `castanha-motion` 1.6.0, a mesma que o React e o Flutter usam. Passe o mouse num card para tocar e clique para ver o detalhe e copiar o código.\n\n(Tokens: animations — ver a ferramenta de tokens.)\n\nA biblioteca fica no Figma: [abrir o [Caju] Motion](https://www.figma.com/design/Jcxta3C1CgudynIEsrmTtP/-Caju--Motion-Beta?node-id=0-1).\n\n### Como usar\n\n- No React: `<Motion name=\"documentos-cracha\" loop autoplay />` (lazy, precisa do `CastanhaProvider`) ou o import direto do `@caju-beneficios/castanha-motion` (eager).\n- No Flutter: `Lottie.asset(CastanhaMotion.documentosCracha, package: 'castanha_motion')`, com o pacote `lottie`.\n- O nome é o do pacote: a categoria (o frame no Figma) na frente do nome do componente, sem acento. Algumas não levam a categoria no pacote, como `maquininha-verde-cartao` e `verificar-selfie`.\n- Com `prefers-reduced-motion`, a animação fica parada num quadro. Não tire a animação da tela: ela também comunica.\n- Arquivos em `assets/animations/<nome>.json`, catálogo em `assets/animations/catalog.json`. Atualizar: `node scripts/dev/import-animations.js` e `node scripts/build-assets.js`.\n\n> As animações de Feedback (`feedback-splash`, `feedback-success` e `feedback-warning`) existem só no pacote, sem componente na lib. Ficam fora daqui até a decisão."
     }
    ]
   },
@@ -34379,6 +34413,66 @@
     "msg": "O Code Connect gera `supportingMessage` em `<Topic>`, que não existe nas props do React (o código gerado não compila em TypeScript)."
    },
    {
+    "id": "main-button",
+    "level": "info",
+    "kind": "bridge-nome-figma",
+    "msg": "O bridge do castanha-ai usa `Show Trailling Icon`, que não existe na lib (props: Text Label, Show Lead Icon, Show Trailing Icon, Lead Icon, Kind, Appearance, State, Size)."
+   },
+   {
+    "id": "toast",
+    "level": "media",
+    "kind": "bridge-componente",
+    "msg": "O castanha-ai liga o set a `Toast`; o playground (Code Connect), a `useToast`."
+   },
+   {
+    "id": "toast",
+    "level": "info",
+    "kind": "bridge-nome-figma",
+    "msg": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Text Description, Show Trailing Item, Appearance)."
+   },
+   {
+    "id": "selection-list-item",
+    "level": "info",
+    "kind": "bridge-nome-figma",
+    "msg": "O bridge do castanha-ai usa `Trailling Item`, que não existe na lib (props: Show Lead Item, Show Divider, Kind, State, Is Active, Trailing Item)."
+   },
+   {
+    "id": "link",
+    "level": "info",
+    "kind": "bridge-nome-figma",
+    "msg": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Link Content, Show Trailing Item, Change Icon, Appearance, State)."
+   },
+   {
+    "id": "castanha-ai",
+    "level": "info",
+    "kind": "bridge-cobertura",
+    "msg": "Set `Sponsor Side Menu` está no bridge do castanha-ai e não tem componente no playground."
+   },
+   {
+    "id": "castanha-ai",
+    "level": "info",
+    "kind": "bridge-cobertura",
+    "msg": "Set `Device marker` está no bridge do castanha-ai e não tem componente no playground."
+   },
+   {
+    "id": "castanha-ai",
+    "level": "info",
+    "kind": "bridge-cobertura",
+    "msg": "Set `Shortcut` está no bridge do castanha-ai e não tem componente no playground."
+   },
+   {
+    "id": "castanha-ai",
+    "level": "info",
+    "kind": "bridge-cobertura",
+    "msg": "Set `Shortcut Carousel` está no bridge do castanha-ai e não tem componente no playground."
+   },
+   {
+    "id": "castanha-ai",
+    "level": "info",
+    "kind": "bridge-cobertura",
+    "msg": "Com mapa no playground e sem set no bridge do castanha-ai: `balance-card`, `banner`, `date-input`, `date-picker`, `modal-date-picker`, `multi-select-input`, `nav-control`, `slider`, `status-dot`, `system-banner`."
+   },
+   {
     "id": "tokens",
     "level": "info",
     "kind": "token-so-no-playground",
@@ -34438,7 +34532,7 @@
     "id": "assets",
     "level": "info",
     "kind": "motion-so-no-pacote",
-    "msg": "49 animações Lottie no castanha-motion, ainda sem tab no playground (Animações volta ao Tema Caju quando a lib existir).",
+    "msg": "O castanha-motion tem animações sem componente no [Caju] Motion (fora de Motion › Animações): `feedback-splash`, `feedback-success`, `feedback-warning`.",
     "gap": "MISSING-COMPONENT"
    }
   ]

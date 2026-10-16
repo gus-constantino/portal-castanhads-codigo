@@ -4,12 +4,12 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-16 a partir d
 
 | | Componentes |
 |---|---:|
-| No playground | 113 |
+| No playground | 115 |
 | Com par no React | 72 (68 via Code Connect, 4 via story) |
-| Building blocks sem par (internos no React) | 26 |
-| Só no Figma/playground | 15 |
+| Building blocks sem par (internos no React) | 27 |
+| Só no Figma/playground | 16 |
 | Só no React | 10 |
-| Com divergência anotada | 25 |
+| Com divergência anotada | 27 |
 
 ## Com par no React
 
@@ -109,6 +109,8 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-16 a partir d
 | `currency-content` | .Currency Content | — | building-block |  |
 | `currency-symbol` | .Currency Symbol | — | building-block |  |
 | `date-navigation` | .Navigation Control (Datepicker) | — | building-block |  |
+| `fab-button` | .FAB Button | — | building-block | o link do playground aponta para uma branch do Figma |
+| `fab-menu` | FAB Menu | — | so-figma | o link do playground aponta para uma branch do Figma |
 | `file-lead-item` | .Lead item (File) | — | building-block |  |
 | `fixed-bar` | [Beta] Fixed Bar | — | so-figma |  |
 | `footer` | .Footer | — | building-block |  |

@@ -87,8 +87,11 @@ function run(ctx){
   if (renamed.length) add("media", "ilustracao-renomeada", renamed.length + " ilustrações têm outro nome no pacote (o nome do Figma não serve no `<Illustration name>`): " + renamed.map((n) => "`" + n + "` → `" + ill[n].k + "`").join(", ") + ".");
   if (svgDiff.length) add("info", "ilustracao-svg-difere", svgDiff.length + " ilustrações têm o desenho diferente do pacote além do arredondamento (posição no quadro ou forma; conferir qual é a atual): " + svgDiff.map((n) => "`" + ill[n].k + "`").join(", ") + ".");
 
-  // ---- motion (Lottie): o playground ainda não tem a tab Animações ----
-  if (ctx.motion.length) add("info", "motion-so-no-pacote", ctx.motion.length + " animações Lottie no castanha-motion, ainda sem tab no playground (Animações volta ao Tema Caju quando a lib existir).");
+  // ---- motion (Lottie): [Caju] Motion (assets/animations, Motion › Animações) × castanha-motion ----
+  const anims = (A.animations || []).map((x) => x.name), pkgM = new Set(ctx.motion.map((x) => x.kebab));
+  const animOnlyHere = anims.filter((n) => !pkgM.has(n)), animOnlyPkg = [...pkgM].filter((n) => !anims.includes(n)).sort();
+  if (animOnlyHere.length) add("alta", "motion-fora-do-pacote", "Animações do [Caju] Motion sem par no castanha-motion: " + animOnlyHere.map((n) => "`" + n + "`").join(", ") + ".");
+  if (animOnlyPkg.length) add("info", "motion-so-no-pacote", "O castanha-motion tem animações sem componente no [Caju] Motion (fora de Motion › Animações): " + animOnlyPkg.map((n) => "`" + n + "`").join(", ") + ".");
 
   const data = {
     icons: { pkg: "@caju-beneficios/castanha-icons", map: iconMap, onlyPkg: iconOnlyPkg },
@@ -98,7 +101,7 @@ function run(ctx){
   const summary = {
     icons: { pkg: Object.keys(pkgI).length, ours: Object.keys(iconMap).length, same: Object.keys(iconMap).filter((n) => iconMap[n]).length, onlyHere: iconOnlyHere.length, onlyPkg: iconOnlyPkg.length },
     ills: { pkg: Object.keys(pkgL).length, ours: ours.length, same: Object.keys(ill).length - renamed.length, renamed: renamed.length, onlyHere: illOnlyHere.length, onlyPkg: illOnlyPkg.length, svgDiff: svgDiff.length },
-    motion: ctx.motion.length
+    motion: { pkg: ctx.motion.length, ours: anims.length, same: anims.length - animOnlyHere.length, onlyHere: animOnlyHere.length, onlyPkg: animOnlyPkg.length }
   };
   return { data, findings, summary };
 }

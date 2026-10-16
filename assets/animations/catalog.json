@@ -1,0 +1,640 @@
+{
+ "_source": "[Caju] Motion Beta (Jcxta3C1CgudynIEsrmTtP) v0.1.0, página [Category] (0:1): frames e componentes lidos via Figma MCP em 16/10/2026, depois da correção dos nomes · Lottie do @caju-beneficios/castanha-motion 1.6.0 (origin/staging 039c0d37)",
+ "package": {
+  "name": "@caju-beneficios/castanha-motion",
+  "version": "1.6.0",
+  "commit": "039c0d37",
+  "dart": "castanha_motion",
+  "dartClass": "CastanhaMotion"
+ },
+ "buckets": [
+  {
+   "id": "alimentos",
+   "name": "Alimentos",
+   "node": "6705:2",
+   "items": [
+    {
+     "name": "alimentos-bolo-cafe-aniversario",
+     "figma": "bolo-cafe-aniversario",
+     "node": "6010:133",
+     "duration": 6,
+     "w": 370,
+     "h": 360,
+     "kb": 104,
+     "react": "AlimentosBoloCafeAniversario",
+     "flutter": "alimentosBoloCafeAniversario",
+     "rule": "frame-nome"
+    }
+   ]
+  },
+  {
+   "id": "autenticacao",
+   "name": "Autenticacao",
+   "node": "6705:27",
+   "items": [
+    {
+     "name": "autentificacao-ocr-cartao-fisico",
+     "figma": "autentificacao-ocr-cartao-fisico",
+     "node": "6338:86",
+     "duration": 9.72,
+     "w": 200,
+     "h": 200,
+     "kb": 116,
+     "react": "AutentificacaoOcrCartaoFisico",
+     "flutter": "autentificacaoOcrCartaoFisico",
+     "rule": "nome"
+    },
+    {
+     "name": "reconhecimento-default",
+     "figma": "reconhecimento-default",
+     "node": "6521:12",
+     "duration": 10,
+     "w": 164,
+     "h": 164,
+     "kb": 294,
+     "react": "ReconhecimentoDefault",
+     "flutter": "reconhecimentoDefault",
+     "rule": "nome"
+    },
+    {
+     "name": "reconhecimento-biometrico",
+     "figma": "reconhecimento-biometrico",
+     "node": "6521:18",
+     "duration": 5,
+     "w": 164,
+     "h": 164,
+     "kb": 132,
+     "react": "ReconhecimentoBiometrico",
+     "flutter": "reconhecimentoBiometrico",
+     "rule": "nome"
+    },
+    {
+     "name": "reconhecimento-facial",
+     "figma": "reconhecimento-facial",
+     "node": "6521:42",
+     "duration": 6,
+     "w": 164,
+     "h": 164,
+     "kb": 45,
+     "react": "ReconhecimentoFacial",
+     "flutter": "reconhecimentoFacial",
+     "rule": "nome"
+    },
+    {
+     "name": "verificar-selfie",
+     "figma": "verificar-selfie",
+     "node": "6521:64",
+     "duration": 5,
+     "w": 220,
+     "h": 220,
+     "kb": 110,
+     "react": "VerificarSelfie",
+     "flutter": "verificarSelfie",
+     "rule": "nome"
+    }
+   ]
+  },
+  {
+   "id": "dispositivos",
+   "name": "Dispositivos",
+   "node": "6705:33",
+   "items": [
+    {
+     "name": "dispositivos-cartao-virtual-criado",
+     "figma": "dispositivos-cartao-virtual-criado",
+     "node": "6378:64",
+     "duration": 10,
+     "w": 605,
+     "h": 600,
+     "kb": 639,
+     "react": "DispositivosCartaoVirtualCriado",
+     "flutter": "dispositivosCartaoVirtualCriado",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "dispositivo-multiplos-cartoes-corporativo-virtual",
+     "figma": "dispositivo-multiplos-cartoes-corporativo-virtual",
+     "node": "6521:35",
+     "duration": 5,
+     "w": 200,
+     "h": 200,
+     "kb": 568,
+     "react": "DispositivoMultiplosCartoesCorporativoVirtual",
+     "flutter": "dispositivoMultiplosCartoesCorporativoVirtual",
+     "rule": "nome"
+    }
+   ]
+  },
+  {
+   "id": "documentos",
+   "name": "Documentos",
+   "node": "6705:7",
+   "items": [
+    {
+     "name": "documentos-planilha-engrenagem",
+     "figma": "planilha-engrenagem",
+     "node": "6220:66",
+     "duration": 4.92,
+     "w": 500,
+     "h": 500,
+     "kb": 54,
+     "react": "DocumentosPlanilhaEngrenagem",
+     "flutter": "documentosPlanilhaEngrenagem",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "documentos-rg-cnh-frente",
+     "figma": "rg-cnh-frente",
+     "node": "6331:42",
+     "duration": 5,
+     "w": 550,
+     "h": 550,
+     "kb": 332,
+     "react": "DocumentosRgCnhFrente",
+     "flutter": "documentosRgCnhFrente",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "documentos-admissao",
+     "figma": "admissao",
+     "node": "6033:81",
+     "duration": 10,
+     "w": 550,
+     "h": 480,
+     "kb": 871,
+     "react": "DocumentosAdmissao",
+     "flutter": "documentosAdmissao",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "documentos-arquivar-item",
+     "figma": "arquivar-item",
+     "node": "6067:99",
+     "duration": 10,
+     "w": 550,
+     "h": 550,
+     "kb": 95,
+     "react": "DocumentosArquivarItem",
+     "flutter": "documentosArquivarItem",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "documentos-rg-cnh-verso",
+     "figma": "rg-cnh-verso",
+     "node": "6067:123",
+     "duration": 10,
+     "w": 300,
+     "h": 300,
+     "kb": 464,
+     "react": "DocumentosRgCnhVerso",
+     "flutter": "documentosRgCnhVerso",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "documentos-cracha",
+     "figma": "cracha",
+     "node": "6330:18",
+     "duration": 5,
+     "w": 650,
+     "h": 650,
+     "kb": 35,
+     "react": "DocumentosCracha",
+     "flutter": "documentosCracha",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "documentos-desarquivar-item",
+     "figma": "desarquivar-item",
+     "node": "6331:50",
+     "duration": 5,
+     "w": 650,
+     "h": 650,
+     "kb": 46,
+     "react": "DocumentosDesarquivarItem",
+     "flutter": "documentosDesarquivarItem",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "documentos-relatorio-concluido",
+     "figma": "relatorio-concluido",
+     "node": "6331:57",
+     "duration": 5,
+     "w": 550,
+     "h": 550,
+     "kb": 186,
+     "react": "DocumentosRelatorioConcluido",
+     "flutter": "documentosRelatorioConcluido",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "documentos-relatorios-1",
+     "figma": "relatorios-1",
+     "node": "6331:71",
+     "duration": 5,
+     "w": 600,
+     "h": 600,
+     "kb": 106,
+     "react": "DocumentosRelatorios1",
+     "flutter": "documentosRelatorios1",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "documentos-diretorio-colaboradores",
+     "figma": "diretorio-colaboradores",
+     "node": "6331:79",
+     "duration": 5,
+     "w": 550,
+     "h": 550,
+     "kb": 71,
+     "react": "DocumentosDiretorioColaboradores",
+     "flutter": "documentosDiretorioColaboradores",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "documentos-rg-papeis",
+     "figma": "rg-papeis",
+     "node": "6331:86",
+     "duration": 5,
+     "w": 500,
+     "h": 500,
+     "kb": 251,
+     "react": "DocumentosRgPapeis",
+     "flutter": "documentosRgPapeis",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "documentos-socio",
+     "figma": "socio",
+     "node": "6331:95",
+     "duration": 5,
+     "w": 550,
+     "h": 550,
+     "kb": 180,
+     "react": "DocumentosSocio",
+     "flutter": "documentosSocio",
+     "rule": "frame-nome"
+    }
+   ]
+  },
+  {
+   "id": "financas",
+   "name": "Finanças",
+   "node": "6705:3",
+   "items": [
+    {
+     "name": "financas-moeda-verde-pilha-2",
+     "figma": "moeda-verde-pilha-2",
+     "node": "6013:22",
+     "duration": 7.38,
+     "w": 320,
+     "h": 530,
+     "kb": 225,
+     "react": "FinancasMoedaVerdePilha2",
+     "flutter": "financasMoedaVerdePilha2",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "financas-cartao-codigo-vertical-1-2",
+     "figma": "cartao-codigo-vertical-1-2",
+     "node": "6033:56",
+     "duration": 5,
+     "w": 250,
+     "h": 250,
+     "kb": 199,
+     "react": "FinancasCartaoCodigoVertical12",
+     "flutter": "financasCartaoCodigoVertical12",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "financas-cartao-codigo-horizontal-1-2",
+     "figma": "cartao-codigo-horizontal-1-2",
+     "node": "6033:63",
+     "duration": 5,
+     "w": 300,
+     "h": 300,
+     "kb": 305,
+     "react": "FinancasCartaoCodigoHorizontal12",
+     "flutter": "financasCartaoCodigoHorizontal12",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "financas-cartao-envelope-desbloqueado",
+     "figma": "financas-cartao-envelope-desbloqueado",
+     "node": "6337:9",
+     "duration": 10,
+     "w": 220,
+     "h": 220,
+     "kb": 348,
+     "react": "FinancasCartaoEnvelopeDesbloqueado",
+     "flutter": "financasCartaoEnvelopeDesbloqueado",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "maquininha-verde-cartao",
+     "figma": "maquininha-verde-cartao",
+     "node": "6521:49",
+     "duration": 6,
+     "w": 500,
+     "h": 500,
+     "kb": 50,
+     "react": "MaquininhaVerdeCartao",
+     "flutter": "maquininhaVerdeCartao",
+     "rule": "nome"
+    },
+    {
+     "name": "maquininha-laranja-cartao",
+     "figma": "maquininha-laranja-cartao",
+     "node": "6521:57",
+     "duration": 6,
+     "w": 500,
+     "h": 500,
+     "kb": 50,
+     "react": "MaquininhaLaranjaCartao",
+     "flutter": "maquininhaLaranjaCartao",
+     "rule": "nome"
+    }
+   ]
+  },
+  {
+   "id": "maos",
+   "name": "Mãos",
+   "node": "6705:21",
+   "items": [
+    {
+     "name": "maos-cracha",
+     "figma": "cracha",
+     "node": "6033:78",
+     "duration": 5,
+     "w": 550,
+     "h": 480,
+     "kb": 99,
+     "react": "MaosCracha",
+     "flutter": "maosCracha",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "maos-transferencia-pix",
+     "figma": "transferencia-pix",
+     "node": "6602:44",
+     "duration": 6,
+     "w": 500,
+     "h": 500,
+     "kb": 373,
+     "react": "MaosTransferenciaPix",
+     "flutter": "maosTransferenciaPix",
+     "rule": "frame-nome"
+    }
+   ]
+  },
+  {
+   "id": "notificacoes",
+   "name": "Notificações",
+   "node": "6705:13",
+   "items": [
+    {
+     "name": "notificacoes-success",
+     "figma": "success",
+     "node": "6220:99",
+     "duration": 4,
+     "w": 400,
+     "h": 400,
+     "kb": 85,
+     "react": "NotificacoesSuccess",
+     "flutter": "notificacoesSuccess",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "notificacoes-success-2",
+     "figma": "success-2",
+     "node": "6220:31",
+     "duration": 4,
+     "w": 400,
+     "h": 400,
+     "kb": 12,
+     "react": "NotificacoesSuccess2",
+     "flutter": "notificacoesSuccess2",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "notificacoes-galo",
+     "figma": "galo",
+     "node": "6014:35",
+     "duration": 6,
+     "w": 200,
+     "h": 200,
+     "kb": 98,
+     "react": "NotificacoesGalo",
+     "flutter": "notificacoesGalo",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "notificacoes-sino",
+     "figma": "sino",
+     "node": "6014:44",
+     "duration": 3.27,
+     "w": 300,
+     "h": 300,
+     "kb": 412,
+     "react": "NotificacoesSino",
+     "flutter": "notificacoesSino",
+     "rule": "frame-nome"
+    }
+   ]
+  },
+  {
+   "id": "objetos",
+   "name": "Objetos",
+   "node": "6705:14",
+   "items": [
+    {
+     "name": "objetos-medalha-1",
+     "figma": "medalha-1",
+     "node": "6010:96",
+     "duration": 6,
+     "w": 480,
+     "h": 400,
+     "kb": 47,
+     "react": "ObjetosMedalha1",
+     "flutter": "objetosMedalha1",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "objetos-cadeira-praia",
+     "figma": "objetos-cadeira-praia",
+     "node": "6344:12",
+     "duration": 6,
+     "w": 700,
+     "h": 700,
+     "kb": 55,
+     "react": "ObjetosCadeiraPraia",
+     "flutter": "objetosCadeiraPraia",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "objetos-medalha-2",
+     "figma": "objetos-medalha-2",
+     "node": "6345:20",
+     "duration": 5,
+     "w": 340,
+     "h": 340,
+     "kb": 72,
+     "react": "ObjetosMedalha2",
+     "flutter": "objetosMedalha2",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "objetos-trofeu",
+     "figma": "objetos-trofeu",
+     "node": "6346:28",
+     "duration": 5,
+     "w": 300,
+     "h": 300,
+     "kb": 387,
+     "react": "ObjetosTrofeu",
+     "flutter": "objetosTrofeu",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "compras-celebracao",
+     "figma": "compras-celebracao",
+     "node": "6602:9",
+     "duration": 8.08,
+     "w": 300,
+     "h": 300,
+     "kb": 172,
+     "react": "ComprasCelebracao",
+     "flutter": "comprasCelebracao",
+     "rule": "nome"
+    },
+    {
+     "name": "objetos-caixa-moedas",
+     "figma": "objetos-caixa-moedas",
+     "node": "6602:19",
+     "duration": 6,
+     "w": 200,
+     "h": 200,
+     "kb": 757,
+     "react": "ObjetosCaixaMoedas",
+     "flutter": "objetosCaixaMoedas",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "objetos-caixa-beneficios",
+     "figma": "objetos-caixa-beneficios",
+     "node": "6602:28",
+     "duration": 5,
+     "w": 250,
+     "h": 250,
+     "kb": 224,
+     "react": "ObjetosCaixaBeneficios",
+     "flutter": "objetosCaixaBeneficios",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "objetos-presente-fechado",
+     "figma": "objetos-presente-fechado",
+     "node": "6602:36",
+     "duration": 6,
+     "w": 200,
+     "h": 200,
+     "kb": 278,
+     "react": "ObjetosPresenteFechado",
+     "flutter": "objetosPresenteFechado",
+     "rule": "frame-nome"
+    }
+   ]
+  },
+  {
+   "id": "personagens",
+   "name": "Personagens",
+   "node": "6705:23",
+   "items": [
+    {
+     "name": "personagens-karina-3",
+     "figma": "karina-3",
+     "node": "6220:110",
+     "duration": 10,
+     "w": 500,
+     "h": 500,
+     "kb": 121,
+     "react": "PersonagensKarina3",
+     "flutter": "personagensKarina3",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "personagens-sonia",
+     "figma": "sonia",
+     "node": "6032:35",
+     "duration": 8,
+     "w": 480,
+     "h": 480,
+     "kb": 529,
+     "react": "PersonagensSonia",
+     "flutter": "personagensSonia",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "personagens-karina-1",
+     "figma": "karina-1",
+     "node": "6033:46",
+     "duration": 6,
+     "w": 500,
+     "h": 500,
+     "kb": 209,
+     "react": "PersonagensKarina1",
+     "flutter": "personagensKarina1",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "personagens-antonia",
+     "figma": "antonia",
+     "node": "6067:91",
+     "duration": 25,
+     "w": 500,
+     "h": 500,
+     "kb": 115,
+     "react": "PersonagensAntonia",
+     "flutter": "personagensAntonia",
+     "rule": "frame-nome"
+    }
+   ]
+  },
+  {
+   "id": "seguranca",
+   "name": "Segurança",
+   "node": "6705:24",
+   "items": [
+    {
+     "name": "seguranca-cadeado-fechado",
+     "figma": "cadeado-fechado",
+     "node": "6222:8",
+     "duration": 6,
+     "w": 300,
+     "h": 300,
+     "kb": 205,
+     "react": "SegurancaCadeadoFechado",
+     "flutter": "segurancaCadeadoFechado",
+     "rule": "frame-nome"
+    },
+    {
+     "name": "seguranca-cadeado-aberto",
+     "figma": "cadeado-aberto",
+     "node": "6220:119",
+     "duration": 6,
+     "w": 300,
+     "h": 300,
+     "kb": 204,
+     "react": "SegurancaCadeadoAberto",
+     "flutter": "segurancaCadeadoAberto",
+     "rule": "frame-nome"
+    }
+   ]
+  }
+ ],
+ "soNoPacote": [
+  "feedback-splash",
+  "feedback-success",
+  "feedback-warning"
+ ],
+ "semPar": []
+}

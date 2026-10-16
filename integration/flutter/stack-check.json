@@ -12,13 +12,13 @@
   }
  },
  "summary": {
-  "playground": 108,
-  "blocks": 26,
+  "playground": 110,
+  "blocks": 27,
   "flutter": 49,
   "matched": 45,
   "flutterOnly": 4,
-  "missing": 37,
-  "missingBlocks": 26
+  "missing": 38,
+  "missingBlocks": 27
  },
  "levels": {
   "alta": 2,
@@ -351,60 +351,14 @@
     "pkg": "castanha_motion",
     "version": "1.6.0",
     "inPkg": 49,
-    "inPg": 0,
-    "same": 0,
+    "inPg": 46,
+    "same": 46,
     "renamed": 0,
     "onlyPg": [],
     "onlyPkg": [
-     "alimentosBoloCafeAniversario",
-     "autentificacaoOcrCartaoFisico",
-     "comprasCelebracao",
-     "dispositivoMultiplosCartoesCorporativoVirtual",
-     "dispositivosCartaoVirtualCriado",
-     "documentosAdmissao",
-     "documentosArquivarItem",
-     "documentosCracha",
-     "documentosDesarquivarItem",
-     "documentosDiretorioColaboradores",
-     "documentosPlanilhaEngrenagem",
-     "documentosRelatorioConcluido",
-     "documentosRelatorios1",
-     "documentosRgCnhFrente",
-     "documentosRgCnhVerso",
-     "documentosRgPapeis",
-     "documentosSocio",
      "feedbackSplash",
      "feedbackSuccess",
-     "feedbackWarning",
-     "financasCartaoCodigoHorizontal12",
-     "financasCartaoCodigoVertical12",
-     "financasCartaoEnvelopeDesbloqueado",
-     "financasMoedaVerdePilha2",
-     "maosCracha",
-     "maosTransferenciaPix",
-     "maquininhaLaranjaCartao",
-     "maquininhaVerdeCartao",
-     "notificacoesGalo",
-     "notificacoesSino",
-     "notificacoesSuccess",
-     "notificacoesSuccess2",
-     "objetosCadeiraPraia",
-     "objetosCaixaBeneficios",
-     "objetosCaixaMoedas",
-     "objetosMedalha1",
-     "objetosMedalha2",
-     "objetosPresenteFechado",
-     "objetosTrofeu",
-     "personagensAntonia",
-     "personagensKarina1",
-     "personagensKarina3",
-     "personagensSonia",
-     "reconhecimentoBiometrico",
-     "reconhecimentoDefault",
-     "reconhecimentoFacial",
-     "segurancaCadeadoAberto",
-     "segurancaCadeadoFechado",
-     "verificarSelfie"
+     "feedbackWarning"
     ]
    }
   ],
@@ -432,7 +386,7 @@
    {
     "l": "info",
     "t": "motion-so-no-dart",
-    "m": "49 animações em `CastanhaMotions` (1.6.0), ainda sem tab no playground."
+    "m": "Constantes de `CastanhaMotion` (1.6.0) sem componente no [Caju] Motion (fora de Motion › Animações): `feedbackSplash`, `feedbackSuccess`, `feedbackWarning`."
    }
   ]
  }

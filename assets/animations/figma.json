@@ -1,0 +1,249 @@
+{
+ "_source": "[Caju] Motion Beta (Jcxta3C1CgudynIEsrmTtP) v0.1.0, página [Category] (0:1): frames e componentes lidos via Figma MCP em 16/10/2026, depois da correção dos nomes",
+ "frames": [
+  {
+   "node": "6705:2",
+   "name": "Alimentos",
+   "items": [
+    {
+     "node": "6010:133",
+     "name": "bolo-cafe-aniversario"
+    }
+   ]
+  },
+  {
+   "node": "6705:27",
+   "name": "Autenticacao",
+   "items": [
+    {
+     "node": "6338:86",
+     "name": "autentificacao-ocr-cartao-fisico"
+    },
+    {
+     "node": "6521:12",
+     "name": "reconhecimento-default"
+    },
+    {
+     "node": "6521:18",
+     "name": "reconhecimento-biometrico"
+    },
+    {
+     "node": "6521:42",
+     "name": "reconhecimento-facial"
+    },
+    {
+     "node": "6521:64",
+     "name": "verificar-selfie"
+    }
+   ]
+  },
+  {
+   "node": "6705:33",
+   "name": "Dispositivos",
+   "items": [
+    {
+     "node": "6378:64",
+     "name": "dispositivos-cartao-virtual-criado"
+    },
+    {
+     "node": "6521:35",
+     "name": "dispositivo-multiplos-cartoes-corporativo-virtual"
+    }
+   ]
+  },
+  {
+   "node": "6705:7",
+   "name": "Documentos",
+   "items": [
+    {
+     "node": "6220:66",
+     "name": "planilha-engrenagem"
+    },
+    {
+     "node": "6331:42",
+     "name": "rg-cnh-frente"
+    },
+    {
+     "node": "6033:81",
+     "name": "admissao"
+    },
+    {
+     "node": "6067:99",
+     "name": "arquivar-item"
+    },
+    {
+     "node": "6067:123",
+     "name": "rg-cnh-verso"
+    },
+    {
+     "node": "6330:18",
+     "name": "cracha"
+    },
+    {
+     "node": "6331:50",
+     "name": "desarquivar-item"
+    },
+    {
+     "node": "6331:57",
+     "name": "relatorio-concluido"
+    },
+    {
+     "node": "6331:71",
+     "name": "relatorios-1"
+    },
+    {
+     "node": "6331:79",
+     "name": "diretorio-colaboradores"
+    },
+    {
+     "node": "6331:86",
+     "name": "rg-papeis"
+    },
+    {
+     "node": "6331:95",
+     "name": "socio"
+    }
+   ]
+  },
+  {
+   "node": "6705:3",
+   "name": "Finanças",
+   "items": [
+    {
+     "node": "6013:22",
+     "name": "moeda-verde-pilha-2"
+    },
+    {
+     "node": "6033:56",
+     "name": "cartao-codigo-vertical-1-2"
+    },
+    {
+     "node": "6033:63",
+     "name": "cartao-codigo-horizontal-1-2"
+    },
+    {
+     "node": "6337:9",
+     "name": "financas-cartao-envelope-desbloqueado"
+    },
+    {
+     "node": "6521:49",
+     "name": "maquininha-verde-cartao"
+    },
+    {
+     "node": "6521:57",
+     "name": "maquininha-laranja-cartao"
+    }
+   ]
+  },
+  {
+   "node": "6705:21",
+   "name": "Mãos",
+   "items": [
+    {
+     "node": "6033:78",
+     "name": "cracha"
+    },
+    {
+     "node": "6602:44",
+     "name": "transferencia-pix"
+    }
+   ]
+  },
+  {
+   "node": "6705:13",
+   "name": "Notificações",
+   "items": [
+    {
+     "node": "6220:99",
+     "name": "success"
+    },
+    {
+     "node": "6220:31",
+     "name": "success-2"
+    },
+    {
+     "node": "6014:35",
+     "name": "galo"
+    },
+    {
+     "node": "6014:44",
+     "name": "sino"
+    }
+   ]
+  },
+  {
+   "node": "6705:14",
+   "name": "Objetos",
+   "items": [
+    {
+     "node": "6010:96",
+     "name": "medalha-1"
+    },
+    {
+     "node": "6344:12",
+     "name": "objetos-cadeira-praia"
+    },
+    {
+     "node": "6345:20",
+     "name": "objetos-medalha-2"
+    },
+    {
+     "node": "6346:28",
+     "name": "objetos-trofeu"
+    },
+    {
+     "node": "6602:9",
+     "name": "compras-celebracao"
+    },
+    {
+     "node": "6602:19",
+     "name": "objetos-caixa-moedas"
+    },
+    {
+     "node": "6602:28",
+     "name": "objetos-caixa-beneficios"
+    },
+    {
+     "node": "6602:36",
+     "name": "objetos-presente-fechado"
+    }
+   ]
+  },
+  {
+   "node": "6705:23",
+   "name": "Personagens",
+   "items": [
+    {
+     "node": "6220:110",
+     "name": "karina-3"
+    },
+    {
+     "node": "6032:35",
+     "name": "sonia"
+    },
+    {
+     "node": "6033:46",
+     "name": "karina-1"
+    },
+    {
+     "node": "6067:91",
+     "name": "antonia"
+    }
+   ]
+  },
+  {
+   "node": "6705:24",
+   "name": "Segurança",
+   "items": [
+    {
+     "node": "6222:8",
+     "name": "cadeado-fechado"
+    },
+    {
+     "node": "6220:119",
+     "name": "cadeado-aberto"
+    }
+   ]
+  }
+ ]
+}

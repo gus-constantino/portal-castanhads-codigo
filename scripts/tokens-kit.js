@@ -510,6 +510,7 @@
     icons: function(root){ library(root, "icons"); },
     // ===== Ilustrações (unDraw / Storyset): busca, categorias, fundo, painel de detalhe
     illustrations: function(root){ library(root, "illustrations"); },
+    animations: function(root){ library(root, "animations"); },
     duration: function(root){ runs(root, "Duration", pick("--common-motion-duration-"), "--common-motion-duration-", "duration"); },
     delay: function(root){ runs(root, "Delay", pick("--common-motion-delay-"), "--common-motion-delay-", "delay"); }
   };
@@ -541,14 +542,37 @@
   }
   function fold(t){ return String(t || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, ""); }
   // Biblioteca de ícones/ilustrações: Search Input + Filter Chips + grade de tiles (C87) + painel de detalhe com Tags e Main Buttons do DS
+  // Player Lottie (scripts/vendor/lottie_svg.min.js, a engine do lottie-react do castanha-react): carregado sob demanda
+  var lottieP = null;
+  function lottieLib(){
+    if (window.lottie) return Promise.resolve(window.lottie);
+    if (!lottieP) lottieP = new Promise(function(ok, ko){ var s = document.createElement("script"); s.src = "scripts/vendor/lottie_svg.min.js"; s.onload = function(){ ok(window.lottie); }; s.onerror = ko; document.head.appendChild(s); });
+    return lottieP;
+  }
+  var lottieData = {};
+  function lottieJson(src){ return lottieData[src] || (lottieData[src] = fetch(src).then(function(r){ return r.json(); })); }
+  // Monta a animação no container; parada no meio quando o sistema pede menos movimento ou quando `still`
+  function lottieMount(box, src, opts){
+    opts = opts || {};
+    return Promise.all([lottieLib(), lottieJson(src)]).then(function(r){
+      box.innerHTML = "";
+      var a = r[0].loadAnimation({ container: box, renderer: "svg", loop: true, autoplay: false, animationData: JSON.parse(JSON.stringify(r[1])), rendererSettings: { preserveAspectRatio: "xMidYMid meet" } });
+      a.addEventListener("DOMLoaded", function(){ if (opts.play && !reduced) a.play(); else a.goToAndStop(Math.round(a.totalFrames / 2), true); });
+      return a;
+    });
+  }
   function library(root, kind){
-    var A = CDS.assets || {}, isIcon = kind === "icons", items = [], cats = [];
+    var A = CDS.assets || {}, isIcon = kind === "icons", isAnim = kind === "animations", items = [], cats = [];
     if (isIcon){
       var meta = {}; (A.icons || []).forEach(function(i){ meta[i.name] = i; });
       (A.iconBuckets || []).filter(function(b){ return !b.glyphs; }).forEach(function(b){
         cats.push([b.id, b.name]);
         b.icons.forEach(function(n){ var m = meta[n] || {}; items.push({ id: n, name: n, cat: b.id, catName: b.name, cls: b.deprecated ? "" : m.cls, deprecated: !!b.deprecated, file: "assets/icons/" + b.id + "/" + n + ".svg", keywords: m.keywords || [] }); });
       });
+    } else if (isAnim){
+      var am = {}; (A.animations || []).forEach(function(i){ am[i.name] = i; });
+      (A.animationBuckets || []).forEach(function(b){ cats.push([b.id, b.name]);
+        b.items.forEach(function(k){ var m = am[k]; if (!m) return; items.push({ id: k, name: k, cat: b.id, catName: b.name, src: m.src, figma: m.figma, node: m.node, duration: m.duration, w: m.w, h: m.h, kb: m.kb, react: m.react, flutter: m.flutter, description: "", keywords: [] }); }); });
     } else {
       var im = {}; (A.illustrations || []).forEach(function(i){ im[i.name] = i; });
       (A.illustrationBuckets || []).forEach(function(b){ cats.push([b.id, b.name]);
@@ -559,7 +583,7 @@
     var box = root.appendChild(el("div", "pg-ic"));
     var bar = box.appendChild(el("div", "pg-ic-bar"));
     var search = bar.appendChild(document.createElement("cds-search-input"));
-    [["label", isIcon ? "Buscar ícone" : "Buscar ilustração"], ["placeholder", isIcon ? "Nome ou palavra-chave (ex.: cartão, seta, pix)" : "Nome, categoria ou uso (ex.: cartão, pix, erro)"], ["show-required", "false"], ["show-supporting-content", "false"]].forEach(function(a){ search.setAttribute(a[0], a[1]); });
+    [["label", isIcon ? "Buscar ícone" : isAnim ? "Buscar animação" : "Buscar ilustração"], ["placeholder", isIcon ? "Nome ou palavra-chave (ex.: cartão, seta, pix)" : isAnim ? "Nome ou categoria (ex.: cartão, documentos, sino)" : "Nome, categoria ou uso (ex.: cartão, pix, erro)"], ["show-required", "false"], ["show-supporting-content", "false"]].forEach(function(a){ search.setAttribute(a[0], a[1]); });
     var opts = bar.appendChild(el("div", "pg-ic-opts"));
     if (CDS.kit){
       CDS.kit.seg(opts, { label: "Categoria", value: "all", options: [["all", "Todas"]].concat(cats), onChange: function(v){ st.cat = v; filter(); } });
@@ -574,7 +598,10 @@
       }
     }
     var count = box.appendChild(el("p", "pg-ic-count")); count.setAttribute("aria-live", "polite");
-    var body = box.appendChild(el("div", "pg-ic-body")), gridEl = body.appendChild(el("ul", "pg-ic-grid" + (isIcon ? "" : " is-ills"))), panel = body.appendChild(el("aside", "pg-ic-panel"));
+    var body = box.appendChild(el("div", "pg-ic-body")), gridEl = body.appendChild(el("ul", "pg-ic-grid" + (isIcon ? "" : " is-ills") + (isAnim ? " is-anims" : ""))), panel = body.appendChild(el("aside", "pg-ic-panel"));
+    // Animações: cada card carrega a Lottie quando aparece na tela (parada no meio) e toca enquanto o mouse está sobre ele
+    var seen = isAnim && "IntersectionObserver" in window ? new IntersectionObserver(function(es){ es.forEach(function(e){ if (!e.isIntersecting) return; seen.unobserve(e.target);
+      var it = e.target._it; lottieMount(e.target, it.src).then(function(a){ it.anim = a; }).catch(function(){}); }); }, { rootMargin: "200px" }) : null;
     panel.setAttribute("aria-label", "Detalhe");
     items.forEach(function(it, i){
       // Tile = composição <cmp-clickable-card> em modo botão; selecionado = current (aria-pressed)
@@ -584,6 +611,10 @@
       b.style.setProperty("--_i", String(Math.min(i, 24)));
       if (isIcon){ var ic = b.appendChild(el("span", "cds-icon pg-ic-glyph " + (it.cls || ""))); ic.setAttribute("aria-hidden", "true");
         if (!it.cls){ var u = 'url("' + it.file + '")'; ic.style.webkitMaskImage = u; ic.style.maskImage = u; } }
+      else if (isAnim){ var pl = b.appendChild(el("span", "pg-an-player")); pl.setAttribute("aria-hidden", "true"); pl._it = it;
+        if (seen) seen.observe(pl); else lottieMount(pl, it.src).then(function(a){ it.anim = a; }).catch(function(){});
+        b.addEventListener("mouseenter", function(){ if (it.anim && !reduced) it.anim.play(); });
+        b.addEventListener("mouseleave", function(){ if (it.anim) it.anim.goToAndStop(Math.round(it.anim.totalFrames / 2), true); }); }
       else { var im2 = b.appendChild(el("img", "pg-ic-img")); im2.alt = ""; im2.loading = "lazy"; im2.decoding = "async"; im2.src = it.src; }
       li.appendChild(b); // Slot: a mídia entra antes de conectar
       b.addEventListener("click", function(){ select(it, b);
@@ -597,13 +628,36 @@
       panel.innerHTML = "";
       var prev = panel.appendChild(el("div", "pg-ic-preview"));
       if (isIcon){ var g = prev.appendChild(el("span", "cds-icon pg-ic-glyph is-big " + (it.cls || ""))); g.setAttribute("aria-hidden", "true"); /* o nome vem no título logo abaixo */ if (!it.cls){ var u = 'url("' + it.file + '")'; g.style.webkitMaskImage = u; g.style.maskImage = u; } }
+      else if (isAnim){ if (panel._anim){ panel._anim.destroy(); panel._anim = null; }
+        var big = prev.appendChild(el("span", "pg-an-player is-big")); big.setAttribute("role", "img"); big.setAttribute("aria-label", "Animação " + it.name);
+        lottieMount(big, it.src, { play: true }).then(function(a){ if (st.sel === it) panel._anim = a; else a.destroy(); }).catch(function(){ big.textContent = "Não foi possível carregar a animação."; }); }
       else { var im3 = prev.appendChild(el("img", "pg-ic-img is-big")); im3.alt = it.name; im3.src = it.src; }
       panel.appendChild(el("span", "pg-ic-panel__title", it.name));
       var dl = panel.appendChild(el("cmp-definition-list", "pg-el-parts")).listEl;
-      [["Categoria", it.catName], isIcon ? null : ["Figma", it.figma], isIcon ? null : ["Tamanho", it.size], it.deprecated ? ["Status", "Deprecated"] : null].filter(Boolean).forEach(function(r){ if (!r[1]) return; dl.appendChild(el("dt", null, r[0])); dl.appendChild(el("dd", null, r[1])); });
+      [["Categoria", it.catName], isIcon ? null : ["Figma", isAnim ? it.catName + " › " + it.figma : it.figma], isIcon || isAnim ? null : ["Tamanho", it.size], isAnim ? ["Duração", String(it.duration).replace(".", ",") + " s em loop"] : null, isAnim ? ["Arquivo", it.w + " × " + it.h + " · " + it.kb + " KB"] : null, it.deprecated ? ["Status", "Deprecated"] : null].filter(Boolean).forEach(function(r){ if (!r[1]) return; dl.appendChild(el("dt", null, r[0])); dl.appendChild(el("dd", null, r[1])); });
       if (it.description) panel.appendChild(el("p", "pg-doc-p", it.description));
       if (it.keywords.length){ var tags = panel.appendChild(el("div", "pg-ic-tags"));
         it.keywords.forEach(function(k){ var t = tags.appendChild(document.createElement("cds-tag")); t.setAttribute("label", k); t.setAttribute("appearance", "neutral"); t.setAttribute("show-lead-item", "false"); }); }
+      if (isAnim){
+        // Animações: o nome é o do castanha-motion (frame-nome); React <Motion> e Flutter CastanhaMotion
+        var P = A.animationPackage || { name: "@caju-beneficios/castanha-motion", dart: "castanha_motion", dartClass: "CastanhaMotion" };
+        var rcode = '<Motion name="' + it.id + '" loop autoplay />', fcode = "Lottie.asset(" + P.dartClass + "." + it.flutter + ", package: '" + P.dart + "')";
+        panel.appendChild(el("span", "pg-ic-panel__sub", "No React"));
+        var adl = panel.appendChild(el("cmp-definition-list", "pg-el-parts")).listEl;
+        [["Lazy", rcode], ["Eager", "import { " + it.react + " } from '" + P.name + "';"]].forEach(function(r){ adl.appendChild(el("dt", null, r[0])); var dd = adl.appendChild(el("dd")); dd.appendChild(el("code", "pg-tok__code", r[1])); });
+        panel.appendChild(el("span", "pg-ic-panel__sub", "No Flutter"));
+        var fdl = panel.appendChild(el("cmp-definition-list", "pg-el-parts")).listEl;
+        fdl.appendChild(el("dt", null, "Asset")); var fdd = fdl.appendChild(el("dd")); fdd.appendChild(el("code", "pg-tok__code", fcode));
+        var aacts = panel.appendChild(el("div", "pg-ic-actions"));
+        if (CDS.docMainButton){
+          var bp = aacts.appendChild(CDS.docMainButton(reduced ? "Tocar" : "Pausar"));
+          bp.addEventListener("click", function(){ var a = panel._anim; if (!a) return; if (a.isPaused){ a.play(); bp.setAttribute("label", "Pausar"); } else { a.pause(); bp.setAttribute("label", "Tocar"); } });
+          var c1 = aacts.appendChild(CDS.docMainButton("Copiar nome")); c1.addEventListener("click", function(){ copy(it.id); });
+          var c2 = aacts.appendChild(CDS.docMainButton("Copiar React")); c2.addEventListener("click", function(){ copy(rcode); });
+          var c3 = aacts.appendChild(CDS.docMainButton("Copiar Flutter")); c3.addEventListener("click", function(){ copy(fcode); });
+        }
+        return;
+      }
       // R4 · No React: nome no pacote (castanha-icons / castanha-illustrations), import eager e situação (integration/assets-react.js)
       var RA = CDS.reactAssets, rx = RA && (isIcon ? RA.icons : RA.ills), info = rx ? rx.map[it.id] : undefined, react = null;
       if (rx){
@@ -639,7 +693,7 @@
         var ok = (st.cat === "all" ? !it.deprecated : it.cat === st.cat) && (!q || it.text.indexOf(q) !== -1);
         it.li.hidden = !ok; if (ok){ shown++; if (!first) first = it; }
       });
-      count.textContent = shown + (isIcon ? (shown === 1 ? " ícone" : " ícones") : (shown === 1 ? " ilustração" : " ilustrações")) + (q ? " para “" + st.q.trim() + "”" : "") + (st.cat === "all" ? "" : " em " + (cats.filter(function(c){ return c[0] === st.cat; })[0] || [])[1]) + ". Clique para ver o detalhe.";
+      count.textContent = shown + (isIcon ? (shown === 1 ? " ícone" : " ícones") : isAnim ? (shown === 1 ? " animação" : " animações") : (shown === 1 ? " ilustração" : " ilustrações")) + (q ? " para “" + st.q.trim() + "”" : "") + (st.cat === "all" ? "" : " em " + (cats.filter(function(c){ return c[0] === st.cat; })[0] || [])[1]) + ". Clique para ver o detalhe.";
       if (first && (!st.sel || st.sel.li.hidden)) select(first, first.btn);
     }
     search.addEventListener("cds-change", function(e){ e.stopPropagation(); st.q = String(search.value || ""); filter(); });

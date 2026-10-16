@@ -8,9 +8,9 @@
   CDS.register({ id: "caju-theme", name: "Tema Caju", resource: true, lede: "Cores, tipografia, tamanhos, bordas, elevação e ícones do tema.", order: 1, status: "250", figma: FIGMA });
   // Ilustração e Motion saíram do tema e viraram páginas próprias em Padrões (pedido do Gustavo, 05/10); o conteúdo continua definido aqui
   CDS.register({ id: "ilustracao", name: "Ilustração", resource: true, lede: "Princípios, guidelines e a biblioteca de ilustrações da Caju.", order: 1.1, figma: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=3416-2" });
-  CDS.register({ id: "motion", name: "Motion", resource: true, lede: "Princípios de motion, curvas, durações e Motion Styles.", order: 1.2, figma: FIGMA });
+  CDS.register({ id: "motion", name: "Motion", resource: true, lede: "Princípios de motion, curvas, durações, Motion Styles e animações.", order: 1.2, figma: FIGMA });
   // Rotas antigas → endereço atual (links salvos continuam funcionando)
-  var MOVED = { "caju-icons": "#/caju-theme/icones", "caju-illustrations": "#/ilustracao", "animations": "#/motion" }; // Animações: volta para cá quando a lib existir
+  var MOVED = { "caju-icons": "#/caju-theme/icones", "caju-illustrations": "#/ilustracao", "animations": "#/motion/animacoes" }; // Animações: tab da página Motion (D+animacoes)
   function moved(){
     var h = location.hash || "", m = h.match(/^#\/(caju-icons|caju-illustrations|animations)(?:\/([\w-]+))?/);
     if (m) location.replace(MOVED[m[1]]);
@@ -418,12 +418,32 @@
     { note: "No playground, Modal, Drawer e Bottom Sheet ainda abrem e fecham sem animação, porque a transição de entrada e saída não está especificada nos componentes (C36)." },
     { note: "Fonte: zeroheight · Fundação › Motion › Transições (757a5f), conferido em 09/10/2026. As durações e curvas que não batem com as variáveis do Figma estão no CONFERIR (C194)." }
   ] };
+  // Animações: lib [Caju] Motion (Figma) + Lottie do castanha-motion (assets/animations, scripts/dev/import-animations.js)
+  var MOTION_LIB = "https://www.figma.com/design/Jcxta3C1CgudynIEsrmTtP/-Caju--Motion-Beta?node-id=0-1";
+  var nAnims = (A.animations || []).length, nAnimCats = (A.animationBuckets || []).length, AP = A.animationPackage || {};
+  var ANIM = { id: "animacoes", title: "Animações", blocks: [
+    { h2: "Animações" },
+    { p: "Ilustrações animadas para momentos de destaque: conclusão de uma etapa, celebração, espera curta ou um aviso que pede atenção. Elas tocam em loop e vêm prontas, sem montar a animação na tela." },
+    { h2: "Biblioteca" },
+    { p: "[Caju] Motion, na ordem e nas categorias do Figma: " + nAnims + " animações em " + nAnimCats + " categorias. Cada uma toca com a Lottie do `castanha-motion`" + (AP.version ? " " + AP.version : "") + ", a mesma que o React e o Flutter usam. Passe o mouse num card para tocar e clique para ver o detalhe e copiar o código." },
+    { tokens: "animations" },
+    { p: "A biblioteca fica no Figma: [abrir o [Caju] Motion](" + MOTION_LIB + ")." },
+    { h3: "Como usar" },
+    { ul: [
+      "No React: `<Motion name=\"documentos-cracha\" loop autoplay />` (lazy, precisa do `CastanhaProvider`) ou o import direto do `@caju-beneficios/castanha-motion` (eager).",
+      "No Flutter: `Lottie.asset(CastanhaMotion.documentosCracha, package: 'castanha_motion')`, com o pacote `lottie`.",
+      "O nome é o do pacote: a categoria (o frame no Figma) na frente do nome do componente, sem acento. Algumas não levam a categoria no pacote, como `maquininha-verde-cartao` e `verificar-selfie`.",
+      "Com `prefers-reduced-motion`, a animação fica parada num quadro. Não tire a animação da tela: ela também comunica.",
+      "Arquivos em `assets/animations/<nome>.json`, catálogo em `assets/animations/catalog.json`. Atualizar: `node scripts/dev/import-animations.js` e `node scripts/build-assets.js`."
+    ] },
+    { note: "As animações de Feedback (`feedback-splash`, `feedback-success` e `feedback-warning`) existem só no pacote, sem componente na lib. Ficam fora daqui até a decisão." }
+  ] };
   // Ilustração e Motion: páginas próprias em Padrões (Ilustração com uma tab; Motion com Motion e Transições)
   (function(){
     var t = CDS.docs["caju-theme"].tabs;
     function take(id){ var i = t.map(function(x){ return x.id; }).indexOf(id); return i < 0 ? null : t.splice(i, 1)[0]; }
     var ilu = take("ilustracoes"), mo = take("motion");
     if (ilu) CDS.docs["ilustracao"] = { source: IL_FIGMA, sourceLabel: "Abrir o guia de ilustração no Figma", tabs: [ilu] };
-    if (mo) CDS.docs["motion"] = { source: FIGMA, sourceLabel: "Abrir o [Caju] Theme no Figma", tabs: [mo, TRANS] };
+    if (mo) CDS.docs["motion"] = { source: FIGMA, sourceLabel: "Abrir o [Caju] Theme no Figma", tabs: [mo, TRANS, ANIM] };
   })();
 })();

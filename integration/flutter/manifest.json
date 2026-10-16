@@ -14,13 +14,13 @@
   }
  },
  "summary": {
-  "playground": 108,
-  "blocks": 26,
+  "playground": 110,
+  "blocks": 27,
   "flutter": 49,
   "matched": 45,
   "flutterOnly": 4,
-  "missing": 37,
-  "missingBlocks": 26
+  "missing": 38,
+  "missingBlocks": 27
  },
  "components": [
   {
@@ -4224,6 +4224,15 @@
   {
    "id": "drop-button",
    "name": "Drop Button"
+  },
+  {
+   "id": "fab-button",
+   "name": ".FAB Button",
+   "block": true
+  },
+  {
+   "id": "fab-menu",
+   "name": "FAB Menu"
   },
   {
    "id": "file-lead-item",

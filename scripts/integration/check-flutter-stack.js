@@ -133,13 +133,20 @@ function check({ root, manifest, data, maps, regs, castanhaDir, pubspec }){
         row.onlyPg.push(n);
       });
       const used = new Set(Object.values(ill)); row.onlyPkg = [...names].filter((n) => !used.has(n));
+    } else if (kind === "motion"){
+      // Animações do playground (Motion › Animações) já levam o camelCase da constante de CastanhaMotion
+      const list = (pg.animations || []).map((i) => i.flutter || camel(i.name));
+      row.inPg = list.length;
+      list.forEach((n) => { if (names.has(n)) row.same++; else row.onlyPg.push(n); });
+      const pgSet = new Set(list); row.onlyPkg = [...names].filter((n) => !pgSet.has(n));
     } else { row.inPg = 0; row.onlyPkg = [...names]; }
     assets.rows.push(row);
     if (kind === "icons" && row.onlyPg.length) assets.items.push({ l: "alta", t: "icone-fora-do-dart", m: row.onlyPg.length + " ícones do [Caju] Icons sem constante em `CastanhaIcons` (" + row.version + "): " + row.onlyPg.map((n) => "`" + n + "`").join(", ") + "." });
     if (kind === "icons" && row.onlyPkg.length) assets.items.push({ l: "media", t: "icone-so-no-dart", m: "Constantes de `CastanhaIcons` sem ícone no [Caju] Icons: " + row.onlyPkg.map((n) => "`" + n + "`").join(", ") + "." });
     if (kind === "illustrations" && row.onlyPg.length) assets.items.push({ l: "alta", t: "ilustracao-fora-do-dart", m: "Ilustrações do [Caju] Illustrations sem constante em `CastanhaIllustrations` (" + row.version + "): " + row.onlyPg.map((n) => "`" + n + "`").join(", ") + "." });
     if (kind === "illustrations" && row.renamed) assets.items.push({ l: "media", t: "ilustracao-renomeada", m: row.renamed + " ilustrações têm outro nome no pacote (o painel já usa o nome do Dart), ex.: " + Object.keys(ill).filter((k) => ill[k] !== camel(k.replace("/", "-"))).slice(0, 4).map((k) => "`" + k + "` → `" + ill[k] + "`").join(", ") + "." });
-    if (kind === "motion" && row.onlyPkg.length) assets.items.push({ l: "info", t: "motion-so-no-dart", m: row.onlyPkg.length + " animações em `CastanhaMotions` (" + row.version + "), ainda sem tab no playground." });
+    if (kind === "motion" && row.onlyPg.length) assets.items.push({ l: "alta", t: "motion-fora-do-dart", m: "Animações do [Caju] Motion sem constante em `CastanhaMotion` (" + row.version + "): " + row.onlyPg.map((n) => "`" + n + "`").join(", ") + "." });
+    if (kind === "motion" && row.onlyPkg.length) assets.items.push({ l: "info", t: "motion-so-no-dart", m: "Constantes de `CastanhaMotion` (" + row.version + ") sem componente no [Caju] Motion (fora de Motion › Animações): " + row.onlyPkg.map((n) => "`" + n + "`").join(", ") + "." });
   });
   return { items, assets, ill, dart };
 }

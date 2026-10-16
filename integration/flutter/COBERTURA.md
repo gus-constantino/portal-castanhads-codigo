@@ -4,11 +4,11 @@ Gerado por `scripts/integration/build-flutter-manifest.js` a partir de `origin/s
 
 | | Quantidade |
 |---|---|
-| Componentes do playground (sem composições e templates) | 108 (26 building blocks) |
+| Componentes do playground (sem composições e templates) | 110 (27 building blocks) |
 | Widgets do castanha_flutter com story | 49 |
 | Casados com o playground | 45 |
 | Só no Flutter | 4 |
-| Sem par no Flutter | 37 componentes e 26 building blocks |
+| Sem par no Flutter | 38 componentes e 27 building blocks |
 
 ## Casados
 
@@ -87,6 +87,7 @@ Gerado por `scripts/integration/build-flutter-manifest.js` a partir de `origin/s
 - Date Picker (`date-picker`)
 - Drawer (`drawer`)
 - Drop Button (`drop-button`)
+- FAB Menu (`fab-menu`)
 - Filter button (`filter-button`)
 - [Beta] Fixed Bar (`fixed-bar`)
 - Modal (`modal`)

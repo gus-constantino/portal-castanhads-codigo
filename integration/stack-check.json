@@ -8,16 +8,20 @@
   "ref": "origin/feat/figma-code-connect",
   "commit": "f02b6f2b"
  },
- "castanhaAi": null,
+ "castanhaAi": {
+  "ref": "origin/feat/castanha-plugin",
+  "commit": "8f8381a",
+  "sets": 67
+ },
  "coverage": {
-  "playground": 113,
+  "playground": 115,
   "comReact": 72,
   "viaCodeConnect": 68,
   "viaStory": 4,
-  "buildingBlocks": 26,
-  "soFigma": 15,
+  "buildingBlocks": 27,
+  "soFigma": 16,
   "soReact": 10,
-  "comNotas": 25
+  "comNotas": 27
  },
  "reactOnly": [
   "Box",
@@ -52,7 +56,13 @@
    "onlyPkg": 3,
    "svgDiff": 16
   },
-  "motion": 49
+  "motion": {
+   "pkg": 49,
+   "ours": 46,
+   "same": 46,
+   "onlyHere": 0,
+   "onlyPkg": 3
+  }
  },
  "findings": [
   {
@@ -302,6 +312,66 @@
    "msg": "O Code Connect gera `supportingMessage` em `<Topic>`, que não existe nas props do React (o código gerado não compila em TypeScript)."
   },
   {
+   "id": "main-button",
+   "level": "info",
+   "kind": "bridge-nome-figma",
+   "msg": "O bridge do castanha-ai usa `Show Trailling Icon`, que não existe na lib (props: Text Label, Show Lead Icon, Show Trailing Icon, Lead Icon, Kind, Appearance, State, Size)."
+  },
+  {
+   "id": "toast",
+   "level": "media",
+   "kind": "bridge-componente",
+   "msg": "O castanha-ai liga o set a `Toast`; o playground (Code Connect), a `useToast`."
+  },
+  {
+   "id": "toast",
+   "level": "info",
+   "kind": "bridge-nome-figma",
+   "msg": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Text Description, Show Trailing Item, Appearance)."
+  },
+  {
+   "id": "selection-list-item",
+   "level": "info",
+   "kind": "bridge-nome-figma",
+   "msg": "O bridge do castanha-ai usa `Trailling Item`, que não existe na lib (props: Show Lead Item, Show Divider, Kind, State, Is Active, Trailing Item)."
+  },
+  {
+   "id": "link",
+   "level": "info",
+   "kind": "bridge-nome-figma",
+   "msg": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Link Content, Show Trailing Item, Change Icon, Appearance, State)."
+  },
+  {
+   "id": "castanha-ai",
+   "level": "info",
+   "kind": "bridge-cobertura",
+   "msg": "Set `Sponsor Side Menu` está no bridge do castanha-ai e não tem componente no playground."
+  },
+  {
+   "id": "castanha-ai",
+   "level": "info",
+   "kind": "bridge-cobertura",
+   "msg": "Set `Device marker` está no bridge do castanha-ai e não tem componente no playground."
+  },
+  {
+   "id": "castanha-ai",
+   "level": "info",
+   "kind": "bridge-cobertura",
+   "msg": "Set `Shortcut` está no bridge do castanha-ai e não tem componente no playground."
+  },
+  {
+   "id": "castanha-ai",
+   "level": "info",
+   "kind": "bridge-cobertura",
+   "msg": "Set `Shortcut Carousel` está no bridge do castanha-ai e não tem componente no playground."
+  },
+  {
+   "id": "castanha-ai",
+   "level": "info",
+   "kind": "bridge-cobertura",
+   "msg": "Com mapa no playground e sem set no bridge do castanha-ai: `balance-card`, `banner`, `date-input`, `date-picker`, `modal-date-picker`, `multi-select-input`, `nav-control`, `slider`, `status-dot`, `system-banner`."
+  },
+  {
    "id": "tokens",
    "level": "info",
    "kind": "token-so-no-playground",
@@ -361,7 +431,7 @@
    "id": "assets",
    "level": "info",
    "kind": "motion-so-no-pacote",
-   "msg": "49 animações Lottie no castanha-motion, ainda sem tab no playground (Animações volta ao Tema Caju quando a lib existir).",
+   "msg": "O castanha-motion tem animações sem componente no [Caju] Motion (fora de Motion › Animações): `feedback-splash`, `feedback-success`, `feedback-warning`.",
    "gap": "MISSING-COMPONENT"
   }
  ]

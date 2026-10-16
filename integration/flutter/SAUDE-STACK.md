@@ -10,7 +10,7 @@ Gerado por `node scripts/integration/build-flutter-manifest.js` em 2026-10-16 (F
 | Média | muda o resultado sem quebrar: padrão diferente entre Figma e Flutter | 10 |
 | Informativo | prop do Figma sem parâmetro no Flutter, ou parâmetro só do código | 38 |
 
-Cobertura: 45 componentes do playground com widget no castanha_flutter, 37 sem par e 4 só no Flutter. Dart do painel: 81 trechos, 0 erros no `dart analyze` (`node scripts/integration/check-dart.js`).
+Cobertura: 45 componentes do playground com widget no castanha_flutter, 38 sem par e 4 só no Flutter. Dart do painel: 81 trechos, 0 erros no `dart analyze` (`node scripts/integration/check-dart.js`).
 
 ## Alta
 
@@ -80,7 +80,7 @@ Constantes do Dart (`CastanhaIcons`, `CastanhaIllustrations`, `CastanhaMotions`)
 |---|---|---:|---:|---:|---:|---:|---:|
 | castanha_icons | 1.8.0 | 272 | 264 | 262 | — | 2 | 10 |
 | castanha_illustrations | 1.9.0 | 254 | 260 | 202 | 49 | 9 | 3 |
-| castanha_motion | 1.6.0 | 49 | — | — | — | — | 49 |
+| castanha_motion | 1.6.0 | 49 | 46 | 46 | — | 0 | 3 |
 
 | Nível | Tipo | O quê |
 |---|---|---|
@@ -88,7 +88,7 @@ Constantes do Dart (`CastanhaIcons`, `CastanhaIllustrations`, `CastanhaMotions`)
 | Média | icone-so-no-dart | Constantes de `CastanhaIcons` sem ícone no [Caju] Icons: `balanceCanceled`, `bookLine`, `calendarNonRecurrent`, `designLine`, `feedbackLine`, `fileLine1`, `inspectLine`, `magicalWandLine`, `monitorLine`, `templateLine`. |
 | Alta | ilustracao-fora-do-dart | Ilustrações do [Caju] Illustrations sem constante em `CastanhaIllustrations` (1.9.0): `alimentos/drink`, `notificacoes/analysis-low-detail`, `hero-hub-de-beneficios/plano-saude`, `hero-hub-de-beneficios/alimentacao`, `hero-hub-de-beneficios/educacao`, `hero-hub-de-beneficios/plano-odonto`, `hero-hub-de-beneficios/mobilidade`, `hero-hub-de-beneficios/cajuzinho`, `hero-hub-de-beneficios/outros`. |
 | Média | ilustracao-renomeada | 49 ilustrações têm outro nome no pacote (o painel já usa o nome do Dart), ex.: `hub-de-beneficios/pet` → `hubPet`, `hub-de-beneficios/departamento` → `hubDepartamento`, `hub-de-beneficios/plano-saude` → `hubPlanoSaude`, `hub-de-beneficios/servicos` → `hubServicos`. |
-| Informativo | motion-so-no-dart | 49 animações em `CastanhaMotions` (1.6.0), ainda sem tab no playground. |
+| Informativo | motion-so-no-dart | Constantes de `CastanhaMotion` (1.6.0) sem componente no [Caju] Motion (fora de Motion › Animações): `feedbackSplash`, `feedbackSuccess`, `feedbackWarning`. |
 
 ## Histórico
 

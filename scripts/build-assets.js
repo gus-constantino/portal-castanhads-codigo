@@ -14,7 +14,9 @@
  *
  * Saída:
  *   styles/icons.css            .cds-icon--<nome> { mask-image:url(…) }   (ícone herda a cor do token)
- *   scripts/assets-manifest.js  CDS.assets = { icons:[…], iconBuckets:[…], illustrations:[…], illustrationBuckets:[…] }
+ *   assets/animations/<nome>.json + catalog.json ← Lottie do castanha-motion na ordem da lib [Caju] Motion
+ *       (importadas por scripts/dev/import-animations.js)
+ *   scripts/assets-manifest.js  CDS.assets = { icons:[…], iconBuckets:[…], illustrations:[…], illustrationBuckets:[…], animations:[…], animationBuckets:[…] }
  *       ilustração = { name: "<categoria>/<nome>", label, bucket, src, figma, description, size }
  *
  * Regras: nome de classe = nome do ícone (único). Se um ícone deprecated tem o mesmo nome de um ativo,
@@ -93,6 +95,14 @@ const illustrations = illBuckets.flatMap((b) => b.items.map((i) => ({
   name: b.id + "/" + i.name, label: i.name, bucket: b.id, src: "assets/illustrations/" + b.id + "/" + encodeURIComponent(i.name) + ".svg",
   figma: i.figma || i.name, description: i.description || "", size: i.size || "",
 })));
+// Animações (Lottie do castanha-motion, catálogo gerado por scripts/dev/import-animations.js)
+const ANIM = path.join(ROOT, "assets/animations");
+const animCatPath = path.join(ANIM, "catalog.json");
+const animCatalog = fs.existsSync(animCatPath) ? JSON.parse(fs.readFileSync(animCatPath, "utf8")) : { buckets: [] };
+const animations = animCatalog.buckets.flatMap((b) => b.items.filter((i) => fs.existsSync(path.join(ANIM, i.name + ".json"))).map((i) => ({
+  name: i.name, bucket: b.id, src: "assets/animations/" + i.name + ".json", figma: i.figma, node: i.node, duration: i.duration, w: i.w, h: i.h, kb: i.kb,
+  react: i.react, flutter: i.flutter,
+})));
 const manifest = `/* GERADO por scripts/build-assets.js · não editar à mão */
 window.CDS = window.CDS || {};
 CDS.assets = ${JSON.stringify({
@@ -101,6 +111,9 @@ CDS.assets = ${JSON.stringify({
   iconBuckets: buckets.map((b) => ({ id: b.id, name: b.name, deprecated: b.deprecated, glyphs: !!b.glyphs, icons: b.icons.map((i) => i.entry.name) })),
   illustrations,
   illustrationBuckets: illBuckets.map((b) => ({ id: b.id, name: b.name, items: b.items.map((i) => b.id + "/" + i.name) })),
+  animations,
+  animationBuckets: animCatalog.buckets.map((b) => ({ id: b.id, name: b.name, node: b.node, items: b.items.map((i) => i.name) })),
+  animationPackage: animCatalog.package || null,
 })};
 `;
 fs.writeFileSync(path.join(ROOT, "scripts/assets-manifest.js"), manifest);

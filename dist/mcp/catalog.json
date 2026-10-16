@@ -26,11 +26,11 @@
   }
  },
  "counts": {
-  "components": 87,
-  "buildingBlocks": 26,
+  "components": 88,
+  "buildingBlocks": 27,
   "resources": 28,
   "compositions": 7,
-  "withDocs": 141,
+  "withDocs": 143,
   "withReact": 72,
   "withFlutter": 45,
   "liveMaps": 70,
@@ -7870,6 +7870,89 @@
      }
     ]
    }
+  },
+  {
+   "id": "fab-button",
+   "name": ".FAB Button",
+   "kind": "building-block",
+   "category": "Buttons",
+   "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/F1s1Tb3cDHYli4aN76QzCo/-CastanhaDS--Components?node-id=27039-594",
+   "figmaNode": "27039-594",
+   "zeroheight": null,
+   "jira": "CDS-1694",
+   "figmaStatus": "branch",
+   "description": "Botão flutuante do FAB Menu: 56×56, com ícone de 24 e elevação.",
+   "tabs": [
+    {
+     "id": "uso",
+     "title": "Uso",
+     "text": "> **Em desenvolvimento · CDS-1694:** Building block do FAB Menu, na branch do Figma. Entra no Release 27.\n\n## Sobre\n\nO .FAB Button é o botão flutuante do FAB Menu. É um building block: abre e fecha o menu e não é distribuído sozinho.\n\n## Quando usar\n\n- Peça interna do FAB Menu. `Is Active` acompanha o menu: fechado com o ícone do `Icon`, aberto com close-line.\n- Para um botão de ícone no fluxo da página, use o Icon Button.\n\n- Dentro do FAB Menu"
+    },
+    {
+     "id": "anatomia",
+     "title": "Anatomia",
+     "text": "## Anatomia\n\nAnatomia:\n1. Container 56×56 (raio large, elevação por estado)\n2. Icon 24: Icon fechado, close-line aberto\n\n## Propriedades\n\n- **Appearance** (Variant): Accent, Neutral, Inversed\n- **State** (Variant): Enabled, Hovered, Pressed, Disabled\n- **Is Active** (Variant)\n- **Icon** (Instance swap)\n\n> Cores e opacidade vêm do Icon Button Default Medium. Elevação: `Elevation/level 2` em Enabled e Pressed, `level 3` em Hovered e nenhuma em Disabled. No código: `icon`, `appearance`, `active`, `disabled` e `label` (nome acessível). `state=\"hovered|pressed\"` existe para mostrar o estado em exemplos."
+    },
+    {
+     "id": "estilos",
+     "title": "Estilos",
+     "text": "## Estilos\n\n**Accent:** Enabled, Hovered, Pressed, Disabled\n\n**Neutral:** Enabled, Hovered, Pressed, Disabled\n\n**Is Active:** False, True\n\n> No Accent e no Inversed, o Pressed mantém a cor do Enabled. O feedback de toque é a escala (Motion)."
+    },
+    {
+     "id": "acessibilidade",
+     "title": "Acessibilidade",
+     "text": "## Teclado e leitor de tela\n\n- É um `<button>` nativo. O nome acessível vem de `label` e o FAB Menu passa o dele (padrão Mais ações).\n- O estado do menu é anunciado pelo `aria-expanded` que o FAB Menu aplica.\n- Área de toque de 56×56, acima do mínimo de 24×24 (2.5.8).\n- Disabled usa o `disabled` nativo: sai da ordem de foco.\n\n## Contraste (WCAG)\n\n- Ícone no Accent: 4,54:1 em Enabled e Pressed, sem folga, e 8,23:1 em Hovered. Neutral: 15,27:1 a 6,11:1. Inversed: 16,96:1.\n- Estado desabilitado: isento do critério 1.4.3."
+    },
+    {
+     "id": "motion",
+     "title": "Motion",
+     "text": "## Motion\n\nExemplo: Mais ações\n\n> Exemplo interativo: passe o mouse e pressione o botão para ver cada transição.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Enabled**\n- Gatilho: Mouse leave\n- Motion Style: `Hover Out/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n**→ Disabled**\n- Gatilho: Ao desabilitar\n- Motion Style: `Disabled/01`\n\n> No Pressed, o botão reduz a escala para 90% e volta ao tamanho original, como o Icon Button. Fonte: documentação de motion para devs (Notion, páginas verdes)."
+    }
+   ]
+  },
+  {
+   "id": "fab-menu",
+   "name": "FAB Menu",
+   "kind": "component",
+   "category": "Buttons",
+   "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/F1s1Tb3cDHYli4aN76QzCo/-CastanhaDS--Components?node-id=27075-22460",
+   "figmaNode": "27075-22460",
+   "zeroheight": null,
+   "jira": "CDS-1694",
+   "figmaStatus": "branch",
+   "description": "Botão flutuante que abre de 2 a 6 ações empilhadas acima dele.",
+   "tabs": [
+    {
+     "id": "uso",
+     "title": "Uso",
+     "text": "> **Em desenvolvimento · CDS-1694:** O FAB Menu está na branch do Figma e entra no Release 27. Ainda não existe no castanha-react nem no Flutter.\n\n## Sobre\n\nO FAB Menu é um botão flutuante que abre de 2 a 6 ações empilhadas acima dele. Fica sobre o conteúdo, no canto inferior da tela, e mantém as ações principais sempre ao alcance.\n\nSó o FAB Menu é distribuído. O botão flutuante é o building block .FAB Button, e cada ação é um Main Button Neutral.\n\n### Nomes alternativos comuns\n\nFAB, Floating Action Button, speed dial, botão flutuante, menu de ações.\n\n### Princípios\n\n- **Sempre ao alcance** — O FAB fica fixo no canto inferior e não sai do lugar quando o menu abre ou fecha.\n- **Sem rolagem** — As ações ficam empilhadas acima do FAB, de 2 a 6. Nada de rolagem dentro de uma tela que já rola.\n- **Rótulo visível** — Cada ação mostra ícone e texto o tempo todo. No toque, tooltip não aparece.\n\n## Quando usar\n\nUse o FAB Menu quando a tela tem de 2 a 6 ações principais relacionadas, que precisam ficar ao alcance enquanto a pessoa rola o conteúdo.\n\n### Utilize para:\n\n- Atalhos para criar ou iniciar algo a partir de uma lista\n- Ações principais de uma tela de app que rola\n- Agrupar ações relacionadas num ponto fixo\n\n### Não utilize para:\n\n- Mais de 6 ações — o menu não rola, use outro componente\n- Ação secundária ou destrutiva\n- Lista de opções de um contexto — use o Drop Button\n- Uma ação só — use o Main Button\n\n## FAB Menu vs. Drop Button\n\n|  | FAB Menu | Drop Button |\n|---|---|---|\n| Posição | Flutua no canto inferior, sobre o conteúdo | No fluxo da página, junto do conteúdo |\n| Conteúdo | De 2 a 6 ações empilhadas, sem rolagem | Popover com a lista de opções |\n| Uso | Ações principais da tela, sempre ao alcance | Ações ligadas a um contexto específico |"
+    },
+    {
+     "id": "anatomia",
+     "title": "Anatomia",
+     "text": "## Anatomia\n\nAnatomia:\n1. Actions: de 2 a 6, empilhadas e alinhadas à direita\n2. Ação: Main Button Default Neutral Medium com ícone e rótulo\n3. .FAB Button: gatilho, abre e fecha o menu\n\n## Composição do componente\n\nO FAB Menu empilha as ações acima do .FAB Button, alinhadas pela direita, com `Sizes/12` entre as ações e `Sizes/16` até o FAB. O menu cresce para cima a partir do FAB. Cada ação é um Main Button Default Neutral Medium com `Elevation/level 1`. O .FAB Button tem 56×56, raio `Border/Radius/large`, ícone de 24 e elevação por estado. O Backdrop não faz parte do componente.\n\n## Propriedades\n\n- **Is Active** (Variant)\n- **Show Action 3** (Boolean)\n- **Show Action 4** (Boolean)\n- **Show Action 5** (Boolean)\n- **Show Action 6** (Boolean)\n\n> As ações 1 e 2 são fixas. As instâncias `.FAB Button` e `Action 1` a `Action 6` ficam expostas para trocar `Icon`, `Text Label` e `Lead Icon`. O `Is Active` da `.FAB Button` acompanha o do FAB Menu, e as ações ficam em Default, Neutral e Medium. No código: `active`, `show-action-3` a `show-action-6`, `actions` (rótulo:ícone, separados por vírgula), `label` (nome acessível do FAB), `icon`, `appearance` e `disabled` do FAB. Eventos `cds-toggle` e `cds-action`.\n\n## Entrega para dev · CDS-1694\n\n| Elemento | Token ou valor (branch, 16/10) |\n|---|---|\n| .FAB Button | 56×56 `Sizes/56` · raio `Border/Radius/large` · padding `Sizes/16` · ícone 24 |\n| Elevação do FAB | `Elevation/level 2` em Enabled e Pressed · `level 3` em Hovered · sem elevação em Disabled |\n| Ação | Main Button `Kind=Default`, `Appearance=Neutral`, `Size=Medium` (48) · `Elevation/level 1` |\n| Espaços | `Sizes/12` entre as ações · `Sizes/16` entre as ações e o FAB |\n| Ícone | `plus-line` fechado (swap `Icon`) · `close-line` aberto |\n\n- Tocar no FAB alterna entre aberto e fechado. Tocar numa ação executa a ação e fecha o menu.\n- No layout, o FAB fica em posição fixa no canto inferior. O menu abre para cima e o FAB não sai do lugar. No Figma, a instância usa constraints Right e Bottom.\n- Deixe respiro no fim da área com rolagem para o último item ficar acima do FAB.\n- Acima de 6 ações, use outro componente."
+    },
+    {
+     "id": "estilos",
+     "title": "Estilos",
+     "text": "## Estilos\n\n**Is Active:** Fechado, Aberto\n\n**Quantidade de ações:** 2 ações, 4 ações, 6 ações\n\n**.FAB Button · Appearance:** Accent, Neutral, Inversed, Disabled"
+    },
+    {
+     "id": "acessibilidade",
+     "title": "Acessibilidade",
+     "text": "## Leitor de tela\n\n### Como é anunciado\n\n1. O FAB tem só ícone. O nome vem do atributo `label` (`aria-label`, padrão Mais ações) e descreve o conjunto. O ícone fica com `aria-hidden`.\n2. O FAB expõe `aria-haspopup=\"menu\"`, `aria-expanded` (`true` aberto, `false` fechado) e `aria-controls` com o id da lista. O nome não muda ao abrir.\n3. A lista usa `role=\"menu\"` e cada ação usa `role=\"menuitem\"`, com o rótulo visível como nome.\n4. Disabled usa o atributo `disabled`: o FAB sai da ordem de tabulação e é anunciado como indisponível.\n\n### Ordem de leitura\n\n1. FAB (Mais ações, recolhido ou expandido)\n2. Com o menu aberto: as ações de cima para baixo\n\n### Teclado\n\n| Tecla | Ação |\n|---|---|\n| Enter ou Espaço no FAB | Abre ou fecha o menu. Ao abrir, o foco vai para a primeira ação |\n| ↑ ↓ | Navega entre as ações |\n| Home · End | Vai para a primeira ou para a última ação |\n| Enter ou Espaço numa ação | Executa a ação, fecha o menu e devolve o foco ao FAB |\n| Esc | Fecha o menu e devolve o foco ao FAB |\n| Tab | Sai do menu e fecha |\n\n### Contraste (WCAG)\n\n1. Ícone no Accent (`Support/lighter` sobre `Accent/Solid/medium`): 4,54:1 em Enabled e Pressed, sem folga, e 8,23:1 em Hovered.\n2. Ícone no Neutral: 15,27:1 em Enabled, 13,56:1 em Hovered e 6,11:1 em Pressed.\n3. Ícone no Inversed: 16,96:1.\n4. Rótulo das ações (`Text/intense` sobre `Surface/01`): 15,27:1 — AAA.\n5. Estado desabilitado: isento do critério 1.4.3.\n6. FAB de 56×56 e ações com 48 de altura: acima do alvo mínimo de 24×24 (2.5.8).\n7. O FAB não pode esconder conteúdo com foco (2.4.11): deixe respiro no fim da área com rolagem."
+    },
+    {
+     "id": "diretrizes",
+     "title": "Diretrizes",
+     "text": "## Diretrizes\n\n- **Use rótulos curtos e diretos** — Cada ação mostra ícone e texto o tempo todo. Comece pelo verbo e mantenha o rótulo em uma linha.\n- **Dê um nome ao FAB** — O FAB tem só ícone. Use um `label` que descreva o conjunto, ex.: Mais ações ou Criar.\n- **Agrupe ações relacionadas** — O menu reúne de 2 a 6 ações da mesma tela. Para uma ação só, use o Main Button.\n\n## Do's and Don'ts\n\n- ✅ Faça: Mantenha de 2 a 6 ações, todas visíveis sem rolagem.\n- ❌ Evite: Ação destrutiva ou secundária no FAB: ele destaca a ação principal da tela.\n- ✅ Faça: Combine com o Backdrop à parte quando precisar destacar o menu aberto."
+    },
+    {
+     "id": "motion",
+     "title": "Motion",
+     "text": "## Motion\n\nAs transições usam os Motion Styles do Castanha (modo Normal).\n\n> Exemplo interativo: passe o mouse no FAB, pressione e toque para abrir e fechar o menu. As ações herdam o motion do Main Button.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Enabled**\n- Gatilho: Mouse leave\n- Motion Style: `Hover Out/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n**→ Disabled**\n- Gatilho: Ao desabilitar\n- Motion Style: `Disabled/01`\n\n**Fechado → Aberto**\n- Gatilho: On tap no FAB\n- Motion Style: `Selected In/01`\n\n**Entrada das ações (opacidade)**\n- Gatilho: On tap no FAB\n- Motion Style: `Hover In/01`\n\n**Aberto → Fechado**\n- Gatilho: On tap no FAB ou numa ação\n- Motion Style: `Selected Out/01`\n\n**Saída das ações (opacidade)**\n- Gatilho: On tap no FAB ou numa ação\n- Motion Style: `Hover Out/06`\n\n> No Pressed, o FAB reduz a escala para 90% e volta ao tamanho original. Ao abrir e ao fechar, as ações se deslocam em Y e a escala vai a 105% e volta, como a caixa do Drop Button e do Popover. Fonte: documentação de motion para devs (Notion, páginas verdes)."
+    }
+   ]
   },
   {
    "id": "file-lead-item",

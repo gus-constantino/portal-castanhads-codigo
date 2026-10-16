@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-index.js · 127 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
+/* GERADO por scripts/build-index.js · 129 arquivos em ordem de dependência · não editar (o fonte é o arquivo de cada pasta) */
 /* ==== components/backdrop/backdrop.css ==== */
 /* Backdrop · 13784:3271 — Surface/inversed · Opacity/medium (0.4). O mesmo visual vale para o ::backdrop dos overlays */
 cds-backdrop{ position:absolute; inset:0; display:block; background:var(--common-colors-surface-inversed); opacity:var(--common-opacity-medium); }
@@ -323,6 +323,45 @@ cds-csat-score{ display:flex; align-items:center; justify-content:space-between;
   padding:var(--common-sizes-8) 0; background:var(--common-colors-surface-default); }
 cds-csat-score[disabled]{ opacity:var(--common-opacity-medium); }
 cds-csat-score > cds-csat-item{ flex:0 0 56px; align-self:stretch; } /* 56 Fixed × altura Fill, como no Figma (C71) */
+
+/* ==== components/fab-button/fab-button.css ==== */
+/* =====================================================================
+   .FAB Button · Buttons · set 27039:594 (building block do FAB Menu · CDS-1694)
+   56 × 56 · raio large · ícone 24 · cores do Icon Button Default (Accent, Neutral, Inversed)
+   Elevação: level 2 em Enabled e Pressed · level 3 em Hovered · sem elevação em Disabled (Opacity/medium)
+   Motion: Hover In/01 · Pressed/01 com pulso 100 → 90 → 100% (como o Icon Button)
+   ===================================================================== */
+cds-fab-button{ display:inline-flex; flex:0 0 auto; }
+cds-fab-button > .cds-fab{
+  --_bg:var(--common-colors-accent-solid-medium); --_fg:var(--common-colors-support-lighter); --_shadow:var(--common-elevation-level-2);
+  display:grid; place-items:center; flex:0 0 auto;
+  box-sizing:border-box; width:var(--common-sizes-56); height:var(--common-sizes-56); padding:var(--common-sizes-16); margin:0; border:0; cursor:pointer;
+  border-radius:var(--common-border-radius-large);
+  background:var(--_bg); box-shadow:var(--_shadow);
+  transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), box-shadow var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing);
+}
+cds-fab-button > .cds-fab{ --cds-icon-color:var(--_fg); } /* override do Icon aninhado */
+
+/* Accent */
+cds-fab-button > .cds-fab:hover, cds-fab-button[state="hovered"] > .cds-fab{ --_bg:var(--common-colors-accent-solid-semi-intense); --_shadow:var(--common-elevation-level-3); }
+cds-fab-button > .cds-fab:active, cds-fab-button[state="pressed"] > .cds-fab{ --_bg:var(--common-colors-accent-solid-medium); --_shadow:var(--common-elevation-level-2); transition-duration:var(--motion-pressed-01-timing); transition-timing-function:var(--motion-pressed-01-easing); }
+/* Neutral */
+cds-fab-button[appearance="neutral"] > .cds-fab{ --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-icons-intense); }
+cds-fab-button[appearance="neutral"] > .cds-fab:hover, cds-fab-button[appearance="neutral"][state="hovered"] > .cds-fab{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
+cds-fab-button[appearance="neutral"] > .cds-fab:active, cds-fab-button[appearance="neutral"][state="pressed"] > .cds-fab{ --_bg:var(--common-colors-neutral-solid-medium); }
+/* Inversed */
+cds-fab-button[appearance="inversed"] > .cds-fab{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-icons-intense); }
+cds-fab-button[appearance="inversed"] > .cds-fab:hover, cds-fab-button[appearance="inversed"][state="hovered"] > .cds-fab{ --_bg:var(--common-colors-surface-inversed); --_fg:var(--common-colors-support-lighter); }
+cds-fab-button[appearance="inversed"] > .cds-fab:active, cds-fab-button[appearance="inversed"][state="pressed"] > .cds-fab{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-icons-intense); }
+
+/* Disabled — Opacity/medium e sem elevação */
+cds-fab-button[disabled]{ opacity:var(--common-opacity-medium); pointer-events:none; }
+cds-fab-button[disabled] > .cds-fab{ --_shadow:none; }
+
+/* Pressed: pulso 100 → 90 → 100% no Pressed/01 */
+@keyframes cds-fab-press{ 41.5%{ scale:.9; } }
+cds-fab-button > .cds-fab.is-pressing{ animation:cds-fab-press var(--motion-pressed-01-timing) var(--motion-pressed-01-easing); }
+@media (prefers-reduced-motion:reduce){ cds-fab-button > .cds-fab{ transition:none; } cds-fab-button > .cds-fab.is-pressing{ animation:none !important; } }
 
 /* ==== components/filter-chip/filter-chip.css ==== */
 /* =====================================================================
@@ -1064,6 +1103,33 @@ cds-dropzone.is-dragover .cds-dz, cds-dropzone[state="dragover"] .cds-dz{ --_bg:
 /* Disabled: no Figma só a borda muda (Border/semi-intense), sem opacidade (C65) */
 cds-dropzone[disabled] .cds-dz{ --_bd:var(--common-colors-border-semi-intense); cursor:default; }
 @media (prefers-reduced-motion:reduce){ .cds-dz{ transition:none; } }
+
+/* ==== components/fab-menu/fab-menu.css ==== */
+/* =====================================================================
+   FAB Menu · Buttons · set 27075:22460 (CDS-1694)
+   Vertical, alinhado à direita · gap Sizes/16 entre as ações e o FAB · gap Sizes/12 entre as ações
+   Ações: Main Button Default Neutral Medium · Elevation/level 1 · largura pelo conteúdo, como as instâncias do Figma
+   Motion (páginas verdes do Drop Button e do Popover):
+     abrir · Selected In/01 em Y (Sizes/8) e escala 100 → 105 → 100% · opacidade Hover In/01
+     fechar · Selected Out/01 em Y e escala · opacidade Hover Out/06 (com o delay do token)
+   ===================================================================== */
+cds-fab-menu{ display:inline-flex; flex-direction:column; align-items:flex-end; gap:var(--common-sizes-16); }
+.cds-fab-menu__actions{ display:flex; flex-direction:column; align-items:flex-end; gap:var(--common-sizes-12); }
+.cds-fab-menu__actions[hidden]{ display:none; }
+.cds-fab-menu__actions cds-main-button > .cds-btn{ --_min-w:0px; box-shadow:var(--common-elevation-level-1); }
+
+@keyframes cds-fab-menu-move{ 52%{ translate:0 var(--common-sizes-8); scale:1.05; } }
+@keyframes cds-fab-menu-in{ from{ opacity:0; } }
+@keyframes cds-fab-menu-out{ to{ opacity:0; } }
+.cds-fab-menu__actions.is-opening{
+  animation:cds-fab-menu-move var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing),
+            cds-fab-menu-in var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing);
+}
+.cds-fab-menu__actions.is-closing{
+  animation:cds-fab-menu-move var(--motion-selected-out-01-timing) var(--motion-selected-out-01-easing),
+            cds-fab-menu-out var(--motion-hover-out-06-timing) var(--motion-hover-out-06-easing) var(--motion-hover-out-06-delay) forwards;
+}
+@media (prefers-reduced-motion:reduce){ .cds-fab-menu__actions.is-opening, .cds-fab-menu__actions.is-closing{ animation:none; } }
 
 /* ==== components/footer/footer.css ==== */
 /* .Footer · set 16359:1792 — Divider + Actions pad 20 · gap 8 · Horizontal: botões no tamanho do conteúdo · Pilled: coluna, largura total */

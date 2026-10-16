@@ -1,0 +1,37 @@
+/* =====================================================================
+   .FAB Button · Buttons · set 27039:594 (building block do FAB Menu · CDS-1694)
+   56 × 56 · raio large · ícone 24 · cores do Icon Button Default (Accent, Neutral, Inversed)
+   Elevação: level 2 em Enabled e Pressed · level 3 em Hovered · sem elevação em Disabled (Opacity/medium)
+   Motion: Hover In/01 · Pressed/01 com pulso 100 → 90 → 100% (como o Icon Button)
+   ===================================================================== */
+cds-fab-button{ display:inline-flex; flex:0 0 auto; }
+cds-fab-button > .cds-fab{
+  --_bg:var(--common-colors-accent-solid-medium); --_fg:var(--common-colors-support-lighter); --_shadow:var(--common-elevation-level-2);
+  display:grid; place-items:center; flex:0 0 auto;
+  box-sizing:border-box; width:var(--common-sizes-56); height:var(--common-sizes-56); padding:var(--common-sizes-16); margin:0; border:0; cursor:pointer;
+  border-radius:var(--common-border-radius-large);
+  background:var(--_bg); box-shadow:var(--_shadow);
+  transition:background-color var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing), box-shadow var(--motion-hover-in-01-timing) var(--motion-hover-in-01-easing);
+}
+cds-fab-button > .cds-fab{ --cds-icon-color:var(--_fg); } /* override do Icon aninhado */
+
+/* Accent */
+cds-fab-button > .cds-fab:hover, cds-fab-button[state="hovered"] > .cds-fab{ --_bg:var(--common-colors-accent-solid-semi-intense); --_shadow:var(--common-elevation-level-3); }
+cds-fab-button > .cds-fab:active, cds-fab-button[state="pressed"] > .cds-fab{ --_bg:var(--common-colors-accent-solid-medium); --_shadow:var(--common-elevation-level-2); transition-duration:var(--motion-pressed-01-timing); transition-timing-function:var(--motion-pressed-01-easing); }
+/* Neutral */
+cds-fab-button[appearance="neutral"] > .cds-fab{ --_bg:var(--common-colors-surface-01); --_fg:var(--common-colors-icons-intense); }
+cds-fab-button[appearance="neutral"] > .cds-fab:hover, cds-fab-button[appearance="neutral"][state="hovered"] > .cds-fab{ --_bg:var(--common-colors-neutral-solid-semi-soft); }
+cds-fab-button[appearance="neutral"] > .cds-fab:active, cds-fab-button[appearance="neutral"][state="pressed"] > .cds-fab{ --_bg:var(--common-colors-neutral-solid-medium); }
+/* Inversed */
+cds-fab-button[appearance="inversed"] > .cds-fab{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-icons-intense); }
+cds-fab-button[appearance="inversed"] > .cds-fab:hover, cds-fab-button[appearance="inversed"][state="hovered"] > .cds-fab{ --_bg:var(--common-colors-surface-inversed); --_fg:var(--common-colors-support-lighter); }
+cds-fab-button[appearance="inversed"] > .cds-fab:active, cds-fab-button[appearance="inversed"][state="pressed"] > .cds-fab{ --_bg:var(--common-colors-neutral-solid-soft); --_fg:var(--common-colors-icons-intense); }
+
+/* Disabled — Opacity/medium e sem elevação */
+cds-fab-button[disabled]{ opacity:var(--common-opacity-medium); pointer-events:none; }
+cds-fab-button[disabled] > .cds-fab{ --_shadow:none; }
+
+/* Pressed: pulso 100 → 90 → 100% no Pressed/01 */
+@keyframes cds-fab-press{ 41.5%{ scale:.9; } }
+cds-fab-button > .cds-fab.is-pressing{ animation:cds-fab-press var(--motion-pressed-01-timing) var(--motion-pressed-01-easing); }
+@media (prefers-reduced-motion:reduce){ cds-fab-button > .cds-fab{ transition:none; } cds-fab-button > .cds-fab.is-pressing{ animation:none !important; } }

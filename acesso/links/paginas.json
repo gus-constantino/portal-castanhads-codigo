@@ -25,6 +25,11 @@
   "tipo": "Entrega"
  },
  {
+  "caminho": "/entregas/fab-menu/",
+  "titulo": "FAB Menu · CDS-1694",
+  "tipo": "Entrega"
+ },
+ {
   "caminho": "/entregas/main-button-loading/",
   "titulo": "Main Button Loading · CDS-1603",
   "tipo": "Entrega"

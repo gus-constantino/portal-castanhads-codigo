@@ -55,6 +55,8 @@ window.CDS_EXPECTED = {
   "code-input-otp":    { w: 320, src: "24060:7228 · base 320 (6 células)" },
   "credit-card-input": { w: 320, src: "24614:7155" },
   "chat-input":        { w: 320, src: "26826:12925 · Text Box 56 (linha única 40 + pad 16), cresce até 108 (texto Sizes/92)" },
+  "fab-button":        { w: 56, h: 56, src: "27039:594 · Sizes/56" },
+  "fab-menu":          { w: 56, h: 56, src: "27075:22460 · fechado (só o FAB); aberto 3 ações = 240 de altura" },
   "viewport-restriction": { w: 200, h: 200, src: "5357:3899" },
   "card":              { w: 254, src: "5256:540 · Has Border=True · altura depende do Slot" },
   "thumbnail":         { w: 280, h: 160, src: "composição do playground (sem Figma) · caixa do preview do hover (Sizes/200 + Sizes/80 × Sizes/160)" },

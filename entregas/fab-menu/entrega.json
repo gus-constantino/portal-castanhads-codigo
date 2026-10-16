@@ -1,0 +1,10 @@
+{
+ "titulo": "FAB Menu",
+ "task": "CDS-1694",
+ "resumo": "Componente novo da família Buttons: um botão flutuante que abre de 2 a 6 ações empilhadas acima dele, com o .FAB Button como gatilho e Main Buttons Neutral como ações.",
+ "itens": [
+  "fab-menu",
+  "fab-button",
+  "main-button"
+ ]
+}

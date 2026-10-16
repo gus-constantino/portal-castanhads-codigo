@@ -59,10 +59,10 @@ CDS.docs = CDS.docs || {};
           { title: "Aberto: as ações sobem a partir do FAB", attrs: screen({ menu: { active: true, "show-action-3": "false" } }) }
         ] },
         { compare: [
-          { title: "Com barra fixa no rodapé: o FAB fica acima dela, na mesma margem", attrs: screen({ bar: true }) },
+          { title: "Com barra fixa no rodapé: o FAB fica acima dela, na mesma margem", attrs: screen({ bar: true, items: 3, spacer: true }) },
           { title: "Tablet: a margem do grid é 16", attrs: screen({ tablet: true }) }
         ] },
-        { display: { attrs: screen({ desktop: true, items: 3 }) } },
+        { display: { attrs: screen({ desktop: true, items: 2, spacer: true }) } },
         { note: "Desktop: a margem do grid é 104, e o FAB fica alinhado à coluna de conteúdo." },
         { h3: "Regras" },
         { ul: [

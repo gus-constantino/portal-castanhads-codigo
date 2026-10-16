@@ -2,8 +2,8 @@
    Accordion Item · Lists · set 24673:26248 — 320 de largura (Fixed no Figma)
    Default: 57 recolhido (8 + 44 + 4 + Divider 1) · 143 aberto (+ 4 + Slot 82)
    Card:    96 recolhido (8 + 80 + 8) · 182 aberto (+ 4 + Slot 82, pad 16)
-   Motion (reactions do Figma): hover 150ms Systemic/default · press 200ms Systemic/accelerate
-     abrir 200ms (Short/04) e fechar 350ms (Medium/03), ambos Expressive/decelerate (decisão de motion, C80)
+   Motion (Notion da Motion): hover Hover In/01 · press Pressed/01
+     abrir no Selected In/01 (350ms) e recolher no Selected Out/01 (200ms), ambos Expressive/decelerate (Gustavo, 16/10 · C80)
    ===================================================================== */
 cds-accordion-item{ display:block; box-sizing:border-box; width:var(--cds-accordion-width, 320px); max-width:100%; min-width:0; }
 cds-accordion-item [hidden]{ display:none !important; }
@@ -24,19 +24,19 @@ cds-accordion-item [hidden]{ display:none !important; }
 .cds-acc__text{ flex:1 1 auto; }
 .cds-acc__lead, .cds-acc__chev{ flex:0 0 auto; }
 /* Ícone indicador: um glifo só (dropdown-close-line) que gira 180° recolhido, no tempo e na curva do Slot */
-.cds-acc__chev{ transition:rotate var(--common-motion-duration-short-04) var(--common-motion-easing-expressive-decelerate); }
-[collapsed] > .cds-acc .cds-acc__chev{ rotate:180deg; transition-duration:var(--common-motion-duration-medium-03); }
+.cds-acc__chev{ transition:rotate var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing); }
+[collapsed] > .cds-acc .cds-acc__chev{ rotate:180deg; transition:rotate var(--motion-selected-out-01-timing) var(--motion-selected-out-01-easing); }
 
 /* Slot: altura animada por grid-template-rows (0fr ↔ 1fr); o espaço de 4 até o Container fica dentro da área animada */
 .cds-acc__panel{
   display:grid; grid-template-rows:1fr; visibility:visible;
-  transition:grid-template-rows var(--common-motion-duration-short-04) var(--common-motion-easing-expressive-decelerate), visibility 0s;
+  transition:grid-template-rows var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing), visibility 0s;
 }
 .cds-acc__inner{ min-height:0; overflow:hidden; }
 .cds-acc__slot{ margin-top:var(--common-sizes-4); }
 [collapsed] > .cds-acc > .cds-acc__panel{
   grid-template-rows:0fr; visibility:hidden;
-  transition:grid-template-rows var(--common-motion-duration-medium-03) var(--common-motion-easing-expressive-decelerate), visibility 0s var(--common-motion-duration-medium-03);
+  transition:grid-template-rows var(--motion-selected-out-01-timing) var(--motion-selected-out-01-easing), visibility 0s var(--motion-selected-out-01-timing);
 }
 .cds-acc__divider{ margin-top:var(--common-sizes-4); }
 

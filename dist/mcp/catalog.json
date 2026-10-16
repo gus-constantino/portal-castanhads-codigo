@@ -125,7 +125,7 @@
     {
      "id": "motion",
      "title": "Motion",
-     "text": "## Motion\n\nAs transições de estado do Accordion Item usam os Motion Styles do Castanha (modo Normal).\n\nExemplo: Como funciona o reembolso?\n\n> Exemplo interativo: passe o mouse, pressione e abra ou recolha o item para ver cada transição.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Enabled**\n- Gatilho: Mouse leave\n- Motion Style: `Hover Out/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n**Recolhido → Aberto**\n- Gatilho: On tap\n- Motion Style: `Selected In/01`\n\n**Aberto → Recolhido**\n- Gatilho: On tap\n- Motion Style: `Selected Out/01`\n\n**→ Disabled**\n- Gatilho: Ao desabilitar\n- Motion Style: `Disabled/01`\n\n> Ao abrir, a seta gira 180º e o conteúdo desce. Ao recolher, o inverso. O playground ainda abre em 200ms e recolhe em 350ms, pela decisão C80, o contrário do Notion (CONFERIR C80). Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma."
+     "text": "## Motion\n\nAs transições de estado do Accordion Item usam os Motion Styles do Castanha (modo Normal).\n\nExemplo: Como funciona o reembolso?\n\n> Exemplo interativo: passe o mouse, pressione e abra ou recolha o item para ver cada transição.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Enabled**\n- Gatilho: Mouse leave\n- Motion Style: `Hover Out/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n**Recolhido → Aberto**\n- Gatilho: On tap\n- Motion Style: `Selected In/01`\n\n**Aberto → Recolhido**\n- Gatilho: On tap\n- Motion Style: `Selected Out/01`\n\n**→ Disabled**\n- Gatilho: Ao desabilitar\n- Motion Style: `Disabled/01`\n\n> Ao abrir, a seta gira 180º e o conteúdo desce. Ao recolher, o inverso. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma."
     }
    ],
    "react": null
@@ -33739,7 +33739,7 @@
     "id": "C80",
     "group": "Resolvidos",
     "resolved": true,
-    "text": "Accordion Item · motion: abrir em 200ms e fechar em 350ms (Expressive/decelerate) é **decisão de motion** (Gustavo); o código segue. **16/10:** o Notion verde diz o contrário (expandir `Selected In/01` 350ms, recolher `Selected Out/01` 200ms). A doc mostra os estilos do Notion e avisa que o playground segue esta decisão até alguém confirmar · 02/10"
+    "text": "Accordion Item · motion: abrir em 200ms e fechar em 350ms (Expressive/decelerate) é **decisão de motion** (Gustavo); o código segue. **16/10:** o Notion verde diz o contrário (expandir `Selected In/01` 350ms, recolher `Selected Out/01` 200ms). A doc mostra os estilos do Notion e avisa que o playground segue esta decisão até alguém confirmar. **Atualizado (Gustavo, 16/10: \"Segue o notion da ju\"):** abrir no `Selected In/01` (350ms) e recolher no `Selected Out/01` (200ms), no código (branch `motion-verde`) e no Figma, na branch do Accordion `R7GDqtUKeNZZUg45M1llyr` (o set 24673:26248 não está na branch do Motion): o clique no recolhido abre em 350ms e no aberto recolhe em 200ms, Expressive/decelerate · 02/10"
    },
    {
     "id": "C81",

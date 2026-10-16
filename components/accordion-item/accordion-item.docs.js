@@ -128,7 +128,7 @@ CDS.docs = CDS.docs || {};
             { title: "Aberto → Recolhido", rows: [["Gatilho", "On tap"], ["Motion Style", "`Selected Out/01`"]] },
             { title: "→ Disabled", rows: [["Gatilho", "Ao desabilitar"], ["Motion Style", "`Disabled/01`"]] }
           ] },
-          { note: "Ao abrir, a seta gira 180º e o conteúdo desce. Ao recolher, o inverso. O playground ainda abre em 200ms e recolhe em 350ms, pela decisão C80, o contrário do Notion (CONFERIR C80). Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma." }
+          { note: "Ao abrir, a seta gira 180º e o conteúdo desce. Ao recolher, o inverso. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma." }
       ] }
     ]
   };

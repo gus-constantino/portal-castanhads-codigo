@@ -215,6 +215,7 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   confere("abrir o link de página leva ao portal no alvo e grava cds_alvos", o.r.status === 302 && o.r.headers.get("location") === "/?alvo=pagina%3Acastanha-quiz" && /cds_alvos=pagina%3Acastanha-quiz/.test(o.c), o.r.headers.get("location") + " " + o.c);
   const comPg = (p, a) => mw(req(p, { headers: { cookie: o.c, accept: a || "*/*" } }));
   confere("com o link de página abre o portal e o arquivo da página", segue(await comPg("/", "text/html")) && segue(await comPg("/resources/castanha-quiz/castanha-quiz.js")) && segue(await comPg("/acesso/alvos.js")));
+  confere("com o link de página abrem os assets, o player das Animações e o uso dos Motion Styles", segue(await comPg("/assets/animations/alimentos-bolo-cafe-aniversario.json")) && segue(await comPg("/assets/illustrations/alimentos/cafe-bolo.svg")) && segue(await comPg("/assets/icons/ui-symbols/back-line.svg")) && segue(await comPg("/scripts/vendor/lottie_svg.min.js")) && segue(await comPg("/tokens/motion-usage.js")));
   confere("com o link de página o dist/cds.js vira o pacote sem as páginas", (await comPg("/dist/cds.js")).headers.get("x-middleware-rewrite") === BASE + "/dist/cds-entrega.js");
   r = await comPg("/resources/treinamento/treinamento.js"); confere("o link de página não abre outra página", r.status === 401, String(r.status));
   r = await comPg("/components/main-button/main-button.docs.js"); confere("o link de página não abre a doc de um componente", r.status === 401, String(r.status));

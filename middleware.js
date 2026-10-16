@@ -61,6 +61,8 @@ const ABERTO = [
   /^\/dist\/versao\.json$/, // versão do portal (D344): todo perfil e link confere
   /^\/styles\/(tokens|shared|icons)\.css$/,
   /^\/scripts\/(cds-element|playground-kit|assets-manifest)\.js$/,
+  /^\/scripts\/vendor\/[\w.-]+\.js$/, // bibliotecas de terceiros (lottie-web das Animações, D361): abertas como os assets
+  /^\/tokens\/motion-usage\.js$/, // uso de cada Motion Style (descrição no Figma), gerado pelo build-tokens
   /^\/assets\//,
   /^\/(favicon\.(ico|svg|png)|robots\.txt)$/
 ];

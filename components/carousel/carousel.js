@@ -58,8 +58,30 @@
       if (scroll){
         var it = this.items[c - 1], s = this.slotEl;
         this._lock = Date.now() + 900; // a rolagem programada não volta a mexer no item atual enquanto anda (cliques rápidos nas setas)
-        s.scrollTo({ left: it.offsetLeft - s.offsetLeft, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+        this.scrollToX(it.offsetLeft - s.offsetLeft);
       }
+    }
+    // Rolagem com o Motion Style do Notion da Motion: avançar no Selected In/04, voltar no Selected Out/05.
+    // O scroll-snap sai durante a animação (ele puxaria cada quadro para o item mais próximo) e volta no fim
+    scrollToX(to){
+      var s = this.slotEl, from = s.scrollLeft, dist = to - from;
+      if (this._raf) cancelAnimationFrame(this._raf);
+      var m = CDS.motion(dist >= 0 ? "selected-in-04" : "selected-out-05");
+      if (!dist || !m.ms || matchMedia("(prefers-reduced-motion: reduce)").matches){ s.scrollLeft = to; return; }
+      var self = this, t0 = null;
+      s.style.scrollSnapType = "none";
+      this._lock = Date.now() + m.ms + 200;
+      var step = function(now){
+        if (t0 == null) t0 = now;
+        var p = Math.min(1, (now - t0) / m.ms);
+        s.scrollLeft = from + dist * m.ease(p);
+        if (p < 1) self._raf = requestAnimationFrame(step);
+        else { self._raf = null; s.style.scrollSnapType = ""; }
+      };
+      this._raf = requestAnimationFrame(step);
+      // aba em segundo plano não roda requestAnimationFrame: garante a posição final e o scroll-snap de volta
+      clearTimeout(this._rafSafety);
+      this._rafSafety = setTimeout(function(){ if (self._raf && t0 == null){ cancelAnimationFrame(self._raf); self._raf = null; s.scrollLeft = to; s.style.scrollSnapType = ""; } }, m.ms + 100);
     }
     next(){ this.goTo(this.current + 1, true); } prev(){ this.goTo(this.current - 1, true); }
     syncFromScroll(){

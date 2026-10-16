@@ -1,2 +1,11 @@
 /* System Banner · set 18432:2090 — base em alert.css · sem raio · largura total · mínimo 360 */
 cds-system-banner{ border-radius:var(--common-border-radius-none); width:100%; min-width:min(360px, 100%); }
+/* Motion (Notion da Motion): entra descendo do topo (Selected In/04) com fade (Selected In/03); sai subindo
+   (Selected Out/05) e sumindo (Selected Out/02). O deslocamento é a própria altura do banner */
+@keyframes cds-sb-in-y{ from{ translate:0 -100%; } }
+@keyframes cds-sb-in-fade{ from{ opacity:0; } }
+@keyframes cds-sb-out-y{ to{ translate:0 -100%; } }
+@keyframes cds-sb-out-fade{ to{ opacity:0; } }
+cds-system-banner{ animation:cds-sb-in-y var(--motion-selected-in-04-timing) var(--motion-selected-in-04-easing), cds-sb-in-fade var(--motion-selected-in-03-timing) var(--motion-selected-in-03-easing); }
+cds-system-banner.is-leaving{ animation:cds-sb-out-y var(--motion-selected-out-05-timing) var(--motion-selected-out-05-easing) forwards, cds-sb-out-fade var(--motion-selected-out-02-timing) var(--motion-selected-out-02-easing) forwards; pointer-events:none; }
+@media (prefers-reduced-motion:reduce){ cds-system-banner{ animation:none !important; } }

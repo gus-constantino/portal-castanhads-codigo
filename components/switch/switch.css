@@ -26,3 +26,7 @@ cds-switch .cds-sc:active .cds-sc__box, cds-switch[state="pressed"] .cds-sc .cds
 
 cds-switch[status="selected"] .cds-sc__box{ --_bg:var(--common-colors-surface-accent); }
 cds-switch[status="selected"] .cds-sw__toggle{ transform:translateX(var(--common-sizes-16)); background:var(--common-colors-surface-default); }
+/* Pressed: a bolinha pulsa 100 → 110 → 100% no Pressed/01 (C+pressed-escala). scale é independente do transform da posição */
+@keyframes cds-sw-press{ 41.5%{ scale:1.1; } }
+cds-switch .cds-sw__toggle.is-pressing{ animation:cds-sw-press var(--motion-pressed-01-timing) var(--motion-pressed-01-easing); }
+@media (prefers-reduced-motion:reduce){ cds-switch .cds-sw__toggle.is-pressing{ animation:none !important; } }

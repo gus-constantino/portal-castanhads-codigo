@@ -9,7 +9,13 @@
   class CdsSwitch extends CDS.SelectionControl {
     static get inputType(){ return "checkbox"; }
     buildBox(box){ box.appendChild(CDS.create("span", null, "cds-sw__toggle")); }
-    build(){ super.build(); this._input.setAttribute("role", "switch"); }
+    build(){
+      super.build(); this._input.setAttribute("role", "switch");
+      // Pressed: a bolinha cresce para 110% e volta (Pressed/01 · C+pressed-escala)
+      var self = this, press = function(){ if (!self._input.disabled) CDS.replay(self._box.querySelector(".cds-sw__toggle"), "is-pressing"); };
+      this._root.addEventListener("pointerdown", press);
+      this._input.addEventListener("keydown", function(e){ if (e.key === " " && !e.repeat) press(); });
+    }
   }
   CdsSwitch.define("cds-switch");
 })();

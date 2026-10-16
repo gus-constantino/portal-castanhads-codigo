@@ -19,3 +19,11 @@ cds-link[appearance="inversed"] > a{ --_fg:var(--common-colors-text-inversed); }
 cds-link > a:hover, cds-link[state="hovered"] > a{ text-decoration:underline; text-decoration-color:currentColor; }
 cds-link > a:active, cds-link[state="pressed"] > a{ transition-duration:var(--motion-pressed-05-timing); transition-timing-function:var(--motion-pressed-05-easing); font:var(--text-style-label-bold); text-decoration:underline; text-decoration-color:currentColor; }
 cds-link[disabled]{ opacity:var(--common-opacity-light); pointer-events:none; }
+/* Hover do ícone (Notion da Motion): avança 14 e assenta em 8 (Hover In/04); ao sair, avança mais um pouco e volta a 0 (Hover Out/04) */
+@keyframes cds-link-icon-in{ 0%{ translate:0; } 50%{ translate:var(--common-sizes-14) 0; } 100%{ translate:var(--common-sizes-8) 0; } }
+@keyframes cds-link-icon-out{ 0%{ translate:var(--common-sizes-8) 0; } 33%{ translate:var(--common-sizes-14) 0; } 100%{ translate:0; } }
+cds-link > a.was-hovered > cds-icon{ animation:cds-link-icon-out var(--motion-hover-out-04-timing) var(--motion-hover-out-04-easing); }
+cds-link > a:hover > cds-icon{ translate:var(--common-sizes-8) 0; animation:cds-link-icon-in var(--motion-hover-in-04-timing) var(--motion-hover-in-04-easing); }
+cds-link[state="hovered"] > a > cds-icon, cds-link[state="pressed"] > a > cds-icon{ translate:var(--common-sizes-8) 0; }
+cds-link > a[aria-disabled="true"] > cds-icon{ animation:none; translate:0; }
+@media (prefers-reduced-motion:reduce){ cds-link > a > cds-icon{ animation:none !important; } }

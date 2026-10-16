@@ -72,5 +72,41 @@
     var hit = list.filter(function(i){ return i.name === n; })[0] || list.filter(function(i){ return i.label === n; })[0];
     return hit ? hit.src : "assets/illustrations/" + n.split("/").map(encodeURIComponent).join("/") + ".svg";
   };
+  /** Toca de novo a animação de CSS presa à classe `cls` (tira, força o reflow, põe) e tira a classe quando ela termina.
+   *  Usado nos pulsos do Pressed (Main Button, Icon Button, Switch) e da seleção (Checkbox). */
+  CDS.replay = function(el, cls){
+    if (!el) return;
+    el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls);
+    el.addEventListener("animationend", function done(e){
+      if (e.target !== el) return;
+      el.classList.remove(cls); el.removeEventListener("animationend", done);
+    });
+  };
+  /** Espera as animações de CSS do elemento terminarem (ou nenhuma, com reduced motion) e chama done uma vez. */
+  CDS.afterAnimations = function(el, done){
+    var called = false, finish = function(){ if (!called){ called = true; done(); } };
+    var anims = el.getAnimations ? el.getAnimations() : [];
+    if (!anims.length) return finish();
+    Promise.all(anims.map(function(a){ return a.finished.catch(function(){}); })).then(finish);
+    setTimeout(finish, 2000); // rede de segurança: nada fica preso se uma animação for cancelada sem aviso
+  };
+  /** Motion Style (ex.: "selected-in-04") → { ms, ease(x) } lidos dos tokens, para animações feitas em JS. */
+  CDS.motion = function(name){
+    var cs = getComputedStyle(document.documentElement);
+    var t = cs.getPropertyValue("--motion-" + name + "-timing").trim(), e = cs.getPropertyValue("--motion-" + name + "-easing").trim();
+    var ms = parseFloat(t) * (/ms$/.test(t) ? 1 : 1000) || 0;
+    var m = e.match(/cubic-bezier\(([^)]+)\)/), p = m ? m[1].split(",").map(parseFloat) : [0, 0, 1, 1];
+    return { ms: ms, ease: CDS.bezier(p[0], p[1], p[2], p[3]) };
+  };
+  /** Curva cubic-bezier(x1, y1, x2, y2) como função do progresso (0–1), como a do CSS. */
+  CDS.bezier = function(x1, y1, x2, y2){
+    function at(a1, a2, t){ return 3 * a1 * t * (1 - t) * (1 - t) + 3 * a2 * t * t * (1 - t) + t * t * t; }
+    return function(x){
+      if (x <= 0) return 0; if (x >= 1) return 1;
+      var lo = 0, hi = 1, t = x;
+      for (var i = 0; i < 24; i++){ var v = at(x1, x2, t); if (Math.abs(v - x) < 1e-5) break; if (v < x) lo = t; else hi = t; t = (lo + hi) / 2; }
+      return at(y1, y2, t);
+    };
+  };
   CDS.Element = CdsElement;
 })();

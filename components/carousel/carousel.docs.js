@@ -55,7 +55,7 @@ CDS.docs["carousel"] = {
         { title: "Avançar", rows: [["Gatilho", "On tap ou arrastar"], ["Motion Style", "`Selected In/04`"]] },
         { title: "Voltar", rows: [["Gatilho", "On tap ou arrastar"], ["Motion Style", "`Selected Out/05`"]] }
       ] },
-      { note: "O playground usa a rolagem nativa do navegador e ainda não aplica esse timing. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma." }
+      { note: "Nas setas do Nav Control, a faixa rola com a duração e a curva desses estilos. O arraste com o dedo segue a rolagem nativa. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma." }
     ] }
   ]
 };

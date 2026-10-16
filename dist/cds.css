@@ -387,6 +387,10 @@ cds-icon-button[kind="ghost"][appearance="inversed"] > .cds-ib:active, cds-icon-
 cds-icon-button[disabled]{ opacity:var(--common-opacity-medium); pointer-events:none; }
 cds-icon-button[disabled][kind="ghost"][appearance="inversed"] > .cds-ib{ --_fg:var(--common-colors-icons-intense); }
 @media (prefers-reduced-motion:reduce){ cds-icon-button > .cds-ib{ transition:none; } }
+/* Pressed: pulso 100 → 90 → 100% no Pressed/01 (C+pressed-escala) */
+@keyframes cds-ib-press{ 41.5%{ scale:.9; } }
+cds-icon-button .cds-ib.is-pressing{ animation:cds-ib-press var(--motion-pressed-01-timing) var(--motion-pressed-01-easing); }
+@media (prefers-reduced-motion:reduce){ cds-icon-button .cds-ib.is-pressing{ animation:none !important; } }
 
 /* ==== components/header/header.css ==== */
 /* .Header · 16362:3241 — Content pad 12 20 · gap 8 · Title Body/Bold Text/intense · Close Button 48 · Divider Soft */
@@ -529,6 +533,14 @@ cds-link[appearance="inversed"] > a{ --_fg:var(--common-colors-text-inversed); }
 cds-link > a:hover, cds-link[state="hovered"] > a{ text-decoration:underline; text-decoration-color:currentColor; }
 cds-link > a:active, cds-link[state="pressed"] > a{ transition-duration:var(--motion-pressed-05-timing); transition-timing-function:var(--motion-pressed-05-easing); font:var(--text-style-label-bold); text-decoration:underline; text-decoration-color:currentColor; }
 cds-link[disabled]{ opacity:var(--common-opacity-light); pointer-events:none; }
+/* Hover do ícone (Notion da Motion): avança 14 e assenta em 8 (Hover In/04); ao sair, avança mais um pouco e volta a 0 (Hover Out/04) */
+@keyframes cds-link-icon-in{ 0%{ translate:0; } 50%{ translate:var(--common-sizes-14) 0; } 100%{ translate:var(--common-sizes-8) 0; } }
+@keyframes cds-link-icon-out{ 0%{ translate:var(--common-sizes-8) 0; } 33%{ translate:var(--common-sizes-14) 0; } 100%{ translate:0; } }
+cds-link > a.was-hovered > cds-icon{ animation:cds-link-icon-out var(--motion-hover-out-04-timing) var(--motion-hover-out-04-easing); }
+cds-link > a:hover > cds-icon{ translate:var(--common-sizes-8) 0; animation:cds-link-icon-in var(--motion-hover-in-04-timing) var(--motion-hover-in-04-easing); }
+cds-link[state="hovered"] > a > cds-icon, cds-link[state="pressed"] > a > cds-icon{ translate:var(--common-sizes-8) 0; }
+cds-link > a[aria-disabled="true"] > cds-icon{ animation:none; translate:0; }
+@media (prefers-reduced-motion:reduce){ cds-link > a > cds-icon{ animation:none !important; } }
 
 /* ==== components/list-lead-item/list-lead-item.css ==== */
 /* .Lead Item (Lists) · set 5488:640 — Avatar 40 · Icon 20 · Image 40 raio extra-small */
@@ -721,6 +733,13 @@ cds-checkbox[status="indeterminate"] .cds-sc__glyph--indeterminate{ display:bloc
 cds-checkbox .cds-sc{ --_dur:var(--motion-hover-in-01-timing); --_ease:var(--motion-hover-in-01-easing); }
 cds-checkbox .cds-sc:active, cds-checkbox[state="pressed"] .cds-sc{ --_dur:var(--motion-pressed-03-timing); --_ease:var(--motion-pressed-03-easing); }
 cds-checkbox .cds-sc__box{ transition:background-color var(--motion-selected-in-02-timing) var(--motion-selected-in-02-easing), box-shadow var(--_dur) var(--_ease); }
+/* Seleção (Notion da Motion): a caixa pulsa 100 → 110 → 100% e o check cresce do centro */
+@keyframes cds-cb-pulse{ 50%{ scale:1.1; } }
+@keyframes cds-cb-check{ from{ scale:0; } }
+cds-checkbox .cds-sc__box.is-selecting{ animation:cds-cb-pulse var(--motion-selected-in-02-timing) var(--motion-selected-in-02-easing); }
+cds-checkbox .cds-sc__box.is-selecting .cds-sc__glyph--check{ animation:cds-cb-check var(--motion-selected-in-02-timing) var(--motion-selected-in-02-easing); }
+cds-checkbox .cds-sc__box.is-deselecting{ animation:cds-cb-pulse var(--motion-selected-out-01-timing) var(--motion-selected-out-01-easing); }
+@media (prefers-reduced-motion:reduce){ cds-checkbox .cds-sc__box, cds-checkbox .cds-sc__glyph{ animation:none !important; } }
 
 /* ==== components/radio-button/radio-button.css ==== */
 /* =====================================================================
@@ -960,6 +979,10 @@ cds-main-button[loading] > .cds-btn > .cds-btn__spinner{ position:absolute; inse
 cds-main-button[disabled], cds-drop-button[disabled]{ opacity:var(--common-opacity-light); pointer-events:none; }
 [disabled][kind="ghost"][appearance="inversed"] > .cds-btn{ --_fg:var(--common-colors-text-intense); }
 @media (prefers-reduced-motion:reduce){ .cds-btn{ transition:none; } }
+/* Pressed: pulso 100 → 90 → 100% no Pressed/01 (83 + 117ms no Notion da Motion · C+pressed-escala) */
+@keyframes cds-btn-press{ 41.5%{ scale:.9; } }
+cds-main-button > .cds-btn.is-pressing{ animation:cds-btn-press var(--motion-pressed-01-timing) var(--motion-pressed-01-easing); }
+@media (prefers-reduced-motion:reduce){ cds-main-button > .cds-btn.is-pressing{ animation:none !important; } }
 
 /* ==== components/date-navigation/date-navigation.css ==== */
 /* .Navigation Control (Datepicker) · 17465:384 — SPACE_BETWEEN · 40 · Surface/default */
@@ -1171,6 +1194,10 @@ cds-switch .cds-sc:active .cds-sc__box, cds-switch[state="pressed"] .cds-sc .cds
 
 cds-switch[status="selected"] .cds-sc__box{ --_bg:var(--common-colors-surface-accent); }
 cds-switch[status="selected"] .cds-sw__toggle{ transform:translateX(var(--common-sizes-16)); background:var(--common-colors-surface-default); }
+/* Pressed: a bolinha pulsa 100 → 110 → 100% no Pressed/01 (C+pressed-escala). scale é independente do transform da posição */
+@keyframes cds-sw-press{ 41.5%{ scale:1.1; } }
+cds-switch .cds-sw__toggle.is-pressing{ animation:cds-sw-press var(--motion-pressed-01-timing) var(--motion-pressed-01-easing); }
+@media (prefers-reduced-motion:reduce){ cds-switch .cds-sw__toggle.is-pressing{ animation:none !important; } }
 
 /* ==== components/selection-group/selection-group.css ==== */
 /* =====================================================================
@@ -1182,6 +1209,15 @@ cds-checkbox-group, cds-radio-button-group, cds-switch-group{ display:flex; flex
 /* ==== components/system-banner/system-banner.css ==== */
 /* System Banner · set 18432:2090 — base em alert.css · sem raio · largura total · mínimo 360 */
 cds-system-banner{ border-radius:var(--common-border-radius-none); width:100%; min-width:min(360px, 100%); }
+/* Motion (Notion da Motion): entra descendo do topo (Selected In/04) com fade (Selected In/03); sai subindo
+   (Selected Out/05) e sumindo (Selected Out/02). O deslocamento é a própria altura do banner */
+@keyframes cds-sb-in-y{ from{ translate:0 -100%; } }
+@keyframes cds-sb-in-fade{ from{ opacity:0; } }
+@keyframes cds-sb-out-y{ to{ translate:0 -100%; } }
+@keyframes cds-sb-out-fade{ to{ opacity:0; } }
+cds-system-banner{ animation:cds-sb-in-y var(--motion-selected-in-04-timing) var(--motion-selected-in-04-easing), cds-sb-in-fade var(--motion-selected-in-03-timing) var(--motion-selected-in-03-easing); }
+cds-system-banner.is-leaving{ animation:cds-sb-out-y var(--motion-selected-out-05-timing) var(--motion-selected-out-05-easing) forwards, cds-sb-out-fade var(--motion-selected-out-02-timing) var(--motion-selected-out-02-easing) forwards; pointer-events:none; }
+@media (prefers-reduced-motion:reduce){ cds-system-banner{ animation:none !important; } }
 
 /* ==== components/tab-item/tab-item.css ==== */
 /* .Item (Tabs) · set 6498:375 — 48 · sublinhado 2px (Border/Width/thin) · Label Content pad 4 8 gap 4 raio micro
@@ -2157,6 +2193,15 @@ cds-drawer:is([viewport="mobile"], [viewport="tablet"]) .cds-drawer__restriction
 }
 .cds-modal:not(.is-inline){ margin:auto; }
 .cds-modal .cds-overlay__slot{ padding:0 var(--common-sizes-20); }
+/* Motion (Notion da Motion): entra descendo 112px (Selected In/01) com fade (Selected In/09) e sai pelo caminho inverso
+   (Selected Out/01 e Selected Out/03). 112 = Sizes/56 × 2 · o specimen inline das docs não anima */
+@keyframes cds-modal-in-y{ from{ translate:0 calc(var(--common-sizes-56) * -2); } }
+@keyframes cds-modal-in-fade{ from{ opacity:0; } }
+@keyframes cds-modal-out-y{ to{ translate:0 calc(var(--common-sizes-56) * -2); } }
+@keyframes cds-modal-out-fade{ to{ opacity:0; } }
+dialog.cds-modal:modal{ animation:cds-modal-in-y var(--motion-selected-in-01-timing) var(--motion-selected-in-01-easing), cds-modal-in-fade var(--motion-selected-in-09-timing) var(--motion-selected-in-09-easing); }
+dialog.cds-modal:modal.is-closing{ animation:cds-modal-out-y var(--motion-selected-out-01-timing) var(--motion-selected-out-01-easing) forwards, cds-modal-out-fade var(--motion-selected-out-03-timing) var(--motion-selected-out-03-easing) forwards; }
+@media (prefers-reduced-motion:reduce){ dialog.cds-modal{ animation:none !important; } }
 
 /* ==== components/modal-date-picker/modal-date-picker.css ==== */
 /* Modal Date Picker · set 17560:51555 — Single 320 · Double 620: o Modal abraça o Date Picker (C58 resolvido)

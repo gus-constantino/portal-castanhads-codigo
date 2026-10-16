@@ -22,3 +22,10 @@ cds-checkbox[status="indeterminate"] .cds-sc__glyph--indeterminate{ display:bloc
 cds-checkbox .cds-sc{ --_dur:var(--motion-hover-in-01-timing); --_ease:var(--motion-hover-in-01-easing); }
 cds-checkbox .cds-sc:active, cds-checkbox[state="pressed"] .cds-sc{ --_dur:var(--motion-pressed-03-timing); --_ease:var(--motion-pressed-03-easing); }
 cds-checkbox .cds-sc__box{ transition:background-color var(--motion-selected-in-02-timing) var(--motion-selected-in-02-easing), box-shadow var(--_dur) var(--_ease); }
+/* Seleção (Notion da Motion): a caixa pulsa 100 → 110 → 100% e o check cresce do centro */
+@keyframes cds-cb-pulse{ 50%{ scale:1.1; } }
+@keyframes cds-cb-check{ from{ scale:0; } }
+cds-checkbox .cds-sc__box.is-selecting{ animation:cds-cb-pulse var(--motion-selected-in-02-timing) var(--motion-selected-in-02-easing); }
+cds-checkbox .cds-sc__box.is-selecting .cds-sc__glyph--check{ animation:cds-cb-check var(--motion-selected-in-02-timing) var(--motion-selected-in-02-easing); }
+cds-checkbox .cds-sc__box.is-deselecting{ animation:cds-cb-pulse var(--motion-selected-out-01-timing) var(--motion-selected-out-01-easing); }
+@media (prefers-reduced-motion:reduce){ cds-checkbox .cds-sc__box, cds-checkbox .cds-sc__glyph{ animation:none !important; } }

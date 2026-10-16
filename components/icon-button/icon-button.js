@@ -25,6 +25,10 @@
         this._btn = document.createElement("button"); this._btn.type = "button"; this._btn.className = "cds-ib";
         this.iconEl = document.createElement("cds-icon"); this.iconEl.setAttribute("size", "medium"); this.iconEl.setAttribute("appearance", "neutral");
         this._btn.appendChild(this.iconEl); this.appendChild(this._btn);
+        // Pressed: o botão encolhe para 90% e volta (Pressed/01 · C+pressed-escala)
+        var b = this._btn, press = function(){ if (!b.disabled) CDS.replay(b, "is-pressing"); };
+        b.addEventListener("pointerdown", press);
+        b.addEventListener("keydown", function(e){ if ((e.key === " " || e.key === "Enter") && !e.repeat) press(); });
       }
       this.iconEl.setAttribute("icon", this.getAttribute("icon") || "placeholder-line");
       this._btn.disabled = this.hasAttribute("disabled");

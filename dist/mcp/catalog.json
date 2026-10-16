@@ -3489,7 +3489,7 @@
     {
      "id": "motion",
      "title": "Motion",
-     "text": "## Motion\n\nA troca de item é a rolagem da faixa até o início do item, com encaixe (scroll-snap).\n\n**Avançar**\n- Gatilho: On tap ou arrastar\n- Motion Style: `Selected In/04`\n\n**Voltar**\n- Gatilho: On tap ou arrastar\n- Motion Style: `Selected Out/05`\n\n> O playground usa a rolagem nativa do navegador e ainda não aplica esse timing. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma."
+     "text": "## Motion\n\nA troca de item é a rolagem da faixa até o início do item, com encaixe (scroll-snap).\n\n**Avançar**\n- Gatilho: On tap ou arrastar\n- Motion Style: `Selected In/04`\n\n**Voltar**\n- Gatilho: On tap ou arrastar\n- Motion Style: `Selected Out/05`\n\n> Nas setas do Nav Control, a faixa rola com a duração e a curva desses estilos. O arraste com o dedo segue a rolagem nativa. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma."
     }
    ],
    "react": {
@@ -10756,7 +10756,7 @@
     {
      "id": "motion",
      "title": "Motion",
-     "text": "## Motion\n\nO Modal entra deslizando para baixo enquanto aparece e sai pelo caminho inverso.\n\n**Entrada**\n- Gatilho: Ao abrir\n- Motion Style · posição: `Selected In/01`\n- Motion Style · opacidade: `Selected In/09`\n\n**Saída**\n- Gatilho: Ao fechar\n- Motion Style · posição: `Selected Out/01`\n- Motion Style · opacidade: `Selected Out/03`\n\n> O playground ainda não anima a entrada e a saída. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma."
+     "text": "## Motion\n\nO Modal entra deslizando para baixo enquanto aparece e sai pelo caminho inverso.\n\n**Entrada**\n- Gatilho: Ao abrir\n- Motion Style · posição: `Selected In/01`\n- Motion Style · opacidade: `Selected In/09`\n\n**Saída**\n- Gatilho: Ao fechar\n- Motion Style · posição: `Selected Out/01`\n- Motion Style · opacidade: `Selected Out/03`\n\n> Exemplo interativo: abra e feche o Modal no Playground. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma."
     }
    ],
    "figmaProps": [
@@ -17458,7 +17458,7 @@
     {
      "id": "motion",
      "title": "Motion",
-     "text": "## Motion\n\nO System Banner entra e sai com movimento vertical e opacidade. O botão de fechar (.Close Alert) tem os estados de interação do Icon Button.\n\n**Entrada**\n- Gatilho: Ao aparecer\n- Motion Style · posição: `Selected In/04`\n- Motion Style · opacidade: `Selected In/03`\n\n**Saída**\n- Gatilho: Ao fechar\n- Motion Style · posição: `Selected Out/05`\n- Motion Style · opacidade: `Selected Out/02`\n\n**Fechar: Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Fechar: Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n> O banner desce do topo enquanto aparece e sobe ao sair. O playground ainda não anima a entrada e a saída. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma."
+     "text": "## Motion\n\nO System Banner entra e sai com movimento vertical e opacidade. O botão de fechar (.Close Alert) tem os estados de interação do Icon Button.\n\n**Entrada**\n- Gatilho: Ao aparecer\n- Motion Style · posição: `Selected In/04`\n- Motion Style · opacidade: `Selected In/03`\n\n**Saída**\n- Gatilho: Ao fechar\n- Motion Style · posição: `Selected Out/05`\n- Motion Style · opacidade: `Selected Out/02`\n\n**Fechar: Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Fechar: Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n> O banner desce do topo enquanto aparece e sobe ao sair. Exemplo interativo: no Playground, feche o banner e clique em Mostrar de novo para ver a saída e a entrada. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma."
     }
    ],
    "draft": true,

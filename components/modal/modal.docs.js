@@ -115,7 +115,7 @@ CDS.docs = CDS.docs || {};
           { title: "Entrada", rows: [["Gatilho", "Ao abrir"], ["Motion Style · posição", "`Selected In/01`"], ["Motion Style · opacidade", "`Selected In/09`"]] },
           { title: "Saída", rows: [["Gatilho", "Ao fechar"], ["Motion Style · posição", "`Selected Out/01`"], ["Motion Style · opacidade", "`Selected Out/03`"]] }
         ] },
-        { note: "O playground ainda não anima a entrada e a saída. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma." }
+        { note: "Exemplo interativo: abra e feche o Modal no Playground. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma." }
       ] }
     ]
   };

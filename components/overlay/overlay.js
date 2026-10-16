@@ -48,8 +48,19 @@
       if (inline){ if (!dlg.open) dlg.setAttribute("open", ""); return; }
       if (dlg.open && !dlg.matches(":modal")) dlg.close(); // saiu do modo inline
       var want = this.hasAttribute("open");
+      if (want && dlg.open && this._leaving) dlg.classList.remove("is-closing"); // reabriu durante a saída
       if (want && !dlg.open){ dlg.showModal(); this.dispatchEvent(new CustomEvent("cds-open", { bubbles: true })); }
-      else if (!want && dlg.open && !this._closing){ dlg.close(); this.fireClose(); }
+      else if (!want && dlg.open && !this._closing){
+        // Saída animada: o painel com .is-closing toca a animação dele (Modal) e só então o dialog fecha.
+        // Painel sem animação de saída (Drawer, Bottom Sheet) ou reduced motion: fecha na hora
+        var me = this; me._leaving = true; dlg.classList.add("is-closing");
+        CDS.afterAnimations(dlg, function(){
+          dlg.classList.remove("is-closing"); me._leaving = false;
+          if (me.hasAttribute("open")) return; // reaberto no meio da saída
+          if (dlg.open) dlg.close();
+          me.fireClose();
+        });
+      }
     }
     fireClose(){ this.dispatchEvent(new CustomEvent("cds-close", { bubbles: true })); }
     get titleText(){ return this.getAttribute("title"); }

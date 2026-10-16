@@ -84,7 +84,7 @@
           { title: "Fechar: Enabled → Hovered", rows: [["Gatilho", "While hovering"], ["Motion Style", "`Hover In/01`"]] },
           { title: "Fechar: Hovered → Pressed", rows: [["Gatilho", "While pressing"], ["Motion Style", "`Pressed/01`"]] }
         ] },
-        { note: "O banner desce do topo enquanto aparece e sobe ao sair. O playground ainda não anima a entrada e a saída. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma." },
+        { note: "O banner desce do topo enquanto aparece e sobe ao sair. Exemplo interativo: no Playground, feche o banner e clique em Mostrar de novo para ver a saída e a entrada. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma." },
       ] }
     ]
   };

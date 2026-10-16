@@ -725,6 +725,10 @@ try {
         this._btn = document.createElement("button"); this._btn.type = "button"; this._btn.className = "cds-ib";
         this.iconEl = document.createElement("cds-icon"); this.iconEl.setAttribute("size", "medium"); this.iconEl.setAttribute("appearance", "neutral");
         this._btn.appendChild(this.iconEl); this.appendChild(this._btn);
+        // Pressed: o botão encolhe para 90% e volta (Pressed/01 · C+pressed-escala)
+        var b = this._btn, press = function(){ if (!b.disabled) CDS.replay(b, "is-pressing"); };
+        b.addEventListener("pointerdown", press);
+        b.addEventListener("keydown", function(e){ if ((e.key === " " || e.key === "Enter") && !e.repeat) press(); });
       }
       this.iconEl.setAttribute("icon", this.getAttribute("icon") || "placeholder-line");
       this._btn.disabled = this.hasAttribute("disabled");
@@ -1014,6 +1018,8 @@ try {
         this.iconEl.setAttribute("icon", this.getAttribute("icon") || "navigation-right-line");
         this.iconEl.setAttribute("size", "small"); this.iconEl.setAttribute("appearance", "neutral");
         a.appendChild(this.iconEl);
+        // Hover: o ícone desliza e assenta (Hover In/04); ao sair, volta (Hover Out/04). A classe só liga a animação de saída depois do primeiro hover
+        a.addEventListener("pointerenter", function(){ a.classList.add("was-hovered"); });
       }
       this.appendChild(a);
       this.anchor = a;
@@ -1187,8 +1193,30 @@ try {
       if (scroll){
         var it = this.items[c - 1], s = this.slotEl;
         this._lock = Date.now() + 900; // a rolagem programada não volta a mexer no item atual enquanto anda (cliques rápidos nas setas)
-        s.scrollTo({ left: it.offsetLeft - s.offsetLeft, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+        this.scrollToX(it.offsetLeft - s.offsetLeft);
       }
+    }
+    // Rolagem com o Motion Style do Notion da Motion: avançar no Selected In/04, voltar no Selected Out/05.
+    // O scroll-snap sai durante a animação (ele puxaria cada quadro para o item mais próximo) e volta no fim
+    scrollToX(to){
+      var s = this.slotEl, from = s.scrollLeft, dist = to - from;
+      if (this._raf) cancelAnimationFrame(this._raf);
+      var m = CDS.motion(dist >= 0 ? "selected-in-04" : "selected-out-05");
+      if (!dist || !m.ms || matchMedia("(prefers-reduced-motion: reduce)").matches){ s.scrollLeft = to; return; }
+      var self = this, t0 = null;
+      s.style.scrollSnapType = "none";
+      this._lock = Date.now() + m.ms + 200;
+      var step = function(now){
+        if (t0 == null) t0 = now;
+        var p = Math.min(1, (now - t0) / m.ms);
+        s.scrollLeft = from + dist * m.ease(p);
+        if (p < 1) self._raf = requestAnimationFrame(step);
+        else { self._raf = null; s.style.scrollSnapType = ""; }
+      };
+      this._raf = requestAnimationFrame(step);
+      // aba em segundo plano não roda requestAnimationFrame: garante a posição final e o scroll-snap de volta
+      clearTimeout(this._rafSafety);
+      this._rafSafety = setTimeout(function(){ if (self._raf && t0 == null){ cancelAnimationFrame(self._raf); self._raf = null; s.scrollLeft = to; s.style.scrollSnapType = ""; } }, m.ms + 100);
     }
     next(){ this.goTo(this.current + 1, true); } prev(){ this.goTo(this.current - 1, true); }
     syncFromScroll(){
@@ -1640,6 +1668,12 @@ try {
       box.appendChild(CDS.create("span", null, "cds-icon cds-icon--checkbox-indeterminate cds-sc__glyph cds-sc__glyph--indeterminate"));
     }
     applyStatus(input, status){ input.checked = status === "selected"; input.indeterminate = status === "indeterminate"; }
+    // Marcar: a caixa pulsa 100 → 110 → 100% e o check cresce do centro (Selected In/02). Desmarcar: o pulso no Selected Out/01
+    onInputChange(){
+      super.onInputChange();
+      this._box.classList.remove("is-selecting", "is-deselecting");
+      CDS.replay(this._box, this.status === "selected" ? "is-selecting" : "is-deselecting");
+    }
   }
   CdsCheckbox.define("cds-checkbox");
 })();
@@ -2081,6 +2115,10 @@ try {
         var self = this;
         // no loading o botão continua focável (aria-disabled), mas o clique e o envio de formulário não acontecem
         b.addEventListener("click", function(e){ if (self.hasAttribute("loading")){ e.preventDefault(); e.stopPropagation(); } });
+        // Pressed: o botão encolhe para 90% e volta (Pressed/01, decisão do Gustavo 16/10 · C+pressed-escala)
+        var press = function(){ if (!b.disabled && !self.hasAttribute("loading")) CDS.replay(b, "is-pressing"); };
+        b.addEventListener("pointerdown", press);
+        b.addEventListener("keydown", function(e){ if ((e.key === " " || e.key === "Enter") && !e.repeat) press(); });
         this._btn = b; this.appendChild(b);
       }
     }
@@ -2718,7 +2756,13 @@ try {
   class CdsSwitch extends CDS.SelectionControl {
     static get inputType(){ return "checkbox"; }
     buildBox(box){ box.appendChild(CDS.create("span", null, "cds-sw__toggle")); }
-    build(){ super.build(); this._input.setAttribute("role", "switch"); }
+    build(){
+      super.build(); this._input.setAttribute("role", "switch");
+      // Pressed: a bolinha cresce para 110% e volta (Pressed/01 · C+pressed-escala)
+      var self = this, press = function(){ if (!self._input.disabled) CDS.replay(self._box.querySelector(".cds-sw__toggle"), "is-pressing"); };
+      this._root.addEventListener("pointerdown", press);
+      this._input.addEventListener("keydown", function(e){ if (e.key === " " && !e.repeat) press(); });
+    }
   }
   CdsSwitch.define("cds-switch");
 })();
@@ -2765,7 +2809,14 @@ try {
  */
 (function(){
   "use strict";
-  class CdsSystemBanner extends CDS.Alert {}
+  class CdsSystemBanner extends CDS.Alert {
+    // Saída animada (Selected Out/05 na posição, Selected Out/02 na opacidade) antes de sair do DOM. Sem animação, sai na hora
+    close(){
+      if (this._leaving || !this.dispatchEvent(new CustomEvent("cds-close", { bubbles: true, cancelable: true }))) return;
+      var self = this; this._leaving = true; this.classList.add("is-leaving");
+      CDS.afterAnimations(this, function(){ self.remove(); });
+    }
+  }
   CdsSystemBanner.define("cds-system-banner");
 })();
 } catch (e) { console.error("[cds] components/system-banner/system-banner.js", e); }
@@ -6173,8 +6224,19 @@ try {
       if (inline){ if (!dlg.open) dlg.setAttribute("open", ""); return; }
       if (dlg.open && !dlg.matches(":modal")) dlg.close(); // saiu do modo inline
       var want = this.hasAttribute("open");
+      if (want && dlg.open && this._leaving) dlg.classList.remove("is-closing"); // reabriu durante a saída
       if (want && !dlg.open){ dlg.showModal(); this.dispatchEvent(new CustomEvent("cds-open", { bubbles: true })); }
-      else if (!want && dlg.open && !this._closing){ dlg.close(); this.fireClose(); }
+      else if (!want && dlg.open && !this._closing){
+        // Saída animada: o painel com .is-closing toca a animação dele (Modal) e só então o dialog fecha.
+        // Painel sem animação de saída (Drawer, Bottom Sheet) ou reduced motion: fecha na hora
+        var me = this; me._leaving = true; dlg.classList.add("is-closing");
+        CDS.afterAnimations(dlg, function(){
+          dlg.classList.remove("is-closing"); me._leaving = false;
+          if (me.hasAttribute("open")) return; // reaberto no meio da saída
+          if (dlg.open) dlg.close();
+          me.fireClose();
+        });
+      }
     }
     fireClose(){ this.dispatchEvent(new CustomEvent("cds-close", { bubbles: true })); }
     get titleText(){ return this.getAttribute("title"); }

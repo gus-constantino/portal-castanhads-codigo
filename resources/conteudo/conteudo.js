@@ -6,7 +6,7 @@
   var FIGMA = "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=6400-33150";
   CDS.register({ id: "conteudo", name: "Conteúdo", resource: true, lede: "Tom e voz, princípios de escrita e regras de texto: como a Caju fala nos produtos.", order: 2, figma: FIGMA });
   var ills = {}; ((window.CDS.assets || {}).illustrations || []).forEach(function(i){ ills[i.name] = i.src; });
-  // Tela de exemplo: ilustração + título + texto + Fixed Bar (Pilled) com a ação principal
+  // Tela de exemplo: ilustração + título + texto + Fixed Bar (Stacked) com a ação principal
   function screen(ill, title, text, action, secondary){
     return { _tag: "div", class: "pg-cnt-phone", _children: [
       { _tag: "div", class: "pg-cnt-phone__body", _children: [
@@ -14,7 +14,7 @@
       ].concat(title ? [{ _tag: "h4", class: "pg-cnt-phone__title", _text: title }] : []).concat([ // sem título: tela só com o texto (ex.: Don't da busca)
         { _tag: "p", class: "pg-cnt-phone__text", _text: text }
       ]) }
-    ].concat(action ? [{ _tag: "cds-fixed-bar", kind: "pilled", "primary-label": action, "show-secondary-action": !!secondary, "secondary-label": secondary || null, "show-lead-icon": false }] : []) }; // sem ação: tela sem Fixed Bar
+    ].concat(action ? [{ _tag: "cds-fixed-bar", kind: "stacked", "primary-label": action, "show-secondary-action": !!secondary, "secondary-label": secondary || null, "show-lead-icon": false }] : []) }; // sem ação: tela sem Fixed Bar
   }
   // Onboarding: Bottom Sheet (inline) com ilustração, título, texto e os botões padronizados empilhados, como no sheetActions.
   // No Hub os exemplos são modais do Portal; o Footer do Modal é horizontal e os rótulos longos não cabem no card (decisão do Gustavo, 09/10)

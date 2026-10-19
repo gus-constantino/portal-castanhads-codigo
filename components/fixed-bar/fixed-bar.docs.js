@@ -47,15 +47,15 @@ CDS.docs["fixed-bar"] = {
       } },
       { h3: "Mobile" },
       { anatomy: {
-        attrs: { kind: "pilled", "primary-label": "Continuar", "secondary-label": "Voltar", "show-lead-icon": false, style: "width:calc(var(--common-sizes-160) * 2)" },
+        attrs: { kind: "stacked", "primary-label": "Continuar", "secondary-label": "Voltar", "show-lead-icon": false, style: "width:calc(var(--common-sizes-160) * 2)" },
         markers: [{ n: 5, target: ".cds-footer__actions > cds-main-button:first-child", side: "left" }, { n: 6, target: ".cds-footer__actions > cds-main-button:last-child", side: "right" }, { n: 7, target: "cds-fixed-bar", side: "left", align: "end" }],
         legend: ["Secondary action", "Primary action", "Bottom fixed container"]
       } },
       { h2: "Composição do componente" },
-      { p: "Mesma estrutura do .Footer: Divider e Action Buttons com Main Buttons Neutral (secundária) e Accent (primária). Em `Horizontal`, os botões ficam lado a lado no tamanho do conteúdo. Em `Pilled`, empilhados e com largura total." },
+      { p: "Mesma estrutura do .Footer: Divider e Action Buttons com Main Buttons Neutral (secundária) e Accent (primária). Em `Horizontal`, os botões ficam lado a lado no tamanho do conteúdo. Em `Stacked`, empilhados e com largura total." },
       { h2: "Propriedades" },
       { props: [
-        { name: "Kind", type: "Variant", default: "Horizontal", values: ["Horizontal", "Pilled"] },
+        { name: "Kind", type: "Variant", default: "Horizontal", values: ["Horizontal", "Stacked"] },
         { name: "Show Divider", type: "Boolean", default: "true" },
         { name: "Show Secondary Action", type: "Boolean", default: "true" }
       ] },
@@ -64,7 +64,7 @@ CDS.docs["fixed-bar"] = {
 
     { id: "estilos", title: "Estilos", blocks: [
       { h2: "Kind" },
-      { specimens: { min: "var(--common-sizes-200)", items: [{ label: "Horizontal", attrs: {} }, { label: "Pilled", attrs: { kind: "pilled" } }] } },
+      { specimens: { min: "var(--common-sizes-200)", items: [{ label: "Horizontal", attrs: {} }, { label: "Stacked", attrs: { kind: "stacked" } }] } },
       { h2: "Variações" },
       { specimens: { min: "var(--common-sizes-200)", items: [
         { label: "Ação primária sozinha", attrs: { "show-secondary-action": false } },
@@ -87,10 +87,10 @@ CDS.docs["fixed-bar"] = {
     { id: "diretrizes", title: "Diretrizes", blocks: [
       { h2: "Diretrizes de uso" },
       { guides: [
-        { attrs: { "show-secondary-action": false, kind: "pilled" }, title: "Use a Fixed bar somente quando o conteúdo da página exige rolagem", text: "A Fixed bar é mais efetiva em telas longas, onde o botão primário poderia ficar escondido ao final do conteúdo. Em telas curtas, em que a ação já está visível sem rolagem, a Fixed bar se torna redundante e pode gerar saturação visual." },
-        { attrs: { kind: "pilled", "secondary-label": "Ignorar por agora" }, title: "Escolha entre “ação primária” ou “primária + secundária” conforme a complexidade da decisão", text: "Use a ação primária sozinha quando há um único caminho esperado para prosseguir. Use primária + secundária quando existe uma alternativa relevante — como “Voltar”, “Cancelar” ou “Ignorar por agora”. Evite adicionar ações sem importância real, pois a Fixed bar tem forte poder de chamar atenção." },
+        { attrs: { "show-secondary-action": false, kind: "stacked" }, title: "Use a Fixed bar somente quando o conteúdo da página exige rolagem", text: "A Fixed bar é mais efetiva em telas longas, onde o botão primário poderia ficar escondido ao final do conteúdo. Em telas curtas, em que a ação já está visível sem rolagem, a Fixed bar se torna redundante e pode gerar saturação visual." },
+        { attrs: { kind: "stacked", "secondary-label": "Ignorar por agora" }, title: "Escolha entre “ação primária” ou “primária + secundária” conforme a complexidade da decisão", text: "Use a ação primária sozinha quando há um único caminho esperado para prosseguir. Use primária + secundária quando existe uma alternativa relevante — como “Voltar”, “Cancelar” ou “Ignorar por agora”. Evite adicionar ações sem importância real, pois a Fixed bar tem forte poder de chamar atenção." },
         { attrs: { "primary-label": "Enviar pedido", "secondary-label": "Revisar" }, title: "Use a Fixed bar como finalização orquestrada do fluxo", text: "A Fixed bar deve marcar a etapa em que a pessoa usuária tomou conhecimento do conteúdo da tela e está pronta para avançar. Em fluxos de leitura, preenchimento ou tomada de decisão, ela deve aparecer como o “próximo passo natural”, não de forma precipitada." },
-        { attrs: [{ kind: "pilled" }, {}], title: "Respeite a largura total da tela em mobile e layout fluido em desktop", text: "Em mobile, a Fixed bar deve ocupar toda a largura para parecer integrada ao rodapé. Em desktop, ela funciona melhor com alinhamento horizontal dos botões, respeitando a grid e evitando largura excessiva que gere sensação de peso." }
+        { attrs: [{ kind: "stacked" }, {}], title: "Respeite a largura total da tela em mobile e layout fluido em desktop", text: "Em mobile, a Fixed bar deve ocupar toda a largura para parecer integrada ao rodapé. Em desktop, ela funciona melhor com alinhamento horizontal dos botões, respeitando a grid e evitando largura excessiva que gere sensação de peso." }
       ] },
       { h2: "Do's and Don'ts" },
       { dodont: [

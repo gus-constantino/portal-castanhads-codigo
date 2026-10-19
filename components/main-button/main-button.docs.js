@@ -198,8 +198,8 @@
         ] },
         { h2: "Mobile" },
         { guides: [
-          { attrs: { _tag: "cds-fixed-bar", kind: "pilled", "primary-label": "Continuar", "secondary-label": "Voltar", "show-lead-icon": false, style: "width:100%" }, title: "Main button em mobile", text: "Em mobile, recomenda-se o empilhamento vertical de botões, não utilizando a disposição lado a lado, que pode gerar toques acidentais e dificultar a interação. Sempre que possível, o botão deve ocupar 100% da largura disponível na tela." },
-          { attrs: { _tag: "cds-fixed-bar", kind: "pilled", "primary-label": "Continuar", "show-secondary-action": false, "show-lead-icon": false, style: "width:100%" }, title: "Priorize a ação principal no topo ou rodapé fixo", text: "Em fluxos mobile, o Main Button deve estar visível e acessível, preferencialmente fixado no rodapé da tela ou logo após o conteúdo principal." }
+          { attrs: { _tag: "cds-fixed-bar", kind: "stacked", "primary-label": "Continuar", "secondary-label": "Voltar", "show-lead-icon": false, style: "width:100%" }, title: "Main button em mobile", text: "Em mobile, recomenda-se o empilhamento vertical de botões, não utilizando a disposição lado a lado, que pode gerar toques acidentais e dificultar a interação. Sempre que possível, o botão deve ocupar 100% da largura disponível na tela." },
+          { attrs: { _tag: "cds-fixed-bar", kind: "stacked", "primary-label": "Continuar", "show-secondary-action": false, "show-lead-icon": false, style: "width:100%" }, title: "Priorize a ação principal no topo ou rodapé fixo", text: "Em fluxos mobile, o Main Button deve estar visível e acessível, preferencialmente fixado no rodapé da tela ou logo após o conteúdo principal." }
         ] },
         { h2: "Ação destrutiva" },
         { p: "Mesmo sem um estilo visual específico para ações destrutivas, o uso do Main Button na versão default/accent é o mais indicado nesses casos. É essencial que a label do botão seja clara e direta, deixando evidente a consequência da ação — por exemplo: “Excluir item”, “Remover usuário” ou “Encerrar sessão”. Evite termos genéricos como “Confirmar” ou “OK”." },

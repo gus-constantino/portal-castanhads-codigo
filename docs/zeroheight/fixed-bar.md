@@ -61,7 +61,7 @@ Dúvidas ou comentários? Fale com o time pelo canal [#castanha-suporte](https:/
 
 ## Composição do componente
 
-Mesma estrutura do .Footer. Em `Horizontal`, os botões ficam lado a lado; em `Pilled`, empilhados com largura total.
+Mesma estrutura do .Footer. Em `Horizontal`, os botões ficam lado a lado; em `Stacked`, empilhados com largura total.
 
 ---
 
@@ -69,7 +69,7 @@ Mesma estrutura do .Footer. Em `Horizontal`, os botões ficam lado a lado; em `P
 
 | Propriedade | Tipo | Padrão | Descrição |
 | --- | --- | --- | --- |
-| `Kind` | Variant | `Horizontal` | `Horizontal` (lado a lado) ou `Pilled` (empilhados, largura total). |
+| `Kind` | Variant | `Horizontal` | `Horizontal` (lado a lado) ou `Stacked` (empilhados, largura total). |
 | `Show Divider` | Boolean | `true` | Mostra o Divider. |
 | `Show Secondary Action` | Boolean | `true` | Mostra a ação secundária. |
 

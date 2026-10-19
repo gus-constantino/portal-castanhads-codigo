@@ -30,12 +30,12 @@
     if (o.title) body.push({ _tag: "h4", class: "pg-cnt-phone__title", _text: o.title });
     if (o.text) body.push({ _tag: "p", class: "pg-cnt-phone__text", _text: o.text });
     var kids = [{ _tag: "div", class: "pg-cnt-phone__body", _children: body }];
-    if (o.primary) kids.push({ _tag: "cds-fixed-bar", kind: "pilled", "primary-label": o.primary, "show-secondary-action": !!o.secondary, "secondary-label": o.secondary || null, "show-lead-icon": false });
+    if (o.primary) kids.push({ _tag: "cds-fixed-bar", kind: "stacked", "primary-label": o.primary, "show-secondary-action": !!o.secondary, "secondary-label": o.secondary || null, "show-lead-icon": false });
     return { _tag: "div", class: "pg-cnt-phone pg-cnt-phone--" + (o.align || "center"), _children: kids };
   }
   function hero(ill, primary){
     var kids = [{ _tag: "div", class: "pg-cnt-phone__body", _children: [{ _tag: "img", class: "pg-cnt-phone__hero", src: ILL[ill] || "", alt: "" }] }];
-    if (primary) kids.push({ _tag: "cds-fixed-bar", kind: "pilled", "primary-label": primary, "show-secondary-action": false, "show-lead-icon": false });
+    if (primary) kids.push({ _tag: "cds-fixed-bar", kind: "stacked", "primary-label": primary, "show-secondary-action": false, "show-lead-icon": false });
     return { _tag: "div", class: "pg-cnt-phone pg-cnt-phone--hero", _children: kids };
   }
   function sizeImg(ill, size){ return { _tag: "img", class: "pg-cnt-phone__ill pg-cnt-phone__ill--" + size, src: ILL[ill] || "", alt: "" }; }

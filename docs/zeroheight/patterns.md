@@ -154,7 +154,7 @@ Manter os 6 textos de hoje. [Imagens: hoje são as mesmas do Sponsor; trocar por
 4. Ação primária
 5. Ação secundária
 
-Sem botão de fechar: as ações ficam no Fixed Bar Pilled, sem Divider.
+Sem botão de fechar: as ações ficam no Fixed Bar Stacked, sem Divider.
 
 #### Estilos
 

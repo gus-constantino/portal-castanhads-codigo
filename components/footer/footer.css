@@ -1,7 +1,7 @@
-/* .Footer · set 16359:1792 — Divider + Actions pad 20 · gap 8 · Horizontal: botões no tamanho do conteúdo · Pilled: coluna, largura total */
+/* .Footer · set 16359:1792 — Divider + Actions pad 20 · gap 8 · Horizontal: botões no tamanho do conteúdo · Pilled (Stacked na Fixed Bar): coluna, largura total */
 cds-footer, cds-fixed-bar{ display:flex; flex-direction:column; background:var(--common-colors-surface-default); }
 cds-footer [hidden], cds-fixed-bar [hidden]{ display:none !important; }
 .cds-footer__actions{ display:flex; gap:var(--common-sizes-8); padding:var(--common-sizes-20); }
-cds-footer[kind="pilled"] .cds-footer__actions, cds-fixed-bar[kind="pilled"] .cds-footer__actions{ flex-direction:column; }
-cds-footer[kind="pilled"] .cds-footer__actions > cds-main-button, cds-fixed-bar[kind="pilled"] .cds-footer__actions > cds-main-button{ display:flex; }
-cds-footer[kind="pilled"] .cds-footer__actions .cds-btn, cds-fixed-bar[kind="pilled"] .cds-footer__actions .cds-btn{ width:100%; min-width:0; } /* Pilled = Fill: o min-width do Main Button por viewport (Mobile 328) não cabe no padding 20 do .Footer (C193) */
+cds-footer[kind="pilled"] .cds-footer__actions, cds-fixed-bar[kind="stacked"] .cds-footer__actions{ flex-direction:column; }
+cds-footer[kind="pilled"] .cds-footer__actions > cds-main-button, cds-fixed-bar[kind="stacked"] .cds-footer__actions > cds-main-button{ display:flex; }
+cds-footer[kind="pilled"] .cds-footer__actions .cds-btn, cds-fixed-bar[kind="stacked"] .cds-footer__actions .cds-btn{ width:100%; min-width:0; } /* Pilled = Fill: o min-width do Main Button por viewport (Mobile 328) não cabe no padding 20 do .Footer (C193) */

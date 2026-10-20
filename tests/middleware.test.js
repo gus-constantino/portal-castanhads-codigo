@@ -240,6 +240,30 @@ function confere(nome, cond, extra){ if (cond) ok++; else { falhas++; console.er
   r = await post("/acesso/links/revogar", portal.cookie, { id: idMb });
   confere("Portal não revoga link", r.status === 403, String(r.status));
 
+  // Link de componente com a tab Débitos (D369): abre só o docs/debitos/<id>.json do próprio componente
+  r = await post("/acesso/links", adm.cookie, { alvo: "pagina:castanha-quiz", titulo: "Castanha Quiz", dias: 7, debitos: true });
+  confere("a opção Débitos não vale para página", (await r.json()).debitos === false);
+  r = await post("/acesso/links", adm.cookie, { alvo: "componente:text-input", titulo: "Text Input", dias: 7, debitos: true });
+  const gd = await r.json();
+  confere("Completo gera link de componente com Débitos", r.status === 200 && gd.debitos === true, JSON.stringify(gd));
+  const od = await abrir(gd.link);
+  confere("abrir o link com Débitos grava cds_debitos com o componente", /cds_debitos=text-input(;|$)/.test(od.c), od.c);
+  const comDeb = (p) => mw(req(p, { headers: { cookie: od.c, accept: "*/*" } }));
+  confere("com o link abre o arquivo de débitos do componente", segue(await comDeb("/docs/debitos/text-input.json")));
+  r = await comDeb("/docs/debitos/main-button.json"); confere("o link com Débitos não abre os débitos de outro componente", r.status === 401, String(r.status));
+  r = await comDeb("/docs/CONFERIR.md"); confere("o link com Débitos não abre o CONFERIR.md", r.status === 401, String(r.status));
+  const sem = await abrir((await (await post("/acesso/links", adm.cookie, { alvo: "componente:main-button", titulo: "Main Button", dias: 7 })).json()).link);
+  confere("link de componente sem a opção apaga cds_debitos", /cds_debitos=(;|$)/.test(sem.c), sem.c);
+  r = await mw(req("/docs/debitos/main-button.json", { headers: { cookie: sem.c, accept: "*/*" } }));
+  confere("link de componente sem a opção não abre os débitos", r.status === 401, String(r.status));
+  r = await mw(req("/docs/debitos/text-input.json", { headers: { cookie: portal.cookie, accept: "*/*" } }));
+  confere("Portal não abre os débitos por componente", r.status === 403 || r.status === 401, String(r.status));
+  confere("Completo abre os débitos por componente", segue(await mw(req("/docs/debitos/text-input.json", { headers: { cookie: adm.cookie, accept: "*/*" } }))));
+  const idDeb = (await (await mw(req("/acesso/links/ativos", { headers: { cookie: adm.cookie, accept: "*/*" } }))).json()).links.filter((l) => l.alvo === "componente:text-input")[0];
+  confere("a lista de ativos marca o link com Débitos", idDeb && idDeb.debitos === true, JSON.stringify(idDeb));
+  await post("/acesso/links/revogar", adm.cookie, { id: idDeb.id });
+  r = await comDeb("/docs/debitos/text-input.json"); confere("revogado, o link para de abrir os débitos", r.status === 401, String(r.status));
+
   // Senhas temporárias (D349)
   const senha = (c, corpo) => post("/acesso/senhas", c, corpo);
   r = await senha(portal.cookie, { nome: "Ana", perfil: "dashboard", minutos: 60 });

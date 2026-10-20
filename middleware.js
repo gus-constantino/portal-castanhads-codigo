@@ -35,6 +35,8 @@
  * Admin (D350): /admin/ e as telas e rotas de links e senhas pedem o Completo de senha fixa E o cookie cds_admin.
  *   POST /acesso/links {caminho, dias} · só o perfil Completo: devolve o link assinado da entrega (/entregas/<slug>/)
  *   POST /acesso/links {alvo, dias}    · só o perfil Completo: devolve o link de página do alvo (ex.: pagina:castanha-quiz)
+ *                                        debitos: true (só em componente:<id>) leva a tab Débitos: o link abre também
+ *                                        docs/debitos/<id>.json, os itens do Conferir só daquele componente (D369)
  *   GET  /acesso/links/ativos          · só o perfil Completo: os links registrados que ainda valem
  *   POST /acesso/links/revogar {id}    · só o perfil Completo: o link para de abrir na hora
  *   POST /acesso/senhas {perfil, minutos, nome} · só o Completo de senha fixa: devolve uma senha temporária (mostrada uma vez)
@@ -45,7 +47,8 @@
  *   (quando a senha temporária vence, legível pelo portal) e
  *   cds_links (os links de entrega abertos neste navegador, cada um com a própria assinatura e validade) e cds_entrega
  *   (a entrega aberta por último, legível pelo portal para entrar no modo entrega) e cds_alvos (os alvos dos links de
- *   página, legível pelo portal para montar o menu; quem decide o que abre é o cds_links).
+ *   página, legível pelo portal para montar o menu; quem decide o que abre é o cds_links) e cds_debitos (os componentes
+ *   dos links com a tab Débitos, legível pelo portal para mostrar a tab; quem decide o que abre também é o cds_links).
  * Revogação: o link revogado sai do registro. O middleware confere o registro ao abrir o link e em cada arquivo de conteúdo
  *   (páginas, pacote, docs, arquivos das páginas), não nos do shell; a página tira dos cookies o link revogado.
  *   Links de entrega gerados antes do registro (sem id) valem até vencer.
@@ -87,7 +90,7 @@ const PERFIS = /^(completo|portal|dashboard)$/;
 const MCP = [/^\/dist\/mcp\//, /^\/scripts\/(react|flutter)-kit\.js$/];
 // Relatório: os registros que ele lê e os checks das stacks (o perfil Portal não abre)
 const RELATORIO = [
-  /^\/docs\/[^/]+\.md$/, /^\/docs\/(tendencia|chamados)\.json$/, /^\/docs\/local\//,
+  /^\/docs\/[^/]+\.md$/, /^\/docs\/(tendencia|chamados)\.json$/, /^\/docs\/local\//, /^\/docs\/debitos\/[\w-]+\.json$/,
   /^\/integration\/(.+\/)?[^/]+\.md$/, /^\/integration\/(.+\/)?(stack-check|jsx-check|dart-check)\.json$/, /^\/tests\//
 ];
 
@@ -199,6 +202,11 @@ async function lerLink(codigo, env){
     return m && ENTREGAS[m[1]] ? l : null;
   } catch (e) { return null; }
 }
+// cds_debitos: os componentes dos links com a tab Débitos (o portal lê para mostrar a tab); sem nenhum, apaga
+function cookieDebitos(links, idade){
+  const ids = links.filter((x) => x.l.d && /^componente:/.test(x.l.a || "")).map((x) => x.l.a.slice(11));
+  return "cds_debitos=" + encodeURIComponent(ids.join("~")) + "; Path=/;" + (ids.length ? (idade ? " Max-Age=" + idade + ";" : "") : " Max-Age=0;") + " Secure; SameSite=Lax";
+}
 // os links do cookie com assinatura e validade em dia (o registro, para a revogação, é conferido à parte em ativos())
 async function linksValidos(req, env){
   const out = [];
@@ -286,6 +294,7 @@ export default async function middleware(req){
       const alvo = String(b.alvo || "");
       if (!ALVOS[alvo]) return json({ erro: "Escolha um item da lista." }, 400);
       dados = { a: alvo }; info = { tipo: "pagina", alvo, titulo: String(b.titulo || alvo).slice(0, 120) };
+      if (b.debitos === true && /^componente:/.test(alvo)){ dados.d = 1; info.debitos = true; } // tab Débitos junto
     } else {
       const caminho = String(b.caminho || ""), m = ENTREGA.exec(caminho);
       if (!m || !ENTREGAS[m[1]]) return json({ erro: "Escolha uma das entregas da lista." }, 400);
@@ -300,7 +309,7 @@ export default async function middleware(req){
       catch (e) { delete dados.i; } // sem registro o link ainda funciona, mas não pode ser revogado
     }
     if (!registrado) link = url.origin + "/l/" + await criarLink(dados, dias, env);
-    return json({ link, caminho: info.caminho, alvo: info.alvo, vence: new Date(vence).toISOString(), registrado });
+    return json({ link, caminho: info.caminho, alvo: info.alvo, debitos: !!info.debitos, vence: new Date(vence).toISOString(), registrado });
   }
   if (path === "/acesso/links/ativos"){
     if (!(await admin(req, env))) return json({ erro: "A lista de links é do admin." }, 403);
@@ -388,6 +397,7 @@ export default async function middleware(req){
     if (l.c) h.append("set-cookie", "cds_entrega=" + ENTREGA.exec(l.c)[1] + "; Path=/; Max-Age=" + idade + "; Secure; SameSite=Lax");
     const alvos = atuais.filter((x) => x.l.a).map((x) => x.l.a);
     if (alvos.length) h.append("set-cookie", "cds_alvos=" + encodeURIComponent(alvos.join("~")) + "; Path=/; Max-Age=" + idade + "; Secure; SameSite=Lax");
+    h.append("set-cookie", cookieDebitos(atuais, idade));
     return new Response(null, { status: 302, headers: h });
   }
 
@@ -426,6 +436,7 @@ export default async function middleware(req){
       const restam = links.filter((x) => x.l.a).map((x) => x.l.a);
       h.append("set-cookie", "cds_alvos=" + encodeURIComponent(restam.join("~")) + "; Path=/;" + (restam.length ? "" : " Max-Age=0;") + " Secure; SameSite=Lax");
       if (!links.some((x) => x.l.c)) h.append("set-cookie", "cds_entrega=; Path=/; Max-Age=0; Secure; SameSite=Lax");
+      h.append("set-cookie", cookieDebitos(links));
       return new Response(null, { status: 302, headers: h });
     }
     const ent = links.filter((x) => x.l.c).map((x) => ENTREGA.exec(x.l.c)[1]), alv = links.filter((x) => x.l.a).map((x) => x.l.a);
@@ -434,6 +445,9 @@ export default async function middleware(req){
       if (path === "/dist/cds.js") return new Response(null, { headers: { "x-middleware-rewrite": url.origin + "/dist/cds-entrega.js" + url.search } });
       const f = path.slice(1);
       if (alv.length && (path === "/acesso/alvos.js" || alv.some((a) => ALVOS[a].indexOf(f) >= 0))) return seguir();
+      // tab Débitos: o arquivo do componente de um link gerado com a opção (os outros componentes e o CONFERIR.md não abrem)
+      const deb = /^\/docs\/debitos\/([\w-]+)\.json$/.exec(path);
+      if (deb && links.some((x) => x.l.d && x.l.a === "componente:" + deb[1])) return seguir();
       // ranking do time do Castanha Quiz (api/ranking.mjs): também para quem abriu um link que inclui o Quiz (decisão do Gustavo, 14/10)
       if (path === "/api/ranking" && alv.some((a) => ALVOS[a].indexOf("resources/castanha-quiz/castanha-quiz.js") >= 0)) return seguir();
       if (/\.docs\.js$/.test(path) ? ent.some((s) => ENTREGAS[s].indexOf(f) >= 0) : ENTREGA_SHELL.some((re) => re.test(path))) return seguir();

@@ -2,16 +2,18 @@
  * Tab Débitos dos componentes: os itens do docs/CONFERIR.md (linhas C##) ligados a cada componente (D367).
  *
  * Aparece para quem lê os dados do Relatório: perfil Completo no Vercel e o servidor local. Fica de fora no perfil
- * Portal (o middleware bloqueia o CONFERIR.md), no Dashboard (que não abre componentes) e nos links de entrega e de página.
+ * Portal (o middleware bloqueia o CONFERIR.md), no Dashboard (que não abre componentes) e nos links de entrega.
  * O arquivo é lido quando o portal abre, como no Relatório: o que entra ou sai do Conferir aparece aqui no deploy seguinte.
+ * Link de componente (acesso/paginas/) com a opção Débitos: a tab lê docs/debitos/<id>.json, gerado pelo build com os
+ * itens só daquele componente, e o middleware libera o arquivo só para esse link. Quem recebe não vê o resto do Conferir.
  *
  * Ligação item → componente: a coluna Componente (ou "O que foi", nos Resolvidos) é texto livre. Vale o nome do
  * componente no trecho antes do primeiro " · "; sem nenhum ali, a linha inteira. Famílias e nomes curtos ficam em APELIDOS,
  * e os itens que não são de um componente (naming da lib, Hub, tokens…) ficam em GERAIS e seguem só no Relatório.
  * tests/debitos.test.js reprova o Smoke quando um item em aberto não casa com nenhum dos dois.
  *
- * No navegador: CDS.debitos = { tab(id) } quando o arquivo chega, e CDS.debitosProntos() avisa o app.
- * No Node: module.exports = { parse, ligar } para o teste.
+ * No navegador: CDS.debitos.tab(id) devolve a tab (ou null enquanto os dados não chegam), e CDS.debitosProntos() avisa o app.
+ * No Node: module.exports = { parse, ligar, geral, porComponente } para o build e o teste.
  */
 (function(){
   "use strict";
@@ -86,51 +88,78 @@
   }
   function geral(texto){ var t = limpar(texto).replace(/`/g, "").trim(); return GERAIS.some(function(re){ return re.test(t); }); }
 
-  if (typeof module !== "undefined" && module.exports){ module.exports = { parse: parse, ligar: ligar, geral: geral, TIPOS: TIPOS }; return; }
+  /** CONFERIR.md + nomes → { id: [{ tipo, head, cols, resolvido }] }, o mesmo formato do docs/debitos/<id>.json do build */
+  function porComponente(md, nomes){
+    var achar = ligar(nomes), out = {};
+    nomes.forEach(function(n){ out[n[1]] = []; });
+    parse(md).forEach(function(s){
+      s.itens.forEach(function(it){
+        achar(it.cols[1] || "", it.resolvido).forEach(function(id){ if (out[id]) out[id].push({ tipo: s.tipo, head: s.head, cols: it.cols, resolvido: it.resolvido }); });
+      });
+    });
+    return out;
+  }
+
+  if (typeof module !== "undefined" && module.exports){ module.exports = { parse: parse, ligar: ligar, geral: geral, porComponente: porComponente, TIPOS: TIPOS }; return; }
 
   // ---------- Navegador ----------
   var CDS = window.CDS = window.CDS || {};
-  var perfil = (document.cookie.match(/(?:^|;\s*)cds_perfil=(\w+)/) || [])[1] || null;
-  var vercel = !!perfil; // no servidor local não há cookie de perfil
-  if (vercel && perfil !== "completo") return;
-  // modo entrega e link de página: o entrega.js marca CDS.entrega / CDS.acessoLink depois; o app confere de novo ao montar
   if (!window.fetch) return;
-  fetch("docs/CONFERIR.md", { cache: "no-cache" }).then(function(r){ if (!r.ok) throw new Error(r.status); return r.text(); }).then(function(md){
-    var secoes = parse(md), porId = {};
-    var achar = ligar((CDS.playgrounds || []).filter(function(c){ return !c.resource; }).map(function(c){ return [c.name, c.id]; }));
-    secoes.forEach(function(s){
-      s.itens.forEach(function(it){
-        achar(it.cols[1] || "", it.resolvido).forEach(function(id){ (porId[id] = porId[id] || []).push({ sec: s, it: it }); });
-      });
-    });
-    // como o código tratou (mesma regra do painel Adaptações para código do Relatório)
-    function trato(cols){ var cod = cols[4] || "", acao = cols[5] || ""; return /débito|erro no figma/i.test(acao) ? "deb" : /exceção/i.test(cod) ? "exc" : "seg"; }
-    var TRATO = { seg: ["segue o Figma", "seguem o Figma"], exc: ["exceção aprovada", "exceções aprovadas"], deb: ["débito ou erro no Figma", "débitos ou erros no Figma"] };
+  var cookie = function(n){ return (document.cookie.match(new RegExp("(?:^|;\\s*)" + n + "=([^;]+)")) || [])[1] || ""; };
+  var perfil = cookie("cds_perfil") || null, local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  var leRegistro = local || perfil === "completo"; // quem lê o CONFERIR.md inteiro (o middleware bloqueia para os outros)
+  // Link de componente com a opção Débitos (acesso/paginas/): o middleware grava os ids em cds_debitos e libera só o
+  // docs/debitos/<id>.json de cada um. ?debitos=1 com o alvo mostra a tab na prévia "Ver como quem recebe vê"
+  // (perfil Completo) e no servidor local.
+  var doLink = []; try { doLink = decodeURIComponent(cookie("cds_debitos")).split("~").filter(Boolean); } catch (e) {}
+  var previa = leRegistro && new URLSearchParams(location.search).get("debitos") === "1";
+  var porId = null, doArquivo = {}, pedidos = {};
 
-    CDS.debitos = {
-      tab: function(id){
-        var lista = porId[id] || [], abertos = lista.filter(function(x){ return !x.it.resolvido; }), feitos = lista.filter(function(x){ return x.it.resolvido; });
-        var blocks = [], k = { seg: 0, exc: 0, deb: 0 };
-        abertos.forEach(function(x){ if (x.sec.tipo !== "Integração React") k[trato(x.it.cols)]++; });
-        if (abertos.length){
-          var partes = Object.keys(TRATO).filter(function(t){ return k[t]; }).map(function(t){ return k[t] + " " + TRATO[t][k[t] === 1 ? 0 : 1]; });
-          blocks.push({ p: (abertos.length === 1 ? "1 item em aberto" : abertos.length + " itens em aberto") + " no registro de divergências entre Figma e código" +
-            (partes.length ? ": " + partes.join(" · ") + "." : ".") + " Pela regra D40, o código segue o Figma, e o que muda é exceção aprovada ou débito registrado." });
-          TIPOS.forEach(function(tipo){
-            var doTipo = abertos.filter(function(x){ return x.sec.tipo === tipo; });
-            if (!doTipo.length) return;
-            var head = doTipo[0].sec.head.slice(); head[1] = "Onde";
-            blocks.push({ h3: tipo }, { table: { head: head, rows: doTipo.map(function(x){ return x.it.cols.map(limpar); }), wrap: true } });
-          });
-        } else blocks.push({ vazio: { heading: "Nenhum débito em aberto", text: "Não há divergência entre Figma e código registrada para este componente." } });
-        if (feitos.length){
-          blocks.push({ h3: "Resolvidos" }, { table: { head: ["#", "O que foi", "Resolvido em"], rows: feitos.map(function(x){
-            var c = x.it.cols.map(limpar); return x.sec.tipo === "Resolvidos" ? c : [c[0], c[1] + " · " + c[2], "Marcado como resolvido"]; }), wrap: true } });
+  // como o código tratou (mesma regra do painel Adaptações para código do Relatório)
+  function trato(cols){ var cod = cols[4] || "", acao = cols[5] || ""; return /débito|erro no figma/i.test(acao) ? "deb" : /exceção/i.test(cod) ? "exc" : "seg"; }
+  var TRATO = { seg: ["segue o Figma", "seguem o Figma"], exc: ["exceção aprovada", "exceções aprovadas"], deb: ["débito ou erro no Figma", "débitos ou erros no Figma"] };
+  function montar(lista, noLink){
+    var abertos = lista.filter(function(x){ return !x.resolvido; }), feitos = lista.filter(function(x){ return x.resolvido; });
+    var blocks = [], k = { seg: 0, exc: 0, deb: 0 };
+    abertos.forEach(function(x){ if (x.tipo !== "Integração React") k[trato(x.cols)]++; });
+    if (abertos.length){
+      var partes = Object.keys(TRATO).filter(function(t){ return k[t]; }).map(function(t){ return k[t] + " " + TRATO[t][k[t] === 1 ? 0 : 1]; });
+      blocks.push({ p: (abertos.length === 1 ? "1 item em aberto" : abertos.length + " itens em aberto") + " no registro de divergências entre Figma e código" +
+        (partes.length ? ": " + partes.join(" · ") + "." : ".") + " Pela regra D40, o código segue o Figma, e o que muda é exceção aprovada ou débito registrado." });
+      TIPOS.forEach(function(tipo){
+        var doTipo = abertos.filter(function(x){ return x.tipo === tipo; });
+        if (!doTipo.length) return;
+        var head = doTipo[0].head.slice(); head[1] = "Onde";
+        blocks.push({ h3: tipo }, { table: { head: head, rows: doTipo.map(function(x){ return x.cols.map(limpar); }), wrap: true } });
+      });
+    } else blocks.push({ vazio: { heading: "Nenhum débito em aberto", text: "Não há divergência entre Figma e código registrada para este componente." } });
+    if (feitos.length){
+      blocks.push({ h3: "Resolvidos" }, { table: { head: ["#", "O que foi", "Resolvido em"], rows: feitos.map(function(x){
+        var c = x.cols.map(limpar); return x.tipo === "Resolvidos" ? c : [c[0], c[1] + " · " + c[2], "Marcado como resolvido"]; }), wrap: true } });
+    }
+    // quem abriu por link não abre o Relatório
+    if (!noLink) blocks.push({ p: "Registro completo, com os itens gerais da lib, em [Pendências do Relatório](#/relatorio/conferir)." });
+    return { id: "debitos", title: "Débitos", blocks: blocks, noSource: true };
+  }
+
+  CDS.debitos = {
+    // a tab do componente, ou null (sem acesso ou dados ainda chegando: CDS.debitosProntos avisa quando chegam)
+    tab: function(id){
+      if (CDS.acessoLink){
+        if (!previa && doLink.indexOf(id) < 0) return null;
+        if (doArquivo[id]) return montar(doArquivo[id], true);
+        if (!pedidos[id]){
+          pedidos[id] = true;
+          fetch("docs/debitos/" + id + ".json", { cache: "no-cache" }).then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); })
+            .then(function(lista){ doArquivo[id] = lista; if (CDS.debitosProntos) CDS.debitosProntos(); }).catch(function(){});
         }
-        blocks.push({ p: "Registro completo, com os itens gerais da lib, em [Pendências do Relatório](#/relatorio/conferir)." });
-        return { id: "debitos", title: "Débitos", blocks: blocks, noSource: true };
+        return null;
       }
-    };
+      return porId ? montar(porId[id] || [], false) : null;
+    }
+  };
+  if (leRegistro) fetch("docs/CONFERIR.md", { cache: "no-cache" }).then(function(r){ if (!r.ok) throw new Error(r.status); return r.text(); }).then(function(md){
+    porId = porComponente(md, (CDS.playgrounds || []).filter(function(c){ return !c.resource; }).map(function(c){ return [c.name, c.id]; }));
     if (CDS.debitosProntos) CDS.debitosProntos();
-  }).catch(function(){}); // sem o arquivo (perfil sem acesso, rede): o componente abre sem a tab
+  }).catch(function(){}); // sem o arquivo (rede): o componente abre sem a tab
 })();

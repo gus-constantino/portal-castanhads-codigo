@@ -1,0 +1,1 @@
+[{"tipo":"Ajuste de UI","head":["#","Componente","No Figma hoje","Esperado / dúvida","No código","Quando corrigir no Figma"],"cols":["C19","Botões · Disabled","Main/Drop/Filter usam `Opacity/light` (0.32); Icon Button usa `Opacity/medium` (0.4)","Um valor só","Segue o Figma","Trocar o token no componente que mudar"],"resolvido":false}]

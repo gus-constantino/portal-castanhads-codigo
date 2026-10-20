@@ -13187,6 +13187,7 @@ try {
    · Flutter: CDS.flutter e CDS.flutterMaps (castanha_flutter, mapas de integration/flutter-map/)
    Escolha: Async Select Input, sem building blocks até ligar o Switch Mostrar building blocks (D370). Seções: Table do DS (sem seleção, sem ordenação), uma por stack.
    A escolha fica na URL (#/comparar?c=a,b,c) para compartilhar a comparação. D368
+   Instância viva no topo de cada coluna (D371): <cmp-thumbnail>, a mesma composição da prévia do menu.
    Débitos (D370): embaixo de cada componente, os itens do docs/CONFERIR.md ligados a ele, pelo CDS.debitos
    (scripts/debitos.js, D367). Só para quem lê o registro (perfil Completo e servidor local), como a tab Débitos. */
 (function(){
@@ -13427,6 +13428,8 @@ try {
       cards.forEach(function(box, i){
         box.innerHTML = ""; var p = ps[i];
         if (!p){ box.appendChild(txt("p", "pg-cmp__vazio", "Escolha um componente para comparar.")); return; }
+        // instância viva: o playground do componente reduzido para caber (composição <cmp-thumbnail>, a mesma da prévia do menu)
+        if (p.mount) box.appendChild(c("cmp-thumbnail", { component: p.id, "min-scale": "0.5" }, "pg-cmp__thumb"));
         box.appendChild(txt("p", "pg-cmp__nome", p.name));
         box.appendChild(txt("p", "pg-cmp__meta", tipo(p) + (p.category && !p.block ? " · " + p.category : "")));
         var dl = debitosDe(p);

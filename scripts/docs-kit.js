@@ -979,7 +979,7 @@
       var k = Object.keys(b)[0];
       if (BLOCKS[k]) page.appendChild(BLOCKS[k](doc, b[k]));
     });
-    if (doc.source){
+    if (doc.source && !tab.noSource){ // noSource: tab que não vem da doc do Figma (ex.: Débitos, scripts/debitos.js)
       var src = el("p", "pg-doc-source");
       src.appendChild(document.createTextNode("Fonte: "));
       var a = document.createElement("cds-link"); // Link do DS (abre o Figma em outra aba)

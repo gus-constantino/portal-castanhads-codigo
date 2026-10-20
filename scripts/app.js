@@ -786,7 +786,9 @@
     // A seção pedida pela busca no conteúdo (pendingSection) continua levando até o trecho (revealSection).
     var pageChanged = id !== mountedId, tabChanged = !pageChanged && currentTab() !== lastTab, toSection = !!pendingSection;
     // remonta ao trocar de componente ou quando a query chega de fora (link colado); a que o próprio app escreve não remonta
+    var novaTab = debitos(id); // tab Débitos (scripts/debitos.js) antes de montar as tabs
     if (id !== mountedId || (q && q !== writtenQs)){ mount(); mountedId = id; }
+    else if (novaTab) buildTabs(id);
     setCrumbs(crumbs(currentDef())); // também ao voltar do relatório
     applyTab();
     lastTab = currentTab();
@@ -797,6 +799,20 @@
     // De volta à tab Playground (a troca de tab escreve o hash sem a query): o estado continua no painel, então volta à URL
     if (currentTab() === "playground" && writtenQs && !q) history.replaceState(null, "", "#/" + id + "?" + writtenQs);
   }
+  // ---------- Tab Débitos (scripts/debitos.js) ----------
+  // Os itens do CONFERIR.md ligados ao componente, por último entre as tabs. Só para quem lê os dados do Relatório
+  // (perfil Completo e servidor local) e fora dos links de entrega e de página. O arquivo chega depois do primeiro
+  // desenho: debitosProntos acrescenta a tab na página aberta. Devolve true quando a tab entrou agora.
+  function debitos(id){
+    var doc = CDS.docs && CDS.docs[id], def = list.filter(function(c){ return c.id === id; })[0];
+    if (!CDS.debitos || !doc || !def || def.resource || CDS.entrega || CDS.acessoLink) return false;
+    var tab = CDS.debitos.tab(id), i = doc.tabs.map(function(t){ return t.id; }).indexOf("debitos");
+    if (i >= 0){ doc.tabs[i] = tab; return false; }
+    doc.tabs.push(tab); return true;
+  }
+  CDS.debitosProntos = function(){
+    if (!shell.hidden && mountedId && debitos(mountedId)){ buildTabs(mountedId); applyTab(); }
+  };
   function mount(){
     var def = list.filter(function(c){ return c.id === currentId(); })[0];
     buildTabs(def.id);

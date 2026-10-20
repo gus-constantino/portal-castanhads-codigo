@@ -4,8 +4,10 @@
    · Figma: playgrounds (página e tipo), CDS.figmaStatus (publicação) e integration/figma-props.tsv (props lidas via MCP)
    · React: CDS.react (castanha-react, manifesto e mapas de integration/prop-map/), checks do stack-check
    · Flutter: CDS.flutter e CDS.flutterMaps (castanha_flutter, mapas de integration/flutter-map/)
-   Escolha: Async Select Input. Seções: Table do DS (sem seleção, sem ordenação), uma por stack.
-   A escolha fica na URL (#/comparar?c=a,b,c) para compartilhar a comparação. D368 */
+   Escolha: Async Select Input, sem building blocks até ligar o Switch Mostrar building blocks (D370). Seções: Table do DS (sem seleção, sem ordenação), uma por stack.
+   A escolha fica na URL (#/comparar?c=a,b,c) para compartilhar a comparação. D368
+   Débitos (D370): embaixo de cada componente, os itens do docs/CONFERIR.md ligados a ele, pelo CDS.debitos
+   (scripts/debitos.js, D367). Só para quem lê o registro (perfil Completo e servidor local), como a tab Débitos. */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   CDS.register({ id: "comparar", name: "Comparar componentes", resource: true, lede: "Até 3 componentes lado a lado no Figma, no React e no Flutter.", order: 7 });
@@ -140,6 +142,33 @@
     ].map(function(r){ return { item: r[0], cel: ps.map(function(p){ return p ? r[1](p) : vazio(); }) }; });
   }
 
+  // ---------- débitos (CONFERIR.md, via CDS.debitos) ----------
+  var MAX_DEB = 6;
+  var TRATO = { seg: "Segue o Figma", exc: "Exceção aprovada", deb: "Débito no Figma" };
+  function curto(t, n){ t = String(t || "").replace(/\s+/g, " ").trim(); return t.length > n ? t.slice(0, n - 1).replace(/[\s,.·:]+\S*$/, "") + "…" : t; }
+  function debitosLeitura(){ return CDS.debitos && CDS.debitos.disponivel; }
+  function debitosDe(p){ return debitosLeitura() ? CDS.debitos.itens(p.id) : null; }
+  function abertos(l){ return l.filter(function(x){ return !x.resolvido; }).sort(function(a, b){ var o = CDS.debitos.tipos || []; return o.indexOf(a.tipo) - o.indexOf(b.tipo); }); } // mesma ordem da tab Débitos
+  function colunaDebitos(p){
+    var col = c("div", null, "pg-cmp__deb-col");
+    if (!p) return col;
+    var l = debitosDe(p);
+    if (!l){ col.appendChild(c("cds-skeleton", { kind: "square" }, "pg-cmp__deb-load")); return col; }
+    var ab = abertos(l), feitos = l.length - ab.length;
+    col.appendChild(txt("p", "pg-cmp__nome", p.name));
+    col.appendChild(txt("p", "pg-cmp__meta", (ab.length ? plural(ab.length, "em aberto", "em aberto") : "Nenhum em aberto") + (feitos ? " · " + plural(feitos, "resolvido", "resolvidos") : "")));
+    if (ab.length){
+      var lista = col.appendChild(c("cds-content-list", { intent: "navigation", label: "Débitos em aberto de " + p.name }));
+      ab.slice(0, MAX_DEB).forEach(function(x){
+        // título com o código, o tipo e como o código tratou; descrição curta com o que está no Figma hoje (o resto fica na tab)
+        lista.appendChild(c("cds-content-list-item", { intent: "navigation", href: "#/" + p.id + "/debitos", "show-lead-item": "false", "show-tag": "false",
+          label: x.cols[0] + " · " + x.tipo, description: (x.tipo === "Integração React" ? "" : TRATO[x.trato] + ": ") + curto(semCrase(x.cols[2] || x.cols[1] || ""), 72) }));
+      });
+    } else col.appendChild(txt("p", "pg-cmp__vazio", "Nenhuma divergência entre Figma e código registrada."));
+    if (l.length) col.appendChild(c("cds-link", { label: ab.length > MAX_DEB ? "Ver os " + ab.length + " na tab Débitos" : "Abrir a tab Débitos", href: "#/" + p.id + "/debitos", appearance: "accent" }));
+    return col;
+  }
+
   // ---------- tela ----------
   function escolhaDaUrl(){
     var q = (location.hash.split("?")[1] || "").match(/(?:^|&)c=([^&]*)/), ids = q ? decodeURIComponent(q[1]).split(",") : PADRAO;
@@ -147,7 +176,7 @@
     return out;
   }
   function gravarUrl(ids){
-    var base = location.hash.split("?")[0] || "#/comparar", v = ids.filter(Boolean).join(",");
+    var base = location.hash.split("?")[0] || "#/comparar", v = ids.join(",").replace(/,+$/, ""); // vírgula vazia guarda a posição do campo sem escolha
     try { history.replaceState(null, "", base + (v ? "?c=" + encodeURIComponent(v).replace(/%2C/g, ",") : "")); } catch (e) {}
   }
   function links(p){
@@ -176,21 +205,40 @@
   function montar(){
     var wrap = c("div", null, "pg-cmp");
     var ids = escolhaDaUrl();
-    var opcoes = lista().map(function(p){ return { value: p.id, label: p.name + (p.block ? " · Building block" : p.template ? " · Template" : "") }; })
-      .sort(function(a, b){ return a.label.localeCompare(b.label, "pt-BR"); });
+    // Building blocks ficam fora da busca por padrão (Switch desligado); um link que já traz um deles liga o Switch
+    var comBlocos = ids.some(function(id){ var p = id && porId(id); return p && p.block; });
+    function opcoes(){
+      return lista().filter(function(p){ return comBlocos || !p.block; })
+        .map(function(p){ return { value: p.id, label: p.name + (p.block ? " · Building block" : p.template ? " · Template" : "") }; })
+        .sort(function(a, b){ return a.label.localeCompare(b.label, "pt-BR"); });
+    }
 
     // a busca fica alinhada às colunas das tabelas: a 1ª coluna (200, a mesma das tabelas) explica a escolha
     var slots = wrap.appendChild(c("div", null, "pg-cmp__slots"));
-    slots.appendChild(txt("p", "pg-cmp__lede", "Escolha até 3 componentes. Troque um deles a qualquer momento."));
-    var cards = [];
+    var intro = slots.appendChild(c("div", null, "pg-cmp__intro"));
+    intro.appendChild(txt("p", "pg-cmp__lede", "Escolha até 3 componentes. Troque um deles a qualquer momento."));
+    var sw = intro.appendChild(c("cds-switch", { label: "Mostrar building blocks", status: comBlocos ? "selected" : "unselected" }));
+    var sels = [], cards = [];
     for (var i = 0; i < N; i++){ (function(i){
       var col = slots.appendChild(c("div", null, "pg-cmp__slot"));
       var sel = col.appendChild(c("cds-async-select-input", { label: "Componente " + (i + 1), placeholder: "Buscar componente", "show-lead-icon": "true", "lead-icon": "search-line", "show-supporting-content": "false", "show-required": "false", "empty-text": "Nenhum componente com esse nome" }));
-      sel.options = opcoes;
+      sel.options = opcoes();
       if (ids[i]) sel.value = ids[i];
       sel.addEventListener("cds-change", function(e){ ids[i] = e.detail.value || ""; gravarUrl(ids); desenhar(); });
+      sels.push(sel);
       cards.push(col.appendChild(c("div", null, "pg-cmp__info")));
     })(i); }
+    // desligar tira da comparação os building blocks já escolhidos
+    sw.addEventListener("cds-change", function(e){
+      comBlocos = e.detail.status === "selected";
+      var o = opcoes();
+      sels.forEach(function(sel, i){
+        var p = ids[i] && porId(ids[i]);
+        if (!comBlocos && p && p.block){ ids[i] = ""; sel.value = ""; }
+        sel.options = o;
+      });
+      gravarUrl(ids); desenhar();
+    });
 
     var corpo = wrap.appendChild(c("div", null, "pg-cmp__body"));
     function desenhar(){
@@ -200,6 +248,8 @@
         if (!p){ box.appendChild(txt("p", "pg-cmp__vazio", "Escolha um componente para comparar.")); return; }
         box.appendChild(txt("p", "pg-cmp__nome", p.name));
         box.appendChild(txt("p", "pg-cmp__meta", tipo(p) + (p.category && !p.block ? " · " + p.category : "")));
+        var dl = debitosDe(p);
+        if (dl) box.appendChild(txt("p", "pg-cmp__meta", abertos(dl).length ? plural(abertos(dl).length, "débito em aberto", "débitos em aberto") : "Nenhum débito em aberto"));
         var ul = box.appendChild(c("ul", null, "pg-cmp__links"));
         links(p).forEach(function(l){
           var li = ul.appendChild(c("li"));
@@ -216,7 +266,14 @@
       corpo.appendChild(tabela("React: componente, props e divergências", "React", ps, reactLinhas(ps)));
       secao(corpo, "flutter-fill", "Flutter", "Par no castanha_flutter (" + (CDS.flutter ? CDS.flutter.source.ref + ", " + CDS.flutter.source.date.split("-").reverse().join("/") : "sem leitura") + "), pelos mapas de tradução do portal.");
       corpo.appendChild(tabela("Flutter: widget, parâmetros e divergências", "Flutter", ps, flutterLinhas(ps)));
+      if (debitosLeitura()){
+        secao(corpo, "warning-line", "Débitos", "Os itens do registro de divergências entre Figma e código ligados a cada componente, em aberto primeiro e por tipo de ajuste.");
+        var grade = corpo.appendChild(c("div", null, "pg-cmp__slots"));
+        grade.appendChild(txt("p", "pg-cmp__lede", "Cada item abre a tab Débitos do componente, com o que está no Figma, o esperado e como o código tratou."));
+        ps.forEach(function(p){ grade.appendChild(colunaDebitos(p)); });
+      }
     }
+    document.addEventListener("cds-debitos", function(){ if (wrap.isConnected) desenhar(); });
     desenhar();
     lerProps().then(desenhar);
     return wrap;
@@ -227,7 +284,7 @@
       { id: "comparar", title: "Comparar", blocks: [
         { p: "Escolha até 3 componentes e compare, lado a lado, como cada um está no Figma, no castanha-react e no castanha_flutter. Os dados são os mesmos das páginas dos componentes e dos checks diários da stack." },
         { visual: { render: montar, bare: true } },
-        { note: "Props que chegam conta quantas props do Figma o mapa de tradução do portal leva ao código. Divergências vêm do check da stack: alta quebra a tradução, média muda o resultado sem quebrar e informativa é uma prop do Figma que não chega ao código. O link desta página guarda a comparação: copie a URL para compartilhar." }
+        { note: "Os débitos aparecem para quem tem acesso ao registro completo de divergências (perfil Completo). Props que chegam conta quantas props do Figma o mapa de tradução do portal leva ao código. Divergências vêm do check da stack: alta quebra a tradução, média muda o resultado sem quebrar e informativa é uma prop do Figma que não chega ao código. O link desta página guarda a comparação: copie a URL para compartilhar." }
       ] }
     ]
   };

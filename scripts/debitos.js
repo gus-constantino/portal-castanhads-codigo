@@ -13,6 +13,8 @@
  * tests/debitos.test.js reprova o Smoke quando um item em aberto não casa com nenhum dos dois.
  *
  * No navegador: CDS.debitos.tab(id) devolve a tab (ou null enquanto os dados não chegam), e CDS.debitosProntos() avisa o app.
+ *   CDS.debitos.itens(id) devolve a lista crua [{ tipo, head, cols, resolvido, trato }] (ou null) para outras páginas
+ *   (Comparar componentes, D370), e o evento "cds-debitos" no document avisa quando os dados chegam.
  * No Node: module.exports = { parse, ligar, geral, porComponente } para o build e o teste.
  */
 (function(){
@@ -157,10 +159,17 @@
         return null;
       }
       return porId ? montar(porId[id] || [], false) : null;
+    },
+    // quem lê o registro inteiro (perfil Completo e servidor local); fora do link de componente
+    disponivel: leRegistro,
+    tipos: TIPOS, // ordem das seções, a mesma da tab
+    itens: function(id){
+      return porId && !CDS.acessoLink ? (porId[id] || []).map(function(x){ return { tipo: x.tipo, head: x.head, cols: x.cols.map(limpar), resolvido: x.resolvido, trato: trato(x.cols) }; }) : null;
     }
   };
   if (leRegistro) fetch("docs/CONFERIR.md", { cache: "no-cache" }).then(function(r){ if (!r.ok) throw new Error(r.status); return r.text(); }).then(function(md){
     porId = porComponente(md, (CDS.playgrounds || []).filter(function(c){ return !c.resource; }).map(function(c){ return [c.name, c.id]; }));
     if (CDS.debitosProntos) CDS.debitosProntos();
+    document.dispatchEvent(new CustomEvent("cds-debitos"));
   }).catch(function(){}); // sem o arquivo (rede): o componente abre sem a tab
 })();

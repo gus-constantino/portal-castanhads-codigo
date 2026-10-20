@@ -17,7 +17,8 @@
  */
 (function(){
   "use strict";
-  var TIPOS = ["Ajuste de texto", "Ajuste de UI", "Motion", "Refactor", "Naming", "Acessibilidade", "Documentação", "Integração React"];
+  // ordem das seções na tab (20/10: Acessibilidade, Ajuste de UI, Motion, Ajuste de texto; os outros tipos depois)
+  var TIPOS = ["Acessibilidade", "Ajuste de UI", "Motion", "Ajuste de texto", "Refactor", "Naming", "Documentação", "Integração React"];
   var TEXT_FIELDS = ["async-creatable-select-input", "async-select-input", "chat-input", "checkbox-select-input", "code-input-otp", "credit-card-input",
     "multi-select-input", "password-input", "quantity-input", "radio-select-input", "search-input", "text-area", "text-input"];
   var SELECTS = ["async-creatable-select-input", "async-select-input", "checkbox-select-input", "multi-select-input", "radio-select-input"];

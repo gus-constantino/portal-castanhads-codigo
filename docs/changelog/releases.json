@@ -1,9 +1,51 @@
 {
  "fonte": "Slack #castanha-novidades (C09F7GD1A6M)",
- "lido_ate": "2026-10-16",
- "atualizado_em": "2026-10-16",
+ "lido_ate": "2026-10-20",
+ "atualizado_em": "2026-10-20",
  "nota": "lido_ate = último dia em que o canal foi lido por completo. A rotina lê a partir desse dia (inclusive); releases repetidas (mesma data, área e título) são ignoradas.",
  "releases": [
+  {
+   "data": "2026-10-16",
+   "area": "Ilustrações",
+   "titulo": "Biblioteca de Ilustrações: novas ilustrações e hotfix",
+   "versao": "v1.6.0",
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`hub-beneficios/feedback`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`objetos/arvore-natal`"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Hotfix em `dispositivos/celular-cartao-aproximacao`, `dispositivos/celular-cartao-virtual-wallet-1`, `dispositivos/celular-cartao-virtual-1`, `dispositivos/celular-cartao-virtual-2`, `dispositivos/cartao-voucher` e `dispositivos/cartoes-fisico-voucher`"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Hotfix em `financas/cartao-virtual-minimalista`, `financas/cartao-voucher-minimalista`, `financas/cartoes-fisico-virtual`, `financas/cartao-virtual-wallet-1` e `financas/cartao-virtual-wallet-2`"
+    }
+   ],
+   "link": "https://www.figma.com/design/9l54k2iyKGMaiIbsGGmEiM/-Caju--Illustrations?m=auto&node-id=0-1"
+  },
+  {
+   "data": "2026-10-16",
+   "area": "Documentação",
+   "titulo": "Tom e Voz: release sazonal",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "Limites de caracteres por componente: quanto texto cabe em componentes de interface, push, notificação in-app e e-mail transacional, regras gerais de texto e dados de tamanho fixo"
+    },
+    {
+     "tipo": "novo",
+     "texto": "Como comunicar incidentes: matriz de gravidade (P1, P2 e P3), os 4 blocos da mensagem, tom com exemplos e modelos de modal, feedback page, bottom sheet e banner"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/12a3e3-limites-de-caracteres-por-componente"
+  },
   {
    "data": "2026-10-15",
    "area": "Ícones",

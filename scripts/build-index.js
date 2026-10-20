@@ -445,6 +445,18 @@ if (process.argv.includes("--smoke")){
       "window.CDS = window.CDS || {}; CDS.alvos = " + JSON.stringify(out) + ";\nCDS.alvosProntos && CDS.alvosProntos(); // modo link (scripts/entrega.js)\n";
     const file = rel("acesso/alvos.js");
     if (!fs.existsSync(file) || fs.readFileSync(file, "utf8") !== js){ fs.writeFileSync(file, js); console.log("Links de página: acesso/alvos.js (" + Object.keys(out).length + " alvos)"); }
+    // Débitos por componente (D369): docs/debitos/<id>.json com os itens do CONFERIR.md só daquele componente.
+    // O link de componente gerado com a opção Débitos abre só o arquivo do próprio componente (middleware.js).
+    const deb = require("./debitos.js").porComponente(fs.readFileSync(rel("docs/CONFERIR.md"), "utf8"), comps.map((c) => [c.name, c.id]));
+    const debDir = rel("docs/debitos");
+    fs.mkdirSync(debDir, { recursive: true });
+    let debN = 0;
+    Object.keys(deb).forEach((id) => {
+      const f = path.join(debDir, id + ".json"), txt = JSON.stringify(deb[id]) + "\n";
+      if (!fs.existsSync(f) || fs.readFileSync(f, "utf8") !== txt){ fs.writeFileSync(f, txt); debN++; }
+    });
+    fs.readdirSync(debDir).filter((f) => !deb[f.replace(/\.json$/, "")]).forEach((f) => { fs.unlinkSync(path.join(debDir, f)); debN++; });
+    if (debN) console.log("Débitos por componente: docs/debitos/ (" + debN + " arquivos)");
     const mw = rel("middleware.js"), src = fs.readFileSync(mw, "utf8");
     const bloco = "// <alvos> gerado por scripts/build-index.js: os arquivos que cada alvo de link de página libera\nconst ALVOS = " + JSON.stringify(arq) + ";\n// </alvos>";
     const novo = /\/\/ <alvos>[\s\S]*?\/\/ <\/alvos>/.test(src) ? src.replace(/\/\/ <alvos>[\s\S]*?\/\/ <\/alvos>/, bloco) : src.replace("// </entregas>", "// </entregas>\n" + bloco);

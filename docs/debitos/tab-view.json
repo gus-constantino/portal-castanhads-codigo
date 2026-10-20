@@ -1,0 +1,1 @@
+[{"tipo":"Ajuste de UI","head":["#","Componente","No Figma hoje","Esperado / dúvida","No código","Quando corrigir no Figma"],"cols":["C49","Tab View · Disabled","Container com `Opacity/medium` (0.4); as outras famílias usam `Opacity/light` (ver C19)","Um valor só","Segue o Figma","Trocar em `tab-view.css`"],"resolvido":false}]

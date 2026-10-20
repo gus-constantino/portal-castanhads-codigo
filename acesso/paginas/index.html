@@ -4,7 +4,9 @@
      (lista em acesso/alvos.js, gerada pelo build-index), com validade de 2, 7, 14, 30 ou outro valor de 1 a 90 dias, por POST /acesso/links.
      Embaixo, os links ativos (de página e de entrega) registrados no banco, com Copiar e Revogar.
      Componentes do DS, do pacote público (dist/cds-publico.*): Card, Radio Select Input, Radio Button Group,
-     Main Button, Link, Text Input, Alert, Toast, Table e Modal. -->
+     Main Button, Link, Text Input, Alert, Toast, Table, Modal e Switch.
+     Componente: o Switch "Levar a tab Débitos" manda debitos: true, e quem recebe vê também a tab Débitos daquele
+     componente (docs/debitos/<id>.json, só os itens dele, D369). -->
 <html lang="pt-BR" data-theme="light">
 <head>
 <meta charset="utf-8" />
@@ -38,6 +40,7 @@
   .lk__toast{ position:fixed; left:50%; bottom:var(--common-sizes-24); transform:translateX(-50%); }
   .lk cds-quantity-input[hidden]{ display:none; }
   .lk__voltar{ align-self:flex-start; }
+  .lk__field[hidden]{ display:none; }
 </style>
 </head>
 <body>
@@ -51,6 +54,11 @@
     <div class="lk__pair">
       <cds-radio-select-input id="lk-tipo" label="Tipo" show-required="false" show-supporting-content="false" show-lead-icon="false"></cds-radio-select-input>
       <cds-radio-select-input id="lk-alvo" label="Item" show-required="false" placeholder="Escolha o item" show-supporting-content="false" show-lead-icon="false"></cds-radio-select-input>
+    </div>
+    <!-- só para Componente: a tab Débitos vai junto (Switch do DS) -->
+    <div class="lk__field" id="lk-deb-field" hidden>
+      <cds-switch id="lk-deb" label="Levar a tab Débitos" show-text-label="true" status="unselected"></cds-switch>
+      <p class="lk__lede">Quem recebe vê os itens do Conferir registrados para este componente, na versão do último deploy. Os outros componentes e o Relatório continuam fechados.</p>
     </div>
     <div class="lk__field">
       <p class="lk__label">Validade</p>
@@ -100,7 +108,14 @@
       .sort(function(a, b){ return a.label.localeCompare(b.label, "pt-BR"); });
   }
   function atual(el){ return el.value || el.getAttribute("value") || ""; } // a escolha atual fica na propriedade value
-  function verLink(){ var k = atual(alvo); ver.hidden = !ALVOS[k]; if (ALVOS[k]) ver.setAttribute("href", "/?alvo=" + encodeURIComponent(k) + "#/"); }
+  var deb = document.getElementById("lk-deb"), debField = document.getElementById("lk-deb-field");
+  function comDebitos(){ return atual(tipo) === "componente" && deb.getAttribute("status") === "selected"; }
+  function verLink(){
+    var k = atual(alvo); ver.hidden = !ALVOS[k];
+    debField.hidden = atual(tipo) !== "componente";
+    // prévia com a tab Débitos: o portal mostra a tab para o perfil Completo com ?debitos=1 (scripts/debitos.js)
+    if (ALVOS[k]) ver.setAttribute("href", "/?alvo=" + encodeURIComponent(k) + (comDebitos() ? "&debitos=1" : "") + "#/" + (comDebitos() ? ALVOS[k].ids[0] + "/debitos" : ""));
+  }
   function trocarTipo(){
     var o = opcoes(atual(tipo));
     alvo.options = o; alvo.value = ""; alvo.removeAttribute("value"); // começa sem item: a pessoa escolhe
@@ -110,6 +125,7 @@
   tipo.setAttribute("value", "componente");
   tipo.addEventListener("cds-change", function(){ setTimeout(trocarTipo, 0); });
   alvo.addEventListener("cds-change", function(){ setTimeout(verLink, 0); });
+  deb.addEventListener("cds-change", function(){ setTimeout(verLink, 0); });
   trocarTipo();
 
   // validade: uma das opções ou, em "Outro", o número digitado (1 a 90)
@@ -146,11 +162,11 @@
     var k = atual(alvo);
     if (!ALVOS[k]){ aviso(out, "warning", "Escolha o item", "O link abre o portal só com ele."); return; }
     busy = true; go.setAttribute("disabled", "");
-    pedir("/acesso/links", { alvo: k, titulo: ALVOS[k].titulo, dias: dias() })
+    pedir("/acesso/links", { alvo: k, titulo: ALVOS[k].titulo, dias: dias(), debitos: comDebitos() })
       .then(function(j){
         out.hidden = false; out.innerHTML = "";
         out.appendChild(CDS.create("cds-alert", { appearance: "positive", label: "Link pronto", "show-close-button": "false",
-          text: ALVOS[k].titulo + " (" + ALVOS[k].tipo + "). Vale até " + data(j.vence) + "." + (j.registrado ? "" : " O registro de links não respondeu, então este link não aparece na lista nem pode ser revogado.") }));
+          text: ALVOS[k].titulo + " (" + ALVOS[k].tipo + (j.debitos ? ", com a tab Débitos" : "") + "). Vale até " + data(j.vence) + "." + (j.registrado ? "" : " O registro de links não respondeu, então este link não aparece na lista nem pode ser revogado.") }));
         var field = out.appendChild(CDS.create("cds-text-input", { label: "Link", value: j.link, "show-required": "false", "show-supporting-content": "false", "show-lead-icon": "false", "show-trailing-item": "false" }));
         var f = field.querySelector("input"); if (f){ f.readOnly = true; f.addEventListener("focus", function(){ f.select(); }); }
         var copy = out.appendChild(CDS.create("cds-main-button", { label: "Copiar link", kind: "ghost", appearance: "neutral", size: "small", "lead-icon": "copy-line", "show-trailing-icon": "false" }));
@@ -185,7 +201,7 @@
       t.columns = [{ key: "titulo", label: "Abre", kind: "text", sortable: false }, { key: "tipo", label: "Tipo", kind: "tag", sortable: false },
         { key: "vence", label: "Vence em", kind: "text", sortable: false }, { key: "acoes", label: "Ações", kind: "actions", sortable: false, width: 120 }];
       t.rows = ativos.map(function(l){
-        return { id: l.id, titulo: { text: l.titulo, description: "", icon: false }, tipo: { label: l.tipo === "entrega" ? "Entrega" : ALVOS[l.alvo] ? ALVOS[l.alvo].tipo : "Página", showLeadItem: false },
+        return { id: l.id, titulo: { text: l.titulo, description: l.debitos ? "Com a tab Débitos" : "", icon: false }, tipo: { label: l.tipo === "entrega" ? "Entrega" : ALVOS[l.alvo] ? ALVOS[l.alvo].tipo : "Página", showLeadItem: false },
           vence: { text: data(l.vence), description: "", icon: false },
           acoes: { actions: (l.link ? [{ icon: "copy-line", label: "Copiar link", action: "copiar" }] : []).concat([{ icon: "unlinked-line", label: "Revogar link", action: "revogar" }]) } };
       });

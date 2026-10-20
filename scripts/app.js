@@ -800,13 +800,14 @@
     if (currentTab() === "playground" && writtenQs && !q) history.replaceState(null, "", "#/" + id + "?" + writtenQs);
   }
   // ---------- Tab Débitos (scripts/debitos.js) ----------
-  // Os itens do CONFERIR.md ligados ao componente, por último entre as tabs. Só para quem lê os dados do Relatório
-  // (perfil Completo e servidor local) e fora dos links de entrega e de página. O arquivo chega depois do primeiro
-  // desenho: debitosProntos acrescenta a tab na página aberta. Devolve true quando a tab entrou agora.
+  // Os itens do CONFERIR.md ligados ao componente, por último entre as tabs. Para quem lê os dados do Relatório
+  // (perfil Completo e servidor local) e no link de componente gerado com a opção Débitos; fora dos links de entrega.
+  // Os dados chegam depois do primeiro desenho: debitosProntos acrescenta a tab na página aberta. Devolve true quando a tab entrou agora.
   function debitos(id){
     var doc = CDS.docs && CDS.docs[id], def = list.filter(function(c){ return c.id === id; })[0];
-    if (!CDS.debitos || !doc || !def || def.resource || CDS.entrega || CDS.acessoLink) return false;
+    if (!CDS.debitos || !doc || !def || def.resource || CDS.entrega) return false;
     var tab = CDS.debitos.tab(id), i = doc.tabs.map(function(t){ return t.id; }).indexOf("debitos");
+    if (!tab) return false;
     if (i >= 0){ doc.tabs[i] = tab; return false; }
     doc.tabs.push(tab); return true;
   }

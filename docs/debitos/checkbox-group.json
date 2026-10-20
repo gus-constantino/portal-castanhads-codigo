@@ -1,0 +1,1 @@
+[{"tipo":"Acessibilidade","head":["#","Componente","No Figma hoje","Esperado / dúvida","No código","Quando corrigir no Figma"],"cols":["C23","Selection Controls e Chips · foco","Foco por teclado não desenhado (padrão global do DS)","Spec do foco global","**Exceção** (sem especificação): outline 2px `Support/system`","Trocar pelo padrão global quando existir"],"resolvido":false}]

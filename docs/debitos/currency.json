@@ -1,0 +1,1 @@
+[{"tipo":"Ajuste de UI","head":["#","Componente","No Figma hoje","Esperado / dúvida","No código","Quando corrigir no Figma"],"cols":["C18","Currency · Largest com valor oculto","\"R$\" em Heading/Small (38px); com valor, Title/Medium (36px)","Mesma altura nos dois","Segue o Figma","Ajustar o text style em `currency.css`"],"resolvido":false}]

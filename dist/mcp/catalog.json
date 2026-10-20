@@ -21346,7 +21346,7 @@
     {
      "id": "comparar",
      "title": "Comparar",
-     "text": "Escolha até 3 componentes e compare, lado a lado, como cada um está no Figma, no castanha-react e no castanha_flutter. Os dados são os mesmos das páginas dos componentes e dos checks diários da stack.\n\n> Props que chegam conta quantas props do Figma o mapa de tradução do portal leva ao código. Divergências vêm do check da stack: alta quebra a tradução, média muda o resultado sem quebrar e informativa é uma prop do Figma que não chega ao código. O link desta página guarda a comparação: copie a URL para compartilhar."
+     "text": "Escolha até 3 componentes e compare, lado a lado, como cada um está no Figma, no castanha-react e no castanha_flutter. Os dados são os mesmos das páginas dos componentes e dos checks diários da stack.\n\n> Os débitos aparecem para quem tem acesso ao registro completo de divergências (perfil Completo). Props que chegam conta quantas props do Figma o mapa de tradução do portal leva ao código. Divergências vêm do check da stack: alta quebra a tradução, média muda o resultado sem quebrar e informativa é uma prop do Figma que não chega ao código. O link desta página guarda a comparação: copie a URL para compartilhar."
     }
    ]
   },

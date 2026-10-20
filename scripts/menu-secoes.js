@@ -11,6 +11,6 @@ CDS.menuSecoes = [
   { id: "aprenda", title: "Aprenda", ids: ["treinamento", "capacitacoes", "castanha-quiz"], tip: "Como o DS funciona e como usar no dia a dia, no Figma e no código.",
     links: [{ name: "Curso na Awtra", href: "https://lms.awtra.com.br/company/caju/app/course/f5e0c07c-7778-489c-81af-91216c8ccdd0",
       confirm: { title: "Abrir o curso na Awtra?", text: "O curso fica na plataforma Awtra, fora deste site, e abre numa nova guia. Entre com a sua conta da Caju para acessar.", action: "Abrir curso" } }] }, // links externos: sem página, abrem em nova guia (com confirm: Modal do DS antes)
-  { id: "ferramentas", title: "Ferramentas", ids: ["personas", "agentes", "mcp"], tip: "Apoio ao projeto: as personas para quem projetamos, assistentes de IA e integrações com o Castanha DS." },
+  { id: "ferramentas", title: "Ferramentas", ids: ["personas", "comparar", "agentes", "mcp"], tip: "Apoio ao projeto: as personas para quem projetamos, a comparação de componentes entre Figma, React e Flutter, assistentes de IA e integrações com o Castanha DS." },
   { id: "ajuda", title: "Ajuda", ids: ["faq", "changelog"], links: [{ name: "Primeiros passos", href: "#/inicio/primeiros-passos", internal: true }], tip: "Perguntas frequentes e o que mudou no DS." }
 ];

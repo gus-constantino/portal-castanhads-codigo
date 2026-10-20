@@ -1,0 +1,21 @@
+/* Comparar componentes (ver comparar.js). Só tokens */
+.pg-cmp{ display:flex; flex-direction:column; gap:var(--common-sizes-32); }
+/* 1ª coluna com a largura da 1ª coluna das tabelas (200) para a busca ficar sobre a coluna de cada componente */
+.pg-cmp__slots{ display:grid; grid-template-columns:var(--common-sizes-200) repeat(3, minmax(0, 1fr)); row-gap:var(--common-sizes-24); }
+/* mesmo recuo do .Data Cell (Sizes/20 dos lados): o texto da busca começa onde começa o texto da coluna */
+.pg-cmp__slots > *{ padding:0 var(--common-sizes-20); box-sizing:border-box; }
+.pg-cmp__lede{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+@media (max-width:900px){ .pg-cmp__slots{ grid-template-columns:minmax(0, 1fr); } .pg-cmp__slots > *{ padding:0; } }
+.pg-cmp__slot{ display:flex; flex-direction:column; gap:var(--common-sizes-16); min-width:0; }
+.pg-cmp__slot > cds-async-select-input{ width:100%; }
+.pg-cmp__info{ display:flex; flex-direction:column; gap:var(--common-sizes-4); min-width:0; }
+.pg-cmp__nome{ margin:0; font:var(--text-style-title-small); color:var(--common-colors-text-intense); }
+.pg-cmp__meta{ margin:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
+.pg-cmp__vazio{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }
+.pg-cmp__links{ list-style:none; margin:var(--common-sizes-8) 0 0; padding:0; display:flex; flex-direction:column; gap:var(--common-sizes-8); }
+.pg-cmp__body{ display:flex; flex-direction:column; gap:var(--common-sizes-16); min-width:0; }
+.pg-cmp__sec{ display:flex; align-items:center; gap:var(--common-sizes-8); margin-top:var(--common-sizes-16); }
+.pg-cmp__sec > .pg-cmp__h{ margin:0; }
+.pg-cmp__body > .pg-doc-p, .pg-cmp__body > .pg-doc-h3{ margin:0; }
+/* colunas de largura igual: o texto longo trunca, como no .Data Cell do Figma; em tela estreita a tabela rola na horizontal */
+.pg-cmp__table .cds-table{ table-layout:fixed; min-width:calc(var(--common-sizes-200) * 4); }

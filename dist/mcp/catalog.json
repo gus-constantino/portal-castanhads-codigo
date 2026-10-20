@@ -28,9 +28,9 @@
  "counts": {
   "components": 89,
   "buildingBlocks": 28,
-  "resources": 28,
+  "resources": 29,
   "compositions": 7,
-  "withDocs": 145,
+  "withDocs": 146,
   "withReact": 72,
   "withFlutter": 45,
   "liveMaps": 70,
@@ -21331,6 +21331,22 @@
      "id": "releases",
      "title": "Releases",
      "text": "## Changelog\n\nO que saiu em cada release do Castanha, da mais recente para a mais antiga: componentes React e Flutter, biblioteca do Figma, ilustrações, ícones, tokens e documentação. Busque por um componente, asset ou versão, ou filtre por área.\n\n> Fonte: anúncios do canal #castanha-novidades no Slack, lidos até 20/10/2026 (atualização automática nos dias úteis). Ilustrações têm duas numerações: a Biblioteca do Figma e o pacote castanha-illustrations. Links do Storybook e do Widgetbook ficam de fora (exigem VPN)."
+    }
+   ]
+  },
+  {
+   "id": "comparar",
+   "name": "Comparar componentes",
+   "kind": "resource",
+   "category": null,
+   "figma": null,
+   "figmaNode": null,
+   "zeroheight": null,
+   "tabs": [
+    {
+     "id": "comparar",
+     "title": "Comparar",
+     "text": "Escolha até 3 componentes e compare, lado a lado, como cada um está no Figma, no castanha-react e no castanha_flutter. Os dados são os mesmos das páginas dos componentes e dos checks diários da stack.\n\n> Props que chegam conta quantas props do Figma o mapa de tradução do portal leva ao código. Divergências vêm do check da stack: alta quebra a tradução, média muda o resultado sem quebrar e informativa é uma prop do Figma que não chega ao código. O link desta página guarda a comparação: copie a URL para compartilhar."
     }
    ]
   },

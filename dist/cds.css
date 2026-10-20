@@ -2697,6 +2697,7 @@ loc-vazio[size="small"] .loc-vazio__pilha{ height:var(--common-sizes-40); margin
 .pg-cmp__slot{ display:flex; flex-direction:column; gap:var(--common-sizes-16); min-width:0; }
 .pg-cmp__slot > cds-async-select-input{ width:100%; }
 .pg-cmp__info{ display:flex; flex-direction:column; gap:var(--common-sizes-4); min-width:0; }
+.pg-cmp__thumb{ height:var(--common-sizes-160); margin-bottom:var(--common-sizes-12); border-radius:var(--common-border-radius-medium); background:var(--common-colors-surface-01); }
 .pg-cmp__nome{ margin:0; font:var(--text-style-title-small); color:var(--common-colors-text-intense); }
 .pg-cmp__meta{ margin:0; font:var(--text-style-caption-regular); color:var(--common-colors-text-medium); }
 .pg-cmp__vazio{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }

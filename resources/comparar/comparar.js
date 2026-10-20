@@ -1,11 +1,12 @@
 /* Comparar componentes (Ferramentas): até 3 componentes lado a lado, com seções Figma (Design), React e Flutter
-   (pedido do Gustavo, 20/10, a partir das fichas de comparação de celulares: 3 colunas escolhidas na busca e linhas em seções).
+   (pedido do time, 20/10, a partir das fichas de comparação de celulares: 3 colunas escolhidas na busca e linhas em seções).
    Nada de dado novo: tudo vem do que o portal já lê.
    · Figma: playgrounds (página e tipo), CDS.figmaStatus (publicação) e integration/figma-props.tsv (props lidas via MCP)
    · React: CDS.react (castanha-react, manifesto e mapas de integration/prop-map/), checks do stack-check
    · Flutter: CDS.flutter e CDS.flutterMaps (castanha_flutter, mapas de integration/flutter-map/)
    Escolha: Async Select Input, sem building blocks até ligar o Switch Mostrar building blocks (D370). Seções: Table do DS (sem seleção, sem ordenação), uma por stack.
    A escolha fica na URL (#/comparar?c=a,b,c) para compartilhar a comparação. D368
+   Instância viva no topo de cada coluna (D371): <cmp-thumbnail>, a mesma composição da prévia do menu.
    Débitos (D370): embaixo de cada componente, os itens do docs/CONFERIR.md ligados a ele, pelo CDS.debitos
    (scripts/debitos.js, D367). Só para quem lê o registro (perfil Completo e servidor local), como a tab Débitos. */
 (function(){
@@ -246,6 +247,8 @@
       cards.forEach(function(box, i){
         box.innerHTML = ""; var p = ps[i];
         if (!p){ box.appendChild(txt("p", "pg-cmp__vazio", "Escolha um componente para comparar.")); return; }
+        // instância viva: o playground do componente reduzido para caber (composição <cmp-thumbnail>, a mesma da prévia do menu)
+        if (p.mount) box.appendChild(c("cmp-thumbnail", { component: p.id, "min-scale": "0.5" }, "pg-cmp__thumb"));
         box.appendChild(txt("p", "pg-cmp__nome", p.name));
         box.appendChild(txt("p", "pg-cmp__meta", tipo(p) + (p.category && !p.block ? " · " + p.category : "")));
         var dl = debitosDe(p);

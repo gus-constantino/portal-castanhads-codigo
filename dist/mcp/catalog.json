@@ -39,7 +39,7 @@
   "icons": 273,
   "illustrations": 260,
   "conferirOpen": 147,
-  "stackFindings": 55
+  "stackFindings": 47
  },
  "components": [
   {
@@ -50,7 +50,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/R7GDqtUKeNZZUg45M1llyr/-CastanhaDS--Components?node-id=24841-33746",
    "figmaNode": "24841-33746",
    "zeroheight": null,
-   "figmaStatus": "branch",
+   "figmaStatus": "unpublished",
    "description": "O Accordion agrupa vários Accordion Items em uma lista de seções expansíveis, que a pessoa abre sob demanda.",
    "tabs": [
     {
@@ -94,7 +94,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/R7GDqtUKeNZZUg45M1llyr/-CastanhaDS--Components?node-id=24673-26248",
    "figmaNode": "24673-26248",
    "zeroheight": null,
-   "figmaStatus": "branch",
+   "figmaStatus": "unpublished",
    "description": "Item de um accordion: um header com título que revela conteúdo adicional (no Slot) ao ser expandido.",
    "tabs": [
     {
@@ -397,7 +397,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=11018-5694",
    "figmaNode": "11018-5694",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "Como o Async e, quando o texto digitado não existe nas opções, oferece \"Adicionar “…”\" para criar a opção. Faz parte da família Select Input.",
    "tabs": [
     {
@@ -825,7 +825,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=11030-7644",
    "figmaNode": "11030-7644",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "O Select input permite que a pessoa usuária escolha uma ou mais opções a partir de uma lista pré-definida.",
    "tabs": [
     {
@@ -2064,7 +2064,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=20051-15726",
    "figmaNode": "20051-15726",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "O Banner destaca conteúdo promocional ou informação relevante em uma área própria da tela. Reúne título, descrição e indicação de ação em um bloco clicável por inteiro, com fundo de cor livre ou imagem de fundo. Serve para atrair a pessoa usuária sem interromper o que ela está fazendo.",
    "tabs": [
     {
@@ -2432,7 +2432,8 @@
      "title": "Motion",
      "text": "## Motion\n\n> **Especificação pendente:** A documentação de motion para devs ainda não tem página do Big Number. Até sair, vale o Hover In/01.\n\nExemplo: Saldo disponível\n\n> Exemplo interativo: passe o mouse no card para ver a troca do fundo.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`"
     }
-   ]
+   ],
+   "react": null
   },
   {
    "id": "bottom-sheet",
@@ -2442,7 +2443,7 @@
    "figma": null,
    "figmaNode": null,
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "Camada que surge da base da tela para apresentar conteúdo ou ações complementares sem tirar a pessoa do contexto. A tela de fundo continua visível.",
    "tabs": [
     {
@@ -3649,7 +3650,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4123-2560",
    "figmaNode": "4123-2560",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "O checkbox é Componente interativo usado para selecionar ou desmarcar opções. Pode ser preenchido com um checkmark (✔) caso seja selecionado, ou por um traço (—) quando indeterminado. Utilizado em formulários e filtros, permitindo múltiplas seleções.",
    "tabs": [
     {
@@ -3911,7 +3912,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=11143-4833",
    "figmaNode": "11143-4833",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "Vários valores sem busca: a lista fica aberta enquanto marca, e o campo mostra quantos foram selecionados. Faz parte da família Select Input.",
    "tabs": [
     {
@@ -4664,7 +4665,7 @@
    "figmaNode": "24060-7228",
    "zeroheight": "https://zeroheight.com/858426090/v/latest/p/1166c7",
    "jira": "CDS-1608",
-   "figmaStatus": "branch",
+   "figmaStatus": "unpublished",
    "description": "Campo de código de verificação (OTP/PIN): uma fileira de células de um caractere, preenchidas uma a uma, para inserir um código curto recebido por SMS, e-mail ou app autenticador.",
    "tabs": [
     {
@@ -4872,7 +4873,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=5488-1482",
    "figmaNode": "5488-1482",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "O Content List é um componente que agrupa e organiza múltiplos Content List Items em uma estrutura única e consistente. Ele funciona como um container, permitindo que diferentes tipos de conteúdo sejam exibidos de forma clara e hierárquica. Pode conter itens informativos, de navegação ou de transações financeiras, adaptando-se a diferentes contextos de uso.",
    "tabs": [
     {
@@ -5645,7 +5646,7 @@
    "figmaNode": "24614-7155",
    "zeroheight": "https://zeroheight.com/858426090/v/latest/p/933a06-credit-card-input",
    "jira": "CDS-1607",
-   "figmaStatus": "branch",
+   "figmaStatus": "unpublished",
    "description": "Campo para inserir o número de um cartão de crédito.",
    "tabs": [
     {
@@ -6231,7 +6232,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=17962-70687",
    "figmaNode": "17962-70687",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "Campo de data da família Text Fields: digitar com máscara dd/mm/aaaa ou escolher no calendário.",
    "tabs": [
     {
@@ -6622,7 +6623,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=17629-24427",
    "figmaNode": "17629-24427",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "Calendário para escolher uma data ou um intervalo de datas, com navegação por mês e ano.",
    "tabs": [
     {
@@ -7147,6 +7148,11 @@
       "level": "info",
       "kind": "nao-chega-ao-react",
       "text": "Não chega ao React pelo Code Connect: `Kind`."
+     },
+     {
+      "level": "info",
+      "kind": "bridge-prop",
+      "text": "O castanha-ai traduz `Kind=Dashed` para `kind`; o mapa do playground não gera essa prop."
      }
     ],
     "notes": []
@@ -7603,7 +7609,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=15386-7230",
    "figmaNode": "15386-7230",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "O Dropzone é a área delimitada onde a pessoa usuária adiciona arquivos, pelo botão de seleção ou arrastando o arquivo para dentro dela. A área informa os formatos e limites aceitos antes do envio. O acompanhamento de cada arquivo enviado fica no Upload Item.",
    "tabs": [
     {
@@ -10144,7 +10150,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4926-213",
    "figmaNode": "4926-213",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "O Link é um elemento interativo que direciona o usuário para outro destino, como páginas internas, externas, seções específicas ou downloads.",
    "tabs": [
     {
@@ -10288,13 +10294,7 @@
       "note": "Destino do link."
      }
     ],
-    "checks": [
-     {
-      "level": "info",
-      "kind": "bridge-nome-figma",
-      "text": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Link Content, Show Trailing Item, Change Icon, Appearance, State)."
-     }
-    ],
+    "checks": [],
     "notes": []
    },
    "flutter": {
@@ -10471,7 +10471,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4464-427",
    "figmaNode": "4464-427",
    "zeroheight": null,
-   "figmaStatus": "branch-update",
+   "figmaStatus": "changed",
    "description": "Main Button é um componente interativo usado para executar a ações mais importantes em uma tela, formulário ou fluxo.",
    "tabs": [
     {
@@ -10687,13 +10687,7 @@
       "note": "O texto vai como filho."
      }
     ],
-    "checks": [
-     {
-      "level": "info",
-      "kind": "bridge-nome-figma",
-      "text": "O bridge do castanha-ai usa `Show Trailling Icon`, que não existe na lib (props: Text Label, Show Lead Icon, Show Trailing Icon, Lead Icon, Kind, Appearance, State, Size)."
-     }
-    ],
+    "checks": [],
     "notes": []
    },
    "flutter": {
@@ -10866,7 +10860,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=16362-3267",
    "figmaNode": "16362-3267",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "O Modal é um componente de sobreposição que bloqueia a interface base para exibir conteúdos focados, como formulários, informações detalhadas ou confirmações. Ele exige atenção da pessoa usuária antes de retornar ao fluxo principal.",
    "tabs": [
     {
@@ -11067,7 +11061,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=17560-51555",
    "figmaNode": "17560-51555",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "Calendário num Modal, com Cancelar e Confirmar: a data vale depois de confirmada.",
    "tabs": [
     {
@@ -11700,7 +11694,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=19560-3280",
    "figmaNode": "19560-3280",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "O Nav Control é um componente visual utilizado como indicador de navegação, normalmente associado a carrosséis ou fluxos paginados. Ele representa, de forma ilustrativa, a quantidade total de itens e qual deles está em foco no momento.",
    "tabs": [
     {
@@ -12164,7 +12158,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=13408-1416",
    "figmaNode": "13408-1416",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "O Pagination (paginação) permite navegar entre conjuntos de dados distribuídos em várias páginas, otimizando a performance da visualização e facilitando o consumo de grandes volumes de dados.",
    "tabs": [
     {
@@ -12363,7 +12357,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=5798-2677",
    "figmaNode": "5798-2677",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "O Password Input é um campo de entrada específico para senhas.",
    "tabs": [
     {
@@ -13495,7 +13489,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=22756-7351",
    "figmaNode": "22756-7351",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "O Quantity Input é um campo numérico com controles de incremento e decremento.",
    "tabs": [
     {
@@ -13795,7 +13789,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=11143-3056",
    "figmaNode": "11143-3056",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "Escolha única sem busca: o campo abre a lista de opções, com Radio Button. Faz parte da família Select Input.",
    "tabs": [
     {
@@ -14485,7 +14479,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=14880-3404",
    "figmaNode": "14880-3404",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "Campo de busca da família Text Fields: lupa fixa e botão de limpar quando há texto.",
    "tabs": [
     {
@@ -15328,7 +15322,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=5488-1552",
    "figmaNode": "5488-1552",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "O Selection List é um agrupamento de opções organizadas em lista, permitindo que o usuário faça uma ou múltiplas seleções de forma clara e consistente. Ele é formado por instâncias do componente Selection List Item empilhados e separados por divisores visuais, facilitando a leitura e a comparação entre alternativas.",
    "tabs": [
     {
@@ -15604,7 +15598,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=5488-812",
    "figmaNode": "5488-812",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "O Selection List Item é um componente de seleção que combina título, descrição e ícone para enriquecer a apresentação das opções. Ele amplia a clareza das escolhas, indo além de seletores básicos como checkbox, radio ou switch.",
    "tabs": [
     {
@@ -15870,11 +15864,6 @@
       "level": "info",
       "kind": "nao-chega-ao-react",
       "text": "Não chega ao React pelo Code Connect: `Trailing Item`."
-     },
-     {
-      "level": "info",
-      "kind": "bridge-nome-figma",
-      "text": "O bridge do castanha-ai usa `Trailling Item`, que não existe na lib (props: Show Lead Item, Show Divider, Kind, State, Is Active, Trailing Item)."
      }
     ],
     "notes": [
@@ -17341,7 +17330,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4895-809",
    "figmaNode": "4895-809",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "O Switch é um componente que funciona como um interruptor digital, alterando imediatamente o estado de uma configuração entre opções binárias, como sim ou não, e ligado ou desligado, sem necessidade de confirmação.",
    "tabs": [
     {
@@ -17885,7 +17874,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=15713-2488",
    "figmaNode": "15713-2488",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "Alterna a visualização de uma lista entre lista e grade.",
    "tabs": [
     {
@@ -18034,7 +18023,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=13472-5725",
    "figmaNode": "13472-5725",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "O componente de Tabela organiza dados estruturados em colunas e linhas, facilitando a leitura, comparação e análise. É ideal para exibir informações com formato uniforme, como listas, transações ou relatórios.",
    "tabs": [
     {
@@ -19166,7 +19155,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=5743-325",
    "figmaNode": "5743-325",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "O Text Input é um campo de entrada para coleta de informações textuais curtas fornecidas pela pessoa usuária.",
    "tabs": [
     {
@@ -19891,11 +19880,6 @@
       "level": "media",
       "kind": "bridge-componente",
       "text": "O castanha-ai liga o set a `Toast`; o playground (Code Connect), a `useToast`."
-     },
-     {
-      "level": "info",
-      "kind": "bridge-nome-figma",
-      "text": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Text Description, Show Trailing Item, Appearance)."
      }
     ],
     "notes": []
@@ -20322,7 +20306,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=15029-1115",
    "figmaNode": "15029-1115",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "O Upload Item representa um arquivo dentro do fluxo de upload, do envio em curso até o arquivo já armazenado. Ele mostra o nome, a extensão, o estado do envio e as ações disponíveis para aquele arquivo.",
    "tabs": [
     {
@@ -20728,7 +20712,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=15465-1365",
    "figmaNode": "15465-1365",
    "zeroheight": null,
-   "figmaStatus": "current",
+   "figmaStatus": "changed",
    "description": "Agrupa os Upload Items de um fluxo, com ordem e espaçamento consistentes.",
    "tabs": [
     {
@@ -20984,7 +20968,8 @@
      "title": "Acessibilidade",
      "text": "## Leitor de tela\n\n1. O sentido da variação vai em texto, não só na cor e no ícone. Use `description`, ex.: Aumento de 1% em relação ao período anterior.\n2. Sem `description`, o leitor de tela ouve o texto visível.\n3. O ícone é decorativo (`aria-hidden`)."
     }
-   ]
+   ],
+   "react": null
   },
   {
    "id": "viewport-restriction",
@@ -33502,7 +33487,7 @@
     "id": "C93",
     "group": "Refactor",
     "resolved": false,
-    "text": "Publicação da lib [CastanhaDS] Components (leitura de 16/10, `scripts/figma-status.js`) · **63** componentes estão publicados sem pendência na main (2 deles, Main Button e Content List Item, com melhoria ainda em branch). **12** estão publicados com alterações não publicadas (`CHANGED`): Carousel, Chips Group, Drawer, Filter Chips, Fixed Bar, Fixed Tab, Icon Button, Input Chips, Multi Select Input, Progress Tracker, Progress Tracker Item e Scrollable Tab (o Size Small do CDS-1599 e mudanças nos outros sete esperam publicação). Accordion, Accordion Item, Chat Input, Code Input OTP e Credit Card Input só existem em branch. Os 26 building blocks não são publicados, de propósito · Publicar a lib (ou revisar o que está pendente) e fazer o merge das branches · Tag de status em cada componente do playground · Nova leitura depois de publicar"
+    "text": "Publicação da lib [CastanhaDS] Components (leitura de 20/10, `scripts/figma-status.js`) · **33** componentes estão publicados sem pendência na main, mais o Content List Item, publicado e com o arrastar para reordenar ainda em branch. **41** estão publicados com alterações não publicadas (`CHANGED`): Async Creatable Select Input, Async Select Input, Banner, Bottom Sheet, Carousel, Checkbox, Checkbox Select Input, Chips Group, Content List, Date Input, Date Picker, Drawer, Dropzone, Filter Chips, Fixed Bar, Fixed Tab, Icon Button, Input Chips, Link, Main Button (o Loading do CDS-1603 entrou na main), Modal, Modal Date Picker, Multi Select Input, Nav Control, Pagination, Password Input, Progress Tracker, Progress Tracker Item, Quantity Input, Radio Select Input, Scrollable Tab, Search Input, Selection List, Selection List Item, Switch, Tab View, Table, Text Input, Upload Item, Upload List e os grupos Checkbox Group e Switch Group. **4** estão na main sem publicar: Accordion, Accordion Item, Code Input OTP e Credit Card Input (as branches entraram na main). Chat Input, FAB, FAB Menu, Big Number e Variation Big Number só existem em branch. Os 26 building blocks não são publicados, de propósito · Publicar a lib (ou revisar o que está pendente) e fazer o merge das branches · Tag de status em cada componente do playground · Nova leitura depois de publicar"
    },
    {
     "id": "C94",
@@ -34497,64 +34482,16 @@
     "msg": "O Code Connect gera `supportingMessage` em `<Topic>`, que não existe nas props do React (o código gerado não compila em TypeScript)."
    },
    {
-    "id": "main-button",
-    "level": "info",
-    "kind": "bridge-nome-figma",
-    "msg": "O bridge do castanha-ai usa `Show Trailling Icon`, que não existe na lib (props: Text Label, Show Lead Icon, Show Trailing Icon, Lead Icon, Kind, Appearance, State, Size)."
-   },
-   {
     "id": "toast",
     "level": "media",
     "kind": "bridge-componente",
     "msg": "O castanha-ai liga o set a `Toast`; o playground (Code Connect), a `useToast`."
    },
    {
-    "id": "toast",
+    "id": "divider",
     "level": "info",
-    "kind": "bridge-nome-figma",
-    "msg": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Text Description, Show Trailing Item, Appearance)."
-   },
-   {
-    "id": "selection-list-item",
-    "level": "info",
-    "kind": "bridge-nome-figma",
-    "msg": "O bridge do castanha-ai usa `Trailling Item`, que não existe na lib (props: Show Lead Item, Show Divider, Kind, State, Is Active, Trailing Item)."
-   },
-   {
-    "id": "link",
-    "level": "info",
-    "kind": "bridge-nome-figma",
-    "msg": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Link Content, Show Trailing Item, Change Icon, Appearance, State)."
-   },
-   {
-    "id": "castanha-ai",
-    "level": "info",
-    "kind": "bridge-cobertura",
-    "msg": "Set `Sponsor Side Menu` está no bridge do castanha-ai e não tem componente no playground."
-   },
-   {
-    "id": "castanha-ai",
-    "level": "info",
-    "kind": "bridge-cobertura",
-    "msg": "Set `Device marker` está no bridge do castanha-ai e não tem componente no playground."
-   },
-   {
-    "id": "castanha-ai",
-    "level": "info",
-    "kind": "bridge-cobertura",
-    "msg": "Set `Shortcut` está no bridge do castanha-ai e não tem componente no playground."
-   },
-   {
-    "id": "castanha-ai",
-    "level": "info",
-    "kind": "bridge-cobertura",
-    "msg": "Set `Shortcut Carousel` está no bridge do castanha-ai e não tem componente no playground."
-   },
-   {
-    "id": "castanha-ai",
-    "level": "info",
-    "kind": "bridge-cobertura",
-    "msg": "Com mapa no playground e sem set no bridge do castanha-ai: `balance-card`, `banner`, `date-input`, `date-picker`, `modal-date-picker`, `multi-select-input`, `nav-control`, `slider`, `status-dot`, `system-banner`."
+    "kind": "bridge-prop",
+    "msg": "O castanha-ai traduz `Kind=Dashed` para `kind`; o mapa do playground não gera essa prop."
    },
    {
     "id": "tokens",

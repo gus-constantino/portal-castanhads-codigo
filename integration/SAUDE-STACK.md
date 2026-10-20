@@ -1,6 +1,6 @@
 # Saúde da stack — Figma × castanha-react × playground × castanha-ai
 
-Gerado por `node scripts/integration/build-manifest.js` em 2026-10-16 (R2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). React: `origin/staging` (`039c0d37`) e Code Connect `origin/feat/figma-code-connect`. Playground: mapas de `integration/prop-map/`. castanha-ai (4º vértice, repo interno, só leitura): `origin/feat/castanha-plugin` (`8f8381a`), 67 sets no bridge. A coluna Gap usa as categorias do Gap Report do castanha-ai.
+Gerado por `node scripts/integration/build-manifest.js` em 2026-10-20 (R2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). React: `origin/staging` (`039c0d37`) e Code Connect `origin/feat/figma-code-connect`. Playground: mapas de `integration/prop-map/`. castanha-ai (4º vértice, repo interno, só leitura): `origin/feat/castanha-plugin` (`a49bd59`), 76 sets no bridge. A coluna Gap usa as categorias do Gap Report do castanha-ai.
 
 ## Resumo
 
@@ -8,9 +8,9 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-16 (R2). Figm
 |---|---|---:|
 | Alta | quebra a tradução: o Code Connect lê prop ou gera valor que não existe | 2 |
 | Média | muda o resultado sem quebrar: padrão diferente, opção sem tradução, mapa curado errado | 7 |
-| Informativo | prop do Figma que não chega ao React pelo Code Connect | 37 |
+| Informativo | prop do Figma que não chega ao React pelo Code Connect | 29 |
 
-Componentes com algum item: 37 de 72 com par no React.
+Componentes com algum item: 34 de 72 com par no React.
 
 ## Assets
 
@@ -92,15 +92,7 @@ Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`
 | Text Area Input (`text-area`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Text Content`, `Show Required`, `Error Message`. |
 | Text Input (`text-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
 | Toast (`toast`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`. |
-| Main Button (`main-button`) | bridge-nome-figma | — | O bridge do castanha-ai usa `Show Trailling Icon`, que não existe na lib (props: Text Label, Show Lead Icon, Show Trailing Icon, Lead Icon, Kind, Appearance, State, Size). |
-| Toast (`toast`) | bridge-nome-figma | — | O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Text Description, Show Trailing Item, Appearance). |
-| Selection List Item (`selection-list-item`) | bridge-nome-figma | — | O bridge do castanha-ai usa `Trailling Item`, que não existe na lib (props: Show Lead Item, Show Divider, Kind, State, Is Active, Trailing Item). |
-| Link (`link`) | bridge-nome-figma | — | O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Link Content, Show Trailing Item, Change Icon, Appearance, State). |
-| castanha-ai (`castanha-ai`) | bridge-cobertura | — | Set `Sponsor Side Menu` está no bridge do castanha-ai e não tem componente no playground. |
-| castanha-ai (`castanha-ai`) | bridge-cobertura | — | Set `Device marker` está no bridge do castanha-ai e não tem componente no playground. |
-| castanha-ai (`castanha-ai`) | bridge-cobertura | — | Set `Shortcut` está no bridge do castanha-ai e não tem componente no playground. |
-| castanha-ai (`castanha-ai`) | bridge-cobertura | — | Set `Shortcut Carousel` está no bridge do castanha-ai e não tem componente no playground. |
-| castanha-ai (`castanha-ai`) | bridge-cobertura | — | Com mapa no playground e sem set no bridge do castanha-ai: `balance-card`, `banner`, `date-input`, `date-picker`, `modal-date-picker`, `multi-select-input`, `nav-control`, `slider`, `status-dot`, `system-banner`. |
+| Divider (`divider`) | bridge-prop | — | O castanha-ai traduz `Kind=Dashed` para `kind`; o mapa do playground não gera essa prop. |
 
 ## Como rodar
 
@@ -111,6 +103,24 @@ Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`
 O lado Figma × playground continua no check de props (`docs/CHECK-PROPS.md`). Divergências que pedem decisão do time DS vão para o CONFERIR (grupo Integração React).
 
 ## Histórico
+
+### 20/10/2026 · staging `039c0d37`
+
+- castanha-ai (bridge): `8f8381a` → `a49bd59`.
+- Cobertura · playground: 115 → 117.
+- Cobertura · buildingBlocks: 27 → 28.
+- Cobertura · soFigma: 16 → 17.
+- Cobertura · comNotas: 27 → 29.
+- 🆕 informativo · divider · O castanha-ai traduz `Kind=Dashed` para `kind`; o mapa do playground não gera essa prop.
+- ✅ resolvido · main-button · O bridge do castanha-ai usa `Show Trailling Icon`, que não existe na lib (props: Text Label, Show Lead Icon, Show Trailing Icon, Lead Icon, Kind, Appearance, State, Size).
+- ✅ resolvido · toast · O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Text Description, Show Trailing Item, Appearance).
+- ✅ resolvido · selection-list-item · O bridge do castanha-ai usa `Trailling Item`, que não existe na lib (props: Show Lead Item, Show Divider, Kind, State, Is Active, Trailing Item).
+- ✅ resolvido · link · O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Link Content, Show Trailing Item, Change Icon, Appearance, State).
+- ✅ resolvido · castanha-ai · Set `Sponsor Side Menu` está no bridge do castanha-ai e não tem componente no playground.
+- ✅ resolvido · castanha-ai · Set `Device marker` está no bridge do castanha-ai e não tem componente no playground.
+- ✅ resolvido · castanha-ai · Set `Shortcut` está no bridge do castanha-ai e não tem componente no playground.
+- ✅ resolvido · castanha-ai · Set `Shortcut Carousel` está no bridge do castanha-ai e não tem componente no playground.
+- ✅ resolvido · castanha-ai · Com mapa no playground e sem set no bridge do castanha-ai: `balance-card`, `banner`, `date-input`, `date-picker`, `modal-date-picker`, `multi-select-input`, `nav-control`, `slider`, `status-dot`, `system-banner`.
 
 ### 16/10/2026 · staging `039c0d37`
 

@@ -1,15 +1,15 @@
 # Cobertura Figma ↔ playground ↔ castanha-react
 
-Gerado por `node scripts/integration/build-manifest.js` em 2026-10-16 a partir de `origin/staging` (`039c0d37`, 2026-10-15) e do Code Connect `origin/feat/figma-code-connect` (69 arquivos).
+Gerado por `node scripts/integration/build-manifest.js` em 2026-10-20 a partir de `origin/staging` (`039c0d37`, 2026-10-15) e do Code Connect `origin/feat/figma-code-connect` (69 arquivos).
 
 | | Componentes |
 |---|---:|
-| No playground | 115 |
+| No playground | 117 |
 | Com par no React | 72 (68 via Code Connect, 4 via story) |
-| Building blocks sem par (internos no React) | 27 |
-| Só no Figma/playground | 16 |
+| Building blocks sem par (internos no React) | 28 |
+| Só no Figma/playground | 17 |
 | Só no React | 10 |
-| Com divergência anotada | 27 |
+| Com divergência anotada | 29 |
 
 ## Com par no React
 
@@ -94,6 +94,7 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-16 a partir d
 |---|---|---|---|---|
 | `accordion` | Accordion | — | so-figma | o link do playground aponta para uma branch do Figma |
 | `accordion-item` | Accordion Item | — | so-figma | o link do playground aponta para uma branch do Figma |
+| `big-number` | Big Number | — | so-figma | o link do playground aponta para uma branch do Figma |
 | `bottom-sheet` | Bottom Sheet | — | so-figma |  |
 | `breadcrumb-item` | .Item (Breadcrumb) | — | building-block |  |
 | `calendar-day` | .Day | — | building-block |  |
@@ -134,6 +135,7 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-16 a partir d
 | `table-toolbar` | .Toolbar | — | building-block |  |
 | `text-content` | .Text Content | — | building-block |  |
 | `trailing-item` | .Trailing Item | — | building-block |  |
+| `variation-big-number` | .Variation Big Number | — | building-block | o link do playground aponta para uma branch do Figma |
 | `viewport-restriction` | Viewport Restriction | — | so-figma |  |
 
 ## Só no React

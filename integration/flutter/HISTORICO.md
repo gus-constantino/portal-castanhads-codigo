@@ -2,6 +2,13 @@
 
 Escrito por `scripts/integration/daily-flutter.js` (rotina diária): só entram as leituras em que algo mudou.
 
+### 20/10/2026 · staging `a62701c0`
+
+- Cobertura · playground: 110 → 112.
+- Cobertura · blocks: 27 → 28.
+- Cobertura · missing: 38 → 39.
+- Cobertura · missingBlocks: 27 → 28.
+
 ### 16/10/2026 · staging `a62701c0`
 
 - castanha_flutter `origin/staging`: `38504ab7` → `a62701c0` (2026-10-15).

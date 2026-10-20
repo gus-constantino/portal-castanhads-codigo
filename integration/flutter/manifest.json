@@ -1,6 +1,6 @@
 {
  "_about": "Gerado por scripts/integration/build-flutter-manifest.js a partir do castanha-mobile (só leitura). Metadados: nenhum código-fonte copiado.",
- "generated": "2026-10-16",
+ "generated": "2026-10-20",
  "source": {
   "repo": "caju-beneficios/castanha-mobile",
   "ref": "origin/staging",
@@ -14,13 +14,13 @@
   }
  },
  "summary": {
-  "playground": 110,
-  "blocks": 27,
+  "playground": 112,
+  "blocks": 28,
   "flutter": 49,
   "matched": 45,
   "flutterOnly": 4,
-  "missing": 38,
-  "missingBlocks": 27
+  "missing": 39,
+  "missingBlocks": 28
  },
  "components": [
   {
@@ -4119,6 +4119,10 @@
    "name": "Balance Card"
   },
   {
+   "id": "big-number",
+   "name": "Big Number"
+  },
+  {
    "id": "breadcrumb",
    "name": "Breadcrumb"
   },
@@ -4379,6 +4383,11 @@
   {
    "id": "trailing-item",
    "name": ".Trailing Item",
+   "block": true
+  },
+  {
+   "id": "variation-big-number",
+   "name": ".Variation Big Number",
    "block": true
   },
   {

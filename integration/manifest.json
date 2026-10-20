@@ -1,6 +1,6 @@
 {
   "_about": "Manifesto de integração Figma ↔ playground ↔ castanha-react (R0). Gerado por scripts/integration/build-manifest.js — não editar à mão.",
-  "generated": "2026-10-16T19:07:31.388Z",
+  "generated": "2026-10-20T12:31:17.212Z",
   "source": {
     "repo": "caju-beneficios/castanha",
     "ref": "origin/staging",
@@ -14,14 +14,14 @@
     "files": 69
   },
   "summary": {
-    "playground": 115,
+    "playground": 117,
     "comReact": 72,
     "viaCodeConnect": 68,
     "viaStory": 4,
-    "buildingBlocks": 27,
-    "soFigma": 16,
+    "buildingBlocks": 28,
+    "soFigma": 17,
     "soReact": 10,
-    "comNotas": 27
+    "comNotas": 29
   },
   "components": [
     {
@@ -415,6 +415,20 @@
       },
       "status": "react",
       "notes": []
+    },
+    {
+      "id": "big-number",
+      "name": "Big Number",
+      "block": false,
+      "figma": {
+        "fileKey": "LKZBwmlb7fIbDKdGrMncuA",
+        "node": "27238-472"
+      },
+      "react": null,
+      "status": "so-figma",
+      "notes": [
+        "o link do playground aponta para uma branch do Figma"
+      ]
     },
     {
       "id": "bottom-sheet",
@@ -3850,6 +3864,20 @@
       },
       "status": "react",
       "notes": []
+    },
+    {
+      "id": "variation-big-number",
+      "name": ".Variation Big Number",
+      "block": true,
+      "figma": {
+        "fileKey": "LKZBwmlb7fIbDKdGrMncuA",
+        "node": "27246-396"
+      },
+      "react": null,
+      "status": "building-block",
+      "notes": [
+        "o link do playground aponta para uma branch do Figma"
+      ]
     },
     {
       "id": "viewport-restriction",

@@ -2,6 +2,24 @@
 
 Escrito por `scripts/integration/daily.js` (rotina diária): só entram as leituras em que algo mudou.
 
+### 20/10/2026 · staging `039c0d37`
+
+- castanha-ai (bridge): `8f8381a` → `a49bd59`.
+- Cobertura · playground: 115 → 117.
+- Cobertura · buildingBlocks: 27 → 28.
+- Cobertura · soFigma: 16 → 17.
+- Cobertura · comNotas: 27 → 29.
+- 🆕 informativo · divider · O castanha-ai traduz `Kind=Dashed` para `kind`; o mapa do playground não gera essa prop.
+- ✅ resolvido · main-button · O bridge do castanha-ai usa `Show Trailling Icon`, que não existe na lib (props: Text Label, Show Lead Icon, Show Trailing Icon, Lead Icon, Kind, Appearance, State, Size).
+- ✅ resolvido · toast · O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Text Description, Show Trailing Item, Appearance).
+- ✅ resolvido · selection-list-item · O bridge do castanha-ai usa `Trailling Item`, que não existe na lib (props: Show Lead Item, Show Divider, Kind, State, Is Active, Trailing Item).
+- ✅ resolvido · link · O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Link Content, Show Trailing Item, Change Icon, Appearance, State).
+- ✅ resolvido · castanha-ai · Set `Sponsor Side Menu` está no bridge do castanha-ai e não tem componente no playground.
+- ✅ resolvido · castanha-ai · Set `Device marker` está no bridge do castanha-ai e não tem componente no playground.
+- ✅ resolvido · castanha-ai · Set `Shortcut` está no bridge do castanha-ai e não tem componente no playground.
+- ✅ resolvido · castanha-ai · Set `Shortcut Carousel` está no bridge do castanha-ai e não tem componente no playground.
+- ✅ resolvido · castanha-ai · Com mapa no playground e sem set no bridge do castanha-ai: `balance-card`, `banner`, `date-input`, `date-picker`, `modal-date-picker`, `multi-select-input`, `nav-control`, `slider`, `status-dot`, `system-banner`.
+
 ### 16/10/2026 · staging `039c0d37`
 
 - castanha-react `origin/staging`: `ca2b41ae` → `039c0d37` (2026-10-15).

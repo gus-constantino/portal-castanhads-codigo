@@ -10,18 +10,18 @@
  },
  "castanhaAi": {
   "ref": "origin/feat/castanha-plugin",
-  "commit": "8f8381a",
-  "sets": 67
+  "commit": "a49bd59",
+  "sets": 76
  },
  "coverage": {
-  "playground": 115,
+  "playground": 117,
   "comReact": 72,
   "viaCodeConnect": 68,
   "viaStory": 4,
-  "buildingBlocks": 27,
-  "soFigma": 16,
+  "buildingBlocks": 28,
+  "soFigma": 17,
   "soReact": 10,
-  "comNotas": 27
+  "comNotas": 29
  },
  "reactOnly": [
   "Box",
@@ -312,64 +312,16 @@
    "msg": "O Code Connect gera `supportingMessage` em `<Topic>`, que não existe nas props do React (o código gerado não compila em TypeScript)."
   },
   {
-   "id": "main-button",
-   "level": "info",
-   "kind": "bridge-nome-figma",
-   "msg": "O bridge do castanha-ai usa `Show Trailling Icon`, que não existe na lib (props: Text Label, Show Lead Icon, Show Trailing Icon, Lead Icon, Kind, Appearance, State, Size)."
-  },
-  {
    "id": "toast",
    "level": "media",
    "kind": "bridge-componente",
    "msg": "O castanha-ai liga o set a `Toast`; o playground (Code Connect), a `useToast`."
   },
   {
-   "id": "toast",
+   "id": "divider",
    "level": "info",
-   "kind": "bridge-nome-figma",
-   "msg": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Text Description, Show Trailing Item, Appearance)."
-  },
-  {
-   "id": "selection-list-item",
-   "level": "info",
-   "kind": "bridge-nome-figma",
-   "msg": "O bridge do castanha-ai usa `Trailling Item`, que não existe na lib (props: Show Lead Item, Show Divider, Kind, State, Is Active, Trailing Item)."
-  },
-  {
-   "id": "link",
-   "level": "info",
-   "kind": "bridge-nome-figma",
-   "msg": "O bridge do castanha-ai usa `Show Trailling Item`, que não existe na lib (props: Link Content, Show Trailing Item, Change Icon, Appearance, State)."
-  },
-  {
-   "id": "castanha-ai",
-   "level": "info",
-   "kind": "bridge-cobertura",
-   "msg": "Set `Sponsor Side Menu` está no bridge do castanha-ai e não tem componente no playground."
-  },
-  {
-   "id": "castanha-ai",
-   "level": "info",
-   "kind": "bridge-cobertura",
-   "msg": "Set `Device marker` está no bridge do castanha-ai e não tem componente no playground."
-  },
-  {
-   "id": "castanha-ai",
-   "level": "info",
-   "kind": "bridge-cobertura",
-   "msg": "Set `Shortcut` está no bridge do castanha-ai e não tem componente no playground."
-  },
-  {
-   "id": "castanha-ai",
-   "level": "info",
-   "kind": "bridge-cobertura",
-   "msg": "Set `Shortcut Carousel` está no bridge do castanha-ai e não tem componente no playground."
-  },
-  {
-   "id": "castanha-ai",
-   "level": "info",
-   "kind": "bridge-cobertura",
-   "msg": "Com mapa no playground e sem set no bridge do castanha-ai: `balance-card`, `banner`, `date-input`, `date-picker`, `modal-date-picker`, `multi-select-input`, `nav-control`, `slider`, `status-dot`, `system-banner`."
+   "kind": "bridge-prop",
+   "msg": "O castanha-ai traduz `Kind=Dashed` para `kind`; o mapa do playground não gera essa prop."
   },
   {
    "id": "tokens",

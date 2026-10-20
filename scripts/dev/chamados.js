@@ -14,7 +14,7 @@
  *
  * O arquivo guarda só o que os gráficos usam: data, tipo, prioridade, status e os componentes citados. Nada de nomes,
  * e-mails nem o texto dos pedidos. Os chamados em aberto levam também o título e o link do item na Lista, para a aba
- * Chamados do Relatório (pedido do Gustavo, 15/10); ao serem resolvidos, os dois saem.
+ * Chamados do Relatório (pedido do time, 15/10); ao serem resolvidos, os dois saem.
  * Tempo de solução: a Lista não guarda quando o chamado foi resolvido. A cada leitura, o chamado que estava em aberto e
  * aparece resolvido ganha "resolvido": a data da leitura (precisão de um dia, se a leitura for diária). "medido" é o dia da
  * primeira leitura com essa conta: os resolvidos antes dele ficam sem data. Cada chamado tem uma chave (hash da data e do título) para manter o tipo entre leituras.

@@ -17,7 +17,7 @@
  *   open (só no celular: menu aberto)
  * Celular (protótipo 5318:19215): o menu sai da página e o Menu Button do Header (evento cds-menu) chama open(). Abre em tela cheia,
  *   no topo à esquerda, expandido, sem fundo escurecido, com Dissolve de 300ms (Duration/Medium/02). Fecha pelo Icon Button de
- *   fechar (decisão do Gustavo, 07/10: o Figma não tem a camada hoje, C182), por Esc ou ao escolher um item.
+ *   fechar (decisão do time, 07/10: o Figma não tem a camada hoje, C182), por Esc ou ao escolher um item.
  *   Tablet segue o desktop (o protótipo só tem 360, 1366 e 1440).
  * Filhos: <cds-sponsor-category> vão para Categories; com slot="shortcuts" para Shortcuts; slot="help" para Help;
  *   <cds-sponsor-user-profile> (ou slot="profile") para o rodapé; slot="slot" para o Slot livre.

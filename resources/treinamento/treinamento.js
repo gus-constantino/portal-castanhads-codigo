@@ -1,6 +1,6 @@
 /* Treinamento: Como usar as Documentações? (zeroheight · Capacitações → Treinamentos → Design System · 8276145).
    No Hub, cada tab é só um vídeo do Drive (cortes da gravação do lançamento da documentação, 30/01/2026), sem texto.
-   Aqui: resumo de cada tema a partir das Anotações do Gemini da reunião (decisão do Gustavo: resumo basta, com link
+   Aqui: resumo de cada tema a partir das Anotações do Gemini da reunião (decisão do time: resumo basta, com link
    para o vídeo; os vídeos só abrem com login Caju). Pessoas aparecem pelo papel, não pelo nome. Revisão: CONFERIR C157. */
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
@@ -8,7 +8,7 @@
   var GS = "https://www.figma.com/design/RF5sagPdKQD6IoP2MYa2ki/Getting-Started--Castanha-Design-System?node-id=2316-1161";
   var GS0 = "https://www.figma.com/design/RF5sagPdKQD6IoP2MYa2ki/Getting-Started--Castanha-Design-System?node-id=143-111";
   CDS.register({ id: "treinamento", name: "Treinamento", resource: true, lede: "Como usar as documentações, organizar o Figma e preparar protótipos.", order: 3, zeroheight: ZH });
-  // Player do Drive na página (pedido do Gustavo, como no Hub); só toca com login Caju
+  // Player do Drive na página (pedido do time, como no Hub); só toca com login Caju
   function video(id, tema){
     return { video: { src: "https://drive.google.com/file/d/" + id + "/preview", title: "Vídeo do treinamento: " + tema,
       caption: "Corte da gravação do lançamento da documentação (30/01/2026). Toca com login Caju.",
@@ -18,7 +18,7 @@
     text: "Os resumos seguem as anotações automáticas da reunião, organizadas pelo tema de cada vídeo. Números e links citados nos vídeos são daquela data: a situação de hoje está em cada tab." } };
 
 
-  // Visuais da tab Protótipos no Figma: os slides recriados ao vivo com componentes do DS (pedido do Gustavo, 06/10).
+  // Visuais da tab Protótipos no Figma: os slides recriados ao vivo com componentes do DS (pedido do time, 06/10).
   // Cada função devolve o elemento montado antes de conectar (filhos dos componentes entram antes do connectedCallback).
   // Os destaques (camada do box model, largura, viewport) usam só tokens: classes .pg-pf-* em treinamento.css
   var V = (function(){
@@ -274,7 +274,7 @@
       ] },
 
       // Getting Started (Figma RF5sagPdKQD6IoP2MYa2ki, slides 01 a 21): estrutura, permissões, branches e colaboração.
-      // Complementado com a Central de Ajuda e o Fórum do Figma (07/10, pedido do Gustavo); cada fato do Figma tem link.
+      // Complementado com a Central de Ajuda e o Fórum do Figma (07/10, pedido do time); cada fato do Figma tem link.
       // O Figma hoje chama de Folder o que os slides chamam de Project
       { id: "organizar", title: "Organizar o Figma", blocks: [
         { banner: { area: "aprenda", eyebrow: "Treinamento e quiz", heading: "Cuidar e organizar times no Figma", text: "Onde cada arquivo mora, quem pode fazer o quê e como trabalhar em paralelo com branches, sem atrito no arquivo principal.", href: GS0, cta: "Abrir os slides no Figma", external: true } },
@@ -362,7 +362,7 @@
         ] } }
       ] },
 
-      // Prepare protótipos no Figma (Getting Started RF5sagPdKQD6IoP2MYa2ki, slides 27 a 07, roteiro do Gustavo no Slack):
+      // Prepare protótipos no Figma (Getting Started RF5sagPdKQD6IoP2MYa2ki, slides 27 a 07, roteiro do time no Slack):
       // sem vídeo. O treinamento vira página de conteúdo, uma seção por slide, com o visual do slide recriado com componentes
       // do DS (V, acima), e no fim o quiz para testar o que foi aprendido. O slide 22 tem a descrição de Min/max trocada com a
       // de Border no arquivo: aqui vai a versão correta

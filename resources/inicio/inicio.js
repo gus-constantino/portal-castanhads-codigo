@@ -61,7 +61,7 @@
         ] },
         { note: "Fonte: página Princípios de Design do Castanha Hub (Sobre). Motion, Ilustração e Conteúdo têm princípios próprios: consulte Ilustração, Motion e Conteúdo, em Padrões." }
       ] },
-      // Primeiros passos (onboarding, D315), por último nas tabs (Gustavo, 09/10): perfis, checklist que se marca pela ação e o botão do tour (services/onboarding)
+      // Primeiros passos (onboarding, D315), por último nas tabs (09/10): perfis, checklist que se marca pela ação e o botão do tour (services/onboarding)
       { id: "primeiros-passos", title: "Primeiros passos", blocks: [
         { h2: "Primeiros passos" },
         { visual: { bare: true, render: function(){ return CDS.onboarding ? CDS.onboarding.checklistView() : document.createElement("div"); } } },

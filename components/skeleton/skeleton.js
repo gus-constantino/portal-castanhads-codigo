@@ -7,7 +7,7 @@
  *
  * Anatomia: Shape (Round = elipse · Square = retângulo, raio Border/Radius/medium) com gradiente linear horizontal
  *   Neutral/Solid/semi-soft → Surface/default (50%) → Neutral/Solid/semi-soft.
- * Motion: brilho (shimmer) como no castanha-react, por decisão do Gustavo (C181; no Figma é estático): 700ms de deslocamento
+ * Motion: brilho (shimmer) como no castanha-react, por decisão do time (C181; no Figma é estático): 700ms de deslocamento
  *   (Extra Long/01, Systemic/decelerate) + 500ms de pausa (Long/02), em loop. Sem animação com prefers-reduced-motion.
  * Dimensões: definidas por quem consome ("os tamanhos do Figma são amostra"). Padrão do playground: Round 80 × 80
  *   (Sizes/80, a amostra do Figma) · Square na largura do pai × Sizes/160.

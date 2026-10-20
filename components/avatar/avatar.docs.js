@@ -4,7 +4,7 @@
 (function(){
   window.CDS = window.CDS || {};
   CDS.docs = CDS.docs || {};
-  var PHOTO = "assets/brand/avatar-photo.jpg"; // foto do Avatar (Gustavo, 09/10)
+  var PHOTO = "assets/brand/avatar-photo.jpg"; // foto do Avatar (09/10)
   function av(more){ return Object.assign({ _tag: "cds-avatar" }, more || {}); }
   function row(items){ return { _tag: "div", class: "pg-doc-row pg-doc-row--wide", _children: items }; }
   function media(avatar, title, text){ return { _tag: "div", class: "pg-doc-media", _children: [avatar, { _tag: "p", class: "pg-doc-media__text", _children: [{ _tag: "strong", _text: title }, { _tag: "span", _text: text }] }] }; }

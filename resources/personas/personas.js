@@ -1,4 +1,4 @@
-/* Personas: versão da seção Visão Cliente do Castanha Hub (pedido do Gustavo, 05/10 e 09/10: "completo"; as personas são
+/* Personas: versão da seção Visão Cliente do Castanha Hub (pedido do time, 05/10 e 09/10: "completo"; as personas são
    fictícias). Gerado por scratchpad/gen_personas.py a partir das páginas do Hub e atualizado à mão (D304). Ficam de fora o potencial
    comercial dos ICPs, links internos e os depoimentos das entrevistas (C166, C171). Ferramentas com o nome real. Ilustrações dos
    personagens da [Caju] Illustrations no lugar das fotos. Bloco persona do docs-kit (abas) e personaFilter (busca e grupo). */

@@ -31,14 +31,14 @@ code{ font-family:var(--pg-mono); font-size:.92em; }
 
 /* Shell: side menu · canvas · painel */
 .pg-shell{ flex:1; display:grid; grid-template-columns:var(--pg-sidebar-w) minmax(0,1fr) var(--pg-panel-w); min-height:0; }
-/* Respiro entre os menus (lateral e painel de controles) e o conteúdo do centro (Gustavo, 06/10) */
+/* Respiro entre os menus (lateral e painel de controles) e o conteúdo do centro (06/10) */
 @media (min-width:1101px){ .pg-shell{ column-gap:var(--common-sizes-24); background:var(--common-colors-surface-default); } } /* o vão fica no Surface/default, contínuo com menu e conteúdo */
 
 /* Side menu */
 .pg-sidebar{
   position:sticky; top:var(--pg-header-h); align-self:start; height:calc(100vh - var(--pg-header-h));
   overflow-y:auto; padding:var(--common-sizes-24) var(--common-sizes-16); background:var(--common-colors-surface-default);
-  z-index:2; box-shadow:var(--common-elevation-level-2); /* Elevation Level 2 marca o limite do menu (Gustavo, 06/10) */
+  z-index:2; box-shadow:var(--common-elevation-level-2); /* Elevation Level 2 marca o limite do menu (06/10) */
 }
 /* Menu sem barra de rolagem visível: continua rolando (roda, trackpad, teclado, toque) */
 /* Rodapé do menu: fica no fim da coluna, alinhado à base da tela quando o menu é curto (Disclaimer/Regular · Text/soft) */

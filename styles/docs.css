@@ -19,7 +19,7 @@
 
 /* ---------- Capa (frame [Header] do Figma) ----------
    Figma: 1632×668, raio 64, fundo Surface/03 (#f7f3ed) + forma do caju (#f3eee5); moldura 608×370 Surface/default raio 40, centrada.
-   Fundo e forma são só decorativos: hex do Figma por decisão do Gustavo (02/10), sem token equivalente (C91).
+   Fundo e forma são só decorativos: hex do Figma por decisão do time (02/10), sem token equivalente (C91).
    Aqui: mesma proporção, raios escalados (extra-large / large), moldura com mínimo para caber o componente. */
 :root{ --pg-cover-bg:#f7f3ed; } /* decorativo (C91), usado pela capa e pela prévia do Playground; fica claro também no tema escuro, por enquanto */
 .pg-cover{

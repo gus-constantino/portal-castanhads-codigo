@@ -6,7 +6,7 @@
   "use strict";
   var CDS = window.CDS, kit = CDS.kit;
   var JIRA = "https://caju746.atlassian.net/browse/";
-  var SUPORTE = "https://caju.slack.com/archives/C07NM4UQ2S3"; // canal #castanha-suporte (pedido do Gustavo, 05/10: o link do canal no lugar do formulário)
+  var SUPORTE = "https://caju.slack.com/archives/C07NM4UQ2S3"; // canal #castanha-suporte (pedido do time, 05/10: o link do canal no lugar do formulário)
   // Copia texto: Clipboard API e, sem permissão (navegador embutido, iframe), o evento copy. Promise<boolean>.
   function copyText(text){
     function legacy(){
@@ -757,7 +757,7 @@
     if (DASHBOARD && pagina !== "relatorio"){ location.replace("#/relatorio"); return; } // antes de pedir a doc da página
     // Quem tem código e abriu um link (/?entrega=… ou /?alvo=…) fica no modo do link enquanto navega pelos itens dele.
     // Pedir outra página (menu, link colado, Relatório) sai do modo: recarrega sem o parâmetro. Antes, o ?entrega= ficava
-    // no endereço, toda rota fora do link caía no primeiro item e nem o Cmd+Shift+R saía dele (Gustavo, 15/10).
+    // no endereço, toda rota fora do link caía no primeiro item e nem o Cmd+Shift+R saía dele (15/10).
     if (PERFIL && (CDS.entrega || CDS.acessoLink) && location.search && pagina && !list.some(function(c){ return c.id === pagina; })){
       location.replace(location.pathname + location.hash); return;
     }

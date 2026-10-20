@@ -6,7 +6,7 @@
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   var FIGMA = "https://www.figma.com/design/Zx9KwwRFqZrOfeuXpYZiTx/-Caju--Theme?node-id=4309-2";
   CDS.register({ id: "caju-theme", name: "Tema Caju", resource: true, lede: "Cores, tipografia, tamanhos, bordas, elevação e ícones do tema.", order: 1, status: "250", figma: FIGMA });
-  // Ilustração e Motion saíram do tema e viraram páginas próprias em Padrões (pedido do Gustavo, 05/10); o conteúdo continua definido aqui
+  // Ilustração e Motion saíram do tema e viraram páginas próprias em Padrões (pedido do time, 05/10); o conteúdo continua definido aqui
   CDS.register({ id: "ilustracao", name: "Ilustração", resource: true, lede: "Princípios, guidelines e a biblioteca de ilustrações da Caju.", order: 1.1, figma: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=3416-2" });
   CDS.register({ id: "motion", name: "Motion", resource: true, lede: "Princípios de motion, curvas, durações, Motion Styles e animações.", order: 1.2, figma: FIGMA });
   // Rotas antigas → endereço atual (links salvos continuam funcionando)
@@ -391,7 +391,7 @@
       ] }
     ]
   };
-  // Motion › Transições (zeroheight · Fundação › Motion › Transições 757a5f, "In progress", entra por decisão do Gustavo em 09/10).
+  // Motion › Transições (zeroheight · Fundação › Motion › Transições 757a5f, "In progress", entra por decisão do time em 09/10).
   // Texto do Hub; os valores em px dos protótipos ficam de fora (o Hub diz que o layout é ilustrativo). Divergências de duração e curva no C194.
   var TRANS = { id: "transicoes", title: "Transições", blocks: [
     { h2: "Transições" },
@@ -444,6 +444,6 @@
     function take(id){ var i = t.map(function(x){ return x.id; }).indexOf(id); return i < 0 ? null : t.splice(i, 1)[0]; }
     var ilu = take("ilustracoes"), mo = take("motion");
     if (ilu) CDS.docs["ilustracao"] = { source: IL_FIGMA, sourceLabel: "Abrir o guia de ilustração no Figma", tabs: [ilu] };
-    if (mo) CDS.docs["motion"] = { source: FIGMA, sourceLabel: "Abrir o [Caju] Theme no Figma", tabs: [ANIM, TRANS, mo] }; // ordem pedida pelo Gustavo (16/10): Animações, Transições, Motion
+    if (mo) CDS.docs["motion"] = { source: FIGMA, sourceLabel: "Abrir o [Caju] Theme no Figma", tabs: [ANIM, TRANS, mo] }; // ordem pedida pelo time (16/10): Animações, Transições, Motion
   })();
 })();

@@ -1,5 +1,5 @@
 /* Comparar componentes (Ferramentas): até 3 componentes lado a lado, com seções Figma (Design), React e Flutter
-   (pedido do Gustavo, 20/10, a partir das fichas de comparação de celulares: 3 colunas escolhidas na busca e linhas em seções).
+   (pedido do time, 20/10, a partir das fichas de comparação de celulares: 3 colunas escolhidas na busca e linhas em seções).
    Nada de dado novo: tudo vem do que o portal já lê.
    · Figma: playgrounds (página e tipo), CDS.figmaStatus (publicação) e integration/figma-props.tsv (props lidas via MCP)
    · React: CDS.react (castanha-react, manifesto e mapas de integration/prop-map/), checks do stack-check

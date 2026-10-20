@@ -49,7 +49,7 @@
         var self = this;
         // no loading o botão continua focável (aria-disabled), mas o clique e o envio de formulário não acontecem
         b.addEventListener("click", function(e){ if (self.hasAttribute("loading")){ e.preventDefault(); e.stopPropagation(); } });
-        // Pressed: o botão encolhe para 90% e volta (Pressed/01, decisão do Gustavo 16/10 · C205)
+        // Pressed: o botão encolhe para 90% e volta (Pressed/01, decisão do time 16/10 · C205)
         var press = function(){ if (!b.disabled && !self.hasAttribute("loading")) CDS.replay(b, "is-pressing"); };
         b.addEventListener("pointerdown", press);
         b.addEventListener("keydown", function(e){ if ((e.key === " " || e.key === "Enter") && !e.repeat) press(); });

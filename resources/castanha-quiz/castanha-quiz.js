@@ -1,4 +1,4 @@
-/* Castanha Quiz (Aprenda): treinamentos rápidos sobre temas do portal, cada um com jogo e quiz (pedido do Gustavo, 06/10).
+/* Castanha Quiz (Aprenda): treinamentos rápidos sobre temas do portal, cada um com jogo e quiz (pedido do time, 06/10).
    Formato por tema, uns 5 minutos: treinamento rápido (blocos curtos com visual ao vivo) · jogo · quiz de 5 perguntas.
    Todo conteúdo vem do próprio portal (docs dos componentes e Tema Caju), sem regra nova. Jogos e quiz = composição
    <cmp-quiz> (kind "verdict" = Certo ou errado); o melhor resultado fica no localStorage de quem joga (storage-key).
@@ -377,7 +377,7 @@
     ]
   };
 
-  // ---- Aba Jogar (pedido do Gustavo, 08/10): as abas de tema ficam só com o estudo; os jogos, quizzes e quebra-cabeças viram
+  // ---- Aba Jogar (pedido do time, 08/10): as abas de tema ficam só com o estudo; os jogos, quizzes e quebra-cabeças viram
   // um banco de exercícios por tema, e a aba Jogar monta uma lição (composição <cmp-lesson>) com os temas escolhidos
   var DOC = CDS.docs["castanha-quiz"], BANK = {}, NAMES = {}, ORDER = [];
   DOC.tabs.forEach(function(t){
@@ -499,7 +499,7 @@
       function tx(v, icon){ return { text: v, icon: icon || false, description: "" }; } // célula Text sem o Lead Icon, menos a coroa do 1º
       t.rows = list.map(function(e, i){ return { id: String(i + 1), pos: tx((i + 1) + "º", i === 0 ? "admin-line" : null), name: tx(e.name), score: tx(e.score.toLocaleString("pt-BR")), label: { label: e.label, showLeadItem: false } }; });
       rank.appendChild(t);
-      var crown = t.querySelector("tbody tr:first-child cds-icon"); if (crown) crown.setAttribute("appearance", "accent"); // coroa do 1º em Accent (pedido do Gustavo)
+      var crown = t.querySelector("tbody tr:first-child cds-icon"); if (crown) crown.setAttribute("appearance", "accent"); // coroa do 1º em Accent (pedido do time)
     }
     // Todos marca tudo; escolher um tema desmarca Todos; sem nenhum tema, volta para Todos
     all.addEventListener("cds-change", function(e){ if (e.detail.selected) themeChips.forEach(function(ch){ ch.removeAttribute("selected"); }); else all.setAttribute("selected", ""); build(); });
@@ -512,7 +512,7 @@
     return wrap;
   }
   var inicio = DOC.tabs[0];
-  // Jogar fica na última aba (pedido do Gustavo, 08/10): quem quiser passa pelos treinamentos antes; o Início tem o atalho
+  // Jogar fica na última aba (pedido do time, 08/10): quem quiser passa pelos treinamentos antes; o Início tem o atalho
   DOC.tabs.push({ id: "jogar", title: "Jogar", blocks: [
     { banner: { area: "aprenda", eyebrow: "Castanha Quiz", heading: "Hora de jogar", text: "Escolha um tema, vários ou todos. A lição sorteia 10 exercícios, com 3 vidas, e a questão errada volta no fim." } },
     { visual: { render: jogar, bare: true } },

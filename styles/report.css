@@ -83,7 +83,7 @@
 .rp-table tbody tr:hover td{ background:var(--common-colors-surface-01); }
 
 /* ---------- Visão geral (dashboard) ---------- */
-/* Gráficos com os tokens Charts/* (Gustavo, 02/10): Accent · Charts/03/semi-soft (exceção) · Charts/07/medium (débitos); trilho Charts/07-soft.
+/* Gráficos com os tokens Charts/* (02/10): Accent · Charts/03/semi-soft (exceção) · Charts/07/medium (débitos); trilho Charts/07-soft.
    Os tokens Charts invertem a escala no escuro: estes pares continuam distintos e discretos nos dois temas */
 .pg-report{ --rp-track:var(--pg-line);
   --rp-c-seg:var(--common-colors-accent-solid-medium); --rp-c-exc:var(--common-colors-charts-03-semi-soft); --rp-c-deb:var(--common-colors-charts-07-medium);

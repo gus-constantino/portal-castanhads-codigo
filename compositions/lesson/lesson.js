@@ -8,7 +8,7 @@
  *   · Tag (XP, pontos, combo, acertos, revisão) · Main Button · Code Input OTP (iniciais do ranking, 3 caracteres)
  *   · Table (ranking, montado por quem usa) · ilustrações do [Caju] Illustrations nas telas de início, vidas e fim.
  *
- * Regras (decisões do Gustavo, 08/10): 3 vidas; errar tira uma vida e a questão volta no fim da lição (uma vez); ao perder as 3,
+ * Regras (decisões do time, 08/10): 3 vidas; errar tira uma vida e a questão volta no fim da lição (uma vez); ao perder as 3,
  *   ganha 2 vidas extras uma vez por lição; perdeu as extras, a lição termina e oferece recomeçar. XP: 10 por lição + 5 sem erros.
  * Pontos (08/10): 100 por acerto de primeira, 50 na revisão · combo x2 a partir de 3 acertos seguidos e x3 a partir de 5
  *   · no fim, +200 por vida que sobrou e +500 sem erros · score-multiplier multiplica o total (ex.: 1.5 no jogo com todos os temas).

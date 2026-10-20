@@ -17,7 +17,7 @@
     ].concat(action ? [{ _tag: "cds-fixed-bar", kind: "stacked", "primary-label": action, "show-secondary-action": !!secondary, "secondary-label": secondary || null, "show-lead-icon": false }] : []) }; // sem ação: tela sem Fixed Bar
   }
   // Onboarding: Bottom Sheet (inline) com ilustração, título, texto e os botões padronizados empilhados, como no sheetActions.
-  // No Hub os exemplos são modais do Portal; o Footer do Modal é horizontal e os rótulos longos não cabem no card (decisão do Gustavo, 09/10)
+  // No Hub os exemplos são modais do Portal; o Footer do Modal é horizontal e os rótulos longos não cabem no card (decisão do time, 09/10)
   function onboarding(ill, title, text, action, secondary){
     var kids = [{ _tag: "img", class: "pg-cnt-phone__ill", src: ills[ill] || "", alt: "" }];
     if (title) kids.push({ _tag: "h4", class: "pg-cnt-phone__title", _text: title });

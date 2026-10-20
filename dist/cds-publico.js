@@ -1929,7 +1929,7 @@ try {
  *
  * Anatomia: Shape (Round = elipse · Square = retângulo, raio Border/Radius/medium) com gradiente linear horizontal
  *   Neutral/Solid/semi-soft → Surface/default (50%) → Neutral/Solid/semi-soft.
- * Motion: brilho (shimmer) como no castanha-react, por decisão do Gustavo (C181; no Figma é estático): 700ms de deslocamento
+ * Motion: brilho (shimmer) como no castanha-react, por decisão do time (C181; no Figma é estático): 700ms de deslocamento
  *   (Extra Long/01, Systemic/decelerate) + 500ms de pausa (Long/02), em loop. Sem animação com prefers-reduced-motion.
  * Dimensões: definidas por quem consome ("os tamanhos do Figma são amostra"). Padrão do playground: Round 80 × 80
  *   (Sizes/80, a amostra do Figma) · Square na largura do pai × Sizes/160.
@@ -2154,7 +2154,7 @@ try {
         var self = this;
         // no loading o botão continua focável (aria-disabled), mas o clique e o envio de formulário não acontecem
         b.addEventListener("click", function(e){ if (self.hasAttribute("loading")){ e.preventDefault(); e.stopPropagation(); } });
-        // Pressed: o botão encolhe para 90% e volta (Pressed/01, decisão do Gustavo 16/10 · C205)
+        // Pressed: o botão encolhe para 90% e volta (Pressed/01, decisão do time 16/10 · C205)
         var press = function(){ if (!b.disabled && !self.hasAttribute("loading")) CDS.replay(b, "is-pressing"); };
         b.addEventListener("pointerdown", press);
         b.addEventListener("keydown", function(e){ if ((e.key === " " || e.key === "Enter") && !e.repeat) press(); });
@@ -3349,7 +3349,7 @@ try {
  * <cds-sponsor-header> — Header · [CastanhaDS] Sponsor Templates · componente 4002:3849 (CDS-985)
  * https://www.figma.com/design/9Tkkk4lusVKNEButGjvsNW/-CastanhaDS--Sponsor-Templates?node-id=4002-3849
  *
- * Template do Sponsor (menu Templates › Sponsor, Gustavo 06/10). Também é o cabeçalho das páginas do playground:
+ * Template do Sponsor (menu Templates › Sponsor, 06/10). Também é o cabeçalho das páginas do playground:
  * a linha .Heading é a barra do topo e a .Title Content fica no topo de cada página.
  *
  * Anatomia (só componentes do DS):
@@ -3457,7 +3457,7 @@ try {
  *   open (só no celular: menu aberto)
  * Celular (protótipo 5318:19215): o menu sai da página e o Menu Button do Header (evento cds-menu) chama open(). Abre em tela cheia,
  *   no topo à esquerda, expandido, sem fundo escurecido, com Dissolve de 300ms (Duration/Medium/02). Fecha pelo Icon Button de
- *   fechar (decisão do Gustavo, 07/10: o Figma não tem a camada hoje, C182), por Esc ou ao escolher um item.
+ *   fechar (decisão do time, 07/10: o Figma não tem a camada hoje, C182), por Esc ou ao escolher um item.
  *   Tablet segue o desktop (o protótipo só tem 360, 1366 e 1440).
  * Filhos: <cds-sponsor-category> vão para Categories; com slot="shortcuts" para Shortcuts; slot="help" para Help;
  *   <cds-sponsor-user-profile> (ou slot="profile") para o rodapé; slot="slot" para o Slot livre.
@@ -4828,7 +4828,7 @@ try {
  *   prefix (antes do valor, ex.: "R$") · suffix (depois, ex.: "%") · decimals (casas fixas, ex.: 2 → "5,00")
  *   label · required-text · supporting · error
  *   Exibição em pt-BR com separador de milhar ("1.250"); a digitação também é lida em pt-BR
- *   (prefix, decimals e milhar: exceção aprovada pelo Gustavo em 02/10 — a lib não tem essas props, C100)
+ *   (prefix, decimals e milhar: exceção aprovada pelo time em 02/10 — a lib não tem essas props, C100)
  *   show-label · show-required · show-supporting-content · decrement-label · increment-label
  * Comportamento (annotations): valor inválido não bloqueia a digitação; fora da faixa vira Warning;
  *   ao sair do campo, ajusta para o limite mais próximo e anuncia; no limite, o botão correspondente fica
@@ -6560,7 +6560,7 @@ try {
     }
     fireClose(){ this.dispatchEvent(new CustomEvent("cds-close", { bubbles: true })); }
     get titleText(){ return this.getAttribute("title"); }
-    // dismissible="false" = padrão Dialog (só fecha por ação). O Drawer sempre fecha (decisão do Gustavo, C38)
+    // dismissible="false" = padrão Dialog (só fecha por ação). O Drawer sempre fecha (decisão do time, C38)
     get dismissible(){ return this.getAttribute("dismissible") !== "false"; }
     show(){ this.setAttribute("open", ""); }
     close(){ if (this.hasAttribute("inline")) return; this.removeAttribute("open"); }
@@ -6630,7 +6630,7 @@ try {
  * Só desktop: no Figma, Specific/Drawer/Is Mobile e Is Tablet escondem o painel e mostram um Viewport Restriction.
  * Aqui o modo vem do atributo viewport ou do [data-viewport] mais próximo (seletor de viewport do playground).
  *
- * Sempre com Backdrop e sempre fecha ao clicar fora ou no Esc (decisão do Gustavo, 02/10 · C38): não aceita dismissible.
+ * Sempre com Backdrop e sempre fecha ao clicar fora ou no Esc (decisão do time, 02/10 · C38): não aceita dismissible.
  * Atributos: open · inline · text-title ("Title") · show-action-buttons · show-secondary-action-button (padrão ligado, como no Figma)
  *   primary-label · secondary-label
  *   viewport (desktop|tablet|mobile) · label
@@ -6866,7 +6866,7 @@ try {
     marca: { name: "Marca", ramp: "accent-solid", note: "Início e páginas da marca" },
     componentes: { name: "Componentes", ramp: "accent-solid", note: "Componentes, building blocks e composições" },
     padroes: { name: "Padrões", ramp: "charts-03", note: "Tema Caju, Ilustração, Motion, Camadas, Conteúdo e Patterns" },
-    aprenda: { name: "Aprenda", ramp: "charts-03", note: "Treinamento, Capacitações e Castanha Quiz" }, // azul no lugar do roxo (Gustavo, 06/10)
+    aprenda: { name: "Aprenda", ramp: "charts-03", note: "Treinamento, Capacitações e Castanha Quiz" }, // azul no lugar do roxo (06/10)
     desenvolvimento: { name: "Desenvolvimento", ramp: "charts-05", note: "Getting Started, guias, design tokens e Castanha Universe (do Storybook)" },
     ferramentas: { name: "Ferramentas", ramp: "charts-02", note: "Personas, Agentes e Skills e MCP" },
     ajuda: { name: "Ajuda", ramp: "charts-01", note: "FAQ e Changelog" },

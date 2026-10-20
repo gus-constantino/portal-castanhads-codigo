@@ -448,7 +448,7 @@ export default async function middleware(req){
       // tab Débitos: o arquivo do componente de um link gerado com a opção (os outros componentes e o CONFERIR.md não abrem)
       const deb = /^\/docs\/debitos\/([\w-]+)\.json$/.exec(path);
       if (deb && links.some((x) => x.l.d && x.l.a === "componente:" + deb[1])) return seguir();
-      // ranking do time do Castanha Quiz (api/ranking.mjs): também para quem abriu um link que inclui o Quiz (decisão do Gustavo, 14/10)
+      // ranking do time do Castanha Quiz (api/ranking.mjs): também para quem abriu um link que inclui o Quiz (decisão do time, 14/10)
       if (path === "/api/ranking" && alv.some((a) => ALVOS[a].indexOf("resources/castanha-quiz/castanha-quiz.js") >= 0)) return seguir();
       if (/\.docs\.js$/.test(path) ? ent.some((s) => ENTREGAS[s].indexOf(f) >= 0) : ENTREGA_SHELL.some((re) => re.test(path))) return seguir();
     }

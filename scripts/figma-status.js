@@ -3,7 +3,7 @@
    current = publicado sem alterações · changed = publicado com alterações não publicadas · unpublished = não publicado
    branch = o link aponta para uma branch e o componente não existe na main (Chat Input, FAB, FAB Menu, Big Number, Variation Big Number).
    branch-update = a versão da main está publicada, mas a página já documenta uma melhoria que está numa branch e ainda não foi
-     publicada (o que muda fica em `notes`). Não mostra "Publicado no Figma": a main e a branch estão diferentes (pedido do Gustavo, 09/10).
+     publicada (o que muda fica em `notes`). Não mostra "Publicado no Figma": a main e a branch estão diferentes (pedido do time, 09/10).
    Para atualizar: pedir uma nova leitura e trocar `checked`. */
 window.CDS = window.CDS || {};
 CDS.figmaStatus = {

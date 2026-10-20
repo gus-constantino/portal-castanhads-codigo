@@ -1,12 +1,12 @@
 # Plano · acesso por senha ao portal
 
-> Plano, sem implementação. Decisões do Gustavo em 14/10/2026. Nada aqui guarda senha ou segredo: os valores ficam nas variáveis de ambiente do Vercel.
+> Plano, sem implementação. Decisões do time em 14/10/2026. Nada aqui guarda senha ou segredo: os valores ficam nas variáveis de ambiente do Vercel.
 
 ## 1. Decisões
 
 | # | Decisão |
 |---|---|
-| 1 | Publicar pelo **Vercel**, na conta do Gustavo, no plano **gratuito** (Hobby) por enquanto. |
+| 1 | Publicar pelo **Vercel**, na conta do dono do projeto, no plano **gratuito** (Hobby) por enquanto. |
 | 2 | Repositório **privado** no dia a dia. De vez em quando ele fica público para atualizações e testes locais, e tudo precisa continuar funcionando nos dois estados. |
 | 3 | Quem não tem senha vê **o pitch**. |
 | 4 | **Uma senha por perfil** agora. Senha por pessoa fica para depois e o desenho já deixa espaço para ela. |
@@ -30,7 +30,7 @@ O antigo perfil "apenas pitch" vira o Visitante: o pitch é aberto a quem tiver 
 
 **Senhas.** São códigos de 6 dígitos e ficam nas variáveis de ambiente do projeto no Vercel, uma por perfil (`ACESSO_COMPLETO`, `ACESSO_PORTAL`), mais um segredo para assinar cookies e links (`ACESSO_SEGREDO`). Trocar uma senha é trocar a variável: quem entrou com a antiga precisa entrar de novo.
 
-**Tela de entrada.** Página `/entrar/` montada com o DS: um **Code Input de 6 dígitos** (`cds-code-input-otp`, Gustavo, 14/10), o Main Button "Entrar" e a mensagem de erro do próprio componente. Cada perfil tem o seu código numérico. O Code Input OTP do portal segue o Figma, onde ele ainda está numa branch (não está na main da lib). A senha certa grava um cookie assinado com o perfil e a validade (30 dias). No portal, um item "Sair" no menu apaga o cookie.
+**Tela de entrada.** Página `/entrar/` montada com o DS: um **Code Input de 6 dígitos** (`cds-code-input-otp`, 14/10), o Main Button "Entrar" e a mensagem de erro do próprio componente. Cada perfil tem o seu código numérico. O Code Input OTP do portal segue o Figma, onde ele ainda está numa branch (não está na main da lib). A senha certa grava um cookie assinado com o perfil e a validade (30 dias). No portal, um item "Sair" no menu apaga o cookie.
 
 **Links de página.** Formato `/l/<código>`. O código traz o caminho liberado e a data de validade, assinados com `ACESSO_SEGREDO`. Ao abrir o link, o middleware confere a assinatura, grava o acesso daquele caminho no cookie e leva a pessoa até a página. Quem recebe vários links acumula os caminhos. Para invalidar todos os links, troca-se o segredo.
 
@@ -99,16 +99,16 @@ Ordem pensada para que o portal nunca saia do ar: o Vercel entra no ar antes de 
 
 ## Como a configuração do Vercel é feita
 
-Não há conector do Vercel nesta sessão. A configuração do painel (projeto, ligação com o GitHub, variáveis de ambiente, domínio) é feita no navegador do Gustavo, pelo Claude in Chrome, com a sessão dele.
-- **Valores das variáveis `ACESSO_*`:** quem digita é o Gustavo. O Claude deixa a tela pronta (nome da variável, ambiente) e não digita senha, segredo ou chave.
-- **Permissões:** instalar o app do Vercel no GitHub ou dar acesso ao repositório depende do ok do Gustavo na conversa.
-- **Login:** se o Vercel pedir login, quem entra é o Gustavo.
+Não há conector do Vercel nesta sessão. A configuração do painel (projeto, ligação com o GitHub, variáveis de ambiente, domínio) é feita no navegador do dono do projeto, pelo Claude in Chrome, com a sessão dele.
+- **Valores das variáveis `ACESSO_*`:** quem digita é o dono do projeto. O Claude deixa a tela pronta (nome da variável, ambiente) e não digita senha, segredo ou chave.
+- **Permissões:** instalar o app do Vercel no GitHub ou dar acesso ao repositório depende do ok do dono do projeto na conversa.
+- **Login:** se o Vercel pedir login, quem entra é o dono do projeto.
 
 ## Andamento
 
 | Fase | Situação |
 |---|---|
-| 1 · Vercel | **Feita em 14/10.** Projeto `portal-castanhads` na conta Hobby do Gustavo (equipe "Caju", `caju4`), ligado ao GitHub com acesso a `gus-constantino/portal-castanhads` e nada mais. Preset Other, sem build, raiz `./`. Produção em https://portal-castanhads.vercel.app, aberta, com o Relatório, o pitch, o Roteiro e o catálogo do MCP conferidos. Ignored Build Step em "Only build production": push nas outras branches não gera deploy (limite de 100 deploys por dia no plano gratuito). O GitHub Pages segue no ar até a fase 5. |
+| 1 · Vercel | **Feita em 14/10.** Projeto `portal-castanhads` na conta Hobby do dono do projeto (equipe "Caju", `caju4`), ligado ao GitHub com acesso a `gus-constantino/portal-castanhads` e nada mais. Preset Other, sem build, raiz `./`. Produção em https://portal-castanhads.vercel.app, aberta, com o Relatório, o pitch, o Roteiro e o catálogo do MCP conferidos. Ignored Build Step em "Only build production": push nas outras branches não gera deploy (limite de 100 deploys por dia no plano gratuito). O GitHub Pages segue no ar até a fase 5. |
 | 2 · Entrada e perfis | **No ar desde 14/10.** `middleware.js` (Visitante, Completo, Portal e chave do MCP, cookie assinado de 30 dias), `entrar/` (Code Input OTP de 6 dígitos, Main Button, aviso em Warning), "Sair" no topo do portal e Relatório escondido no perfil Portal (`scripts/app.js`), pacote público `dist/cds-publico.*`, pitch com `docs/pitch/dados.json` e, para o Visitante, as imagens de `docs/pitch/capturas/`. Variáveis `ACESSO_*` criadas no Vercel e regra de limite de tentativas em `/acesso/entrar` (10 por minuto por IP). |
 | 3 · Links de entrega | **Pronta em 14/10, no modo entrega.** A pessoa dev recebe um link `/l/<código>` e vê o portal de sempre só com as páginas da entrega: os componentes e os building blocks dela (Playground e docs completas) e uma página inicial com a visão geral e o handoff. Home, Treinamento, Padrões, Relatório e os outros componentes não aparecem, e qualquer outra rota volta para a entrega. Cada entrega é uma pasta em `entregas/<slug>/` com `entrega.json` (título, task, resumo e itens) e `handoff.md`. O build gera `entregas/<slug>/entrega.js`, a lista da tela `acesso/links/` e, dentro do `middleware.js`, as docs que cada entrega libera. **O que o servidor bloqueia:** as docs dos outros componentes, os recursos (quem entra pelo link recebe `dist/cds-entrega.js` no lugar do `dist/cds.js`), a busca no conteúdo, o catálogo do MCP e os dados do Relatório. **O que só fica escondido:** o código dos outros componentes, que vem no pacote. Primeiras entregas: Chips Small (CDS-1599), Main Button Loading (CDS-1603), Draggable List (CDS-1592), Code Input OTP (CDS-1608) e Credit Card Input (CDS-1607). Sem `handoff.md`, a página da entrega fica só com a Visão geral. Validade de 7, 14 ou 30 dias (padrão 14). Link vencido ou adulterado leva a `entrar/?link=vencido`. O perfil Completo vê como a pessoa dev vê em `/?entrega=<slug>`. Teste local com o middleware: `node scripts/dev/servidor-acesso.js` (códigos de teste). Teste do middleware com 73 verificações. |
 | 4 · Páginas de teste | **Não é mais necessária.** O modo entrega mostra a página oficial do componente, que já documenta a melhoria em branch com o aviso da doc. |

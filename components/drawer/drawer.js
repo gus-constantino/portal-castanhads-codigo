@@ -9,7 +9,7 @@
  * Só desktop: no Figma, Specific/Drawer/Is Mobile e Is Tablet escondem o painel e mostram um Viewport Restriction.
  * Aqui o modo vem do atributo viewport ou do [data-viewport] mais próximo (seletor de viewport do playground).
  *
- * Sempre com Backdrop e sempre fecha ao clicar fora ou no Esc (decisão do Gustavo, 02/10 · C38): não aceita dismissible.
+ * Sempre com Backdrop e sempre fecha ao clicar fora ou no Esc (decisão do time, 02/10 · C38): não aceita dismissible.
  * Atributos: open · inline · text-title ("Title") · show-action-buttons · show-secondary-action-button (padrão ligado, como no Figma)
  *   primary-label · secondary-label
  *   viewport (desktop|tablet|mobile) · label

@@ -4,7 +4,7 @@
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   var REPO = "https://github.com/gus-constantino/portal-castanhads-codigo/blob/main/";
-  // soon: Tag neutra "Em breve" no menu e no cabeçalho — o MCP só vai ser ofertado ao time depois (pedido do Gustavo, 05/10)
+  // soon: Tag neutra "Em breve" no menu e no cabeçalho — o MCP só vai ser ofertado ao time depois (pedido do time, 05/10)
   CDS.register({ id: "mcp", name: "MCP", resource: true, lede: "Conecte o seu assistente de IA ao Castanha DS: componentes, docs, tokens e diretrizes.", order: 6, soon: "Ainda não ofertado ao time: o MCP está em teste e será liberado depois." });
 
   var CLAUDE_CODE = "claude mcp add castanha-ds -e CASTANHA_CHAVE=<chave do MCP> -- node /caminho/para/castanha-mcp.js";

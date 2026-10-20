@@ -67,7 +67,7 @@ Também entrariam:
 
 ## 6. Decisões em aberto
 
-1. **Para quem é:** só o Gustavo e os agentes dele (local basta), o time da Caju (remoto, talvez com acesso restrito) ou público?
+1. **Para quem é:** só o time e os agentes dele (local basta), o time da Caju (remoto, talvez com acesso restrito) ou público?
 2. **Escopo inicial:** só consulta (M1), ou já com gerar e revisar JSX (M2)?
 3. **Onde mora:** neste repo, como mais uma saída do playground, ou como proposta para o monorepo oficial (`caju-beneficios/castanha`)?
 

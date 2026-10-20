@@ -522,7 +522,7 @@ cds-banner{ display:block; width:280px; min-width:min(280px, 100%); max-width:10
 .cds-banner:disabled{ cursor:default; opacity:var(--common-opacity-medium); --_overlay:transparent; }
 .cds-banner:focus-visible{ outline:var(--common-border-width-thin) solid var(--common-colors-support-system); outline-offset:var(--common-border-width-thin); }
 /* Container de 122 (mínimo): o .Content Banner (127) transborda 5px para cima, como no Figma (C27); com texto mais longo
-   a altura acompanha o conteúdo, como diz a description do set (decisão do Gustavo, 05/10 · C155) */
+   a altura acompanha o conteúdo, como diz a description do set (decisão do time, 05/10 · C155) */
 .cds-banner__row{ display:flex; justify-content:space-between; align-items:flex-end; gap:var(--common-sizes-8); width:100%; min-height:122px; }
 .cds-banner__row > .cds-banner__content{ flex:1 1 auto; min-width:0; margin-top:-5px; }
 .cds-banner__ill{ width:122px; height:122px; flex:0 0 auto; }
@@ -876,7 +876,7 @@ cds-lead-item > cds-image{ width:100%; height:100%; }
 /* ==== components/skeleton/skeleton.css ==== */
 /* Skeleton · set 20967:742 — Shape com gradiente horizontal Neutral/Solid/semi-soft → Surface/default → semi-soft
    Round: elipse, 80 × 80 de amostra · Square: raio Border/Radius/medium, largura do pai × Sizes/160 de amostra
-   Brilho (shimmer) como no Skeleton do castanha-react (decisão do Gustavo, C181: o Figma é estático): o gradiente em 200% de
+   Brilho (shimmer) como no Skeleton do castanha-react (decisão do time, C181: o Figma é estático): o gradiente em 200% de
    largura anda de 150% a -50% no Loading/01 (700ms, Systemic/decelerate) e pausa 500ms (Duration/Long/02),
    ciclo de 1200ms em loop. Com prefers-reduced-motion: sem animação, brilho parado no centro (como o React). */
 @keyframes cds-skeleton-shimmer{
@@ -1521,7 +1521,7 @@ cds-text-content[kind="highlight-description"] > .cds-tc__desc{ font:var(--text-
    Default: 57 recolhido (8 + 44 + 4 + Divider 1) · 143 aberto (+ 4 + Slot 82)
    Card:    96 recolhido (8 + 80 + 8) · 182 aberto (+ 4 + Slot 82, pad 16)
    Motion (Notion da Motion): hover Hover In/01 · press Pressed/01
-     abrir no Selected In/01 (350ms) e recolher no Selected Out/01 (200ms), ambos Expressive/decelerate (Gustavo, 16/10 · C80)
+     abrir no Selected In/01 (350ms) e recolher no Selected Out/01 (200ms), ambos Expressive/decelerate (16/10 · C80)
    ===================================================================== */
 cds-accordion-item{ display:block; box-sizing:border-box; width:var(--cds-accordion-width, 320px); max-width:100%; min-width:0; }
 cds-accordion-item [hidden]{ display:none !important; }
@@ -2324,7 +2324,7 @@ cds-drawer:is([viewport="mobile"], [viewport="tablet"]) .cds-drawer__panel{ disp
 cds-drawer:is([viewport="mobile"], [viewport="tablet"]) .cds-drawer__restriction{ display:flex; }
 
 /* ==== components/modal/modal.css ==== */
-/* Modal · 16362:3267 — abraça o conteúdo, sem limite de largura (Gustavo, C34/C58) · min 272 · Surface/default · raio medium · Elevation/level 2
+/* Modal · 16362:3267 — abraça o conteúdo, sem limite de largura (C34/C58) · min 272 · Surface/default · raio medium · Elevation/level 2
    --cds-modal-width fixa uma largura quando quem usa precisar */
 .cds-modal{
   box-sizing:border-box; width:var(--cds-modal-width, fit-content); min-width:min(272px, calc(100vw - 32px)); max-width:calc(100vw - 32px);
@@ -2409,7 +2409,7 @@ loc-faixa{
    Cartões quadrados; o da frente tem a altura da pilha e encosta à direita. Cada cartão de trás começa 9cqh mais à esquerda
    e encolhe 14cqh, então aparece como uma faixa à esquerda do seguinte.
    Cor: cada cartão usa um stop da escala da área, do mais escuro (atrás, --loc-f3) ao mais claro (na frente, --loc-f).
-   Só stops que existem no tema, sem misturar cores (Gustavo, 06/10: "só tokens existentes").
+   Só stops que existem no tema, sem misturar cores (06/10: "só tokens existentes").
    A área vem do atributo area ou de um ancestral com data-loc-area (ex.: a capa do recurso), que também usa:
      --loc-back  tom escuro da área (fundo do banner, sobretítulo da capa clara)
      --loc-tint  fundo suave da área (pale ou soft da escala; capa clara, capítulos tingidos, cartão do banner) */
@@ -2456,7 +2456,7 @@ loc-pilha[align="end"] > span{ top:auto; bottom:0; transform:translateX(calc(var
   --loc-f3:var(--common-colors-charts-01-intense); --loc-f2:var(--common-colors-charts-01-semi-intense); --loc-f1:var(--common-colors-charts-01-medium); --loc-f:var(--common-colors-charts-01-mild);
   --loc-back:var(--common-colors-charts-01-intense); --loc-tint:var(--common-colors-charts-01-pale);
 }
-[data-loc-area="aprenda"], loc-pilha[area="aprenda"]{ /* azul no lugar do roxo do Charts/04 (Gustavo, 06/10): Charts/03, o azul dos Charts, como em Padrões */
+[data-loc-area="aprenda"], loc-pilha[area="aprenda"]{ /* azul no lugar do roxo do Charts/04 (06/10): Charts/03, o azul dos Charts, como em Padrões */
   --loc-f3:var(--common-colors-charts-03-intense); --loc-f2:var(--common-colors-charts-03-semi-intense); --loc-f1:var(--common-colors-charts-03-medium); --loc-f:var(--common-colors-charts-03-mild);
   --loc-back:var(--common-colors-charts-03-intense); --loc-tint:var(--common-colors-charts-03-pale);
 }

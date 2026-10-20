@@ -1,4 +1,4 @@
-/* Modal · 16362:3267 — abraça o conteúdo, sem limite de largura (Gustavo, C34/C58) · min 272 · Surface/default · raio medium · Elevation/level 2
+/* Modal · 16362:3267 — abraça o conteúdo, sem limite de largura (C34/C58) · min 272 · Surface/default · raio medium · Elevation/level 2
    --cds-modal-width fixa uma largura quando quem usa precisar */
 .cds-modal{
   box-sizing:border-box; width:var(--cds-modal-width, fit-content); min-width:min(272px, calc(100vw - 32px)); max-width:calc(100vw - 32px);

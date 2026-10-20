@@ -1,7 +1,7 @@
 /**
  * <cmp-shortcut> — Tecla de atalho · COMPOSIÇÃO do playground (não é componente do Castanha DS)
  *
- * O DS não tem Kbd (C137): cada tecla é uma Tag Neutral sem ícone (decisão do Gustavo, 05/10) dentro de um <kbd>,
+ * O DS não tem Kbd (C137): cada tecla é uma Tag Neutral sem ícone (decisão do time, 05/10) dentro de um <kbd>,
  * a combinação junta as teclas e as alternativas vêm separadas por "ou". Quando o DS tiver Kbd, trocar a Tag aqui.
  *
  * Anatomia: combinação (kbd, gap Sizes/4) · teclas (kbd > Tag Neutral) · "ou" entre alternativas (Caption/Regular · Text/medium) · gap Sizes/8

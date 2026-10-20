@@ -160,7 +160,7 @@
   // Opacity (como no Figma 4438:32): metade imagem, metade Accent sólido; um quadrado Support/darker atravessa o meio na opacidade do token
   var opacityView = function(sw, n){
     sw.classList.add("pg-tok__op");
-    var img = sw.appendChild(document.createElement("cds-image")); img.className = "pg-tok__op-img"; img.setAttribute("src", "assets/brand/avatar-photo.jpg"); img.setAttribute("alt", ""); // foto do Avatar (Gustavo, 09/10)
+    var img = sw.appendChild(document.createElement("cds-image")); img.className = "pg-tok__op-img"; img.setAttribute("src", "assets/brand/avatar-photo.jpg"); img.setAttribute("alt", ""); // foto do Avatar (09/10)
     sw.appendChild(el("span", "pg-tok__op-solid"));
     var layer = sw.appendChild(el("span", "pg-tok__op-layer")); layer.style.opacity = "var(" + n + ")";
   };

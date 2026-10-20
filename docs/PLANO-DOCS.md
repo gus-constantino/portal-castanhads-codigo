@@ -16,7 +16,7 @@
 
 ## 2. Formato
 
-**Decisão (Gustavo, 02/10): manter as 6 tabs atuais do playground** — Playground · Uso · Anatomia · Estilos · Acessibilidade · Diretrizes · Motion — em vez das 3 do zeroheight. O conteúdo de cada tab segue o template Juntos (§11.2 G), redistribuído assim:
+**Decisão (02/10): manter as 6 tabs atuais do playground** — Playground · Uso · Anatomia · Estilos · Acessibilidade · Diretrizes · Motion — em vez das 3 do zeroheight. O conteúdo de cada tab segue o template Juntos (§11.2 G), redistribuído assim:
 
 - **Uso** ← Specs (abertura, Princípios, Quando usar, comparação, disponibilidade, Suporte)
 - **Anatomia** ← Anatomia + Composição
@@ -51,7 +51,7 @@ Referência do template original (3 tabs do zeroheight):
 
 Cada fase em lotes por página do Figma, publicados e conferidos um a um.
 
-## 5. Decisões de 05/10 (Gustavo)
+## 5. Decisões de 05/10
 
 1. **Texto dos componentes com página no zeroheight:** reusar o texto do time e completar o que falta (Acessibilidade, coluna Padrão, Motion), validando props e padrões no Figma. Divergência vai para o CONFERIR (`diff zeroheight`).
 2. **`.md` no dialeto do zeroheight:** sim, junto com cada doc, a partir da mesma fonte — em `docs/zeroheight/<id>.md`, no template Juntos §11.2 G (3 tabs Specs · Style · Guidelines), com pendências 🟡 numa seção final "não publicar".

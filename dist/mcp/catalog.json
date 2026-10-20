@@ -32999,7 +32999,7 @@
     "id": "C02",
     "group": "Ajuste de texto",
     "resolved": false,
-    "text": "`.Text Content Mask` · CEP · Placeholder `0000-000` (e `0000-00` na instância do Text Input) · CEP tem 8 dígitos: `00000-000` · **Exceção** (Gustavo, 02/10): implementado o correto, `00000-000` · Nada a mudar no código; só conferir a mask no Figma"
+    "text": "`.Text Content Mask` · CEP · Placeholder `0000-000` (e `0000-00` na instância do Text Input) · CEP tem 8 dígitos: `00000-000` · **Exceção** (02/10): implementado o correto, `00000-000` · Nada a mudar no código; só conferir a mask no Figma"
    },
    {
     "id": "C06",
@@ -33011,7 +33011,7 @@
     "id": "C33",
     "group": "Ajuste de texto",
     "resolved": false,
-    "text": "Popover · description · O texto da description começa com uma resposta de chat colada (\"Com certeza! Seguindo o mesmo formato conciso…\") · Description só com o conteúdo do componente · Nada no código (a doc do playground não usa esse texto) · Ajustar a description no Figma (Gustavo, 02/10: anotado para ajustar)"
+    "text": "Popover · description · O texto da description começa com uma resposta de chat colada (\"Com certeza! Seguindo o mesmo formato conciso…\") · Description só com o conteúdo do componente · Nada no código (a doc do playground não usa esse texto) · Ajustar a description no Figma (02/10: anotado para ajustar)"
    },
    {
     "id": "C45",
@@ -33029,7 +33029,7 @@
     "id": "C57",
     "group": "Ajuste de texto",
     "resolved": false,
-    "text": "Date Input · Character Counter e máscara · `Show Character Counter` ligado com o texto `-0000`; Mask=Date com placeholder `dd/mm/aaaa`, enquanto o Text Input usa `00/00/0000` para a mesma máscara · Desligar o contador (não há limite) e um placeholder só para Date · Segue o Figma: contador \"-0000\" e `dd/mm/aaaa` no Date Input · **Débito** (Gustavo, 02/10): remover o Character Counter do Date Input no Figma; aí desligar o padrão em `date-input.js` (`updateCounter`). A máscara `dd/mm/aaaa` × `00/00/0000` segue para alinhar"
+    "text": "Date Input · Character Counter e máscara · `Show Character Counter` ligado com o texto `-0000`; Mask=Date com placeholder `dd/mm/aaaa`, enquanto o Text Input usa `00/00/0000` para a mesma máscara · Desligar o contador (não há limite) e um placeholder só para Date · Segue o Figma: contador \"-0000\" e `dd/mm/aaaa` no Date Input · **Débito** (02/10): remover o Character Counter do Date Input no Figma; aí desligar o padrão em `date-input.js` (`updateCounter`). A máscara `dd/mm/aaaa` × `00/00/0000` segue para alinhar"
    },
    {
     "id": "C177",
@@ -33047,7 +33047,7 @@
     "id": "C182",
     "group": "Ajuste de texto",
     "resolved": false,
-    "text": "Side Menu (Sponsor Templates 5293:13409) · Heading · Não há camada para fechar o menu (a camada oculta `close-line` que existia saiu); no protótipo do celular (5318:19215), o menu abre em tela cheia sobre o Header e não tem como fechar sem navegar · Uma forma de fechar no celular · Icon Button `close-line` no Heading, visível com o menu aberto no celular, mais Esc e escolher um item (decisão do Gustavo, 07/10) · Próxima revisão do Sponsor Templates: devolver a camada de fechar"
+    "text": "Side Menu (Sponsor Templates 5293:13409) · Heading · Não há camada para fechar o menu (a camada oculta `close-line` que existia saiu); no protótipo do celular (5318:19215), o menu abre em tela cheia sobre o Header e não tem como fechar sem navegar · Uma forma de fechar no celular · Icon Button `close-line` no Heading, visível com o menu aberto no celular, mais Esc e escolher um item (decisão do time, 07/10) · Próxima revisão do Sponsor Templates: devolver a camada de fechar"
    },
    {
     "id": "C183",
@@ -33101,7 +33101,7 @@
     "id": "C05",
     "group": "Ajuste de UI",
     "resolved": false,
-    "text": "Família Text Fields · Label no Warning · Main: `Text/intense`. Branch do OTP: `Text/intense` desde a releitura de 15/10 (antes era warning). Branch do Credit Card: `Feedback/Warning/semi-intense` · Um padrão só na família · Segue cada fonte (main × branch); o OTP voltou para `Text/intense` (D346) · Falta só o Credit Card: alinhar na branch dele ou na base (Gustavo)"
+    "text": "Família Text Fields · Label no Warning · Main: `Text/intense`. Branch do OTP: `Text/intense` desde a releitura de 15/10 (antes era warning). Branch do Credit Card: `Feedback/Warning/semi-intense` · Um padrão só na família · Segue cada fonte (main × branch); o OTP voltou para `Text/intense` (D346) · Falta só o Credit Card: alinhar na branch dele ou na base"
    },
    {
     "id": "C08",
@@ -33149,7 +33149,7 @@
     "id": "C27",
     "group": "Ajuste de UI",
     "resolved": false,
-    "text": "Banner · Kind=Illustration · `.Content Banner` (127 de altura) dentro de um Container fixo de 122: o texto transborda 5px para cima · Container acompanhar o conteúdo · Segue o Figma: linha com 122px e conteúdo alinhado embaixo · Registrado; **não alterar por enquanto** (Gustavo, 02/10). Depois: trocar `height:122px` por `min-height` em `banner.css`"
+    "text": "Banner · Kind=Illustration · `.Content Banner` (127 de altura) dentro de um Container fixo de 122: o texto transborda 5px para cima · Container acompanhar o conteúdo · Segue o Figma: linha com 122px e conteúdo alinhado embaixo · Registrado; **não alterar por enquanto** (02/10). Depois: trocar `height:122px` por `min-height` em `banner.css`"
    },
    {
     "id": "C28",
@@ -33161,7 +33161,7 @@
     "id": "C40",
     "group": "Ajuste de UI",
     "resolved": false,
-    "text": "Selection List Item · Is Active com interação · Hovered + Is Active volta a `Surface/01` (perde o Accent); Pressed + Is Active (Default) volta a `Surface/default` · Manter o fundo de selecionado (Accent) com hover/press por cima · Segue o Figma · Mantém como o Figma (Gustavo, 02/10). Se mudar, trocar as 4 regras de `[is-active]` em `selection-list-item.css`"
+    "text": "Selection List Item · Is Active com interação · Hovered + Is Active volta a `Surface/01` (perde o Accent); Pressed + Is Active (Default) volta a `Surface/default` · Manter o fundo de selecionado (Accent) com hover/press por cima · Segue o Figma · Mantém como o Figma (02/10). Se mudar, trocar as 4 regras de `[is-active]` em `selection-list-item.css`"
    },
    {
     "id": "C43",
@@ -33197,19 +33197,19 @@
     "id": "C63",
     "group": "Ajuste de UI",
     "resolved": false,
-    "text": ".Lead item (File) · ícone do hover · Kind=View file mostra `hide-line` (olho cortado) no Hovered/Pressed · Ícone de ver (olho aberto) · Segue o Figma: `hide-line` · Só registrado por enquanto (Gustavo, 02/10). Se mudar, trocar o ícone em `file-lead-item.js`"
+    "text": ".Lead item (File) · ícone do hover · Kind=View file mostra `hide-line` (olho cortado) no Hovered/Pressed · Ícone de ver (olho aberto) · Segue o Figma: `hide-line` · Só registrado por enquanto (02/10). Se mudar, trocar o ícone em `file-lead-item.js`"
    },
    {
     "id": "C64",
     "group": "Ajuste de UI",
     "resolved": false,
-    "text": "Upload Item · espaçamentos · Uploading: gap 6 entre o nome e a Progress Line (sem token); pad vertical 8 em Uploading/Success e 0 em Error/Uploaded · Tokens e um padding só · Segue o Figma (6px literal) · **Erro no Figma**, registrado por enquanto (Gustavo, 02/10). Ajustar `upload-item.css` quando corrigir"
+    "text": "Upload Item · espaçamentos · Uploading: gap 6 entre o nome e a Progress Line (sem token); pad vertical 8 em Uploading/Success e 0 em Error/Uploaded · Tokens e um padding só · Segue o Figma (6px literal) · **Erro no Figma**, registrado por enquanto (02/10). Ajustar `upload-item.css` quando corrigir"
    },
    {
     "id": "C65",
     "group": "Ajuste de UI",
     "resolved": false,
-    "text": "Dropzone · estados · Disabled só muda a borda para Border/semi-intense (igual à versão Mobile Enabled), sem opacidade e com o Main Button Enabled; Desktop não tem Hovered nem Pressed; borda dash 4-4 · Disabled distinguível; hover/press no Desktop · Segue o Figma; a borda usa `dashed` do CSS (o traço não fica exatamente 4-4) · Registrado (Gustavo, 02/10). Ajustar `dropzone.css` quando o Figma mudar"
+    "text": "Dropzone · estados · Disabled só muda a borda para Border/semi-intense (igual à versão Mobile Enabled), sem opacidade e com o Main Button Enabled; Desktop não tem Hovered nem Pressed; borda dash 4-4 · Disabled distinguível; hover/press no Desktop · Segue o Figma; a borda usa `dashed` do CSS (o traço não fica exatamente 4-4) · Registrado (02/10). Ajustar `dropzone.css` quando o Figma mudar"
    },
    {
     "id": "C73",
@@ -33221,13 +33221,13 @@
     "id": "C74",
     "group": "Ajuste de UI",
     "resolved": false,
-    "text": "Caju Card · combinações · Das 21 variantes: falta Físico Corporativo Horizontal (frente e verso) e o verso só existe para Físico (H e V) e Físico Corporativo (V); Virtual, Voucher e Virtual Corporativo não têm verso · Matriz completa ou props que só aparecem onde existem · Combinação ausente cai na mais próxima: mesma orientação na vertical e, sem verso, a frente (o rótulo acessível acompanha) · **Falta conhecida, sinalizada há tempos pelo Gustavo** ao time; Alice e Tathi já tinham sido alertadas durante a task de migração. Registrado (02/10). Quando o Figma completar a matriz: exportar as novas artes e tirar o fallback de `caju-card.js`"
+    "text": "Caju Card · combinações · Das 21 variantes: falta Físico Corporativo Horizontal (frente e verso) e o verso só existe para Físico (H e V) e Físico Corporativo (V); Virtual, Voucher e Virtual Corporativo não têm verso · Matriz completa ou props que só aparecem onde existem · Combinação ausente cai na mais próxima: mesma orientação na vertical e, sem verso, a frente (o rótulo acessível acompanha) · **Falta conhecida, sinalizada há tempos** ao time de design; Alice e Tathi já tinham sido alertadas durante a task de migração. Registrado (02/10). Quando o Figma completar a matriz: exportar as novas artes e tirar o fallback de `caju-card.js`"
    },
    {
     "id": "C82",
     "group": "Ajuste de UI",
     "resolved": false,
-    "text": "Variáveis · `Common/Grids/*` (coleção Viewport) · margin: Desktop 104 · Tablet 16 · Mobile 20 · gutter: Desktop 20 · Tablet 8 · Mobile 16 · **De propósito** (Gustavo, 02/10), mas com proposta de melhoria no Tablet e no Mobile. Sugestão para discutir: escala crescente com tokens que já existem: margin 16 → 32 → 104 e gutter 12 → 16 → 20 (Mobile → Tablet → Desktop) · Segue o Figma: `--common-grids-margin` e `--common-grids-gutter` gerados por `build-tokens.js` (Desktop no `:root`, Tablet ≤1023, Mobile ≤599 e por `[data-viewport]`) · **Proposta de melhoria** (Gustavo). Se aprovada: valores no Figma e `tokens/figma-snapshot.json`"
+    "text": "Variáveis · `Common/Grids/*` (coleção Viewport) · margin: Desktop 104 · Tablet 16 · Mobile 20 · gutter: Desktop 20 · Tablet 8 · Mobile 16 · **De propósito** (02/10), mas com proposta de melhoria no Tablet e no Mobile. Sugestão para discutir: escala crescente com tokens que já existem: margin 16 → 32 → 104 e gutter 12 → 16 → 20 (Mobile → Tablet → Desktop) · Segue o Figma: `--common-grids-margin` e `--common-grids-gutter` gerados por `build-tokens.js` (Desktop no `:root`, Tablet ≤1023, Mobile ≤599 e por `[data-viewport]`) · **Proposta de melhoria**. Se aprovada: valores no Figma e `tokens/figma-snapshot.json`"
    },
    {
     "id": "C84",
@@ -33269,7 +33269,7 @@
     "id": "C199",
     "group": "Ajuste de UI",
     "resolved": false,
-    "text": "Link (4926:213) · Sem variante para link no meio de um texto · O Link é um controle solto: alvo de 48 px de altura, `inline-flex` e Label/Medium. Num parágrafo ou numa célula de tabela, ele aumenta a linha e troca a fonte · O glossário do Relatório (R1 do onboarding dos Relatórios) usa o Link Accent no termo com `display:inline`, sem altura mínima e com a fonte do texto (`.rp-dfn`, Gustavo, 13/10) · Levar ao time da lib: um Link inline (Size Inline ou Kind Text), com a fonte herdada e o sublinhado sempre visível"
+    "text": "Link (4926:213) · Sem variante para link no meio de um texto · O Link é um controle solto: alvo de 48 px de altura, `inline-flex` e Label/Medium. Num parágrafo ou numa célula de tabela, ele aumenta a linha e troca a fonte · O glossário do Relatório (R1 do onboarding dos Relatórios) usa o Link Accent no termo com `display:inline`, sem altura mínima e com a fonte do texto (`.rp-dfn`, 13/10) · Levar ao time da lib: um Link inline (Size Inline ou Kind Text), com a fonte herdada e o sublinhado sempre visível"
    },
    {
     "id": "C200",
@@ -33287,7 +33287,7 @@
     "id": "C208",
     "group": "Ajuste de UI",
     "resolved": false,
-    "text": "Date Input · mobile · Annotation na branch `[Add New] Datepicker` (qIbjCjbldhio6XaLTiFIld, mergeada): a coleção Viewport (`Common/Is Desktop`, `Is Tablet`, `Is Mobile`) mostra o calendário do DS no Desktop e, no Mobile, delega a escolha ao seletor nativo do sistema. A annotation diz que o mecanismo é só do Figma e que, no código, a decisão de plataforma é da implementação · Confirmar se o tablet fica com o calendário do DS (a annotation não fala do tablet) · **Exceção** (Gustavo, 16/10, D358): no mobile o Calendar Button abre o `input type=\"date\"` nativo. Desktop e tablet seguem com o Date Picker no Popover. Mobile = atributo `viewport`, senão o `[data-viewport]` mais próximo, senão a janela < 744 · Nada a mudar no código se o Figma confirmar o tablet com o calendário do DS"
+    "text": "Date Input · mobile · Annotation na branch `[Add New] Datepicker` (qIbjCjbldhio6XaLTiFIld, mergeada): a coleção Viewport (`Common/Is Desktop`, `Is Tablet`, `Is Mobile`) mostra o calendário do DS no Desktop e, no Mobile, delega a escolha ao seletor nativo do sistema. A annotation diz que o mecanismo é só do Figma e que, no código, a decisão de plataforma é da implementação · Confirmar se o tablet fica com o calendário do DS (a annotation não fala do tablet) · **Exceção** (16/10, D358): no mobile o Calendar Button abre o `input type=\"date\"` nativo. Desktop e tablet seguem com o Date Picker no Popover. Mobile = atributo `viewport`, senão o `[data-viewport]` mais próximo, senão a janela < 744 · Nada a mudar no código se o Figma confirmar o tablet com o calendário do DS"
    },
    {
     "id": "C01",
@@ -33299,13 +33299,13 @@
     "id": "C16",
     "group": "Motion",
     "resolved": false,
-    "text": "Credit Card · Icon Button aninhado · Hover em 300ms `EASE_OUT` (override no branch) · `Hover In/01` · **Exceção** (Gustavo corrige no Figma; a curva `EASE_OUT` não tem token): usa o motion do Icon Button da lib · Nada a mudar"
+    "text": "Credit Card · Icon Button aninhado · Hover em 300ms `EASE_OUT` (override no branch) · `Hover In/01` · **Exceção** (o time corrige no Figma; a curva `EASE_OUT` não tem token): usa o motion do Icon Button da lib · Nada a mudar"
    },
    {
     "id": "C22",
     "group": "Motion",
     "resolved": false,
-    "text": "Switch · motion · 300ms (`Duration/Medium/02`) · Gustavo vai ajustar · Segue o Figma · Trocar a duração em `switch.css`. **16/10:** resolvido na branch `motion-verde` com os estilos do Notion verde (`Hover In/01`, `Pressed/01`, `Selected In/03` na posição e `Selected In/02` na cor)"
+    "text": "Switch · motion · 300ms (`Duration/Medium/02`) · O time vai ajustar · Segue o Figma · Trocar a duração em `switch.css`. **16/10:** resolvido na branch `motion-verde` com os estilos do Notion verde (`Hover In/01`, `Pressed/01`, `Selected In/03` na posição e `Selected In/02` na cor)"
    },
    {
     "id": "C30",
@@ -33317,13 +33317,13 @@
     "id": "C36",
     "group": "Motion",
     "resolved": false,
-    "text": "Modal, Drawer, Bottom Sheet, Popover · motion · Sem reactions de entrada e saída · Motion de abrir/fechar (fade do Backdrop, slide do Drawer e do Sheet) · **Exceção** (sem especificação): abrem e fecham sem animação. Só o retorno do Sheet após arrastar usa `Duration/Medium/02` + `Systemic/accelerate` · Registrado; mantém sem animação (Gustavo, 02/10). Quando houver Motion Styles, aplicar em `overlay.css` e nos CSS de cada um"
+    "text": "Modal, Drawer, Bottom Sheet, Popover · motion · Sem reactions de entrada e saída · Motion de abrir/fechar (fade do Backdrop, slide do Drawer e do Sheet) · **Exceção** (sem especificação): abrem e fecham sem animação. Só o retorno do Sheet após arrastar usa `Duration/Medium/02` + `Systemic/accelerate` · Registrado; mantém sem animação (02/10). Quando houver Motion Styles, aplicar em `overlay.css` e nos CSS de cada um"
    },
    {
     "id": "C42",
     "group": "Motion",
     "resolved": false,
-    "text": "Select Inputs · hover e clique · Hover: 150ms `0.7,0,0.8,1` no Async, Creatable e Radio; **instantâneo** no Checkbox; **300ms** no Multi. Clique no Icon Button do Async: 150ms `EASE_OUT` (sem token). A família Text Fields usa 300ms (C01) · Motion Styles por interação, iguais nos cinco · Segue cada um (`select-field.css`, variáveis `--tf-hover-*`) · Mantém como o Figma; **validar e ajustar** (Gustavo, 02/10). Trocar as variáveis em `select-field.css`"
+    "text": "Select Inputs · hover e clique · Hover: 150ms `0.7,0,0.8,1` no Async, Creatable e Radio; **instantâneo** no Checkbox; **300ms** no Multi. Clique no Icon Button do Async: 150ms `EASE_OUT` (sem token). A família Text Fields usa 300ms (C01) · Motion Styles por interação, iguais nos cinco · Segue cada um (`select-field.css`, variáveis `--tf-hover-*`) · Mantém como o Figma; **validar e ajustar** (02/10). Trocar as variáveis em `select-field.css`"
    },
    {
     "id": "C50",
@@ -33347,19 +33347,19 @@
     "id": "C205",
     "group": "Motion",
     "resolved": false,
-    "text": "Main Button, Icon Button e Switch · escala no `Pressed/01` · O Figma não guarda a escala: a Plugin API recusa (\"Cannot write animations to product components\"), o modo Motion (Beta) mostra \"Components can't be animated\" e o Motion Scale do painel não vale no protótipo. O `Pressed/01` fica só com duração e curva (200ms, Systemic/accelerate) · **Decisão do Gustavo (16/10):** no pressed, quem encolhe é o componente. Main Button e Icon Button vão de 100 → 90 → 100% em 200ms. No Switch, a bolinha cresce. A regra fica no Notion da Ju (documentação de motion para devs). Sem anotação na descrição do `Pressed/01` e sem variante auxiliar. A dúvida está resolvida no artifact de conferência · As docs do Main Button e do Icon Button citam a escala (vem do Notion e do React). Nada muda no código · Não entra no Figma enquanto componentes não puderem ser animados"
+    "text": "Main Button, Icon Button e Switch · escala no `Pressed/01` · O Figma não guarda a escala: a Plugin API recusa (\"Cannot write animations to product components\"), o modo Motion (Beta) mostra \"Components can't be animated\" e o Motion Scale do painel não vale no protótipo. O `Pressed/01` fica só com duração e curva (200ms, Systemic/accelerate) · **Decisão do time (16/10):** no pressed, quem encolhe é o componente. Main Button e Icon Button vão de 100 → 90 → 100% em 200ms. No Switch, a bolinha cresce. A regra fica no Notion da Ju (documentação de motion para devs). Sem anotação na descrição do `Pressed/01` e sem variante auxiliar. A dúvida está resolvida no artifact de conferência · As docs do Main Button e do Icon Button citam a escala (vem do Notion e do React). Nada muda no código · Não entra no Figma enquanto componentes não puderem ser animados"
    },
    {
     "id": "C206",
     "group": "Motion",
     "resolved": false,
-    "text": "Main Button, Icon Button, Switch, Checkbox, Link e Modal · valores das animações · O Figma não guarda escala nem deslocamento das animações (ver C205) · Os valores vêm do Notion da Motion e não têm token: escala 90% (Pressed dos botões), 110% (bolinha do Switch e caixa do Checkbox), check do Checkbox crescendo de 0, ícone do Link andando 14px e assentando em 8px (`Sizes/14` e `Sizes/8`), Modal entrando 112px acima (`Sizes/56` × 2). Combinado com o Gustavo (16/10) · Duração, curva e delay vêm dos tokens dos Motion Styles. As escalas e o 112 ficam fixos no CSS de cada componente, com o motivo comentado · Se a coleção ganhar tokens de escala ou de deslocamento, trocar os valores fixos"
+    "text": "Main Button, Icon Button, Switch, Checkbox, Link e Modal · valores das animações · O Figma não guarda escala nem deslocamento das animações (ver C205) · Os valores vêm do Notion da Motion e não têm token: escala 90% (Pressed dos botões), 110% (bolinha do Switch e caixa do Checkbox), check do Checkbox crescendo de 0, ícone do Link andando 14px e assentando em 8px (`Sizes/14` e `Sizes/8`), Modal entrando 112px acima (`Sizes/56` × 2). Combinado com o time (16/10) · Duração, curva e delay vêm dos tokens dos Motion Styles. As escalas e o 112 ficam fixos no CSS de cada componente, com o motivo comentado · Se a coleção ganhar tokens de escala ou de deslocamento, trocar os valores fixos"
    },
    {
     "id": "C04",
     "group": "Refactor",
     "resolved": false,
-    "text": "Password Input · `Show Content` · Padrão `True` (senha visível) · Mascarado por padrão · **Exceção** (Gustavo, 02/10): mascarado; `show-content=\"true\"` mostra · Se o Figma mudar o padrão para `False`, nada muda"
+    "text": "Password Input · `Show Content` · Padrão `True` (senha visível) · Mascarado por padrão · **Exceção** (02/10): mascarado; `show-content=\"true\"` mostra · Se o Figma mudar o padrão para `False`, nada muda"
    },
    {
     "id": "C07",
@@ -33377,7 +33377,7 @@
     "id": "C29",
     "group": "Refactor",
     "resolved": false,
-    "text": "Confirmation Message · Só `Appearance` é prop; título, descrição e ícone (`placeholder-line`) são texto/instância fixos da amostra · Expor `Text Title`, `Text Description` e o ícone como props · Atributos `title`, `description` e `icon` (padrões do Figma) · Manter assim (Gustavo, 02/10). Se o Figma expuser as props com os mesmos nomes, nada muda"
+    "text": "Confirmation Message · Só `Appearance` é prop; título, descrição e ícone (`placeholder-line`) são texto/instância fixos da amostra · Expor `Text Title`, `Text Description` e o ícone como props · Atributos `title`, `description` e `icon` (padrões do Figma) · Manter assim (02/10). Se o Figma expuser as props com os mesmos nomes, nada muda"
    },
    {
     "id": "C31",
@@ -33389,7 +33389,7 @@
     "id": "C35",
     "group": "Refactor",
     "resolved": false,
-    "text": "Bottom Sheet · viewport · O Viewport Restriction cobre o sheet só com `Common/Is Desktop` (Desktop=true, Tablet=false); a description diz \"não para desktop e tablet\" · Restrição também no Tablet · Segue a variável: restrito só no desktop; no 744 o sheet aparece · Registrado; mantém o Figma (Gustavo, 02/10). Se o tablet entrar, incluir `tablet` na regra de `bottom-sheet.css`"
+    "text": "Bottom Sheet · viewport · O Viewport Restriction cobre o sheet só com `Common/Is Desktop` (Desktop=true, Tablet=false); a description diz \"não para desktop e tablet\" · Restrição também no Tablet · Segue a variável: restrito só no desktop; no 744 o sheet aparece · Registrado; mantém o Figma (02/10). Se o tablet entrar, incluir `tablet` na regra de `bottom-sheet.css`"
    },
    {
     "id": "C44",
@@ -33413,19 +33413,19 @@
     "id": "C59",
     "group": "Refactor",
     "resolved": false,
-    "text": "Date Picker · comportamento · Sem especificação de: intervalo × data única (o componente não tem a prop), clique antes do início do intervalo, limites (min/max), teclado e anos do Year Selector (a lista começa em 1950) · Definir no Figma · **Exceção** (sem especificação): `mode` single/range; clique antes do início inverte; `min`/`max` desabilitam dias (Disabled); grade do WAI-ARIA com setas/PageUp/PageDown; anos de 1950 até o ano atual + 10 · Mantém assim (Gustavo, 02/10); ele vê depois como verificar. Ajustar `date-picker.js` se algo mudar"
+    "text": "Date Picker · comportamento · Sem especificação de: intervalo × data única (o componente não tem a prop), clique antes do início do intervalo, limites (min/max), teclado e anos do Year Selector (a lista começa em 1950) · Definir no Figma · **Exceção** (sem especificação): `mode` single/range; clique antes do início inverte; `min`/`max` desabilitam dias (Disabled); grade do WAI-ARIA com setas/PageUp/PageDown; anos de 1950 até o ano atual + 10 · Mantém assim (02/10); ele vê depois como verificar. Ajustar `date-picker.js` se algo mudar"
    },
    {
     "id": "C61",
     "group": "Refactor",
     "resolved": false,
-    "text": "Table · estrutura · Montada por colunas (`.Table Column` com `.Head` + `.Data Cell` no Slot) · Uma tabela por linhas para leitor de tela e teclado · **Exceção** (adaptação para web): `<table>` com `<th scope=col>` e `<td>`; as colunas viram `.columns` e as linhas `.rows` · **Decisão registrada (D62)** a pedido do Gustavo, para o debate no time de design: por linhas é o correto. Argumentos em `docs/TABLE-LINHAS-X-COLUNAS.md`"
+    "text": "Table · estrutura · Montada por colunas (`.Table Column` com `.Head` + `.Data Cell` no Slot) · Uma tabela por linhas para leitor de tela e teclado · **Exceção** (adaptação para web): `<table>` com `<th scope=col>` e `<td>`; as colunas viram `.columns` e as linhas `.rows` · **Decisão registrada (D62)** a pedido do time, para o debate no time de design: por linhas é o correto. Argumentos em `docs/TABLE-LINHAS-X-COLUNAS.md`"
    },
    {
     "id": "C66",
     "group": "Refactor",
     "resolved": false,
-    "text": "Table · comportamento · Sem especificação de ciclo de ordenação, alcance do checkbox do cabeçalho, paginação dos dados e estado vazio sem erro (o Empty só tem a mensagem de falha) · Definir · **Exceção** (sem especificação): Default → Up → Down → Default com `aria-sort`; o cabeçalho marca a página visível (indeterminado quando parcial); paginação no cliente; Empty com `empty-text` editável · Só documentado por enquanto (Gustavo, 02/10). Ajustar `table.js` se o comportamento for desenhado"
+    "text": "Table · comportamento · Sem especificação de ciclo de ordenação, alcance do checkbox do cabeçalho, paginação dos dados e estado vazio sem erro (o Empty só tem a mensagem de falha) · Definir · **Exceção** (sem especificação): Default → Up → Down → Default com `aria-sort`; o cabeçalho marca a página visível (indeterminado quando parcial); paginação no cliente; Empty com `empty-text` editável · Só documentado por enquanto (02/10). Ajustar `table.js` se o comportamento for desenhado"
    },
    {
     "id": "C68",
@@ -33443,7 +33443,7 @@
     "id": "C83",
     "group": "Refactor",
     "resolved": false,
-    "text": "Gaps de token achados ao levar a UI do playground para o DS (Fase 0, `docs/PLANO-UI-DS.md`) · Não há text style de código (monospace), nem de rótulo em caixa alta/letter-spacing; tamanhos acima de `Sizes/200` não existem (larguras de layout 232, 320, 920) · Text style `Code` e, se fizer sentido, tamanhos de layout · Código usa o tamanho do Caption/Disclaimer com fonte mono; caixa alta saiu; larguras viram soma de tokens (`200 + 32`). Breakpoints de `@media` continuam em px (CSS não aceita `var()` ali). Larguras de specimen nos playgrounds seguem o frame do Figma · **Exceção por enquanto** (Gustavo, 02/10): valores e tokens aproximados até ele tratar; depois criar os tokens no Figma e trocar"
+    "text": "Gaps de token achados ao levar a UI do playground para o DS (Fase 0, `docs/PLANO-UI-DS.md`) · Não há text style de código (monospace), nem de rótulo em caixa alta/letter-spacing; tamanhos acima de `Sizes/200` não existem (larguras de layout 232, 320, 920) · Text style `Code` e, se fizer sentido, tamanhos de layout · Código usa o tamanho do Caption/Disclaimer com fonte mono; caixa alta saiu; larguras viram soma de tokens (`200 + 32`). Breakpoints de `@media` continuam em px (CSS não aceita `var()` ali). Larguras de specimen nos playgrounds seguem o frame do Figma · **Exceção por enquanto** (02/10): valores e tokens aproximados até ele tratar; depois criar os tokens no Figma e trocar"
    },
    {
     "id": "C85",
@@ -33455,13 +33455,13 @@
     "id": "C86",
     "group": "Refactor",
     "resolved": false,
-    "text": "[Caju] Icons · dispositivos · Só existem `smartphone-line` e `fullscreen-line`; não há ícone de **tablet** nem de **desktop** · Ícones de tablet e desktop · Seletor de viewport do playground com Icon Button: 360 `smartphone-line` · 744 `placeholder-line` · 1366 `fullscreen-line` · Fluido `swap-left-right-line`, cada um com Tooltip da largura · **Chamado** que o Gustavo vai abrir (02/10); trocar os ícones em `scripts/app.js` quando chegarem"
+    "text": "[Caju] Icons · dispositivos · Só existem `smartphone-line` e `fullscreen-line`; não há ícone de **tablet** nem de **desktop** · Ícones de tablet e desktop · Seletor de viewport do playground com Icon Button: 360 `smartphone-line` · 744 `placeholder-line` · 1366 `fullscreen-line` · Fluido `swap-left-right-line`, cada um com Tooltip da largura · **Chamado** que o time vai abrir (02/10); trocar os ícones em `scripts/app.js` quando chegarem"
    },
    {
     "id": "C137",
     "group": "Refactor",
     "resolved": false,
-    "text": "Atalhos do teclado (tecla `?`, painel do playground) · O DS não tem **Kbd** (tecla) e o [Caju] Icons não tem ícone de **teclado** nem de **ajuda/pergunta** · Um componente Kbd (ou variante de Tag) e ícones `keyboard-line` / `help-line` · **Exceção** (decisão do Gustavo, 05/10): cada tecla é uma **Tag Neutral** sem ícone dentro de um Modal do DS; o painel só abre pela tecla `?`, sem botão na barra (falta o ícone) · Trocar a Tag pelo Kbd e pôr um Icon Button na barra do topo quando existirem Desde D186 a tecla é a composição `<cmp-shortcut>` (`compositions/shortcut/`): quando o Kbd existir, a troca é num lugar só."
+    "text": "Atalhos do teclado (tecla `?`, painel do playground) · O DS não tem **Kbd** (tecla) e o [Caju] Icons não tem ícone de **teclado** nem de **ajuda/pergunta** · Um componente Kbd (ou variante de Tag) e ícones `keyboard-line` / `help-line` · **Exceção** (decisão do time, 05/10): cada tecla é uma **Tag Neutral** sem ícone dentro de um Modal do DS; o painel só abre pela tecla `?`, sem botão na barra (falta o ícone) · Trocar a Tag pelo Kbd e pôr um Icon Button na barra do topo quando existirem Desde D186 a tecla é a composição `<cmp-shortcut>` (`compositions/shortcut/`): quando o Kbd existir, a troca é num lugar só."
    },
    {
     "id": "C87",
@@ -33479,19 +33479,19 @@
     "id": "C89",
     "group": "Refactor",
     "resolved": false,
-    "text": "Doc do Balance Card ([CastanhaDS] Component use documentation · 6695:9618) · comparações · \"Balance Card vs Shortcut\" e \"vs Big number\" mostram os dois componentes; **Shortcut** é de outra lib remota (set `6640:234`) e **Big number** não existe na lib do playground · Shortcut e Big number na lib principal (ou no playground) · Comparação com o texto completo + só o Balance Card vivo e uma nota explicando (decisão do Gustavo, 02/10) · Trocar `compare` em `components/balance-card/balance-card.docs.js` quando os dois existirem. Atualização (D363): o Big Number entrou na comparação. Falta o Shortcut"
+    "text": "Doc do Balance Card ([CastanhaDS] Component use documentation · 6695:9618) · comparações · \"Balance Card vs Shortcut\" e \"vs Big number\" mostram os dois componentes; **Shortcut** é de outra lib remota (set `6640:234`) e **Big number** não existe na lib do playground · Shortcut e Big number na lib principal (ou no playground) · Comparação com o texto completo + só o Balance Card vivo e uma nota explicando (decisão do time, 02/10) · Trocar `compare` em `components/balance-card/balance-card.docs.js` quando os dois existirem. Atualização (D363): o Big Number entrou na comparação. Falta o Shortcut"
    },
    {
     "id": "C90",
     "group": "Refactor",
     "resolved": false,
-    "text": "Doc do Balance Card · Motion e seções ocultas · (1) O frame de **Motion** está com lorem ipsum e tabela \"Especificação\" (Enabled/Hovered/Pressed/Loading). (2) **Composição** e **Acessibilidade** estão ocultas no Figma, mas completas. (3) 2 pares de Do/Don't ocultos · Publicar a especificação de Motion; decidir se Composição e Acessibilidade ficam visíveis · Motion = Alert Warning \"Especificação pendente\"; Composição e Acessibilidade aparecem na doc; os Do/Don'ts ocultos ficaram de fora (decisões do Gustavo, 02/10) · Preencher a tab Motion quando o frame tiver os Motion Styles"
+    "text": "Doc do Balance Card · Motion e seções ocultas · (1) O frame de **Motion** está com lorem ipsum e tabela \"Especificação\" (Enabled/Hovered/Pressed/Loading). (2) **Composição** e **Acessibilidade** estão ocultas no Figma, mas completas. (3) 2 pares de Do/Don't ocultos · Publicar a especificação de Motion; decidir se Composição e Acessibilidade ficam visíveis · Motion = Alert Warning \"Especificação pendente\"; Composição e Acessibilidade aparecem na doc; os Do/Don'ts ocultos ficaram de fora (decisões do time, 02/10) · Preencher a tab Motion quando o frame tiver os Motion Styles"
    },
    {
     "id": "C91",
     "group": "Refactor",
     "resolved": false,
-    "text": "Capa do componente (frame [Header] da doc do Balance Card) · cor e forma · O fundo usa `Commom/Colors/Surface/03` (#f7f3ed, cadeia legada Support/01 → Beaver/50, coleção remota) e a forma decorativa do caju (#f3eee5, vetor solto). **Nenhum dos dois tem token nem asset no DS atual** (não há Beaver nos tokens) · Token de superfície \"marca/quente\" (ou Surface/03 migrado) e a forma do caju como asset da [Caju] Brand · **Decidido (Gustavo, 02/10):** por ser só decorativo, a capa usa o hex do Figma (`--pg-cover-bg`, exceção no audit) e a forma exportada do [Header] em `assets/brand/cover-cashew.svg`. Moldura interna em `Surface/default`. No tema escuro a capa **continua clara** por enquanto (Gustavo, 02/10) · Trocar por token/asset se o DS ganhar um equivalente"
+    "text": "Capa do componente (frame [Header] da doc do Balance Card) · cor e forma · O fundo usa `Commom/Colors/Surface/03` (#f7f3ed, cadeia legada Support/01 → Beaver/50, coleção remota) e a forma decorativa do caju (#f3eee5, vetor solto). **Nenhum dos dois tem token nem asset no DS atual** (não há Beaver nos tokens) · Token de superfície \"marca/quente\" (ou Surface/03 migrado) e a forma do caju como asset da [Caju] Brand · **Decidido (02/10):** por ser só decorativo, a capa usa o hex do Figma (`--pg-cover-bg`, exceção no audit) e a forma exportada do [Header] em `assets/brand/cover-cashew.svg`. Moldura interna em `Surface/default`. No tema escuro a capa **continua clara** por enquanto (02/10) · Trocar por token/asset se o DS ganhar um equivalente"
    },
    {
     "id": "C92",
@@ -33515,13 +33515,13 @@
     "id": "C95",
     "group": "Refactor",
     "resolved": false,
-    "text": "Capas com mockup (Password input, Text area, Select input, Text input) · O [Header] é uma imagem de produto (IMAGE fill); o MCP só entrega link temporário e o curl é bloqueado · PNG exportado de cada [Header] em `assets/docs/covers/<id>.png` · Capa oculta até o arquivo existir (`cover.image`). Text Input, Password Input e Text Area (05/10): `image` removido — capa com o componente vivo, sem 404; o export dos [Header] (5308:2902, 4054:686, 4944:937) sai pelo `download_assets` do MCP, mas o download segue bloqueado aqui · Gustavo exporta os PNGs; cada doc volta a ter `image` quando `assets/docs/covers/<id>.png` existir"
+    "text": "Capas com mockup (Password input, Text area, Select input, Text input) · O [Header] é uma imagem de produto (IMAGE fill); o MCP só entrega link temporário e o curl é bloqueado · PNG exportado de cada [Header] em `assets/docs/covers/<id>.png` · Capa oculta até o arquivo existir (`cover.image`). Text Input, Password Input e Text Area (05/10): `image` removido — capa com o componente vivo, sem 404; o export dos [Header] (5308:2902, 4054:686, 4944:937) sai pelo `download_assets` do MCP, mas o download segue bloqueado aqui · O time exporta os PNGs; cada doc volta a ter `image` quando `assets/docs/covers/<id>.png` existir"
    },
    {
     "id": "C96",
     "group": "Refactor",
     "resolved": false,
-    "text": "Doc Text input (5308:2266) · (1) Prop **Show clear button** e item 5 da anatomia: o código não tem Clear Button. (2) Obrigatório com **\\*** (Required Asterisk) × \"(Obrigatório)\" do código. (3) Contador \"-0000\". (4) Título \"Kind · Accent\" sobre specimens Neutral (sobra de template?). (5) `mask` do código não aparece na doc · Clear Button no código ou fora da doc; título certo · Clear Button listado só em Propriedades + nota; `required-text: \"*\"`; contador \"-0000\" mantido · **Decidido (Gustavo, 02/10):** o Clear Button é legado da doc — a lib atual (5743:325) não tem a prop e o Trailing Item é só o `warning-line` do Warning; o código está certo. Clear Button removido da doc"
+    "text": "Doc Text input (5308:2266) · (1) Prop **Show clear button** e item 5 da anatomia: o código não tem Clear Button. (2) Obrigatório com **\\*** (Required Asterisk) × \"(Obrigatório)\" do código. (3) Contador \"-0000\". (4) Título \"Kind · Accent\" sobre specimens Neutral (sobra de template?). (5) `mask` do código não aparece na doc · Clear Button no código ou fora da doc; título certo · Clear Button listado só em Propriedades + nota; `required-text: \"*\"`; contador \"-0000\" mantido · **Decidido (02/10):** o Clear Button é legado da doc — a lib atual (5743:325) não tem a prop e o Trailing Item é só o `warning-line` do Warning; o código está certo. Clear Button removido da doc"
    },
    {
     "id": "C97",
@@ -33533,25 +33533,25 @@
     "id": "C98",
     "group": "Refactor",
     "resolved": false,
-    "text": "Doc Text area (4944:309) · O Text Area da doc tem props de **outro set** (State Default/Hover/Active-focus/Filled, Error, Show support text, Show counter, Counter) × set 10110:3028 que o código implementa; título \"Kind\" sobre estados · Doc no set atual · Props listadas como no Figma; exemplos mapeados para os atributos do código (`state`, `is-active`, `appearance=warning`…); `show-required` desligado no `base` · **Decidido (Gustavo, 02/10): usar o do código.** Propriedades e Estilos da doc seguem o set 10110:3028"
+    "text": "Doc Text area (4944:309) · O Text Area da doc tem props de **outro set** (State Default/Hover/Active-focus/Filled, Error, Show support text, Show counter, Counter) × set 10110:3028 que o código implementa; título \"Kind\" sobre estados · Doc no set atual · Props listadas como no Figma; exemplos mapeados para os atributos do código (`state`, `is-active`, `appearance=warning`…); `show-required` desligado no `base` · **Decidido (02/10): usar o do código.** Propriedades e Estilos da doc seguem o set 10110:3028"
    },
    {
     "id": "C99",
     "group": "Refactor",
     "resolved": false,
-    "text": "Doc Select input (5074:492) · A doc usa o set **legado \"Select Input\"** (3863:22690, remoto), não os 5 Selects novos; texto fala da família. Style **Negative** = `warning` no código; estado **Focused** sem estado forçado; Popover aberto (Actived, anatomia 6–7) não cabe em exemplo estático; legenda \"Este é um Shortcut\" sobre uma Selection List; \"Plano odontoógico\" · Doc nos sets novos; legenda e texto corrigidos · Doc em `radio-select-input`; Focused fora dos Estilos (nota); itens 6–7 só na legenda; legenda virou \"Esta é uma Selection list\"; typo corrigido; setas 4/5 trocadas · **Decidido (Gustavo, 02/10): doc legada fica de fora por enquanto** (vale para toda doc montada em set legado). `radio-select-input.docs.js` removido; volta quando a doc do Figma for atualizada"
+    "text": "Doc Select input (5074:492) · A doc usa o set **legado \"Select Input\"** (3863:22690, remoto), não os 5 Selects novos; texto fala da família. Style **Negative** = `warning` no código; estado **Focused** sem estado forçado; Popover aberto (Actived, anatomia 6–7) não cabe em exemplo estático; legenda \"Este é um Shortcut\" sobre uma Selection List; \"Plano odontoógico\" · Doc nos sets novos; legenda e texto corrigidos · Doc em `radio-select-input`; Focused fora dos Estilos (nota); itens 6–7 só na legenda; legenda virou \"Esta é uma Selection list\"; typo corrigido; setas 4/5 trocadas · **Decidido (02/10): doc legada fica de fora por enquanto** (vale para toda doc montada em set legado). `radio-select-input.docs.js` removido; volta quando a doc do Figma for atualizada"
    },
    {
     "id": "C100",
     "group": "Refactor",
     "resolved": false,
-    "text": "Doc Quantity input (6945:5832) · (1) Diretriz mostra unidade **antes** do valor (\"R$ 5,00\"); o componente só tem `suffix`. (2) Don't mostra \"1.250\" (milhar); o componente lê como 1,25. (3) **Is Active** marcado como Boolean, mas a instância usa True/False como Variant · Prefixo e separador de milhar no componente (ou exemplos ajustados) · Exemplo \"100%\" + nota; `value: \"1250\"` sem ponto; Is Active como Boolean; setas 2/4/6 ajustadas · **Decidido (Gustavo, 02/10): ajustar.** O componente ganhou `prefix`, `decimals` e milhar pt-BR (exibição e digitação) — exceção aprovada, a lib não tem essas props"
+    "text": "Doc Quantity input (6945:5832) · (1) Diretriz mostra unidade **antes** do valor (\"R$ 5,00\"); o componente só tem `suffix`. (2) Don't mostra \"1.250\" (milhar); o componente lê como 1,25. (3) **Is Active** marcado como Boolean, mas a instância usa True/False como Variant · Prefixo e separador de milhar no componente (ou exemplos ajustados) · Exemplo \"100%\" + nota; `value: \"1250\"` sem ponto; Is Active como Boolean; setas 2/4/6 ajustadas · **Decidido (02/10): ajustar.** O componente ganhou `prefix`, `decimals` e milhar pt-BR (exibição e digitação) — exceção aprovada, a lib não tem essas props"
    },
    {
     "id": "C101",
     "group": "Refactor",
     "resolved": false,
-    "text": "Doc Code Input OTP (7057:17597) · substitui a doc legada (branch) · (1) Estados mostram um `.Value Box` isolado (\"A\"); o componente tem no mínimo 3 células. (2) A doc legada tinha Acessibilidade (do handoff); o Figma atual não tem, e ela saiu. (3) Tabela de Motion com uma linha só de \"—\" · Acessibilidade preenchida no Figma · Campo de 3 células \"A1b\" com estado forçado + nota; Acessibilidade = nota; linha \"—\" fora · **Atualizado (05/10, pedido do Gustavo):** a tab Acessibilidade usa as annotations de Accessibility do set (24060:7228), conferidas no código; o frame no Figma segue com placeholder. Na conferência, o código tinha **uma parada de Tab por célula** (a annotation pede um único ponto de tabulação) — corrigido com roving tabindex"
+    "text": "Doc Code Input OTP (7057:17597) · substitui a doc legada (branch) · (1) Estados mostram um `.Value Box` isolado (\"A\"); o componente tem no mínimo 3 células. (2) A doc legada tinha Acessibilidade (do handoff); o Figma atual não tem, e ela saiu. (3) Tabela de Motion com uma linha só de \"—\" · Acessibilidade preenchida no Figma · Campo de 3 células \"A1b\" com estado forçado + nota; Acessibilidade = nota; linha \"—\" fora · **Atualizado (05/10, pedido do time):** a tab Acessibilidade usa as annotations de Accessibility do set (24060:7228), conferidas no código; o frame no Figma segue com placeholder. Na conferência, o código tinha **uma parada de Tab por célula** (a annotation pede um único ponto de tabulação) — corrigido com roving tabindex"
    },
    {
     "id": "C102",
@@ -33563,7 +33563,7 @@
     "id": "C103",
     "group": "Refactor",
     "resolved": false,
-    "text": "Docs Accordion e Accordion Item (7073:28317) · (1) Etiquetas de tipo dizem **Variant** para todas as props (Show Lead Item/Show Divider são Boolean; Slot é Slot). (2) **Motion: Figma diz Selected In 350ms / Selected Out 200ms; o código abre em 200 e fecha em 350 por decisão (C80)**. (3) Slot vazio tem 82px no Figma, 0 no código. (4) Largura 544 no header × 320 no código. (5) Do/Don'ts repetem 12 itens; aqui 4 · Doc alinhada à decisão C80; tipos certos · Tipos reais (Boolean; Slot como Swap component); Motion copiado do Figma; Do/Don'ts com 4 itens · **Decidido (Gustavo, 02/10): mantém assim** (código com C80; a doc mostra o que o Figma diz)"
+    "text": "Docs Accordion e Accordion Item (7073:28317) · (1) Etiquetas de tipo dizem **Variant** para todas as props (Show Lead Item/Show Divider são Boolean; Slot é Slot). (2) **Motion: Figma diz Selected In 350ms / Selected Out 200ms; o código abre em 200 e fecha em 350 por decisão (C80)**. (3) Slot vazio tem 82px no Figma, 0 no código. (4) Largura 544 no header × 320 no código. (5) Do/Don'ts repetem 12 itens; aqui 4 · Doc alinhada à decisão C80; tipos certos · Tipos reais (Boolean; Slot como Swap component); Motion copiado do Figma; Do/Don'ts com 4 itens · **Decidido (02/10): mantém assim** (código com C80; a doc mostra o que o Figma diz)"
    },
    {
     "id": "C104",
@@ -33587,7 +33587,7 @@
     "id": "C160",
     "group": "Refactor",
     "resolved": false,
-    "text": "Docs do playground · vídeo embutido (Treinamento) · O DS não tem componente de vídeo/player · Um componente de vídeo do DS (ou a decisão de usar sempre o player do serviço) · **Exceção** (pedido do Gustavo, 05/10): bloco `video` do docs-kit com o player do Google Drive num iframe 16:9 (título acessível) e um Link do DS \"Abrir no Drive\" embaixo; só toca com login Caju · Trocar o iframe pelo componente quando existir"
+    "text": "Docs do playground · vídeo embutido (Treinamento) · O DS não tem componente de vídeo/player · Um componente de vídeo do DS (ou a decisão de usar sempre o player do serviço) · **Exceção** (pedido do time, 05/10): bloco `video` do docs-kit com o player do Google Drive num iframe 16:9 (título acessível) e um Link do DS \"Abrir no Drive\" embaixo; só toca com login Caju · Trocar o iframe pelo componente quando existir"
    },
    {
     "id": "C14",
@@ -33617,7 +33617,7 @@
     "id": "C39",
     "group": "Naming",
     "resolved": false,
-    "text": "Naming (Lote 6) · Fixed Bar usa `Show Secondary Action`; o .Footer, `Show Secondary Action Button`. No Bottom Sheet as instâncias se chamam `Header`/`Footer` (sem ponto) · Um nome só · Os dois atributos com o nome do Figma · Registrado para conferir (Gustavo, 02/10). Renomear junto com C25"
+    "text": "Naming (Lote 6) · Fixed Bar usa `Show Secondary Action`; o .Footer, `Show Secondary Action Button`. No Bottom Sheet as instâncias se chamam `Header`/`Footer` (sem ponto) · Um nome só · Os dois atributos com o nome do Figma · Registrado para conferir (02/10). Renomear junto com C25"
    },
    {
     "id": "C53",
@@ -33707,7 +33707,7 @@
     "id": "C202",
     "group": "Acessibilidade",
     "resolved": false,
-    "text": "Text Fields (todos, inclusive o Chat Input) · Borda em repouso `Border/semi-soft` 1,25:1 e no hover `Border/medium` sobre `Surface/01` 2,50:1. Placeholder e contador em `Text/soft` 2,78:1 · WCAG 1.4.11 pede 3:1 no limite do campo e o 1.4.3 pede 4,5:1 no texto. Proposta (QA da CDS-1594): tokens `Specific/Text Fields/*` para borda e placeholder, sem mexer nos tokens gerais · Segue o Figma · Mantido como está por decisão do Gustavo (14/10): sem task por enquanto, rever junto com os contratos de cores do sistema. Quando houver tokens novos, trocar em `text-field.css`"
+    "text": "Text Fields (todos, inclusive o Chat Input) · Borda em repouso `Border/semi-soft` 1,25:1 e no hover `Border/medium` sobre `Surface/01` 2,50:1. Placeholder e contador em `Text/soft` 2,78:1 · WCAG 1.4.11 pede 3:1 no limite do campo e o 1.4.3 pede 4,5:1 no texto. Proposta (QA da CDS-1594): tokens `Specific/Text Fields/*` para borda e placeholder, sem mexer nos tokens gerais · Segue o Figma · Mantido como está por decisão do time (14/10): sem task por enquanto, rever junto com os contratos de cores do sistema. Quando houver tokens novos, trocar em `text-field.css`"
    },
    {
     "id": "C12",
@@ -33875,7 +33875,7 @@
     "id": "C181",
     "group": "Integração React",
     "resolved": false,
-    "text": "Skeleton (20967:742) · Estático: gradiente sem animação, sem motion definido · Anima um brilho (shimmer): 700ms de deslocamento + 500ms de pausa, curva Systemic/decelerate; o próprio SCSS marca 700ms como fora da escala · **Segue o React** (Gustavo, 07/10: \"faça animado como react\"), com os tokens da escala: 700ms = `Duration/Extra Long/01` e 500ms = `Duration/Long/02` · Levar o motion do shimmer para o Figma (description ou protótipo), para as três pontas baterem. **16/10:** o Notion verde confirma o `Loading/01` (700ms, Systemic/decelerate), já descrito na variável do Figma; o CSS usa o token"
+    "text": "Skeleton (20967:742) · Estático: gradiente sem animação, sem motion definido · Anima um brilho (shimmer): 700ms de deslocamento + 500ms de pausa, curva Systemic/decelerate; o próprio SCSS marca 700ms como fora da escala · **Segue o React** (07/10: \"faça animado como react\"), com os tokens da escala: 700ms = `Duration/Extra Long/01` e 500ms = `Duration/Long/02` · Levar o motion do shimmer para o Figma (description ou protótipo), para as três pontas baterem. **16/10:** o Notion verde confirma o `Loading/01` (700ms, Systemic/decelerate), já descrito na variável do Figma; o CSS usa o token"
    },
    {
     "id": "C209",
@@ -33893,37 +33893,37 @@
     "id": "C37",
     "group": "Resolvidos",
     "resolved": true,
-    "text": "Modal · divisores: o padrão é desligado e quem usa liga só se precisar (Gustavo). O Modal ganhou `show-header-divider` e `show-footer-divider`, desligados por padrão · 02/10"
+    "text": "Modal · divisores: o padrão é desligado e quem usa liga só se precisar. O Modal ganhou `show-header-divider` e `show-footer-divider`, desligados por padrão · 02/10"
    },
    {
     "id": "C38",
     "group": "Resolvidos",
     "resolved": true,
-    "text": "Drawer · Backdrop e fechamento: usa Backdrop (no protótipo ele entra como outro asset ao lado) e **sempre** fecha ao clicar fora ou no Esc (Gustavo). O Drawer ignora `dismissible` · 02/10"
+    "text": "Drawer · Backdrop e fechamento: usa Backdrop (no protótipo ele entra como outro asset ao lado) e **sempre** fecha ao clicar fora ou no Esc. O Drawer ignora `dismissible` · 02/10"
    },
    {
     "id": "C41",
     "group": "Resolvidos",
     "resolved": true,
-    "text": "Content List Item × Selection List Item: padding diferente (`8 4` × `8 16 8 24`) e stroke do Card Pressed (2px × 1px) são intencionais, parte do visual e da compensação de espaços (Gustavo). Código já segue o Figma · 02/10"
+    "text": "Content List Item × Selection List Item: padding diferente (`8 4` × `8 16 8 24`) e stroke do Card Pressed (2px × 1px) são intencionais, parte do visual e da compensação de espaços. Código já segue o Figma · 02/10"
    },
    {
     "id": "C55",
     "group": "Resolvidos",
     "resolved": true,
-    "text": ".Transaction Status Icon: building block sem uso, removido do Figma (Gustavo) e do código · 02/10"
+    "text": ".Transaction Status Icon: building block sem uso, removido do Figma e do código · 02/10"
    },
    {
     "id": "C34",
     "group": "Resolvidos",
     "resolved": true,
-    "text": "Modal · largura: não há limite, o Modal abraça o conteúdo (Gustavo, resposta no C58). Código: `width: fit-content`, min 272; `--cds-modal-width` fixa quando preciso · 02/10"
+    "text": "Modal · largura: não há limite, o Modal abraça o conteúdo (resposta no C58). Código: `width: fit-content`, min 272; `--cds-modal-width` fixa quando preciso · 02/10"
    },
    {
     "id": "C56",
     "group": "Resolvidos",
     "resolved": true,
-    "text": "Date Picker · datas da amostra: eram ilustrativas do protótipo; o componente segue funcional (seleção pelo clique, bloco só com seleção) (Gustavo) · 02/10"
+    "text": "Date Picker · datas da amostra: eram ilustrativas do protótipo; o componente segue funcional (seleção pelo clique, bloco só com seleção) · 02/10"
    },
    {
     "id": "C58",
@@ -33935,7 +33935,7 @@
     "id": "C60",
     "group": "Resolvidos",
     "resolved": true,
-    "text": "Naming · `.Navigation Control` do Datepicker × Nav Control: são building blocks de grupos diferentes, sem problema (Gustavo) · 02/10"
+    "text": "Naming · `.Navigation Control` do Datepicker × Nav Control: são building blocks de grupos diferentes, sem problema · 02/10"
    },
    {
     "id": "C69",
@@ -33947,7 +33947,7 @@
     "id": "C70",
     "group": "Resolvidos",
     "resolved": true,
-    "text": "Slider · Hovered com o círculo em Icons/Accent: é o esperado (Gustavo) · 02/10"
+    "text": "Slider · Hovered com o círculo em Icons/Accent: é o esperado · 02/10"
    },
    {
     "id": "C71",
@@ -33959,25 +33959,25 @@
     "id": "C72",
     "group": "Resolvidos",
     "resolved": true,
-    "text": ".Value Item (NPS): State `Enabled` no selecionado e no não selecionado; corrigido no Figma (Gustavo) · 02/10"
+    "text": ".Value Item (NPS): State `Enabled` no selecionado e no não selecionado; corrigido no Figma · 02/10"
    },
    {
     "id": "C80",
     "group": "Resolvidos",
     "resolved": true,
-    "text": "Accordion Item · motion: abrir em 200ms e fechar em 350ms (Expressive/decelerate) é **decisão de motion** (Gustavo); o código segue. **16/10:** o Notion verde diz o contrário (expandir `Selected In/01` 350ms, recolher `Selected Out/01` 200ms). A doc mostra os estilos do Notion e avisa que o playground segue esta decisão até alguém confirmar. **Atualizado (Gustavo, 16/10: \"Segue o notion da ju\"):** abrir no `Selected In/01` (350ms) e recolher no `Selected Out/01` (200ms), no código (branch `motion-verde`) e no Figma, na branch do Accordion `R7GDqtUKeNZZUg45M1llyr` (o set 24673:26248 não está na branch do Motion): o clique no recolhido abre em 350ms e no aberto recolhe em 200ms, Expressive/decelerate · 02/10"
+    "text": "Accordion Item · motion: abrir em 200ms e fechar em 350ms (Expressive/decelerate) é **decisão de motion**; o código segue. **16/10:** o Notion verde diz o contrário (expandir `Selected In/01` 350ms, recolher `Selected Out/01` 200ms). A doc mostra os estilos do Notion e avisa que o playground segue esta decisão até alguém confirmar. **Atualizado (16/10: \"Segue o notion da ju\"):** abrir no `Selected In/01` (350ms) e recolher no `Selected Out/01` (200ms), no código (branch `motion-verde`) e no Figma, na branch do Accordion `R7GDqtUKeNZZUg45M1llyr` (o set 24673:26248 não está na branch do Motion): o clique no recolhido abre em 350ms e no aberto recolhe em 200ms, Expressive/decelerate · 02/10"
    },
    {
     "id": "C81",
     "group": "Resolvidos",
     "resolved": true,
-    "text": "Accordion Item · alvo e semântica: mantém a adaptação para web (botão com `aria-expanded` + `role=region`, hover vindo do cabeçalho e pintando o item todo, `heading-level` opcional, Slot recolhido `inert`) (Gustavo) · 02/10"
+    "text": "Accordion Item · alvo e semântica: mantém a adaptação para web (botão com `aria-expanded` + `role=region`, hover vindo do cabeçalho e pintando o item todo, `heading-level` opcional, Slot recolhido `inert`) · 02/10"
    },
    {
     "id": "C79",
     "group": "Resolvidos",
     "resolved": true,
-    "text": "Accordion Item · description do ícone indicador corrigida na branch (`dropdown-close-line` aberto, `dropdown-open-line` recolhido), agora igual às variantes. Editado via MCP a pedido do Gustavo · 02/10"
+    "text": "Accordion Item · description do ícone indicador corrigida na branch (`dropdown-close-line` aberto, `dropdown-open-line` recolhido), agora igual às variantes. Editado via MCP a pedido do time · 02/10"
    },
    {
     "id": "C107",
@@ -34169,13 +34169,13 @@
     "id": "C155",
     "group": "Resolvidos",
     "resolved": true,
-    "text": "**Decisões do Gustavo (05/10)** sobre o CONFERIR. ✅ **Card** (C131): `Has Border` padrão True, como na lib (variante padrão `Has Border=True`); no código `has-border=\"false\"` tira a borda. ✅ **Banner** (C27/C145): área do conteúdo com mínimo de 122 e altura que acompanha o conteúdo, como diz a description; o padrão continua 280×170 (o .Content Banner ainda transborda 5px para cima, como no Figma) — **falta o Figma**: o container ainda é fixo em 122. ✅ **Table** (C147): mantido o comportamento do código (crescente → decrescente → padrão, ícone visível enquanto ordenada); falta atualizar o texto do zeroheight. ⏸ **Contrastes abaixo do WCAG que vêm dos tokens do Figma** — o código segue os tokens; lista para o time do DS decidir a troca: Border/medium sobre Surface/default 2,78:1 (borda do Unselected de Checkbox e Radio C134, contorno do Dropzone C140, Hovered dos Chips C149); contorno dos Text Fields e do Date Input (Border/semi-soft) 1,25:1 e placeholder 2,78:1 (C141, C148); borda do Input Chip 1,25:1 e fundo do Filter Chip sem seleção 1,11:1 (C149); estrelas do CSAT 2,68:1 (ativa, Decorative/02) e 2,78:1 (inativa) (C143); marcador Pending e conector do Progress Tracker 1,25:1 (C150) · 05/10"
+    "text": "**Decisões do time (05/10)** sobre o CONFERIR. ✅ **Card** (C131): `Has Border` padrão True, como na lib (variante padrão `Has Border=True`); no código `has-border=\"false\"` tira a borda. ✅ **Banner** (C27/C145): área do conteúdo com mínimo de 122 e altura que acompanha o conteúdo, como diz a description; o padrão continua 280×170 (o .Content Banner ainda transborda 5px para cima, como no Figma) — **falta o Figma**: o container ainda é fixo em 122. ✅ **Table** (C147): mantido o comportamento do código (crescente → decrescente → padrão, ícone visível enquanto ordenada); falta atualizar o texto do zeroheight. ⏸ **Contrastes abaixo do WCAG que vêm dos tokens do Figma** — o código segue os tokens; lista para o time do DS decidir a troca: Border/medium sobre Surface/default 2,78:1 (borda do Unselected de Checkbox e Radio C134, contorno do Dropzone C140, Hovered dos Chips C149); contorno dos Text Fields e do Date Input (Border/semi-soft) 1,25:1 e placeholder 2,78:1 (C141, C148); borda do Input Chip 1,25:1 e fundo do Filter Chip sem seleção 1,11:1 (C149); estrelas do CSAT 2,68:1 (ativa, Decorative/02) e 2,78:1 (inativa) (C143); marcador Pending e conector do Progress Tracker 1,25:1 (C150) · 05/10"
    },
    {
     "id": "C156",
     "group": "Resolvidos",
     "resolved": true,
-    "text": "**Decisões do Gustavo (05/10), rodada 2.** ✅ **Toast** (C136): entrada animada com os tokens que o zeroheight cita (expressive/decelerate · long/02) e saída com `Selected Out/01`; o Figma não diz o que se move — o código usa opacidade + 8px na vertical (Common/Sizes/8); reduced motion sem animação. Falta o Motion Style da entrada no Figma. ✅ **Input Chip** (C149): segue o castanha-react — o chip sozinho não move o foco (como o `Chips.Input`; o `cds-remove` agora informa `keyboard`); no Multi Select Input vale a regra do SelectInput múltiplo (teclado → próximo chip ou o campo; mouse → o campo; Backspace/Delete no chip removem). ✅ **Breadcrumb** (C138): vale o componente do Figma (1º item Truncate); levar ao time de Conteúdo a regra \"a página de origem nunca é truncada\". ✅ **Tabs** (C138): `Show Badge` no .Item — padrão True no .Item solto (75×48, Badge Warning \"0\" a 4 do Label, como na lib) e False dentro do Fixed e do Scrollable Tab (como as instâncias do Figma); `show-badge`/`badge-label`; com Badge, o nome acessível fica \"Label, N\" · 05/10"
+    "text": "**Decisões do time (05/10), rodada 2.** ✅ **Toast** (C136): entrada animada com os tokens que o zeroheight cita (expressive/decelerate · long/02) e saída com `Selected Out/01`; o Figma não diz o que se move — o código usa opacidade + 8px na vertical (Common/Sizes/8); reduced motion sem animação. Falta o Motion Style da entrada no Figma. ✅ **Input Chip** (C149): segue o castanha-react — o chip sozinho não move o foco (como o `Chips.Input`; o `cds-remove` agora informa `keyboard`); no Multi Select Input vale a regra do SelectInput múltiplo (teclado → próximo chip ou o campo; mouse → o campo; Backspace/Delete no chip removem). ✅ **Breadcrumb** (C138): vale o componente do Figma (1º item Truncate); levar ao time de Conteúdo a regra \"a página de origem nunca é truncada\". ✅ **Tabs** (C138): `Show Badge` no .Item — padrão True no .Item solto (75×48, Badge Warning \"0\" a 4 do Label, como na lib) e False dentro do Fixed e do Scrollable Tab (como as instâncias do Figma); `show-badge`/`badge-label`; com Badge, o nome acessível fica \"Label, N\" · 05/10"
    },
    {
     "id": "C161",
@@ -34205,7 +34205,7 @@
     "id": "C165",
     "group": "Resolvidos",
     "resolved": true,
-    "text": "**Card clicável na grade do menu** (D158). 🟡 O DS não tem Card interativo: o `Card` (Containers, 5256:540) é container estático com pad 24 + 8, grande demais para miniaturas de ~96px, e não tem estados de hover/selecionado. O card da grade é um link com os tokens do Card (Surface/default, raio medium, Border/semi-soft hairline), hover = Surface/01 + Border/medium e atual = Border/intense thin, como os itens do menu. ✅ **Decidido (Gustavo, 05/10):** fica como composição local `compositions/clickable-card/` (`<cmp-clickable-card>`, D161) e a melhoria vai para o DS pela [issue #1](https://github.com/gus-constantino/portal-castanhads/issues/1) — Card clicável/selecionável (Is Interactive + State + pad compacto); quando existir, trocar na grade e apagar a composição."
+    "text": "**Card clicável na grade do menu** (D158). 🟡 O DS não tem Card interativo: o `Card` (Containers, 5256:540) é container estático com pad 24 + 8, grande demais para miniaturas de ~96px, e não tem estados de hover/selecionado. O card da grade é um link com os tokens do Card (Surface/default, raio medium, Border/semi-soft hairline), hover = Surface/01 + Border/medium e atual = Border/intense thin, como os itens do menu. ✅ **Decidido (05/10):** fica como composição local `compositions/clickable-card/` (`<cmp-clickable-card>`, D161) e a melhoria vai para o DS pela [issue #1](https://github.com/gus-constantino/portal-castanhads/issues/1) — Card clicável/selecionável (Is Interactive + State + pad compacto); quando existir, trocar na grade e apagar a composição."
    },
    {
     "id": "C166",
@@ -34241,7 +34241,7 @@
     "id": "C171",
     "group": "Resolvidos",
     "resolved": true,
-    "text": "**Personas no playground** (recurso novo, D196; pedido do Gustavo: \"completo sem o sensível\"). Entraram as 21 páginas de Visão Cliente em versão pública: conceito, uso, ICP (só o conceito), método em linhas gerais, galeria, 15 personas B2C/B2B e 10 de operador. 🟡 Fora: números de pesquisa, potencial comercial dos ICPs, introduções B2B com dado comercial, processos comerciais e os depoimentos (Quotes Reais). 🟡 Decisões: Jonas \"O aprendiz\"; Cris 35 anos; Robson \"RH e DP\" (o Hub diz \"RD\"); frase da Camila trocada por uma neutra; dependências alinhadas à tabela (John, Natália). 🟡 Fotos → ilustrações dos personagens; operador sem ilustração (não há personagem). Pedir ao time dono do conteúdo para revisar a versão pública. 🟡 09/10 (Gustavo: \"completo\", D304): entraram os arquétipos das 9 personas B2B, o histórico da pesquisa e os objetivos, dores e necessidades de operador que não eram sensíveis. Depois, as fragilidades de controle (auditoria, PEP e sanções, LGPD, contas sem encerramento, testes em produção, acesso de ex-cliente, alçada) e os números do Hub também entraram (Gustavo: \"personas são fictícias\"). Em seguida, as ferramentas voltaram ao nome real do Hub (Salesforce, NetSuite, Jira, Databricks, Meetime, Wellhub, Sponsor App…, D308). Grafias decididas (Gustavo, 09/10): CajuMais junto e Unico sem acento. A confirmar: Big Data (BigDataCorp?), SPNota, Meet Rocks, Mobi · 05/10"
+    "text": "**Personas no playground** (recurso novo, D196; pedido do time: \"completo sem o sensível\"). Entraram as 21 páginas de Visão Cliente em versão pública: conceito, uso, ICP (só o conceito), método em linhas gerais, galeria, 15 personas B2C/B2B e 10 de operador. 🟡 Fora: números de pesquisa, potencial comercial dos ICPs, introduções B2B com dado comercial, processos comerciais e os depoimentos (Quotes Reais). 🟡 Decisões: Jonas \"O aprendiz\"; Cris 35 anos; Robson \"RH e DP\" (o Hub diz \"RD\"); frase da Camila trocada por uma neutra; dependências alinhadas à tabela (John, Natália). 🟡 Fotos → ilustrações dos personagens; operador sem ilustração (não há personagem). Pedir ao time dono do conteúdo para revisar a versão pública. 🟡 09/10 (\"completo\", D304): entraram os arquétipos das 9 personas B2B, o histórico da pesquisa e os objetivos, dores e necessidades de operador que não eram sensíveis. Depois, as fragilidades de controle (auditoria, PEP e sanções, LGPD, contas sem encerramento, testes em produção, acesso de ex-cliente, alçada) e os números do Hub também entraram (\"personas são fictícias\"). Em seguida, as ferramentas voltaram ao nome real do Hub (Salesforce, NetSuite, Jira, Databricks, Meetime, Wellhub, Sponsor App…, D308). Grafias decididas (09/10): CajuMais junto e Unico sem acento. A confirmar: Big Data (BigDataCorp?), SPNota, Meet Rocks, Mobi · 05/10"
    },
    {
     "id": "C172",

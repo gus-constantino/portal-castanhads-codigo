@@ -2,7 +2,7 @@
    Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Content List Item, 32e6da · status Backlog) reaproveitado; props e padrões do set da lib
    estável (Content List Item 5488:675 — sem description); acessibilidade e contrastes do playground (C139).
    Arrastar para reordenar (CDS-1592, 13/10): Show Drag Handle e State=Dragged lidos na branch bHFCiEbEkTYCXNipG4iqN0 e o handoff
-   do Gustavo (docs/local/handoffs). O que a branch e o handoff dizem diferente está no C200.
+   do time (docs/local/handoffs). O que a branch e o handoff dizem diferente está no C200.
    Textos de arraste (Sobre, Estilos › Arraste, Acessibilidade, diretriz Reordenação, Do/Don't) da folha [Documentation] Content list item
    da branch (26362:9563), lida em 14/10. */
 (function(){

@@ -1,6 +1,6 @@
 /* Skeleton · set 20967:742 — Shape com gradiente horizontal Neutral/Solid/semi-soft → Surface/default → semi-soft
    Round: elipse, 80 × 80 de amostra · Square: raio Border/Radius/medium, largura do pai × Sizes/160 de amostra
-   Brilho (shimmer) como no Skeleton do castanha-react (decisão do Gustavo, C181: o Figma é estático): o gradiente em 200% de
+   Brilho (shimmer) como no Skeleton do castanha-react (decisão do time, C181: o Figma é estático): o gradiente em 200% de
    largura anda de 150% a -50% no Loading/01 (700ms, Systemic/decelerate) e pausa 500ms (Duration/Long/02),
    ciclo de 1200ms em loop. Com prefers-reduced-motion: sem animação, brilho parado no centro (como o React). */
 @keyframes cds-skeleton-shimmer{

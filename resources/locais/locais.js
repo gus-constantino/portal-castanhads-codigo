@@ -1,5 +1,5 @@
 /* Componentes locais — página ESCONDIDA (hidden: true): fora do menu, da busca, do anterior/próximo e do MCP.
-   Único acesso: link no Relatório › Arquitetura (Gustavo, 06/10/2026: "acessível apenas de um link em relatórios,
+   Único acesso: link no Relatório › Arquitetura (06/10/2026: "acessível apenas de um link em relatórios,
    bem escondido por enquanto"). Explica onde mora cada tipo de peça feita com o Castanha DS (componente, building
    block, template, team component, componente local e composição) e documenta o primeiro componente local, a Pilha
    (local/pilha), que leva o conceito do Castanha Assets às telas do playground (D221). */
@@ -110,7 +110,7 @@
           { kind: "do", title: "Na capa", text: "Uma pilha por capa, à direita do texto." },
           { kind: "dont", title: "Cor fora da escala", text: "Nada de pintar os cartões à mão. A cor vem da área." },
           { kind: "dont", title: "Conteúdo dentro", text: "Os cartões não levam texto, ícone nem imagem." },
-          { kind: "dont", title: "Enfeite", text: "A pilha não vai no canto de cards, em itens de lista nem como marcador no menu: nada disso existe no Castanha Assets (Gustavo, 06/10)." }
+          { kind: "dont", title: "Enfeite", text: "A pilha não vai no canto de cards, em itens de lista nem como marcador no menu: nada disso existe no Castanha Assets (06/10)." }
         ] },
         { code: "<section class=\"loc-pilha-trigger\">\n  <h2>Tema Caju</h2>\n  <loc-pilha area=\"padroes\" cards=\"3\" style=\"height:var(--common-sizes-200)\"></loc-pilha>\n</section>" }
       ] },

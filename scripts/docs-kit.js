@@ -795,7 +795,7 @@
       search.className = "pg-faq__search";
       [["label", "Buscar pergunta"], ["show-label", "false"], ["placeholder", "Buscar: tema escuro, token, ícone, componente novo…"], ["show-required", "false"], ["show-supporting-content", "false"]].forEach(function(a){ search.setAttribute(a[0], a[1]); });
       if (v.illustration) hero.appendChild(img(v.illustration, "pg-faq__hero-ill"));
-      // 2. Temas: Content List Item do DS (Kind Card, Intent Default, sem .Trailing Item; Gustavo, 06/10: sem Checkbox).
+      // 2. Temas: Content List Item do DS (Kind Card, Intent Default, sem .Trailing Item; 06/10: sem Checkbox).
       //    O clique filtra por aquele tema e clicar de novo limpa; o filtro ativo aparece na contagem e em "Limpar filtros".
       var cats = {}, topics = {};
       var tgrid = wrap.appendChild(el("div", "pg-faq__topics"));
@@ -807,7 +807,7 @@
         c.addEventListener("click", function(){ var on = !cats[g.title]; cats = {}; if (on) cats[g.title] = 1; paintTopics(); filter(); });
         topics[g.title] = tgrid.appendChild(c);
       });
-      // 3. Mais perguntadas: as mais frequentes, na ordem, em Content List Item (Kind Card, Intent Navigation); sem número nem barra (Gustavo, 06/10)
+      // 3. Mais perguntadas: as mais frequentes, na ordem, em Content List Item (Kind Card, Intent Navigation); sem número nem barra (06/10)
       var all = []; groups.forEach(function(g){ g.items.forEach(function(q){ all.push({ q: q, g: g }); }); });
       var top = all.slice().sort(function(a, b){ return w(b.q) - w(a.q); }).slice(0, v.top || 5);
       var topSec = wrap.appendChild(el("section", "pg-faq__top"));

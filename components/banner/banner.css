@@ -20,7 +20,7 @@ cds-banner{ display:block; width:280px; min-width:min(280px, 100%); max-width:10
 .cds-banner:disabled{ cursor:default; opacity:var(--common-opacity-medium); --_overlay:transparent; }
 .cds-banner:focus-visible{ outline:var(--common-border-width-thin) solid var(--common-colors-support-system); outline-offset:var(--common-border-width-thin); }
 /* Container de 122 (mínimo): o .Content Banner (127) transborda 5px para cima, como no Figma (C27); com texto mais longo
-   a altura acompanha o conteúdo, como diz a description do set (decisão do Gustavo, 05/10 · C155) */
+   a altura acompanha o conteúdo, como diz a description do set (decisão do time, 05/10 · C155) */
 .cds-banner__row{ display:flex; justify-content:space-between; align-items:flex-end; gap:var(--common-sizes-8); width:100%; min-height:122px; }
 .cds-banner__row > .cds-banner__content{ flex:1 1 auto; min-width:0; margin-top:-5px; }
 .cds-banner__ill{ width:122px; height:122px; flex:0 0 auto; }

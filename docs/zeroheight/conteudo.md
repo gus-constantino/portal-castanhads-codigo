@@ -28,7 +28,7 @@ Revisão de 05/10/2026 das 32 páginas de Conteúdo do Castanha Hub: Tom e Voz, 
 | 13 | "Para garantir sua segurança" | Feedback Pages lista "Garantir" em Palavras para evitar; Alertas manda usar a frase | Copiou a frase de Alertas | O Hub precisa decidir |
 | 14 | Textos do .Feedback Content (Figma) | Proíbe "com sucesso", "Tudo certo", "Entendi" como CTA, "Ver", futuro ("Avisaremos") e pede "Limpar busca" | Patterns usa os textos do Figma: "Ação concluída com sucesso", "Tudo certo!", "Entendi", "Ver detalhes", "Avisaremos em breve", "Limpar filtros" | Reescrever os textos sugeridos no Figma (ver seção 3) |
 
-## Decisões de 05/10/2026 (Gustavo)
+## Decisões de 05/10/2026
 
 Aplicadas no playground:
 - **Etapas futuras:** vale a Premissa #8 do Hub. O "Não faça" de Princípios de escrita deixou de dizer "não entre em detalhes de etapas futuras".

@@ -9,7 +9,7 @@
  *   prefix (antes do valor, ex.: "R$") · suffix (depois, ex.: "%") · decimals (casas fixas, ex.: 2 → "5,00")
  *   label · required-text · supporting · error
  *   Exibição em pt-BR com separador de milhar ("1.250"); a digitação também é lida em pt-BR
- *   (prefix, decimals e milhar: exceção aprovada pelo Gustavo em 02/10 — a lib não tem essas props, C100)
+ *   (prefix, decimals e milhar: exceção aprovada pelo time em 02/10 — a lib não tem essas props, C100)
  *   show-label · show-required · show-supporting-content · decrement-label · increment-label
  * Comportamento (annotations): valor inválido não bloqueia a digitação; fora da faixa vira Warning;
  *   ao sair do campo, ajusta para o limite mais próximo e anuncia; no limite, o botão correspondente fica

@@ -10,13 +10,13 @@
   var REPO = "https://github.com/gus-constantino/portal-castanhads-codigo/blob/main/";
   // Seções por número do título (ROADMAP/ARCHITECTURE) ou pelo nome (CONFERIR). O que não estiver listado vai para o último grupo.
   var TABS = [
-    // Rótulos e ordem de 15/10 (Gustavo): o que pede ação (Pendências), o que foi decidido (Decisões), o estado do código
+    // Rótulos e ordem de 15/10: o que pede ação (Pendências), o que foi decidido (Decisões), o estado do código
     // (Qualidade, React, Flutter) e a referência (Arquitetura, Glossário). Os ids (e as rotas #/relatorio/<id>) não mudaram.
     { id: "visao", title: "Visão geral" },
     { id: "conferir", title: "Pendências", file: "docs/CONFERIR.md", groups: [
       ["Em aberto, por tipo", ["Ajuste de texto", "Ajuste de UI", "Motion", "Refactor", "Naming", "Acessibilidade", "Documentação", "Integração React"]],
       ["Fechados", ["Resolvidos"]], ["Referência", ["Como usar esta lista"]] ] },
-    { id: "chamados", title: "Chamados" }, // chamados em aberto do #castanha-suporte, do mais antigo ao mais novo (Gustavo, 15/10)
+    { id: "chamados", title: "Chamados" }, // chamados em aberto do #castanha-suporte, do mais antigo ao mais novo (15/10)
     { id: "roadmap", title: "Decisões", file: "docs/ROADMAP.md", groups: [
       ["Andamento", ["8", "3"]], ["Decisões e pendências", ["4", "5", "5.1", "5.2"]], ["Referência", ["2", "7", "1"]] ], hide: ["6"] }, // 6 = Preferências (nota de trabalho, fica só no doc)
     { id: "saude", title: "Qualidade", file: "docs/SAUDE-TECNICA.md", groups: [ // gerado pelo build-index (smoke e peso)
@@ -160,7 +160,7 @@
     ];
   }
 
-  // Saúde geral (Gustavo, 09/10, no lugar de Decisões registradas): um status só, juntando o build do portal (smoke, docs e peso)
+  // Saúde geral (09/10, no lugar de Decisões registradas): um status só, juntando o build do portal (smoke, docs e peso)
   // e o check de cada stack. Atenção = algo falhou ou há divergência alta; Com avisos = avisos ou divergências médias.
   function health(docs){
     var build = rows(sec(docs.saude, function(s){ return s.title === "Resumo"; }).lines).map(function(r){ return plain(r[1] || ""); });
@@ -319,7 +319,7 @@
 
   // ---------- Figma, React e Flutter lado a lado ----------
   // Uma coluna por stack: cobertura, status (Tag), código validado, divergências e de quando é a leitura.
-  // Cobertura em barra dividida (Gustavo, 09/10): a barra inteira é sempre o total de componentes e cada parte tem nome e número
+  // Cobertura em barra dividida (09/10): a barra inteira é sempre o total de componentes e cada parte tem nome e número
   // na legenda, para não parecer uma meta de 100% nem deixar a parte vazia sem explicação. Cores = Tags de status (como a Publicação).
   function stacks(grid){
     var comps = compsOnly(), N = comps.length;
@@ -501,7 +501,7 @@
         abertos: ab, resolvidos: rs, react: lr["Alta"] != null ? [lr["Alta"], lr["Média"] || 0] : null, flutter: lf["Alta"] != null ? [lf["Alta"], lf["Média"] || 0] : null, live: true });
     }
     var sum = function(k){ return function(d){ return d[k] ? d[k][0] + d[k][1] : null; }; };
-    // Cada card tem uma ou mais séries da mesma unidade (dividem o eixo). Débitos: em aberto ao lado dos resolvidos (Gustavo, 09/10).
+    // Cada card tem uma ou mais séries da mesma unidade (dividem o eixo). Débitos: em aberto ao lado dos resolvidos (09/10).
     var M = [
       { t: "Documentações de componente", tip: "Docs de uso, anatomia, estilos e acessibilidade publicadas no portal.", s: [{ name: "Documentações", cls: "is-s2", get: function(d){ return d.docs; } }] },
       { t: "Decisões registradas", tip: "Decisões de produto e de implementação registradas na tab Decisões.", s: [{ name: "Decisões", cls: "is-s2", get: function(d){ return d.decisoes; } }] },
@@ -545,7 +545,7 @@
   }
 
   // ---------- Suporte: chamados do #castanha-suporte (docs/chamados.json, gerado por scripts/dev/chamados.js) ----------
-  // Pedido do Gustavo (15/10): acompanhar os chamados no estilo da Tendência, por tipo. Comparações escolhidas para o DS:
+  // Pedido do time (15/10): acompanhar os chamados no estilo da Tendência, por tipo. Comparações escolhidas para o DS:
   // o volume por mês, Design × Dev (Figma ou padrão contra código: Dev bem acima mostra a lib em código atrás do Figma),
   // Ilustração × Motion (os dois times de marca), a divisão por tipo, os componentes mais citados e o que está em aberto.
   var CH_TIPOS = [["design", "Design", "ch03", "Figma, padrões, componentes novos e dúvidas de uso."],
@@ -554,7 +554,7 @@
     ["conteudo", "Conteúdo", "ch07", "Textos e templates."], ["outros", "Outros", "ch06", "Acessos, pastas e equipes no Figma, ferramentas."]];
   var MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
   function mesCurto(iso){ return MESES[+iso.slice(5, 7) - 1] + "/" + iso.slice(2, 4); }
-  // Período dos painéis de chamados (Gustavo, 15/10): Filter Chips de escolha única (3 meses, padrão; 6 meses; último ano;
+  // Período dos painéis de chamados (15/10): Filter Chips de escolha única (3 meses, padrão; 6 meses; último ano;
   // desde o início; selecionar período, que abre dois Date Input do DS). onChange recebe { de, ate } em AAAA-MM-DD.
   var PERIODOS = [["3", "3 meses"], ["6", "6 meses"], ["12", "Último ano"], ["tudo", "Desde o início"], ["sel", "Selecionar período"]];
   function periodoChamados(parent, inicio, onChange){
@@ -648,7 +648,7 @@
     var ranking = Object.keys(cont).filter(function(id){ return nomes[id] && nomes[id].charAt(0) !== "."; }) /* sem building blocks */.sort(function(a, b){ return cont[b] - cont[a] || nomes[a].localeCompare(nomes[b], "pt-BR"); }).slice(0, 8);
     var pc = panel(grid, "Componentes mais citados", "Nos títulos dos chamados de Design e Dev, desde " + mesCurto(all[0].d));
     bars(pc, ranking.map(function(id){ return { label: nomes[id], value: cont[id], href: "#/" + id }; }), { tone: "components" });
-    // Status (pedido do Gustavo, 15/10): como a Lista do Slack está agora, desde o início (sem o filtro de período).
+    // Status (pedido do time, 15/10): como a Lista do Slack está agora, desde o início (sem o filtro de período).
     // Barra empilhada com Resolvido, Em andamento e Priorizado e, embaixo, o que está em aberto por tipo.
     var ST = [["resolvido", "Resolvido", "ch04", "Atendido e fechado na Lista do Slack."], ["andamento", "Em andamento", "ch05", "Alguém do time já está atendendo."],
       ["priorizado", "Priorizado", "ch01", "Aceito, esperando a vez na fila."]];
@@ -664,7 +664,7 @@
     return [p, pc, pa];
   }
 
-  // ---------- Equalização (antes "Adoção ao longo do tempo"; Gustavo, 09/10) ----------
+  // ---------- Equalização (antes "Adoção ao longo do tempo"; 09/10) ----------
   // % dos componentes do playground em cada stack, dia a dia, com eixo fixo 0–100%.
   function equalizacao(grid){
     var T = extra.trend; if (!T || !T.days || !T.days.length) return null;
@@ -709,7 +709,7 @@
     bigNumber(p2, fmt(solvedPct) + "%", null, solvedPct, solvedN + " de " + (total + solvedN) + " itens registrados no Conferir já foram resolvidos");
     var KIND = function(r){ var code = r[4] || "", act = r[5] || ""; return /débito|erro no figma/i.test(act) ? "deb" : /exceção/i.test(code) ? "exc" : "seg"; };
     var TREAT = [["seg", "Segue o Figma", "ch03", "O código faz o que o Figma faz hoje, mesmo quando parece errado. A divergência fica registrada para corrigir no Figma."],
-      ["exc", "Exceção aprovada", "ch01", "O código difere do Figma por decisão do Gustavo, falta de especificação ou adaptação para web aprovada."],
+      ["exc", "Exceção aprovada", "ch01", "O código difere do Figma por decisão do time, falta de especificação ou adaptação para web aprovada."],
       ["deb", "Débito ou erro no Figma", "ch05", "Problema confirmado no Figma, a corrigir lá. O código acompanha quando a correção entrar."]];
     var types = open.map(function(s){
       var rs = rows(s.lines).filter(function(r){ return /^(~~)?C\d+/.test(r[0]); }), k = { seg: 0, exc: 0, deb: 0 };
@@ -732,7 +732,7 @@
     var p3 = panel(grid, "Adaptações para código", "Regra D40: o código segue o Figma, e o que muda é exceção aprovada ou débito registrado · " + all.length + " itens");
     stackCols(p3, TREAT.map(function(x){ return { cls: x[2], label: x[1], desc: x[3].replace(/\..*$/, "."), n: kinds[x[0]] }; }), all.length);
 
-    // Componentes por página do Figma: linhas com a Progress Line do DS (como antes; Gustavo, 09/10: "precisa ser o componente do Figma como era antes")
+    // Componentes por página do Figma: linhas com a Progress Line do DS (como antes; 09/10: "precisa ser o componente do Figma como era antes")
     // mesma base do KPI Componentes no playground: sem building blocks, composições e templates (R0/B4 do onboarding)
     var pg = (CDS.playgrounds || []).filter(function(c){ return !c.resource && !c.block && !c.composition && !c.template; }), cats = {};
     pg.forEach(function(c){ var k = c.category || "Sem página"; cats[k] = (cats[k] || 0) + 1; });
@@ -805,7 +805,7 @@
     });
 
     // Ritmo do projeto: decisões por dia (data da linha no Roadmap §4), dias seguidos do primeiro ao último registro
-    // Escondido (Gustavo, 05/10): o código fica para voltar trocando SHOW_RITMO para true
+    // Escondido (05/10): o código fica para voltar trocando SHOW_RITMO para true
     var SHOW_RITMO = false;
     var byDay = {}, yr = new Date().getFullYear();
     dec.forEach(function(r){ var m = (r[r.length - 1] || "").match(/(\d{2})\/(\d{2})(?!.*\d{2}\/\d{2})/); if (m){ var k = m[2] + "-" + m[1]; byDay[k] = (byDay[k] || 0) + 1; } });
@@ -829,9 +829,9 @@
     }
 
     var p8 = stacks(grid), p10 = equalizacao(grid), p9 = trend(grid), ps = suporte(grid);
-    // Duas seções (Gustavo, 09/10): Progresso (como o DS avança nas stacks, para quem acompanha de fora) e Detalhes (o que pede ação
+    // Duas seções (09/10): Progresso (como o DS avança nas stacks, para quem acompanha de fora) e Detalhes (o que pede ação
     // e o que explica as decisões, para quem trabalha no DS). Nomes comuns, sem citar público.
-    // Suporte logo acima da Equalização (Gustavo, 15/10): os chamados do #castanha-suporte entram no Progresso
+    // Suporte logo acima da Equalização (15/10): os chamados do #castanha-suporte entram no Progresso
     var groups = [["Progresso", "Cobertura no Figma, no React e no Flutter, chamados do #castanha-suporte, publicação na lib e evolução dia a dia", [p8].concat(ps).concat([p10, p5, p9])],
       ["Detalhes", "Débitos, regras de adaptação, componentes e o build do portal", [p2, p4, p3].concat(typeof p7 !== "undefined" ? [p7] : []).concat([p0])]], k = 0;
     groups.forEach(function(g){
@@ -841,7 +841,7 @@
       g[2].filter(Boolean).forEach(function(p){ var c = p.closest("cds-card"); c.style.setProperty("--_i", String(k++)); grid.appendChild(c); });
     });
     grow(grid);
-    // Últimas decisões fica oculto na Visão geral (Gustavo, 15/10): as decisões continuam na tab Decisões
+    // Últimas decisões fica oculto na Visão geral (15/10): as decisões continuam na tab Decisões
     p6.closest("cds-card").remove();
   }
   function goTo(section){
@@ -931,13 +931,13 @@
       });
     });
     toc.appendChild(dsLink("rp-src", "Ver no GitHub", REPO + tab.file, true));
-    // Único acesso à página escondida dos componentes locais (#/locais, hidden: fora do menu e da busca; Gustavo, 06/10)
+    // Único acesso à página escondida dos componentes locais (#/locais, hidden: fora do menu e da busca; 06/10)
     if (id === "arquitetura"){
       if (CDS.perfil !== "dashboard") toc.appendChild(dsLink("rp-src", "Componentes locais", "#/locais")); // o Dashboard não abre o portal
-      // Embaixo: a proposta zeroheight → portal (docs/pitch, página própria em tela cheia; Gustavo, 06/10)
+      // Embaixo: a proposta zeroheight → portal (docs/pitch, página própria em tela cheia; 06/10)
       toc.appendChild(dsLink("rp-src", "Proposta: zeroheight → portal", "docs/pitch/"));
-      // E o roteiro de 20 paradas para quem chega (docs/roteiro, página escondida; Gustavo, 06/10). Volta como página própria,
-      // com as ilustrações e as animações, ao lado da trilha Explorar dos Primeiros passos (Gustavo, 09/10)
+      // E o roteiro de 20 paradas para quem chega (docs/roteiro, página escondida; 06/10). Volta como página própria,
+      // com as ilustrações e as animações, ao lado da trilha Explorar dos Primeiros passos (09/10)
       if (CDS.perfil !== "dashboard") toc.appendChild(dsLink("rp-src", "Roteiro: 20 coisas para explorar", "docs/roteiro/"));
       // Admin (D350): Links de entrega, Links de página e Senhas temporárias ficam em /admin/, que pede a senha de admin.
       // Aparece só para o Completo de senha fixa (quem entrou por senha temporária não vira admin)
@@ -949,9 +949,9 @@
 
   // ---------- Glossário (R1): tab própria e a primeira ocorrência de cada termo numa tab ----------
   function gloss(){ return CDS.reportGlossary || []; }
-  // Mesmo molde das tabs de registro (Gustavo, 15/10): índice das letras à esquerda, um Card do DS por letra com a
+  // Mesmo molde das tabs de registro (15/10): índice das letras à esquerda, um Card do DS por letra com a
   // contagem em Tag e a busca do topo do Relatório (antes a tab inteira caía na coluna do índice, com o resto da tela vazio)
-  // ---------- Tempo de solução (aba Chamados, abaixo de Chamados no #castanha-suporte; Gustavo, 16/10) ----------
+  // ---------- Tempo de solução (aba Chamados, abaixo de Chamados no #castanha-suporte; 16/10) ----------
   // A Lista do Slack não guarda quando o chamado foi resolvido: scripts/dev/chamados.js grava "resolvido" na leitura em que o
   // chamado aparece resolvido pela primeira vez, a partir de J.medido. Big numbers como os do topo do Relatório.
   function solucao(grid, J){
@@ -983,14 +983,14 @@
     desenhar();
   }
 
-  // ---------- Chamados: os em aberto do #castanha-suporte, do mais antigo ao mais novo (Gustavo, 15/10) ----------
+  // ---------- Chamados: os em aberto do #castanha-suporte, do mais antigo ao mais novo (15/10) ----------
   // Content List (Intent=Navigation) com o título, o tipo e o status na description, há quanto tempo está aberto na Tag e o
   // link do item na Lista do Slack. Filter Chips por tipo: nenhum marcado mostra todos.
   function chamadosTab(){
     var J = extra.chamados, hoje = Date.parse(todayISO() + "T12:00");
     var abertos = J && J.chamados ? J.chamados.filter(function(c){ return c.status !== "resolvido"; }).sort(function(a, b){ return a.d < b.d ? -1 : a.d > b.d ? 1 : 0; }) : [];
-    // os mesmos painéis do Suporte da Visão geral (redundância pedida pelo Gustavo, 15/10), com o tempo de solução logo abaixo
-    // de Chamados no #castanha-suporte (Gustavo, 16/10) e, por último, a lista dos em aberto
+    // os mesmos painéis do Suporte da Visão geral (redundância pedida pelo time, 15/10), com o tempo de solução logo abaixo
+    // de Chamados no #castanha-suporte (16/10) e, por último, a lista dos em aberto
     var grid = bodyEl.appendChild(el("div", "rp-dash")), antes = grid.children.length;
     suporte(grid, true);
     if (J && J.chamados && J.chamados.length){
@@ -1004,7 +1004,7 @@
     var nome = {}; CH_TIPOS.forEach(function(t){ nome[t[0]] = t[1]; });
     var dias = function(c){ return Math.max(0, Math.round((hoje - Date.parse(c.d + "T12:00")) / 864e5)); };
     var tempo = function(n){ return n === 0 ? "Aberto hoje" : "Aberto há " + n + (n === 1 ? " dia" : " dias"); };
-    // a mesma conta da Idade média em aberto do Tempo de solução: acima dela, a Tag ganha o warning-line (Gustavo, 16/10)
+    // a mesma conta da Idade média em aberto do Tempo de solução: acima dela, a Tag ganha o warning-line (16/10)
     var media = Math.round(abertos.reduce(function(a, c){ return a + dias(c); }, 0) / abertos.length);
     var marcados = {};
     var chips = p.appendChild(el("cds-chips-group", "rp-ch-tab__chips"));
@@ -1023,14 +1023,14 @@
         var n = dias(c), it = lista.appendChild(el("cds-content-list-item"));
         it.setAttribute("intent", "navigation"); it.setAttribute("show-lead-item", "false");
         it.setAttribute("label", c.titulo || "Chamado sem título");
-        // tipo e status na description, há quanto tempo está aberto na Tag (Gustavo, 16/10)
+        // tipo e status na description, há quanto tempo está aberto na Tag (16/10)
         it.setAttribute("description", (nome[c.tipo] || c.tipo) + " · " + (c.status === "andamento" ? "Em andamento" : "Priorizado") + " · desde " + brDate(c.d));
         it.setAttribute("tag-label", tempo(n));
         it.setAttribute("tag-appearance", n > 30 ? "warning" : "neutral"); // mais de 30 dias em aberto: Tag em Warning
         if (c.link) it.setAttribute("href", c.link);
         if (n > media) it.dataset.acima = "1";
       });
-      // Lead Item da Tag em todos: warning-line nos abertos há mais tempo que a idade média, timer-line nos outros (Gustavo, 16/10)
+      // Lead Item da Tag em todos: warning-line nos abertos há mais tempo que a idade média, timer-line nos outros (16/10)
       // (os itens desenham a linha depois de entrar na página: aplica na volta seguinte do navegador)
       setTimeout(function(){ [].forEach.call(lista.querySelectorAll("cds-content-list-item"), function(it){
         var t = it.querySelector(".cds-li__tag"); if (!t) return;

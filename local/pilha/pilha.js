@@ -24,7 +24,7 @@
     marca: { name: "Marca", ramp: "accent-solid", note: "Início e páginas da marca" },
     componentes: { name: "Componentes", ramp: "accent-solid", note: "Componentes, building blocks e composições" },
     padroes: { name: "Padrões", ramp: "charts-03", note: "Tema Caju, Ilustração, Motion, Camadas, Conteúdo e Patterns" },
-    aprenda: { name: "Aprenda", ramp: "charts-03", note: "Treinamento, Capacitações e Castanha Quiz" }, // azul no lugar do roxo (Gustavo, 06/10)
+    aprenda: { name: "Aprenda", ramp: "charts-03", note: "Treinamento, Capacitações e Castanha Quiz" }, // azul no lugar do roxo (06/10)
     desenvolvimento: { name: "Desenvolvimento", ramp: "charts-05", note: "Getting Started, guias, design tokens e Castanha Universe (do Storybook)" },
     ferramentas: { name: "Ferramentas", ramp: "charts-02", note: "Personas, Agentes e Skills e MCP" },
     ajuda: { name: "Ajuda", ramp: "charts-01", note: "FAQ e Changelog" },

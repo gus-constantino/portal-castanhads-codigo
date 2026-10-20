@@ -64,7 +64,7 @@
     }
     fireClose(){ this.dispatchEvent(new CustomEvent("cds-close", { bubbles: true })); }
     get titleText(){ return this.getAttribute("title"); }
-    // dismissible="false" = padrão Dialog (só fecha por ação). O Drawer sempre fecha (decisão do Gustavo, C38)
+    // dismissible="false" = padrão Dialog (só fecha por ação). O Drawer sempre fecha (decisão do time, C38)
     get dismissible(){ return this.getAttribute("dismissible") !== "false"; }
     show(){ this.setAttribute("open", ""); }
     close(){ if (this.hasAttribute("inline")) return; this.removeAttribute("open"); }

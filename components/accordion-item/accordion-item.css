@@ -3,7 +3,7 @@
    Default: 57 recolhido (8 + 44 + 4 + Divider 1) · 143 aberto (+ 4 + Slot 82)
    Card:    96 recolhido (8 + 80 + 8) · 182 aberto (+ 4 + Slot 82, pad 16)
    Motion (Notion da Motion): hover Hover In/01 · press Pressed/01
-     abrir no Selected In/01 (350ms) e recolher no Selected Out/01 (200ms), ambos Expressive/decelerate (Gustavo, 16/10 · C80)
+     abrir no Selected In/01 (350ms) e recolher no Selected Out/01 (200ms), ambos Expressive/decelerate (16/10 · C80)
    ===================================================================== */
 cds-accordion-item{ display:block; box-sizing:border-box; width:var(--cds-accordion-width, 320px); max-width:100%; min-width:0; }
 cds-accordion-item [hidden]{ display:none !important; }

@@ -267,7 +267,7 @@ if (process.argv.includes("--smoke")){
 
 // ---------- Painel de saúde (docs/SAUDE-TECNICA.md → tab "Saúde técnica" do relatório) ----------
 // Junta o último smoke (tests/ultimo-smoke.json, gravado pelo scripts/dev/smoke.js) e o peso da primeira visita.
-// A numeração D/C fica fora do site (pedido do Gustavo, 06/10): segue no CI e no numerar.js --check. Sem horário nem duração: o arquivo só muda quando algum resultado muda.
+// A numeração D/C fica fora do site (pedido do time, 06/10): segue no CI e no numerar.js --check. Sem horário nem duração: o arquivo só muda quando algum resultado muda.
 (function saude(){
   const rel = (f) => path.join(ROOT, f);
   const sm = fs.existsSync(rel("tests/ultimo-smoke.json")) ? JSON.parse(fs.readFileSync(rel("tests/ultimo-smoke.json"), "utf8")) : null;

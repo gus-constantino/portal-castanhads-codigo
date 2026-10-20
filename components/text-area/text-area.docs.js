@@ -5,7 +5,7 @@
    Oculto no Figma: Acessibilidade (4944:591) — só placeholder ("Tópico 1" / "Ordem de leitura"), por isso a tab fica com nota.
    Motion ainda é placeholder no Figma (lorem ipsum + "Especificação").
    A doc do Figma usa um set legado (State Default/Hover/Active-focus/Filled, Error…); Propriedades e Estilos seguem o set do código,
-   Text Area Input 10110:3028 (decisão do Gustavo, C98).
+   Text Area Input 10110:3028 (decisão do time, C98).
    Os Do/Don'ts no Figma são imagens (prints de tela); aqui são recriados só com os campos (sem o título "Pagar boleto" da tela). */
 window.CDS = window.CDS || {};
 CDS.docs = CDS.docs || {};

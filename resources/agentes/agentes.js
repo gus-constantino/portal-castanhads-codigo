@@ -1,8 +1,8 @@
 /* Recurso: Agentes e Skills — agentes de IA do Castanha (Borô no Slack e no Figma), os Patterns escritos em .md para a IA ler e a skill /castanhads-juntos.
    Fontes: página Borô do zeroheight (Agentes e Skills › Borô · 8985351, conferida em 09/10/2026) e anúncios do #castanha-novidades de setembro de 2026.
    Foto do Borô: componente boro (Type=rosto) da lib 4. [Castanha DS] Illustration, exportado em SVG (resources/agentes/boro.svg).
-   Sem nomes de pessoas. O plugin castanha-ai fica de fora: é interno e ainda não foi anunciado (decisão do Gustavo, 05/10).
-   Tab /castanhads-juntos (pedido do Gustavo, 05/10): resumo da skill a partir do SKILL.md atual e do Getting Started do Figma
+   Sem nomes de pessoas. O plugin castanha-ai fica de fora: é interno e ainda não foi anunciado (decisão do time, 05/10).
+   Tab /castanhads-juntos (pedido do time, 05/10): resumo da skill a partir do SKILL.md atual e do Getting Started do Figma
    (RF5sagPdKQD6IoP2MYa2ki · 2248:282, conferido contra a v4.2). O arquivo da skill continua fora do repo: só o resumo, sem
    IDs do Notion, nomes do time nem procedimentos internos. */
 (function(){

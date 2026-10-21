@@ -12,9 +12,9 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | [Ajuste de UI](#ajuste-de-ui) | 35 |
 | [Motion](#motion) | 11 |
 | [Refactor](#refactor) | 39 |
-| [Naming](#naming) | 11 |
+| [Naming](#naming) | 13 |
 | [Acessibilidade](#acessibilidade) | 9 |
-| [Documentação](#documentação) | 17 |
+| [Documentação](#documentação) | 18 |
 | [Integração React](#integração-react) | 15 |
 
 ## Ajuste de texto
@@ -163,6 +163,8 @@ Nome de prop, variante, camada ou variável fora do padrão.
 | C76 | [Caju] Illustrations · nomes repetidos | Finanças tem três `moeda-verde-pilha-2` (`4146:2019`, `4178:602`, `4178:607`): a 2ª é a pilha **vermelha** e a 3ª a **amarela**. Também repetem `sonia` (Personagens, ×2), `celular-cartao` (Dispositivos e Mãos) e `cracha` (Documentos e Mãos) | Nome único por ilustração (`moeda-vermelha-pilha-2`, `moeda-amarela-pilha-2`, `sonia-2`…) | Segue o export do Figma: arquivos com sufixo `-1`/`-2` (`financas/moeda-verde-pilha-2-1` = vermelha, `-2-2` = amarela, `personagens/sonia-1`); o nome completo é `<categoria>/<nome>`, então os repetidos entre categorias não colidem | Renomear no Figma e reimportar (`scripts/dev/import-illustrations.py`, tirar o mapa `DUP`) |
 | C77 | [Caju] Illustrations · prefixos e categorias | 43 das 237 têm prefixo no nome e os outros não: `financas/` (13), `objetos/` (9), `interface/` (7), `grafico/` (3) × `graficos/` (3), `autenticacao/`, `documentos/`, `dispositivos/`, `transporte/` e `feirinha_hub-benef/`. O frame `Autenticacao` está sem acento | Um padrão só: sem prefixo (a categoria já é o frame) ou prefixo em todas; `Autenticação` | Usa só o último trecho do nome (`grafico/pizza` → `graficos-e-dashboards/pizza`); o nome original fica no `catalog.json` e no tooltip da galeria | Ajustar no Figma; o import já ignora o prefixo |
 | C176 | Side Menu · `.Category` (Sponsor Templates 5576:27) | `Is Collapsed=True` é a variante do Accordion que mostra o Slot aberto, e a description diz que Is Collapsed "espelha o menu" | Nome que diga o que faz: `Is Expanded` no accordion (ou o colapso do menu em Kind=Reduced, que já existe) | Accordion aberto = `expanded`, menu colapsado = Kind=Reduced | Próxima revisão do Sponsor Templates |
+| C216 | Fixed Bar · Kind (set 24037:2929) | Leitura de 21/10 na main: `Kind=Horizontal\|Pilled`. Em 19/10 a D366 leu `Stacked` no mesmo set e o portal trocou o nome | Confirmar com quem desenhou qual nome fica (Pilled → Stacked → Pilled); a skill pede não trocar nome sem confirmação | Segue `kind="stacked"` (D366) até a confirmação; o .Footer continua `pilled` | Se ficar Pilled: voltar o atributo para `pilled` no Fixed Bar, docs, playground e exemplos (os arquivos do commit 120b3fa) |
+| C217 | .Credit Card Flags (4934:771, página Flags) | Set chamado `Credit Card Flags`, sem o ponto, e fora da página .Building Blocks; continua não publicado | Confirmar se virou componente (sem ponto) ou se segue building block | Segue `.Credit Card Flags`, building block (D139) | Se for componente: tirar o ponto do nome e o `block: true` do playground |
 
 ## Acessibilidade
 
@@ -203,6 +205,7 @@ Frames de documentação no Figma.
 | C194 | Castanha Hub · Fundação › Motion › Transições (`/p/757a5f`, "In progress") | As durações em ms não batem com os tokens citados: Para frente e para trás 350 ms com `long/02` (500 ms no Figma); Lateral 500 ms e Entrar e sair 500/300 ms com `long/04` (600 ms). Lateral, Entrar e sair e Transformação citam `Expressive/accelerate` com 0.90, 0, 0.60, 1, que no Figma é o `Expressive/overshoot` (o accelerate é 0.2, 0, 0.9, 1), como no C163. Na Transformação, a cor aparece como "E8537" | Token e valor iguais em cada padrão | Playground mostra o ms do Hub e o token citado, com a divergência no card (D302) | Levar ao time de Motion |
 | C196 | Storybook › Sobre o Castanha › Diferenciais | — | O link "Castanha Optimizer" da seção Bundle proporcional ao uso real aponta para a story do Castoken (`castanha-universe-02-castanha-castoken`) | Segue o Storybook: no portal o link leva a Castanha Universe › Castoken | Corrigir o link no `differentials.mdx` do castanha-react e rodar o importador de novo |
 | C207 | Docs · Anatomia ([CastanhaDS] Component use documentation, frames `anatomia-*`) | (1) Tag: a legenda chama o texto de "Tag" (nome da camada); a prop é `Text Label`. (2) Select input: o estado B Active (6 Popover, 7 Selection list) | (1) Nome da parte igual ao da prop? (2) — | (1) Legenda "Tag (Text Label)". (2) O portal mostra só o estado A no Async Select Input: o Select abre o Popover por cima da página, fora da caixa da Anatomia. (3) Currency: o Figma tem 2 instâncias, o portal mostra 1. (4) Text Input: o item 5 Clear Button do Figma segue de fora (legado, C96). (5) Caju Brand: "Logo vector" no Figma são 2 caminhos no SVG (folha e caju); o marcador aponta o caju | (1) Quando revisar a doc da Tag |
+| C218 | [Caju] Icons · 7 ícones novos (21/10) | `inspect-line`, `monitor-line`, `template-line`, `design-line`, `magical-wand-line` (UI Symbols) e `book-line` (Documents) têm a description `calendario; agenda;`, cópia do ícone de calendário. `feedback-line` (Communicate) está sem description | Palavras-chave de cada ícone na description | Entram no catálogo sem palavras-chave (a busca acha pelo nome) | Escrever as descriptions e reimportar as palavras-chave |
 
 ## Integração React
 

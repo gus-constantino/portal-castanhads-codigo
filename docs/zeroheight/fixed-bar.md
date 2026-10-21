@@ -27,6 +27,7 @@ Use a Fixed bar quando for necessário manter uma ou duas ações essenciais sem
 * Exibir ação primária + ação secundária (ex.: confirmar e cancelar).
 * Finalização de fluxos como pagamentos, revisões ou envios.
 * Telas onde a tomada de decisão acontece ao fim do conteúdo, mas precisa permanecer visível.
+* Fluxos com etapas, em que avançar e voltar precisam estar sempre acessíveis.
 
 ### Não utilize para
 
@@ -39,7 +40,7 @@ Use a Fixed bar quando for necessário manter uma ou duas ações essenciais sem
 
 <callout background="1" fullWidth="true">
 
-**Disponibilidade:** componente em Beta na lib. Escopo: Mobile e Desktop.
+**Disponibilidade:** componente estável na lib (sem o [Beta] desde 21/10). Escopo: Mobile e Desktop.
 
 </callout>
 
@@ -99,6 +100,6 @@ Mesma estrutura do .Footer. Em `Horizontal`, os botões ficam lado a lado; em `S
 
 ## Pendências — não publicar
 
-* 🟡 A página atual não tem a tab Style; Anatomia e Propriedades vieram do set da lib ([Beta] Fixed Bar 24037:2929).
+* 🟡 A página atual não tem a tab Style; Anatomia e Propriedades vieram do set da lib (Fixed Bar 24037:2929).
 * 🟡 Os dois últimos itens de "Não utilize para" vêm da description do set na lib.
 * 🟡 Motion é placeholder na página atual (Enabled, Hovered, Loading, Pressed sem valores). Os botões seguem o motion do Main Button.

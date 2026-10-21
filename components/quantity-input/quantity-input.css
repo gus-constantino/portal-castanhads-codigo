@@ -1,4 +1,4 @@
-/* [Beta] Quantity Input · set 22756:7351 — Decrement 48 · gap 8 · Text Box min 72 (valor centralizado) · Increment 48
+/* Quantity Input · set 22756:7351 — Decrement 48 · gap 8 · Text Box min 72 (valor centralizado) · Increment 48
    Is Active não muda o stroke (Figma) · Warning: stroke warning, fundo Surface/default no hover (matriz do Quantity)
    Motion: 300ms + Systemic/accelerate, herdado da base (como na main) */
 cds-quantity-input.cds-tf{ width:auto; }

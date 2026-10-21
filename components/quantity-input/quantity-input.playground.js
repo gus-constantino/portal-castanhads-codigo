@@ -1,6 +1,6 @@
-/* Playground — [Beta] Quantity Input */
+/* Playground — Quantity Input */
 CDS.register({
-  id: "quantity-input", name: "[Beta] Quantity Input", category: "Text Fields", figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=22756-7351",
+  id: "quantity-input", name: "Quantity Input", category: "Text Fields", figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=22756-7351",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel;
     var p = kit.el("cds-quantity-input", { label: "Label", supporting: "Supporting Message", error: "Fora do limite", value: "1", min: "0", max: "10" });

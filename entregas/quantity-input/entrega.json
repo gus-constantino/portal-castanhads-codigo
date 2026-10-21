@@ -1,5 +1,5 @@
 {
- "titulo": "[Beta] Quantity Input",
+ "titulo": "Quantity Input",
  "task": "CDS-1602",
  "resumo": "Campo numérico da família Text Fields, com os controles de diminuir e aumentar no próprio campo.",
  "itens": ["quantity-input"]

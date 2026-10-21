@@ -69,7 +69,7 @@ Coluna *Usa*: instâncias aninhadas na 1ª variante (ícones omitidos).
 | Search Input ✅ | `14880:3404` | 32 | .Text Content Mask |
 | Text Area Input ✅ | `10110:3028` | 32 | — |
 | Password Input ✅ | `5798:2677` | 64 | Icon Button |
-| [Beta] Quantity Input ✅ | `22756:7351` | 32 | Icon Button |
+| Quantity Input ✅ | `22756:7351` | 32 | Icon Button |
 | Async Select Input | `11030:7644` | 32 | .Text Content Mask + Icon Button |
 | Radio Select Input | `11143:3056` | 32 | idem |
 | Checkbox Select Input | `11143:4833` | 32 | idem |
@@ -99,7 +99,7 @@ Coluna *Usa*: instâncias aninhadas na 1ª variante (ícones omitidos).
 | Modal | `16362:3267` | 1 | .Header + Icon Button + .Footer + Main Button |
 | Drawer | `16456:4381` | 1 | Icon Button + Main Button + Viewport Restriction |
 | Bottom Sheet [MOBILE ONLY] | `20848:2679` | 1 | .Header + .Footer + Main Button + Viewport Restriction |
-| [Beta] Fixed Bar | `24037:2929` | 2 | Divider + Main Button |
+| Fixed Bar | `24037:2929` | 2 | Divider + Main Button |
 | Viewport Restriction (Utilities) | `5357:3899` | 1 | — |
 
 ### Navegação
@@ -544,6 +544,7 @@ A ordem segue as dependências: cada lote só consome o que já existe. Os build
 | D372 | **Z-Index no Tema Caju (CDS-1615)**: os 9 tokens `Common/Z-Index/{Low/00…02, Medium/01…03, High/01…03}` entram no snapshot e no `styles/tokens.css` como número sem unidade (`--common-z-index-medium-03:500`), sem alias `--castanha-*` até o Castoken exportar. Cascata no Figma: Primitives `Z-Index/0…800` → Theme agnóstico `Z-Index/0, 10…80` → Brand Style com faixa + índice, no padrão do Motion. A descrição de cada variável (uso de hoje e elevação padrão) vira `CDS.zIndexUsage` no `tokens/motion-usage.js`. A tab Elevação, Z-Index e opacidade ganha o bloco `z-index`: cartas empilhadas pelo próprio token, com a elevação padrão, e tiles com o uso | 21/10 |
 | D373 | **Portal usa os tokens de Z-Index (CDS-1615)**: os z-index de camada global dos componentes do playground trocam o número pelo token, como referência para o React. Tooltip 1000 → `High/03`, Toast do portal e da aula 20 → `High/02`, Sponsor Side Menu aberto no celular 1000 → `Medium/02`, Fixed Bar fixa e FAB Menu 10 → `Low/01`. Modal e Drawer seguem no top layer do `<dialog>`, sem z-index. Os valores locais (0 a 2) e o shell do portal ficam como estão. Handoff de/para do React e do Flutter em `docs/local/handoffs/HANDOFF_zIndex_DEV.md` (local) | 21/10 |
 | D374 | **System Banner no topo do Z-Index (CDS-1615)** (pedido do time em 21/10: "system banner deveria ter a elevação mais alta no sistema"): o aviso de sistema passa para `Common/Z-Index/High/04` (900), acima do Tooltip, e o `Low/02` sai do Brand Style. Degrau novo nas três camadas, sem renomear nada: primitivo `Z-Index/900`, Theme `Z-Index/90`. O primitivo 200 e o degrau 20 do Theme ficam sem uso. Sem sombra, como antes | 21/10 |
+| D375 | **Rodada de melhorias na main do Figma (21/10)**, conferida na própria lib (props, status, variantes e descriptions dos sets do Components, Brand Style e página UI & Caju do Icons): **Fixed Bar** e **Quantity Input** saem do [Beta] (nome no menu, Tooltip, playground, docs e `.md`; a doc do Fixed Bar perde o Alert Beta e ganha "Fluxos com etapas" em Utilize para; a do Quantity Input ganha "quantity selector" nos nomes alternativos e "Valores aproximados ou contínuos (use Slider)" em Não utilize para, como nas descriptions); **7 ícones novos** no catálogo (`inspect-line`, `monitor-line`, `template-line`, `design-line`, `magical-wand-line`, `book-line`, `feedback-line`), sem palavras-chave porque a description é cópia do calendário (C218); `figma-props.tsv` em dia (Size dos chips e Is Loading do Main Button, que o portal já tinha). Brand Style, tamanhos das variantes padrão e o restante das props iguais. O `Kind=Pilled` do Fixed Bar (C216) e o nome sem ponto do Credit Card Flags (C217) esperam confirmação | 21/10 |
 
 ## 5. Dúvidas abertas
 

@@ -1,4 +1,4 @@
-/* GERADO por scripts/build-assets.js · não editar à mão · 275 ícones em 13 buckets */
+/* GERADO por scripts/build-assets.js · não editar à mão · 282 ícones em 13 buckets */
 /* URL em longhand, sem var(): o Safari falha com var() no shorthand -webkit-mask */
 /* UI Symbols */
 .cds-icon--back-line{ -webkit-mask-image:url("../assets/icons/ui-symbols/back-line.svg"); mask-image:url("../assets/icons/ui-symbols/back-line.svg"); }
@@ -113,6 +113,11 @@
 .cds-icon--code{ -webkit-mask-image:url("../assets/icons/ui-symbols/code.svg"); mask-image:url("../assets/icons/ui-symbols/code.svg"); }
 .cds-icon--mouse{ -webkit-mask-image:url("../assets/icons/ui-symbols/mouse.svg"); mask-image:url("../assets/icons/ui-symbols/mouse.svg"); }
 .cds-icon--favorite-filled{ -webkit-mask-image:url("../assets/icons/ui-symbols/favorite-filled.svg"); mask-image:url("../assets/icons/ui-symbols/favorite-filled.svg"); }
+.cds-icon--inspect-line{ -webkit-mask-image:url("../assets/icons/ui-symbols/inspect-line.svg"); mask-image:url("../assets/icons/ui-symbols/inspect-line.svg"); }
+.cds-icon--monitor-line{ -webkit-mask-image:url("../assets/icons/ui-symbols/monitor-line.svg"); mask-image:url("../assets/icons/ui-symbols/monitor-line.svg"); }
+.cds-icon--template-line{ -webkit-mask-image:url("../assets/icons/ui-symbols/template-line.svg"); mask-image:url("../assets/icons/ui-symbols/template-line.svg"); }
+.cds-icon--design-line{ -webkit-mask-image:url("../assets/icons/ui-symbols/design-line.svg"); mask-image:url("../assets/icons/ui-symbols/design-line.svg"); }
+.cds-icon--magical-wand-line{ -webkit-mask-image:url("../assets/icons/ui-symbols/magical-wand-line.svg"); mask-image:url("../assets/icons/ui-symbols/magical-wand-line.svg"); }
 /* Security */
 .cds-icon--safety-key-line{ -webkit-mask-image:url("../assets/icons/security/safety-key-line.svg"); mask-image:url("../assets/icons/security/safety-key-line.svg"); }
 .cds-icon--money-safety-line{ -webkit-mask-image:url("../assets/icons/security/money-safety-line.svg"); mask-image:url("../assets/icons/security/money-safety-line.svg"); }
@@ -175,6 +180,7 @@
 .cds-icon--archive-line{ -webkit-mask-image:url("../assets/icons/documents/archive-line.svg"); mask-image:url("../assets/icons/documents/archive-line.svg"); }
 .cds-icon--pin-line{ -webkit-mask-image:url("../assets/icons/documents/pin-line.svg"); mask-image:url("../assets/icons/documents/pin-line.svg"); }
 .cds-icon--rename-chat-line{ -webkit-mask-image:url("../assets/icons/documents/rename-chat-line.svg"); mask-image:url("../assets/icons/documents/rename-chat-line.svg"); }
+.cds-icon--book-line{ -webkit-mask-image:url("../assets/icons/documents/book-line.svg"); mask-image:url("../assets/icons/documents/book-line.svg"); }
 /* Communicate */
 .cds-icon--accessibility-sound-line{ -webkit-mask-image:url("../assets/icons/communicate/accessibility-sound-line.svg"); mask-image:url("../assets/icons/communicate/accessibility-sound-line.svg"); }
 .cds-icon--call-center-line{ -webkit-mask-image:url("../assets/icons/communicate/call-center-line.svg"); mask-image:url("../assets/icons/communicate/call-center-line.svg"); }
@@ -186,6 +192,7 @@
 .cds-icon--send-line{ -webkit-mask-image:url("../assets/icons/communicate/send-line.svg"); mask-image:url("../assets/icons/communicate/send-line.svg"); }
 .cds-icon--microphone-line{ -webkit-mask-image:url("../assets/icons/communicate/microphone-line.svg"); mask-image:url("../assets/icons/communicate/microphone-line.svg"); }
 .cds-icon--start-chat{ -webkit-mask-image:url("../assets/icons/communicate/start-chat.svg"); mask-image:url("../assets/icons/communicate/start-chat.svg"); }
+.cds-icon--feedback-line{ -webkit-mask-image:url("../assets/icons/communicate/feedback-line.svg"); mask-image:url("../assets/icons/communicate/feedback-line.svg"); }
 /* Charts */
 .cds-icon--chart-line{ -webkit-mask-image:url("../assets/icons/charts/chart-line.svg"); mask-image:url("../assets/icons/charts/chart-line.svg"); }
 .cds-icon--chart-pie-line{ -webkit-mask-image:url("../assets/icons/charts/chart-pie-line.svg"); mask-image:url("../assets/icons/charts/chart-pie-line.svg"); }

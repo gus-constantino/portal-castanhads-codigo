@@ -1,6 +1,6 @@
 # Saúde da stack — Figma × castanha-react × playground × castanha-ai
 
-Gerado por `node scripts/integration/build-manifest.js` em 2026-10-20 (R2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). React: `origin/staging` (`039c0d37`) e Code Connect `origin/feat/figma-code-connect`. Playground: mapas de `integration/prop-map/`. castanha-ai (4º vértice, repo interno, só leitura): `origin/feat/castanha-plugin` (`a49bd59`), 76 sets no bridge. A coluna Gap usa as categorias do Gap Report do castanha-ai.
+Gerado por `node scripts/integration/build-manifest.js` em 2026-10-21 (R2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). React: `origin/staging` (`039c0d37`) e Code Connect `origin/feat/figma-code-connect`. Playground: mapas de `integration/prop-map/`. castanha-ai (4º vértice, repo interno, só leitura): `origin/feat/castanha-plugin` (`a49bd59`), 76 sets no bridge. A coluna Gap usa as categorias do Gap Report do castanha-ai.
 
 ## Resumo
 
@@ -8,9 +8,9 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-20 (R2). Figm
 |---|---|---:|
 | Alta | quebra a tradução: o Code Connect lê prop ou gera valor que não existe | 2 |
 | Média | muda o resultado sem quebrar: padrão diferente, opção sem tradução, mapa curado errado | 7 |
-| Informativo | prop do Figma que não chega ao React pelo Code Connect | 29 |
+| Informativo | prop do Figma que não chega ao React pelo Code Connect | 32 |
 
-Componentes com algum item: 34 de 72 com par no React.
+Componentes com algum item: 37 de 72 com par no React.
 
 ## Assets
 
@@ -18,13 +18,13 @@ Nomes que o código usa (`<Icon name>`, `<Illustration name>`, `<Motion name>`) 
 
 | Pacote | No pacote | No playground | Mesmo nome | Renomeado | Só aqui | Só no pacote |
 |---|---:|---:|---:|---:|---:|---:|
-| castanha-icons | 272 | 273 | 262 | — | 11 | 10 |
+| castanha-icons | 272 | 280 | 269 | — | 11 | 3 |
 | castanha-illustrations | 254 | 260 | 202 | 49 | 9 | 3 |
 | castanha-motion | 49 | 46 | 46 | — | 0 | 3 |
 
 | Nível | Tipo | O quê |
 |---|---|---|
-| Média | icone-so-no-pacote | O castanha-icons exporta ícones que não existem no [Caju] Icons: `balance-canceled`, `book-line`, `calendar-non-recurrent`, `design-line`, `feedback-line`, `file-line-1`, `inspect-line`, `magical-wand-line`, `monitor-line`, `template-line`. |
+| Média | icone-so-no-pacote | O castanha-icons exporta ícones que não existem no [Caju] Icons: `balance-canceled`, `calendar-non-recurrent`, `file-line-1`. |
 | Informativo | icone-deprecated-no-pacote | Deprecated no Figma, mas ainda exportados pelo pacote: `dark-mode-line`. |
 | Informativo | icone-deprecated-fora | Deprecated no Figma e já fora do pacote: `phone-line`, `megaphone-line`, `delivery-line`, `conversation-line`, `airplane-line`, `several-line`, `file-text-error-line`, `benefit-line`, `pause-line`, `caju-ciclos`, `bus-sideview`. |
 | Alta | ilustracao-fora-do-pacote | Ilustrações do [Caju] Illustrations sem par no castanha-illustrations: `alimentos/drink`, `notificacoes/analysis-low-detail`, `hero-hub-de-beneficios/plano-saude`, `hero-hub-de-beneficios/alimentacao`, `hero-hub-de-beneficios/educacao`, `hero-hub-de-beneficios/plano-odonto`, `hero-hub-de-beneficios/mobilidade`, `hero-hub-de-beneficios/cajuzinho`, `hero-hub-de-beneficios/outros`. |
@@ -77,7 +77,10 @@ Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`
 | Divider (`divider`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Kind`. |
 | Drawer (`drawer`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Secondary Action Button`. |
 | Dropzone (`dropzone`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Main button`. |
+| Filter Chips (`filter-chips`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Size`. |
 | Icon Button (`icon-button`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Notification`. |
+| Input Chips (`input-chips`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Size`. |
+| Main Button (`main-button`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Is Loading`. |
 | Multi Select Input (`multi-select-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
 | Pagination (`pagination`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Itens per page`, `Show Item display`, `Items range`, `Items display`. |
 | Password Input (`password-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Text Content`, `Show Lead Icon`, `Error Message`, `Lead Icon`, `Show Content`. |

@@ -1,6 +1,6 @@
 # Saúde da stack — Figma × castanha_flutter × playground
 
-Gerado por `node scripts/integration/build-flutter-manifest.js` em 2026-10-20 (F2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). Flutter: `origin/staging` (`a62701c0`) do castanha-mobile.
+Gerado por `node scripts/integration/build-flutter-manifest.js` em 2026-10-21 (F2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). Flutter: `origin/staging` (`a62701c0`) do castanha-mobile.
 
 ## Resumo
 
@@ -8,7 +8,7 @@ Gerado por `node scripts/integration/build-flutter-manifest.js` em 2026-10-20 (F
 |---|---|---:|
 | Alta | quebra a tradução: parâmetro ou valor que não existe no Flutter, ícone ou ilustração fora do pacote do Dart | 2 |
 | Média | muda o resultado sem quebrar: padrão diferente entre Figma e Flutter | 10 |
-| Informativo | prop do Figma sem parâmetro no Flutter, ou parâmetro só do código | 38 |
+| Informativo | prop do Figma sem parâmetro no Flutter, ou parâmetro só do código | 41 |
 
 Cobertura: 45 componentes do playground com widget no castanha_flutter, 39 sem par e 4 só no Flutter. Dart do painel: 81 trechos, 0 erros no `dart analyze` (`node scripts/integration/check-dart.js`).
 
@@ -40,7 +40,10 @@ Cobertura: 45 componentes do playground com widget no castanha_flutter, 39 sem p
 | `content-list-item` | so-no-flutter | Parâmetros do Flutter sem prop no Figma: `highlight`, `trailingValue`. |
 | `dropzone` | figma-sem-parametro | `Show Main button` (Figma) não tem parâmetro no Flutter. O Flutter não tem o botão: a área inteira chama `onPressed`. |
 | `dropzone` | so-no-flutter | Parâmetros do Flutter sem prop no Figma: `dragover`. |
+| `filter-chips` | figma-fora-do-mapa | Prop do Figma `Size` não aparece na tabela Figma → Flutter. |
 | `icon-button` | so-no-flutter | Parâmetros do Flutter sem prop no Figma: `notificationAppearance`. |
+| `input-chips` | figma-fora-do-mapa | Prop do Figma `Size` não aparece na tabela Figma → Flutter. |
+| `main-button` | figma-sem-parametro | `Is Loading` (Figma) não tem parâmetro no Flutter. Ainda não existe no castanha_flutter. |
 | `main-button` | so-no-flutter | Parâmetros do Flutter sem prop no Figma: `expanded`. |
 | `selection-list-item` | so-no-flutter | Parâmetros do Flutter sem prop no Figma: `highlight`. |
 | `skeleton` | sem-props-do-figma | Sem leitura das props do Figma (`figma-props.tsv`) para este componente. |
@@ -78,14 +81,14 @@ Constantes do Dart (`CastanhaIcons`, `CastanhaIllustrations`, `CastanhaMotions`)
 
 | Pacote | Versão | No pacote | No playground | Mesmo nome | Renomeado | Só aqui | Só no pacote |
 |---|---|---:|---:|---:|---:|---:|---:|
-| castanha_icons | 1.8.0 | 272 | 264 | 262 | — | 2 | 10 |
+| castanha_icons | 1.8.0 | 272 | 271 | 269 | — | 2 | 3 |
 | castanha_illustrations | 1.9.0 | 254 | 260 | 202 | 49 | 9 | 3 |
 | castanha_motion | 1.6.0 | 49 | 46 | 46 | — | 0 | 3 |
 
 | Nível | Tipo | O quê |
 |---|---|---|
 | Alta | icone-fora-do-dart | 2 ícones do [Caju] Icons sem constante em `CastanhaIcons` (1.8.0): `checkbox-check`, `checkbox-indeterminate`. |
-| Média | icone-so-no-dart | Constantes de `CastanhaIcons` sem ícone no [Caju] Icons: `balanceCanceled`, `bookLine`, `calendarNonRecurrent`, `designLine`, `feedbackLine`, `fileLine1`, `inspectLine`, `magicalWandLine`, `monitorLine`, `templateLine`. |
+| Média | icone-so-no-dart | Constantes de `CastanhaIcons` sem ícone no [Caju] Icons: `balanceCanceled`, `calendarNonRecurrent`, `fileLine1`. |
 | Alta | ilustracao-fora-do-dart | Ilustrações do [Caju] Illustrations sem constante em `CastanhaIllustrations` (1.9.0): `alimentos/drink`, `notificacoes/analysis-low-detail`, `hero-hub-de-beneficios/plano-saude`, `hero-hub-de-beneficios/alimentacao`, `hero-hub-de-beneficios/educacao`, `hero-hub-de-beneficios/plano-odonto`, `hero-hub-de-beneficios/mobilidade`, `hero-hub-de-beneficios/cajuzinho`, `hero-hub-de-beneficios/outros`. |
 | Média | ilustracao-renomeada | 49 ilustrações têm outro nome no pacote (o painel já usa o nome do Dart), ex.: `hub-de-beneficios/pet` → `hubPet`, `hub-de-beneficios/departamento` → `hubDepartamento`, `hub-de-beneficios/plano-saude` → `hubPlanoSaude`, `hub-de-beneficios/servicos` → `hubServicos`. |
 | Informativo | motion-so-no-dart | Constantes de `CastanhaMotion` (1.6.0) sem componente no [Caju] Motion (fora de Motion › Animações): `feedbackSplash`, `feedbackSuccess`, `feedbackWarning`. |

@@ -42,10 +42,10 @@
  "assets": {
   "icons": {
    "pkg": 272,
-   "ours": 273,
-   "same": 262,
+   "ours": 280,
+   "same": 269,
    "onlyHere": 11,
-   "onlyPkg": 10
+   "onlyPkg": 3
   },
   "ills": {
    "pkg": 254,
@@ -176,10 +176,31 @@
    "gap": "MISSING-VARIANT"
   },
   {
+   "id": "filter-chips",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Size`.",
+   "gap": "MISSING-VARIANT"
+  },
+  {
    "id": "icon-button",
    "level": "info",
    "kind": "nao-chega-ao-react",
    "msg": "Não chega ao React pelo Code Connect: `Show Notification`.",
+   "gap": "MISSING-VARIANT"
+  },
+  {
+   "id": "input-chips",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Size`.",
+   "gap": "MISSING-VARIANT"
+  },
+  {
+   "id": "main-button",
+   "level": "info",
+   "kind": "nao-chega-ao-react",
+   "msg": "Não chega ao React pelo Code Connect: `Is Loading`.",
    "gap": "MISSING-VARIANT"
   },
   {
@@ -334,7 +355,7 @@
    "id": "assets",
    "level": "media",
    "kind": "icone-so-no-pacote",
-   "msg": "O castanha-icons exporta ícones que não existem no [Caju] Icons: `balance-canceled`, `book-line`, `calendar-non-recurrent`, `design-line`, `feedback-line`, `file-line-1`, `inspect-line`, `magical-wand-line`, `monitor-line`, `template-line`.",
+   "msg": "O castanha-icons exporta ícones que não existem no [Caju] Icons: `balance-canceled`, `calendar-non-recurrent`, `file-line-1`.",
    "gap": "MISSING-COMPONENT"
   },
   {

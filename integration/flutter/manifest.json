@@ -1,6 +1,6 @@
 {
  "_about": "Gerado por scripts/integration/build-flutter-manifest.js a partir do castanha-mobile (só leitura). Metadados: nenhum código-fonte copiado.",
- "generated": "2026-10-20",
+ "generated": "2026-10-21",
  "source": {
   "repo": "caju-beneficios/castanha-mobile",
   "ref": "origin/staging",
@@ -4249,7 +4249,7 @@
   },
   {
    "id": "fixed-bar",
-   "name": "[Beta] Fixed Bar"
+   "name": "Fixed Bar"
   },
   {
    "id": "footer",
@@ -4320,7 +4320,7 @@
   },
   {
    "id": "quantity-input",
-   "name": "[Beta] Quantity Input"
+   "name": "Quantity Input"
   },
   {
    "id": "radio-select-input",

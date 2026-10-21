@@ -1,6 +1,6 @@
 {
   "_about": "Manifesto de integração Figma ↔ playground ↔ castanha-react (R0). Gerado por scripts/integration/build-manifest.js — não editar à mão.",
-  "generated": "2026-10-20T12:31:17.212Z",
+  "generated": "2026-10-21T22:08:18.495Z",
   "source": {
     "repo": "caju-beneficios/castanha",
     "ref": "origin/staging",
@@ -1659,7 +1659,7 @@
     },
     {
       "id": "fixed-bar",
-      "name": "[Beta] Fixed Bar",
+      "name": "Fixed Bar",
       "block": false,
       "figma": {
         "fileKey": "LKZBwmlb7fIbDKdGrMncuA",
@@ -2593,7 +2593,7 @@
     },
     {
       "id": "quantity-input",
-      "name": "[Beta] Quantity Input",
+      "name": "Quantity Input",
       "block": false,
       "figma": {
         "fileKey": "LKZBwmlb7fIbDKdGrMncuA",

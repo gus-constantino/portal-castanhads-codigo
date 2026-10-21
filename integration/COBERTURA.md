@@ -1,6 +1,6 @@
 # Cobertura Figma ↔ playground ↔ castanha-react
 
-Gerado por `node scripts/integration/build-manifest.js` em 2026-10-20 a partir de `origin/staging` (`039c0d37`, 2026-10-15) e do Code Connect `origin/feat/figma-code-connect` (69 arquivos).
+Gerado por `node scripts/integration/build-manifest.js` em 2026-10-21 a partir de `origin/staging` (`039c0d37`, 2026-10-15) e do Code Connect `origin/feat/figma-code-connect` (69 arquivos).
 
 | | Componentes |
 |---|---:|
@@ -113,7 +113,7 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-20 a partir d
 | `fab-button` | .FAB Button | — | building-block | o link do playground aponta para uma branch do Figma |
 | `fab-menu` | FAB Menu | — | so-figma | o link do playground aponta para uma branch do Figma |
 | `file-lead-item` | .Lead item (File) | — | building-block |  |
-| `fixed-bar` | [Beta] Fixed Bar | — | so-figma |  |
+| `fixed-bar` | Fixed Bar | — | so-figma |  |
 | `footer` | .Footer | — | building-block |  |
 | `header` | .Header | — | building-block |  |
 | `icons-block` | .Icons | — | building-block |  |
@@ -121,7 +121,7 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-20 a partir d
 | `list-lead-item` | .Lead Item (Lists) | — | building-block |  |
 | `nav-control-item` | .Item Nav Control | — | building-block |  |
 | `nps-value-item` | .Value Item | — | building-block |  |
-| `quantity-input` | [Beta] Quantity Input | — | so-figma |  |
+| `quantity-input` | Quantity Input | — | so-figma |  |
 | `select-number` | .Select Number | — | building-block |  |
 | `sponsor-category` | .Category | — | so-figma |  |
 | `sponsor-header` | Header | — | so-figma |  |

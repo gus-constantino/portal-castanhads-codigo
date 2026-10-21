@@ -1,6 +1,6 @@
 /**
  * @deps text-field
- * <cds-quantity-input> — [Beta] Quantity Input · Text Fields · set 22756:7351
+ * <cds-quantity-input> — Quantity Input · Text Fields · set 22756:7351
  * Componente independente da família (annotation de Handoff): reaproveita só Label e mensagem.
  * Decrement Button (minus-line) · Text Box (min 72, valor centralizado) · Increment Button (plus-line),
  * os dois Icon Button · Neutral · Medium, Kind Default ou Ghost (variante do conjunto, não dos botões).

@@ -2711,7 +2711,7 @@ try {
 try {
 /**
  * @deps footer
- * <cds-fixed-bar> — [Beta] Fixed Bar · componente 24037:2929
+ * <cds-fixed-bar> — Fixed Bar · componente 24037:2929
  * Barra de ações ancorada no fim da tela: Divider + Action Buttons, mesma estrutura do .Footer.
  * Kind=Horizontal (padrão): botões no tamanho do conteúdo · Kind=Stacked: empilhados, largura total.
  * Atributos: os do .Footer (show-secondary-action no lugar de show-secondary-action-button) · fixed (position:fixed no fim da viewport)
@@ -4819,7 +4819,7 @@ try {
 try {
 /**
  * @deps text-field
- * <cds-quantity-input> — [Beta] Quantity Input · Text Fields · set 22756:7351
+ * <cds-quantity-input> — Quantity Input · Text Fields · set 22756:7351
  * Componente independente da família (annotation de Handoff): reaproveita só Label e mensagem.
  * Decrement Button (minus-line) · Text Box (min 72, valor centralizado) · Increment Button (plus-line),
  * os dois Icon Button · Neutral · Medium, Kind Default ou Ghost (variante do conjunto, não dos botões).

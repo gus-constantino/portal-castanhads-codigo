@@ -1,6 +1,6 @@
 /* Documentação — Fixed Bar
    Fontes (PLANO-DOCS §5, 05/10): texto do zeroheight (Fixed bar, 04e411) reaproveitado e completado com a description do set da lib
-   ([Beta] Fixed Bar 24037:2929: Quando não usar dentro de Modal, Drawer e Bottom Sheet); props e padrões do set; acessibilidade do playground.
+   (Fixed Bar 24037:2929, sem o [Beta] desde 21/10: Quando usar com fluxos com etapas, Quando não usar dentro de Modal, Drawer e Bottom Sheet); props e padrões do set; acessibilidade do playground.
    O zeroheight não tem a tab Style e o Motion é placeholder (C131). */
 window.CDS = window.CDS || {};
 CDS.docs = CDS.docs || {};
@@ -13,7 +13,6 @@ CDS.docs["fixed-bar"] = {
   ] },
   tabs: [
     { id: "uso", title: "Uso", blocks: [
-      { alert: { appearance: "informative", label: "Beta", text: "O set ainda está como [Beta] Fixed Bar na lib. Escopo: Mobile e Desktop." } },
       { h2: "Sobre" },
       { p: "A Fixed bar é uma área fixa posicionada na base da interface que agrupa duas ações relacionadas — uma primária e outra secundária. Ela é utilizada para decisões importantes no final de fluxos ou seções, permanecendo sempre acessível para a pessoa usuária." },
       { h3: "Nomes alternativos comuns" },
@@ -27,14 +26,14 @@ CDS.docs["fixed-bar"] = {
       { h2: "Quando usar" },
       { p: "Use a Fixed bar quando for necessário manter uma ou duas ações essenciais sempre visíveis, especialmente ao final de fluxos, em decisões importantes ou em etapas que exigem resposta imediata da pessoa usuária. Ela ajuda a evitar que a pessoa usuária precise rolar até o fim da página para concluir uma tarefa." },
       { h3: "Utilize para:" },
-      { ul: ["Exibir uma única ação primária de conclusão ou avanço.", "Exibir ação primária + ação secundária (ex.: confirmar e cancelar).", "Finalização de fluxos como pagamentos, revisões ou envios.", "Telas onde a tomada de decisão acontece ao fim do conteúdo, mas precisa permanecer visível."] },
+      { ul: ["Exibir uma única ação primária de conclusão ou avanço.", "Exibir ação primária + ação secundária (ex.: confirmar e cancelar).", "Finalização de fluxos como pagamentos, revisões ou envios.", "Telas onde a tomada de decisão acontece ao fim do conteúdo, mas precisa permanecer visível.", "Fluxos com etapas, em que avançar e voltar precisam estar sempre acessíveis."] },
       { h3: "Não utilize para:" },
       { ul: [
         "Exibir mais de duas ações simultâneas.", "Ações que não têm relação direta entre si.", "Estruturas em que as ações já estão evidentes no próprio conteúdo.", "Ações exclusivamente secundárias, em que a ação principal não esteja no final da página.",
         "Dentro de Modal, Drawer ou Bottom Sheet: esses componentes já têm rodapé de ações próprio.",
         "Navegação entre seções do produto: esse é papel da barra de navegação, não do Fixed Bar."
       ] },
-      { note: "Os dois últimos itens de Não utilize para vêm da description do set na lib. Suporte: canal #castanha-suporte no Slack." }
+      { note: "O último item de Utilize para e os dois últimos de Não utilize para vêm da description do set na lib. Escopo: Mobile e Desktop. Suporte: canal #castanha-suporte no Slack." }
     ] },
 
     { id: "anatomia", title: "Anatomia", blocks: [
@@ -59,7 +58,7 @@ CDS.docs["fixed-bar"] = {
         { name: "Show Divider", type: "Boolean", default: "true" },
         { name: "Show Secondary Action", type: "Boolean", default: "true" }
       ] },
-      { note: "Props e padrões lidos do set [Beta] Fixed Bar da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, `fixed` ancora a barra no fim da viewport." }
+      { note: "Props e padrões lidos do set Fixed Bar da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, `fixed` ancora a barra no fim da viewport." }
     ] },
 
     { id: "estilos", title: "Estilos", blocks: [

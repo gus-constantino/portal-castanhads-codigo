@@ -1349,6 +1349,31 @@
      "name": "favorite-filled",
      "figma": "favorite-filled",
      "keywords": []
+    },
+    {
+     "name": "inspect-line",
+     "figma": "inspect-line",
+     "keywords": []
+    },
+    {
+     "name": "monitor-line",
+     "figma": "monitor-line",
+     "keywords": []
+    },
+    {
+     "name": "template-line",
+     "figma": "template-line",
+     "keywords": []
+    },
+    {
+     "name": "design-line",
+     "figma": "design-line",
+     "keywords": []
+    },
+    {
+     "name": "magical-wand-line",
+     "figma": "magical-wand-line",
+     "keywords": []
     }
    ]
   },
@@ -2003,6 +2028,11 @@
      "name": "rename-chat-line",
      "figma": "rename-chat-line",
      "keywords": []
+    },
+    {
+     "name": "book-line",
+     "figma": "book-line",
+     "keywords": []
     }
    ]
   },
@@ -2114,6 +2144,11 @@
     {
      "name": "start-chat",
      "figma": "start-chat",
+     "keywords": []
+    },
+    {
+     "name": "feedback-line",
+     "figma": "feedback-line",
      "keywords": []
     }
    ]

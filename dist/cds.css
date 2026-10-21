@@ -1156,7 +1156,7 @@ cds-footer[kind="pilled"] .cds-footer__actions > cds-main-button, cds-fixed-bar[
 cds-footer[kind="pilled"] .cds-footer__actions .cds-btn, cds-fixed-bar[kind="stacked"] .cds-footer__actions .cds-btn{ width:100%; min-width:0; } /* Pilled = Fill: o min-width do Main Button por viewport (Mobile 328) não cabe no padding 20 do .Footer (C193) */
 
 /* ==== components/fixed-bar/fixed-bar.css ==== */
-/* [Beta] Fixed Bar · 24037:2929 — o visual vem do footer.css; fixed = ancorada no fim da viewport */
+/* Fixed Bar · 24037:2929 — o visual vem do footer.css; fixed = ancorada no fim da viewport */
 cds-fixed-bar[fixed]{ position:fixed; left:0; right:0; bottom:0; z-index:var(--common-z-index-low-01); }
 
 /* ==== components/sponsor-category/sponsor-category.css ==== */
@@ -1952,7 +1952,7 @@ cds-credit-card-input[appearance="warning"] .cds-tf__label{ color:var(--common-c
 /* Password Input · set 5798:2677 — base em text-field.css */
 
 /* ==== components/quantity-input/quantity-input.css ==== */
-/* [Beta] Quantity Input · set 22756:7351 — Decrement 48 · gap 8 · Text Box min 72 (valor centralizado) · Increment 48
+/* Quantity Input · set 22756:7351 — Decrement 48 · gap 8 · Text Box min 72 (valor centralizado) · Increment 48
    Is Active não muda o stroke (Figma) · Warning: stroke warning, fundo Surface/default no hover (matriz do Quantity)
    Motion: 300ms + Systemic/accelerate, herdado da base (como na main) */
 cds-quantity-input.cds-tf{ width:auto; }

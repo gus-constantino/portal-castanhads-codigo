@@ -1,6 +1,6 @@
 /**
  * @deps footer
- * <cds-fixed-bar> — [Beta] Fixed Bar · componente 24037:2929
+ * <cds-fixed-bar> — Fixed Bar · componente 24037:2929
  * Barra de ações ancorada no fim da tela: Divider + Action Buttons, mesma estrutura do .Footer.
  * Kind=Horizontal (padrão): botões no tamanho do conteúdo · Kind=Stacked: empilhados, largura total.
  * Atributos: os do .Footer (show-secondary-action no lugar de show-secondary-action-button) · fixed (position:fixed no fim da viewport)

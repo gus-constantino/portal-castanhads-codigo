@@ -23,7 +23,7 @@
  "levels": {
   "alta": 2,
   "media": 10,
-  "info": 38
+  "info": 41
  },
  "items": [
   {
@@ -75,6 +75,12 @@
    "m": "Parâmetros do Flutter sem prop no Figma: `dragover`."
   },
   {
+   "id": "filter-chips",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Size` não aparece na tabela Figma → Flutter."
+  },
+  {
    "id": "icon",
    "l": "media",
    "t": "padrao-diferente",
@@ -85,6 +91,18 @@
    "l": "info",
    "t": "so-no-flutter",
    "m": "Parâmetros do Flutter sem prop no Figma: `notificationAppearance`."
+  },
+  {
+   "id": "input-chips",
+   "l": "info",
+   "t": "figma-fora-do-mapa",
+   "m": "Prop do Figma `Size` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "main-button",
+   "l": "info",
+   "t": "figma-sem-parametro",
+   "m": "`Is Loading` (Figma) não tem parâmetro no Flutter. Ainda não existe no castanha_flutter."
   },
   {
    "id": "main-button",
@@ -303,8 +321,8 @@
     "pkg": "castanha_icons",
     "version": "1.8.0",
     "inPkg": 272,
-    "inPg": 264,
-    "same": 262,
+    "inPg": 271,
+    "same": 269,
     "renamed": 0,
     "onlyPg": [
      "checkbox-check",
@@ -312,15 +330,8 @@
     ],
     "onlyPkg": [
      "balanceCanceled",
-     "bookLine",
      "calendarNonRecurrent",
-     "designLine",
-     "feedbackLine",
-     "fileLine1",
-     "inspectLine",
-     "magicalWandLine",
-     "monitorLine",
-     "templateLine"
+     "fileLine1"
     ]
    },
    {
@@ -371,7 +382,7 @@
    {
     "l": "media",
     "t": "icone-so-no-dart",
-    "m": "Constantes de `CastanhaIcons` sem ícone no [Caju] Icons: `balanceCanceled`, `bookLine`, `calendarNonRecurrent`, `designLine`, `feedbackLine`, `fileLine1`, `inspectLine`, `magicalWandLine`, `monitorLine`, `templateLine`."
+    "m": "Constantes de `CastanhaIcons` sem ícone no [Caju] Icons: `balanceCanceled`, `calendarNonRecurrent`, `fileLine1`."
    },
    {
     "l": "alta",

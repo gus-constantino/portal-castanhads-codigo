@@ -36,10 +36,10 @@
   "liveMaps": 70,
   "reactOnly": 10,
   "tokens": 405,
-  "icons": 273,
+  "icons": 280,
   "illustrations": 260,
-  "conferirOpen": 153,
-  "stackFindings": 47
+  "conferirOpen": 156,
+  "stackFindings": 50
  },
  "components": [
   {
@@ -8246,6 +8246,15 @@
      ]
     },
     {
+     "name": "Size",
+     "type": "Variant",
+     "default": "Medium",
+     "options": [
+      "Medium",
+      "Small"
+     ]
+    },
+    {
      "name": "Is Selected",
      "type": "Variant",
      "default": "False",
@@ -8369,7 +8378,13 @@
       "note": "Use dentro de um `Chips.Group` com `aria-label`."
      }
     ],
-    "checks": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "nao-chega-ao-react",
+      "text": "Não chega ao React pelo Code Connect: `Size`."
+     }
+    ],
     "notes": [
      "node-id da story (12328-10100) não bate com o Code Connect (12365-2744, 12457-3664, 12365-2728, 14120-5313)"
     ]
@@ -8463,12 +8478,18 @@
       "note": "Obrigatório: o chip é controlado (`selected` + `onSelect`)."
      }
     ],
-    "checks": []
+    "checks": [
+     {
+      "level": "info",
+      "kind": "figma-fora-do-mapa",
+      "text": "Prop do Figma `Size` não aparece na tabela Figma → Flutter."
+     }
+    ]
    }
   },
   {
    "id": "fixed-bar",
-   "name": "[Beta] Fixed Bar",
+   "name": "Fixed Bar",
    "kind": "component",
    "category": "Containers",
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=24037-2929",
@@ -8480,12 +8501,12 @@
     {
      "id": "uso",
      "title": "Uso",
-     "text": "> **Beta:** O set ainda está como [Beta] Fixed Bar na lib. Escopo: Mobile e Desktop.\n\n## Sobre\n\nA Fixed bar é uma área fixa posicionada na base da interface que agrupa duas ações relacionadas — uma primária e outra secundária. Ela é utilizada para decisões importantes no final de fluxos ou seções, permanecendo sempre acessível para a pessoa usuária.\n\n### Nomes alternativos comuns\n\nBottom Action Bar, Sticky Footer Actions, Footer Button Group, Sticky Action Bar\n\n### Princípios\n\n- **Prioridade clara** — A ação primária deve ser evidente, mantendo hierarquia visual entre os botões.\n- **Consistência responsiva** — O componente adapta sua organização conforme o dispositivo, preservando usabilidade e clareza.\n- **Acesso imediato** — Mantém ações críticas sempre disponíveis, eliminando scroll desnecessário.\n\n## Quando usar\n\nUse a Fixed bar quando for necessário manter uma ou duas ações essenciais sempre visíveis, especialmente ao final de fluxos, em decisões importantes ou em etapas que exigem resposta imediata da pessoa usuária. Ela ajuda a evitar que a pessoa usuária precise rolar até o fim da página para concluir uma tarefa.\n\n### Utilize para:\n\n- Exibir uma única ação primária de conclusão ou avanço.\n- Exibir ação primária + ação secundária (ex.: confirmar e cancelar).\n- Finalização de fluxos como pagamentos, revisões ou envios.\n- Telas onde a tomada de decisão acontece ao fim do conteúdo, mas precisa permanecer visível.\n\n### Não utilize para:\n\n- Exibir mais de duas ações simultâneas.\n- Ações que não têm relação direta entre si.\n- Estruturas em que as ações já estão evidentes no próprio conteúdo.\n- Ações exclusivamente secundárias, em que a ação principal não esteja no final da página.\n- Dentro de Modal, Drawer ou Bottom Sheet: esses componentes já têm rodapé de ações próprio.\n- Navegação entre seções do produto: esse é papel da barra de navegação, não do Fixed Bar.\n\n> Os dois últimos itens de Não utilize para vêm da description do set na lib. Suporte: canal #castanha-suporte no Slack."
+     "text": "## Sobre\n\nA Fixed bar é uma área fixa posicionada na base da interface que agrupa duas ações relacionadas — uma primária e outra secundária. Ela é utilizada para decisões importantes no final de fluxos ou seções, permanecendo sempre acessível para a pessoa usuária.\n\n### Nomes alternativos comuns\n\nBottom Action Bar, Sticky Footer Actions, Footer Button Group, Sticky Action Bar\n\n### Princípios\n\n- **Prioridade clara** — A ação primária deve ser evidente, mantendo hierarquia visual entre os botões.\n- **Consistência responsiva** — O componente adapta sua organização conforme o dispositivo, preservando usabilidade e clareza.\n- **Acesso imediato** — Mantém ações críticas sempre disponíveis, eliminando scroll desnecessário.\n\n## Quando usar\n\nUse a Fixed bar quando for necessário manter uma ou duas ações essenciais sempre visíveis, especialmente ao final de fluxos, em decisões importantes ou em etapas que exigem resposta imediata da pessoa usuária. Ela ajuda a evitar que a pessoa usuária precise rolar até o fim da página para concluir uma tarefa.\n\n### Utilize para:\n\n- Exibir uma única ação primária de conclusão ou avanço.\n- Exibir ação primária + ação secundária (ex.: confirmar e cancelar).\n- Finalização de fluxos como pagamentos, revisões ou envios.\n- Telas onde a tomada de decisão acontece ao fim do conteúdo, mas precisa permanecer visível.\n- Fluxos com etapas, em que avançar e voltar precisam estar sempre acessíveis.\n\n### Não utilize para:\n\n- Exibir mais de duas ações simultâneas.\n- Ações que não têm relação direta entre si.\n- Estruturas em que as ações já estão evidentes no próprio conteúdo.\n- Ações exclusivamente secundárias, em que a ação principal não esteja no final da página.\n- Dentro de Modal, Drawer ou Bottom Sheet: esses componentes já têm rodapé de ações próprio.\n- Navegação entre seções do produto: esse é papel da barra de navegação, não do Fixed Bar.\n\n> O último item de Utilize para e os dois últimos de Não utilize para vêm da description do set na lib. Escopo: Mobile e Desktop. Suporte: canal #castanha-suporte no Slack."
     },
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\n### Desktop/Tablet\n\nAnatomia:\n1. Primary action (Ação primária)\n2. Secondary action (Ação secundária · Show Secondary Action)\n3. Bottom fixed container\n4. Divider (Show Divider)\n\n### Mobile\n\nAnatomia:\n1. Secondary action\n2. Primary action\n3. Bottom fixed container\n\n## Composição do componente\n\nMesma estrutura do .Footer: Divider e Action Buttons com Main Buttons Neutral (secundária) e Accent (primária). Em `Horizontal`, os botões ficam lado a lado no tamanho do conteúdo. Em `Stacked`, empilhados e com largura total.\n\n## Propriedades\n\n- **Kind** (Variant): Horizontal, Stacked\n- **Show Divider** (Boolean)\n- **Show Secondary Action** (Boolean)\n\n> Props e padrões lidos do set [Beta] Fixed Bar da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, `fixed` ancora a barra no fim da viewport."
+     "text": "## Anatomia\n\n### Desktop/Tablet\n\nAnatomia:\n1. Primary action (Ação primária)\n2. Secondary action (Ação secundária · Show Secondary Action)\n3. Bottom fixed container\n4. Divider (Show Divider)\n\n### Mobile\n\nAnatomia:\n1. Secondary action\n2. Primary action\n3. Bottom fixed container\n\n## Composição do componente\n\nMesma estrutura do .Footer: Divider e Action Buttons com Main Buttons Neutral (secundária) e Accent (primária). Em `Horizontal`, os botões ficam lado a lado no tamanho do conteúdo. Em `Stacked`, empilhados e com largura total.\n\n## Propriedades\n\n- **Kind** (Variant): Horizontal, Stacked\n- **Show Divider** (Boolean)\n- **Show Secondary Action** (Boolean)\n\n> Props e padrões lidos do set Fixed Bar da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, `fixed` ancora a barra no fim da viewport."
     },
     {
      "id": "estilos",
@@ -9890,6 +9911,15 @@
       "Pressed",
       "Disabled"
      ]
+    },
+    {
+     "name": "Size",
+     "type": "Variant",
+     "default": "Medium",
+     "options": [
+      "Medium",
+      "Small"
+     ]
     }
    ],
    "react": {
@@ -10006,7 +10036,13 @@
       "note": "Use dentro de um `Chips.Group` com `aria-label`."
      }
     ],
-    "checks": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "nao-chega-ao-react",
+      "text": "Não chega ao React pelo Code Connect: `Size`."
+     }
+    ],
     "notes": [
      "node-id da story (12328-10100) não bate com o Code Connect (12365-2744, 12457-3664, 12365-2728, 14120-5313)"
     ]
@@ -10094,7 +10130,13 @@
       "note": "Toque no chip remove: trate em `onClose`."
      }
     ],
-    "checks": []
+    "checks": [
+     {
+      "level": "info",
+      "kind": "figma-fora-do-mapa",
+      "text": "Prop do Figma `Size` não aparece na tabela Figma → Flutter."
+     }
+    ]
    }
   },
   {
@@ -10568,6 +10610,15 @@
       "Medium",
       "Small"
      ]
+    },
+    {
+     "name": "Is Loading",
+     "type": "Variant",
+     "default": "False",
+     "options": [
+      "False",
+      "True"
+     ]
     }
    ],
    "react": {
@@ -10687,7 +10738,13 @@
       "note": "O texto vai como filho."
      }
     ],
-    "checks": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "nao-chega-ao-react",
+      "text": "Não chega ao React pelo Code Connect: `Is Loading`."
+     }
+    ],
     "notes": []
    },
    "flutter": {
@@ -10844,6 +10901,11 @@
      }
     ],
     "checks": [
+     {
+      "level": "info",
+      "kind": "figma-sem-parametro",
+      "text": "`Is Loading` (Figma) não tem parâmetro no Flutter. Ainda não existe no castanha_flutter."
+     },
      {
       "level": "info",
       "kind": "so-no-flutter",
@@ -13483,7 +13545,7 @@
   },
   {
    "id": "quantity-input",
-   "name": "[Beta] Quantity Input",
+   "name": "Quantity Input",
    "kind": "component",
    "category": "Text Fields",
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=22756-7351",
@@ -13495,7 +13557,7 @@
     {
      "id": "uso",
      "title": "Uso",
-     "text": "## Sobre\n\nO Quantity Input é um campo numérico com controles de incremento e decremento. É utilizado para ajustar valores em passos previsíveis, pelos botões ou por digitação direta. O conteúdo aceita número puro ou acompanhado de unidade, como porcentagem, quantidade ou valor monetário.\n\n### Nomes alternativos comuns\n\nNumber input, numeric stepper, counter, seletor de quantidade, contador.\n\n### Princípios\n\n- **Previsibilidade** — Cada acionamento altera o valor na mesma medida, e a faixa aceita é conhecida antes da interação.\n- **Controle compartilhado** — A pessoa usuária ajusta pelos botões quando a variação é pequena e digita quando quer chegar direto ao valor.\n- **Limite visível** — Ao atingir o mínimo ou o máximo, o controle correspondente fica indisponível, comunicando a fronteira sem recorrer a mensagem de erro.\n\n## Quando usar\n\nUse o Quantity Input quando for necessário ajustar um valor numérico dentro de uma faixa conhecida, especialmente quando a pessoa usuária altera poucas unidades por vez e precisa acompanhar o valor atual enquanto ajusta.\n\n### Utilize para:\n\n- Quantidade de itens em uma solicitação\n- Número de dias, parcelas ou ciclos\n- Nível de zoom ou escala\n- Ajustes finos em torno de um valor padrão\n\n### Não utilize para:\n\n- Seleção entre opções pré-definidas (use Select input)\n- Saltos grandes dentro de faixas amplas (use Text input)\n- Valores de leitura, sem edição (use Currency)\n- Entrada de texto ou códigos (use Text input ou Code input)\n\n### Text input vs Quantity Input\n\nUse o Quantity Input quando o valor varia em passos previsíveis e a pessoa usuária ajusta poucas unidades por vez — especialmente quando acompanhar o valor durante o ajuste faz parte da tarefa. O Text input é indicado para valores numéricos sem faixa definida ou com variação ampla, desde que digitar seja o caminho natural de preenchimento.\n\n- Este é um Text input (exemplo: Quantidade)\n- Este é um Quantity Input (exemplo: Quantidade)"
+     "text": "## Sobre\n\nO Quantity Input é um campo numérico com controles de incremento e decremento. É utilizado para ajustar valores em passos previsíveis, pelos botões ou por digitação direta. O conteúdo aceita número puro ou acompanhado de unidade, como porcentagem, quantidade ou valor monetário.\n\n### Nomes alternativos comuns\n\nNumber input, numeric stepper, counter, quantity selector, seletor de quantidade, contador.\n\n### Princípios\n\n- **Previsibilidade** — Cada acionamento altera o valor na mesma medida, e a faixa aceita é conhecida antes da interação.\n- **Controle compartilhado** — A pessoa usuária ajusta pelos botões quando a variação é pequena e digita quando quer chegar direto ao valor.\n- **Limite visível** — Ao atingir o mínimo ou o máximo, o controle correspondente fica indisponível, comunicando a fronteira sem recorrer a mensagem de erro.\n\n## Quando usar\n\nUse o Quantity Input quando for necessário ajustar um valor numérico dentro de uma faixa conhecida, especialmente quando a pessoa usuária altera poucas unidades por vez e precisa acompanhar o valor atual enquanto ajusta.\n\n### Utilize para:\n\n- Quantidade de itens em uma solicitação\n- Número de dias, parcelas ou ciclos\n- Nível de zoom ou escala\n- Ajustes finos em torno de um valor padrão\n\n### Não utilize para:\n\n- Seleção entre opções pré-definidas (use Select input)\n- Saltos grandes dentro de faixas amplas (use Text input)\n- Valores aproximados ou contínuos (use Slider)\n- Valores de leitura, sem edição (use Currency)\n- Entrada de texto ou códigos (use Text input ou Code input)\n\n### Text input vs Quantity Input\n\nUse o Quantity Input quando o valor varia em passos previsíveis e a pessoa usuária ajusta poucas unidades por vez — especialmente quando acompanhar o valor durante o ajuste faz parte da tarefa. O Text input é indicado para valores numéricos sem faixa definida ou com variação ampla, desde que digitar seja o caminho natural de preenchimento.\n\n- Este é um Text input (exemplo: Quantidade)\n- Este é um Quantity Input (exemplo: Quantidade)"
     },
     {
      "id": "anatomia",
@@ -21144,7 +21206,7 @@
     {
      "id": "icones",
      "title": "Ícones",
-     "text": "## Ícones\n\n[Caju] Icons, na ordem e nas categorias do Figma: 262 ícones de 24px, um vetor só e cor herdada do token (`Icons/*`). Troque cor e tamanho para ver a grade inteira mudar; clique num ícone para ver o detalhe e copiar.\n\n(Tokens: icons — ver a ferramenta de tokens.)\n\n> Os ícones do frame [Deprecated] do Figma ficam na categoria Deprecated: os arquivos continuam no repo, mas não aparecem no instance swap dos componentes.\n\n### Como usar\n\n- O [Caju] Icons é a fonte dos desenhos; o componente Icon (`<cds-icon icon=\"credit-card-line\">`) aplica tamanho, Appearance e cor.\n- Arquivos em `assets/icons/<categoria>/<nome>.svg`, catálogo em `assets/icons/catalog.json`.\n- Atualizar: exportar do Figma (receita em `docs/ARCHITECTURE.md` §8) e rodar `node scripts/build-assets.js`.\n- Glifos internos de componentes (ex.: o check do Checkbox) não são da lib: ficam em `assets/icons/_glyphs/`."
+     "text": "## Ícones\n\n[Caju] Icons, na ordem e nas categorias do Figma: 269 ícones de 24px, um vetor só e cor herdada do token (`Icons/*`). Troque cor e tamanho para ver a grade inteira mudar; clique num ícone para ver o detalhe e copiar.\n\n(Tokens: icons — ver a ferramenta de tokens.)\n\n> Os ícones do frame [Deprecated] do Figma ficam na categoria Deprecated: os arquivos continuam no repo, mas não aparecem no instance swap dos componentes.\n\n### Como usar\n\n- O [Caju] Icons é a fonte dos desenhos; o componente Icon (`<cds-icon icon=\"credit-card-line\">`) aplica tamanho, Appearance e cor.\n- Arquivos em `assets/icons/<categoria>/<nome>.svg`, catálogo em `assets/icons/catalog.json`.\n- Atualizar: exportar do Figma (receita em `docs/ARCHITECTURE.md` §8) e rodar `node scripts/build-assets.js`.\n- Glifos internos de componentes (ex.: o check do Checkbox) não são da lib: ficam em `assets/icons/_glyphs/`."
     },
     {
      "id": "visao-geral",
@@ -26562,6 +26624,61 @@
    }
   },
   {
+   "name": "inspect-line",
+   "category": "UI Symbols",
+   "keywords": [],
+   "deprecated": false,
+   "react": {
+    "name": "inspect-line",
+    "export": "InspectLine",
+    "import": "import { InspectLine } from '@caju-beneficios/castanha-icons';"
+   }
+  },
+  {
+   "name": "monitor-line",
+   "category": "UI Symbols",
+   "keywords": [],
+   "deprecated": false,
+   "react": {
+    "name": "monitor-line",
+    "export": "MonitorLine",
+    "import": "import { MonitorLine } from '@caju-beneficios/castanha-icons';"
+   }
+  },
+  {
+   "name": "template-line",
+   "category": "UI Symbols",
+   "keywords": [],
+   "deprecated": false,
+   "react": {
+    "name": "template-line",
+    "export": "TemplateLine",
+    "import": "import { TemplateLine } from '@caju-beneficios/castanha-icons';"
+   }
+  },
+  {
+   "name": "design-line",
+   "category": "UI Symbols",
+   "keywords": [],
+   "deprecated": false,
+   "react": {
+    "name": "design-line",
+    "export": "DesignLine",
+    "import": "import { DesignLine } from '@caju-beneficios/castanha-icons';"
+   }
+  },
+  {
+   "name": "magical-wand-line",
+   "category": "UI Symbols",
+   "keywords": [],
+   "deprecated": false,
+   "react": {
+    "name": "magical-wand-line",
+    "export": "MagicalWandLine",
+    "import": "import { MagicalWandLine } from '@caju-beneficios/castanha-icons';"
+   }
+  },
+  {
    "name": "safety-key-line",
    "category": "Security",
    "keywords": [
@@ -27523,6 +27640,17 @@
    }
   },
   {
+   "name": "book-line",
+   "category": "Documents",
+   "keywords": [],
+   "deprecated": false,
+   "react": {
+    "name": "book-line",
+    "export": "BookLine",
+    "import": "import { BookLine } from '@caju-beneficios/castanha-icons';"
+   }
+  },
+  {
    "name": "accessibility-sound-line",
    "category": "Communicate",
    "keywords": [
@@ -27685,6 +27813,17 @@
     "name": "start-chat",
     "export": "StartChat",
     "import": "import { StartChat } from '@caju-beneficios/castanha-icons';"
+   }
+  },
+  {
+   "name": "feedback-line",
+   "category": "Communicate",
+   "keywords": [],
+   "deprecated": false,
+   "react": {
+    "name": "feedback-line",
+    "export": "FeedbackLine",
+    "import": "import { FeedbackLine } from '@caju-beneficios/castanha-icons';"
    }
   },
   {
@@ -33722,6 +33861,18 @@
     "text": "Side Menu · `.Category` (Sponsor Templates 5576:27) · `Is Collapsed=True` é a variante do Accordion que mostra o Slot aberto, e a description diz que Is Collapsed \"espelha o menu\" · Nome que diga o que faz: `Is Expanded` no accordion (ou o colapso do menu em Kind=Reduced, que já existe) · Accordion aberto = `expanded`, menu colapsado = Kind=Reduced · Próxima revisão do Sponsor Templates"
    },
    {
+    "id": "C216",
+    "group": "Naming",
+    "resolved": false,
+    "text": "Fixed Bar · Kind (set 24037:2929) · Leitura de 21/10 na main: `Kind=Horizontal\\|Pilled`. Em 19/10 a D366 leu `Stacked` no mesmo set e o portal trocou o nome · Confirmar com quem desenhou qual nome fica (Pilled → Stacked → Pilled); a skill pede não trocar nome sem confirmação · Segue `kind=\"stacked\"` (D366) até a confirmação; o .Footer continua `pilled` · Se ficar Pilled: voltar o atributo para `pilled` no Fixed Bar, docs, playground e exemplos (os arquivos do commit 120b3fa)"
+   },
+   {
+    "id": "C217",
+    "group": "Naming",
+    "resolved": false,
+    "text": ".Credit Card Flags (4934:771, página Flags) · Set chamado `Credit Card Flags`, sem o ponto, e fora da página .Building Blocks; continua não publicado · Confirmar se virou componente (sem ponto) ou se segue building block · Segue `.Credit Card Flags`, building block (D139) · Se for componente: tirar o ponto do nome e o `block: true` do playground"
+   },
+   {
     "id": "C15",
     "group": "Acessibilidade",
     "resolved": false,
@@ -33876,6 +34027,12 @@
     "group": "Documentação",
     "resolved": false,
     "text": "Docs · Anatomia ([CastanhaDS] Component use documentation, frames `anatomia-*`) · (1) Tag: a legenda chama o texto de \"Tag\" (nome da camada); a prop é `Text Label`. (2) Select input: o estado B Active (6 Popover, 7 Selection list) · (1) Nome da parte igual ao da prop? (2) — · (1) Legenda \"Tag (Text Label)\". (2) O portal mostra só o estado A no Async Select Input: o Select abre o Popover por cima da página, fora da caixa da Anatomia. (3) Currency: o Figma tem 2 instâncias, o portal mostra 1. (4) Text Input: o item 5 Clear Button do Figma segue de fora (legado, C96). (5) Caju Brand: \"Logo vector\" no Figma são 2 caminhos no SVG (folha e caju); o marcador aponta o caju · (1) Quando revisar a doc da Tag"
+   },
+   {
+    "id": "C218",
+    "group": "Documentação",
+    "resolved": false,
+    "text": "[Caju] Icons · 7 ícones novos (21/10) · `inspect-line`, `monitor-line`, `template-line`, `design-line`, `magical-wand-line` (UI Symbols) e `book-line` (Documents) têm a description `calendario; agenda;`, cópia do ícone de calendário. `feedback-line` (Communicate) está sem description · Palavras-chave de cada ícone na description · Entram no catálogo sem palavras-chave (a busca acha pelo nome) · Escrever as descriptions e reimportar as palavras-chave"
    },
    {
     "id": "C117",
@@ -34452,10 +34609,31 @@
     "gap": "MISSING-VARIANT"
    },
    {
+    "id": "filter-chips",
+    "level": "info",
+    "kind": "nao-chega-ao-react",
+    "msg": "Não chega ao React pelo Code Connect: `Size`.",
+    "gap": "MISSING-VARIANT"
+   },
+   {
     "id": "icon-button",
     "level": "info",
     "kind": "nao-chega-ao-react",
     "msg": "Não chega ao React pelo Code Connect: `Show Notification`.",
+    "gap": "MISSING-VARIANT"
+   },
+   {
+    "id": "input-chips",
+    "level": "info",
+    "kind": "nao-chega-ao-react",
+    "msg": "Não chega ao React pelo Code Connect: `Size`.",
+    "gap": "MISSING-VARIANT"
+   },
+   {
+    "id": "main-button",
+    "level": "info",
+    "kind": "nao-chega-ao-react",
+    "msg": "Não chega ao React pelo Code Connect: `Is Loading`.",
     "gap": "MISSING-VARIANT"
    },
    {
@@ -34610,7 +34788,7 @@
     "id": "assets",
     "level": "media",
     "kind": "icone-so-no-pacote",
-    "msg": "O castanha-icons exporta ícones que não existem no [Caju] Icons: `balance-canceled`, `book-line`, `calendar-non-recurrent`, `design-line`, `feedback-line`, `file-line-1`, `inspect-line`, `magical-wand-line`, `monitor-line`, `template-line`.",
+    "msg": "O castanha-icons exporta ícones que não existem no [Caju] Icons: `balance-canceled`, `calendar-non-recurrent`, `file-line-1`.",
     "gap": "MISSING-COMPONENT"
    },
    {

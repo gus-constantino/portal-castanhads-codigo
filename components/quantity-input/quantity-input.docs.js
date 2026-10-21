@@ -1,4 +1,4 @@
-/* Documentação — [Beta] Quantity Input
+/* Documentação — Quantity Input (sem o [Beta] no Figma desde 21/10; nomes alternativos e Não utilize para conferidos com a description do set 22756:7351)
    Fonte: [CastanhaDS] Component use documentation · seção 6945:5832 · frame [Documentação] Quantity Input (6945:4705)
    Só dados: o kit (scripts/docs-kit.js) monta a capa e as tabs.
    Oculto no Figma: Composição do componente (tem conteúdo real → entra na Anatomia); Acessibilidade (só placeholder
@@ -20,7 +20,7 @@ CDS.docs["quantity-input"] = {
       { h2: "Sobre" },
       { p: "O Quantity Input é um campo numérico com controles de incremento e decremento. É utilizado para ajustar valores em passos previsíveis, pelos botões ou por digitação direta. O conteúdo aceita número puro ou acompanhado de unidade, como porcentagem, quantidade ou valor monetário." },
       { h3: "Nomes alternativos comuns" },
-      { p: "Number input, numeric stepper, counter, seletor de quantidade, contador." },
+      { p: "Number input, numeric stepper, counter, quantity selector, seletor de quantidade, contador." },
       { h3: "Princípios" },
       { cards: [
         ["Previsibilidade", "Cada acionamento altera o valor na mesma medida, e a faixa aceita é conhecida antes da interação."],
@@ -32,7 +32,7 @@ CDS.docs["quantity-input"] = {
       { h3: "Utilize para:" },
       { ul: ["Quantidade de itens em uma solicitação", "Número de dias, parcelas ou ciclos", "Nível de zoom ou escala", "Ajustes finos em torno de um valor padrão"] },
       { h3: "Não utilize para:" },
-      { ul: ["Seleção entre opções pré-definidas (use Select input)", "Saltos grandes dentro de faixas amplas (use Text input)", "Valores de leitura, sem edição (use Currency)", "Entrada de texto ou códigos (use Text input ou Code input)"] },
+      { ul: ["Seleção entre opções pré-definidas (use Select input)", "Saltos grandes dentro de faixas amplas (use Text input)", "Valores aproximados ou contínuos (use Slider)", "Valores de leitura, sem edição (use Currency)", "Entrada de texto ou códigos (use Text input ou Code input)"] },
       { h3: "Text input vs Quantity Input" },
       { p: "Use o Quantity Input quando o valor varia em passos previsíveis e a pessoa usuária ajusta poucas unidades por vez — especialmente quando acompanhar o valor durante o ajuste faz parte da tarefa. O Text input é indicado para valores numéricos sem faixa definida ou com variação ampla, desde que digitar seja o caminho natural de preenchimento." },
       { compare: [

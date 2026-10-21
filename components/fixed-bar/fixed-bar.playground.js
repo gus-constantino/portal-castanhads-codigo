@@ -1,6 +1,6 @@
-/* Playground — [Beta] Fixed Bar */
+/* Playground — Fixed Bar */
 CDS.register({
-  id: "fixed-bar", name: "[Beta] Fixed Bar", category: "Containers", status: "beta", figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=24037-2929",
+  id: "fixed-bar", name: "Fixed Bar", category: "Containers", figma: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=24037-2929",
   mount: function(ctx){
     var kit = ctx.kit, panel = ctx.panel, p = kit.el("cds-fixed-bar", { style: "width:320px" }); ctx.preview.appendChild(p);
     p.addEventListener("cds-action", function(e){ ctx.readout("cds-action · " + e.detail.action, false); });

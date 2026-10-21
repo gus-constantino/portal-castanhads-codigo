@@ -333,11 +333,10 @@
       var ctl = lab.appendChild(el("div", "pg-el-lab__ctl")), partsHost = ctl.appendChild(el("cmp-definition-list", "pg-el-parts")), parts = partsHost.listEl;
       var stage = lab.appendChild(el("div", "pg-zi-stage")), cards = [], tiles = [];
       list.forEach(function(n, i){
-        var it = info(n), c = stage.appendChild(el("button", "pg-zi-card")); c.type = "button";
-        c.style.zIndex = "var(" + n + ")"; c.style.setProperty("--_i", String(i));
+        var it = info(n), c = stage.appendChild(tile("pg-zi-card", n, null)); // carta = tile: copia a variável, como os outros
+        c.style.zIndex = "var(" + n + ")"; c.style.setProperty("--_zi", String(i));
         if (it.level) c.style.boxShadow = "var(--common-elevation-level-" + it.level + ")";
         c.appendChild(el("span", "pg-zi-card__name", it.k));
-        c.setAttribute("aria-label", it.k + ": " + val(n));
         c.addEventListener("click", function(){ show(i); });
         cards.push(c);
       });

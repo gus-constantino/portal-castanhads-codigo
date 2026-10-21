@@ -5162,7 +5162,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=5488-675",
    "figmaNode": "5488-675",
    "zeroheight": null,
-   "figmaStatus": "branch-update",
+   "figmaStatus": "changed",
    "description": "O Content list item é um bloco de conteúdo que organiza informações de forma clara e escaneável dentro de listas. Ele combina elementos como título, descrição, ícone, avatar ou status, ajudando o usuário a identificar de relance itens, conteúdos ou ações relacionadas. Quando a lista é reordenável, o item mostra uma alça de arraste à esquerda e pode ser levantado para mudar de posição.",
    "tabs": [
     {
@@ -33503,7 +33503,7 @@
     "id": "C93",
     "group": "Refactor",
     "resolved": false,
-    "text": "Publicação da lib [CastanhaDS] Components (leitura de 20/10, `scripts/figma-status.js`) · **33** componentes estão publicados sem pendência na main, mais o Content List Item, publicado e com o arrastar para reordenar ainda em branch. **41** estão publicados com alterações não publicadas (`CHANGED`): Async Creatable Select Input, Async Select Input, Banner, Bottom Sheet, Carousel, Checkbox, Checkbox Select Input, Chips Group, Content List, Date Input, Date Picker, Drawer, Dropzone, Filter Chips, Fixed Bar, Fixed Tab, Icon Button, Input Chips, Link, Main Button (o Loading do CDS-1603 entrou na main), Modal, Modal Date Picker, Multi Select Input, Nav Control, Pagination, Password Input, Progress Tracker, Progress Tracker Item, Quantity Input, Radio Select Input, Scrollable Tab, Search Input, Selection List, Selection List Item, Switch, Tab View, Table, Text Input, Upload Item, Upload List e os grupos Checkbox Group e Switch Group. **4** estão na main sem publicar: Accordion, Accordion Item, Code Input OTP e Credit Card Input (as branches entraram na main). Chat Input, FAB, FAB Menu, Big Number e Variation Big Number só existem em branch. Os 26 building blocks não são publicados, de propósito · Publicar a lib (ou revisar o que está pendente) e fazer o merge das branches · Tag de status em cada componente do playground · Nova leitura depois de publicar"
+    "text": "Publicação da lib [CastanhaDS] Components (leitura de 21/10, `scripts/figma-status.js`) · **33** componentes estão publicados sem pendência na main. **42** estão publicados com alterações não publicadas (`CHANGED`): Async Creatable Select Input, Async Select Input, Banner, Bottom Sheet, Carousel, Checkbox, Checkbox Select Input, Chips Group, Content List, Content List Item (o arrastar para reordenar do CDS-1592 entrou na main), Date Input, Date Picker, Drawer, Dropzone, Filter Chips, Fixed Bar, Fixed Tab, Icon Button, Input Chips, Link, Main Button (o Loading do CDS-1603 entrou na main), Modal, Modal Date Picker, Multi Select Input, Nav Control, Pagination, Password Input, Progress Tracker, Progress Tracker Item, Quantity Input, Radio Select Input, Scrollable Tab, Search Input, Selection List, Selection List Item, Switch, Tab View, Table, Text Input, Upload Item, Upload List e os grupos Checkbox Group e Switch Group. **4** estão na main sem publicar: Accordion, Accordion Item, Code Input OTP e Credit Card Input (as branches entraram na main). Chat Input, FAB, FAB Menu, Big Number e Variation Big Number só existem em branch. Os 26 building blocks não são publicados, de propósito · Publicar a lib (ou revisar o que está pendente) e fazer o merge das branches · Tag de status em cada componente do playground · Nova leitura depois de publicar"
    },
    {
     "id": "C94",

@@ -7,12 +7,12 @@
    Para atualizar: pedir uma nova leitura e trocar `checked`. */
 window.CDS = window.CDS || {};
 CDS.figmaStatus = {
-  checked: "20/10/2026",
+  checked: "21/10/2026",
   items: (function(){
     var s = {}, add = function(status, ids){ ids.split(" ").forEach(function(id){ s[id] = status; }); };
-    // Leitura de 20/10: as branches de Accordion, Code Input OTP, Credit Card Input e do Loading do Main Button entraram na main, ainda sem publicar; 41 componentes têm alterações na main esperando publicação
+    // Leitura de 21/10: o arrastar para reordenar do Content List Item (CDS-1592) entrou na main, ainda sem publicar; 42 componentes têm alterações na main esperando publicação
     add("changed", "async-creatable-select-input async-select-input banner bottom-sheet carousel checkbox checkbox-select-input chips-group " +
-      "content-list date-input date-picker drawer dropzone filter-chips fixed-bar fixed-tab icon-button input-chips link " +
+      "content-list content-list-item date-input date-picker drawer dropzone filter-chips fixed-bar fixed-tab icon-button input-chips link " +
       "main-button modal modal-date-picker multi-select-input nav-control pagination password-input progress-tracker " +
       "progress-tracker-item quantity-input radio-select-input scrollable-tab search-input selection-group selection-list " +
       "selection-list-item switch tab-view table text-input upload-item upload-list");
@@ -20,7 +20,6 @@ CDS.figmaStatus = {
       "date-navigation file-lead-item footer header icons-block lead-item list-lead-item nav-control-item nps-value-item select-number tab-item " +
       "table-cell table-head table-toolbar text-content trailing-item");
     add("branch", "chat-input fab-button fab-menu big-number variation-big-number");
-    add("branch-update", "content-list-item");
     add("current", "alert avatar backdrop badge balance-card breadcrumb caju-brand caju-card card confirmation-message csat-score currency " +
       "divider drop-button filter-button icon image nps-score popover progress-line radio-button shaped-icon skeleton slider " +
       "spinner status-dot system-banner tag text-area toast tooltip topic viewport-restriction");
@@ -28,7 +27,5 @@ CDS.figmaStatus = {
     return s;
   })(),
   // O que está na branch (branch-update): aparece no Tooltip da Tag
-  notes: {
-    "content-list-item": "arrastar para reordenar (Show Drag Handle e State=Dragged), CDS-1592, na branch bHFCiEbEkTYCXNipG4iqN0"
-  }
+  notes: {}
 };

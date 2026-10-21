@@ -1,4 +1,4 @@
-{"fonte":"Lista do Slack Castanha suporte - requests (#castanha-suporte)","lido":"2026-10-20","medido":"2026-10-15","chamados":[
+{"fonte":"Lista do Slack Castanha suporte - requests (#castanha-suporte)","lido":"2026-10-21","medido":"2026-10-15","chamados":[
   {"k":"05c66a7e11","d":"2025-08-13","tipo":"dev","prioridade":null,"status":"resolvido","comp":[]},
   {"k":"44fe36c1d7","d":"2025-08-13","tipo":"dev","prioridade":null,"status":"resolvido","comp":["content-list"]},
   {"k":"48e43d3c53","d":"2025-08-13","tipo":"dev","prioridade":null,"status":"resolvido","comp":["bottom-sheet","text-input","radio-select-input"]},
@@ -237,7 +237,11 @@
   {"k":"dcb9bf3f53","d":"2026-10-09","tipo":"dev","prioridade":null,"status":"priorizado","comp":[],"titulo":"O CastanhaIconButton não expõe a ação de toque pro leitor de tela: o Semantics(excludeSemantics: true) não tem onTap, então quem usa TalkBac","link":"https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA?record_id=Rec0C86U1GV4L"},
   {"k":"6cf7963c24","d":"2026-10-14","tipo":"dev","prioridade":"baixa","status":"andamento","comp":["modal"],"titulo":"Animação está bugada na hora de fechar o modal","link":"https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA?record_id=Rec0C92UJKKL3"},
   {"k":"7ecb171653","d":"2026-10-15","tipo":"dev","prioridade":"media","status":"priorizado","comp":["filter-button"],"titulo":"FilterButton não fica alinhado ao fim da tela quando está sem filtro","link":"https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA?record_id=Rec0C9C8K5SRZ"},
-  {"k":"b4bfb0e213","d":"2026-10-16","tipo":"ilustra","prioridade":null,"status":"aberto","comp":[],"titulo":"Variação de ícone existente","link":"https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA?record_id=Rec0CA2J8KCUU"},
-  {"k":"b739849f19","d":"2026-10-16","tipo":"motion","prioridade":"alta","status":"aberto","comp":[],"titulo":"Acesso ao motion de Saldo Inteligente para usar em estratégias de comunicação","link":"https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA?record_id=Rec0C9RD5HA4B"},
-  {"k":"a4fe323eca","d":"2026-10-19","tipo":"dev","prioridade":null,"status":"andamento","comp":[],"titulo":"Cor errada do botão secundário","link":"https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA?record_id=Rec0CAJ6GC5E0"}
+  {"k":"b4bfb0e213","d":"2026-10-16","tipo":"ilustra","prioridade":"media","status":"aberto","comp":[],"titulo":"Variação de ícone existente","link":"https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA?record_id=Rec0CA2J8KCUU"},
+  {"k":"b739849f19","d":"2026-10-16","tipo":"motion","prioridade":"alta","status":"andamento","comp":[],"titulo":"Acesso ao motion de Saldo Inteligente para usar em estratégias de comunicação","link":"https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA?record_id=Rec0C9RD5HA4B"},
+  {"k":"a4fe323eca","d":"2026-10-19","tipo":"dev","prioridade":null,"status":"andamento","comp":[],"titulo":"Cor errada do botão secundário","link":"https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA?record_id=Rec0CAJ6GC5E0"},
+  {"k":"09f5091077","d":"2026-10-20","tipo":"design","prioridade":null,"status":"aberto","comp":[],"titulo":"SearchCollapse","link":"https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA?record_id=Rec0CAKSGNB8T"},
+  {"k":"be14a35e1c","d":"2026-10-20","tipo":"dev","prioridade":"baixa","status":"resolvido","comp":[]},
+  {"k":"d82d051b6f","d":"2026-10-20","tipo":"dev","prioridade":null,"status":"aberto","comp":[],"titulo":"Cores erradas e tamanho da font","link":"https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA?record_id=Rec0CAPRWKW6S"},
+  {"k":"fa945dc98c","d":"2026-10-20","tipo":"motion","prioridade":"alta","status":"resolvido","comp":[]}
 ]}

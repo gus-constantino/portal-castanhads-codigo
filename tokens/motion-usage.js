@@ -26,11 +26,11 @@
 CDS.zIndexUsage = {
  "Low/00": "Conteúdo da página. Sem elevação.",
  "Low/01": "Elementos presos à página: cabeçalho e colunas fixas da Table, Side Menu, Fixed Bar. Elevação padrão: Level 1.",
- "Low/02": "System Banner. Sem elevação.",
  "Medium/01": "Backdrop. Sem elevação. Fica logo abaixo do overlay dono (Drawer, Modal).",
  "Medium/02": "Drawer. Elevação padrão: Level 2.",
  "Medium/03": "Modal e Date Picker Modal. Elevação padrão: Level 2.",
  "High/01": "Popover e menus ancorados: Select, Drop Button, Date Input, Pagination Select, Breadcrumbs recolhidos. Elevação padrão: Level 3.",
  "High/02": "Toast (na região que agrupa os toasts). Elevação padrão: Level 2, no item.",
- "High/03": "Tooltip. Sem elevação: o contraste vem da cor inversed."
+ "High/03": "Tooltip. Sem elevação: o contraste vem da cor inversed.",
+ "High/04": "System Banner, acima de tudo: o aviso de sistema não pode ficar atrás de véu, modal ou tooltip. Sem elevação."
 };

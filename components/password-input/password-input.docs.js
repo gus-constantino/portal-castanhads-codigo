@@ -99,7 +99,7 @@ CDS.docs["password-input"] = {
         "Ordem no Text Box: conteúdo, ícone de aviso e botão de mostrar e ocultar a senha, com gap de 8 (`Common/Sizes/8`).",
         "Cor do ícone `Common/Colors/Feedback/Warning/semi-intense`, a mesma da borda e da Error Message. Contraste de 6,41:1 sobre `Surface/default`.",
         "Neutral continua sem ícone de feedback.",
-        "Renomeação: o `Show Trailing Item` da main (botão de olho) virou `Show Visibility Action`, e o nome `Show Trailing Item` passou para o ícone de aviso.",
+        "Renomeação só no Figma: o `Show Trailing Item` da main (botão de olho) virou `Show Visibility Action`, com o mesmo id, e o nome `Show Trailing Item` passou para o ícone de aviso. Sem breaking change: os ajustes das instâncias ficam, o `PasswordInput` do React não expõe nenhuma das duas e o Flutter ainda não tem o componente.",
         "O ícone é decorativo (`aria-hidden`). Quem comunica o erro é a Error Message, ligada ao campo por `aria-describedby`, com `aria-invalid` no Warning.",
         "Fora desta entrega: Flutter, que ainda não foi estabilizado e já nasce com o ícone (CDS-1737)."
       ] }

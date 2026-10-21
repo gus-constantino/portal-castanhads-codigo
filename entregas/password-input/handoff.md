@@ -28,7 +28,7 @@
 | `Show Visibility Action` | Boolean | `true` | — (era `Show Trailing Item`) | Botão de mostrar e ocultar a senha |
 | `Show Trailing Item` | Boolean | `true` | Botão de mostrar e ocultar a senha | Ícone de alerta. Só age em `Appearance=Warning` |
 
-> ⚠️ **Renomeação.** Quem mapeou `Show Trailing Item` para o botão de olho (Code Connect, prop de código, protótipo) precisa trocar para `Show Visibility Action`. O nome `Show Trailing Item` agora é o ícone de alerta, como no Text Input.
+> 🟡 **Renomeação só no Figma, sem breaking change.** A boolean do olho mantém o id `5748:0`, então os ajustes das instâncias nos arquivos de produto são preservados. Nenhuma das duas é prop no castanha-react (`PasswordInput` tem `characterCount`, `containerRef`, `error`, `id`, `label`, `placeholder`, `required` e `supportingMessage`; o olho é interno), e o castanha_flutter ainda não tem Password Input (CDS-1737). No React, o que muda é só o visual: com `error`, o ícone de alerta aparece.
 
 No Figma, `Show Trailing Item` só aparece no painel das variantes Warning, porque só está ligada a camadas delas. Em código, o caminho mais simples é derivar o ícone de `appearance="warning"`. Expor a prop só faz sentido se o Text Input em código também expõe — manter as duas iguais.
 
@@ -114,7 +114,7 @@ O ícone usa **o mesmo token da borda e da Error Message**. **Zero valor hardcod
 - [ ] Cor do ícone `Common/Colors/Feedback/Warning/semi-intense`, igual à borda e à Error Message
 - [ ] Neutral sem ícone de feedback
 - [ ] Se a prop for exposta, `Show Trailing Item` com o mesmo nome e padrão do Text Input
-- [ ] Botão de olho mapeado para `Show Visibility Action`, não mais para `Show Trailing Item`
+- [ ] Nenhuma prop nova no `PasswordInput`: com `error`, o ícone de alerta aparece (o olho continua interno)
 - [ ] Ícone com `aria-hidden="true"`; Error Message ligada por `aria-describedby`; `aria-invalid="true"` no Warning
 - [ ] Botão de olho continua com alvo de 40×40 e não muda de posição relativa
 - [ ] Comparar com o Text Input lado a lado no Storybook

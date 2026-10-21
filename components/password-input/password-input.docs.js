@@ -4,7 +4,12 @@
    Oculto no Figma: Acessibilidade (4054:332) — só placeholder ("Tópico 1" / "Ordem de leitura"), então ficou de fora (note na tab).
    Motion ainda é placeholder (lorem ipsum / "Especificação").
    Diretrizes e Do/Don't no Figma são imagens: os exemplos usam o componente real com os textos padrão do componente (CONFERIR).
-   O set do Figma desta doc usa Required "*" e contador "-0000"; o código segue a lib atual ("(Obrigatório)"). */
+   O set do Figma desta doc usa Required "*" e contador "-0000"; o código segue a lib atual ("(Obrigatório)").
+   Hotfix CDS-2070 (21/10, branch D7w4pYHDcUZKZ1qEkCH12b): o Warning ganha o warning-line antes da Visibility Action, como no
+   Text Input. Na branch, Show Trailing Item (27797:0) é o ícone de aviso e a Visibility Action passa a Show Visibility Action
+   (5748:0, a antiga Show Trailing Item da main). Ainda não publicado: status branch-update (scripts/figma-status.js). */
+(function(){
+var BRANCH = "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/D7w4pYHDcUZKZ1qEkCH12b/-CastanhaDS--Components?node-id=5798-2677";
 window.CDS = window.CDS || {};
 CDS.docs = CDS.docs || {};
 CDS.docs["password-input"] = {
@@ -15,6 +20,8 @@ CDS.docs["password-input"] = {
   cover: { description: "O Password Input é um campo de entrada específico para senhas." },
   tabs: [
     { id: "uso", title: "Uso", blocks: [
+      { alert: { appearance: "informative", label: "Ícone de aviso em desenvolvimento · CDS-2070", text: "O ícone de aviso no Warning está na branch do Figma e entra no Release 26. Hoje a lib publicada mostra o Warning só com a borda e a Error Message." } },
+      { p: "[Abrir a branch no Figma](" + BRANCH + ") · Jira CDS-2070 ([Design] Hotfix: Password Input) · épico CDS-1586 (Release 26)." },
       { h2: "Sobre" },
       { p: "O Password Input é um campo de entrada específico para senhas. Ele inclui controle de visibilidade do conteúdo, mensagens de apoio, contador de caracteres e ícones opcionais para reforçar contexto ou ação." },
       { h3: "Nomes alternativos comuns" },
@@ -76,6 +83,7 @@ CDS.docs["password-input"] = {
         { name: "Placeholder Content", type: "Text" },
         { name: "Text Content", type: "Text" },
         { name: "Show Trailing Item", type: "Boolean", default: "true" },
+        { name: "Show Visibility Action", type: "Boolean", default: "true" },
         { name: "Show Supporting Content", type: "Boolean", default: "true" },
         { name: "Supporting Message", type: "Text" },
         { name: "Error Message", type: "Text" },
@@ -83,7 +91,18 @@ CDS.docs["password-input"] = {
         { name: "Character Counter Value", type: "Text" },
         { name: "Show Caret", type: "Boolean", default: "true" }
       ] },
-      { note: "Nomes, tipos e padrões exatos da lib estável (5798:2677), como o Figma escreve — a tabela da documentação antiga usava outros nomes (Style, Is filled…). Todas as props podem ser testadas na tab Playground." }
+      { note: "Nomes, tipos e padrões exatos da lib estável (5798:2677), como o Figma escreve — a tabela da documentação antiga usava outros nomes (Style, Is filled…). Todas as props podem ser testadas na tab Playground." },
+      { note: "Na branch do hotfix, `Show Trailing Item` passou a controlar o ícone de aviso e só aparece no painel das variantes Warning. O botão de mostrar e ocultar a senha ganhou a sua boolean, `Show Visibility Action`. Na lib publicada, `Show Trailing Item` ainda é o botão de olho." },
+      { h2: "Entrega para dev · CDS-2070" },
+      { ul: [
+        "Ícone de aviso `warning-line` (16×16) em `Appearance=Warning`, em todos os estados, como no Text Input.",
+        "Ordem no Text Box: conteúdo, ícone de aviso e botão de mostrar e ocultar a senha, com gap de 8 (`Common/Sizes/8`).",
+        "Cor do ícone `Common/Colors/Feedback/Warning/semi-intense`, a mesma da borda e da Error Message. Contraste de 6,41:1 sobre `Surface/default`.",
+        "Neutral continua sem ícone de feedback.",
+        "Renomeação: o `Show Trailing Item` da main (botão de olho) virou `Show Visibility Action`, e o nome `Show Trailing Item` passou para o ícone de aviso.",
+        "O ícone é decorativo (`aria-hidden`). Quem comunica o erro é a Error Message, ligada ao campo por `aria-describedby`, com `aria-invalid` no Warning.",
+        "Fora desta entrega: Flutter, que ainda não foi estabilizado e já nasce com o ícone (CDS-1737)."
+      ] }
     ] },
 
     { id: "estilos", title: "Estilos", blocks: [
@@ -129,3 +148,4 @@ CDS.docs["password-input"] = {
     ] }
   ]
 };
+})();

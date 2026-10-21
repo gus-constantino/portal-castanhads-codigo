@@ -44,7 +44,7 @@ Nenhum aviso.
 | dist/cds.js · componentes (122 arquivos) | 383 KB | 98 KB |
 | dist/cds.js · playgrounds (115 arquivos) | 182 KB | 33 KB |
 | dist/cds.js · recursos (42 arquivos) | 799 KB | 229 KB |
-| Docs sob demanda (115 arquivos, uma por componente aberto) | — | 317 KB no total |
+| Docs sob demanda (115 arquivos, uma por componente aberto) | — | 318 KB no total |
 
 Limite: 600 KB gzip na primeira visita (aviso no build; `BUDGET_STRICT=1` faz falhar).
 

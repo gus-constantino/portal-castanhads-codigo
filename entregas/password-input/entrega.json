@@ -1,0 +1,6 @@
+{
+ "titulo": "Password Input · ícone de aviso",
+ "task": "CDS-2070",
+ "resumo": "Ícone de aviso (warning-line) no Warning do Password Input, como no Text Input. Show Trailing Item passa a ser o ícone e o botão de olho ganha a boolean Show Visibility Action.",
+ "itens": ["password-input"]
+}

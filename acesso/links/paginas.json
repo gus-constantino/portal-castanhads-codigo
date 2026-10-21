@@ -40,6 +40,11 @@
   "tipo": "Entrega"
  },
  {
+  "caminho": "/entregas/password-input/",
+  "titulo": "Password Input · ícone de aviso · CDS-2070",
+  "tipo": "Entrega"
+ },
+ {
   "caminho": "/entregas/quantity-input/",
   "titulo": "Quantity Input · CDS-1602",
   "tipo": "Entrega"

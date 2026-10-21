@@ -31,7 +31,7 @@ cds-sponsor-side-menu[collapsed="false"] .cds-ssm__brand, cds-sponsor-side-menu[
    Dissolve de 300ms (Duration/Medium/02). No quadro do playground ([data-viewport]) cobre o quadro, não a janela */
 cds-sponsor-side-menu[data-mode="mobile"]{ display:none; width:auto; }
 cds-sponsor-side-menu[data-mode="mobile"][open]{
-  display:block; position:fixed; inset:0; width:100%; height:100%; z-index:1000;
+  display:block; position:fixed; inset:0; width:100%; height:100%; z-index:var(--common-z-index-medium-02);
   animation:cds-ssm-dissolve var(--common-motion-duration-medium-02) var(--common-motion-easing-systemic-default) both;
 }
 [data-viewport] cds-sponsor-side-menu[data-mode="mobile"][open]{ position:absolute; }

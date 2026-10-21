@@ -1134,7 +1134,7 @@ cds-fab-menu{ display:inline-flex; flex-direction:column; align-items:flex-end; 
 /* fixed: flutua no canto inferior direito, a Common/Grids/margin das bordas (muda por viewport).
    Acima de uma barra fixa no rodapé, quem usa passa a altura dela em --cds-fab-menu-offset. */
 cds-fab-menu[fixed]{
-  position:fixed; z-index:10;
+  position:fixed; z-index:var(--common-z-index-low-01);
   right:calc(var(--common-grids-margin) + env(safe-area-inset-right, 0px));
   bottom:calc(var(--common-grids-margin) + var(--cds-fab-menu-offset, 0px) + env(safe-area-inset-bottom, 0px));
 }
@@ -1157,7 +1157,7 @@ cds-footer[kind="pilled"] .cds-footer__actions .cds-btn, cds-fixed-bar[kind="sta
 
 /* ==== components/fixed-bar/fixed-bar.css ==== */
 /* [Beta] Fixed Bar · 24037:2929 — o visual vem do footer.css; fixed = ancorada no fim da viewport */
-cds-fixed-bar[fixed]{ position:fixed; left:0; right:0; bottom:0; z-index:10; }
+cds-fixed-bar[fixed]{ position:fixed; left:0; right:0; bottom:0; z-index:var(--common-z-index-low-01); }
 
 /* ==== components/sponsor-category/sponsor-category.css ==== */
 /* =====================================================================
@@ -1472,7 +1472,7 @@ cds-sponsor-side-menu[collapsed="false"] .cds-ssm__brand, cds-sponsor-side-menu[
    Dissolve de 300ms (Duration/Medium/02). No quadro do playground ([data-viewport]) cobre o quadro, não a janela */
 cds-sponsor-side-menu[data-mode="mobile"]{ display:none; width:auto; }
 cds-sponsor-side-menu[data-mode="mobile"][open]{
-  display:block; position:fixed; inset:0; width:100%; height:100%; z-index:1000;
+  display:block; position:fixed; inset:0; width:100%; height:100%; z-index:var(--common-z-index-medium-02);
   animation:cds-ssm-dissolve var(--common-motion-duration-medium-02) var(--common-motion-easing-systemic-default) both;
 }
 [data-viewport] cds-sponsor-side-menu[data-mode="mobile"][open]{ position:absolute; }
@@ -2022,7 +2022,7 @@ cds-tooltip{
   box-shadow:var(--common-elevation-level-2);
 }
 cds-tooltip[hidden]{ display:none; }
-cds-tooltip.is-floating{ position:fixed; z-index:1000; pointer-events:none; }
+cds-tooltip.is-floating{ position:fixed; z-index:var(--common-z-index-high-03); pointer-events:none; }
 .cds-tooltip__label{ margin:0; font:var(--text-style-caption-bold); }
 .cds-tooltip__text{ margin:0; font:var(--text-style-caption-regular); }
 
@@ -2435,7 +2435,7 @@ cmp-lesson .cmp-ls__screen-actions{ display:flex; flex-direction:column; align-i
 cmp-lesson .cmp-ls__kind{ flex-wrap:wrap; }
 cmp-lesson .cmp-ls__score{ display:flex; align-items:center; gap:var(--common-sizes-8); margin-left:auto; }
 /* Feedback do ranking do time: Toast no rodapé da tela (gravou) e Alert na tela de resultado (não gravou) */
-.cmp-lesson__toast{ position:fixed; z-index:20; left:50%; bottom:var(--common-sizes-24); transform:translateX(-50%); }
+.cmp-lesson__toast{ position:fixed; z-index:var(--common-z-index-high-02); left:50%; bottom:var(--common-sizes-24); transform:translateX(-50%); }
 cmp-lesson .cmp-ls__rank-alert{ width:100%; text-align:left; }
 
 /* ==== compositions/quiz/quiz.css ==== */

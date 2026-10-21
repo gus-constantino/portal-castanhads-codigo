@@ -184,7 +184,7 @@
 /* rótulo · valor da ficha = composição <cmp-definition-list layout="stacked"> */
 
 /* Toast do DS para "Copiado" — fixo no rodapé, centralizado */
-.pg-toast{ position:fixed; z-index:20; left:50%; bottom:var(--common-sizes-24); transform:translateX(-50%); }
+.pg-toast{ position:fixed; z-index:var(--common-z-index-high-02); left:50%; bottom:var(--common-sizes-24); transform:translateX(-50%); }
 
 /* ---------- Mostruário de tokens (Caju Theme · scripts/tokens-kit.js) ----------
    Referência: [Caju] Theme · Caju Benefícios (4309:2), adaptado para web responsivo: grades auto-fill no lugar de colunas fixas.

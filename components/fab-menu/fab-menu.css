@@ -27,7 +27,7 @@ cds-fab-menu{ display:inline-flex; flex-direction:column; align-items:flex-end; 
 /* fixed: flutua no canto inferior direito, a Common/Grids/margin das bordas (muda por viewport).
    Acima de uma barra fixa no rodapé, quem usa passa a altura dela em --cds-fab-menu-offset. */
 cds-fab-menu[fixed]{
-  position:fixed; z-index:10;
+  position:fixed; z-index:var(--common-z-index-low-01);
   right:calc(var(--common-grids-margin) + env(safe-area-inset-right, 0px));
   bottom:calc(var(--common-grids-margin) + var(--cds-fab-menu-offset, 0px) + env(safe-area-inset-bottom, 0px));
 }

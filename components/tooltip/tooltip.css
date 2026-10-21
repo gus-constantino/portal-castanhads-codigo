@@ -7,6 +7,6 @@ cds-tooltip{
   box-shadow:var(--common-elevation-level-2);
 }
 cds-tooltip[hidden]{ display:none; }
-cds-tooltip.is-floating{ position:fixed; z-index:1000; pointer-events:none; }
+cds-tooltip.is-floating{ position:fixed; z-index:var(--common-z-index-high-03); pointer-events:none; }
 .cds-tooltip__label{ margin:0; font:var(--text-style-caption-bold); }
 .cds-tooltip__text{ margin:0; font:var(--text-style-caption-regular); }

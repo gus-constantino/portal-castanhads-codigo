@@ -33959,7 +33959,7 @@
     "id": "C214",
     "group": "Integração React",
     "resolved": false,
-    "text": "Tokens · Z-Index · 9 tokens `Common/Z-Index/{Low,Medium,High}/NN` no Brand Style (CDS-1615), com o System Banner em `High/04` · O `castanha-tokens` não tem z-index: 7 valores provisórios de 200 a 800, 9999 nas stories do Portal e `zIndex` livre no Box. No castanha_flutter, a ordem sai do mecanismo de cada widget (rota no Navigator mais próximo, `OverlayPortal` sem `targetsRootOverlay`) · O playground gera `--common-z-index-*` sem unidade e sem alias `--castanha-*` · Exportar pelo Castoken sem unidade (hoje todo FLOAT ganha `px`) e trocar os números pelos tokens nos componentes (handoff da CDS-1615)"
+    "text": "Tokens · Z-Index · 9 tokens `Common/Z-Index/{Low,Medium,High}/NN` no Brand Style (CDS-1615), com o System Banner em `High/04` · O `castanha-tokens` não tem z-index: 7 valores provisórios de 200 a 800, 9999 nas stories do Portal e `zIndex` livre no Box. No castanha_flutter, a ordem sai do mecanismo de cada widget (rota no Navigator mais próximo, `OverlayPortal` sem `targetsRootOverlay`) · O playground gera `--common-z-index-*` sem unidade e sem alias `--castanha-*` · Reexportar pelo Castoken depois da publicação do Brand Style: FLOAT sem scope sai como `number`, sem `px` (`getDTCGTokenMeta`), então não precisa mudar o plugin. Depois, trocar os números pelos tokens nos componentes (handoff da CDS-1615)"
    },
    {
     "id": "C209",

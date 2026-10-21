@@ -7,7 +7,8 @@
  * Text styles:  Label/Medium Label        → --text-style-label-medium (shorthand `font`)
  * Elevations:   Common/Elevations/Level 1 → --common-elevation-level-1 (box-shadow pronto)
  * Z-Index:      Common/Z-Index/Medium/03 → --common-z-index-medium-03 (número sem unidade, CDS-1615). Ainda não existe no
- *                castanha-tokens (o Castoken exporta depois do publish do Brand Style) e fica sem alias --castanha-* até lá.
+ *                castanha-tokens (o Castoken exporta depois do publish do Brand Style; sem scope, sai como number, sem px)
+ *                e fica sem alias --castanha-* até lá.
  *                O uso de cada camada (zIndexUsage, descrição no Figma) vai para tokens/motion-usage.js como CDS.zIndexUsage.
  * Viewport (coleção Viewport, floats): Common/Grids/gutter → --common-grids-gutter; Specific/Buttons/Main Button/Width/min-width
  *                → --specific-buttons-main-button-width-min-width. Faixas iguais ao viewport.css do castanha-tokens (min-width):

@@ -38,7 +38,7 @@
   "tokens": 405,
   "icons": 280,
   "illustrations": 260,
-  "conferirOpen": 156,
+  "conferirOpen": 157,
   "stackFindings": 50
  },
  "components": [
@@ -12671,7 +12671,7 @@
       "figma": "Show Trailing Item",
       "playground": "show-trailing-item",
       "react": "—",
-      "note": "Na main é o botão de mostrar/ocultar a senha (interno no React). Na branch do hotfix CDS-2070 vira o ícone de aviso, que no React aparece sozinho com `error` (C+pw-trailing)."
+      "note": "Na main é o botão de mostrar/ocultar a senha (interno no React). Na branch do hotfix CDS-2070 vira o ícone de aviso, que no React aparece sozinho com `error` (C219)."
      },
      {
       "figma": "—",
@@ -33873,6 +33873,12 @@
     "text": ".Credit Card Flags (4934:771, página Flags) · Set chamado `Credit Card Flags`, sem o ponto, e fora da página .Building Blocks; continua não publicado · Confirmar se virou componente (sem ponto) ou se segue building block · Segue `.Credit Card Flags`, building block (D139) · Se for componente: tirar o ponto do nome e o `block: true` do playground"
    },
    {
+    "id": "C219",
+    "group": "Naming",
+    "resolved": false,
+    "text": "Password Input · `Show Trailing Item` (branch D7w4pYHDcUZKZ1qEkCH12b, CDS-2070) · Na main, `Show Trailing Item` (`5748:0`) é o botão de mostrar e ocultar a senha. Na branch, essa boolean virou `Show Visibility Action` (mesmo id) e o nome `Show Trailing Item` passou para uma boolean nova (`27797:0`), o ícone de aviso do Warning, como no Text Input · O mesmo nome muda de significado: Code Connect, castanha-react e protótipos que usam `Show Trailing Item` para o olho precisam trocar para `Show Visibility Action` · Já segue a branch: `show-visibility-action` é o olho e `show-trailing-item` é o ícone de aviso (antes `show-trailing-item` escondia o olho). O `figma-props.tsv` segue a main até a publicação · Publicação do Release 26: atualizar o `figma-props.tsv`, pôr a linha `Show Visibility Action` no `integration/prop-map/password-input.json` e avisar a engenharia no card de React"
+   },
+   {
     "id": "C15",
     "group": "Acessibilidade",
     "resolved": false,
@@ -39241,7 +39247,7 @@
        "Show Trailing Item",
        "show-trailing-item",
        "—",
-       "Na main é o botão de mostrar/ocultar a senha (interno no React). Na branch do hotfix CDS-2070 vira o ícone de aviso, que no React aparece sozinho com `error` (C+pw-trailing)."
+       "Na main é o botão de mostrar/ocultar a senha (interno no React). Na branch do hotfix CDS-2070 vira o ícone de aviso, que no React aparece sozinho com `error` (C219)."
       ],
       [
        "—",

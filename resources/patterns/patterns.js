@@ -50,12 +50,12 @@
     if (o.close !== false) page.unshift({ _tag: "cds-icon-button", class: "pg-fb__close", icon: "close-line", appearance: "neutral", label: "Fechar" });
     return { _tag: "div", class: "pg-fb pg-fb--sponsor" + (o.section ? " pg-fb--section" : ""), _children: page };
   }
-  // Employee: conteúdo no centro e ações no Fixed Bar (Stacked, sem Divider), ancorado na base
+  // Employee: conteúdo no centro e ações no Fixed Bar (Pilled, sem Divider), ancorado na base
   function employee(k, o){
     o = o || {};
     var sec = o.sec !== undefined ? o.sec : k.sec;
     var kids = [{ _tag: "div", class: "pg-fb__body", _children: [content(k, o)] }];
-    if (o.actions !== false) kids.push({ _tag: "cds-fixed-bar", kind: "stacked", "show-divider": false, "primary-label": o.pri || k.pri, "show-secondary-action": !!sec, "secondary-label": sec || null, "show-lead-icon": false });
+    if (o.actions !== false) kids.push({ _tag: "cds-fixed-bar", kind: "pilled", "show-divider": false, "primary-label": o.pri || k.pri, "show-secondary-action": !!sec, "secondary-label": sec || null, "show-lead-icon": false });
     return { _tag: "div", class: "pg-fb pg-fb--employee", _children: kids };
   }
   function loading(label){
@@ -137,7 +137,7 @@
           markers: [{ n: 1, target: ".pg-fb__ill", side: "left" }, { n: 2, target: ".pg-fb__title", side: "right" }, { n: 3, target: ".pg-fb__desc", side: "left" }, { n: 4, target: ".cds-footer__actions > cds-main-button:last-child", side: "right" }, { n: 5, target: ".cds-footer__actions > cds-main-button:first-child", side: "left" }],
           legend: ["Ilustração", "Título", "Descrição", "Ação primária (Fixed Bar)", "Ação secundária (Fixed Bar · Show Secondary Action)"]
         } },
-        { p: "Sem botão de fechar e sem cabeçalho: as ações ficam no Fixed Bar `Stacked`, sem Divider." },
+        { p: "Sem botão de fechar e sem cabeçalho: as ações ficam no Fixed Bar `Pilled`, sem Divider." },
         { h2: "Cenários" },
         CENARIOS_P,
         gallery(function(k){ return employee(k); })

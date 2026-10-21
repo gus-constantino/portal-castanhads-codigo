@@ -15,12 +15,12 @@
  },
  "summary": {
   "playground": 112,
-  "blocks": 28,
+  "blocks": 27,
   "flutter": 49,
   "matched": 45,
   "flutterOnly": 4,
-  "missing": 39,
-  "missingBlocks": 28
+  "missing": 40,
+  "missingBlocks": 27
  },
  "components": [
   {
@@ -4147,8 +4147,7 @@
   },
   {
    "id": "credit-card-flags",
-   "name": ".Credit Card Flags",
-   "block": true
+   "name": "Credit Card Flags"
   },
   {
    "id": "carousel",

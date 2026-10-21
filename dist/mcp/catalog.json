@@ -26,8 +26,8 @@
   }
  },
  "counts": {
-  "components": 89,
-  "buildingBlocks": 28,
+  "components": 90,
+  "buildingBlocks": 27,
   "resources": 29,
   "compositions": 7,
   "withDocs": 146,
@@ -38,7 +38,7 @@
   "tokens": 405,
   "icons": 280,
   "illustrations": 260,
-  "conferirOpen": 157,
+  "conferirOpen": 155,
   "stackFindings": 50
  },
  "components": [
@@ -3463,8 +3463,8 @@
   },
   {
    "id": "credit-card-flags",
-   "name": ".Credit Card Flags",
-   "kind": "building-block",
+   "name": "Credit Card Flags",
+   "kind": "component",
    "category": "Flags",
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4934-771",
    "figmaNode": "4934-771",
@@ -3474,12 +3474,12 @@
     {
      "id": "uso",
      "title": "Uso",
-     "text": "> **Rascunho:** Building block sem página no zeroheight. A primeira frase é a description do Figma. O resto foi escrito a partir do Figma e do playground e precisa de revisão do time.\n\n## Sobre\n\nSimula visualmente qualquer cartão e pode simbolizar uma bandeira específica.\n\nKind=Empty mostra o cartão sem marca. Elo, Mastercard e Visa mostram a bandeira.\n\n## Quando usar\n\n- Para identificar a bandeira de um cartão em listas, campos e resumos de pagamento.\n- Use Empty quando a bandeira não é conhecida ou não importa.\n\n> No Figma: \"Acesse o mural para mais exemplos de aplicação\"."
+     "text": "> **Rascunho:** Componente sem página no zeroheight. A primeira frase é a description do Figma. O resto foi escrito a partir do Figma e do playground e precisa de revisão do time.\n\n## Sobre\n\nSimula visualmente qualquer cartão e pode simbolizar uma bandeira específica.\n\nKind=Empty mostra o cartão sem marca. Elo, Mastercard e Visa mostram a bandeira.\n\n## Quando usar\n\n- Para identificar a bandeira de um cartão em listas, campos e resumos de pagamento.\n- Use Empty quando a bandeira não é conhecida ou não importa.\n\n> No Figma: \"Acesse o mural para mais exemplos de aplicação\"."
     },
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\nAnatomia:\n1. Bandeira (SVG da marca)\n\n## Propriedades\n\n- **Kind** (Variant): Empty, Elo, Mastercard, Visa\n\n> Props e padrões lidos do set .Credit Card Flags da lib estável. No código: `kind` (empty|elo|mastercard|visa, padrão empty). As bandeiras usam o SVG de marca do Figma (`assets/flags`)."
+     "text": "## Anatomia\n\nAnatomia:\n1. Bandeira (SVG da marca)\n\n## Propriedades\n\n- **Kind** (Variant): Empty, Elo, Mastercard, Visa\n\n> Props e padrões lidos do set Credit Card Flags da lib estável. No código: `kind` (empty|elo|mastercard|visa, padrão empty). As bandeiras usam o SVG de marca do Figma (`assets/flags`)."
     },
     {
      "id": "estilos",
@@ -8506,12 +8506,12 @@
     {
      "id": "anatomia",
      "title": "Anatomia",
-     "text": "## Anatomia\n\n### Desktop/Tablet\n\nAnatomia:\n1. Primary action (Ação primária)\n2. Secondary action (Ação secundária · Show Secondary Action)\n3. Bottom fixed container\n4. Divider (Show Divider)\n\n### Mobile\n\nAnatomia:\n1. Secondary action\n2. Primary action\n3. Bottom fixed container\n\n## Composição do componente\n\nMesma estrutura do .Footer: Divider e Action Buttons com Main Buttons Neutral (secundária) e Accent (primária). Em `Horizontal`, os botões ficam lado a lado no tamanho do conteúdo. Em `Stacked`, empilhados e com largura total.\n\n## Propriedades\n\n- **Kind** (Variant): Horizontal, Stacked\n- **Show Divider** (Boolean)\n- **Show Secondary Action** (Boolean)\n\n> Props e padrões lidos do set Fixed Bar da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, `fixed` ancora a barra no fim da viewport."
+     "text": "## Anatomia\n\n### Desktop/Tablet\n\nAnatomia:\n1. Primary action (Ação primária)\n2. Secondary action (Ação secundária · Show Secondary Action)\n3. Bottom fixed container\n4. Divider (Show Divider)\n\n### Mobile\n\nAnatomia:\n1. Secondary action\n2. Primary action\n3. Bottom fixed container\n\n## Composição do componente\n\nMesma estrutura do .Footer: Divider e Action Buttons com Main Buttons Neutral (secundária) e Accent (primária). Em `Horizontal`, os botões ficam lado a lado no tamanho do conteúdo. Em `Pilled`, empilhados e com largura total.\n\n## Propriedades\n\n- **Kind** (Variant): Horizontal, Pilled\n- **Show Divider** (Boolean)\n- **Show Secondary Action** (Boolean)\n\n> Props e padrões lidos do set Fixed Bar da lib estável. O zeroheight ainda não tem a tab Style deste componente. No código, `fixed` ancora a barra no fim da viewport."
     },
     {
      "id": "estilos",
      "title": "Estilos",
-     "text": "## Kind\n\n**Exemplos:** Horizontal, Stacked\n\n## Variações\n\n**Exemplos:** Ação primária sozinha, Sem Divider"
+     "text": "## Kind\n\n**Exemplos:** Horizontal, Pilled\n\n## Variações\n\n**Exemplos:** Ação primária sozinha, Sem Divider"
     },
     {
      "id": "acessibilidade",
@@ -21814,7 +21814,7 @@
     {
      "id": "employee",
      "title": "Feedback Page Employee",
-     "text": "## Feedback Page · Employee\n\nPadrão que comunica o resultado ou a condição de um fluxo. Reúne ilustração, mensagem e ações para que a pessoa usuária entenda o que aconteceu e saiba o que fazer em seguida. As ações usam o Fixed Bar, ancorado na base da tela. Pode ocupar a tela inteira ou uma seção dela.\n\nAnatomia:\n1. Ilustração\n2. Título\n3. Descrição\n4. Ação primária (Fixed Bar)\n5. Ação secundária (Fixed Bar · Show Secondary Action)\n\nSem botão de fechar e sem cabeçalho: as ações ficam no Fixed Bar `Stacked`, sem Divider.\n\n## Cenários\n\nA property `Kind` do .Feedback Content escolhe o cenário e traz a ilustração e o texto sugerido correspondentes. Os textos abaixo seguem as regras de Feedback Pages (Conteúdo): sem \"com sucesso\", sem CTA genérico e no presente. O Figma ainda traz a versão anterior.\n\n**Exemplos:** Error, Success, Warning, Empty State, No Results, In Review, Processing, No Access, Not Found\n\n## Quando usar\n\nUse Feedback Pages quando uma condição precisa ser comunicada no lugar do conteúdo: na tela inteira, quando ela impede seguir com o fluxo, ou em uma seção, quando afeta uma parte da interface.\n\n### Use para\n\n- Confirmar a conclusão de um fluxo.\n- Informar falhas que impedem seguir, incluindo erros de sistema como 404 e 502.\n- Representar ausência de conteúdo, por estar vazio ou por filtro sem resultado.\n- Preencher uma área sem conteúdo dentro da página, como uma tabela ainda sem registros ou uma busca sem resultado.\n- Comunicar espera, quando algo está em análise ou em processamento.\n- Informar que a pessoa usuária não tem acesso ao conteúdo.\n\n### Não use para\n\n- Mensagens rápidas ou transitórias: use o Toast.\n- Avisos que não interrompem o fluxo: use o Alert.\n- Confirmações e decisões imediatas: use o Bottom Sheet.\n- Carregamento breve de um trecho da tela: indique o carregamento no próprio trecho. O DS ainda não tem Skeleton.\n\n## Diretrizes de uso\n\n- **Escolha o cenário pela condição, não pela cor** — O Kind carrega o significado da tela. Selecione pelo que aconteceu no fluxo, e deixe que ilustração e texto comuniquem junto com a cor, sem depender dela.\n- **Mantenha o texto padrão quando ele resolver** — Cada cenário vem com título e descrição agnósticos, pensados para servir à maioria dos casos. Substitua quando o contexto for mais específico ou pedir outra redação, preservando o tom.\n- **Ofereça uma saída clara** — A ação primária precisa resolver o que a tela comunica: tentar de novo no erro, voltar no conteúdo inexistente, criar o primeiro item no vazio. Tela sem saída deixa a pessoa usuária parada.\n- **Garanta a navegação de retorno na tela que consome** — O template não inclui cabeçalho. A tela que o consome é responsável por oferecer o caminho de volta, seja pelo header da navegação, seja pela ação do Fixed Bar.\n- **Ajuste o template ao espaço que ele ocupa** — Na tela inteira, a tela assume a condição por completo e oferece a saída principal. Em uma seção, como uma lista ainda sem registros ou uma área de busca sem resultado, redimensione o template para a área e desligue `Show Actions` quando a ação já existir fora do bloco. A estrutura se mantém e o conteúdo segue centralizado.\n- **Componha casos específicos a partir dos cenários** — Situações como sessão expirada, manutenção programada ou falta de conexão não têm cenário próprio. Use o Kind mais próximo e ajuste o texto: sessão expirada é Warning, manutenção é Warning, tela fora do ar é Error.\n\n## Do's and Don'ts\n\n- ✅ Faça: Use No Results quando a busca ou o filtro não retorna nada, com ação de limpar o filtro. (exemplo: Ainda não encontramos resultados · Tente outro termo ou limpe a busca. · Limpar busca)\n- ❌ Evite: Não use Empty State para resultado de busca. Ele comunica ausência de conteúdo, não recorte sem resultado. (exemplo: Nenhum item por aqui · Ainda não há nada aqui. · Adicionar item)\n- ✅ Faça: Use título que nomeia a condição e descrição que orienta o próximo passo. (exemplo: Não conseguimos concluir agora · Tivemos um problema do nosso lado. Tente de novo em alguns instantes. · Voltar · Tentar de novo)\n- ❌ Evite: Não use texto genérico, que não diz o que aconteceu nem o que a pessoa usuária pode fazer. (exemplo: Ops! · Algo aconteceu. · OK)\n\nUma Feedback Page entra quando a condição substitui o conteúdo da tela. Para uma mensagem pontual dentro de uma tela em funcionamento, use o Alert.\n\n## Motion\n\n> **Sem motion próprio:** O padrão não define animação além das dos componentes que usa (Main Button, Icon Button, Fixed Bar). No Hub, a seção Motion ainda é o modelo vazio: ver CONFERIR."
+     "text": "## Feedback Page · Employee\n\nPadrão que comunica o resultado ou a condição de um fluxo. Reúne ilustração, mensagem e ações para que a pessoa usuária entenda o que aconteceu e saiba o que fazer em seguida. As ações usam o Fixed Bar, ancorado na base da tela. Pode ocupar a tela inteira ou uma seção dela.\n\nAnatomia:\n1. Ilustração\n2. Título\n3. Descrição\n4. Ação primária (Fixed Bar)\n5. Ação secundária (Fixed Bar · Show Secondary Action)\n\nSem botão de fechar e sem cabeçalho: as ações ficam no Fixed Bar `Pilled`, sem Divider.\n\n## Cenários\n\nA property `Kind` do .Feedback Content escolhe o cenário e traz a ilustração e o texto sugerido correspondentes. Os textos abaixo seguem as regras de Feedback Pages (Conteúdo): sem \"com sucesso\", sem CTA genérico e no presente. O Figma ainda traz a versão anterior.\n\n**Exemplos:** Error, Success, Warning, Empty State, No Results, In Review, Processing, No Access, Not Found\n\n## Quando usar\n\nUse Feedback Pages quando uma condição precisa ser comunicada no lugar do conteúdo: na tela inteira, quando ela impede seguir com o fluxo, ou em uma seção, quando afeta uma parte da interface.\n\n### Use para\n\n- Confirmar a conclusão de um fluxo.\n- Informar falhas que impedem seguir, incluindo erros de sistema como 404 e 502.\n- Representar ausência de conteúdo, por estar vazio ou por filtro sem resultado.\n- Preencher uma área sem conteúdo dentro da página, como uma tabela ainda sem registros ou uma busca sem resultado.\n- Comunicar espera, quando algo está em análise ou em processamento.\n- Informar que a pessoa usuária não tem acesso ao conteúdo.\n\n### Não use para\n\n- Mensagens rápidas ou transitórias: use o Toast.\n- Avisos que não interrompem o fluxo: use o Alert.\n- Confirmações e decisões imediatas: use o Bottom Sheet.\n- Carregamento breve de um trecho da tela: indique o carregamento no próprio trecho. O DS ainda não tem Skeleton.\n\n## Diretrizes de uso\n\n- **Escolha o cenário pela condição, não pela cor** — O Kind carrega o significado da tela. Selecione pelo que aconteceu no fluxo, e deixe que ilustração e texto comuniquem junto com a cor, sem depender dela.\n- **Mantenha o texto padrão quando ele resolver** — Cada cenário vem com título e descrição agnósticos, pensados para servir à maioria dos casos. Substitua quando o contexto for mais específico ou pedir outra redação, preservando o tom.\n- **Ofereça uma saída clara** — A ação primária precisa resolver o que a tela comunica: tentar de novo no erro, voltar no conteúdo inexistente, criar o primeiro item no vazio. Tela sem saída deixa a pessoa usuária parada.\n- **Garanta a navegação de retorno na tela que consome** — O template não inclui cabeçalho. A tela que o consome é responsável por oferecer o caminho de volta, seja pelo header da navegação, seja pela ação do Fixed Bar.\n- **Ajuste o template ao espaço que ele ocupa** — Na tela inteira, a tela assume a condição por completo e oferece a saída principal. Em uma seção, como uma lista ainda sem registros ou uma área de busca sem resultado, redimensione o template para a área e desligue `Show Actions` quando a ação já existir fora do bloco. A estrutura se mantém e o conteúdo segue centralizado.\n- **Componha casos específicos a partir dos cenários** — Situações como sessão expirada, manutenção programada ou falta de conexão não têm cenário próprio. Use o Kind mais próximo e ajuste o texto: sessão expirada é Warning, manutenção é Warning, tela fora do ar é Error.\n\n## Do's and Don'ts\n\n- ✅ Faça: Use No Results quando a busca ou o filtro não retorna nada, com ação de limpar o filtro. (exemplo: Ainda não encontramos resultados · Tente outro termo ou limpe a busca. · Limpar busca)\n- ❌ Evite: Não use Empty State para resultado de busca. Ele comunica ausência de conteúdo, não recorte sem resultado. (exemplo: Nenhum item por aqui · Ainda não há nada aqui. · Adicionar item)\n- ✅ Faça: Use título que nomeia a condição e descrição que orienta o próximo passo. (exemplo: Não conseguimos concluir agora · Tivemos um problema do nosso lado. Tente de novo em alguns instantes. · Voltar · Tentar de novo)\n- ❌ Evite: Não use texto genérico, que não diz o que aconteceu nem o que a pessoa usuária pode fazer. (exemplo: Ops! · Algo aconteceu. · OK)\n\nUma Feedback Page entra quando a condição substitui o conteúdo da tela. Para uma mensagem pontual dentro de uma tela em funcionamento, use o Alert.\n\n## Motion\n\n> **Sem motion próprio:** O padrão não define animação além das dos componentes que usa (Main Button, Icon Button, Fixed Bar). No Hub, a seção Motion ainda é o modelo vazio: ver CONFERIR."
     },
     {
      "id": "loading",
@@ -33861,18 +33861,6 @@
     "text": "Side Menu · `.Category` (Sponsor Templates 5576:27) · `Is Collapsed=True` é a variante do Accordion que mostra o Slot aberto, e a description diz que Is Collapsed \"espelha o menu\" · Nome que diga o que faz: `Is Expanded` no accordion (ou o colapso do menu em Kind=Reduced, que já existe) · Accordion aberto = `expanded`, menu colapsado = Kind=Reduced · Próxima revisão do Sponsor Templates"
    },
    {
-    "id": "C216",
-    "group": "Naming",
-    "resolved": false,
-    "text": "Fixed Bar · Kind (set 24037:2929) · Leitura de 21/10 na main: `Kind=Horizontal\\|Pilled`. Em 19/10 a D366 leu `Stacked` no mesmo set e o portal trocou o nome · Confirmar com quem desenhou qual nome fica (Pilled → Stacked → Pilled); a skill pede não trocar nome sem confirmação · Segue `kind=\"stacked\"` (D366) até a confirmação; o .Footer continua `pilled` · Se ficar Pilled: voltar o atributo para `pilled` no Fixed Bar, docs, playground e exemplos (os arquivos do commit 120b3fa)"
-   },
-   {
-    "id": "C217",
-    "group": "Naming",
-    "resolved": false,
-    "text": ".Credit Card Flags (4934:771, página Flags) · Set chamado `Credit Card Flags`, sem o ponto, e fora da página .Building Blocks; continua não publicado · Confirmar se virou componente (sem ponto) ou se segue building block · Segue `.Credit Card Flags`, building block (D139) · Se for componente: tirar o ponto do nome e o `block: true` do playground"
-   },
-   {
     "id": "C219",
     "group": "Naming",
     "resolved": false,
@@ -34038,7 +34026,7 @@
     "id": "C218",
     "group": "Documentação",
     "resolved": false,
-    "text": "[Caju] Icons · 7 ícones novos (21/10) · `inspect-line`, `monitor-line`, `template-line`, `design-line`, `magical-wand-line` (UI Symbols) e `book-line` (Documents) têm a description `calendario; agenda;`, cópia do ícone de calendário. `feedback-line` (Communicate) está sem description · Palavras-chave de cada ícone na description · Entram no catálogo sem palavras-chave (a busca acha pelo nome) · Escrever as descriptions e reimportar as palavras-chave"
+    "text": "[Caju] Icons · 7 ícones novos (21/10) · `inspect-line`, `monitor-line`, `template-line`, `design-line`, `magical-wand-line` (UI Symbols) e `book-line` (Documents) têm a description `calendario; agenda;`, cópia do ícone de calendário. `feedback-line` (Communicate) está sem description · Palavras-chave de cada ícone na description · Entram no catálogo sem palavras-chave (a busca acha pelo nome) · Tarefa [CDS-2074](https://caju746.atlassian.net/browse/CDS-2074) no Backlog para o time de design escrever as descriptions. Depois: reimportar as palavras-chave"
    },
    {
     "id": "C117",
@@ -34129,6 +34117,18 @@
     "group": "Integração React",
     "resolved": false,
     "text": "Accordion Item · `.Text Content` Kind=Highlight Description · A descrição em destaque usa Body/Regular em `Text/intense`, e o label vai para Caption `Text/medium` · `highlightedText=\"description\"` aplica o `LIST_ITEM_TEXT_EMPHASIS.highlighted` na descrição, que é `kind: 'label'` (Label, não Body); o label vai para Caption, como no Figma (branch `feat/accordion`, castanha#201) · Segue o Figma (Body na descrição em destaque). O Flutter (castanha-mobile#443) também segue o Figma · Trocar o `kind` da descrição em destaque para `body` no `AccordionItem` (sem mexer na constante, que outros itens de lista usam); achado na revisão do castanha-mobile#443 (21/10)"
+   },
+   {
+    "id": "C216",
+    "group": "Resolvidos",
+    "resolved": true,
+    "text": "Fixed Bar · `Kind=Pilled` confirmado pelo time (21/10): o atributo volta a ser `pilled`, como no set 24037:2929 e no .Footer, e a troca para Stacked da D366 foi desfeita · 21/10"
+   },
+   {
+    "id": "C217",
+    "group": "Resolvidos",
+    "resolved": true,
+    "text": "Credit Card Flags (4934:771) segue o Figma: sem o ponto no nome e fora dos building blocks, como componente da categoria Flags · 21/10"
    },
    {
     "id": "C209",

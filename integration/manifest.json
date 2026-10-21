@@ -1,6 +1,6 @@
 {
   "_about": "Manifesto de integração Figma ↔ playground ↔ castanha-react (R0). Gerado por scripts/integration/build-manifest.js — não editar à mão.",
-  "generated": "2026-10-21T23:10:25.003Z",
+  "generated": "2026-10-21T23:17:55.421Z",
   "source": {
     "repo": "caju-beneficios/castanha",
     "ref": "origin/staging",
@@ -18,8 +18,8 @@
     "comReact": 72,
     "viaCodeConnect": 68,
     "viaStory": 4,
-    "buildingBlocks": 28,
-    "soFigma": 17,
+    "buildingBlocks": 27,
+    "soFigma": 18,
     "soReact": 10,
     "comNotas": 29
   },
@@ -1063,14 +1063,14 @@
     },
     {
       "id": "credit-card-flags",
-      "name": ".Credit Card Flags",
-      "block": true,
+      "name": "Credit Card Flags",
+      "block": false,
       "figma": {
         "fileKey": "LKZBwmlb7fIbDKdGrMncuA",
         "node": "4934-771"
       },
       "react": null,
-      "status": "building-block",
+      "status": "so-figma",
       "notes": []
     },
     {

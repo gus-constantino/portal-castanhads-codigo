@@ -4,11 +4,11 @@ Gerado por `scripts/integration/build-flutter-manifest.js` a partir de `origin/s
 
 | | Quantidade |
 |---|---|
-| Componentes do playground (sem composições e templates) | 112 (28 building blocks) |
+| Componentes do playground (sem composições e templates) | 112 (27 building blocks) |
 | Widgets do castanha_flutter com story | 49 |
 | Casados com o playground | 45 |
 | Só no Flutter | 4 |
-| Sem par no Flutter | 39 componentes e 28 building blocks |
+| Sem par no Flutter | 40 componentes e 27 building blocks |
 
 ## Casados
 
@@ -77,6 +77,7 @@ Gerado por `scripts/integration/build-flutter-manifest.js` a partir de `origin/s
 - Big Number (`big-number`)
 - Breadcrumb (`breadcrumb`)
 - Caju Card (`caju-card`)
+- Credit Card Flags (`credit-card-flags`)
 - Carousel (`carousel`)
 - Chat Input (`chat-input`)
 - Checkbox Select Input (`checkbox-select-input`)

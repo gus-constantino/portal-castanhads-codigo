@@ -158,7 +158,7 @@ try {
 try {
 /**
  * @deps —
- * <cds-card-flag> — .Credit Card Flags · Flags · set 4934:771 (building block)
+ * <cds-card-flag> — Credit Card Flags · Flags · set 4934:771
  * Atributos: kind empty | elo | mastercard | visa · padrão empty
  * As bandeiras usam o SVG de marca reconstruído do Figma (assets/flags). Nome acessível = nome da bandeira.
  */
@@ -2713,7 +2713,7 @@ try {
  * @deps footer
  * <cds-fixed-bar> — Fixed Bar · componente 24037:2929
  * Barra de ações ancorada no fim da tela: Divider + Action Buttons, mesma estrutura do .Footer.
- * Kind=Horizontal (padrão): botões no tamanho do conteúdo · Kind=Stacked: empilhados, largura total.
+ * Kind=Horizontal (padrão): botões no tamanho do conteúdo · Kind=Pilled: empilhados, largura total.
  * Atributos: os do .Footer (show-secondary-action no lugar de show-secondary-action-button) · fixed (position:fixed no fim da viewport)
  */
 (function(){

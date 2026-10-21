@@ -1,6 +1,6 @@
 /**
  * @deps —
- * <cds-card-flag> — .Credit Card Flags · Flags · set 4934:771 (building block)
+ * <cds-card-flag> — Credit Card Flags · Flags · set 4934:771
  * Atributos: kind empty | elo | mastercard | visa · padrão empty
  * As bandeiras usam o SVG de marca reconstruído do Figma (assets/flags). Nome acessível = nome da bandeira.
  */

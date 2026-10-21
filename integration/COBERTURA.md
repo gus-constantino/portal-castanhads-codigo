@@ -6,8 +6,8 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-21 a partir d
 |---|---:|
 | No playground | 117 |
 | Com par no React | 72 (68 via Code Connect, 4 via story) |
-| Building blocks sem par (internos no React) | 28 |
-| Só no Figma/playground | 17 |
+| Building blocks sem par (internos no React) | 27 |
+| Só no Figma/playground | 18 |
 | Só no React | 10 |
 | Com divergência anotada | 29 |
 
@@ -104,7 +104,7 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-21 a partir d
 | `close-toast` | .Close Toast | — | building-block |  |
 | `code-input-otp` | Code Input OTP | — | so-figma | o link do playground aponta para uma branch do Figma |
 | `content-banner` | .Content Banner | — | building-block |  |
-| `credit-card-flags` | .Credit Card Flags | — | building-block |  |
+| `credit-card-flags` | Credit Card Flags | — | so-figma |  |
 | `credit-card-input` | Credit Card Input | — | so-figma | o link do playground aponta para uma branch do Figma |
 | `csat-item` | .CSAT Item | — | building-block |  |
 | `currency-content` | .Currency Content | — | building-block |  |

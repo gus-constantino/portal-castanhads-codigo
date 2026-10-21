@@ -85,7 +85,7 @@ cds-card:not([has-border="false"]){ box-shadow:inset 0 0 0 var(--common-border-w
 
 /* ==== components/card-flag/card-flag.css ==== */
 /* =====================================================================
-   .Credit Card Flags · Flags · set 4934:771 — 40×24
+   Credit Card Flags · Flags · set 4934:771 — 40×24
    Empty: Surface/01 · raio 4 · "chip" 8×4 Surface/default · Bandeiras: SVG de marca (assets/flags)
    ===================================================================== */
 cds-card-flag{ display:inline-block; flex:0 0 auto; width:40px; height:24px; line-height:0; }
@@ -1147,13 +1147,13 @@ cds-fab-menu[scroll-hidden]{
 @media (prefers-reduced-motion:reduce){ cds-fab-menu{ transition:none; } }
 
 /* ==== components/footer/footer.css ==== */
-/* .Footer · set 16359:1792 — Divider + Actions pad 20 · gap 8 · Horizontal: botões no tamanho do conteúdo · Pilled (Stacked na Fixed Bar): coluna, largura total */
+/* .Footer · set 16359:1792 — Divider + Actions pad 20 · gap 8 · Horizontal: botões no tamanho do conteúdo · Pilled: coluna, largura total */
 cds-footer, cds-fixed-bar{ display:flex; flex-direction:column; background:var(--common-colors-surface-default); }
 cds-footer [hidden], cds-fixed-bar [hidden]{ display:none !important; }
 .cds-footer__actions{ display:flex; gap:var(--common-sizes-8); padding:var(--common-sizes-20); }
-cds-footer[kind="pilled"] .cds-footer__actions, cds-fixed-bar[kind="stacked"] .cds-footer__actions{ flex-direction:column; }
-cds-footer[kind="pilled"] .cds-footer__actions > cds-main-button, cds-fixed-bar[kind="stacked"] .cds-footer__actions > cds-main-button{ display:flex; }
-cds-footer[kind="pilled"] .cds-footer__actions .cds-btn, cds-fixed-bar[kind="stacked"] .cds-footer__actions .cds-btn{ width:100%; min-width:0; } /* Pilled = Fill: o min-width do Main Button por viewport (Mobile 328) não cabe no padding 20 do .Footer (C193) */
+cds-footer[kind="pilled"] .cds-footer__actions, cds-fixed-bar[kind="pilled"] .cds-footer__actions{ flex-direction:column; }
+cds-footer[kind="pilled"] .cds-footer__actions > cds-main-button, cds-fixed-bar[kind="pilled"] .cds-footer__actions > cds-main-button{ display:flex; }
+cds-footer[kind="pilled"] .cds-footer__actions .cds-btn, cds-fixed-bar[kind="pilled"] .cds-footer__actions .cds-btn{ width:100%; min-width:0; } /* Pilled = Fill: o min-width do Main Button por viewport (Mobile 328) não cabe no padding 20 do .Footer (C193) */
 
 /* ==== components/fixed-bar/fixed-bar.css ==== */
 /* Fixed Bar · 24037:2929 — o visual vem do footer.css; fixed = ancorada no fim da viewport */

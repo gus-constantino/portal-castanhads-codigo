@@ -1,5 +1,5 @@
-/* Documentação — .Credit Card Flags (building block)
-   Sem página no zeroheight; a description do set na lib estável (.Credit Card Flags 4934:771) é usada literal. O resto foi escrito a partir
+/* Documentação — Credit Card Flags
+   Sem página no zeroheight; a description do set na lib estável (Credit Card Flags 4934:771) é usada literal. O resto foi escrito a partir
    do Figma e do playground. Revisar com o time (C150). A pasta é card-flag; o id do playground (e da doc) é credit-card-flags. */
 (function(){
   window.CDS = window.CDS || {};
@@ -10,11 +10,11 @@
   CDS.docs["credit-card-flags"] = {
     tag: "cds-card-flag",
     base: { kind: "mastercard" },
-    source: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4934-771", sourceLabel: "Abrir o .Credit Card Flags no Figma",
+    source: "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4934-771", sourceLabel: "Abrir o Credit Card Flags no Figma",
     cover: { description: "Simula visualmente qualquer cartão e pode simbolizar uma bandeira específica.", examples: [ row(KINDS.map(function(k){ return { _tag: "cds-card-flag", kind: k[1] }; })) ] },
     tabs: [
       { id: "uso", title: "Uso", blocks: [
-        { alert: { appearance: "warning", label: "Rascunho", text: "Building block sem página no zeroheight. A primeira frase é a description do Figma. O resto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
+        { alert: { appearance: "warning", label: "Rascunho", text: "Componente sem página no zeroheight. A primeira frase é a description do Figma. O resto foi escrito a partir do Figma e do playground e precisa de revisão do time." } },
         { h2: "Sobre" },
         { p: "Simula visualmente qualquer cartão e pode simbolizar uma bandeira específica." },
         { p: "Kind=Empty mostra o cartão sem marca. Elo, Mastercard e Visa mostram a bandeira." },
@@ -28,7 +28,7 @@
         { anatomy: { attrs: {}, markers: [{ n: 1, target: "img", side: "left" }], legend: ["Bandeira (SVG da marca)"] } },
         { h2: "Propriedades" },
         { props: [ { name: "Kind", type: "Variant", default: "Empty", values: ["Empty", "Elo", "Mastercard", "Visa"] } ] },
-        { note: "Props e padrões lidos do set .Credit Card Flags da lib estável. No código: `kind` (empty|elo|mastercard|visa, padrão empty). As bandeiras usam o SVG de marca do Figma (`assets/flags`)." }
+        { note: "Props e padrões lidos do set Credit Card Flags da lib estável. No código: `kind` (empty|elo|mastercard|visa, padrão empty). As bandeiras usam o SVG de marca do Figma (`assets/flags`)." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [

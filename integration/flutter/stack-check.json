@@ -13,12 +13,12 @@
  },
  "summary": {
   "playground": 112,
-  "blocks": 28,
+  "blocks": 27,
   "flutter": 49,
   "matched": 45,
   "flutterOnly": 4,
-  "missing": 39,
-  "missingBlocks": 28
+  "missing": 40,
+  "missingBlocks": 27
  },
  "levels": {
   "alta": 2,

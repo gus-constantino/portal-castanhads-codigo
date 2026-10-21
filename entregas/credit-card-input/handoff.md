@@ -4,9 +4,9 @@
 >
 > **Task:** CDS-1607 · **Épico:** CDS-1600 (Release 25) · **Label:** `design`
 > **Branch Figma:** `NHkGUvBfNMNTLnsxKtAmWa` · **Lib:** `[CastanhaDS] Components` (`LKZBwmlb7fIbDKdGrMncuA`)
-> **Nodes:** Credit Card Input `24614:7155` (32 variantes) · legado de referência `24618:8264` · `.Credit Card Flags` `4934:771`
+> **Nodes:** Credit Card Input `24614:7155` (32 variantes) · legado de referência `24618:8264` · `Credit Card Flags` `4934:771`
 > **Composição:** `.Text Content Mask` (máscara `Credit Card`) · Icon Button · `Lead Icon` (instance swap)
-> **Referência implementada:** [Credit Card Input](#/credit-card-input) (`cds-credit-card-input`, com playground e documentação em tabs) · [.Credit Card Flags](#/credit-card-flags)
+> **Referência implementada:** [Credit Card Input](#/credit-card-input) (`cds-credit-card-input`, com playground e documentação em tabs) · [Credit Card Flags](#/credit-card-flags)
 > **Status:** ✅ QA das 32 variantes, Motion Styles e annotations aplicados. O componente existe apenas na branch, sem merge na main da lib
 
 ---
@@ -29,7 +29,7 @@
 | `.Text Content Mask` | Building block compartilhado da família, com `Mask=Credit Card`. Placeholder `1234 5678 9012 3456` |
 | Icon Button | Instância Ghost · Neutral · Small, ícone `support-line`. O papel da ação (tooltip, navegação, outra ação) é de quem implementa |
 | `Trailing Content` | `Supporting Message` (`Neutral`) ou `Error Message` (`Warning`) e `Character Counter` |
-| `.Credit Card Flags` | Building block relacionado, 40 × 24, `Kind` `Empty` · `Elo` · `Mastercard` · `Visa`. Uso como `Lead Icon` do campo a confirmar no Figma |
+| `Credit Card Flags` | Componente relacionado, 40 × 24, `Kind` `Empty` · `Elo` · `Mastercard` · `Visa`. Uso como `Lead Icon` do campo a confirmar no Figma |
 
 ### Comportamento
 
@@ -91,7 +91,7 @@
 | Componente | Variantes | Composição |
 |---|---|---|
 | **Credit Card Input** | **32** | `Appearance` (2) × `State` (4) × `Is Filled` (2) × `Is Active` (2) |
-| **`.Credit Card Flags`** | **4** | `Kind` (4) |
+| **`Credit Card Flags`** | **4** | `Kind` (4) |
 
 - `State=Disabled` com `Is Active=True` (8 variantes) é artefato da matriz. Não implementar como estado.
 - `State=Hovered` e `Pressed` são estados de interação, sem prop em código. `Is Filled` deriva do valor e `Is Active` do foco.
@@ -115,7 +115,7 @@
 | Icon Button | 40 × 40 · raio 12 | `Common/Sizes/40` · `Common/Border/Radius/small` |
 | Altura mínima do `Trailing Content` | 24 | `Common/Sizes/24` |
 | Largura do campo | 320 no Figma | mín. e máx. a confirmar no Figma |
-| `.Credit Card Flags` | 40 × 24 | token a confirmar no Figma |
+| `Credit Card Flags` | 40 × 24 | token a confirmar no Figma |
 
 > A borda é por dentro. A troca de 1 para 2 px no Pressed não desloca o layout.
 
@@ -224,8 +224,8 @@ Todos semânticos. Nenhum valor solto nas 32 variantes.
 ## 7. Referências
 
 - **Branch Figma:** https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/branch/NHkGUvBfNMNTLnsxKtAmWa/-CastanhaDS--Components?node-id=24614-7155
-- **`.Credit Card Flags` (main da lib):** https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4934-771
-- **Nodes:** Credit Card Input `24614:7155` · legado `24618:8264` · `Lead Icon` padrão `24618:7688` · `.Credit Card Flags` `4934:771`
+- **`Credit Card Flags` (main da lib):** https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4934-771
+- **Nodes:** Credit Card Input `24614:7155` · legado `24618:8264` · `Lead Icon` padrão `24618:7688` · `Credit Card Flags` `4934:771`
 - **Ícones ([Caju] Icons):** `credit-card-line` · `support-line` · `warning-line`
 - **Annotations no set:** Handoff, Accessibility e Motion
 - **Jira:** CDS-1607 (Credit Card Input) · CDS-1600 (Release 25 · Design System)

@@ -10,7 +10,7 @@ Gerado por `node scripts/integration/build-flutter-manifest.js` em 2026-10-21 (F
 | Média | muda o resultado sem quebrar: padrão diferente entre Figma e Flutter | 10 |
 | Informativo | prop do Figma sem parâmetro no Flutter, ou parâmetro só do código | 41 |
 
-Cobertura: 45 componentes do playground com widget no castanha_flutter, 39 sem par e 4 só no Flutter. Dart do painel: 81 trechos, 0 erros no `dart analyze` (`node scripts/integration/check-dart.js`).
+Cobertura: 45 componentes do playground com widget no castanha_flutter, 40 sem par e 4 só no Flutter. Dart do painel: 81 trechos, 0 erros no `dart analyze` (`node scripts/integration/check-dart.js`).
 
 ## Alta
 

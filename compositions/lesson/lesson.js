@@ -4,7 +4,7 @@
  * Por que existe: o DS não tem lição gamificada. Esta composição monta uma, uma tela por vez, só com componentes do DS:
  *   Card (Has Border) · Icon Button Ghost (sair) · Nav Control Mobile (progresso, só leitura) · Icon favorite-filled/line (vidas)
  *   · Selection List Kind Card com Radio Button (escolha e certo ou errado) · Filter Chips (completar a frase) · Card + Icon
- *   Buttons Ghost (ordenar) · Selection Lists (ligar pares) · Alert (feedback) · Fixed Bar Stacked (Verificar / Continuar)
+ *   Buttons Ghost (ordenar) · Selection Lists (ligar pares) · Alert (feedback) · Fixed Bar Pilled (Verificar / Continuar)
  *   · Tag (XP, pontos, combo, acertos, revisão) · Main Button · Code Input OTP (iniciais do ranking, 3 caracteres)
  *   · Table (ranking, montado por quem usa) · ilustrações do [Caju] Illustrations nas telas de início, vidas e fim.
  *
@@ -118,7 +118,7 @@
       if (ex.visual){ var vis = c("div", null, "cmp-ls__vis"); vis.appendChild(ex.visual()); b.appendChild(vis); }
       var area = b.appendChild(c("div", null, "cmp-ls__area"));
       this.fb = b.appendChild(c("div", { "aria-live": "polite" }, "cmp-ls__fb"));
-      this.bar = b.appendChild(c("cds-fixed-bar", { kind: "stacked", "show-secondary-action": "false", "show-divider": "false", "primary-label": "Verificar", "show-lead-icon": "false" }));
+      this.bar = b.appendChild(c("cds-fixed-bar", { kind: "pilled", "show-secondary-action": "false", "show-divider": "false", "primary-label": "Verificar", "show-lead-icon": "false" }));
       this.bar.addEventListener("cds-action", function(e){ if (e.detail.action !== "primary") return; if (self.answered) self.advance(); else self.verify(); });
       ({ choice: this.uiChoice, verdict: this.uiChoice, fill: this.uiFill, order: this.uiOrder, pairs: this.uiPairs })[ex.type].call(this, area, ex);
       this.setReady(ex.type === "order");

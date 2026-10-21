@@ -15,7 +15,7 @@ Os itens ficam agrupados pelo **tipo de ajuste**. O número (C01, C02…) não m
 | [Naming](#naming) | 11 |
 | [Acessibilidade](#acessibilidade) | 9 |
 | [Documentação](#documentação) | 17 |
-| [Integração React](#integração-react) | 14 |
+| [Integração React](#integração-react) | 15 |
 
 ## Ajuste de texto
 
@@ -224,6 +224,7 @@ Divergências entre o Figma e o castanha-react (staging + Code Connect), encontr
 | C212 | Backdrop · z-index | `Common/Z-Index/Medium/01` (300): fica logo abaixo do overlay dono (Drawer, Modal) | 300 fixo, marcado "Valor provisório". Um Modal aberto sobre um Drawer deixa o Drawer (400) acima do véu do Modal | No portal o Backdrop é peça do dono (`::backdrop` do `<dialog>` no Modal), sem z-index próprio | Renderizar o Backdrop no mesmo portal do overlay dono, logo abaixo dele, e trocar o 300 pelo token |
 | C213 | System Banner · z-index | `Common/Z-Index/High/04` (900), acima de tudo: o aviso de sistema não pode ficar atrás de véu, modal ou tooltip. Sem elevação (até 21/10 era `Low/02`, 200) | 200 fixo, abaixo do Backdrop (300), e `position: fixed` sem Portal: um ancestral com `transform`, `filter` ou `will-change` prende o banner no contexto dele. No Flutter, a posição fica a cargo de quem monta a tela | Segue o Figma | Portal no React e `High/04` no lugar do 200. No Flutter, montar no `MaterialApp.builder` acima do Navigator |
 | C214 | Tokens · Z-Index | 9 tokens `Common/Z-Index/{Low,Medium,High}/NN` no Brand Style (CDS-1615), com o System Banner em `High/04` | O `castanha-tokens` não tem z-index: 7 valores provisórios de 200 a 800, 9999 nas stories do Portal e `zIndex` livre no Box. No castanha_flutter, a ordem sai do mecanismo de cada widget (rota no Navigator mais próximo, `OverlayPortal` sem `targetsRootOverlay`) | O playground gera `--common-z-index-*` sem unidade e sem alias `--castanha-*` | Reexportar pelo Castoken depois da publicação do Brand Style: FLOAT sem scope sai como `number`, sem `px` (`getDTCGTokenMeta`), então não precisa mudar o plugin. Depois, trocar os números pelos tokens nos componentes (handoff da CDS-1615) |
+| C215 | Accordion Item · `.Text Content` Kind=Highlight Description | A descrição em destaque usa Body/Regular em `Text/intense`, e o label vai para Caption `Text/medium` | `highlightedText="description"` aplica o `LIST_ITEM_TEXT_EMPHASIS.highlighted` na descrição, que é `kind: 'label'` (Label, não Body); o label vai para Caption, como no Figma (branch `feat/accordion`, castanha#201) | Segue o Figma (Body na descrição em destaque). O Flutter (castanha-mobile#443) também segue o Figma | Trocar o `kind` da descrição em destaque para `body` no `AccordionItem` (sem mexer na constante, que outros itens de lista usam); achado na revisão do castanha-mobile#443 (21/10) |
 
 ## Como usar esta lista
 

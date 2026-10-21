@@ -38,7 +38,7 @@
   "tokens": 405,
   "icons": 273,
   "illustrations": 260,
-  "conferirOpen": 152,
+  "conferirOpen": 153,
   "stackFindings": 47
  },
  "components": [
@@ -33960,6 +33960,12 @@
     "group": "Integração React",
     "resolved": false,
     "text": "Tokens · Z-Index · 9 tokens `Common/Z-Index/{Low,Medium,High}/NN` no Brand Style (CDS-1615), com o System Banner em `High/04` · O `castanha-tokens` não tem z-index: 7 valores provisórios de 200 a 800, 9999 nas stories do Portal e `zIndex` livre no Box. No castanha_flutter, a ordem sai do mecanismo de cada widget (rota no Navigator mais próximo, `OverlayPortal` sem `targetsRootOverlay`) · O playground gera `--common-z-index-*` sem unidade e sem alias `--castanha-*` · Reexportar pelo Castoken depois da publicação do Brand Style: FLOAT sem scope sai como `number`, sem `px` (`getDTCGTokenMeta`), então não precisa mudar o plugin. Depois, trocar os números pelos tokens nos componentes (handoff da CDS-1615)"
+   },
+   {
+    "id": "C215",
+    "group": "Integração React",
+    "resolved": false,
+    "text": "Accordion Item · `.Text Content` Kind=Highlight Description · A descrição em destaque usa Body/Regular em `Text/intense`, e o label vai para Caption `Text/medium` · `highlightedText=\"description\"` aplica o `LIST_ITEM_TEXT_EMPHASIS.highlighted` na descrição, que é `kind: 'label'` (Label, não Body); o label vai para Caption, como no Figma (branch `feat/accordion`, castanha#201) · Segue o Figma (Body na descrição em destaque). O Flutter (castanha-mobile#443) também segue o Figma · Trocar o `kind` da descrição em destaque para `body` no `AccordionItem` (sem mexer na constante, que outros itens de lista usam); achado na revisão do castanha-mobile#443 (21/10)"
    },
    {
     "id": "C209",

@@ -22528,12 +22528,6 @@
    "castanha": null
   },
   {
-   "name": "--common-z-index-low-02",
-   "group": "z",
-   "light": "200",
-   "castanha": null
-  },
-  {
    "name": "--common-z-index-medium-01",
    "group": "z",
    "light": "300",
@@ -22567,6 +22561,12 @@
    "name": "--common-z-index-high-03",
    "group": "z",
    "light": "800",
+   "castanha": null
+  },
+  {
+   "name": "--common-z-index-high-04",
+   "group": "z",
+   "light": "900",
    "castanha": null
   },
   {
@@ -33953,13 +33953,13 @@
     "id": "C213",
     "group": "Integração React",
     "resolved": false,
-    "text": "System Banner · z-index · `Common/Z-Index/Low/02` (200), sem elevação · 200 fixo e `position: fixed` sem Portal: um ancestral com `transform`, `filter` ou `will-change` prende o banner no contexto dele. No Flutter, a posição fica a cargo de quem monta a tela · Segue o Figma · Portal no React e o token no lugar do 200. No Flutter, documentar a montagem no `MaterialApp.builder`"
+    "text": "System Banner · z-index · `Common/Z-Index/High/04` (900), acima de tudo: o aviso de sistema não pode ficar atrás de véu, modal ou tooltip. Sem elevação (até 21/10 era `Low/02`, 200) · 200 fixo, abaixo do Backdrop (300), e `position: fixed` sem Portal: um ancestral com `transform`, `filter` ou `will-change` prende o banner no contexto dele. No Flutter, a posição fica a cargo de quem monta a tela · Segue o Figma · Portal no React e `High/04` no lugar do 200. No Flutter, montar no `MaterialApp.builder` acima do Navigator"
    },
    {
     "id": "C214",
     "group": "Integração React",
     "resolved": false,
-    "text": "Tokens · Z-Index · 9 tokens `Common/Z-Index/{Low,Medium,High}/NN` no Brand Style (CDS-1615) · O `castanha-tokens` não tem z-index: 7 valores provisórios de 200 a 800, 9999 nas stories do Portal e `zIndex` livre no Box. No castanha_flutter, a ordem sai do mecanismo de cada widget (rota no Navigator mais próximo, `OverlayPortal` sem `targetsRootOverlay`) · O playground gera `--common-z-index-*` sem unidade e sem alias `--castanha-*` · Exportar pelo Castoken sem unidade (hoje todo FLOAT ganha `px`) e trocar os números pelos tokens nos componentes (handoff da CDS-1615)"
+    "text": "Tokens · Z-Index · 9 tokens `Common/Z-Index/{Low,Medium,High}/NN` no Brand Style (CDS-1615), com o System Banner em `High/04` · O `castanha-tokens` não tem z-index: 7 valores provisórios de 200 a 800, 9999 nas stories do Portal e `zIndex` livre no Box. No castanha_flutter, a ordem sai do mecanismo de cada widget (rota no Navigator mais próximo, `OverlayPortal` sem `targetsRootOverlay`) · O playground gera `--common-z-index-*` sem unidade e sem alias `--castanha-*` · Exportar pelo Castoken sem unidade (hoje todo FLOAT ganha `px`) e trocar os números pelos tokens nos componentes (handoff da CDS-1615)"
    },
    {
     "id": "C209",

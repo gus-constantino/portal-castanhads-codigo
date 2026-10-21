@@ -6,6 +6,9 @@
  * Nomenclatura: Common/Colors/Text/intense → --common-colors-text-intense (1:1 com o Figma).
  * Text styles:  Label/Medium Label        → --text-style-label-medium (shorthand `font`)
  * Elevations:   Common/Elevations/Level 1 → --common-elevation-level-1 (box-shadow pronto)
+ * Z-Index:      Common/Z-Index/Medium/03 → --common-z-index-medium-03 (número sem unidade, CDS-1615). Ainda não existe no
+ *                castanha-tokens (o Castoken exporta depois do publish do Brand Style) e fica sem alias --castanha-* até lá.
+ *                O uso de cada camada (zIndexUsage, descrição no Figma) vai para tokens/motion-usage.js como CDS.zIndexUsage.
  * Viewport (coleção Viewport, floats): Common/Grids/gutter → --common-grids-gutter; Specific/Buttons/Main Button/Width/min-width
  *                → --specific-buttons-main-button-width-min-width. Faixas iguais ao viewport.css do castanha-tokens (min-width):
  *                Mobile no :root, Tablet ≥ 744, Desktop ≥ 1366; e por [data-viewport] (frame do playground). Booleans (Is Mobile…) ficam de fora.
@@ -36,7 +39,7 @@ function value(name, type, v){
   if (type === "T") return `${Math.round(v * 1000)}ms`;
   // floats
   if (/\/Opacity\//.test(name) || /^Common\/Opacity/.test(name)) return String(num(v / 100));
-  if (/Font\/Weight/.test(name)) return String(v);
+  if (/Font\/Weight/.test(name) || /\/Z-Index\//.test(name)) return String(v);
   if (/Font\/Line Height/.test(name)) return String(num(v / 100));
   if (/Motion\/Delay|\/Delay$/.test(name)) return `${v}ms`;
   return `${num(v)}px`;
@@ -45,7 +48,7 @@ function value(name, type, v){
 const light = [], dark = [], aliases = [];
 // nome do castanha-tokens: sem o grupo Common/Specific (scripts de build do castanha: tokenSegments + name/cti/castanha-css)
 const castanha = (name) => "--castanha-" + slug(name.replace(/^(Common|Specific)\//, ""));
-const hasAlias = (name) => /^(Common|Specific)\//.test(name) && !/^Common\/Motion\//.test(name);
+const hasAlias = (name) => /^(Common|Specific)\//.test(name) && !/^Common\/(Motion|Z-Index)\//.test(name);
 function push(name, type, l, d){
   const prop = "--" + slug(name);
   light.push(`  ${prop}:${value(name, type, l)};`);
@@ -128,5 +131,5 @@ ${motionReduced.join("\n")}
 ${gridCss}`;
 fs.writeFileSync(path.join(ROOT, "styles/tokens.css"), out);
 // Uso de cada Motion Style (descrição da variável no Figma) → Motion Styles em ação (scripts/tokens-kit.js)
-fs.writeFileSync(path.join(ROOT, "tokens/motion-usage.js"), "/* GERADO por scripts/build-tokens.js a partir de tokens/figma-snapshot.json (motionUsage) */\n(window.CDS = window.CDS || {}).motionUsage = " + JSON.stringify(snap.motionUsage || {}, null, 1) + ";\n");
+fs.writeFileSync(path.join(ROOT, "tokens/motion-usage.js"), "/* GERADO por scripts/build-tokens.js a partir de tokens/figma-snapshot.json (motionUsage e zIndexUsage) */\n(window.CDS = window.CDS || {}).motionUsage = " + JSON.stringify(snap.motionUsage || {}, null, 1) + ";\nCDS.zIndexUsage = " + JSON.stringify(snap.zIndexUsage || {}, null, 1) + ";\n");
 console.log(`styles/tokens.css: ${light.length} tokens (${dark.length} com valor dark), ${texts.length} text styles, ${elevations.length} elevations, ${vp.length} tokens de viewport, ${aliases.length + vp.length} aliases --castanha-*, ${snap.motion.length} variáveis de Motion Styles (${motionReduced.length} com modo Reduced)`);

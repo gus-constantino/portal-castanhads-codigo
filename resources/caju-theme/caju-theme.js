@@ -5,7 +5,7 @@
 (function(){
   window.CDS = window.CDS || {}; CDS.docs = CDS.docs || {};
   var FIGMA = "https://www.figma.com/design/Zx9KwwRFqZrOfeuXpYZiTx/-Caju--Theme?node-id=4309-2";
-  CDS.register({ id: "caju-theme", name: "Tema Caju", resource: true, lede: "Cores, tipografia, tamanhos, bordas, elevação e ícones do tema.", order: 1, status: "250", figma: FIGMA });
+  CDS.register({ id: "caju-theme", name: "Tema Caju", resource: true, lede: "Cores, tipografia, tamanhos, bordas, elevação, z-index e ícones do tema.", order: 1, status: "250", figma: FIGMA });
   // Ilustração e Motion saíram do tema e viraram páginas próprias em Padrões (pedido do time, 05/10); o conteúdo continua definido aqui
   CDS.register({ id: "ilustracao", name: "Ilustração", resource: true, lede: "Princípios, guidelines e a biblioteca de ilustrações da Caju.", order: 1.1, figma: "https://www.figma.com/design/Qvg0i4wjEoHVcPZo3grMq4/-CastanhaDS--Component-use-documentation?node-id=3416-2" });
   CDS.register({ id: "motion", name: "Motion", resource: true, lede: "Princípios de motion, curvas, durações, Motion Styles e animações.", order: 1.2, figma: FIGMA });
@@ -100,11 +100,18 @@
         ] },
         { note: "Fonte: página Scale do zeroheight (Fundação → Layout), com correções: a escala tem 26 valores (a imagem do zeroheight mostra 14) e nem todos são múltiplos de 4. Dúvidas: canal #castanha-suporte no Slack." }
       ] },
-      { id: "elevacao", title: "Elevação e opacidade", blocks: [
+      { id: "elevacao", title: "Elevação, Z-Index e opacidade", blocks: [
         { h2: "Elevations" },
         { p: "Sombras `Common/Elevation/level 1–3`. Escolha o nível para ver o card subir; a sombra aparece decomposta em x · y · blur · spread · cor." },
         { tokens: "elevation" },
         { note: "No `castanha-tokens` a sombra vem só decomposta (`--castanha-elevations-level-2-x`, `-y`, `-blur`, `-spread`, `-color`); a sombra pronta `--common-elevation-level-*` é do playground." },
+        // CDS-1615: Primitives Z-Index/0…800 → Theme Z-Index/0, 10…80 → Brand Style Common/Z-Index/<faixa>/<índice>
+        { h2: "Z-Index" },
+        { p: "Ordem de empilhamento `Common/Z-Index/*`, em três faixas: Low fica preso à página, Medium cobre a página com véu e High flutua por cima de tudo. O componente escolhe o degrau, como escolhe o nível de elevação. Clique numa carta para ver o uso e a elevação padrão." },
+        { p: "O z-index diz quem fica por cima. A elevação diz quanto a superfície se separa do que está embaixo. Por isso ela não cresce junto: o Popover, ancorado e sem véu, usa Level 3. Drawer, Modal e Toast usam Level 2. O que fica preso à página usa Level 1. Tooltip, System Banner e Backdrop ficam sem elevação." },
+        { tokens: "z-index" },
+        { p: "Dentro de um componente, a ordem das peças (camada de estado atrás do conteúdo, colunas fixas da Table) usa valores de -1 a 3, sem token. O componente cria o próprio contexto com `isolation: isolate`, para esses valores nunca disputarem com as camadas acima." },
+        { note: "Z-Index ainda não existe no `castanha-tokens`: estes tokens são do playground, lidos do Figma (CDS-1615). Depois do export do Castoken, o nome no código será `--castanha-z-index-medium-03` no React e `zIndexMedium03` no Flutter." },
         { h2: "Opacity" },
         { p: "Níveis `Common/Opacity/*`. Como no Figma, a amostra compara imagem e cor sólida (`Accent/Solid/medium`) sob uma camada `Support/darker` na opacidade do token. Arraste o Slider ou clique num nível." },
         { tokens: "opacity" }

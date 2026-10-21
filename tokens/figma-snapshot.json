@@ -1,6 +1,6 @@
 {
- "_source": "[CastanhaDS] Components (LKZBwmlb7fIbDKdGrMncuA) · collections Brand Style + .Motion Styles · text styles · effect styles · lido via Figma MCP em 01/10/2026; .Motion Styles (103 variáveis, modos Normal e Reduced) lida da branch 5ruoj0X35N4WobKIggNV8a (CDS-730) em 15/10/2026 · coleção Viewport (floats: Common/Grids e Specific/*; os booleans Is Mobile/Is Tablet/Is Desktop ficam de fora, não são CSS) lida via MCP em 05/10/2026 · descrições de uso da .Motion Styles (motionUsage) lidas da lib em 16/10/2026",
- "_format": "brand/motion: [nome, tipo (F=float C=color S=string E=easing T=timing em s), light, dark?] · viewport: [nome, {Desktop, Tablet, Mobile}] com número (px) ou alias (nome da variável) · motionAlias: Motion Style → primitivo no modo Normal · motionAliasReduced: só os que mudam no modo Reduced · motionUsage: descrição de uso de cada Motion Style no Figma (onde ele é usado)",
+ "_source": "[CastanhaDS] Components (LKZBwmlb7fIbDKdGrMncuA) · collections Brand Style + .Motion Styles · text styles · effect styles · lido via Figma MCP em 01/10/2026; .Motion Styles (103 variáveis, modos Normal e Reduced) lida da branch 5ruoj0X35N4WobKIggNV8a (CDS-730) em 15/10/2026 · coleção Viewport (floats: Common/Grids e Specific/*; os booleans Is Mobile/Is Tablet/Is Desktop ficam de fora, não são CSS) lida via MCP em 05/10/2026 · descrições de uso da .Motion Styles (motionUsage) lidas da lib em 16/10/2026 · Common/Z-Index e as descrições de uso (zIndexUsage, CDS-1615) lidos da branch RYz46FY6uMTypbR0wLkYMS do Components em 21/10/2026",
+ "_format": "brand/motion: [nome, tipo (F=float C=color S=string E=easing T=timing em s), light, dark?] · viewport: [nome, {Desktop, Tablet, Mobile}] com número (px) ou alias (nome da variável) · motionAlias: Motion Style → primitivo no modo Normal · motionAliasReduced: só os que mudam no modo Reduced · motionUsage: descrição de uso de cada Motion Style no Figma (onde ele é usado) · zIndexUsage: uso de hoje de cada camada Common/Z-Index (descrição da variável no Figma)",
  "brand": [
   [
    "Common/Border/Radius/none",
@@ -486,6 +486,51 @@
    "C",
    "#00000029",
    "#ffffff29"
+  ],
+  [
+   "Common/Z-Index/Low/00",
+   "F",
+   0
+  ],
+  [
+   "Common/Z-Index/Low/01",
+   "F",
+   100
+  ],
+  [
+   "Common/Z-Index/Low/02",
+   "F",
+   200
+  ],
+  [
+   "Common/Z-Index/Medium/01",
+   "F",
+   300
+  ],
+  [
+   "Common/Z-Index/Medium/02",
+   "F",
+   400
+  ],
+  [
+   "Common/Z-Index/Medium/03",
+   "F",
+   500
+  ],
+  [
+   "Common/Z-Index/High/01",
+   "F",
+   600
+  ],
+  [
+   "Common/Z-Index/High/02",
+   "F",
+   700
+  ],
+  [
+   "Common/Z-Index/High/03",
+   "F",
+   800
   ],
   [
    "Common/Font/Family/default",
@@ -2553,6 +2598,17 @@
   "Loading/01/Easing": "Common/Motion/Easing/Systemic/default",
   "Loading/02/Timing": "Common/Motion/Duration/Short/00",
   "Loading/02/Easing": "Common/Motion/Easing/Systemic/default"
+ },
+ "zIndexUsage": {
+  "Low/00": "Conteúdo da página. Sem elevação.",
+  "Low/01": "Elementos presos à página: cabeçalho e colunas fixas da Table, Side Menu, Fixed Bar. Elevação padrão: Level 1.",
+  "Low/02": "System Banner. Sem elevação.",
+  "Medium/01": "Backdrop. Sem elevação. Fica logo abaixo do overlay dono (Drawer, Modal).",
+  "Medium/02": "Drawer. Elevação padrão: Level 2.",
+  "Medium/03": "Modal e Date Picker Modal. Elevação padrão: Level 2.",
+  "High/01": "Popover e menus ancorados: Select, Drop Button, Date Input, Pagination Select, Breadcrumbs recolhidos. Elevação padrão: Level 3.",
+  "High/02": "Toast (na região que agrupa os toasts). Elevação padrão: Level 2, no item.",
+  "High/03": "Tooltip. Sem elevação: o contraste vem da cor inversed."
  },
   "motionUsage": {
     "Disabled/01": "Disabled: Main Button, Icon Button, Link, Checkbox, Switch, Accordion",

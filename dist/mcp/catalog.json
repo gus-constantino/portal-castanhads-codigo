@@ -35,7 +35,7 @@
   "withFlutter": 45,
   "liveMaps": 70,
   "reactOnly": 10,
-  "tokens": 396,
+  "tokens": 405,
   "icons": 273,
   "illustrations": 260,
   "conferirOpen": 147,
@@ -21138,8 +21138,8 @@
     },
     {
      "id": "elevacao",
-     "title": "Elevação e opacidade",
-     "text": "## Elevations\n\nSombras `Common/Elevation/level 1–3`. Escolha o nível para ver o card subir; a sombra aparece decomposta em x · y · blur · spread · cor.\n\n(Tokens: elevation — ver a ferramenta de tokens.)\n\n> No `castanha-tokens` a sombra vem só decomposta (`--castanha-elevations-level-2-x`, `-y`, `-blur`, `-spread`, `-color`); a sombra pronta `--common-elevation-level-*` é do playground.\n\n## Opacity\n\nNíveis `Common/Opacity/*`. Como no Figma, a amostra compara imagem e cor sólida (`Accent/Solid/medium`) sob uma camada `Support/darker` na opacidade do token. Arraste o Slider ou clique num nível.\n\n(Tokens: opacity — ver a ferramenta de tokens.)"
+     "title": "Elevação, Z-Index e opacidade",
+     "text": "## Elevations\n\nSombras `Common/Elevation/level 1–3`. Escolha o nível para ver o card subir; a sombra aparece decomposta em x · y · blur · spread · cor.\n\n(Tokens: elevation — ver a ferramenta de tokens.)\n\n> No `castanha-tokens` a sombra vem só decomposta (`--castanha-elevations-level-2-x`, `-y`, `-blur`, `-spread`, `-color`); a sombra pronta `--common-elevation-level-*` é do playground.\n\n## Z-Index\n\nOrdem de empilhamento `Common/Z-Index/*`, em três faixas: Low fica preso à página, Medium cobre a página com véu e High flutua por cima de tudo. O componente escolhe o degrau, como escolhe o nível de elevação. Clique numa carta para ver o uso e a elevação padrão.\n\nO z-index diz quem fica por cima. A elevação diz quanto a superfície se separa do que está embaixo. Por isso ela não cresce junto: o Popover, ancorado e sem véu, usa Level 3. Drawer, Modal e Toast usam Level 2. O que fica preso à página usa Level 1. Tooltip, System Banner e Backdrop ficam sem elevação.\n\n(Tokens: z-index — ver a ferramenta de tokens.)\n\nDentro de um componente, a ordem das peças (camada de estado atrás do conteúdo, colunas fixas da Table) usa valores de -1 a 3, sem token. O componente cria o próprio contexto com `isolation: isolate`, para esses valores nunca disputarem com as camadas acima.\n\n> Z-Index ainda não existe no `castanha-tokens`: estes tokens são do playground, lidos do Figma (CDS-1615). Depois do export do Castoken, o nome no código será `--castanha-z-index-medium-03` no React e `zIndexMedium03` no Flutter.\n\n## Opacity\n\nNíveis `Common/Opacity/*`. Como no Figma, a amostra compara imagem e cor sólida (`Accent/Solid/medium`) sob uma camada `Support/darker` na opacidade do token. Arraste o Slider ou clique num nível.\n\n(Tokens: opacity — ver a ferramenta de tokens.)"
     },
     {
      "id": "icones",
@@ -22514,6 +22514,60 @@
    "light": "#00000029",
    "dark": "#ffffff29",
    "castanha": "--castanha-elevations-level-3-color"
+  },
+  {
+   "name": "--common-z-index-low-00",
+   "group": "z",
+   "light": "0",
+   "castanha": null
+  },
+  {
+   "name": "--common-z-index-low-01",
+   "group": "z",
+   "light": "100",
+   "castanha": null
+  },
+  {
+   "name": "--common-z-index-low-02",
+   "group": "z",
+   "light": "200",
+   "castanha": null
+  },
+  {
+   "name": "--common-z-index-medium-01",
+   "group": "z",
+   "light": "300",
+   "castanha": null
+  },
+  {
+   "name": "--common-z-index-medium-02",
+   "group": "z",
+   "light": "400",
+   "castanha": null
+  },
+  {
+   "name": "--common-z-index-medium-03",
+   "group": "z",
+   "light": "500",
+   "castanha": null
+  },
+  {
+   "name": "--common-z-index-high-01",
+   "group": "z",
+   "light": "600",
+   "castanha": null
+  },
+  {
+   "name": "--common-z-index-high-02",
+   "group": "z",
+   "light": "700",
+   "castanha": null
+  },
+  {
+   "name": "--common-z-index-high-03",
+   "group": "z",
+   "light": "800",
+   "castanha": null
   },
   {
    "name": "--common-font-family-default",

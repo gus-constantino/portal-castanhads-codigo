@@ -2,7 +2,7 @@
  * Mostruário de tokens do Caju Theme (bloco `tokens` da doc) — referência: [Caju] Theme · página Caju Benefícios (4309:2).
  * Lê os nomes direto do :root de styles/tokens.css e os valores ao vivo (getComputedStyle): no tema escuro mostra os valores dark
  * e nunca fica desatualizado em relação ao snapshot.
- *   { tokens: "colors" | "font" | "text-styles" | "radius" | "width" | "sizes" | "sizes-default" | "elevation" | "opacity" | "duration" | "delay" | "easing" | "motion-live" | "easing-lab" }
+ *   { tokens: "colors" | "font" | "text-styles" | "radius" | "width" | "sizes" | "sizes-default" | "elevation" | "z-index" | "opacity" | "duration" | "delay" | "easing" | "motion-live" | "easing-lab" }
  * Interação: cada amostra é um tile clicável (C87) que copia `var(--token)` e confirma com o Toast do DS; as amostras de motion
  * tocam a animação no hover/foco/clique, e "Tocar todas" (Main Button do DS) toca a lista. Com prefers-reduced-motion nada anima.
  * Tudo com tokens: os exemplos usam var(--token) como valor; o layout vem de styles/docs.css (.pg-tok-*).
@@ -320,6 +320,46 @@
         var cp = t.appendChild(el("span", "pg-tok__text")); cp.appendChild(el("span", "pg-tok__name", label(n, "--common-elevation-"))); cp.appendChild(code(val(n), n));
       });
       show(lvl);
+    },
+    // Z-Index (CDS-1615): palco com uma carta por camada empilhada pelo token, cada uma com a elevação padrão da descrição no Figma
+    // (CDS.zIndexUsage, tokens/motion-usage.js); clicar numa carta ou num tile mostra token, valor, uso e elevação
+    "z-index": function(root){
+      var P = "--common-z-index-", list = pick(P), usage = (window.CDS && CDS.zIndexUsage) || {}, cur = Math.max(0, list.indexOf(P + "medium-03"));
+      function info(n){
+        var k = label(n, P), u = usage[k] || "", m = u.match(/Level (\d)/);
+        return { k: k, use: u.replace(/\s*(Sem elevação|Elevação padrão).*$/, "").trim(), level: m ? m[1] : null };
+      }
+      var s = section(root, "Z-Index", list.length), lab = s.appendChild(el("div", "pg-el-lab"));
+      var ctl = lab.appendChild(el("div", "pg-el-lab__ctl")), partsHost = ctl.appendChild(el("cmp-definition-list", "pg-el-parts")), parts = partsHost.listEl;
+      var stage = lab.appendChild(el("div", "pg-zi-stage")), cards = [], tiles = [];
+      list.forEach(function(n, i){
+        var it = info(n), c = stage.appendChild(el("button", "pg-zi-card")); c.type = "button";
+        c.style.zIndex = "var(" + n + ")"; c.style.setProperty("--_i", String(i));
+        if (it.level) c.style.boxShadow = "var(--common-elevation-level-" + it.level + ")";
+        c.appendChild(el("span", "pg-zi-card__name", it.k));
+        c.setAttribute("aria-label", it.k + ": " + val(n));
+        c.addEventListener("click", function(){ show(i); });
+        cards.push(c);
+      });
+      var g = s.appendChild(el("div", "pg-el-row"));
+      list.forEach(function(n, i){
+        var it = info(n), t = g.appendChild(tile("pg-el-tile pg-zi-tile", n, null)); t.addEventListener("click", function(){ show(i); });
+        var cp = t.appendChild(el("span", "pg-tok__text")); cp.appendChild(el("span", "pg-tok__name", it.k)); cp.appendChild(code(val(n), n));
+        t.appendChild(el("span", "pg-zi-tile__use", it.use));
+        tiles.push(t);
+      });
+      function show(i){
+        var n = list[i], it = info(n);
+        parts.innerHTML = "";
+        [["Token", "var(" + n + ")"], ["Valor", val(n)], ["Uso hoje", it.use || "—"], ["Elevação padrão", it.level ? "Level " + it.level : "Nenhuma"]].forEach(function(r, k){
+          parts.appendChild(el("dt", null, r[0]));
+          var dd = parts.appendChild(el("dd"));
+          if (k < 2) dd.appendChild(code(r[1], n)); else dd.textContent = r[1];
+        });
+        cards.forEach(function(c, k){ c.classList.toggle("is-current", k === i); });
+        tiles.forEach(function(t, k){ t.classList.toggle("is-current", k === i); });
+      }
+      if (list.length) show(cur);
     },
     // Opacidade: laboratório (Slider do DS) com a comparação imagem | Accent sólido em tamanho grande + faixa com todos os níveis
     opacity: function(root){

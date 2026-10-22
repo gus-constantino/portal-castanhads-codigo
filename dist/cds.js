@@ -17528,7 +17528,9 @@ try {
 /* ==== resources/patterns/patterns.js ==== */
 try {
 /* Patterns — Feedback Page (Sponsor e Employee) e Tela de loading (zeroheight · Patterns e Templates).
-   Fonte: Figma [CastanhaDS] Component use documentation (anatomias 7039:15189, 7039:17339, 5869:2460) e o
+   Fonte: Sponsor = componente Feedback Pages do [CastanhaDS] Sponsor Templates (branch Yn42qBRDiK2MxMm08TKLH9, 5440:1719),
+   com as annotations de handoff: template de desktop, conteúdo em 400 fixos e centralizado, ilustração de 144, fechar a
+   72 do topo e a 112 da direita. Employee e Tela de loading = Figma [CastanhaDS] Component use documentation (anatomias 7039:17339, 5869:2460) e o
    .Feedback Content (set 7039:15084): Kind escolhe ilustração + título + descrição sugeridos (textos reescritos pelas regras de Feedback Pages do Hub, decisão de 05/10; os do Figma estão em C161/C167).
    Os cenários são montados com componentes do DS (Main Button, Icon Button, Fixed Bar, Progress Line) e as
    ilustrações do [Caju] Illustrations. Rótulos das ações são exemplos do playground: no Figma eles vêm como "Label".
@@ -17553,7 +17555,7 @@ try {
   ];
   function byKind(k){ return KINDS.filter(function(x){ return x.kind === k; })[0]; }
 
-  // .Feedback Content: ilustração 120px + Title/Small + parágrafo, centralizados
+  // .Feedback Content: ilustração de 144 + Title/Small + Body Regular, centralizados, em 400 com padding 16
   function content(k, o){
     o = o || {};
     return { _tag: "div", class: "pg-fb__content", _children: [
@@ -17577,7 +17579,7 @@ try {
     }
     var page = [{ _tag: "div", class: "pg-fb__body", _children: kids }];
     if (o.close !== false) page.unshift({ _tag: "cds-icon-button", class: "pg-fb__close", icon: "close-line", appearance: "neutral", label: "Fechar" });
-    return { _tag: "div", class: "pg-fb pg-fb--sponsor" + (o.section ? " pg-fb--section" : ""), _children: page };
+    return { _tag: "div", class: "pg-fb pg-fb--sponsor" + (o.section ? " pg-fb--section" : "") + (o.close === false ? " pg-fb--no-close" : ""), _children: page };
   }
   // Employee: conteúdo no centro e ações no Fixed Bar (Pilled, sem Divider), ancorado na base
   function employee(k, o){
@@ -17647,7 +17649,7 @@ try {
         } },
         { h2: "Cenários" },
         CENARIOS_P,
-        gallery(function(k){ return sponsor(k); })
+        gallery(function(k){ return sponsor(k, { close: false }); })
       ].concat(QUANDO, naoUse("Confirmações e decisões imediatas: use o Modal."), diretrizes("pagina", [
         ["Ajuste o template ao espaço que ele ocupa", "Na tela inteira, a página assume a condição por completo e oferece a saída principal. Em uma seção, como uma tabela ainda sem registros ou uma área de busca sem resultado, redimensione o template para a área e desligue `Show Actions` e `Show Close Button` quando as ações já existirem fora do bloco. A estrutura se mantém e o conteúdo segue centralizado."]
       ]), [

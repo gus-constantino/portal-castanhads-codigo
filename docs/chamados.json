@@ -1,4 +1,4 @@
-{"fonte":"Lista do Slack Castanha suporte - requests (#castanha-suporte)","lido":"2026-10-22","medido":"2026-10-15","chamados":[
+{"fonte":"Lista do Slack Castanha suporte - requests (#castanha-suporte)","lido":"2026-10-23","medido":"2026-10-15","chamados":[
   {"k":"05c66a7e11","d":"2025-08-13","tipo":"dev","prioridade":null,"status":"resolvido","comp":[]},
   {"k":"44fe36c1d7","d":"2025-08-13","tipo":"dev","prioridade":null,"status":"resolvido","comp":["content-list"]},
   {"k":"48e43d3c53","d":"2025-08-13","tipo":"dev","prioridade":null,"status":"resolvido","comp":["bottom-sheet","text-input","radio-select-input"]},
@@ -244,5 +244,7 @@
   {"k":"be14a35e1c","d":"2026-10-20","tipo":"dev","prioridade":"baixa","status":"resolvido","comp":[]},
   {"k":"d82d051b6f","d":"2026-10-20","tipo":"dev","prioridade":null,"status":"aberto","comp":[],"titulo":"Cores erradas e tamanho da font","link":"https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA?record_id=Rec0CAPRWKW6S"},
   {"k":"fa945dc98c","d":"2026-10-20","tipo":"motion","prioridade":"alta","status":"resolvido","comp":[]},
-  {"k":"e1f7f03b78","d":"2026-10-21","tipo":"ilustra","prioridade":"baixa","status":"aberto","comp":[],"titulo":"Criar variações para o Borô","link":"https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA?record_id=Rec0CB0HUTESW"}
+  {"k":"e1f7f03b78","d":"2026-10-21","tipo":"ilustra","prioridade":"baixa","status":"aberto","comp":[],"titulo":"Criar variações para o Borô","link":"https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA?record_id=Rec0CB0HUTESW"},
+  {"k":"93f086b9b2","d":"2026-10-22","tipo":"design","prioridade":null,"status":"aberto","comp":["drawer"],"titulo":"Margem do Drawer","link":"https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA?record_id=Rec0CB9JCH3CN"},
+  {"k":"be66d82ca5","d":"2026-10-22","tipo":"design","prioridade":null,"status":"aberto","comp":[],"titulo":"Loading do botão - Sumiu essa opção","link":"https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA?record_id=Rec0CC61W85R6"}
 ]}

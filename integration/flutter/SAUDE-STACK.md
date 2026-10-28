@@ -1,6 +1,6 @@
 # Saúde da stack — Figma × castanha_flutter × playground
 
-Gerado por `node scripts/integration/build-flutter-manifest.js` em 2026-10-21 (F2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). Flutter: `origin/staging` (`a62701c0`) do castanha-mobile.
+Gerado por `node scripts/integration/build-flutter-manifest.js` em 2026-10-28 (F2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). Flutter: `origin/staging` (`ec39a6e8`) do castanha-mobile.
 
 ## Resumo
 
@@ -8,9 +8,9 @@ Gerado por `node scripts/integration/build-flutter-manifest.js` em 2026-10-21 (F
 |---|---|---:|
 | Alta | quebra a tradução: parâmetro ou valor que não existe no Flutter, ícone ou ilustração fora do pacote do Dart | 2 |
 | Média | muda o resultado sem quebrar: padrão diferente entre Figma e Flutter | 10 |
-| Informativo | prop do Figma sem parâmetro no Flutter, ou parâmetro só do código | 41 |
+| Informativo | prop do Figma sem parâmetro no Flutter, ou parâmetro só do código | 51 |
 
-Cobertura: 45 componentes do playground com widget no castanha_flutter, 40 sem par e 4 só no Flutter. Dart do painel: 81 trechos, 0 erros no `dart analyze` (`node scripts/integration/check-dart.js`).
+Cobertura: 55 componentes do playground com widget no castanha_flutter, 30 sem par e 5 só no Flutter. Dart do painel: 81 trechos, 0 erros no `dart analyze` (`node scripts/integration/check-dart.js`).
 
 ## Alta
 
@@ -34,20 +34,28 @@ Cobertura: 45 componentes do playground com widget no castanha_flutter, 40 sem p
 
 | Componente | Tipo | O quê |
 |---|---|---|
+| `accordion` | sem-mapa | Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros. |
+| `accordion-item` | sem-mapa | Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros. |
 | `backdrop` | so-no-flutter | Parâmetros do Flutter sem prop no Figma: `invisible`. |
 | `bottom-sheet` | sem-props-do-figma | Sem leitura das props do Figma (`figma-props.tsv`) para este componente. |
 | `chips-group` | figma-fora-do-mapa | Prop do Figma `Kind` não aparece na tabela Figma → Flutter. |
 | `content-list-item` | so-no-flutter | Parâmetros do Flutter sem prop no Figma: `highlight`, `trailingValue`. |
+| `drop-button` | sem-mapa | Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros. |
 | `dropzone` | figma-sem-parametro | `Show Main button` (Figma) não tem parâmetro no Flutter. O Flutter não tem o botão: a área inteira chama `onPressed`. |
 | `dropzone` | so-no-flutter | Parâmetros do Flutter sem prop no Figma: `dragover`. |
+| `filter-button` | sem-mapa | Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros. |
 | `filter-chips` | figma-fora-do-mapa | Prop do Figma `Size` não aparece na tabela Figma → Flutter. |
 | `icon-button` | so-no-flutter | Parâmetros do Flutter sem prop no Figma: `notificationAppearance`. |
 | `input-chips` | figma-fora-do-mapa | Prop do Figma `Size` não aparece na tabela Figma → Flutter. |
 | `main-button` | figma-sem-parametro | `Is Loading` (Figma) não tem parâmetro no Flutter. Ainda não existe no castanha_flutter. |
-| `main-button` | so-no-flutter | Parâmetros do Flutter sem prop no Figma: `expanded`. |
+| `main-button` | so-no-flutter | Parâmetros do Flutter sem prop no Figma: `expanded`, `loading`, `loadingLabel`. |
+| `progress-tracker` | sem-mapa | Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros. |
+| `progress-tracker-item` | sem-mapa | Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros. |
+| `search-input` | sem-mapa | Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros. |
 | `selection-list-item` | so-no-flutter | Parâmetros do Flutter sem prop no Figma: `highlight`. |
 | `skeleton` | sem-props-do-figma | Sem leitura das props do Figma (`figma-props.tsv`) para este componente. |
 | `spinner` | figma-sem-parametro | `Spinner Position` (Figma) não tem parâmetro no Flutter. É o quadro da animação; no código o giro é contínuo. |
+| `status-dot` | sem-mapa | Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros. |
 | `switch-group` | sem-props-do-figma | Sem leitura das props do Figma (`figma-props.tsv`) para este componente. |
 | `text-area` | figma-fora-do-mapa | Prop do Figma `Show Trailing Item` não aparece na tabela Figma → Flutter. |
 | `text-area` | figma-fora-do-mapa | Prop do Figma `Show Caret` não aparece na tabela Figma → Flutter. |
@@ -70,6 +78,8 @@ Cobertura: 45 componentes do playground com widget no castanha_flutter, 40 sem p
 | `text-input` | figma-fora-do-mapa | Prop do Figma `Required Text` não aparece na tabela Figma → Flutter. |
 | `text-input` | figma-fora-do-mapa | Prop do Figma `Is Filled` não aparece na tabela Figma → Flutter. |
 | `text-input` | figma-fora-do-mapa | Prop do Figma `Is Active` não aparece na tabela Figma → Flutter. |
+| `toast` | sem-mapa | Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros. |
+| `tooltip` | sem-mapa | Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros. |
 | `upload-item` | figma-fora-do-mapa | Prop do Figma `Success message` não aparece na tabela Figma → Flutter. |
 | `upload-item` | figma-fora-do-mapa | Prop do Figma `Show primary action` não aparece na tabela Figma → Flutter. |
 | `upload-item` | figma-fora-do-mapa | Prop do Figma `Show secondary action` não aparece na tabela Figma → Flutter. |
@@ -95,6 +105,25 @@ Constantes do Dart (`CastanhaIcons`, `CastanhaIllustrations`, `CastanhaMotions`)
 
 ## Histórico
 
+**28/10/2026 · staging `ec39a6e8`**
+
+- castanha_flutter `origin/staging`: `a62701c0` → `ec39a6e8` (2026-10-21).
+- Cobertura · flutter: 49 → 60.
+- Cobertura · matched: 45 → 55.
+- Cobertura · flutterOnly: 4 → 5.
+- Cobertura · missing: 40 → 30.
+- 🆕 informativo · accordion · Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros.
+- 🆕 informativo · accordion-item · Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros.
+- 🆕 informativo · drop-button · Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros.
+- 🆕 informativo · filter-button · Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros.
+- 🆕 informativo · main-button · Parâmetros do Flutter sem prop no Figma: `expanded`, `loading`, `loadingLabel`.
+- 🆕 informativo · progress-tracker · Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros.
+- 🆕 informativo · progress-tracker-item · Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros.
+- 🆕 informativo · search-input · Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros.
+- 🆕 informativo · status-dot · Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros.
+- 🆕 informativo · toast · Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros.
+- 🆕 informativo · tooltip · Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros.
+- ✅ resolvido · main-button · Parâmetros do Flutter sem prop no Figma: `expanded`.
 **20/10/2026 · staging `a62701c0`**
 
 - Cobertura · playground: 110 → 112.

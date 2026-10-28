@@ -1,11 +1,11 @@
 {
   "_about": "Manifesto de integração Figma ↔ playground ↔ castanha-react (R0). Gerado por scripts/integration/build-manifest.js — não editar à mão.",
-  "generated": "2026-10-21T23:17:55.421Z",
+  "generated": "2026-10-28T12:17:05.596Z",
   "source": {
     "repo": "caju-beneficios/castanha",
     "ref": "origin/staging",
-    "commit": "039c0d37cf7a6040ae6ee9cb8dd9c31cca352361",
-    "date": "2026-10-15 20:08:54 +0000"
+    "commit": "e2be5481b9eb825fd64b017155de32b587a30cad",
+    "date": "2026-10-21 19:01:43 -0300"
   },
   "codeConnect": {
     "ref": "origin/feat/figma-code-connect",
@@ -15,12 +15,12 @@
   },
   "summary": {
     "playground": 117,
-    "comReact": 72,
+    "comReact": 74,
     "viaCodeConnect": 68,
-    "viaStory": 4,
+    "viaStory": 6,
     "buildingBlocks": 27,
-    "soFigma": 18,
-    "soReact": 10,
+    "soFigma": 16,
+    "soReact": 13,
     "comNotas": 29
   },
   "components": [
@@ -1665,8 +1665,20 @@
         "fileKey": "LKZBwmlb7fIbDKdGrMncuA",
         "node": "24037-2929"
       },
-      "react": null,
-      "status": "so-figma",
+      "react": {
+        "component": "FixedBar",
+        "dir": "FixedBar",
+        "via": "story",
+        "exported": true,
+        "import": "import { FixedBar } from '@caju-beneficios/castanha-react';",
+        "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-fixedbar--docs",
+        "zeroheight": null,
+        "tags": [
+          "new"
+        ],
+        "figmaProps": []
+      },
+      "status": "react",
       "notes": []
     },
     {
@@ -2599,8 +2611,20 @@
         "fileKey": "LKZBwmlb7fIbDKdGrMncuA",
         "node": "22756-7351"
       },
-      "react": null,
-      "status": "so-figma",
+      "react": {
+        "component": "QuantityInput",
+        "dir": "QuantityInput",
+        "via": "story",
+        "exported": true,
+        "import": "import { QuantityInput } from '@caju-beneficios/castanha-react';",
+        "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-quantityinput--docs",
+        "zeroheight": null,
+        "tags": [
+          "new"
+        ],
+        "figmaProps": []
+      },
+      "status": "react",
       "notes": []
     },
     {
@@ -3894,6 +3918,17 @@
   ],
   "reactOnly": [
     {
+      "name": "Accordion",
+      "exported": true,
+      "noFigma": false,
+      "tags": [
+        "new"
+      ],
+      "storyNodeIds": [],
+      "inMain": false,
+      "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-accordion--docs"
+    },
+    {
       "name": "Box",
       "exported": true,
       "noFigma": true,
@@ -3903,6 +3938,28 @@
       "storyNodeIds": [],
       "inMain": true,
       "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-box--docs"
+    },
+    {
+      "name": "CodeInput",
+      "exported": true,
+      "noFigma": false,
+      "tags": [
+        "new"
+      ],
+      "storyNodeIds": [],
+      "inMain": false,
+      "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-codeinput--docs"
+    },
+    {
+      "name": "CreditCardInput",
+      "exported": true,
+      "noFigma": false,
+      "tags": [
+        "new"
+      ],
+      "storyNodeIds": [],
+      "inMain": false,
+      "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-creditcardinput--docs"
     },
     {
       "name": "Field",
@@ -4005,6 +4062,206 @@
     }
   ],
   "react": [
+    {
+      "name": "Accordion",
+      "exported": true,
+      "inMain": false,
+      "exports": [
+        "Accordion"
+      ],
+      "subcomponents": [
+        "Item"
+      ],
+      "description": "Agrupa seções que o usuário expande e recolhe para revelar conteúdo complementar sob demanda, mantendo a página enxuta.",
+      "import": "import { Accordion } from '@caju-beneficios/castanha-react';",
+      "tags": [
+        "new"
+      ],
+      "noFigma": false,
+      "storyId": "components-accordion--basic",
+      "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-accordion--docs",
+      "zeroheight": null,
+      "storyNodeIds": [],
+      "codeConnect": [],
+      "props": {
+        "Accordion": [
+          {
+            "name": "children",
+            "required": true,
+            "type": "ReactNode",
+            "values": null,
+            "description": "Itens do accordion (`Accordion.Item`)."
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+            "values": null,
+            "description": "Desabilita todos os itens."
+          },
+          {
+            "name": "kind",
+            "required": false,
+            "type": "AccordionKind",
+            "values": null,
+            "default": "default",
+            "description": "Forma aplicada a todos os itens."
+          }
+        ],
+        "ControlledAccordionItem": [
+          {
+            "name": "defaultIsCollapsed",
+            "required": false,
+            "type": "never",
+            "values": null
+          },
+          {
+            "name": "isCollapsed",
+            "required": true,
+            "type": "boolean",
+            "values": null,
+            "description": "Define se o conteúdo está recolhido (`controlled`)."
+          },
+          {
+            "name": "onCollapsedChange",
+            "required": true,
+            "type": "AccordionCollapsedChangeHandler",
+            "values": null,
+            "description": "Chamado quando o header alterna o item, com o novo estado de recolhido."
+          }
+        ],
+        "UncontrolledAccordionItem": [
+          {
+            "name": "defaultIsCollapsed",
+            "required": false,
+            "type": "boolean",
+            "values": null,
+            "default": "true",
+            "description": "Define se o conteúdo começa recolhido (`uncontrolled`)."
+          },
+          {
+            "name": "isCollapsed",
+            "required": false,
+            "type": "never",
+            "values": null
+          },
+          {
+            "name": "onCollapsedChange",
+            "required": false,
+            "type": "AccordionCollapsedChangeHandler",
+            "values": null,
+            "description": "Chamado quando o header alterna o item, com o novo estado de recolhido."
+          }
+        ],
+        "AccordionItem": [
+          {
+            "name": "children",
+            "required": false,
+            "type": "ReactNode",
+            "values": null,
+            "description": "Conteúdo revelado quando o item está expandido."
+          },
+          {
+            "name": "description",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "description": "Texto de apoio exibido abaixo do `label`."
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+            "values": null,
+            "description": "Desabilita o item, tirando o header da interação e da tabulação."
+          },
+          {
+            "name": "hideDivider",
+            "required": false,
+            "type": "boolean",
+            "values": null,
+            "description": "Oculta o divisor inferior. Ignorado quando o `kind` do `Accordion` é `card`."
+          },
+          {
+            "name": "highlightedText",
+            "required": false,
+            "type": "'label' | 'description'",
+            "values": [
+              "label",
+              "description"
+            ],
+            "default": "label",
+            "description": "Define qual texto recebe o destaque tipográfico e de cor."
+          },
+          {
+            "name": "label",
+            "required": true,
+            "type": "string",
+            "values": null,
+            "description": "Título do item, que também nomeia a região de conteúdo."
+          },
+          {
+            "name": "leadIcon",
+            "required": false,
+            "type": "IconProps['name']",
+            "values": null,
+            "description": "Ícone exibido antes do `label`. Sem ele, o item não tem lead."
+          },
+          {
+            "name": "leadIconAppearance",
+            "required": false,
+            "type": "IconProps['appearance']",
+            "values": null,
+            "default": "neutral",
+            "description": "Cor do `leadIcon`."
+          },
+          {
+            "name": "leadIconSize",
+            "required": false,
+            "type": "IconProps['size']",
+            "values": null,
+            "default": "medium",
+            "description": "Tamanho do `leadIcon`."
+          }
+        ]
+      },
+      "refs": {
+        "AccordionProps": [
+          "Accordion",
+          "AccordionElement"
+        ],
+        "AccordionCollapsedChangeHandler": [
+          "ControlledAccordionItem",
+          "Define",
+          "Chamado",
+          "AccordionCollapsedChangeHandler",
+          "UncontrolledAccordionItem",
+          "AccordionItem",
+          "Conte",
+          "Texto",
+          "Desabilita",
+          "Oculta",
+          "Ignorado",
+          "Accordion",
+          "T",
+          "Sem",
+          "IconProps",
+          "Cor",
+          "Tamanho",
+          "AccordionItemProps",
+          "AccordionItemElement",
+          "AccordionElement",
+          "AccordionKind",
+          "AccordionProps"
+        ],
+        "AccordionItemProps": [
+          "AccordionItem",
+          "ControlledAccordionItem",
+          "UncontrolledAccordionItem",
+          "AccordionItemElement"
+        ]
+      }
+    },
     {
       "name": "Alert",
       "exported": true,
@@ -5175,6 +5432,14 @@
             "description": "Define o estilo do botão (sólido ou fantasma)."
           },
           {
+            "name": "loading",
+            "required": false,
+            "type": "boolean",
+            "values": null,
+            "default": "false",
+            "description": "Substitui o rótulo por um spinner e deixa o botão indisponível, sem perder o foco. Passe um `aria-label` com a ação, ex.: \"Salvando alterações\"."
+          },
+          {
             "name": "leadIcon",
             "required": false,
             "type": "IconName | string",
@@ -5779,6 +6044,193 @@
       }
     },
     {
+      "name": "CodeInput",
+      "exported": true,
+      "inMain": false,
+      "exports": [],
+      "subcomponents": [],
+      "description": "Campo de código de verificação em células de um caractere. Avança o foco ao digitar, distribui o código colado e aceita o autofill do SMS.",
+      "import": "import { CodeInput } from '@caju-beneficios/castanha-react';",
+      "tags": [
+        "new"
+      ],
+      "noFigma": false,
+      "storyId": "components-codeinput--basic",
+      "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-codeinput--docs",
+      "zeroheight": "https://castanha.caju.com.br/858426090/p/956d46-code-input-otp",
+      "storyNodeIds": [],
+      "codeConnect": [],
+      "props": {
+        "CodeInput": [
+          {
+            "name": "cellLabel",
+            "required": false,
+            "type": "(position: number, length: number) => string",
+            "values": null,
+            "description": "Nome acessível de cada célula pela posição; ausente, anuncia `dígito N de T` ou `caractere N de T` conforme o `kind`."
+          },
+          {
+            "name": "defaultHideValue",
+            "required": false,
+            "type": "boolean",
+            "values": null,
+            "description": "Modo uncontrolled: define se o código começa mascarado."
+          },
+          {
+            "name": "defaultValue",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "description": "Modo uncontrolled: código inicial. Caracteres fora do `kind` são descartados."
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+            "values": null,
+            "description": "Desabilita o campo inteiro, tirando todas as células da interação e da tabulação."
+          },
+          {
+            "name": "error",
+            "required": false,
+            "type": "boolean",
+            "values": null,
+            "description": "Define se o campo está em estado de erro."
+          },
+          {
+            "name": "hideValue",
+            "required": false,
+            "type": "boolean",
+            "values": null,
+            "description": "Modo controlled: define se o código está mascarado."
+          },
+          {
+            "name": "hideVisibilityAction",
+            "required": false,
+            "type": "boolean",
+            "values": null,
+            "description": "Oculta a ação de mostrar e ocultar o código."
+          },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "description": "ID da primeira célula, que o label aponta. Gerado automaticamente se omitido."
+          },
+          {
+            "name": "label",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "description": "Texto do label exibido acima das células."
+          },
+          {
+            "name": "name",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "description": "Nome do campo no `<form>`. Presente, o código completo é enviado num input oculto."
+          },
+          {
+            "name": "onChange",
+            "required": false,
+            "type": "(value: string) => void",
+            "values": null,
+            "description": "Chamado a cada alteração do código, com o valor parcial."
+          },
+          {
+            "name": "onComplete",
+            "required": false,
+            "type": "(value: string) => void",
+            "values": null,
+            "description": "Chamado a cada alteração que deixa todas as células preenchidas, com o código completo."
+          },
+          {
+            "name": "onHideValueChange",
+            "required": false,
+            "type": "(hideValue: boolean) => void",
+            "values": null,
+            "description": "Chamado quando a ação de visibilidade alterna a máscara, com o novo estado."
+          },
+          {
+            "name": "required",
+            "required": false,
+            "type": "boolean",
+            "values": null,
+            "description": "Define se o campo é obrigatório."
+          },
+          {
+            "name": "separatorPositions",
+            "required": false,
+            "type": "number[]",
+            "values": null,
+            "description": "Posições, a partir de 1, das células seguidas por separador, que a última nunca tem: `[3]` em 6 agrupa `XXX-XXX`."
+          },
+          {
+            "name": "supportingMessage",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "description": "Mensagem de suporte exibida abaixo das células. Com `error`, é anunciada como alerta."
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "description": "Modo controlled: código atual. Caracteres fora do `kind` são descartados."
+          },
+          {
+            "name": "hideValueLabel",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "default": "Ocultar código",
+            "description": "Nome acessível do botão que oculta o código."
+          },
+          {
+            "name": "kind",
+            "required": false,
+            "type": "CodeInputKind",
+            "values": null,
+            "default": "numeric",
+            "description": "Conjunto de caracteres aceitos: `numeric` aceita `0-9` e abre o teclado numérico, e `alphanumeric` aceita `0-9`, `A-Z` e `a-z`."
+          },
+          {
+            "name": "length",
+            "required": false,
+            "type": "CodeInputLength",
+            "values": null,
+            "default": "6",
+            "description": "Número de células, cada uma com um caractere do código."
+          },
+          {
+            "name": "showValueLabel",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "default": "Mostrar código",
+            "description": "Nome acessível do botão que mostra o código."
+          },
+          {
+            "name": "aria-label",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "default": "Código de verificação",
+            "description": "Nome acessível do grupo de células quando não há `label`."
+          }
+        ]
+      },
+      "refs": {
+        "CodeInputProps": [
+          "CodeInput",
+          "CodeInputElement"
+        ]
+      }
+    },
+    {
       "name": "ConfirmationMessage",
       "exported": true,
       "inMain": true,
@@ -6071,6 +6523,144 @@
         "ContentListProps": [
           "ContentList",
           "ContentListElement"
+        ]
+      }
+    },
+    {
+      "name": "CreditCardInput",
+      "exported": true,
+      "inMain": false,
+      "exports": [],
+      "subcomponents": [],
+      "description": "Campo para o número do cartão de crédito. Aceita só 16 dígitos, em grupos de quatro.",
+      "import": "import { CreditCardInput } from '@caju-beneficios/castanha-react';",
+      "tags": [
+        "new"
+      ],
+      "noFigma": false,
+      "storyId": "components-creditcardinput--basic",
+      "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-creditcardinput--docs",
+      "zeroheight": null,
+      "storyNodeIds": [],
+      "codeConnect": [],
+      "props": {
+        "CreditCardInput": [
+          {
+            "name": "autoComplete",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "default": "cc-number",
+            "description": "Valor do atributo `autocomplete` do input."
+          },
+          {
+            "name": "characterCount",
+            "required": false,
+            "type": "number",
+            "values": null,
+            "description": "Limite de caracteres do valor exibido, incluindo os espaços da máscara."
+          },
+          {
+            "name": "containerRef",
+            "required": false,
+            "type": "Ref<HTMLDivElement>",
+            "values": null,
+            "description": "Ref para o container externo do campo."
+          },
+          {
+            "name": "error",
+            "required": false,
+            "type": "boolean",
+            "values": null,
+            "description": "Define se o campo está em estado de erro."
+          },
+          {
+            "name": "hideLeadIcon",
+            "required": false,
+            "type": "boolean",
+            "values": null,
+            "description": "Esconde o ícone de cartão no início do campo."
+          },
+          {
+            "name": "hideTrailingItem",
+            "required": false,
+            "type": "boolean",
+            "values": null,
+            "description": "Esconde o botão de ajuda no fim do campo."
+          },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "description": "ID do elemento input."
+          },
+          {
+            "name": "inputMode",
+            "required": false,
+            "type": "InputHTMLAttributes<CreditCardInputElement>['inputMode']",
+            "values": null,
+            "default": "numeric",
+            "description": "Teclado sugerido ao focar o campo."
+          },
+          {
+            "name": "label",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "description": "Texto do label exibido acima do campo."
+          },
+          {
+            "name": "leadIcon",
+            "required": false,
+            "type": "IconName | string",
+            "values": null,
+            "description": "Ícone exibido no início do campo. Por padrão, o ícone de cartão."
+          },
+          {
+            "name": "placeholder",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "default": "1234 5678 9012 3456",
+            "description": "Texto exibido enquanto o campo está vazio."
+          },
+          {
+            "name": "required",
+            "required": false,
+            "type": "boolean",
+            "values": null,
+            "description": "Define se o campo é obrigatório."
+          },
+          {
+            "name": "supportingMessage",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "description": "Mensagem de apoio abaixo do campo. Com erro, ela passa a ser a de erro."
+          },
+          {
+            "name": "trailingLabel",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "default": "Ajuda",
+            "description": "Nome acessível do botão de ajuda."
+          },
+          {
+            "name": "onTrailingClick",
+            "required": false,
+            "type": "MouseEventHandler<HTMLButtonElement>",
+            "values": null,
+            "description": "Callback executado ao acionar o botão de ajuda, recebendo o evento do clique."
+          }
+        ]
+      },
+      "refs": {
+        "CreditCardInputProps": [
+          "CreditCardInput",
+          "InputHTMLAttributes",
+          "CreditCardInputElement"
         ]
       }
     },
@@ -7377,6 +7967,13 @@
             "required": false,
             "type": "string",
             "values": null
+          },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "description": "Para o campo composto por vários controles apontá-lo por `aria-labelledby`."
           }
         ],
         "FieldControlChildProps": [
@@ -7496,6 +8093,81 @@
         "FilterButtonProps": [
           "ButtonHTMLAttributes",
           "FilterButtonElement"
+        ]
+      }
+    },
+    {
+      "name": "FixedBar",
+      "exported": true,
+      "inMain": false,
+      "exports": [],
+      "subcomponents": [],
+      "description": "Barra de ações na base da tela. A tela ancora a barra e reserva o espaço inferior para o conteúdo não ficar coberto.",
+      "import": "import { FixedBar } from '@caju-beneficios/castanha-react';",
+      "tags": [
+        "new"
+      ],
+      "noFigma": false,
+      "storyId": "components-fixedbar--basic",
+      "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-fixedbar--docs",
+      "zeroheight": null,
+      "storyNodeIds": [
+        "24037-2929"
+      ],
+      "codeConnect": [],
+      "props": {
+        "FixedBar": [
+          {
+            "name": "aria-label",
+            "required": true,
+            "type": "string",
+            "values": null,
+            "description": "Nome da região, identificando a tarefa que as ações concluem."
+          },
+          {
+            "name": "hideDivider",
+            "required": false,
+            "type": "boolean",
+            "values": null,
+            "default": "false",
+            "description": "Oculta o divisor no topo da barra."
+          },
+          {
+            "name": "hideSecondaryAction",
+            "required": false,
+            "type": "boolean",
+            "values": null,
+            "default": "false",
+            "description": "Oculta a ação secundária. A primária permanece sozinha."
+          },
+          {
+            "name": "kind",
+            "required": false,
+            "type": "FixedBarKind",
+            "values": null,
+            "default": "horizontal",
+            "description": "Direção das ações. `horizontal` alinha à direita; `pilled` empilha em largura total."
+          },
+          {
+            "name": "primaryAction",
+            "required": true,
+            "type": "ReactNode",
+            "values": null,
+            "description": "Ação principal. Em `horizontal` fica à direita; em `pilled`, abaixo."
+          },
+          {
+            "name": "secondaryAction",
+            "required": false,
+            "type": "ReactNode",
+            "values": null,
+            "description": "Ação secundária. Em `horizontal` fica à esquerda; em `pilled`, acima. Omitida quando ausente."
+          }
+        ]
+      },
+      "refs": {
+        "FixedBarProps": [
+          "FixedBar",
+          "FixedBarElement"
         ]
       }
     },
@@ -9220,6 +9892,193 @@
         "ProgressTrackerProps": [
           "ProgressTracker",
           "ProgressTrackerElement"
+        ]
+      }
+    },
+    {
+      "name": "QuantityInput",
+      "exported": true,
+      "inMain": false,
+      "exports": [],
+      "subcomponents": [],
+      "description": "Campo numérico inteiro com botões de incremento e decremento. Ajusta o valor em passos fixos pelos botões, pelas setas do teclado ou por digitação direta.",
+      "import": "import { QuantityInput } from '@caju-beneficios/castanha-react';",
+      "tags": [
+        "new"
+      ],
+      "noFigma": false,
+      "storyId": "components-quantityinput--basic",
+      "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-quantityinput--docs",
+      "zeroheight": null,
+      "storyNodeIds": [
+        "22756-7351"
+      ],
+      "codeConnect": [],
+      "props": {
+        "QuantityInput": [
+          {
+            "name": "containerRef",
+            "required": false,
+            "type": "Ref<HTMLDivElement>",
+            "values": null,
+            "description": "Ref para o container externo do campo."
+          },
+          {
+            "name": "decrementLabel",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "default": "Diminuir quantidade",
+            "description": "Nome acessível do botão de decremento."
+          },
+          {
+            "name": "disabled",
+            "required": false,
+            "type": "boolean",
+            "values": null,
+            "description": "Desabilita o campo e os dois botões."
+          },
+          {
+            "name": "error",
+            "required": false,
+            "type": "boolean",
+            "values": null,
+            "description": "Define se o campo está em estado de erro."
+          },
+          {
+            "name": "id",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "description": "ID do elemento input."
+          },
+          {
+            "name": "incrementLabel",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "default": "Aumentar quantidade",
+            "description": "Nome acessível do botão de incremento."
+          },
+          {
+            "name": "kind",
+            "required": false,
+            "type": "'default' | 'ghost'",
+            "values": [
+              "default",
+              "ghost"
+            ],
+            "default": "default",
+            "description": "Define o estilo dos botões de incremento e decremento."
+          },
+          {
+            "name": "label",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "description": "Texto do label exibido acima do campo."
+          },
+          {
+            "name": "max",
+            "required": false,
+            "type": "number",
+            "values": null,
+            "description": "Maior valor aceito. No limite, o incremento fica indisponível."
+          },
+          {
+            "name": "min",
+            "required": false,
+            "type": "number",
+            "values": null,
+            "description": "Menor valor aceito. No limite, o decremento fica indisponível."
+          },
+          {
+            "name": "required",
+            "required": false,
+            "type": "boolean",
+            "values": null,
+            "description": "Define se o campo é obrigatório."
+          },
+          {
+            "name": "step",
+            "required": false,
+            "type": "number",
+            "values": null,
+            "default": "1",
+            "description": "Medida de cada incremento e decremento, nos botões e nas setas do teclado."
+          },
+          {
+            "name": "supportingMessage",
+            "required": false,
+            "type": "string",
+            "values": null,
+            "description": "Mensagem de suporte exibida abaixo do campo."
+          }
+        ],
+        "ControlledQuantityInput": [
+          {
+            "name": "defaultValue",
+            "required": false,
+            "type": "never",
+            "values": null
+          },
+          {
+            "name": "onChange",
+            "required": true,
+            "type": "QuantityInputChangeHandler",
+            "values": null,
+            "description": "Callback executado quando o valor muda, com o novo valor; não dispara com o campo vazio durante a digitação."
+          },
+          {
+            "name": "value",
+            "required": true,
+            "type": "number",
+            "values": null,
+            "description": "Valor controlado."
+          }
+        ],
+        "UncontrolledQuantityInput": [
+          {
+            "name": "defaultValue",
+            "required": false,
+            "type": "number",
+            "values": null,
+            "default": "min ?? 0",
+            "description": "Valor inicial (`uncontrolled`)."
+          },
+          {
+            "name": "onChange",
+            "required": false,
+            "type": "QuantityInputChangeHandler",
+            "values": null,
+            "description": "Callback executado quando o valor muda, com o novo valor; não dispara com o campo vazio durante a digitação."
+          },
+          {
+            "name": "value",
+            "required": false,
+            "type": "never",
+            "values": null
+          }
+        ]
+      },
+      "refs": {
+        "QuantityInputChangeHandler": [
+          "ControlledQuantityInput",
+          "Callback",
+          "QuantityInputChangeHandler",
+          "Valor",
+          "UncontrolledQuantityInput",
+          "QuantityInputProps",
+          "QuantityInput",
+          "InputHTMLAttributes",
+          "QuantityInputElement"
+        ],
+        "QuantityInputProps": [
+          "QuantityInput",
+          "ControlledQuantityInput",
+          "UncontrolledQuantityInput",
+          "InputHTMLAttributes",
+          "QuantityInputElement"
         ]
       }
     },

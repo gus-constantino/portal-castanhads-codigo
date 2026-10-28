@@ -1,6 +1,6 @@
 # Saúde da stack — Figma × castanha-react × playground × castanha-ai
 
-Gerado por `node scripts/integration/build-manifest.js` em 2026-10-21 (R2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). React: `origin/staging` (`039c0d37`) e Code Connect `origin/feat/figma-code-connect`. Playground: mapas de `integration/prop-map/`. castanha-ai (4º vértice, repo interno, só leitura): `origin/feat/castanha-plugin` (`a49bd59`), 76 sets no bridge. A coluna Gap usa as categorias do Gap Report do castanha-ai.
+Gerado por `node scripts/integration/build-manifest.js` em 2026-10-28 (R2). Figma: `integration/figma-props.tsv` (lido via MCP, só leitura). React: `origin/staging` (`e2be5481`) e Code Connect `origin/feat/figma-code-connect`. Playground: mapas de `integration/prop-map/`. castanha-ai (4º vértice, repo interno, só leitura): `origin/feat/castanha-plugin` (`a49bd59`), 76 sets no bridge. A coluna Gap usa as categorias do Gap Report do castanha-ai.
 
 ## Resumo
 
@@ -8,9 +8,9 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-21 (R2). Figm
 |---|---|---:|
 | Alta | quebra a tradução: o Code Connect lê prop ou gera valor que não existe | 2 |
 | Média | muda o resultado sem quebrar: padrão diferente, opção sem tradução, mapa curado errado | 7 |
-| Informativo | prop do Figma que não chega ao React pelo Code Connect | 32 |
+| Informativo | prop do Figma que não chega ao React pelo Code Connect | 36 |
 
-Componentes com algum item: 37 de 72 com par no React.
+Componentes com algum item: 39 de 74 com par no React.
 
 ## Assets
 
@@ -78,6 +78,7 @@ Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`
 | Drawer (`drawer`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Secondary Action Button`. |
 | Dropzone (`dropzone`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Main button`. |
 | Filter Chips (`filter-chips`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Size`. |
+| Fixed Bar (`fixed-bar`) | sem-figma | — | Sem retrato das props do Figma (rode a leitura via MCP). |
 | Icon Button (`icon-button`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Notification`. |
 | Input Chips (`input-chips`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Size`. |
 | Main Button (`main-button`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Is Loading`. |
@@ -85,6 +86,7 @@ Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`
 | Pagination (`pagination`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Itens per page`, `Show Item display`, `Items range`, `Items display`. |
 | Password Input (`password-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Text Content`, `Show Lead Icon`, `Error Message`, `Lead Icon`, `Show Content`. |
 | Progress Tracker Item (`progress-tracker-item`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Connector`, `Show Link`, `Orientation`. |
+| Quantity Input (`quantity-input`) | sem-figma | — | Sem retrato das props do Figma (rode a leitura via MCP). |
 | Radio Select Input (`radio-select-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
 | Search Input (`search-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
 | Selection List Item (`selection-list-item`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Trailing Item`. |
@@ -95,6 +97,8 @@ Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`
 | Text Area Input (`text-area`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Text Content`, `Show Required`, `Error Message`. |
 | Text Input (`text-input`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`, `Error Message`. |
 | Toast (`toast`) | nao-chega-ao-react | MISSING-VARIANT | Não chega ao React pelo Code Connect: `Show Trailing Item`. |
+| Fixed Bar (`fixed-bar`) | so-na-staging | UNRELEASED | `FixedBar` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado). |
+| Quantity Input (`quantity-input`) | so-na-staging | UNRELEASED | `QuantityInput` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado). |
 | Divider (`divider`) | bridge-prop | — | O castanha-ai traduz `Kind=Dashed` para `kind`; o mapa do playground não gera essa prop. |
 
 ## Como rodar
@@ -106,6 +110,19 @@ Alias `--castanha-*` do playground (`styles/tokens.css`) × `castanha-tokens` (`
 O lado Figma × playground continua no check de props (`docs/CHECK-PROPS.md`). Divergências que pedem decisão do time DS vão para o CONFERIR (grupo Integração React).
 
 ## Histórico
+
+### 28/10/2026 · staging `e2be5481`
+
+- castanha-react `origin/staging`: `039c0d37` → `e2be5481` (2026-10-21).
+- Cobertura · comReact: 72 → 74.
+- Cobertura · viaStory: 4 → 6.
+- Cobertura · soFigma: 18 → 16.
+- Cobertura · soReact: 10 → 13.
+- Novo só no React: `Accordion`, `CodeInput`, `CreditCardInput`.
+- 🆕 informativo · fixed-bar · Sem retrato das props do Figma (rode a leitura via MCP).
+- 🆕 informativo · quantity-input · Sem retrato das props do Figma (rode a leitura via MCP).
+- 🆕 informativo · fixed-bar · `FixedBar` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado).
+- 🆕 informativo · quantity-input · `QuantityInput` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado).
 
 ### 20/10/2026 · staging `039c0d37`
 

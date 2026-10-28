@@ -2,6 +2,19 @@
 
 Escrito por `scripts/integration/daily.js` (rotina diária): só entram as leituras em que algo mudou.
 
+### 28/10/2026 · staging `e2be5481`
+
+- castanha-react `origin/staging`: `039c0d37` → `e2be5481` (2026-10-21).
+- Cobertura · comReact: 72 → 74.
+- Cobertura · viaStory: 4 → 6.
+- Cobertura · soFigma: 18 → 16.
+- Cobertura · soReact: 10 → 13.
+- Novo só no React: `Accordion`, `CodeInput`, `CreditCardInput`.
+- 🆕 informativo · fixed-bar · Sem retrato das props do Figma (rode a leitura via MCP).
+- 🆕 informativo · quantity-input · Sem retrato das props do Figma (rode a leitura via MCP).
+- 🆕 informativo · fixed-bar · `FixedBar` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado).
+- 🆕 informativo · quantity-input · `QuantityInput` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado).
+
 ### 20/10/2026 · staging `039c0d37`
 
 - castanha-ai (bridge): `8f8381a` → `a49bd59`.

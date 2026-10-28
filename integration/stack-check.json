@@ -1,8 +1,8 @@
 {
  "source": {
   "ref": "origin/staging",
-  "commit": "039c0d37",
-  "date": "2026-10-15"
+  "commit": "e2be5481",
+  "date": "2026-10-21"
  },
  "codeConnect": {
   "ref": "origin/feat/figma-code-connect",
@@ -15,16 +15,19 @@
  },
  "coverage": {
   "playground": 117,
-  "comReact": 72,
+  "comReact": 74,
   "viaCodeConnect": 68,
-  "viaStory": 4,
+  "viaStory": 6,
   "buildingBlocks": 27,
-  "soFigma": 18,
-  "soReact": 10,
+  "soFigma": 16,
+  "soReact": 13,
   "comNotas": 29
  },
  "reactOnly": [
+  "Accordion",
   "Box",
+  "CodeInput",
+  "CreditCardInput",
   "Field",
   "Grid",
   "Illustration",
@@ -183,6 +186,12 @@
    "gap": "MISSING-VARIANT"
   },
   {
+   "id": "fixed-bar",
+   "level": "info",
+   "kind": "sem-figma",
+   "msg": "Sem retrato das props do Figma (rode a leitura via MCP)."
+  },
+  {
    "id": "icon-button",
    "level": "info",
    "kind": "nao-chega-ao-react",
@@ -230,6 +239,12 @@
    "kind": "nao-chega-ao-react",
    "msg": "Não chega ao React pelo Code Connect: `Show Connector`, `Show Link`, `Orientation`.",
    "gap": "MISSING-VARIANT"
+  },
+  {
+   "id": "quantity-input",
+   "level": "info",
+   "kind": "sem-figma",
+   "msg": "Sem retrato das props do Figma (rode a leitura via MCP)."
   },
   {
    "id": "radio-select-input",
@@ -331,6 +346,20 @@
    "level": "alta",
    "kind": "cc-prop-react-inexistente",
    "msg": "O Code Connect gera `supportingMessage` em `<Topic>`, que não existe nas props do React (o código gerado não compila em TypeScript)."
+  },
+  {
+   "id": "fixed-bar",
+   "level": "info",
+   "kind": "so-na-staging",
+   "msg": "`FixedBar` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado).",
+   "gap": "UNRELEASED"
+  },
+  {
+   "id": "quantity-input",
+   "level": "info",
+   "kind": "so-na-staging",
+   "msg": "`QuantityInput` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado).",
+   "gap": "UNRELEASED"
   },
   {
    "id": "toast",

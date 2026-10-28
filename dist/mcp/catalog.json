@@ -10,14 +10,14 @@
  },
  "reactSource": {
   "ref": "origin/staging",
-  "commit": "039c0d37",
-  "date": "2026-10-15"
+  "commit": "e2be5481",
+  "date": "2026-10-21"
  },
  "flutterSource": {
   "repo": "caju-beneficios/castanha-mobile",
   "ref": "origin/staging",
-  "commit": "a62701c0",
-  "date": "2026-10-15",
+  "commit": "ec39a6e8",
+  "date": "2026-10-21",
   "package": "castanha_flutter",
   "codeConnect": {
    "ref": "origin/feat/figma-code-connect",
@@ -31,15 +31,15 @@
   "resources": 29,
   "compositions": 7,
   "withDocs": 146,
-  "withReact": 72,
-  "withFlutter": 45,
+  "withReact": 74,
+  "withFlutter": 55,
   "liveMaps": 70,
-  "reactOnly": 10,
+  "reactOnly": 13,
   "tokens": 405,
   "icons": 280,
   "illustrations": 260,
   "conferirOpen": 155,
-  "stackFindings": 50
+  "stackFindings": 54
  },
  "components": [
   {
@@ -84,7 +84,62 @@
      "text": "## Motion\n\nAs transições de cada seção do Accordion seguem os Motion Styles do Castanha (modo Normal).\n\nExemplo: Como funciona o reembolso? · Quando recebo o benefício?\n\n> Exemplo interativo: passe o mouse, pressione e abra ou recolha uma seção para ver cada transição.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n**Recolhido → Aberto**\n- Gatilho: On tap\n- Motion Style: `Selected In/01`\n\n**Aberto → Recolhido**\n- Gatilho: On tap\n- Motion Style: `Selected Out/01`"
     }
    ],
-   "react": null
+   "react": null,
+   "flutter": {
+    "class": "CastanhaAccordion",
+    "import": "import 'package:castanha_flutter/castanha_flutter.dart';",
+    "description": "Conjunto de `CastanhaAccordionItem` empilhados, com o kind e o espaçamento padronizados.",
+    "widgetbook": "https://castanha-mobile.caju.com.br/#/?path=%5B3.+COMPONENTS%5D/Accordion/Docs",
+    "tags": [
+     "newTag"
+    ],
+    "params": [
+     {
+      "name": "children",
+      "type": "List<CastanhaAccordionItem>",
+      "required": true,
+      "description": "Itens do accordion, cada um com o próprio conteúdo e abertura."
+     },
+     {
+      "name": "kind",
+      "type": "CastanhaAccordionItemKind",
+      "default": "CastanhaAccordionItemKind.default_",
+      "description": "Estrutura aplicada a todos os itens — o card afasta os itens em 8dp.",
+      "values": [
+       "card",
+       "default_"
+      ]
+     },
+     {
+      "name": "semanticsLabel",
+      "type": "String?",
+      "description": "Rótulo do grupo, lido antes dos itens.",
+      "accessibility": true
+     },
+     {
+      "name": "semanticsHint",
+      "type": "String?",
+      "description": "Dica lida após o rótulo do grupo.",
+      "accessibility": true
+     },
+     {
+      "name": "excludeSemantics",
+      "type": "bool",
+      "description": "Remove o grupo e os itens da árvore de semântica.",
+      "accessibility": true
+     }
+    ],
+    "constructors": [],
+    "liveMap": false,
+    "figmaToFlutter": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "sem-mapa",
+      "text": "Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros."
+     }
+    ]
+   }
   },
   {
    "id": "accordion-item",
@@ -128,7 +183,128 @@
      "text": "## Motion\n\nAs transições de estado do Accordion Item usam os Motion Styles do Castanha (modo Normal).\n\nExemplo: Como funciona o reembolso?\n\n> Exemplo interativo: passe o mouse, pressione e abra ou recolha o item para ver cada transição.\n\n**Enabled → Hovered**\n- Gatilho: While hovering\n- Motion Style: `Hover In/01`\n\n**Hovered → Enabled**\n- Gatilho: Mouse leave\n- Motion Style: `Hover Out/01`\n\n**Hovered → Pressed**\n- Gatilho: While pressing\n- Motion Style: `Pressed/01`\n\n**Recolhido → Aberto**\n- Gatilho: On tap\n- Motion Style: `Selected In/01`\n\n**Aberto → Recolhido**\n- Gatilho: On tap\n- Motion Style: `Selected Out/01`\n\n**→ Disabled**\n- Gatilho: Ao desabilitar\n- Motion Style: `Disabled/01`\n\n> Ao abrir, a seta gira 180º e o conteúdo desce. Ao recolher, o inverso. Fonte: documentação de motion para devs (Notion, páginas verdes). Os mesmos Motion Styles estão gravados nas transições do Figma."
     }
    ],
-   "react": null
+   "react": null,
+   "flutter": {
+    "class": "CastanhaAccordionItem",
+    "import": "import 'package:castanha_flutter/castanha_flutter.dart';",
+    "description": "Seção de um accordion — um cabeçalho com rótulo que revela o `child` ao toque.",
+    "widgetbook": "https://castanha-mobile.caju.com.br/#/?path=%5B3.+COMPONENTS%5D/Accordion+Item/Docs",
+    "tags": [
+     "newTag"
+    ],
+    "params": [
+     {
+      "name": "child",
+      "type": "Widget",
+      "required": true,
+      "description": "Conteúdo revelado quando o item está aberto."
+     },
+     {
+      "name": "label",
+      "type": "String",
+      "required": true,
+      "description": "Título do item, exibido no cabeçalho."
+     },
+     {
+      "name": "collapsedSemanticsHint",
+      "type": "String",
+      "default": "'recolhido'",
+      "description": "Estado lido pelo leitor de tela com o item recolhido, antes do `semanticsHint`."
+     },
+     {
+      "name": "description",
+      "type": "String?",
+      "description": "Texto de apoio exibido abaixo do `label`."
+     },
+     {
+      "name": "disabled",
+      "type": "bool",
+      "default": "false",
+      "description": "Se `true`, o item fica desabilitado, fora da tabulação, e não abre nem recolhe."
+     },
+     {
+      "name": "expandedSemanticsHint",
+      "type": "String",
+      "default": "'expandido'",
+      "description": "Estado lido pelo leitor de tela com o item aberto, antes do `semanticsHint`."
+     },
+     {
+      "name": "hideDivider",
+      "type": "bool",
+      "default": "false",
+      "description": "Oculta o divisor abaixo do item."
+     },
+     {
+      "name": "highlight",
+      "type": "CastanhaAccordionItemHighlight",
+      "default": "CastanhaAccordionItemHighlight.label",
+      "description": "Qual dos dois textos do cabeçalho recebe o destaque tipográfico.",
+      "values": [
+       "description",
+       "label"
+      ]
+     },
+     {
+      "name": "initiallyOpen",
+      "type": "bool",
+      "default": "false",
+      "description": "Se o item nasce aberto, quando `open` é `null`."
+     },
+     {
+      "name": "kind",
+      "type": "CastanhaAccordionItemKind",
+      "default": "CastanhaAccordionItemKind.default_",
+      "description": "Estrutura do item.",
+      "values": [
+       "card",
+       "default_"
+      ]
+     },
+     {
+      "name": "leadIcon",
+      "type": "CastanhaIcon?",
+      "description": "Ícone exibido antes do `label` — no desenho, `CastanhaIcon` neutral em `CastanhaIconSize.medium`."
+     },
+     {
+      "name": "onOpenChanged",
+      "type": "CastanhaAccordionItemOnOpenChanged?",
+      "description": "Chamado no toque, no Enter e no Espaço com a abertura pedida."
+     },
+     {
+      "name": "open",
+      "type": "bool?",
+      "description": "Se o item está aberto, ou `null` para o item guardar o próprio estado a partir de `initiallyOpen`."
+     },
+     {
+      "name": "semanticsLabel",
+      "type": "String?",
+      "description": "Substitui o anúncio de título e descrição do cabeçalho.",
+      "accessibility": true
+     },
+     {
+      "name": "semanticsHint",
+      "type": "String?",
+      "description": "Dica lida após o rótulo do cabeçalho.",
+      "accessibility": true
+     },
+     {
+      "name": "excludeSemantics",
+      "type": "bool",
+      "description": "Remove o item inteiro da árvore de semântica.",
+      "accessibility": true
+     }
+    ],
+    "constructors": [],
+    "liveMap": false,
+    "figmaToFlutter": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "sem-mapa",
+      "text": "Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros."
+     }
+    ]
+   }
   },
   {
    "id": "alert",
@@ -3469,6 +3645,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4934-771",
    "figmaNode": "4934-771",
    "zeroheight": null,
+   "figmaStatus": "unpublished",
    "description": "Simula visualmente qualquer cartão e pode simbolizar uma bandeira específica.",
    "tabs": [
     {
@@ -7599,6 +7776,127 @@
     ],
     "checks": [],
     "notes": []
+   },
+   "flutter": {
+    "class": "CastanhaDropButton",
+    "import": "import 'package:castanha_flutter/castanha_flutter.dart';",
+    "description": "Botão que abre, logo abaixo dele, uma caixa com um conjunto curto de ações ou de opções.",
+    "widgetbook": "https://castanha-mobile.caju.com.br/#/?path=%5B3.+COMPONENTS%5D/Drop+Button/Docs",
+    "tags": [
+     "newTag"
+    ],
+    "params": [
+     {
+      "name": "child",
+      "type": "Widget",
+      "required": true,
+      "description": "Conteúdo da caixa que abre abaixo do botão."
+     },
+     {
+      "name": "label",
+      "type": "String",
+      "required": true,
+      "description": "Texto exibido no botão."
+     },
+     {
+      "name": "appearance",
+      "type": "CastanhaDropButtonAppearance",
+      "default": "CastanhaDropButtonAppearance.accent",
+      "description": "Paleta do botão.",
+      "values": [
+       "accent",
+       "inverted",
+       "neutral"
+      ]
+     },
+     {
+      "name": "collapsedSemanticsHint",
+      "type": "String",
+      "default": "'recolhido'",
+      "description": "Estado lido pelo leitor de tela com a caixa fechada, antes do `semanticsHint`."
+     },
+     {
+      "name": "disabled",
+      "type": "bool",
+      "default": "false",
+      "description": "Se `true`, o botão fica esmaecido, fora da tabulação, e não abre a caixa."
+     },
+     {
+      "name": "expandedSemanticsHint",
+      "type": "String",
+      "default": "'expandido'",
+      "description": "Estado lido pelo leitor de tela com a caixa aberta, antes do `semanticsHint`."
+     },
+     {
+      "name": "initiallyOpen",
+      "type": "bool",
+      "default": "false",
+      "description": "Se a caixa nasce aberta, quando `open` é `null`."
+     },
+     {
+      "name": "kind",
+      "type": "CastanhaDropButtonKind",
+      "default": "CastanhaDropButtonKind.default_",
+      "description": "Estrutura do botão.",
+      "values": [
+       "default_",
+       "ghost"
+      ]
+     },
+     {
+      "name": "leadIcon",
+      "type": "IconData?",
+      "description": "Ícone exibido antes do `label`."
+     },
+     {
+      "name": "onOpenChanged",
+      "type": "CastanhaDropButtonOnOpenChanged?",
+      "description": "Chamado quando a pessoa pede para abrir ou fechar a caixa — toque, Enter e Espaço no botão, ou Esc, toque fora e voltar com a caixa aberta."
+     },
+     {
+      "name": "open",
+      "type": "bool?",
+      "description": "Se a caixa está aberta, ou `null` para o botão guardar o próprio estado a partir de `initiallyOpen`."
+     },
+     {
+      "name": "size",
+      "type": "CastanhaDropButtonSize",
+      "default": "CastanhaDropButtonSize.medium",
+      "description": "Altura do botão.",
+      "values": [
+       "medium",
+       "small"
+      ]
+     },
+     {
+      "name": "semanticsLabel",
+      "type": "String?",
+      "description": "Substitui o texto do botão no anúncio.",
+      "accessibility": true
+     },
+     {
+      "name": "semanticsHint",
+      "type": "String?",
+      "description": "Dica lida depois do estado aberto ou recolhido.",
+      "accessibility": true
+     },
+     {
+      "name": "excludeSemantics",
+      "type": "bool",
+      "description": "Remove o rótulo e a dica do botão da árvore de semântica.",
+      "accessibility": true
+     }
+    ],
+    "constructors": [],
+    "liveMap": false,
+    "figmaToFlutter": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "sem-mapa",
+      "text": "Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros."
+     }
+    ]
    }
   },
   {
@@ -8175,6 +8473,78 @@
     "notes": [
      "node-id da story (5256-540) não bate com o Code Connect (5099-5389) — é o node de Card"
     ]
+   },
+   "flutter": {
+    "class": "CastanhaFilterButton",
+    "import": "import 'package:castanha_flutter/castanha_flutter.dart';",
+    "description": "Botão que abre o painel de filtros de uma lista, com a contagem de filtros aplicados quando há algum.",
+    "widgetbook": "https://castanha-mobile.caju.com.br/#/?path=%5B3.+COMPONENTS%5D/Filter+Button/Docs",
+    "tags": [
+     "newTag"
+    ],
+    "params": [
+     {
+      "name": "onPressed",
+      "type": "VoidCallback?",
+      "required": true,
+      "description": "Callback executado ao tocar o botão — geralmente abre o painel de filtros."
+     },
+     {
+      "name": "count",
+      "type": "int?",
+      "description": "Quantidade de filtros aplicados."
+     },
+     {
+      "name": "disabled",
+      "type": "bool",
+      "default": "false",
+      "description": "Se `true`, o botão fica desabilitado e não responde a toques."
+     },
+     {
+      "name": "kind",
+      "type": "CastanhaFilterButtonKind",
+      "default": "CastanhaFilterButtonKind.default_",
+      "description": "Variante semântica — define o ícone que representa o filtro.",
+      "values": [
+       "default_",
+       "date"
+      ]
+     },
+     {
+      "name": "label",
+      "type": "String",
+      "default": "'Filtros'",
+      "description": "Texto do botão."
+     },
+     {
+      "name": "semanticsLabel",
+      "type": "String?",
+      "description": "Substitui o label como nome anunciado pelo leitor.",
+      "accessibility": true
+     },
+     {
+      "name": "semanticsHint",
+      "type": "String?",
+      "description": "Dica lida após o rótulo — descreve o resultado da ação.",
+      "accessibility": true
+     },
+     {
+      "name": "excludeSemantics",
+      "type": "bool",
+      "description": "Remove rótulo, contagem e dica do anúncio; use quando a ação já é anunciada por quem o contém.",
+      "accessibility": true
+     }
+    ],
+    "constructors": [],
+    "liveMap": false,
+    "figmaToFlutter": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "sem-mapa",
+      "text": "Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros."
+     }
+    ]
    }
   },
   {
@@ -8529,7 +8899,71 @@
      "text": "## Motion\n\n> **Especificação pendente:** A seção de Motion da Fixed bar no zeroheight ainda é placeholder. Os botões seguem o motion do Main Button (`Hover In/01`, `Pressed/01`)."
     }
    ],
-   "react": null
+   "react": {
+    "component": "FixedBar",
+    "import": "import { FixedBar } from '@caju-beneficios/castanha-react';",
+    "description": "Barra de ações na base da tela. A tela ancora a barra e reserva o espaço inferior para o conteúdo não ficar coberto.",
+    "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-fixedbar--docs",
+    "zeroheight": null,
+    "tags": [
+     "new"
+    ],
+    "onlyStaging": true,
+    "props": {
+     "FixedBar": [
+      {
+       "name": "aria-label",
+       "type": "string",
+       "required": true,
+       "description": "Nome da região, identificando a tarefa que as ações concluem."
+      },
+      {
+       "name": "hideDivider",
+       "type": "boolean",
+       "default": "false",
+       "description": "Oculta o divisor no topo da barra."
+      },
+      {
+       "name": "hideSecondaryAction",
+       "type": "boolean",
+       "default": "false",
+       "description": "Oculta a ação secundária. A primária permanece sozinha."
+      },
+      {
+       "name": "kind",
+       "type": "FixedBarKind",
+       "default": "horizontal",
+       "description": "Direção das ações. `horizontal` alinha à direita; `pilled` empilha em largura total."
+      },
+      {
+       "name": "primaryAction",
+       "type": "ReactNode",
+       "required": true,
+       "description": "Ação principal. Em `horizontal` fica à direita; em `pilled`, abaixo."
+      },
+      {
+       "name": "secondaryAction",
+       "type": "ReactNode",
+       "description": "Ação secundária. Em `horizontal` fica à esquerda; em `pilled`, acima. Omitida quando ausente."
+      }
+     ]
+    },
+    "liveMap": false,
+    "figmaToReact": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "sem-figma",
+      "text": "Sem retrato das props do Figma (rode a leitura via MCP)."
+     },
+     {
+      "level": "info",
+      "kind": "so-na-staging",
+      "text": "`FixedBar` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado)."
+     }
+    ],
+    "notes": []
+   }
   },
   {
    "id": "fixed-tab",
@@ -10655,6 +11089,12 @@
        "description": "Define o estilo do botão (sólido ou fantasma)."
       },
       {
+       "name": "loading",
+       "type": "boolean",
+       "default": "false",
+       "description": "Substitui o rótulo por um spinner e deixa o botão indisponível, sem perder o foco. Passe um `aria-label` com a ação, ex.: \"Salvando alterações\"."
+      },
+      {
        "name": "leadIcon",
        "type": "IconName | string",
        "description": "Ícone exibido antes do texto do botão."
@@ -10808,6 +11248,18 @@
       "description": "Ícone opcional exibido antes do label."
      },
      {
+      "name": "loading",
+      "type": "bool",
+      "default": "false",
+      "description": "Se `true`, troca o conteúdo pelo spinner na mesma largura e ignora toque, tecla e hover, sem tirar o foco de quem acionou o botão."
+     },
+     {
+      "name": "loadingLabel",
+      "type": "String",
+      "default": "'Carregando'",
+      "description": "Nome anunciado por leitores de tela enquanto `loading` é `true`."
+     },
+     {
       "name": "showTrailingIcon",
       "type": "bool",
       "default": "false",
@@ -10838,7 +11290,7 @@
      {
       "name": "excludeSemantics",
       "type": "bool",
-      "description": "Remove o botão da árvore de semântica; use quando a ação já é anunciada por quem o contém.",
+      "description": "Tira o nome e a dica do leitor de tela, e o botão continua acionável; use quando quem o contém já o nomeia.",
       "accessibility": true
      }
     ],
@@ -10909,7 +11361,7 @@
      {
       "level": "info",
       "kind": "so-no-flutter",
-      "text": "Parâmetros do Flutter sem prop no Figma: `expanded`."
+      "text": "Parâmetros do Flutter sem prop no Figma: `expanded`, `loading`, `loadingLabel`."
      }
     ]
    }
@@ -13281,6 +13733,61 @@
     "notes": [
      "o Code Connect aponta para 14524-1024 (Progress Tracker virou set com Orientation; o node antigo é a variante Vertical)"
     ]
+   },
+   "flutter": {
+    "class": "CastanhaProgressTracker",
+    "import": "import 'package:castanha_flutter/castanha_flutter.dart';",
+    "description": "Avanço de uma pessoa num fluxo de etapas nomeadas: o que já foi concluído, onde ela está e o que ainda falta.",
+    "widgetbook": "https://castanha-mobile.caju.com.br/#/?path=%5B3.+COMPONENTS%5D/Progress+Tracker/Docs",
+    "tags": [
+     "newTag"
+    ],
+    "params": [
+     {
+      "name": "items",
+      "type": "List<CastanhaProgressTrackerItem>",
+      "required": true,
+      "description": "Etapas do fluxo, de 2 a 6, na ordem em que acontecem."
+     },
+     {
+      "name": "orientation",
+      "type": "CastanhaProgressTrackerOrientation",
+      "default": "CastanhaProgressTrackerOrientation.vertical",
+      "description": "Disposição das etapas, aplicada a todos os `items`.",
+      "values": [
+       "vertical",
+       "horizontal"
+      ]
+     },
+     {
+      "name": "semanticsLabel",
+      "type": "String?",
+      "description": "Rótulo da lista de etapas, lido antes delas.",
+      "accessibility": true
+     },
+     {
+      "name": "semanticsHint",
+      "type": "String?",
+      "description": "Dica lida após o rótulo da lista.",
+      "accessibility": true
+     },
+     {
+      "name": "excludeSemantics",
+      "type": "bool",
+      "description": "Tira as etapas da árvore de semântica; o rótulo e a dica da lista continuam anunciados.",
+      "accessibility": true
+     }
+    ],
+    "constructors": [],
+    "liveMap": false,
+    "figmaToFlutter": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "sem-mapa",
+      "text": "Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros."
+     }
+    ]
    }
   },
   {
@@ -13541,6 +14048,74 @@
      }
     ],
     "notes": []
+   },
+   "flutter": {
+    "class": "CastanhaProgressTrackerItem",
+    "import": "import 'package:castanha_flutter/castanha_flutter.dart';",
+    "description": "Etapa de um `CastanhaProgressTracker`, com marcador, rótulo e, quando houver, descrição e link.",
+    "widgetbook": "https://castanha-mobile.caju.com.br/#/?path=%5B3.+COMPONENTS%5D/Progress+Tracker/Docs",
+    "tags": [
+     "newTag"
+    ],
+    "params": [
+     {
+      "name": "label",
+      "type": "String",
+      "required": true,
+      "description": "Nome da etapa."
+     },
+     {
+      "name": "description",
+      "type": "String?",
+      "description": "Texto de apoio abaixo do `label`."
+     },
+     {
+      "name": "icon",
+      "type": "IconData?",
+      "description": "Ícone do marcador no lugar do número. Em `CastanhaProgressTrackerItemStatus.completed` o marcador exibe o check."
+     },
+     {
+      "name": "link",
+      "type": "CastanhaLink?",
+      "description": "Link abaixo da descrição — o único elemento focável da etapa."
+     },
+     {
+      "name": "status",
+      "type": "CastanhaProgressTrackerItemStatus",
+      "default": "CastanhaProgressTrackerItemStatus.pending",
+      "description": "Situação da etapa no fluxo.",
+      "values": [
+       "pending",
+       "current",
+       "completed"
+      ]
+     },
+     {
+      "name": "semanticsLabel",
+      "type": "String?",
+      "accessibility": true
+     },
+     {
+      "name": "semanticsHint",
+      "type": "String?",
+      "accessibility": true
+     },
+     {
+      "name": "excludeSemantics",
+      "type": "bool",
+      "accessibility": true
+     }
+    ],
+    "constructors": [],
+    "liveMap": false,
+    "figmaToFlutter": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "sem-mapa",
+      "text": "Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros."
+     }
+    ]
    }
   },
   {
@@ -13585,7 +14160,140 @@
      "text": "## Motion\n\n> **Especificação pendente:** O frame de Motion do Quantity Input no Figma ainda está com texto de exemplo (lorem ipsum e \"Especificação\"). A tabela de Motion tokens por estado entra quando o time publicar a especificação."
     }
    ],
-   "react": null
+   "react": {
+    "component": "QuantityInput",
+    "import": "import { QuantityInput } from '@caju-beneficios/castanha-react';",
+    "description": "Campo numérico inteiro com botões de incremento e decremento. Ajusta o valor em passos fixos pelos botões, pelas setas do teclado ou por digitação direta.",
+    "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-quantityinput--docs",
+    "zeroheight": null,
+    "tags": [
+     "new"
+    ],
+    "onlyStaging": true,
+    "props": {
+     "QuantityInput": [
+      {
+       "name": "containerRef",
+       "type": "Ref<HTMLDivElement>",
+       "description": "Ref para o container externo do campo."
+      },
+      {
+       "name": "decrementLabel",
+       "type": "string",
+       "default": "Diminuir quantidade",
+       "description": "Nome acessível do botão de decremento."
+      },
+      {
+       "name": "disabled",
+       "type": "boolean",
+       "description": "Desabilita o campo e os dois botões."
+      },
+      {
+       "name": "error",
+       "type": "boolean",
+       "description": "Define se o campo está em estado de erro."
+      },
+      {
+       "name": "id",
+       "type": "string",
+       "description": "ID do elemento input."
+      },
+      {
+       "name": "incrementLabel",
+       "type": "string",
+       "default": "Aumentar quantidade",
+       "description": "Nome acessível do botão de incremento."
+      },
+      {
+       "name": "kind",
+       "type": "'default' | 'ghost'",
+       "default": "default",
+       "description": "Define o estilo dos botões de incremento e decremento."
+      },
+      {
+       "name": "label",
+       "type": "string",
+       "description": "Texto do label exibido acima do campo."
+      },
+      {
+       "name": "max",
+       "type": "number",
+       "description": "Maior valor aceito. No limite, o incremento fica indisponível."
+      },
+      {
+       "name": "min",
+       "type": "number",
+       "description": "Menor valor aceito. No limite, o decremento fica indisponível."
+      },
+      {
+       "name": "required",
+       "type": "boolean",
+       "description": "Define se o campo é obrigatório."
+      },
+      {
+       "name": "step",
+       "type": "number",
+       "default": "1",
+       "description": "Medida de cada incremento e decremento, nos botões e nas setas do teclado."
+      },
+      {
+       "name": "supportingMessage",
+       "type": "string",
+       "description": "Mensagem de suporte exibida abaixo do campo."
+      }
+     ],
+     "ControlledQuantityInput": [
+      {
+       "name": "defaultValue",
+       "type": "never"
+      },
+      {
+       "name": "onChange",
+       "type": "QuantityInputChangeHandler",
+       "required": true,
+       "description": "Callback executado quando o valor muda, com o novo valor; não dispara com o campo vazio durante a digitação."
+      },
+      {
+       "name": "value",
+       "type": "number",
+       "required": true,
+       "description": "Valor controlado."
+      }
+     ],
+     "UncontrolledQuantityInput": [
+      {
+       "name": "defaultValue",
+       "type": "number",
+       "default": "min ?? 0",
+       "description": "Valor inicial (`uncontrolled`)."
+      },
+      {
+       "name": "onChange",
+       "type": "QuantityInputChangeHandler",
+       "description": "Callback executado quando o valor muda, com o novo valor; não dispara com o campo vazio durante a digitação."
+      },
+      {
+       "name": "value",
+       "type": "never"
+      }
+     ]
+    },
+    "liveMap": false,
+    "figmaToReact": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "sem-figma",
+      "text": "Sem retrato das props do Figma (rode a leitura via MCP)."
+     },
+     {
+      "level": "info",
+      "kind": "so-na-staging",
+      "text": "`QuantityInput` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado)."
+     }
+    ],
+    "notes": []
+   }
   },
   {
    "id": "radio-button",
@@ -14790,6 +15498,127 @@
      }
     ],
     "notes": []
+   },
+   "flutter": {
+    "class": "CastanhaSearchInput",
+    "import": "import 'package:castanha_flutter/castanha_flutter.dart';",
+    "description": "Campo de busca de linha única, com ícone de lupa, label, mensagem de apoio, contador de caracteres, indicador de erro animado e botão de limpar.",
+    "widgetbook": "https://castanha-mobile.caju.com.br/#/?path=%5B3.+COMPONENTS%5D/Search+Input/Docs",
+    "tags": [
+     "available",
+     "newTag"
+    ],
+    "params": [
+     {
+      "name": "characterCount",
+      "type": "int?",
+      "description": "Limite de caracteres — exibe o contador no rodapé e limita a digitação."
+     },
+     {
+      "name": "controller",
+      "type": "TextEditingController?",
+      "description": "Controller do texto, quando o consumidor precisa ler ou alterar o termo de fora."
+     },
+     {
+      "name": "errorMessage",
+      "type": "String?",
+      "description": "Mensagem exibida no rodapé quando `error` é `true`, no lugar de `supportingMessage` — anunciada como live region."
+     },
+     {
+      "name": "focusNode",
+      "type": "FocusNode?",
+      "description": "Focus node externo, para mover o foco de fora."
+     },
+     {
+      "name": "label",
+      "type": "String?",
+      "description": "Texto do label exibido acima do campo. Quando `null`, a caixa começa no topo."
+     },
+     {
+      "name": "onChanged",
+      "type": "CastanhaSearchInputOnChanged?",
+      "description": "Chamado a cada alteração do termo, com o valor completo do campo."
+     },
+     {
+      "name": "onClear",
+      "type": "VoidCallback?",
+      "description": "Chamado depois que o campo é limpo, pelo botão ou pela tecla Esc, já com o foco devolvido ao campo."
+     },
+     {
+      "name": "onSubmitted",
+      "type": "CastanhaSearchInputOnSubmit?",
+      "description": "Chamado quando o usuário confirma a busca pela ação do teclado, com o valor completo do campo."
+     },
+     {
+      "name": "supportingMessage",
+      "type": "String?",
+      "description": "Texto auxiliar exibido no rodapé enquanto `error` é `false`."
+     },
+     {
+      "name": "autocorrect",
+      "type": "bool",
+      "default": "true",
+      "description": "Deixa o teclado corrigir o que é digitado."
+     },
+     {
+      "name": "autofocus",
+      "type": "bool",
+      "default": "false",
+      "description": "Pede o foco assim que o campo é montado."
+     },
+     {
+      "name": "disabled",
+      "type": "bool",
+      "default": "false",
+      "description": "Desabilita o campo — aplica opacidade sobre o conjunto inteiro e bloqueia toque, foco e edição."
+     },
+     {
+      "name": "error",
+      "type": "bool",
+      "default": "false",
+      "description": "Sinaliza erro de validação: tinge a borda, troca `supportingMessage` por `errorMessage` e anima o ícone de atenção ao fim da caixa."
+     },
+     {
+      "name": "placeholder",
+      "type": "String",
+      "default": "'Placeholder'",
+      "description": "Texto exibido enquanto o campo está vazio."
+     },
+     {
+      "name": "required",
+      "type": "bool",
+      "default": "false",
+      "description": "Exibe o marcador de obrigatoriedade ao lado do `label` e anuncia o campo como obrigatório."
+     },
+     {
+      "name": "semanticsLabel",
+      "type": "String?",
+      "description": "Nome acessível do campo, quando o label não basta ou não existe.",
+      "accessibility": true
+     },
+     {
+      "name": "semanticsHint",
+      "type": "String?",
+      "description": "Dica de acessibilidade adicional.",
+      "accessibility": true
+     },
+     {
+      "name": "excludeSemantics",
+      "type": "bool",
+      "description": "Descarta o semanticsLabel e o semanticsHint.",
+      "accessibility": true
+     }
+    ],
+    "constructors": [],
+    "liveMap": false,
+    "figmaToFlutter": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "sem-mapa",
+      "text": "Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros."
+     }
+    ]
    }
   },
   {
@@ -14845,6 +15674,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4132-1511",
    "figmaNode": "4132-1511",
    "zeroheight": null,
+   "figmaStatus": "changed",
    "description": "Coluna de Checkboxes com um nome para o conjunto: zero, uma ou várias opções.",
    "tabs": [
     {
@@ -15042,6 +15872,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4429-11192",
    "figmaNode": "4429-11192",
    "zeroheight": null,
+   "figmaStatus": "current",
    "description": "Coluna de Radio Buttons com um nome para o conjunto: exatamente uma opção.",
    "tabs": [
     {
@@ -15263,6 +16094,7 @@
    "figma": "https://www.figma.com/design/LKZBwmlb7fIbDKdGrMncuA/-CastanhaDS--Components?node-id=4895-1233",
    "figmaNode": "4895-1233",
    "zeroheight": null,
+   "figmaStatus": "changed",
    "description": "Coluna de Switches com um nome para o conjunto: cada um liga ou desliga uma configuração na hora.",
    "tabs": [
     {
@@ -17382,6 +18214,75 @@
      }
     ],
     "notes": []
+   },
+   "flutter": {
+    "class": "CastanhaStatusDot",
+    "import": "import 'package:castanha_flutter/castanha_flutter.dart';",
+    "description": "Indicador compacto de estado, formado por um ponto colorido e o rótulo que nomeia o estado, para sinalizar o estado de um item dentro de linha de conteúdo.",
+    "widgetbook": "https://castanha-mobile.caju.com.br/#/?path=%5B3.+COMPONENTS%5D/Status+Dot/Docs",
+    "tags": [
+     "newTag"
+    ],
+    "params": [
+     {
+      "name": "label",
+      "type": "String",
+      "required": true,
+      "description": "Texto que nomeia o estado — uma ou duas palavras. O ponto só reforça."
+     },
+     {
+      "name": "appearance",
+      "type": "CastanhaStatusDotAppearance",
+      "default": "CastanhaStatusDotAppearance.neutral",
+      "description": "Variante visual — define a cor do ponto. O rótulo não muda de cor.",
+      "values": [
+       "informative",
+       "negative",
+       "neutral",
+       "positive",
+       "warning"
+      ]
+     },
+     {
+      "name": "size",
+      "type": "CastanhaStatusDotSize",
+      "default": "CastanhaStatusDotSize.small",
+      "description": "Escala tipográfica do rótulo. O ponto e a altura não mudam.",
+      "values": [
+       "small",
+       "medium",
+       "large"
+      ]
+     },
+     {
+      "name": "semanticsLabel",
+      "type": "String?",
+      "description": "Substitui o label no anúncio do leitor de tela.",
+      "accessibility": true
+     },
+     {
+      "name": "semanticsHint",
+      "type": "String?",
+      "description": "Dica lida após o rótulo, para contexto que o rótulo não dá.",
+      "accessibility": true
+     },
+     {
+      "name": "excludeSemantics",
+      "type": "bool",
+      "description": "Remove o Status Dot da árvore de semântica; use quando o estado já é anunciado pelo elemento que o contém.",
+      "accessibility": true
+     }
+    ],
+    "constructors": [],
+    "liveMap": false,
+    "figmaToFlutter": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "sem-mapa",
+      "text": "Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros."
+     }
+    ]
    }
   },
   {
@@ -19945,6 +20846,81 @@
      }
     ],
     "notes": []
+   },
+   "flutter": {
+    "class": "CastanhaToast",
+    "import": "import 'package:castanha_flutter/castanha_flutter.dart';",
+    "description": "Mensagem curta de feedback que flutua sobre a tela e some sozinha.",
+    "widgetbook": "https://castanha-mobile.caju.com.br/#/?path=%5B3.+COMPONENTS%5D/Toast/Docs",
+    "tags": [
+     "newTag"
+    ],
+    "params": [
+     {
+      "name": "label",
+      "type": "String",
+      "required": true,
+      "description": "Mensagem do Toast — até duas linhas, com reticências no fim."
+     },
+     {
+      "name": "closeSemanticsLabel",
+      "type": "String",
+      "default": "'Fechar'",
+      "description": "Nome acessível do botão de fechar."
+     },
+     {
+      "name": "duration",
+      "type": "Duration?",
+      "default": "const Duration(seconds: 4)",
+      "description": "Tempo em tela antes de o Toast sair sozinho, contado do fim da entrada."
+     },
+     {
+      "name": "kind",
+      "type": "CastanhaToastKind",
+      "default": "CastanhaToastKind.success",
+      "description": "Variante semântica — decide o ícone animado.",
+      "values": [
+       "success",
+       "warning"
+      ]
+     },
+     {
+      "name": "onDismiss",
+      "type": "VoidCallback?",
+      "description": "Chamado quando a animação de saída termina, seja pelo botão de fechar, pelo fim de `duration` ou por `open` virar `false`."
+     },
+     {
+      "name": "open",
+      "type": "bool",
+      "default": "true",
+      "description": "Se o Toast está em tela. Ao virar `false` ele toca a saída, e ao voltar a `true` toca a entrada de novo."
+     },
+     {
+      "name": "semanticsLabel",
+      "type": "String?",
+      "accessibility": true
+     },
+     {
+      "name": "semanticsHint",
+      "type": "String?",
+      "accessibility": true
+     },
+     {
+      "name": "excludeSemantics",
+      "type": "bool",
+      "accessibility": true
+     }
+    ],
+    "constructors": [],
+    "liveMap": false,
+    "figmaToFlutter": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "sem-mapa",
+      "text": "Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros."
+     }
+    ]
    }
   },
   {
@@ -20069,6 +21045,88 @@
     ],
     "checks": [],
     "notes": []
+   },
+   "flutter": {
+    "class": "CastanhaTooltip",
+    "import": "import 'package:castanha_flutter/castanha_flutter.dart';",
+    "description": "Caixa flutuante que explica um elemento da interface quando a pessoa mantém o dedo sobre ele, passa o mouse ou chega nele pelo teclado.",
+    "widgetbook": "https://castanha-mobile.caju.com.br/#/?path=%5B3.+COMPONENTS%5D/Tooltip/Docs",
+    "tags": [
+     "newTag"
+    ],
+    "params": [
+     {
+      "name": "child",
+      "type": "Widget",
+      "required": true,
+      "description": "Gatilho do Tooltip, que ocupa o lugar dele na árvore."
+     },
+     {
+      "name": "content",
+      "type": "List<CastanhaTooltipSpan>",
+      "required": true,
+      "description": "Trechos do conteúdo, lidos em sequência abaixo de `label`."
+     },
+     {
+      "name": "label",
+      "type": "String?",
+      "description": "Título em negrito acima de `content`. Nulo esconde a linha."
+     },
+     {
+      "name": "placement",
+      "type": "CastanhaPopoverPlacement",
+      "default": "CastanhaPopoverPlacement.top",
+      "description": "Lado preferido em relação ao `child`.",
+      "values": [
+       "bottom",
+       "bottomEnd",
+       "bottomStart",
+       "left",
+       "right",
+       "top",
+       "topEnd",
+       "topStart"
+      ]
+     },
+     {
+      "name": "trigger",
+      "type": "CastanhaTooltipTrigger",
+      "default": "CastanhaTooltipTrigger.longPress",
+      "description": "Gesto de toque que abre o Tooltip. Com mouse e teclado, ele abre no hover e no foco em qualquer valor.",
+      "values": [
+       "longPress",
+       "tap"
+      ]
+     },
+     {
+      "name": "semanticsLabel",
+      "type": "String?",
+      "description": "Substitui o texto anunciado como dica do gatilho, que por padrão é o título seguido do conteúdo.",
+      "accessibility": true
+     },
+     {
+      "name": "semanticsHint",
+      "type": "String?",
+      "description": "Dica lida depois do gatilho, para contexto que o Tooltip não dá.",
+      "accessibility": true
+     },
+     {
+      "name": "excludeSemantics",
+      "type": "bool",
+      "description": "Tira o texto do Tooltip da árvore de semântica. O gatilho continua anunciado.",
+      "accessibility": true
+     }
+    ],
+    "constructors": [],
+    "liveMap": false,
+    "figmaToFlutter": [],
+    "checks": [
+     {
+      "level": "info",
+      "kind": "sem-mapa",
+      "text": "Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros."
+     }
+    ]
    }
   },
   {
@@ -21913,12 +22971,39 @@
  ],
  "reactOnly": [
   {
+   "name": "Accordion",
+   "import": "import { Accordion } from '@caju-beneficios/castanha-react';",
+   "description": "Agrupa seções que o usuário expande e recolhe para revelar conteúdo complementar sob demanda, mantendo a página enxuta.",
+   "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-accordion--docs",
+   "tags": [
+    "new"
+   ]
+  },
+  {
    "name": "Box",
    "import": "import { Box } from '@caju-beneficios/castanha-react';",
    "description": "Componente primitivo para construir layouts. Fornece controle total sobre espaçamento, dimensões e posicionamento.",
    "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-box--docs",
    "tags": [
     "no-figma"
+   ]
+  },
+  {
+   "name": "CodeInput",
+   "import": "import { CodeInput } from '@caju-beneficios/castanha-react';",
+   "description": "Campo de código de verificação em células de um caractere. Avança o foco ao digitar, distribui o código colado e aceita o autofill do SMS.",
+   "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-codeinput--docs",
+   "tags": [
+    "new"
+   ]
+  },
+  {
+   "name": "CreditCardInput",
+   "import": "import { CreditCardInput } from '@caju-beneficios/castanha-react';",
+   "description": "Campo para o número do cartão de crédito. Aceita só 16 dígitos, em grupos de quatro.",
+   "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-creditcardinput--docs",
+   "tags": [
+    "new"
    ]
   },
   {
@@ -33708,7 +34793,7 @@
     "id": "C93",
     "group": "Refactor",
     "resolved": false,
-    "text": "Publicação da lib [CastanhaDS] Components (leitura de 21/10, `scripts/figma-status.js`) · **33** componentes estão publicados sem pendência na main. **42** estão publicados com alterações não publicadas (`CHANGED`): Async Creatable Select Input, Async Select Input, Banner, Bottom Sheet, Carousel, Checkbox, Checkbox Select Input, Chips Group, Content List, Content List Item (o arrastar para reordenar do CDS-1592 entrou na main), Date Input, Date Picker, Drawer, Dropzone, Filter Chips, Fixed Bar, Fixed Tab, Icon Button, Input Chips, Link, Main Button (o Loading do CDS-1603 entrou na main), Modal, Modal Date Picker, Multi Select Input, Nav Control, Pagination, Password Input, Progress Tracker, Progress Tracker Item, Quantity Input, Radio Select Input, Scrollable Tab, Search Input, Selection List, Selection List Item, Switch, Tab View, Table, Text Input, Upload Item, Upload List e os grupos Checkbox Group e Switch Group. **4** estão na main sem publicar: Accordion, Accordion Item, Code Input OTP e Credit Card Input (as branches entraram na main). Chat Input, FAB, FAB Menu, Big Number e Variation Big Number só existem em branch. Os 26 building blocks não são publicados, de propósito · Publicar a lib (ou revisar o que está pendente) e fazer o merge das branches · Tag de status em cada componente do playground · Nova leitura depois de publicar"
+    "text": "Publicação da lib [CastanhaDS] Components (leitura de 28/10, `scripts/figma-status.js`) · **33** componentes estão publicados sem pendência na main. **42** estão publicados com alterações não publicadas (`CHANGED`): Async Creatable Select Input, Async Select Input, Banner, Bottom Sheet, Carousel, Checkbox, Checkbox Select Input, Chips Group, Content List, Content List Item (o arrastar para reordenar do CDS-1592 entrou na main), Date Input, Date Picker, Drawer, Dropzone, Filter Chips, Fixed Bar, Fixed Tab, Icon Button, Input Chips, Link, Main Button (o Loading do CDS-1603 entrou na main), Modal, Modal Date Picker, Multi Select Input, Nav Control, Pagination, Password Input, Progress Tracker, Progress Tracker Item, Quantity Input, Radio Select Input, Scrollable Tab, Search Input, Selection List, Selection List Item, Switch, Tab View, Table, Text Input, Upload Item, Upload List e os grupos Checkbox Group e Switch Group. **4** estão na main sem publicar: Accordion, Accordion Item, Code Input OTP e Credit Card Input (as branches entraram na main). Chat Input, FAB, FAB Menu, Big Number e Variation Big Number só existem em branch. Os 26 building blocks não são publicados, de propósito · Publicar a lib (ou revisar o que está pendente) e fazer o merge das branches · Tag de status em cada componente do playground · Nova leitura depois de publicar"
    },
    {
     "id": "C94",
@@ -34622,6 +35707,12 @@
     "gap": "MISSING-VARIANT"
    },
    {
+    "id": "fixed-bar",
+    "level": "info",
+    "kind": "sem-figma",
+    "msg": "Sem retrato das props do Figma (rode a leitura via MCP)."
+   },
+   {
     "id": "icon-button",
     "level": "info",
     "kind": "nao-chega-ao-react",
@@ -34669,6 +35760,12 @@
     "kind": "nao-chega-ao-react",
     "msg": "Não chega ao React pelo Code Connect: `Show Connector`, `Show Link`, `Orientation`.",
     "gap": "MISSING-VARIANT"
+   },
+   {
+    "id": "quantity-input",
+    "level": "info",
+    "kind": "sem-figma",
+    "msg": "Sem retrato das props do Figma (rode a leitura via MCP)."
    },
    {
     "id": "radio-select-input",
@@ -34770,6 +35867,20 @@
     "level": "alta",
     "kind": "cc-prop-react-inexistente",
     "msg": "O Code Connect gera `supportingMessage` em `<Topic>`, que não existe nas props do React (o código gerado não compila em TypeScript)."
+   },
+   {
+    "id": "fixed-bar",
+    "level": "info",
+    "kind": "so-na-staging",
+    "msg": "`FixedBar` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado).",
+    "gap": "UNRELEASED"
+   },
+   {
+    "id": "quantity-input",
+    "level": "info",
+    "kind": "so-na-staging",
+    "msg": "`QuantityInput` só existe na staging do castanha-react (ainda não na main nem no Storybook publicado).",
+    "gap": "UNRELEASED"
    },
    {
     "id": "toast",
@@ -37801,6 +38912,11 @@
      ]
     }
    },
+   "fixed-bar": {
+    "component": "FixedBar",
+    "import": "import { FixedBar } from '@caju-beneficios/castanha-react';",
+    "map": null
+   },
    "fixed-tab": {
     "component": "Tabs",
     "import": "import { Tabs } from '@caju-beneficios/castanha-react';",
@@ -39646,6 +40762,11 @@
       ]
      ]
     }
+   },
+   "quantity-input": {
+    "component": "QuantityInput",
+    "import": "import { QuantityInput } from '@caju-beneficios/castanha-react';",
+    "map": null
    },
    "radio-button": {
     "component": "Radio",
@@ -42040,6 +43161,159 @@
    }
   },
   "dirs": {
+   "Accordion": {
+    "import": "import { Accordion } from '@caju-beneficios/castanha-react';",
+    "desc": "Agrupa seções que o usuário expande e recolhe para revelar conteúdo complementar sob demanda, mantendo a página enxuta.",
+    "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-accordion--docs",
+    "zeroheight": null,
+    "tags": [
+     "new"
+    ],
+    "staging": true,
+    "props": {
+     "Accordion": [
+      {
+       "n": "children",
+       "t": "ReactNode",
+       "r": 1,
+       "s": "Itens do accordion (`Accordion.Item`)."
+      },
+      {
+       "n": "disabled",
+       "t": "boolean",
+       "s": "Desabilita todos os itens."
+      },
+      {
+       "n": "kind",
+       "t": "AccordionKind",
+       "d": "default",
+       "s": "Forma aplicada a todos os itens."
+      }
+     ],
+     "ControlledAccordionItem": [
+      {
+       "n": "defaultIsCollapsed",
+       "t": "never"
+      },
+      {
+       "n": "isCollapsed",
+       "t": "boolean",
+       "r": 1,
+       "s": "Define se o conteúdo está recolhido (`controlled`)."
+      },
+      {
+       "n": "onCollapsedChange",
+       "t": "AccordionCollapsedChangeHandler",
+       "r": 1,
+       "s": "Chamado quando o header alterna o item, com o novo estado de recolhido."
+      }
+     ],
+     "UncontrolledAccordionItem": [
+      {
+       "n": "defaultIsCollapsed",
+       "t": "boolean",
+       "d": "true",
+       "s": "Define se o conteúdo começa recolhido (`uncontrolled`)."
+      },
+      {
+       "n": "isCollapsed",
+       "t": "never"
+      },
+      {
+       "n": "onCollapsedChange",
+       "t": "AccordionCollapsedChangeHandler",
+       "s": "Chamado quando o header alterna o item, com o novo estado de recolhido."
+      }
+     ],
+     "AccordionItem": [
+      {
+       "n": "children",
+       "t": "ReactNode",
+       "s": "Conteúdo revelado quando o item está expandido."
+      },
+      {
+       "n": "description",
+       "t": "string",
+       "s": "Texto de apoio exibido abaixo do `label`."
+      },
+      {
+       "n": "disabled",
+       "t": "boolean",
+       "s": "Desabilita o item, tirando o header da interação e da tabulação."
+      },
+      {
+       "n": "hideDivider",
+       "t": "boolean",
+       "s": "Oculta o divisor inferior. Ignorado quando o `kind` do `Accordion` é `card`."
+      },
+      {
+       "n": "highlightedText",
+       "t": "'label' | 'description'",
+       "d": "label",
+       "s": "Define qual texto recebe o destaque tipográfico e de cor."
+      },
+      {
+       "n": "label",
+       "t": "string",
+       "r": 1,
+       "s": "Título do item, que também nomeia a região de conteúdo."
+      },
+      {
+       "n": "leadIcon",
+       "t": "IconProps['name']",
+       "s": "Ícone exibido antes do `label`. Sem ele, o item não tem lead."
+      },
+      {
+       "n": "leadIconAppearance",
+       "t": "IconProps['appearance']",
+       "d": "neutral",
+       "s": "Cor do `leadIcon`."
+      },
+      {
+       "n": "leadIconSize",
+       "t": "IconProps['size']",
+       "d": "medium",
+       "s": "Tamanho do `leadIcon`."
+      }
+     ]
+    },
+    "refs": {
+     "AccordionProps": [
+      "Accordion",
+      "AccordionElement"
+     ],
+     "AccordionCollapsedChangeHandler": [
+      "ControlledAccordionItem",
+      "Define",
+      "Chamado",
+      "AccordionCollapsedChangeHandler",
+      "UncontrolledAccordionItem",
+      "AccordionItem",
+      "Conte",
+      "Texto",
+      "Desabilita",
+      "Oculta",
+      "Ignorado",
+      "Accordion",
+      "T",
+      "Sem",
+      "IconProps",
+      "Cor",
+      "Tamanho",
+      "AccordionItemProps",
+      "AccordionItemElement",
+      "AccordionElement",
+      "AccordionKind",
+      "AccordionProps"
+     ],
+     "AccordionItemProps": [
+      "AccordionItem",
+      "ControlledAccordionItem",
+      "UncontrolledAccordionItem",
+      "AccordionItemElement"
+     ]
+    }
+   },
    "Alert": {
     "import": "import { Alert } from '@caju-beneficios/castanha-react';",
     "desc": "Exibe mensagens de feedback contextual com ícone, título opcional e botão de fechar.",
@@ -42849,6 +44123,12 @@
        "s": "Define o estilo do botão (sólido ou fantasma)."
       },
       {
+       "n": "loading",
+       "t": "boolean",
+       "d": "false",
+       "s": "Substitui o rótulo por um spinner e deixa o botão indisponível, sem perder o foco. Passe um `aria-label` com a ação, ex.: \"Salvando alterações\"."
+      },
+      {
        "n": "leadIcon",
        "t": "IconName | string",
        "s": "Ícone exibido antes do texto do botão."
@@ -43249,6 +44529,141 @@
      ]
     }
    },
+   "CodeInput": {
+    "import": "import { CodeInput } from '@caju-beneficios/castanha-react';",
+    "desc": "Campo de código de verificação em células de um caractere. Avança o foco ao digitar, distribui o código colado e aceita o autofill do SMS.",
+    "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-codeinput--docs",
+    "zeroheight": "https://castanha.caju.com.br/858426090/p/956d46-code-input-otp",
+    "tags": [
+     "new"
+    ],
+    "staging": true,
+    "props": {
+     "CodeInput": [
+      {
+       "n": "cellLabel",
+       "t": "(position: number, length: number) => string",
+       "s": "Nome acessível de cada célula pela posição; ausente, anuncia `dígito N de T` ou `caractere N de T` conforme o `kind`."
+      },
+      {
+       "n": "defaultHideValue",
+       "t": "boolean",
+       "s": "Modo uncontrolled: define se o código começa mascarado."
+      },
+      {
+       "n": "defaultValue",
+       "t": "string",
+       "s": "Modo uncontrolled: código inicial. Caracteres fora do `kind` são descartados."
+      },
+      {
+       "n": "disabled",
+       "t": "boolean",
+       "s": "Desabilita o campo inteiro, tirando todas as células da interação e da tabulação."
+      },
+      {
+       "n": "error",
+       "t": "boolean",
+       "s": "Define se o campo está em estado de erro."
+      },
+      {
+       "n": "hideValue",
+       "t": "boolean",
+       "s": "Modo controlled: define se o código está mascarado."
+      },
+      {
+       "n": "hideVisibilityAction",
+       "t": "boolean",
+       "s": "Oculta a ação de mostrar e ocultar o código."
+      },
+      {
+       "n": "id",
+       "t": "string",
+       "s": "ID da primeira célula, que o label aponta. Gerado automaticamente se omitido."
+      },
+      {
+       "n": "label",
+       "t": "string",
+       "s": "Texto do label exibido acima das células."
+      },
+      {
+       "n": "name",
+       "t": "string",
+       "s": "Nome do campo no `<form>`. Presente, o código completo é enviado num input oculto."
+      },
+      {
+       "n": "onChange",
+       "t": "(value: string) => void",
+       "s": "Chamado a cada alteração do código, com o valor parcial."
+      },
+      {
+       "n": "onComplete",
+       "t": "(value: string) => void",
+       "s": "Chamado a cada alteração que deixa todas as células preenchidas, com o código completo."
+      },
+      {
+       "n": "onHideValueChange",
+       "t": "(hideValue: boolean) => void",
+       "s": "Chamado quando a ação de visibilidade alterna a máscara, com o novo estado."
+      },
+      {
+       "n": "required",
+       "t": "boolean",
+       "s": "Define se o campo é obrigatório."
+      },
+      {
+       "n": "separatorPositions",
+       "t": "number[]",
+       "s": "Posições, a partir de 1, das células seguidas por separador, que a última nunca tem: `[3]` em 6 agrupa `XXX-XXX`."
+      },
+      {
+       "n": "supportingMessage",
+       "t": "string",
+       "s": "Mensagem de suporte exibida abaixo das células. Com `error`, é anunciada como alerta."
+      },
+      {
+       "n": "value",
+       "t": "string",
+       "s": "Modo controlled: código atual. Caracteres fora do `kind` são descartados."
+      },
+      {
+       "n": "hideValueLabel",
+       "t": "string",
+       "d": "Ocultar código",
+       "s": "Nome acessível do botão que oculta o código."
+      },
+      {
+       "n": "kind",
+       "t": "CodeInputKind",
+       "d": "numeric",
+       "s": "Conjunto de caracteres aceitos: `numeric` aceita `0-9` e abre o teclado numérico, e `alphanumeric` aceita `0-9`, `A-Z` e `a-z`."
+      },
+      {
+       "n": "length",
+       "t": "CodeInputLength",
+       "d": "6",
+       "s": "Número de células, cada uma com um caractere do código."
+      },
+      {
+       "n": "showValueLabel",
+       "t": "string",
+       "d": "Mostrar código",
+       "s": "Nome acessível do botão que mostra o código."
+      },
+      {
+       "n": "aria-label",
+       "t": "string",
+       "d": "Código de verificação",
+       "s": "Nome acessível do grupo de células quando não há `label`."
+      }
+     ]
+    },
+    "refs": {
+     "CodeInputProps": [
+      "CodeInput",
+      "CodeInputElement"
+     ]
+    }
+   },
    "ConfirmationMessage": {
     "import": "import { ConfirmationMessage } from '@caju-beneficios/castanha-react';",
     "desc": "Bloco centralizado com ícone em destaque, título e texto de apoio.",
@@ -43430,6 +44845,106 @@
      "ContentListProps": [
       "ContentList",
       "ContentListElement"
+     ]
+    }
+   },
+   "CreditCardInput": {
+    "import": "import { CreditCardInput } from '@caju-beneficios/castanha-react';",
+    "desc": "Campo para o número do cartão de crédito. Aceita só 16 dígitos, em grupos de quatro.",
+    "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-creditcardinput--docs",
+    "zeroheight": null,
+    "tags": [
+     "new"
+    ],
+    "staging": true,
+    "props": {
+     "CreditCardInput": [
+      {
+       "n": "autoComplete",
+       "t": "string",
+       "d": "cc-number",
+       "s": "Valor do atributo `autocomplete` do input."
+      },
+      {
+       "n": "characterCount",
+       "t": "number",
+       "s": "Limite de caracteres do valor exibido, incluindo os espaços da máscara."
+      },
+      {
+       "n": "containerRef",
+       "t": "Ref<HTMLDivElement>",
+       "s": "Ref para o container externo do campo."
+      },
+      {
+       "n": "error",
+       "t": "boolean",
+       "s": "Define se o campo está em estado de erro."
+      },
+      {
+       "n": "hideLeadIcon",
+       "t": "boolean",
+       "s": "Esconde o ícone de cartão no início do campo."
+      },
+      {
+       "n": "hideTrailingItem",
+       "t": "boolean",
+       "s": "Esconde o botão de ajuda no fim do campo."
+      },
+      {
+       "n": "id",
+       "t": "string",
+       "s": "ID do elemento input."
+      },
+      {
+       "n": "inputMode",
+       "t": "InputHTMLAttributes<CreditCardInputElement>['inputMode']",
+       "d": "numeric",
+       "s": "Teclado sugerido ao focar o campo."
+      },
+      {
+       "n": "label",
+       "t": "string",
+       "s": "Texto do label exibido acima do campo."
+      },
+      {
+       "n": "leadIcon",
+       "t": "IconName | string",
+       "s": "Ícone exibido no início do campo. Por padrão, o ícone de cartão."
+      },
+      {
+       "n": "placeholder",
+       "t": "string",
+       "d": "1234 5678 9012 3456",
+       "s": "Texto exibido enquanto o campo está vazio."
+      },
+      {
+       "n": "required",
+       "t": "boolean",
+       "s": "Define se o campo é obrigatório."
+      },
+      {
+       "n": "supportingMessage",
+       "t": "string",
+       "s": "Mensagem de apoio abaixo do campo. Com erro, ela passa a ser a de erro."
+      },
+      {
+       "n": "trailingLabel",
+       "t": "string",
+       "d": "Ajuda",
+       "s": "Nome acessível do botão de ajuda."
+      },
+      {
+       "n": "onTrailingClick",
+       "t": "MouseEventHandler<HTMLButtonElement>",
+       "s": "Callback executado ao acionar o botão de ajuda, recebendo o evento do clique."
+      }
+     ]
+    },
+    "refs": {
+     "CreditCardInputProps": [
+      "CreditCardInput",
+      "InputHTMLAttributes",
+      "CreditCardInputElement"
      ]
     }
    },
@@ -44337,6 +45852,11 @@
       {
        "n": "className",
        "t": "string"
+      },
+      {
+       "n": "id",
+       "t": "string",
+       "s": "Para o campo composto por vários controles apontá-lo por `aria-labelledby`."
       }
      ],
      "FieldControlChildProps": [
@@ -44422,6 +45942,61 @@
      "FilterButtonProps": [
       "ButtonHTMLAttributes",
       "FilterButtonElement"
+     ]
+    }
+   },
+   "FixedBar": {
+    "import": "import { FixedBar } from '@caju-beneficios/castanha-react';",
+    "desc": "Barra de ações na base da tela. A tela ancora a barra e reserva o espaço inferior para o conteúdo não ficar coberto.",
+    "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-fixedbar--docs",
+    "zeroheight": null,
+    "tags": [
+     "new"
+    ],
+    "staging": true,
+    "props": {
+     "FixedBar": [
+      {
+       "n": "aria-label",
+       "t": "string",
+       "r": 1,
+       "s": "Nome da região, identificando a tarefa que as ações concluem."
+      },
+      {
+       "n": "hideDivider",
+       "t": "boolean",
+       "d": "false",
+       "s": "Oculta o divisor no topo da barra."
+      },
+      {
+       "n": "hideSecondaryAction",
+       "t": "boolean",
+       "d": "false",
+       "s": "Oculta a ação secundária. A primária permanece sozinha."
+      },
+      {
+       "n": "kind",
+       "t": "FixedBarKind",
+       "d": "horizontal",
+       "s": "Direção das ações. `horizontal` alinha à direita; `pilled` empilha em largura total."
+      },
+      {
+       "n": "primaryAction",
+       "t": "ReactNode",
+       "r": 1,
+       "s": "Ação principal. Em `horizontal` fica à direita; em `pilled`, abaixo."
+      },
+      {
+       "n": "secondaryAction",
+       "t": "ReactNode",
+       "s": "Ação secundária. Em `horizontal` fica à esquerda; em `pilled`, acima. Omitida quando ausente."
+      }
+     ]
+    },
+    "refs": {
+     "FixedBarProps": [
+      "FixedBar",
+      "FixedBarElement"
      ]
     }
    },
@@ -45601,6 +47176,144 @@
      "ProgressTrackerProps": [
       "ProgressTracker",
       "ProgressTrackerElement"
+     ]
+    }
+   },
+   "QuantityInput": {
+    "import": "import { QuantityInput } from '@caju-beneficios/castanha-react';",
+    "desc": "Campo numérico inteiro com botões de incremento e decremento. Ajusta o valor em passos fixos pelos botões, pelas setas do teclado ou por digitação direta.",
+    "storybook": "https://castanha-web.caju.com.br/?path=/docs/components-quantityinput--docs",
+    "zeroheight": null,
+    "tags": [
+     "new"
+    ],
+    "staging": true,
+    "props": {
+     "QuantityInput": [
+      {
+       "n": "containerRef",
+       "t": "Ref<HTMLDivElement>",
+       "s": "Ref para o container externo do campo."
+      },
+      {
+       "n": "decrementLabel",
+       "t": "string",
+       "d": "Diminuir quantidade",
+       "s": "Nome acessível do botão de decremento."
+      },
+      {
+       "n": "disabled",
+       "t": "boolean",
+       "s": "Desabilita o campo e os dois botões."
+      },
+      {
+       "n": "error",
+       "t": "boolean",
+       "s": "Define se o campo está em estado de erro."
+      },
+      {
+       "n": "id",
+       "t": "string",
+       "s": "ID do elemento input."
+      },
+      {
+       "n": "incrementLabel",
+       "t": "string",
+       "d": "Aumentar quantidade",
+       "s": "Nome acessível do botão de incremento."
+      },
+      {
+       "n": "kind",
+       "t": "'default' | 'ghost'",
+       "d": "default",
+       "s": "Define o estilo dos botões de incremento e decremento."
+      },
+      {
+       "n": "label",
+       "t": "string",
+       "s": "Texto do label exibido acima do campo."
+      },
+      {
+       "n": "max",
+       "t": "number",
+       "s": "Maior valor aceito. No limite, o incremento fica indisponível."
+      },
+      {
+       "n": "min",
+       "t": "number",
+       "s": "Menor valor aceito. No limite, o decremento fica indisponível."
+      },
+      {
+       "n": "required",
+       "t": "boolean",
+       "s": "Define se o campo é obrigatório."
+      },
+      {
+       "n": "step",
+       "t": "number",
+       "d": "1",
+       "s": "Medida de cada incremento e decremento, nos botões e nas setas do teclado."
+      },
+      {
+       "n": "supportingMessage",
+       "t": "string",
+       "s": "Mensagem de suporte exibida abaixo do campo."
+      }
+     ],
+     "ControlledQuantityInput": [
+      {
+       "n": "defaultValue",
+       "t": "never"
+      },
+      {
+       "n": "onChange",
+       "t": "QuantityInputChangeHandler",
+       "r": 1,
+       "s": "Callback executado quando o valor muda, com o novo valor; não dispara com o campo vazio durante a digitação."
+      },
+      {
+       "n": "value",
+       "t": "number",
+       "r": 1,
+       "s": "Valor controlado."
+      }
+     ],
+     "UncontrolledQuantityInput": [
+      {
+       "n": "defaultValue",
+       "t": "number",
+       "d": "min ?? 0",
+       "s": "Valor inicial (`uncontrolled`)."
+      },
+      {
+       "n": "onChange",
+       "t": "QuantityInputChangeHandler",
+       "s": "Callback executado quando o valor muda, com o novo valor; não dispara com o campo vazio durante a digitação."
+      },
+      {
+       "n": "value",
+       "t": "never"
+      }
+     ]
+    },
+    "refs": {
+     "QuantityInputChangeHandler": [
+      "ControlledQuantityInput",
+      "Callback",
+      "QuantityInputChangeHandler",
+      "Valor",
+      "UncontrolledQuantityInput",
+      "QuantityInputProps",
+      "QuantityInput",
+      "InputHTMLAttributes",
+      "QuantityInputElement"
+     ],
+     "QuantityInputProps": [
+      "QuantityInput",
+      "ControlledQuantityInput",
+      "UncontrolledQuantityInput",
+      "InputHTMLAttributes",
+      "QuantityInputElement"
      ]
     }
    },
@@ -47652,8 +49365,8 @@
   "source": {
    "repo": "caju-beneficios/castanha-mobile",
    "ref": "origin/staging",
-   "commit": "a62701c0",
-   "date": "2026-10-15",
+   "commit": "ec39a6e8",
+   "date": "2026-10-21",
    "package": "castanha_flutter",
    "codeConnect": {
     "ref": "origin/feat/figma-code-connect",
@@ -47662,6 +49375,14 @@
    }
   },
   "enums": {
+   "CastanhaAccordionItemKind": [
+    "card",
+    "default_"
+   ],
+   "CastanhaAccordionItemHighlight": [
+    "description",
+    "label"
+   ],
    "CastanhaAlertAppearance": [
     "informative",
     "positive",
@@ -47732,6 +49453,23 @@
    "CastanhaDividerOrientation": [
     "horizontal",
     "vertical"
+   ],
+   "CastanhaDropButtonAppearance": [
+    "accent",
+    "inverted",
+    "neutral"
+   ],
+   "CastanhaDropButtonKind": [
+    "default_",
+    "ghost"
+   ],
+   "CastanhaDropButtonSize": [
+    "medium",
+    "small"
+   ],
+   "CastanhaFilterButtonKind": [
+    "default_",
+    "date"
    ],
    "CastanhaIconAppearance": [
     "accent",
@@ -47807,6 +49545,15 @@
     "topEnd",
     "topStart"
    ],
+   "CastanhaProgressTrackerOrientation": [
+    "vertical",
+    "horizontal"
+   ],
+   "CastanhaProgressTrackerItemStatus": [
+    "pending",
+    "current",
+    "completed"
+   ],
    "CastanhaSelectionListItemKind": [
     "card",
     "default_"
@@ -47844,6 +49591,18 @@
     "medium",
     "large"
    ],
+   "CastanhaStatusDotAppearance": [
+    "informative",
+    "negative",
+    "neutral",
+    "positive",
+    "warning"
+   ],
+   "CastanhaStatusDotSize": [
+    "small",
+    "medium",
+    "large"
+   ],
    "CastanhaSystemBannerAppearance": [
     "informative",
     "positive",
@@ -47869,6 +49628,14 @@
     "currency",
     "date"
    ],
+   "CastanhaToastKind": [
+    "success",
+    "warning"
+   ],
+   "CastanhaTooltipTrigger": [
+    "longPress",
+    "tap"
+   ],
    "CastanhaTopicOrientation": [
     "horizontal",
     "vertical"
@@ -47878,6 +49645,10 @@
     "success",
     "uploaded",
     "uploading"
+   ],
+   "CastanhaCodeInputKind": [
+    "numeric",
+    "alphanumeric"
    ],
    "CastanhaIllustrationSize": [
     "small",
@@ -48759,6 +50530,101 @@
    ]
   },
   "only": {
+   "CastanhaCodeInput": {
+    "class": "CastanhaCodeInput",
+    "story": "Code Input",
+    "widgetbook": "https://castanha-mobile.caju.com.br/#/?path=%5B3.+COMPONENTS%5D/Code+Input/Docs",
+    "params": [
+     {
+      "n": "label",
+      "t": "String",
+      "req": 1
+     },
+     {
+      "n": "controller",
+      "t": "TextEditingController?"
+     },
+     {
+      "n": "errorMessage",
+      "t": "String?"
+     },
+     {
+      "n": "focusNode",
+      "t": "FocusNode?"
+     },
+     {
+      "n": "groupSize",
+      "t": "int?"
+     },
+     {
+      "n": "onChanged",
+      "t": "CastanhaCodeInputOnChanged?"
+     },
+     {
+      "n": "onCompleted",
+      "t": "CastanhaCodeInputOnCompleted?"
+     },
+     {
+      "n": "supportingMessage",
+      "t": "String?"
+     },
+     {
+      "n": "autofocus",
+      "t": "bool",
+      "def": "false"
+     },
+     {
+      "n": "disabled",
+      "t": "bool",
+      "def": "false"
+     },
+     {
+      "n": "error",
+      "t": "bool",
+      "def": "false"
+     },
+     {
+      "n": "hideValues",
+      "t": "bool",
+      "def": "false"
+     },
+     {
+      "n": "hideVisibilityAction",
+      "t": "bool",
+      "def": "false"
+     },
+     {
+      "n": "kind",
+      "t": "CastanhaCodeInputKind",
+      "def": "CastanhaCodeInputKind.numeric"
+     },
+     {
+      "n": "length",
+      "t": "int",
+      "def": "6"
+     },
+     {
+      "n": "required",
+      "t": "bool",
+      "def": "false"
+     },
+     {
+      "n": "semanticsLabel",
+      "t": "String?",
+      "a11y": 1
+     },
+     {
+      "n": "semanticsHint",
+      "t": "String?",
+      "a11y": 1
+     },
+     {
+      "n": "excludeSemantics",
+      "t": "bool",
+      "a11y": 1
+     }
+    ]
+   },
    "CastanhaIllustration": {
     "class": "CastanhaIllustration",
     "story": "Illustration",
@@ -48993,6 +50859,12 @@
    }
   },
   "classes": [
+   "CastanhaAccordion",
+   "CastanhaAccordionItem",
+   "CastanhaAccordionItemDecoration",
+   "CastanhaAccordionItemLayer",
+   "CastanhaAccordionItemOnOpenChanged",
+   "CastanhaAccordionItemScope",
    "CastanhaAlert",
    "CastanhaAlertCloseButton",
    "CastanhaAlertCloseButtonDecoration",
@@ -49032,6 +50904,10 @@
    "CastanhaChipGroup",
    "CastanhaChipInput",
    "CastanhaChipSurface",
+   "CastanhaCodeInput",
+   "CastanhaCodeInputCellDecoration",
+   "CastanhaCodeInputOnChanged",
+   "CastanhaCodeInputOnCompleted",
    "CastanhaColumn",
    "CastanhaComponent",
    "CastanhaContentList",
@@ -49056,11 +50932,16 @@
    "CastanhaDisclaimerSize",
    "CastanhaDivider",
    "CastanhaDividerDecoration",
+   "CastanhaDropButton",
+   "CastanhaDropButtonDecoration",
+   "CastanhaDropButtonOnOpenChanged",
    "CastanhaDropzone",
    "CastanhaDropzoneBorderPainter",
    "CastanhaDropzoneDecoration",
    "CastanhaField",
    "CastanhaFieldScope",
+   "CastanhaFilterButton",
+   "CastanhaFilterButtonDecoration",
    "CastanhaFixedTab",
    "CastanhaFocusRing",
    "CastanhaIcon",
@@ -49098,6 +50979,10 @@
    "CastanhaPopoverDecoration",
    "CastanhaProgressLine",
    "CastanhaProgressLineDecoration",
+   "CastanhaProgressTracker",
+   "CastanhaProgressTrackerItem",
+   "CastanhaProgressTrackerMarkerDecoration",
+   "CastanhaProgressTrackerScope",
    "CastanhaRadioButton",
    "CastanhaRadioButtonDecoration",
    "CastanhaRadioButtonGroup",
@@ -49106,6 +50991,10 @@
    "CastanhaRadioButtonOnChanged",
    "CastanhaRow",
    "CastanhaScrollableTab",
+   "CastanhaSearchInput",
+   "CastanhaSearchInputDecoration",
+   "CastanhaSearchInputOnChanged",
+   "CastanhaSearchInputOnSubmit",
    "CastanhaSelectionList",
    "CastanhaSelectionListItem",
    "CastanhaSelectionListItemDecoration",
@@ -49138,6 +51027,7 @@
    "CastanhaSpinner",
    "CastanhaSpinnerStyle",
    "CastanhaStatefulComponent",
+   "CastanhaStatusDot",
    "CastanhaSubtitleSize",
    "CastanhaSwitch",
    "CastanhaSwitchDecoration",
@@ -49171,6 +51061,13 @@
    "CastanhaTextSize",
    "CastanhaTheme",
    "CastanhaThemeProvider",
+   "CastanhaToast",
+   "CastanhaToastDecoration",
+   "CastanhaTooltip",
+   "CastanhaTooltipBold",
+   "CastanhaTooltipDecoration",
+   "CastanhaTooltipSpan",
+   "CastanhaTooltipText",
    "CastanhaTopic",
    "CastanhaTopicLeadIcon",
    "CastanhaTopicLeadImage",
@@ -49181,6 +51078,140 @@
    "CastanhaUploadList"
   ],
   "items": {
+   "accordion": {
+    "class": "CastanhaAccordion",
+    "params": [
+     {
+      "n": "children",
+      "t": "List<CastanhaAccordionItem>",
+      "req": 1,
+      "d": "Itens do accordion, cada um com o próprio conteúdo e abertura."
+     },
+     {
+      "n": "kind",
+      "t": "CastanhaAccordionItemKind",
+      "def": "CastanhaAccordionItemKind.default_",
+      "d": "Estrutura aplicada a todos os itens — o card afasta os itens em 8dp."
+     },
+     {
+      "n": "semanticsLabel",
+      "t": "String?",
+      "d": "Rótulo do grupo, lido antes dos itens.",
+      "a11y": 1
+     },
+     {
+      "n": "semanticsHint",
+      "t": "String?",
+      "d": "Dica lida após o rótulo do grupo.",
+      "a11y": 1
+     },
+     {
+      "n": "excludeSemantics",
+      "t": "bool",
+      "d": "Remove o grupo e os itens da árvore de semântica.",
+      "a11y": 1
+     }
+    ],
+    "map": null
+   },
+   "accordion-item": {
+    "class": "CastanhaAccordionItem",
+    "params": [
+     {
+      "n": "child",
+      "t": "Widget",
+      "req": 1,
+      "d": "Conteúdo revelado quando o item está aberto."
+     },
+     {
+      "n": "label",
+      "t": "String",
+      "req": 1,
+      "d": "Título do item, exibido no cabeçalho."
+     },
+     {
+      "n": "collapsedSemanticsHint",
+      "t": "String",
+      "def": "'recolhido'",
+      "d": "Estado lido pelo leitor de tela com o item recolhido, antes do `semanticsHint`."
+     },
+     {
+      "n": "description",
+      "t": "String?",
+      "d": "Texto de apoio exibido abaixo do `label`."
+     },
+     {
+      "n": "disabled",
+      "t": "bool",
+      "def": "false",
+      "d": "Se `true`, o item fica desabilitado, fora da tabulação, e não abre nem recolhe."
+     },
+     {
+      "n": "expandedSemanticsHint",
+      "t": "String",
+      "def": "'expandido'",
+      "d": "Estado lido pelo leitor de tela com o item aberto, antes do `semanticsHint`."
+     },
+     {
+      "n": "hideDivider",
+      "t": "bool",
+      "def": "false",
+      "d": "Oculta o divisor abaixo do item."
+     },
+     {
+      "n": "highlight",
+      "t": "CastanhaAccordionItemHighlight",
+      "def": "CastanhaAccordionItemHighlight.label",
+      "d": "Qual dos dois textos do cabeçalho recebe o destaque tipográfico."
+     },
+     {
+      "n": "initiallyOpen",
+      "t": "bool",
+      "def": "false",
+      "d": "Se o item nasce aberto, quando `open` é `null`."
+     },
+     {
+      "n": "kind",
+      "t": "CastanhaAccordionItemKind",
+      "def": "CastanhaAccordionItemKind.default_",
+      "d": "Estrutura do item."
+     },
+     {
+      "n": "leadIcon",
+      "t": "CastanhaIcon?",
+      "d": "Ícone exibido antes do `label` — no desenho, `CastanhaIcon` neutral em `CastanhaIconSize.medium`."
+     },
+     {
+      "n": "onOpenChanged",
+      "t": "CastanhaAccordionItemOnOpenChanged?",
+      "d": "Chamado no toque, no Enter e no Espaço com a abertura pedida."
+     },
+     {
+      "n": "open",
+      "t": "bool?",
+      "d": "Se o item está aberto, ou `null` para o item guardar o próprio estado a partir de `initiallyOpen`."
+     },
+     {
+      "n": "semanticsLabel",
+      "t": "String?",
+      "d": "Substitui o anúncio de título e descrição do cabeçalho.",
+      "a11y": 1
+     },
+     {
+      "n": "semanticsHint",
+      "t": "String?",
+      "d": "Dica lida após o rótulo do cabeçalho.",
+      "a11y": 1
+     },
+     {
+      "n": "excludeSemantics",
+      "t": "bool",
+      "d": "Remove o item inteiro da árvore de semântica.",
+      "a11y": 1
+     }
+    ],
+    "map": null
+   },
    "alert": {
     "class": "CastanhaAlert",
     "params": [
@@ -51112,6 +53143,99 @@
      ]
     }
    },
+   "drop-button": {
+    "class": "CastanhaDropButton",
+    "params": [
+     {
+      "n": "child",
+      "t": "Widget",
+      "req": 1,
+      "d": "Conteúdo da caixa que abre abaixo do botão."
+     },
+     {
+      "n": "label",
+      "t": "String",
+      "req": 1,
+      "d": "Texto exibido no botão."
+     },
+     {
+      "n": "appearance",
+      "t": "CastanhaDropButtonAppearance",
+      "def": "CastanhaDropButtonAppearance.accent",
+      "d": "Paleta do botão."
+     },
+     {
+      "n": "collapsedSemanticsHint",
+      "t": "String",
+      "def": "'recolhido'",
+      "d": "Estado lido pelo leitor de tela com a caixa fechada, antes do `semanticsHint`."
+     },
+     {
+      "n": "disabled",
+      "t": "bool",
+      "def": "false",
+      "d": "Se `true`, o botão fica esmaecido, fora da tabulação, e não abre a caixa."
+     },
+     {
+      "n": "expandedSemanticsHint",
+      "t": "String",
+      "def": "'expandido'",
+      "d": "Estado lido pelo leitor de tela com a caixa aberta, antes do `semanticsHint`."
+     },
+     {
+      "n": "initiallyOpen",
+      "t": "bool",
+      "def": "false",
+      "d": "Se a caixa nasce aberta, quando `open` é `null`."
+     },
+     {
+      "n": "kind",
+      "t": "CastanhaDropButtonKind",
+      "def": "CastanhaDropButtonKind.default_",
+      "d": "Estrutura do botão."
+     },
+     {
+      "n": "leadIcon",
+      "t": "IconData?",
+      "d": "Ícone exibido antes do `label`."
+     },
+     {
+      "n": "onOpenChanged",
+      "t": "CastanhaDropButtonOnOpenChanged?",
+      "d": "Chamado quando a pessoa pede para abrir ou fechar a caixa — toque, Enter e Espaço no botão, ou Esc, toque fora e voltar com a caixa aberta."
+     },
+     {
+      "n": "open",
+      "t": "bool?",
+      "d": "Se a caixa está aberta, ou `null` para o botão guardar o próprio estado a partir de `initiallyOpen`."
+     },
+     {
+      "n": "size",
+      "t": "CastanhaDropButtonSize",
+      "def": "CastanhaDropButtonSize.medium",
+      "d": "Altura do botão."
+     },
+     {
+      "n": "semanticsLabel",
+      "t": "String?",
+      "d": "Substitui o texto do botão no anúncio.",
+      "a11y": 1
+     },
+     {
+      "n": "semanticsHint",
+      "t": "String?",
+      "d": "Dica lida depois do estado aberto ou recolhido.",
+      "a11y": 1
+     },
+     {
+      "n": "excludeSemantics",
+      "t": "bool",
+      "d": "Remove o rótulo e a dica do botão da árvore de semântica.",
+      "a11y": 1
+     }
+    ],
+    "map": null
+   },
    "dropzone": {
     "class": "CastanhaDropzone",
     "params": [
@@ -51243,6 +53367,59 @@
       ]
      ]
     }
+   },
+   "filter-button": {
+    "class": "CastanhaFilterButton",
+    "params": [
+     {
+      "n": "onPressed",
+      "t": "VoidCallback?",
+      "req": 1,
+      "d": "Callback executado ao tocar o botão — geralmente abre o painel de filtros."
+     },
+     {
+      "n": "count",
+      "t": "int?",
+      "d": "Quantidade de filtros aplicados."
+     },
+     {
+      "n": "disabled",
+      "t": "bool",
+      "def": "false",
+      "d": "Se `true`, o botão fica desabilitado e não responde a toques."
+     },
+     {
+      "n": "kind",
+      "t": "CastanhaFilterButtonKind",
+      "def": "CastanhaFilterButtonKind.default_",
+      "d": "Variante semântica — define o ícone que representa o filtro."
+     },
+     {
+      "n": "label",
+      "t": "String",
+      "def": "'Filtros'",
+      "d": "Texto do botão."
+     },
+     {
+      "n": "semanticsLabel",
+      "t": "String?",
+      "d": "Substitui o label como nome anunciado pelo leitor.",
+      "a11y": 1
+     },
+     {
+      "n": "semanticsHint",
+      "t": "String?",
+      "d": "Dica lida após o rótulo — descreve o resultado da ação.",
+      "a11y": 1
+     },
+     {
+      "n": "excludeSemantics",
+      "t": "bool",
+      "d": "Remove rótulo, contagem e dica do anúncio; use quando a ação já é anunciada por quem o contém.",
+      "a11y": 1
+     }
+    ],
+    "map": null
    },
    "filter-chips": {
     "class": "CastanhaChipFilter",
@@ -52315,6 +54492,18 @@
       "d": "Ícone opcional exibido antes do label."
      },
      {
+      "n": "loading",
+      "t": "bool",
+      "def": "false",
+      "d": "Se `true`, troca o conteúdo pelo spinner na mesma largura e ignora toque, tecla e hover, sem tirar o foco de quem acionou o botão."
+     },
+     {
+      "n": "loadingLabel",
+      "t": "String",
+      "def": "'Carregando'",
+      "d": "Nome anunciado por leitores de tela enquanto `loading` é `true`."
+     },
+     {
       "n": "showTrailingIcon",
       "t": "bool",
       "def": "false",
@@ -52341,7 +54530,7 @@
      {
       "n": "excludeSemantics",
       "t": "bool",
-      "d": "Remove o botão da árvore de semântica; use quando a ação já é anunciada por quem o contém.",
+      "d": "Tira o nome e a dica do leitor de tela, e o botão continua acionável; use quando quem o contém já o nomeia.",
       "a11y": 1
      }
     ],
@@ -52761,6 +54950,90 @@
      ]
     }
    },
+   "progress-tracker": {
+    "class": "CastanhaProgressTracker",
+    "params": [
+     {
+      "n": "items",
+      "t": "List<CastanhaProgressTrackerItem>",
+      "req": 1,
+      "d": "Etapas do fluxo, de 2 a 6, na ordem em que acontecem."
+     },
+     {
+      "n": "orientation",
+      "t": "CastanhaProgressTrackerOrientation",
+      "def": "CastanhaProgressTrackerOrientation.vertical",
+      "d": "Disposição das etapas, aplicada a todos os `items`."
+     },
+     {
+      "n": "semanticsLabel",
+      "t": "String?",
+      "d": "Rótulo da lista de etapas, lido antes delas.",
+      "a11y": 1
+     },
+     {
+      "n": "semanticsHint",
+      "t": "String?",
+      "d": "Dica lida após o rótulo da lista.",
+      "a11y": 1
+     },
+     {
+      "n": "excludeSemantics",
+      "t": "bool",
+      "d": "Tira as etapas da árvore de semântica; o rótulo e a dica da lista continuam anunciados.",
+      "a11y": 1
+     }
+    ],
+    "map": null
+   },
+   "progress-tracker-item": {
+    "class": "CastanhaProgressTrackerItem",
+    "params": [
+     {
+      "n": "label",
+      "t": "String",
+      "req": 1,
+      "d": "Nome da etapa."
+     },
+     {
+      "n": "description",
+      "t": "String?",
+      "d": "Texto de apoio abaixo do `label`."
+     },
+     {
+      "n": "icon",
+      "t": "IconData?",
+      "d": "Ícone do marcador no lugar do número. Em `CastanhaProgressTrackerItemStatus.completed` o marcador exibe o check."
+     },
+     {
+      "n": "link",
+      "t": "CastanhaLink?",
+      "d": "Link abaixo da descrição — o único elemento focável da etapa."
+     },
+     {
+      "n": "status",
+      "t": "CastanhaProgressTrackerItemStatus",
+      "def": "CastanhaProgressTrackerItemStatus.pending",
+      "d": "Situação da etapa no fluxo."
+     },
+     {
+      "n": "semanticsLabel",
+      "t": "String?",
+      "a11y": 1
+     },
+     {
+      "n": "semanticsHint",
+      "t": "String?",
+      "a11y": 1
+     },
+     {
+      "n": "excludeSemantics",
+      "t": "bool",
+      "a11y": 1
+     }
+    ],
+    "map": null
+   },
    "radio-button": {
     "class": "CastanhaRadioButton",
     "params": [
@@ -53133,6 +55406,111 @@
       ]
      ]
     }
+   },
+   "search-input": {
+    "class": "CastanhaSearchInput",
+    "params": [
+     {
+      "n": "characterCount",
+      "t": "int?",
+      "d": "Limite de caracteres — exibe o contador no rodapé e limita a digitação."
+     },
+     {
+      "n": "controller",
+      "t": "TextEditingController?",
+      "d": "Controller do texto, quando o consumidor precisa ler ou alterar o termo de fora."
+     },
+     {
+      "n": "errorMessage",
+      "t": "String?",
+      "d": "Mensagem exibida no rodapé quando `error` é `true`, no lugar de `supportingMessage` — anunciada como live region."
+     },
+     {
+      "n": "focusNode",
+      "t": "FocusNode?",
+      "d": "Focus node externo, para mover o foco de fora."
+     },
+     {
+      "n": "label",
+      "t": "String?",
+      "d": "Texto do label exibido acima do campo. Quando `null`, a caixa começa no topo."
+     },
+     {
+      "n": "onChanged",
+      "t": "CastanhaSearchInputOnChanged?",
+      "d": "Chamado a cada alteração do termo, com o valor completo do campo."
+     },
+     {
+      "n": "onClear",
+      "t": "VoidCallback?",
+      "d": "Chamado depois que o campo é limpo, pelo botão ou pela tecla Esc, já com o foco devolvido ao campo."
+     },
+     {
+      "n": "onSubmitted",
+      "t": "CastanhaSearchInputOnSubmit?",
+      "d": "Chamado quando o usuário confirma a busca pela ação do teclado, com o valor completo do campo."
+     },
+     {
+      "n": "supportingMessage",
+      "t": "String?",
+      "d": "Texto auxiliar exibido no rodapé enquanto `error` é `false`."
+     },
+     {
+      "n": "autocorrect",
+      "t": "bool",
+      "def": "true",
+      "d": "Deixa o teclado corrigir o que é digitado."
+     },
+     {
+      "n": "autofocus",
+      "t": "bool",
+      "def": "false",
+      "d": "Pede o foco assim que o campo é montado."
+     },
+     {
+      "n": "disabled",
+      "t": "bool",
+      "def": "false",
+      "d": "Desabilita o campo — aplica opacidade sobre o conjunto inteiro e bloqueia toque, foco e edição."
+     },
+     {
+      "n": "error",
+      "t": "bool",
+      "def": "false",
+      "d": "Sinaliza erro de validação: tinge a borda, troca `supportingMessage` por `errorMessage` e anima o ícone de atenção ao fim da caixa."
+     },
+     {
+      "n": "placeholder",
+      "t": "String",
+      "def": "'Placeholder'",
+      "d": "Texto exibido enquanto o campo está vazio."
+     },
+     {
+      "n": "required",
+      "t": "bool",
+      "def": "false",
+      "d": "Exibe o marcador de obrigatoriedade ao lado do `label` e anuncia o campo como obrigatório."
+     },
+     {
+      "n": "semanticsLabel",
+      "t": "String?",
+      "d": "Nome acessível do campo, quando o label não basta ou não existe.",
+      "a11y": 1
+     },
+     {
+      "n": "semanticsHint",
+      "t": "String?",
+      "d": "Dica de acessibilidade adicional.",
+      "a11y": 1
+     },
+     {
+      "n": "excludeSemantics",
+      "t": "bool",
+      "d": "Descarta o semanticsLabel e o semanticsHint.",
+      "a11y": 1
+     }
+    ],
+    "map": null
    },
    "selection-list": {
     "class": "CastanhaSelectionList",
@@ -54063,6 +56441,48 @@
       ]
      ]
     }
+   },
+   "status-dot": {
+    "class": "CastanhaStatusDot",
+    "params": [
+     {
+      "n": "label",
+      "t": "String",
+      "req": 1,
+      "d": "Texto que nomeia o estado — uma ou duas palavras. O ponto só reforça."
+     },
+     {
+      "n": "appearance",
+      "t": "CastanhaStatusDotAppearance",
+      "def": "CastanhaStatusDotAppearance.neutral",
+      "d": "Variante visual — define a cor do ponto. O rótulo não muda de cor."
+     },
+     {
+      "n": "size",
+      "t": "CastanhaStatusDotSize",
+      "def": "CastanhaStatusDotSize.small",
+      "d": "Escala tipográfica do rótulo. O ponto e a altura não mudam."
+     },
+     {
+      "n": "semanticsLabel",
+      "t": "String?",
+      "d": "Substitui o label no anúncio do leitor de tela.",
+      "a11y": 1
+     },
+     {
+      "n": "semanticsHint",
+      "t": "String?",
+      "d": "Dica lida após o rótulo, para contexto que o rótulo não dá.",
+      "a11y": 1
+     },
+     {
+      "n": "excludeSemantics",
+      "t": "bool",
+      "d": "Remove o Status Dot da árvore de semântica; use quando o estado já é anunciado pelo elemento que o contém.",
+      "a11y": 1
+     }
+    ],
+    "map": null
    },
    "switch": {
     "class": "CastanhaSwitch",
@@ -55057,6 +57477,115 @@
       ]
      ]
     }
+   },
+   "toast": {
+    "class": "CastanhaToast",
+    "params": [
+     {
+      "n": "label",
+      "t": "String",
+      "req": 1,
+      "d": "Mensagem do Toast — até duas linhas, com reticências no fim."
+     },
+     {
+      "n": "closeSemanticsLabel",
+      "t": "String",
+      "def": "'Fechar'",
+      "d": "Nome acessível do botão de fechar."
+     },
+     {
+      "n": "duration",
+      "t": "Duration?",
+      "def": "const Duration(seconds: 4)",
+      "d": "Tempo em tela antes de o Toast sair sozinho, contado do fim da entrada."
+     },
+     {
+      "n": "kind",
+      "t": "CastanhaToastKind",
+      "def": "CastanhaToastKind.success",
+      "d": "Variante semântica — decide o ícone animado."
+     },
+     {
+      "n": "onDismiss",
+      "t": "VoidCallback?",
+      "d": "Chamado quando a animação de saída termina, seja pelo botão de fechar, pelo fim de `duration` ou por `open` virar `false`."
+     },
+     {
+      "n": "open",
+      "t": "bool",
+      "def": "true",
+      "d": "Se o Toast está em tela. Ao virar `false` ele toca a saída, e ao voltar a `true` toca a entrada de novo."
+     },
+     {
+      "n": "semanticsLabel",
+      "t": "String?",
+      "a11y": 1
+     },
+     {
+      "n": "semanticsHint",
+      "t": "String?",
+      "a11y": 1
+     },
+     {
+      "n": "excludeSemantics",
+      "t": "bool",
+      "a11y": 1
+     }
+    ],
+    "map": null
+   },
+   "tooltip": {
+    "class": "CastanhaTooltip",
+    "params": [
+     {
+      "n": "child",
+      "t": "Widget",
+      "req": 1,
+      "d": "Gatilho do Tooltip, que ocupa o lugar dele na árvore."
+     },
+     {
+      "n": "content",
+      "t": "List<CastanhaTooltipSpan>",
+      "req": 1,
+      "d": "Trechos do conteúdo, lidos em sequência abaixo de `label`."
+     },
+     {
+      "n": "label",
+      "t": "String?",
+      "d": "Título em negrito acima de `content`. Nulo esconde a linha."
+     },
+     {
+      "n": "placement",
+      "t": "CastanhaPopoverPlacement",
+      "def": "CastanhaPopoverPlacement.top",
+      "d": "Lado preferido em relação ao `child`."
+     },
+     {
+      "n": "trigger",
+      "t": "CastanhaTooltipTrigger",
+      "def": "CastanhaTooltipTrigger.longPress",
+      "d": "Gesto de toque que abre o Tooltip. Com mouse e teclado, ele abre no hover e no foco em qualquer valor."
+     },
+     {
+      "n": "semanticsLabel",
+      "t": "String?",
+      "d": "Substitui o texto anunciado como dica do gatilho, que por padrão é o título seguido do conteúdo.",
+      "a11y": 1
+     },
+     {
+      "n": "semanticsHint",
+      "t": "String?",
+      "d": "Dica lida depois do gatilho, para contexto que o Tooltip não dá.",
+      "a11y": 1
+     },
+     {
+      "n": "excludeSemantics",
+      "t": "bool",
+      "d": "Tira o texto do Tooltip da árvore de semântica. O gatilho continua anunciado.",
+      "a11y": 1
+     }
+    ],
+    "map": null
    },
    "topic": {
     "class": "CastanhaTopic",

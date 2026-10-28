@@ -2,6 +2,26 @@
 
 Escrito por `scripts/integration/daily-flutter.js` (rotina diária): só entram as leituras em que algo mudou.
 
+### 28/10/2026 · staging `ec39a6e8`
+
+- castanha_flutter `origin/staging`: `a62701c0` → `ec39a6e8` (2026-10-21).
+- Cobertura · flutter: 49 → 60.
+- Cobertura · matched: 45 → 55.
+- Cobertura · flutterOnly: 4 → 5.
+- Cobertura · missing: 40 → 30.
+- 🆕 informativo · accordion · Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros.
+- 🆕 informativo · accordion-item · Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros.
+- 🆕 informativo · drop-button · Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros.
+- 🆕 informativo · filter-button · Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros.
+- 🆕 informativo · main-button · Parâmetros do Flutter sem prop no Figma: `expanded`, `loading`, `loadingLabel`.
+- 🆕 informativo · progress-tracker · Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros.
+- 🆕 informativo · progress-tracker-item · Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros.
+- 🆕 informativo · search-input · Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros.
+- 🆕 informativo · status-dot · Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros.
+- 🆕 informativo · toast · Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros.
+- 🆕 informativo · tooltip · Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros.
+- ✅ resolvido · main-button · Parâmetros do Flutter sem prop no Figma: `expanded`.
+
 ### 20/10/2026 · staging `a62701c0`
 
 - Cobertura · playground: 110 → 112.

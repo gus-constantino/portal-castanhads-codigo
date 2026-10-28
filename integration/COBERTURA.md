@@ -1,14 +1,14 @@
 # Cobertura Figma ↔ playground ↔ castanha-react
 
-Gerado por `node scripts/integration/build-manifest.js` em 2026-10-21 a partir de `origin/staging` (`039c0d37`, 2026-10-15) e do Code Connect `origin/feat/figma-code-connect` (69 arquivos).
+Gerado por `node scripts/integration/build-manifest.js` em 2026-10-28 a partir de `origin/staging` (`e2be5481`, 2026-10-21) e do Code Connect `origin/feat/figma-code-connect` (69 arquivos).
 
 | | Componentes |
 |---|---:|
 | No playground | 117 |
-| Com par no React | 72 (68 via Code Connect, 4 via story) |
+| Com par no React | 74 (68 via Code Connect, 6 via story) |
 | Building blocks sem par (internos no React) | 27 |
-| Só no Figma/playground | 18 |
-| Só no React | 10 |
+| Só no Figma/playground | 16 |
+| Só no React | 13 |
 | Com divergência anotada | 29 |
 
 ## Com par no React
@@ -45,6 +45,7 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-21 a partir d
 | `dropzone` | Dropzone | `Dropzone` | code-connect |  |
 | `filter-button` | Filter button | `FilterButton` | code-connect | node-id da story (5256-540) não bate com o Code Connect (5099-5389) — é o node de Card |
 | `filter-chips` | Filter Chips | `Chips.Filter` | code-connect | node-id da story (12328-10100) não bate com o Code Connect (12365-2744, 12457-3664, 12365-2728, 14120-5313) |
+| `fixed-bar` | Fixed Bar | `FixedBar` | story |  |
 | `fixed-tab` | Fixed Tab | `Tabs` | code-connect |  |
 | `icon` | Icon | `Icon` | code-connect |  |
 | `icon-button` | Icon Button | `IconButton` | code-connect |  |
@@ -63,6 +64,7 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-21 a partir d
 | `progress-line` | Progress Line | `ProgressLine` | code-connect |  |
 | `progress-tracker` | Progress Tracker | `ProgressTracker` | code-connect | o Code Connect aponta para 14524-1024 (Progress Tracker virou set com Orientation; o node antigo é a variante Vertical) |
 | `progress-tracker-item` | Progress Tracker Item | `ProgressTracker.Item` | code-connect |  |
+| `quantity-input` | Quantity Input | `QuantityInput` | story |  |
 | `radio-button` | Radio Button | `Radio` | code-connect | node-id da story (4429-10395) não bate com o Code Connect (4429-10437, 4429-11192) |
 | `radio-button-group` | Radio Button Group | `Radio.Group` | code-connect | node-id da story (4429-10395) não bate com o Code Connect (4429-10437, 4429-11192) |
 | `radio-select-input` | Radio Select Input | `SelectInput` | code-connect | node-id da story (11112-4304) não bate com o Code Connect (11143-3056, 11030-7644, 11143-4833, 11018-5694, 13795-4984) |
@@ -113,7 +115,6 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-21 a partir d
 | `fab-button` | .FAB Button | — | building-block | o link do playground aponta para uma branch do Figma |
 | `fab-menu` | FAB Menu | — | so-figma | o link do playground aponta para uma branch do Figma |
 | `file-lead-item` | .Lead item (File) | — | building-block |  |
-| `fixed-bar` | Fixed Bar | — | so-figma |  |
 | `footer` | .Footer | — | building-block |  |
 | `header` | .Header | — | building-block |  |
 | `icons-block` | .Icons | — | building-block |  |
@@ -121,7 +122,6 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-21 a partir d
 | `list-lead-item` | .Lead Item (Lists) | — | building-block |  |
 | `nav-control-item` | .Item Nav Control | — | building-block |  |
 | `nps-value-item` | .Value Item | — | building-block |  |
-| `quantity-input` | Quantity Input | — | so-figma |  |
 | `select-number` | .Select Number | — | building-block |  |
 | `sponsor-category` | .Category | — | so-figma |  |
 | `sponsor-header` | Header | — | so-figma |  |
@@ -142,7 +142,10 @@ Gerado por `node scripts/integration/build-manifest.js` em 2026-10-21 a partir d
 
 | Componente | Exportado | Na main | Tags | Node-id da story |
 |---|---|---|---|---|
+| `Accordion` | sim | só staging | new | — |
 | `Box` | sim | sim | no-figma | — |
+| `CodeInput` | sim | só staging | new | — |
+| `CreditCardInput` | sim | só staging | new | — |
 | `Field` | sim | sim | no-figma | — |
 | `Grid` | sim | sim | no-figma | — |
 | `Illustration` | sim | sim | no-figma | — |

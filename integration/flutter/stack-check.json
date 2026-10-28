@@ -2,8 +2,8 @@
  "source": {
   "repo": "caju-beneficios/castanha-mobile",
   "ref": "origin/staging",
-  "commit": "a62701c0",
-  "date": "2026-10-15",
+  "commit": "ec39a6e8",
+  "date": "2026-10-21",
   "package": "castanha_flutter",
   "codeConnect": {
    "ref": "origin/feat/figma-code-connect",
@@ -14,18 +14,30 @@
  "summary": {
   "playground": 112,
   "blocks": 27,
-  "flutter": 49,
-  "matched": 45,
-  "flutterOnly": 4,
-  "missing": 40,
+  "flutter": 60,
+  "matched": 55,
+  "flutterOnly": 5,
+  "missing": 30,
   "missingBlocks": 27
  },
  "levels": {
   "alta": 2,
   "media": 10,
-  "info": 41
+  "info": 51
  },
  "items": [
+  {
+   "id": "accordion",
+   "l": "info",
+   "t": "sem-mapa",
+   "m": "Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros."
+  },
+  {
+   "id": "accordion-item",
+   "l": "info",
+   "t": "sem-mapa",
+   "m": "Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros."
+  },
   {
    "id": "alert",
    "l": "media",
@@ -63,6 +75,12 @@
    "m": "Parâmetros do Flutter sem prop no Figma: `highlight`, `trailingValue`."
   },
   {
+   "id": "drop-button",
+   "l": "info",
+   "t": "sem-mapa",
+   "m": "Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros."
+  },
+  {
    "id": "dropzone",
    "l": "info",
    "t": "figma-sem-parametro",
@@ -73,6 +91,12 @@
    "l": "info",
    "t": "so-no-flutter",
    "m": "Parâmetros do Flutter sem prop no Figma: `dragover`."
+  },
+  {
+   "id": "filter-button",
+   "l": "info",
+   "t": "sem-mapa",
+   "m": "Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros."
   },
   {
    "id": "filter-chips",
@@ -108,7 +132,25 @@
    "id": "main-button",
    "l": "info",
    "t": "so-no-flutter",
-   "m": "Parâmetros do Flutter sem prop no Figma: `expanded`."
+   "m": "Parâmetros do Flutter sem prop no Figma: `expanded`, `loading`, `loadingLabel`."
+  },
+  {
+   "id": "progress-tracker",
+   "l": "info",
+   "t": "sem-mapa",
+   "m": "Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros."
+  },
+  {
+   "id": "progress-tracker-item",
+   "l": "info",
+   "t": "sem-mapa",
+   "m": "Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros."
+  },
+  {
+   "id": "search-input",
+   "l": "info",
+   "t": "sem-mapa",
+   "m": "Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros."
   },
   {
    "id": "selection-list-item",
@@ -151,6 +193,12 @@
    "l": "info",
    "t": "figma-sem-parametro",
    "m": "`Spinner Position` (Figma) não tem parâmetro no Flutter. É o quadro da animação; no código o giro é contínuo."
+  },
+  {
+   "id": "status-dot",
+   "l": "info",
+   "t": "sem-mapa",
+   "m": "Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros."
   },
   {
    "id": "switch-group",
@@ -283,6 +331,18 @@
    "l": "info",
    "t": "figma-fora-do-mapa",
    "m": "Prop do Figma `Is Active` não aparece na tabela Figma → Flutter."
+  },
+  {
+   "id": "toast",
+   "l": "info",
+   "t": "sem-mapa",
+   "m": "Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros."
+  },
+  {
+   "id": "tooltip",
+   "l": "info",
+   "t": "sem-mapa",
+   "m": "Ainda sem mapa Figma → Flutter: o painel mostra o import e os parâmetros."
   },
   {
    "id": "upload-item",

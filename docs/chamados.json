@@ -1,4 +1,4 @@
-{"fonte":"Lista do Slack Castanha suporte - requests (#castanha-suporte)","lido":"2026-10-29","medido":"2026-10-15","chamados":[
+{"fonte":"Lista do Slack Castanha suporte - requests (#castanha-suporte)","lido":"2026-10-30","medido":"2026-10-15","chamados":[
   {"k":"05c66a7e11","d":"2025-08-13","tipo":"dev","prioridade":null,"status":"resolvido","comp":[]},
   {"k":"44fe36c1d7","d":"2025-08-13","tipo":"dev","prioridade":null,"status":"resolvido","comp":["content-list"]},
   {"k":"48e43d3c53","d":"2025-08-13","tipo":"dev","prioridade":null,"status":"resolvido","comp":["bottom-sheet","text-input","radio-select-input"]},
@@ -248,5 +248,6 @@
   {"k":"93f086b9b2","d":"2026-10-22","tipo":"design","prioridade":null,"status":"resolvido","comp":["drawer"],"resolvido":"2026-10-27"},
   {"k":"be66d82ca5","d":"2026-10-22","tipo":"design","prioridade":null,"status":"resolvido","comp":[],"resolvido":"2026-10-27"},
   {"k":"5aea03b6fc","d":"2026-10-23","tipo":"dev","prioridade":null,"status":"aberto","comp":["drawer"],"titulo":"Scroll incorreto no drawer","link":"https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA?record_id=Rec0CBAM76CB1"},
-  {"k":"9625e5111a","d":"2026-10-28","tipo":"dev","prioridade":null,"status":"aberto","comp":["scrollable-tab"],"titulo":"Tabs coladas","link":"https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA?record_id=Rec0CD33GAX4H"}
+  {"k":"9625e5111a","d":"2026-10-28","tipo":"dev","prioridade":"baixa","status":"aberto","comp":["scrollable-tab"],"titulo":"Tabs coladas","link":"https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA?record_id=Rec0CD33GAX4H"},
+  {"k":"8f7b911df3","d":"2026-10-29","tipo":"design","prioridade":null,"status":"aberto","comp":["bottom-sheet"],"titulo":"O Bottom sheet da nova biblioteca não possui subtítulo","link":"https://caju.slack.com/lists/TH0FNTLR0/F09A03756UA?record_id=Rec0CDC7SK1AQ"}
 ]}

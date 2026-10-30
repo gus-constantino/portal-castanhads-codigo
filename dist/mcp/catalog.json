@@ -38,7 +38,7 @@
   "tokens": 405,
   "icons": 280,
   "illustrations": 260,
-  "conferirOpen": 155,
+  "conferirOpen": 156,
   "stackFindings": 50
  },
  "components": [
@@ -33822,6 +33822,12 @@
     "group": "Naming",
     "resolved": false,
     "text": "Naming (Lote 6) · Fixed Bar usa `Show Secondary Action`; o .Footer, `Show Secondary Action Button`. No Bottom Sheet as instâncias se chamam `Header`/`Footer` (sem ponto) · Um nome só · Os dois atributos com o nome do Figma · Registrado para conferir (02/10). Renomear junto com C25"
+   },
+   {
+    "id": "C220",
+    "group": "Naming",
+    "resolved": false,
+    "text": "Drawer (16456:4381) · header e ações · O Drawer monta o header (frame `Header` com `Text Heading` e Close Button) e as ações (frame `Action Buttons`) à mão, sem o `.Header` e o `.Footer` que o Modal e o Bottom Sheet usam. Conferido em 28/10 (reunião do chamado do Bottom Sheet) e na branch da CDS-2104 · Usar os building blocks da família, como o Modal e o Bottom Sheet. Hoje a descrição nova do `.Header` (CDS-2104) não chega ao Drawer · O `cds-drawer` segue o Figma, com header e ações próprios · Task própria para a Drawer (fora da CDS-2104). O Flutter não tem Drawer"
    },
    {
     "id": "C53",

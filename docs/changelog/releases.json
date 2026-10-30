@@ -1,9 +1,124 @@
 {
  "fonte": "Slack #castanha-novidades (C09F7GD1A6M)",
- "lido_ate": "2026-10-20",
- "atualizado_em": "2026-10-20",
+ "lido_ate": "2026-10-30",
+ "atualizado_em": "2026-10-30",
  "nota": "lido_ate = último dia em que o canal foi lido por completo. A rotina lê a partir desse dia (inclusive); releases repetidas (mesma data, área e título) são ignoradas.",
  "releases": [
+  {
+   "data": "2026-10-30",
+   "area": "Figma",
+   "titulo": "Release 26 da biblioteca do Figma",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "novo",
+     "texto": "`Accordion` e `Accordion Item`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`Code Input OTP`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`Credit Card Input`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`Fixed Bar`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`Quantity Input`"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Chips`: tamanho Small"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "`Main Button`: estado de Loading (`Is Loading`)"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`Icon Button`: revisão no contrato de cores"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`Side Menu`: correções de estrutura e da camada de distribuição"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`Content List` e `Selection List`: ajuste de padding e do espaçamento entre linhas"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Atualizações recebidas das bibliotecas de suporte (Theme, Icons) e melhorias de performance da biblioteca"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/111e49-castanha"
+  },
+  {
+   "data": "2026-10-30",
+   "area": "React",
+   "titulo": "Release 26 do castanha-react",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "Componentes estabilizados: `Code Input`, `Fixed Bar`, `Accordion` e `Credit Card Input`"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Template estabilizado: `Feedback Pages`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`Quantity Input`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`Button`: variante Loading"
+    },
+    {
+     "tipo": "melhoria",
+     "texto": "Motion em `Progress Tracker`, `Modal`, `Selection List`, `Search Input`, `Switch`, `Checkbox`, `Drop Button`, `Chips` e `Radio Button`"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Hotfix no `Icon Button`"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Hotfix no `Side Menu`: menu fixo no footer"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/111e49-castanha"
+  },
+  {
+   "data": "2026-10-30",
+   "area": "Flutter",
+   "titulo": "Release 26 do castanha-flutter",
+   "versao": null,
+   "itens": [
+    {
+     "tipo": "melhoria",
+     "texto": "Componentes estabilizados: `Accordion`, `Code Input`, `Drop Button`, `Filter Button`, `Progress Tracker`, `Search Input`, `Status Dot`, `Toast` e `Tooltip`"
+    },
+    {
+     "tipo": "novo",
+     "texto": "`Main Button`: estado de loading"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "`CastanhaText`: correção do `letterSpacing`"
+    },
+    {
+     "tipo": "correcao",
+     "texto": "Alinhamento de acessibilidade nos componentes interativos"
+    }
+   ],
+   "link": "https://castanha.caju.com.br/858426090/p/111e49-castanha"
+  },
   {
    "data": "2026-10-16",
    "area": "Ilustrações",

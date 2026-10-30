@@ -6,8 +6,9 @@ CDS.register({
     p.addEventListener("cds-close", function(){ ctx.readout("cds-close", false); });
     kit.hint(panel, "Usado no Modal e no Bottom Sheet (lá com Show Divider desligado).");
     kit.section(panel, "Booleans");
-    [["show-text-title","Show Text Title"],["show-close-button","Show Close Button"],["show-divider","Show Divider"]].forEach(function(b){ kit.toggle(panel, { label: b[1], checked: true, onChange: function(on){ kit.attr(p, b[0], on ? null : "false"); } }); });
+    kit.toggle(panel, { label: "Show Text Title", checked: true, onChange: function(on){ kit.attr(p, "show-text-title", on ? null : "false"); } });
     kit.toggle(panel, { label: "Show Text Description", checked: false, onChange: function(on){ kit.attr(p, "show-text-description", on ? "true" : null); } });
+    [["show-close-button","Show Close Button"],["show-divider","Show Divider"]].forEach(function(b){ kit.toggle(panel, { label: b[1], checked: true, onChange: function(on){ kit.attr(p, b[0], on ? null : "false"); } }); });
     kit.section(panel, "Texts");
     kit.text(panel, { label: "Text Title", value: "Title", onInput: function(v){ p.setAttribute("text-title", v); } });
     kit.text(panel, { label: "Text Description", value: "Description", onInput: function(v){ p.setAttribute("text-description", v); } });

@@ -26,10 +26,10 @@
 
 | Prop | Tipo | Default | Controla |
 |---|---|---|---|
-| `Text Title` | Text | `Title` | Texto do título |
 | `Show Text Title` | Boolean | `true` | Título |
-| `Text Description` | Text | `Description` | Texto da descrição **(novo)** |
+| `Text Title` | Text | `Title` | Texto do título |
 | `Show Text Description` | Boolean | `false` | Descrição **(novo)** |
+| `Text Description` | Text | `Description` | Texto da descrição **(novo)** |
 | `Show Close Button` | Boolean | `true` | Botão de fechar |
 | `Show Divider` | Boolean | `true` | Divider embaixo (Modal e Bottom Sheet usam `false`) |
 

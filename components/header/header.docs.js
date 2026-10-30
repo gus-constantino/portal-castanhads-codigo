@@ -31,10 +31,10 @@
         { anatomy: { attrs: { _tag: "div", class: "pg-doc-list-stack", _children: [{ _tag: "cds-header", "text-title": "Pedido de cartões", "text-description": DESC, "show-text-description": true, "show-divider": true }] }, markers: [{ n: 1, target: ".cds-header__title", side: "left" }, { n: 2, target: ".cds-header__description", side: "left" }, { n: 3, target: "cds-icon-button", side: "right" }, { n: 4, target: "cds-divider", side: "bottom", align: "start" }], legend: ["Text Title", "Text Description (opcional, desligada por padrão)", "Close Button", "Divider"] } },
         { h2: "Propriedades" },
         { props: [
-          { name: "Text Title", type: "Text", default: "Title" },
           { name: "Show Text Title", type: "Boolean", default: "true" },
-          { name: "Text Description", type: "Text", default: "Description" },
+          { name: "Text Title", type: "Text", default: "Title" },
           { name: "Show Text Description", type: "Boolean", default: "false" },
+          { name: "Text Description", type: "Text", default: "Description" },
           { name: "Show Close Button", type: "Boolean", default: "true" },
           { name: "Show Divider", type: "Boolean", default: "true" }
         ] },

@@ -14,6 +14,7 @@ CDS.docs = CDS.docs || {};
     cover: { description: "O Modal é um componente de sobreposição que bloqueia a interface base para exibir conteúdos focados, como formulários, informações detalhadas ou confirmações. Ele exige atenção da pessoa usuária antes de retornar ao fluxo principal.", examples: [modal("Alterar grupo", TEXT)] },
     tabs: [
       { id: "uso", title: "Uso", blocks: [
+        { alert: { appearance: "informative", label: "Descrição no .Header em desenvolvimento · CDS-2104", text: "O .Header ganha uma descrição opcional abaixo do título, e o botão de fechar passa a alinhar ao topo. Está na branch do Figma e vale para o Modal e o Bottom Sheet. Veja o .Header." } },
         { h2: "Sobre" },
         { p: "O Modal é um componente de sobreposição que bloqueia a interface base para exibir conteúdos focados, como formulários, informações detalhadas ou confirmações. Ele exige atenção da pessoa usuária antes de retornar ao fluxo principal." },
         { h3: "Nomes alternativos comuns" },
@@ -64,7 +65,7 @@ CDS.docs = CDS.docs || {};
           { name: "Show Footer", type: "Boolean", default: "true" },
           { name: "Slot", type: "Slot" }
         ] },
-        { note: "Props e padrões lidos do componente Modal da lib estável. O zeroheight ainda lista `Kind` (Default · Confirmation), que a lib não tem: a versão Confirmation é o Confirmation Message dentro do Slot (CONFERIR C131). No código, o fechamento é controlado por `show-close-button` e `dismissible`." }
+        { note: "Props e padrões lidos do componente Modal da lib estável. O zeroheight ainda lista `Kind` (Default · Confirmation), que a lib não tem: a versão Confirmation é o Confirmation Message dentro do Slot (CONFERIR C131). No código, o fechamento é controlado por `show-close-button` e `dismissible`. Na branch do hotfix (CDS-2104), `text-description` e `show-text-description` ligam a descrição do .Header." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [

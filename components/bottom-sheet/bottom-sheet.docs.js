@@ -25,6 +25,7 @@
     cover: { description: "Camada que surge da base da tela para apresentar conteúdo ou ações complementares sem tirar a pessoa do contexto. A tela de fundo continua visível.", tall: true, examples: [sheet({ "show-header": "false", "primary-label": "Sair sem salvar", "secondary-label": "Continuar editando" }, confirm("warning", "timer-line", "Sair sem salvar?", "As alterações feitas serão perdidas."))] },
     tabs: [
       { id: "uso", title: "Uso", blocks: [
+        { alert: { appearance: "informative", label: "Descrição no .Header em desenvolvimento · CDS-2104", text: "O .Header ganha uma descrição opcional abaixo do título, e o botão de fechar passa a alinhar ao topo. Está na branch do Figma e vale para o Modal e o Bottom Sheet. Veja o .Header." } },
         { alert: { appearance: "informative", label: "Mobile only", text: "Bottom Sheet é um componente mobile. Em desktop e tablet, use Modal ou Drawer." } },
         { h2: "Sobre" },
         { p: "Camada que surge da base da tela para apresentar conteúdo ou ações complementares sem tirar a pessoa do contexto. A tela de fundo continua visível. Use sempre sobre um Backdrop — no Castanha é ele que separa a camada da interface por baixo, e sem ele a folha não se distingue do fundo." },
@@ -58,7 +59,7 @@
           { name: "Show Footer", type: "Boolean", default: "true" },
           { name: "Slot", type: "Slot" }
         ] },
-        { note: "Props e padrões lidos do componente Bottom Sheet da lib estável. No código: `text-title`, `show-close-button`, `primary-label`, `secondary-label`, `show-secondary-action-button` e `dismissible`. Raio 16 16 0 0. Footer em Pilled." }
+        { note: "Props e padrões lidos do componente Bottom Sheet da lib estável. No código: `text-title`, `show-close-button`, `primary-label`, `secondary-label`, `show-secondary-action-button` e `dismissible`. Na branch do hotfix (CDS-2104), `text-description` e `show-text-description` ligam a descrição do .Header. Raio 16 16 0 0. Footer em Pilled." }
       ] },
 
       { id: "estilos", title: "Estilos", blocks: [

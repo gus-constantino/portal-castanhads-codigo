@@ -5,13 +5,13 @@
  * O handle indica que dá para arrastar para baixo e fechar (arrastar além de 1/3 da altura fecha).
  * Viewport: no Figma, o Viewport Restriction cobre o sheet só quando Common/Is Desktop é verdadeiro (CONFERIR C35).
  *
- * Atributos: open · inline · dismissible · text-title · show-header · show-footer · show-close-button
+ * Atributos: open · inline · dismissible · text-title · text-description · show-text-description (.Header, CDS-2104) · show-header · show-footer · show-close-button
  *   primary-label · secondary-label · show-secondary-action-button · viewport · label
  */
 (function(){
   "use strict";
   class CdsBottomSheet extends CDS.Overlay {
-    static get observedAttributes(){ return CDS.Overlay.observedAttributes.concat(["text-title","show-header","show-footer","show-close-button","primary-label","secondary-label","show-secondary-action-button","viewport"]); }
+    static get observedAttributes(){ return CDS.Overlay.observedAttributes.concat(["text-title","text-description","show-text-description","show-header","show-footer","show-close-button","primary-label","secondary-label","show-secondary-action-button","viewport"]); }
     get panelClass(){ return "cds-sheet"; }
     buildPanel(dlg, slot){
       var self = this;
@@ -36,6 +36,8 @@
       var h = this.headerEl, f = this.footerEl, self = this;
       h.hidden = !this.flag("show-header"); h.setAttribute("text-title", this.text("text-title", "Title"));
       h.setAttribute("show-close-button", String(this.flag("show-close-button")));
+      ["text-description","show-text-description"].forEach(function(a){ if (self.hasAttribute(a)) h.setAttribute(a, self.getAttribute(a)); else h.removeAttribute(a); });
+      var did = h.hidden ? null : h.descriptionId; if (did) this.dialog.setAttribute("aria-describedby", did); else this.dialog.removeAttribute("aria-describedby");
       f.hidden = !this.flag("show-footer");
       ["primary-label","secondary-label","show-secondary-action-button"].forEach(function(a){ if (self.hasAttribute(a)) f.setAttribute(a, self.getAttribute(a)); else f.removeAttribute(a); });
     }

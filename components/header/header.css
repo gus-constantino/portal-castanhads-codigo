@@ -1,5 +1,8 @@
-/* .Header · 16362:3241 — Content pad 12 20 · gap 8 · Title Body/Bold Text/intense · Close Button 48 · Divider Soft */
+/* .Header · 16362:3241 — Content pad 12 20 · gap 8 · alinhado ao topo · Text Container pad-top 12 (título centrado com o X)
+   · Title Body/Bold Text/intense · Description Body/Regular Text/medium · Close Button 48 · Divider Soft */
 cds-header{ display:flex; flex-direction:column; background:var(--common-colors-surface-default); }
 cds-header [hidden]{ display:none !important; }
-.cds-header__content{ display:flex; align-items:center; justify-content:flex-end; gap:var(--common-sizes-8); min-height:var(--common-sizes-72); padding:var(--common-sizes-12) var(--common-sizes-20); }
-.cds-header__title{ flex:1 1 auto; min-width:0; margin:0; font:var(--text-style-body-bold); color:var(--common-colors-text-intense); }
+.cds-header__content{ display:flex; align-items:flex-start; justify-content:flex-end; gap:var(--common-sizes-8); min-height:var(--common-sizes-72); padding:var(--common-sizes-12) var(--common-sizes-20); }
+.cds-header__text{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; padding-top:var(--common-sizes-12); }
+.cds-header__title{ margin:0; font:var(--text-style-body-bold); color:var(--common-colors-text-intense); }
+.cds-header__description{ margin:0; font:var(--text-style-body-regular); color:var(--common-colors-text-medium); }

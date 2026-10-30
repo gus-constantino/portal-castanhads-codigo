@@ -791,28 +791,37 @@ try {
 /**
  * @deps icon-button divider
  * <cds-header> — .Header (Modal / Bottom Sheet) · building block · componente 16362:3241
- * Title (Body/Bold) + Close Button (Icon Button · Ghost · Neutral · Medium · close-line) + Divider (Soft).
- * Atributos: text-title ("Title") · show-text-title · show-close-button · show-divider · close-label
+ * Text Container (Title Body/Bold + Description Body/Regular) + Close Button (Icon Button · Ghost · Neutral · Medium · close-line) + Divider (Soft).
+ * Hotfix CDS-2104 (branch PLk9bAY0lKJSTbINkFOpZI): Text Description, desligada por padrão; o Close Button alinha ao topo.
+ * Atributos: text-title ("Title") · show-text-title · text-description ("Description") · show-text-description (false)
+ *   · show-close-button · show-divider · close-label
  * Eventos: cds-close (clique no Close Button)
  */
 (function(){
   "use strict";
+  var seq = 0;
   class CdsHeader extends CDS.Element {
-    static get observedAttributes(){ return ["text-title", "show-text-title", "show-close-button", "show-divider", "close-label"]; }
+    static get observedAttributes(){ return ["text-title", "show-text-title", "text-description", "show-text-description", "show-close-button", "show-divider", "close-label"]; }
     render(){
       var self = this;
       if (!this._built){
         this._built = true; this.innerHTML = "";
         var c = this.appendChild(CDS.create("div", null, "cds-header__content"));
-        this.titleEl = c.appendChild(CDS.create("h2", null, "cds-header__title"));
+        var t = c.appendChild(CDS.create("div", null, "cds-header__text"));
+        this.titleEl = t.appendChild(CDS.create("h2", null, "cds-header__title"));
+        this.descEl = t.appendChild(CDS.create("p", { id: "cds-header-desc-" + (++seq) }, "cds-header__description"));
         this.closeEl = c.appendChild(CDS.create("cds-icon-button", { kind: "ghost", appearance: "neutral", size: "medium", icon: "close-line" }));
         this.closeEl.addEventListener("click", function(){ self.dispatchEvent(new CustomEvent("cds-close", { bubbles: true })); });
         this.divEl = this.appendChild(CDS.create("cds-divider", { intensity: "soft" }));
       }
       this.titleEl.textContent = this.text("text-title", "Title"); this.titleEl.hidden = !this.flag("show-text-title");
+      this.descEl.textContent = this.text("text-description", "Description");
+      this.descEl.hidden = !(this.hasAttribute("show-text-description") && this.getAttribute("show-text-description") !== "false");
       this.closeEl.hidden = !this.flag("show-close-button"); this.closeEl.setAttribute("label", this.getAttribute("close-label") || "Fechar");
       this.divEl.hidden = !this.flag("show-divider");
     }
+    // id da descrição visível, para o aria-describedby do overlay
+    get descriptionId(){ return this.descEl && !this.descEl.hidden ? this.descEl.id : null; }
   }
   CdsHeader.define("cds-header");
 })();
@@ -6579,13 +6588,13 @@ try {
  * O handle indica que dá para arrastar para baixo e fechar (arrastar além de 1/3 da altura fecha).
  * Viewport: no Figma, o Viewport Restriction cobre o sheet só quando Common/Is Desktop é verdadeiro (CONFERIR C35).
  *
- * Atributos: open · inline · dismissible · text-title · show-header · show-footer · show-close-button
+ * Atributos: open · inline · dismissible · text-title · text-description · show-text-description (.Header, CDS-2104) · show-header · show-footer · show-close-button
  *   primary-label · secondary-label · show-secondary-action-button · viewport · label
  */
 (function(){
   "use strict";
   class CdsBottomSheet extends CDS.Overlay {
-    static get observedAttributes(){ return CDS.Overlay.observedAttributes.concat(["text-title","show-header","show-footer","show-close-button","primary-label","secondary-label","show-secondary-action-button","viewport"]); }
+    static get observedAttributes(){ return CDS.Overlay.observedAttributes.concat(["text-title","text-description","show-text-description","show-header","show-footer","show-close-button","primary-label","secondary-label","show-secondary-action-button","viewport"]); }
     get panelClass(){ return "cds-sheet"; }
     buildPanel(dlg, slot){
       var self = this;
@@ -6610,6 +6619,8 @@ try {
       var h = this.headerEl, f = this.footerEl, self = this;
       h.hidden = !this.flag("show-header"); h.setAttribute("text-title", this.text("text-title", "Title"));
       h.setAttribute("show-close-button", String(this.flag("show-close-button")));
+      ["text-description","show-text-description"].forEach(function(a){ if (self.hasAttribute(a)) h.setAttribute(a, self.getAttribute(a)); else h.removeAttribute(a); });
+      var did = h.hidden ? null : h.descriptionId; if (did) this.dialog.setAttribute("aria-describedby", did); else this.dialog.removeAttribute("aria-describedby");
       f.hidden = !this.flag("show-footer");
       ["primary-label","secondary-label","show-secondary-action-button"].forEach(function(a){ if (self.hasAttribute(a)) f.setAttribute(a, self.getAttribute(a)); else f.removeAttribute(a); });
     }
@@ -6670,7 +6681,7 @@ try {
  * Largura: abraça o conteúdo, sem limite (min 272 · C34/C58); --cds-modal-width fixa uma largura. Sempre com o Backdrop (::backdrop do <dialog>).
  * Padrão Dialog (description do Figma): show-close-button="false" + dismissible="false" — só fecha por uma ação.
  *
- * Atributos: open · inline · dismissible · text-title ("Title") · show-header · show-footer · show-close-button
+ * Atributos: open · inline · dismissible · text-title · text-description · show-text-description (.Header, CDS-2104) ("Title") · show-header · show-footer · show-close-button
  *   show-header-divider · show-footer-divider (desligados por padrão, como no Figma; liga só se precisar · C37)
  *   primary-label · secondary-label · show-secondary-action-button · show-lead-icon (botões do .Footer) · label
  * Os filhos são o Slot. Eventos: cds-open · cds-close · cds-action { action }
@@ -6678,7 +6689,7 @@ try {
 (function(){
   "use strict";
   class CdsModal extends CDS.Overlay {
-    static get observedAttributes(){ return CDS.Overlay.observedAttributes.concat(["text-title","show-header","show-footer","show-close-button","primary-label","secondary-label","show-secondary-action-button","show-header-divider","show-footer-divider","show-lead-icon"]); }
+    static get observedAttributes(){ return CDS.Overlay.observedAttributes.concat(["text-title","text-description","show-text-description","show-header","show-footer","show-close-button","primary-label","secondary-label","show-secondary-action-button","show-header-divider","show-footer-divider","show-lead-icon"]); }
     get panelClass(){ return "cds-modal"; }
     buildPanel(dlg, slot){
       this.headerEl = dlg.appendChild(CDS.create("cds-header", { "show-divider": "false" }));
@@ -6690,6 +6701,8 @@ try {
       var h = this.headerEl, f = this.footerEl, self = this;
       h.hidden = !this.flag("show-header"); h.setAttribute("text-title", this.text("text-title", "Title"));
       h.setAttribute("show-close-button", String(this.flag("show-close-button")));
+      ["text-description","show-text-description"].forEach(function(a){ if (self.hasAttribute(a)) h.setAttribute(a, self.getAttribute(a)); else h.removeAttribute(a); });
+      var did = h.hidden ? null : h.descriptionId; if (did) this.dialog.setAttribute("aria-describedby", did); else this.dialog.removeAttribute("aria-describedby");
       f.hidden = !this.flag("show-footer");
       h.setAttribute("show-divider", String(this.hasAttribute("show-header-divider") && this.getAttribute("show-header-divider") !== "false"));
       f.setAttribute("show-divider", String(this.hasAttribute("show-footer-divider") && this.getAttribute("show-footer-divider") !== "false"));

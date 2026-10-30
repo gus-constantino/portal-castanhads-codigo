@@ -1,0 +1,6 @@
+{
+ "titulo": "Bottom Sheet e Modal · descrição no .Header",
+ "task": "CDS-2104",
+ "resumo": "Descrição opcional (Text Description) no .Header do Modal e do Bottom Sheet, desligada por padrão, e o botão de fechar alinhado ao topo.",
+ "itens": ["header", "bottom-sheet", "modal"]
+}
